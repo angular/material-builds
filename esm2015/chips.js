@@ -688,7 +688,7 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     get focused() {
-        return (this._chipInput && this._chipInput.focused) || this.chips.some(chip => chip._hasFocus);
+        return (this._chipInput && this._chipInput.focused) || this._hasFocusedChip();
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -1093,7 +1093,9 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _blur() {
-        this._keyManager.setActiveItem(-1);
+        if (!this._hasFocusedChip()) {
+            this._keyManager.setActiveItem(-1);
+        }
         if (!this.disabled) {
             if (this._chipInput) {
                 // If there's a chip input, we should check whether the focus moved to chip input.
@@ -1223,6 +1225,13 @@ class MatChipList extends _MatChipListMixinBase {
             currentElement = currentElement.parentElement;
         }
         return false;
+    }
+    /**
+     * Checks whether any of the chips is focused.
+     * @return {?}
+     */
+    _hasFocusedChip() {
+        return this.chips.some(chip => chip._hasFocus);
     }
 }
 MatChipList.decorators = [

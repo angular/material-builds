@@ -8,7 +8,7 @@
 import { Overlay, OverlayContainer, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
-import { InjectionToken, Injector, TemplateRef } from '@angular/core';
+import { InjectionToken, Injector, OnDestroy, TemplateRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatDialogConfig } from './dialog-config';
 import { MatDialogRef } from './dialog-ref';
@@ -31,7 +31,7 @@ export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {
 /**
  * Service to open Material Design modal dialogs.
  */
-export declare class MatDialog {
+export declare class MatDialog implements OnDestroy {
     private _overlay;
     private _injector;
     private _location;
@@ -77,6 +77,7 @@ export declare class MatDialog {
      * @param id ID to use when looking up the dialog.
      */
     getDialogById(id: string): MatDialogRef<any> | undefined;
+    ngOnDestroy(): void;
     /**
      * Creates the overlay into which the dialog will be loaded.
      * @param config The dialog configuration.
@@ -124,4 +125,6 @@ export declare class MatDialog {
      * Hides all of the content that isn't an overlay from assistive technology.
      */
     private _hideNonDialogContentFromAssistiveTechnology;
+    /** Closes all of the dialogs in an array. */
+    private _closeDialogs;
 }

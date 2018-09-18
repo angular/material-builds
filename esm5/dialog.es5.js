@@ -809,15 +809,7 @@ var MatDialog = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var i = this.openDialogs.length;
-        while (i--) {
-            // The `_openDialogs` property isn't updated after close until the rxjs subscription
-            // runs on the next microtask, in addition to modifying the array as we're going
-            // through it. We loop through all of them and call close without assuming that
-            // they'll be removed from the list instantaneously.
-            this.openDialogs[i].close();
-        }
+        this._closeDialogs(this.openDialogs);
     };
     /**
      * Finds an open dialog by its id.
@@ -835,6 +827,17 @@ var MatDialog = /** @class */ (function () {
      */
     function (id) {
         return this.openDialogs.find(function (dialog) { return dialog.id === id; });
+    };
+    /**
+     * @return {?}
+     */
+    MatDialog.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        // Only close the dialogs at this level on destroy
+        // since the parent service may still be active.
+        this._closeDialogs(this._openDialogsAtThisLevel);
     };
     /**
      * Creates the overlay into which the dialog will be loaded.
@@ -1043,6 +1046,27 @@ var MatDialog = /** @class */ (function () {
                     sibling.setAttribute('aria-hidden', 'true');
                 }
             }
+        }
+    };
+    /**
+     * Closes all of the dialogs in an array.
+     * @param {?} dialogs
+     * @return {?}
+     */
+    MatDialog.prototype._closeDialogs = /**
+     * Closes all of the dialogs in an array.
+     * @param {?} dialogs
+     * @return {?}
+     */
+    function (dialogs) {
+        /** @type {?} */
+        var i = dialogs.length;
+        while (i--) {
+            // The `_openDialogs` property isn't updated after close until the rxjs subscription
+            // runs on the next microtask, in addition to modifying the array as we're going
+            // through it. We loop through all of them and call close without assuming that
+            // they'll be removed from the list instantaneously.
+            dialogs[i].close();
         }
     };
     MatDialog.decorators = [

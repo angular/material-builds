@@ -256,4 +256,6 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     private _listenToChipsRemoved;
     /** Checks whether an event comes from inside a chip element. */
     private _originatesFromChip;
+    /** Checks whether any of the chips is focused. */
+    private _hasFocusedChip;
 }

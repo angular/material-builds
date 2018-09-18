@@ -871,7 +871,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return (this._chipInput && this._chipInput.focused) || this.chips.some(function (chip) { return chip._hasFocus; });
+            return (this._chipInput && this._chipInput.focused) || this._hasFocusedChip();
         },
         enumerable: true,
         configurable: true
@@ -1488,7 +1488,9 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._keyManager.setActiveItem(-1);
+        if (!this._hasFocusedChip()) {
+            this._keyManager.setActiveItem(-1);
+        }
         if (!this.disabled) {
             if (this._chipInput) {
                 // If there's a chip input, we should check whether the focus moved to chip input.
@@ -1648,6 +1650,17 @@ var MatChipList = /** @class */ (function (_super) {
             currentElement = currentElement.parentElement;
         }
         return false;
+    };
+    /**
+     * Checks whether any of the chips is focused.
+     * @return {?}
+     */
+    MatChipList.prototype._hasFocusedChip = /**
+     * Checks whether any of the chips is focused.
+     * @return {?}
+     */
+    function () {
+        return this.chips.some(function (chip) { return chip._hasFocus; });
     };
     MatChipList.decorators = [
         { type: core.Component, args: [{selector: 'mat-chip-list',
