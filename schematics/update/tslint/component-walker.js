@@ -7,9 +7,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * TSLint custom walker implementation that also visits external and inline templates.
- */
 const fs_1 = require("fs");
 const path_1 = require("path");
 const tslint_1 = require("tslint");
@@ -20,14 +17,19 @@ const component_file_1 = require("./component-file");
  * the component metadata.
  */
 class ComponentWalker extends tslint_1.RuleWalker {
+    constructor() {
+        super(...arguments);
+        /**
+         * We keep track of all visited stylesheet files because we allow manually reporting external
+         * stylesheets which couldn't be detected by the component walker. Reporting these files multiple
+         * times will result in duplicated TSLint failures and replacements.
+         */
+        this._visitedStylesheetFiles = new Set();
+    }
     visitInlineTemplate(_template) { }
     visitInlineStylesheet(_stylesheet) { }
     visitExternalTemplate(_template) { }
     visitExternalStylesheet(_stylesheet) { }
-    constructor(sourceFile, options, extraFiles = []) {
-        super(sourceFile, options);
-        this.extraFiles = new Set(extraFiles.map(p => path_1.resolve(p)));
-    }
     visitNode(node) {
         if (node.kind === ts.SyntaxKind.CallExpression) {
             const callExpression = node;
@@ -65,11 +67,7 @@ class ComponentWalker extends tslint_1.RuleWalker {
         }
     }
     _reportExternalTemplate(node) {
-        const templatePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), node.text));
-        // Do not report the specified additional files multiple times.
-        if (this.extraFiles.has(templatePath)) {
-            return;
-        }
+        const templatePath = path_1.resolve(path_1.dirname(this.getSourceFile().fileName), node.text);
         // Check if the external template file exists before proceeding.
         if (!fs_1.existsSync(templatePath)) {
             this._createResourceNotFoundFailure(node, templatePath);
@@ -89,11 +87,7 @@ class ComponentWalker extends tslint_1.RuleWalker {
     _visitExternalStylesArrayLiteral(expression) {
         expression.elements.forEach(node => {
             if (ts.isStringLiteralLike(node)) {
-                const stylePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), node.text));
-                // Do not report the specified additional files multiple times.
-                if (this.extraFiles.has(stylePath)) {
-                    return;
-                }
+                const stylePath = path_1.resolve(path_1.dirname(this.getSourceFile().fileName), node.text);
                 // Check if the external stylesheet file exists before proceeding.
                 if (!fs_1.existsSync(stylePath)) {
                     return this._createResourceNotFoundFailure(node, stylePath);
@@ -103,15 +97,16 @@ class ComponentWalker extends tslint_1.RuleWalker {
         });
     }
     _reportExternalStyle(stylePath) {
+        // Keep track of all reported external stylesheets because we allow reporting additional
+        // stylesheet files which couldn't be detected by the component walker. This allows us to
+        // ensure that no stylesheet files are visited multiple times.
+        if (this._visitedStylesheetFiles.has(stylePath)) {
+            return;
+        }
+        this._visitedStylesheetFiles.add(stylePath);
         // Create a fake TypeScript source file that includes the stylesheet content.
         const stylesheetFile = component_file_1.createComponentFile(stylePath, fs_1.readFileSync(stylePath, 'utf8'));
         this.visitExternalStylesheet(stylesheetFile);
-    }
-    /** Reports all extra files that have been specified at initialization. */
-    // TODO(devversion): this should be done automatically but deferred because
-    // the base class "data" property member is not ready at initialization.
-    _reportExtraStylesheetFiles() {
-        this.extraFiles.forEach(file => this._reportExternalStyle(file));
     }
     /**
      * Recursively searches for the metadata object literal expression inside of a directive call
@@ -136,6 +131,10 @@ class ComponentWalker extends tslint_1.RuleWalker {
     _createResourceNotFoundFailure(node, resourceUrl) {
         this.addFailureAtNode(node, `Could not resolve resource file: "${resourceUrl}". ` +
             `Skipping automatic upgrade for this file.`);
+    }
+    /** Reports the specified additional stylesheets. */
+    _reportExtraStylesheetFiles(filePaths) {
+        filePaths.forEach(filePath => this._reportExternalStyle(path_1.resolve(filePath)));
     }
 }
 exports.ComponentWalker = ComponentWalker;
