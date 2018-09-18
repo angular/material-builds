@@ -23,7 +23,7 @@ export declare class MatFooterRowDef extends _CdkFooterRowDef {
 }
 /**
  * Data row definition for the mat-table.
- * Captures the footer row's template and other footer properties such as the columns to display and
+ * Captures the data row's template and other properties such as the columns to display and
  * a when predicate that describes when this row should be used.
  */
 export declare class MatRowDef<T> extends _CdkRowDef<T> {
