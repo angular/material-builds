@@ -60,17 +60,34 @@ var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /** *
  * Animations used by the Material expansion panel.
+ *
+ * A bug in angular animation's `state` when ViewContainers are moved using ViewContainerRef.move()
+ * causes the animation state of moved components to become `void` upon exit, and not update again
+ * upon reentry into the DOM.  This can lead a to situation for the expansion panel where the state
+ * of the panel is `expanded` or `collapsed` but the animation state is `void`.
+ *
+ * To correctly handle animating to the next state, we animate between `void` and `collapsed` which
+ * are defined to have the same styles. Since angular animates from the current styles to the
+ * destination state's style definition, in situations where we are moving from `void`'s styles to
+ * `collapsed` this acts a noop since no style values change.
+ *
+ * In the case where angular's animation state is out of sync with the expansion panel's state, the
+ * expansion panel being `expanded` and angular animations being`void`, the animation from the
+ * `expanded`'s effective styles (though in a `void` animation state) to the collapsed state will
+ * occur as expected.
+ *
+ * Angular Bug: https://github.com/angular/angular/issues/18847
   @type {?} */
 var matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
     indicatorRotate: animations.trigger('indicatorRotate', [
-        animations.state('collapsed', animations.style({ transform: 'rotate(0deg)' })),
+        animations.state('collapsed, void', animations.style({ transform: 'rotate(0deg)' })),
         animations.state('expanded', animations.style({ transform: 'rotate(180deg)' })),
-        animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+        animations.transition('expanded <=> collapsed, void => collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
     /** Animation that expands and collapses the panel header height. */
     expansionHeaderHeight: animations.trigger('expansionHeight', [
-        animations.state('collapsed', animations.style({
+        animations.state('collapsed, void', animations.style({
             height: '{{collapsedHeight}}',
         }), {
             params: { collapsedHeight: '48px' },
@@ -80,16 +97,16 @@ var matExpansionAnimations = {
         }), {
             params: { expandedHeight: '64px' }
         }),
-        animations.transition('expanded <=> collapsed', animations.group([
+        animations.transition('expanded <=> collapsed, void => collapsed', animations.group([
             animations.query('@indicatorRotate', animations.animateChild(), { optional: true }),
             animations.animate(EXPANSION_PANEL_ANIMATION_TIMING),
         ])),
     ]),
     /** Animation that expands and collapses the panel content. */
     bodyExpansion: animations.trigger('bodyExpansion', [
-        animations.state('collapsed', animations.style({ height: '0px', visibility: 'hidden' })),
+        animations.state('collapsed, void', animations.style({ height: '0px', visibility: 'hidden' })),
         animations.state('expanded', animations.style({ height: '*', visibility: 'visible' })),
-        animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+        animations.transition('expanded <=> collapsed, void => collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ])
 };
 

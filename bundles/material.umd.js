@@ -15108,17 +15108,34 @@ var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /** *
  * Animations used by the Material expansion panel.
+ *
+ * A bug in angular animation's `state` when ViewContainers are moved using ViewContainerRef.move()
+ * causes the animation state of moved components to become `void` upon exit, and not update again
+ * upon reentry into the DOM.  This can lead a to situation for the expansion panel where the state
+ * of the panel is `expanded` or `collapsed` but the animation state is `void`.
+ *
+ * To correctly handle animating to the next state, we animate between `void` and `collapsed` which
+ * are defined to have the same styles. Since angular animates from the current styles to the
+ * destination state's style definition, in situations where we are moving from `void`'s styles to
+ * `collapsed` this acts a noop since no style values change.
+ *
+ * In the case where angular's animation state is out of sync with the expansion panel's state, the
+ * expansion panel being `expanded` and angular animations being`void`, the animation from the
+ * `expanded`'s effective styles (though in a `void` animation state) to the collapsed state will
+ * occur as expected.
+ *
+ * Angular Bug: https://github.com/angular/angular/issues/18847
   @type {?} */
 var matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
     indicatorRotate: animations$1.trigger('indicatorRotate', [
-        animations$1.state('collapsed', animations$1.style({ transform: 'rotate(0deg)' })),
+        animations$1.state('collapsed, void', animations$1.style({ transform: 'rotate(0deg)' })),
         animations$1.state('expanded', animations$1.style({ transform: 'rotate(180deg)' })),
-        animations$1.transition('expanded <=> collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+        animations$1.transition('expanded <=> collapsed, void => collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
     /** Animation that expands and collapses the panel header height. */
     expansionHeaderHeight: animations$1.trigger('expansionHeight', [
-        animations$1.state('collapsed', animations$1.style({
+        animations$1.state('collapsed, void', animations$1.style({
             height: '{{collapsedHeight}}',
         }), {
             params: { collapsedHeight: '48px' },
@@ -15128,16 +15145,16 @@ var matExpansionAnimations = {
         }), {
             params: { expandedHeight: '64px' }
         }),
-        animations$1.transition('expanded <=> collapsed', animations$1.group([
+        animations$1.transition('expanded <=> collapsed, void => collapsed', animations$1.group([
             animations$1.query('@indicatorRotate', animations$1.animateChild(), { optional: true }),
             animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING),
         ])),
     ]),
     /** Animation that expands and collapses the panel content. */
     bodyExpansion: animations$1.trigger('bodyExpansion', [
-        animations$1.state('collapsed', animations$1.style({ height: '0px', visibility: 'hidden' })),
+        animations$1.state('collapsed, void', animations$1.style({ height: '0px', visibility: 'hidden' })),
         animations$1.state('expanded', animations$1.style({ height: '*', visibility: 'visible' })),
-        animations$1.transition('expanded <=> collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+        animations$1.transition('expanded <=> collapsed, void => collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ])
 };
 
@@ -34095,7 +34112,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.1-9c075f5');
+var VERSION = new core.Version('7.0.0-beta.1-4a96539');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -34348,12 +34365,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34495,17 +34512,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
