@@ -7,27 +7,44 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+const index_1 = require("../../index");
 /**
  * List of class names for which the constructor signature has been changed. The new constructor
  * signature types don't need to be stored here because the signature will be determined
  * automatically through type checking.
  */
-exports.constructorChecks = [
-    // https://github.com/angular/material2/pull/9190
-    'NativeDateAdapter',
-    // https://github.com/angular/material2/pull/10319
-    'MatAutocomplete',
-    // https://github.com/angular/material2/pull/10344
-    'MatTooltip',
-    // https://github.com/angular/material2/pull/10389
-    'MatIconRegistry',
-    // https://github.com/angular/material2/pull/9775
-    'MatCalendar',
-    // TODO(devversion): The constructor check rule doesn't distinguish data based on the target
-    // TODO(devversion): version. Though it would be more readable to structure the data.
-    // https://github.com/angular/material2/pull/11706
-    'MatDrawerContent',
-    // https://github.com/angular/material2/pull/11706
-    'MatSidenavContent',
-];
+exports.constructorChecks = {
+    [index_1.TargetVersion.V7]: [
+        {
+            pr: 'https://github.com/angular/material2/pull/11706',
+            changes: ['MatDrawerContent'],
+        },
+        {
+            pr: 'https://github.com/angular/material2/pull/11706',
+            changes: ['MatSidenavContent']
+        }
+    ],
+    [index_1.TargetVersion.V6]: [
+        {
+            pr: 'https://github.com/angular/material2/pull/9190',
+            changes: ['NativeDateAdapter'],
+        },
+        {
+            pr: 'https://github.com/angular/material2/pull/10319',
+            changes: ['MatAutocomplete'],
+        },
+        {
+            pr: 'https://github.com/angular/material2/pull/10344',
+            changes: ['MatTooltip'],
+        },
+        {
+            pr: 'https://github.com/angular/material2/pull/10389',
+            changes: ['MatIconRegistry'],
+        },
+        {
+            pr: 'https://github.com/angular/material2/pull/9775',
+            changes: ['MatCalendar'],
+        },
+    ]
+};
 //# sourceMappingURL=constructor-checks.js.map

@@ -11,6 +11,7 @@ const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
 const constructor_checks_1 = require("../../material/data/constructor-checks");
+const transform_change_data_1 = require("../../material/transform-change-data");
 /**
  * List of diagnostic codes that refer to pre-emit diagnostics which indicate invalid
  * new expression or super call signatures. See the list of diagnostics here:
@@ -23,6 +24,8 @@ const signatureErrorDiagnostics = [
     // Constructor argument length invalid diagnostics
     2554, 2555, 2556, 2557,
 ];
+/** List of classes of which the constructor signature has changed. */
+const signatureChangedClasses = transform_change_data_1.getAllChanges(constructor_checks_1.constructorChecks);
 /**
  * Rule that visits every TypeScript new expression or super call and checks if the parameter
  * type signature is invalid and needs to be updated manually.
@@ -57,7 +60,7 @@ function visitSourceFile(context, program) {
         const isNewExpression = ts.isNewExpression(node);
         // TODO(devversion): Consider handling pass-through classes better.
         // TODO(devversion): e.g. `export class CustomCalendar extends MatCalendar {}`
-        if (!constructor_checks_1.constructorChecks.includes(className)) {
+        if (!signatureChangedClasses.includes(className)) {
             continue;
         }
         const classSignatures = classType.getConstructSignatures()

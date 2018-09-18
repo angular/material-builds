@@ -26,4 +26,15 @@ function getChangesForTarget(target, data) {
     return data[target].reduce((result, prData) => result.concat(prData.changes), []);
 }
 exports.getChangesForTarget = getChangesForTarget;
+/**
+ * Gets all changes from the specified version changes object. This is helpful in case a migration
+ * rule does not distinguish data based on the target version, but for readability the
+ * upgrade data is separated for each target version.
+ */
+function getAllChanges(data) {
+    return Object.keys(data)
+        .map(targetVersion => getChangesForTarget(parseInt(targetVersion), data))
+        .reduce((result, versionData) => result.concat(versionData), []);
+}
+exports.getAllChanges = getAllChanges;
 //# sourceMappingURL=transform-change-data.js.map
