@@ -439,6 +439,14 @@ $_mat-elevation-prefix: 'mat-elevation-z';
               #{map-get(_get-ambient-map($color, $opacity), $zValue)};
 }
 
+@mixin _mat-theme-elevation($zValue, $theme, $opacity: $mat-elevation-opacity) {
+  $foreground: map-get($theme, foreground);
+  $elevation-color: map-get($foreground, elevation);
+  $elevation-color-or-default: if($elevation-color == null, $mat-elevation-color, $elevation-color);
+
+  @include mat-elevation($zValue, $elevation-color-or-default, $opacity);
+}
+
 // Applies the elevation to an element in a manner that allows
 // consumers to override it via the Material elevation classes.
 @mixin mat-overridable-elevation(
@@ -448,6 +456,14 @@ $_mat-elevation-prefix: 'mat-elevation-z';
   &:not([class*='#{$_mat-elevation-prefix}']) {
     @include mat-elevation($zValue, $color, $opacity);
   }
+}
+
+@mixin _mat-theme-overridable-elevation($zValue, $theme, $opacity: $mat-elevation-opacity) {
+  $foreground: map-get($theme, foreground);
+  $elevation-color: map-get($foreground, elevation);
+  $elevation-color-or-default: if($elevation-color == null, $mat-elevation-color, $elevation-color);
+
+  @include mat-overridable-elevation($zValue, $elevation-color-or-default, $opacity);
 }
 
 // Returns a string that can be used as the value for a transition property for elevation.
@@ -1191,6 +1207,7 @@ $mat-light-theme-foreground: (
   disabled:          $dark-disabled-text,
   disabled-button:   rgba(black, 0.26),
   disabled-text:     $dark-disabled-text,
+  elevation:         black,
   hint-text:         $dark-disabled-text,
   secondary-text:    $dark-secondary-text,
   icon:              rgba(black, 0.54),
@@ -1209,6 +1226,7 @@ $mat-dark-theme-foreground: (
   disabled:          $light-disabled-text,
   disabled-button:   rgba(white, 0.3),
   disabled-text:     $light-disabled-text,
+  elevation:         black,
   hint-text:         $light-disabled-text,
   secondary-text:    $light-secondary-text,
   icon:              white,
@@ -1712,11 +1730,13 @@ $mat-ripple-color-opacity: 0.1;
 
 
 
+
 @mixin mat-autocomplete-theme($theme) {
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
   .mat-autocomplete-panel {
+    @include _mat-theme-overridable-elevation(4, $theme);
     background: mat-color($background, card);
     color: mat-color($foreground, text);
 
@@ -1916,11 +1936,13 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 
 
+
 @mixin mat-bottom-sheet-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
   .mat-bottom-sheet-container {
+    @include _mat-theme-elevation(16, $theme);
     background: mat-color($background, dialog);
     color: mat-color($foreground, text);
   }
@@ -1931,6 +1953,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
     @include mat-typography-level-to-styles($config, body-1);
   }
 }
+
 
 
 
@@ -2040,6 +2063,34 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   .mat-icon-button {
     @include _mat-button-ripple-color($theme, default, 0.2);
   }
+
+  .mat-stroked-button, .mat-flat-button {
+    @include _mat-theme-overridable-elevation(0, $theme);
+  }
+
+  .mat-raised-button {
+    @include _mat-theme-overridable-elevation(2, $theme);
+
+    &:not([disabled]):active {
+      @include _mat-theme-overridable-elevation(8, $theme);
+    }
+
+    &[disabled] {
+      @include _mat-theme-overridable-elevation(0, $theme);
+    }
+  }
+
+  .mat-fab, .mat-mini-fab {
+    @include _mat-theme-overridable-elevation(6, $theme);
+
+    &:not([disabled]):active {
+      @include _mat-theme-overridable-elevation(12, $theme);
+    }
+
+    &[disabled] {
+      @include _mat-theme-overridable-elevation(0, $theme);
+    }
+  }
 }
 
 @mixin mat-button-typography($config) {
@@ -2057,9 +2108,14 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 
 
+
 @mixin mat-button-toggle-theme($theme) {
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
+
+  .mat-button-toggle-standalone, .mat-button-toggle-group {
+    @include _mat-theme-elevation(2, $theme);
+  }
 
   .mat-button-toggle {
     color: mat-color($foreground, hint-text);
@@ -2095,13 +2151,20 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 
 
+
 @mixin mat-card-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
   .mat-card {
+    @include _mat-theme-overridable-elevation(2, $theme);
     background: mat-color($background, card);
     color: mat-color($foreground, text);
+
+    // Needs extra specificity to be able to override the elevation selectors.
+    &.mat-card-flat {
+      @include _mat-theme-overridable-elevation(0, $theme);
+    }
   }
 
   .mat-card-subtitle {
@@ -2250,6 +2313,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 
 
+
 // TODO(crisbeto): these values don't correspond to any of the typography breakpoints.
 $mat-chip-font-size: 13px;
 $mat-chip-line-height: 18px;
@@ -2287,6 +2351,10 @@ $mat-chip-remove-font-size: 18px;
 
   .mat-chip.mat-standard-chip {
     @include mat-chips-color($unselected-foreground, $unselected-background);
+
+    &:focus {
+      @include _mat-theme-elevation(3, $theme);
+    }
   }
 
   .mat-chip.mat-standard-chip.mat-chip-selected {
@@ -2364,6 +2432,7 @@ $mat-chip-remove-font-size: 18px;
     font-size: mat-font-size($config, body-1);
   }
 }
+
 
 
 
@@ -2450,6 +2519,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   @include _mat-datepicker-color(map-get($theme, primary));
 
   .mat-datepicker-content {
+    @include _mat-theme-elevation(4, $theme);
     background-color: mat-color($background, card);
     color: mat-color($foreground, text);
 
@@ -2460,6 +2530,10 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     &.mat-warn {
       @include _mat-datepicker-color(map-get($theme, warn));
     }
+  }
+
+  .mat-datepicker-content-touch {
+    @include _mat-theme-elevation(0, $theme);
   }
 
   .mat-datepicker-toggle-active {
@@ -2505,11 +2579,13 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
 @mixin mat-dialog-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
   .mat-dialog-container {
+    @include _mat-theme-elevation(24, $theme);
     background: mat-color($background, dialog);
     color: mat-color($foreground, text);
   }
@@ -2525,11 +2601,13 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
 @mixin mat-expansion-panel-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
   .mat-expansion-panel {
+    @include _mat-theme-overridable-elevation(2, $theme);
     background: mat-color($background, card);
     color: mat-color($foreground, text);
   }
@@ -2885,11 +2963,13 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
 @mixin mat-menu-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
   .mat-menu-panel {
+    @include _mat-theme-overridable-elevation(4, $theme);
     background: mat-color($background, 'card');
   }
 
@@ -3137,6 +3217,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
 @mixin mat-select-theme($theme) {
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
@@ -3162,6 +3243,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-select-panel {
     background: mat-color($background, card);
+    @include _mat-theme-overridable-elevation(4, $theme);
 
     .mat-option.mat-selected:not(.mat-option-multiple) {
       background: mat-color($background, hover, 0.12);
@@ -3210,6 +3292,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
 @mixin mat-sidenav-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -3238,6 +3321,12 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     &.mat-drawer-push {
       background-color: $drawer-push-background-color;
     }
+
+    &:not(.mat-drawer-side) {
+      // The elevation of z-16 is noted in the design specifications.
+      // See https://material.io/design/components/navigation-drawer.html
+      @include _mat-theme-elevation(16, $theme);
+    }
   }
 
   .mat-drawer-side {
@@ -3265,6 +3354,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 }
 
 @mixin mat-sidenav-typography($config) { }
+
 
 
 
@@ -3344,6 +3434,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   .mat-slide-toggle-thumb {
+    @include _mat-theme-elevation(1, $theme);
     background-color: mat-color($mat-grey, $thumb-unchecked-hue);
   }
 
@@ -4582,15 +4673,6 @@ $mat-form-field-dedupe: 0;
 
 // Mixin that renders all of the core styles that are not theme-dependent.
 @mixin mat-core($typography-config: null) {
-  // Provides external CSS classes for each elevation value. Each CSS class is formatted as
-  // `mat-elevation-z$zValue` where `$zValue` corresponds to the z-space to which the element is
-  // elevated.
-  @for $zValue from 0 through 24 {
-    .#{$_mat-elevation-prefix}#{$zValue} {
-      @include mat-elevation($zValue);
-    }
-  }
-
   @include angular-material-typography($typography-config);
   @include mat-ripple();
   @include cdk-a11y();
@@ -4604,6 +4686,15 @@ $mat-form-field-dedupe: 0;
   @include mat-option-theme($theme);
   @include mat-optgroup-theme($theme);
   @include mat-pseudo-checkbox-theme($theme);
+
+  // Provides external CSS classes for each elevation value. Each CSS class is formatted as
+  // `mat-elevation-z$zValue` where `$zValue` corresponds to the z-space to which the element is
+  // elevated.
+  @for $zValue from 0 through 24 {
+    .#{$_mat-elevation-prefix}#{$zValue} {
+      @include _mat-theme-elevation($zValue, $theme);
+    }
+  }
 
   // Wrapper element that provides the theme background when the user's content isn't
   // inside of a `mat-sidenav-container`. Note that we need to exclude the ampersand
