@@ -2157,7 +2157,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   $foreground: map-get($theme, foreground);
 
   .mat-card {
-    @include _mat-theme-overridable-elevation(2, $theme);
+    @include _mat-theme-overridable-elevation(1, $theme);
     background: mat-color($background, card);
     color: mat-color($foreground, text);
 
@@ -2180,13 +2180,16 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   .mat-card-title {
     font: {
       size: mat-font-size($config, headline);
-      weight: mat-font-weight($config, headline);
+      weight: mat-font-weight($config, title);
     }
   }
 
-  .mat-card-subtitle,
-  .mat-card-content,
   .mat-card-header .mat-card-title {
+    font-size: mat-font-size($config, title);
+  }
+
+  .mat-card-subtitle,
+  .mat-card-content {
     font-size: mat-font-size($config, body-1);
   }
 }
