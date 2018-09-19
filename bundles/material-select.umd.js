@@ -170,7 +170,7 @@ var SELECT_ITEM_HEIGHT_EM = 3;
  * Calculated as:
  * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
- * The checkbox width is 20px.
+ * The checkbox width is 16px.
   @type {?} */
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = 0;
 /** *

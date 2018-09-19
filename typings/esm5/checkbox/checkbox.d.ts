@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, AfterViewChecked } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
 import { MatCheckboxClickAction } from './checkbox-config';
@@ -51,7 +51,7 @@ export declare const _MatCheckboxMixinBase: HasTabIndexCtor & CanColorCtor & Can
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
  */
-export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewChecked, AfterViewInit, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple {
+export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewChecked, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple {
     private _changeDetectorRef;
     private _focusMonitor;
     private _ngZone;
@@ -96,10 +96,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _currentAnimationClass;
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
-    /** Reference to the focused state ripple. */
-    private _focusRipple;
     constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
-    ngAfterViewInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     /**
@@ -131,8 +128,6 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     _getAriaChecked(): 'true' | 'false' | 'mixed';
     private _transitionCheckState;
     private _emitChangeEvent;
-    /** Function is called whenever the focus changes for the input element. */
-    private _onInputFocusChange;
     /** Toggles the `checked` state of the checkbox. */
     toggle(): void;
     /**

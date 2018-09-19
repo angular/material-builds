@@ -1562,8 +1562,7 @@ $mat-ripple-color-opacity: 0.1;
     background: mat-color(map-get($theme, warn));
   }
 
-  .mat-pseudo-checkbox-checked,
-  .mat-pseudo-checkbox-indeterminate {
+  .mat-pseudo-checkbox-checked {
     &.mat-pseudo-checkbox-disabled {
       background: $disabled-color;
     }
@@ -1965,15 +1964,15 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   $warn: map-get($theme, warn);
 
   &.mat-primary .mat-button-focus-overlay {
-    background-color: mat-color($primary, 0.12);
+    background-color: mat-color($primary);
   }
 
   &.mat-accent .mat-button-focus-overlay {
-    background-color: mat-color($accent, 0.12);
+    background-color: mat-color($accent);
   }
 
   &.mat-warn .mat-button-focus-overlay {
-    background-color: mat-color($warn, 0.12);
+    background-color: mat-color($warn);
   }
 
   &[disabled] .mat-button-focus-overlay {
@@ -2046,6 +2045,16 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
     // Setup the ripple color to be based on the color palette. The opacity can be a bit weaker
     // than for icon-buttons, because normal and stroked buttons have a focus overlay.
     @include _mat-button-ripple-color($theme, default);
+  }
+
+  .mat-button-focus-overlay {
+    background: map_get($foreground, base);
+  }
+
+  // Note: this needs a bit extra specificity, because we're not guaranteed the inclusion
+  // order of the theme styles and the button reset may end up resetting this as well.
+  .mat-stroked-button:not(.mat-button-disabled) {
+    border-color: mat-color($foreground, divider);
   }
 
   .mat-flat-button, .mat-raised-button, .mat-fab, .mat-mini-fab {
@@ -2256,7 +2265,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   }
 
   .mat-checkbox-disabled {
-    &.mat-checkbox-checked, &.mat-checkbox-indeterminate {
+    &.mat-checkbox-checked:not(.mat-checkbox-indeterminate) {
       .mat-checkbox-background {
         background-color: $disabled-color;
       }
@@ -2288,15 +2297,15 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
   .mat-checkbox:not(.mat-checkbox-disabled) {
     &.mat-primary .mat-checkbox-ripple .mat-ripple-element {
-      background-color: mat-color($primary, 0.26);
+      background-color: mat-color($primary);
     }
 
     &.mat-accent .mat-checkbox-ripple .mat-ripple-element {
-      background-color: mat-color($accent, 0.26);
+      background-color: mat-color($accent);
     }
 
     &.mat-warn .mat-checkbox-ripple .mat-ripple-element {
-      background-color: mat-color($warn, 0.26);
+      background-color: mat-color($warn);
     }
   }
 }
@@ -2317,9 +2326,6 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 
 
-// TODO(crisbeto): these values don't correspond to any of the typography breakpoints.
-$mat-chip-font-size: 13px;
-$mat-chip-line-height: 18px;
 $mat-chip-remove-font-size: 18px;
 
 @mixin mat-chips-theme-color($color) {
@@ -2378,8 +2384,8 @@ $mat-chip-remove-font-size: 18px;
 
 @mixin mat-chips-typography($config) {
   .mat-chip {
-    font-size: $mat-chip-font-size;
-    line-height: $mat-chip-line-height;
+    font-size: mat-font-size($config, body-2);
+    font-weight: mat-font-weight($config, body-2);
 
     .mat-chip-trailing-icon.mat-icon,
     .mat-chip-remove.mat-icon {
