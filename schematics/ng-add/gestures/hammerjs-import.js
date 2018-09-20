@@ -7,16 +7,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+const schematics_1 = require("@angular/cdk/schematics");
 const config_1 = require("@schematics/angular/utility/config");
-const get_project_1 = require("../../utils/get-project");
-const project_main_file_1 = require("../../utils/project-main-file");
 const hammerjsImportStatement = `import 'hammerjs';`;
 /** Adds HammerJS to the main file of the specified Angular CLI project. */
 function addHammerJsToMain(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
-        const mainFile = project_main_file_1.getProjectMainFile(project);
+        const project = schematics_1.getProjectFromWorkspace(workspace, options.project);
+        const mainFile = schematics_1.getProjectMainFile(project);
         const recorder = host.beginUpdate(mainFile);
         const buffer = host.read(mainFile);
         if (!buffer) {

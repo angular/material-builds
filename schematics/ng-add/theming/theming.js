@@ -9,18 +9,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
+const schematics_2 = require("@angular/cdk/schematics");
 const change_1 = require("@schematics/angular/utility/change");
 const config_1 = require("@schematics/angular/utility/config");
 const path_1 = require("path");
-const get_project_1 = require("../../utils/get-project");
-const project_style_file_1 = require("../../utils/project-style-file");
-const project_targets_1 = require("../../utils/project-targets");
 const custom_theme_1 = require("./custom-theme");
 /** Add pre-built styles to the main project style file. */
 function addThemeToAppStyles(options) {
     return function (host) {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
+        const project = schematics_2.getProjectFromWorkspace(workspace, options.project);
         const themeName = options.theme || 'indigo-pink';
         // Because the build setup for the Angular CLI can be changed so dramatically, we can't know
         // where to generate anything if the project is not using the default config for build and test.
@@ -40,7 +38,7 @@ exports.addThemeToAppStyles = addThemeToAppStyles;
  * Scss file for the custom theme will be created.
  */
 function insertCustomTheme(project, projectName, host, workspace) {
-    const stylesPath = project_style_file_1.getProjectStyleFile(project, 'scss');
+    const stylesPath = schematics_2.getProjectStyleFile(project, 'scss');
     const themeContent = custom_theme_1.createCustomTheme(projectName);
     if (!stylesPath) {
         if (!project.sourceRoot) {
@@ -67,7 +65,7 @@ function insertPrebuiltTheme(project, host, theme, workspace) {
 }
 /** Adds a style entry to the given project target. */
 function addStyleToTarget(project, targetName, host, assetPath, workspace) {
-    const targetOptions = project_targets_1.getProjectTargetOptions(project, targetName);
+    const targetOptions = schematics_2.getProjectTargetOptions(project, targetName);
     if (!targetOptions.styles) {
         targetOptions.styles = [assetPath];
     }

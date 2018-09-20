@@ -8,15 +8,14 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
-const ast_1 = require("../utils/ast");
-const build_component_1 = require("../utils/build-component");
+const schematics_2 = require("@angular/cdk/schematics");
 /**
  * Scaffolds a new tree component.
  * Internally it bootstraps the base component schematic
  */
 function default_1(options) {
     return schematics_1.chain([
-        build_component_1.buildComponent(Object.assign({}, options), {
+        schematics_2.buildComponent(Object.assign({}, options), {
             template: './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.html',
             stylesheet: './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.__styleext__',
         }),
@@ -29,10 +28,10 @@ exports.default = default_1;
  */
 function addTreeModulesToModule(options) {
     return (host) => {
-        const modulePath = ast_1.findModuleFromOptions(host, options);
-        ast_1.addModuleImportToModule(host, modulePath, 'MatTreeModule', '@angular/material');
-        ast_1.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material');
-        ast_1.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+        const modulePath = schematics_2.findModuleFromOptions(host, options);
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatTreeModule', '@angular/material');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material');
         return host;
     };
 }

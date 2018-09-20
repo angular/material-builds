@@ -14,7 +14,7 @@ exports.materialVersion = loadPackageVersionGracefully('@angular/cdk') ||
  * Range of Angular versions that can be used together with the Angular Material version
  * that provides these schematics.
  */
-exports.requiredAngularVersionRange = '>=7.0.0-beta.5';
+exports.requiredAngularVersionRange = '0.0.0-NG';
 /** HammerJS version that should be installed if gestures will be set up. */
 exports.hammerjsVersion = '^2.0.8';
 /** Loads the full version from the given Angular package gracefully. */

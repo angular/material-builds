@@ -8,10 +8,10 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
-const project_targets_1 = require("../../utils/project-targets");
+const schematics_2 = require("@angular/cdk/schematics");
 /** Looks for the index HTML file in the given project and returns its path. */
 function getIndexHtmlPath(project) {
-    const buildOptions = project_targets_1.getProjectTargetOptions(project, 'build');
+    const buildOptions = schematics_2.getProjectTargetOptions(project, 'build');
     if (!buildOptions.index) {
         throw new schematics_1.SchematicsException('No project "index.html" file could be found.');
     }

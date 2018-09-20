@@ -8,8 +8,8 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
+const schematics_2 = require("@angular/cdk/schematics");
 const parse5_1 = require("parse5");
-const parse5_element_1 = require("../../utils/parse5-element");
 const project_index_html_1 = require("./project-index-html");
 /** Appends the given element HTML fragment to the index.html head tag. */
 function appendElementToHead(host, project, elementHtml) {
@@ -29,7 +29,7 @@ function appendElementToHead(host, project, elementHtml) {
     // We always have access to the source code location here because the `getHeadTagElement`
     // function explicitly has the `sourceCodeLocationInfo` option enabled.
     const endTagOffset = headTag.sourceCodeLocation.endTag.startOffset;
-    const indentationOffset = parse5_element_1.getChildElementIndentation(headTag);
+    const indentationOffset = schematics_2.getChildElementIndentation(headTag);
     const insertion = `${' '.repeat(indentationOffset)}${elementHtml}`;
     const recordedChange = host
         .beginUpdate(indexPath)
