@@ -691,10 +691,12 @@ FixedTileStyler = /** @class */ (function (_super) {
      */
     function (list) {
         list._setListStyle(['height', null]);
-        list._tiles.forEach(function (tile) {
-            tile._setStyle('top', null);
-            tile._setStyle('height', null);
-        });
+        if (list._tiles) {
+            list._tiles.forEach(function (tile) {
+                tile._setStyle('top', null);
+                tile._setStyle('height', null);
+            });
+        }
     };
     return FixedTileStyler;
 }(TileStyler));
@@ -831,10 +833,12 @@ FitTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (list) {
-        list._tiles.forEach(function (tile) {
-            tile._setStyle('top', null);
-            tile._setStyle('height', null);
-        });
+        if (list._tiles) {
+            list._tiles.forEach(function (tile) {
+                tile._setStyle('top', null);
+                tile._setStyle('height', null);
+            });
+        }
     };
     return FitTileStyler;
 }(TileStyler));

@@ -471,10 +471,12 @@ class FixedTileStyler extends TileStyler {
      */
     reset(list) {
         list._setListStyle(['height', null]);
-        list._tiles.forEach(tile => {
-            tile._setStyle('top', null);
-            tile._setStyle('height', null);
-        });
+        if (list._tiles) {
+            list._tiles.forEach(tile => {
+                tile._setStyle('top', null);
+                tile._setStyle('height', null);
+            });
+        }
     }
 }
 /**
@@ -567,10 +569,12 @@ class FitTileStyler extends TileStyler {
      * @return {?}
      */
     reset(list) {
-        list._tiles.forEach(tile => {
-            tile._setStyle('top', null);
-            tile._setStyle('height', null);
-        });
+        if (list._tiles) {
+            list._tiles.forEach(tile => {
+                tile._setStyle('top', null);
+                tile._setStyle('height', null);
+            });
+        }
     }
 }
 /**
