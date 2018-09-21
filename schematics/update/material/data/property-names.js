@@ -7,9 +7,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = require("../../index");
+const target_version_1 = require("../../target-version");
 exports.propertyNames = {
-    [index_1.TargetVersion.V7]: [
+    [target_version_1.TargetVersion.V7]: [
         {
             pr: 'https://github.com/angular/material2/pull/8286',
             changes: [
@@ -35,7 +35,7 @@ exports.propertyNames = {
             ]
         }
     ],
-    [index_1.TargetVersion.V6]: [
+    [target_version_1.TargetVersion.V6]: [
         {
             pr: 'https://github.com/angular/material2/pull/10161',
             changes: [

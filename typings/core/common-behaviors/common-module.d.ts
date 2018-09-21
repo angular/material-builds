@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken } from '@angular/core';
+import { HammerLoader } from '@angular/platform-browser';
 /** Injection token that configures whether the Material sanity checks are enabled. */
 export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
 /** @docs-private */
@@ -18,6 +19,7 @@ export declare function MATERIAL_SANITY_CHECKS_FACTORY(): boolean;
  */
 export declare class MatCommonModule {
     private _sanityChecksEnabled;
+    private _hammerLoader?;
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;
     /** Whether we've already checked for HammerJs availability. */
@@ -26,7 +28,7 @@ export declare class MatCommonModule {
     private _document;
     /** Reference to the global 'window' object. */
     private _window;
-    constructor(_sanityChecksEnabled: boolean);
+    constructor(_sanityChecksEnabled: boolean, _hammerLoader?: HammerLoader | undefined);
     /** Whether any sanity checks are enabled */
     private _areChecksEnabled;
     /** Whether the code is running in tests. */

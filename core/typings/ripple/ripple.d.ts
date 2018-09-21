@@ -23,14 +23,6 @@ export interface RippleGlobalOptions {
      */
     animation?: RippleAnimationConfig;
     /**
-     * If set, the default duration of the fade-in animation is divided by this value. For example,
-     * setting it to 0.5 will cause the ripple fade-in animation to take twice as long.
-     * A changed speedFactor will not affect the fade-out duration of the ripples.
-     * @deprecated Use the `animation` global option instead.
-     * @breaking-change 7.0.0
-     */
-    baseSpeedFactor?: number;
-    /**
      * Whether ripples should start fading out immediately after the mouse our touch is released. By
      * default, ripples will wait for the enter animation to complete and for mouse or touch release.
      */
@@ -55,14 +47,6 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * bounding rectangle.
      */
     radius: number;
-    /**
-     * If set, the normal duration of ripple animations is divided by this value. For example,
-     * setting it to 0.5 will cause the animations to take twice as long.
-     * A changed speedFactor will not modify the fade-out duration of the ripples.
-     * @deprecated Use the [matRippleAnimation] binding instead.
-     * @breaking-change 7.0.0
-     */
-    speedFactor: number;
     /**
      * Configuration for the ripple animation. Allows modifying the enter and exit animation
      * duration of the ripples. The animation durations will be overwritten if the

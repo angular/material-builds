@@ -15,11 +15,6 @@ export declare type RippleConfig = {
     persistent?: boolean;
     animation?: RippleAnimationConfig;
     terminateOnPointerUp?: boolean;
-    /**
-     * @deprecated Use the `animation` property instead.
-     * @breaking-change 7.0.0
-     */
-    speedFactor?: number;
 };
 /**
  * Interface that describes the configuration for the animation of a ripple.

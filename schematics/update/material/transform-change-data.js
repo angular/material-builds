@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -7,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const index_1 = require("../index");
+Object.defineProperty(exports, "__esModule", { value: true });
+const target_version_1 = require("../target-version");
 /**
  * Gets the changes for a given target version from the specified version changes object.
  *
@@ -18,7 +18,7 @@ const index_1 = require("../index");
  */
 function getChangesForTarget(target, data) {
     if (!data) {
-        throw new Error(`No data could be found for target version: ${index_1.TargetVersion[target]}`);
+        throw new Error(`No data could be found for target version: ${target_version_1.TargetVersion[target]}`);
     }
     if (!data[target]) {
         return [];

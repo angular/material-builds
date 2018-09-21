@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
-}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,a11y,animations,keycodes,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
+}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,a11y,animations,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -105,8 +105,9 @@ function MATERIAL_SANITY_CHECKS_FACTORY() {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = /** @class */ (function () {
-    function MatCommonModule(_sanityChecksEnabled) {
+    function MatCommonModule(_sanityChecksEnabled, _hammerLoader) {
         this._sanityChecksEnabled = _sanityChecksEnabled;
+        this._hammerLoader = _hammerLoader;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
@@ -172,23 +173,24 @@ var MatCommonModule = /** @class */ (function () {
     function () {
         // We need to assert that the `body` is defined, because these checks run very early
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
-        if (this._document && this._document.body && typeof getComputedStyle === 'function') {
-            /** @type {?} */
-            var testElement = this._document.createElement('div');
-            testElement.classList.add('mat-theme-loaded-marker');
-            this._document.body.appendChild(testElement);
-            /** @type {?} */
-            var computedStyle = getComputedStyle(testElement);
-            // In some situations the computed style of the test element can be null. For example in
-            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
-            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-            if (computedStyle && computedStyle.display !== 'none') {
-                console.warn('Could not find Angular Material core theme. Most Material ' +
-                    'components may not work as expected. For more info refer ' +
-                    'to the theming guide: https://material.angular.io/guide/theming');
-            }
-            this._document.body.removeChild(testElement);
+        if (!this._document || !this._document.body || typeof getComputedStyle !== 'function') {
+            return;
         }
+        /** @type {?} */
+        var testElement = this._document.createElement('div');
+        testElement.classList.add('mat-theme-loaded-marker');
+        this._document.body.appendChild(testElement);
+        /** @type {?} */
+        var computedStyle = getComputedStyle(testElement);
+        // In some situations the computed style of the test element can be null. For example in
+        // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+        // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+        if (computedStyle && computedStyle.display !== 'none') {
+            console.warn('Could not find Angular Material core theme. Most Material ' +
+                'components may not work as expected. For more info refer ' +
+                'to the theming guide: https://material.angular.io/guide/theming');
+        }
+        this._document.body.removeChild(testElement);
     };
     /** Checks whether HammerJS is available. */
     /**
@@ -203,7 +205,7 @@ var MatCommonModule = /** @class */ (function () {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !this._window['Hammer']) {
+        if (this._areChecksEnabled() && !this._window['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -216,7 +218,8 @@ var MatCommonModule = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
-        { type: Boolean, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
+        { type: Boolean, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.HAMMER_LOADER,] }] }
     ]; };
     return MatCommonModule;
 }());
@@ -1848,7 +1851,7 @@ RippleRenderer = /** @class */ (function () {
         /** @type {?} */
         var offsetY = y - containerRect.top;
         /** @type {?} */
-        var duration = animationConfig.enterDuration / (config.speedFactor || 1);
+        var duration = animationConfig.enterDuration;
         /** @type {?} */
         var ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
@@ -2041,14 +2044,6 @@ var MatRipple = /** @class */ (function () {
          * bounding rectangle.
          */
         this.radius = 0;
-        /**
-         * If set, the normal duration of ripple animations is divided by this value. For example,
-         * setting it to 0.5 will cause the animations to take twice as long.
-         * A changed speedFactor will not modify the fade-out duration of the ripples.
-         * @deprecated Use the [matRippleAnimation] binding instead.
-         * \@breaking-change 7.0.0
-         */
-        this.speedFactor = 1;
         this._disabled = false;
         /**
          * Whether ripple directive is initialized and the input bindings are set.
@@ -2152,7 +2147,6 @@ var MatRipple = /** @class */ (function () {
                 color: this.color,
                 animation: __assign({}, this._globalOptions.animation, this.animation),
                 terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
-                speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
         },
         enumerable: true,
@@ -2234,7 +2228,6 @@ var MatRipple = /** @class */ (function () {
         unbounded: [{ type: core.Input, args: ['matRippleUnbounded',] }],
         centered: [{ type: core.Input, args: ['matRippleCentered',] }],
         radius: [{ type: core.Input, args: ['matRippleRadius',] }],
-        speedFactor: [{ type: core.Input, args: ['matRippleSpeedFactor',] }],
         animation: [{ type: core.Input, args: ['matRippleAnimation',] }],
         disabled: [{ type: core.Input, args: ['matRippleDisabled',] }],
         trigger: [{ type: core.Input, args: ['matRippleTrigger',] }]
@@ -2966,7 +2959,7 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
-exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

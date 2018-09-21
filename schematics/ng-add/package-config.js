@@ -7,12 +7,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-/*
- * This file is temporary and a duplicate version has been moved to `@angular/cdk/schematics`.
- *
- * We still need this file inside of the Material schematics because if people run `ng add` for
- * Angular Material, the CDK is not present, and we cannot use the utility functions from there.
- */
 /**
  * Sorts the keys of the given object.
  * @returns A new object instance with sorted keys
@@ -49,4 +43,4 @@ function getPackageVersionFromPackageJson(tree, name) {
     return null;
 }
 exports.getPackageVersionFromPackageJson = getPackageVersionFromPackageJson;
-//# sourceMappingURL=package-json.js.map
+//# sourceMappingURL=package-config.js.map

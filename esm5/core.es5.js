@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
+import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { __extends, __assign } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
-import { HammerGestureConfig } from '@angular/platform-browser';
 import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -71,8 +71,9 @@ function MATERIAL_SANITY_CHECKS_FACTORY() {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = /** @class */ (function () {
-    function MatCommonModule(_sanityChecksEnabled) {
+    function MatCommonModule(_sanityChecksEnabled, _hammerLoader) {
         this._sanityChecksEnabled = _sanityChecksEnabled;
+        this._hammerLoader = _hammerLoader;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
@@ -138,23 +139,24 @@ var MatCommonModule = /** @class */ (function () {
     function () {
         // We need to assert that the `body` is defined, because these checks run very early
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
-        if (this._document && this._document.body && typeof getComputedStyle === 'function') {
-            /** @type {?} */
-            var testElement = this._document.createElement('div');
-            testElement.classList.add('mat-theme-loaded-marker');
-            this._document.body.appendChild(testElement);
-            /** @type {?} */
-            var computedStyle = getComputedStyle(testElement);
-            // In some situations the computed style of the test element can be null. For example in
-            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
-            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-            if (computedStyle && computedStyle.display !== 'none') {
-                console.warn('Could not find Angular Material core theme. Most Material ' +
-                    'components may not work as expected. For more info refer ' +
-                    'to the theming guide: https://material.angular.io/guide/theming');
-            }
-            this._document.body.removeChild(testElement);
+        if (!this._document || !this._document.body || typeof getComputedStyle !== 'function') {
+            return;
         }
+        /** @type {?} */
+        var testElement = this._document.createElement('div');
+        testElement.classList.add('mat-theme-loaded-marker');
+        this._document.body.appendChild(testElement);
+        /** @type {?} */
+        var computedStyle = getComputedStyle(testElement);
+        // In some situations the computed style of the test element can be null. For example in
+        // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+        // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+        if (computedStyle && computedStyle.display !== 'none') {
+            console.warn('Could not find Angular Material core theme. Most Material ' +
+                'components may not work as expected. For more info refer ' +
+                'to the theming guide: https://material.angular.io/guide/theming');
+        }
+        this._document.body.removeChild(testElement);
     };
     /** Checks whether HammerJS is available. */
     /**
@@ -169,7 +171,7 @@ var MatCommonModule = /** @class */ (function () {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !this._window['Hammer']) {
+        if (this._areChecksEnabled() && !this._window['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -182,7 +184,8 @@ var MatCommonModule = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
-        { type: Boolean, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
+        { type: Boolean, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
     ]; };
     return MatCommonModule;
 }());
@@ -1814,7 +1817,7 @@ RippleRenderer = /** @class */ (function () {
         /** @type {?} */
         var offsetY = y - containerRect.top;
         /** @type {?} */
-        var duration = animationConfig.enterDuration / (config.speedFactor || 1);
+        var duration = animationConfig.enterDuration;
         /** @type {?} */
         var ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
@@ -2007,14 +2010,6 @@ var MatRipple = /** @class */ (function () {
          * bounding rectangle.
          */
         this.radius = 0;
-        /**
-         * If set, the normal duration of ripple animations is divided by this value. For example,
-         * setting it to 0.5 will cause the animations to take twice as long.
-         * A changed speedFactor will not modify the fade-out duration of the ripples.
-         * @deprecated Use the [matRippleAnimation] binding instead.
-         * \@breaking-change 7.0.0
-         */
-        this.speedFactor = 1;
         this._disabled = false;
         /**
          * Whether ripple directive is initialized and the input bindings are set.
@@ -2118,7 +2113,6 @@ var MatRipple = /** @class */ (function () {
                 color: this.color,
                 animation: __assign({}, this._globalOptions.animation, this.animation),
                 terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
-                speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
         },
         enumerable: true,
@@ -2200,7 +2194,6 @@ var MatRipple = /** @class */ (function () {
         unbounded: [{ type: Input, args: ['matRippleUnbounded',] }],
         centered: [{ type: Input, args: ['matRippleCentered',] }],
         radius: [{ type: Input, args: ['matRippleRadius',] }],
-        speedFactor: [{ type: Input, args: ['matRippleSpeedFactor',] }],
         animation: [{ type: Input, args: ['matRippleAnimation',] }],
         disabled: [{ type: Input, args: ['matRippleDisabled',] }],
         trigger: [{ type: Input, args: ['matRippleTrigger',] }]
@@ -2885,5 +2878,5 @@ var DEC = 11;
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
 //# sourceMappingURL=core.es5.js.map

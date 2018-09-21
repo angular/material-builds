@@ -41,6 +41,8 @@ export declare class MatStepper extends _CdkStepper implements AfterContentInit 
     _animationDone(event: AnimationEvent): void;
 }
 export declare class MatHorizontalStepper extends MatStepper {
+    /** Whether the label should display in bottom or end position. */
+    labelPosition: 'bottom' | 'end';
 }
 export declare class MatVerticalStepper extends MatStepper {
     constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef?: ElementRef<HTMLElement>, _document?: any);

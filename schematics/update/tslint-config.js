@@ -8,6 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const glob_1 = require("glob");
+const target_version_1 = require("./target-version");
 /** List of rules that need to be enabled when running the TSLint fix task. */
 const upgradeRules = [
     // Attribute selector update rules.
@@ -42,6 +43,9 @@ const upgradeRules = [
     // Additional misc rules.
     'check-import-misc',
     'check-template-misc',
+    // Ripple misc V7
+    ['ripple-speed-factor-assignment', target_version_1.TargetVersion.V7],
+    ['ripple-speed-factor-template', target_version_1.TargetVersion.V7],
 ];
 /** List of absolute paths that refer to directories that contain the upgrade rules. */
 const rulesDirectory = glob_1.sync('rules/**/', { cwd: __dirname, absolute: true });
@@ -54,8 +58,12 @@ const rulesDirectory = glob_1.sync('rules/**/', { cwd: __dirname, absolute: true
  * walker is not able to detect stylesheets which are not referenced by Angular.
  */
 function createTslintConfig(target, extraStyleFiles) {
-    const rules = upgradeRules.reduce((result, ruleName) => {
-        result[ruleName] = [true, target, extraStyleFiles];
+    const rules = upgradeRules.reduce((result, data) => {
+        const ruleName = data instanceof Array ? data[0] : data;
+        const versionConstraints = data instanceof Array ? data.slice(1) : null;
+        if (!versionConstraints || versionConstraints.includes(target)) {
+            result[ruleName] = [true, target, extraStyleFiles];
+        }
         return result;
     }, {});
     return { rulesDirectory, rules };

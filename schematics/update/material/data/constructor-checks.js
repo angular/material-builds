@@ -7,14 +7,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = require("../../index");
+const target_version_1 = require("../../target-version");
 /**
  * List of class names for which the constructor signature has been changed. The new constructor
  * signature types don't need to be stored here because the signature will be determined
  * automatically through type checking.
  */
 exports.constructorChecks = {
-    [index_1.TargetVersion.V7]: [
+    [target_version_1.TargetVersion.V7]: [
         {
             pr: 'https://github.com/angular/material2/pull/11706',
             changes: ['MatDrawerContent'],
@@ -24,7 +24,7 @@ exports.constructorChecks = {
             changes: ['MatSidenavContent']
         }
     ],
-    [index_1.TargetVersion.V6]: [
+    [target_version_1.TargetVersion.V6]: [
         {
             pr: 'https://github.com/angular/material2/pull/9190',
             changes: ['NativeDateAdapter'],
