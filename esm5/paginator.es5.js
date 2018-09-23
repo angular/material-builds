@@ -345,7 +345,7 @@ var MatPaginator = /** @class */ (function (_super) {
         }
         /** @type {?} */
         var previousPageIndex = this.pageIndex;
-        this.pageIndex = this.getNumberOfPages();
+        this.pageIndex = this.getNumberOfPages() - 1;
         this._emitPageEvent(previousPageIndex);
     };
     /** Whether there is a previous page. */
@@ -371,8 +371,8 @@ var MatPaginator = /** @class */ (function (_super) {
      */
     function () {
         /** @type {?} */
-        var numberOfPages = this.getNumberOfPages();
-        return this.pageIndex < numberOfPages && this.pageSize != 0;
+        var maxPageIndex = this.getNumberOfPages() - 1;
+        return this.pageIndex < maxPageIndex && this.pageSize != 0;
     };
     /** Calculate the number of pages */
     /**
@@ -384,7 +384,10 @@ var MatPaginator = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return Math.ceil(this.length / this.pageSize) - 1;
+        if (!this.pageSize) {
+            return 0;
+        }
+        return Math.ceil(this.length / this.pageSize);
     };
     /**
      * Changes the page size so that the first item displayed on the page will still be

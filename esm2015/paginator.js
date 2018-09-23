@@ -276,7 +276,7 @@ class MatPaginator extends _MatPaginatorBase {
         }
         /** @type {?} */
         const previousPageIndex = this.pageIndex;
-        this.pageIndex = this.getNumberOfPages();
+        this.pageIndex = this.getNumberOfPages() - 1;
         this._emitPageEvent(previousPageIndex);
     }
     /**
@@ -292,15 +292,18 @@ class MatPaginator extends _MatPaginatorBase {
      */
     hasNextPage() {
         /** @type {?} */
-        const numberOfPages = this.getNumberOfPages();
-        return this.pageIndex < numberOfPages && this.pageSize != 0;
+        const maxPageIndex = this.getNumberOfPages() - 1;
+        return this.pageIndex < maxPageIndex && this.pageSize != 0;
     }
     /**
      * Calculate the number of pages
      * @return {?}
      */
     getNumberOfPages() {
-        return Math.ceil(this.length / this.pageSize) - 1;
+        if (!this.pageSize) {
+            return 0;
+        }
+        return Math.ceil(this.length / this.pageSize);
     }
     /**
      * Changes the page size so that the first item displayed on the page will still be
