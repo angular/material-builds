@@ -19,7 +19,8 @@ import { take, takeUntil } from 'rxjs/operators';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { MatCommonModule } from '@angular/material/core';
+import { GestureConfig, MatCommonModule } from '@angular/material/core';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
@@ -719,7 +720,10 @@ MatTooltipModule.decorators = [
                 exports: [MatTooltip, TooltipComponent, MatCommonModule],
                 declarations: [MatTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
-                providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                providers: [
+                    MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER,
+                    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
+                ]
             },] },
 ];
 
