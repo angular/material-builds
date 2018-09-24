@@ -13,7 +13,6 @@ const angular_1 = require("../../html/angular");
 const output_names_1 = require("../../material/data/output-names");
 const transform_change_data_1 = require("../../material/transform-change-data");
 const component_walker_1 = require("../../tslint/component-walker");
-const rule_failures_1 = require("../../tslint/rule-failures");
 /**
  * Rule that walks through every inline or external HTML template and switches changed output
  * bindings to the proper new output name.
@@ -30,14 +29,15 @@ class Walker extends component_walker_1.ComponentWalker {
         /** Change data that upgrades to the specified target version. */
         this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], output_names_1.outputNames);
     }
-    visitInlineTemplate(template) {
-        this._createReplacementsForContent(template, template.getText())
-            .forEach(data => rule_failures_1.addFailureAtReplacement(this, data.failureMessage, data.replacement));
+    visitInlineTemplate(node) {
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addFailureAtReplacement(data.failureMessage, data.replacement);
+        });
     }
-    visitExternalTemplate(template) {
-        this._createReplacementsForContent(template, template.getFullText())
-            .map(data => rule_failures_1.createExternalReplacementFailure(template, data.failureMessage, this.getRuleName(), data.replacement))
-            .forEach(failure => this.addFailure(failure));
+    visitExternalTemplate(node) {
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addExternalFailureAtReplacement(node, data.failureMessage, data.replacement);
+        });
     }
     /**
      * Searches for outdated output bindings in the specified content and creates

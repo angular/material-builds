@@ -12,7 +12,6 @@ const tslint_1 = require("tslint");
 const element_selectors_1 = require("../../material/data/element-selectors");
 const transform_change_data_1 = require("../../material/transform-change-data");
 const component_walker_1 = require("../../tslint/component-walker");
-const rule_failures_1 = require("../../tslint/rule-failures");
 const literal_1 = require("../../typescript/literal");
 /**
  * Rule that walks through every inline or external CSS stylesheet and updates outdated
@@ -31,14 +30,15 @@ class Walker extends component_walker_1.ComponentWalker {
         this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], element_selectors_1.elementSelectors);
         this._reportExtraStylesheetFiles(options.ruleArguments[1]);
     }
-    visitInlineStylesheet(literal) {
-        this._createReplacementsForContent(literal, literal.getText())
-            .forEach(data => rule_failures_1.addFailureAtReplacement(this, data.failureMessage, data.replacement));
+    visitInlineStylesheet(node) {
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addFailureAtReplacement(data.failureMessage, data.replacement);
+        });
     }
     visitExternalStylesheet(node) {
-        this._createReplacementsForContent(node, node.getFullText())
-            .map(data => rule_failures_1.createExternalReplacementFailure(node, data.failureMessage, this.getRuleName(), data.replacement))
-            .forEach(failure => this.addFailure(failure));
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addExternalFailureAtReplacement(node, data.failureMessage, data.replacement);
+        });
     }
     /**
      * Searches for outdated element selectors in the specified content and creates replacements

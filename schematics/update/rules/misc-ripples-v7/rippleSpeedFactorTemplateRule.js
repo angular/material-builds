@@ -9,7 +9,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslint_1 = require("tslint");
 const component_walker_1 = require("../../tslint/component-walker");
-const rule_failures_1 = require("../../tslint/rule-failures");
 const ripple_speed_factor_1 = require("./ripple-speed-factor");
 /** Regular expression that matches [matRippleSpeedFactor]="$NUMBER" in templates. */
 const speedFactorNumberRegex = /\[matRippleSpeedFactor]="(\d+(?:\.\d+)?)"/g;
@@ -30,14 +29,15 @@ class Rule extends tslint_1.Rules.AbstractRule {
 }
 exports.Rule = Rule;
 class Walker extends component_walker_1.ComponentWalker {
-    visitInlineTemplate(template) {
-        this._createReplacementsForContent(template, template.getText())
-            .forEach(data => rule_failures_1.addFailureAtReplacement(this, data.failureMessage, data.replacement));
+    visitInlineTemplate(node) {
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addFailureAtReplacement(data.failureMessage, data.replacement);
+        });
     }
-    visitExternalTemplate(template) {
-        this._createReplacementsForContent(template, template.getFullText())
-            .map(data => rule_failures_1.createExternalReplacementFailure(template, data.failureMessage, this.getRuleName(), data.replacement))
-            .forEach(failure => this.addFailure(failure));
+    visitExternalTemplate(node) {
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addExternalFailureAtReplacement(node, data.failureMessage, data.replacement);
+        });
     }
     _createReplacementsForContent(node, templateText) {
         const replacements = [];

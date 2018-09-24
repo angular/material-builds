@@ -12,7 +12,6 @@ const tslint_1 = require("tslint");
 const attribute_selectors_1 = require("../../material/data/attribute-selectors");
 const transform_change_data_1 = require("../../material/transform-change-data");
 const component_walker_1 = require("../../tslint/component-walker");
-const rule_failures_1 = require("../../tslint/rule-failures");
 const literal_1 = require("../../typescript/literal");
 /**
  * Rule that walks through every component template and switches outdated attribute
@@ -30,14 +29,15 @@ class Walker extends component_walker_1.ComponentWalker {
         /** Change data that upgrades to the specified target version. */
         this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], attribute_selectors_1.attributeSelectors);
     }
-    visitInlineTemplate(template) {
-        this._createReplacementsForContent(template, template.getText())
-            .forEach(data => rule_failures_1.addFailureAtReplacement(this, data.failureMessage, data.replacement));
+    visitInlineTemplate(node) {
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addFailureAtReplacement(data.failureMessage, data.replacement);
+        });
     }
-    visitExternalTemplate(template) {
-        this._createReplacementsForContent(template, template.getFullText())
-            .map(data => rule_failures_1.createExternalReplacementFailure(template, data.failureMessage, this.getRuleName(), data.replacement))
-            .forEach(failure => this.addFailure(failure));
+    visitExternalTemplate(node) {
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addExternalFailureAtReplacement(node, data.failureMessage, data.replacement);
+        });
     }
     /**
      * Searches for outdated attribute selectors in the specified content and creates replacements

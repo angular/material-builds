@@ -12,7 +12,6 @@ const tslint_1 = require("tslint");
 const attribute_selectors_1 = require("../../material/data/attribute-selectors");
 const transform_change_data_1 = require("../../material/transform-change-data");
 const component_walker_1 = require("../../tslint/component-walker");
-const rule_failures_1 = require("../../tslint/rule-failures");
 const literal_1 = require("../../typescript/literal");
 /**
  * Rule that walks through every stylesheet in the application and updates outdated
@@ -32,13 +31,14 @@ class Walker extends component_walker_1.ComponentWalker {
         this._reportExtraStylesheetFiles(options.ruleArguments[1]);
     }
     visitInlineStylesheet(literal) {
-        this._createReplacementsForContent(literal, literal.getText())
-            .forEach(data => rule_failures_1.addFailureAtReplacement(this, data.failureMessage, data.replacement));
+        this._createReplacementsForContent(literal, literal.getText()).forEach(data => {
+            this.addFailureAtReplacement(data.failureMessage, data.replacement);
+        });
     }
     visitExternalStylesheet(node) {
-        this._createReplacementsForContent(node, node.getFullText())
-            .map(data => rule_failures_1.createExternalReplacementFailure(node, data.failureMessage, this.getRuleName(), data.replacement))
-            .forEach(failure => this.addFailure(failure));
+        this._createReplacementsForContent(node, node.getText()).forEach(data => {
+            this.addExternalFailureAtReplacement(node, data.failureMessage, data.replacement);
+        });
     }
     /**
      * Searches for outdated attribute selectors in the specified content and creates replacements

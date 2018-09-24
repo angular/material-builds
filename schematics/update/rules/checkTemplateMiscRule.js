@@ -23,13 +23,14 @@ class Rule extends tslint_1.Rules.AbstractRule {
 }
 exports.Rule = Rule;
 class Walker extends component_walker_1.ComponentWalker {
-    visitInlineTemplate(template) {
-        this._createFailuresForContent(template, template.getText())
-            .forEach(data => this.addFailureFromStartToEnd(data.start, data.end, data.message));
+    visitInlineTemplate(node) {
+        this._createFailuresForContent(node, node.getText()).forEach(data => {
+            this.addFailureFromStartToEnd(data.start, data.end, data.message);
+        });
     }
-    visitExternalTemplate(template) {
-        this._createFailuresForContent(template, template.getFullText()).forEach(data => {
-            this.addFailure(new tslint_1.RuleFailure(template, data.start, data.end, data.message, this.getRuleName()));
+    visitExternalTemplate(node) {
+        this._createFailuresForContent(node, node.getText()).forEach(data => {
+            this.addExternalFailureFromStartToEnd(node, data.start, data.end, data.message);
         });
     }
     _createFailuresForContent(node, content) {

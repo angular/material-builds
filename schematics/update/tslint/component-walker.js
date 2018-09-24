@@ -9,14 +9,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const path_1 = require("path");
-const tslint_1 = require("tslint");
 const ts = require("typescript");
 const component_file_1 = require("./component-file");
+const external_failure_walker_1 = require("./external-failure-walker");
 /**
  * Custom TSLint rule walker that identifies Angular components and visits specific parts of
  * the component metadata.
  */
-class ComponentWalker extends tslint_1.RuleWalker {
+class ComponentWalker extends external_failure_walker_1.ExternalFailureWalker {
     constructor() {
         super(...arguments);
         /**

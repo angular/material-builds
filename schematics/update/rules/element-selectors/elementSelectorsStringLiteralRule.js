@@ -33,7 +33,7 @@ class Walker extends tslint_1.RuleWalker {
         if (node.parent && node.parent.kind !== ts.SyntaxKind.CallExpression) {
             return;
         }
-        const textContent = node.getFullText();
+        const textContent = node.getText();
         this.data.forEach(selector => {
             literal_1.findAllSubstringIndices(textContent, selector.replace)
                 .map(offset => node.getStart() + offset)
