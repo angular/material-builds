@@ -29,9 +29,7 @@ export declare class MatDialogRef<T, R = any> {
     private readonly _beforeClosed;
     /** Result to be passed to afterClosed. */
     private _result;
-    /** Subscription to changes in the user's location. */
-    private _locationChanges;
-    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, location?: Location, id?: string);
+    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, _location?: Location, id?: string);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.

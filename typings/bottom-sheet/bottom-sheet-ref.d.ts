@@ -27,9 +27,7 @@ export declare class MatBottomSheetRef<T = any, R = any> {
     private readonly _afterOpened;
     /** Result to be passed down to the `afterDismissed` stream. */
     private _result;
-    /** Subscription to changes in the user's location. */
-    private _locationChanges;
-    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef, location?: Location);
+    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef, _location?: Location);
     /**
      * Dismisses the bottom sheet.
      * @param result Data to be passed back to the bottom sheet opener.

@@ -238,8 +238,8 @@ var /**
  * \@docs-private
  */
 TileCoordinator = /** @class */ (function () {
-    function TileCoordinator(numColumns, tiles) {
-        var _this = this;
+    function TileCoordinator(_tiles) {
+        this._tiles = _tiles;
         /**
          * Index at which the search for the next gap will start.
          */
@@ -248,9 +248,6 @@ TileCoordinator = /** @class */ (function () {
          * The current row index.
          */
         this.rowIndex = 0;
-        this.tracker = new Array(numColumns);
-        this.tracker.fill(0, 0, this.tracker.length);
-        this.positions = tiles.map(function (tile) { return _this._trackTile(tile); });
     }
     Object.defineProperty(TileCoordinator.prototype, "rowCount", {
         /** Gets the total number of rows occupied by tiles */
@@ -282,6 +279,28 @@ TileCoordinator = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Updates the tile positions.
+     * @param numColumns Amount of columns in the grid.
+     */
+    /**
+     * Updates the tile positions.
+     * @param {?} numColumns Amount of columns in the grid.
+     * @return {?}
+     */
+    TileCoordinator.prototype.update = /**
+     * Updates the tile positions.
+     * @param {?} numColumns Amount of columns in the grid.
+     * @return {?}
+     */
+    function (numColumns) {
+        var _this = this;
+        this.columnIndex = 0;
+        this.rowIndex = 0;
+        this.tracker = new Array(numColumns);
+        this.tracker.fill(0, 0, this.tracker.length);
+        this.positions = this._tiles.map(function (tile) { return _this._trackTile(tile); });
+    };
     /**
      * Calculates the row and col position of a tile.
      * @param {?} tile
@@ -1044,10 +1063,14 @@ var MatGridList = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        if (!this._tileCoordinator) {
+            this._tileCoordinator = new TileCoordinator(this._tiles);
+        }
         /** @type {?} */
-        var tracker = new TileCoordinator(this.cols, this._tiles);
+        var tracker = this._tileCoordinator;
         /** @type {?} */
         var direction = this._dir ? this._dir.value : 'ltr';
+        this._tileCoordinator.update(this.cols);
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
         this._tiles.forEach(function (tile, index) {
             /** @type {?} */

@@ -25,6 +25,7 @@ import { MatGridTile } from './grid-tile';
  * @docs-private
  */
 export declare class TileCoordinator {
+    private _tiles;
     /** Tracking array (see class description). */
     tracker: number[];
     /** Index at which the search for the next gap will start. */
@@ -40,7 +41,12 @@ export declare class TileCoordinator {
     readonly rowspan: number;
     /** The computed (row, col) position of each tile (the output). */
     positions: TilePosition[];
-    constructor(numColumns: number, tiles: QueryList<MatGridTile>);
+    constructor(_tiles: QueryList<MatGridTile>);
+    /**
+     * Updates the tile positions.
+     * @param numColumns Amount of columns in the grid.
+     */
+    update(numColumns: number): void;
     /** Calculates the row and col position of a tile. */
     private _trackTile;
     /** Finds the next available space large enough to fit the tile. */

@@ -163,10 +163,10 @@ MatGridTileFooterCssMatStyler.decorators = [
  */
 class TileCoordinator {
     /**
-     * @param {?} numColumns
-     * @param {?} tiles
+     * @param {?} _tiles
      */
-    constructor(numColumns, tiles) {
+    constructor(_tiles) {
+        this._tiles = _tiles;
         /**
          * Index at which the search for the next gap will start.
          */
@@ -175,9 +175,6 @@ class TileCoordinator {
          * The current row index.
          */
         this.rowIndex = 0;
-        this.tracker = new Array(numColumns);
-        this.tracker.fill(0, 0, this.tracker.length);
-        this.positions = tiles.map(tile => this._trackTile(tile));
     }
     /**
      * Gets the total number of rows occupied by tiles
@@ -191,10 +188,22 @@ class TileCoordinator {
      */
     get rowspan() {
         /** @type {?} */
-        let lastRowMax = Math.max(...this.tracker);
+        const lastRowMax = Math.max(...this.tracker);
         // if any of the tiles has a rowspan that pushes it beyond the total row count,
         // add the difference to the rowcount
         return lastRowMax > 1 ? this.rowCount + lastRowMax - 1 : this.rowCount;
+    }
+    /**
+     * Updates the tile positions.
+     * @param {?} numColumns Amount of columns in the grid.
+     * @return {?}
+     */
+    update(numColumns) {
+        this.columnIndex = 0;
+        this.rowIndex = 0;
+        this.tracker = new Array(numColumns);
+        this.tracker.fill(0, 0, this.tracker.length);
+        this.positions = this._tiles.map(tile => this._trackTile(tile));
     }
     /**
      * Calculates the row and col position of a tile.
@@ -203,7 +212,7 @@ class TileCoordinator {
      */
     _trackTile(tile) {
         /** @type {?} */
-        let gapStartIndex = this._findMatchingGap(tile.colspan);
+        const gapStartIndex = this._findMatchingGap(tile.colspan);
         // Place tile in the resulting gap.
         this._markTilePosition(gapStartIndex, tile);
         // The next time we look for a gap, the search will start at columnIndex, which should be
@@ -709,10 +718,14 @@ class MatGridList {
      * @return {?}
      */
     _layoutTiles() {
+        if (!this._tileCoordinator) {
+            this._tileCoordinator = new TileCoordinator(this._tiles);
+        }
         /** @type {?} */
-        const tracker = new TileCoordinator(this.cols, this._tiles);
+        const tracker = this._tileCoordinator;
         /** @type {?} */
         const direction = this._dir ? this._dir.value : 'ltr';
+        this._tileCoordinator.update(this.cols);
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
         this._tiles.forEach((tile, index) => {
             /** @type {?} */

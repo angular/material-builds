@@ -12,7 +12,7 @@ import { DOCUMENT, Location, CommonModule } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { Subject, Subscription, defer, of } from 'rxjs';
+import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
@@ -87,6 +87,8 @@ MatDialogConfig = /** @class */ (function () {
         this.restoreFocus = true;
         /**
          * Whether the dialog should close when the user goes backwards/forwards in history.
+         * Note that this usually doesn't include clicking on links (unless the user is using
+         * the `HashLocationStrategy`).
          */
         this.closeOnNavigation = true;
     }
@@ -369,7 +371,10 @@ var  /**
  * @template T, R
  */
 MatDialogRef = /** @class */ (function () {
-    function MatDialogRef(_overlayRef, _containerInstance, location, id) {
+    function MatDialogRef(_overlayRef, _containerInstance, 
+    // @breaking-change 8.0.0 `_location` parameter to be removed.
+    // @breaking-change 8.0.0 `_location` parameter to be removed.
+    _location, id) {
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -391,10 +396,6 @@ MatDialogRef = /** @class */ (function () {
          * Subject for notifying the user that the dialog has started closing.
          */
         this._beforeClosed = new Subject();
-        /**
-         * Subscription to changes in the user's location.
-         */
-        this._locationChanges = Subscription.EMPTY;
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
@@ -408,7 +409,6 @@ MatDialogRef = /** @class */ (function () {
         _overlayRef.detachments().subscribe(function () {
             _this._beforeClosed.next(_this._result);
             _this._beforeClosed.complete();
-            _this._locationChanges.unsubscribe();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
             _this.componentInstance = /** @type {?} */ ((null));
@@ -417,16 +417,6 @@ MatDialogRef = /** @class */ (function () {
         _overlayRef.keydownEvents()
             .pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; }))
             .subscribe(function () { return _this.close(); });
-        if (location) {
-            // Close the dialog when the user goes forwards/backwards in history or when the location
-            // hash changes. Note that this usually doesn't include clicking on links (unless the user
-            // is using the `HashLocationStrategy`).
-            this._locationChanges = location.subscribe(function () {
-                if (_this._containerInstance._config.closeOnNavigation) {
-                    _this.close();
-                }
-            });
-        }
     }
     /**
      * Close the dialog.
@@ -875,7 +865,8 @@ var MatDialog = /** @class */ (function () {
             minWidth: dialogConfig.minWidth,
             minHeight: dialogConfig.minHeight,
             maxWidth: dialogConfig.maxWidth,
-            maxHeight: dialogConfig.maxHeight
+            maxHeight: dialogConfig.maxHeight,
+            disposeOnNavigation: dialogConfig.closeOnNavigation
         });
         if (dialogConfig.backdropClass) {
             state$$1.backdropClass = dialogConfig.backdropClass;

@@ -15,7 +15,7 @@ import { DOCUMENT, CommonModule, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { merge, Subject, Subscription, of } from 'rxjs';
+import { merge, Subject, of } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 
@@ -55,6 +55,8 @@ MatBottomSheetConfig = /** @class */ (function () {
         this.ariaLabel = null;
         /**
          * Whether the bottom sheet should close when the user goes backwards/forwards in history.
+         * Note that this usually doesn't include clicking on links (unless the user is using
+         * the `HashLocationStrategy`).
          */
         this.closeOnNavigation = true;
         /**
@@ -390,7 +392,10 @@ var  /**
  * @template T, R
  */
 MatBottomSheetRef = /** @class */ (function () {
-    function MatBottomSheetRef(containerInstance, _overlayRef, location) {
+    function MatBottomSheetRef(containerInstance, _overlayRef, 
+    // @breaking-change 8.0.0 `_location` parameter to be removed.
+    // @breaking-change 8.0.0 `_location` parameter to be removed.
+    _location) {
         var _this = this;
         this._overlayRef = _overlayRef;
         /**
@@ -401,10 +406,6 @@ MatBottomSheetRef = /** @class */ (function () {
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
         this._afterOpened = new Subject();
-        /**
-         * Subscription to changes in the user's location.
-         */
-        this._locationChanges = Subscription.EMPTY;
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
         containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), take(1))
@@ -415,20 +416,12 @@ MatBottomSheetRef = /** @class */ (function () {
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), take(1))
             .subscribe(function () {
-            _this._locationChanges.unsubscribe();
             _this._overlayRef.dispose();
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
             merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(filter(function (event) { return event.keyCode === ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
-        }
-        if (location) {
-            this._locationChanges = location.subscribe(function () {
-                if (containerInstance.bottomSheetConfig.closeOnNavigation) {
-                    _this.dismiss();
-                }
-            });
         }
     }
     /**
@@ -661,6 +654,7 @@ var MatBottomSheet = /** @class */ (function () {
         var overlayConfig = new OverlayConfig({
             direction: config.direction,
             hasBackdrop: config.hasBackdrop,
+            disposeOnNavigation: config.closeOnNavigation,
             maxWidth: '100%',
             scrollStrategy: this._overlay.scrollStrategies.block(),
             positionStrategy: this._overlay.position()

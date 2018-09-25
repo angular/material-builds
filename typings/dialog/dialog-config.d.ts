@@ -75,6 +75,10 @@ export declare class MatDialogConfig<D = any> {
     restoreFocus?: boolean;
     /** Scroll strategy to be used for the dialog. */
     scrollStrategy?: ScrollStrategy;
-    /** Whether the dialog should close when the user goes backwards/forwards in history. */
+    /**
+     * Whether the dialog should close when the user goes backwards/forwards in history.
+     * Note that this usually doesn't include clicking on links (unless the user is using
+     * the `HashLocationStrategy`).
+     */
     closeOnNavigation?: boolean;
 }

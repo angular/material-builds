@@ -211,9 +211,11 @@ class MatInput extends _MatInputMixinBase {
             'time',
             'week'
         ].filter(t => getSupportedInputTypes().has(t));
+        /** @type {?} */
+        const element = this._elementRef.nativeElement;
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
-        this._inputValueAccessor = inputValueAccessor || this._elementRef.nativeElement;
+        this._inputValueAccessor = inputValueAccessor || element;
         this._previousNativeValue = this.value;
         // Force setter to be called in case id was not specified.
         this.id = this.id;
@@ -237,7 +239,11 @@ class MatInput extends _MatInputMixinBase {
             });
         }
         this._isServer = !this._platform.isBrowser;
-        this._isNativeSelect = this._elementRef.nativeElement.nodeName.toLowerCase() === 'select';
+        this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
+        if (this._isNativeSelect) {
+            this.controlType = (/** @type {?} */ (element)).multiple ? 'mat-native-select-multiple' :
+                'mat-native-select';
+        }
     }
     /**
      * Implemented as part of MatFormFieldControl.

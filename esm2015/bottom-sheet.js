@@ -14,7 +14,7 @@ import { DOCUMENT, CommonModule, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { merge, Subject, Subscription, of } from 'rxjs';
+import { merge, Subject, of } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 
@@ -50,6 +50,8 @@ class MatBottomSheetConfig {
         this.ariaLabel = null;
         /**
          * Whether the bottom sheet should close when the user goes backwards/forwards in history.
+         * Note that this usually doesn't include clicking on links (unless the user is using
+         * the `HashLocationStrategy`).
          */
         this.closeOnNavigation = true;
         /**
@@ -326,9 +328,12 @@ class MatBottomSheetRef {
     /**
      * @param {?} containerInstance
      * @param {?} _overlayRef
-     * @param {?=} location
+     * @param {?=} _location
      */
-    constructor(containerInstance, _overlayRef, location) {
+    constructor(containerInstance, _overlayRef, 
+    // @breaking-change 8.0.0 `_location` parameter to be removed.
+    // @breaking-change 8.0.0 `_location` parameter to be removed.
+    _location) {
         this._overlayRef = _overlayRef;
         /**
          * Subject for notifying the user that the bottom sheet has been dismissed.
@@ -338,10 +343,6 @@ class MatBottomSheetRef {
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
         this._afterOpened = new Subject();
-        /**
-         * Subscription to changes in the user's location.
-         */
-        this._locationChanges = Subscription.EMPTY;
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
         containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'visible'), take(1))
@@ -352,20 +353,12 @@ class MatBottomSheetRef {
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
             .subscribe(() => {
-            this._locationChanges.unsubscribe();
             this._overlayRef.dispose();
             this._afterDismissed.next(this._result);
             this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
             merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.dismiss());
-        }
-        if (location) {
-            this._locationChanges = location.subscribe(() => {
-                if (containerInstance.bottomSheetConfig.closeOnNavigation) {
-                    this.dismiss();
-                }
-            });
         }
     }
     /**
@@ -539,6 +532,7 @@ class MatBottomSheet {
         const overlayConfig = new OverlayConfig({
             direction: config.direction,
             hasBackdrop: config.hasBackdrop,
+            disposeOnNavigation: config.closeOnNavigation,
             maxWidth: '100%',
             scrollStrategy: this._overlay.scrollStrategies.block(),
             positionStrategy: this._overlay.position()

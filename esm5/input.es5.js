@@ -221,11 +221,13 @@ var MatInput = /** @class */ (function (_super) {
             'time',
             'week'
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
+        /** @type {?} */
+        var element = _this._elementRef.nativeElement;
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
-        _this._inputValueAccessor = inputValueAccessor || _this._elementRef.nativeElement;
+        _this._inputValueAccessor = inputValueAccessor || element;
         _this._previousNativeValue = _this.value;
         // Force setter to be called in case id was not specified.
         // Force setter to be called in case id was not specified.
@@ -250,7 +252,11 @@ var MatInput = /** @class */ (function (_super) {
             });
         }
         _this._isServer = !_this._platform.isBrowser;
-        _this._isNativeSelect = _this._elementRef.nativeElement.nodeName.toLowerCase() === 'select';
+        _this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
+        if (_this._isNativeSelect) {
+            _this.controlType = (/** @type {?} */ (element)).multiple ? 'mat-native-select-multiple' :
+                'mat-native-select';
+        }
         return _this;
     }
     Object.defineProperty(MatInput.prototype, "disabled", {

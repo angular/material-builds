@@ -13,6 +13,8 @@ export declare class MatGridList implements OnInit, AfterContentChecked {
     private _dir;
     /** Number of columns being rendered. */
     private _cols;
+    /** Used for determiningthe position of each tile in the grid. */
+    private _tileCoordinator;
     /**
      * Row height value passed in by user. This can be one of three types:
      * - Number value (ex: "100px"):  sets a fixed row height to that value
