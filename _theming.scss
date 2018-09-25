@@ -3954,6 +3954,7 @@ $mat-tooltip-handset-vertical-padding:
 
 
 
+
 @mixin mat-snack-bar-theme($theme) {
   $is-dark-theme: map-get($theme, is-dark);
   $accent: map-get($theme, accent);
@@ -3963,6 +3964,8 @@ $mat-tooltip-handset-vertical-padding:
     // a secondary, because the contrast on the light primary text is poor.
     color: if($is-dark-theme, $dark-primary-text, $light-secondary-text);
     background: if($is-dark-theme, map-get($mat-grey, 50), #323232);
+
+    @include _mat-theme-elevation(6, $theme);
   }
 
   .mat-simple-snackbar-action {
