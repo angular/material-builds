@@ -608,6 +608,7 @@ MatRadioButton.decorators = [
                     '[class.mat-radio-checked]': 'checked',
                     '[class.mat-radio-disabled]': 'disabled',
                     '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    '[attr.tabindex]': 'null',
                     '[attr.id]': 'id',
                     // Note: under normal conditions focus shouldn't land on this element, however it may be
                     // programmatically set, for example inside of a focus trap, in this case we want to forward

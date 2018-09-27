@@ -19059,6 +19059,7 @@ var MatSelectionList = /** @class */ (function (_super) {
                         '(focus)': 'focus()',
                         '(blur)': '_onTouched()',
                         '(keydown)': '_keydown($event)',
+                        'aria-multiselectable': 'true',
                         '[attr.aria-disabled]': 'disabled.toString()',
                     },
                     template: '<ng-content></ng-content>',
@@ -22853,7 +22854,8 @@ var MatTooltip = /** @class */ (function () {
     function (delay) {
         var _this = this;
         if (delay === void 0) { delay = this.showDelay; }
-        if (this.disabled || !this.message) {
+        if (this.disabled || !this.message || (this._isTooltipVisible() &&
+            !/** @type {?} */ ((this._tooltipInstance))._showTimeoutId && !/** @type {?} */ ((this._tooltipInstance))._hideTimeoutId)) {
             return;
         }
         /** @type {?} */
@@ -23250,11 +23252,13 @@ var TooltipComponent = /** @class */ (function () {
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
             clearTimeout(this._hideTimeoutId);
+            this._hideTimeoutId = null;
         }
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
+            _this._showTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             // Mark for check so if any parent component has set the
@@ -23281,9 +23285,11 @@ var TooltipComponent = /** @class */ (function () {
         // Cancel the delayed show if it is scheduled
         if (this._showTimeoutId) {
             clearTimeout(this._showTimeoutId);
+            this._showTimeoutId = null;
         }
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
+            _this._hideTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             // Mark for check so if any parent component has set the
@@ -25358,6 +25364,7 @@ var MatRadioButton = /** @class */ (function (_super) {
                         '[class.mat-radio-checked]': 'checked',
                         '[class.mat-radio-disabled]': 'disabled',
                         '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                        '[attr.tabindex]': 'null',
                         '[attr.id]': 'id',
                         // Note: under normal conditions focus shouldn't land on this element, however it may be
                         // programmatically set, for example inside of a focus trap, in this case we want to forward
@@ -34152,10 +34159,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.2-39b5577');
+var VERSION = new core.Version('7.0.0-beta.2-5c0a061');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34405,12 +34412,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa19 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb19 = MatMenuItemBase;
+exports.ɵc19 = _MatMenuItemMixinBase;
+exports.ɵf19 = MAT_MENU_PANEL;
+exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe19 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

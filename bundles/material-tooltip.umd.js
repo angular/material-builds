@@ -323,7 +323,8 @@ var MatTooltip = /** @class */ (function () {
     function (delay) {
         var _this = this;
         if (delay === void 0) { delay = this.showDelay; }
-        if (this.disabled || !this.message) {
+        if (this.disabled || !this.message || (this._isTooltipVisible() &&
+            !/** @type {?} */ ((this._tooltipInstance))._showTimeoutId && !/** @type {?} */ ((this._tooltipInstance))._hideTimeoutId)) {
             return;
         }
         /** @type {?} */
@@ -720,11 +721,13 @@ var TooltipComponent = /** @class */ (function () {
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
             clearTimeout(this._hideTimeoutId);
+            this._hideTimeoutId = null;
         }
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
+            _this._showTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             // Mark for check so if any parent component has set the
@@ -751,9 +754,11 @@ var TooltipComponent = /** @class */ (function () {
         // Cancel the delayed show if it is scheduled
         if (this._showTimeoutId) {
             clearTimeout(this._showTimeoutId);
+            this._showTimeoutId = null;
         }
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
+            _this._hideTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             // Mark for check so if any parent component has set the
