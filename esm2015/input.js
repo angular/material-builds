@@ -411,7 +411,7 @@ class MatInput extends _MatInputMixinBase {
      */
     _dirtyCheckNativeValue() {
         /** @type {?} */
-        const newValue = this.value;
+        const newValue = this._elementRef.nativeElement.value;
         if (this._previousNativeValue !== newValue) {
             this._previousNativeValue = newValue;
             this.stateChanges.next();

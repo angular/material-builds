@@ -523,7 +523,7 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         /** @type {?} */
-        var newValue = this.value;
+        var newValue = this._elementRef.nativeElement.value;
         if (this._previousNativeValue !== newValue) {
             this._previousNativeValue = newValue;
             this.stateChanges.next();

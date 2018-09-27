@@ -415,6 +415,11 @@ TilePosition = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
+/** *
+ * RegExp that can be used to check whether a value will
+ * be allowed inside a CSS `calc()` expression.
+  @type {?} */
+var cssCalcAllowedValue = /^-?\d+((\.\d+)?[A-Za-z%$]?)+$/;
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
@@ -679,6 +684,9 @@ FixedTileStyler = /** @class */ (function (_super) {
     function (gutterSize, tracker, cols, direction) {
         _super.prototype.init.call(this, gutterSize, tracker, cols, direction);
         this.fixedRowHeight = normalizeUnits(this.fixedRowHeight);
+        if (!cssCalcAllowedValue.test(this.fixedRowHeight)) {
+            throw Error("Invalid value \"" + this.fixedRowHeight + "\" set as rowHeight.");
+        }
     };
     /**
      * @param {?} tile

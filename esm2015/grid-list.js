@@ -321,6 +321,11 @@ class TilePosition {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
+/** *
+ * RegExp that can be used to check whether a value will
+ * be allowed inside a CSS `calc()` expression.
+  @type {?} */
+const cssCalcAllowedValue = /^-?\d+((\.\d+)?[A-Za-z%$]?)+$/;
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
@@ -461,6 +466,9 @@ class FixedTileStyler extends TileStyler {
     init(gutterSize, tracker, cols, direction) {
         super.init(gutterSize, tracker, cols, direction);
         this.fixedRowHeight = normalizeUnits(this.fixedRowHeight);
+        if (!cssCalcAllowedValue.test(this.fixedRowHeight)) {
+            throw Error(`Invalid value "${this.fixedRowHeight}" set as rowHeight.`);
+        }
     }
     /**
      * @param {?} tile
