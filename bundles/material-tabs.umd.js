@@ -2179,17 +2179,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa8 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf8 = MatTabBase;
-exports.ɵg8 = _MatTabMixinBase;
-exports.ɵb8 = MatTabHeaderBase;
-exports.ɵc8 = _MatTabHeaderMixinBase;
-exports.ɵd8 = MatTabLabelWrapperBase;
-exports.ɵe8 = _MatTabLabelWrapperMixinBase;
-exports.ɵj8 = MatTabLinkBase;
-exports.ɵh8 = MatTabNavBase;
-exports.ɵk8 = _MatTabLinkMixinBase;
-exports.ɵi8 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
