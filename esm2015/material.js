@@ -49,7 +49,7 @@ export { _CdkTreeNodeDef, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, Ma
 /** *
  * Current version of Angular Material.
   @type {?} */
-const VERSION = new Version('7.0.0-beta.2-4e475f9');
+const VERSION = new Version('7.0.0-beta.2-ac3f8c4');
 
 /**
  * @fileoverview added by tsickle
