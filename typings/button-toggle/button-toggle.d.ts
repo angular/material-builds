@@ -6,11 +6,25 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, InjectionToken } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
+/** Possible appearance styles for the button toggle. */
+export declare type MatButtonToggleAppearance = 'legacy' | 'standard';
+/**
+ * Represents the default options for the button toggle that can be configured
+ * using the `MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS` injection token.
+ */
+export interface MatButtonToggleDefaultOptions {
+    appearance?: MatButtonToggleAppearance;
+}
+/**
+ * Injection token that can be used to configure the
+ * default options for all button toggles within an app.
+ */
+export declare const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatButtonToggleDefaultOptions>;
 /**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -58,6 +72,8 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     _onTouched: () => any;
     /** Child button toggle buttons. */
     _buttonToggles: QueryList<MatButtonToggle>;
+    /** The appearance for all the buttons in the group. */
+    appearance: MatButtonToggleAppearance;
     /** `name` attribute for the underlying `input` element. */
     name: string;
     private _name;
@@ -79,7 +95,7 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     disabled: boolean;
     /** Event emitted when the group's value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
-    constructor(_changeDetector: ChangeDetectorRef);
+    constructor(_changeDetector: ChangeDetectorRef, defaultOptions?: MatButtonToggleDefaultOptions);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     /**
@@ -145,6 +161,9 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     value: any;
     /** Tabindex for the toggle. */
     tabIndex: number | null;
+    /** The appearance style of the button. */
+    appearance: MatButtonToggleAppearance;
+    private _appearance;
     /** Whether the button is checked. */
     checked: boolean;
     /** Whether the button is disabled. */
@@ -152,7 +171,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     private _disabled;
     /** Event emitted when the group value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
-    constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _focusMonitor: FocusMonitor, defaultTabIndex: string);
+    constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _focusMonitor: FocusMonitor, defaultTabIndex: string, defaultOptions?: MatButtonToggleDefaultOptions);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
