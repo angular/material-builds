@@ -895,13 +895,21 @@ var MatSelect = /** @class */ (function (_super) {
             keyCode === keycodes.LEFT_ARROW || keyCode === keycodes.RIGHT_ARROW;
         /** @type {?} */
         var isOpenKey = keyCode === keycodes.ENTER || keyCode === keycodes.SPACE;
+        /** @type {?} */
+        var manager = this._keyManager;
         // Open the select on ALT + arrow key to match the native <select>
         if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
         else if (!this.multiple) {
-            this._keyManager.onKeydown(event);
+            if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
+                keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+                event.preventDefault();
+            }
+            else {
+                manager.onKeydown(event);
+            }
         }
     };
     /**
