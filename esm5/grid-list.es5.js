@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Component, ViewEncapsulation, ElementRef, Input, ContentChildren, Directive, ChangeDetectionStrategy, Optional, NgModule } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, ElementRef, Input, Optional, ContentChildren, Directive, ChangeDetectionStrategy, Inject, NgModule } from '@angular/core';
 import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { __extends } from 'tslib';
@@ -15,9 +15,20 @@ import { Directionality } from '@angular/cdk/bidi';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
+/** *
+ * Injection token used to provide a grid list to a tile and to avoid circular imports.
+ * \@docs-private
+  @type {?} */
+var MAT_GRID_LIST = new InjectionToken('MAT_GRID_LIST');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
 var MatGridTile = /** @class */ (function () {
-    function MatGridTile(_element) {
+    function MatGridTile(_element, _gridList) {
         this._element = _element;
+        this._gridList = _gridList;
         this._rowspan = 1;
         this._colspan = 1;
     }
@@ -86,7 +97,8 @@ var MatGridTile = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatGridTile.ctorParameters = function () { return [
-        { type: ElementRef }
+        { type: ElementRef },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_GRID_LIST,] }] }
     ]; };
     MatGridTile.propDecorators = {
         rowspan: [{ type: Input }],
@@ -209,8 +221,7 @@ var /**
  * \@docs-private
  */
 TileCoordinator = /** @class */ (function () {
-    function TileCoordinator(_tiles) {
-        this._tiles = _tiles;
+    function TileCoordinator() {
         /**
          * Index at which the search for the next gap will start.
          */
@@ -257,20 +268,22 @@ TileCoordinator = /** @class */ (function () {
     /**
      * Updates the tile positions.
      * @param {?} numColumns Amount of columns in the grid.
+     * @param {?} tiles
      * @return {?}
      */
     TileCoordinator.prototype.update = /**
      * Updates the tile positions.
      * @param {?} numColumns Amount of columns in the grid.
+     * @param {?} tiles
      * @return {?}
      */
-    function (numColumns) {
+    function (numColumns, tiles) {
         var _this = this;
         this.columnIndex = 0;
         this.rowIndex = 0;
         this.tracker = new Array(numColumns);
         this.tracker.fill(0, 0, this.tracker.length);
-        this.positions = this._tiles.map(function (tile) { return _this._trackTile(tile); });
+        this.positions = tiles.map(function (tile) { return _this._trackTile(tile); });
     };
     /**
      * Calculates the row and col position of a tile.
@@ -1043,15 +1056,17 @@ var MatGridList = /** @class */ (function () {
     function () {
         var _this = this;
         if (!this._tileCoordinator) {
-            this._tileCoordinator = new TileCoordinator(this._tiles);
+            this._tileCoordinator = new TileCoordinator();
         }
         /** @type {?} */
         var tracker = this._tileCoordinator;
         /** @type {?} */
+        var tiles = this._tiles.filter(function (tile) { return !tile._gridList || tile._gridList === _this; });
+        /** @type {?} */
         var direction = this._dir ? this._dir.value : 'ltr';
-        this._tileCoordinator.update(this.cols);
+        this._tileCoordinator.update(this.cols, tiles);
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
-        this._tiles.forEach(function (tile, index) {
+        tiles.forEach(function (tile, index) {
             /** @type {?} */
             var pos = tracker.positions[index];
             _this._tileStyler.setStyle(tile, pos.row, pos.col);
@@ -1082,6 +1097,10 @@ var MatGridList = /** @class */ (function () {
                     host: {
                         'class': 'mat-grid-list',
                     },
+                    providers: [{
+                            provide: MAT_GRID_LIST,
+                            useExisting: MatGridList
+                        }],
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                 },] },
@@ -1143,5 +1162,5 @@ var MatGridListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa11 };
 //# sourceMappingURL=grid-list.es5.js.map

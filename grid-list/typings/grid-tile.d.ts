@@ -7,11 +7,13 @@
  */
 import { ElementRef, QueryList, AfterContentInit } from '@angular/core';
 import { MatLine, MatLineSetter } from '@angular/material/core';
+import { MatGridListBase } from './grid-list-base';
 export declare class MatGridTile {
     private _element;
+    _gridList?: MatGridListBase | undefined;
     _rowspan: number;
     _colspan: number;
-    constructor(_element: ElementRef<HTMLElement>);
+    constructor(_element: ElementRef<HTMLElement>, _gridList?: MatGridListBase | undefined);
     /** Amount of rows that the grid tile takes up. */
     rowspan: number;
     /** Amount of columns that the grid tile takes up. */

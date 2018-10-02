@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { QueryList } from '@angular/core';
 import { MatGridTile } from './grid-tile';
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
@@ -25,7 +24,6 @@ import { MatGridTile } from './grid-tile';
  * @docs-private
  */
 export declare class TileCoordinator {
-    private _tiles;
     /** Tracking array (see class description). */
     tracker: number[];
     /** Index at which the search for the next gap will start. */
@@ -41,12 +39,11 @@ export declare class TileCoordinator {
     readonly rowspan: number;
     /** The computed (row, col) position of each tile (the output). */
     positions: TilePosition[];
-    constructor(_tiles: QueryList<MatGridTile>);
     /**
      * Updates the tile positions.
      * @param numColumns Amount of columns in the grid.
      */
-    update(numColumns: number): void;
+    update(numColumns: number, tiles: MatGridTile[]): void;
     /** Calculates the row and col position of a tile. */
     private _trackTile;
     /** Finds the next available space large enough to fit the tile. */
