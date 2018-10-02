@@ -407,6 +407,10 @@ class MatBottomSheetRef {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
+/** *
+ * Injection token that can be used to specify default bottom sheet options.
+  @type {?} */
+const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-default-options');
 /**
  * Service to trigger Material Design bottom sheets.
  */
@@ -416,12 +420,14 @@ class MatBottomSheet {
      * @param {?} _injector
      * @param {?} _parentBottomSheet
      * @param {?=} _location
+     * @param {?=} _defaultOptions
      */
-    constructor(_overlay, _injector, _parentBottomSheet, _location) {
+    constructor(_overlay, _injector, _parentBottomSheet, _location, _defaultOptions) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._parentBottomSheet = _parentBottomSheet;
         this._location = _location;
+        this._defaultOptions = _defaultOptions;
         this._bottomSheetRefAtThisLevel = null;
     }
     /**
@@ -453,7 +459,7 @@ class MatBottomSheet {
      */
     open(componentOrTemplateRef, config) {
         /** @type {?} */
-        const _config = _applyConfigDefaults(config);
+        const _config = _applyConfigDefaults(this._defaultOptions || new MatBottomSheetConfig(), config);
         /** @type {?} */
         const overlayRef = this._createOverlay(_config);
         /** @type {?} */
@@ -577,16 +583,18 @@ MatBottomSheet.ctorParameters = () => [
     { type: Overlay },
     { type: Injector },
     { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf }] },
-    { type: Location, decorators: [{ type: Optional }] }
+    { type: Location, decorators: [{ type: Optional }] },
+    { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
 ];
-/** @nocollapse */ MatBottomSheet.ngInjectableDef = defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(inject(Overlay), inject(INJECTOR), inject(MatBottomSheet, 12), inject(Location, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+/** @nocollapse */ MatBottomSheet.ngInjectableDef = defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(inject(Overlay), inject(INJECTOR), inject(MatBottomSheet, 12), inject(Location, 8), inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
 /**
  * Applies default options to the bottom sheet config.
+ * @param {?} defaults Object containing the default values to which to fall back.
  * @param {?=} config The configuration to which the defaults will be applied.
  * @return {?} The new configuration object with defaults applied.
  */
-function _applyConfigDefaults(config) {
-    return Object.assign({}, new MatBottomSheetConfig(), config);
+function _applyConfigDefaults(defaults, config) {
+    return Object.assign({}, defaults, config);
 }
 
 /**
@@ -599,5 +607,5 @@ function _applyConfigDefaults(config) {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatBottomSheetModule, MatBottomSheet, MAT_BOTTOM_SHEET_DATA, MatBottomSheetConfig, MatBottomSheetContainer, matBottomSheetAnimations, MatBottomSheetRef };
+export { MatBottomSheetModule, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MAT_BOTTOM_SHEET_DATA, MatBottomSheetConfig, MatBottomSheetContainer, matBottomSheetAnimations, MatBottomSheetRef };
 //# sourceMappingURL=bottom-sheet.js.map
