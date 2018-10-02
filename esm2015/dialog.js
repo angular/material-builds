@@ -323,7 +323,6 @@ class MatDialogRef {
      */
     constructor(_overlayRef, _containerInstance, 
     // @breaking-change 8.0.0 `_location` parameter to be removed.
-    // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location, id = `mat-dialog-${uniqueId++}`) {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;

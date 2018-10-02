@@ -502,8 +502,6 @@ var MatRadioButton = /** @class */ (function (_super) {
         _this._removeUniqueSelectionListener = function () { };
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
-        // Assertions. Ideally these should be stripped out by the compiler.
-        // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         _this.radioGroup = radioGroup;
         _this._removeUniqueSelectionListener =
             _radioDispatcher.listen(function (id, name) {

@@ -399,7 +399,6 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
     function MatVerticalStepper(dir, changeDetectorRef, 
     // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
-    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
     elementRef, _document) {
         var _this = _super.call(this, dir, changeDetectorRef, elementRef, _document) || this;
         _this._orientation = 'vertical';

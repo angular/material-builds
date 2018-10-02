@@ -373,7 +373,6 @@ var  /**
 MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, 
     // @breaking-change 8.0.0 `_location` parameter to be removed.
-    // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location, id) {
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;

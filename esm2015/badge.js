@@ -9,7 +9,7 @@ import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
+import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
@@ -18,9 +18,16 @@ import { MatCommonModule } from '@angular/material/core';
 /** @type {?} */
 let nextId = 0;
 /**
+ * \@docs-private
+ */
+class MatBadgeBase {
+}
+/** @type {?} */
+const _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
+/**
  * Directive to display a text badge.
  */
-class MatBadge {
+class MatBadge extends _MatBadgeMixinBase {
     /**
      * @param {?} _document
      * @param {?} _ngZone
@@ -29,6 +36,7 @@ class MatBadge {
      * @param {?=} _renderer
      */
     constructor(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
+        super();
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
@@ -221,6 +229,7 @@ class MatBadge {
 MatBadge.decorators = [
     { type: Directive, args: [{
                 selector: '[matBadge]',
+                inputs: ['disabled: matBadgeDisabled'],
                 host: {
                     'class': 'mat-badge',
                     '[class.mat-badge-overlap]': 'overlap',
@@ -232,6 +241,7 @@ MatBadge.decorators = [
                     '[class.mat-badge-medium]': 'size === "medium"',
                     '[class.mat-badge-large]': 'size === "large"',
                     '[class.mat-badge-hidden]': 'hidden || !_hasContent',
+                    '[class.mat-badge-disabled]': 'disabled',
                 },
             },] },
 ];
@@ -280,5 +290,5 @@ MatBadgeModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatBadgeModule, MatBadge };
+export { MatBadgeModule, MatBadgeBase, _MatBadgeMixinBase, MatBadge };
 //# sourceMappingURL=badge.js.map

@@ -11,6 +11,35 @@
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.common,global.ng.core,global.ng.material.core));
 }(this, (function (exports,a11y,coercion,common,core,core$1) { 'use strict';
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
@@ -18,34 +47,50 @@
 /** @type {?} */
 var nextId = 0;
 /**
+ * \@docs-private
+ */
+var   /**
+ * \@docs-private
+ */
+MatBadgeBase = /** @class */ (function () {
+    function MatBadgeBase() {
+    }
+    return MatBadgeBase;
+}());
+/** @type {?} */
+var _MatBadgeMixinBase = core$1.mixinDisabled(MatBadgeBase);
+/**
  * Directive to display a text badge.
  */
-var MatBadge = /** @class */ (function () {
+var MatBadge = /** @class */ (function (_super) {
+    __extends(MatBadge, _super);
     function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
-        this._document = _document;
-        this._ngZone = _ngZone;
-        this._elementRef = _elementRef;
-        this._ariaDescriber = _ariaDescriber;
-        this._renderer = _renderer;
+        var _this = _super.call(this) || this;
+        _this._document = _document;
+        _this._ngZone = _ngZone;
+        _this._elementRef = _elementRef;
+        _this._ariaDescriber = _ariaDescriber;
+        _this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
-        this._hasContent = false;
-        this._color = 'primary';
-        this._overlap = true;
+        _this._hasContent = false;
+        _this._color = 'primary';
+        _this._overlap = true;
         /**
          * Position the badge should reside.
          * Accepts any combination of 'above'|'below' and 'before'|'after'
          */
-        this.position = 'above after';
+        _this.position = 'above after';
         /**
          * Size of the badge. Can be 'small', 'medium', or 'large'.
          */
-        this.size = 'medium';
+        _this.size = 'medium';
         /**
          * Unique id for the badge
          */
-        this._id = nextId++;
+        _this._id = nextId++;
+        return _this;
     }
     Object.defineProperty(MatBadge.prototype, "color", {
         /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
@@ -270,6 +315,7 @@ var MatBadge = /** @class */ (function () {
     MatBadge.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matBadge]',
+                    inputs: ['disabled: matBadgeDisabled'],
                     host: {
                         'class': 'mat-badge',
                         '[class.mat-badge-overlap]': 'overlap',
@@ -281,6 +327,7 @@ var MatBadge = /** @class */ (function () {
                         '[class.mat-badge-medium]': 'size === "medium"',
                         '[class.mat-badge-large]': 'size === "large"',
                         '[class.mat-badge-hidden]': 'hidden || !_hasContent',
+                        '[class.mat-badge-disabled]': 'disabled',
                     },
                 },] },
     ];
@@ -302,7 +349,7 @@ var MatBadge = /** @class */ (function () {
         hidden: [{ type: core.Input, args: ['matBadgeHidden',] }]
     };
     return MatBadge;
-}());
+}(_MatBadgeMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -325,6 +372,8 @@ var MatBadgeModule = /** @class */ (function () {
 }());
 
 exports.MatBadgeModule = MatBadgeModule;
+exports.MatBadgeBase = MatBadgeBase;
+exports._MatBadgeMixinBase = _MatBadgeMixinBase;
 exports.MatBadge = MatBadge;
 
 Object.defineProperty(exports, '__esModule', { value: true });

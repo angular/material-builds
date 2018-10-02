@@ -138,7 +138,6 @@ var MatChip = /** @class */ (function (_super) {
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
             // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
             _this._ripplesGloballyDisabled = !!globalOptions.disabled;
             _this.rippleConfig = {
                 animation: globalOptions.animation,
@@ -1016,12 +1015,9 @@ var MatChipList = /** @class */ (function (_super) {
         this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(function () {
             _this._resetChips();
             // Reset chips selected/deselected status
-            // Reset chips selected/deselected status
             _this._initializeSelection();
             // Check to see if we need to update our tab index
-            // Check to see if we need to update our tab index
             _this._updateTabIndex();
-            // Check to see if we have a destroyed chip and need to refocus
             // Check to see if we have a destroyed chip and need to refocus
             _this._updateFocusForDestroyedChips();
             _this.stateChanges.next();

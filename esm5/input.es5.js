@@ -225,11 +225,8 @@ var MatInput = /** @class */ (function (_super) {
         var element = _this._elementRef.nativeElement;
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
-        // If no input value accessor was explicitly specified, use the element as the input value
-        // accessor.
         _this._inputValueAccessor = inputValueAccessor || element;
         _this._previousNativeValue = _this.value;
-        // Force setter to be called in case id was not specified.
         // Force setter to be called in case id was not specified.
         _this.id = _this.id;
         // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete

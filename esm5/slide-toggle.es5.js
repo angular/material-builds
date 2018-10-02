@@ -77,10 +77,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
                    * @deprecated The `_platform` parameter to be removed.
                    * @breaking-change 7.0.0
                    */
-    /**
-     * @deprecated The `_platform` parameter to be removed.
-     * @breaking-change 7.0.0
-     */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -437,8 +433,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
                 if (_this._dragging) {
                     _this._dragging = false;
                     _this._thumbEl.nativeElement.classList.remove('mat-dragging');
-                    // Reset the transform because the component will take care
-                    // of the thumb position after drag.
                     // Reset the transform because the component will take care
                     // of the thumb position after drag.
                     _this._thumbEl.nativeElement.style.transform = '';

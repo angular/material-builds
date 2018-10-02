@@ -384,12 +384,9 @@ var MatSelect = /** @class */ (function (_super) {
         if (_this.ngControl) {
             // Note: we provide the value accessor through here, instead of
             // the `providers` to avoid running into a circular import.
-            // Note: we provide the value accessor through here, instead of
-            // the `providers` to avoid running into a circular import.
             _this.ngControl.valueAccessor = _this;
         }
         _this.tabIndex = parseInt(tabIndex) || 0;
-        // Force setter to be called in case id was not specified.
         // Force setter to be called in case id was not specified.
         _this.id = _this.id;
         return _this;
@@ -1146,8 +1143,6 @@ var MatSelect = /** @class */ (function (_super) {
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');
         this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
-            // Restore focus to the trigger before closing. Ensures that the focus
-            // position won't be lost if the user got focus into the overlay.
             // Restore focus to the trigger before closing. Ensures that the focus
             // position won't be lost if the user got focus into the overlay.
             _this.focus();

@@ -250,7 +250,6 @@ function mixinColor(base, defaultColor) {
             }
             var _this = _super.apply(this, args) || this;
             // Set the default color that can be specified from the mixin.
-            // Set the default color that can be specified from the mixin.
             _this.color = defaultColor;
             return _this;
         }
@@ -805,7 +804,6 @@ var NativeDateAdapter = /** @class */ (function (_super) {
          */
         _this.useUtcForDisplay = true;
         _super.prototype.setLocale.call(_this, matDateLocale);
-        // IE does its own time zone correction, so we disable this on IE.
         // IE does its own time zone correction, so we disable this on IE.
         _this.useUtcForDisplay = !platform.TRIDENT;
         _this._clampDate = platform.TRIDENT || platform.EDGE;
@@ -1734,9 +1732,6 @@ RippleRenderer = /** @class */ (function () {
                 // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
                 // events will launch a second ripple if we don't ignore mouse events for a specific
                 // time after a touchstart event.
-                // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
-                // events will launch a second ripple if we don't ignore mouse events for a specific
-                // time after a touchstart event.
                 _this._lastTouchStartEvent = Date.now();
                 _this._isPointerDown = true;
                 /** @type {?} */
@@ -1754,7 +1749,6 @@ RippleRenderer = /** @class */ (function () {
                 return;
             }
             _this._isPointerDown = false;
-            // Fade-out all ripples that are visible and not persistent.
             // Fade-out all ripples that are visible and not persistent.
             _this._activeRipples.forEach(function (ripple) {
                 /** @type {?} */

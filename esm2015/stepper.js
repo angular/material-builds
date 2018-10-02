@@ -335,7 +335,6 @@ class MatVerticalStepper extends MatStepper {
      */
     constructor(dir, changeDetectorRef, 
     // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
-    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
     elementRef, _document) {
         super(dir, changeDetectorRef, elementRef, _document);
         this._orientation = 'vertical';

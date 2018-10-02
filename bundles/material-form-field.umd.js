@@ -316,7 +316,6 @@ var MatFormField = /** @class */ (function (_super) {
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
-        // Set the default through here so we invoke the setter on the first run.
         _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
         return _this;
     }
@@ -755,7 +754,7 @@ var MatFormField = /** @class */ (function (_super) {
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
-        if (!document.documentElement.contains(this._elementRef.nativeElement)) {
+        if (!/** @type {?} */ ((document.documentElement)).contains(this._elementRef.nativeElement)) {
             this._outlineGapCalculationNeeded = true;
             return;
         }

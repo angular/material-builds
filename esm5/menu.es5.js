@@ -1207,7 +1207,6 @@ var MatMenuTrigger = /** @class */ (function () {
                 takeUntil(menu.lazyContent._attached))
                     .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
                     // No matter whether the content got re-attached, reset the menu.
-                    // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
             }
@@ -1551,8 +1550,6 @@ var MatMenuTrigger = /** @class */ (function () {
             if (_this.menu instanceof MatMenu && _this.menu._isAnimating) {
                 // We need the `delay(0)` here in order to avoid
                 // 'changed after checked' errors in some cases. See #12194.
-                // We need the `delay(0)` here in order to avoid
-                // 'changed after checked' errors in some cases. See #12194.
                 _this.menu._animationDone
                     .pipe(take(1), delay(0, asapScheduler), takeUntil(_this._parentMenu._hovered()))
                     .subscribe(function () { return _this.openMenu(); });
@@ -1636,5 +1633,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.es5.js.map

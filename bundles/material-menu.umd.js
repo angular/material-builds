@@ -1228,7 +1228,6 @@ var MatMenuTrigger = /** @class */ (function () {
                 operators.takeUntil(menu.lazyContent._attached))
                     .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
                     // No matter whether the content got re-attached, reset the menu.
-                    // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
             }
@@ -1572,8 +1571,6 @@ var MatMenuTrigger = /** @class */ (function () {
             if (_this.menu instanceof MatMenu && _this.menu._isAnimating) {
                 // We need the `delay(0)` here in order to avoid
                 // 'changed after checked' errors in some cases. See #12194.
-                // We need the `delay(0)` here in order to avoid
-                // 'changed after checked' errors in some cases. See #12194.
                 _this.menu._animationDone
                     .pipe(operators.take(1), operators.delay(0, rxjs.asapScheduler), operators.takeUntil(_this._parentMenu._hovered()))
                     .subscribe(function () { return _this.openMenu(); });
@@ -1652,12 +1649,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

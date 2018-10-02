@@ -284,7 +284,6 @@ function mixinColor(base, defaultColor) {
             }
             var _this = _super.apply(this, args) || this;
             // Set the default color that can be specified from the mixin.
-            // Set the default color that can be specified from the mixin.
             _this.color = defaultColor;
             return _this;
         }
@@ -839,7 +838,6 @@ var NativeDateAdapter = /** @class */ (function (_super) {
          */
         _this.useUtcForDisplay = true;
         _super.prototype.setLocale.call(_this, matDateLocale);
-        // IE does its own time zone correction, so we disable this on IE.
         // IE does its own time zone correction, so we disable this on IE.
         _this.useUtcForDisplay = !platform$$1.TRIDENT;
         _this._clampDate = platform$$1.TRIDENT || platform$$1.EDGE;
@@ -1768,9 +1766,6 @@ RippleRenderer = /** @class */ (function () {
                 // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
                 // events will launch a second ripple if we don't ignore mouse events for a specific
                 // time after a touchstart event.
-                // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
-                // events will launch a second ripple if we don't ignore mouse events for a specific
-                // time after a touchstart event.
                 _this._lastTouchStartEvent = Date.now();
                 _this._isPointerDown = true;
                 /** @type {?} */
@@ -1788,7 +1783,6 @@ RippleRenderer = /** @class */ (function () {
                 return;
             }
             _this._isPointerDown = false;
-            // Fade-out all ripples that are visible and not persistent.
             // Fade-out all ripples that are visible and not persistent.
             _this._activeRipples.forEach(function (ripple) {
                 /** @type {?} */
@@ -3178,7 +3172,6 @@ var MatFormField = /** @class */ (function (_super) {
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
-        // Set the default through here so we invoke the setter on the first run.
         _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
         return _this;
     }
@@ -3617,7 +3610,7 @@ var MatFormField = /** @class */ (function (_super) {
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
-        if (!document.documentElement.contains(this._elementRef.nativeElement)) {
+        if (!/** @type {?} */ ((document.documentElement)).contains(this._elementRef.nativeElement)) {
             this._outlineGapCalculationNeeded = true;
             return;
         }
@@ -3983,7 +3976,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{selector: 'mat-autocomplete',
                     template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
-                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}.mat-autocomplete-panel-above .mat-autocomplete-panel{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}@media screen and (-ms-high-contrast:active){.mat-autocomplete-panel{outline:solid 1px}}"],
+                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}.mat-autocomplete-panel-above .mat-autocomplete-panel{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}.mat-autocomplete-panel .mat-divider-horizontal{margin-top:-1px}@media screen and (-ms-high-contrast:active){.mat-autocomplete-panel{outline:solid 1px}}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
@@ -4132,9 +4125,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * arrow function in order to preserve the context.
          */
         this._windowBlurHandler = function () {
-            // If the user blurred the window while the autocomplete is focused, it means that it'll be
-            // refocused when they come back. In this case we want to skip the first focus event, if the
-            // pane was closed, in order to avoid reopening it unintentionally.
             // If the user blurred the window while the autocomplete is focused, it means that it'll be
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
@@ -4893,34 +4883,50 @@ var MatAutocompleteModule = /** @class */ (function () {
 /** @type {?} */
 var nextId = 0;
 /**
+ * \@docs-private
+ */
+var   /**
+ * \@docs-private
+ */
+MatBadgeBase = /** @class */ (function () {
+    function MatBadgeBase() {
+    }
+    return MatBadgeBase;
+}());
+/** @type {?} */
+var _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
+/**
  * Directive to display a text badge.
  */
-var MatBadge = /** @class */ (function () {
+var MatBadge = /** @class */ (function (_super) {
+    __extends(MatBadge, _super);
     function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
-        this._document = _document;
-        this._ngZone = _ngZone;
-        this._elementRef = _elementRef;
-        this._ariaDescriber = _ariaDescriber;
-        this._renderer = _renderer;
+        var _this = _super.call(this) || this;
+        _this._document = _document;
+        _this._ngZone = _ngZone;
+        _this._elementRef = _elementRef;
+        _this._ariaDescriber = _ariaDescriber;
+        _this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
-        this._hasContent = false;
-        this._color = 'primary';
-        this._overlap = true;
+        _this._hasContent = false;
+        _this._color = 'primary';
+        _this._overlap = true;
         /**
          * Position the badge should reside.
          * Accepts any combination of 'above'|'below' and 'before'|'after'
          */
-        this.position = 'above after';
+        _this.position = 'above after';
         /**
          * Size of the badge. Can be 'small', 'medium', or 'large'.
          */
-        this.size = 'medium';
+        _this.size = 'medium';
         /**
          * Unique id for the badge
          */
-        this._id = nextId++;
+        _this._id = nextId++;
+        return _this;
     }
     Object.defineProperty(MatBadge.prototype, "color", {
         /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
@@ -5145,6 +5151,7 @@ var MatBadge = /** @class */ (function () {
     MatBadge.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matBadge]',
+                    inputs: ['disabled: matBadgeDisabled'],
                     host: {
                         'class': 'mat-badge',
                         '[class.mat-badge-overlap]': 'overlap',
@@ -5156,6 +5163,7 @@ var MatBadge = /** @class */ (function () {
                         '[class.mat-badge-medium]': 'size === "medium"',
                         '[class.mat-badge-large]': 'size === "large"',
                         '[class.mat-badge-hidden]': 'hidden || !_hasContent',
+                        '[class.mat-badge-disabled]': 'disabled',
                     },
                 },] },
     ];
@@ -5177,7 +5185,7 @@ var MatBadge = /** @class */ (function () {
         hidden: [{ type: core.Input, args: ['matBadgeHidden',] }]
     };
     return MatBadge;
-}());
+}(_MatBadgeMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -5573,7 +5581,6 @@ var   /**
  */
 MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef, 
-    // @breaking-change 8.0.0 `_location` parameter to be removed.
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location) {
         var _this = this;
@@ -7906,7 +7913,6 @@ var MatChip = /** @class */ (function (_super) {
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
             // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
             _this._ripplesGloballyDisabled = !!globalOptions.disabled;
             _this.rippleConfig = {
                 animation: globalOptions.animation,
@@ -8784,12 +8790,9 @@ var MatChipList = /** @class */ (function (_super) {
         this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe(function () {
             _this._resetChips();
             // Reset chips selected/deselected status
-            // Reset chips selected/deselected status
             _this._initializeSelection();
             // Check to see if we need to update our tab index
-            // Check to see if we need to update our tab index
             _this._updateTabIndex();
-            // Check to see if we have a destroyed chip and need to refocus
             // Check to see if we have a destroyed chip and need to refocus
             _this._updateFocusForDestroyedChips();
             _this.stateChanges.next();
@@ -10098,7 +10101,6 @@ var   /**
 MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, 
     // @breaking-change 8.0.0 `_location` parameter to be removed.
-    // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location, id) {
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
@@ -11231,11 +11233,8 @@ var MatInput = /** @class */ (function (_super) {
         var element = _this._elementRef.nativeElement;
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
-        // If no input value accessor was explicitly specified, use the element as the input value
-        // accessor.
         _this._inputValueAccessor = inputValueAccessor || element;
         _this._previousNativeValue = _this.value;
-        // Force setter to be called in case id was not specified.
         // Force setter to be called in case id was not specified.
         _this.id = _this.id;
         // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
@@ -20355,7 +20354,6 @@ var MatMenuTrigger = /** @class */ (function () {
                 operators.takeUntil(menu.lazyContent._attached))
                     .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
                     // No matter whether the content got re-attached, reset the menu.
-                    // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
             }
@@ -20697,8 +20695,6 @@ var MatMenuTrigger = /** @class */ (function () {
             // while the new trigger tries to re-open it. Wait for the animation to finish
             // before doing so. Also interrupt if the user moves to another item.
             if (_this.menu instanceof MatMenu && _this.menu._isAnimating) {
-                // We need the `delay(0)` here in order to avoid
-                // 'changed after checked' errors in some cases. See #12194.
                 // We need the `delay(0)` here in order to avoid
                 // 'changed after checked' errors in some cases. See #12194.
                 _this.menu._animationDone
@@ -21113,12 +21109,9 @@ var MatSelect = /** @class */ (function (_super) {
         if (_this.ngControl) {
             // Note: we provide the value accessor through here, instead of
             // the `providers` to avoid running into a circular import.
-            // Note: we provide the value accessor through here, instead of
-            // the `providers` to avoid running into a circular import.
             _this.ngControl.valueAccessor = _this;
         }
         _this.tabIndex = parseInt(tabIndex) || 0;
-        // Force setter to be called in case id was not specified.
         // Force setter to be called in case id was not specified.
         _this.id = _this.id;
         return _this;
@@ -21875,8 +21868,6 @@ var MatSelect = /** @class */ (function (_super) {
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');
         this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
-            // Restore focus to the trigger before closing. Ensures that the focus
-            // position won't be lost if the user got focus into the overlay.
             // Restore focus to the trigger before closing. Ensures that the focus
             // position won't be lost if the user got focus into the overlay.
             _this.focus();
@@ -23012,8 +23003,6 @@ var MatTooltip = /** @class */ (function () {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
-                    // After position changes occur and the overlay is clipped by
-                    // a parent scrollable then close the tooltip.
                     _this._ngZone.run(function () { return _this.hide(0); });
                 }
             }
@@ -23305,8 +23294,6 @@ var TooltipComponent = /** @class */ (function () {
             _this._showTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
-            // Mark for check so if any parent component has set the
-            // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
         }, delay);
     };
@@ -23334,8 +23321,6 @@ var TooltipComponent = /** @class */ (function () {
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
             _this._hideTimeoutId = null;
-            // Mark for check so if any parent component has set the
-            // ChangeDetectionStrategy to OnPush it will be checked anyways
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
@@ -25106,8 +25091,6 @@ var MatRadioButton = /** @class */ (function (_super) {
         _this._removeUniqueSelectionListener = function () { };
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
-        // Assertions. Ideally these should be stripped out by the compiler.
-        // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         _this.radioGroup = radioGroup;
         _this._removeUniqueSelectionListener =
             _radioDispatcher.listen(function (id, name) {
@@ -26750,10 +26733,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
                    * @deprecated The `_platform` parameter to be removed.
                    * @breaking-change 7.0.0
                    */
-    /**
-     * @deprecated The `_platform` parameter to be removed.
-     * @breaking-change 7.0.0
-     */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -27110,8 +27089,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
                 if (_this._dragging) {
                     _this._dragging = false;
                     _this._thumbEl.nativeElement.classList.remove('mat-dragging');
-                    // Reset the transform because the component will take care
-                    // of the thumb position after drag.
                     // Reset the transform because the component will take care
                     // of the thumb position after drag.
                     _this._thumbEl.nativeElement.style.transform = '';
@@ -30393,7 +30370,6 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
     function MatVerticalStepper(dir, changeDetectorRef, 
     // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
-    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
     elementRef, _document) {
         var _this = _super.call(this, dir, changeDetectorRef, elementRef, _document) || this;
         _this._orientation = 'vertical';
@@ -31704,9 +31680,6 @@ var MatTabBody = /** @class */ (function () {
     function MatTabBody(_elementRef, _dir, /**
                    * @breaking-change 7.0.0 changeDetectorRef to be made required.
                    */
-    /**
-     * @breaking-change 7.0.0 changeDetectorRef to be made required.
-     */
     changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -32826,9 +32799,6 @@ var MatTabGroup = /** @class */ (function (_super) {
                         // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
                         // event, otherwise the consumer may end up in an infinite loop in some edge cases like
                         // adding a tab within the `selectedIndexChange` event.
-                        // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
-                        // event, otherwise the consumer may end up in an infinite loop in some edge cases like
-                        // adding a tab within the `selectedIndexChange` event.
                         _this._indexToSelect = _this._selectedIndex = i;
                         break;
                     }
@@ -33277,7 +33247,6 @@ var MatTabLink = /** @class */ (function (_super) {
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
             // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
             _this._ripplesGloballyDisabled = !!globalOptions.disabled;
             _this.rippleConfig = {
                 terminateOnPointerUp: globalOptions.terminateOnPointerUp,
@@ -33468,7 +33437,6 @@ var MatToolbar = /** @class */ (function (_super) {
     function MatToolbar(elementRef, _platform, document) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
-        // TODO: make the document a required param when doing breaking changes.
         // TODO: make the document a required param when doing breaking changes.
         _this._document = document;
         return _this;
@@ -34204,7 +34172,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.2-6da7d23');
+var VERSION = new core.Version('7.0.0-beta.2-c9681bf');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34224,6 +34192,8 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
 exports.MatBadgeModule = MatBadgeModule;
+exports.MatBadgeBase = MatBadgeBase;
+exports._MatBadgeMixinBase = _MatBadgeMixinBase;
 exports.MatBadge = MatBadge;
 exports.MatBottomSheetModule = MatBottomSheetModule;
 exports.MatBottomSheet = MatBottomSheet;
@@ -34458,12 +34428,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34605,17 +34575,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

@@ -437,8 +437,6 @@ var MatTooltip = /** @class */ (function () {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
-                    // After position changes occur and the overlay is clipped by
-                    // a parent scrollable then close the tooltip.
                     _this._ngZone.run(function () { return _this.hide(0); });
                 }
             }
@@ -730,8 +728,6 @@ var TooltipComponent = /** @class */ (function () {
             _this._showTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
-            // Mark for check so if any parent component has set the
-            // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
         }, delay);
     };
@@ -759,8 +755,6 @@ var TooltipComponent = /** @class */ (function () {
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
             _this._hideTimeoutId = null;
-            // Mark for check so if any parent component has set the
-            // ChangeDetectionStrategy to OnPush it will be checked anyways
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();

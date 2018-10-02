@@ -7,11 +7,15 @@
  */
 import { AriaDescriber } from '@angular/cdk/a11y';
 import { ElementRef, NgZone, OnDestroy, Renderer2 } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
+import { ThemePalette, CanDisableCtor, CanDisable } from '@angular/material/core';
+/** @docs-private */
+export declare class MatBadgeBase {
+}
+export declare const _MatBadgeMixinBase: CanDisableCtor & typeof MatBadgeBase;
 export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after';
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
 /** Directive to display a text badge. */
-export declare class MatBadge implements OnDestroy {
+export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, CanDisable {
     private _document;
     private _ngZone;
     private _elementRef;

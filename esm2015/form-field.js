@@ -592,7 +592,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
-        if (!document.documentElement.contains(this._elementRef.nativeElement)) {
+        if (!/** @type {?} */ ((document.documentElement)).contains(this._elementRef.nativeElement)) {
             this._outlineGapCalculationNeeded = true;
             return;
         }

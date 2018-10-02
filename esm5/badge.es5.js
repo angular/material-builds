@@ -5,11 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { __extends } from 'tslib';
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
+import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
@@ -18,34 +19,50 @@ import { MatCommonModule } from '@angular/material/core';
 /** @type {?} */
 var nextId = 0;
 /**
+ * \@docs-private
+ */
+var  /**
+ * \@docs-private
+ */
+MatBadgeBase = /** @class */ (function () {
+    function MatBadgeBase() {
+    }
+    return MatBadgeBase;
+}());
+/** @type {?} */
+var _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
+/**
  * Directive to display a text badge.
  */
-var MatBadge = /** @class */ (function () {
+var MatBadge = /** @class */ (function (_super) {
+    __extends(MatBadge, _super);
     function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
-        this._document = _document;
-        this._ngZone = _ngZone;
-        this._elementRef = _elementRef;
-        this._ariaDescriber = _ariaDescriber;
-        this._renderer = _renderer;
+        var _this = _super.call(this) || this;
+        _this._document = _document;
+        _this._ngZone = _ngZone;
+        _this._elementRef = _elementRef;
+        _this._ariaDescriber = _ariaDescriber;
+        _this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
-        this._hasContent = false;
-        this._color = 'primary';
-        this._overlap = true;
+        _this._hasContent = false;
+        _this._color = 'primary';
+        _this._overlap = true;
         /**
          * Position the badge should reside.
          * Accepts any combination of 'above'|'below' and 'before'|'after'
          */
-        this.position = 'above after';
+        _this.position = 'above after';
         /**
          * Size of the badge. Can be 'small', 'medium', or 'large'.
          */
-        this.size = 'medium';
+        _this.size = 'medium';
         /**
          * Unique id for the badge
          */
-        this._id = nextId++;
+        _this._id = nextId++;
+        return _this;
     }
     Object.defineProperty(MatBadge.prototype, "color", {
         /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
@@ -270,6 +287,7 @@ var MatBadge = /** @class */ (function () {
     MatBadge.decorators = [
         { type: Directive, args: [{
                     selector: '[matBadge]',
+                    inputs: ['disabled: matBadgeDisabled'],
                     host: {
                         'class': 'mat-badge',
                         '[class.mat-badge-overlap]': 'overlap',
@@ -281,6 +299,7 @@ var MatBadge = /** @class */ (function () {
                         '[class.mat-badge-medium]': 'size === "medium"',
                         '[class.mat-badge-large]': 'size === "large"',
                         '[class.mat-badge-hidden]': 'hidden || !_hasContent',
+                        '[class.mat-badge-disabled]': 'disabled',
                     },
                 },] },
     ];
@@ -302,7 +321,7 @@ var MatBadge = /** @class */ (function () {
         hidden: [{ type: Input, args: ['matBadgeHidden',] }]
     };
     return MatBadge;
-}());
+}(_MatBadgeMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -334,5 +353,5 @@ var MatBadgeModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatBadgeModule, MatBadge };
+export { MatBadgeModule, MatBadgeBase, _MatBadgeMixinBase, MatBadge };
 //# sourceMappingURL=badge.es5.js.map

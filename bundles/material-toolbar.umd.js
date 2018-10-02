@@ -76,7 +76,6 @@ var MatToolbar = /** @class */ (function (_super) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         // TODO: make the document a required param when doing breaking changes.
-        // TODO: make the document a required param when doing breaking changes.
         _this._document = document;
         return _this;
     }
