@@ -9687,6 +9687,7 @@ var MatChipInput = /** @class */ (function () {
                         '[id]': 'id',
                         '[attr.disabled]': 'disabled || null',
                         '[attr.placeholder]': 'placeholder || null',
+                        '[attr.aria-invalid]': '_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null',
                     }
                 },] },
     ];
@@ -34203,7 +34204,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.2-119fafd');
+var VERSION = new core.Version('7.0.0-beta.2-311d786');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34457,12 +34458,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa9 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb9 = MatMenuItemBase;
-exports.ɵc9 = _MatMenuItemMixinBase;
-exports.ɵf9 = MAT_MENU_PANEL;
-exports.ɵd9 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe9 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

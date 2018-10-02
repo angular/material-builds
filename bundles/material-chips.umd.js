@@ -1940,6 +1940,7 @@ var MatChipInput = /** @class */ (function () {
                         '[id]': 'id',
                         '[attr.disabled]': 'disabled || null',
                         '[attr.placeholder]': 'placeholder || null',
+                        '[attr.aria-invalid]': '_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null',
                     }
                 },] },
     ];
