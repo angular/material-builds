@@ -1171,7 +1171,9 @@ class MatMenuTrigger {
      */
     _handleMousedown(event) {
         if (!isFakeMousedownFromScreenReader(event)) {
-            this._openedByMouse = true;
+            // Since right or middle button clicks won't trigger the `click` event,
+            // we shouldn't consider the menu as opened by mouse in those cases.
+            this._openedByMouse = event.button === 0;
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
             // highlight from lingering on the menu item.
