@@ -382,6 +382,7 @@ MatSlideToggle.decorators = [
                 host: {
                     'class': 'mat-slide-toggle',
                     '[id]': 'id',
+                    '[attr.tabindex]': 'null',
                     '[class.mat-checked]': 'checked',
                     '[class.mat-disabled]': 'disabled',
                     '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
