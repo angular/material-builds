@@ -630,7 +630,7 @@ var MatSelectionList = /** @class */ (function (_super) {
             this._tempValues = null;
         }
         // Sync external changes to the model back to the options.
-        this._modelChanges = /** @type {?} */ ((this.selectedOptions.onChange)).subscribe(function (event) {
+        this._modelChanges = this.selectedOptions.onChange.subscribe(function (event) {
             if (event.added) {
                 for (var _i = 0, _a = event.added; _i < _a.length; _i++) {
                     var item = _a[_i];

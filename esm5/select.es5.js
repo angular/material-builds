@@ -574,8 +574,8 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._initKeyManager(); /** @type {?} */
-        ((this._selectionModel.onChange)).pipe(takeUntil(this._destroy)).subscribe(function (event) {
+        this._initKeyManager();
+        this._selectionModel.onChange.pipe(takeUntil(this._destroy)).subscribe(function (event) {
             event.added.forEach(function (option) { return option.select(); });
             event.removed.forEach(function (option) { return option.deselect(); });
         });

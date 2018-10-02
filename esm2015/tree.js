@@ -450,7 +450,7 @@ class MatTreeFlatDataSource extends DataSource {
         /** @type {?} */
         const changes = [
             collectionViewer.viewChange,
-            /** @type {?} */ ((this.treeControl.expansionModel.onChange)),
+            this.treeControl.expansionModel.onChange,
             this._flattenedData
         ];
         return merge(...changes).pipe(map(() => {
