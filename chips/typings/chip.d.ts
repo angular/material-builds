@@ -135,6 +135,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     /** Handle custom key presses. */
     _handleKeydown(event: KeyboardEvent): void;
     _blur(): void;
+    private _dispatchSelectionChange;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon

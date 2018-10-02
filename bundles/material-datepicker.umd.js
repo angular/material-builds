@@ -2544,7 +2544,7 @@ var MatDatepicker = /** @class */ (function () {
             .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
-            .withPush(false)
+            .withLockedPosition()
             .withPositions([
             {
                 originX: 'start',

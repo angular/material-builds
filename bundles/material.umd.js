@@ -7956,12 +7956,12 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._selected = coercion.coerceBooleanProperty(value);
-            this.selectionChange.emit({
-                source: this,
-                isUserInput: false,
-                selected: value
-            });
+            /** @type {?} */
+            var coercedValue = coercion.coerceBooleanProperty(value);
+            if (coercedValue !== this._selected) {
+                this._selected = coercedValue;
+                this._dispatchSelectionChange();
+            }
         },
         enumerable: true,
         configurable: true
@@ -8079,12 +8079,10 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._selected = true;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: false,
-            selected: true
-        });
+        if (!this._selected) {
+            this._selected = true;
+            this._dispatchSelectionChange();
+        }
     };
     /** Deselects the chip. */
     /**
@@ -8096,12 +8094,10 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._selected = false;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: false,
-            selected: false
-        });
+        if (this._selected) {
+            this._selected = false;
+            this._dispatchSelectionChange();
+        }
     };
     /** Select this chip and emit selected event */
     /**
@@ -8113,13 +8109,10 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._selected = true;
-        // Emit select event when selected changes.
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: true,
-            selected: true
-        });
+        if (!this._selected) {
+            this._selected = true;
+            this._dispatchSelectionChange(true);
+        }
     };
     /** Toggles the current selected state of this chip. */
     /**
@@ -8135,11 +8128,7 @@ var MatChip = /** @class */ (function (_super) {
     function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this._selected = !this.selected;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: isUserInput,
-            selected: this._selected
-        });
+        this._dispatchSelectionChange(isUserInput);
         return this.selected;
     };
     /** Allows for programmatic focusing of the chip. */
@@ -8255,6 +8244,22 @@ var MatChip = /** @class */ (function (_super) {
                 _this._hasFocus = false;
                 _this._onBlur.next({ chip: _this });
             });
+        });
+    };
+    /**
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    MatChip.prototype._dispatchSelectionChange = /**
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    function (isUserInput) {
+        if (isUserInput === void 0) { isUserInput = false; }
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: isUserInput,
+            selected: this._selected
         });
     };
     MatChip.decorators = [
@@ -14232,7 +14237,7 @@ var MatDatepicker = /** @class */ (function () {
             .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
-            .withPush(false)
+            .withLockedPosition()
             .withPositions([
             {
                 originX: 'start',
@@ -34208,10 +34213,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.0-63f2ef4');
+var VERSION = new core.Version('7.0.0-rc.0-f44d6db');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34420,7 +34425,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa9 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

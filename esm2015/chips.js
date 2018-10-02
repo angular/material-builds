@@ -160,12 +160,12 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     set selected(value) {
-        this._selected = coerceBooleanProperty(value);
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: false,
-            selected: value
-        });
+        /** @type {?} */
+        const coercedValue = coerceBooleanProperty(value);
+        if (coercedValue !== this._selected) {
+            this._selected = coercedValue;
+            this._dispatchSelectionChange();
+        }
     }
     /**
      * The value of the chip. Defaults to the content inside `<mat-chip>` tags.
@@ -241,37 +241,30 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     select() {
-        this._selected = true;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: false,
-            selected: true
-        });
+        if (!this._selected) {
+            this._selected = true;
+            this._dispatchSelectionChange();
+        }
     }
     /**
      * Deselects the chip.
      * @return {?}
      */
     deselect() {
-        this._selected = false;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: false,
-            selected: false
-        });
+        if (this._selected) {
+            this._selected = false;
+            this._dispatchSelectionChange();
+        }
     }
     /**
      * Select this chip and emit selected event
      * @return {?}
      */
     selectViaInteraction() {
-        this._selected = true;
-        // Emit select event when selected changes.
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: true,
-            selected: true
-        });
+        if (!this._selected) {
+            this._selected = true;
+            this._dispatchSelectionChange(true);
+        }
     }
     /**
      * Toggles the current selected state of this chip.
@@ -280,11 +273,7 @@ class MatChip extends _MatChipMixinBase {
      */
     toggleSelected(isUserInput = false) {
         this._selected = !this.selected;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput,
-            selected: this._selected
-        });
+        this._dispatchSelectionChange(isUserInput);
         return this.selected;
     }
     /**
@@ -366,6 +355,17 @@ class MatChip extends _MatChipMixinBase {
                 this._hasFocus = false;
                 this._onBlur.next({ chip: this });
             });
+        });
+    }
+    /**
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    _dispatchSelectionChange(isUserInput = false) {
+        this.selectionChange.emit({
+            source: this,
+            isUserInput,
+            selected: this._selected
         });
     }
 }

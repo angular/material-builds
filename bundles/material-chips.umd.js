@@ -195,12 +195,12 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._selected = coercion.coerceBooleanProperty(value);
-            this.selectionChange.emit({
-                source: this,
-                isUserInput: false,
-                selected: value
-            });
+            /** @type {?} */
+            var coercedValue = coercion.coerceBooleanProperty(value);
+            if (coercedValue !== this._selected) {
+                this._selected = coercedValue;
+                this._dispatchSelectionChange();
+            }
         },
         enumerable: true,
         configurable: true
@@ -318,12 +318,10 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._selected = true;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: false,
-            selected: true
-        });
+        if (!this._selected) {
+            this._selected = true;
+            this._dispatchSelectionChange();
+        }
     };
     /** Deselects the chip. */
     /**
@@ -335,12 +333,10 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._selected = false;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: false,
-            selected: false
-        });
+        if (this._selected) {
+            this._selected = false;
+            this._dispatchSelectionChange();
+        }
     };
     /** Select this chip and emit selected event */
     /**
@@ -352,13 +348,10 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._selected = true;
-        // Emit select event when selected changes.
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: true,
-            selected: true
-        });
+        if (!this._selected) {
+            this._selected = true;
+            this._dispatchSelectionChange(true);
+        }
     };
     /** Toggles the current selected state of this chip. */
     /**
@@ -374,11 +367,7 @@ var MatChip = /** @class */ (function (_super) {
     function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this._selected = !this.selected;
-        this.selectionChange.emit({
-            source: this,
-            isUserInput: isUserInput,
-            selected: this._selected
-        });
+        this._dispatchSelectionChange(isUserInput);
         return this.selected;
     };
     /** Allows for programmatic focusing of the chip. */
@@ -494,6 +483,22 @@ var MatChip = /** @class */ (function (_super) {
                 _this._hasFocus = false;
                 _this._onBlur.next({ chip: _this });
             });
+        });
+    };
+    /**
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    MatChip.prototype._dispatchSelectionChange = /**
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    function (isUserInput) {
+        if (isUserInput === void 0) { isUserInput = false; }
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: isUserInput,
+            selected: this._selected
         });
     };
     MatChip.decorators = [
