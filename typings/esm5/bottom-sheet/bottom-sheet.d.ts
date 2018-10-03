@@ -7,7 +7,7 @@
  */
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { Injector, TemplateRef, InjectionToken } from '@angular/core';
+import { Injector, TemplateRef, InjectionToken, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatBottomSheetConfig } from './bottom-sheet-config';
 import { MatBottomSheetRef } from './bottom-sheet-ref';
@@ -16,7 +16,7 @@ export declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomS
 /**
  * Service to trigger Material Design bottom sheets.
  */
-export declare class MatBottomSheet {
+export declare class MatBottomSheet implements OnDestroy {
     private _overlay;
     private _injector;
     private _parentBottomSheet;
@@ -32,6 +32,7 @@ export declare class MatBottomSheet {
      * Dismisses the currently-visible bottom sheet.
      */
     dismiss(): void;
+    ngOnDestroy(): void;
     /**
      * Attaches the bottom sheet container component to the overlay.
      */

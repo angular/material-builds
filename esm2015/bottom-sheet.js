@@ -509,6 +509,14 @@ class MatBottomSheet {
         }
     }
     /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this._bottomSheetRefAtThisLevel) {
+            this._bottomSheetRefAtThisLevel.dismiss();
+        }
+    }
+    /**
      * Attaches the bottom sheet container component to the overlay.
      * @param {?} overlayRef
      * @param {?} config
