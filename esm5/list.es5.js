@@ -874,14 +874,20 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (values) {
         var _this = this;
         this.options.forEach(function (option) { return option._setSelected(false); });
-        values
-            .map(function (value) {
-            return _this.options.find(function (option) {
+        values.forEach(function (value) {
+            /** @type {?} */
+            var correspondingOption = _this.options.find(function (option) {
+                // Skip options that are already in the model. This allows us to handle cases
+                // where the same primitive value is selected multiple times.
+                if (option.selected) {
+                    return false;
+                }
                 return _this.compareWith ? _this.compareWith(option.value, value) : option.value === value;
             });
-        })
-            .filter(Boolean)
-            .forEach(function (option) { return ((option))._setSelected(true); });
+            if (correspondingOption) {
+                correspondingOption._setSelected(true);
+            }
+        });
     };
     /**
      * Returns the values of the selected options.
