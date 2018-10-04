@@ -62,7 +62,6 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     id: string;
     /** Whether the label should appear after or before the slide-toggle. Defaults to 'after' */
     labelPosition: 'before' | 'after';
-    /** Whether the slide-toggle element is checked or not */
     /** Used to set the aria-label attribute on the underlying input element. */
     ariaLabel: string | null;
     /** Used to set the aria-labelledby attribute on the underlying input element. */
