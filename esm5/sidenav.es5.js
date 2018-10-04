@@ -26,6 +26,7 @@ import { MatCommonModule } from '@angular/material/core';
  */
 /** *
  * Animations used by the Material drawers.
+ * \@docs-private
   @type {?} */
 var matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */

@@ -28,6 +28,7 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
  */
 /** *
  * Animations used by MatTooltip.
+ * \@docs-private
   @type {?} */
 const matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */

@@ -11,6 +11,7 @@ import { AnimationTriggerMetadata } from '@angular/animations';
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
+ * @docs-private
  */
 export declare const matSelectAnimations: {
     readonly transformPanel: AnimationTriggerMetadata;
@@ -19,10 +20,12 @@ export declare const matSelectAnimations: {
 /**
  * @deprecated
  * @breaking-change 7.0.0
+ * @docs-private
  */
 export declare const transformPanel: AnimationTriggerMetadata;
 /**
  * @deprecated
  * @breaking-change 7.0.0
+ * @docs-private
  */
 export declare const fadeInContent: AnimationTriggerMetadata;

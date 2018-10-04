@@ -111,6 +111,7 @@ var animationBody = [
 ];
 /** *
  * Animations used by MatDialog.
+ * \@docs-private
   @type {?} */
 var matDialogAnimations = {
     /** Animation that is applied on the dialog container by defalt. */

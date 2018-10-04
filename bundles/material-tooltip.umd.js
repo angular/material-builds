@@ -43,6 +43,7 @@ var __assign = function() {
  */
 /** *
  * Animations used by MatTooltip.
+ * \@docs-private
   @type {?} */
 var matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */

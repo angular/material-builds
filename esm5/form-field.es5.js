@@ -53,6 +53,7 @@ var MatError = /** @class */ (function () {
  */
 /** *
  * Animations used by the MatFormField.
+ * \@docs-private
   @type {?} */
 var matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */

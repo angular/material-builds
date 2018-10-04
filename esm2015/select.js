@@ -30,6 +30,7 @@ import { CommonModule } from '@angular/common';
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
+ * \@docs-private
   @type {?} */
 const matSelectAnimations = {
     /**
@@ -80,11 +81,13 @@ const matSelectAnimations = {
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 const transformPanel = matSelectAnimations.transformPanel;
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 const fadeInContent = matSelectAnimations.fadeInContent;
 

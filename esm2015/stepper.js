@@ -157,6 +157,7 @@ MatStepHeader.propDecorators = {
  */
 /** *
  * Animations used by the Material steppers.
+ * \@docs-private
   @type {?} */
 const matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */

@@ -6,7 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationTriggerMetadata } from '@angular/animations';
-/** Animations used by the MatFormField. */
+/**
+ * Animations used by the MatFormField.
+ * @docs-private
+ */
 export declare const matFormFieldAnimations: {
     readonly transitionMessages: AnimationTriggerMetadata;
 };

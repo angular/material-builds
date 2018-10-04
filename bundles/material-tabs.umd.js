@@ -328,6 +328,7 @@ var MatTab = /** @class */ (function (_super) {
  */
 /** *
  * Animations used by the Material tabs.
+ * \@docs-private
   @type {?} */
 var matTabsAnimations = {
     /** Animation translates a tab along the X axis. */

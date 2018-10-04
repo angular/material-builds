@@ -129,6 +129,7 @@ var MatMenuContent = /** @class */ (function () {
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
+ * \@docs-private
   @type {?} */
 var matMenuAnimations = {
     /**
@@ -167,11 +168,13 @@ var matMenuAnimations = {
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 var fadeInItems = matMenuAnimations.fadeInItems;
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 var transformMenu = matMenuAnimations.transformMenu;
 
@@ -1635,5 +1638,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa20, MatMenuItemBase as ɵb20, _MatMenuItemMixinBase as ɵc20, MAT_MENU_PANEL as ɵf20, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd20, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe20 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.es5.js.map

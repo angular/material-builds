@@ -2931,6 +2931,7 @@ var MatError = /** @class */ (function () {
  */
 /** *
  * Animations used by the MatFormField.
+ * \@docs-private
   @type {?} */
 var matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */
@@ -9865,6 +9866,7 @@ var animationBody = [
 ];
 /** *
  * Animations used by MatDialog.
+ * \@docs-private
   @type {?} */
 var matDialogAnimations = {
     /** Animation that is applied on the dialog container by defalt. */
@@ -13672,6 +13674,7 @@ var MatCalendar = /** @class */ (function () {
  */
 /** *
  * Animations used by the Material datepicker.
+ * \@docs-private
   @type {?} */
 var matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */
@@ -15172,11 +15175,13 @@ var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
  * `collapsed` this acts a noop since no style values change.
  *
  * In the case where angular's animation state is out of sync with the expansion panel's state, the
- * expansion panel being `expanded` and angular animations being`void`, the animation from the
+ * expansion panel being `expanded` and angular animations being `void`, the animation from the
  * `expanded`'s effective styles (though in a `void` animation state) to the collapsed state will
  * occur as expected.
  *
  * Angular Bug: https://github.com/angular/angular/issues/18847
+ *
+ * \@docs-private
   @type {?} */
 var matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
@@ -19327,6 +19332,7 @@ var MatMenuContent = /** @class */ (function () {
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
+ * \@docs-private
   @type {?} */
 var matMenuAnimations = {
     /**
@@ -19365,11 +19371,13 @@ var matMenuAnimations = {
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 var fadeInItems = matMenuAnimations.fadeInItems;
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 var transformMenu = matMenuAnimations.transformMenu;
 
@@ -20827,6 +20835,7 @@ var MatMenuModule = /** @class */ (function () {
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
+ * \@docs-private
   @type {?} */
 var matSelectAnimations = {
     /**
@@ -20877,11 +20886,13 @@ var matSelectAnimations = {
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 var transformPanel = matSelectAnimations.transformPanel;
 /** *
  * @deprecated
  * \@breaking-change 7.0.0
+ * \@docs-private
   @type {?} */
 var fadeInContent = matSelectAnimations.fadeInContent;
 
@@ -22670,6 +22681,7 @@ var MatSelectModule = /** @class */ (function () {
  */
 /** *
  * Animations used by MatTooltip.
+ * \@docs-private
   @type {?} */
 var matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
@@ -25511,6 +25523,7 @@ var MatRadioModule = /** @class */ (function () {
  */
 /** *
  * Animations used by the Material drawers.
+ * \@docs-private
   @type {?} */
 var matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
@@ -28665,6 +28678,7 @@ var SimpleSnackBar = /** @class */ (function () {
  */
 /** *
  * Animations used by the Material snack bar.
+ * \@docs-private
   @type {?} */
 var matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */
@@ -29594,6 +29608,7 @@ var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
 /** *
  * Animations used by MatSort.
+ * \@docs-private
   @type {?} */
 var matSortAnimations = {
     /** Animation that moves the sort indicator. */
@@ -30238,6 +30253,7 @@ var MatStepHeader = /** @class */ (function () {
  */
 /** *
  * Animations used by the Material steppers.
+ * \@docs-private
   @type {?} */
 var matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */
@@ -31636,6 +31652,7 @@ var MatTab = /** @class */ (function (_super) {
  */
 /** *
  * Animations used by the Material tabs.
+ * \@docs-private
   @type {?} */
 var matTabsAnimations = {
     /** Animation translates a tab along the X axis. */
@@ -34233,7 +34250,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.0-afb0352');
+var VERSION = new core.Version('7.0.0-rc.0-6a73273');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34445,7 +34462,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa10 = MAT_GRID_LIST;
+exports.ɵa9 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34491,12 +34508,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa20 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb20 = MatMenuItemBase;
-exports.ɵc20 = _MatMenuItemMixinBase;
-exports.ɵf20 = MAT_MENU_PANEL;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe20 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

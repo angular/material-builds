@@ -6,7 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationTriggerMetadata } from '@angular/animations';
-/** Animations used by the Material snack bar. */
+/**
+ * Animations used by the Material snack bar.
+ * @docs-private
+ */
 export declare const matSnackBarAnimations: {
     readonly snackBarState: AnimationTriggerMetadata;
 };

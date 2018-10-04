@@ -261,6 +261,7 @@ MatTab.propDecorators = {
  */
 /** *
  * Animations used by the Material tabs.
+ * \@docs-private
   @type {?} */
 const matTabsAnimations = {
     /** Animation translates a tab along the X axis. */

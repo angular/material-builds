@@ -6,7 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationTriggerMetadata } from '@angular/animations';
-/** Animations used by MatSort. */
+/**
+ * Animations used by MatSort.
+ * @docs-private
+ */
 export declare const matSortAnimations: {
     readonly indicator: AnimationTriggerMetadata;
     readonly leftPointer: AnimationTriggerMetadata;

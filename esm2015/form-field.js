@@ -51,6 +51,7 @@ MatError.propDecorators = {
  */
 /** *
  * Animations used by the MatFormField.
+ * \@docs-private
   @type {?} */
 const matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */

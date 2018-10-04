@@ -334,6 +334,7 @@ var SimpleSnackBar = /** @class */ (function () {
  */
 /** *
  * Animations used by the Material snack bar.
+ * \@docs-private
   @type {?} */
 var matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */

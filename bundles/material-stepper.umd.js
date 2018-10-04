@@ -206,6 +206,7 @@ var MatStepHeader = /** @class */ (function () {
  */
 /** *
  * Animations used by the Material steppers.
+ * \@docs-private
   @type {?} */
 var matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */

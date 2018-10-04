@@ -22,11 +22,13 @@ export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,
  * `collapsed` this acts a noop since no style values change.
  *
  * In the case where angular's animation state is out of sync with the expansion panel's state, the
- * expansion panel being `expanded` and angular animations being`void`, the animation from the
+ * expansion panel being `expanded` and angular animations being `void`, the animation from the
  * `expanded`'s effective styles (though in a `void` animation state) to the collapsed state will
  * occur as expected.
  *
  * Angular Bug: https://github.com/angular/angular/issues/18847
+ *
+ * @docs-private
  */
 export declare const matExpansionAnimations: {
     readonly indicatorRotate: AnimationTriggerMetadata;

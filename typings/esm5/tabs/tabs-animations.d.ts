@@ -6,7 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationTriggerMetadata } from '@angular/animations';
-/** Animations used by the Material tabs. */
+/**
+ * Animations used by the Material tabs.
+ * @docs-private
+ */
 export declare const matTabsAnimations: {
     readonly translateTab: AnimationTriggerMetadata;
 };

@@ -105,6 +105,7 @@ const animationBody = [
 ];
 /** *
  * Animations used by MatDialog.
+ * \@docs-private
   @type {?} */
 const matDialogAnimations = {
     /** Animation that is applied on the dialog container by defalt. */

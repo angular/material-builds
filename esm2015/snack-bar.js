@@ -234,6 +234,7 @@ SimpleSnackBar.ctorParameters = () => [
  */
 /** *
  * Animations used by the Material snack bar.
+ * \@docs-private
   @type {?} */
 const matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */

@@ -1587,6 +1587,7 @@ MatCalendar.propDecorators = {
  */
 /** *
  * Animations used by the Material datepicker.
+ * \@docs-private
   @type {?} */
 const matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */

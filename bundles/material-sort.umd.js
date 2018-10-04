@@ -320,6 +320,7 @@ var SORT_ANIMATION_TRANSITION = core$1.AnimationDurations.ENTERING + ' ' +
     core$1.AnimationCurves.STANDARD_CURVE;
 /** *
  * Animations used by MatSort.
+ * \@docs-private
   @type {?} */
 var matSortAnimations = {
     /** Animation that moves the sort indicator. */

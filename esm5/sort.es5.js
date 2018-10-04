@@ -294,6 +294,7 @@ var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
 /** *
  * Animations used by MatSort.
+ * \@docs-private
   @type {?} */
 var matSortAnimations = {
     /** Animation that moves the sort indicator. */

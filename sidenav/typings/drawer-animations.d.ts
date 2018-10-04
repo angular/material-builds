@@ -6,7 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationTriggerMetadata } from '@angular/animations';
-/** Animations used by the Material drawers. */
+/**
+ * Animations used by the Material drawers.
+ * @docs-private
+ */
 export declare const matDrawerAnimations: {
     readonly transformDrawer: AnimationTriggerMetadata;
 };

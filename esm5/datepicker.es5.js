@@ -1949,6 +1949,7 @@ var MatCalendar = /** @class */ (function () {
  */
 /** *
  * Animations used by the Material datepicker.
+ * \@docs-private
   @type {?} */
 var matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */
