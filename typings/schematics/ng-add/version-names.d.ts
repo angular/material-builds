@@ -11,6 +11,6 @@ export declare const materialVersion: string | null;
  * Range of Angular versions that can be used together with the Angular Material version
  * that provides these schematics.
  */
-export declare const requiredAngularVersionRange = ">=7.0.0-rc.0-d58db5d";
+export declare const requiredAngularVersionRange = ">=7.0.0-rc.0-cb5b15e";
 /** HammerJS version that should be installed if gestures will be set up. */
 export declare const hammerjsVersion = "^2.0.8";
