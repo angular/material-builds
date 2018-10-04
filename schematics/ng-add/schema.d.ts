@@ -10,6 +10,8 @@ export interface Schema {
     project: string;
     /** Whether gesture support should be set up or not. */
     gestures: boolean;
+    /** Whether Angular browser animations should be set up or not. */
+    animations: boolean;
     /** Name of pre-built theme to install. */
     theme: 'indigo-pink' | 'deeppurple-amber' | 'pink-bluegrey' | 'purple-green' | 'custom';
 }
