@@ -89,8 +89,4 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
      */
     _focusMonitor?: FocusMonitor | undefined);
     ngOnDestroy(): void;
-    /**
-     * Handles the click event, preventing default navigation if the tab link is disabled.
-     */
-    _handleClick(event: MouseEvent): void;
 }
