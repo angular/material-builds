@@ -4406,14 +4406,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (keyCode === keycodes.ESCAPE) {
             event.preventDefault();
         }
-        // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
-        // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-        if (this.panelOpen && (keyCode === keycodes.ESCAPE || (keyCode === keycodes.UP_ARROW && event.altKey))) {
-            this._resetActiveItem();
-            this._closeKeyEventStream.next();
-            event.stopPropagation();
-        }
-        else if (this.activeOption && keyCode === keycodes.ENTER && this.panelOpen) {
+        if (this.activeOption && keyCode === keycodes.ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
@@ -4680,6 +4673,16 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (!this._overlayRef) {
             this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef);
             this._overlayRef = this._overlay.create(this._getOverlayConfig());
+            // Use the `keydownEvents` in order to take advantage of
+            // the overlay event targeting provided by the CDK overlay.
+            this._overlayRef.keydownEvents().subscribe(function (event) {
+                // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+                // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+                if (event.keyCode === keycodes.ESCAPE || (event.keyCode === keycodes.UP_ARROW && event.altKey)) {
+                    _this._resetActiveItem();
+                    _this._closeKeyEventStream.next();
+                }
+            });
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
                     if (_this.panelOpen && _this._overlayRef) {
@@ -34230,10 +34233,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.0-a620fca');
+var VERSION = new core.Version('7.0.0-rc.0-8dfd2ee');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34314,7 +34317,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
-exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -34442,7 +34445,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa12 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34488,12 +34491,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34635,17 +34638,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

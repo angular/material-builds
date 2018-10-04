@@ -543,14 +543,7 @@ class MatAutocompleteTrigger {
         if (keyCode === ESCAPE) {
             event.preventDefault();
         }
-        // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
-        // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-        if (this.panelOpen && (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey))) {
-            this._resetActiveItem();
-            this._closeKeyEventStream.next();
-            event.stopPropagation();
-        }
-        else if (this.activeOption && keyCode === ENTER && this.panelOpen) {
+        if (this.activeOption && keyCode === ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
@@ -758,6 +751,16 @@ class MatAutocompleteTrigger {
         if (!this._overlayRef) {
             this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
             this._overlayRef = this._overlay.create(this._getOverlayConfig());
+            // Use the `keydownEvents` in order to take advantage of
+            // the overlay event targeting provided by the CDK overlay.
+            this._overlayRef.keydownEvents().subscribe(event => {
+                // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+                // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+                if (event.keyCode === ESCAPE || (event.keyCode === UP_ARROW && event.altKey)) {
+                    this._resetActiveItem();
+                    this._closeKeyEventStream.next();
+                }
+            });
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
                     if (this.panelOpen && this._overlayRef) {
@@ -935,5 +938,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa26 };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa27 };
 //# sourceMappingURL=autocomplete.js.map

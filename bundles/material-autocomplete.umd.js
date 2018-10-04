@@ -684,14 +684,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (keyCode === keycodes.ESCAPE) {
             event.preventDefault();
         }
-        // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
-        // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-        if (this.panelOpen && (keyCode === keycodes.ESCAPE || (keyCode === keycodes.UP_ARROW && event.altKey))) {
-            this._resetActiveItem();
-            this._closeKeyEventStream.next();
-            event.stopPropagation();
-        }
-        else if (this.activeOption && keyCode === keycodes.ENTER && this.panelOpen) {
+        if (this.activeOption && keyCode === keycodes.ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
@@ -958,6 +951,16 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (!this._overlayRef) {
             this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef);
             this._overlayRef = this._overlay.create(this._getOverlayConfig());
+            // Use the `keydownEvents` in order to take advantage of
+            // the overlay event targeting provided by the CDK overlay.
+            this._overlayRef.keydownEvents().subscribe(function (event) {
+                // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+                // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+                if (event.keyCode === keycodes.ESCAPE || (event.keyCode === keycodes.UP_ARROW && event.altKey)) {
+                    _this._resetActiveItem();
+                    _this._closeKeyEventStream.next();
+                }
+            });
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
                     if (_this.panelOpen && _this._overlayRef) {
@@ -1169,7 +1172,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
