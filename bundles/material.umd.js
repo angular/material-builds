@@ -13279,7 +13279,7 @@ var MatCalendarHeader = /** @class */ (function () {
     };
     MatCalendarHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-calendar-header',
-                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\" cdkAriaLive=\"polite\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
+                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\" cdkAriaLive=\"polite\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><ng-content></ng-content><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
                     exportAs: 'matCalendarHeader',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -17868,6 +17868,52 @@ MatIconBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatIconMixinBase = mixinColor(MatIconBase);
+/** *
+ * Injection token used to provide the current location to `MatIcon`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * \@docs-private
+  @type {?} */
+var MAT_ICON_LOCATION = new core.InjectionToken('mat-icon-location', {
+    providedIn: 'root',
+    factory: MAT_ICON_LOCATION_FACTORY
+});
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_ICON_LOCATION_FACTORY() {
+    /** @type {?} */
+    var _document = core.inject(common.DOCUMENT);
+    /** @type {?} */
+    var pathname = (_document && _document.location && _document.location.pathname) || '';
+    return { pathname: pathname };
+}
+/** *
+ * SVG attributes that accept a FuncIRI (e.g. `url(<something>)`).
+  @type {?} */
+var funcIriAttributes = [
+    'clip-path',
+    'color-profile',
+    'src',
+    'cursor',
+    'fill',
+    'filter',
+    'marker',
+    'marker-start',
+    'marker-mid',
+    'marker-end',
+    'mask',
+    'stroke'
+];
+var ɵ0$5 = function (attr) { return "[" + attr + "]"; };
+/** *
+ * Selector that can be used to find all elements that are using a `FuncIRI`.
+  @type {?} */
+var funcIriAttributeSelector = funcIriAttributes.map(ɵ0$5).join(', ');
+/** *
+ * Regex that can be used to extract the id out of a FuncIRI.
+  @type {?} */
+var funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -17897,9 +17943,14 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  */
 var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
-    function MatIcon(elementRef, _iconRegistry, ariaHidden) {
+    function MatIcon(elementRef, _iconRegistry, ariaHidden, /**
+           * @deprecated `location` parameter to be made required.
+           * @breaking-change 8.0.0
+           */
+    _location) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
+        _this._location = _location;
         _this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
@@ -18068,6 +18119,9 @@ var MatIcon = /** @class */ (function (_super) {
         for (var i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }
+        // Note: we do this fix here, rather than the icon registry, because the
+        // references have to point to the URL at the time that the icon was created.
+        this._prependCurrentPathToReferences(svg);
         this._elementRef.nativeElement.appendChild(svg);
     };
     /**
@@ -18145,6 +18199,46 @@ var MatIcon = /** @class */ (function (_super) {
     function (value) {
         return typeof value === 'string' ? value.trim().split(' ')[0] : value;
     };
+    /**
+     * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
+     * reference. This is required because WebKit browsers require references to be prefixed with
+     * the current path, if the page has a `base` tag.
+     * @param {?} element
+     * @return {?}
+     */
+    MatIcon.prototype._prependCurrentPathToReferences = /**
+     * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
+     * reference. This is required because WebKit browsers require references to be prefixed with
+     * the current path, if the page has a `base` tag.
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) {
+        // @breaking-change 8.0.0 Remove this null check once `_location` parameter is required.
+        if (!this._location) {
+            return;
+        }
+        /** @type {?} */
+        var elementsWithFuncIri = element.querySelectorAll(funcIriAttributeSelector);
+        /** @type {?} */
+        var path = this._location.pathname ? this._location.pathname.split('#')[0] : '';
+        var _loop_1 = function (i) {
+            funcIriAttributes.forEach(function (attr) {
+                /** @type {?} */
+                var value = elementsWithFuncIri[i].getAttribute(attr);
+                /** @type {?} */
+                var match = value ? value.match(funcIriPattern) : null;
+                if (match) {
+                    // Note the quotes inside the `url()`. They're important, because URLs pointing to named
+                    // router outlets can contain parentheses which will break if they aren't quoted.
+                    elementsWithFuncIri[i].setAttribute(attr, "url('" + path + "#" + match[1] + "')");
+                }
+            });
+        };
+        for (var i = 0; i < elementsWithFuncIri.length; i++) {
+            _loop_1(i);
+        }
+    };
     MatIcon.decorators = [
         { type: core.Component, args: [{template: '<ng-content></ng-content>',
                     selector: 'mat-icon',
@@ -18164,7 +18258,8 @@ var MatIcon = /** @class */ (function (_super) {
     MatIcon.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: MatIconRegistry },
-        { type: String, decorators: [{ type: core.Attribute, args: ['aria-hidden',] }] }
+        { type: String, decorators: [{ type: core.Attribute, args: ['aria-hidden',] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_ICON_LOCATION,] }] }
     ]; };
     MatIcon.propDecorators = {
         inline: [{ type: core.Input }],
@@ -34231,7 +34326,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.0-4f43f5c');
+var VERSION = new core.Version('7.0.0-rc.0-9e5fd91');
 
 exports.VERSION = VERSION;
 exports.ɵa27 = MatAutocompleteOrigin;
@@ -34443,7 +34538,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa10 = MAT_GRID_LIST;
+exports.ɵa13 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34452,8 +34547,10 @@ exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
 exports.MatIconModule = MatIconModule;
+exports.MAT_ICON_LOCATION_FACTORY = MAT_ICON_LOCATION_FACTORY;
 exports.MatIconBase = MatIconBase;
 exports._MatIconMixinBase = _MatIconMixinBase;
+exports.MAT_ICON_LOCATION = MAT_ICON_LOCATION;
 exports.MatIcon = MatIcon;
 exports.getMatIconNameNotFoundError = getMatIconNameNotFoundError;
 exports.getMatIconNoHttpProviderError = getMatIconNoHttpProviderError;
@@ -34489,12 +34586,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34636,17 +34733,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
