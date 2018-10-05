@@ -107,10 +107,10 @@ var MatToolbar = /** @class */ (function (_super) {
             return;
         }
         /** @type {?} */
-        var isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+        var isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
             .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
-            .some(function (node) { return node.textContent.trim(); });
+            .some(function (node) { return !!(node.textContent && node.textContent.trim()); });
         if (isCombinedUsage) {
             throwToolbarMixedModesError();
         }

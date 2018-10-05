@@ -8,7 +8,7 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -46,7 +46,7 @@ export declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
 /** Injection token that determines the scroll handling while a select is open. */
 export declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
 /** @docs-private */
 export declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
@@ -125,7 +125,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Emits when the panel element is finished transforming in. */
     _panelDoneAnimatingStream: Subject<string>;
     /** Strategy that will be used to handle scrolling while the select panel is open. */
-    _scrollStrategy: any;
+    _scrollStrategy: ScrollStrategy;
     /**
      * The y-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text.
@@ -218,7 +218,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;

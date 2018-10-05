@@ -2087,12 +2087,11 @@ var MatDatepickerContent = /** @class */ (function (_super) {
  * @template D
  */
 var MatDatepicker = /** @class */ (function () {
-    function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
+    function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
         this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
-        this._scrollStrategy = _scrollStrategy;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
         this._document = _document;
@@ -2144,6 +2143,7 @@ var MatDatepicker = /** @class */ (function () {
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDatepicker.prototype, "startAt", {
         /** The date to open the calendar to initially. */

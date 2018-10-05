@@ -59,7 +59,6 @@ export declare class MatTooltip implements OnDestroy {
     private _platform;
     private _ariaDescriber;
     private _focusMonitor;
-    private _scrollStrategy;
     private _dir;
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
@@ -68,6 +67,7 @@ export declare class MatTooltip implements OnDestroy {
     private _position;
     private _disabled;
     private _tooltipClass;
+    private _scrollStrategy;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     position: TooltipPosition;
     /** Disables the display of the tooltip. */
@@ -86,7 +86,7 @@ export declare class MatTooltip implements OnDestroy {
     private _manualListeners;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
+    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
     /**
      * Dispose the tooltip when destroyed.
      */

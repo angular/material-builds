@@ -11,7 +11,7 @@ import { ErrorStateMatcher } from '../error/error-options';
 import { Constructor } from './constructor';
 /** @docs-private */
 export interface CanUpdateErrorState {
-    updateErrorState(): any;
+    updateErrorState(): void;
     readonly stateChanges: Subject<void>;
     errorState: boolean;
     errorStateMatcher: ErrorStateMatcher;

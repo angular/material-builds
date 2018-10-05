@@ -347,14 +347,13 @@ function getMatAutocompleteMissingPanelError() {
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
 var MatAutocompleteTrigger = /** @class */ (function () {
-    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document, _viewportRuler) {
+    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
         var _this = this;
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
         this._zone = _zone;
         this._changeDetectorRef = _changeDetectorRef;
-        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._formField = _formField;
         this._document = _document;
@@ -422,6 +421,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 window.addEventListener('blur', _this._windowBlurHandler);
             });
         }
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
         /**
@@ -1148,5 +1148,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa26 };
 //# sourceMappingURL=autocomplete.es5.js.map

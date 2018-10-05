@@ -375,7 +375,7 @@ class MatTableDataSource extends DataSource {
          */
         this.sortingDataAccessor = (data, sortHeaderId) => {
             /** @type {?} */
-            const value = data[sortHeaderId];
+            const value = (/** @type {?} */ (data))[sortHeaderId];
             if (_isNumberValue(value)) {
                 /** @type {?} */
                 const numberValue = Number(value);
@@ -439,7 +439,7 @@ class MatTableDataSource extends DataSource {
          */
         this.filterPredicate = (data, filter) => {
             /** @type {?} */
-            const accumulator = (currentTerm, key) => currentTerm + data[key];
+            const accumulator = (currentTerm, key) => currentTerm + (/** @type {?} */ (data))[key];
             /** @type {?} */
             const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
             /** @type {?} */

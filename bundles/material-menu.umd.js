@@ -1001,11 +1001,10 @@ var MENU_PANEL_TOP_PADDING = 8;
  * responsible for toggling the display of the provided menu instance.
  */
 var MatMenuTrigger = /** @class */ (function () {
-    function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
+    function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
-        this._scrollStrategy = _scrollStrategy;
         this._parentMenu = _parentMenu;
         this._menuItemInstance = _menuItemInstance;
         this._dir = _dir;
@@ -1038,6 +1037,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         /**
@@ -1071,7 +1071,7 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         var _this = this;
         this._checkMenu();
-        this.menu.close.subscribe(function (reason) {
+        this.menu.close.asObservable().subscribe(function (reason) {
             _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
@@ -1654,12 +1654,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa17 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb17 = MatMenuItemBase;
+exports.ɵc17 = _MatMenuItemMixinBase;
+exports.ɵf17 = MAT_MENU_PANEL;
+exports.ɵd17 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe17 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

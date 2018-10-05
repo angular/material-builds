@@ -150,7 +150,9 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._window && (this._window['__karma__'] || this._window['jasmine']);
+        /** @type {?} */
+        var window = /** @type {?} */ (this._window);
+        return window && (window.__karma__ || window.jasmine);
     };
     /**
      * @return {?}
@@ -205,7 +207,7 @@ var MatCommonModule = /** @class */ (function () {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !this._window['Hammer'] && !this._hammerLoader) {
+        if (this._areChecksEnabled() && !(/** @type {?} */ (this._window))['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -4089,14 +4091,13 @@ function getMatAutocompleteMissingPanelError() {
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
 var MatAutocompleteTrigger = /** @class */ (function () {
-    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document, _viewportRuler) {
+    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
         var _this = this;
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
         this._zone = _zone;
         this._changeDetectorRef = _changeDetectorRef;
-        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._formField = _formField;
         this._document = _document;
@@ -4164,6 +4165,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 window.addEventListener('blur', _this._windowBlurHandler);
             });
         }
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
         /**
@@ -10423,13 +10425,12 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 var MatDialog = /** @class */ (function () {
-    function MatDialog(_overlay, _injector, _location, _defaultOptions, _scrollStrategy, _parentDialog, _overlayContainer) {
+    function MatDialog(_overlay, _injector, _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
         this._location = _location;
         this._defaultOptions = _defaultOptions;
-        this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
@@ -10443,6 +10444,7 @@ var MatDialog = /** @class */ (function () {
         this.afterAllClosed = rxjs.defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
             _this._afterAllClosed.pipe(operators.startWith(undefined)); });
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
         /** Keeps track of the currently-open dialogs. */
@@ -10823,7 +10825,7 @@ var MatDialog = /** @class */ (function () {
         { type: overlay.Overlay },
         { type: core.Injector },
         { type: common.Location, decorators: [{ type: core.Optional }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
+        { type: MatDialogConfig, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
         { type: MatDialog, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
         { type: overlay.OverlayContainer }
@@ -13796,12 +13798,11 @@ var MatDatepickerContent = /** @class */ (function (_super) {
  * @template D
  */
 var MatDatepicker = /** @class */ (function () {
-    function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
+    function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
         this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
-        this._scrollStrategy = _scrollStrategy;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
         this._document = _document;
@@ -13853,6 +13854,7 @@ var MatDatepicker = /** @class */ (function () {
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDatepicker.prototype, "startAt", {
         /** The date to open the calendar to initially. */
@@ -15927,7 +15929,7 @@ var MatGridTile = /** @class */ (function () {
      * @return {?}
      */
     function (property, value) {
-        this._element.nativeElement.style[property] = value;
+        (/** @type {?} */ (this._element.nativeElement.style))[property] = value;
     };
     MatGridTile.decorators = [
         { type: core.Component, args: [{selector: 'mat-grid-tile',
@@ -16932,7 +16934,7 @@ var MatGridList = /** @class */ (function () {
      */
     function (style) {
         if (style) {
-            this._element.nativeElement.style[style[0]] = style[1];
+            (/** @type {?} */ (this._element.nativeElement.style))[style[0]] = style[1];
         }
     };
     MatGridList.decorators = [
@@ -17868,6 +17870,52 @@ MatIconBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatIconMixinBase = mixinColor(MatIconBase);
+/** *
+ * Injection token used to provide the current location to `MatIcon`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * \@docs-private
+  @type {?} */
+var MAT_ICON_LOCATION = new core.InjectionToken('mat-icon-location', {
+    providedIn: 'root',
+    factory: MAT_ICON_LOCATION_FACTORY
+});
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_ICON_LOCATION_FACTORY() {
+    /** @type {?} */
+    var _document = core.inject(common.DOCUMENT);
+    /** @type {?} */
+    var pathname = (_document && _document.location && _document.location.pathname) || '';
+    return { pathname: pathname };
+}
+/** *
+ * SVG attributes that accept a FuncIRI (e.g. `url(<something>)`).
+  @type {?} */
+var funcIriAttributes = [
+    'clip-path',
+    'color-profile',
+    'src',
+    'cursor',
+    'fill',
+    'filter',
+    'marker',
+    'marker-start',
+    'marker-mid',
+    'marker-end',
+    'mask',
+    'stroke'
+];
+var ɵ0$5 = function (attr) { return "[" + attr + "]"; };
+/** *
+ * Selector that can be used to find all elements that are using a `FuncIRI`.
+  @type {?} */
+var funcIriAttributeSelector = funcIriAttributes.map(ɵ0$5).join(', ');
+/** *
+ * Regex that can be used to extract the id out of a FuncIRI.
+  @type {?} */
+var funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -17897,9 +17945,14 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  */
 var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
-    function MatIcon(elementRef, _iconRegistry, ariaHidden) {
+    function MatIcon(elementRef, _iconRegistry, ariaHidden, /**
+           * @deprecated `location` parameter to be made required.
+           * @breaking-change 8.0.0
+           */
+    _location) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
+        _this._location = _location;
         _this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
@@ -18068,6 +18121,9 @@ var MatIcon = /** @class */ (function (_super) {
         for (var i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }
+        // Note: we do this fix here, rather than the icon registry, because the
+        // references have to point to the URL at the time that the icon was created.
+        this._prependCurrentPathToReferences(svg);
         this._elementRef.nativeElement.appendChild(svg);
     };
     /**
@@ -18145,6 +18201,46 @@ var MatIcon = /** @class */ (function (_super) {
     function (value) {
         return typeof value === 'string' ? value.trim().split(' ')[0] : value;
     };
+    /**
+     * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
+     * reference. This is required because WebKit browsers require references to be prefixed with
+     * the current path, if the page has a `base` tag.
+     * @param {?} element
+     * @return {?}
+     */
+    MatIcon.prototype._prependCurrentPathToReferences = /**
+     * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
+     * reference. This is required because WebKit browsers require references to be prefixed with
+     * the current path, if the page has a `base` tag.
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) {
+        // @breaking-change 8.0.0 Remove this null check once `_location` parameter is required.
+        if (!this._location) {
+            return;
+        }
+        /** @type {?} */
+        var elementsWithFuncIri = element.querySelectorAll(funcIriAttributeSelector);
+        /** @type {?} */
+        var path = this._location.pathname ? this._location.pathname.split('#')[0] : '';
+        var _loop_1 = function (i) {
+            funcIriAttributes.forEach(function (attr) {
+                /** @type {?} */
+                var value = elementsWithFuncIri[i].getAttribute(attr);
+                /** @type {?} */
+                var match = value ? value.match(funcIriPattern) : null;
+                if (match) {
+                    // Note the quotes inside the `url()`. They're important, because URLs pointing to named
+                    // router outlets can contain parentheses which will break if they aren't quoted.
+                    elementsWithFuncIri[i].setAttribute(attr, "url('" + path + "#" + match[1] + "')");
+                }
+            });
+        };
+        for (var i = 0; i < elementsWithFuncIri.length; i++) {
+            _loop_1(i);
+        }
+    };
     MatIcon.decorators = [
         { type: core.Component, args: [{template: '<ng-content></ng-content>',
                     selector: 'mat-icon',
@@ -18164,7 +18260,8 @@ var MatIcon = /** @class */ (function (_super) {
     MatIcon.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: MatIconRegistry },
-        { type: String, decorators: [{ type: core.Attribute, args: ['aria-hidden',] }] }
+        { type: String, decorators: [{ type: core.Attribute, args: ['aria-hidden',] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_ICON_LOCATION,] }] }
     ]; };
     MatIcon.propDecorators = {
         inline: [{ type: core.Input }],
@@ -20183,11 +20280,10 @@ var MENU_PANEL_TOP_PADDING = 8;
  * responsible for toggling the display of the provided menu instance.
  */
 var MatMenuTrigger = /** @class */ (function () {
-    function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
+    function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
-        this._scrollStrategy = _scrollStrategy;
         this._parentMenu = _parentMenu;
         this._menuItemInstance = _menuItemInstance;
         this._dir = _dir;
@@ -20220,6 +20316,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         /**
@@ -20253,7 +20350,7 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         var _this = this;
         this._checkMenu();
-        this.menu.close.subscribe(function (reason) {
+        this.menu.close.asObservable().subscribe(function (reason) {
             _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
@@ -21033,7 +21130,7 @@ var MatSelectTrigger = /** @class */ (function () {
 }());
 var MatSelect = /** @class */ (function (_super) {
     __extends(MatSelect, _super);
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory) {
         var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -21041,7 +21138,6 @@ var MatSelect = /** @class */ (function (_super) {
         _this._dir = _dir;
         _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
-        _this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
          * Whether or not the overlay panel is open.
          */
@@ -21094,10 +21190,6 @@ var MatSelect = /** @class */ (function (_super) {
          * Emits when the panel element is finished transforming in.
          */
         _this._panelDoneAnimatingStream = new rxjs.Subject();
-        /**
-         * Strategy that will be used to handle scrolling while the select panel is open.
-         */
-        _this._scrollStrategy = _this._scrollStrategyFactory();
         /**
          * The y-offset of the overlay panel in relation to the trigger's top start corner.
          * This must be adjusted to align the selected option text over the trigger text.
@@ -21175,6 +21267,8 @@ var MatSelect = /** @class */ (function (_super) {
             // the `providers` to avoid running into a circular import.
             _this.ngControl.valueAccessor = _this;
         }
+        _this._scrollStrategyFactory = scrollStrategyFactory;
+        _this._scrollStrategy = _this._scrollStrategyFactory();
         _this.tabIndex = parseInt(tabIndex) || 0;
         // Force setter to be called in case id was not specified.
         _this.id = _this.id;
@@ -21457,7 +21551,7 @@ var MatSelect = /** @class */ (function (_super) {
         this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
         // Note: The computed font-size will be a string pixel value (e.g. "16px").
         // `parseInt` ignores the trailing 'px' and converts this to a number.
-        this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement)['font-size']);
+        this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement).fontSize || '0');
         this._panelOpen = true;
         this._keyManager.withHorizontalOrientation(null);
         this._calculateOverlayPosition();
@@ -22763,7 +22857,7 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * https://material.io/design/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
-    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
+    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -22773,7 +22867,6 @@ var MatTooltip = /** @class */ (function () {
         this._platform = _platform;
         this._ariaDescriber = _ariaDescriber;
         this._focusMonitor = _focusMonitor;
-        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._defaultOptions = _defaultOptions;
         this._position = 'below';
@@ -22792,8 +22885,11 @@ var MatTooltip = /** @class */ (function () {
          * Emits when the component is destroyed.
          */
         this._destroyed = new rxjs.Subject();
+        this._scrollStrategy = scrollStrategy;
         /** @type {?} */
         var element = _elementRef.nativeElement;
+        /** @type {?} */
+        var elementStyle = /** @type {?} */ (element.style);
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!_platform.IOS && !_platform.ANDROID) {
@@ -22808,13 +22904,13 @@ var MatTooltip = /** @class */ (function () {
             // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
             // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
             // behavior for text fields, we always clear the `user-select` to avoid such issues.
-            element.style.webkitUserSelect = element.style.userSelect = element.style.msUserSelect = '';
+            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
         }
         // Hammer applies `-webkit-user-drag: none` on all elements by default,
         // which breaks the native drag&drop. If the consumer explicitly made
         // the element draggable, clear the `-webkit-user-drag`.
-        if (element.draggable && element.style['webkitUserDrag'] === 'none') {
-            element.style['webkitUserDrag'] = '';
+        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
+            elementStyle.webkitUserDrag = '';
         }
         _focusMonitor.monitor(_elementRef).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
@@ -31000,7 +31096,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
             /** @type {?} */
-            var value = data[sortHeaderId];
+            var value = (/** @type {?} */ (data))[sortHeaderId];
             if (coercion._isNumberValue(value)) {
                 /** @type {?} */
                 var numberValue = Number(value);
@@ -31064,7 +31160,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.filterPredicate = function (data, filter) {
             /** @type {?} */
-            var accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
+            var accumulator = function (currentTerm, key) { return currentTerm + (/** @type {?} */ (data))[key]; };
             /** @type {?} */
             var dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
             /** @type {?} */
@@ -33528,10 +33624,10 @@ var MatToolbar = /** @class */ (function (_super) {
             return;
         }
         /** @type {?} */
-        var isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+        var isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
             .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
-            .some(function (node) { return node.textContent.trim(); });
+            .some(function (node) { return !!(node.textContent && node.textContent.trim()); });
         if (isCombinedUsage) {
             throwToolbarMixedModesError();
         }
@@ -34231,10 +34327,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.0-3fc0d36');
+var VERSION = new core.Version('7.0.0-rc.0-b8c1024');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34443,7 +34539,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa10 = MAT_GRID_LIST;
+exports.ɵa13 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34452,8 +34548,10 @@ exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
 exports.MatIconModule = MatIconModule;
+exports.MAT_ICON_LOCATION_FACTORY = MAT_ICON_LOCATION_FACTORY;
 exports.MatIconBase = MatIconBase;
 exports._MatIconMixinBase = _MatIconMixinBase;
+exports.MAT_ICON_LOCATION = MAT_ICON_LOCATION;
 exports.MatIcon = MatIcon;
 exports.getMatIconNameNotFoundError = getMatIconNameNotFoundError;
 exports.getMatIconNoHttpProviderError = getMatIconNoHttpProviderError;
@@ -34489,12 +34587,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa17 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb17 = MatMenuItemBase;
+exports.ɵc17 = _MatMenuItemMixinBase;
+exports.ɵf17 = MAT_MENU_PANEL;
+exports.ɵd17 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe17 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

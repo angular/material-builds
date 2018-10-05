@@ -119,11 +119,11 @@ class MatTooltip {
      * @param {?} _platform
      * @param {?} _ariaDescriber
      * @param {?} _focusMonitor
-     * @param {?} _scrollStrategy
+     * @param {?} scrollStrategy
      * @param {?} _dir
      * @param {?} _defaultOptions
      */
-    constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
+    constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
@@ -132,7 +132,6 @@ class MatTooltip {
         this._platform = _platform;
         this._ariaDescriber = _ariaDescriber;
         this._focusMonitor = _focusMonitor;
-        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._defaultOptions = _defaultOptions;
         this._position = 'below';
@@ -151,8 +150,11 @@ class MatTooltip {
          * Emits when the component is destroyed.
          */
         this._destroyed = new Subject();
+        this._scrollStrategy = scrollStrategy;
         /** @type {?} */
         const element = _elementRef.nativeElement;
+        /** @type {?} */
+        const elementStyle = /** @type {?} */ (element.style);
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!_platform.IOS && !_platform.ANDROID) {
@@ -167,13 +169,13 @@ class MatTooltip {
             // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
             // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
             // behavior for text fields, we always clear the `user-select` to avoid such issues.
-            element.style.webkitUserSelect = element.style.userSelect = element.style.msUserSelect = '';
+            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
         }
         // Hammer applies `-webkit-user-drag: none` on all elements by default,
         // which breaks the native drag&drop. If the consumer explicitly made
         // the element draggable, clear the `-webkit-user-drag`.
-        if (element.draggable && element.style['webkitUserDrag'] === 'none') {
-            element.style['webkitUserDrag'] = '';
+        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
+            elementStyle.webkitUserDrag = '';
         }
         _focusMonitor.monitor(_elementRef).pipe(takeUntil(this._destroyed)).subscribe(origin => {
             // Note that the focus monitor runs outside the Angular zone.

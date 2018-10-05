@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, SimpleChanges, InjectionToken } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
@@ -14,6 +14,21 @@ export declare class MatIconBase {
     constructor(_elementRef: ElementRef);
 }
 export declare const _MatIconMixinBase: CanColorCtor & typeof MatIconBase;
+/**
+ * Injection token used to provide the current location to `MatIcon`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * @docs-private
+ */
+export declare const MAT_ICON_LOCATION: InjectionToken<MatIconLocation>;
+/**
+ * Stubbed out location for `MatIcon`.
+ * @docs-private
+ */
+export interface MatIconLocation {
+    pathname: string;
+}
+/** @docs-private */
+export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -44,6 +59,11 @@ export declare const _MatIconMixinBase: CanColorCtor & typeof MatIconBase;
 export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnInit, CanColor {
     private _iconRegistry;
     /**
+     * @deprecated `location` parameter to be made required.
+     * @breaking-change 8.0.0
+     */
+    private _location?;
+    /**
      * Whether the icon should be inlined, automatically sizing the icon to match the font size of
      * the element the icon is contained in.
      */
@@ -59,7 +79,12 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _fontIcon;
     private _previousFontSetClass;
     private _previousFontIconClass;
-    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string);
+    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, 
+    /**
+     * @deprecated `location` parameter to be made required.
+     * @breaking-change 8.0.0
+     */
+    _location?: MatIconLocation | undefined);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
@@ -86,4 +111,10 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * have to trim the value and omit space-separated values.
      */
     private _cleanupFontValue;
+    /**
+     * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
+     * reference. This is required because WebKit browsers require references to be prefixed with
+     * the current path, if the page has a `base` tag.
+     */
+    private _prependCurrentPathToReferences;
 }

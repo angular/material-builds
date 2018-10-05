@@ -980,11 +980,10 @@ var MENU_PANEL_TOP_PADDING = 8;
  * responsible for toggling the display of the provided menu instance.
  */
 var MatMenuTrigger = /** @class */ (function () {
-    function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
+    function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
-        this._scrollStrategy = _scrollStrategy;
         this._parentMenu = _parentMenu;
         this._menuItemInstance = _menuItemInstance;
         this._dir = _dir;
@@ -1017,6 +1016,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         /**
@@ -1050,7 +1050,7 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         var _this = this;
         this._checkMenu();
-        this.menu.close.subscribe(function (reason) {
+        this.menu.close.asObservable().subscribe(function (reason) {
             _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
@@ -1638,5 +1638,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa21, MatMenuItemBase as ɵb21, _MatMenuItemMixinBase as ɵc21, MAT_MENU_PANEL as ɵf21, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd21, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe21 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa17, MatMenuItemBase as ɵb17, _MatMenuItemMixinBase as ɵc17, MAT_MENU_PANEL as ɵf17, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd17, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe17 };
 //# sourceMappingURL=menu.es5.js.map

@@ -463,7 +463,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
             /** @type {?} */
-            var value = data[sortHeaderId];
+            var value = (/** @type {?} */ (data))[sortHeaderId];
             if (coercion._isNumberValue(value)) {
                 /** @type {?} */
                 var numberValue = Number(value);
@@ -527,7 +527,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.filterPredicate = function (data, filter) {
             /** @type {?} */
-            var accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
+            var accumulator = function (currentTerm, key) { return currentTerm + (/** @type {?} */ (data))[key]; };
             /** @type {?} */
             var dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
             /** @type {?} */

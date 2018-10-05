@@ -527,16 +527,15 @@ class MatDialog {
      * @param {?} _injector
      * @param {?} _location
      * @param {?} _defaultOptions
-     * @param {?} _scrollStrategy
+     * @param {?} scrollStrategy
      * @param {?} _parentDialog
      * @param {?} _overlayContainer
      */
-    constructor(_overlay, _injector, _location, _defaultOptions, _scrollStrategy, _parentDialog, _overlayContainer) {
+    constructor(_overlay, _injector, _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._location = _location;
         this._defaultOptions = _defaultOptions;
-        this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
@@ -550,6 +549,7 @@ class MatDialog {
         this.afterAllClosed = defer(() => this.openDialogs.length ?
             this._afterAllClosed :
             this._afterAllClosed.pipe(startWith(undefined)));
+        this._scrollStrategy = scrollStrategy;
     }
     /**
      * Keeps track of the currently-open dialogs.
@@ -824,7 +824,7 @@ MatDialog.ctorParameters = () => [
     { type: Overlay },
     { type: Injector },
     { type: Location, decorators: [{ type: Optional }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
+    { type: MatDialogConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
     { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf }] },
     { type: OverlayContainer }

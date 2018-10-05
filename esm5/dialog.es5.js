@@ -668,13 +668,12 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 var MatDialog = /** @class */ (function () {
-    function MatDialog(_overlay, _injector, _location, _defaultOptions, _scrollStrategy, _parentDialog, _overlayContainer) {
+    function MatDialog(_overlay, _injector, _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
         this._location = _location;
         this._defaultOptions = _defaultOptions;
-        this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
@@ -688,6 +687,7 @@ var MatDialog = /** @class */ (function () {
         this.afterAllClosed = defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
             _this._afterAllClosed.pipe(startWith(undefined)); });
+        this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
         /** Keeps track of the currently-open dialogs. */
@@ -1068,7 +1068,7 @@ var MatDialog = /** @class */ (function () {
         { type: Overlay },
         { type: Injector },
         { type: Location, decorators: [{ type: Optional }] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
+        { type: MatDialogConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
         { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf }] },
         { type: OverlayContainer }

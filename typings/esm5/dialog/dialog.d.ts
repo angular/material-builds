@@ -36,13 +36,13 @@ export declare class MatDialog implements OnDestroy {
     private _injector;
     private _location;
     private _defaultOptions;
-    private _scrollStrategy;
     private _parentDialog;
     private _overlayContainer;
     private _openDialogsAtThisLevel;
     private readonly _afterAllClosedAtThisLevel;
     private readonly _afterOpenedAtThisLevel;
     private _ariaHiddenElements;
+    private _scrollStrategy;
     /** Keeps track of the currently-open dialogs. */
     readonly openDialogs: MatDialogRef<any>[];
     /** Stream that emits when a dialog has been opened. */
@@ -53,13 +53,13 @@ export declare class MatDialog implements OnDestroy {
      * @breaking-change 8.0.0
      */
     readonly afterOpen: Subject<MatDialogRef<any>>;
-    readonly _afterAllClosed: any;
+    readonly _afterAllClosed: Subject<void>;
     /**
      * Stream that emits when all open dialog have finished closing.
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     readonly afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, _location: Location, _defaultOptions: any, _scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
+    constructor(_overlay: Overlay, _injector: Injector, _location: Location, _defaultOptions: MatDialogConfig, scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
     /**
      * Opens a modal dialog containing the given component.
      * @param componentOrTemplateRef Type of the component to load into the dialog,

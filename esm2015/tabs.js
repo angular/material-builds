@@ -387,7 +387,7 @@ class MatTabBody {
          */
         this._onCentered = new EventEmitter(true);
         if (this._dir && changeDetectorRef) {
-            this._dirChangeSubscription = this._dir.change.subscribe(dir => {
+            this._dirChangeSubscription = this._dir.change.subscribe((dir) => {
                 this._computePositionAnimationState(dir);
                 changeDetectorRef.markForCheck();
             });

@@ -53,10 +53,10 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     private _overlay;
     private _ngZone;
     private _viewContainerRef;
-    private _scrollStrategy;
     private _dateAdapter;
     private _dir;
     private _document;
+    private _scrollStrategy;
     /** An input indicating the type of the custom header component for the calendar, if set. */
     calendarHeaderComponent: ComponentType<any>;
     /** The date to open the calendar to initially. */
@@ -123,7 +123,7 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     readonly _disabledChange: Subject<boolean>;
     /** Emits new selected date when selected date changes. */
     readonly _selectedChanged: Subject<D>;
-    constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
+    constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date */
     select(date: D): void;

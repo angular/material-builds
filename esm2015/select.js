@@ -239,9 +239,9 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} _parentFormField
      * @param {?} ngControl
      * @param {?} tabIndex
-     * @param {?} _scrollStrategyFactory
+     * @param {?} scrollStrategyFactory
      */
-    constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+    constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory) {
         super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
@@ -249,7 +249,6 @@ class MatSelect extends _MatSelectMixinBase {
         this._dir = _dir;
         this._parentFormField = _parentFormField;
         this.ngControl = ngControl;
-        this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
          * Whether or not the overlay panel is open.
          */
@@ -302,10 +301,6 @@ class MatSelect extends _MatSelectMixinBase {
          * Emits when the panel element is finished transforming in.
          */
         this._panelDoneAnimatingStream = new Subject();
-        /**
-         * Strategy that will be used to handle scrolling while the select panel is open.
-         */
-        this._scrollStrategy = this._scrollStrategyFactory();
         /**
          * The y-offset of the overlay panel in relation to the trigger's top start corner.
          * This must be adjusted to align the selected option text over the trigger text.
@@ -383,6 +378,8 @@ class MatSelect extends _MatSelectMixinBase {
             // the `providers` to avoid running into a circular import.
             this.ngControl.valueAccessor = this;
         }
+        this._scrollStrategyFactory = scrollStrategyFactory;
+        this._scrollStrategy = this._scrollStrategyFactory();
         this.tabIndex = parseInt(tabIndex) || 0;
         // Force setter to be called in case id was not specified.
         this.id = this.id;
@@ -587,7 +584,7 @@ class MatSelect extends _MatSelectMixinBase {
         this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
         // Note: The computed font-size will be a string pixel value (e.g. "16px").
         // `parseInt` ignores the trailing 'px' and converts this to a number.
-        this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement)['font-size']);
+        this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement).fontSize || '0');
         this._panelOpen = true;
         this._keyManager.withHorizontalOrientation(null);
         this._calculateOverlayPosition();

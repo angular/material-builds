@@ -110,7 +110,7 @@ var MatGridTile = /** @class */ (function () {
      * @return {?}
      */
     function (property, value) {
-        this._element.nativeElement.style[property] = value;
+        (/** @type {?} */ (this._element.nativeElement.style))[property] = value;
     };
     MatGridTile.decorators = [
         { type: core.Component, args: [{selector: 'mat-grid-tile',
@@ -1115,7 +1115,7 @@ var MatGridList = /** @class */ (function () {
      */
     function (style) {
         if (style) {
-            this._element.nativeElement.style[style[0]] = style[1];
+            (/** @type {?} */ (this._element.nativeElement.style))[style[0]] = style[1];
         }
     };
     MatGridList.decorators = [
@@ -1188,7 +1188,7 @@ exports.MatGridTileText = MatGridTileText;
 exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
-exports.ɵa10 = MAT_GRID_LIST;
+exports.ɵa13 = MAT_GRID_LIST;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

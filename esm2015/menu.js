@@ -793,17 +793,16 @@ class MatMenuTrigger {
      * @param {?} _overlay
      * @param {?} _element
      * @param {?} _viewContainerRef
-     * @param {?} _scrollStrategy
+     * @param {?} scrollStrategy
      * @param {?} _parentMenu
      * @param {?} _menuItemInstance
      * @param {?} _dir
      * @param {?=} _focusMonitor
      */
-    constructor(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
+    constructor(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
-        this._scrollStrategy = _scrollStrategy;
         this._parentMenu = _parentMenu;
         this._menuItemInstance = _menuItemInstance;
         this._dir = _dir;
@@ -836,6 +835,7 @@ class MatMenuTrigger {
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
+        this._scrollStrategy = scrollStrategy;
     }
     /**
      * @deprecated
@@ -857,7 +857,7 @@ class MatMenuTrigger {
      */
     ngAfterContentInit() {
         this._checkMenu();
-        this.menu.close.subscribe(reason => {
+        this.menu.close.asObservable().subscribe(reason => {
             this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if ((reason === 'click' || reason === 'tab') && this._parentMenu) {
@@ -1314,5 +1314,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa21, MatMenuItemBase as ɵb21, _MatMenuItemMixinBase as ɵc21, MAT_MENU_PANEL as ɵf21, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd21, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe21 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa17, MatMenuItemBase as ɵb17, _MatMenuItemMixinBase as ɵc17, MAT_MENU_PANEL as ɵf17, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd17, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe17 };
 //# sourceMappingURL=menu.js.map

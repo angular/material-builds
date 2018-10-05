@@ -1711,17 +1711,16 @@ class MatDatepicker {
      * @param {?} _overlay
      * @param {?} _ngZone
      * @param {?} _viewContainerRef
-     * @param {?} _scrollStrategy
+     * @param {?} scrollStrategy
      * @param {?} _dateAdapter
      * @param {?} _dir
      * @param {?} _document
      */
-    constructor(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
+    constructor(_dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
         this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
-        this._scrollStrategy = _scrollStrategy;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
         this._document = _document;
@@ -1773,6 +1772,7 @@ class MatDatepicker {
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
+        this._scrollStrategy = scrollStrategy;
     }
     /**
      * The date to open the calendar to initially.

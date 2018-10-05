@@ -229,7 +229,7 @@ var MatSelectTrigger = /** @class */ (function () {
 }());
 var MatSelect = /** @class */ (function (_super) {
     __extends(MatSelect, _super);
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory) {
         var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -237,7 +237,6 @@ var MatSelect = /** @class */ (function (_super) {
         _this._dir = _dir;
         _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
-        _this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
          * Whether or not the overlay panel is open.
          */
@@ -290,10 +289,6 @@ var MatSelect = /** @class */ (function (_super) {
          * Emits when the panel element is finished transforming in.
          */
         _this._panelDoneAnimatingStream = new Subject();
-        /**
-         * Strategy that will be used to handle scrolling while the select panel is open.
-         */
-        _this._scrollStrategy = _this._scrollStrategyFactory();
         /**
          * The y-offset of the overlay panel in relation to the trigger's top start corner.
          * This must be adjusted to align the selected option text over the trigger text.
@@ -371,6 +366,8 @@ var MatSelect = /** @class */ (function (_super) {
             // the `providers` to avoid running into a circular import.
             _this.ngControl.valueAccessor = _this;
         }
+        _this._scrollStrategyFactory = scrollStrategyFactory;
+        _this._scrollStrategy = _this._scrollStrategyFactory();
         _this.tabIndex = parseInt(tabIndex) || 0;
         // Force setter to be called in case id was not specified.
         _this.id = _this.id;
@@ -653,7 +650,7 @@ var MatSelect = /** @class */ (function (_super) {
         this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
         // Note: The computed font-size will be a string pixel value (e.g. "16px").
         // `parseInt` ignores the trailing 'px' and converts this to a number.
-        this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement)['font-size']);
+        this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement).fontSize || '0');
         this._panelOpen = true;
         this._keyManager.withHorizontalOrientation(null);
         this._calculateOverlayPosition();

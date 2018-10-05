@@ -74,7 +74,7 @@ export declare abstract class TileStyler {
      * This method will be implemented by each type of TileStyler.
      * @docs-private
      */
-    abstract setRowStyles(tile: MatGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): any;
+    abstract setRowStyles(tile: MatGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     /**
      * Calculates the computed height and returns the correct style property to set.
      * This method can be implemented by each type of TileStyler.
@@ -86,7 +86,7 @@ export declare abstract class TileStyler {
      * @param list Grid list that the styler was attached to.
      * @docs-private
      */
-    abstract reset(list: MatGridList): any;
+    abstract reset(list: MatGridList): void;
 }
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.

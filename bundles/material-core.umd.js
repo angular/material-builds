@@ -150,7 +150,9 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._window && (this._window['__karma__'] || this._window['jasmine']);
+        /** @type {?} */
+        var window = /** @type {?} */ (this._window);
+        return window && (window.__karma__ || window.jasmine);
     };
     /**
      * @return {?}
@@ -205,7 +207,7 @@ var MatCommonModule = /** @class */ (function () {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !this._window['Hammer'] && !this._hammerLoader) {
+        if (this._areChecksEnabled() && !(/** @type {?} */ (this._window))['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;

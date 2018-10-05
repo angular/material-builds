@@ -81,7 +81,7 @@ var MatGridTile = /** @class */ (function () {
      * @return {?}
      */
     function (property, value) {
-        this._element.nativeElement.style[property] = value;
+        (/** @type {?} */ (this._element.nativeElement.style))[property] = value;
     };
     MatGridTile.decorators = [
         { type: Component, args: [{selector: 'mat-grid-tile',
@@ -1086,7 +1086,7 @@ var MatGridList = /** @class */ (function () {
      */
     function (style) {
         if (style) {
-            this._element.nativeElement.style[style[0]] = style[1];
+            (/** @type {?} */ (this._element.nativeElement.style))[style[0]] = style[1];
         }
     };
     MatGridList.decorators = [
@@ -1162,5 +1162,5 @@ var MatGridListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa10 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa13 };
 //# sourceMappingURL=grid-list.es5.js.map
