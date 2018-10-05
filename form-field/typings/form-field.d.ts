@@ -146,4 +146,6 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     updateOutlineGap(): void;
     /** Gets the start end of the rect considering the current directionality. */
     private _getStartEnd;
+    /** Updates the outline gap the new time the zone stabilizes. */
+    private _updateOutlineGapOnStable;
 }

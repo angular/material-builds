@@ -3190,20 +3190,11 @@ var MatFormField = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var _this = this;
             /** @type {?} */
             var oldValue = this._appearance;
             this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
             if (this._appearance === 'outline' && oldValue !== value) {
-                // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
-                if (this._ngZone) {
-                    /** @type {?} */ ((this._ngZone)).onStable.pipe(operators.take(1)).subscribe(function () {
-                        /** @type {?} */ ((_this._ngZone)).runOutsideAngular(function () { return _this.updateOutlineGap(); });
-                    });
-                }
-                else {
-                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-                }
+                this._updateOutlineGapOnStable();
             }
         },
         enumerable: true,
@@ -3326,20 +3317,26 @@ var MatFormField = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._validateControlChild();
-        if (this._control.controlType) {
-            this._elementRef.nativeElement.classList
-                .add("mat-form-field-type-" + this._control.controlType);
+        /** @type {?} */
+        var control = this._control;
+        if (control.controlType) {
+            this._elementRef.nativeElement.classList.add("mat-form-field-type-" + control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        this._control.stateChanges.pipe(operators.startWith(/** @type {?} */ ((null)))).subscribe(function () {
+        control.stateChanges.pipe(operators.startWith(/** @type {?} */ ((null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
-        /** @type {?} */
-        var valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || rxjs.EMPTY;
-        rxjs.merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
-            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        // Run change detection if the value changes.
+        if (control.ngControl && control.ngControl.valueChanges) {
+            control.ngControl.valueChanges.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        }
+        // Run change detection and update the outline if the suffix or prefix changes.
+        rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(function () {
+            _this._updateOutlineGapOnStable();
+            _this._changeDetectorRef.markForCheck();
+        });
         // Re-validate when the number of hints changes.
         this._hintChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._processHints();
@@ -3659,6 +3656,24 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function (rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
+    };
+    /**
+     * Updates the outline gap the new time the zone stabilizes.
+     * @return {?}
+     */
+    MatFormField.prototype._updateOutlineGapOnStable = /**
+     * Updates the outline gap the new time the zone stabilizes.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
+        if (this._ngZone) {
+            this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () { return _this.updateOutlineGap(); });
+        }
+        else {
+            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+        }
     };
     MatFormField.decorators = [
         { type: core.Component, args: [{selector: 'mat-form-field',
@@ -34327,10 +34342,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.0-1c60acf');
+var VERSION = new core.Version('7.0.0-rc.0-0060bd7');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34539,7 +34554,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa13 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34587,12 +34602,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34734,17 +34749,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf19 = MatTabBase;
-exports.ɵg19 = _MatTabMixinBase;
-exports.ɵb19 = MatTabHeaderBase;
-exports.ɵc19 = _MatTabHeaderMixinBase;
-exports.ɵd19 = MatTabLabelWrapperBase;
-exports.ɵe19 = _MatTabLabelWrapperMixinBase;
-exports.ɵj19 = MatTabLinkBase;
-exports.ɵh19 = MatTabNavBase;
-exports.ɵk19 = _MatTabLinkMixinBase;
-exports.ɵi19 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

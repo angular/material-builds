@@ -10,7 +10,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
-import { EMPTY, fromEvent, merge } from 'rxjs';
+import { fromEvent, merge } from 'rxjs';
 import { startWith, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -295,15 +295,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         const oldValue = this._appearance;
         this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
         if (this._appearance === 'outline' && oldValue !== value) {
-            // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
-            if (this._ngZone) {
-                /** @type {?} */ ((this._ngZone)).onStable.pipe(take(1)).subscribe(() => {
-                    /** @type {?} */ ((this._ngZone)).runOutsideAngular(() => this.updateOutlineGap());
-                });
-            }
-            else {
-                Promise.resolve().then(() => this.updateOutlineGap());
-            }
+            this._updateOutlineGapOnStable();
         }
     }
     /**
@@ -378,20 +370,26 @@ class MatFormField extends _MatFormFieldMixinBase {
      */
     ngAfterContentInit() {
         this._validateControlChild();
-        if (this._control.controlType) {
-            this._elementRef.nativeElement.classList
-                .add(`mat-form-field-type-${this._control.controlType}`);
+        /** @type {?} */
+        const control = this._control;
+        if (control.controlType) {
+            this._elementRef.nativeElement.classList.add(`mat-form-field-type-${control.controlType}`);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        this._control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(() => {
+        control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(() => {
             this._validatePlaceholders();
             this._syncDescribedByIds();
             this._changeDetectorRef.markForCheck();
         });
-        /** @type {?} */
-        const valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
-        merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
-            .subscribe(() => this._changeDetectorRef.markForCheck());
+        // Run change detection if the value changes.
+        if (control.ngControl && control.ngControl.valueChanges) {
+            control.ngControl.valueChanges.subscribe(() => this._changeDetectorRef.markForCheck());
+        }
+        // Run change detection and update the outline if the suffix or prefix changes.
+        merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(() => {
+            this._updateOutlineGapOnStable();
+            this._changeDetectorRef.markForCheck();
+        });
         // Re-validate when the number of hints changes.
         this._hintChildren.changes.pipe(startWith(null)).subscribe(() => {
             this._processHints();
@@ -633,6 +631,19 @@ class MatFormField extends _MatFormFieldMixinBase {
      */
     _getStartEnd(rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
+    }
+    /**
+     * Updates the outline gap the new time the zone stabilizes.
+     * @return {?}
+     */
+    _updateOutlineGapOnStable() {
+        // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
+        if (this._ngZone) {
+            this._ngZone.onStable.pipe(take(1)).subscribe(() => this.updateOutlineGap());
+        }
+        else {
+            Promise.resolve().then(() => this.updateOutlineGap());
+        }
     }
 }
 MatFormField.decorators = [

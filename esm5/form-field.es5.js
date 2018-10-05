@@ -11,7 +11,7 @@ import { __extends } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
-import { EMPTY, fromEvent, merge } from 'rxjs';
+import { fromEvent, merge } from 'rxjs';
 import { startWith, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -310,20 +310,11 @@ var MatFormField = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var _this = this;
             /** @type {?} */
             var oldValue = this._appearance;
             this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
             if (this._appearance === 'outline' && oldValue !== value) {
-                // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
-                if (this._ngZone) {
-                    /** @type {?} */ ((this._ngZone)).onStable.pipe(take(1)).subscribe(function () {
-                        /** @type {?} */ ((_this._ngZone)).runOutsideAngular(function () { return _this.updateOutlineGap(); });
-                    });
-                }
-                else {
-                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-                }
+                this._updateOutlineGapOnStable();
             }
         },
         enumerable: true,
@@ -446,20 +437,26 @@ var MatFormField = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._validateControlChild();
-        if (this._control.controlType) {
-            this._elementRef.nativeElement.classList
-                .add("mat-form-field-type-" + this._control.controlType);
+        /** @type {?} */
+        var control = this._control;
+        if (control.controlType) {
+            this._elementRef.nativeElement.classList.add("mat-form-field-type-" + control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        this._control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(function () {
+        control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
-        /** @type {?} */
-        var valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
-        merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
-            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        // Run change detection if the value changes.
+        if (control.ngControl && control.ngControl.valueChanges) {
+            control.ngControl.valueChanges.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        }
+        // Run change detection and update the outline if the suffix or prefix changes.
+        merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(function () {
+            _this._updateOutlineGapOnStable();
+            _this._changeDetectorRef.markForCheck();
+        });
         // Re-validate when the number of hints changes.
         this._hintChildren.changes.pipe(startWith(null)).subscribe(function () {
             _this._processHints();
@@ -779,6 +776,24 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function (rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
+    };
+    /**
+     * Updates the outline gap the new time the zone stabilizes.
+     * @return {?}
+     */
+    MatFormField.prototype._updateOutlineGapOnStable = /**
+     * Updates the outline gap the new time the zone stabilizes.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
+        if (this._ngZone) {
+            this._ngZone.onStable.pipe(take(1)).subscribe(function () { return _this.updateOutlineGap(); });
+        }
+        else {
+            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+        }
     };
     MatFormField.decorators = [
         { type: Component, args: [{selector: 'mat-form-field',
