@@ -12,6 +12,7 @@ import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestro
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HammerInput, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 import { MatSlideToggleDefaultOptions } from './slide-toggle-config';
+/** @docs-private */
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MatSlideToggle. */
 export declare class MatSlideToggleChange {

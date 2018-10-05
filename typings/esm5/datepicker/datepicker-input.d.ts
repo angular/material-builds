@@ -10,7 +10,9 @@ import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } fr
 import { DateAdapter, MatDateFormats, ThemePalette } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatDatepicker } from './datepicker';
+/** @docs-private */
 export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
+/** @docs-private */
 export declare const MAT_DATEPICKER_VALIDATORS: any;
 /**
  * An event used for datepicker input and change events. We don't always have access to a native

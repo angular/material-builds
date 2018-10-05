@@ -58,7 +58,9 @@ var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle
  */
 /** @type {?} */
 var nextUniqueId = 0;
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSlideToggle; }),

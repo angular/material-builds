@@ -2154,13 +2154,17 @@ MatDatepicker.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 const MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatDatepickerInput),
     multi: true
 };
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 const MAT_DATEPICKER_VALIDATORS = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatDatepickerInput),

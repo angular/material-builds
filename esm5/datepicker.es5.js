@@ -2626,13 +2626,17 @@ var MatDatepicker = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatDatepickerInput; }),
     multi: true
 };
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 var MAT_DATEPICKER_VALIDATORS = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(function () { return MatDatepickerInput; }),

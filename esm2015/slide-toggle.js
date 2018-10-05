@@ -34,7 +34,9 @@ const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-de
  */
 /** @type {?} */
 let nextUniqueId = 0;
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlideToggle),

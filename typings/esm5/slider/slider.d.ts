@@ -13,6 +13,7 @@ import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, HammerInput, HasTab
 /**
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
+ * @docs-private
  */
 export declare const MAT_SLIDER_VALUE_ACCESSOR: any;
 /** A simple change event emitted by the MatSlider component. */

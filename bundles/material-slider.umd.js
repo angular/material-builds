@@ -64,6 +64,7 @@ var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
 /** *
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
+ * \@docs-private
   @type {?} */
 var MAT_SLIDER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,

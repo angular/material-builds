@@ -2642,13 +2642,17 @@ var MatDatepicker = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
     multi: true
 };
-/** @type {?} */
+/** *
+ * \@docs-private
+  @type {?} */
 var MAT_DATEPICKER_VALIDATORS = {
     provide: forms.NG_VALIDATORS,
     useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
