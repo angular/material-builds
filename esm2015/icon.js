@@ -7,7 +7,7 @@
  */
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, InjectionToken, inject, defineInjectable } from '@angular/core';
+import { Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, defineInjectable, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, of, throwError } from 'rxjs';
 import { catchError, finalize, map, share, tap, take } from 'rxjs/operators';
@@ -624,52 +624,6 @@ class MatIconBase {
 }
 /** @type {?} */
 const _MatIconMixinBase = mixinColor(MatIconBase);
-/** *
- * Injection token used to provide the current location to `MatIcon`.
- * Used to handle server-side rendering and to stub out during unit tests.
- * \@docs-private
-  @type {?} */
-const MAT_ICON_LOCATION = new InjectionToken('mat-icon-location', {
-    providedIn: 'root',
-    factory: MAT_ICON_LOCATION_FACTORY
-});
-/**
- * \@docs-private
- * @return {?}
- */
-function MAT_ICON_LOCATION_FACTORY() {
-    /** @type {?} */
-    const _document = inject(DOCUMENT);
-    /** @type {?} */
-    const pathname = (_document && _document.location && _document.location.pathname) || '';
-    return { pathname };
-}
-/** *
- * SVG attributes that accept a FuncIRI (e.g. `url(<something>)`).
-  @type {?} */
-const funcIriAttributes = [
-    'clip-path',
-    'color-profile',
-    'src',
-    'cursor',
-    'fill',
-    'filter',
-    'marker',
-    'marker-start',
-    'marker-mid',
-    'marker-end',
-    'mask',
-    'stroke'
-];
-const ɵ0 = attr => `[${attr}]`;
-/** *
- * Selector that can be used to find all elements that are using a `FuncIRI`.
-  @type {?} */
-const funcIriAttributeSelector = funcIriAttributes.map(ɵ0).join(', ');
-/** *
- * Regex that can be used to extract the id out of a FuncIRI.
-  @type {?} */
-const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -702,16 +656,10 @@ class MatIcon extends _MatIconMixinBase {
      * @param {?} elementRef
      * @param {?} _iconRegistry
      * @param {?} ariaHidden
-     * @param {?=} _location
      */
-    constructor(elementRef, _iconRegistry, ariaHidden, /**
-           * @deprecated `location` parameter to be made required.
-           * @breaking-change 8.0.0
-           */
-    _location) {
+    constructor(elementRef, _iconRegistry, ariaHidden) {
         super(elementRef);
         this._iconRegistry = _iconRegistry;
-        this._location = _location;
         this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
@@ -831,9 +779,6 @@ class MatIcon extends _MatIconMixinBase {
         for (let i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }
-        // Note: we do this fix here, rather than the icon registry, because the
-        // references have to point to the URL at the time that the icon was created.
-        this._prependCurrentPathToReferences(svg);
         this._elementRef.nativeElement.appendChild(svg);
     }
     /**
@@ -898,36 +843,6 @@ class MatIcon extends _MatIconMixinBase {
     _cleanupFontValue(value) {
         return typeof value === 'string' ? value.trim().split(' ')[0] : value;
     }
-    /**
-     * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
-     * reference. This is required because WebKit browsers require references to be prefixed with
-     * the current path, if the page has a `base` tag.
-     * @param {?} element
-     * @return {?}
-     */
-    _prependCurrentPathToReferences(element) {
-        // @breaking-change 8.0.0 Remove this null check once `_location` parameter is required.
-        if (!this._location) {
-            return;
-        }
-        /** @type {?} */
-        const elementsWithFuncIri = element.querySelectorAll(funcIriAttributeSelector);
-        /** @type {?} */
-        const path = this._location.pathname ? this._location.pathname.split('#')[0] : '';
-        for (let i = 0; i < elementsWithFuncIri.length; i++) {
-            funcIriAttributes.forEach(attr => {
-                /** @type {?} */
-                const value = elementsWithFuncIri[i].getAttribute(attr);
-                /** @type {?} */
-                const match = value ? value.match(funcIriPattern) : null;
-                if (match) {
-                    // Note the quotes inside the `url()`. They're important, because URLs pointing to named
-                    // router outlets can contain parentheses which will break if they aren't quoted.
-                    elementsWithFuncIri[i].setAttribute(attr, `url('${path}#${match[1]}')`);
-                }
-            });
-        }
-    }
 }
 MatIcon.decorators = [
     { type: Component, args: [{template: '<ng-content></ng-content>',
@@ -948,8 +863,7 @@ MatIcon.decorators = [
 MatIcon.ctorParameters = () => [
     { type: ElementRef },
     { type: MatIconRegistry },
-    { type: String, decorators: [{ type: Attribute, args: ['aria-hidden',] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_ICON_LOCATION,] }] }
+    { type: String, decorators: [{ type: Attribute, args: ['aria-hidden',] }] }
 ];
 MatIcon.propDecorators = {
     inline: [{ type: Input }],
@@ -982,5 +896,5 @@ MatIconModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatIconModule, MAT_ICON_LOCATION_FACTORY, MatIconBase, _MatIconMixinBase, MAT_ICON_LOCATION, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeUrlError, getMatIconFailedToSanitizeLiteralError, ICON_REGISTRY_PROVIDER_FACTORY, MatIconRegistry, ICON_REGISTRY_PROVIDER };
+export { MatIconModule, MatIconBase, _MatIconMixinBase, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeUrlError, getMatIconFailedToSanitizeLiteralError, ICON_REGISTRY_PROVIDER_FACTORY, MatIconRegistry, ICON_REGISTRY_PROVIDER };
 //# sourceMappingURL=icon.js.map
