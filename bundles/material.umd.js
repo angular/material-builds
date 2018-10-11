@@ -26928,7 +26928,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
          */
         _this._dragging = false;
         /**
-         * Name value will be applied to the input element if present
+         * Name value will be applied to the input element if present.
          */
         _this.name = null;
         /**
@@ -26936,7 +26936,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
          */
         _this.id = _this._uniqueId;
         /**
-         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
+         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'.
          */
         _this.labelPosition = 'after';
         /**
@@ -26953,15 +26953,16 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this.change = new core.EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle input is toggled.
-         * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
-         * value is changed. The event does not fire when user drag to change the slide toggle value.
+         * This event is always emitted when the user toggles the slide toggle, but this does not mean
+         * the slide toggle's value has changed. The event does not fire when the user drags to change
+         * the slide toggle value.
          */
         _this.toggleChange = new core.EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle is dragged.
-         * This event always fire when user drag the slide toggle to make a change that greater than 50%.
-         * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
-         * the slide toggle to change the slide toggle's value.
+         * This event is always emitted when the user drags the slide toggle to make a change greater
+         * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
+         * the user toggles the slide toggle to change its value.
          */
         _this.dragChange = new core.EventEmitter();
         _this.tabIndex = parseInt(tabIndex) || 0;
@@ -26983,9 +26984,9 @@ var MatSlideToggle = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlideToggle.prototype, "checked", {
-        /** Whether the slide-toggle element is checked or not */
+        /** Whether the slide-toggle element is checked or not. */
         get: /**
-         * Whether the slide-toggle element is checked or not
+         * Whether the slide-toggle element is checked or not.
          * @return {?}
          */
         function () { return this._checked; },
@@ -34335,10 +34336,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.1-282736f');
+var VERSION = new core.Version('7.0.0-rc.1-9085de7');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34547,7 +34548,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa7 = MAT_GRID_LIST;
+exports.ɵa10 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34595,12 +34596,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa19 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb19 = MatMenuItemBase;
+exports.ɵc19 = _MatMenuItemMixinBase;
+exports.ɵf19 = MAT_MENU_PANEL;
+exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe19 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34742,17 +34743,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf20 = MatTabBase;
+exports.ɵg20 = _MatTabMixinBase;
+exports.ɵb20 = MatTabHeaderBase;
+exports.ɵc20 = _MatTabHeaderMixinBase;
+exports.ɵd20 = MatTabLabelWrapperBase;
+exports.ɵe20 = _MatTabLabelWrapperMixinBase;
+exports.ɵj20 = MatTabLinkBase;
+exports.ɵh20 = MatTabNavBase;
+exports.ɵk20 = _MatTabLinkMixinBase;
+exports.ɵi20 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
