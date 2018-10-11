@@ -57,11 +57,11 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     _thumbEl: ElementRef;
     /** Reference to the thumb bar HTMLElement. */
     _thumbBarEl: ElementRef;
-    /** Name value will be applied to the input element if present. */
+    /** Name value will be applied to the input element if present */
     name: string | null;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
     id: string;
-    /** Whether the label should appear after or before the slide-toggle. Defaults to 'after'. */
+    /** Whether the label should appear after or before the slide-toggle. Defaults to 'after' */
     labelPosition: 'before' | 'after';
     /** Used to set the aria-label attribute on the underlying input element. */
     ariaLabel: string | null;
@@ -69,22 +69,21 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     ariaLabelledby: string | null;
     /** Whether the slide-toggle is required. */
     required: boolean;
-    /** Whether the slide-toggle element is checked or not. */
+    /** Whether the slide-toggle element is checked or not */
     checked: boolean;
     /** An event will be dispatched each time the slide-toggle changes its value. */
     readonly change: EventEmitter<MatSlideToggleChange>;
     /**
      * An event will be dispatched each time the slide-toggle input is toggled.
-     * This event is always emitted when the user toggles the slide toggle, but this does not mean
-     * the slide toggle's value has changed. The event does not fire when the user drags to change
-     * the slide toggle value.
+     * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
+     * value is changed. The event does not fire when user drag to change the slide toggle value.
      */
     readonly toggleChange: EventEmitter<void>;
     /**
      * An event will be dispatched each time the slide-toggle is dragged.
-     * This event is always emitted when the user drags the slide toggle to make a change greater
-     * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
-     * the user toggles the slide toggle to change its value.
+     * This event always fire when user drag the slide toggle to make a change that greater than 50%.
+     * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
+     * the slide toggle to change the slide toggle's value.
      */
     readonly dragChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */

@@ -97,7 +97,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
          */
         _this._dragging = false;
         /**
-         * Name value will be applied to the input element if present.
+         * Name value will be applied to the input element if present
          */
         _this.name = null;
         /**
@@ -105,7 +105,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
          */
         _this.id = _this._uniqueId;
         /**
-         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'.
+         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
          */
         _this.labelPosition = 'after';
         /**
@@ -122,16 +122,15 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this.change = new EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle input is toggled.
-         * This event is always emitted when the user toggles the slide toggle, but this does not mean
-         * the slide toggle's value has changed. The event does not fire when the user drags to change
-         * the slide toggle value.
+         * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
+         * value is changed. The event does not fire when user drag to change the slide toggle value.
          */
         _this.toggleChange = new EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle is dragged.
-         * This event is always emitted when the user drags the slide toggle to make a change greater
-         * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
-         * the user toggles the slide toggle to change its value.
+         * This event always fire when user drag the slide toggle to make a change that greater than 50%.
+         * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
+         * the slide toggle to change the slide toggle's value.
          */
         _this.dragChange = new EventEmitter();
         _this.tabIndex = parseInt(tabIndex) || 0;
@@ -153,9 +152,9 @@ var MatSlideToggle = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlideToggle.prototype, "checked", {
-        /** Whether the slide-toggle element is checked or not. */
+        /** Whether the slide-toggle element is checked or not */
         get: /**
-         * Whether the slide-toggle element is checked or not.
+         * Whether the slide-toggle element is checked or not
          * @return {?}
          */
         function () { return this._checked; },
