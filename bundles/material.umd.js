@@ -26928,7 +26928,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
          */
         _this._dragging = false;
         /**
-         * Name value will be applied to the input element if present
+         * Name value will be applied to the input element if present.
          */
         _this.name = null;
         /**
@@ -26936,7 +26936,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
          */
         _this.id = _this._uniqueId;
         /**
-         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
+         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'.
          */
         _this.labelPosition = 'after';
         /**
@@ -26953,15 +26953,16 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this.change = new core.EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle input is toggled.
-         * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
-         * value is changed. The event does not fire when user drag to change the slide toggle value.
+         * This event is always emitted when the user toggles the slide toggle, but this does not mean
+         * the slide toggle's value has changed. The event does not fire when the user drags to change
+         * the slide toggle value.
          */
         _this.toggleChange = new core.EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle is dragged.
-         * This event always fire when user drag the slide toggle to make a change that greater than 50%.
-         * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
-         * the slide toggle to change the slide toggle's value.
+         * This event is always emitted when the user drags the slide toggle to make a change greater
+         * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
+         * the user toggles the slide toggle to change its value.
          */
         _this.dragChange = new core.EventEmitter();
         _this.tabIndex = parseInt(tabIndex) || 0;
@@ -26983,9 +26984,9 @@ var MatSlideToggle = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlideToggle.prototype, "checked", {
-        /** Whether the slide-toggle element is checked or not */
+        /** Whether the slide-toggle element is checked or not. */
         get: /**
-         * Whether the slide-toggle element is checked or not
+         * Whether the slide-toggle element is checked or not.
          * @return {?}
          */
         function () { return this._checked; },
@@ -34335,10 +34336,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-rc.1-a2c23a4');
+var VERSION = new core.Version('7.0.0-rc.1-7ef8804');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34547,7 +34548,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa9 = MAT_GRID_LIST;
+exports.ɵa7 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

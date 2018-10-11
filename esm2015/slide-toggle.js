@@ -105,7 +105,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
          */
         this._dragging = false;
         /**
-         * Name value will be applied to the input element if present
+         * Name value will be applied to the input element if present.
          */
         this.name = null;
         /**
@@ -113,7 +113,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
          */
         this.id = this._uniqueId;
         /**
-         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
+         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'.
          */
         this.labelPosition = 'after';
         /**
@@ -130,15 +130,16 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this.change = new EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle input is toggled.
-         * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
-         * value is changed. The event does not fire when user drag to change the slide toggle value.
+         * This event is always emitted when the user toggles the slide toggle, but this does not mean
+         * the slide toggle's value has changed. The event does not fire when the user drags to change
+         * the slide toggle value.
          */
         this.toggleChange = new EventEmitter();
         /**
          * An event will be dispatched each time the slide-toggle is dragged.
-         * This event always fire when user drag the slide toggle to make a change that greater than 50%.
-         * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
-         * the slide toggle to change the slide toggle's value.
+         * This event is always emitted when the user drags the slide toggle to make a change greater
+         * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
+         * the user toggles the slide toggle to change its value.
          */
         this.dragChange = new EventEmitter();
         this.tabIndex = parseInt(tabIndex) || 0;
@@ -154,7 +155,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      */
     set required(value) { this._required = coerceBooleanProperty(value); }
     /**
-     * Whether the slide-toggle element is checked or not
+     * Whether the slide-toggle element is checked or not.
      * @return {?}
      */
     get checked() { return this._checked; }
