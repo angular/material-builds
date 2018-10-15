@@ -12,7 +12,6 @@ const schematics_2 = require("@angular/cdk/schematics");
 const chalk_1 = require("chalk");
 const config_1 = require("@schematics/angular/utility/config");
 const ng_ast_utils_1 = require("@schematics/angular/utility/ng-ast-utils");
-const parse5 = require("parse5");
 const material_fonts_1 = require("./fonts/material-fonts");
 const hammerjs_import_1 = require("./gestures/hammerjs-import");
 const theming_1 = require("./theming/theming");
@@ -27,10 +26,6 @@ const noopAnimationsModuleName = 'NoopAnimationsModule';
  *  - Adds Browser Animation to app.module
  */
 function default_1(options) {
-    if (!parse5) {
-        throw new schematics_1.SchematicsException('Parse5 is required but could not be found! Please install ' +
-            '"parse5" manually in order to continue.');
-    }
     return schematics_1.chain([
         options && options.gestures ? hammerjs_import_1.addHammerJsToMain(options) : schematics_1.noop(),
         addAnimationsModule(options),
