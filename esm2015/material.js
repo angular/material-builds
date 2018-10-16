@@ -20,7 +20,7 @@ export { MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_
 export { MatDivider, MatDividerModule } from '@angular/material/divider';
 export { MatExpansionModule, MatAccordion, MAT_ACCORDION, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations } from '@angular/material/expansion';
 export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations } from '@angular/material/form-field';
-export { ɵa12, MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler } from '@angular/material/grid-list';
+export { ɵa9, MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler } from '@angular/material/grid-list';
 export { MatIconModule, MAT_ICON_LOCATION_FACTORY, MatIconBase, _MatIconMixinBase, MAT_ICON_LOCATION, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeUrlError, getMatIconFailedToSanitizeLiteralError, ICON_REGISTRY_PROVIDER_FACTORY, MatIconRegistry, ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 export { _CdkTextareaAutosize, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList } from '@angular/material/list';
@@ -49,7 +49,7 @@ export { _CdkTreeNodeDef, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, Ma
 /** *
  * Current version of Angular Material.
   @type {?} */
-const VERSION = new Version('7.0.0-rc.2-8e324c8');
+const VERSION = new Version('7.0.0-rc.2-39a5776');
 
 /**
  * @fileoverview added by tsickle
