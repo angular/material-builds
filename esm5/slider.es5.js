@@ -81,7 +81,7 @@ var _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase),
 var MatSlider = /** @class */ (function (_super) {
     __extends(MatSlider, _super);
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
-    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
+    // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;

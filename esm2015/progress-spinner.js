@@ -89,7 +89,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @param {?=} defaults
      */
     constructor(_elementRef, platform, _document, 
-    // @breaking-change 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         super(_elementRef);
         this._elementRef = _elementRef;
@@ -295,7 +295,7 @@ class MatSpinner extends MatProgressSpinner {
      * @param {?=} defaults
      */
     constructor(elementRef, platform, document, 
-    // @breaking-changes 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         super(elementRef, platform, document, animationMode, defaults);
         this.mode = 'indeterminate';

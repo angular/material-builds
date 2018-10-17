@@ -637,7 +637,7 @@ class MatFormField extends _MatFormFieldMixinBase {
      * @return {?}
      */
     _updateOutlineGapOnStable() {
-        // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
+        // @breaking-change 8.0.0 Remove this check and else block once _ngZone is required.
         if (this._ngZone) {
             this._ngZone.onStable.pipe(take(1)).subscribe(() => this.updateOutlineGap());
         }

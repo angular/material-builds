@@ -81,13 +81,13 @@ var matSelectAnimations = {
 };
 /** *
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@breaking-change 8.0.0
  * \@docs-private
   @type {?} */
 var transformPanel = matSelectAnimations.transformPanel;
 /** *
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@breaking-change 8.0.0
  * \@docs-private
   @type {?} */
 var fadeInContent = matSelectAnimations.fadeInContent;

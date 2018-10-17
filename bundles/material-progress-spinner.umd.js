@@ -90,7 +90,7 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_elementRef, platform$$1, _document, 
-    // @breaking-change 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
@@ -340,7 +340,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
     function MatSpinner(elementRef, platform$$1, document, 
-    // @breaking-changes 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         var _this = _super.call(this, elementRef, platform$$1, document, animationMode, defaults) || this;
         _this.mode = 'indeterminate';

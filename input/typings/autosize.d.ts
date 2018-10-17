@@ -10,7 +10,7 @@ export declare const _CdkTextareaAutosize: typeof CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `@angular/cdk/text-field` instead.
- * @breaking-change 7.0.0
+ * @breaking-change 8.0.0
  */
 export declare class MatTextareaAutosize extends _CdkTextareaAutosize {
     matAutosizeMinRows: number;

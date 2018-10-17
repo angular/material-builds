@@ -80,13 +80,13 @@ const matSelectAnimations = {
 };
 /** *
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@breaking-change 8.0.0
  * \@docs-private
   @type {?} */
 const transformPanel = matSelectAnimations.transformPanel;
 /** *
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@breaking-change 8.0.0
  * \@docs-private
   @type {?} */
 const fadeInContent = matSelectAnimations.fadeInContent;

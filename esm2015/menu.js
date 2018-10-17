@@ -150,13 +150,13 @@ const matMenuAnimations = {
 };
 /** *
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@breaking-change 8.0.0
  * \@docs-private
   @type {?} */
 const fadeInItems = matMenuAnimations.fadeInItems;
 /** *
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@breaking-change 8.0.0
  * \@docs-private
   @type {?} */
 const transformMenu = matMenuAnimations.transformMenu;
@@ -232,7 +232,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * @param {?=} _parentMenu
      */
     constructor(_elementRef, document, _focusMonitor, _parentMenu) {
-        // @breaking-change 7.0.0 make `_focusMonitor` and `document` required params.
+        // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
         super();
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
@@ -448,7 +448,7 @@ class MatMenu {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@breaking-change 7.0.0
+         * \@breaking-change 8.0.0
          */
         this.close = this.closed;
     }
@@ -529,7 +529,7 @@ class MatMenu {
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @deprecated Use `panelClass` instead.
-     * \@breaking-change 7.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     get classList() { return this.panelClass; }
@@ -689,7 +689,7 @@ class MatMenu {
      * @return {?}
      */
     _startAnimation() {
-        // @breaking-change 7.0.0 Combine with _resetAnimation.
+        // @breaking-change 8.0.0 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     }
     /**
@@ -697,7 +697,7 @@ class MatMenu {
      * @return {?}
      */
     _resetAnimation() {
-        // @breaking-change 7.0.0 Combine with _startAnimation.
+        // @breaking-change 8.0.0 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     }
     /**
@@ -819,7 +819,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@breaking-change 7.0.0
+         * \@breaking-change 8.0.0
          */
         this.onMenuOpen = this.menuOpened;
         /**
@@ -829,7 +829,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@breaking-change 7.0.0
+         * \@breaking-change 8.0.0
          */
         this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
@@ -839,7 +839,7 @@ class MatMenuTrigger {
     }
     /**
      * @deprecated
-     * \@breaking-change 7.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     get _deprecatedMatMenuTriggerFor() {
@@ -1314,5 +1314,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa22, MatMenuItemBase as ɵb22, _MatMenuItemMixinBase as ɵc22, MAT_MENU_PANEL as ɵf22, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd22, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe22 };
 //# sourceMappingURL=menu.js.map

@@ -809,7 +809,7 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
+        // @breaking-change 8.0.0 Remove this check and else block once _ngZone is required.
         if (this._ngZone) {
             this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () { return _this.updateOutlineGap(); });
         }
