@@ -901,9 +901,11 @@ var MAT_ICON_LOCATION = new InjectionToken('mat-icon-location', {
 function MAT_ICON_LOCATION_FACTORY() {
     /** @type {?} */
     var _document = inject(DOCUMENT);
-    /** @type {?} */
-    var pathname = (_document && _document.location && _document.location.pathname) || '';
-    return { pathname: pathname };
+    return {
+        // Note that this needs to be a function, rather than a property, because Angular
+        // will only resolve it once, but we want the current path on each call.
+        getPathname: function () { return (_document && _document.location && _document.location.pathname) || ''; }
+    };
 }
 /** *
  * SVG attributes that accept a FuncIRI (e.g. `url(<something>)`).
@@ -1115,6 +1117,41 @@ var MatIcon = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
+    MatIcon.prototype.ngAfterViewChecked = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var cachedElements = this._elementsWithExternalReferences;
+        if (cachedElements && this._location && cachedElements.size) {
+            /** @type {?} */
+            var newPath = this._location.getPathname();
+            // We need to check whether the URL has changed on each change detection since
+            // the browser doesn't have an API that will let us react on link clicks and
+            // we can't depend on the Angular router. The references need to be updated,
+            // because while most browsers don't care whether the URL is correct after
+            // the first render, Safari will break if the user navigates to a different
+            // page and the SVG isn't re-rendered.
+            if (newPath !== this._previousPath) {
+                this._previousPath = newPath;
+                this._prependPathToReferences(newPath);
+            }
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatIcon.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this._elementsWithExternalReferences) {
+            this._elementsWithExternalReferences.clear();
+        }
+    };
+    /**
+     * @return {?}
+     */
     MatIcon.prototype._usingFontIcon = /**
      * @return {?}
      */
@@ -1138,7 +1175,13 @@ var MatIcon = /** @class */ (function (_super) {
         }
         // Note: we do this fix here, rather than the icon registry, because the
         // references have to point to the URL at the time that the icon was created.
-        this._prependCurrentPathToReferences(svg);
+        if (this._location) {
+            /** @type {?} */
+            var path = this._location.getPathname();
+            this._previousPath = path;
+            this._cacheChildrenWithExternalReferences(svg);
+            this._prependPathToReferences(path);
+        }
         this._elementRef.nativeElement.appendChild(svg);
     };
     /**
@@ -1152,6 +1195,9 @@ var MatIcon = /** @class */ (function (_super) {
         var layoutElement = this._elementRef.nativeElement;
         /** @type {?} */
         var childCount = layoutElement.childNodes.length;
+        if (this._elementsWithExternalReferences) {
+            this._elementsWithExternalReferences.clear();
+        }
         // Remove existing non-element child nodes and SVGs, and add the new SVG element. Note that
         // we can't use innerHTML, because IE will throw if the element has a data binding.
         while (childCount--) {
@@ -1220,35 +1266,61 @@ var MatIcon = /** @class */ (function (_super) {
      * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
      * reference. This is required because WebKit browsers require references to be prefixed with
      * the current path, if the page has a `base` tag.
-     * @param {?} element
+     * @param {?} path
      * @return {?}
      */
-    MatIcon.prototype._prependCurrentPathToReferences = /**
+    MatIcon.prototype._prependPathToReferences = /**
      * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
      * reference. This is required because WebKit browsers require references to be prefixed with
      * the current path, if the page has a `base` tag.
+     * @param {?} path
+     * @return {?}
+     */
+    function (path) {
+        /** @type {?} */
+        var elements = this._elementsWithExternalReferences;
+        if (elements) {
+            elements.forEach(function (attrs, element) {
+                attrs.forEach(function (attr) {
+                    element.setAttribute(attr.name, "url('" + path + "#" + attr.value + "')");
+                });
+            });
+        }
+    };
+    /**
+     * Caches the children of an SVG element that have `url()`
+     * references that we need to prefix with the current path.
+     * @param {?} element
+     * @return {?}
+     */
+    MatIcon.prototype._cacheChildrenWithExternalReferences = /**
+     * Caches the children of an SVG element that have `url()`
+     * references that we need to prefix with the current path.
      * @param {?} element
      * @return {?}
      */
     function (element) {
-        // @breaking-change 8.0.0 Remove this null check once `_location` parameter is required.
-        if (!this._location) {
-            return;
-        }
         /** @type {?} */
         var elementsWithFuncIri = element.querySelectorAll(funcIriAttributeSelector);
         /** @type {?} */
-        var path = this._location.pathname ? this._location.pathname.split('#')[0] : '';
+        var elements = this._elementsWithExternalReferences =
+            this._elementsWithExternalReferences || new Map();
         var _loop_1 = function (i) {
             funcIriAttributes.forEach(function (attr) {
                 /** @type {?} */
-                var value = elementsWithFuncIri[i].getAttribute(attr);
+                var elementWithReference = elementsWithFuncIri[i];
+                /** @type {?} */
+                var value = elementWithReference.getAttribute(attr);
                 /** @type {?} */
                 var match = value ? value.match(funcIriPattern) : null;
                 if (match) {
-                    // Note the quotes inside the `url()`. They're important, because URLs pointing to named
-                    // router outlets can contain parentheses which will break if they aren't quoted.
-                    elementsWithFuncIri[i].setAttribute(attr, "url('" + path + "#" + match[1] + "')");
+                    /** @type {?} */
+                    var attributes = elements.get(elementWithReference);
+                    if (!attributes) {
+                        attributes = [];
+                        elements.set(elementWithReference, attributes);
+                    } /** @type {?} */
+                    ((attributes)).push({ name: attr, value: match[1] });
                 }
             });
         };

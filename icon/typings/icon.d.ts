@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, OnChanges, OnInit, SimpleChanges, InjectionToken } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, SimpleChanges, InjectionToken, OnDestroy, AfterViewChecked } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
@@ -25,7 +25,7 @@ export declare const MAT_ICON_LOCATION: InjectionToken<MatIconLocation>;
  * @docs-private
  */
 export interface MatIconLocation {
-    pathname: string;
+    getPathname: () => string;
 }
 /** @docs-private */
 export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
@@ -56,7 +56,7 @@ export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
  *   Example:
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
-export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnInit, CanColor {
+export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnInit, AfterViewChecked, CanColor, OnDestroy {
     private _iconRegistry;
     /**
      * @deprecated `location` parameter to be made required.
@@ -79,6 +79,10 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _fontIcon;
     private _previousFontSetClass;
     private _previousFontIconClass;
+    /** Keeps track of the current page path. */
+    private _previousPath?;
+    /** Keeps track of the elements and attributes that we've prefixed with the current path. */
+    private _elementsWithExternalReferences?;
     constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, 
     /**
      * @deprecated `location` parameter to be made required.
@@ -101,6 +105,8 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _splitIconName;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
+    ngAfterViewChecked(): void;
+    ngOnDestroy(): void;
     private _usingFontIcon;
     private _setSvgElement;
     private _clearSvgElement;
@@ -116,5 +122,10 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * reference. This is required because WebKit browsers require references to be prefixed with
      * the current path, if the page has a `base` tag.
      */
-    private _prependCurrentPathToReferences;
+    private _prependPathToReferences;
+    /**
+     * Caches the children of an SVG element that have `url()`
+     * references that we need to prefix with the current path.
+     */
+    private _cacheChildrenWithExternalReferences;
 }
