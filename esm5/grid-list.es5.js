@@ -945,20 +945,24 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._gutter = "" + (value || ''); },
+        function (value) { this._gutter = "" + (value == null ? '' : value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "rowHeight", {
         /** Set internal representation of row height from the user-provided value. */
-        set: /**
+        get: /**
          * Set internal representation of row height from the user-provided value.
+         * @return {?}
+         */
+        function () { return this._rowHeight; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
             /** @type {?} */
-            var newValue = "" + (value || '');
+            var newValue = "" + (value == null ? '' : value);
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -1162,5 +1166,5 @@ var MatGridListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa5 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa8 };
 //# sourceMappingURL=grid-list.es5.js.map
