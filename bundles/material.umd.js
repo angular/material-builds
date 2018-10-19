@@ -1698,6 +1698,10 @@ var defaultRippleAnimationConfig = {
  * events to avoid synthetic mouse events.
   @type {?} */
 var ignoreMouseEventsTimeout = 800;
+/** *
+ * Options that apply to all the event listeners that are bound by the ripple renderer.
+  @type {?} */
+var passiveEventOptions = platform.normalizePassiveListenerOptions({ passive: true });
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1729,10 +1733,6 @@ RippleRenderer = /** @class */ (function () {
          * Set of currently active ripple references.
          */
         this._activeRipples = new Set();
-        /**
-         * Options that apply to all the event listeners that are bound by the renderer.
-         */
-        this._eventOptions = platform.supportsPassiveEventListeners() ? (/** @type {?} */ ({ passive: true })) : false;
         /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
@@ -1944,7 +1944,7 @@ RippleRenderer = /** @class */ (function () {
         this._removeTriggerEvents();
         this._ngZone.runOutsideAngular(function () {
             _this._triggerEvents.forEach(function (fn, type) {
-                return element.addEventListener(type, fn, _this._eventOptions);
+                element.addEventListener(type, fn, passiveEventOptions);
             });
         });
         this._triggerElement = element;
@@ -1978,7 +1978,7 @@ RippleRenderer = /** @class */ (function () {
         var _this = this;
         if (this._triggerElement) {
             this._triggerEvents.forEach(function (fn, type) {
-                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, _this._eventOptions);
+                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
             });
         }
     };
@@ -34433,10 +34433,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-d0ca8e9');
+var VERSION = new core.Version('7.0.0-d69c00e');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34646,7 +34646,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa10 = MAT_GRID_LIST;
+exports.ɵa12 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34694,12 +34694,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34843,17 +34843,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa18 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf18 = MatTabBase;
+exports.ɵg18 = _MatTabMixinBase;
+exports.ɵb18 = MatTabHeaderBase;
+exports.ɵc18 = _MatTabHeaderMixinBase;
+exports.ɵd18 = MatTabLabelWrapperBase;
+exports.ɵe18 = _MatTabLabelWrapperMixinBase;
+exports.ɵj18 = MatTabLinkBase;
+exports.ɵh18 = MatTabNavBase;
+exports.ɵk18 = _MatTabLinkMixinBase;
+exports.ɵi18 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
