@@ -8,6 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular/cdk/schematics");
+const chalk_1 = require("chalk");
 const glob_1 = require("glob");
 const upgrade_data_1 = require("./upgrade-data");
 /** List of additional upgrade rules for Angular Material. */
@@ -42,8 +43,13 @@ function updateToV7() {
 exports.updateToV7 = updateToV7;
 /** Post-update schematic to be called when update is finished. */
 function postUpdate() {
-    return () => console.log('\nComplete! Please check the output above for any issues that were detected but could not' +
-        ' be automatically fixed.');
+    return () => {
+        console.log();
+        console.log(chalk_1.green('  ✓  Angular Material update complete'));
+        console.log();
+        console.log(chalk_1.yellow('  ⚠  Please check the output above for any issues that were detected ' +
+            'but could not be automatically fixed.'));
+    };
 }
 exports.postUpdate = postUpdate;
 //# sourceMappingURL=index.js.map
