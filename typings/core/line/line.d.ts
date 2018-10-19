@@ -17,13 +17,15 @@ export declare class MatLine {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * @docs-private
  */
+export declare function setLines(lines: QueryList<MatLine>, element: ElementRef<HTMLElement>): void;
+/**
+ * Helper that takes a query list of lines and sets the correct class on the host.
+ * @docs-private
+ * @deprecated Use `setLines` instead.
+ * @breaking-change 8.0.0
+ */
 export declare class MatLineSetter {
-    private _lines;
-    private _element;
-    constructor(_lines: QueryList<MatLine>, _element: ElementRef<HTMLElement>);
-    private _setLineClass;
-    private _resetClasses;
-    private _setClass;
+    constructor(lines: QueryList<MatLine>, element: ElementRef<HTMLElement>);
 }
 export declare class MatLineModule {
 }

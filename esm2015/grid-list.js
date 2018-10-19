@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken, Component, ViewEncapsulation, ElementRef, Input, Optional, ContentChildren, Directive, ChangeDetectionStrategy, Inject, NgModule } from '@angular/core';
-import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
+import { MatLine, setLines, MatLineModule, MatCommonModule } from '@angular/material/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
 
@@ -98,7 +98,7 @@ class MatGridTileText {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     }
 }
 MatGridTileText.decorators = [
@@ -664,15 +664,19 @@ class MatGridList {
      * @param {?} value
      * @return {?}
      */
-    set gutterSize(value) { this._gutter = `${value || ''}`; }
+    set gutterSize(value) { this._gutter = `${value == null ? '' : value}`; }
     /**
      * Set internal representation of row height from the user-provided value.
+     * @return {?}
+     */
+    get rowHeight() { return this._rowHeight; }
+    /**
      * @param {?} value
      * @return {?}
      */
     set rowHeight(value) {
         /** @type {?} */
-        const newValue = `${value || ''}`;
+        const newValue = `${value == null ? '' : value}`;
         if (newValue !== this._rowHeight) {
             this._rowHeight = newValue;
             this._setTileStyler(this._rowHeight);
@@ -833,5 +837,5 @@ MatGridListModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa8 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa10 };
 //# sourceMappingURL=grid-list.js.map

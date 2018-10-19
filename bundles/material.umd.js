@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/stepper'), require('@angular/cdk/table'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/stepper', '@angular/cdk/table', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.stepper,global.ng.cdk.table,global.ng.cdk.tree));
-}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,a11y,animations,keycodes,common,animations$1,operators,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,stepper,table,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/stepper'), require('@angular/cdk/table'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/stepper', '@angular/cdk/table', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.stepper,global.ng.cdk.table,global.ng.cdk.tree));
+}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,operators,a11y,animations,keycodes,common,animations$1,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,stepper,table,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1574,67 +1574,54 @@ var MatLine = /** @class */ (function () {
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
+ * @param {?} lines
+ * @param {?} element
+ * @return {?}
+ */
+function setLines(lines, element) {
+    // Note: doesn't need to unsubscribe, because `changes`
+    // gets completed by Angular when the view is destroyed.
+    lines.changes.pipe(operators.startWith(lines)).subscribe(function (_a) {
+        var length = _a.length;
+        setClass(element, 'mat-2-line', false);
+        setClass(element, 'mat-3-line', false);
+        setClass(element, 'mat-multi-line', false);
+        if (length === 2 || length === 3) {
+            setClass(element, "mat-" + length + "-line", true);
+        }
+        else if (length > 3) {
+            setClass(element, "mat-multi-line", true);
+        }
+    });
+}
+/**
+ * Adds or removes a class from an element.
+ * @param {?} element
+ * @param {?} className
+ * @param {?} isAdd
+ * @return {?}
+ */
+function setClass(element, className, isAdd) {
+    /** @type {?} */
+    var classList = element.nativeElement.classList;
+    isAdd ? classList.add(className) : classList.remove(className);
+}
+/**
+ * Helper that takes a query list of lines and sets the correct class on the host.
+ * \@docs-private
+ * @deprecated Use `setLines` instead.
+ * \@breaking-change 8.0.0
  */
 var   /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
+ * @deprecated Use `setLines` instead.
+ * \@breaking-change 8.0.0
  */
 MatLineSetter = /** @class */ (function () {
-    function MatLineSetter(_lines, _element) {
-        var _this = this;
-        this._lines = _lines;
-        this._element = _element;
-        this._setLineClass(this._lines.length);
-        this._lines.changes.subscribe(function () {
-            _this._setLineClass(_this._lines.length);
-        });
+    function MatLineSetter(lines, element) {
+        setLines(lines, element);
     }
-    /**
-     * @param {?} count
-     * @return {?}
-     */
-    MatLineSetter.prototype._setLineClass = /**
-     * @param {?} count
-     * @return {?}
-     */
-    function (count) {
-        this._resetClasses();
-        if (count === 2 || count === 3) {
-            this._setClass("mat-" + count + "-line", true);
-        }
-        else if (count > 3) {
-            this._setClass("mat-multi-line", true);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatLineSetter.prototype._resetClasses = /**
-     * @return {?}
-     */
-    function () {
-        this._setClass('mat-2-line', false);
-        this._setClass('mat-3-line', false);
-        this._setClass('mat-multi-line', false);
-    };
-    /**
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MatLineSetter.prototype._setClass = /**
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
-    function (className, isAdd) {
-        if (isAdd) {
-            this._element.nativeElement.classList.add(className);
-        }
-        else {
-            this._element.nativeElement.classList.remove(className);
-        }
-    };
     return MatLineSetter;
 }());
 var MatLineModule = /** @class */ (function () {
@@ -15967,7 +15954,7 @@ var MatGridTileText = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: core.Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -16795,20 +16782,24 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._gutter = "" + (value || ''); },
+        function (value) { this._gutter = "" + (value == null ? '' : value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "rowHeight", {
         /** Set internal representation of row height from the user-provided value. */
-        set: /**
+        get: /**
          * Set internal representation of row height from the user-provided value.
+         * @return {?}
+         */
+        function () { return this._rowHeight; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
             /** @type {?} */
-            var newValue = "" + (value || '');
+            var newValue = "" + (value == null ? '' : value);
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -18503,9 +18494,7 @@ var MatListItem = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
-        // tslint:disable-next-line:no-unused-expression
-        new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     };
     /** Whether this list item should show a ripple effect when clicked. */
     /**
@@ -18700,9 +18689,7 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
-        // tslint:disable-next-line:no-unused-expression
-        new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     };
     /**
      * @return {?}
@@ -34446,10 +34433,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-0898827');
+var VERSION = new core.Version('7.0.0-d0ca8e9');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34554,6 +34541,7 @@ exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
 exports.ErrorStateMatcher = ErrorStateMatcher;
 exports.MAT_HAMMER_OPTIONS = MAT_HAMMER_OPTIONS;
 exports.GestureConfig = GestureConfig;
+exports.setLines = setLines;
 exports.MatLine = MatLine;
 exports.MatLineSetter = MatLineSetter;
 exports.MatLineModule = MatLineModule;
@@ -34658,7 +34646,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa8 = MAT_GRID_LIST;
+exports.ɵa10 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34706,12 +34694,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34855,17 +34843,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
