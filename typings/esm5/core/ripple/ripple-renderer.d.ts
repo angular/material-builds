@@ -69,8 +69,6 @@ export declare class RippleRenderer {
     private _mostRecentTransientRipple;
     /** Time in milliseconds when the last touchstart event happened. */
     private _lastTouchStartEvent;
-    /** Options that apply to all the event listeners that are bound by the renderer. */
-    private _eventOptions;
     /**
      * Cached dimensions of the ripple container. Set when the first
      * ripple is shown and cleared once no more ripples are visible.

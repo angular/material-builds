@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "7.0.0-cbf6037",
+  "version": "7.0.0-e9a8721",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "module": "./esm5/material.es5.js",
@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/angular/material2#readme",
   "peerDependencies": {
-    "@angular/animations": ">=7.0.0-cbf6037",
-    "@angular/cdk": "7.0.0-cbf6037",
-    "@angular/core": ">=7.0.0-cbf6037",
-    "@angular/common": ">=7.0.0-cbf6037"
+    "@angular/animations": ">=7.0.0-e9a8721",
+    "@angular/cdk": "7.0.0-e9a8721",
+    "@angular/core": ">=7.0.0-e9a8721",
+    "@angular/common": ">=7.0.0-e9a8721"
   },
   "dependencies": {
     "tslib": "^1.7.1"
@@ -40,7 +40,7 @@
     ]
   },
   "sideEffects": false,
-  "releaseGitCommitSha": "cbf60379d0d761972581bc6b6f6a9e1637d258b2",
+  "releaseGitCommitSha": "e9a8721df1d7e225969ab5c8f512fdbdb87f73b4",
   "releaseGitBranch": "",
   "releaseGitUser": "Travis CI User <travis@example.org>"
 }
