@@ -576,7 +576,6 @@ class MatMenu {
         switch (keyCode) {
             case ESCAPE:
                 this.closed.emit('keydown');
-                event.stopPropagation();
                 break;
             case LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
@@ -1064,6 +1063,10 @@ class MatMenuTrigger {
             const config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
             this._overlayRef = this._overlay.create(config);
+            // Consume the `keydownEvents` in order to prevent them from going to another overlay.
+            // Ideally we'd also have our keyboard event logic in here, however doing so will
+            // break anybody that may have implemented the `MatMenuPanel` themselves.
+            this._overlayRef.keydownEvents().subscribe();
         }
         return this._overlayRef;
     }

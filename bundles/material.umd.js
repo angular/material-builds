@@ -11878,10 +11878,6 @@ var MatCalendarBody = /** @class */ (function () {
          */
         this.numCols = 7;
         /**
-         * Whether to allow selection of disabled cells.
-         */
-        this.allowDisabledSelection = false;
-        /**
          * The cell number of the active cell in the table.
          */
         this.activeCell = 0;
@@ -11904,10 +11900,9 @@ var MatCalendarBody = /** @class */ (function () {
      * @return {?}
      */
     function (cell) {
-        if (!this.allowDisabledSelection && !cell.enabled) {
-            return;
+        if (cell.enabled) {
+            this.selectedValueChange.emit(cell.value);
         }
-        this.selectedValueChange.emit(cell.value);
     };
     Object.defineProperty(MatCalendarBody.prototype, "_firstRowOffset", {
         /** The number of blank cells to put at the beginning for the first row. */
@@ -11988,7 +11983,6 @@ var MatCalendarBody = /** @class */ (function () {
         selectedValue: [{ type: core.Input }],
         labelMinRequiredCells: [{ type: core.Input }],
         numCols: [{ type: core.Input }],
-        allowDisabledSelection: [{ type: core.Input }],
         activeCell: [{ type: core.Input }],
         cellAspectRatio: [{ type: core.Input }],
         selectedValueChange: [{ type: core.Output }]
@@ -12698,7 +12692,7 @@ var MatMultiYearView = /** @class */ (function () {
     };
     MatMultiYearView.decorators = [
         { type: core.Component, args: [{selector: 'mat-multi-year-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMultiYearView',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
@@ -13089,7 +13083,7 @@ var MatYearView = /** @class */ (function () {
     };
     MatYearView.decorators = [
         { type: core.Component, args: [{selector: 'mat-year-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matYearView',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
@@ -20061,7 +20055,6 @@ var MatMenu = /** @class */ (function () {
         switch (keyCode) {
             case keycodes.ESCAPE:
                 this.closed.emit('keydown');
-                event.stopPropagation();
                 break;
             case keycodes.LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
@@ -20711,6 +20704,10 @@ var MatMenuTrigger = /** @class */ (function () {
             var config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
             this._overlayRef = this._overlay.create(config);
+            // Consume the `keydownEvents` in order to prevent them from going to another overlay.
+            // Ideally we'd also have our keyboard event logic in here, however doing so will
+            // break anybody that may have implemented the `MatMenuPanel` themselves.
+            this._overlayRef.keydownEvents().subscribe();
         }
         return this._overlayRef;
     };
@@ -28030,7 +28027,7 @@ var MatSlider = /** @class */ (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSlider.prototype._onClick = /**
+    MatSlider.prototype._onMousedown = /**
      * @param {?} event
      * @return {?}
      */
@@ -28494,7 +28491,7 @@ var MatSlider = /** @class */ (function (_super) {
                     host: {
                         '(focus)': '_onFocus()',
                         '(blur)': '_onBlur()',
-                        '(click)': '_onClick($event)',
+                        '(mousedown)': '_onMousedown($event)',
                         '(keydown)': '_onKeydown($event)',
                         '(keyup)': '_onKeyup()',
                         '(mouseenter)': '_onMouseenter()',
@@ -30308,6 +30305,22 @@ var MatStepperIntl = /** @class */ (function () {
     /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatStepperIntl();
+}
+/** *
+ * \@docs-private
+  @type {?} */
+var MAT_STEPPER_INTL_PROVIDER = {
+    provide: MatStepperIntl,
+    deps: [[new core.Optional(), new core.SkipSelf(), MatStepperIntl]],
+    useFactory: MAT_STEPPER_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -30746,7 +30759,7 @@ var MatStepperModule = /** @class */ (function () {
                         MatStepHeader,
                         MatStepperIcon,
                     ],
-                    providers: [MatStepperIntl, ErrorStateMatcher],
+                    providers: [MAT_STEPPER_INTL_PROVIDER, ErrorStateMatcher],
                 },] },
     ];
     return MatStepperModule;
@@ -34406,10 +34419,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-87e1742');
+var VERSION = new core.Version('7.0.0-a54530a');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34490,7 +34503,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
-exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -34618,7 +34631,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa13 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34787,7 +34800,9 @@ exports._CdkStepperPrevious = _CdkStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
+exports.MAT_STEPPER_INTL_PROVIDER_FACTORY = MAT_STEPPER_INTL_PROVIDER_FACTORY;
 exports.MatStepperIntl = MatStepperIntl;
+exports.MAT_STEPPER_INTL_PROVIDER = MAT_STEPPER_INTL_PROVIDER;
 exports.matStepperAnimations = matStepperAnimations;
 exports.MatStepperIcon = MatStepperIcon;
 exports.MatTableModule = MatTableModule;
@@ -34813,17 +34828,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa18 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf18 = MatTabBase;
-exports.ɵg18 = _MatTabMixinBase;
-exports.ɵb18 = MatTabHeaderBase;
-exports.ɵc18 = _MatTabHeaderMixinBase;
-exports.ɵd18 = MatTabLabelWrapperBase;
-exports.ɵe18 = _MatTabLabelWrapperMixinBase;
-exports.ɵj18 = MatTabLinkBase;
-exports.ɵh18 = MatTabNavBase;
-exports.ɵk18 = _MatTabLinkMixinBase;
-exports.ɵi18 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

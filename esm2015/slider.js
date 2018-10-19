@@ -486,12 +486,12 @@ class MatSlider extends _MatSliderMixinBase {
      * @param {?} event
      * @return {?}
      */
-    _onClick(event) {
+    _onMousedown(event) {
         if (this.disabled) {
             return;
         }
         /** @type {?} */
-        let oldValue = this.value;
+        const oldValue = this.value;
         this._isSliding = false;
         this._focusHostElement();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
@@ -819,7 +819,7 @@ MatSlider.decorators = [
                 host: {
                     '(focus)': '_onFocus()',
                     '(blur)': '_onBlur()',
-                    '(click)': '_onClick($event)',
+                    '(mousedown)': '_onMousedown($event)',
                     '(keydown)': '_onKeydown($event)',
                     '(keyup)': '_onKeyup()',
                     '(mouseenter)': '_onMouseenter()',

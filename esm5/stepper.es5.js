@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Directive, Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Optional, Output, SkipSelf, ViewChildren, TemplateRef, defineInjectable } from '@angular/core';
+import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, defineInjectable } from '@angular/core';
 import { CdkStepLabel, CdkStep, CdkStepper, MAT_STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -63,6 +63,22 @@ var MatStepperIntl = /** @class */ (function () {
     /** @nocollapse */ MatStepperIntl.ngInjectableDef = defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatStepperIntl();
+}
+/** *
+ * \@docs-private
+  @type {?} */
+var MAT_STEPPER_INTL_PROVIDER = {
+    provide: MatStepperIntl,
+    deps: [[new Optional(), new SkipSelf(), MatStepperIntl]],
+    useFactory: MAT_STEPPER_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -501,7 +517,7 @@ var MatStepperModule = /** @class */ (function () {
                         MatStepHeader,
                         MatStepperIcon,
                     ],
-                    providers: [MatStepperIntl, ErrorStateMatcher],
+                    providers: [MAT_STEPPER_INTL_PROVIDER, ErrorStateMatcher],
                 },] },
     ];
     return MatStepperModule;
@@ -517,5 +533,5 @@ var MatStepperModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatStepperModule, _CdkStepLabel, MatStepLabel, _CdkStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, _CdkStepperNext, _CdkStepperPrevious, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };
+export { MatStepperModule, _CdkStepLabel, MatStepLabel, _CdkStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, _CdkStepperNext, _CdkStepperPrevious, MatStepperNext, MatStepperPrevious, MatStepHeader, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStepperIntl, MAT_STEPPER_INTL_PROVIDER, matStepperAnimations, MatStepperIcon };
 //# sourceMappingURL=stepper.es5.js.map

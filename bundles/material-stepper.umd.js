@@ -84,6 +84,22 @@ var MatStepperIntl = /** @class */ (function () {
     /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatStepperIntl();
+}
+/** *
+ * \@docs-private
+  @type {?} */
+var MAT_STEPPER_INTL_PROVIDER = {
+    provide: MatStepperIntl,
+    deps: [[new core.Optional(), new core.SkipSelf(), MatStepperIntl]],
+    useFactory: MAT_STEPPER_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -522,7 +538,7 @@ var MatStepperModule = /** @class */ (function () {
                         MatStepHeader,
                         MatStepperIcon,
                     ],
-                    providers: [MatStepperIntl, core$1.ErrorStateMatcher],
+                    providers: [MAT_STEPPER_INTL_PROVIDER, core$1.ErrorStateMatcher],
                 },] },
     ];
     return MatStepperModule;
@@ -541,7 +557,9 @@ exports._CdkStepperPrevious = _CdkStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
+exports.MAT_STEPPER_INTL_PROVIDER_FACTORY = MAT_STEPPER_INTL_PROVIDER_FACTORY;
 exports.MatStepperIntl = MatStepperIntl;
+exports.MAT_STEPPER_INTL_PROVIDER = MAT_STEPPER_INTL_PROVIDER;
 exports.matStepperAnimations = matStepperAnimations;
 exports.MatStepperIcon = MatStepperIcon;
 
