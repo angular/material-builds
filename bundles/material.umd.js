@@ -4635,6 +4635,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         else {
             this._element.nativeElement.value = inputValue;
         }
+        this._previousValue = inputValue;
     };
     /**
      * This method closes the panel, and if a value is specified, also sets the associated
@@ -15296,8 +15297,26 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * ID for the associated header element. Used for a11y labelling.
          */
         _this._headerId = "mat-expansion-panel-header-" + uniqueId$1++;
+        /**
+         * Stream of body animation done events.
+         */
+        _this._bodyAnimationDone = new rxjs.Subject();
         _this.accordion = accordion$$1;
         _this._document = _document;
+        // We need a Subject with distinctUntilChanged, because the `done` event
+        // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
+        _this._bodyAnimationDone.pipe(operators.distinctUntilChanged(function (x, y) {
+            return x.fromState === y.fromState && x.toState === y.toState;
+        })).subscribe(function (event) {
+            if (event.fromState !== 'void') {
+                if (event.toState === 'expanded') {
+                    _this.afterExpand.emit();
+                }
+                else if (event.toState === 'collapsed') {
+                    _this.afterCollapse.emit();
+                }
+            }
+        });
         return _this;
     }
     Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
@@ -15383,24 +15402,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      */
     function () {
         _super.prototype.ngOnDestroy.call(this);
+        this._bodyAnimationDone.complete();
         this._inputChanges.complete();
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    MatExpansionPanel.prototype._bodyAnimation = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        var phaseName = event.phaseName, toState = event.toState, fromState = event.fromState;
-        if (phaseName === 'done' && toState === 'expanded' && fromState !== 'void') {
-            this.afterExpand.emit();
-        }
-        if (phaseName === 'done' && toState === 'collapsed' && fromState !== 'void') {
-            this.afterCollapse.emit();
-        }
     };
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     /**
@@ -15425,7 +15428,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         { type: core.Component, args: [{styles: [".mat-expansion-panel{box-sizing:content-box;display:block;margin:0;border-radius:4px;overflow:hidden;transition:margin 225ms cubic-bezier(.4,0,.2,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:4px;border-top-left-radius:4px}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:4px;border-bottom-left-radius:4px}@media screen and (-ms-high-contrast:active){.mat-expansion-panel{outline:solid 1px}}.mat-expansion-panel._mat-animation-noopable,.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                     selector: 'mat-expansion-panel',
                     exportAs: 'matExpansionPanel',
-                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimation($event)\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimationDone.next($event)\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
@@ -18622,6 +18625,7 @@ var MatListOption = /** @class */ (function (_super) {
         _this.selectionList = selectionList;
         _this._selected = false;
         _this._disabled = false;
+        _this._hasFocus = false;
         /**
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
@@ -18713,7 +18717,14 @@ var MatListOption = /** @class */ (function (_super) {
             // to avoid changed after checked errors.
             Promise.resolve().then(function () { return _this.selected = false; });
         }
-        this.selectionList._removeOptionFromList(this);
+        /** @type {?} */
+        var hadFocus = this._hasFocus;
+        /** @type {?} */
+        var newActiveItem = this.selectionList._removeOptionFromList(this);
+        // Only move focus if this option was focused at the time it was destroyed.
+        if (hadFocus && newActiveItem) {
+            newActiveItem.focus();
+        }
     };
     /** Toggles the selection state of the option. */
     /**
@@ -18789,6 +18800,7 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         this.selectionList._setFocusedOption(this);
+        this._hasFocus = true;
     };
     /**
      * @return {?}
@@ -18798,6 +18810,7 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         this.selectionList._onTouched();
+        this._hasFocus = false;
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -19047,16 +19060,19 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (option) {
         this._keyManager.updateActiveItemIndex(this._getOptionIndex(option));
     };
-    /** Removes an option from the selection list and updates the active item. */
+    /**
+     * Removes an option from the selection list and updates the active item.
+     * @returns Currently-active item.
+     */
     /**
      * Removes an option from the selection list and updates the active item.
      * @param {?} option
-     * @return {?}
+     * @return {?} Currently-active item.
      */
     MatSelectionList.prototype._removeOptionFromList = /**
      * Removes an option from the selection list and updates the active item.
      * @param {?} option
-     * @return {?}
+     * @return {?} Currently-active item.
      */
     function (option) {
         /** @type {?} */
@@ -19064,12 +19080,13 @@ var MatSelectionList = /** @class */ (function (_super) {
         if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
-                this._keyManager.setPreviousItemActive();
+                this._keyManager.updateActiveItemIndex(optionIndex - 1);
             }
             else if (optionIndex === 0 && this.options.length > 1) {
-                this._keyManager.setNextItemActive();
+                this._keyManager.updateActiveItemIndex(Math.min(optionIndex + 1, this.options.length - 1));
             }
         }
+        return this._keyManager.activeItem;
     };
     /** Passes relevant key presses to our key manager. */
     /**
@@ -20362,7 +20379,9 @@ var MatMenuTrigger = /** @class */ (function () {
         this._menuOpen = false;
         this._closeSubscription = rxjs.Subscription.EMPTY;
         this._hoverSubscription = rxjs.Subscription.EMPTY;
-        this._openedByMouse = false;
+        // Tracking input type is necessary so it's possible to only auto-focus
+        // the first item of the list when the menu is opened via the keyboard
+        this._openedBy = null;
         /**
          * Event emitted when the associated menu is opened.
          */
@@ -20609,7 +20628,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this.menu.direction = this.dir;
         this._setMenuElevation();
         this._setIsMenuOpen(true);
-        this.menu.focusFirstItem(this._openedByMouse ? 'mouse' : 'program');
+        this.menu.focusFirstItem(this._openedBy || 'program');
     };
     /**
      * Updates the menu elevation based on the amount of parent menus that it has.
@@ -20647,15 +20666,15 @@ var MatMenuTrigger = /** @class */ (function () {
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
-        if (!this._openedByMouse) {
+        if (!this._openedBy) {
             // Note that the focus style will show up both for `program` and
             // `keyboard` so we don't have to specify which one it is.
             this.focus();
         }
         else if (!this.triggersSubmenu()) {
-            this.focus('mouse');
+            this.focus(this._openedBy);
         }
-        this._openedByMouse = false;
+        this._openedBy = null;
     };
     /**
      * @param {?} isOpen
@@ -20853,7 +20872,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (!a11y.isFakeMousedownFromScreenReader(event)) {
             // Since right or middle button clicks won't trigger the `click` event,
             // we shouldn't consider the menu as opened by mouse in those cases.
-            this._openedByMouse = event.button === 0;
+            this._openedBy = event.button === 0 ? 'mouse' : null;
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
             // highlight from lingering on the menu item.
@@ -20922,7 +20941,7 @@ var MatMenuTrigger = /** @class */ (function () {
             // it won't be closed immediately after it is opened.
             .pipe(operators.filter(function (active) { return active === _this._menuItemInstance && !active.disabled; }), operators.delay(0, rxjs.asapScheduler))
             .subscribe(function () {
-            _this._openedByMouse = true;
+            _this._openedBy = 'mouse';
             // If the same menu is used between multiple triggers, it might still be animating
             // while the new trigger tries to re-open it. Wait for the animation to finish
             // before doing so. Also interrupt if the user moves to another item.
@@ -20945,6 +20964,7 @@ var MatMenuTrigger = /** @class */ (function () {
                         'aria-haspopup': 'true',
                         '[attr.aria-expanded]': 'menuOpen || null',
                         '(mousedown)': '_handleMousedown($event)',
+                        '(touchstart)': '_openedBy = "touch"',
                         '(keydown)': '_handleKeydown($event)',
                         '(click)': '_handleClick($event)',
                     },
@@ -25624,8 +25644,8 @@ var MatRadioButton = /** @class */ (function (_super) {
     };
     MatRadioButton.decorators = [
         { type: core.Component, args: [{selector: 'mat-radio-button',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-radio-persistent-ripple\"></div></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-describedby]=\"ariaDescribedby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
-                    styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}@media screen and (-ms-high-contrast:active){.mat-radio-checked .mat-radio-inner-circle{border:solid 10px}}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button.cdk-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple,.mat-radio-persistent-ripple{opacity:0}"],
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-radio-persistent-ripple\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-describedby]=\"ariaDescribedby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"></div><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
+                    styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}@media screen and (-ms-high-contrast:active){.mat-radio-checked .mat-radio-inner-circle{border:solid 10px}}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button.cdk-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple,.mat-radio-persistent-ripple{opacity:0}.mat-radio-input{bottom:0;left:50%}"],
                     inputs: ['color', 'disableRipple', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRadioButton',
@@ -34433,10 +34453,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-cae16b0');
+var VERSION = new core.Version('7.0.0-8d98375');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34645,7 +34665,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa7 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34693,12 +34713,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

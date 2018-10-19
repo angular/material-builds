@@ -1012,7 +1012,9 @@ var MatMenuTrigger = /** @class */ (function () {
         this._menuOpen = false;
         this._closeSubscription = rxjs.Subscription.EMPTY;
         this._hoverSubscription = rxjs.Subscription.EMPTY;
-        this._openedByMouse = false;
+        // Tracking input type is necessary so it's possible to only auto-focus
+        // the first item of the list when the menu is opened via the keyboard
+        this._openedBy = null;
         /**
          * Event emitted when the associated menu is opened.
          */
@@ -1259,7 +1261,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this.menu.direction = this.dir;
         this._setMenuElevation();
         this._setIsMenuOpen(true);
-        this.menu.focusFirstItem(this._openedByMouse ? 'mouse' : 'program');
+        this.menu.focusFirstItem(this._openedBy || 'program');
     };
     /**
      * Updates the menu elevation based on the amount of parent menus that it has.
@@ -1297,15 +1299,15 @@ var MatMenuTrigger = /** @class */ (function () {
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
-        if (!this._openedByMouse) {
+        if (!this._openedBy) {
             // Note that the focus style will show up both for `program` and
             // `keyboard` so we don't have to specify which one it is.
             this.focus();
         }
         else if (!this.triggersSubmenu()) {
-            this.focus('mouse');
+            this.focus(this._openedBy);
         }
-        this._openedByMouse = false;
+        this._openedBy = null;
     };
     /**
      * @param {?} isOpen
@@ -1503,7 +1505,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (!a11y.isFakeMousedownFromScreenReader(event)) {
             // Since right or middle button clicks won't trigger the `click` event,
             // we shouldn't consider the menu as opened by mouse in those cases.
-            this._openedByMouse = event.button === 0;
+            this._openedBy = event.button === 0 ? 'mouse' : null;
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
             // highlight from lingering on the menu item.
@@ -1572,7 +1574,7 @@ var MatMenuTrigger = /** @class */ (function () {
             // it won't be closed immediately after it is opened.
             .pipe(operators.filter(function (active) { return active === _this._menuItemInstance && !active.disabled; }), operators.delay(0, rxjs.asapScheduler))
             .subscribe(function () {
-            _this._openedByMouse = true;
+            _this._openedBy = 'mouse';
             // If the same menu is used between multiple triggers, it might still be animating
             // while the new trigger tries to re-open it. Wait for the animation to finish
             // before doing so. Also interrupt if the user moves to another item.
@@ -1595,6 +1597,7 @@ var MatMenuTrigger = /** @class */ (function () {
                         'aria-haspopup': 'true',
                         '[attr.aria-expanded]': 'menuOpen || null',
                         '(mousedown)': '_handleMousedown($event)',
+                        '(touchstart)': '_openedBy = "touch"',
                         '(keydown)': '_handleKeydown($event)',
                         '(click)': '_handleClick($event)',
                     },
@@ -1657,12 +1660,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

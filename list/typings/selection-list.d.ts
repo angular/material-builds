@@ -45,6 +45,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     selectionList: MatSelectionList;
     private _selected;
     private _disabled;
+    private _hasFocus;
     _avatar: MatListAvatarCssMatStyler;
     _icon: MatListIconCssMatStyler;
     _lines: QueryList<MatLine>;
@@ -132,8 +133,11 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     deselectAll(): void;
     /** Sets the focused option of the selection-list. */
     _setFocusedOption(option: MatListOption): void;
-    /** Removes an option from the selection list and updates the active item. */
-    _removeOptionFromList(option: MatListOption): void;
+    /**
+     * Removes an option from the selection list and updates the active item.
+     * @returns Currently-active item.
+     */
+    _removeOptionFromList(option: MatListOption): MatListOption | null;
     /** Passes relevant key presses to our key manager. */
     _keydown(event: KeyboardEvent): void;
     /** Reports a value change to the ControlValueAccessor */

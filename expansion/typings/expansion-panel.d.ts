@@ -45,6 +45,8 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _portal: TemplatePortal;
     /** ID for the associated header element. Used for a11y labelling. */
     _headerId: string;
+    /** Stream of body animation done events. */
+    _bodyAnimationDone: Subject<AnimationEvent>;
     constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document?: any, _animationMode?: string | undefined);
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
@@ -53,7 +55,6 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
-    _bodyAnimation(event: AnimationEvent): void;
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     _containsFocus(): boolean;
 }
