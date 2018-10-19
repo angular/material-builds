@@ -36,8 +36,6 @@ export declare class MatCalendarBody {
     labelMinRequiredCells: number;
     /** The number of columns in the table. */
     numCols: number;
-    /** Whether to allow selection of disabled cells. */
-    allowDisabledSelection: boolean;
     /** The cell number of the active cell in the table. */
     activeCell: number;
     /**

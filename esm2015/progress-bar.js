@@ -42,9 +42,11 @@ const MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location'
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
     /** @type {?} */
     const _document = inject(DOCUMENT);
-    /** @type {?} */
-    const pathname = (_document && _document.location && _document.location.pathname) || '';
-    return { pathname };
+    return {
+        // Note that this needs to be a function, because Angular will only instantiate
+        // this provider once, but we want the current location on each call.
+        getPathname: () => (_document && _document.location && _document.location.pathname) || ''
+    };
 }
 /** *
  * Counter used to generate unique IDs for progress bars.
@@ -98,7 +100,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
          */
         this.progressbarId = `mat-progress-bar-${progressbarId++}`;
         /** @type {?} */
-        const path = location && location.pathname ? location.pathname.split('#')[0] : '';
+        const path = location ? location.getPathname().split('#')[0] : '';
         this._rectangleFillValue = `url('${path}#${this.progressbarId}')`;
         this._isNoopAnimation = _animationMode === 'NoopAnimations';
     }

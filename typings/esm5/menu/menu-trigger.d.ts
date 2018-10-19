@@ -42,7 +42,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _closeSubscription;
     private _hoverSubscription;
     private _scrollStrategy;
-    private _openedByMouse;
+    _openedBy: 'mouse' | 'touch' | null;
     /**
      * @deprecated
      * @breaking-change 8.0.0

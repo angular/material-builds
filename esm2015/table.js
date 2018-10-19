@@ -100,7 +100,10 @@ class MatColumnDef extends CdkColumnDef {
 MatColumnDef.decorators = [
     { type: Directive, args: [{
                 selector: '[matColumnDef]',
-                providers: [{ provide: CdkColumnDef, useExisting: MatColumnDef }],
+                providers: [
+                    { provide: CdkColumnDef, useExisting: MatColumnDef },
+                    { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
+                ],
             },] },
 ];
 MatColumnDef.propDecorators = {
@@ -439,9 +442,15 @@ class MatTableDataSource extends DataSource {
          */
         this.filterPredicate = (data, filter) => {
             /** @type {?} */
-            const accumulator = (currentTerm, key) => currentTerm + (/** @type {?} */ (data))[key];
-            /** @type {?} */
-            const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            const dataStr = Object.keys(data).reduce((currentTerm, key) => {
+                // Use an obscure Unicode character to delimit the words in the concatenated string.
+                // This avoids matches where the values of two columns combined will match the user's query
+                // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
+                // that has a very low chance of being typed in by somebody in a text field. This one in
+                // particular is "White up-pointing triangle with dot" from
+                // https://en.wikipedia.org/wiki/List_of_Unicode_characters
+                return currentTerm + (/** @type {?} */ (data))[key] + '◬';
+            }, '').toLowerCase();
             /** @type {?} */
             const transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;

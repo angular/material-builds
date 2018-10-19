@@ -28,7 +28,7 @@ export declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLoc
  * @docs-private
  */
 export interface MatProgressBarLocation {
-    pathname: string;
+    getPathname: () => string;
 }
 /** @docs-private */
 export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;

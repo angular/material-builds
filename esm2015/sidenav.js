@@ -15,7 +15,7 @@ import { CdkScrollable, ScrollDispatcher, ScrollingModule } from '@angular/cdk/s
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { fromEvent, merge, Subject } from 'rxjs';
-import { debounceTime, filter, map, startWith, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, filter, map, startWith, take, takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { MatCommonModule } from '@angular/material/core';
 
@@ -148,7 +148,11 @@ class MatDrawer {
         /**
          * Emits whenever the drawer has started animating.
          */
-        this._animationStarted = new EventEmitter();
+        this._animationStarted = new Subject();
+        /**
+         * Emits whenever the drawer is done animating.
+         */
+        this._animationEnd = new Subject();
         /**
          * Current state of the sidenav animation.
          */
@@ -192,6 +196,17 @@ class MatDrawer {
                 this.close();
                 event.stopPropagation();
             }));
+        });
+        // We need a Subject with distinctUntilChanged, because the `done` event
+        // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
+        this._animationEnd.pipe(distinctUntilChanged((x, y) => {
+            return x.fromState === y.fromState && x.toState === y.toState;
+        })).subscribe((event) => {
+            const { fromState, toState } = event;
+            if ((toState.indexOf('open') === 0 && fromState === 'void') ||
+                (toState === 'void' && fromState.indexOf('open') === 0)) {
+                this.openedChange.emit(this._opened);
+            }
         });
     }
     /**
@@ -343,6 +358,8 @@ class MatDrawer {
         if (this._focusTrap) {
             this._focusTrap.destroy();
         }
+        this._animationStarted.complete();
+        this._animationEnd.complete();
     }
     /**
      * Whether the drawer is opened. We overload this because we trigger an event when it
@@ -396,24 +413,6 @@ class MatDrawer {
         });
     }
     /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onAnimationStart(event) {
-        this._animationStarted.emit(event);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onAnimationEnd(event) {
-        const { fromState, toState } = event;
-        if ((toState.indexOf('open') === 0 && fromState === 'void') ||
-            (toState === 'void' && fromState.indexOf('open') === 0)) {
-            this.openedChange.emit(this._opened);
-        }
-    }
-    /**
      * @return {?}
      */
     get _width() {
@@ -428,8 +427,8 @@ MatDrawer.decorators = [
                 host: {
                     'class': 'mat-drawer',
                     '[@transform]': '_animationState',
-                    '(@transform.start)': '_onAnimationStart($event)',
-                    '(@transform.done)': '_onAnimationEnd($event)',
+                    '(@transform.start)': '_animationStarted.next($event)',
+                    '(@transform.done)': '_animationEnd.next($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
                     '[class.mat-drawer-end]': 'position === "end"',
@@ -925,8 +924,8 @@ MatSidenav.decorators = [
                     'class': 'mat-drawer mat-sidenav',
                     'tabIndex': '-1',
                     '[@transform]': '_animationState',
-                    '(@transform.start)': '_onAnimationStart($event)',
-                    '(@transform.done)': '_onAnimationEnd($event)',
+                    '(@transform.start)': '_animationStarted.next($event)',
+                    '(@transform.done)': '_animationEnd.next($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
                     '[class.mat-drawer-end]': 'position === "end"',

@@ -637,7 +637,7 @@ var MatSlider = /** @class */ (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSlider.prototype._onClick = /**
+    MatSlider.prototype._onMousedown = /**
      * @param {?} event
      * @return {?}
      */
@@ -1101,7 +1101,7 @@ var MatSlider = /** @class */ (function (_super) {
                     host: {
                         '(focus)': '_onFocus()',
                         '(blur)': '_onBlur()',
-                        '(click)': '_onClick($event)',
+                        '(mousedown)': '_onMousedown($event)',
                         '(keydown)': '_onKeydown($event)',
                         '(keyup)': '_onKeyup()',
                         '(mouseenter)': '_onMouseenter()',

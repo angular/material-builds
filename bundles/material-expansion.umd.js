@@ -178,8 +178,26 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * ID for the associated header element. Used for a11y labelling.
          */
         _this._headerId = "mat-expansion-panel-header-" + uniqueId++;
+        /**
+         * Stream of body animation done events.
+         */
+        _this._bodyAnimationDone = new rxjs.Subject();
         _this.accordion = accordion$$1;
         _this._document = _document;
+        // We need a Subject with distinctUntilChanged, because the `done` event
+        // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
+        _this._bodyAnimationDone.pipe(operators.distinctUntilChanged(function (x, y) {
+            return x.fromState === y.fromState && x.toState === y.toState;
+        })).subscribe(function (event) {
+            if (event.fromState !== 'void') {
+                if (event.toState === 'expanded') {
+                    _this.afterExpand.emit();
+                }
+                else if (event.toState === 'collapsed') {
+                    _this.afterCollapse.emit();
+                }
+            }
+        });
         return _this;
     }
     Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
@@ -265,24 +283,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      */
     function () {
         _super.prototype.ngOnDestroy.call(this);
+        this._bodyAnimationDone.complete();
         this._inputChanges.complete();
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    MatExpansionPanel.prototype._bodyAnimation = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        var phaseName = event.phaseName, toState = event.toState, fromState = event.fromState;
-        if (phaseName === 'done' && toState === 'expanded' && fromState !== 'void') {
-            this.afterExpand.emit();
-        }
-        if (phaseName === 'done' && toState === 'collapsed' && fromState !== 'void') {
-            this.afterCollapse.emit();
-        }
     };
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     /**
@@ -307,7 +309,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         { type: core.Component, args: [{styles: [".mat-expansion-panel{box-sizing:content-box;display:block;margin:0;border-radius:4px;overflow:hidden;transition:margin 225ms cubic-bezier(.4,0,.2,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:4px;border-top-left-radius:4px}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:4px;border-bottom-left-radius:4px}@media screen and (-ms-high-contrast:active){.mat-expansion-panel{outline:solid 1px}}.mat-expansion-panel._mat-animation-noopable,.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                     selector: 'mat-expansion-panel',
                     exportAs: 'matExpansionPanel',
-                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimation($event)\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimationDone.next($event)\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
