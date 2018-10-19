@@ -146,7 +146,7 @@ var MatGridTileText = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new core$1.MatLineSetter(this._lines, this._element);
+        core$1.setLines(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: core.Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -1192,7 +1192,7 @@ exports.MatGridTileText = MatGridTileText;
 exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
-exports.ɵa8 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken, Component, ViewEncapsulation, ElementRef, Input, Optional, ContentChildren, Directive, ChangeDetectionStrategy, Inject, NgModule } from '@angular/core';
-import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
+import { MatLine, setLines, MatLineModule, MatCommonModule } from '@angular/material/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
 
@@ -98,7 +98,7 @@ class MatGridTileText {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     }
 }
 MatGridTileText.decorators = [
@@ -837,5 +837,5 @@ MatGridListModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa8 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa2 };
 //# sourceMappingURL=grid-list.js.map

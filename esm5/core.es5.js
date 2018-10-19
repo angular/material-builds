@@ -12,6 +12,7 @@ import { __extends, __assign } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
+import { startWith } from 'rxjs/operators';
 import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -1540,67 +1541,54 @@ var MatLine = /** @class */ (function () {
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
+ * @param {?} lines
+ * @param {?} element
+ * @return {?}
+ */
+function setLines(lines, element) {
+    // Note: doesn't need to unsubscribe, because `changes`
+    // gets completed by Angular when the view is destroyed.
+    lines.changes.pipe(startWith(lines)).subscribe(function (_a) {
+        var length = _a.length;
+        setClass(element, 'mat-2-line', false);
+        setClass(element, 'mat-3-line', false);
+        setClass(element, 'mat-multi-line', false);
+        if (length === 2 || length === 3) {
+            setClass(element, "mat-" + length + "-line", true);
+        }
+        else if (length > 3) {
+            setClass(element, "mat-multi-line", true);
+        }
+    });
+}
+/**
+ * Adds or removes a class from an element.
+ * @param {?} element
+ * @param {?} className
+ * @param {?} isAdd
+ * @return {?}
+ */
+function setClass(element, className, isAdd) {
+    /** @type {?} */
+    var classList = element.nativeElement.classList;
+    isAdd ? classList.add(className) : classList.remove(className);
+}
+/**
+ * Helper that takes a query list of lines and sets the correct class on the host.
+ * \@docs-private
+ * @deprecated Use `setLines` instead.
+ * \@breaking-change 8.0.0
  */
 var  /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
+ * @deprecated Use `setLines` instead.
+ * \@breaking-change 8.0.0
  */
 MatLineSetter = /** @class */ (function () {
-    function MatLineSetter(_lines, _element) {
-        var _this = this;
-        this._lines = _lines;
-        this._element = _element;
-        this._setLineClass(this._lines.length);
-        this._lines.changes.subscribe(function () {
-            _this._setLineClass(_this._lines.length);
-        });
+    function MatLineSetter(lines, element) {
+        setLines(lines, element);
     }
-    /**
-     * @param {?} count
-     * @return {?}
-     */
-    MatLineSetter.prototype._setLineClass = /**
-     * @param {?} count
-     * @return {?}
-     */
-    function (count) {
-        this._resetClasses();
-        if (count === 2 || count === 3) {
-            this._setClass("mat-" + count + "-line", true);
-        }
-        else if (count > 3) {
-            this._setClass("mat-multi-line", true);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatLineSetter.prototype._resetClasses = /**
-     * @return {?}
-     */
-    function () {
-        this._setClass('mat-2-line', false);
-        this._setClass('mat-3-line', false);
-        this._setClass('mat-multi-line', false);
-    };
-    /**
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MatLineSetter.prototype._setClass = /**
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
-    function (className, isAdd) {
-        if (isAdd) {
-            this._element.nativeElement.classList.add(className);
-        }
-        else {
-            this._element.nativeElement.classList.remove(className);
-        }
-    };
     return MatLineSetter;
 }());
 var MatLineModule = /** @class */ (function () {
@@ -2874,5 +2862,5 @@ var DEC = 11;
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
 //# sourceMappingURL=core.es5.js.map

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
-}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,a11y,animations,keycodes,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
+}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,operators,a11y,animations,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1574,67 +1574,54 @@ var MatLine = /** @class */ (function () {
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
+ * @param {?} lines
+ * @param {?} element
+ * @return {?}
+ */
+function setLines(lines, element) {
+    // Note: doesn't need to unsubscribe, because `changes`
+    // gets completed by Angular when the view is destroyed.
+    lines.changes.pipe(operators.startWith(lines)).subscribe(function (_a) {
+        var length = _a.length;
+        setClass(element, 'mat-2-line', false);
+        setClass(element, 'mat-3-line', false);
+        setClass(element, 'mat-multi-line', false);
+        if (length === 2 || length === 3) {
+            setClass(element, "mat-" + length + "-line", true);
+        }
+        else if (length > 3) {
+            setClass(element, "mat-multi-line", true);
+        }
+    });
+}
+/**
+ * Adds or removes a class from an element.
+ * @param {?} element
+ * @param {?} className
+ * @param {?} isAdd
+ * @return {?}
+ */
+function setClass(element, className, isAdd) {
+    /** @type {?} */
+    var classList = element.nativeElement.classList;
+    isAdd ? classList.add(className) : classList.remove(className);
+}
+/**
+ * Helper that takes a query list of lines and sets the correct class on the host.
+ * \@docs-private
+ * @deprecated Use `setLines` instead.
+ * \@breaking-change 8.0.0
  */
 var   /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
+ * @deprecated Use `setLines` instead.
+ * \@breaking-change 8.0.0
  */
 MatLineSetter = /** @class */ (function () {
-    function MatLineSetter(_lines, _element) {
-        var _this = this;
-        this._lines = _lines;
-        this._element = _element;
-        this._setLineClass(this._lines.length);
-        this._lines.changes.subscribe(function () {
-            _this._setLineClass(_this._lines.length);
-        });
+    function MatLineSetter(lines, element) {
+        setLines(lines, element);
     }
-    /**
-     * @param {?} count
-     * @return {?}
-     */
-    MatLineSetter.prototype._setLineClass = /**
-     * @param {?} count
-     * @return {?}
-     */
-    function (count) {
-        this._resetClasses();
-        if (count === 2 || count === 3) {
-            this._setClass("mat-" + count + "-line", true);
-        }
-        else if (count > 3) {
-            this._setClass("mat-multi-line", true);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatLineSetter.prototype._resetClasses = /**
-     * @return {?}
-     */
-    function () {
-        this._setClass('mat-2-line', false);
-        this._setClass('mat-3-line', false);
-        this._setClass('mat-multi-line', false);
-    };
-    /**
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MatLineSetter.prototype._setClass = /**
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */
-    function (className, isAdd) {
-        if (isAdd) {
-            this._element.nativeElement.classList.add(className);
-        }
-        else {
-            this._element.nativeElement.classList.remove(className);
-        }
-    };
     return MatLineSetter;
 }());
 var MatLineModule = /** @class */ (function () {
@@ -2921,6 +2908,7 @@ exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
 exports.ErrorStateMatcher = ErrorStateMatcher;
 exports.MAT_HAMMER_OPTIONS = MAT_HAMMER_OPTIONS;
 exports.GestureConfig = GestureConfig;
+exports.setLines = setLines;
 exports.MatLine = MatLine;
 exports.MatLineSetter = MatLineSetter;
 exports.MatLineModule = MatLineModule;

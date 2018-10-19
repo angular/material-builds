@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken, Component, ViewEncapsulation, ElementRef, Input, Optional, ContentChildren, Directive, ChangeDetectionStrategy, Inject, NgModule } from '@angular/core';
-import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
+import { MatLine, setLines, MatLineModule, MatCommonModule } from '@angular/material/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { __extends } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
@@ -117,7 +117,7 @@ var MatGridTileText = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -1166,5 +1166,5 @@ var MatGridListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa8 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa2 };
 //# sourceMappingURL=grid-list.es5.js.map
