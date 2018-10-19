@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, QueryList, AfterContentInit } from '@angular/core';
-import { MatLine, MatLineSetter } from '@angular/material/core';
+import { MatLine } from '@angular/material/core';
 import { MatGridListBase } from './grid-list-base';
 export declare class MatGridTile {
     private _element;
@@ -26,11 +26,6 @@ export declare class MatGridTile {
 }
 export declare class MatGridTileText implements AfterContentInit {
     private _element;
-    /**
-     *  Helper that watches the number of lines in a text area and sets
-     * a class on the host element that matches the line count.
-     */
-    _lineSetter: MatLineSetter;
     _lines: QueryList<MatLine>;
     constructor(_element: ElementRef<HTMLElement>);
     ngAfterContentInit(): void;

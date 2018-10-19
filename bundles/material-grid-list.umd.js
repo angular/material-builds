@@ -146,7 +146,7 @@ var MatGridTileText = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new core$1.MatLineSetter(this._lines, this._element);
+        core$1.setLines(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: core.Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -974,20 +974,24 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._gutter = "" + (value || ''); },
+        function (value) { this._gutter = "" + (value == null ? '' : value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "rowHeight", {
         /** Set internal representation of row height from the user-provided value. */
-        set: /**
+        get: /**
          * Set internal representation of row height from the user-provided value.
+         * @return {?}
+         */
+        function () { return this._rowHeight; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
             /** @type {?} */
-            var newValue = "" + (value || '');
+            var newValue = "" + (value == null ? '' : value);
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -1188,7 +1192,7 @@ exports.MatGridTileText = MatGridTileText;
 exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
-exports.ɵa18 = MAT_GRID_LIST;
+exports.ɵa9 = MAT_GRID_LIST;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

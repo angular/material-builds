@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken, Component, ViewEncapsulation, ElementRef, Input, Optional, ContentChildren, Directive, ChangeDetectionStrategy, Inject, NgModule } from '@angular/core';
-import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
+import { MatLine, setLines, MatLineModule, MatCommonModule } from '@angular/material/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { __extends } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
@@ -117,7 +117,7 @@ var MatGridTileText = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -945,20 +945,24 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._gutter = "" + (value || ''); },
+        function (value) { this._gutter = "" + (value == null ? '' : value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "rowHeight", {
         /** Set internal representation of row height from the user-provided value. */
-        set: /**
+        get: /**
          * Set internal representation of row height from the user-provided value.
+         * @return {?}
+         */
+        function () { return this._rowHeight; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
             /** @type {?} */
-            var newValue = "" + (value || '');
+            var newValue = "" + (value == null ? '' : value);
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -1162,5 +1166,5 @@ var MatGridListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa18 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa9 };
 //# sourceMappingURL=grid-list.es5.js.map

@@ -7,7 +7,7 @@
  */
 import { __extends } from 'tslib';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, Optional, ViewEncapsulation, Attribute, ChangeDetectorRef, EventEmitter, forwardRef, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
-import { MatLine, MatLineSetter, mixinDisableRipple, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
+import { MatLine, setLines, mixinDisableRipple, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -157,9 +157,7 @@ var MatListItem = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
-        // tslint:disable-next-line:no-unused-expression
-        new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     };
     /** Whether this list item should show a ripple effect when clicked. */
     /**
@@ -354,9 +352,7 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
-        // tslint:disable-next-line:no-unused-expression
-        new MatLineSetter(this._lines, this._element);
+        setLines(this._lines, this._element);
     };
     /**
      * @return {?}
