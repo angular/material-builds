@@ -895,6 +895,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         else {
             this._element.nativeElement.value = inputValue;
         }
+        this._previousValue = inputValue;
     };
     /**
      * This method closes the panel, and if a value is specified, also sets the associated
@@ -1172,7 +1173,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -302,6 +302,7 @@ var MatListOption = /** @class */ (function (_super) {
         _this.selectionList = selectionList;
         _this._selected = false;
         _this._disabled = false;
+        _this._hasFocus = false;
         /**
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
@@ -393,7 +394,14 @@ var MatListOption = /** @class */ (function (_super) {
             // to avoid changed after checked errors.
             Promise.resolve().then(function () { return _this.selected = false; });
         }
-        this.selectionList._removeOptionFromList(this);
+        /** @type {?} */
+        var hadFocus = this._hasFocus;
+        /** @type {?} */
+        var newActiveItem = this.selectionList._removeOptionFromList(this);
+        // Only move focus if this option was focused at the time it was destroyed.
+        if (hadFocus && newActiveItem) {
+            newActiveItem.focus();
+        }
     };
     /** Toggles the selection state of the option. */
     /**
@@ -469,6 +477,7 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         this.selectionList._setFocusedOption(this);
+        this._hasFocus = true;
     };
     /**
      * @return {?}
@@ -478,6 +487,7 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         this.selectionList._onTouched();
+        this._hasFocus = false;
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -727,16 +737,19 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (option) {
         this._keyManager.updateActiveItemIndex(this._getOptionIndex(option));
     };
-    /** Removes an option from the selection list and updates the active item. */
+    /**
+     * Removes an option from the selection list and updates the active item.
+     * @returns Currently-active item.
+     */
     /**
      * Removes an option from the selection list and updates the active item.
      * @param {?} option
-     * @return {?}
+     * @return {?} Currently-active item.
      */
     MatSelectionList.prototype._removeOptionFromList = /**
      * Removes an option from the selection list and updates the active item.
      * @param {?} option
-     * @return {?}
+     * @return {?} Currently-active item.
      */
     function (option) {
         /** @type {?} */
@@ -744,12 +757,13 @@ var MatSelectionList = /** @class */ (function (_super) {
         if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
-                this._keyManager.setPreviousItemActive();
+                this._keyManager.updateActiveItemIndex(optionIndex - 1);
             }
             else if (optionIndex === 0 && this.options.length > 1) {
-                this._keyManager.setNextItemActive();
+                this._keyManager.updateActiveItemIndex(Math.min(optionIndex + 1, this.options.length - 1));
             }
         }
+        return this._keyManager.activeItem;
     };
     /** Passes relevant key presses to our key manager. */
     /**
