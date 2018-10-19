@@ -11,6 +11,7 @@ import { AnimationEvent } from '@angular/animations';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, TemplateRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Subject } from 'rxjs';
 import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
 import { MatStepperIcon, MatStepperIconContext } from './stepper-icon';
@@ -37,8 +38,9 @@ export declare class MatStepper extends _CdkStepper implements AfterContentInit 
     _iconOverrides: {
         [key: string]: TemplateRef<MatStepperIconContext>;
     };
+    /** Stream of animation `done` events when the body expands/collapses. */
+    _animationDone: Subject<AnimationEvent>;
     ngAfterContentInit(): void;
-    _animationDone(event: AnimationEvent): void;
 }
 export declare class MatHorizontalStepper extends MatStepper {
     /** Whether the label should display in bottom or end position. */
