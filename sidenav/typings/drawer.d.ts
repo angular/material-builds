@@ -58,7 +58,9 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
     /** Emits whenever the drawer has started animating. */
-    _animationStarted: EventEmitter<AnimationEvent>;
+    _animationStarted: Subject<AnimationEvent>;
+    /** Emits whenever the drawer is done animating. */
+    _animationEnd: Subject<AnimationEvent>;
     /** Current state of the sidenav animation. */
     _animationState: 'open-instant' | 'open' | 'void';
     /** Event emitted when the drawer open state is changed. */
@@ -111,8 +113,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * Used for focus management after the sidenav is closed.
      */
     toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
-    _onAnimationStart(event: AnimationEvent): void;
-    _onAnimationEnd(event: AnimationEvent): void;
     readonly _width: number;
 }
 /**

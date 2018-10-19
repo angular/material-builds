@@ -157,7 +157,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     ngOnInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;
-    _onClick(event: MouseEvent): void;
+    _onMousedown(event: MouseEvent): void;
     _onSlide(event: HammerInput): void;
     _onSlideStart(event: HammerInput | null): void;
     _onSlideEnd(): void;

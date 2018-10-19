@@ -576,7 +576,6 @@ class MatMenu {
         switch (keyCode) {
             case ESCAPE:
                 this.closed.emit('keydown');
-                event.stopPropagation();
                 break;
             case LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
@@ -811,7 +810,9 @@ class MatMenuTrigger {
         this._menuOpen = false;
         this._closeSubscription = Subscription.EMPTY;
         this._hoverSubscription = Subscription.EMPTY;
-        this._openedByMouse = false;
+        // Tracking input type is necessary so it's possible to only auto-focus
+        // the first item of the list when the menu is opened via the keyboard
+        this._openedBy = null;
         /**
          * Event emitted when the associated menu is opened.
          */
@@ -992,7 +993,7 @@ class MatMenuTrigger {
         this.menu.direction = this.dir;
         this._setMenuElevation();
         this._setIsMenuOpen(true);
-        this.menu.focusFirstItem(this._openedByMouse ? 'mouse' : 'program');
+        this.menu.focusFirstItem(this._openedBy || 'program');
     }
     /**
      * Updates the menu elevation based on the amount of parent menus that it has.
@@ -1021,15 +1022,15 @@ class MatMenuTrigger {
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
-        if (!this._openedByMouse) {
+        if (!this._openedBy) {
             // Note that the focus style will show up both for `program` and
             // `keyboard` so we don't have to specify which one it is.
             this.focus();
         }
         else if (!this.triggersSubmenu()) {
-            this.focus('mouse');
+            this.focus(this._openedBy);
         }
-        this._openedByMouse = false;
+        this._openedBy = null;
     }
     /**
      * @param {?} isOpen
@@ -1064,6 +1065,10 @@ class MatMenuTrigger {
             const config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
             this._overlayRef = this._overlay.create(config);
+            // Consume the `keydownEvents` in order to prevent them from going to another overlay.
+            // Ideally we'd also have our keyboard event logic in here, however doing so will
+            // break anybody that may have implemented the `MatMenuPanel` themselves.
+            this._overlayRef.keydownEvents().subscribe();
         }
         return this._overlayRef;
     }
@@ -1176,7 +1181,7 @@ class MatMenuTrigger {
         if (!isFakeMousedownFromScreenReader(event)) {
             // Since right or middle button clicks won't trigger the `click` event,
             // we shouldn't consider the menu as opened by mouse in those cases.
-            this._openedByMouse = event.button === 0;
+            this._openedBy = event.button === 0 ? 'mouse' : null;
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
             // highlight from lingering on the menu item.
@@ -1228,7 +1233,7 @@ class MatMenuTrigger {
             // it won't be closed immediately after it is opened.
             .pipe(filter(active => active === this._menuItemInstance && !active.disabled), delay(0, asapScheduler))
             .subscribe(() => {
-            this._openedByMouse = true;
+            this._openedBy = 'mouse';
             // If the same menu is used between multiple triggers, it might still be animating
             // while the new trigger tries to re-open it. Wait for the animation to finish
             // before doing so. Also interrupt if the user moves to another item.
@@ -1252,6 +1257,7 @@ MatMenuTrigger.decorators = [
                     'aria-haspopup': 'true',
                     '[attr.aria-expanded]': 'menuOpen || null',
                     '(mousedown)': '_handleMousedown($event)',
+                    '(touchstart)': '_openedBy = "touch"',
                     '(keydown)': '_handleKeydown($event)',
                     '(click)': '_handleClick($event)',
                 },
@@ -1314,5 +1320,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa12, MatMenuItemBase as ɵb12, _MatMenuItemMixinBase as ɵc12, MAT_MENU_PANEL as ɵf12, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd12, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe12 };
 //# sourceMappingURL=menu.js.map

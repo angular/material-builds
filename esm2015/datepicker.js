@@ -139,10 +139,6 @@ class MatCalendarBody {
          */
         this.numCols = 7;
         /**
-         * Whether to allow selection of disabled cells.
-         */
-        this.allowDisabledSelection = false;
-        /**
          * The cell number of the active cell in the table.
          */
         this.activeCell = 0;
@@ -161,10 +157,9 @@ class MatCalendarBody {
      * @return {?}
      */
     _cellClicked(cell) {
-        if (!this.allowDisabledSelection && !cell.enabled) {
-            return;
+        if (cell.enabled) {
+            this.selectedValueChange.emit(cell.value);
         }
-        this.selectedValueChange.emit(cell.value);
     }
     /**
      * The number of blank cells to put at the beginning for the first row.
@@ -230,7 +225,6 @@ MatCalendarBody.propDecorators = {
     selectedValue: [{ type: Input }],
     labelMinRequiredCells: [{ type: Input }],
     numCols: [{ type: Input }],
-    allowDisabledSelection: [{ type: Input }],
     activeCell: [{ type: Input }],
     cellAspectRatio: [{ type: Input }],
     selectedValueChange: [{ type: Output }]
@@ -806,7 +800,7 @@ class MatMultiYearView {
 }
 MatMultiYearView.decorators = [
     { type: Component, args: [{selector: 'mat-multi-year-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                 exportAs: 'matMultiYearView',
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
@@ -1117,7 +1111,7 @@ class MatYearView {
 }
 MatYearView.decorators = [
     { type: Component, args: [{selector: 'mat-year-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                 exportAs: 'matYearView',
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush

@@ -227,6 +227,7 @@ class MatListOption extends _MatListOptionMixinBase {
         this.selectionList = selectionList;
         this._selected = false;
         this._disabled = false;
+        this._hasFocus = false;
         /**
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
@@ -296,7 +297,14 @@ class MatListOption extends _MatListOptionMixinBase {
             // to avoid changed after checked errors.
             Promise.resolve().then(() => this.selected = false);
         }
-        this.selectionList._removeOptionFromList(this);
+        /** @type {?} */
+        const hadFocus = this._hasFocus;
+        /** @type {?} */
+        const newActiveItem = this.selectionList._removeOptionFromList(this);
+        // Only move focus if this option was focused at the time it was destroyed.
+        if (hadFocus && newActiveItem) {
+            newActiveItem.focus();
+        }
     }
     /**
      * Toggles the selection state of the option.
@@ -342,12 +350,14 @@ class MatListOption extends _MatListOptionMixinBase {
      */
     _handleFocus() {
         this.selectionList._setFocusedOption(this);
+        this._hasFocus = true;
     }
     /**
      * @return {?}
      */
     _handleBlur() {
         this.selectionList._onTouched();
+        this._hasFocus = false;
     }
     /**
      * Retrieves the DOM element of the component host.
@@ -545,7 +555,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     /**
      * Removes an option from the selection list and updates the active item.
      * @param {?} option
-     * @return {?}
+     * @return {?} Currently-active item.
      */
     _removeOptionFromList(option) {
         /** @type {?} */
@@ -553,12 +563,13 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
-                this._keyManager.setPreviousItemActive();
+                this._keyManager.updateActiveItemIndex(optionIndex - 1);
             }
             else if (optionIndex === 0 && this.options.length > 1) {
-                this._keyManager.setNextItemActive();
+                this._keyManager.updateActiveItemIndex(Math.min(optionIndex + 1, this.options.length - 1));
             }
         }
+        return this._keyManager.activeItem;
     }
     /**
      * Passes relevant key presses to our key manager.
