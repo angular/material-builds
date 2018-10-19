@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/table'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/table', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}),global.ng.cdk.coercion,global.ng.core,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.cdk.table,global.ng.common));
-}(this, (function (exports,coercion,core,core$1,rxjs,animations,table,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}),global.ng.cdk.coercion,global.ng.core,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.common));
+}(this, (function (exports,coercion,core,core$1,rxjs,animations,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -465,11 +465,16 @@ var _MatSortHeaderMixinBase = core$1.mixinDisabled(MatSortHeaderBase);
  */
 var MatSortHeader = /** @class */ (function (_super) {
     __extends(MatSortHeader, _super);
-    function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
-        var _this = _super.call(this) || this;
+    function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef) {
+        var _this = 
+        // Note that we use a string token for the `_columnDef`, because the value is provided both by
+        // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
+        // and we want to avoid having the sort header depending on the CDK table because
+        // of this single reference.
+        _super.call(this) || this;
         _this._intl = _intl;
         _this._sort = _sort;
-        _this._cdkColumnDef = _cdkColumnDef;
+        _this._columnDef = _columnDef;
         /**
          * Flag set to true when the indicator should be displayed while the sort is not active. Used to
          * provide an affordance that the header is sortable by showing on focus and hover.
@@ -526,8 +531,8 @@ var MatSortHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (!this.id && this._cdkColumnDef) {
-            this.id = this._cdkColumnDef.name;
+        if (!this.id && this._columnDef) {
+            this.id = this._columnDef.name;
         }
         // Initialize the direction of the arrow and set the view state to be immediately that state.
         this._updateArrowDirection();
@@ -770,7 +775,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         { type: MatSortHeaderIntl },
         { type: core.ChangeDetectorRef },
         { type: MatSort, decorators: [{ type: core.Optional }] },
-        { type: table.CdkColumnDef, decorators: [{ type: core.Optional }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: core.Optional }] }
     ]; };
     MatSortHeader.propDecorators = {
         id: [{ type: core.Input, args: ['mat-sort-header',] }],

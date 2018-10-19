@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
-}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,a11y,animations,keycodes,common,animations$1,operators,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,table,stepper,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/stepper'), require('@angular/cdk/table'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/stepper', '@angular/cdk/table', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.stepper,global.ng.cdk.table,global.ng.cdk.tree));
+}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,a11y,animations,keycodes,common,animations$1,operators,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,stepper,table,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -6843,7 +6843,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
     MatButtonToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-button-toggle',
                     template: "<button #button class=\"mat-button-toggle-button\" type=\"button\" [id]=\"buttonId\" [attr.tabindex]=\"disabled ? -1 : tabIndex\" [attr.aria-pressed]=\"checked\" [disabled]=\"disabled || null\" [attr.name]=\"name || null\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (click)=\"_onButtonClick()\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></button><div class=\"mat-button-toggle-focus-overlay\"></div><div class=\"mat-button-toggle-ripple\" matRipple [matRippleTrigger]=\"button\" [matRippleDisabled]=\"this.disableRipple || this.disabled\"></div>",
-                    styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{position:relative;display:inline-flex;flex-direction:row;cursor:pointer;white-space:nowrap;overflow:hidden;border-radius:2px}@media screen and (-ms-high-contrast:active){.mat-button-toggle-group,.mat-button-toggle-standalone{outline:solid 1px}}.mat-button-toggle-group-appearance-standard,.mat-button-toggle-standalone.mat-button-toggle-appearance-standard{border-radius:4px}@media screen and (-ms-high-contrast:active){.mat-button-toggle-group-appearance-standard,.mat-button-toggle-standalone.mat-button-toggle-appearance-standard{outline:0}}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle{white-space:nowrap;position:relative;-webkit-tap-highlight-color:transparent}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}@media screen and (-ms-high-contrast:active){.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:.5}}.mat-button-toggle-appearance-standard:not(.mat-button-toggle-disabled):hover .mat-button-toggle-focus-overlay{opacity:.04}.mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.12}@media screen and (-ms-high-contrast:active){.mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.5}}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px}.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{line-height:48px;padding:0 12px}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}.mat-button-toggle-checked .mat-button-toggle-focus-overlay{border-bottom:solid 36px}@media screen and (-ms-high-contrast:active){.mat-button-toggle-checked .mat-button-toggle-focus-overlay{opacity:.5;height:0}}@media screen and (-ms-high-contrast:active){.mat-button-toggle-checked.mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay{border-bottom:solid 48px}}.mat-button-toggle .mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-toggle-button{border:0;background:0 0;color:inherit;padding:0;margin:0;font:inherit;outline:0;width:100%;cursor:pointer}.mat-button-toggle-disabled .mat-button-toggle-button{cursor:default}.mat-button-toggle-button::-moz-focus-inner{border:0}"],
+                    styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{position:relative;display:inline-flex;flex-direction:row;cursor:pointer;white-space:nowrap;overflow:hidden;border-radius:2px}@media screen and (-ms-high-contrast:active){.mat-button-toggle-group,.mat-button-toggle-standalone{outline:solid 1px}}.mat-button-toggle-group-appearance-standard,.mat-button-toggle-standalone.mat-button-toggle-appearance-standard{border-radius:4px}@media screen and (-ms-high-contrast:active){.mat-button-toggle-group-appearance-standard,.mat-button-toggle-standalone.mat-button-toggle-appearance-standard{outline:0}}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle{white-space:nowrap;position:relative;-webkit-tap-highlight-color:transparent}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}@media screen and (-ms-high-contrast:active){.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:.5}}.mat-button-toggle-appearance-standard:not(.mat-button-toggle-disabled):hover .mat-button-toggle-focus-overlay{opacity:.04}.mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.12}@media screen and (-ms-high-contrast:active){.mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.5}}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;position:relative}.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{line-height:48px;padding:0 12px}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}.mat-button-toggle-checked .mat-button-toggle-focus-overlay{border-bottom:solid 36px}@media screen and (-ms-high-contrast:active){.mat-button-toggle-checked .mat-button-toggle-focus-overlay{opacity:.5;height:0}}@media screen and (-ms-high-contrast:active){.mat-button-toggle-checked.mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay{border-bottom:solid 48px}}.mat-button-toggle .mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-toggle-button{border:0;background:0 0;color:inherit;padding:0;margin:0;font:inherit;outline:0;width:100%;cursor:pointer}.mat-button-toggle-disabled .mat-button-toggle-button{cursor:default}.mat-button-toggle-button::-moz-focus-inner{border:0}"],
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matButtonToggle',
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -29927,11 +29927,16 @@ var _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  */
 var MatSortHeader = /** @class */ (function (_super) {
     __extends(MatSortHeader, _super);
-    function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
-        var _this = _super.call(this) || this;
+    function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef) {
+        var _this = 
+        // Note that we use a string token for the `_columnDef`, because the value is provided both by
+        // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
+        // and we want to avoid having the sort header depending on the CDK table because
+        // of this single reference.
+        _super.call(this) || this;
         _this._intl = _intl;
         _this._sort = _sort;
-        _this._cdkColumnDef = _cdkColumnDef;
+        _this._columnDef = _columnDef;
         /**
          * Flag set to true when the indicator should be displayed while the sort is not active. Used to
          * provide an affordance that the header is sortable by showing on focus and hover.
@@ -29988,8 +29993,8 @@ var MatSortHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (!this.id && this._cdkColumnDef) {
-            this.id = this._cdkColumnDef.name;
+        if (!this.id && this._columnDef) {
+            this.id = this._columnDef.name;
         }
         // Initialize the direction of the arrow and set the view state to be immediately that state.
         this._updateArrowDirection();
@@ -30232,7 +30237,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         { type: MatSortHeaderIntl },
         { type: core.ChangeDetectorRef },
         { type: MatSort, decorators: [{ type: core.Optional }] },
-        { type: table.CdkColumnDef, decorators: [{ type: core.Optional }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: core.Optional }] }
     ]; };
     MatSortHeader.propDecorators = {
         id: [{ type: core.Input, args: ['mat-sort-header',] }],
@@ -30873,7 +30878,10 @@ var MatColumnDef = /** @class */ (function (_super) {
     MatColumnDef.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matColumnDef]',
-                    providers: [{ provide: table.CdkColumnDef, useExisting: MatColumnDef }],
+                    providers: [
+                        { provide: table.CdkColumnDef, useExisting: MatColumnDef },
+                        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
+                    ],
                 },] },
     ];
     MatColumnDef.propDecorators = {
@@ -31252,9 +31260,15 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.filterPredicate = function (data, filter) {
             /** @type {?} */
-            var accumulator = function (currentTerm, key) { return currentTerm + (/** @type {?} */ (data))[key]; };
-            /** @type {?} */
-            var dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            var dataStr = Object.keys(data).reduce(function (currentTerm, key) {
+                // Use an obscure Unicode character to delimit the words in the concatenated string.
+                // This avoids matches where the values of two columns combined will match the user's query
+                // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
+                // that has a very low chance of being typed in by somebody in a text field. This one in
+                // particular is "White up-pointing triangle with dot" from
+                // https://en.wikipedia.org/wiki/List_of_Unicode_characters
+                return currentTerm + (/** @type {?} */ (data))[key] + '◬';
+            }, '').toLowerCase();
             /** @type {?} */
             var transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
@@ -34419,10 +34433,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-c15bad2');
+var VERSION = new core.Version('7.0.0-cae16b0');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34631,7 +34645,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa8 = MAT_GRID_LIST;
+exports.ɵa7 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34679,12 +34693,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34828,17 +34842,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa18 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf18 = MatTabBase;
-exports.ɵg18 = _MatTabMixinBase;
-exports.ɵb18 = MatTabHeaderBase;
-exports.ɵc18 = _MatTabHeaderMixinBase;
-exports.ɵd18 = MatTabLabelWrapperBase;
-exports.ɵe18 = _MatTabLabelWrapperMixinBase;
-exports.ɵj18 = MatTabLinkBase;
-exports.ɵh18 = MatTabNavBase;
-exports.ɵk18 = _MatTabLinkMixinBase;
-exports.ɵi18 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
