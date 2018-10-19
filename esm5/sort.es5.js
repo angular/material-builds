@@ -7,10 +7,11 @@
  */
 import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, Inject, defineInjectable } from '@angular/core';
+import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { mixinDisabled, mixinInitialized, AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
+import { CdkColumnDef } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -438,16 +439,11 @@ var _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  */
 var MatSortHeader = /** @class */ (function (_super) {
     __extends(MatSortHeader, _super);
-    function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef) {
-        var _this = 
-        // Note that we use a string token for the `_columnDef`, because the value is provided both by
-        // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
-        // and we want to avoid having the sort header depending on the CDK table because
-        // of this single reference.
-        _super.call(this) || this;
+    function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
+        var _this = _super.call(this) || this;
         _this._intl = _intl;
         _this._sort = _sort;
-        _this._columnDef = _columnDef;
+        _this._cdkColumnDef = _cdkColumnDef;
         /**
          * Flag set to true when the indicator should be displayed while the sort is not active. Used to
          * provide an affordance that the header is sortable by showing on focus and hover.
@@ -504,8 +500,8 @@ var MatSortHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (!this.id && this._columnDef) {
-            this.id = this._columnDef.name;
+        if (!this.id && this._cdkColumnDef) {
+            this.id = this._cdkColumnDef.name;
         }
         // Initialize the direction of the arrow and set the view state to be immediately that state.
         this._updateArrowDirection();
@@ -748,7 +744,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         { type: MatSortHeaderIntl },
         { type: ChangeDetectorRef },
         { type: MatSort, decorators: [{ type: Optional }] },
-        { type: undefined, decorators: [{ type: Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: Optional }] }
+        { type: CdkColumnDef, decorators: [{ type: Optional }] }
     ]; };
     MatSortHeader.propDecorators = {
         id: [{ type: Input, args: ['mat-sort-header',] }],

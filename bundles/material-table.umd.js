@@ -148,10 +148,7 @@ var MatColumnDef = /** @class */ (function (_super) {
     MatColumnDef.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matColumnDef]',
-                    providers: [
-                        { provide: table.CdkColumnDef, useExisting: MatColumnDef },
-                        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
-                    ],
+                    providers: [{ provide: table.CdkColumnDef, useExisting: MatColumnDef }],
                 },] },
     ];
     MatColumnDef.propDecorators = {

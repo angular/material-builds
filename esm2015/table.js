@@ -100,10 +100,7 @@ class MatColumnDef extends CdkColumnDef {
 MatColumnDef.decorators = [
     { type: Directive, args: [{
                 selector: '[matColumnDef]',
-                providers: [
-                    { provide: CdkColumnDef, useExisting: MatColumnDef },
-                    { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
-                ],
+                providers: [{ provide: CdkColumnDef, useExisting: MatColumnDef }],
             },] },
 ];
 MatColumnDef.propDecorators = {

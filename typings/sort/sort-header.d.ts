@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { CdkColumnDef } from '@angular/cdk/table';
 import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable, CanDisableCtor } from '@angular/material/core';
 import { MatSort, MatSortable } from './sort';
@@ -32,10 +33,6 @@ export interface ArrowViewStateTransition {
     fromState?: ArrowViewState;
     toState: ArrowViewState;
 }
-/** Column definition associated with a `MatSortHeader`. */
-interface MatSortHeaderColumnDef {
-    name: string;
-}
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -48,7 +45,7 @@ interface MatSortHeaderColumnDef {
 export declare class MatSortHeader extends _MatSortHeaderMixinBase implements CanDisable, MatSortable, OnDestroy, OnInit {
     _intl: MatSortHeaderIntl;
     _sort: MatSort;
-    _columnDef: MatSortHeaderColumnDef;
+    _cdkColumnDef: CdkColumnDef;
     private _rerenderSubscription;
     /**
      * Flag set to true when the indicator should be displayed while the sort is not active. Used to
@@ -79,7 +76,7 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     disableClear: boolean;
     private _disableClear;
-    constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef);
+    constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _cdkColumnDef: CdkColumnDef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /**
@@ -121,4 +118,3 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
      */
     _getAriaSortAttribute(): "ascending" | "descending" | null;
 }
-export {};
