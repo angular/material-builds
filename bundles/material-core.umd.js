@@ -1698,6 +1698,10 @@ var defaultRippleAnimationConfig = {
  * events to avoid synthetic mouse events.
   @type {?} */
 var ignoreMouseEventsTimeout = 800;
+/** *
+ * Options that apply to all the event listeners that are bound by the ripple renderer.
+  @type {?} */
+var passiveEventOptions = platform.normalizePassiveListenerOptions({ passive: true });
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1729,10 +1733,6 @@ RippleRenderer = /** @class */ (function () {
          * Set of currently active ripple references.
          */
         this._activeRipples = new Set();
-        /**
-         * Options that apply to all the event listeners that are bound by the renderer.
-         */
-        this._eventOptions = platform.supportsPassiveEventListeners() ? (/** @type {?} */ ({ passive: true })) : false;
         /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
@@ -1944,7 +1944,7 @@ RippleRenderer = /** @class */ (function () {
         this._removeTriggerEvents();
         this._ngZone.runOutsideAngular(function () {
             _this._triggerEvents.forEach(function (fn, type) {
-                return element.addEventListener(type, fn, _this._eventOptions);
+                element.addEventListener(type, fn, passiveEventOptions);
             });
         });
         this._triggerElement = element;
@@ -1978,7 +1978,7 @@ RippleRenderer = /** @class */ (function () {
         var _this = this;
         if (this._triggerElement) {
             this._triggerEvents.forEach(function (fn, type) {
-                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, _this._eventOptions);
+                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
             });
         }
     };

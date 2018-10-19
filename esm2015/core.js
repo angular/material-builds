@@ -10,7 +10,7 @@ import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
-import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
+import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { startWith } from 'rxjs/operators';
 import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -1284,6 +1284,10 @@ const defaultRippleAnimationConfig = {
  * events to avoid synthetic mouse events.
   @type {?} */
 const ignoreMouseEventsTimeout = 800;
+/** *
+ * Options that apply to all the event listeners that are bound by the ripple renderer.
+  @type {?} */
+const passiveEventOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1313,10 +1317,6 @@ class RippleRenderer {
          * Set of currently active ripple references.
          */
         this._activeRipples = new Set();
-        /**
-         * Options that apply to all the event listeners that are bound by the renderer.
-         */
-        this._eventOptions = supportsPassiveEventListeners() ? (/** @type {?} */ ({ passive: true })) : false;
         /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
@@ -1494,7 +1494,9 @@ class RippleRenderer {
         // Remove all previously registered event listeners from the trigger element.
         this._removeTriggerEvents();
         this._ngZone.runOutsideAngular(() => {
-            this._triggerEvents.forEach((fn, type) => element.addEventListener(type, fn, this._eventOptions));
+            this._triggerEvents.forEach((fn, type) => {
+                element.addEventListener(type, fn, passiveEventOptions);
+            });
         });
         this._triggerElement = element;
     }
@@ -1514,7 +1516,7 @@ class RippleRenderer {
     _removeTriggerEvents() {
         if (this._triggerElement) {
             this._triggerEvents.forEach((fn, type) => {
-                /** @type {?} */ ((this._triggerElement)).removeEventListener(type, fn, this._eventOptions);
+                /** @type {?} */ ((this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
             });
         }
     }
