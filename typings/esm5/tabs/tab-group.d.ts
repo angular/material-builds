@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, InjectionToken } from '@angular/core';
 import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
 import { MatTabHeader } from './tab-header';
@@ -18,6 +18,13 @@ export declare class MatTabChangeEvent {
 }
 /** Possible positions for the tab header. */
 export declare type MatTabHeaderPosition = 'above' | 'below';
+/** Object that can be used to configure the default options for the tabs module. */
+export interface MatTabsConfig {
+    /** Duration for the tab animation. Must be a valid CSS value (e.g. 600ms). */
+    animationDuration?: string;
+}
+/** Injection token that can be used to provide the default options the tabs module. */
+export declare const MAT_TABS_CONFIG: InjectionToken<{}>;
 /** @docs-private */
 export declare class MatTabGroupBase {
     _elementRef: ElementRef;
@@ -50,6 +57,8 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     private _selectedIndex;
     /** Position of the tab header. */
     headerPosition: MatTabHeaderPosition;
+    /** Duration for the tab animation. Must be a valid CSS value (e.g. 600ms). */
+    animationDuration: string;
     /** Background color of the tab group. */
     backgroundColor: ThemePalette;
     private _backgroundColor;
@@ -62,7 +71,7 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Event emitted when the tab selection has changed. */
     readonly selectedTabChange: EventEmitter<MatTabChangeEvent>;
     private _groupId;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig);
     /**
      * After the content is checked, this component knows what tabs have been defined
      * and what the selected index should be. This is where we can know exactly what position

@@ -341,14 +341,14 @@ var matTabsAnimations = {
         // not have a static height and is not rendered. See related issue: #9465
         animations.state('left', animations.style({ transform: 'translate3d(-100%, 0, 0)', minHeight: '1px' })),
         animations.state('right', animations.style({ transform: 'translate3d(100%, 0, 0)', minHeight: '1px' })),
-        animations.transition('* => left, * => right, left => center, right => center', animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
+        animations.transition('* => left, * => right, left => center, right => center', animations.animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)')),
         animations.transition('void => left-origin-center', [
             animations.style({ transform: 'translate3d(-100%, 0, 0)' }),
-            animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+            animations.animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)')
         ]),
         animations.transition('void => right-origin-center', [
             animations.style({ transform: 'translate3d(100%, 0, 0)' }),
-            animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+            animations.animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)')
         ])
     ])
 };
@@ -458,6 +458,10 @@ var MatTabBody = /** @class */ (function () {
          * Event emitted when the tab completes its animation towards the center.
          */
         this._onCentered = new core.EventEmitter(true);
+        /**
+         * Duration for the tab's animation.
+         */
+        this.animationDuration = '500ms';
         if (this._dir && changeDetectorRef) {
             this._dirChangeSubscription = this._dir.change.subscribe(function (dir) {
                 _this._computePositionAnimationState(dir);
@@ -610,7 +614,7 @@ var MatTabBody = /** @class */ (function () {
     };
     MatTabBody.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-body',
-                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
+                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"{ value: _position, params: {animationDuration: animationDuration} }\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
                     styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -634,6 +638,7 @@ var MatTabBody = /** @class */ (function () {
         _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }],
         _content: [{ type: core.Input, args: ['content',] }],
         origin: [{ type: core.Input }],
+        animationDuration: [{ type: core.Input }],
         position: [{ type: core.Input }]
     };
     return MatTabBody;
@@ -1354,6 +1359,10 @@ MatTabChangeEvent = /** @class */ (function () {
     }
     return MatTabChangeEvent;
 }());
+/** *
+ * Injection token that can be used to provide the default options the tabs module.
+  @type {?} */
+var MAT_TABS_CONFIG = new core.InjectionToken('MAT_TABS_CONFIG');
 /**
  * \@docs-private
  */
@@ -1375,7 +1384,7 @@ var _MatTabGroupMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(MatTabGr
  */
 var MatTabGroup = /** @class */ (function (_super) {
     __extends(MatTabGroup, _super);
-    function MatTabGroup(elementRef, _changeDetectorRef) {
+    function MatTabGroup(elementRef, _changeDetectorRef, defaultConfig) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -1417,6 +1426,8 @@ var MatTabGroup = /** @class */ (function (_super) {
          */
         _this.selectedTabChange = new core.EventEmitter(true);
         _this._groupId = nextId++;
+        _this.animationDuration = defaultConfig && defaultConfig.animationDuration ?
+            defaultConfig.animationDuration : '500ms';
         return _this;
     }
     Object.defineProperty(MatTabGroup.prototype, "dynamicHeight", {
@@ -1764,7 +1775,7 @@ var MatTabGroup = /** @class */ (function (_super) {
     MatTabGroup.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-group',
                     exportAs: 'matTabGroup',
-                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_tabs.length\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [attr.aria-label]=\"tab.ariaLabel || null\" [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><div class=\"mat-tab-label-content\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
+                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_tabs.length\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [attr.aria-label]=\"tab.ariaLabel || null\" [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><div class=\"mat-tab-label-content\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" [animationDuration]=\"animationDuration\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
                     styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media screen and (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media screen and (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media screen and (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{padding:0 12px}}@media (max-width:959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -1779,7 +1790,8 @@ var MatTabGroup = /** @class */ (function (_super) {
     /** @nocollapse */
     MatTabGroup.ctorParameters = function () { return [
         { type: core.ElementRef },
-        { type: core.ChangeDetectorRef }
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TABS_CONFIG,] }, { type: core.Optional }] }
     ]; };
     MatTabGroup.propDecorators = {
         _tabs: [{ type: core.ContentChildren, args: [MatTab,] }],
@@ -1788,6 +1800,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         dynamicHeight: [{ type: core.Input }],
         selectedIndex: [{ type: core.Input }],
         headerPosition: [{ type: core.Input }],
+        animationDuration: [{ type: core.Input }],
         backgroundColor: [{ type: core.Input }],
         selectedIndexChange: [{ type: core.Output }],
         focusChange: [{ type: core.Output }],
@@ -2150,6 +2163,7 @@ exports.MatTabLink = MatTabLink;
 exports.MatTabContent = MatTabContent;
 exports.MatTabsModule = MatTabsModule;
 exports.MatTabChangeEvent = MatTabChangeEvent;
+exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
