@@ -55,7 +55,7 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _setPanelClass;
     /** Moves the focus inside the focus trap. */
     private _trapFocus;
-    /** Restores focus to the element that was focused before the bottom sheet opened. */
+    /** Restores focus to the element that was focused before the bottom sheet was opened. */
     private _restoreFocus;
     /** Saves a reference to the element that was focused before the bottom sheet was opened. */
     private _savePreviouslyFocusedElement;
