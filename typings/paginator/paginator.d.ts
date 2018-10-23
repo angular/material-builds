@@ -7,7 +7,7 @@
  */
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
-import { HasInitialized, HasInitializedCtor, ThemePalette } from '@angular/material/core';
+import { HasInitialized, HasInitializedCtor, ThemePalette, CanDisableCtor, CanDisable } from '@angular/material/core';
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -28,13 +28,13 @@ export declare class PageEvent {
 /** @docs-private */
 export declare class MatPaginatorBase {
 }
-export declare const _MatPaginatorBase: HasInitializedCtor & typeof MatPaginatorBase;
+export declare const _MatPaginatorBase: CanDisableCtor & HasInitializedCtor & typeof MatPaginatorBase;
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-export declare class MatPaginator extends _MatPaginatorBase implements OnInit, OnDestroy, HasInitialized {
+export declare class MatPaginator extends _MatPaginatorBase implements OnInit, OnDestroy, CanDisable, HasInitialized {
     _intl: MatPaginatorIntl;
     private _changeDetectorRef;
     private _initialized;
@@ -89,6 +89,10 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
      * that the 10th item will still be displayed.
      */
     _changePageSize(pageSize: number): void;
+    /** Checks whether the buttons for going forwards should be disabled. */
+    _nextButtonsDisabled(): boolean;
+    /** Checks whether the buttons for going backwards should be disabled. */
+    _previousButtonsDisabled(): boolean;
     /**
      * Updates the list of page size options to display to the user. Includes making sure that
      * the page size is an option and that the list is sorted.
