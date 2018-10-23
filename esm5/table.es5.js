@@ -18,8 +18,6 @@ import { map } from 'rxjs/operators';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTable = CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -47,18 +45,14 @@ var MatTable = /** @class */ (function (_super) {
                 },] },
     ];
     return MatTable;
-}(_CdkTable));
+}(CdkTable));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTable))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTable))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkCellDef = CdkCellDef;
-/** @type {?} */
-var _CdkHeaderCellDef = CdkHeaderCellDef;
-/** @type {?} */
-var _CdkFooterCellDef = CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -75,7 +69,7 @@ var MatCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatCellDef;
-}(_CdkCellDef));
+}(CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -92,7 +86,7 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderCellDef;
-}(_CdkHeaderCellDef));
+}(CdkHeaderCellDef));
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
@@ -109,7 +103,11 @@ var MatFooterCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterCellDef;
-}(_CdkFooterCellDef));
+}(CdkFooterCellDef));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkCellDef))['ctorParameters']; };
+(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkHeaderCellDef))['ctorParameters']; };
+(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (MatFooterCellDef))['ctorParameters']; };
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -218,12 +216,6 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkHeaderRowDef = CdkHeaderRowDef;
-/** @type {?} */
-var _CdkFooterRowDef = CdkFooterRowDef;
-/** @type {?} */
-var _CdkRowDef = CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -241,7 +233,7 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderRowDef;
-}(_CdkHeaderRowDef));
+}(CdkHeaderRowDef));
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
@@ -259,7 +251,7 @@ var MatFooterRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterRowDef;
-}(_CdkFooterRowDef));
+}(CdkFooterRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the data row's template and other properties such as the columns to display and
@@ -279,7 +271,11 @@ var MatRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatRowDef;
-}(_CdkRowDef));
+}(CdkRowDef));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkHeaderRowDef))['ctorParameters']; };
+(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkFooterRowDef))['ctorParameters']; };
+(/** @type {?} */ (MatRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkRowDef))['ctorParameters']; };
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -820,5 +816,5 @@ MatTableDataSource = /** @class */ (function (_super) {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatTableModule, _CdkCellDef, _CdkHeaderCellDef, _CdkFooterCellDef, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, _CdkTable, MatTable, _CdkHeaderRowDef, _CdkFooterRowDef, _CdkRowDef, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource };
+export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource };
 //# sourceMappingURL=table.es5.js.map

@@ -140,8 +140,6 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkAccordionItem = accordion.CdkAccordionItem;
 /** *
  * Counter for generating unique element ids.
   @type {?} */
@@ -745,7 +743,6 @@ var MatExpansionModule = /** @class */ (function () {
 exports.MatExpansionModule = MatExpansionModule;
 exports.MatAccordion = MatAccordion;
 exports.MAT_ACCORDION = MAT_ACCORDION;
-exports._CdkAccordionItem = _CdkAccordionItem;
 exports.MatExpansionPanel = MatExpansionPanel;
 exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
 exports.MatExpansionPanelHeader = MatExpansionPanelHeader;

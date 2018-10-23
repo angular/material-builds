@@ -168,8 +168,6 @@ var MatTabContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkPortal = CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -184,7 +182,9 @@ var MatTabLabel = /** @class */ (function (_super) {
                 },] },
     ];
     return MatTabLabel;
-}(_CdkPortal));
+}(CdkPortal));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTabLabel))['ctorParameters'] = function () { return (/** @type {?} */ (CdkPortal))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle

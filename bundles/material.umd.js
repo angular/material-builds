@@ -7398,8 +7398,10 @@ var MatCheckbox = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (value != this.disabled) {
-                this._disabled = value;
+            /** @type {?} */
+            var newValue = coercion.coerceBooleanProperty(value);
+            if (newValue !== this.disabled) {
+                this._disabled = newValue;
                 this._changeDetectorRef.markForCheck();
             }
         },
@@ -11066,8 +11068,6 @@ var MatDialogModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTextareaAutosize = textField.CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
@@ -11151,7 +11151,11 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
         matTextareaAutosize: [{ type: core.Input }]
     };
     return MatTextareaAutosize;
-}(_CdkTextareaAutosize));
+}(textField.CdkTextareaAutosize));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTextareaAutosize))['ctorParameters'] = function () {
+    return (/** @type {?} */ (textField.CdkTextareaAutosize))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
@@ -15251,8 +15255,6 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkAccordionItem = accordion.CdkAccordionItem;
 /** *
  * Counter for generating unique element ids.
   @type {?} */
@@ -30300,8 +30302,6 @@ var MatSortModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkStepLabel = stepper.CdkStepLabel;
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel() {
@@ -30313,7 +30313,9 @@ var MatStepLabel = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepLabel;
-}(_CdkStepLabel));
+}(stepper.CdkStepLabel));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatStepLabel))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepLabel))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -30527,8 +30529,6 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkStepper = stepper.CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
@@ -30631,7 +30631,9 @@ var MatStepper = /** @class */ (function (_super) {
         animationDone: [{ type: core.Output }]
     };
     return MatStepper;
-}(_CdkStepper));
+}(stepper.CdkStepper));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatStepper))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepper))['ctorParameters']; };
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -30646,7 +30648,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: 'mat-horizontal-stepper',
                     exportAs: 'matHorizontalStepper',
                     template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [attr.aria-label]=\"step.ariaLabel || null\" [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\" [index]=\"i\" [state]=\"_getIndicatorType(i, step.state)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [errorMessage]=\"step.errorMessage\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone.next($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
-                    styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative;top:36px}[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{border-top-color:rgba(0,0,0,.12);border-top-width:1px;border-top-style:solid;content:'';display:inline-block;height:0;position:absolute;top:36px;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto;padding:24px}[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                    styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative;top:36px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{border-top-color:rgba(0,0,0,.12);border-top-width:1px;border-top-style:solid;content:'';display:inline-block;height:0;position:absolute;top:36px;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto;padding:24px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
                         'class': 'mat-stepper-horizontal',
@@ -30679,7 +30681,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: 'mat-vertical-stepper',
                     exportAs: 'matVerticalStepper',
                     template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [attr.aria-label]=\"step.ariaLabel || null\" [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\" [index]=\"i\" [state]=\"_getIndicatorType(i, step.state)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [errorMessage]=\"step.errorMessage\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone.next($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
-                    styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative;top:36px}[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{border-top-color:rgba(0,0,0,.12);border-top-width:1px;border-top-style:solid;content:'';display:inline-block;height:0;position:absolute;top:36px;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto;padding:24px}[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}[dir=ltr] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                    styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative;top:36px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{border-top-color:rgba(0,0,0,.12);border-top-width:1px;border-top-style:solid;content:'';display:inline-block;height:0;position:absolute;top:36px;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto;padding:24px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
                         'class': 'mat-stepper-vertical',
@@ -30706,10 +30708,6 @@ var MatVerticalStepper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkStepperNext = stepper.CdkStepperNext;
-/** @type {?} */
-var _CdkStepperPrevious = stepper.CdkStepperPrevious;
 /**
  * Button that moves to the next step in a stepper workflow.
  */
@@ -30730,7 +30728,7 @@ var MatStepperNext = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperNext;
-}(_CdkStepperNext));
+}(stepper.CdkStepperNext));
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
@@ -30751,7 +30749,12 @@ var MatStepperPrevious = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperPrevious;
-}(_CdkStepperPrevious));
+}(stepper.CdkStepperPrevious));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatStepperNext))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepperNext))['ctorParameters']; };
+(/** @type {?} */ (MatStepperPrevious))['ctorParameters'] = function () {
+    return (/** @type {?} */ (stepper.CdkStepperPrevious))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
@@ -30804,8 +30807,6 @@ var MatStepperModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTable = table.CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -30833,18 +30834,14 @@ var MatTable = /** @class */ (function (_super) {
                 },] },
     ];
     return MatTable;
-}(_CdkTable));
+}(table.CdkTable));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTable))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkTable))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkCellDef = table.CdkCellDef;
-/** @type {?} */
-var _CdkHeaderCellDef = table.CdkHeaderCellDef;
-/** @type {?} */
-var _CdkFooterCellDef = table.CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -30861,7 +30858,7 @@ var MatCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatCellDef;
-}(_CdkCellDef));
+}(table.CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -30878,7 +30875,7 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderCellDef;
-}(_CdkHeaderCellDef));
+}(table.CdkHeaderCellDef));
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
@@ -30895,7 +30892,11 @@ var MatFooterCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterCellDef;
-}(_CdkFooterCellDef));
+}(table.CdkFooterCellDef));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkCellDef))['ctorParameters']; };
+(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderCellDef))['ctorParameters']; };
+(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (MatFooterCellDef))['ctorParameters']; };
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -31004,12 +31005,6 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkHeaderRowDef = table.CdkHeaderRowDef;
-/** @type {?} */
-var _CdkFooterRowDef = table.CdkFooterRowDef;
-/** @type {?} */
-var _CdkRowDef = table.CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -31027,7 +31022,7 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderRowDef;
-}(_CdkHeaderRowDef));
+}(table.CdkHeaderRowDef));
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
@@ -31045,7 +31040,7 @@ var MatFooterRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterRowDef;
-}(_CdkFooterRowDef));
+}(table.CdkFooterRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the data row's template and other properties such as the columns to display and
@@ -31065,7 +31060,11 @@ var MatRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatRowDef;
-}(_CdkRowDef));
+}(table.CdkRowDef));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderRowDef))['ctorParameters']; };
+(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkFooterRowDef))['ctorParameters']; };
+(/** @type {?} */ (MatRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkRowDef))['ctorParameters']; };
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -31743,8 +31742,6 @@ var MatTabContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkPortal = portal.CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -31759,7 +31756,9 @@ var MatTabLabel = /** @class */ (function (_super) {
                 },] },
     ];
     return MatTabLabel;
-}(_CdkPortal));
+}(portal.CdkPortal));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTabLabel))['ctorParameters'] = function () { return (/** @type {?} */ (portal.CdkPortal))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -33864,8 +33863,6 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-var _CdkTreeNodeDef = tree.CdkTreeNodeDef;
-/** @type {?} */
 var _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkTreeNode));
 /** @type {?} */
 var _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkNestedTreeNode));
@@ -33930,7 +33927,9 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
         data: [{ type: core.Input, args: ['matTreeNode',] }]
     };
     return MatTreeNodeDef;
-}(_CdkTreeNodeDef));
+}(tree.CdkTreeNodeDef));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTreeNodeDef))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTreeNodeDef))['ctorParameters']; };
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -34000,8 +33999,6 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTreeNodePadding = tree.CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
@@ -34022,14 +34019,16 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
         indent: [{ type: core.Input, args: ['matTreeNodePaddingIndent',] }]
     };
     return MatTreeNodePadding;
-}(_CdkTreeNodePadding));
+}(tree.CdkTreeNodePadding));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTreeNodePadding))['ctorParameters'] = function () {
+    return (/** @type {?} */ (tree.CdkTreeNodePadding))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTree = tree.CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -34057,14 +34056,14 @@ var MatTree = /** @class */ (function (_super) {
         _nodeOutlet: [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] }]
     };
     return MatTree;
-}(_CdkTree));
+}(tree.CdkTree));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTree))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTree))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTreeNodeToggle = tree.CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
@@ -34089,7 +34088,9 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
         recursive: [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] }]
     };
     return MatTreeNodeToggle;
-}(_CdkTreeNodeToggle));
+}(tree.CdkTreeNodeToggle));
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTreeNodeToggle))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTreeNodeToggle))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -34476,7 +34477,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.1-b636cc0');
+var VERSION = new core.Version('7.0.1-985774a');
 
 exports.VERSION = VERSION;
 exports.ɵa26 = MatAutocompleteOrigin;
@@ -34664,7 +34665,6 @@ exports.MatDividerModule = MatDividerModule;
 exports.MatExpansionModule = MatExpansionModule;
 exports.MatAccordion = MatAccordion;
 exports.MAT_ACCORDION = MAT_ACCORDION;
-exports._CdkAccordionItem = _CdkAccordionItem;
 exports.MatExpansionPanel = MatExpansionPanel;
 exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
 exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
@@ -34689,7 +34689,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa12 = MAT_GRID_LIST;
+exports.ɵa14 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34710,7 +34710,6 @@ exports.getMatIconFailedToSanitizeLiteralError = getMatIconFailedToSanitizeLiter
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.MatIconRegistry = MatIconRegistry;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
-exports._CdkTextareaAutosize = _CdkTextareaAutosize;
 exports.MatTextareaAutosize = MatTextareaAutosize;
 exports.MatInputBase = MatInputBase;
 exports._MatInputMixinBase = _MatInputMixinBase;
@@ -34737,12 +34736,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa20 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb20 = MatMenuItemBase;
-exports.ɵc20 = _MatMenuItemMixinBase;
-exports.ɵf20 = MAT_MENU_PANEL;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe20 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb22 = MatMenuItemBase;
+exports.ɵc22 = _MatMenuItemMixinBase;
+exports.ɵf22 = MAT_MENU_PANEL;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34846,15 +34845,11 @@ exports._MatSortMixinBase = _MatSortMixinBase;
 exports.MatSort = MatSort;
 exports.matSortAnimations = matSortAnimations;
 exports.MatStepperModule = MatStepperModule;
-exports._CdkStepLabel = _CdkStepLabel;
 exports.MatStepLabel = MatStepLabel;
-exports._CdkStepper = _CdkStepper;
 exports.MatStep = MatStep;
 exports.MatStepper = MatStepper;
 exports.MatHorizontalStepper = MatHorizontalStepper;
 exports.MatVerticalStepper = MatVerticalStepper;
-exports._CdkStepperNext = _CdkStepperNext;
-exports._CdkStepperPrevious = _CdkStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
@@ -34864,9 +34859,6 @@ exports.MAT_STEPPER_INTL_PROVIDER = MAT_STEPPER_INTL_PROVIDER;
 exports.matStepperAnimations = matStepperAnimations;
 exports.MatStepperIcon = MatStepperIcon;
 exports.MatTableModule = MatTableModule;
-exports._CdkCellDef = _CdkCellDef;
-exports._CdkHeaderCellDef = _CdkHeaderCellDef;
-exports._CdkFooterCellDef = _CdkFooterCellDef;
 exports.MatCellDef = MatCellDef;
 exports.MatHeaderCellDef = MatHeaderCellDef;
 exports.MatFooterCellDef = MatFooterCellDef;
@@ -34874,11 +34866,7 @@ exports.MatColumnDef = MatColumnDef;
 exports.MatHeaderCell = MatHeaderCell;
 exports.MatFooterCell = MatFooterCell;
 exports.MatCell = MatCell;
-exports._CdkTable = _CdkTable;
 exports.MatTable = MatTable;
-exports._CdkHeaderRowDef = _CdkHeaderRowDef;
-exports._CdkFooterRowDef = _CdkFooterRowDef;
-exports._CdkRowDef = _CdkRowDef;
 exports.MatHeaderRowDef = MatHeaderRowDef;
 exports.MatFooterRowDef = MatFooterRowDef;
 exports.MatRowDef = MatRowDef;
@@ -34933,18 +34921,14 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports._CdkTreeNodeDef = _CdkTreeNodeDef;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
 exports.MatTreeNodeDef = MatTreeNodeDef;
 exports.MatNestedTreeNode = MatNestedTreeNode;
-exports._CdkTreeNodePadding = _CdkTreeNodePadding;
 exports.MatTreeNodePadding = MatTreeNodePadding;
-exports._CdkTree = _CdkTree;
 exports.MatTree = MatTree;
 exports.MatTreeModule = MatTreeModule;
-exports._CdkTreeNodeToggle = _CdkTreeNodeToggle;
 exports.MatTreeNodeToggle = MatTreeNodeToggle;
 exports.MatTreeNodeOutlet = MatTreeNodeOutlet;
 exports.MatTreeFlattener = MatTreeFlattener;

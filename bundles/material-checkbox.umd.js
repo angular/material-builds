@@ -259,8 +259,10 @@ var MatCheckbox = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (value != this.disabled) {
-                this._disabled = value;
+            /** @type {?} */
+            var newValue = coercion.coerceBooleanProperty(value);
+            if (newValue !== this.disabled) {
+                this._disabled = newValue;
                 this._changeDetectorRef.markForCheck();
             }
         },

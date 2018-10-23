@@ -120,8 +120,6 @@ MatExpansionPanelContent.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkAccordionItem = CdkAccordionItem;
 /** *
  * Counter for generating unique element ids.
   @type {?} */
@@ -629,5 +627,5 @@ MatExpansionModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.js.map

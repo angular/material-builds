@@ -15,7 +15,6 @@ import { Subject } from 'rxjs';
 import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
 import { MatStepperIcon, MatStepperIconContext } from './stepper-icon';
-export declare const _CdkStepper: typeof CdkStepper;
 export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     private _errorStateMatcher;
     /** Content for step label given by `<ng-template matStepLabel>`. */
@@ -25,7 +24,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
 }
-export declare class MatStepper extends _CdkStepper implements AfterContentInit {
+export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
     _stepHeader: QueryList<MatStepHeader>;
     /** Steps that the stepper holds. */

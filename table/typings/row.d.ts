@@ -6,27 +6,24 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef } from '@angular/cdk/table';
-export declare const _CdkHeaderRowDef: typeof CdkHeaderRowDef;
-export declare const _CdkFooterRowDef: typeof CdkFooterRowDef;
-export declare const _CdkRowDef: typeof CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-export declare class MatHeaderRowDef extends _CdkHeaderRowDef {
+export declare class MatHeaderRowDef extends CdkHeaderRowDef {
 }
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
  */
-export declare class MatFooterRowDef extends _CdkFooterRowDef {
+export declare class MatFooterRowDef extends CdkFooterRowDef {
 }
 /**
  * Data row definition for the mat-table.
  * Captures the data row's template and other properties such as the columns to display and
  * a when predicate that describes when this row should be used.
  */
-export declare class MatRowDef<T> extends _CdkRowDef<T> {
+export declare class MatRowDef<T> extends CdkRowDef<T> {
 }
 /** Footer template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatHeaderRow extends CdkHeaderRow {

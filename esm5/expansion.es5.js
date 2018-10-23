@@ -119,8 +119,6 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkAccordionItem = CdkAccordionItem;
 /** *
  * Counter for generating unique element ids.
   @type {?} */
@@ -731,5 +729,5 @@ var MatExpansionModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.es5.js.map

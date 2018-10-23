@@ -13,7 +13,6 @@ import { AfterContentInit, ChangeDetectorRef, EventEmitter, ElementRef, OnChange
 import { Subject } from 'rxjs';
 import { MatExpansionPanelContent } from './expansion-panel-content';
 import { MatAccordionBase } from './accordion-base';
-export declare const _CdkAccordionItem: typeof CdkAccordionItem;
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
 /**
