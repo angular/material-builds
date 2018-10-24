@@ -22945,14 +22945,13 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * https://material.io/design/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
-    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
+    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, platform$$1, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, hammerLoader) {
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
-        this._platform = _platform;
         this._ariaDescriber = _ariaDescriber;
         this._focusMonitor = _focusMonitor;
         this._dir = _dir;
@@ -22978,14 +22977,21 @@ var MatTooltip = /** @class */ (function () {
         var element = _elementRef.nativeElement;
         /** @type {?} */
         var elementStyle = /** @type {?} */ (element.style);
+        /** @type {?} */
+        var hasGestures = typeof window === 'undefined' || (/** @type {?} */ (window)).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
-        if (!_platform.IOS && !_platform.ANDROID) {
+        if (!platform$$1.IOS && !platform$$1.ANDROID) {
             this._manualListeners
                 .set('mouseenter', function () { return _this.show(); })
-                .set('mouseleave', function () { return _this.hide(); })
-                .forEach(function (listener, event) { return element.addEventListener(event, listener); });
+                .set('mouseleave', function () { return _this.hide(); });
         }
+        else if (!hasGestures) {
+            // If Hammerjs isn't loaded, fall back to showing on `touchstart`, otherwise
+            // there's no way for the user to trigger the tooltip on a touch device.
+            this._manualListeners.set('touchstart', function () { return _this.show(); });
+        }
+        this._manualListeners.forEach(function (listener, event) { return element.addEventListener(event, listener); });
         if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
             // When we bind a gesture event on an element (in this case `longpress`), HammerJS
             // will add some inline styles by default, including `user-select: none`. This is
@@ -23121,12 +23127,10 @@ var MatTooltip = /** @class */ (function () {
             this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
-        if (!this._platform.IOS) {
-            this._manualListeners.forEach(function (listener, event) {
-                return _this._elementRef.nativeElement.removeEventListener(event, listener);
-            });
-            this._manualListeners.clear();
-        }
+        this._manualListeners.forEach(function (listener, event) {
+            _this._elementRef.nativeElement.removeEventListener(event, listener);
+        });
+        this._manualListeners.clear();
         this._destroyed.next();
         this._destroyed.complete();
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
@@ -23486,7 +23490,8 @@ var MatTooltip = /** @class */ (function () {
         { type: a11y.FocusMonitor },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.HAMMER_LOADER,] }] }
     ]; };
     MatTooltip.propDecorators = {
         position: [{ type: core.Input, args: ['matTooltipPosition',] }],
@@ -34477,10 +34482,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.1-bbeb5ef');
+var VERSION = new core.Version('7.0.1-5d54920');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34689,7 +34694,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa14 = MAT_GRID_LIST;
+exports.ɵa13 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34736,12 +34741,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa16 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb16 = MatMenuItemBase;
+exports.ɵc16 = _MatMenuItemMixinBase;
+exports.ɵf16 = MAT_MENU_PANEL;
+exports.ɵd16 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe16 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34874,17 +34879,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf19 = MatTabBase;
+exports.ɵg19 = _MatTabMixinBase;
+exports.ɵb19 = MatTabHeaderBase;
+exports.ɵc19 = _MatTabHeaderMixinBase;
+exports.ɵd19 = MatTabLabelWrapperBase;
+exports.ɵe19 = _MatTabLabelWrapperMixinBase;
+exports.ɵj19 = MatTabLinkBase;
+exports.ɵh19 = MatTabNavBase;
+exports.ɵk19 = _MatTabLinkMixinBase;
+exports.ɵi19 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
