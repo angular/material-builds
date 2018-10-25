@@ -463,8 +463,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
             // Toggle for space and enter keys.
             case SPACE:
             case ENTER:
-                event.preventDefault();
-                this._toggle();
+                if (!event.altKey && !event.metaKey && !event.shiftKey && !event.ctrlKey) {
+                    event.preventDefault();
+                    this._toggle();
+                }
                 break;
             default:
                 if (this.panel.accordion) {
