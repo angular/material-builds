@@ -10,11 +10,10 @@ import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef } from '@angular/
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
 import { MatStepperIconContext } from './stepper-icon';
-import { StepState } from '@angular/cdk/stepper';
-export declare class MatStepHeader implements OnDestroy {
+import { CdkStepHeader, StepState } from '@angular/cdk/stepper';
+export declare class MatStepHeader extends CdkStepHeader implements OnDestroy {
     _intl: MatStepperIntl;
     private _focusMonitor;
-    private _element;
     private _intlSubscription;
     /** State of the given step. */
     state: StepState;
@@ -34,7 +33,7 @@ export declare class MatStepHeader implements OnDestroy {
     active: boolean;
     /** Whether the given step is optional. */
     optional: boolean;
-    constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
     ngOnDestroy(): void;
     /** Returns string label of given step if it is a text label. */
     _stringLabel(): string | null;
@@ -44,5 +43,4 @@ export declare class MatStepHeader implements OnDestroy {
     _getHostElement(): HTMLElement;
     /** Template context variables that are exposed to the `matStepperIcon` instances. */
     _getIconContext(): MatStepperIconContext;
-    focus(): void;
 }
