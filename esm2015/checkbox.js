@@ -205,8 +205,10 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * @return {?}
      */
     set disabled(value) {
-        if (value != this.disabled) {
-            this._disabled = value;
+        /** @type {?} */
+        const newValue = coerceBooleanProperty(value);
+        if (newValue !== this.disabled) {
+            this._disabled = newValue;
             this._changeDetectorRef.markForCheck();
         }
     }

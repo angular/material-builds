@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/core'), require('rxjs'), require('@angular/common'), require('@angular/material/core'), require('@angular/platform-browser')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators', '@angular/core', 'rxjs', '@angular/common', '@angular/material/core', '@angular/platform-browser'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.rxjs.operators,global.ng.core,global.rxjs,global.ng.common,global.ng.material.core,global.ng.platformBrowser));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,overlay,scrolling,platform,portal,operators,core,rxjs,common,core$1,platformBrowser) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/platform-browser'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/core'), require('rxjs'), require('@angular/common'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/platform-browser', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators', '@angular/core', 'rxjs', '@angular/common', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.platformBrowser,global.ng.cdk.overlay,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.rxjs.operators,global.ng.core,global.rxjs,global.ng.common,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,platformBrowser,overlay,scrolling,platform,portal,operators,core,rxjs,common,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -125,14 +125,13 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * https://material.io/design/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
-    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
+    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, platform$$1, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, hammerLoader) {
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
-        this._platform = _platform;
         this._ariaDescriber = _ariaDescriber;
         this._focusMonitor = _focusMonitor;
         this._dir = _dir;
@@ -158,14 +157,21 @@ var MatTooltip = /** @class */ (function () {
         var element = _elementRef.nativeElement;
         /** @type {?} */
         var elementStyle = /** @type {?} */ (element.style);
+        /** @type {?} */
+        var hasGestures = typeof window === 'undefined' || (/** @type {?} */ (window)).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
-        if (!_platform.IOS && !_platform.ANDROID) {
+        if (!platform$$1.IOS && !platform$$1.ANDROID) {
             this._manualListeners
                 .set('mouseenter', function () { return _this.show(); })
-                .set('mouseleave', function () { return _this.hide(); })
-                .forEach(function (listener, event) { return element.addEventListener(event, listener); });
+                .set('mouseleave', function () { return _this.hide(); });
         }
+        else if (!hasGestures) {
+            // If Hammerjs isn't loaded, fall back to showing on `touchstart`, otherwise
+            // there's no way for the user to trigger the tooltip on a touch device.
+            this._manualListeners.set('touchstart', function () { return _this.show(); });
+        }
+        this._manualListeners.forEach(function (listener, event) { return element.addEventListener(event, listener); });
         if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
             // When we bind a gesture event on an element (in this case `longpress`), HammerJS
             // will add some inline styles by default, including `user-select: none`. This is
@@ -301,12 +307,10 @@ var MatTooltip = /** @class */ (function () {
             this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
-        if (!this._platform.IOS) {
-            this._manualListeners.forEach(function (listener, event) {
-                return _this._elementRef.nativeElement.removeEventListener(event, listener);
-            });
-            this._manualListeners.clear();
-        }
+        this._manualListeners.forEach(function (listener, event) {
+            _this._elementRef.nativeElement.removeEventListener(event, listener);
+        });
+        this._manualListeners.clear();
         this._destroyed.next();
         this._destroyed.complete();
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
@@ -666,7 +670,8 @@ var MatTooltip = /** @class */ (function () {
         { type: a11y.FocusMonitor },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.HAMMER_LOADER,] }] }
     ]; };
     MatTooltip.propDecorators = {
         position: [{ type: core.Input, args: ['matTooltipPosition',] }],

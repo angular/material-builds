@@ -17,13 +17,11 @@ import { map } from 'rxjs/operators';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkTable = CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
  */
-class MatTable extends _CdkTable {
+class MatTable extends CdkTable {
     constructor() {
         super(...arguments);
         /**
@@ -44,22 +42,18 @@ MatTable.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTable))['ctorParameters'] = () => (/** @type {?} */ (CdkTable))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkCellDef = CdkCellDef;
-/** @type {?} */
-const _CdkHeaderCellDef = CdkHeaderCellDef;
-/** @type {?} */
-const _CdkFooterCellDef = CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-class MatCellDef extends _CdkCellDef {
+class MatCellDef extends CdkCellDef {
 }
 MatCellDef.decorators = [
     { type: Directive, args: [{
@@ -71,7 +65,7 @@ MatCellDef.decorators = [
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-class MatHeaderCellDef extends _CdkHeaderCellDef {
+class MatHeaderCellDef extends CdkHeaderCellDef {
 }
 MatHeaderCellDef.decorators = [
     { type: Directive, args: [{
@@ -83,7 +77,7 @@ MatHeaderCellDef.decorators = [
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
  */
-class MatFooterCellDef extends _CdkFooterCellDef {
+class MatFooterCellDef extends CdkFooterCellDef {
 }
 MatFooterCellDef.decorators = [
     { type: Directive, args: [{
@@ -91,6 +85,10 @@ MatFooterCellDef.decorators = [
                 providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
             },] },
 ];
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatCellDef))['ctorParameters'] = () => (/** @type {?} */ (CdkCellDef))['ctorParameters'];
+(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = () => (/** @type {?} */ (CdkHeaderCellDef))['ctorParameters'];
+(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = () => (/** @type {?} */ (MatFooterCellDef))['ctorParameters'];
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -197,17 +195,11 @@ MatCell.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkHeaderRowDef = CdkHeaderRowDef;
-/** @type {?} */
-const _CdkFooterRowDef = CdkFooterRowDef;
-/** @type {?} */
-const _CdkRowDef = CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-class MatHeaderRowDef extends _CdkHeaderRowDef {
+class MatHeaderRowDef extends CdkHeaderRowDef {
 }
 MatHeaderRowDef.decorators = [
     { type: Directive, args: [{
@@ -220,7 +212,7 @@ MatHeaderRowDef.decorators = [
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
  */
-class MatFooterRowDef extends _CdkFooterRowDef {
+class MatFooterRowDef extends CdkFooterRowDef {
 }
 MatFooterRowDef.decorators = [
     { type: Directive, args: [{
@@ -235,7 +227,7 @@ MatFooterRowDef.decorators = [
  * a when predicate that describes when this row should be used.
  * @template T
  */
-class MatRowDef extends _CdkRowDef {
+class MatRowDef extends CdkRowDef {
 }
 MatRowDef.decorators = [
     { type: Directive, args: [{
@@ -244,6 +236,10 @@ MatRowDef.decorators = [
                 inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
             },] },
 ];
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkHeaderRowDef))['ctorParameters'];
+(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkFooterRowDef))['ctorParameters'];
+(/** @type {?} */ (MatRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkRowDef))['ctorParameters'];
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -634,5 +630,5 @@ class MatTableDataSource extends DataSource {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatTableModule, _CdkCellDef, _CdkHeaderCellDef, _CdkFooterCellDef, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, _CdkTable, MatTable, _CdkHeaderRowDef, _CdkFooterRowDef, _CdkRowDef, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource };
+export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource };
 //# sourceMappingURL=table.js.map

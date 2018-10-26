@@ -146,18 +146,18 @@ MatTabContent.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkPortal = CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
-class MatTabLabel extends _CdkPortal {
+class MatTabLabel extends CdkPortal {
 }
 MatTabLabel.decorators = [
     { type: Directive, args: [{
                 selector: '[mat-tab-label], [matTabLabel]',
             },] },
 ];
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+(/** @type {?} */ (MatTabLabel))['ctorParameters'] = () => (/** @type {?} */ (CdkPortal))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle

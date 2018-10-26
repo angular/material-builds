@@ -3741,6 +3741,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     border-left-color: mat-color($foreground, divider);
   }
 
+  .mat-horizontal-stepper-header::before,
+  .mat-horizontal-stepper-header::after,
   .mat-stepper-horizontal-line {
     border-top-color: mat-color($foreground, divider);
   }

@@ -140,8 +140,6 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkAccordionItem = accordion.CdkAccordionItem;
 /** *
  * Counter for generating unique element ids.
   @type {?} */
@@ -486,8 +484,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
             // Toggle for space and enter keys.
             case keycodes.SPACE:
             case keycodes.ENTER:
-                event.preventDefault();
-                this._toggle();
+                if (!event.altKey && !event.metaKey && !event.shiftKey && !event.ctrlKey) {
+                    event.preventDefault();
+                    this._toggle();
+                }
                 break;
             default:
                 if (this.panel.accordion) {
@@ -745,7 +745,6 @@ var MatExpansionModule = /** @class */ (function () {
 exports.MatExpansionModule = MatExpansionModule;
 exports.MatAccordion = MatAccordion;
 exports.MAT_ACCORDION = MAT_ACCORDION;
-exports._CdkAccordionItem = _CdkAccordionItem;
 exports.MatExpansionPanel = MatExpansionPanel;
 exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
 exports.MatExpansionPanelHeader = MatExpansionPanelHeader;

@@ -120,8 +120,6 @@ MatExpansionPanelContent.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkAccordionItem = CdkAccordionItem;
 /** *
  * Counter for generating unique element ids.
   @type {?} */
@@ -403,8 +401,10 @@ class MatExpansionPanelHeader {
             // Toggle for space and enter keys.
             case SPACE:
             case ENTER:
-                event.preventDefault();
-                this._toggle();
+                if (!event.altKey && !event.metaKey && !event.shiftKey && !event.ctrlKey) {
+                    event.preventDefault();
+                    this._toggle();
+                }
                 break;
             default:
                 if (this.panel.accordion) {
@@ -629,5 +629,5 @@ MatExpansionModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.js.map
