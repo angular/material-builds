@@ -7,8 +7,8 @@
  */
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, ElementRef, Input, NgModule } from '@angular/core';
+import { _inheritCtorParametersMetadata, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, combineLatest, merge, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -43,7 +43,7 @@ MatTable.decorators = [
             },] },
 ];
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTable))['ctorParameters'] = () => (/** @type {?} */ (CdkTable))['ctorParameters'];
+_inheritCtorParametersMetadata(MatTable, CdkTable);
 
 /**
  * @fileoverview added by tsickle
@@ -86,9 +86,9 @@ MatFooterCellDef.decorators = [
             },] },
 ];
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatCellDef))['ctorParameters'] = () => (/** @type {?} */ (CdkCellDef))['ctorParameters'];
-(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = () => (/** @type {?} */ (CdkHeaderCellDef))['ctorParameters'];
-(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = () => (/** @type {?} */ (MatFooterCellDef))['ctorParameters'];
+_inheritCtorParametersMetadata(MatCellDef, CdkCellDef);
+_inheritCtorParametersMetadata(MatHeaderCellDef, CdkHeaderCellDef);
+_inheritCtorParametersMetadata(MatFooterCellDef, CdkFooterCellDef);
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -237,9 +237,9 @@ MatRowDef.decorators = [
             },] },
 ];
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkHeaderRowDef))['ctorParameters'];
-(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkFooterRowDef))['ctorParameters'];
-(/** @type {?} */ (MatRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkRowDef))['ctorParameters'];
+_inheritCtorParametersMetadata(MatHeaderRowDef, CdkHeaderRowDef);
+_inheritCtorParametersMetadata(MatFooterRowDef, CdkFooterRowDef);
+_inheritCtorParametersMetadata(MatRowDef, CdkRowDef);
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */

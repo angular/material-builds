@@ -7,7 +7,7 @@
  */
 import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
-import { mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
+import { _inheritCtorParametersMetadata, mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
@@ -107,7 +107,7 @@ MatTreeNodeDef.propDecorators = {
     data: [{ type: Input, args: ['matTreeNode',] }]
 };
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeDef))['ctorParameters'] = () => (/** @type {?} */ (CdkTreeNodeDef))['ctorParameters'];
+_inheritCtorParametersMetadata(MatTreeNodeDef, CdkTreeNodeDef);
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -188,7 +188,7 @@ MatTreeNodePadding.propDecorators = {
     indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
 };
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodePadding))['ctorParameters'] = () => (/** @type {?} */ (CdkTreeNodePadding))['ctorParameters'];
+_inheritCtorParametersMetadata(MatTreeNodePadding, CdkTreeNodePadding);
 
 /**
  * @fileoverview added by tsickle
@@ -218,7 +218,7 @@ MatTree.propDecorators = {
     _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet,] }]
 };
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTree))['ctorParameters'] = () => (/** @type {?} */ (CdkTree))['ctorParameters'];
+_inheritCtorParametersMetadata(MatTree, CdkTree);
 
 /**
  * @fileoverview added by tsickle
@@ -247,7 +247,7 @@ MatTreeNodeToggle.propDecorators = {
     recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
 };
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeToggle))['ctorParameters'] = () => (/** @type {?} */ (CdkTreeNodeToggle))['ctorParameters'];
+_inheritCtorParametersMetadata(MatTreeNodeToggle, CdkTreeNodeToggle);
 
 /**
  * @fileoverview added by tsickle

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/text-field'), require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', '@angular/cdk/text-field', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}),global.ng.cdk.textField,global.ng.core,global.ng.cdk.coercion,global.ng.cdk.platform,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.rxjs,global.ng.common));
-}(this, (function (exports,textField,core,coercion,platform,forms,core$1,formField,rxjs,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/text-field'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', '@angular/cdk/text-field', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/form-field', 'rxjs', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}),global.ng.cdk.textField,global.ng.core,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.platform,global.ng.forms,global.ng.material.formField,global.rxjs,global.ng.common));
+}(this, (function (exports,textField,core,core$1,coercion,platform,forms,formField,rxjs,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -129,9 +129,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
     return MatTextareaAutosize;
 }(textField.CdkTextareaAutosize));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTextareaAutosize))['ctorParameters'] = function () {
-    return (/** @type {?} */ (textField.CdkTextareaAutosize))['ctorParameters'];
-};
+core$1._inheritCtorParametersMetadata(MatTextareaAutosize, textField.CdkTextareaAutosize);
 
 /**
  * @fileoverview added by tsickle

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/table'), require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/cdk/table', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.cdk.table,global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.coercion,global.rxjs,global.rxjs.operators));
-}(this, (function (exports,table,core,common,core$1,coercion,rxjs,operators) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/table'), require('@angular/core'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/cdk/table', '@angular/core', '@angular/material/core', '@angular/common', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.cdk.table,global.ng.core,global.ng.material.core,global.ng.common,global.ng.cdk.coercion,global.rxjs,global.rxjs.operators));
+}(this, (function (exports,table,core,core$1,common,coercion,rxjs,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -73,7 +73,7 @@ var MatTable = /** @class */ (function (_super) {
     return MatTable;
 }(table.CdkTable));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTable))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkTable))['ctorParameters']; };
+core$1._inheritCtorParametersMetadata(MatTable, table.CdkTable);
 
 /**
  * @fileoverview added by tsickle
@@ -131,9 +131,9 @@ var MatFooterCellDef = /** @class */ (function (_super) {
     return MatFooterCellDef;
 }(table.CdkFooterCellDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (MatFooterCellDef))['ctorParameters']; };
+core$1._inheritCtorParametersMetadata(MatCellDef, table.CdkCellDef);
+core$1._inheritCtorParametersMetadata(MatHeaderCellDef, table.CdkHeaderCellDef);
+core$1._inheritCtorParametersMetadata(MatFooterCellDef, table.CdkFooterCellDef);
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -299,9 +299,9 @@ var MatRowDef = /** @class */ (function (_super) {
     return MatRowDef;
 }(table.CdkRowDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkFooterRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkRowDef))['ctorParameters']; };
+core$1._inheritCtorParametersMetadata(MatHeaderRowDef, table.CdkHeaderRowDef);
+core$1._inheritCtorParametersMetadata(MatFooterRowDef, table.CdkFooterRowDef);
+core$1._inheritCtorParametersMetadata(MatRowDef, table.CdkRowDef);
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */

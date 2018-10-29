@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/stepper'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/material/core'), require('rxjs/operators'), require('@angular/cdk/portal'), require('@angular/material/button'), require('@angular/material/icon')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/core', '@angular/cdk/stepper', 'rxjs', '@angular/cdk/a11y', '@angular/animations', '@angular/cdk/bidi', '@angular/common', '@angular/material/core', 'rxjs/operators', '@angular/cdk/portal', '@angular/material/button', '@angular/material/icon'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.rxjs,global.ng.cdk.a11y,global.ng.animations,global.ng.cdk.bidi,global.ng.common,global.ng.material.core,global.rxjs.operators,global.ng.cdk.portal,global.ng.material.button,global.ng.material.icon));
-}(this, (function (exports,core,stepper,rxjs,a11y,animations,bidi,common,core$1,operators,portal,button,icon) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/stepper'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/common'), require('rxjs/operators'), require('@angular/cdk/portal'), require('@angular/material/button'), require('@angular/material/icon')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/core', '@angular/cdk/stepper', '@angular/material/core', 'rxjs', '@angular/cdk/a11y', '@angular/animations', '@angular/cdk/bidi', '@angular/common', 'rxjs/operators', '@angular/cdk/portal', '@angular/material/button', '@angular/material/icon'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.ng.material.core,global.rxjs,global.ng.cdk.a11y,global.ng.animations,global.ng.cdk.bidi,global.ng.common,global.rxjs.operators,global.ng.cdk.portal,global.ng.material.button,global.ng.material.icon));
+}(this, (function (exports,core,stepper,core$1,rxjs,a11y,animations,bidi,common,operators,portal,button,icon) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -57,7 +57,7 @@ var MatStepLabel = /** @class */ (function (_super) {
     return MatStepLabel;
 }(stepper.CdkStepLabel));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepLabel))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepLabel))['ctorParameters']; };
+core$1._inheritCtorParametersMetadata(MatStepLabel, stepper.CdkStepLabel);
 
 /**
  * @fileoverview added by tsickle
@@ -368,7 +368,7 @@ var MatStepper = /** @class */ (function (_super) {
     return MatStepper;
 }(stepper.CdkStepper));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepper))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepper))['ctorParameters']; };
+core$1._inheritCtorParametersMetadata(MatStepper, stepper.CdkStepper);
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -486,10 +486,8 @@ var MatStepperPrevious = /** @class */ (function (_super) {
     return MatStepperPrevious;
 }(stepper.CdkStepperPrevious));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepperNext))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepperNext))['ctorParameters']; };
-(/** @type {?} */ (MatStepperPrevious))['ctorParameters'] = function () {
-    return (/** @type {?} */ (stepper.CdkStepperPrevious))['ctorParameters'];
-};
+core$1._inheritCtorParametersMetadata(MatStepperNext, stepper.CdkStepperNext);
+core$1._inheritCtorParametersMetadata(MatStepperPrevious, stepper.CdkStepperPrevious);
 
 /**
  * @fileoverview added by tsickle

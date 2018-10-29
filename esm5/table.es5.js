@@ -8,8 +8,8 @@
 import { __extends } from 'tslib';
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, ElementRef, Input, NgModule } from '@angular/core';
+import { _inheritCtorParametersMetadata, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, combineLatest, merge, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -47,7 +47,7 @@ var MatTable = /** @class */ (function (_super) {
     return MatTable;
 }(CdkTable));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTable))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTable))['ctorParameters']; };
+_inheritCtorParametersMetadata(MatTable, CdkTable);
 
 /**
  * @fileoverview added by tsickle
@@ -105,9 +105,9 @@ var MatFooterCellDef = /** @class */ (function (_super) {
     return MatFooterCellDef;
 }(CdkFooterCellDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkHeaderCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (MatFooterCellDef))['ctorParameters']; };
+_inheritCtorParametersMetadata(MatCellDef, CdkCellDef);
+_inheritCtorParametersMetadata(MatHeaderCellDef, CdkHeaderCellDef);
+_inheritCtorParametersMetadata(MatFooterCellDef, CdkFooterCellDef);
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -273,9 +273,9 @@ var MatRowDef = /** @class */ (function (_super) {
     return MatRowDef;
 }(CdkRowDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkHeaderRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkFooterRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkRowDef))['ctorParameters']; };
+_inheritCtorParametersMetadata(MatHeaderRowDef, CdkHeaderRowDef);
+_inheritCtorParametersMetadata(MatFooterRowDef, CdkFooterRowDef);
+_inheritCtorParametersMetadata(MatRowDef, CdkRowDef);
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
