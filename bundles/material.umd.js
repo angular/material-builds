@@ -2889,27 +2889,6 @@ var DEC = 11;
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/material2/issues/12760. In order to work around
- * the issue where classes which extend external classes do not have the proper metadata in
- * ES2015, we just manually inherit the metadata for the constructor parameters.
- * TODO(devversion): check if we can remove the workaround after ivy landed.
- * @param {?} target
- * @param {?} base
- * @return {?}
- */
-function _inheritCtorParametersMetadata(target, base) {
-    (/** @type {?} */ (target))['ctorParameters'] = function () {
-        /** @type {?} */
-        var baseParameters = (/** @type {?} */ (base))['ctorParameters'];
-        return (typeof baseParameters === 'function' ? baseParameters() : baseParameters) || [];
-    };
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
 /** @type {?} */
 var nextUniqueId = 0;
 /**
@@ -11174,7 +11153,9 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
     return MatTextareaAutosize;
 }(textField.CdkTextareaAutosize));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTextareaAutosize, textField.CdkTextareaAutosize);
+(/** @type {?} */ (MatTextareaAutosize))['ctorParameters'] = function () {
+    return (/** @type {?} */ (textField.CdkTextareaAutosize))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
@@ -30341,7 +30322,7 @@ var MatStepLabel = /** @class */ (function (_super) {
     return MatStepLabel;
 }(stepper.CdkStepLabel));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatStepLabel, stepper.CdkStepLabel);
+(/** @type {?} */ (MatStepLabel))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepLabel))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -30652,7 +30633,7 @@ var MatStepper = /** @class */ (function (_super) {
     return MatStepper;
 }(stepper.CdkStepper));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatStepper, stepper.CdkStepper);
+(/** @type {?} */ (MatStepper))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepper))['ctorParameters']; };
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -30770,8 +30751,10 @@ var MatStepperPrevious = /** @class */ (function (_super) {
     return MatStepperPrevious;
 }(stepper.CdkStepperPrevious));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatStepperNext, stepper.CdkStepperNext);
-_inheritCtorParametersMetadata(MatStepperPrevious, stepper.CdkStepperPrevious);
+(/** @type {?} */ (MatStepperNext))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepperNext))['ctorParameters']; };
+(/** @type {?} */ (MatStepperPrevious))['ctorParameters'] = function () {
+    return (/** @type {?} */ (stepper.CdkStepperPrevious))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
@@ -30853,7 +30836,7 @@ var MatTable = /** @class */ (function (_super) {
     return MatTable;
 }(table.CdkTable));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTable, table.CdkTable);
+(/** @type {?} */ (MatTable))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkTable))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -30911,9 +30894,9 @@ var MatFooterCellDef = /** @class */ (function (_super) {
     return MatFooterCellDef;
 }(table.CdkFooterCellDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatCellDef, table.CdkCellDef);
-_inheritCtorParametersMetadata(MatHeaderCellDef, table.CdkHeaderCellDef);
-_inheritCtorParametersMetadata(MatFooterCellDef, table.CdkFooterCellDef);
+(/** @type {?} */ (MatCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkCellDef))['ctorParameters']; };
+(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderCellDef))['ctorParameters']; };
+(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (MatFooterCellDef))['ctorParameters']; };
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -31079,9 +31062,9 @@ var MatRowDef = /** @class */ (function (_super) {
     return MatRowDef;
 }(table.CdkRowDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatHeaderRowDef, table.CdkHeaderRowDef);
-_inheritCtorParametersMetadata(MatFooterRowDef, table.CdkFooterRowDef);
-_inheritCtorParametersMetadata(MatRowDef, table.CdkRowDef);
+(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderRowDef))['ctorParameters']; };
+(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkFooterRowDef))['ctorParameters']; };
+(/** @type {?} */ (MatRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkRowDef))['ctorParameters']; };
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -31775,7 +31758,7 @@ var MatTabLabel = /** @class */ (function (_super) {
     return MatTabLabel;
 }(portal.CdkPortal));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTabLabel, portal.CdkPortal);
+(/** @type {?} */ (MatTabLabel))['ctorParameters'] = function () { return (/** @type {?} */ (portal.CdkPortal))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -33946,7 +33929,7 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
     return MatTreeNodeDef;
 }(tree.CdkTreeNodeDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTreeNodeDef, tree.CdkTreeNodeDef);
+(/** @type {?} */ (MatTreeNodeDef))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTreeNodeDef))['ctorParameters']; };
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -34038,7 +34021,9 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
     return MatTreeNodePadding;
 }(tree.CdkTreeNodePadding));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTreeNodePadding, tree.CdkTreeNodePadding);
+(/** @type {?} */ (MatTreeNodePadding))['ctorParameters'] = function () {
+    return (/** @type {?} */ (tree.CdkTreeNodePadding))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
@@ -34073,7 +34058,7 @@ var MatTree = /** @class */ (function (_super) {
     return MatTree;
 }(tree.CdkTree));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTree, tree.CdkTree);
+(/** @type {?} */ (MatTree))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTree))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -34105,7 +34090,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     return MatTreeNodeToggle;
 }(tree.CdkTreeNodeToggle));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTreeNodeToggle, tree.CdkTreeNodeToggle);
+(/** @type {?} */ (MatTreeNodeToggle))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTreeNodeToggle))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -34492,10 +34477,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-7cfa0c5');
+var VERSION = new core.Version('7.0.2-f2c7205');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34635,7 +34620,6 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
-exports._inheritCtorParametersMetadata = _inheritCtorParametersMetadata;
 exports.ɵa34 = MatMultiYearView;
 exports.MatDatepickerModule = MatDatepickerModule;
 exports.MatCalendarHeader = MatCalendarHeader;
@@ -34890,17 +34874,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf21 = MatTabBase;
-exports.ɵg21 = _MatTabMixinBase;
-exports.ɵb21 = MatTabHeaderBase;
-exports.ɵc21 = _MatTabHeaderMixinBase;
-exports.ɵd21 = MatTabLabelWrapperBase;
-exports.ɵe21 = _MatTabLabelWrapperMixinBase;
-exports.ɵj21 = MatTabLinkBase;
-exports.ɵh21 = MatTabNavBase;
-exports.ɵk21 = _MatTabLinkMixinBase;
-exports.ɵi21 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

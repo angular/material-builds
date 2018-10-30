@@ -8,12 +8,12 @@
 import { __extends } from 'tslib';
 import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, defineInjectable } from '@angular/core';
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, MAT_STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
-import { _inheritCtorParametersMetadata, ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT, CommonModule } from '@angular/common';
+import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,7 +36,7 @@ var MatStepLabel = /** @class */ (function (_super) {
     return MatStepLabel;
 }(CdkStepLabel));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatStepLabel, CdkStepLabel);
+(/** @type {?} */ (MatStepLabel))['ctorParameters'] = function () { return (/** @type {?} */ (CdkStepLabel))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -347,7 +347,7 @@ var MatStepper = /** @class */ (function (_super) {
     return MatStepper;
 }(CdkStepper));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatStepper, CdkStepper);
+(/** @type {?} */ (MatStepper))['ctorParameters'] = function () { return (/** @type {?} */ (CdkStepper))['ctorParameters']; };
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -465,8 +465,10 @@ var MatStepperPrevious = /** @class */ (function (_super) {
     return MatStepperPrevious;
 }(CdkStepperPrevious));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatStepperNext, CdkStepperNext);
-_inheritCtorParametersMetadata(MatStepperPrevious, CdkStepperPrevious);
+(/** @type {?} */ (MatStepperNext))['ctorParameters'] = function () { return (/** @type {?} */ (CdkStepperNext))['ctorParameters']; };
+(/** @type {?} */ (MatStepperPrevious))['ctorParameters'] = function () {
+    return (/** @type {?} */ (CdkStepperPrevious))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle

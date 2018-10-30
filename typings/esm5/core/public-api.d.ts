@@ -17,4 +17,3 @@ export * from './label/label-options';
 export * from './ripple/index';
 export * from './selection/index';
 export * from './testing/month-constants';
-export * from './constructor-metadata-inherit';

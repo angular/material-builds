@@ -7,7 +7,7 @@
  */
 import { Directive, ElementRef, Inject, InjectionToken, NgZone, TemplateRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewContainerRef, ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
-import { _inheritCtorParametersMetadata, mixinDisabled, mixinDisableRipple, mixinColor, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { mixinDisabled, mixinDisableRipple, mixinColor, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
@@ -157,7 +157,7 @@ MatTabLabel.decorators = [
             },] },
 ];
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTabLabel, CdkPortal);
+(/** @type {?} */ (MatTabLabel))['ctorParameters'] = () => (/** @type {?} */ (CdkPortal))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle
@@ -1706,5 +1706,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa21, MatTabBase as ɵf21, _MatTabMixinBase as ɵg21, MatTabHeaderBase as ɵb21, _MatTabHeaderMixinBase as ɵc21, MatTabLabelWrapperBase as ɵd21, _MatTabLabelWrapperMixinBase as ɵe21, MatTabLinkBase as ɵj21, MatTabNavBase as ɵh21, _MatTabLinkMixinBase as ɵk21, _MatTabNavMixinBase as ɵi21 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.js.map

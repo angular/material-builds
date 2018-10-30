@@ -8,7 +8,7 @@
 import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
-import { _inheritCtorParametersMetadata, mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
+import { mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
@@ -109,7 +109,7 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
     return MatTreeNodeDef;
 }(CdkTreeNodeDef));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTreeNodeDef, CdkTreeNodeDef);
+(/** @type {?} */ (MatTreeNodeDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTreeNodeDef))['ctorParameters']; };
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -201,7 +201,9 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
     return MatTreeNodePadding;
 }(CdkTreeNodePadding));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTreeNodePadding, CdkTreeNodePadding);
+(/** @type {?} */ (MatTreeNodePadding))['ctorParameters'] = function () {
+    return (/** @type {?} */ (CdkTreeNodePadding))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
@@ -236,7 +238,7 @@ var MatTree = /** @class */ (function (_super) {
     return MatTree;
 }(CdkTree));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTree, CdkTree);
+(/** @type {?} */ (MatTree))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTree))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -268,7 +270,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     return MatTreeNodeToggle;
 }(CdkTreeNodeToggle));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTreeNodeToggle, CdkTreeNodeToggle);
+(/** @type {?} */ (MatTreeNodeToggle))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTreeNodeToggle))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle

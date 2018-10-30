@@ -2885,27 +2885,6 @@ var NOV = 10;
   @type {?} */
 var DEC = 11;
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
-/**
- * Workaround for https://github.com/angular/material2/issues/12760. In order to work around
- * the issue where classes which extend external classes do not have the proper metadata in
- * ES2015, we just manually inherit the metadata for the constructor parameters.
- * TODO(devversion): check if we can remove the workaround after ivy landed.
- * @param {?} target
- * @param {?} base
- * @return {?}
- */
-function _inheritCtorParametersMetadata(target, base) {
-    (/** @type {?} */ (target))['ctorParameters'] = function () {
-        /** @type {?} */
-        var baseParameters = (/** @type {?} */ (base))['ctorParameters'];
-        return (typeof baseParameters === 'function' ? baseParameters() : baseParameters) || [];
-    };
-}
-
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -2964,7 +2943,6 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
-exports._inheritCtorParametersMetadata = _inheritCtorParametersMetadata;
 exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });

@@ -8,10 +8,10 @@
 import { __extends } from 'tslib';
 import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import { Directive, Input, InjectionToken, ElementRef, Inject, NgZone, Optional, Self, NgModule } from '@angular/core';
-import { _inheritCtorParametersMetadata, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -105,7 +105,9 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
     return MatTextareaAutosize;
 }(CdkTextareaAutosize));
 // TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-_inheritCtorParametersMetadata(MatTextareaAutosize, CdkTextareaAutosize);
+(/** @type {?} */ (MatTextareaAutosize))['ctorParameters'] = function () {
+    return (/** @type {?} */ (CdkTextareaAutosize))['ctorParameters'];
+};
 
 /**
  * @fileoverview added by tsickle
