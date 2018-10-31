@@ -74,11 +74,17 @@ function addMaterialAppStyles(options) {
         const workspace = config_1.getWorkspace(host);
         const project = schematics_2.getProjectFromWorkspace(workspace, options.project);
         const styleFilePath = schematics_2.getProjectStyleFile(project);
+        if (!styleFilePath) {
+            console.warn(chalk_1.red(`Could not find the default style file for this project.`));
+            console.warn(chalk_1.red(`Please consider manually setting up the Roboto font in your CSS.`));
+            return;
+        }
         const buffer = host.read(styleFilePath);
-        if (!styleFilePath || !buffer) {
-            return console.warn(`Could not find styles file: "${styleFilePath}". Skipping styles ` +
-                `generation. Please consider manually adding the "Roboto" font and resetting the ` +
-                `body margin.`);
+        if (!buffer) {
+            console.warn(chalk_1.red(`Could not read the default style file within the project ` +
+                `(${chalk_1.italic(styleFilePath)})`));
+            console.warn(chalk_1.red(`Please consider manually setting up the Robot font.`));
+            return;
         }
         const htmlContent = buffer.toString();
         const insertion = '\n' +
