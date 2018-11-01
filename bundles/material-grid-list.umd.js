@@ -1192,7 +1192,7 @@ exports.MatGridTileText = MatGridTileText;
 exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
-exports.ɵa9 = MAT_GRID_LIST;
+exports.ɵa13 = MAT_GRID_LIST;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
