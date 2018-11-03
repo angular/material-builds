@@ -353,6 +353,17 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
          * The state of the snack bar animations.
          */
         _this._animationState = 'void';
+        // Based on the ARIA spec, `alert` and `status` roles have an
+        // implicit `assertive` and `polite` politeness respectively.
+        if (snackBarConfig.politeness === 'assertive') {
+            _this._role = 'alert';
+        }
+        else if (snackBarConfig.politeness === 'polite') {
+            _this._role = 'status';
+        }
+        else {
+            _this._role = null;
+        }
         return _this;
     }
     /** Attach a component portal as content to this snack bar container. */
@@ -527,7 +538,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
                     encapsulation: ViewEncapsulation.None,
                     animations: [matSnackBarAnimations.snackBarState],
                     host: {
-                        'role': 'alert',
+                        '[attr.role]': '_role',
                         'class': 'mat-snack-bar-container',
                         '[@state]': '_animationState',
                         '(@state.done)': 'onAnimationEnd($event)'
