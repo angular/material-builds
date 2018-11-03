@@ -28943,17 +28943,6 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
          * The state of the snack bar animations.
          */
         _this._animationState = 'void';
-        // Based on the ARIA spec, `alert` and `status` roles have an
-        // implicit `assertive` and `polite` politeness respectively.
-        if (snackBarConfig.politeness === 'assertive') {
-            _this._role = 'alert';
-        }
-        else if (snackBarConfig.politeness === 'polite') {
-            _this._role = 'status';
-        }
-        else {
-            _this._role = null;
-        }
         return _this;
     }
     /** Attach a component portal as content to this snack bar container. */
@@ -29128,7 +29117,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
                     encapsulation: core.ViewEncapsulation.None,
                     animations: [matSnackBarAnimations.snackBarState],
                     host: {
-                        '[attr.role]': '_role',
+                        'role': 'alert',
                         'class': 'mat-snack-bar-container',
                         '[@state]': '_animationState',
                         '(@state.done)': 'onAnimationEnd($event)'
@@ -34488,7 +34477,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-50f999b');
+var VERSION = new core.Version('7.0.2-99d2512');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34700,7 +34689,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34747,12 +34736,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

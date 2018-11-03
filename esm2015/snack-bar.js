@@ -291,17 +291,6 @@ class MatSnackBarContainer extends BasePortalOutlet {
          * The state of the snack bar animations.
          */
         this._animationState = 'void';
-        // Based on the ARIA spec, `alert` and `status` roles have an
-        // implicit `assertive` and `polite` politeness respectively.
-        if (snackBarConfig.politeness === 'assertive') {
-            this._role = 'alert';
-        }
-        else if (snackBarConfig.politeness === 'polite') {
-            this._role = 'status';
-        }
-        else {
-            this._role = null;
-        }
     }
     /**
      * Attach a component portal as content to this snack bar container.
@@ -427,7 +416,7 @@ MatSnackBarContainer.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 animations: [matSnackBarAnimations.snackBarState],
                 host: {
-                    '[attr.role]': '_role',
+                    'role': 'alert',
                     'class': 'mat-snack-bar-container',
                     '[@state]': '_animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
