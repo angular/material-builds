@@ -51,6 +51,34 @@ MatNavList.decorators = [
             },] },
 ];
 class MatList extends _MatListMixinBase {
+    /**
+     * @deprecated _elementRef parameter to be made required.
+     * \@breaking-change 8.0.0
+     * @param {?=} _elementRef
+     */
+    constructor(_elementRef) {
+        super();
+        this._elementRef = _elementRef;
+    }
+    /**
+     * @return {?}
+     */
+    _getListType() {
+        /** @type {?} */
+        const elementRef = this._elementRef;
+        // @breaking-change 8.0.0 Remove null check once _elementRef is a required param.
+        if (elementRef) {
+            /** @type {?} */
+            const nodeName = elementRef.nativeElement.nodeName.toLowerCase();
+            if (nodeName === 'mat-list') {
+                return 'list';
+            }
+            if (nodeName === 'mat-action-list') {
+                return 'action-list';
+            }
+        }
+        return null;
+    }
 }
 MatList.decorators = [
     { type: Component, args: [{selector: 'mat-list, mat-action-list',
@@ -62,6 +90,10 @@ MatList.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
+];
+/** @nocollapse */
+MatList.ctorParameters = () => [
+    { type: ElementRef }
 ];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -105,18 +137,18 @@ MatListSubheaderCssMatStyler.decorators = [
 class MatListItem extends _MatListItemMixinBase {
     /**
      * @param {?} _element
-     * @param {?} _navList
+     * @param {?=} navList
+     * @param {?=} list
      */
-    constructor(_element, _navList) {
+    constructor(_element, navList, list) {
         super();
         this._element = _element;
-        this._navList = _navList;
-        this._isNavList = false;
-        this._isNavList = !!_navList;
+        this._isInteractiveList = false;
+        this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
+        this._list = navList || list;
         /** @type {?} */
         const element = this._getHostElement();
-        if (element.nodeName && element.nodeName.toLowerCase() === 'button'
-            && !element.hasAttribute('type')) {
+        if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
             element.setAttribute('type', 'button');
         }
     }
@@ -131,7 +163,8 @@ class MatListItem extends _MatListItemMixinBase {
      * @return {?}
      */
     _isRippleDisabled() {
-        return !this._isNavList || this.disableRipple || this._navList.disableRipple;
+        return !this._isInteractiveList || this.disableRipple ||
+            !!(this._list && this._list.disableRipple);
     }
     /**
      * Retrieves the DOM element of the component host.
@@ -159,7 +192,8 @@ MatListItem.decorators = [
 /** @nocollapse */
 MatListItem.ctorParameters = () => [
     { type: ElementRef },
-    { type: MatNavList, decorators: [{ type: Optional }] }
+    { type: MatNavList, decorators: [{ type: Optional }] },
+    { type: MatList, decorators: [{ type: Optional }] }
 ];
 MatListItem.propDecorators = {
     _lines: [{ type: ContentChildren, args: [MatLine,] }],

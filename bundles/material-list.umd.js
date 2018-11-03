@@ -93,9 +93,37 @@ var MatNavList = /** @class */ (function (_super) {
 }(_MatListMixinBase));
 var MatList = /** @class */ (function (_super) {
     __extends(MatList, _super);
-    function MatList() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    /**
+     * @deprecated _elementRef parameter to be made required.
+     * @breaking-change 8.0.0
+     */
+    function MatList(_elementRef) {
+        var _this = _super.call(this) || this;
+        _this._elementRef = _elementRef;
+        return _this;
     }
+    /**
+     * @return {?}
+     */
+    MatList.prototype._getListType = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var elementRef = this._elementRef;
+        // @breaking-change 8.0.0 Remove null check once _elementRef is a required param.
+        if (elementRef) {
+            /** @type {?} */
+            var nodeName = elementRef.nativeElement.nodeName.toLowerCase();
+            if (nodeName === 'mat-list') {
+                return 'list';
+            }
+            if (nodeName === 'mat-action-list') {
+                return 'action-list';
+            }
+        }
+        return null;
+    };
     MatList.decorators = [
         { type: core.Component, args: [{selector: 'mat-list, mat-action-list',
                     exportAs: 'matList',
@@ -107,6 +135,10 @@ var MatList = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
+    /** @nocollapse */
+    MatList.ctorParameters = function () { return [
+        { type: core.ElementRef }
+    ]; };
     return MatList;
 }(_MatListMixinBase));
 /**
@@ -159,16 +191,15 @@ var MatListSubheaderCssMatStyler = /** @class */ (function () {
  */
 var MatListItem = /** @class */ (function (_super) {
     __extends(MatListItem, _super);
-    function MatListItem(_element, _navList) {
+    function MatListItem(_element, navList, list) {
         var _this = _super.call(this) || this;
         _this._element = _element;
-        _this._navList = _navList;
-        _this._isNavList = false;
-        _this._isNavList = !!_navList;
+        _this._isInteractiveList = false;
+        _this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
+        _this._list = navList || list;
         /** @type {?} */
         var element = _this._getHostElement();
-        if (element.nodeName && element.nodeName.toLowerCase() === 'button'
-            && !element.hasAttribute('type')) {
+        if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
             element.setAttribute('type', 'button');
         }
         return _this;
@@ -192,7 +223,8 @@ var MatListItem = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return !this._isNavList || this.disableRipple || this._navList.disableRipple;
+        return !this._isInteractiveList || this.disableRipple ||
+            !!(this._list && this._list.disableRipple);
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -224,7 +256,8 @@ var MatListItem = /** @class */ (function (_super) {
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
         { type: core.ElementRef },
-        { type: MatNavList, decorators: [{ type: core.Optional }] }
+        { type: MatNavList, decorators: [{ type: core.Optional }] },
+        { type: MatList, decorators: [{ type: core.Optional }] }
     ]; };
     MatListItem.propDecorators = {
         _lines: [{ type: core.ContentChildren, args: [core$1.MatLine,] }],
