@@ -20375,6 +20375,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this._menuOpen = false;
         this._closeSubscription = rxjs.Subscription.EMPTY;
         this._hoverSubscription = rxjs.Subscription.EMPTY;
+        this._menuCloseSubscription = rxjs.Subscription.EMPTY;
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
@@ -20413,15 +20414,44 @@ var MatMenuTrigger = /** @class */ (function () {
          * \@breaking-change 8.0.0
          * @return {?}
          */
-        function () {
-            return this.menu;
-        },
+        function () { return this.menu; },
         set: /**
          * @param {?} v
          * @return {?}
          */
         function (v) {
             this.menu = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenuTrigger.prototype, "menu", {
+        /** References the menu instance that the trigger is associated with. */
+        get: /**
+         * References the menu instance that the trigger is associated with.
+         * @return {?}
+         */
+        function () { return this._menu; },
+        set: /**
+         * @param {?} menu
+         * @return {?}
+         */
+        function (menu) {
+            var _this = this;
+            if (menu === this._menu) {
+                return;
+            }
+            this._menu = menu;
+            this._menuCloseSubscription.unsubscribe();
+            if (menu) {
+                this._menuCloseSubscription = menu.close.asObservable().subscribe(function (reason) {
+                    _this._destroyMenu();
+                    // If a click closed the menu, we should close the entire chain of nested menus.
+                    if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
+                        _this._parentMenu.closed.emit(reason);
+                    }
+                });
+            }
         },
         enumerable: true,
         configurable: true
@@ -20433,15 +20463,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var _this = this;
         this._checkMenu();
-        this.menu.close.asObservable().subscribe(function (reason) {
-            _this._destroyMenu();
-            // If a click closed the menu, we should close the entire chain of nested menus.
-            if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
-                _this._parentMenu.closed.emit(reason);
-            }
-        });
         this._handleHover();
     };
     /**
@@ -20523,7 +20545,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /** @type {?} */
         var overlayRef = this._createOverlay();
         this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
-        overlayRef.attach(this._portal);
+        overlayRef.attach(this._getPortal());
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
@@ -20714,7 +20736,6 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         if (!this._overlayRef) {
-            this._portal = new portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
             /** @type {?} */
             var config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
@@ -20952,6 +20973,23 @@ var MatMenuTrigger = /** @class */ (function () {
                 _this.openMenu();
             }
         });
+    };
+    /**
+     * Gets the portal that should be attached to the overlay.
+     * @return {?}
+     */
+    MatMenuTrigger.prototype._getPortal = /**
+     * Gets the portal that should be attached to the overlay.
+     * @return {?}
+     */
+    function () {
+        // Note that we can avoid this check by keeping the portal on the menu panel.
+        // While it would be cleaner, we'd have to introduce another required method on
+        // `MatMenuPanel`, making it harder to consume.
+        if (!this._portal || this._portal.templateRef !== this.menu.templateRef) {
+            this._portal = new portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+        }
+        return this._portal;
     };
     MatMenuTrigger.decorators = [
         { type: core.Directive, args: [{
@@ -33524,7 +33562,7 @@ var MatTabNav = /** @class */ (function (_super) {
                     exportAs: 'matTabNavBar, matTabNav',
                     inputs: ['color', 'disableRipple'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
-                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media screen and (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media screen and (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media screen and (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
+                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}[mat-align-tabs=center] .mat-tab-links{justify-content:center}[mat-align-tabs=end] .mat-tab-links{justify-content:flex-end}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media screen and (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media screen and (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media screen and (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                     host: { 'class': 'mat-tab-nav-bar' },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -34488,7 +34526,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-077f68e');
+var VERSION = new core.Version('7.0.2-8fad5d1');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34700,7 +34738,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

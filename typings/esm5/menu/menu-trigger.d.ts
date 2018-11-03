@@ -41,6 +41,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _menuOpen;
     private _closeSubscription;
     private _hoverSubscription;
+    private _menuCloseSubscription;
     private _scrollStrategy;
     _openedBy: 'mouse' | 'touch' | null;
     /**
@@ -50,6 +51,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     _deprecatedMatMenuTriggerFor: MatMenuPanel;
     /** References the menu instance that the trigger is associated with. */
     menu: MatMenuPanel;
+    private _menu;
     /** Data to be passed along to any lazily-rendered content. */
     menuData: any;
     /** Event emitted when the associated menu is opened. */
@@ -142,4 +144,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     _handleClick(event: MouseEvent): void;
     /** Handles the cases where the user hovers over the trigger. */
     private _handleHover;
+    /** Gets the portal that should be attached to the overlay. */
+    private _getPortal;
 }

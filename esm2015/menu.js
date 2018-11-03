@@ -810,6 +810,7 @@ class MatMenuTrigger {
         this._menuOpen = false;
         this._closeSubscription = Subscription.EMPTY;
         this._hoverSubscription = Subscription.EMPTY;
+        this._menuCloseSubscription = Subscription.EMPTY;
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
@@ -843,9 +844,7 @@ class MatMenuTrigger {
      * \@breaking-change 8.0.0
      * @return {?}
      */
-    get _deprecatedMatMenuTriggerFor() {
-        return this.menu;
-    }
+    get _deprecatedMatMenuTriggerFor() { return this.menu; }
     /**
      * @param {?} v
      * @return {?}
@@ -854,17 +853,35 @@ class MatMenuTrigger {
         this.menu = v;
     }
     /**
+     * References the menu instance that the trigger is associated with.
+     * @return {?}
+     */
+    get menu() { return this._menu; }
+    /**
+     * @param {?} menu
+     * @return {?}
+     */
+    set menu(menu) {
+        if (menu === this._menu) {
+            return;
+        }
+        this._menu = menu;
+        this._menuCloseSubscription.unsubscribe();
+        if (menu) {
+            this._menuCloseSubscription = menu.close.asObservable().subscribe(reason => {
+                this._destroyMenu();
+                // If a click closed the menu, we should close the entire chain of nested menus.
+                if ((reason === 'click' || reason === 'tab') && this._parentMenu) {
+                    this._parentMenu.closed.emit(reason);
+                }
+            });
+        }
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
         this._checkMenu();
-        this.menu.close.asObservable().subscribe(reason => {
-            this._destroyMenu();
-            // If a click closed the menu, we should close the entire chain of nested menus.
-            if ((reason === 'click' || reason === 'tab') && this._parentMenu) {
-                this._parentMenu.closed.emit(reason);
-            }
-        });
         this._handleHover();
     }
     /**
@@ -917,7 +934,7 @@ class MatMenuTrigger {
         /** @type {?} */
         const overlayRef = this._createOverlay();
         this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
-        overlayRef.attach(this._portal);
+        overlayRef.attach(this._getPortal());
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
@@ -1060,7 +1077,6 @@ class MatMenuTrigger {
      */
     _createOverlay() {
         if (!this._overlayRef) {
-            this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
             /** @type {?} */
             const config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
@@ -1248,6 +1264,19 @@ class MatMenuTrigger {
                 this.openMenu();
             }
         });
+    }
+    /**
+     * Gets the portal that should be attached to the overlay.
+     * @return {?}
+     */
+    _getPortal() {
+        // Note that we can avoid this check by keeping the portal on the menu panel.
+        // While it would be cleaner, we'd have to introduce another required method on
+        // `MatMenuPanel`, making it harder to consume.
+        if (!this._portal || this._portal.templateRef !== this.menu.templateRef) {
+            this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+        }
+        return this._portal;
     }
 }
 MatMenuTrigger.decorators = [
