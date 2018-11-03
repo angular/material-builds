@@ -117,7 +117,11 @@ var matBottomSheetAnimations = {
         animations.state('void, hidden', animations.style({ transform: 'translateY(100%)' })),
         animations.state('visible', animations.style({ transform: 'translateY(0%)' })),
         animations.transition('visible => void, visible => hidden', animations.animate(core$1.AnimationDurations.COMPLEX + " " + core$1.AnimationCurves.ACCELERATION_CURVE)),
-        animations.transition('void => visible', animations.animate(core$1.AnimationDurations.EXITING + " " + core$1.AnimationCurves.DECELERATION_CURVE)),
+        animations.transition('void => visible', animations.group([
+            // `animateChild` allows for child component to animate at the same time. See #13870.
+            animations.query('@*', animations.animateChild(), { optional: true }),
+            animations.animate(core$1.AnimationDurations.EXITING + " " + core$1.AnimationCurves.DECELERATION_CURVE),
+        ]))
     ])
 };
 

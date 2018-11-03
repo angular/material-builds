@@ -5282,7 +5282,11 @@ var matBottomSheetAnimations = {
         animations$1.state('void, hidden', animations$1.style({ transform: 'translateY(100%)' })),
         animations$1.state('visible', animations$1.style({ transform: 'translateY(0%)' })),
         animations$1.transition('visible => void, visible => hidden', animations$1.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.ACCELERATION_CURVE)),
-        animations$1.transition('void => visible', animations$1.animate(AnimationDurations.EXITING + " " + AnimationCurves.DECELERATION_CURVE)),
+        animations$1.transition('void => visible', animations$1.group([
+            // `animateChild` allows for child component to animate at the same time. See #13870.
+            animations$1.query('@*', animations$1.animateChild(), { optional: true }),
+            animations$1.animate(AnimationDurations.EXITING + " " + AnimationCurves.DECELERATION_CURVE),
+        ]))
     ])
 };
 
@@ -9873,7 +9877,11 @@ var animationBody = [
     // decimate the animation performance. Leaving it as `none` solves both issues.
     animations$1.state('void, exit', animations$1.style({ opacity: 0, transform: 'scale(0.7)' })),
     animations$1.state('enter', animations$1.style({ transform: 'none' })),
-    animations$1.transition('* => enter', animations$1.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'none', opacity: 1 }))),
+    animations$1.transition('* => enter', animations$1.group([
+        // `animateChild` allows for child component to animate at the same time. See #13870.
+        animations$1.query('@*', animations$1.animateChild(), { optional: true }),
+        animations$1.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'none', opacity: 1 })),
+    ])),
     animations$1.transition('* => void, * => exit', animations$1.animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', animations$1.style({ opacity: 0 }))),
 ];
 /** *
@@ -34529,10 +34537,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-28e3d36');
+var VERSION = new core.Version('7.0.2-235add9');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34741,7 +34749,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa7 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
