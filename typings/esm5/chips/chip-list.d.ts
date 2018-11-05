@@ -14,7 +14,7 @@ import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from 
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
-import { MatChipInput } from './chip-input';
+import { MatChipTextControl } from './chip-text-control';
 /** @docs-private */
 export declare class MatChipListBase {
     _defaultErrorStateMatcher: ErrorStateMatcher;
@@ -70,7 +70,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Subscription to remove changes in chips. */
     private _chipRemoveSubscription;
     /** The chip input to add more chips */
-    protected _chipInput: MatChipInput;
+    protected _chipInput: MatChipTextControl;
     /** Uid of the chip list */
     _uid: string;
     /** The aria-describedby attribute on the chip list for improved a11y. */
@@ -181,7 +181,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     ngDoCheck(): void;
     ngOnDestroy(): void;
     /** Associates an HTML input element with this chip list. */
-    registerInput(inputElement: MatChipInput): void;
+    registerInput(inputElement: MatChipTextControl): void;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
