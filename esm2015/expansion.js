@@ -16,7 +16,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, merge, Subscription, EMPTY } from 'rxjs';
 import { filter, startWith, take, distinctUntilChanged } from 'rxjs/operators';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
-import { ENTER, SPACE, HOME, END } from '@angular/cdk/keycodes';
+import { ENTER, SPACE, hasModifierKey, HOME, END } from '@angular/cdk/keycodes';
 
 /**
  * @fileoverview added by tsickle
@@ -401,7 +401,7 @@ class MatExpansionPanelHeader {
             // Toggle for space and enter keys.
             case SPACE:
             case ENTER:
-                if (!event.altKey && !event.metaKey && !event.shiftKey && !event.ctrlKey) {
+                if (!hasModifierKey(event)) {
                     event.preventDefault();
                     this._toggle();
                 }
