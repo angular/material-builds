@@ -22,6 +22,8 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     /** Whether the toggle button is disabled. */
     disabled: boolean;
     private _disabled;
+    /** Whether ripples on the toggle should be disabled. */
+    disableRipple: boolean;
     /** Custom icon set by the consumer. */
     _customIcon: MatDatepickerToggleIcon;
     constructor(_intl: MatDatepickerIntl, _changeDetectorRef: ChangeDetectorRef, defaultTabIndex: string);
