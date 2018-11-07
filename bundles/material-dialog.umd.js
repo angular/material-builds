@@ -139,11 +139,7 @@ var animationBody = [
     // decimate the animation performance. Leaving it as `none` solves both issues.
     animations.state('void, exit', animations.style({ opacity: 0, transform: 'scale(0.7)' })),
     animations.state('enter', animations.style({ transform: 'none' })),
-    animations.transition('* => enter', animations.group([
-        // `animateChild` allows for child component to animate at the same time. See #13870.
-        animations.query('@*', animations.animateChild(), { optional: true }),
-        animations.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations.style({ transform: 'none', opacity: 1 })),
-    ])),
+    animations.transition('* => enter', animations.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations.style({ transform: 'none', opacity: 1 }))),
     animations.transition('* => void, * => exit', animations.animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', animations.style({ opacity: 0 }))),
 ];
 /** *

@@ -5282,11 +5282,7 @@ var matBottomSheetAnimations = {
         animations$1.state('void, hidden', animations$1.style({ transform: 'translateY(100%)' })),
         animations$1.state('visible', animations$1.style({ transform: 'translateY(0%)' })),
         animations$1.transition('visible => void, visible => hidden', animations$1.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.ACCELERATION_CURVE)),
-        animations$1.transition('void => visible', animations$1.group([
-            // `animateChild` allows for child component to animate at the same time. See #13870.
-            animations$1.query('@*', animations$1.animateChild(), { optional: true }),
-            animations$1.animate(AnimationDurations.EXITING + " " + AnimationCurves.DECELERATION_CURVE),
-        ]))
+        animations$1.transition('void => visible', animations$1.animate(AnimationDurations.EXITING + " " + AnimationCurves.DECELERATION_CURVE)),
     ])
 };
 
@@ -9877,11 +9873,7 @@ var animationBody = [
     // decimate the animation performance. Leaving it as `none` solves both issues.
     animations$1.state('void, exit', animations$1.style({ opacity: 0, transform: 'scale(0.7)' })),
     animations$1.state('enter', animations$1.style({ transform: 'none' })),
-    animations$1.transition('* => enter', animations$1.group([
-        // `animateChild` allows for child component to animate at the same time. See #13870.
-        animations$1.query('@*', animations$1.animateChild(), { optional: true }),
-        animations$1.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'none', opacity: 1 })),
-    ])),
+    animations$1.transition('* => enter', animations$1.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'none', opacity: 1 }))),
     animations$1.transition('* => void, * => exit', animations$1.animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', animations$1.style({ opacity: 0 }))),
 ];
 /** *
@@ -34570,7 +34562,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-4508fa1');
+var VERSION = new core.Version('7.0.2-d50b9f2');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34829,12 +34821,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34967,17 +34959,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

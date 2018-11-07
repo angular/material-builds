@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken, Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, NgModule, Injectable, Injector, SkipSelf, TemplateRef, defineInjectable, inject, INJECTOR } from '@angular/core';
-import { animate, state, style, transition, trigger, group, query, animateChild } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -79,11 +79,7 @@ const matBottomSheetAnimations = {
         state('void, hidden', style({ transform: 'translateY(100%)' })),
         state('visible', style({ transform: 'translateY(0%)' })),
         transition('visible => void, visible => hidden', animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.ACCELERATION_CURVE}`)),
-        transition('void => visible', group([
-            // `animateChild` allows for child component to animate at the same time. See #13870.
-            query('@*', animateChild(), { optional: true }),
-            animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`),
-        ]))
+        transition('void => visible', animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`)),
     ])
 };
 
