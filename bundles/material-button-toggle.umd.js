@@ -709,9 +709,11 @@ var MatButtonToggle = /** @class */ (function (_super) {
                         '[class.mat-button-toggle-disabled]': 'disabled',
                         '[class.mat-button-toggle-appearance-standard]': 'appearance === "standard"',
                         'class': 'mat-button-toggle',
-                        // Clear out the native tabindex here since we forward it to the underlying button
-                        '[attr.tabindex]': 'null',
+                        // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
+                        // but can still receive focus from things like cdkFocusInitial.
+                        '[attr.tabindex]': '-1',
                         '[attr.id]': 'id',
+                        '(focus)': 'focus()',
                     }
                 },] },
     ];
