@@ -8,7 +8,7 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarBody, MatCalendarCell } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell, MatCalendarCellCssClasses } from './calendar-body';
 /**
  * An internal component used to display a single month in the datepicker.
  * @docs-private
@@ -32,8 +32,10 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** The maximum selectable date. */
     maxDate: D | null;
     private _maxDate;
-    /** A function used to filter which dates are selectable. */
+    /** Function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass: (date: D) => MatCalendarCellCssClasses;
     /** Emits when a new date is selected. */
     readonly selectedChange: EventEmitter<D | null>;
     /** Emits when any date is selected. */
