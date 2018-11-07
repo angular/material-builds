@@ -24379,10 +24379,12 @@ var MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-locati
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
     /** @type {?} */
     var _document = core.inject(common.DOCUMENT);
+    /** @type {?} */
+    var _location = _document ? _document.location : null;
     return {
-        // Note that this needs to be a function, because Angular will only instantiate
-        // this provider once, but we want the current location on each call.
-        getPathname: function () { return (_document && _document.location && _document.location.pathname) || ''; }
+        // Note that this needs to be a function, rather than a property, because Angular
+        // will only resolve it once, but we want the current path on each call.
+        getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
     };
 }
 /** *
@@ -34572,10 +34574,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-27347b5');
+var VERSION = new core.Version('7.0.2-2290063');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34784,7 +34786,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
