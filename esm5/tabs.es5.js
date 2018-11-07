@@ -12,7 +12,7 @@ import { mixinDisabled, mixinDisableRipple, mixinColor, MAT_RIPPLE_GLOBAL_OPTION
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
-import { startWith, takeUntil } from 'rxjs/operators';
+import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
@@ -424,6 +424,10 @@ var MatTabBody = /** @class */ (function () {
          */
         this._dirChangeSubscription = Subscription.EMPTY;
         /**
+         * Emits when an animation on the tab is complete.
+         */
+        this._translateTabComplete = new Subject();
+        /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
         this._onCentering = new EventEmitter();
@@ -449,6 +453,19 @@ var MatTabBody = /** @class */ (function () {
                 changeDetectorRef.markForCheck();
             });
         }
+        // Ensure that we get unique animation events, because the `.done` callback can get
+        // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
+        this._translateTabComplete.pipe(distinctUntilChanged(function (x, y) {
+            return x.fromState === y.fromState && x.toState === y.toState;
+        })).subscribe(function (event) {
+            // If the transition to the center is complete, emit an event.
+            if (_this._isCenterPosition(event.toState) && _this._isCenterPosition(_this._position)) {
+                _this._onCentered.emit();
+            }
+            if (_this._isCenterPosition(event.fromState) && !_this._isCenterPosition(_this._position)) {
+                _this._afterLeavingCenter.emit();
+            }
+        });
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         /** The shifted index position of the tab body, where zero represents the active center tab. */
@@ -491,38 +508,22 @@ var MatTabBody = /** @class */ (function () {
      */
     function () {
         this._dirChangeSubscription.unsubscribe();
+        this._translateTabComplete.complete();
     };
     /**
-     * @param {?} e
+     * @param {?} event
      * @return {?}
      */
     MatTabBody.prototype._onTranslateTabStarted = /**
-     * @param {?} e
+     * @param {?} event
      * @return {?}
      */
-    function (e) {
+    function (event) {
         /** @type {?} */
-        var isCentering = this._isCenterPosition(e.toState);
+        var isCentering = this._isCenterPosition(event.toState);
         this._beforeCentering.emit(isCentering);
         if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
-        }
-    };
-    /**
-     * @param {?} e
-     * @return {?}
-     */
-    MatTabBody.prototype._onTranslateTabComplete = /**
-     * @param {?} e
-     * @return {?}
-     */
-    function (e) {
-        // If the transition to the center is complete, emit an event.
-        if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
-            this._onCentered.emit();
-        }
-        if (this._isCenterPosition(e.fromState) && !this._isCenterPosition(this._position)) {
-            this._afterLeavingCenter.emit();
         }
     };
     /** The text direction of the containing app. */
@@ -595,7 +596,7 @@ var MatTabBody = /** @class */ (function () {
     };
     MatTabBody.decorators = [
         { type: Component, args: [{selector: 'mat-tab-body',
-                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"{ value: _position, params: {animationDuration: animationDuration} }\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
+                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"{ value: _position, params: {animationDuration: animationDuration} }\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_translateTabComplete.next($event)\"><ng-template matTabBodyHost></ng-template></div>",
                     styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -1710,8 +1711,10 @@ var MatTabGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
-        this._tabBodyWrapper.nativeElement.style.height = '';
+        /** @type {?} */
+        var wrapper = this._tabBodyWrapper.nativeElement;
+        this._tabBodyWrapperHeight = wrapper.clientHeight;
+        wrapper.style.height = '';
         this.animationDone.emit();
     };
     /** Handle click events, setting new selected index if appropriate. */
@@ -1719,19 +1722,19 @@ var MatTabGroup = /** @class */ (function (_super) {
      * Handle click events, setting new selected index if appropriate.
      * @param {?} tab
      * @param {?} tabHeader
-     * @param {?} idx
+     * @param {?} index
      * @return {?}
      */
     MatTabGroup.prototype._handleClick = /**
      * Handle click events, setting new selected index if appropriate.
      * @param {?} tab
      * @param {?} tabHeader
-     * @param {?} idx
+     * @param {?} index
      * @return {?}
      */
-    function (tab, tabHeader, idx) {
+    function (tab, tabHeader, index) {
         if (!tab.disabled) {
-            this.selectedIndex = tabHeader.focusIndex = idx;
+            this.selectedIndex = tabHeader.focusIndex = index;
         }
     };
     /** Retrieves the tabindex for the tab. */
@@ -2146,5 +2149,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
 //# sourceMappingURL=tabs.es5.js.map
