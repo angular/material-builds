@@ -32088,10 +32088,6 @@ var MatTabBody = /** @class */ (function () {
          */
         this._dirChangeSubscription = rxjs.Subscription.EMPTY;
         /**
-         * Emits when an animation on the tab is complete.
-         */
-        this._translateTabComplete = new rxjs.Subject();
-        /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
         this._onCentering = new core.EventEmitter();
@@ -32117,19 +32113,6 @@ var MatTabBody = /** @class */ (function () {
                 changeDetectorRef.markForCheck();
             });
         }
-        // Ensure that we get unique animation events, because the `.done` callback can get
-        // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
-        this._translateTabComplete.pipe(operators.distinctUntilChanged(function (x, y) {
-            return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(function (event) {
-            // If the transition to the center is complete, emit an event.
-            if (_this._isCenterPosition(event.toState) && _this._isCenterPosition(_this._position)) {
-                _this._onCentered.emit();
-            }
-            if (_this._isCenterPosition(event.fromState) && !_this._isCenterPosition(_this._position)) {
-                _this._afterLeavingCenter.emit();
-            }
-        });
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         /** The shifted index position of the tab body, where zero represents the active center tab. */
@@ -32172,22 +32155,38 @@ var MatTabBody = /** @class */ (function () {
      */
     function () {
         this._dirChangeSubscription.unsubscribe();
-        this._translateTabComplete.complete();
     };
     /**
-     * @param {?} event
+     * @param {?} e
      * @return {?}
      */
     MatTabBody.prototype._onTranslateTabStarted = /**
-     * @param {?} event
+     * @param {?} e
      * @return {?}
      */
-    function (event) {
+    function (e) {
         /** @type {?} */
-        var isCentering = this._isCenterPosition(event.toState);
+        var isCentering = this._isCenterPosition(e.toState);
         this._beforeCentering.emit(isCentering);
         if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
+        }
+    };
+    /**
+     * @param {?} e
+     * @return {?}
+     */
+    MatTabBody.prototype._onTranslateTabComplete = /**
+     * @param {?} e
+     * @return {?}
+     */
+    function (e) {
+        // If the transition to the center is complete, emit an event.
+        if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
+            this._onCentered.emit();
+        }
+        if (this._isCenterPosition(e.fromState) && !this._isCenterPosition(this._position)) {
+            this._afterLeavingCenter.emit();
         }
     };
     /** The text direction of the containing app. */
@@ -32260,7 +32259,7 @@ var MatTabBody = /** @class */ (function () {
     };
     MatTabBody.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-body',
-                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"{ value: _position, params: {animationDuration: animationDuration} }\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_translateTabComplete.next($event)\"><ng-template matTabBodyHost></ng-template></div>",
+                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"{ value: _position, params: {animationDuration: animationDuration} }\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
                     styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -33375,10 +33374,8 @@ var MatTabGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var wrapper = this._tabBodyWrapper.nativeElement;
-        this._tabBodyWrapperHeight = wrapper.clientHeight;
-        wrapper.style.height = '';
+        this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
+        this._tabBodyWrapper.nativeElement.style.height = '';
         this.animationDone.emit();
     };
     /** Handle click events, setting new selected index if appropriate. */
@@ -33386,19 +33383,19 @@ var MatTabGroup = /** @class */ (function (_super) {
      * Handle click events, setting new selected index if appropriate.
      * @param {?} tab
      * @param {?} tabHeader
-     * @param {?} index
+     * @param {?} idx
      * @return {?}
      */
     MatTabGroup.prototype._handleClick = /**
      * Handle click events, setting new selected index if appropriate.
      * @param {?} tab
      * @param {?} tabHeader
-     * @param {?} index
+     * @param {?} idx
      * @return {?}
      */
-    function (tab, tabHeader, index) {
+    function (tab, tabHeader, idx) {
         if (!tab.disabled) {
-            this.selectedIndex = tabHeader.focusIndex = index;
+            this.selectedIndex = tabHeader.focusIndex = idx;
         }
     };
     /** Retrieves the tabindex for the tab. */
@@ -34570,10 +34567,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-8c46478');
+var VERSION = new core.Version('7.0.2-11c96d6');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34782,7 +34779,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

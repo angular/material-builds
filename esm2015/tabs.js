@@ -11,7 +11,7 @@ import { mixinDisabled, mixinDisableRipple, mixinColor, MAT_RIPPLE_GLOBAL_OPTION
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
-import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
@@ -371,10 +371,6 @@ class MatTabBody {
          */
         this._dirChangeSubscription = Subscription.EMPTY;
         /**
-         * Emits when an animation on the tab is complete.
-         */
-        this._translateTabComplete = new Subject();
-        /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
         this._onCentering = new EventEmitter();
@@ -400,19 +396,6 @@ class MatTabBody {
                 changeDetectorRef.markForCheck();
             });
         }
-        // Ensure that we get unique animation events, because the `.done` callback can get
-        // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
-        this._translateTabComplete.pipe(distinctUntilChanged((x, y) => {
-            return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(event => {
-            // If the transition to the center is complete, emit an event.
-            if (this._isCenterPosition(event.toState) && this._isCenterPosition(this._position)) {
-                this._onCentered.emit();
-            }
-            if (this._isCenterPosition(event.fromState) && !this._isCenterPosition(this._position)) {
-                this._afterLeavingCenter.emit();
-            }
-        });
     }
     /**
      * The shifted index position of the tab body, where zero represents the active center tab.
@@ -438,18 +421,30 @@ class MatTabBody {
      */
     ngOnDestroy() {
         this._dirChangeSubscription.unsubscribe();
-        this._translateTabComplete.complete();
     }
     /**
-     * @param {?} event
+     * @param {?} e
      * @return {?}
      */
-    _onTranslateTabStarted(event) {
+    _onTranslateTabStarted(e) {
         /** @type {?} */
-        const isCentering = this._isCenterPosition(event.toState);
+        const isCentering = this._isCenterPosition(e.toState);
         this._beforeCentering.emit(isCentering);
         if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
+        }
+    }
+    /**
+     * @param {?} e
+     * @return {?}
+     */
+    _onTranslateTabComplete(e) {
+        // If the transition to the center is complete, emit an event.
+        if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
+            this._onCentered.emit();
+        }
+        if (this._isCenterPosition(e.fromState) && !this._isCenterPosition(this._position)) {
+            this._afterLeavingCenter.emit();
         }
     }
     /**
@@ -501,7 +496,7 @@ class MatTabBody {
 }
 MatTabBody.decorators = [
     { type: Component, args: [{selector: 'mat-tab-body',
-                template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"{ value: _position, params: {animationDuration: animationDuration} }\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_translateTabComplete.next($event)\"><ng-template matTabBodyHost></ng-template></div>",
+                template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"{ value: _position, params: {animationDuration: animationDuration} }\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
                 styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -1336,22 +1331,20 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     _removeTabBodyWrapperHeight() {
-        /** @type {?} */
-        const wrapper = this._tabBodyWrapper.nativeElement;
-        this._tabBodyWrapperHeight = wrapper.clientHeight;
-        wrapper.style.height = '';
+        this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
+        this._tabBodyWrapper.nativeElement.style.height = '';
         this.animationDone.emit();
     }
     /**
      * Handle click events, setting new selected index if appropriate.
      * @param {?} tab
      * @param {?} tabHeader
-     * @param {?} index
+     * @param {?} idx
      * @return {?}
      */
-    _handleClick(tab, tabHeader, index) {
+    _handleClick(tab, tabHeader, idx) {
         if (!tab.disabled) {
-            this.selectedIndex = tabHeader.focusIndex = index;
+            this.selectedIndex = tabHeader.focusIndex = idx;
         }
     }
     /**

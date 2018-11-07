@@ -106,7 +106,7 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Removes the height of the tab body wrapper. */
     _removeTabBodyWrapperHeight(): void;
     /** Handle click events, setting new selected index if appropriate. */
-    _handleClick(tab: MatTab, tabHeader: MatTabHeader, index: number): void;
+    _handleClick(tab: MatTab, tabHeader: MatTabHeader, idx: number): void;
     /** Retrieves the tabindex for the tab. */
     _getTabIndex(tab: MatTab, idx: number): number | null;
 }
