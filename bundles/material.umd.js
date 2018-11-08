@@ -19020,7 +19020,8 @@ var MatSelectionList = /** @class */ (function (_super) {
             .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
             // screenreader users, that allows reading the different options of the list.
-            .skipPredicate(function () { return false; });
+            .skipPredicate(function () { return false; })
+            .withAllowedModifierKeys(['shiftKey']);
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
@@ -22204,7 +22205,8 @@ var MatSelect = /** @class */ (function (_super) {
         this._keyManager = new a11y.ActiveDescendantKeyManager(this.options)
             .withTypeAhead()
             .withVerticalOrientation()
-            .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');
+            .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
+            .withAllowedModifierKeys(['shiftKey']);
         this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
             // Restore focus to the trigger before closing. Ensures that the focus
             // position won't be lost if the user got focus into the overlay.
@@ -34589,7 +34591,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-cd6da93');
+var VERSION = new core.Version('7.0.2-1ef16ac');
 
 exports.VERSION = VERSION;
 exports.ɵa30 = MatAutocompleteOrigin;
@@ -34801,7 +34803,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
