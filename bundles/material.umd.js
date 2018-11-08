@@ -32476,7 +32476,7 @@ var MatTabHeader = /** @class */ (function (_super) {
     function () {
         // If the number of tab labels have changed, check if scrolling should be enabled
         if (this._tabLabelCount != this._labelWrappers.length) {
-            this._updatePagination();
+            this.updatePagination();
             this._tabLabelCount = this._labelWrappers.length;
             this._changeDetectorRef.markForCheck();
         }
@@ -32543,7 +32543,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         var resize = this._viewportRuler.change(150);
         /** @type {?} */
         var realign = function () {
-            _this._updatePagination();
+            _this.updatePagination();
             _this._alignInkBarToSelectedTab();
         };
         this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
@@ -32592,7 +32592,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         var _this = this;
         /** @type {?} */
         var zoneCallback = function () {
-            _this._updatePagination();
+            _this.updatePagination();
             _this._alignInkBarToSelectedTab();
             _this._changeDetectorRef.markForCheck();
         };
@@ -32602,14 +32602,26 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
     };
     /**
-     * Updating the view whether pagination should be enabled or not
+     * Updates the view whether pagination should be enabled or not.
+     *
+     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
+     * page.
      */
     /**
-     * Updating the view whether pagination should be enabled or not
+     * Updates the view whether pagination should be enabled or not.
+     *
+     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
+     * page.
      * @return {?}
      */
-    MatTabHeader.prototype._updatePagination = /**
-     * Updating the view whether pagination should be enabled or not
+    MatTabHeader.prototype.updatePagination = /**
+     * Updates the view whether pagination should be enabled or not.
+     *
+     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
+     * page.
      * @return {?}
      */
     function () {
@@ -34577,7 +34589,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-f6bfcff');
+var VERSION = new core.Version('7.0.2-1e4ee0c');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34789,7 +34801,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

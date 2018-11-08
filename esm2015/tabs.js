@@ -682,7 +682,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
     ngAfterContentChecked() {
         // If the number of tab labels have changed, check if scrolling should be enabled
         if (this._tabLabelCount != this._labelWrappers.length) {
-            this._updatePagination();
+            this.updatePagination();
             this._tabLabelCount = this._labelWrappers.length;
             this._changeDetectorRef.markForCheck();
         }
@@ -737,7 +737,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         const resize = this._viewportRuler.change(150);
         /** @type {?} */
         const realign = () => {
-            this._updatePagination();
+            this.updatePagination();
             this._alignInkBarToSelectedTab();
         };
         this._keyManager = new FocusKeyManager(this._labelWrappers)
@@ -775,7 +775,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
     _onContentChanges() {
         /** @type {?} */
         const zoneCallback = () => {
-            this._updatePagination();
+            this.updatePagination();
             this._alignInkBarToSelectedTab();
             this._changeDetectorRef.markForCheck();
         };
@@ -785,10 +785,14 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
     }
     /**
-     * Updating the view whether pagination should be enabled or not
+     * Updates the view whether pagination should be enabled or not.
+     *
+     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
+     * page.
      * @return {?}
      */
-    _updatePagination() {
+    updatePagination() {
         this._checkPaginationEnabled();
         this._checkScrollingControls();
         this._updateTabScrollPosition();
