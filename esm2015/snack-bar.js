@@ -672,6 +672,9 @@ class MatSnackBar {
             if (this._openedSnackBarRef == snackBarRef) {
                 this._openedSnackBarRef = null;
             }
+            if (config.announcementMessage) {
+                this._live.clear();
+            }
         });
         if (this._openedSnackBarRef) {
             // If a snack bar is already in view, dismiss it and enter the
