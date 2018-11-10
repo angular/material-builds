@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatDatepicker } from './datepicker';
 import { MatDatepickerIntl } from './datepicker-intl';
 /** Can be used to override the icon of a `matDatepickerToggle`. */
@@ -26,6 +27,8 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     disableRipple: boolean;
     /** Custom icon set by the consumer. */
     _customIcon: MatDatepickerToggleIcon;
+    /** Underlying button element. */
+    _button: MatButton;
     constructor(_intl: MatDatepickerIntl, _changeDetectorRef: ChangeDetectorRef, defaultTabIndex: string);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
