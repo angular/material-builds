@@ -29,8 +29,6 @@ MatStepLabel.decorators = [
                 selector: '[matStepLabel]',
             },] },
 ];
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepLabel))['ctorParameters'] = () => (/** @type {?} */ (CdkStepLabel))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle
@@ -306,8 +304,6 @@ MatStepper.propDecorators = {
     _icons: [{ type: ContentChildren, args: [MatStepperIcon,] }],
     animationDone: [{ type: Output }]
 };
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepper))['ctorParameters'] = () => (/** @type {?} */ (CdkStepper))['ctorParameters'];
 class MatHorizontalStepper extends MatStepper {
     constructor() {
         super(...arguments);
@@ -414,9 +410,6 @@ MatStepperPrevious.decorators = [
                 providers: [{ provide: CdkStepper, useExisting: MatStepper }]
             },] },
 ];
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepperNext))['ctorParameters'] = () => (/** @type {?} */ (CdkStepperNext))['ctorParameters'];
-(/** @type {?} */ (MatStepperPrevious))['ctorParameters'] = () => (/** @type {?} */ (CdkStepperPrevious))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle

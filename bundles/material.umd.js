@@ -11154,10 +11154,6 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
     };
     return MatTextareaAutosize;
 }(textField.CdkTextareaAutosize));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTextareaAutosize))['ctorParameters'] = function () {
-    return (/** @type {?} */ (textField.CdkTextareaAutosize))['ctorParameters'];
-};
 
 /**
  * @fileoverview added by tsickle
@@ -30426,8 +30422,6 @@ var MatStepLabel = /** @class */ (function (_super) {
     ];
     return MatStepLabel;
 }(stepper.CdkStepLabel));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepLabel))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepLabel))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -30737,8 +30731,6 @@ var MatStepper = /** @class */ (function (_super) {
     };
     return MatStepper;
 }(stepper.CdkStepper));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepper))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepper))['ctorParameters']; };
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -30855,11 +30847,6 @@ var MatStepperPrevious = /** @class */ (function (_super) {
     ];
     return MatStepperPrevious;
 }(stepper.CdkStepperPrevious));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepperNext))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepperNext))['ctorParameters']; };
-(/** @type {?} */ (MatStepperPrevious))['ctorParameters'] = function () {
-    return (/** @type {?} */ (stepper.CdkStepperPrevious))['ctorParameters'];
-};
 
 /**
  * @fileoverview added by tsickle
@@ -30940,8 +30927,6 @@ var MatTable = /** @class */ (function (_super) {
     ];
     return MatTable;
 }(table.CdkTable));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTable))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkTable))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -30998,10 +30983,6 @@ var MatFooterCellDef = /** @class */ (function (_super) {
     ];
     return MatFooterCellDef;
 }(table.CdkFooterCellDef));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (MatFooterCellDef))['ctorParameters']; };
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -31166,10 +31147,6 @@ var MatRowDef = /** @class */ (function (_super) {
     ];
     return MatRowDef;
 }(table.CdkRowDef));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkFooterRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkRowDef))['ctorParameters']; };
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -31862,8 +31839,6 @@ var MatTabLabel = /** @class */ (function (_super) {
     ];
     return MatTabLabel;
 }(portal.CdkPortal));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTabLabel))['ctorParameters'] = function () { return (/** @type {?} */ (portal.CdkPortal))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -34048,8 +34023,6 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
     };
     return MatTreeNodeDef;
 }(tree.CdkTreeNodeDef));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeDef))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTreeNodeDef))['ctorParameters']; };
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -34140,10 +34113,6 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
     };
     return MatTreeNodePadding;
 }(tree.CdkTreeNodePadding));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodePadding))['ctorParameters'] = function () {
-    return (/** @type {?} */ (tree.CdkTreeNodePadding))['ctorParameters'];
-};
 
 /**
  * @fileoverview added by tsickle
@@ -34177,8 +34146,6 @@ var MatTree = /** @class */ (function (_super) {
     };
     return MatTree;
 }(tree.CdkTree));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTree))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTree))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -34209,8 +34176,6 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     };
     return MatTreeNodeToggle;
 }(tree.CdkTreeNodeToggle));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeToggle))['ctorParameters'] = function () { return (/** @type {?} */ (tree.CdkTreeNodeToggle))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -34597,7 +34562,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.2-b1d4b42');
+var VERSION = new core.Version('7.0.2-21e646a');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34809,7 +34774,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa8 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

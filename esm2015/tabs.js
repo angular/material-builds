@@ -156,8 +156,6 @@ MatTabLabel.decorators = [
                 selector: '[mat-tab-label], [matTabLabel]',
             },] },
 ];
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTabLabel))['ctorParameters'] = () => (/** @type {?} */ (CdkPortal))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle

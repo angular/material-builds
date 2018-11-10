@@ -202,8 +202,6 @@ var MatTabLabel = /** @class */ (function (_super) {
     ];
     return MatTabLabel;
 }(portal.CdkPortal));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTabLabel))['ctorParameters'] = function () { return (/** @type {?} */ (portal.CdkPortal))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
