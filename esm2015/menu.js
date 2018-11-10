@@ -17,6 +17,7 @@ import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW } from '@angular/
 import { startWith, switchMap, take, delay, filter, takeUntil } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 /**
  * @fileoverview added by tsickle
@@ -783,6 +784,10 @@ const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  * Default top padding of the menu panel.
   @type {?} */
 const MENU_PANEL_TOP_PADDING = 8;
+/** *
+ * Options for binding a passive event listener.
+  @type {?} */
+const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -811,6 +816,11 @@ class MatMenuTrigger {
         this._closeSubscription = Subscription.EMPTY;
         this._hoverSubscription = Subscription.EMPTY;
         this._menuCloseSubscription = Subscription.EMPTY;
+        /**
+         * Handles touch start events on the trigger.
+         * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
+         */
+        this._handleTouchStart = () => this._openedBy = 'touch';
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
@@ -834,6 +844,7 @@ class MatMenuTrigger {
          * \@breaking-change 8.0.0
          */
         this.onMenuClose = this.menuClosed;
+        _element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
@@ -892,6 +903,7 @@ class MatMenuTrigger {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+        this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         this._cleanUpSubscriptions();
     }
     /**
@@ -1286,7 +1298,6 @@ MatMenuTrigger.decorators = [
                     'aria-haspopup': 'true',
                     '[attr.aria-expanded]': 'menuOpen || null',
                     '(mousedown)': '_handleMousedown($event)',
-                    '(touchstart)': '_openedBy = "touch"',
                     '(keydown)': '_handleKeydown($event)',
                     '(click)': '_handleClick($event)',
                 },

@@ -43,6 +43,11 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _hoverSubscription;
     private _menuCloseSubscription;
     private _scrollStrategy;
+    /**
+     * Handles touch start events on the trigger.
+     * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
+     */
+    private _handleTouchStart;
     _openedBy: 'mouse' | 'touch' | null;
     /**
      * @deprecated
