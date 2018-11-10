@@ -2390,10 +2390,6 @@ $_mat-button-ripple-opacity: 0.1;
 
 $mat-chip-remove-font-size: 18px;
 
-@mixin mat-chips-theme-color($color) {
-  @include mat-chips-color(mat-color($color, default-contrast), mat-color($color));
-}
-
 @mixin mat-chips-color($foreground, $background) {
   background-color: $background;
   color: $foreground;
@@ -2405,6 +2401,14 @@ $mat-chip-remove-font-size: 18px;
 
   .mat-chip-remove:hover {
     opacity: 0.54;
+  }
+}
+
+@mixin mat-chips-theme-color($palette) {
+  @include mat-chips-color(mat-color($palette, default-contrast), mat-color($palette));
+
+  .mat-ripple-element {
+    background: mat-color($palette, default-contrast, 0.1);
   }
 }
 
