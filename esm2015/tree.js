@@ -106,8 +106,6 @@ MatTreeNodeDef.decorators = [
 MatTreeNodeDef.propDecorators = {
     data: [{ type: Input, args: ['matTreeNode',] }]
 };
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeDef))['ctorParameters'] = () => (/** @type {?} */ (CdkTreeNodeDef))['ctorParameters'];
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -187,8 +185,6 @@ MatTreeNodePadding.propDecorators = {
     level: [{ type: Input, args: ['matTreeNodePadding',] }],
     indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
 };
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodePadding))['ctorParameters'] = () => (/** @type {?} */ (CdkTreeNodePadding))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle
@@ -217,8 +213,6 @@ MatTree.decorators = [
 MatTree.propDecorators = {
     _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet,] }]
 };
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTree))['ctorParameters'] = () => (/** @type {?} */ (CdkTree))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle
@@ -246,8 +240,6 @@ MatTreeNodeToggle.decorators = [
 MatTreeNodeToggle.propDecorators = {
     recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
 };
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeToggle))['ctorParameters'] = () => (/** @type {?} */ (CdkTreeNodeToggle))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle

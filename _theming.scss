@@ -1973,6 +1973,8 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 
 
+$_mat-button-ripple-opacity: 0.1;
+
 // Applies a focus style to an mat-button element for each of the supported palettes.
 @mixin _mat-button-focus-overlay-color($theme) {
   $primary: map-get($theme, primary);
@@ -1996,7 +1998,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   }
 }
 
-@mixin _mat-button-ripple-color($theme, $hue, $opacity: 0.1) {
+@mixin _mat-button-ripple-color($theme, $hue, $opacity: $_mat-button-ripple-opacity) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
@@ -2058,9 +2060,13 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
     @include _mat-button-theme-property($theme, 'color', default);
     @include _mat-button-focus-overlay-color($theme);
 
-    // Setup the ripple color to be based on the color palette. The opacity can be a bit weaker
-    // than for icon-buttons, because normal and stroked buttons have a focus overlay.
-    @include _mat-button-ripple-color($theme, default);
+    // Setup the ripple color to be based on the text color. This ensures that the ripples
+    // are matching with the current theme palette and are in contrast to the background color
+    // (e.g in themed toolbars).
+    .mat-ripple-element {
+      opacity: $_mat-button-ripple-opacity;
+      background-color: currentColor;
+    }
   }
 
   .mat-button-focus-overlay {
@@ -2081,12 +2087,6 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
     @include _mat-button-theme-property($theme, 'color', default-contrast);
     @include _mat-button-theme-property($theme, 'background-color', default);
     @include _mat-button-ripple-color($theme, default-contrast);
-  }
-
-  // Since icon buttons don't have a focus overlay, the ripple opacity should be the higher
-  // than the default value.
-  .mat-icon-button {
-    @include _mat-button-ripple-color($theme, default, 0.2);
   }
 
   .mat-stroked-button, .mat-flat-button {
@@ -2390,10 +2390,6 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 $mat-chip-remove-font-size: 18px;
 
-@mixin mat-chips-theme-color($color) {
-  @include mat-chips-color(mat-color($color, default-contrast), mat-color($color));
-}
-
 @mixin mat-chips-color($foreground, $background) {
   background-color: $background;
   color: $foreground;
@@ -2405,6 +2401,14 @@ $mat-chip-remove-font-size: 18px;
 
   .mat-chip-remove:hover {
     opacity: 0.54;
+  }
+}
+
+@mixin mat-chips-theme-color($palette) {
+  @include mat-chips-color(mat-color($palette, default-contrast), mat-color($palette));
+
+  .mat-ripple-element {
+    background: mat-color($palette, default-contrast, 0.1);
   }
 }
 
@@ -3704,11 +3708,15 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
     .mat-step-label,
     .mat-step-optional {
-      color: mat-color($foreground, disabled-text);
+      // TODO(josephperrott): Update to using a corrected disabled-text contrast
+      // instead of secondary-text.
+      color: mat-color($foreground, secondary-text);
     }
 
     .mat-step-icon {
-      background-color: mat-color($foreground, disabled-text);
+      // TODO(josephperrott): Update to using a corrected disabled-text contrast
+      // instead of secondary-text.
+      background-color: mat-color($foreground, secondary-text);
       color: mat-color($primary, default-contrast);
     }
 

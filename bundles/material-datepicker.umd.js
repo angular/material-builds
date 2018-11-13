@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/dialog'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('@angular/cdk/a11y'), require('@angular/material/button')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/portal', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/common', '@angular/material/dialog', '@angular/forms', '@angular/material/form-field', '@angular/material/input', '@angular/cdk/a11y', '@angular/material/button'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.rxjs,global.rxjs.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.portal,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.common,global.ng.material.dialog,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.ng.cdk.a11y,global.ng.material.button));
-}(this, (function (exports,core,rxjs,operators,keycodes,core$1,bidi,portal,animations,coercion,overlay,common,dialog,forms,formField,input,a11y,button) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/dialog'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('@angular/material/button'), require('@angular/cdk/a11y')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/portal', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/common', '@angular/material/dialog', '@angular/forms', '@angular/material/form-field', '@angular/material/input', '@angular/material/button', '@angular/cdk/a11y'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.rxjs,global.rxjs.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.portal,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.common,global.ng.material.dialog,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.ng.material.button,global.ng.cdk.a11y));
+}(this, (function (exports,core,rxjs,operators,keycodes,core$1,bidi,portal,animations,coercion,overlay,common,dialog,forms,formField,input,button,a11y) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -3267,15 +3267,17 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [attr.tabindex]=\"disabled ? -1 : tabIndex\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    template: "<button #button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [attr.tabindex]=\"disabled ? -1 : tabIndex\" [disabled]=\"disabled\" [disableRipple]=\"disableRipple\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
                     styles: [".mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-datepicker-toggle-default-icon{display:block;width:1.5em;height:1.5em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon{margin:auto}"],
                     host: {
                         'class': 'mat-datepicker-toggle',
-                        // Clear out the native tabindex here since we forward it to the underlying button
-                        '[attr.tabindex]': 'null',
+                        // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
+                        // consumer may have provided, while still being able to receive focus.
+                        '[attr.tabindex]': '-1',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                         '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
                         '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
+                        '(focus)': '_button.focus()',
                     },
                     exportAs: 'matDatepickerToggle',
                     encapsulation: core.ViewEncapsulation.None,
@@ -3292,7 +3294,9 @@ var MatDatepickerToggle = /** @class */ (function () {
         datepicker: [{ type: core.Input, args: ['for',] }],
         tabIndex: [{ type: core.Input }],
         disabled: [{ type: core.Input }],
-        _customIcon: [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] }]
+        disableRipple: [{ type: core.Input }],
+        _customIcon: [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] }],
+        _button: [{ type: core.ViewChild, args: ['button',] }]
     };
     return MatDatepickerToggle;
 }());

@@ -6,8 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, EventEmitter, OnChanges } from '@angular/core';
-import { MatChipList } from './chip-list';
 import { MatChipsDefaultOptions } from './chip-default-options';
+import { MatChipList } from './chip-list';
+import { MatChipTextControl } from './chip-text-control';
 /** Represents an input event on a `matChipInput`. */
 export interface MatChipInputEvent {
     /** The native `<input>` element that the event is being fired for. */
@@ -19,7 +20,7 @@ export interface MatChipInputEvent {
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
  */
-export declare class MatChipInput implements OnChanges {
+export declare class MatChipInput implements MatChipTextControl, OnChanges {
     protected _elementRef: ElementRef<HTMLInputElement>;
     private _defaultOptions;
     /** Whether the control is focused. */

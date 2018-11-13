@@ -72,8 +72,6 @@ var MatTable = /** @class */ (function (_super) {
     ];
     return MatTable;
 }(table.CdkTable));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTable))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkTable))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -130,10 +128,6 @@ var MatFooterCellDef = /** @class */ (function (_super) {
     ];
     return MatFooterCellDef;
 }(table.CdkFooterCellDef));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderCellDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = function () { return (/** @type {?} */ (MatFooterCellDef))['ctorParameters']; };
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -298,10 +292,6 @@ var MatRowDef = /** @class */ (function (_super) {
     ];
     return MatRowDef;
 }(table.CdkRowDef));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkHeaderRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkFooterRowDef))['ctorParameters']; };
-(/** @type {?} */ (MatRowDef))['ctorParameters'] = function () { return (/** @type {?} */ (table.CdkRowDef))['ctorParameters']; };
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */

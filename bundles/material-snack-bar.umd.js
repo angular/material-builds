@@ -386,6 +386,17 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
          * The state of the snack bar animations.
          */
         _this._animationState = 'void';
+        // Based on the ARIA spec, `alert` and `status` roles have an
+        // implicit `assertive` and `polite` politeness respectively.
+        if (snackBarConfig.politeness === 'assertive' && !snackBarConfig.announcementMessage) {
+            _this._role = 'alert';
+        }
+        else if (snackBarConfig.politeness === 'off') {
+            _this._role = null;
+        }
+        else {
+            _this._role = 'status';
+        }
         return _this;
     }
     /** Attach a component portal as content to this snack bar container. */
@@ -555,12 +566,12 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     MatSnackBarContainer.decorators = [
         { type: core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
-                    styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;width:100%}"],
+                    styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     animations: [matSnackBarAnimations.snackBarState],
                     host: {
-                        'role': 'alert',
+                        '[attr.role]': '_role',
                         'class': 'mat-snack-bar-container',
                         '[@state]': '_animationState',
                         '(@state.done)': 'onAnimationEnd($event)'

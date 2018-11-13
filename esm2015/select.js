@@ -912,7 +912,8 @@ class MatSelect extends _MatSelectMixinBase {
         this._keyManager = new ActiveDescendantKeyManager(this.options)
             .withTypeAhead()
             .withVerticalOrientation()
-            .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');
+            .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
+            .withAllowedModifierKeys(['shiftKey']);
         this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {
             // Restore focus to the trigger before closing. Ensures that the focus
             // position won't be lost if the user got focus into the overlay.

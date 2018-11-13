@@ -9,6 +9,7 @@ import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, ElementRef, Compone
 import { AnimationEvent } from '@angular/animations';
 import { TemplatePortal, CdkPortalOutlet, PortalHostDirective } from '@angular/cdk/portal';
 import { Directionality, Direction } from '@angular/cdk/bidi';
+import { Subject } from 'rxjs';
 /**
  * These position states are used internally as animation states for the tab body. Setting the
  * position state to left, right, or center will transition the tab body from its current
@@ -56,6 +57,8 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     private _dirChangeSubscription;
     /** Tab body position state. Used by the animation trigger for the current state. */
     _position: MatTabBodyPositionState;
+    /** Emits when an animation on the tab is complete. */
+    _translateTabComplete: Subject<AnimationEvent>;
     /** Event emitted when the tab begins to animate towards the center as the active tab. */
     readonly _onCentering: EventEmitter<number>;
     /** Event emitted before the centering of the tab begins. */
@@ -83,8 +86,7 @@ export declare class MatTabBody implements OnInit, OnDestroy {
      */
     ngOnInit(): void;
     ngOnDestroy(): void;
-    _onTranslateTabStarted(e: AnimationEvent): void;
-    _onTranslateTabComplete(e: AnimationEvent): void;
+    _onTranslateTabStarted(event: AnimationEvent): void;
     /** The text direction of the containing app. */
     _getLayoutDirection(): Direction;
     /** Whether the provided position state is considered center, regardless of origin. */

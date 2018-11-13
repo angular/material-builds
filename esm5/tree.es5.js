@@ -108,8 +108,6 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
     };
     return MatTreeNodeDef;
 }(CdkTreeNodeDef));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeDef))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTreeNodeDef))['ctorParameters']; };
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -200,10 +198,6 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
     };
     return MatTreeNodePadding;
 }(CdkTreeNodePadding));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodePadding))['ctorParameters'] = function () {
-    return (/** @type {?} */ (CdkTreeNodePadding))['ctorParameters'];
-};
 
 /**
  * @fileoverview added by tsickle
@@ -237,8 +231,6 @@ var MatTree = /** @class */ (function (_super) {
     };
     return MatTree;
 }(CdkTree));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTree))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTree))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -269,8 +261,6 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     };
     return MatTreeNodeToggle;
 }(CdkTreeNodeToggle));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTreeNodeToggle))['ctorParameters'] = function () { return (/** @type {?} */ (CdkTreeNodeToggle))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle

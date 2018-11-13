@@ -202,8 +202,6 @@ var MatTabLabel = /** @class */ (function (_super) {
     ];
     return MatTabLabel;
 }(portal.CdkPortal));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTabLabel))['ctorParameters'] = function () { return (/** @type {?} */ (portal.CdkPortal))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -443,6 +441,10 @@ var MatTabBody = /** @class */ (function () {
          */
         this._dirChangeSubscription = rxjs.Subscription.EMPTY;
         /**
+         * Emits when an animation on the tab is complete.
+         */
+        this._translateTabComplete = new rxjs.Subject();
+        /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
         this._onCentering = new core.EventEmitter();
@@ -464,6 +466,19 @@ var MatTabBody = /** @class */ (function () {
                 changeDetectorRef.markForCheck();
             });
         }
+        // Ensure that we get unique animation events, because the `.done` callback can get
+        // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
+        this._translateTabComplete.pipe(operators.distinctUntilChanged(function (x, y) {
+            return x.fromState === y.fromState && x.toState === y.toState;
+        })).subscribe(function (event) {
+            // If the transition to the center is complete, emit an event.
+            if (_this._isCenterPosition(event.toState) && _this._isCenterPosition(_this._position)) {
+                _this._onCentered.emit();
+            }
+            if (_this._isCenterPosition(event.fromState) && !_this._isCenterPosition(_this._position)) {
+                _this._afterLeavingCenter.emit();
+            }
+        });
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         /** The shifted index position of the tab body, where zero represents the active center tab. */
@@ -506,38 +521,22 @@ var MatTabBody = /** @class */ (function () {
      */
     function () {
         this._dirChangeSubscription.unsubscribe();
+        this._translateTabComplete.complete();
     };
     /**
-     * @param {?} e
+     * @param {?} event
      * @return {?}
      */
     MatTabBody.prototype._onTranslateTabStarted = /**
-     * @param {?} e
+     * @param {?} event
      * @return {?}
      */
-    function (e) {
+    function (event) {
         /** @type {?} */
-        var isCentering = this._isCenterPosition(e.toState);
+        var isCentering = this._isCenterPosition(event.toState);
         this._beforeCentering.emit(isCentering);
         if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
-        }
-    };
-    /**
-     * @param {?} e
-     * @return {?}
-     */
-    MatTabBody.prototype._onTranslateTabComplete = /**
-     * @param {?} e
-     * @return {?}
-     */
-    function (e) {
-        // If the transition to the center is complete, emit an event.
-        if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
-            this._onCentered.emit();
-        }
-        if (this._isCenterPosition(e.fromState) && !this._isCenterPosition(this._position)) {
-            this._afterLeavingCenter.emit();
         }
     };
     /** The text direction of the containing app. */
@@ -610,7 +609,7 @@ var MatTabBody = /** @class */ (function () {
     };
     MatTabBody.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-body',
-                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
+                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_translateTabComplete.next($event)\"><ng-template matTabBodyHost></ng-template></div>",
                     styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -1718,8 +1717,10 @@ var MatTabGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
-        this._tabBodyWrapper.nativeElement.style.height = '';
+        /** @type {?} */
+        var wrapper = this._tabBodyWrapper.nativeElement;
+        this._tabBodyWrapperHeight = wrapper.clientHeight;
+        wrapper.style.height = '';
         this.animationDone.emit();
     };
     /** Handle click events, setting new selected index if appropriate. */
@@ -1727,19 +1728,19 @@ var MatTabGroup = /** @class */ (function (_super) {
      * Handle click events, setting new selected index if appropriate.
      * @param {?} tab
      * @param {?} tabHeader
-     * @param {?} idx
+     * @param {?} index
      * @return {?}
      */
     MatTabGroup.prototype._handleClick = /**
      * Handle click events, setting new selected index if appropriate.
      * @param {?} tab
      * @param {?} tabHeader
-     * @param {?} idx
+     * @param {?} index
      * @return {?}
      */
-    function (tab, tabHeader, idx) {
+    function (tab, tabHeader, index) {
         if (!tab.disabled) {
-            this.selectedIndex = tabHeader.focusIndex = idx;
+            this.selectedIndex = tabHeader.focusIndex = index;
         }
     };
     /** Retrieves the tabindex for the tab. */
@@ -1945,7 +1946,7 @@ var MatTabNav = /** @class */ (function (_super) {
                     exportAs: 'matTabNavBar, matTabNav',
                     inputs: ['color', 'disableRipple'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
-                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media screen and (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media screen and (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media screen and (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
+                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}[mat-align-tabs=center] .mat-tab-links{justify-content:center}[mat-align-tabs=end] .mat-tab-links{justify-content:flex-end}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media screen and (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media screen and (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media screen and (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                     host: { 'class': 'mat-tab-nav-bar' },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,

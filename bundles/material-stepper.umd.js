@@ -56,8 +56,6 @@ var MatStepLabel = /** @class */ (function (_super) {
     ];
     return MatStepLabel;
 }(stepper.CdkStepLabel));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepLabel))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepLabel))['ctorParameters']; };
 
 /**
  * @fileoverview added by tsickle
@@ -374,8 +372,6 @@ var MatStepper = /** @class */ (function (_super) {
     };
     return MatStepper;
 }(stepper.CdkStepper));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepper))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepper))['ctorParameters']; };
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -492,11 +488,6 @@ var MatStepperPrevious = /** @class */ (function (_super) {
     ];
     return MatStepperPrevious;
 }(stepper.CdkStepperPrevious));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatStepperNext))['ctorParameters'] = function () { return (/** @type {?} */ (stepper.CdkStepperNext))['ctorParameters']; };
-(/** @type {?} */ (MatStepperPrevious))['ctorParameters'] = function () {
-    return (/** @type {?} */ (stepper.CdkStepperPrevious))['ctorParameters'];
-};
 
 /**
  * @fileoverview added by tsickle

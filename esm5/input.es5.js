@@ -104,10 +104,6 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
     };
     return MatTextareaAutosize;
 }(CdkTextareaAutosize));
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTextareaAutosize))['ctorParameters'] = function () {
-    return (/** @type {?} */ (CdkTextareaAutosize))['ctorParameters'];
-};
 
 /**
  * @fileoverview added by tsickle

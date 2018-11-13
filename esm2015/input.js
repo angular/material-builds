@@ -82,8 +82,6 @@ MatTextareaAutosize.propDecorators = {
     matAutosize: [{ type: Input, args: ['mat-autosize',] }],
     matTextareaAutosize: [{ type: Input }]
 };
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTextareaAutosize))['ctorParameters'] = () => (/** @type {?} */ (CdkTextareaAutosize))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle

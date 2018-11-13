@@ -42,8 +42,6 @@ MatTable.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatTable))['ctorParameters'] = () => (/** @type {?} */ (CdkTable))['ctorParameters'];
 
 /**
  * @fileoverview added by tsickle
@@ -85,10 +83,6 @@ MatFooterCellDef.decorators = [
                 providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
             },] },
 ];
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatCellDef))['ctorParameters'] = () => (/** @type {?} */ (CdkCellDef))['ctorParameters'];
-(/** @type {?} */ (MatHeaderCellDef))['ctorParameters'] = () => (/** @type {?} */ (CdkHeaderCellDef))['ctorParameters'];
-(/** @type {?} */ (MatFooterCellDef))['ctorParameters'] = () => (/** @type {?} */ (MatFooterCellDef))['ctorParameters'];
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -236,10 +230,6 @@ MatRowDef.decorators = [
                 inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
             },] },
 ];
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-(/** @type {?} */ (MatHeaderRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkHeaderRowDef))['ctorParameters'];
-(/** @type {?} */ (MatFooterRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkFooterRowDef))['ctorParameters'];
-(/** @type {?} */ (MatRowDef))['ctorParameters'] = () => (/** @type {?} */ (CdkRowDef))['ctorParameters'];
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
