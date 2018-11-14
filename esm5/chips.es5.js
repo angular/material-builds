@@ -1010,6 +1010,11 @@ var MatChipList = /** @class */ (function (_super) {
             .withWrap()
             .withVerticalOrientation()
             .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
+        if (this._dir) {
+            this._dir.change
+                .pipe(takeUntil(this._destroyed))
+                .subscribe(function (dir) { return _this._keyManager.withHorizontalOrientation(dir); });
+        }
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
         this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe(function () {

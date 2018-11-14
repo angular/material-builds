@@ -8821,6 +8821,11 @@ var MatChipList = /** @class */ (function (_super) {
             .withWrap()
             .withVerticalOrientation()
             .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
+        if (this._dir) {
+            this._dir.change
+                .pipe(operators.takeUntil(this._destroyed))
+                .subscribe(function (dir) { return _this._keyManager.withHorizontalOrientation(dir); });
+        }
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
         this._keyManager.tabOut.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
@@ -34584,7 +34589,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.3-ed857c9');
+var VERSION = new core.Version('7.0.3-2fcf9e7');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34796,7 +34801,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
