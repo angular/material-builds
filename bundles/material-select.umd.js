@@ -898,7 +898,7 @@ var MatSelect = /** @class */ (function (_super) {
         /** @type {?} */
         var manager = this._keyManager;
         // Open the select on ALT + arrow key to match the native <select>
-        if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
+        if ((isOpenKey && !keycodes.hasModifierKey(event)) || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
@@ -938,7 +938,8 @@ var MatSelect = /** @class */ (function (_super) {
             event.preventDefault();
             this.close();
         }
-        else if ((keyCode === keycodes.ENTER || keyCode === keycodes.SPACE) && manager.activeItem) {
+        else if ((keyCode === keycodes.ENTER || keyCode === keycodes.SPACE) && manager.activeItem &&
+            !keycodes.hasModifierKey(event)) {
             event.preventDefault();
             manager.activeItem._selectViaInteraction();
         }

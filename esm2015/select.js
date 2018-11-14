@@ -10,7 +10,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { A, DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import { A, DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW, hasModifierKey } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, isDevMode, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
@@ -722,7 +722,7 @@ class MatSelect extends _MatSelectMixinBase {
         /** @type {?} */
         const manager = this._keyManager;
         // Open the select on ALT + arrow key to match the native <select>
-        if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
+        if ((isOpenKey && !hasModifierKey(event)) || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
@@ -757,7 +757,8 @@ class MatSelect extends _MatSelectMixinBase {
             event.preventDefault();
             this.close();
         }
-        else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem) {
+        else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem &&
+            !hasModifierKey(event)) {
             event.preventDefault();
             manager.activeItem._selectViaInteraction();
         }
