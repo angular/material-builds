@@ -28178,7 +28178,9 @@ var MatSlider = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (this.disabled) {
+        // Don't do anything if the slider is disabled or the
+        // user is using anything other than the main mouse button.
+        if (this.disabled || event.button !== 0) {
             return;
         }
         /** @type {?} */
@@ -34582,7 +34584,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.3-c55b78e');
+var VERSION = new core.Version('7.0.3-ed857c9');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
