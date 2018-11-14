@@ -1069,6 +1069,10 @@ var MatTabHeader = /** @class */ (function (_super) {
         // and ripples will exceed the boundaries of the visible tab bar.
         // See: https://github.com/angular/material2/issues/10276
         this._tabList.nativeElement.style.transform = "translateX(" + translateX + "px)";
+        // Setting the `transform` on IE will change the scroll offset of the parent, causing the
+        // position to be thrown off in some cases. We have to reset it ourselves to ensure that
+        // it doesn't get thrown off.
+        this._tabListContainer.nativeElement.scrollLeft = 0;
     };
     Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
         /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
@@ -2159,5 +2163,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatTabBase as ɵf22, _MatTabMixinBase as ɵg22, MatTabHeaderBase as ɵb22, _MatTabHeaderMixinBase as ɵc22, MatTabLabelWrapperBase as ɵd22, _MatTabLabelWrapperMixinBase as ɵe22, MatTabLinkBase as ɵj22, MatTabNavBase as ɵh22, _MatTabLinkMixinBase as ɵk22, _MatTabNavMixinBase as ɵi22 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
 //# sourceMappingURL=tabs.es5.js.map
