@@ -2981,7 +2981,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .mat-list, .mat-nav-list, .mat-selection-list {
+  .mat-list-base {
     .mat-list-item {
       color: mat-color($foreground, text);
     }
@@ -3019,7 +3019,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   // Default list
-  .mat-list, .mat-nav-list, .mat-selection-list {
+  .mat-list-base {
     .mat-list-item {
       font-size: mat-font-size($config, subheading-2);
       @include mat-line-base(mat-font-size($config, body-1));
@@ -3038,7 +3038,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   // Dense list
-  .mat-list[dense], .mat-nav-list[dense], .mat-selection-list[dense] {
+  .mat-list-base[dense] {
     .mat-list-item {
       font-size: mat-font-size($config, caption);
       @include mat-line-base(mat-font-size($config, caption));
