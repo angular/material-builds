@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, EventEmitter, NgZone } from '@angular/core';
+import { ElementRef, EventEmitter, NgZone, OnChanges, SimpleChanges } from '@angular/core';
 /**
  * Extra CSS classes that can be associated with a calendar cell.
  */
@@ -32,7 +32,7 @@ export declare class MatCalendarCell {
  * An internal component used to display calendar data in a table.
  * @docs-private
  */
-export declare class MatCalendarBody {
+export declare class MatCalendarBody implements OnChanges {
     private _elementRef;
     private _ngZone;
     /** The label for the table. (e.g. "Jan 2017"). */
@@ -56,10 +56,15 @@ export declare class MatCalendarBody {
     cellAspectRatio: number;
     /** Emits when a new value is selected. */
     readonly selectedValueChange: EventEmitter<number>;
+    /** The number of blank cells to put at the beginning for the first row. */
+    _firstRowOffset: number;
+    /** Padding for the individual date cells. */
+    _cellPadding: string;
+    /** Width of an individual cell. */
+    _cellWidth: string;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
     _cellClicked(cell: MatCalendarCell): void;
-    /** The number of blank cells to put at the beginning for the first row. */
-    readonly _firstRowOffset: number;
+    ngOnChanges(changes: SimpleChanges): void;
     _isActiveCell(rowIndex: number, colIndex: number): boolean;
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(): void;
