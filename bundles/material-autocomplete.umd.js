@@ -727,10 +727,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // filter out all of the extra events, we save the value on focus and between
         // `input` events, and we check whether it changed.
         // See: https://connect.microsoft.com/IE/feedback/details/885747/
-        if (this._previousValue !== value && document.activeElement === event.target) {
+        if (this._previousValue !== value) {
             this._previousValue = value;
             this._onChange(value);
-            if (this._canOpen()) {
+            if (this._canOpen() && document.activeElement === event.target) {
                 this.openPanel();
             }
         }
@@ -1173,7 +1173,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
