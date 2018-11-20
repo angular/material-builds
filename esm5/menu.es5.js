@@ -18,6 +18,7 @@ import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW } from '@angular/
 import { startWith, switchMap, take, delay, filter, takeUntil } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 /**
  * @fileoverview added by tsickle
@@ -974,12 +975,17 @@ var MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  * Default top padding of the menu panel.
   @type {?} */
 var MENU_PANEL_TOP_PADDING = 8;
+/** *
+ * Options for binding a passive event listener.
+  @type {?} */
+var passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
 var MatMenuTrigger = /** @class */ (function () {
     function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
+        var _this = this;
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
@@ -991,6 +997,12 @@ var MatMenuTrigger = /** @class */ (function () {
         this._menuOpen = false;
         this._closeSubscription = Subscription.EMPTY;
         this._hoverSubscription = Subscription.EMPTY;
+        this._menuCloseSubscription = Subscription.EMPTY;
+        /**
+         * Handles touch start events on the trigger.
+         * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
+         */
+        this._handleTouchStart = function () { return _this._openedBy = 'touch'; };
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
@@ -1014,6 +1026,7 @@ var MatMenuTrigger = /** @class */ (function () {
          * \@breaking-change 8.0.0
          */
         this.onMenuClose = this.menuClosed;
+        _element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
@@ -1029,15 +1042,44 @@ var MatMenuTrigger = /** @class */ (function () {
          * \@breaking-change 8.0.0
          * @return {?}
          */
-        function () {
-            return this.menu;
-        },
+        function () { return this.menu; },
         set: /**
          * @param {?} v
          * @return {?}
          */
         function (v) {
             this.menu = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenuTrigger.prototype, "menu", {
+        /** References the menu instance that the trigger is associated with. */
+        get: /**
+         * References the menu instance that the trigger is associated with.
+         * @return {?}
+         */
+        function () { return this._menu; },
+        set: /**
+         * @param {?} menu
+         * @return {?}
+         */
+        function (menu) {
+            var _this = this;
+            if (menu === this._menu) {
+                return;
+            }
+            this._menu = menu;
+            this._menuCloseSubscription.unsubscribe();
+            if (menu) {
+                this._menuCloseSubscription = menu.close.asObservable().subscribe(function (reason) {
+                    _this._destroyMenu();
+                    // If a click closed the menu, we should close the entire chain of nested menus.
+                    if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
+                        _this._parentMenu.closed.emit(reason);
+                    }
+                });
+            }
         },
         enumerable: true,
         configurable: true
@@ -1049,15 +1091,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var _this = this;
         this._checkMenu();
-        this.menu.close.asObservable().subscribe(function (reason) {
-            _this._destroyMenu();
-            // If a click closed the menu, we should close the entire chain of nested menus.
-            if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
-                _this._parentMenu.closed.emit(reason);
-            }
-        });
         this._handleHover();
     };
     /**
@@ -1071,6 +1105,7 @@ var MatMenuTrigger = /** @class */ (function () {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+        this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         this._cleanUpSubscriptions();
     };
     Object.defineProperty(MatMenuTrigger.prototype, "menuOpen", {
@@ -1139,7 +1174,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /** @type {?} */
         var overlayRef = this._createOverlay();
         this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
-        overlayRef.attach(this._portal);
+        overlayRef.attach(this._getPortal());
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
@@ -1330,7 +1365,6 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         if (!this._overlayRef) {
-            this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
             /** @type {?} */
             var config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
@@ -1569,6 +1603,23 @@ var MatMenuTrigger = /** @class */ (function () {
             }
         });
     };
+    /**
+     * Gets the portal that should be attached to the overlay.
+     * @return {?}
+     */
+    MatMenuTrigger.prototype._getPortal = /**
+     * Gets the portal that should be attached to the overlay.
+     * @return {?}
+     */
+    function () {
+        // Note that we can avoid this check by keeping the portal on the menu panel.
+        // While it would be cleaner, we'd have to introduce another required method on
+        // `MatMenuPanel`, making it harder to consume.
+        if (!this._portal || this._portal.templateRef !== this.menu.templateRef) {
+            this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+        }
+        return this._portal;
+    };
     MatMenuTrigger.decorators = [
         { type: Directive, args: [{
                     selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
@@ -1576,7 +1627,6 @@ var MatMenuTrigger = /** @class */ (function () {
                         'aria-haspopup': 'true',
                         '[attr.aria-expanded]': 'menuOpen || null',
                         '(mousedown)': '_handleMousedown($event)',
-                        '(touchstart)': '_openedBy = "touch"',
                         '(keydown)': '_handleKeydown($event)',
                         '(click)': '_handleClick($event)',
                     },
@@ -1644,5 +1694,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
 //# sourceMappingURL=menu.es5.js.map

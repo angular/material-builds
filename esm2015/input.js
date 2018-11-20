@@ -19,14 +19,12 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkTextareaAutosize = CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
  * \@breaking-change 8.0.0
  */
-class MatTextareaAutosize extends _CdkTextareaAutosize {
+class MatTextareaAutosize extends CdkTextareaAutosize {
     /**
      * @return {?}
      */
@@ -580,5 +578,5 @@ MatInputModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { _CdkTextareaAutosize, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
+export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.js.map

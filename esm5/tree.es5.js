@@ -43,8 +43,6 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-var _CdkTreeNodeDef = CdkTreeNodeDef;
-/** @type {?} */
 var _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
 /** @type {?} */
 var _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
@@ -109,7 +107,7 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
         data: [{ type: Input, args: ['matTreeNode',] }]
     };
     return MatTreeNodeDef;
-}(_CdkTreeNodeDef));
+}(CdkTreeNodeDef));
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -179,8 +177,6 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTreeNodePadding = CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
@@ -201,14 +197,12 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
         indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
     };
     return MatTreeNodePadding;
-}(_CdkTreeNodePadding));
+}(CdkTreeNodePadding));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTree = CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -236,14 +230,12 @@ var MatTree = /** @class */ (function (_super) {
         _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet,] }]
     };
     return MatTree;
-}(_CdkTree));
+}(CdkTree));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTreeNodeToggle = CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
@@ -268,7 +260,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
         recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
     };
     return MatTreeNodeToggle;
-}(_CdkTreeNodeToggle));
+}(CdkTreeNodeToggle));
 
 /**
  * @fileoverview added by tsickle
@@ -658,5 +650,5 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { _CdkTreeNodeDef, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, _CdkTreeNodePadding, MatTreeNodePadding, _CdkTree, MatTree, MatTreeModule, _CdkTreeNodeToggle, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };
 //# sourceMappingURL=tree.es5.js.map

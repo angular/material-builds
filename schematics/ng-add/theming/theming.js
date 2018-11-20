@@ -54,8 +54,8 @@ function insertCustomTheme(project, projectName, host, workspace) {
         // unnecessary path segments and windows backslash delimiters.
         const customThemePath = core_1.normalize(path_1.join(project.sourceRoot, defaultCustomThemeFilename));
         if (host.exists(customThemePath)) {
-            console.warn(chalk_1.red(`Cannot create a custom Angular Material theme because
-          "${customThemePath}" already exists. Skipping custom theme generation.`));
+            console.warn(chalk_1.yellow(`Cannot create a custom Angular Material theme because
+          ${chalk_1.bold(customThemePath)} already exists. Skipping custom theme generation.`));
             return;
         }
         host.create(customThemePath, themeContent);
@@ -92,9 +92,10 @@ function addThemeStyleToTarget(project, targetName, host, assetPath, workspace) 
             // theme because these files can contain custom styles, while prebuilt themes are
             // always packaged and considered replaceable.
             if (stylePath.includes(defaultCustomThemeFilename)) {
-                console.warn(chalk_1.red(`Cannot add "${chalk_1.bold(assetPath)} to the CLI project configuration ` +
-                    `because there is already a custom theme file referenced. Please manually add ` +
-                    `the "${chalk_1.bold(assetPath)}" style file to your configuration.`));
+                console.warn(chalk_1.red(`Could not add the selected theme to the CLI project configuration ` +
+                    `because there is already a custom theme file referenced.`));
+                console.warn(chalk_1.red(`Please manually add the following style file to your configuration:`));
+                console.warn(chalk_1.yellow(`    ${chalk_1.bold(assetPath)}`));
                 return;
             }
             else if (stylePath.includes(prebuiltThemePathSegment)) {

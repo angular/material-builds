@@ -7,10 +7,9 @@
  */
 import { CdkTree } from '@angular/cdk/tree';
 import { MatTreeNodeOutlet } from './outlet';
-export declare const _CdkTree: typeof CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
-export declare class MatTree<T> extends _CdkTree<T> {
+export declare class MatTree<T> extends CdkTree<T> {
     _nodeOutlet: MatTreeNodeOutlet;
 }

@@ -17,7 +17,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, merge, Subscription, EMPTY } from 'rxjs';
 import { filter, startWith, take, distinctUntilChanged } from 'rxjs/operators';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
-import { ENTER, SPACE, HOME, END } from '@angular/cdk/keycodes';
+import { ENTER, SPACE, hasModifierKey, HOME, END } from '@angular/cdk/keycodes';
 
 /**
  * @fileoverview added by tsickle
@@ -119,8 +119,6 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkAccordionItem = CdkAccordionItem;
 /** *
  * Counter for generating unique element ids.
   @type {?} */
@@ -465,8 +463,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
             // Toggle for space and enter keys.
             case SPACE:
             case ENTER:
-                event.preventDefault();
-                this._toggle();
+                if (!hasModifierKey(event)) {
+                    event.preventDefault();
+                    this._toggle();
+                }
                 break;
             default:
                 if (this.panel.accordion) {
@@ -731,5 +731,5 @@ var MatExpansionModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.es5.js.map

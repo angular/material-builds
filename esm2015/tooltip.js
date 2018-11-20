@@ -11,6 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { HAMMER_LOADER, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
@@ -20,7 +21,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, Eleme
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GestureConfig, MatCommonModule } from '@angular/material/core';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
@@ -116,20 +116,20 @@ class MatTooltip {
      * @param {?} _scrollDispatcher
      * @param {?} _viewContainerRef
      * @param {?} _ngZone
-     * @param {?} _platform
+     * @param {?} platform
      * @param {?} _ariaDescriber
      * @param {?} _focusMonitor
      * @param {?} scrollStrategy
      * @param {?} _dir
      * @param {?} _defaultOptions
+     * @param {?=} hammerLoader
      */
-    constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
+    constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, hammerLoader) {
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
-        this._platform = _platform;
         this._ariaDescriber = _ariaDescriber;
         this._focusMonitor = _focusMonitor;
         this._dir = _dir;
@@ -155,14 +155,21 @@ class MatTooltip {
         const element = _elementRef.nativeElement;
         /** @type {?} */
         const elementStyle = /** @type {?} */ (element.style);
+        /** @type {?} */
+        const hasGestures = typeof window === 'undefined' || (/** @type {?} */ (window)).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
-        if (!_platform.IOS && !_platform.ANDROID) {
+        if (!platform.IOS && !platform.ANDROID) {
             this._manualListeners
                 .set('mouseenter', () => this.show())
-                .set('mouseleave', () => this.hide())
-                .forEach((listener, event) => element.addEventListener(event, listener));
+                .set('mouseleave', () => this.hide());
         }
+        else if (!hasGestures) {
+            // If Hammerjs isn't loaded, fall back to showing on `touchstart`, otherwise
+            // there's no way for the user to trigger the tooltip on a touch device.
+            this._manualListeners.set('touchstart', () => this.show());
+        }
+        this._manualListeners.forEach((listener, event) => element.addEventListener(event, listener));
         if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
             // When we bind a gesture event on an element (in this case `longpress`), HammerJS
             // will add some inline styles by default, including `user-select: none`. This is
@@ -270,10 +277,10 @@ class MatTooltip {
             this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
-        if (!this._platform.IOS) {
-            this._manualListeners.forEach((listener, event) => this._elementRef.nativeElement.removeEventListener(event, listener));
-            this._manualListeners.clear();
-        }
+        this._manualListeners.forEach((listener, event) => {
+            this._elementRef.nativeElement.removeEventListener(event, listener);
+        });
+        this._manualListeners.clear();
         this._destroyed.next();
         this._destroyed.complete();
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
@@ -555,7 +562,8 @@ MatTooltip.ctorParameters = () => [
     { type: FocusMonitor },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
     { type: Directionality, decorators: [{ type: Optional }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
 ];
 MatTooltip.propDecorators = {
     position: [{ type: Input, args: ['matTooltipPosition',] }],

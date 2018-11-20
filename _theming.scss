@@ -1973,6 +1973,8 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 
 
+$_mat-button-ripple-opacity: 0.1;
+
 // Applies a focus style to an mat-button element for each of the supported palettes.
 @mixin _mat-button-focus-overlay-color($theme) {
   $primary: map-get($theme, primary);
@@ -1996,7 +1998,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   }
 }
 
-@mixin _mat-button-ripple-color($theme, $hue, $opacity: 0.1) {
+@mixin _mat-button-ripple-color($theme, $hue, $opacity: $_mat-button-ripple-opacity) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
@@ -2058,9 +2060,13 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
     @include _mat-button-theme-property($theme, 'color', default);
     @include _mat-button-focus-overlay-color($theme);
 
-    // Setup the ripple color to be based on the color palette. The opacity can be a bit weaker
-    // than for icon-buttons, because normal and stroked buttons have a focus overlay.
-    @include _mat-button-ripple-color($theme, default);
+    // Setup the ripple color to be based on the text color. This ensures that the ripples
+    // are matching with the current theme palette and are in contrast to the background color
+    // (e.g in themed toolbars).
+    .mat-ripple-element {
+      opacity: $_mat-button-ripple-opacity;
+      background-color: currentColor;
+    }
   }
 
   .mat-button-focus-overlay {
@@ -2081,12 +2087,6 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
     @include _mat-button-theme-property($theme, 'color', default-contrast);
     @include _mat-button-theme-property($theme, 'background-color', default);
     @include _mat-button-ripple-color($theme, default-contrast);
-  }
-
-  // Since icon buttons don't have a focus overlay, the ripple opacity should be the higher
-  // than the default value.
-  .mat-icon-button {
-    @include _mat-button-ripple-color($theme, default, 0.2);
   }
 
   .mat-stroked-button, .mat-flat-button {
@@ -2390,10 +2390,6 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 
 $mat-chip-remove-font-size: 18px;
 
-@mixin mat-chips-theme-color($color) {
-  @include mat-chips-color(mat-color($color, default-contrast), mat-color($color));
-}
-
 @mixin mat-chips-color($foreground, $background) {
   background-color: $background;
   color: $foreground;
@@ -2402,9 +2398,13 @@ $mat-chip-remove-font-size: 18px;
     color: $foreground;
     opacity: 0.4;
   }
+}
 
-  .mat-chip-remove:hover {
-    opacity: 0.54;
+@mixin mat-chips-theme-color($palette) {
+  @include mat-chips-color(mat-color($palette, default-contrast), mat-color($palette));
+
+  .mat-ripple-element {
+    background: mat-color($palette, default-contrast, 0.1);
   }
 }
 
@@ -2419,12 +2419,21 @@ $mat-chip-remove-font-size: 18px;
   $unselected-background: mat-color($background, unselected-chip);
   $unselected-foreground: mat-color($foreground, text);
 
-
   .mat-chip.mat-standard-chip {
     @include mat-chips-color($unselected-foreground, $unselected-background);
 
-    &:focus {
-      @include _mat-theme-elevation(3, $theme);
+    &:not(.mat-chip-disabled) {
+      &:active {
+        @include _mat-theme-elevation(3, $theme);
+      }
+
+      .mat-chip-remove:hover {
+        opacity: 0.54;
+      }
+    }
+
+    &.mat-chip-disabled {
+      opacity: 0.4;
     }
   }
 
@@ -2977,7 +2986,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .mat-list, .mat-nav-list, .mat-selection-list {
+  .mat-list-base {
     .mat-list-item {
       color: mat-color($foreground, text);
     }
@@ -3015,7 +3024,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   // Default list
-  .mat-list, .mat-nav-list, .mat-selection-list {
+  .mat-list-base {
     .mat-list-item {
       font-size: mat-font-size($config, subheading-2);
       @include mat-line-base(mat-font-size($config, body-1));
@@ -3034,7 +3043,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   // Dense list
-  .mat-list[dense], .mat-nav-list[dense], .mat-selection-list[dense] {
+  .mat-list-base[dense] {
     .mat-list-item {
       font-size: mat-font-size($config, caption);
       @include mat-line-base(mat-font-size($config, caption));
@@ -3456,9 +3465,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 @mixin _mat-slide-toggle-checked($palette, $thumb-checked-hue) {
-  // Do not apply the checked colors if the toggle is disabled, because the
-  // specificity would be to high for the disabled styles.
-  &.mat-checked:not(.mat-disabled) {
+  &.mat-checked {
     .mat-slide-toggle-thumb {
       background-color: mat-color($palette, $thumb-checked-hue);
     }
@@ -3491,11 +3498,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   // specifications. See: https://material.io/design/components/selection-controls.html#specs
   $thumb-unchecked-hue: if($is-dark, 400, 50);
   $thumb-checked-hue: if($is-dark, 200, default);
-  $thumb-disabled-hue: if($is-dark, 800, 400);
 
   $bar-unchecked-color: mat-color($foreground, disabled);
-  $bar-disabled-color: if($is-dark, rgba(white, 0.12), rgba(black, 0.1));
-
   $ripple-unchecked-color: mat-color($foreground, base);
 
   .mat-slide-toggle {
@@ -3513,18 +3517,6 @@ $mat-calendar-weekday-table-font-size: 11px !default;
       // Set no opacity for the ripples because the ripple opacity will be adjusted dynamically
       // based on the type of interaction with the slide-toggle (e.g. for hover, focus)
       background-color: $ripple-unchecked-color;
-    }
-  }
-
-  .mat-disabled {
-    .mat-slide-toggle-thumb {
-      // The thumb of the slide-toggle always uses the hue 400 of the grey palette in dark
-      // or light themes. Since this is very specific to the slide-toggle component, we're not
-      // providing it in the background palette.
-      background-color: mat-color($mat-grey, $thumb-disabled-hue);
-    }
-    .mat-slide-toggle-bar {
-      background-color: $bar-disabled-color;
     }
   }
 
@@ -3704,11 +3696,15 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
     .mat-step-label,
     .mat-step-optional {
-      color: mat-color($foreground, disabled-text);
+      // TODO(josephperrott): Update to using a corrected disabled-text contrast
+      // instead of secondary-text.
+      color: mat-color($foreground, secondary-text);
     }
 
     .mat-step-icon {
-      background-color: mat-color($foreground, disabled-text);
+      // TODO(josephperrott): Update to using a corrected disabled-text contrast
+      // instead of secondary-text.
+      background-color: mat-color($foreground, secondary-text);
       color: mat-color($primary, default-contrast);
     }
 
@@ -3741,6 +3737,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     border-left-color: mat-color($foreground, divider);
   }
 
+  .mat-horizontal-stepper-header::before,
+  .mat-horizontal-stepper-header::after,
   .mat-stepper-horizontal-line {
     border-top-color: mat-color($foreground, divider);
   }

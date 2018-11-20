@@ -6,11 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
-export declare const _CdkStepperNext: typeof CdkStepperNext;
-export declare const _CdkStepperPrevious: typeof CdkStepperPrevious;
 /** Button that moves to the next step in a stepper workflow. */
-export declare class MatStepperNext extends _CdkStepperNext {
+export declare class MatStepperNext extends CdkStepperNext {
 }
 /** Button that moves to the previous step in a stepper workflow. */
-export declare class MatStepperPrevious extends _CdkStepperPrevious {
+export declare class MatStepperPrevious extends CdkStepperPrevious {
 }

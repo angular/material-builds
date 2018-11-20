@@ -30,6 +30,8 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     readonly _onEnter: Subject<any>;
     /** The state of the snack bar animations. */
     _animationState: string;
+    /** ARIA role for the snack bar container. */
+    _role: 'alert' | 'status' | null;
     constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, 
     /** The snack bar configuration. */
     snackBarConfig: MatSnackBarConfig);

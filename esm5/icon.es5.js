@@ -901,10 +901,12 @@ var MAT_ICON_LOCATION = new InjectionToken('mat-icon-location', {
 function MAT_ICON_LOCATION_FACTORY() {
     /** @type {?} */
     var _document = inject(DOCUMENT);
+    /** @type {?} */
+    var _location = _document ? _document.location : null;
     return {
         // Note that this needs to be a function, rather than a property, because Angular
         // will only resolve it once, but we want the current path on each call.
-        getPathname: function () { return (_document && _document.location && _document.location.pathname) || ''; }
+        getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
     };
 }
 /** *

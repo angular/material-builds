@@ -44,8 +44,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTable = table.CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -73,18 +71,12 @@ var MatTable = /** @class */ (function (_super) {
                 },] },
     ];
     return MatTable;
-}(_CdkTable));
+}(table.CdkTable));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkCellDef = table.CdkCellDef;
-/** @type {?} */
-var _CdkHeaderCellDef = table.CdkHeaderCellDef;
-/** @type {?} */
-var _CdkFooterCellDef = table.CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -101,7 +93,7 @@ var MatCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatCellDef;
-}(_CdkCellDef));
+}(table.CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -118,7 +110,7 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderCellDef;
-}(_CdkHeaderCellDef));
+}(table.CdkHeaderCellDef));
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
@@ -135,7 +127,7 @@ var MatFooterCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterCellDef;
-}(_CdkFooterCellDef));
+}(table.CdkFooterCellDef));
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -244,12 +236,6 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkHeaderRowDef = table.CdkHeaderRowDef;
-/** @type {?} */
-var _CdkFooterRowDef = table.CdkFooterRowDef;
-/** @type {?} */
-var _CdkRowDef = table.CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -267,7 +253,7 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderRowDef;
-}(_CdkHeaderRowDef));
+}(table.CdkHeaderRowDef));
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
@@ -285,7 +271,7 @@ var MatFooterRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterRowDef;
-}(_CdkFooterRowDef));
+}(table.CdkFooterRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the data row's template and other properties such as the columns to display and
@@ -305,7 +291,7 @@ var MatRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatRowDef;
-}(_CdkRowDef));
+}(table.CdkRowDef));
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -837,9 +823,6 @@ MatTableDataSource = /** @class */ (function (_super) {
 }(table.DataSource));
 
 exports.MatTableModule = MatTableModule;
-exports._CdkCellDef = _CdkCellDef;
-exports._CdkHeaderCellDef = _CdkHeaderCellDef;
-exports._CdkFooterCellDef = _CdkFooterCellDef;
 exports.MatCellDef = MatCellDef;
 exports.MatHeaderCellDef = MatHeaderCellDef;
 exports.MatFooterCellDef = MatFooterCellDef;
@@ -847,11 +830,7 @@ exports.MatColumnDef = MatColumnDef;
 exports.MatHeaderCell = MatHeaderCell;
 exports.MatFooterCell = MatFooterCell;
 exports.MatCell = MatCell;
-exports._CdkTable = _CdkTable;
 exports.MatTable = MatTable;
-exports._CdkHeaderRowDef = _CdkHeaderRowDef;
-exports._CdkFooterRowDef = _CdkFooterRowDef;
-exports._CdkRowDef = _CdkRowDef;
 exports.MatHeaderRowDef = MatHeaderRowDef;
 exports.MatFooterRowDef = MatFooterRowDef;
 exports.MatRowDef = MatRowDef;

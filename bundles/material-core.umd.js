@@ -2614,7 +2614,7 @@ var MatOption = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        if (event.keyCode === keycodes.ENTER || event.keyCode === keycodes.SPACE) {
+        if ((event.keyCode === keycodes.ENTER || event.keyCode === keycodes.SPACE) && !keycodes.hasModifierKey(event)) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
             event.preventDefault();

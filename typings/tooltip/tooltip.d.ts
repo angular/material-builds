@@ -9,6 +9,7 @@ import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { HammerLoader } from '@angular/platform-browser';
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
@@ -56,7 +57,6 @@ export declare class MatTooltip implements OnDestroy {
     private _scrollDispatcher;
     private _viewContainerRef;
     private _ngZone;
-    private _platform;
     private _ariaDescriber;
     private _focusMonitor;
     private _dir;
@@ -86,7 +86,7 @@ export declare class MatTooltip implements OnDestroy {
     private _manualListeners;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
+    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, hammerLoader?: HammerLoader);
     /**
      * Dispose the tooltip when destroyed.
      */

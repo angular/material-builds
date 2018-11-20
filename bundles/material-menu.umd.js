@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', 'rxjs', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.rxjs,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay));
-}(this, (function (exports,core,portal,common,rxjs,animations,a11y,core$1,coercion,keycodes,operators,bidi,overlay) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', 'rxjs', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.rxjs,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay,global.ng.cdk.platform));
+}(this, (function (exports,core,portal,common,rxjs,animations,a11y,core$1,coercion,keycodes,operators,bidi,overlay,platform) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -995,12 +995,17 @@ var MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  * Default top padding of the menu panel.
   @type {?} */
 var MENU_PANEL_TOP_PADDING = 8;
+/** *
+ * Options for binding a passive event listener.
+  @type {?} */
+var passiveEventListenerOptions = platform.normalizePassiveListenerOptions({ passive: true });
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
 var MatMenuTrigger = /** @class */ (function () {
     function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
+        var _this = this;
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
@@ -1012,6 +1017,12 @@ var MatMenuTrigger = /** @class */ (function () {
         this._menuOpen = false;
         this._closeSubscription = rxjs.Subscription.EMPTY;
         this._hoverSubscription = rxjs.Subscription.EMPTY;
+        this._menuCloseSubscription = rxjs.Subscription.EMPTY;
+        /**
+         * Handles touch start events on the trigger.
+         * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
+         */
+        this._handleTouchStart = function () { return _this._openedBy = 'touch'; };
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
@@ -1035,6 +1046,7 @@ var MatMenuTrigger = /** @class */ (function () {
          * \@breaking-change 8.0.0
          */
         this.onMenuClose = this.menuClosed;
+        _element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
@@ -1050,15 +1062,44 @@ var MatMenuTrigger = /** @class */ (function () {
          * \@breaking-change 8.0.0
          * @return {?}
          */
-        function () {
-            return this.menu;
-        },
+        function () { return this.menu; },
         set: /**
          * @param {?} v
          * @return {?}
          */
         function (v) {
             this.menu = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenuTrigger.prototype, "menu", {
+        /** References the menu instance that the trigger is associated with. */
+        get: /**
+         * References the menu instance that the trigger is associated with.
+         * @return {?}
+         */
+        function () { return this._menu; },
+        set: /**
+         * @param {?} menu
+         * @return {?}
+         */
+        function (menu) {
+            var _this = this;
+            if (menu === this._menu) {
+                return;
+            }
+            this._menu = menu;
+            this._menuCloseSubscription.unsubscribe();
+            if (menu) {
+                this._menuCloseSubscription = menu.close.asObservable().subscribe(function (reason) {
+                    _this._destroyMenu();
+                    // If a click closed the menu, we should close the entire chain of nested menus.
+                    if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
+                        _this._parentMenu.closed.emit(reason);
+                    }
+                });
+            }
         },
         enumerable: true,
         configurable: true
@@ -1070,15 +1111,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var _this = this;
         this._checkMenu();
-        this.menu.close.asObservable().subscribe(function (reason) {
-            _this._destroyMenu();
-            // If a click closed the menu, we should close the entire chain of nested menus.
-            if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
-                _this._parentMenu.closed.emit(reason);
-            }
-        });
         this._handleHover();
     };
     /**
@@ -1092,6 +1125,7 @@ var MatMenuTrigger = /** @class */ (function () {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+        this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         this._cleanUpSubscriptions();
     };
     Object.defineProperty(MatMenuTrigger.prototype, "menuOpen", {
@@ -1160,7 +1194,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /** @type {?} */
         var overlayRef = this._createOverlay();
         this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
-        overlayRef.attach(this._portal);
+        overlayRef.attach(this._getPortal());
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
@@ -1351,7 +1385,6 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         if (!this._overlayRef) {
-            this._portal = new portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
             /** @type {?} */
             var config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
@@ -1590,6 +1623,23 @@ var MatMenuTrigger = /** @class */ (function () {
             }
         });
     };
+    /**
+     * Gets the portal that should be attached to the overlay.
+     * @return {?}
+     */
+    MatMenuTrigger.prototype._getPortal = /**
+     * Gets the portal that should be attached to the overlay.
+     * @return {?}
+     */
+    function () {
+        // Note that we can avoid this check by keeping the portal on the menu panel.
+        // While it would be cleaner, we'd have to introduce another required method on
+        // `MatMenuPanel`, making it harder to consume.
+        if (!this._portal || this._portal.templateRef !== this.menu.templateRef) {
+            this._portal = new portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+        }
+        return this._portal;
+    };
     MatMenuTrigger.decorators = [
         { type: core.Directive, args: [{
                     selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
@@ -1597,7 +1647,6 @@ var MatMenuTrigger = /** @class */ (function () {
                         'aria-haspopup': 'true',
                         '[attr.aria-expanded]': 'menuOpen || null',
                         '(mousedown)': '_handleMousedown($event)',
-                        '(touchstart)': '_openedBy = "touch"',
                         '(keydown)': '_handleKeydown($event)',
                         '(click)': '_handleClick($event)',
                     },
@@ -1660,12 +1709,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

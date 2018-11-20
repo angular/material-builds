@@ -7,26 +7,23 @@
  */
 import { ElementRef } from '@angular/core';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
-export declare const _CdkCellDef: typeof CdkCellDef;
-export declare const _CdkHeaderCellDef: typeof CdkHeaderCellDef;
-export declare const _CdkFooterCellDef: typeof CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-export declare class MatCellDef extends _CdkCellDef {
+export declare class MatCellDef extends CdkCellDef {
 }
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-export declare class MatHeaderCellDef extends _CdkHeaderCellDef {
+export declare class MatHeaderCellDef extends CdkHeaderCellDef {
 }
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
  */
-export declare class MatFooterCellDef extends _CdkFooterCellDef {
+export declare class MatFooterCellDef extends CdkFooterCellDef {
 }
 /**
  * Column definition for the mat-table.

@@ -44,8 +44,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTextareaAutosize = textField.CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
@@ -129,7 +127,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
         matTextareaAutosize: [{ type: core.Input }]
     };
     return MatTextareaAutosize;
-}(_CdkTextareaAutosize));
+}(textField.CdkTextareaAutosize));
 
 /**
  * @fileoverview added by tsickle
@@ -737,7 +735,6 @@ var MatInputModule = /** @class */ (function () {
     return MatInputModule;
 }());
 
-exports._CdkTextareaAutosize = _CdkTextareaAutosize;
 exports.MatTextareaAutosize = MatTextareaAutosize;
 exports.MatInputBase = MatInputBase;
 exports._MatInputMixinBase = _MatInputMixinBase;

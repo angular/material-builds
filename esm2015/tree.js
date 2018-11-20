@@ -44,8 +44,6 @@ MatTreeNodeOutlet.ctorParameters = () => [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const _CdkTreeNodeDef = CdkTreeNodeDef;
-/** @type {?} */
 const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
 /** @type {?} */
 const _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
@@ -94,7 +92,7 @@ MatTreeNode.propDecorators = {
  * Wrapper for the CdkTree node definition with Material design styles.
  * @template T
  */
-class MatTreeNodeDef extends _CdkTreeNodeDef {
+class MatTreeNodeDef extends CdkTreeNodeDef {
 }
 MatTreeNodeDef.decorators = [
     { type: Directive, args: [{
@@ -171,13 +169,11 @@ MatNestedTreeNode.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkTreeNodePadding = CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
  */
-class MatTreeNodePadding extends _CdkTreeNodePadding {
+class MatTreeNodePadding extends CdkTreeNodePadding {
 }
 MatTreeNodePadding.decorators = [
     { type: Directive, args: [{
@@ -194,13 +190,11 @@ MatTreeNodePadding.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkTree = CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
  */
-class MatTree extends _CdkTree {
+class MatTree extends CdkTree {
 }
 MatTree.decorators = [
     { type: Component, args: [{selector: 'mat-tree',
@@ -224,13 +218,11 @@ MatTree.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const _CdkTreeNodeToggle = CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
  */
-class MatTreeNodeToggle extends _CdkTreeNodeToggle {
+class MatTreeNodeToggle extends CdkTreeNodeToggle {
     constructor() {
         super(...arguments);
         this.recursive = false;
@@ -520,5 +512,5 @@ class MatTreeNestedDataSource extends DataSource {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { _CdkTreeNodeDef, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, _CdkTreeNodePadding, MatTreeNodePadding, _CdkTree, MatTree, MatTreeModule, _CdkTreeNodeToggle, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };
 //# sourceMappingURL=tree.js.map

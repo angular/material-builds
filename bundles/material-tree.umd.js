@@ -69,8 +69,6 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-var _CdkTreeNodeDef = tree.CdkTreeNodeDef;
-/** @type {?} */
 var _MatTreeNodeMixinBase = core$1.mixinTabIndex(core$1.mixinDisabled(tree.CdkTreeNode));
 /** @type {?} */
 var _MatNestedTreeNodeMixinBase = core$1.mixinTabIndex(core$1.mixinDisabled(tree.CdkNestedTreeNode));
@@ -135,7 +133,7 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
         data: [{ type: core.Input, args: ['matTreeNode',] }]
     };
     return MatTreeNodeDef;
-}(_CdkTreeNodeDef));
+}(tree.CdkTreeNodeDef));
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -205,8 +203,6 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTreeNodePadding = tree.CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
@@ -227,14 +223,12 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
         indent: [{ type: core.Input, args: ['matTreeNodePaddingIndent',] }]
     };
     return MatTreeNodePadding;
-}(_CdkTreeNodePadding));
+}(tree.CdkTreeNodePadding));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTree = tree.CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -262,14 +256,12 @@ var MatTree = /** @class */ (function (_super) {
         _nodeOutlet: [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] }]
     };
     return MatTree;
-}(_CdkTree));
+}(tree.CdkTree));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-var _CdkTreeNodeToggle = tree.CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
@@ -294,7 +286,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
         recursive: [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] }]
     };
     return MatTreeNodeToggle;
-}(_CdkTreeNodeToggle));
+}(tree.CdkTreeNodeToggle));
 
 /**
  * @fileoverview added by tsickle
@@ -674,18 +666,14 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
     return MatTreeNestedDataSource;
 }(collections.DataSource));
 
-exports._CdkTreeNodeDef = _CdkTreeNodeDef;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
 exports.MatTreeNodeDef = MatTreeNodeDef;
 exports.MatNestedTreeNode = MatNestedTreeNode;
-exports._CdkTreeNodePadding = _CdkTreeNodePadding;
 exports.MatTreeNodePadding = MatTreeNodePadding;
-exports._CdkTree = _CdkTree;
 exports.MatTree = MatTree;
 exports.MatTreeModule = MatTreeModule;
-exports._CdkTreeNodeToggle = _CdkTreeNodeToggle;
 exports.MatTreeNodeToggle = MatTreeNodeToggle;
 exports.MatTreeNodeOutlet = MatTreeNodeOutlet;
 exports.MatTreeFlattener = MatTreeFlattener;

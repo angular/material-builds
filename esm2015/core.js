@@ -14,7 +14,7 @@ import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angu
 import { startWith } from 'rxjs/operators';
 import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -2007,7 +2007,7 @@ class MatOption {
      * @return {?}
      */
     _handleKeydown(event) {
-        if (event.keyCode === ENTER || event.keyCode === SPACE) {
+        if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
             event.preventDefault();

@@ -18,6 +18,13 @@ export declare const _MatListItemMixinBase: CanDisableRippleCtor & typeof MatLis
 export declare class MatNavList extends _MatListMixinBase implements CanDisableRipple {
 }
 export declare class MatList extends _MatListMixinBase implements CanDisableRipple {
+    private _elementRef?;
+    /**
+     * @deprecated _elementRef parameter to be made required.
+     * @breaking-change 8.0.0
+     */
+    constructor(_elementRef?: ElementRef<HTMLElement> | undefined);
+    _getListType(): 'list' | 'action-list' | null;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -40,12 +47,12 @@ export declare class MatListSubheaderCssMatStyler {
 /** An item within a Material Design list. */
 export declare class MatListItem extends _MatListItemMixinBase implements AfterContentInit, CanDisableRipple {
     private _element;
-    private _navList;
-    private _isNavList;
+    private _isInteractiveList;
+    private _list?;
     _lines: QueryList<MatLine>;
     _avatar: MatListAvatarCssMatStyler;
     _icon: MatListIconCssMatStyler;
-    constructor(_element: ElementRef<HTMLElement>, _navList: MatNavList);
+    constructor(_element: ElementRef<HTMLElement>, navList?: MatNavList, list?: MatList);
     ngAfterContentInit(): void;
     /** Whether this list item should show a ripple effect when clicked. */
     _isRippleDisabled(): boolean;
