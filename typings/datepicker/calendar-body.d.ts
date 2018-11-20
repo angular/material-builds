@@ -7,6 +7,12 @@
  */
 import { ElementRef, EventEmitter, NgZone, OnChanges, SimpleChanges } from '@angular/core';
 /**
+ * Extra CSS classes that can be associated with a calendar cell.
+ */
+export declare type MatCalendarCellCssClasses = string | string[] | Set<string> | {
+    [key: string]: any;
+};
+/**
  * An internal class that represents the data corresponding to a single calendar cell.
  * @docs-private
  */
@@ -15,7 +21,12 @@ export declare class MatCalendarCell {
     displayValue: string;
     ariaLabel: string;
     enabled: boolean;
-    constructor(value: number, displayValue: string, ariaLabel: string, enabled: boolean);
+    cssClasses?: string | Set<string> | {
+        [key: string]: any;
+    } | string[] | undefined;
+    constructor(value: number, displayValue: string, ariaLabel: string, enabled: boolean, cssClasses?: string | Set<string> | {
+        [key: string]: any;
+    } | string[] | undefined);
 }
 /**
  * An internal component used to display calendar data in a table.

@@ -37,4 +37,9 @@ export declare class MatBottomSheetConfig<D = any> {
     closeOnNavigation?: boolean;
     /** Whether the bottom sheet should focus the first focusable element on open. */
     autoFocus?: boolean;
+    /**
+     * Whether the bottom sheet should restore focus to the
+     * previously-focused element, after it's closed.
+     */
+    restoreFocus?: boolean;
 }

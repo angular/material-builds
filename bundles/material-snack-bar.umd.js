@@ -893,6 +893,9 @@ var MatSnackBar = /** @class */ (function () {
             if (_this._openedSnackBarRef == snackBarRef) {
                 _this._openedSnackBarRef = null;
             }
+            if (config.announcementMessage) {
+                _this._live.clear();
+            }
         });
         if (this._openedSnackBarRef) {
             // If a snack bar is already in view, dismiss it and enter the

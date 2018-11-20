@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { MatCalendar } from './calendar';
 import { MatDatepickerInput } from './datepicker-input';
+import { MatCalendarCellCssClasses } from './calendar-body';
 /** Injection token that determines the scroll handling while the calendar is open. */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -88,6 +89,8 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     readonly monthSelected: EventEmitter<D>;
     /** Classes to be passed to the date picker panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[];
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass: (date: D) => MatCalendarCellCssClasses;
     /** Emits when the datepicker has been opened. */
     openedStream: EventEmitter<void>;
     /** Emits when the datepicker has been closed. */

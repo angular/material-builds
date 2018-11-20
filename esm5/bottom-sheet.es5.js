@@ -63,6 +63,11 @@ MatBottomSheetConfig = /** @class */ (function () {
          * Whether the bottom sheet should focus the first focusable element on open.
          */
         this.autoFocus = true;
+        /**
+         * Whether the bottom sheet should restore focus to the
+         * previously-focused element, after it's closed.
+         */
+        this.restoreFocus = true;
     }
     return MatBottomSheetConfig;
 }());
@@ -288,18 +293,18 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         this._focusTrap.focusInitialElementWhenReady();
     };
     /**
-     * Restores focus to the element that was focused before the bottom sheet opened.
+     * Restores focus to the element that was focused before the bottom sheet was opened.
      * @return {?}
      */
     MatBottomSheetContainer.prototype._restoreFocus = /**
-     * Restores focus to the element that was focused before the bottom sheet opened.
+     * Restores focus to the element that was focused before the bottom sheet was opened.
      * @return {?}
      */
     function () {
         /** @type {?} */
         var toFocus = this._elementFocusedBeforeOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        if (toFocus && typeof toFocus.focus === 'function') {
+        if (this.bottomSheetConfig.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
         }
         if (this._focusTrap) {

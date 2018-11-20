@@ -79,9 +79,13 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
      */
     _onContentChanges(): void;
     /**
-     * Updating the view whether pagination should be enabled or not
+     * Updates the view whether pagination should be enabled or not.
+     *
+     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
+     * page.
      */
-    _updatePagination(): void;
+    updatePagination(): void;
     /** Tracks which element has focus; used for keyboard navigation */
     /** When the focus index is set, we must manually send focus to the correct label */
     focusIndex: number;

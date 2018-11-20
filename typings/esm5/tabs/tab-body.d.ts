@@ -73,6 +73,8 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     _content: TemplatePortal;
     /** Position that will be used when the tab is immediately becoming visible after creation. */
     origin: number;
+    /** Duration for the tab's animation. */
+    animationDuration: string;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     position: number;
     constructor(_elementRef: ElementRef<HTMLElement>, _dir: Directionality, 

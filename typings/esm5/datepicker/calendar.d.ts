@@ -13,6 +13,7 @@ import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';
 import { MatYearView } from './year-view';
+import { MatCalendarCellCssClasses } from './calendar-body';
 /**
  * Possible views for the calendar.
  * @docs-private
@@ -78,8 +79,10 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     /** The maximum selectable date. */
     maxDate: D | null;
     private _maxDate;
-    /** A function used to filter which dates are selectable. */
+    /** Function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass: (date: D) => MatCalendarCellCssClasses;
     /** Emits when the currently selected date changes. */
     readonly selectedChange: EventEmitter<D>;
     /**

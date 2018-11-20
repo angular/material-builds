@@ -7,7 +7,7 @@
  */
 import { __extends } from 'tslib';
 import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, defineInjectable } from '@angular/core';
-import { CdkStepLabel, CdkStep, CdkStepper, MAT_STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, MAT_STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -82,13 +82,15 @@ var MAT_STEPPER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-var MatStepHeader = /** @class */ (function () {
-    function MatStepHeader(_intl, _focusMonitor, _element, changeDetectorRef) {
-        this._intl = _intl;
-        this._focusMonitor = _focusMonitor;
-        this._element = _element;
-        _focusMonitor.monitor(_element, true);
-        this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
+var MatStepHeader = /** @class */ (function (_super) {
+    __extends(MatStepHeader, _super);
+    function MatStepHeader(_intl, _focusMonitor, _elementRef, changeDetectorRef) {
+        var _this = _super.call(this, _elementRef) || this;
+        _this._intl = _intl;
+        _this._focusMonitor = _focusMonitor;
+        _focusMonitor.monitor(_elementRef, true);
+        _this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
+        return _this;
     }
     /**
      * @return {?}
@@ -98,7 +100,7 @@ var MatStepHeader = /** @class */ (function () {
      */
     function () {
         this._intlSubscription.unsubscribe();
-        this._focusMonitor.stopMonitoring(this._element);
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     /** Returns string label of given step if it is a text label. */
     /**
@@ -134,7 +136,7 @@ var MatStepHeader = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._element.nativeElement;
+        return this._elementRef.nativeElement;
     };
     /** Template context variables that are exposed to the `matStepperIcon` instances. */
     /**
@@ -151,15 +153,6 @@ var MatStepHeader = /** @class */ (function () {
             active: this.active,
             optional: this.optional
         };
-    };
-    /**
-     * @return {?}
-     */
-    MatStepHeader.prototype.focus = /**
-     * @return {?}
-     */
-    function () {
-        this._getHostElement().focus();
     };
     MatStepHeader.decorators = [
         { type: Component, args: [{selector: 'mat-step-header',
@@ -191,7 +184,7 @@ var MatStepHeader = /** @class */ (function () {
         optional: [{ type: Input }]
     };
     return MatStepHeader;
-}());
+}(CdkStepHeader));
 
 /**
  * @fileoverview added by tsickle
