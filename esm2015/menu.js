@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, ContentChild, ContentChildren, EventEmitter, Input, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
+import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, ContentChild, ContentChildren, EventEmitter, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
@@ -243,6 +243,10 @@ class MatMenuItem extends _MatMenuItemMixinBase {
         this._focusMonitor = _focusMonitor;
         this._parentMenu = _parentMenu;
         /**
+         * ARIA role for the menu item.
+         */
+        this.role = 'menuitem';
+        /**
          * Stream that emits when the menu item is hovered.
          */
         this._hovered = new Subject();
@@ -353,7 +357,7 @@ MatMenuItem.decorators = [
                 exportAs: 'matMenuItem',
                 inputs: ['disabled', 'disableRipple'],
                 host: {
-                    'role': 'menuitem',
+                    '[attr.role]': 'role',
                     'class': 'mat-menu-item',
                     '[class.mat-menu-item-highlighted]': '_highlighted',
                     '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
@@ -375,6 +379,9 @@ MatMenuItem.ctorParameters = () => [
     { type: FocusMonitor },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_PANEL,] }, { type: Optional }] }
 ];
+MatMenuItem.propDecorators = {
+    role: [{ type: Input }]
+};
 
 /**
  * @fileoverview added by tsickle

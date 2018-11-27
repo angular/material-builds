@@ -278,6 +278,10 @@ var MatMenuItem = /** @class */ (function (_super) {
         _this._focusMonitor = _focusMonitor;
         _this._parentMenu = _parentMenu;
         /**
+         * ARIA role for the menu item.
+         */
+        _this.role = 'menuitem';
+        /**
          * Stream that emits when the menu item is hovered.
          */
         _this._hovered = new rxjs.Subject();
@@ -424,7 +428,7 @@ var MatMenuItem = /** @class */ (function (_super) {
                     exportAs: 'matMenuItem',
                     inputs: ['disabled', 'disableRipple'],
                     host: {
-                        'role': 'menuitem',
+                        '[attr.role]': 'role',
                         'class': 'mat-menu-item',
                         '[class.mat-menu-item-highlighted]': '_highlighted',
                         '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
@@ -446,6 +450,9 @@ var MatMenuItem = /** @class */ (function (_super) {
         { type: a11y.FocusMonitor },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] }
     ]; };
+    MatMenuItem.propDecorators = {
+        role: [{ type: core.Input }]
+    };
     return MatMenuItem;
 }(_MatMenuItemMixinBase));
 
