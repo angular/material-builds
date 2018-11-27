@@ -184,8 +184,8 @@ class MatChip extends _MatChipMixinBase {
     set value(value) { this._value = value; }
     /**
      * Whether or not the chip is selectable. When a chip is not selectable,
-     * changes to it's selected state are always ignored. By default a chip is
-     * selectable, and it becomes non-selectable if it's parent chip list is
+     * changes to its selected state are always ignored. By default a chip is
+     * selectable, and it becomes non-selectable if its parent chip list is
      * not selectable.
      * @return {?}
      */
@@ -515,7 +515,7 @@ class MatChipListChange {
     }
 }
 /**
- * A material design chips component (named ChipList for it's similarity to the List component).
+ * A material design chips component (named ChipList for its similarity to the List component).
  */
 class MatChipList extends _MatChipListMixinBase {
     /**
