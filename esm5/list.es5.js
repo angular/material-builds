@@ -19,12 +19,15 @@ import { MatDividerModule } from '@angular/material/divider';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatList.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatList.
+/**
  * \@docs-private
  */
 MatListBase = /** @class */ (function () {
@@ -34,10 +37,13 @@ MatListBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatListMixinBase = mixinDisableRipple(MatListBase);
+// Boilerplate for applying mixins to MatListItem.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatListItem.
+/**
  * \@docs-private
  */
 MatListItemBase = /** @class */ (function () {
@@ -176,6 +182,8 @@ var MatListItem = /** @class */ (function (_super) {
         _this._isInteractiveList = false;
         _this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
         _this._list = navList || list;
+        // If no type attributed is specified for <button>, set it to "button".
+        // If a type attribute is already specified, do nothing.
         /** @type {?} */
         var element = _this._getHostElement();
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
@@ -248,7 +256,7 @@ var MatListItem = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -276,9 +284,10 @@ MatListOptionBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatSelectionList; }),
@@ -304,8 +313,7 @@ MatSelectionListChange = /** @class */ (function () {
  */
 var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
-    function MatListOption(_element, _changeDetector, /** @docs-private */
-    selectionList) {
+    function MatListOption(_element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
@@ -371,6 +379,11 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        // List options that are selected at initialization can't be reported properly to the form
+        // control. This is because it takes some time until the selection-list knows about all
+        // available options. Also it can happen that the ControlValueAccessor has an initial value
+        // that should be used instead. Deferring the value change report to the next tick ensures
+        // that the form control value is not being overwritten.
         /** @type {?} */
         var wasSelected = this._selected;
         Promise.resolve().then(function () {
@@ -907,13 +920,16 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (fn) {
         this._onTouched = fn;
     };
+    /** Sets the selected options based on the specified values. */
     /**
      * Sets the selected options based on the specified values.
+     * @private
      * @param {?} values
      * @return {?}
      */
     MatSelectionList.prototype._setOptionsFromValues = /**
      * Sets the selected options based on the specified values.
+     * @private
      * @param {?} values
      * @return {?}
      */
@@ -935,23 +951,29 @@ var MatSelectionList = /** @class */ (function (_super) {
             }
         });
     };
+    /** Returns the values of the selected options. */
     /**
      * Returns the values of the selected options.
+     * @private
      * @return {?}
      */
     MatSelectionList.prototype._getSelectedOptionValues = /**
      * Returns the values of the selected options.
+     * @private
      * @return {?}
      */
     function () {
         return this.options.filter(function (option) { return option.selected; }).map(function (option) { return option.value; });
     };
+    /** Toggles the state of the currently focused option if enabled. */
     /**
      * Toggles the state of the currently focused option if enabled.
+     * @private
      * @return {?}
      */
     MatSelectionList.prototype._toggleFocusedOption = /**
      * Toggles the state of the currently focused option if enabled.
+     * @private
      * @return {?}
      */
     function () {
@@ -971,16 +993,24 @@ var MatSelectionList = /** @class */ (function (_super) {
     /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
+     */
+    /**
+     * Sets the selected state on all of the options
+     * and emits an event if anything changed.
+     * @private
      * @param {?} isSelected
      * @return {?}
      */
     MatSelectionList.prototype._setAllOptionsSelected = /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
+     * @private
      * @param {?} isSelected
      * @return {?}
      */
     function (isSelected) {
+        // Keep track of whether anything changed, because we only want to
+        // emit the changed event when something actually changed.
         /** @type {?} */
         var hasChanged = false;
         this.options.forEach(function (option) {
@@ -994,24 +1024,34 @@ var MatSelectionList = /** @class */ (function (_super) {
     };
     /**
      * Utility to ensure all indexes are valid.
+     * @param index The index to be checked.
+     * @returns True if the index is valid for our list of options.
+     */
+    /**
+     * Utility to ensure all indexes are valid.
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
     MatSelectionList.prototype._isValidIndex = /**
      * Utility to ensure all indexes are valid.
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
     function (index) {
         return index >= 0 && index < this.options.length;
     };
+    /** Returns the index of the specified list option. */
     /**
      * Returns the index of the specified list option.
+     * @private
      * @param {?} option
      * @return {?}
      */
     MatSelectionList.prototype._getOptionIndex = /**
      * Returns the index of the specified list option.
+     * @private
      * @param {?} option
      * @return {?}
      */
@@ -1056,7 +1096,7 @@ var MatSelectionList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatListModule = /** @class */ (function () {
     function MatListModule() {
@@ -1095,12 +1135,12 @@ var MatListModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList };

@@ -18,11 +18,12 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: () => ({ disableToggleValue: false, disableDragValue: false })
@@ -30,13 +31,15 @@ const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-de
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for slide-toggle components.
 /** @type {?} */
 let nextUniqueId = 0;
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlideToggle),
@@ -55,6 +58,7 @@ class MatSlideToggleChange {
         this.checked = checked;
     }
 }
+// Boilerplate for applying mixins to MatSlideToggle.
 /**
  * \@docs-private
  */
@@ -83,10 +87,11 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @param {?=} _animationMode
      * @param {?=} _dir
      */
-    constructor(elementRef, /**
-                   * @deprecated The `_platform` parameter to be removed.
-                   * @breaking-change 8.0.0
-                   */
+    constructor(elementRef, 
+    /**
+     * @deprecated The `_platform` parameter to be removed.
+     * @breaking-change 8.0.0
+     */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
@@ -288,6 +293,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
     }
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * @private
      * @return {?}
      */
     _emitChangeEvent() {
@@ -296,6 +302,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
     }
     /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @private
      * @param {?} distance
      * @return {?}
      */
@@ -330,6 +337,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
             /** @type {?} */
             const direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
             this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
+            // Calculate the moved distance based on the thumb bar width.
             /** @type {?} */
             const dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
             this._thumbEl.nativeElement.style.transform = `translate3d(${dragX}px, 0, 0)`;
@@ -427,7 +435,7 @@ MatSlideToggle.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSlideToggleModule {
 }
@@ -444,12 +452,12 @@ MatSlideToggleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggleBase, _MatSlideToggleMixinBase, MatSlideToggle, MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS };

@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
@@ -59,7 +59,7 @@ var MatStepLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Stepper data that is required for internationalization.
@@ -90,9 +90,10 @@ var MatStepperIntl = /** @class */ (function () {
 function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatStepperIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_STEPPER_INTL_PROVIDER = {
     provide: MatStepperIntl,
     deps: [[new core.Optional(), new core.SkipSelf(), MatStepperIntl]],
@@ -101,7 +102,7 @@ var MAT_STEPPER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepHeader = /** @class */ (function (_super) {
     __extends(MatStepHeader, _super);
@@ -209,21 +210,26 @@ var MatStepHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material steppers.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matStepperAnimations = {
-    /** Animation that transitions the step along the X axis in a horizontal stepper. */
+    /**
+     * Animation that transitions the step along the X axis in a horizontal stepper.
+     */
     horizontalStepTransition: animations.trigger('stepTransition', [
         animations.state('previous', animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
         animations.state('current', animations.style({ transform: 'none', visibility: 'visible' })),
         animations.state('next', animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
         animations.transition('* => *', animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
     ]),
-    /** Animation that transitions the step along the Y axis in a vertical stepper. */
+    /**
+     * Animation that transitions the step along the Y axis in a vertical stepper.
+     */
     verticalStepTransition: animations.trigger('stepTransition', [
         animations.state('previous', animations.style({ height: '0px', visibility: 'hidden' })),
         animations.state('next', animations.style({ height: '0px', visibility: 'hidden' })),
@@ -234,7 +240,7 @@ var matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Template to be used to override the icons inside the step header.
@@ -260,7 +266,7 @@ var MatStepperIcon = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
@@ -286,6 +292,9 @@ var MatStep = /** @class */ (function (_super) {
     function (control, form) {
         /** @type {?} */
         var originalErrorState = this._errorStateMatcher.isErrorState(control, form);
+        // Custom error state checks for the validity of form that is not submitted or touched
+        // since user can trigger a form change by calling for another step without directly
+        // interacting with the current form.
         /** @type {?} */
         var customErrorState = !!(control && control.invalid && this.interacted);
         return originalErrorState || customErrorState;
@@ -347,7 +356,7 @@ var MatStepper = /** @class */ (function (_super) {
         // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
         // See https://github.com/angular/angular/issues/24084
         operators.distinctUntilChanged(function (x, y) { return x.fromState === y.fromState && x.toState === y.toState; }), operators.takeUntil(this._destroyed)).subscribe(function (event) {
-            if ((/** @type {?} */ (event.toState)) === 'current') {
+            if (((/** @type {?} */ (event.toState))) === 'current') {
                 _this.animationDone.emit();
             }
         });
@@ -437,7 +446,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Button that moves to the next step in a stepper workflow.
@@ -484,7 +493,7 @@ var MatStepperPrevious = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepperModule = /** @class */ (function () {
     function MatStepperModule() {

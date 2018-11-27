@@ -39,14 +39,17 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by MatTooltip.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matTooltipAnimations = {
-    /** Animation that transitions a tooltip in and out. */
+    /**
+     * Animation that transitions a tooltip in and out.
+     */
     tooltipState: animations.trigger('state', [
         animations.state('initial, void, hidden', animations.style({ opacity: 0, transform: 'scale(0)' })),
         animations.state('visible', animations.style({ transform: 'scale(1)' })),
@@ -61,15 +64,17 @@ var matTooltipAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Time in ms to throttle repositioning after scroll events.
-  @type {?} */
+ * @type {?}
+ */
 var SCROLL_THROTTLE_MS = 20;
-/** *
+/**
  * CSS class that will be attached to the overlay panel.
-  @type {?} */
+ * @type {?}
+ */
 var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
@@ -80,9 +85,10 @@ var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 function getMatTooltipInvalidPositionError(position) {
     return Error("Tooltip position \"" + position + "\" is invalid.");
 }
-/** *
+/**
  * Injection token that determines the scroll handling while a tooltip is visible.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
@@ -92,17 +98,19 @@ var MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-st
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 };
-/** *
+/**
  * Injection token to be used to override the default options for `matTooltip`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
     factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
@@ -156,9 +164,9 @@ var MatTooltip = /** @class */ (function () {
         /** @type {?} */
         var element = _elementRef.nativeElement;
         /** @type {?} */
-        var elementStyle = /** @type {?} */ (element.style);
+        var elementStyle = (/** @type {?} */ (element.style));
         /** @type {?} */
-        var hasGestures = typeof window === 'undefined' || (/** @type {?} */ (window)).Hammer || hammerLoader;
+        var hasGestures = typeof window === 'undefined' || ((/** @type {?} */ (window))).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!platform$$1.IOS && !platform$$1.ANDROID) {
@@ -213,7 +221,7 @@ var MatTooltip = /** @class */ (function () {
                 if (this._overlayRef) {
                     this._updatePosition();
                     if (this._tooltipInstance) {
-                        /** @type {?} */ ((this._tooltipInstance)).show(0);
+                        (/** @type {?} */ (this._tooltipInstance)).show(0);
                     }
                     this._overlayRef.updatePosition();
                 }
@@ -331,7 +339,7 @@ var MatTooltip = /** @class */ (function () {
         var _this = this;
         if (delay === void 0) { delay = this.showDelay; }
         if (this.disabled || !this.message || (this._isTooltipVisible() &&
-            !/** @type {?} */ ((this._tooltipInstance))._showTimeoutId && !/** @type {?} */ ((this._tooltipInstance))._hideTimeoutId)) {
+            !(/** @type {?} */ (this._tooltipInstance))._showTimeoutId && !(/** @type {?} */ (this._tooltipInstance))._hideTimeoutId)) {
             return;
         }
         /** @type {?} */
@@ -343,8 +351,8 @@ var MatTooltip = /** @class */ (function () {
             .pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
-        this._updateTooltipMessage(); /** @type {?} */
-        ((this._tooltipInstance)).show(delay);
+        this._updateTooltipMessage();
+        (/** @type {?} */ (this._tooltipInstance)).show(delay);
     };
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     /**
@@ -416,12 +424,15 @@ var MatTooltip = /** @class */ (function () {
     function () {
         this.hide(this._defaultOptions.touchendHideDelay);
     };
+    /** Create the overlay config and position strategy */
     /**
      * Create the overlay config and position strategy
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._createOverlay = /**
      * Create the overlay config and position strategy
+     * @private
      * @return {?}
      */
     function () {
@@ -429,6 +440,7 @@ var MatTooltip = /** @class */ (function () {
         if (this._overlayRef) {
             return this._overlayRef;
         }
+        // Create connected position strategy that listens for scroll events to reposition.
         /** @type {?} */
         var strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
@@ -460,12 +472,15 @@ var MatTooltip = /** @class */ (function () {
             .subscribe(function () { return _this._detach(); });
         return this._overlayRef;
     };
+    /** Detaches the currently-attached tooltip. */
     /**
      * Detaches the currently-attached tooltip.
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._detach = /**
      * Detaches the currently-attached tooltip.
+     * @private
      * @return {?}
      */
     function () {
@@ -474,17 +489,20 @@ var MatTooltip = /** @class */ (function () {
         }
         this._tooltipInstance = null;
     };
+    /** Updates the position of the current tooltip. */
     /**
      * Updates the position of the current tooltip.
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._updatePosition = /**
      * Updates the position of the current tooltip.
+     * @private
      * @return {?}
      */
     function () {
         /** @type {?} */
-        var position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
+        var position = (/** @type {?} */ ((/** @type {?} */ (this._overlayRef)).getConfig().positionStrategy));
         /** @type {?} */
         var origin = this._getOrigin();
         /** @type {?} */
@@ -578,12 +596,15 @@ var MatTooltip = /** @class */ (function () {
             fallback: { overlayX: x, overlayY: y }
         };
     };
+    /** Updates the tooltip message and repositions the overlay according to the new message length */
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._updateTooltipMessage = /**
      * Updates the tooltip message and repositions the overlay according to the new message length
+     * @private
      * @return {?}
      */
     function () {
@@ -595,18 +616,21 @@ var MatTooltip = /** @class */ (function () {
             this._tooltipInstance._markForCheck();
             this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe(function () {
                 if (_this._tooltipInstance) {
-                    /** @type {?} */ ((_this._overlayRef)).updatePosition();
+                    (/** @type {?} */ (_this._overlayRef)).updatePosition();
                 }
             });
         }
     };
+    /** Updates the tooltip class */
     /**
      * Updates the tooltip class
+     * @private
      * @param {?} tooltipClass
      * @return {?}
      */
     MatTooltip.prototype._setTooltipClass = /**
      * Updates the tooltip class
+     * @private
      * @param {?} tooltipClass
      * @return {?}
      */
@@ -616,14 +640,17 @@ var MatTooltip = /** @class */ (function () {
             this._tooltipInstance._markForCheck();
         }
     };
+    /** Inverts an overlay position. */
     /**
      * Inverts an overlay position.
+     * @private
      * @param {?} x
      * @param {?} y
      * @return {?}
      */
     MatTooltip.prototype._invertPosition = /**
      * Inverts an overlay position.
+     * @private
      * @param {?} x
      * @param {?} y
      * @return {?}
@@ -811,7 +838,7 @@ var TooltipComponent = /** @class */ (function () {
      */
     function (event) {
         /** @type {?} */
-        var toState = /** @type {?} */ (event.toState);
+        var toState = (/** @type {?} */ (event.toState));
         if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
         }
@@ -887,7 +914,7 @@ var TooltipComponent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {

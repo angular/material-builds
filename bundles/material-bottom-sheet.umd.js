@@ -53,11 +53,12 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BOTTOM_SHEET_DATA = new core.InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
@@ -106,13 +107,16 @@ MatBottomSheetConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material bottom sheet.
-  @type {?} */
+ * @type {?}
+ */
 var matBottomSheetAnimations = {
-    /** Animation that shows and hides a bottom sheet. */
+    /**
+     * Animation that shows and hides a bottom sheet.
+     */
     bottomSheetState: animations.trigger('state', [
         animations.state('void, hidden', animations.style({ transform: 'translateY(100%)' })),
         animations.state('visible', animations.style({ transform: 'translateY(0%)' })),
@@ -123,8 +127,9 @@ var matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * \@docs-private
@@ -266,11 +271,13 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         this._animationStateChanged.emit(event);
     };
     /**
+     * @private
      * @param {?} cssClass
      * @param {?} add
      * @return {?}
      */
     MatBottomSheetContainer.prototype._toggleClass = /**
+     * @private
      * @param {?} cssClass
      * @param {?} add
      * @return {?}
@@ -281,9 +288,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         add ? classList.add(cssClass) : classList.remove(cssClass);
     };
     /**
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._validatePortalAttached = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -292,9 +301,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._setPanelClass = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -310,12 +321,15 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
             element.classList.add(panelClass);
         }
     };
+    /** Moves the focus inside the focus trap. */
     /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._trapFocus = /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     function () {
@@ -324,12 +338,15 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         }
         this._focusTrap.focusInitialElementWhenReady();
     };
+    /** Restores focus to the element that was focused before the bottom sheet was opened. */
     /**
      * Restores focus to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._restoreFocus = /**
      * Restores focus to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     function () {
@@ -343,17 +360,20 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
             this._focusTrap.destroy();
         }
     };
+    /** Saves a reference to the element that was focused before the bottom sheet was opened. */
     /**
      * Saves a reference to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._savePreviouslyFocusedElement = /**
      * Saves a reference to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
-        this._elementFocusedBeforeOpened = /** @type {?} */ (this._document.activeElement);
+        this._elementFocusedBeforeOpened = (/** @type {?} */ (this._document.activeElement));
         // The `focus` method isn't available during server-side rendering.
         if (this._elementRef.nativeElement.focus) {
             Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
@@ -395,7 +415,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBottomSheetModule = /** @class */ (function () {
     function MatBottomSheetModule() {
@@ -418,7 +438,7 @@ var MatBottomSheetModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
@@ -540,11 +560,12 @@ MatBottomSheetRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify default bottom sheet options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new core.InjectionToken('mat-bottom-sheet-default-options');
 /**
  * Service to trigger Material Design bottom sheets.
@@ -607,10 +628,10 @@ var MatBottomSheet = /** @class */ (function () {
         /** @type {?} */
         var ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof core.TemplateRef) {
-            container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
+            container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({
                 $implicit: _config.data,
                 bottomSheetRef: ref
-            })));
+            }))));
         }
         else {
             /** @type {?} */
@@ -668,12 +689,17 @@ var MatBottomSheet = /** @class */ (function () {
     };
     /**
      * Attaches the bottom sheet container component to the overlay.
+     */
+    /**
+     * Attaches the bottom sheet container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
      */
     MatBottomSheet.prototype._attachContainer = /**
      * Attaches the bottom sheet container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
@@ -693,11 +719,17 @@ var MatBottomSheet = /** @class */ (function () {
     };
     /**
      * Creates a new overlay and places it in the correct location.
+     * @param config The user-specified bottom sheet config.
+     */
+    /**
+     * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified bottom sheet config.
      * @return {?}
      */
     MatBottomSheet.prototype._createOverlay = /**
      * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified bottom sheet config.
      * @return {?}
      */
@@ -721,6 +753,12 @@ var MatBottomSheet = /** @class */ (function () {
     };
     /**
      * Creates an injector to be used inside of a bottom sheet component.
+     * @param config Config that was used to create the bottom sheet.
+     * @param bottomSheetRef Reference to the bottom sheet.
+     */
+    /**
+     * Creates an injector to be used inside of a bottom sheet component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the bottom sheet.
      * @param {?} bottomSheetRef Reference to the bottom sheet.
@@ -728,6 +766,7 @@ var MatBottomSheet = /** @class */ (function () {
      */
     MatBottomSheet.prototype._createInjector = /**
      * Creates an injector to be used inside of a bottom sheet component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the bottom sheet.
      * @param {?} bottomSheetRef Reference to the bottom sheet.

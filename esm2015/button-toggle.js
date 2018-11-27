@@ -14,18 +14,20 @@ import { mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/m
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to configure the
  * default options for all button toggles within an app.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS');
-/** *
+/**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatButtonToggleGroup),
@@ -192,6 +194,7 @@ class MatButtonToggleGroup {
         this.value = value;
         this._changeDetector.markForCheck();
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -199,6 +202,7 @@ class MatButtonToggleGroup {
     registerOnChange(fn) {
         this._controlValueAccessorChangeFn = fn;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -206,6 +210,7 @@ class MatButtonToggleGroup {
     registerOnTouched(fn) {
         this._onTouched = fn;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
@@ -223,7 +228,7 @@ class MatButtonToggleGroup {
         /** @type {?} */
         const source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
         /** @type {?} */
-        const event = new MatButtonToggleChange(/** @type {?} */ ((source)), this.value);
+        const event = new MatButtonToggleChange((/** @type {?} */ (source)), this.value);
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     }
@@ -238,7 +243,7 @@ class MatButtonToggleGroup {
         // Deselect the currently-selected toggle, if we're in single-selection
         // mode and the button being toggled isn't selected at the moment.
         if (!this.multiple && this.selected && !toggle.checked) {
-            (/** @type {?} */ (this.selected)).checked = false;
+            ((/** @type {?} */ (this.selected))).checked = false;
         }
         if (select) {
             this._selectionModel.select(toggle);
@@ -278,6 +283,7 @@ class MatButtonToggleGroup {
     }
     /**
      * Updates the selection state of the toggles in the group based on a value.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -300,6 +306,7 @@ class MatButtonToggleGroup {
     }
     /**
      * Clears the selected toggles.
+     * @private
      * @return {?}
      */
     _clearSelection() {
@@ -308,6 +315,7 @@ class MatButtonToggleGroup {
     }
     /**
      * Selects a value if there's a toggle that corresponds to it.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -355,6 +363,7 @@ MatButtonToggleGroup.propDecorators = {
     disabled: [{ type: Input }],
     change: [{ type: Output }]
 };
+// Boilerplate for applying mixins to the MatButtonToggle class.
 /**
  * \@docs-private
  */
@@ -556,7 +565,7 @@ MatButtonToggle.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatButtonToggleModule {
 }
@@ -570,12 +579,12 @@ MatButtonToggleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleGroupMultiple, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule };

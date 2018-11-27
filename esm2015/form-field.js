@@ -19,7 +19,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 let nextUniqueId = 0;
@@ -47,14 +47,17 @@ MatError.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the MatFormField.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matFormFieldAnimations = {
-    /** Animation that transitions the form field's error and hint messages. */
+    /**
+     * Animation that transitions the form field's error and hint messages.
+     */
     transitionMessages: trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
         state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
@@ -67,7 +70,7 @@ const matFormFieldAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -80,7 +83,7 @@ class MatFormFieldControl {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -108,7 +111,7 @@ function getMatFormFieldMissingControlError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 let nextUniqueId$1 = 0;
@@ -146,7 +149,7 @@ MatHint.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The floating label for a `mat-form-field`.
@@ -161,7 +164,7 @@ MatLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The placeholder text for an `MatFormField`.
@@ -179,7 +182,7 @@ MatPlaceholder.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Prefix to be placed the the front of the form field.
@@ -194,7 +197,7 @@ MatPrefix.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Suffix to be placed at the end of the form field.
@@ -209,7 +212,7 @@ MatSuffix.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 let nextUniqueId$2 = 0;
@@ -229,15 +232,17 @@ class MatFormFieldBase {
         this._elementRef = _elementRef;
     }
 }
-/** *
+/**
  * Base class to which we're applying the form field mixins.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
-/** *
+/**
  * Injection token that can be used to configure the
  * default options for all form field within an app.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
@@ -376,7 +381,7 @@ class MatFormField extends _MatFormFieldMixinBase {
             this._elementRef.nativeElement.classList.add(`mat-form-field-type-${control.controlType}`);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(() => {
+        control.stateChanges.pipe(startWith((/** @type {?} */ (null)))).subscribe(() => {
             this._validatePlaceholders();
             this._syncDescribedByIds();
             this._changeDetectorRef.markForCheck();
@@ -490,6 +495,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `mat-placeholder` directive).
+     * @private
      * @return {?}
      */
     _validatePlaceholders() {
@@ -499,6 +505,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     }
     /**
      * Does any extra processing that is required when handling the hints.
+     * @private
      * @return {?}
      */
     _processHints() {
@@ -508,6 +515,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     /**
      * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
+     * @private
      * @return {?}
      */
     _validateHints() {
@@ -535,6 +543,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.
+     * @private
      * @return {?}
      */
     _syncDescribedByIds() {
@@ -566,6 +575,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     }
     /**
      * Throws an error if the form field's control is missing.
+     * @protected
      * @return {?}
      */
     _validateControlChild() {
@@ -591,7 +601,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
-        if (!/** @type {?} */ ((document.documentElement)).contains(this._elementRef.nativeElement)) {
+        if (!(/** @type {?} */ (document.documentElement)).contains(this._elementRef.nativeElement)) {
             this._outlineGapCalculationNeeded = true;
             return;
         }
@@ -626,6 +636,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     }
     /**
      * Gets the start end of the rect considering the current directionality.
+     * @private
      * @param {?} rect
      * @return {?}
      */
@@ -634,6 +645,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     }
     /**
      * Updates the outline gap the new time the zone stabilizes.
+     * @private
      * @return {?}
      */
     _updateOutlineGapOnStable() {
@@ -715,7 +727,7 @@ MatFormField.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatFormFieldModule {
 }
@@ -748,12 +760,12 @@ MatFormFieldModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };

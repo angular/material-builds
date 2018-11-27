@@ -12,17 +12,18 @@ import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token used to provide a grid list to a tile and to avoid circular imports.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_GRID_LIST = new InjectionToken('MAT_GRID_LIST');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatGridTile {
     /**
@@ -63,7 +64,7 @@ class MatGridTile {
      * @return {?}
      */
     _setStyle(property, value) {
-        (/** @type {?} */ (this._element.nativeElement.style))[property] = value;
+        ((/** @type {?} */ (this._element.nativeElement.style)))[property] = value;
     }
 }
 MatGridTile.decorators = [
@@ -154,7 +155,7 @@ MatGridTileFooterCssMatStyler.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -217,10 +218,12 @@ class TileCoordinator {
     }
     /**
      * Calculates the row and col position of a tile.
+     * @private
      * @param {?} tile
      * @return {?}
      */
     _trackTile(tile) {
+        // Find a gap large enough for this tile.
         /** @type {?} */
         const gapStartIndex = this._findMatchingGap(tile.colspan);
         // Place tile in the resulting gap.
@@ -232,6 +235,7 @@ class TileCoordinator {
     }
     /**
      * Finds the next available space large enough to fit the tile.
+     * @private
      * @param {?} tileCols
      * @return {?}
      */
@@ -240,6 +244,7 @@ class TileCoordinator {
             throw Error(`mat-grid-list: tile with colspan ${tileCols} is wider than ` +
                 `grid with cols="${this.tracker.length}".`);
         }
+        // Start index is inclusive, end index is exclusive.
         /** @type {?} */
         let gapStartIndex = -1;
         /** @type {?} */
@@ -274,6 +279,7 @@ class TileCoordinator {
     }
     /**
      * Move "down" to the next row.
+     * @private
      * @return {?}
      */
     _nextRow() {
@@ -287,6 +293,7 @@ class TileCoordinator {
     /**
      * Finds the end index (exclusive) of a gap given the index from which to start looking.
      * The gap ends when a non-zero value is found.
+     * @private
      * @param {?} gapStartIndex
      * @return {?}
      */
@@ -301,6 +308,7 @@ class TileCoordinator {
     }
     /**
      * Update the tile tracker to account for the given tile in the given space.
+     * @private
      * @param {?} start
      * @param {?} tile
      * @return {?}
@@ -328,13 +336,14 @@ class TilePosition {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/** *
+/**
  * RegExp that can be used to check whether a value will
  * be allowed inside a CSS `calc()` expression.
-  @type {?} */
+ * @type {?}
+ */
 const cssCalcAllowedValue = /^-?\d+((\.\d+)?[A-Za-z%$]?)+$/;
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
@@ -407,8 +416,11 @@ class TileStyler {
      * @return {?}
      */
     setStyle(tile, rowIndex, colIndex) {
+        // Percent of the available horizontal space that one column takes up.
         /** @type {?} */
         let percentWidthPerTile = 100 / this._cols;
+        // Fraction of the vertical gutter size that each column takes up.
+        // For example, if there are 5 columns, each column uses 4/5 = 0.8 times the gutter width.
         /** @type {?} */
         let gutterWidthFractionPerTile = (this._cols - 1) / this._cols;
         this.setColStyles(tile, colIndex, percentWidthPerTile, gutterWidthFractionPerTile);
@@ -423,8 +435,11 @@ class TileStyler {
      * @return {?}
      */
     setColStyles(tile, colIndex, percentWidth, gutterWidth) {
+        // Base horizontal size of a column.
         /** @type {?} */
         let baseTileWidth = this.getBaseTileSize(percentWidth, gutterWidth);
+        // The width and horizontal position of each tile is always calculated the same way, but the
+        // height and vertical position depends on the rowMode.
         /** @type {?} */
         let side = this._direction === 'rtl' ? 'right' : 'left';
         tile._setStyle(side, this.getTilePosition(baseTileWidth, colIndex));
@@ -561,6 +576,7 @@ class RatioTileStyler extends TileStyler {
         });
     }
     /**
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -587,10 +603,13 @@ class FitTileStyler extends TileStyler {
      * @return {?}
      */
     setRowStyles(tile, rowIndex) {
+        // Percent of the available vertical space that one row takes up.
         /** @type {?} */
         let percentHeightPerTile = 100 / this._rowspan;
+        // Fraction of the horizontal gutter size that each column takes up.
         /** @type {?} */
         let gutterHeightPerTile = (this._rows - 1) / this._rows;
+        // Base vertical size of a column.
         /** @type {?} */
         let baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterHeightPerTile);
         tile._setStyle('top', this.getTilePosition(baseTileHeight, rowIndex));
@@ -626,8 +645,11 @@ function normalizeUnits(value) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(kara): Conditional (responsive) column count / row size.
+// TODO(kara): Re-layout on window resize / media change (debounced).
+// TODO(kara): gridTileHeader and gridTileFooter.
 /** @type {?} */
 const MAT_FIT_MODE = 'fit';
 class MatGridList {
@@ -699,6 +721,7 @@ class MatGridList {
     }
     /**
      * Throw a friendly error if cols property is missing
+     * @private
      * @return {?}
      */
     _checkCols() {
@@ -709,6 +732,7 @@ class MatGridList {
     }
     /**
      * Default to equal width:height if rowHeight property is missing
+     * @private
      * @return {?}
      */
     _checkRowHeight() {
@@ -718,6 +742,7 @@ class MatGridList {
     }
     /**
      * Creates correct Tile Styler subtype based on rowHeight passed in by user
+     * @private
      * @param {?} rowHeight
      * @return {?}
      */
@@ -737,6 +762,7 @@ class MatGridList {
     }
     /**
      * Computes and applies the size and position for all children grid tiles.
+     * @private
      * @return {?}
      */
     _layoutTiles() {
@@ -765,7 +791,7 @@ class MatGridList {
      */
     _setListStyle(style) {
         if (style) {
-            (/** @type {?} */ (this._element.nativeElement.style))[style[0]] = style[1];
+            ((/** @type {?} */ (this._element.nativeElement.style)))[style[0]] = style[1];
         }
     }
 }
@@ -799,7 +825,7 @@ MatGridList.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatGridListModule {
 }
@@ -829,13 +855,13 @@ MatGridListModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa3 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa2 };
 //# sourceMappingURL=grid-list.js.map

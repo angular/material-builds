@@ -16,7 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -59,6 +59,7 @@ class MatPaginatorIntl {
             length = Math.max(length, 0);
             /** @type {?} */
             const startIndex = page * pageSize;
+            // If the start index exceeds the list length, do not try and fix the end index to the end.
             /** @type {?} */
             const endIndex = startIndex < length ?
                 Math.min(startIndex + pageSize, length) :
@@ -79,9 +80,10 @@ MatPaginatorIntl.decorators = [
 function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatPaginatorIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,
@@ -91,11 +93,12 @@ const MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The default page size if there is no page size and there are no provided page size options.
-  @type {?} */
+ * @type {?}
+ */
 const DEFAULT_PAGE_SIZE = 50;
 /**
  * Change event object that is emitted when the user selects a
@@ -103,6 +106,7 @@ const DEFAULT_PAGE_SIZE = 50;
  */
 class PageEvent {
 }
+// Boilerplate for applying mixins to MatPaginator.
 /**
  * \@docs-private
  */
@@ -316,6 +320,8 @@ class MatPaginator extends _MatPaginatorBase {
      * @return {?}
      */
     _changePageSize(pageSize) {
+        // Current page needs to be updated to reflect the new page size. Navigate to the page
+        // containing the previous page's first item.
         /** @type {?} */
         const startIndex = this.pageIndex * this.pageSize;
         /** @type {?} */
@@ -341,6 +347,7 @@ class MatPaginator extends _MatPaginatorBase {
     /**
      * Updates the list of page size options to display to the user. Includes making sure that
      * the page size is an option and that the list is sorted.
+     * @private
      * @return {?}
      */
     _updateDisplayedPageSizeOptions() {
@@ -363,6 +370,7 @@ class MatPaginator extends _MatPaginatorBase {
     }
     /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @private
      * @param {?} previousPageIndex
      * @return {?}
      */
@@ -406,7 +414,7 @@ MatPaginator.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatPaginatorModule {
 }
@@ -426,12 +434,12 @@ MatPaginatorModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatPaginatorModule, PageEvent, MatPaginatorBase, _MatPaginatorBase, MatPaginator, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER };

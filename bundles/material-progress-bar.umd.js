@@ -42,12 +42,19 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(josephperrott): Benchpress tests.
+// TODO(josephperrott): Add ARIA attributes for progress bar "for".
+// Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// TODO(josephperrott): Benchpress tests.
+// TODO(josephperrott): Add ARIA attributes for progress bar "for".
+// Boilerplate for applying mixins to MatProgressBar.
+/**
  * \@docs-private
  */
 MatProgressBarBase = /** @class */ (function () {
@@ -58,11 +65,12 @@ MatProgressBarBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatProgressBarMixinBase = core$1.mixinColor(MatProgressBarBase, 'primary');
-/** *
+/**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
 /**
  * \@docs-private
@@ -79,19 +87,21 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
         getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
     };
 }
-/** *
+/**
  * Counter used to generate unique IDs for progress bars.
-  @type {?} */
+ * @type {?}
+ */
 var progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
  */
 var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);
-    function MatProgressBar(_elementRef, _ngZone, _animationMode, /**
-                   * @deprecated `location` parameter to be made required.
-                   * @breaking-change 8.0.0
-                   */
+    function MatProgressBar(_elementRef, _ngZone, _animationMode, 
+    /**
+     * @deprecated `location` parameter to be made required.
+     * @breaking-change 8.0.0
+     */
     location) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
@@ -125,6 +135,12 @@ var MatProgressBar = /** @class */ (function (_super) {
          * ID of the progress bar.
          */
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
+        // We need to prefix the SVG reference with the current path, otherwise they won't work
+        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
+        // because named route URLs can contain parentheses (see #12338). Also we don't use since
+        // we can't tell the difference between whether
+        // the consumer is using the hash location strategy or not, because `Location` normalizes
+        // both `/#/foo/bar` and `/foo/bar` to the same thing.
         /** @type {?} */
         var path = location ? location.getPathname().split('#')[0] : '';
         _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
@@ -232,12 +248,15 @@ var MatProgressBar = /** @class */ (function (_super) {
     function () {
         this._animationEndSubscription.unsubscribe();
     };
+    /** Emit an animationEnd event if in determinate or buffer mode. */
     /**
      * Emit an animationEnd event if in determinate or buffer mode.
+     * @private
      * @return {?}
      */
     MatProgressBar.prototype.emitAnimationEnd = /**
      * Emit an animationEnd event if in determinate or buffer mode.
+     * @private
      * @return {?}
      */
     function () {
@@ -295,7 +314,7 @@ function clamp(v, min, max) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatProgressBarModule = /** @class */ (function () {
     function MatProgressBarModule() {

@@ -42,11 +42,12 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
@@ -54,13 +55,15 @@ var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for slide-toggle components.
 /** @type {?} */
 var nextUniqueId = 0;
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSlideToggle; }),
@@ -79,10 +82,13 @@ MatSlideToggleChange = /** @class */ (function () {
     }
     return MatSlideToggleChange;
 }());
+// Boilerplate for applying mixins to MatSlideToggle.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSlideToggle.
+/**
  * \@docs-private
  */
 MatSlideToggleBase = /** @class */ (function () {
@@ -98,10 +104,11 @@ var _MatSlideToggleMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mix
  */
 var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, /**
-                   * @deprecated The `_platform` parameter to be removed.
-                   * @breaking-change 8.0.0
-                   */
+    function MatSlideToggle(elementRef, 
+    /**
+     * @deprecated The `_platform` parameter to be removed.
+     * @breaking-change 8.0.0
+     */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -372,23 +379,31 @@ var MatSlideToggle = /** @class */ (function (_super) {
     };
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     */
+    /**
+     * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * @private
      * @return {?}
      */
     MatSlideToggle.prototype._emitChangeEvent = /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * @private
      * @return {?}
      */
     function () {
         this.onChange(this.checked);
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     };
+    /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
     /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @private
      * @param {?} distance
      * @return {?}
      */
     MatSlideToggle.prototype._getDragPercentage = /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @private
      * @param {?} distance
      * @return {?}
      */
@@ -430,6 +445,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
             /** @type {?} */
             var direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
             this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
+            // Calculate the moved distance based on the thumb bar width.
             /** @type {?} */
             var dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
             this._thumbEl.nativeElement.style.transform = "translate3d(" + dragX + "px, 0, 0)";
@@ -537,7 +553,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {

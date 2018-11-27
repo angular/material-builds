@@ -13,10 +13,11 @@ import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 let nextId = 0;
+// Boilerplate for applying mixins to MatBadge.
 /**
  * \@docs-private
  */
@@ -152,6 +153,7 @@ class MatBadge extends _MatBadgeMixinBase {
     }
     /**
      * Injects a span element into the DOM with the content.
+     * @private
      * @return {?}
      */
     _updateTextContent() {
@@ -165,9 +167,11 @@ class MatBadge extends _MatBadgeMixinBase {
     }
     /**
      * Creates the badge element
+     * @private
      * @return {?}
      */
     _createBadgeElement() {
+        // @breaking-change 8.0.0 Remove null check for _renderer
         /** @type {?} */
         const rootNode = this._renderer || this._document;
         /** @type {?} */
@@ -196,11 +200,13 @@ class MatBadge extends _MatBadgeMixinBase {
     }
     /**
      * Sets the aria-label property on the element
+     * @private
      * @param {?} newDescription
      * @param {?} oldDescription
      * @return {?}
      */
     _updateHostAriaDescription(newDescription, oldDescription) {
+        // ensure content available before setting label
         /** @type {?} */
         const content = this._updateTextContent();
         if (oldDescription) {
@@ -212,6 +218,7 @@ class MatBadge extends _MatBadgeMixinBase {
     }
     /**
      * Adds css theme class given the color to the component host
+     * @private
      * @param {?} colorPalette
      * @return {?}
      */
@@ -265,7 +272,7 @@ MatBadge.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatBadgeModule {
 }
@@ -282,12 +289,12 @@ MatBadgeModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatBadgeModule, MatBadgeBase, _MatBadgeMixinBase, MatBadge };

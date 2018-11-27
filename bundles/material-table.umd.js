@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -75,7 +75,7 @@ var MatTable = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Cell definition for the mat-table.
@@ -234,7 +234,7 @@ var MatCell = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Header row definition for the mat-table.
@@ -364,11 +364,13 @@ var MatRow = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var EXPORTED_DECLARATIONS = [
+    // Table
     MatTable,
+    // Template defs
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatColumnDef,
@@ -376,9 +378,11 @@ var EXPORTED_DECLARATIONS = [
     MatRowDef,
     MatFooterCellDef,
     MatFooterRowDef,
+    // Cell directives
     MatHeaderCell,
     MatCell,
     MatFooterCell,
+    // Row directions
     MatHeaderRow,
     MatRow,
     MatFooterRow,
@@ -398,12 +402,13 @@ var MatTableModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
  * flaky browser support and the value not being defined in Closure's typings.
-  @type {?} */
+ * @type {?}
+ */
 var MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
@@ -452,7 +457,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
             /** @type {?} */
-            var value = (/** @type {?} */ (data))[sortHeaderId];
+            var value = ((/** @type {?} */ (data)))[sortHeaderId];
             if (coercion._isNumberValue(value)) {
                 /** @type {?} */
                 var numberValue = Number(value);
@@ -484,6 +489,10 @@ MatTableDataSource = /** @class */ (function (_super) {
                 var valueA = _this.sortingDataAccessor(a, active);
                 /** @type {?} */
                 var valueB = _this.sortingDataAccessor(b, active);
+                // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
+                // one value exists while the other doesn't. In this case, existing value should come first.
+                // This avoids inconsistent results when comparing values to undefined/null.
+                // If neither value exists, return 0 (equal).
                 /** @type {?} */
                 var comparatorResult = 0;
                 if (valueA != null && valueB != null) {
@@ -515,6 +524,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @return Whether the filter matches against the data
          */
         _this.filterPredicate = function (data, filter) {
+            // Transform the data into a lowercase string of all property values.
             /** @type {?} */
             var dataStr = Object.keys(data).reduce(function (currentTerm, key) {
                 // Use an obscure Unicode character to delimit the words in the concatenated string.
@@ -523,8 +533,9 @@ MatTableDataSource = /** @class */ (function (_super) {
                 // that has a very low chance of being typed in by somebody in a text field. This one in
                 // particular is "White up-pointing triangle with dot" from
                 // https://en.wikipedia.org/wiki/List_of_Unicode_characters
-                return currentTerm + (/** @type {?} */ (data))[key] + '◬';
+                return currentTerm + ((/** @type {?} */ (data)))[key] + '◬';
             }, '').toLowerCase();
+            // Transform the filter by converting it to lowercase and removing whitespace.
             /** @type {?} */
             var transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
@@ -642,6 +653,12 @@ MatTableDataSource = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
+        // The events should emit whenever the component emits a change or initializes, or if no
+        // component is provided, a stream with just a null event should be provided.
+        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
+        // pipeline can progress to the next step. Note that the value from these streams are not used,
+        // they purely act as a signal to progress in the pipeline.
         /** @type {?} */
         var sortChange = this._sort ?
             rxjs.merge(this._sort.sortChange, this._sort.initialized) :
@@ -652,18 +669,21 @@ MatTableDataSource = /** @class */ (function (_super) {
             rxjs.of(null);
         /** @type {?} */
         var dataStream = this._data;
+        // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
         var filteredData = rxjs.combineLatest(dataStream, this._filter)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
         }));
+        // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
         var orderedData = rxjs.combineLatest(filteredData, sortChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }));
+        // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
         var paginatedData = rxjs.combineLatest(orderedData, pageChange)
             .pipe(operators.map(function (_a) {

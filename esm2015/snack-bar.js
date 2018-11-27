@@ -19,7 +19,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
@@ -103,6 +103,7 @@ class MatSnackBarRef {
     }
     /**
      * Cleans up the DOM after closing.
+     * @private
      * @return {?}
      */
     _finishDismiss() {
@@ -139,11 +140,12 @@ class MatSnackBarRef {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a snack bar.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
@@ -181,7 +183,7 @@ class MatSnackBarConfig {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -230,14 +232,17 @@ SimpleSnackBar.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material snack bar.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matSnackBarAnimations = {
-    /** Animation that shows and hides a snack bar. */
+    /**
+     * Animation that shows and hides a snack bar.
+     */
     snackBarState: trigger('state', [
         state('void, hidden', style({
             transform: 'scale(0.8)',
@@ -256,7 +261,7 @@ const matSnackBarAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Internal component that wraps user-provided snack bar content.
@@ -336,6 +341,8 @@ class MatSnackBarContainer extends BasePortalOutlet {
             this._completeExit();
         }
         if (toState === 'visible') {
+            // Note: we shouldn't use `this` inside the zone callback,
+            // because it can cause a memory leak.
             /** @type {?} */
             const onEnter = this._onEnter;
             this._ngZone.run(() => {
@@ -376,6 +383,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
     /**
      * Waits for the zone to settle before removing the element. Helps prevent
      * errors where we end up removing an element which is in the middle of an animation.
+     * @private
      * @return {?}
      */
     _completeExit() {
@@ -386,6 +394,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
     }
     /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
+     * @private
      * @return {?}
      */
     _applySnackBarClasses() {
@@ -411,6 +420,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
     }
     /**
      * Asserts that no content is already attached to the container.
+     * @private
      * @return {?}
      */
     _assertNotAttached() {
@@ -447,7 +457,7 @@ MatSnackBarContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSnackBarModule {
 }
@@ -468,11 +478,12 @@ MatSnackBarModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify default snack bar.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
     factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
@@ -541,7 +552,7 @@ class MatSnackBar {
      * @return {?}
      */
     openFromComponent(component, config) {
-        return /** @type {?} */ (this._attach(component, config));
+        return (/** @type {?} */ (this._attach(component, config)));
     }
     /**
      * Creates and dispatches a snack bar with a custom template for the content, removing any
@@ -592,6 +603,7 @@ class MatSnackBar {
     }
     /**
      * Attaches the snack bar container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
@@ -612,6 +624,7 @@ class MatSnackBar {
     }
     /**
      * Places a new component or a template as the content of the snack bar container.
+     * @private
      * @template T
      * @param {?} content
      * @param {?=} userConfig
@@ -628,10 +641,10 @@ class MatSnackBar {
         const snackBarRef = new MatSnackBarRef(container, overlayRef);
         if (content instanceof TemplateRef) {
             /** @type {?} */
-            const portal = new TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
+            const portal = new TemplatePortal(content, (/** @type {?} */ (null)), (/** @type {?} */ ({
                 $implicit: config.data,
                 snackBarRef
-            }));
+            })));
             snackBarRef.instance = container.attachTemplatePortal(portal);
         }
         else {
@@ -661,6 +674,7 @@ class MatSnackBar {
     }
     /**
      * Animates the old snack bar out and the new one in.
+     * @private
      * @param {?} snackBarRef
      * @param {?} config
      * @return {?}
@@ -690,7 +704,7 @@ class MatSnackBar {
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (config.duration && config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter(/** @type {?} */ ((config.duration))));
+            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter((/** @type {?} */ (config.duration))));
         }
         if (config.announcementMessage) {
             this._live.announce(config.announcementMessage, config.politeness);
@@ -698,6 +712,7 @@ class MatSnackBar {
     }
     /**
      * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified snack bar config.
      * @return {?}
      */
@@ -707,6 +722,7 @@ class MatSnackBar {
         overlayConfig.direction = config.direction;
         /** @type {?} */
         let positionStrategy = this._overlay.position().global();
+        // Set horizontal position.
         /** @type {?} */
         const isRtl = config.direction === 'rtl';
         /** @type {?} */
@@ -736,6 +752,7 @@ class MatSnackBar {
     }
     /**
      * Creates an injector to be used inside of a snack bar component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the snack bar.
      * @param {?} snackBarRef Reference to the snack bar.
@@ -766,12 +783,12 @@ MatSnackBar.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };

@@ -19,7 +19,7 @@ import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -86,12 +86,13 @@ class MatDialogConfig {
          * the `HashLocationStrategy`).
          */
         this.closeOnNavigation = true;
+        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const animationBody = [
@@ -103,20 +104,25 @@ const animationBody = [
     transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
     transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
 ];
-/** *
+/**
  * Animations used by MatDialog.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matDialogAnimations = {
-    /** Animation that is applied on the dialog container by defalt. */
+    /**
+     * Animation that is applied on the dialog container by defalt.
+     */
     dialogContainer: trigger('dialogContainer', animationBody),
-    /** @deprecated @breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead. */
+    /**
+     * @deprecated \@breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead.
+     */
     slideDialog: trigger('slideDialog', animationBody)
 };
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -192,6 +198,7 @@ class MatDialogContainer extends BasePortalOutlet {
     }
     /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     _trapFocus() {
@@ -207,6 +214,7 @@ class MatDialogContainer extends BasePortalOutlet {
     }
     /**
      * Restores focus to the element that was focused before the dialog opened.
+     * @private
      * @return {?}
      */
     _restoreFocus() {
@@ -222,11 +230,12 @@ class MatDialogContainer extends BasePortalOutlet {
     }
     /**
      * Saves a reference to the element that was focused before the dialog was opened.
+     * @private
      * @return {?}
      */
     _savePreviouslyFocusedElement() {
         if (this._document) {
-            this._elementFocusedBeforeDialogWasOpened = /** @type {?} */ (this._document.activeElement);
+            this._elementFocusedBeforeDialogWasOpened = (/** @type {?} */ (this._document.activeElement));
             // Note that there is no focus method when rendering on the server.
             if (this._elementRef.nativeElement.focus) {
                 // Move focus onto the dialog immediately in order to prevent the user from accidentally
@@ -307,8 +316,10 @@ MatDialogContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(jelbourn): resizing
+// Counter for unique dialog ids.
 /** @type {?} */
 let uniqueId = 0;
 /**
@@ -359,7 +370,7 @@ class MatDialogRef {
             this._beforeClosed.complete();
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
-            this.componentInstance = /** @type {?} */ ((null));
+            this.componentInstance = (/** @type {?} */ (null));
             this._overlayRef.dispose();
         });
         _overlayRef.keydownEvents()
@@ -419,12 +430,14 @@ class MatDialogRef {
     }
     /**
      * Updates the dialog's position.
+     * @template THIS
+     * @this {THIS}
      * @param {?=} position New dialog position.
-     * @return {?}
+     * @return {THIS}
      */
     updatePosition(position) {
         /** @type {?} */
-        let strategy = this._getPositionStrategy();
+        let strategy = (/** @type {?} */ (this))._getPositionStrategy();
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);
         }
@@ -437,19 +450,21 @@ class MatDialogRef {
         else {
             strategy.centerVertically();
         }
-        this._overlayRef.updatePosition();
-        return this;
+        (/** @type {?} */ (this))._overlayRef.updatePosition();
+        return (/** @type {?} */ (this));
     }
     /**
      * Updates the dialog's width and height.
+     * @template THIS
+     * @this {THIS}
      * @param {?=} width New width of the dialog.
      * @param {?=} height New height of the dialog.
-     * @return {?}
+     * @return {THIS}
      */
     updateSize(width = '', height = '') {
-        this._getPositionStrategy().width(width).height(height);
-        this._overlayRef.updatePosition();
-        return this;
+        (/** @type {?} */ (this))._getPositionStrategy().width(width).height(height);
+        (/** @type {?} */ (this))._overlayRef.updatePosition();
+        return (/** @type {?} */ (this));
     }
     /**
      * Gets an observable that is notified when the dialog is finished opening.
@@ -471,28 +486,32 @@ class MatDialogRef {
     }
     /**
      * Fetches the position strategy object from the overlay ref.
+     * @private
      * @return {?}
      */
     _getPositionStrategy() {
-        return /** @type {?} */ (this._overlayRef.getConfig().positionStrategy);
+        return (/** @type {?} */ (this._overlayRef.getConfig().positionStrategy));
     }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a dialog.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
-/** *
+/**
  * Injection token that can be used to specify default dialog options.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog-default-options');
-/** *
+/**
  * Injection token that determines the scroll handling while the dialog is open.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
@@ -510,9 +529,10 @@ function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay) {
 function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.block();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_DIALOG_SCROLL_STRATEGY,
     deps: [Overlay],
@@ -635,6 +655,7 @@ class MatDialog {
     }
     /**
      * Creates the overlay into which the dialog will be loaded.
+     * @private
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
@@ -645,6 +666,7 @@ class MatDialog {
     }
     /**
      * Creates an overlay config from a dialog config.
+     * @private
      * @param {?} dialogConfig The dialog configuration.
      * @return {?} The overlay configuration.
      */
@@ -669,6 +691,7 @@ class MatDialog {
     }
     /**
      * Attaches an MatDialogContainer to a dialog's already-created overlay.
+     * @private
      * @param {?} overlay Reference to the dialog's underlying overlay.
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to a ComponentRef for the attached container.
@@ -688,6 +711,7 @@ class MatDialog {
     }
     /**
      * Attaches the user-provided component to the already-created MatDialogContainer.
+     * @private
      * @template T, R
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
@@ -697,6 +721,8 @@ class MatDialog {
      * @return {?} A promise resolving to the MatDialogRef that should be returned to the user.
      */
     _attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config) {
+        // Create a reference to the dialog we're creating in order to give the user a handle
+        // to modify and close it.
         /** @type {?} */
         const dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
@@ -708,7 +734,7 @@ class MatDialog {
             });
         }
         if (componentOrTemplateRef instanceof TemplateRef) {
-            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef })));
+            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({ $implicit: config.data, dialogRef }))));
         }
         else {
             /** @type {?} */
@@ -725,6 +751,7 @@ class MatDialog {
     /**
      * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
      * of a dialog to close itself and, optionally, to return a value.
+     * @private
      * @template T
      * @param {?} config Config object that is used to construct the dialog.
      * @param {?} dialogRef Reference to the dialog.
@@ -734,6 +761,10 @@ class MatDialog {
     _createInjector(config, dialogRef, dialogContainer) {
         /** @type {?} */
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
+        // content are created out of the same ViewContainerRef and as such, are siblings for injector
+        // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
+        // added to the injection tokens.
         /** @type {?} */
         const injectionTokens = new WeakMap([
             [MatDialogContainer, dialogContainer],
@@ -751,6 +782,7 @@ class MatDialog {
     }
     /**
      * Removes a dialog from the array of open dialogs.
+     * @private
      * @param {?} dialogRef Dialog to be removed.
      * @return {?}
      */
@@ -777,6 +809,7 @@ class MatDialog {
     }
     /**
      * Hides all of the content that isn't an overlay from assistive technology.
+     * @private
      * @return {?}
      */
     _hideNonDialogContentFromAssistiveTechnology() {
@@ -801,6 +834,7 @@ class MatDialog {
     }
     /**
      * Closes all of the dialogs in an array.
+     * @private
      * @param {?} dialogs
      * @return {?}
      */
@@ -841,11 +875,12 @@ function _applyConfigDefaults(config, defaultOptions) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Counter used to generate unique IDs for dialog elements.
-  @type {?} */
+ * @type {?}
+ */
 let dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
@@ -875,7 +910,7 @@ class MatDialogClose {
             // views cannot be given a custom injector. Instead, we look up the DialogRef by
             // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
             // be resolved at constructor time.
-            this.dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+            this.dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
     }
     /**
@@ -884,7 +919,7 @@ class MatDialogClose {
      */
     ngOnChanges(changes) {
         /** @type {?} */
-        const proxiedChange = changes["_matDialogClose"] || changes["_matDialogCloseResult"];
+        const proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
@@ -932,7 +967,7 @@ class MatDialogTitle {
      */
     ngOnInit() {
         if (!this._dialogRef) {
-            this._dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+            this._dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
         if (this._dialogRef) {
             Promise.resolve().then(() => {
@@ -999,12 +1034,12 @@ function getClosestDialog(element, openDialogs) {
     while (parent && !parent.classList.contains('mat-dialog-container')) {
         parent = parent.parentElement;
     }
-    return parent ? openDialogs.find(dialog => dialog.id === /** @type {?} */ ((parent)).id) : null;
+    return parent ? openDialogs.find(dialog => dialog.id === (/** @type {?} */ (parent)).id) : null;
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatDialogModule {
 }
@@ -1041,12 +1076,12 @@ MatDialogModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };

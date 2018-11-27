@@ -18,8 +18,9 @@ import { MatDividerModule } from '@angular/material/divider';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatList.
 /**
  * \@docs-private
  */
@@ -27,6 +28,7 @@ class MatListBase {
 }
 /** @type {?} */
 const _MatListMixinBase = mixinDisableRipple(MatListBase);
+// Boilerplate for applying mixins to MatListItem.
 /**
  * \@docs-private
  */
@@ -148,6 +150,8 @@ class MatListItem extends _MatListItemMixinBase {
         this._isInteractiveList = false;
         this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
         this._list = navList || list;
+        // If no type attributed is specified for <button>, set it to "button".
+        // If a type attribute is already specified, do nothing.
         /** @type {?} */
         const element = this._getHostElement();
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
@@ -205,7 +209,7 @@ MatListItem.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -221,9 +225,10 @@ class MatListOptionBase {
 }
 /** @type {?} */
 const _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSelectionList),
@@ -253,8 +258,7 @@ class MatListOption extends _MatListOptionMixinBase {
      * @param {?} _changeDetector
      * @param {?} selectionList
      */
-    constructor(_element, _changeDetector, /** @docs-private */
-    selectionList) {
+    constructor(_element, _changeDetector, selectionList) {
         super();
         this._element = _element;
         this._changeDetector = _changeDetector;
@@ -305,6 +309,11 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     ngOnInit() {
+        // List options that are selected at initialization can't be reported properly to the form
+        // control. This is because it takes some time until the selection-list knows about all
+        // available options. Also it can happen that the ControlValueAccessor has an initial value
+        // that should be used instead. Deferring the value change report to the next tick ensures
+        // that the form control value is not being overwritten.
         /** @type {?} */
         const wasSelected = this._selected;
         Promise.resolve().then(() => {
@@ -698,6 +707,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     }
     /**
      * Sets the selected options based on the specified values.
+     * @private
      * @param {?} values
      * @return {?}
      */
@@ -720,6 +730,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     }
     /**
      * Returns the values of the selected options.
+     * @private
      * @return {?}
      */
     _getSelectedOptionValues() {
@@ -727,6 +738,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     }
     /**
      * Toggles the state of the currently focused option if enabled.
+     * @private
      * @return {?}
      */
     _toggleFocusedOption() {
@@ -746,10 +758,13 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
+     * @private
      * @param {?} isSelected
      * @return {?}
      */
     _setAllOptionsSelected(isSelected) {
+        // Keep track of whether anything changed, because we only want to
+        // emit the changed event when something actually changed.
         /** @type {?} */
         let hasChanged = false;
         this.options.forEach(option => {
@@ -763,6 +778,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     }
     /**
      * Utility to ensure all indexes are valid.
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
@@ -771,6 +787,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     }
     /**
      * Returns the index of the specified list option.
+     * @private
      * @param {?} option
      * @return {?}
      */
@@ -814,7 +831,7 @@ MatSelectionList.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatListModule {
 }
@@ -850,12 +867,12 @@ MatListModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList };

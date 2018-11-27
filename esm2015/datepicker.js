@@ -25,7 +25,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -41,7 +41,7 @@ function createMissingDateImplError(provider) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Datepicker data that requires internationalization.
@@ -102,7 +102,7 @@ MatDatepickerIntl.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
@@ -169,12 +169,12 @@ class MatCalendarBody {
      */
     ngOnChanges(changes) {
         /** @type {?} */
-        const columnChanges = changes["numCols"];
+        const columnChanges = changes.numCols;
         const { rows, numCols } = this;
-        if (changes["rows"] || columnChanges) {
+        if (changes.rows || columnChanges) {
             this._firstRowOffset = rows && rows.length && rows[0].length ? numCols - rows[0].length : 0;
         }
-        if (changes["cellAspectRatio"] || columnChanges || !this._cellPadding) {
+        if (changes.cellAspectRatio || columnChanges || !this._cellPadding) {
             this._cellPadding = `${50 * this.cellAspectRatio / numCols}%`;
         }
         if (columnChanges || !this._cellWidth) {
@@ -244,7 +244,7 @@ MatCalendarBody.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const DAYS_PER_WEEK = 7;
@@ -289,6 +289,7 @@ class MatMonthView {
         const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
         /** @type {?} */
         const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
         /** @type {?} */
         let weekdays = longWeekdays.map((long, i) => {
             return { long, narrow: narrowWeekdays[i] };
@@ -381,6 +382,12 @@ class MatMonthView {
      * @return {?}
      */
     _handleCalendarBodyKeydown(event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         const oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -462,6 +469,7 @@ class MatMonthView {
     }
     /**
      * Creates MatCalendarCells for the dates in this month.
+     * @private
      * @return {?}
      */
     _createWeekCells() {
@@ -489,6 +497,7 @@ class MatMonthView {
     }
     /**
      * Date filter for the month
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -501,6 +510,7 @@ class MatMonthView {
     /**
      * Gets the date in this month that the given Date falls on.
      * Returns null if the given Date is in another month.
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -510,6 +520,7 @@ class MatMonthView {
     }
     /**
      * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @private
      * @param {?} d1
      * @param {?} d2
      * @return {?}
@@ -519,6 +530,7 @@ class MatMonthView {
             this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
     }
     /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -527,6 +539,7 @@ class MatMonthView {
     }
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     _isRtl() {
@@ -563,7 +576,7 @@ MatMonthView.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const yearsPerPage = 24;
@@ -703,6 +716,12 @@ class MatMultiYearView {
      * @return {?}
      */
     _handleCalendarBodyKeydown(event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         const oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -764,6 +783,7 @@ class MatMultiYearView {
     }
     /**
      * Creates an MatCalendarCell for the given year.
+     * @private
      * @param {?} year
      * @return {?}
      */
@@ -774,6 +794,7 @@ class MatMultiYearView {
     }
     /**
      * Whether the given year is enabled.
+     * @private
      * @param {?} year
      * @return {?}
      */
@@ -799,6 +820,7 @@ class MatMultiYearView {
         return false;
     }
     /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -807,6 +829,7 @@ class MatMultiYearView {
     }
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     _isRtl() {
@@ -841,7 +864,7 @@ MatMultiYearView.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal component used to display a single year in the datepicker.
@@ -961,6 +984,12 @@ class MatYearView {
      * @return {?}
      */
     _handleCalendarBodyKeydown(event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         const oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -1031,6 +1060,7 @@ class MatYearView {
     /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -1040,6 +1070,7 @@ class MatYearView {
     }
     /**
      * Creates an MatCalendarCell for the given month.
+     * @private
      * @param {?} month
      * @param {?} monthName
      * @return {?}
@@ -1051,6 +1082,7 @@ class MatYearView {
     }
     /**
      * Whether the given month is enabled.
+     * @private
      * @param {?} month
      * @return {?}
      */
@@ -1078,6 +1110,7 @@ class MatYearView {
     /**
      * Tests whether the combination month/year is after this.maxDate, considering
      * just the month and year of this.maxDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -1095,6 +1128,7 @@ class MatYearView {
     /**
      * Tests whether the combination month/year is before this.minDate, considering
      * just the month and year of this.minDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -1110,6 +1144,7 @@ class MatYearView {
         return false;
     }
     /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -1118,6 +1153,7 @@ class MatYearView {
     }
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     _isRtl() {
@@ -1153,7 +1189,7 @@ MatYearView.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default header for MatCalendar
@@ -1270,6 +1306,7 @@ class MatCalendarHeader {
     }
     /**
      * Whether the two dates represent the same view in the current view mode (month or year).
+     * @private
      * @param {?} date1
      * @param {?} date2
      * @return {?}
@@ -1468,7 +1505,7 @@ class MatCalendar {
      */
     ngOnChanges(changes) {
         /** @type {?} */
-        const change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
+        const change = changes.minDate || changes.maxDate || changes.dateFilter;
         if (change && !change.firstChange) {
             /** @type {?} */
             const view = this._getCurrentViewComponent();
@@ -1540,6 +1577,7 @@ class MatCalendar {
         this.currentView = view;
     }
     /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -1548,6 +1586,7 @@ class MatCalendar {
     }
     /**
      * Returns the component instance that corresponds to the current calendar view.
+     * @private
      * @return {?}
      */
     _getCurrentViewComponent() {
@@ -1593,14 +1632,17 @@ MatCalendar.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material datepicker.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matDatepickerAnimations = {
-    /** Transforms the height of the datepicker's calendar. */
+    /**
+     * Transforms the height of the datepicker's calendar.
+     */
     transformPanel: trigger('transformPanel', [
         state('void', style({
             opacity: 0,
@@ -1612,7 +1654,9 @@ const matDatepickerAnimations = {
         }))),
         transition('* => void', animate('100ms linear', style({ opacity: 0 })))
     ]),
-    /** Fades in the content of the calendar. */
+    /**
+     * Fades in the content of the calendar.
+     */
     fadeInCalendar: trigger('fadeInCalendar', [
         state('void', style({ opacity: 0 })),
         state('enter', style({ opacity: 1 })),
@@ -1624,15 +1668,17 @@ const matDatepickerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Used to generate a unique ID for each datepicker instance.
-  @type {?} */
+ * @type {?}
+ */
 let datepickerUid = 0;
-/** *
+/**
  * Injection token that determines the scroll handling while the calendar is open.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
@@ -1642,14 +1688,16 @@ const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 };
+// Boilerplate for applying mixins to MatDatepickerContent.
 /**
  * \@docs-private
  */
@@ -1711,6 +1759,9 @@ MatDatepickerContent.ctorParameters = () => [
 MatDatepickerContent.propDecorators = {
     _calendar: [{ type: ViewChild, args: [MatCalendar,] }]
 };
+// TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
+// template reference variables (e.g. #d vs #d="matDatepicker"). We can change this to a directive
+// if angular adds support for `exportAs: '$implicit'` on directives.
 /**
  * Component responsible for managing the datepicker popup/dialog.
  * @template D
@@ -2004,6 +2055,7 @@ class MatDatepicker {
     }
     /**
      * Open the calendar as a dialog.
+     * @private
      * @return {?}
      */
     _openAsDialog() {
@@ -2025,6 +2077,7 @@ class MatDatepicker {
     }
     /**
      * Open the calendar as a popup.
+     * @private
      * @return {?}
      */
     _openAsPopup() {
@@ -2046,6 +2099,7 @@ class MatDatepicker {
     }
     /**
      * Create the popup.
+     * @private
      * @return {?}
      */
     _createPopup() {
@@ -2068,6 +2122,7 @@ class MatDatepicker {
     }
     /**
      * Create the popup PositionStrategy.
+     * @private
      * @return {?}
      */
     _createPopupPositionStrategy() {
@@ -2105,6 +2160,7 @@ class MatDatepicker {
         ]);
     }
     /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -2113,6 +2169,7 @@ class MatDatepicker {
     }
     /**
      * Passes the current theme color along to the calendar overlay.
+     * @private
      * @return {?}
      */
     _setColor() {
@@ -2163,19 +2220,21 @@ MatDatepicker.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatDatepickerInput),
     multi: true
 };
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DATEPICKER_VALIDATORS = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatDatepickerInput),
@@ -2432,6 +2491,7 @@ class MatDatepickerInput {
     getConnectedOverlayOrigin() {
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
@@ -2439,6 +2499,7 @@ class MatDatepickerInput {
     writeValue(value) {
         this.value = value;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -2446,6 +2507,7 @@ class MatDatepickerInput {
     registerOnChange(fn) {
         this._cvaOnChange = fn;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -2453,6 +2515,7 @@ class MatDatepickerInput {
     registerOnTouched(fn) {
         this._onTouched = fn;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
@@ -2514,6 +2577,7 @@ class MatDatepickerInput {
     }
     /**
      * Formats a value and sets it on the input element.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -2522,6 +2586,7 @@ class MatDatepickerInput {
             value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
     }
     /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -2571,7 +2636,7 @@ MatDatepickerInput.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Can be used to override the icon of a `matDatepickerToggle`.
@@ -2619,7 +2684,7 @@ class MatDatepickerToggle {
      * @return {?}
      */
     ngOnChanges(changes) {
-        if (changes["datepicker"]) {
+        if (changes.datepicker) {
             this._watchStateChanges();
         }
     }
@@ -2646,6 +2711,7 @@ class MatDatepickerToggle {
         }
     }
     /**
+     * @private
      * @return {?}
      */
     _watchStateChanges() {
@@ -2698,7 +2764,7 @@ MatDatepickerToggle.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatDatepickerModule {
 }
@@ -2751,12 +2817,12 @@ MatDatepickerModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };

@@ -42,23 +42,25 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
  * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Time and timing curve for expansion panel animations.
-  @type {?} */
+ * @type {?}
+ */
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
-/** *
+/**
  * Animations used by the Material expansion panel.
  *
  * A bug in angular animation's `state` when ViewContainers are moved using ViewContainerRef.move()
@@ -79,15 +81,20 @@ var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
  * Angular Bug: https://github.com/angular/angular/issues/18847
  *
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matExpansionAnimations = {
-    /** Animation that rotates the indicator arrow. */
+    /**
+     * Animation that rotates the indicator arrow.
+     */
     indicatorRotate: animations.trigger('indicatorRotate', [
         animations.state('collapsed, void', animations.style({ transform: 'rotate(0deg)' })),
         animations.state('expanded', animations.style({ transform: 'rotate(180deg)' })),
         animations.transition('expanded <=> collapsed, void => collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
-    /** Animation that expands and collapses the panel header height. */
+    /**
+     * Animation that expands and collapses the panel header height.
+     */
     expansionHeaderHeight: animations.trigger('expansionHeight', [
         animations.state('collapsed, void', animations.style({
             height: '{{collapsedHeight}}',
@@ -104,7 +111,9 @@ var matExpansionAnimations = {
             animations.animate(EXPANSION_PANEL_ANIMATION_TIMING),
         ])),
     ]),
-    /** Animation that expands and collapses the panel content. */
+    /**
+     * Animation that expands and collapses the panel content.
+     */
     bodyExpansion: animations.trigger('bodyExpansion', [
         animations.state('collapsed, void', animations.style({ height: '0px', visibility: 'hidden' })),
         animations.state('expanded', animations.style({ height: '*', visibility: 'visible' })),
@@ -114,7 +123,7 @@ var matExpansionAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Expansion panel content that will be rendered lazily
@@ -138,11 +147,12 @@ var MatExpansionPanelContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Counter for generating unique element ids.
-  @type {?} */
+ * @type {?}
+ */
 var uniqueId = 0;
 var ɵ0 = undefined;
 /**
@@ -257,7 +267,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = this;
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(operators.startWith(/** @type {?} */ ((null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
+            this.opened.pipe(operators.startWith((/** @type {?} */ (null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
                 _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
             });
         }
@@ -360,7 +370,7 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * `<mat-expansion-panel-header>`
@@ -377,10 +387,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes["hideToggle"]; })) : rxjs.EMPTY;
+            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes.hideToggle; })) : rxjs.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
-        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes.hideToggle || changes.disabled); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
@@ -604,7 +614,7 @@ var MatExpansionPanelTitle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive for a Material Design Accordion.
@@ -711,7 +721,7 @@ var MatAccordion = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {

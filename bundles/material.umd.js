@@ -53,7 +53,7 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -82,11 +82,12 @@ var AnimationDurations = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that configures whether the Material sanity checks are enabled.
-  @type {?} */
+ * @type {?}
+ */
 var MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
     factory: MATERIAL_SANITY_CHECKS_FACTORY,
@@ -130,34 +131,42 @@ var MatCommonModule = /** @class */ (function () {
             this._hasDoneGlobalChecks = true;
         }
     }
+    /** Whether any sanity checks are enabled */
     /**
      * Whether any sanity checks are enabled
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._areChecksEnabled = /**
      * Whether any sanity checks are enabled
+     * @private
      * @return {?}
      */
     function () {
         return this._sanityChecksEnabled && core.isDevMode() && !this._isTestEnv();
     };
+    /** Whether the code is running in tests. */
     /**
      * Whether the code is running in tests.
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._isTestEnv = /**
      * Whether the code is running in tests.
+     * @private
      * @return {?}
      */
     function () {
         /** @type {?} */
-        var window = /** @type {?} */ (this._window);
+        var window = (/** @type {?} */ (this._window));
         return window && (window.__karma__ || window.jasmine);
     };
     /**
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctypeIsDefined = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -167,9 +176,11 @@ var MatCommonModule = /** @class */ (function () {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._checkThemeIsPresent = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -207,7 +218,7 @@ var MatCommonModule = /** @class */ (function () {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !(/** @type {?} */ (this._window))['Hammer'] && !this._hammerLoader) {
+        if (this._areChecksEnabled() && !((/** @type {?} */ (this._window)))['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -228,7 +239,7 @@ var MatCommonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -267,7 +278,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `color` property.
@@ -320,7 +331,7 @@ function mixinColor(base, defaultColor) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disableRipple` property.
@@ -361,7 +372,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -405,7 +416,7 @@ function mixinTabIndex(base, defaultTabIndex) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with updateErrorState method.
@@ -448,7 +459,7 @@ function mixinErrorState(base) {
             /** @type {?} */
             var matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
             /** @type {?} */
-            var control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
+            var control = this.ngControl ? (/** @type {?} */ (this.ngControl.control)) : null;
             /** @type {?} */
             var newState = matcher.isErrorState(control, parent);
             if (newState !== oldState) {
@@ -462,7 +473,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
@@ -500,7 +511,7 @@ function mixinInitialized(base) {
                     _this._notifySubscriber(subscriber);
                 }
                 else {
-                    /** @type {?} */ ((_this._pendingSubscribers)).push(subscriber);
+                    (/** @type {?} */ (_this._pendingSubscribers)).push(subscriber);
                 }
             });
             return _this;
@@ -527,8 +538,8 @@ function mixinInitialized(base) {
                 throw Error('This directive has already been marked as initialized and ' +
                     'should not be called twice.');
             }
-            this._isInitialized = true; /** @type {?} */
-            ((this._pendingSubscribers)).forEach(this._notifySubscriber);
+            this._isInitialized = true;
+            (/** @type {?} */ (this._pendingSubscribers)).forEach(this._notifySubscriber);
             this._pendingSubscribers = null;
         };
         /** Emits and completes the subscriber stream (should only emit once). */
@@ -552,16 +563,17 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * InjectionToken for datepicker that can be used to override default locale code.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
     factory: MAT_DATE_LOCALE_FACTORY,
@@ -573,12 +585,13 @@ var MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
 function MAT_DATE_LOCALE_FACTORY() {
     return core.inject(core.LOCALE_ID);
 }
-/** *
+/**
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
  * \@breaking-change 8.0.0
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
@@ -762,22 +775,25 @@ DateAdapter = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_DATE_FORMATS = new core.InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+// TODO(mmalerba): Remove when we no longer support safari 9.
+/**
  * Whether the browser supports the Intl API.
-  @type {?} */
+ * @type {?}
+ */
 var SUPPORTS_INTL_API = typeof Intl != 'undefined';
-/** *
+/**
  * The default month names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_MONTH_NAMES = {
     'long': [
         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -787,23 +803,26 @@ var DEFAULT_MONTH_NAMES = {
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
 var ɵ0 = function (i) { return String(i + 1); };
-/** *
+/**
  * The default date names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_DATE_NAMES = range(31, ɵ0);
-/** *
+/**
  * The default day of the week names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_DAY_OF_WEEK_NAMES = {
     'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 };
-/** *
+/**
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
-  @type {?} */
+ * @type {?}
+ */
 var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
@@ -1200,8 +1219,10 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function () {
         return new Date(NaN);
     };
+    /** Creates a date but allows the month and date to overflow. */
     /**
      * Creates a date but allows the month and date to overflow.
+     * @private
      * @param {?} year
      * @param {?} month
      * @param {?} date
@@ -1209,6 +1230,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      */
     NativeDateAdapter.prototype._createDateWithOverflow = /**
      * Creates a date but allows the month and date to overflow.
+     * @private
      * @param {?} year
      * @param {?} month
      * @param {?} date
@@ -1226,11 +1248,18 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     };
     /**
      * Pads a number to make it two digits.
+     * @param n The number to pad.
+     * @returns The padded number.
+     */
+    /**
+     * Pads a number to make it two digits.
+     * @private
      * @param {?} n The number to pad.
      * @return {?} The padded number.
      */
     NativeDateAdapter.prototype._2digit = /**
      * Pads a number to make it two digits.
+     * @private
      * @param {?} n The number to pad.
      * @return {?} The padded number.
      */
@@ -1241,6 +1270,14 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
      * date parsing.
+     * @param str The string to strip direction characters from.
+     * @returns The stripped string.
+     */
+    /**
+     * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
+     * other browsers do not. We remove them to make output consistent and because they interfere with
+     * date parsing.
+     * @private
      * @param {?} str The string to strip direction characters from.
      * @return {?} The stripped string.
      */
@@ -1248,6 +1285,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
      * date parsing.
+     * @private
      * @param {?} str The string to strip direction characters from.
      * @return {?} The stripped string.
      */
@@ -1260,6 +1298,18 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * very frequently, and the current valid rule is not always valid in previous years though.
      * We work around this problem building a new Date object which has its internal UTC
      * representation with the local date and time.
+     * @param dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param date Date from which we want to get the string representation according to dtf
+     * @returns A Date object with its UTC representation based on the passed in date info
+     */
+    /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @private
      * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
      *    timeZone set to 'utc' to work fine.
      * @param {?} date Date from which we want to get the string representation according to dtf
@@ -1271,6 +1321,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * very frequently, and the current valid rule is not always valid in previous years though.
      * We work around this problem building a new Date object which has its internal UTC
      * representation with the local date and time.
+     * @private
      * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
      *    timeZone set to 'utc' to work fine.
      * @param {?} date Date from which we want to get the string representation according to dtf
@@ -1294,7 +1345,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @type {?} */
@@ -1312,7 +1363,7 @@ var MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var NativeDateModule = /** @class */ (function () {
     function NativeDateModule() {
@@ -1342,7 +1393,7 @@ var MatNativeDateModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1396,12 +1447,18 @@ var ErrorStateMatcher = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_HAMMER_OPTIONS = new core.InjectionToken('MAT_HAMMER_OPTIONS');
 /** @type {?} */
 var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
@@ -1413,10 +1470,11 @@ var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'slideleft'
 ];
 var ɵ0$2 = function () { }, ɵ1 = function () { };
-/** *
+/**
  * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
  * been loaded on the page.
-  @type {?} */
+ * @type {?}
+ */
 var noopHammerInstance = {
     on: ɵ0$2,
     off: ɵ1,
@@ -1479,7 +1537,7 @@ var GestureConfig = /** @class */ (function (_super) {
      */
     function (element) {
         /** @type {?} */
-        var hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        var hammer = typeof window !== 'undefined' ? ((/** @type {?} */ (window))).Hammer : null;
         if (!hammer) {
             // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
             // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
@@ -1493,12 +1551,16 @@ var GestureConfig = /** @class */ (function (_super) {
         }
         /** @type {?} */
         var mc = new hammer(element, this._hammerOptions || undefined);
+        // Default Hammer Recognizers.
         /** @type {?} */
         var pan = new hammer.Pan();
         /** @type {?} */
         var swipe = new hammer.Swipe();
         /** @type {?} */
         var press = new hammer.Press();
+        // Notice that a HammerJS recognizer can only depend on one other recognizer once.
+        // Otherwise the previous `recognizeWith` will be dropped.
+        // TODO: Confirm threshold numbers with Material Design UX Team
         /** @type {?} */
         var slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
         /** @type {?} */
@@ -1513,10 +1575,12 @@ var GestureConfig = /** @class */ (function (_super) {
         longpress.recognizeWith(slide);
         // Add customized gestures to Hammer manager
         mc.add([swipe, press, pan, slide, longpress]);
-        return /** @type {?} */ (mc);
+        return (/** @type {?} */ (mc));
     };
+    /** Creates a new recognizer, without affecting the default recognizers of HammerJS */
     /**
      * Creates a new recognizer, without affecting the default recognizers of HammerJS
+     * @private
      * @param {?} base
      * @param {?} options
      * @param {...?} inheritances
@@ -1524,6 +1588,7 @@ var GestureConfig = /** @class */ (function (_super) {
      */
     GestureConfig.prototype._createRecognizer = /**
      * Creates a new recognizer, without affecting the default recognizers of HammerJS
+     * @private
      * @param {?} base
      * @param {?} options
      * @param {...?} inheritances
@@ -1535,7 +1600,7 @@ var GestureConfig = /** @class */ (function (_super) {
             inheritances[_i - 2] = arguments[_i];
         }
         /** @type {?} */
-        var recognizer = new (/** @type {?} */ (base.constructor))(options);
+        var recognizer = new ((/** @type {?} */ (base.constructor)))(options);
         inheritances.push(base);
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
@@ -1553,7 +1618,7 @@ var GestureConfig = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1639,7 +1704,7 @@ var MatLineModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @enum {number} */
@@ -1683,24 +1748,27 @@ RippleRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
-  @type {?} */
+ * @type {?}
+ */
 var defaultRippleAnimationConfig = {
     enterDuration: 450,
     exitDuration: 400
 };
-/** *
+/**
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
  * events to avoid synthetic mouse events.
-  @type {?} */
+ * @type {?}
+ */
 var ignoreMouseEventsTimeout = 800;
-/** *
+/**
  * Options that apply to all the event listeners that are bound by the ripple renderer.
-  @type {?} */
+ * @type {?}
+ */
 var passiveEventOptions = platform.normalizePassiveListenerOptions({ passive: true });
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
@@ -1737,6 +1805,8 @@ RippleRenderer = /** @class */ (function () {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = function (event) {
+            // Screen readers will fire fake mouse events for space/enter. Skip launching a
+            // ripple in this case for consistency with the non-screen-reader experience.
             /** @type {?} */
             var isFakeMousedown = a11y.isFakeMousedownFromScreenReader(event);
             /** @type {?} */
@@ -1757,6 +1827,8 @@ RippleRenderer = /** @class */ (function () {
                 // time after a touchstart event.
                 _this._lastTouchStartEvent = Date.now();
                 _this._isPointerDown = true;
+                // Use `changedTouches` so we skip any touches where the user put
+                // their finger down, but used another finger to tap the element again.
                 /** @type {?} */
                 var touches = event.changedTouches;
                 for (var i = 0; i < touches.length; i++) {
@@ -1774,6 +1846,8 @@ RippleRenderer = /** @class */ (function () {
             _this._isPointerDown = false;
             // Fade-out all ripples that are visible and not persistent.
             _this._activeRipples.forEach(function (ripple) {
+                // By default, only ripples that are completely visible will fade out on pointer release.
+                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
                 /** @type {?} */
                 var isVisible = ripple.state === RippleState.VISIBLE ||
                     ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
@@ -1850,6 +1924,7 @@ RippleRenderer = /** @class */ (function () {
         // ripple elements. This is critical because then the `scale` would not animate properly.
         enforceStyleRecalculation(ripple);
         ripple.style.transform = 'scale(1)';
+        // Exposed reference to the ripple that will be returned.
         /** @type {?} */
         var rippleRef = new RippleRef(this, ripple, config);
         rippleRef.state = RippleState.FADING_IN;
@@ -1908,8 +1983,8 @@ RippleRenderer = /** @class */ (function () {
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(function () {
-            rippleRef.state = RippleState.HIDDEN; /** @type {?} */
-            ((rippleEl.parentNode)).removeChild(rippleEl);
+            rippleRef.state = RippleState.HIDDEN;
+            (/** @type {?} */ (rippleEl.parentNode)).removeChild(rippleEl);
         }, animationConfig.exitDuration);
     };
     /** Fades out all currently active ripples. */
@@ -1949,14 +2024,17 @@ RippleRenderer = /** @class */ (function () {
         });
         this._triggerElement = element;
     };
+    /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
     /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
+     * @private
      * @param {?} fn
      * @param {?=} delay
      * @return {?}
      */
     RippleRenderer.prototype.runTimeoutOutsideZone = /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
+     * @private
      * @param {?} fn
      * @param {?=} delay
      * @return {?}
@@ -1978,7 +2056,7 @@ RippleRenderer = /** @class */ (function () {
         var _this = this;
         if (this._triggerElement) {
             this._triggerEvents.forEach(function (fn, type) {
-                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
+                (/** @type {?} */ (_this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
             });
         }
     };
@@ -2012,11 +2090,12 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify the global ripple options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_RIPPLE_GLOBAL_OPTIONS = new core.InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
     function MatRipple(_elementRef, ngZone, platform$$1, globalOptions, animationMode) {
@@ -2151,12 +2230,15 @@ var MatRipple = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /** Sets up the the trigger event listeners if ripples are enabled. */
     /**
      * Sets up the the trigger event listeners if ripples are enabled.
+     * @private
      * @return {?}
      */
     MatRipple.prototype._setupTriggerEventsIfEnabled = /**
      * Sets up the the trigger event listeners if ripples are enabled.
+     * @private
      * @return {?}
      */
     function () {
@@ -2220,7 +2302,7 @@ var MatRipple = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatRippleModule = /** @class */ (function () {
     function MatRippleModule() {
@@ -2237,7 +2319,7 @@ var MatRippleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -2292,7 +2374,7 @@ var MatPseudoCheckbox = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatPseudoCheckboxModule = /** @class */ (function () {
     function MatPseudoCheckboxModule() {
@@ -2308,12 +2390,15 @@ var MatPseudoCheckboxModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatOptgroup.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatOptgroup.
+/**
  * \@docs-private
  */
 MatOptgroupBase = /** @class */ (function () {
@@ -2323,6 +2408,7 @@ MatOptgroupBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+// Counter for unique group ids.
 /** @type {?} */
 var _uniqueOptgroupIdCounter = 0;
 /**
@@ -2363,12 +2449,13 @@ var MatOptgroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
-  @type {?} */
+ * @type {?}
+ */
 var _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
@@ -2384,9 +2471,10 @@ MatOptionSelectionChange = /** @class */ (function () {
     }
     return MatOptionSelectionChange;
 }());
-/** *
+/**
  * Injection token used to provide the parent component to options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_OPTION_PARENT_COMPONENT = new core.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 /**
  * Single option inside of a `<mat-select>` element.
@@ -2408,6 +2496,7 @@ var MatOption = /** @class */ (function () {
         /**
          * Event emitted when the option is selected or deselected.
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onSelectionChange = new core.EventEmitter();
         /**
          * Emits when the state of the option changes and any parents have to be notified.
@@ -2695,13 +2784,16 @@ var MatOption = /** @class */ (function () {
     function () {
         this._stateChanges.complete();
     };
+    /** Emits the selection change event. */
     /**
      * Emits the selection change event.
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
     MatOption.prototype._emitSelectionChangeEvent = /**
      * Emits the selection change event.
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
@@ -2795,7 +2887,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatOptionModule = /** @class */ (function () {
     function MatOptionModule() {
@@ -2812,82 +2904,51 @@ var MatOptionModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * InjectionToken that can be used to specify the global label options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-label-global-options');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/** *
+/**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+ * @type {?}
+ */
 var JAN = 0;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var FEB = 1;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var MAR = 2;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var APR = 3;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var MAY = 4;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var JUN = 5;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var JUL = 6;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var AUG = 7;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var SEP = 8;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var OCT = 9;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var NOV = 10;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var DEC = 11;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId = 0;
@@ -2916,14 +2977,17 @@ var MatError = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the MatFormField.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matFormFieldAnimations = {
-    /** Animation that transitions the form field's error and hint messages. */
+    /**
+     * Animation that transitions the form field's error and hint messages.
+     */
     transitionMessages: animations$1.trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
         animations$1.state('enter', animations$1.style({ opacity: 1, transform: 'translateY(0%)' })),
@@ -2936,7 +3000,7 @@ var matFormFieldAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -2957,7 +3021,7 @@ MatFormFieldControl = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -2985,7 +3049,7 @@ function getMatFormFieldMissingControlError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$1 = 0;
@@ -3024,7 +3088,7 @@ var MatHint = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The floating label for a `mat-form-field`.
@@ -3042,7 +3106,7 @@ var MatLabel = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The placeholder text for an `MatFormField`.
@@ -3063,7 +3127,7 @@ var MatPlaceholder = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Prefix to be placed the the front of the form field.
@@ -3081,7 +3145,7 @@ var MatPrefix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Suffix to be placed at the end of the form field.
@@ -3099,7 +3163,7 @@ var MatSuffix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$2 = 0;
@@ -3121,15 +3185,17 @@ MatFormFieldBase = /** @class */ (function () {
     }
     return MatFormFieldBase;
 }());
-/** *
+/**
  * Base class to which we're applying the form field mixins.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
-/** *
+/**
  * Injection token that can be used to configure the
  * default options for all form field within an app.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
@@ -3310,7 +3376,7 @@ var MatFormField = /** @class */ (function (_super) {
             this._elementRef.nativeElement.classList.add("mat-form-field-type-" + control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        control.stateChanges.pipe(operators.startWith(/** @type {?} */ ((null)))).subscribe(function () {
+        control.stateChanges.pipe(operators.startWith((/** @type {?} */ (null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
@@ -3462,11 +3528,17 @@ var MatFormField = /** @class */ (function (_super) {
     /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `mat-placeholder` directive).
+     */
+    /**
+     * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
+     * or child element with the `mat-placeholder` directive).
+     * @private
      * @return {?}
      */
     MatFormField.prototype._validatePlaceholders = /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `mat-placeholder` directive).
+     * @private
      * @return {?}
      */
     function () {
@@ -3474,12 +3546,15 @@ var MatFormField = /** @class */ (function (_super) {
             throw getMatFormFieldPlaceholderConflictError();
         }
     };
+    /** Does any extra processing that is required when handling the hints. */
     /**
      * Does any extra processing that is required when handling the hints.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._processHints = /**
      * Does any extra processing that is required when handling the hints.
+     * @private
      * @return {?}
      */
     function () {
@@ -3489,20 +3564,26 @@ var MatFormField = /** @class */ (function (_super) {
     /**
      * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
+     */
+    /**
+     * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
+     * attribute being considered as `align="start"`.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._validateHints = /**
      * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
         if (this._hintChildren) {
             /** @type {?} */
-            var startHint_1 = void 0;
+            var startHint_1;
             /** @type {?} */
-            var endHint_1 = void 0;
+            var endHint_1;
             this._hintChildren.forEach(function (hint) {
                 if (hint.align === 'start') {
                     if (startHint_1 || _this.hintLabel) {
@@ -3522,11 +3603,17 @@ var MatFormField = /** @class */ (function (_super) {
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.
+     */
+    /**
+     * Sets the list of element IDs that describe the child control. This allows the control to update
+     * its `aria-describedby` attribute accordingly.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._syncDescribedByIds = /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.
+     * @private
      * @return {?}
      */
     function () {
@@ -3559,10 +3646,12 @@ var MatFormField = /** @class */ (function (_super) {
     /** Throws an error if the form field's control is missing. */
     /**
      * Throws an error if the form field's control is missing.
+     * @protected
      * @return {?}
      */
     MatFormField.prototype._validateControlChild = /**
      * Throws an error if the form field's control is missing.
+     * @protected
      * @return {?}
      */
     function () {
@@ -3597,7 +3686,7 @@ var MatFormField = /** @class */ (function (_super) {
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
-        if (!/** @type {?} */ ((document.documentElement)).contains(this._elementRef.nativeElement)) {
+        if (!(/** @type {?} */ (document.documentElement)).contains(this._elementRef.nativeElement)) {
             this._outlineGapCalculationNeeded = true;
             return;
         }
@@ -3631,25 +3720,31 @@ var MatFormField = /** @class */ (function (_super) {
         }
         this._outlineGapCalculationNeeded = false;
     };
+    /** Gets the start end of the rect considering the current directionality. */
     /**
      * Gets the start end of the rect considering the current directionality.
+     * @private
      * @param {?} rect
      * @return {?}
      */
     MatFormField.prototype._getStartEnd = /**
      * Gets the start end of the rect considering the current directionality.
+     * @private
      * @param {?} rect
      * @return {?}
      */
     function (rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
     };
+    /** Updates the outline gap the new time the zone stabilizes. */
     /**
      * Updates the outline gap the new time the zone stabilizes.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._updateOutlineGapOnStable = /**
      * Updates the outline gap the new time the zone stabilizes.
+     * @private
      * @return {?}
      */
     function () {
@@ -3733,7 +3828,7 @@ var MatFormField = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatFormFieldModule = /** @class */ (function () {
     function MatFormFieldModule() {
@@ -3769,12 +3864,13 @@ var MatFormFieldModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
-  @type {?} */
+ * @type {?}
+ */
 var _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected.
@@ -3789,10 +3885,13 @@ MatAutocompleteSelectedEvent = /** @class */ (function () {
     }
     return MatAutocompleteSelectedEvent;
 }());
+// Boilerplate for applying mixins to MatAutocomplete.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatAutocomplete.
+/**
  * \@docs-private
  */
 MatAutocompleteBase = /** @class */ (function () {
@@ -3802,9 +3901,10 @@ MatAutocompleteBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
-/** *
+/**
  * Injection token to be used to override the default options for `mat-autocomplete`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options', {
     providedIn: 'root',
     factory: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
@@ -4018,7 +4118,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive applied to an element to make it usable
@@ -4043,19 +4143,22 @@ var MatAutocompleteOrigin = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The height of each autocomplete option.
-  @type {?} */
+ * @type {?}
+ */
 var AUTOCOMPLETE_OPTION_HEIGHT = 48;
-/** *
+/**
  * The total height of the autocomplete panel.
-  @type {?} */
+ * @type {?}
+ */
 var AUTOCOMPLETE_PANEL_HEIGHT = 256;
-/** *
+/**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
 /**
  * \@docs-private
@@ -4065,18 +4168,20 @@ var MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete
 function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
 };
-/** *
+/**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatAutocompleteTrigger; }),
@@ -4279,7 +4384,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         if (this._overlayAttached) {
-            /** @type {?} */ ((this._overlayRef)).updatePosition();
+            (/** @type {?} */ (this._overlayRef)).updatePosition();
         }
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelClosingActions", {
@@ -4318,12 +4423,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /** Stream of clicks outside of the autocomplete panel. */
     /**
      * Stream of clicks outside of the autocomplete panel.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._getOutsideClickStream = /**
      * Stream of clicks outside of the autocomplete panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -4334,7 +4442,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
             .pipe(operators.filter(function (event) {
             /** @type {?} */
-            var clickTarget = /** @type {?} */ (event.target);
+            var clickTarget = (/** @type {?} */ (event.target));
             /** @type {?} */
             var formField = _this._formField ?
                 _this._formField._elementRef.nativeElement : null;
@@ -4345,11 +4453,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }));
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
      */
-    MatAutocompleteTrigger.prototype.writeValue = /**
+    MatAutocompleteTrigger.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -4358,11 +4469,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         Promise.resolve(null).then(function () { return _this._setTriggerValue(value); });
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatAutocompleteTrigger.prototype.registerOnChange = /**
+    MatAutocompleteTrigger.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -4370,11 +4484,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._onChange = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatAutocompleteTrigger.prototype.registerOnTouched = /**
+    MatAutocompleteTrigger.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -4382,11 +4499,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatAutocompleteTrigger.prototype.setDisabledState = /**
+    MatAutocompleteTrigger.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -4442,7 +4562,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function (event) {
         /** @type {?} */
-        var target = /** @type {?} */ (event.target);
+        var target = (/** @type {?} */ (event.target));
         /** @type {?} */
         var value = target.value;
         // Based on `NumberValueAccessor` from forms.
@@ -4482,6 +4602,13 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * In "auto" mode, the label will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.
      * This method manually floats the label until the panel can be closed.
+     * @param shouldAnimate Whether the label should be animated when it is floated.
+     */
+    /**
+     * In "auto" mode, the label will animate down as soon as focus is lost.
+     * This causes the value to jump when selecting an option with the mouse.
+     * This method manually floats the label until the panel can be closed.
+     * @private
      * @param {?=} shouldAnimate Whether the label should be animated when it is floated.
      * @return {?}
      */
@@ -4489,6 +4616,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * In "auto" mode, the label will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.
      * This method manually floats the label until the panel can be closed.
+     * @private
      * @param {?=} shouldAnimate Whether the label should be animated when it is floated.
      * @return {?}
      */
@@ -4504,12 +4632,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._manuallyFloatingLabel = true;
         }
     };
+    /** If the label has been manually elevated, return it to its normal state. */
     /**
      * If the label has been manually elevated, return it to its normal state.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._resetLabel = /**
      * If the label has been manually elevated, return it to its normal state.
+     * @private
      * @return {?}
      */
     function () {
@@ -4526,6 +4657,16 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
      * will become the offset. If that offset is visible within the panel already, the scrollTop is
      * not adjusted.
+     */
+    /**
+     * Given that we are not actually focusing active options, we must manually adjust scroll
+     * to reveal options below the fold. First, we find the offset of the option from the top
+     * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
+     * the panel height + the option height, so the active option will be just visible at the
+     * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
+     * will become the offset. If that offset is visible within the panel already, the scrollTop is
+     * not adjusted.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._scrollToOption = /**
@@ -4536,6 +4677,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
      * will become the offset. If that offset is visible within the panel already, the scrollTop is
      * not adjusted.
+     * @private
      * @return {?}
      */
     function () {
@@ -4550,11 +4692,17 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     /**
      * This method listens to a stream of panel closing actions and resets the
      * stream every time the option list changes.
+     */
+    /**
+     * This method listens to a stream of panel closing actions and resets the
+     * stream every time the option list changes.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._subscribeToClosingActions = /**
      * This method listens to a stream of panel closing actions and resets the
      * stream every time the option list changes.
+     * @private
      * @return {?}
      */
     function () {
@@ -4575,7 +4723,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
             if (_this.panelOpen) {
-                /** @type {?} */ ((_this._overlayRef)).updatePosition();
+                (/** @type {?} */ (_this._overlayRef)).updatePosition();
             }
             return _this.panelClosingActions;
         }), 
@@ -4584,12 +4732,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             // set the value, close the panel, and complete.
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
+    /** Destroys the autocomplete suggestion panel. */
     /**
      * Destroys the autocomplete suggestion panel.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._destroyPanel = /**
      * Destroys the autocomplete suggestion panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -4600,10 +4751,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
     };
     /**
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._setTriggerValue = /**
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -4612,6 +4765,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         var toDisplay = this.autocomplete && this.autocomplete.displayWith ?
             this.autocomplete.displayWith(value) :
             value;
+        // Simply falling back to an empty string if the display value is falsy does not work properly.
+        // The display value can also be the number zero and shouldn't fall back to an empty string.
         /** @type {?} */
         var inputValue = toDisplay != null ? toDisplay : '';
         // If it's used within a `MatFormField`, we should set it through the property so it can go
@@ -4628,6 +4783,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * This method closes the panel, and if a value is specified, also sets the associated
      * control to that value. It will also mark the control as dirty if this interaction
      * stemmed from the user.
+     */
+    /**
+     * This method closes the panel, and if a value is specified, also sets the associated
+     * control to that value. It will also mark the control as dirty if this interaction
+     * stemmed from the user.
+     * @private
      * @param {?} event
      * @return {?}
      */
@@ -4635,6 +4796,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * This method closes the panel, and if a value is specified, also sets the associated
      * control to that value. It will also mark the control as dirty if this interaction
      * stemmed from the user.
+     * @private
      * @param {?} event
      * @return {?}
      */
@@ -4650,11 +4812,16 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     };
     /**
      * Clear any previous selected option and emit a selection change event for this option
+     */
+    /**
+     * Clear any previous selected option and emit a selection change event for this option
+     * @private
      * @param {?} skip
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._clearPreviousSelectedOption = /**
      * Clear any previous selected option and emit a selection change event for this option
+     * @private
      * @param {?} skip
      * @return {?}
      */
@@ -4666,9 +4833,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         });
     };
     /**
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._attachOverlay = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -4716,9 +4885,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._getOverlayConfig = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -4730,9 +4901,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         });
     };
     /**
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._getOverlayPosition = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -4761,9 +4934,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         return this._positionStrategy;
     };
     /**
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._getConnectedElement = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -4773,20 +4948,25 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
     };
     /**
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._getPanelWidth = /**
+     * @private
      * @return {?}
      */
     function () {
         return this.autocomplete.panelWidth || this._getHostWidth();
     };
+    /** Returns the width of the input element, so the panel width can match it. */
     /**
      * Returns the width of the input element, so the panel width can match it.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._getHostWidth = /**
      * Returns the width of the input element, so the panel width can match it.
+     * @private
      * @return {?}
      */
     function () {
@@ -4795,22 +4975,31 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     /**
      * Resets the active item to -1 so arrow events will activate the
      * correct options, or to 0 if the consumer opted into it.
+     */
+    /**
+     * Resets the active item to -1 so arrow events will activate the
+     * correct options, or to 0 if the consumer opted into it.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._resetActiveItem = /**
      * Resets the active item to -1 so arrow events will activate the
      * correct options, or to 0 if the consumer opted into it.
+     * @private
      * @return {?}
      */
     function () {
         this.autocomplete._keyManager.setActiveItem(this.autocomplete.autoActiveFirstOption ? 0 : -1);
     };
+    /** Determines whether the panel can be opened. */
     /**
      * Determines whether the panel can be opened.
+     * @private
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._canOpen = /**
      * Determines whether the panel can be opened.
+     * @private
      * @return {?}
      */
     function () {
@@ -4863,7 +5052,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatAutocompleteModule = /** @class */ (function () {
     function MatAutocompleteModule() {
@@ -4887,14 +5076,17 @@ var MatAutocompleteModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextId = 0;
+// Boilerplate for applying mixins to MatBadge.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatBadge.
+/**
  * \@docs-private
  */
 MatBadgeBase = /** @class */ (function () {
@@ -5063,12 +5255,15 @@ var MatBadge = /** @class */ (function (_super) {
             this._ariaDescriber.removeDescription(this._badgeElement, this.description);
         }
     };
+    /** Injects a span element into the DOM with the content. */
     /**
      * Injects a span element into the DOM with the content.
+     * @private
      * @return {?}
      */
     MatBadge.prototype._updateTextContent = /**
      * Injects a span element into the DOM with the content.
+     * @private
      * @return {?}
      */
     function () {
@@ -5080,15 +5275,19 @@ var MatBadge = /** @class */ (function (_super) {
         }
         return this._badgeElement;
     };
+    /** Creates the badge element */
     /**
      * Creates the badge element
+     * @private
      * @return {?}
      */
     MatBadge.prototype._createBadgeElement = /**
      * Creates the badge element
+     * @private
      * @return {?}
      */
     function () {
+        // @breaking-change 8.0.0 Remove null check for _renderer
         /** @type {?} */
         var rootNode = this._renderer || this._document;
         /** @type {?} */
@@ -5115,19 +5314,23 @@ var MatBadge = /** @class */ (function (_super) {
         }
         return badgeElement;
     };
+    /** Sets the aria-label property on the element */
     /**
      * Sets the aria-label property on the element
+     * @private
      * @param {?} newDescription
      * @param {?} oldDescription
      * @return {?}
      */
     MatBadge.prototype._updateHostAriaDescription = /**
      * Sets the aria-label property on the element
+     * @private
      * @param {?} newDescription
      * @param {?} oldDescription
      * @return {?}
      */
     function (newDescription, oldDescription) {
+        // ensure content available before setting label
         /** @type {?} */
         var content = this._updateTextContent();
         if (oldDescription) {
@@ -5137,13 +5340,16 @@ var MatBadge = /** @class */ (function (_super) {
             this._ariaDescriber.describe(content, newDescription);
         }
     };
+    /** Adds css theme class given the color to the component host */
     /**
      * Adds css theme class given the color to the component host
+     * @private
      * @param {?} colorPalette
      * @return {?}
      */
     MatBadge.prototype._setColor = /**
      * Adds css theme class given the color to the component host
+     * @private
      * @param {?} colorPalette
      * @return {?}
      */
@@ -5198,7 +5404,7 @@ var MatBadge = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBadgeModule = /** @class */ (function () {
     function MatBadgeModule() {
@@ -5218,11 +5424,12 @@ var MatBadgeModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BOTTOM_SHEET_DATA = new core.InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
@@ -5271,13 +5478,16 @@ MatBottomSheetConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material bottom sheet.
-  @type {?} */
+ * @type {?}
+ */
 var matBottomSheetAnimations = {
-    /** Animation that shows and hides a bottom sheet. */
+    /**
+     * Animation that shows and hides a bottom sheet.
+     */
     bottomSheetState: animations$1.trigger('state', [
         animations$1.state('void, hidden', animations$1.style({ transform: 'translateY(100%)' })),
         animations$1.state('visible', animations$1.style({ transform: 'translateY(0%)' })),
@@ -5288,8 +5498,9 @@ var matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * \@docs-private
@@ -5431,11 +5642,13 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         this._animationStateChanged.emit(event);
     };
     /**
+     * @private
      * @param {?} cssClass
      * @param {?} add
      * @return {?}
      */
     MatBottomSheetContainer.prototype._toggleClass = /**
+     * @private
      * @param {?} cssClass
      * @param {?} add
      * @return {?}
@@ -5446,9 +5659,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         add ? classList.add(cssClass) : classList.remove(cssClass);
     };
     /**
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._validatePortalAttached = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -5457,9 +5672,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._setPanelClass = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -5475,12 +5692,15 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
             element.classList.add(panelClass);
         }
     };
+    /** Moves the focus inside the focus trap. */
     /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._trapFocus = /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     function () {
@@ -5489,12 +5709,15 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         }
         this._focusTrap.focusInitialElementWhenReady();
     };
+    /** Restores focus to the element that was focused before the bottom sheet was opened. */
     /**
      * Restores focus to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._restoreFocus = /**
      * Restores focus to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     function () {
@@ -5508,17 +5731,20 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
             this._focusTrap.destroy();
         }
     };
+    /** Saves a reference to the element that was focused before the bottom sheet was opened. */
     /**
      * Saves a reference to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     MatBottomSheetContainer.prototype._savePreviouslyFocusedElement = /**
      * Saves a reference to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
-        this._elementFocusedBeforeOpened = /** @type {?} */ (this._document.activeElement);
+        this._elementFocusedBeforeOpened = (/** @type {?} */ (this._document.activeElement));
         // The `focus` method isn't available during server-side rendering.
         if (this._elementRef.nativeElement.focus) {
             Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
@@ -5560,7 +5786,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBottomSheetModule = /** @class */ (function () {
     function MatBottomSheetModule() {
@@ -5583,7 +5809,7 @@ var MatBottomSheetModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
@@ -5705,11 +5931,12 @@ MatBottomSheetRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify default bottom sheet options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new core.InjectionToken('mat-bottom-sheet-default-options');
 /**
  * Service to trigger Material Design bottom sheets.
@@ -5772,10 +5999,10 @@ var MatBottomSheet = /** @class */ (function () {
         /** @type {?} */
         var ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof core.TemplateRef) {
-            container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
+            container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({
                 $implicit: _config.data,
                 bottomSheetRef: ref
-            })));
+            }))));
         }
         else {
             /** @type {?} */
@@ -5833,12 +6060,17 @@ var MatBottomSheet = /** @class */ (function () {
     };
     /**
      * Attaches the bottom sheet container component to the overlay.
+     */
+    /**
+     * Attaches the bottom sheet container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
      */
     MatBottomSheet.prototype._attachContainer = /**
      * Attaches the bottom sheet container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
@@ -5858,11 +6090,17 @@ var MatBottomSheet = /** @class */ (function () {
     };
     /**
      * Creates a new overlay and places it in the correct location.
+     * @param config The user-specified bottom sheet config.
+     */
+    /**
+     * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified bottom sheet config.
      * @return {?}
      */
     MatBottomSheet.prototype._createOverlay = /**
      * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified bottom sheet config.
      * @return {?}
      */
@@ -5886,6 +6124,12 @@ var MatBottomSheet = /** @class */ (function () {
     };
     /**
      * Creates an injector to be used inside of a bottom sheet component.
+     * @param config Config that was used to create the bottom sheet.
+     * @param bottomSheetRef Reference to the bottom sheet.
+     */
+    /**
+     * Creates an injector to be used inside of a bottom sheet component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the bottom sheet.
      * @param {?} bottomSheetRef Reference to the bottom sheet.
@@ -5893,6 +6137,7 @@ var MatBottomSheet = /** @class */ (function () {
      */
     MatBottomSheet.prototype._createInjector = /**
      * Creates an injector to be used inside of a bottom sheet component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the bottom sheet.
      * @param {?} bottomSheetRef Reference to the bottom sheet.
@@ -5941,16 +6186,18 @@ function _applyConfigDefaults(defaults, config) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
-/** *
+/**
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
-  @type {?} */
+ * @type {?}
+ */
 var BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
@@ -5960,10 +6207,13 @@ var BUTTON_HOST_ATTRIBUTES = [
     'mat-mini-fab',
     'mat-fab',
 ];
+// Boilerplate for applying mixins to MatButton.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatButton.
+/**
  * \@docs-private
  */
 MatButtonBase = /** @class */ (function () {
@@ -5979,9 +6229,7 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(elementRef, _platform, _focusMonitor, 
-    // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
-    _animationMode) {
+    function MatButton(elementRef, _platform, _focusMonitor, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
@@ -5999,7 +6247,7 @@ var MatButton = /** @class */ (function (_super) {
         for (var _i = 0, BUTTON_HOST_ATTRIBUTES_1 = BUTTON_HOST_ATTRIBUTES; _i < BUTTON_HOST_ATTRIBUTES_1.length; _i++) {
             var attr = BUTTON_HOST_ATTRIBUTES_1[_i];
             if (_this._hasHostAttributes(attr)) {
-                (/** @type {?} */ (elementRef.nativeElement)).classList.add(attr);
+                ((/** @type {?} */ (elementRef.nativeElement))).classList.add(attr);
             }
         }
         _this._focusMonitor.monitor(_this._elementRef, true);
@@ -6152,7 +6400,7 @@ var MatAnchor = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonModule = /** @class */ (function () {
     function MatButtonModule() {
@@ -6180,18 +6428,20 @@ var MatButtonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to configure the
  * default options for all button toggles within an app.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS');
-/** *
+/**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatButtonToggleGroup; }),
@@ -6409,11 +6659,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
         this._changeDetector.markForCheck();
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatButtonToggleGroup.prototype.registerOnChange = /**
+    MatButtonToggleGroup.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -6421,11 +6674,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
         this._controlValueAccessorChangeFn = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatButtonToggleGroup.prototype.registerOnTouched = /**
+    MatButtonToggleGroup.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -6433,11 +6689,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatButtonToggleGroup.prototype.setDisabledState = /**
+    MatButtonToggleGroup.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -6459,7 +6718,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
         /** @type {?} */
         var source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
         /** @type {?} */
-        var event = new MatButtonToggleChange(/** @type {?} */ ((source)), this.value);
+        var event = new MatButtonToggleChange((/** @type {?} */ (source)), this.value);
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     };
@@ -6488,7 +6747,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
         // Deselect the currently-selected toggle, if we're in single-selection
         // mode and the button being toggled isn't selected at the moment.
         if (!this.multiple && this.selected && !toggle.checked) {
-            (/** @type {?} */ (this.selected)).checked = false;
+            ((/** @type {?} */ (this.selected))).checked = false;
         }
         if (select) {
             this._selectionModel.select(toggle);
@@ -6538,13 +6797,16 @@ var MatButtonToggleGroup = /** @class */ (function () {
         }
         return toggle.value === this._rawValue;
     };
+    /** Updates the selection state of the toggles in the group based on a value. */
     /**
      * Updates the selection state of the toggles in the group based on a value.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatButtonToggleGroup.prototype._setSelectionByValue = /**
      * Updates the selection state of the toggles in the group based on a value.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -6566,25 +6828,31 @@ var MatButtonToggleGroup = /** @class */ (function () {
             this._selectValue(value);
         }
     };
+    /** Clears the selected toggles. */
     /**
      * Clears the selected toggles.
+     * @private
      * @return {?}
      */
     MatButtonToggleGroup.prototype._clearSelection = /**
      * Clears the selected toggles.
+     * @private
      * @return {?}
      */
     function () {
         this._selectionModel.clear();
         this._buttonToggles.forEach(function (toggle) { return toggle.checked = false; });
     };
+    /** Selects a value if there's a toggle that corresponds to it. */
     /**
      * Selects a value if there's a toggle that corresponds to it.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatButtonToggleGroup.prototype._selectValue = /**
      * Selects a value if there's a toggle that corresponds to it.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -6633,10 +6901,13 @@ var MatButtonToggleGroup = /** @class */ (function () {
     };
     return MatButtonToggleGroup;
 }());
+// Boilerplate for applying mixins to the MatButtonToggle class.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to the MatButtonToggle class.
+/**
  * \@docs-private
  */
 MatButtonToggleBase = /** @class */ (function () {
@@ -6882,7 +7153,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonToggleModule = /** @class */ (function () {
     function MatButtonToggleModule() {
@@ -6899,7 +7170,7 @@ var MatButtonToggleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Content of a card, needed as it's used as a selector in the API.
@@ -7146,7 +7417,7 @@ var MatCardTitleGroup = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatCardModule = /** @class */ (function () {
     function MatCardModule() {
@@ -7183,26 +7454,32 @@ var MatCardModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify the checkbox click behavior.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for checkbox components.
 /** @type {?} */
 var nextUniqueId$3 = 0;
+// TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+// landed.
+// The radius for the checkbox's ripple, in pixels.
 /** @type {?} */
 var calculatedRippleRadius = 0;
-/** *
+/**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatCheckbox; }),
@@ -7234,10 +7511,13 @@ MatCheckboxChange = /** @class */ (function () {
     }
     return MatCheckboxChange;
 }());
+// Boilerplate for applying mixins to MatCheckbox.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatCheckbox.
+/**
  * \@docs-private
  */
 MatCheckboxBase = /** @class */ (function () {
@@ -7473,11 +7753,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._changeDetectorRef.detectChanges();
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
      */
-    MatCheckbox.prototype.writeValue = /**
+    MatCheckbox.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -7485,11 +7768,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this.checked = !!value;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatCheckbox.prototype.registerOnChange = /**
+    MatCheckbox.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -7497,11 +7783,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._controlValueAccessorChangeFn = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatCheckbox.prototype.registerOnTouched = /**
+    MatCheckbox.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -7509,11 +7798,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatCheckbox.prototype.setDisabledState = /**
+    MatCheckbox.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -7530,10 +7822,12 @@ var MatCheckbox = /** @class */ (function (_super) {
         return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
     };
     /**
+     * @private
      * @param {?} newState
      * @return {?}
      */
     MatCheckbox.prototype._transitionCheckState = /**
+     * @private
      * @param {?} newState
      * @return {?}
      */
@@ -7552,6 +7846,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
             /** @type {?} */
             var animationClass_1 = this._currentAnimationClass;
             this._ngZone.runOutsideAngular(function () {
@@ -7562,9 +7857,11 @@ var MatCheckbox = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatCheckbox.prototype._emitChangeEvent = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -7670,11 +7967,13 @@ var MatCheckbox = /** @class */ (function (_super) {
         event.stopPropagation();
     };
     /**
+     * @private
      * @param {?} oldState
      * @param {?} newState
      * @return {?}
      */
     MatCheckbox.prototype._getAnimationClassForCheckStateTransition = /**
+     * @private
      * @param {?} oldState
      * @param {?} newState
      * @return {?}
@@ -7715,14 +8014,27 @@ var MatCheckbox = /** @class */ (function (_super) {
         }
         return "mat-checkbox-anim-" + animSuffix;
     };
+    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+    // landed.
     /**
      * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
      * for the application.
-     * @return {?}
      */
-    MatCheckbox.prototype._calculateRippleRadius = /**
+    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+    // landed.
+    /**
      * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
      * for the application.
+     * @private
+     * @return {?}
+     */
+    MatCheckbox.prototype._calculateRippleRadius = 
+    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+    // landed.
+    /**
+     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
+     * for the application.
+     * @private
      * @return {?}
      */
     function () {
@@ -7785,7 +8097,7 @@ var MatCheckbox = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
@@ -7815,7 +8127,7 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {
@@ -7832,7 +8144,7 @@ var MatCheckboxModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Event object emitted by MatChip when selected or deselected.
@@ -7849,10 +8161,13 @@ MatChipSelectionChange = /** @class */ (function () {
     }
     return MatChipSelectionChange;
 }());
+// Boilerplate for applying mixins to MatChip.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatChip.
+/**
  * \@docs-private
  */
 MatChipBase = /** @class */ (function () {
@@ -8082,11 +8397,11 @@ var MatChip = /** @class */ (function (_super) {
             var attr = CHIP_ATTRIBUTE_NAMES_1[_i];
             if (this._elementRef.nativeElement.hasAttribute(attr) ||
                 this._elementRef.nativeElement.tagName.toLowerCase() === attr) {
-                (/** @type {?} */ (this._elementRef.nativeElement)).classList.add(attr);
+                ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add(attr);
                 return;
             }
         }
-        (/** @type {?} */ (this._elementRef.nativeElement)).classList.add('mat-standard-chip');
+        ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add('mat-standard-chip');
     };
     /**
      * @return {?}
@@ -8276,10 +8591,12 @@ var MatChip = /** @class */ (function (_super) {
         });
     };
     /**
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
     MatChip.prototype._dispatchSelectionChange = /**
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
@@ -8392,21 +8709,25 @@ var MatChipRemove = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for the chips module.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatChipList.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatChipList.
+/**
  * \@docs-private
  */
 MatChipListBase = /** @class */ (function () {
@@ -8420,6 +8741,7 @@ MatChipListBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+// Increasing integer for generating unique ids for chip-list components.
 /** @type {?} */
 var nextUniqueId$4 = 0;
 /**
@@ -8440,8 +8762,7 @@ MatChipListChange = /** @class */ (function () {
  */
 var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
-    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
-    ngControl) {
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -8912,11 +9233,14 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (ids) { this._ariaDescribedby = ids.join(' '); };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
      */
-    MatChipList.prototype.writeValue = /**
+    MatChipList.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -8926,11 +9250,14 @@ var MatChipList = /** @class */ (function (_super) {
         }
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatChipList.prototype.registerOnChange = /**
+    MatChipList.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -8938,11 +9265,14 @@ var MatChipList = /** @class */ (function (_super) {
         this._onChange = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatChipList.prototype.registerOnTouched = /**
+    MatChipList.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -8950,11 +9280,14 @@ var MatChipList = /** @class */ (function (_super) {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatChipList.prototype.setDisabledState = /**
+    MatChipList.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -9044,7 +9377,7 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (event) {
         /** @type {?} */
-        var target = /** @type {?} */ (event.target);
+        var target = (/** @type {?} */ (event.target));
         // If they are on an empty input and hit backspace, focus the last chip
         if (event.keyCode === keycodes.BACKSPACE && this._isInputEmpty(target)) {
             this._keyManager.setLastItemActive();
@@ -9070,10 +9403,12 @@ var MatChipList = /** @class */ (function (_super) {
      */
     /**
      * Check the tab index as you should not be allowed to focus an empty list.
+     * @protected
      * @return {?}
      */
     MatChipList.prototype._updateTabIndex = /**
      * Check the tab index as you should not be allowed to focus an empty list.
+     * @protected
      * @return {?}
      */
     function () {
@@ -9087,11 +9422,13 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * If the amount of chips changed, we need to update the
      * key manager state and focus the next closest chip.
+     * @protected
      * @return {?}
      */
     MatChipList.prototype._updateFocusForDestroyedChips = /**
      * If the amount of chips changed, we need to update the
      * key manager state and focus the next closest chip.
+     * @protected
      * @return {?}
      */
     function () {
@@ -9105,12 +9442,20 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * Utility to ensure all indexes are valid.
      *
+     * @param index The index to be checked.
+     * @returns True if the index is valid for our list of chips.
+     */
+    /**
+     * Utility to ensure all indexes are valid.
+     *
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of chips.
      */
     MatChipList.prototype._isValidIndex = /**
      * Utility to ensure all indexes are valid.
      *
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of chips.
      */
@@ -9118,17 +9463,19 @@ var MatChipList = /** @class */ (function (_super) {
         return index >= 0 && index < this.chips.length;
     };
     /**
+     * @private
      * @param {?} element
      * @return {?}
      */
     MatChipList.prototype._isInputEmpty = /**
+     * @private
      * @param {?} element
      * @return {?}
      */
     function (element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
             /** @type {?} */
-            var input = /** @type {?} */ (element);
+            var input = (/** @type {?} */ (element));
             return !input.value;
         }
         return false;
@@ -9166,12 +9513,18 @@ var MatChipList = /** @class */ (function (_super) {
     };
     /**
      * Finds and selects the chip based on its value.
+     * @returns Chip that has the corresponding value.
+     */
+    /**
+     * Finds and selects the chip based on its value.
+     * @private
      * @param {?} value
      * @param {?=} isUserInput
      * @return {?} Chip that has the corresponding value.
      */
     MatChipList.prototype._selectValue = /**
      * Finds and selects the chip based on its value.
+     * @private
      * @param {?} value
      * @param {?=} isUserInput
      * @return {?} Chip that has the corresponding value.
@@ -9190,9 +9543,11 @@ var MatChipList = /** @class */ (function (_super) {
         return correspondingChip;
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._initializeSelection = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -9208,11 +9563,17 @@ var MatChipList = /** @class */ (function (_super) {
     };
     /**
      * Deselects every chip in the list.
+     * @param skip Chip that should not be deselected.
+     */
+    /**
+     * Deselects every chip in the list.
+     * @private
      * @param {?=} skip Chip that should not be deselected.
      * @return {?}
      */
     MatChipList.prototype._clearSelection = /**
      * Deselects every chip in the list.
+     * @private
      * @param {?=} skip Chip that should not be deselected.
      * @return {?}
      */
@@ -9228,11 +9589,17 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * Sorts the model values, ensuring that they keep the same
      * order that they have in the panel.
+     */
+    /**
+     * Sorts the model values, ensuring that they keep the same
+     * order that they have in the panel.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._sortValues = /**
      * Sorts the model values, ensuring that they keep the same
      * order that they have in the panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -9247,13 +9614,16 @@ var MatChipList = /** @class */ (function (_super) {
             this.stateChanges.next();
         }
     };
+    /** Emits change event to set the model value. */
     /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
     MatChipList.prototype._propagateChanges = /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
@@ -9319,9 +9689,11 @@ var MatChipList = /** @class */ (function (_super) {
         this.stateChanges.next();
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._resetChips = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -9331,9 +9703,11 @@ var MatChipList = /** @class */ (function (_super) {
         this._listenToChipsRemoved();
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._dropSubscriptions = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -9354,12 +9728,15 @@ var MatChipList = /** @class */ (function (_super) {
             this._chipRemoveSubscription = null;
         }
     };
+    /** Listens to user-generated selection events on each chip. */
     /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._listenToChipsSelection = /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     function () {
@@ -9381,12 +9758,15 @@ var MatChipList = /** @class */ (function (_super) {
             }
         });
     };
+    /** Listens to user-generated selection events on each chip. */
     /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._listenToChipsFocus = /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     function () {
@@ -9405,9 +9785,11 @@ var MatChipList = /** @class */ (function (_super) {
         });
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._listenToChipsRemoved = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -9425,19 +9807,22 @@ var MatChipList = /** @class */ (function (_super) {
             }
         });
     };
+    /** Checks whether an event comes from inside a chip element. */
     /**
      * Checks whether an event comes from inside a chip element.
+     * @private
      * @param {?} event
      * @return {?}
      */
     MatChipList.prototype._originatesFromChip = /**
      * Checks whether an event comes from inside a chip element.
+     * @private
      * @param {?} event
      * @return {?}
      */
     function (event) {
         /** @type {?} */
-        var currentElement = /** @type {?} */ (event.target);
+        var currentElement = (/** @type {?} */ (event.target));
         while (currentElement && currentElement !== this._elementRef.nativeElement) {
             if (currentElement.classList.contains('mat-chip')) {
                 return true;
@@ -9446,12 +9831,15 @@ var MatChipList = /** @class */ (function (_super) {
         }
         return false;
     };
+    /** Checks whether any of the chips is focused. */
     /**
      * Checks whether any of the chips is focused.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._hasFocusedChip = /**
      * Checks whether any of the chips is focused.
+     * @private
      * @return {?}
      */
     function () {
@@ -9515,8 +9903,9 @@ var MatChipList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids.
 /** @type {?} */
 var nextUniqueId$1$1 = 0;
 /**
@@ -9551,7 +9940,7 @@ var MatChipInput = /** @class */ (function () {
          */
         this.id = "mat-chip-list-input-" + nextUniqueId$1$1++;
         this._disabled = false;
-        this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
+        this._inputElement = (/** @type {?} */ (this._elementRef.nativeElement));
     }
     Object.defineProperty(MatChipInput.prototype, "chipList", {
         /** Register input for chip list */
@@ -9708,13 +10097,16 @@ var MatChipInput = /** @class */ (function () {
     function () {
         this._inputElement.focus();
     };
+    /** Checks whether a keycode is one of the configured separators. */
     /**
      * Checks whether a keycode is one of the configured separators.
+     * @private
      * @param {?} keyCode
      * @return {?}
      */
     MatChipInput.prototype._isSeparatorKey = /**
      * Checks whether a keycode is one of the configured separators.
+     * @private
      * @param {?} keyCode
      * @return {?}
      */
@@ -9759,7 +10151,7 @@ var MatChipInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var CHIP_DECLARATIONS = [
@@ -9770,9 +10162,9 @@ var CHIP_DECLARATIONS = [
     MatChipAvatar,
     MatChipTrailingIcon,
 ];
-var ɵ0$3 = {
+var ɵ0$3 = ({
     separatorKeyCodes: [keycodes.ENTER]
-};
+});
 var MatChipsModule = /** @class */ (function () {
     function MatChipsModule() {
     }
@@ -9784,7 +10176,7 @@ var MatChipsModule = /** @class */ (function () {
                         ErrorStateMatcher,
                         {
                             provide: MAT_CHIPS_DEFAULT_OPTIONS,
-                            useValue: /** @type {?} */ ((ɵ0$3))
+                            useValue: (/** @type {?} */ (ɵ0$3))
                         }
                     ]
                 },] },
@@ -9794,7 +10186,7 @@ var MatChipsModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -9865,13 +10257,14 @@ MatDialogConfig = /** @class */ (function () {
          * the `HashLocationStrategy`).
          */
         this.closeOnNavigation = true;
+        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
     return MatDialogConfig;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var animationBody = [
@@ -9883,20 +10276,25 @@ var animationBody = [
     animations$1.transition('* => enter', animations$1.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'none', opacity: 1 }))),
     animations$1.transition('* => void, * => exit', animations$1.animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', animations$1.style({ opacity: 0 }))),
 ];
-/** *
+/**
  * Animations used by MatDialog.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matDialogAnimations = {
-    /** Animation that is applied on the dialog container by defalt. */
+    /**
+     * Animation that is applied on the dialog container by defalt.
+     */
     dialogContainer: animations$1.trigger('dialogContainer', animationBody),
-    /** @deprecated @breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead. */
+    /**
+     * @deprecated \@breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead.
+     */
     slideDialog: animations$1.trigger('slideDialog', animationBody)
 };
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -9985,12 +10383,15 @@ var MatDialogContainer = /** @class */ (function (_super) {
         this._savePreviouslyFocusedElement();
         return this._portalOutlet.attachTemplatePortal(portal$$1);
     };
+    /** Moves the focus inside the focus trap. */
     /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     MatDialogContainer.prototype._trapFocus = /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     function () {
@@ -10004,12 +10405,15 @@ var MatDialogContainer = /** @class */ (function (_super) {
             this._focusTrap.focusInitialElementWhenReady();
         }
     };
+    /** Restores focus to the element that was focused before the dialog opened. */
     /**
      * Restores focus to the element that was focused before the dialog opened.
+     * @private
      * @return {?}
      */
     MatDialogContainer.prototype._restoreFocus = /**
      * Restores focus to the element that was focused before the dialog opened.
+     * @private
      * @return {?}
      */
     function () {
@@ -10023,18 +10427,21 @@ var MatDialogContainer = /** @class */ (function (_super) {
             this._focusTrap.destroy();
         }
     };
+    /** Saves a reference to the element that was focused before the dialog was opened. */
     /**
      * Saves a reference to the element that was focused before the dialog was opened.
+     * @private
      * @return {?}
      */
     MatDialogContainer.prototype._savePreviouslyFocusedElement = /**
      * Saves a reference to the element that was focused before the dialog was opened.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
         if (this._document) {
-            this._elementFocusedBeforeDialogWasOpened = /** @type {?} */ (this._document.activeElement);
+            this._elementFocusedBeforeDialogWasOpened = (/** @type {?} */ (this._document.activeElement));
             // Note that there is no focus method when rendering on the server.
             if (this._elementRef.nativeElement.focus) {
                 // Move focus onto the dialog immediately in order to prevent the user from accidentally
@@ -10133,8 +10540,10 @@ var MatDialogContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(jelbourn): resizing
+// Counter for unique dialog ids.
 /** @type {?} */
 var uniqueId = 0;
 /**
@@ -10185,7 +10594,7 @@ MatDialogRef = /** @class */ (function () {
             _this._beforeClosed.complete();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
-            _this.componentInstance = /** @type {?} */ ((null));
+            _this.componentInstance = (/** @type {?} */ (null));
             _this._overlayRef.dispose();
         });
         _overlayRef.keydownEvents()
@@ -10294,17 +10703,21 @@ MatDialogRef = /** @class */ (function () {
      */
     /**
      * Updates the dialog's position.
+     * @template THIS
+     * @this {THIS}
      * @param {?=} position New dialog position.
-     * @return {?}
+     * @return {THIS}
      */
     MatDialogRef.prototype.updatePosition = /**
      * Updates the dialog's position.
+     * @template THIS
+     * @this {THIS}
      * @param {?=} position New dialog position.
-     * @return {?}
+     * @return {THIS}
      */
     function (position) {
         /** @type {?} */
-        var strategy = this._getPositionStrategy();
+        var strategy = (/** @type {?} */ (this))._getPositionStrategy();
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);
         }
@@ -10317,8 +10730,8 @@ MatDialogRef = /** @class */ (function () {
         else {
             strategy.centerVertically();
         }
-        this._overlayRef.updatePosition();
-        return this;
+        (/** @type {?} */ (this))._overlayRef.updatePosition();
+        return (/** @type {?} */ (this));
     };
     /**
      * Updates the dialog's width and height.
@@ -10327,22 +10740,26 @@ MatDialogRef = /** @class */ (function () {
      */
     /**
      * Updates the dialog's width and height.
+     * @template THIS
+     * @this {THIS}
      * @param {?=} width New width of the dialog.
      * @param {?=} height New height of the dialog.
-     * @return {?}
+     * @return {THIS}
      */
     MatDialogRef.prototype.updateSize = /**
      * Updates the dialog's width and height.
+     * @template THIS
+     * @this {THIS}
      * @param {?=} width New width of the dialog.
      * @param {?=} height New height of the dialog.
-     * @return {?}
+     * @return {THIS}
      */
     function (width, height) {
         if (width === void 0) { width = ''; }
         if (height === void 0) { height = ''; }
-        this._getPositionStrategy().width(width).height(height);
-        this._overlayRef.updatePosition();
-        return this;
+        (/** @type {?} */ (this))._getPositionStrategy().width(width).height(height);
+        (/** @type {?} */ (this))._overlayRef.updatePosition();
+        return (/** @type {?} */ (this));
     };
     /**
      * Gets an observable that is notified when the dialog is finished opening.
@@ -10384,35 +10801,41 @@ MatDialogRef = /** @class */ (function () {
     function () {
         return this.beforeClosed();
     };
+    /** Fetches the position strategy object from the overlay ref. */
     /**
      * Fetches the position strategy object from the overlay ref.
+     * @private
      * @return {?}
      */
     MatDialogRef.prototype._getPositionStrategy = /**
      * Fetches the position strategy object from the overlay ref.
+     * @private
      * @return {?}
      */
     function () {
-        return /** @type {?} */ (this._overlayRef.getConfig().positionStrategy);
+        return (/** @type {?} */ (this._overlayRef.getConfig().positionStrategy));
     };
     return MatDialogRef;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a dialog.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DIALOG_DATA = new core.InjectionToken('MatDialogData');
-/** *
+/**
  * Injection token that can be used to specify default dialog options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DIALOG_DEFAULT_OPTIONS = new core.InjectionToken('mat-dialog-default-options');
-/** *
+/**
  * Injection token that determines the scroll handling while the dialog is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
@@ -10430,9 +10853,10 @@ function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay$$1) {
 function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.block(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_DIALOG_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
@@ -10605,11 +11029,18 @@ var MatDialog = /** @class */ (function () {
     };
     /**
      * Creates the overlay into which the dialog will be loaded.
+     * @param config The dialog configuration.
+     * @returns A promise resolving to the OverlayRef for the created overlay.
+     */
+    /**
+     * Creates the overlay into which the dialog will be loaded.
+     * @private
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
     MatDialog.prototype._createOverlay = /**
      * Creates the overlay into which the dialog will be loaded.
+     * @private
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
@@ -10620,11 +11051,18 @@ var MatDialog = /** @class */ (function () {
     };
     /**
      * Creates an overlay config from a dialog config.
+     * @param dialogConfig The dialog configuration.
+     * @returns The overlay configuration.
+     */
+    /**
+     * Creates an overlay config from a dialog config.
+     * @private
      * @param {?} dialogConfig The dialog configuration.
      * @return {?} The overlay configuration.
      */
     MatDialog.prototype._getOverlayConfig = /**
      * Creates an overlay config from a dialog config.
+     * @private
      * @param {?} dialogConfig The dialog configuration.
      * @return {?} The overlay configuration.
      */
@@ -10649,12 +11087,20 @@ var MatDialog = /** @class */ (function () {
     };
     /**
      * Attaches an MatDialogContainer to a dialog's already-created overlay.
+     * @param overlay Reference to the dialog's underlying overlay.
+     * @param config The dialog configuration.
+     * @returns A promise resolving to a ComponentRef for the attached container.
+     */
+    /**
+     * Attaches an MatDialogContainer to a dialog's already-created overlay.
+     * @private
      * @param {?} overlay Reference to the dialog's underlying overlay.
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
     MatDialog.prototype._attachDialogContainer = /**
      * Attaches an MatDialogContainer to a dialog's already-created overlay.
+     * @private
      * @param {?} overlay Reference to the dialog's underlying overlay.
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to a ComponentRef for the attached container.
@@ -10674,6 +11120,16 @@ var MatDialog = /** @class */ (function () {
     };
     /**
      * Attaches the user-provided component to the already-created MatDialogContainer.
+     * @param componentOrTemplateRef The type of component being loaded into the dialog,
+     *     or a TemplateRef to instantiate as the content.
+     * @param dialogContainer Reference to the wrapping MatDialogContainer.
+     * @param overlayRef Reference to the overlay in which the dialog resides.
+     * @param config The dialog configuration.
+     * @returns A promise resolving to the MatDialogRef that should be returned to the user.
+     */
+    /**
+     * Attaches the user-provided component to the already-created MatDialogContainer.
+     * @private
      * @template T, R
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
@@ -10684,6 +11140,7 @@ var MatDialog = /** @class */ (function () {
      */
     MatDialog.prototype._attachDialogContent = /**
      * Attaches the user-provided component to the already-created MatDialogContainer.
+     * @private
      * @template T, R
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
@@ -10693,6 +11150,8 @@ var MatDialog = /** @class */ (function () {
      * @return {?} A promise resolving to the MatDialogRef that should be returned to the user.
      */
     function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
+        // Create a reference to the dialog we're creating in order to give the user a handle
+        // to modify and close it.
         /** @type {?} */
         var dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
@@ -10704,7 +11163,7 @@ var MatDialog = /** @class */ (function () {
             });
         }
         if (componentOrTemplateRef instanceof core.TemplateRef) {
-            dialogContainer.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
+            dialogContainer.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef }))));
         }
         else {
             /** @type {?} */
@@ -10721,6 +11180,15 @@ var MatDialog = /** @class */ (function () {
     /**
      * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
      * of a dialog to close itself and, optionally, to return a value.
+     * @param config Config object that is used to construct the dialog.
+     * @param dialogRef Reference to the dialog.
+     * @param container Dialog container element that wraps all of the contents.
+     * @returns The custom injector that can be used inside the dialog.
+     */
+    /**
+     * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
+     * of a dialog to close itself and, optionally, to return a value.
+     * @private
      * @template T
      * @param {?} config Config object that is used to construct the dialog.
      * @param {?} dialogRef Reference to the dialog.
@@ -10730,6 +11198,7 @@ var MatDialog = /** @class */ (function () {
     MatDialog.prototype._createInjector = /**
      * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
      * of a dialog to close itself and, optionally, to return a value.
+     * @private
      * @template T
      * @param {?} config Config object that is used to construct the dialog.
      * @param {?} dialogRef Reference to the dialog.
@@ -10739,6 +11208,10 @@ var MatDialog = /** @class */ (function () {
     function (config, dialogRef, dialogContainer) {
         /** @type {?} */
         var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
+        // content are created out of the same ViewContainerRef and as such, are siblings for injector
+        // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
+        // added to the injection tokens.
         /** @type {?} */
         var injectionTokens = new WeakMap([
             [MatDialogContainer, dialogContainer],
@@ -10756,11 +11229,17 @@ var MatDialog = /** @class */ (function () {
     };
     /**
      * Removes a dialog from the array of open dialogs.
+     * @param dialogRef Dialog to be removed.
+     */
+    /**
+     * Removes a dialog from the array of open dialogs.
+     * @private
      * @param {?} dialogRef Dialog to be removed.
      * @return {?}
      */
     MatDialog.prototype._removeOpenDialog = /**
      * Removes a dialog from the array of open dialogs.
+     * @private
      * @param {?} dialogRef Dialog to be removed.
      * @return {?}
      */
@@ -10787,10 +11266,15 @@ var MatDialog = /** @class */ (function () {
     };
     /**
      * Hides all of the content that isn't an overlay from assistive technology.
+     */
+    /**
+     * Hides all of the content that isn't an overlay from assistive technology.
+     * @private
      * @return {?}
      */
     MatDialog.prototype._hideNonDialogContentFromAssistiveTechnology = /**
      * Hides all of the content that isn't an overlay from assistive technology.
+     * @private
      * @return {?}
      */
     function () {
@@ -10813,13 +11297,16 @@ var MatDialog = /** @class */ (function () {
             }
         }
     };
+    /** Closes all of the dialogs in an array. */
     /**
      * Closes all of the dialogs in an array.
+     * @private
      * @param {?} dialogs
      * @return {?}
      */
     MatDialog.prototype._closeDialogs = /**
      * Closes all of the dialogs in an array.
+     * @private
      * @param {?} dialogs
      * @return {?}
      */
@@ -10861,11 +11348,12 @@ function _applyConfigDefaults$1(config, defaultOptions) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Counter used to generate unique IDs for dialog elements.
-  @type {?} */
+ * @type {?}
+ */
 var dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
@@ -10893,7 +11381,7 @@ var MatDialogClose = /** @class */ (function () {
             // views cannot be given a custom injector. Instead, we look up the DialogRef by
             // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
             // be resolved at constructor time.
-            this.dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+            this.dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
     };
     /**
@@ -10906,7 +11394,7 @@ var MatDialogClose = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var proxiedChange = changes["_matDialogClose"] || changes["_matDialogCloseResult"];
+        var proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
@@ -10954,7 +11442,7 @@ var MatDialogTitle = /** @class */ (function () {
     function () {
         var _this = this;
         if (!this._dialogRef) {
-            this._dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+            this._dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
         if (this._dialogRef) {
             Promise.resolve().then(function () {
@@ -11028,12 +11516,12 @@ function getClosestDialog(element, openDialogs) {
     while (parent && !parent.classList.contains('mat-dialog-container')) {
         parent = parent.parentElement;
     }
-    return parent ? openDialogs.find(function (dialog) { return dialog.id === /** @type {?} */ ((parent)).id; }) : null;
+    return parent ? openDialogs.find(function (dialog) { return dialog.id === (/** @type {?} */ (parent)).id; }) : null;
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDialogModule = /** @class */ (function () {
     function MatDialogModule() {
@@ -11073,7 +11561,7 @@ var MatDialogModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -11162,7 +11650,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -11176,20 +11664,22 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 /** @type {?} */
 var MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -11204,10 +11694,13 @@ var MAT_INPUT_INVALID_TYPES = [
 ];
 /** @type {?} */
 var nextUniqueId$5 = 0;
+// Boilerplate for applying mixins to MatInput.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatInput.
+/**
  * \@docs-private
  */
 MatInputBase = /** @class */ (function () {
@@ -11226,8 +11719,7 @@ var _MatInputMixinBase = mixinErrorState(MatInputBase);
  */
 var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
-    function MatInput(_elementRef, _platform, /** @docs-private */
-    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
+    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._platform = _platform;
@@ -11289,7 +11781,7 @@ var MatInput = /** @class */ (function (_super) {
             ngZone.runOutsideAngular(function () {
                 _elementRef.nativeElement.addEventListener('keyup', function (event) {
                     /** @type {?} */
-                    var el = /** @type {?} */ (event.target);
+                    var el = (/** @type {?} */ (event.target));
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
                         // Note: Just setting `0, 0` doesn't fix the issue. Setting
                         // `1, 1` fixes it for the first time that you type text and
@@ -11304,7 +11796,7 @@ var MatInput = /** @class */ (function (_super) {
         _this._isServer = !_this._platform.isBrowser;
         _this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
         if (_this._isNativeSelect) {
-            _this.controlType = (/** @type {?} */ (element)).multiple ? 'mat-native-select-multiple' :
+            _this.controlType = ((/** @type {?} */ (element))).multiple ? 'mat-native-select-multiple' :
                 'mat-native-select';
         }
         return _this;
@@ -11397,7 +11889,7 @@ var MatInput = /** @class */ (function (_super) {
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
             if (!this._isTextarea() && platform.getSupportedInputTypes().has(this._type)) {
-                (/** @type {?} */ (this._elementRef.nativeElement)).type = this._type;
+                ((/** @type {?} */ (this._elementRef.nativeElement))).type = this._type;
             }
         },
         enumerable: true,
@@ -11541,10 +12033,12 @@ var MatInput = /** @class */ (function (_super) {
     /** Does some manual dirty checking on the native input `value` property. */
     /**
      * Does some manual dirty checking on the native input `value` property.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._dirtyCheckNativeValue = /**
      * Does some manual dirty checking on the native input `value` property.
+     * @protected
      * @return {?}
      */
     function () {
@@ -11558,10 +12052,12 @@ var MatInput = /** @class */ (function (_super) {
     /** Make sure the input is a supported type. */
     /**
      * Make sure the input is a supported type.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._validateType = /**
      * Make sure the input is a supported type.
+     * @protected
      * @return {?}
      */
     function () {
@@ -11572,10 +12068,12 @@ var MatInput = /** @class */ (function (_super) {
     /** Checks whether the input type is one of the types that are never empty. */
     /**
      * Checks whether the input type is one of the types that are never empty.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._isNeverEmpty = /**
      * Checks whether the input type is one of the types that are never empty.
+     * @protected
      * @return {?}
      */
     function () {
@@ -11584,24 +12082,29 @@ var MatInput = /** @class */ (function (_super) {
     /** Checks whether the input is invalid based on the native validation. */
     /**
      * Checks whether the input is invalid based on the native validation.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._isBadInput = /**
      * Checks whether the input is invalid based on the native validation.
+     * @protected
      * @return {?}
      */
     function () {
+        // The `validity` property won't be present on platform-server.
         /** @type {?} */
-        var validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
+        var validity = ((/** @type {?} */ (this._elementRef.nativeElement))).validity;
         return validity && validity.badInput;
     };
     /** Determines if the component host is a textarea. */
     /**
      * Determines if the component host is a textarea.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._isTextarea = /**
      * Determines if the component host is a textarea.
+     * @protected
      * @return {?}
      */
     function () {
@@ -11636,8 +12139,11 @@ var MatInput = /** @class */ (function (_super) {
          */
         function () {
             if (this._isNativeSelect) {
+                // For a single-selection `<select>`, the label should float when the selected option has
+                // a non-empty display value. For a `<select multiple>`, the label *always* floats to avoid
+                // overlapping the label with the options.
                 /** @type {?} */
-                var selectElement = /** @type {?} */ (this._elementRef.nativeElement);
+                var selectElement = (/** @type {?} */ (this._elementRef.nativeElement));
                 return selectElement.multiple || !this.empty || !!selectElement.options[0].label ||
                     this.focused;
             }
@@ -11693,8 +12199,8 @@ var MatInput = /** @class */ (function (_super) {
                     exportAs: 'matInput',
                     host: {
                         /**
-                             * @breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-                             */
+                         * \@breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                         */
                         'class': 'mat-input-element mat-form-field-autofill-control',
                         '[class.mat-input-server]': '_isServer',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -11741,7 +12247,7 @@ var MatInput = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
@@ -11756,6 +12262,8 @@ var MatInputModule = /** @class */ (function () {
                     ],
                     exports: [
                         textField.TextFieldModule,
+                        // We re-export the `MatFormFieldModule` since `MatInput` will almost always
+                        // be used together with `MatFormField`.
                         MatFormFieldModule,
                         MatInput,
                         MatTextareaAutosize,
@@ -11768,7 +12276,7 @@ var MatInputModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -11784,7 +12292,7 @@ function createMissingDateImplError(provider) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Datepicker data that requires internationalization.
@@ -11846,7 +12354,7 @@ var MatDatepickerIntl = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
@@ -11915,12 +12423,12 @@ var MatCalendarBody = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var columnChanges = changes["numCols"];
+        var columnChanges = changes.numCols;
         var _a = this, rows = _a.rows, numCols = _a.numCols;
-        if (changes["rows"] || columnChanges) {
+        if (changes.rows || columnChanges) {
             this._firstRowOffset = rows && rows.length && rows[0].length ? numCols - rows[0].length : 0;
         }
-        if (changes["cellAspectRatio"] || columnChanges || !this._cellPadding) {
+        if (changes.cellAspectRatio || columnChanges || !this._cellPadding) {
             this._cellPadding = 50 * this.cellAspectRatio / numCols + "%";
         }
         if (columnChanges || !this._cellWidth) {
@@ -12002,7 +12510,7 @@ var MatCalendarBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var DAYS_PER_WEEK = 7;
@@ -12041,6 +12549,7 @@ var MatMonthView = /** @class */ (function () {
         var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
         /** @type {?} */
         var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
         /** @type {?} */
         var weekdays = longWeekdays.map(function (long, i) {
             return { long: long, narrow: narrowWeekdays[i] };
@@ -12170,6 +12679,12 @@ var MatMonthView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         var oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -12259,12 +12774,15 @@ var MatMonthView = /** @class */ (function () {
     function () {
         this._matCalendarBody._focusActiveCell();
     };
+    /** Creates MatCalendarCells for the dates in this month. */
     /**
      * Creates MatCalendarCells for the dates in this month.
+     * @private
      * @return {?}
      */
     MatMonthView.prototype._createWeekCells = /**
      * Creates MatCalendarCells for the dates in this month.
+     * @private
      * @return {?}
      */
     function () {
@@ -12290,13 +12808,16 @@ var MatMonthView = /** @class */ (function () {
                 .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled, cellClasses));
         }
     };
+    /** Date filter for the month */
     /**
      * Date filter for the month
+     * @private
      * @param {?} date
      * @return {?}
      */
     MatMonthView.prototype._shouldEnableDate = /**
      * Date filter for the month
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -12309,12 +12830,18 @@ var MatMonthView = /** @class */ (function () {
     /**
      * Gets the date in this month that the given Date falls on.
      * Returns null if the given Date is in another month.
+     */
+    /**
+     * Gets the date in this month that the given Date falls on.
+     * Returns null if the given Date is in another month.
+     * @private
      * @param {?} date
      * @return {?}
      */
     MatMonthView.prototype._getDateInCurrentMonth = /**
      * Gets the date in this month that the given Date falls on.
      * Returns null if the given Date is in another month.
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -12322,14 +12849,17 @@ var MatMonthView = /** @class */ (function () {
         return date && this._hasSameMonthAndYear(date, this.activeDate) ?
             this._dateAdapter.getDate(date) : null;
     };
+    /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
     /**
      * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @private
      * @param {?} d1
      * @param {?} d2
      * @return {?}
      */
     MatMonthView.prototype._hasSameMonthAndYear = /**
      * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @private
      * @param {?} d1
      * @param {?} d2
      * @return {?}
@@ -12339,22 +12869,31 @@ var MatMonthView = /** @class */ (function () {
             this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatMonthView.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Determines whether the user has the RTL layout direction. */
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     MatMonthView.prototype._isRtl = /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     function () {
@@ -12392,7 +12931,7 @@ var MatMonthView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var yearsPerPage = 24;
@@ -12568,6 +13107,12 @@ var MatMultiYearView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         var oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -12635,13 +13180,16 @@ var MatMultiYearView = /** @class */ (function () {
     function () {
         this._matCalendarBody._focusActiveCell();
     };
+    /** Creates an MatCalendarCell for the given year. */
     /**
      * Creates an MatCalendarCell for the given year.
+     * @private
      * @param {?} year
      * @return {?}
      */
     MatMultiYearView.prototype._createCellForYear = /**
      * Creates an MatCalendarCell for the given year.
+     * @private
      * @param {?} year
      * @return {?}
      */
@@ -12650,13 +13198,16 @@ var MatMultiYearView = /** @class */ (function () {
         var yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
         return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
     };
+    /** Whether the given year is enabled. */
     /**
      * Whether the given year is enabled.
+     * @private
      * @param {?} year
      * @return {?}
      */
     MatMultiYearView.prototype._shouldEnableYear = /**
      * Whether the given year is enabled.
+     * @private
      * @param {?} year
      * @return {?}
      */
@@ -12682,22 +13233,31 @@ var MatMultiYearView = /** @class */ (function () {
         return false;
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatMultiYearView.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Determines whether the user has the RTL layout direction. */
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     MatMultiYearView.prototype._isRtl = /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     function () {
@@ -12733,7 +13293,7 @@ var MatMultiYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal component used to display a single year in the datepicker.
@@ -12882,6 +13442,12 @@ var MatYearView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         var oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -12963,12 +13529,18 @@ var MatYearView = /** @class */ (function () {
     /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.
+     */
+    /**
+     * Gets the month in this year that the given Date falls on.
+     * Returns null if the given Date is in another year.
+     * @private
      * @param {?} date
      * @return {?}
      */
     MatYearView.prototype._getMonthInCurrentYear = /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -12976,14 +13548,17 @@ var MatYearView = /** @class */ (function () {
         return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
             this._dateAdapter.getMonth(date) : null;
     };
+    /** Creates an MatCalendarCell for the given month. */
     /**
      * Creates an MatCalendarCell for the given month.
+     * @private
      * @param {?} month
      * @param {?} monthName
      * @return {?}
      */
     MatYearView.prototype._createCellForMonth = /**
      * Creates an MatCalendarCell for the given month.
+     * @private
      * @param {?} month
      * @param {?} monthName
      * @return {?}
@@ -12993,13 +13568,16 @@ var MatYearView = /** @class */ (function () {
         var ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
         return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
     };
+    /** Whether the given month is enabled. */
     /**
      * Whether the given month is enabled.
+     * @private
      * @param {?} month
      * @return {?}
      */
     MatYearView.prototype._shouldEnableMonth = /**
      * Whether the given month is enabled.
+     * @private
      * @param {?} month
      * @return {?}
      */
@@ -13027,6 +13605,11 @@ var MatYearView = /** @class */ (function () {
     /**
      * Tests whether the combination month/year is after this.maxDate, considering
      * just the month and year of this.maxDate
+     */
+    /**
+     * Tests whether the combination month/year is after this.maxDate, considering
+     * just the month and year of this.maxDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -13034,6 +13617,7 @@ var MatYearView = /** @class */ (function () {
     MatYearView.prototype._isYearAndMonthAfterMaxDate = /**
      * Tests whether the combination month/year is after this.maxDate, considering
      * just the month and year of this.maxDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -13051,6 +13635,11 @@ var MatYearView = /** @class */ (function () {
     /**
      * Tests whether the combination month/year is before this.minDate, considering
      * just the month and year of this.minDate
+     */
+    /**
+     * Tests whether the combination month/year is before this.minDate, considering
+     * just the month and year of this.minDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -13058,6 +13647,7 @@ var MatYearView = /** @class */ (function () {
     MatYearView.prototype._isYearAndMonthBeforeMinDate = /**
      * Tests whether the combination month/year is before this.minDate, considering
      * just the month and year of this.minDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -13073,22 +13663,31 @@ var MatYearView = /** @class */ (function () {
         return false;
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatYearView.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Determines whether the user has the RTL layout direction. */
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     MatYearView.prototype._isRtl = /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     function () {
@@ -13125,7 +13724,7 @@ var MatYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default header for MatCalendar
@@ -13277,14 +13876,17 @@ var MatCalendarHeader = /** @class */ (function () {
         return !this.calendar.maxDate ||
             !this._isSameView(this.calendar.activeDate, this.calendar.maxDate);
     };
+    /** Whether the two dates represent the same view in the current view mode (month or year). */
     /**
      * Whether the two dates represent the same view in the current view mode (month or year).
+     * @private
      * @param {?} date1
      * @param {?} date2
      * @return {?}
      */
     MatCalendarHeader.prototype._isSameView = /**
      * Whether the two dates represent the same view in the current view mode (month or year).
+     * @private
      * @param {?} date1
      * @param {?} date2
      * @return {?}
@@ -13525,7 +14127,7 @@ var MatCalendar = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
+        var change = changes.minDate || changes.maxDate || changes.dateFilter;
         if (change && !change.firstChange) {
             /** @type {?} */
             var view = this._getCurrentViewComponent();
@@ -13633,22 +14235,31 @@ var MatCalendar = /** @class */ (function () {
         this.currentView = view;
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatCalendar.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Returns the component instance that corresponds to the current calendar view. */
     /**
      * Returns the component instance that corresponds to the current calendar view.
+     * @private
      * @return {?}
      */
     MatCalendar.prototype._getCurrentViewComponent = /**
      * Returns the component instance that corresponds to the current calendar view.
+     * @private
      * @return {?}
      */
     function () {
@@ -13695,14 +14306,17 @@ var MatCalendar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material datepicker.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matDatepickerAnimations = {
-    /** Transforms the height of the datepicker's calendar. */
+    /**
+     * Transforms the height of the datepicker's calendar.
+     */
     transformPanel: animations$1.trigger('transformPanel', [
         animations$1.state('void', animations$1.style({
             opacity: 0,
@@ -13714,7 +14328,9 @@ var matDatepickerAnimations = {
         }))),
         animations$1.transition('* => void', animations$1.animate('100ms linear', animations$1.style({ opacity: 0 })))
     ]),
-    /** Fades in the content of the calendar. */
+    /**
+     * Fades in the content of the calendar.
+     */
     fadeInCalendar: animations$1.trigger('fadeInCalendar', [
         animations$1.state('void', animations$1.style({ opacity: 0 })),
         animations$1.state('enter', animations$1.style({ opacity: 1 })),
@@ -13726,15 +14342,17 @@ var matDatepickerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Used to generate a unique ID for each datepicker instance.
-  @type {?} */
+ * @type {?}
+ */
 var datepickerUid = 0;
-/** *
+/**
  * Injection token that determines the scroll handling while the calendar is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
@@ -13744,18 +14362,22 @@ var MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scr
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 };
+// Boilerplate for applying mixins to MatDatepickerContent.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatDatepickerContent.
+/**
  * \@docs-private
  */
 MatDatepickerContentBase = /** @class */ (function () {
@@ -13816,6 +14438,9 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     };
     return MatDatepickerContent;
 }(_MatDatepickerContentMixinBase));
+// TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
+// template reference variables (e.g. #d vs #d="matDatepicker"). We can change this to a directive
+// if angular adds support for `exportAs: '$implicit'` on directives.
 /**
  * Component responsible for managing the datepicker popup/dialog.
  * @template D
@@ -14186,12 +14811,15 @@ var MatDatepicker = /** @class */ (function () {
             completeClose();
         }
     };
+    /** Open the calendar as a dialog. */
     /**
      * Open the calendar as a dialog.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._openAsDialog = /**
      * Open the calendar as a dialog.
+     * @private
      * @return {?}
      */
     function () {
@@ -14212,12 +14840,15 @@ var MatDatepicker = /** @class */ (function () {
         this._dialogRef.componentInstance.datepicker = this;
         this._setColor();
     };
+    /** Open the calendar as a popup. */
     /**
      * Open the calendar as a popup.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._openAsPopup = /**
      * Open the calendar as a popup.
+     * @private
      * @return {?}
      */
     function () {
@@ -14238,12 +14869,15 @@ var MatDatepicker = /** @class */ (function () {
             });
         }
     };
+    /** Create the popup. */
     /**
      * Create the popup.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._createPopup = /**
      * Create the popup.
+     * @private
      * @return {?}
      */
     function () {
@@ -14265,12 +14899,15 @@ var MatDatepicker = /** @class */ (function () {
                 (_this._datepickerInput && event.altKey && event.keyCode === keycodes.UP_ARROW);
         }))).subscribe(function () { return _this.close(); });
     };
+    /** Create the popup PositionStrategy. */
     /**
      * Create the popup PositionStrategy.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._createPopupPositionStrategy = /**
      * Create the popup PositionStrategy.
+     * @private
      * @return {?}
      */
     function () {
@@ -14308,22 +14945,31 @@ var MatDatepicker = /** @class */ (function () {
         ]);
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatDatepicker.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Passes the current theme color along to the calendar overlay. */
     /**
      * Passes the current theme color along to the calendar overlay.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._setColor = /**
      * Passes the current theme color along to the calendar overlay.
+     * @private
      * @return {?}
      */
     function () {
@@ -14375,19 +15021,21 @@ var MatDatepicker = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
     multi: true
 };
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_VALIDATORS = {
     provide: forms.NG_VALIDATORS,
     useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
@@ -14706,11 +15354,14 @@ var MatDatepickerInput = /** @class */ (function () {
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
      */
-    MatDatepickerInput.prototype.writeValue = /**
+    MatDatepickerInput.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -14718,11 +15369,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this.value = value;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatDatepickerInput.prototype.registerOnChange = /**
+    MatDatepickerInput.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -14730,11 +15384,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this._cvaOnChange = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatDatepickerInput.prototype.registerOnTouched = /**
+    MatDatepickerInput.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -14742,11 +15399,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatDatepickerInput.prototype.setDisabledState = /**
+    MatDatepickerInput.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -14826,13 +15486,16 @@ var MatDatepickerInput = /** @class */ (function () {
         }
         this._onTouched();
     };
+    /** Formats a value and sets it on the input element. */
     /**
      * Formats a value and sets it on the input element.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatDatepickerInput.prototype._formatValue = /**
      * Formats a value and sets it on the input element.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -14841,10 +15504,16 @@ var MatDatepickerInput = /** @class */ (function () {
             value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatDatepickerInput.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -14895,7 +15564,7 @@ var MatDatepickerInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Can be used to override the icon of a `matDatepickerToggle`.
@@ -14950,7 +15619,7 @@ var MatDatepickerToggle = /** @class */ (function () {
      * @return {?}
      */
     function (changes) {
-        if (changes["datepicker"]) {
+        if (changes.datepicker) {
             this._watchStateChanges();
         }
     };
@@ -14987,9 +15656,11 @@ var MatDatepickerToggle = /** @class */ (function () {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatDatepickerToggle.prototype._watchStateChanges = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -15044,7 +15715,7 @@ var MatDatepickerToggle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDatepickerModule = /** @class */ (function () {
     function MatDatepickerModule() {
@@ -15100,7 +15771,7 @@ var MatDatepickerModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDivider = /** @class */ (function () {
     function MatDivider() {
@@ -15162,7 +15833,7 @@ var MatDivider = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDividerModule = /** @class */ (function () {
     function MatDividerModule() {
@@ -15179,23 +15850,25 @@ var MatDividerModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
  * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Time and timing curve for expansion panel animations.
-  @type {?} */
+ * @type {?}
+ */
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
-/** *
+/**
  * Animations used by the Material expansion panel.
  *
  * A bug in angular animation's `state` when ViewContainers are moved using ViewContainerRef.move()
@@ -15216,15 +15889,20 @@ var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
  * Angular Bug: https://github.com/angular/angular/issues/18847
  *
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matExpansionAnimations = {
-    /** Animation that rotates the indicator arrow. */
+    /**
+     * Animation that rotates the indicator arrow.
+     */
     indicatorRotate: animations$1.trigger('indicatorRotate', [
         animations$1.state('collapsed, void', animations$1.style({ transform: 'rotate(0deg)' })),
         animations$1.state('expanded', animations$1.style({ transform: 'rotate(180deg)' })),
         animations$1.transition('expanded <=> collapsed, void => collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
-    /** Animation that expands and collapses the panel header height. */
+    /**
+     * Animation that expands and collapses the panel header height.
+     */
     expansionHeaderHeight: animations$1.trigger('expansionHeight', [
         animations$1.state('collapsed, void', animations$1.style({
             height: '{{collapsedHeight}}',
@@ -15241,7 +15919,9 @@ var matExpansionAnimations = {
             animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING),
         ])),
     ]),
-    /** Animation that expands and collapses the panel content. */
+    /**
+     * Animation that expands and collapses the panel content.
+     */
     bodyExpansion: animations$1.trigger('bodyExpansion', [
         animations$1.state('collapsed, void', animations$1.style({ height: '0px', visibility: 'hidden' })),
         animations$1.state('expanded', animations$1.style({ height: '*', visibility: 'visible' })),
@@ -15251,7 +15931,7 @@ var matExpansionAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Expansion panel content that will be rendered lazily
@@ -15275,11 +15955,12 @@ var MatExpansionPanelContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Counter for generating unique element ids.
-  @type {?} */
+ * @type {?}
+ */
 var uniqueId$1 = 0;
 var ɵ0$4 = undefined;
 /**
@@ -15394,7 +16075,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = this;
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(operators.startWith(/** @type {?} */ ((null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
+            this.opened.pipe(operators.startWith((/** @type {?} */ (null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
                 _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
             });
         }
@@ -15497,7 +16178,7 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * `<mat-expansion-panel-header>`
@@ -15514,10 +16195,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes["hideToggle"]; })) : rxjs.EMPTY;
+            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes.hideToggle; })) : rxjs.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
-        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes.hideToggle || changes.disabled); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
@@ -15741,7 +16422,7 @@ var MatExpansionPanelTitle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive for a Material Design Accordion.
@@ -15848,7 +16529,7 @@ var MatAccordion = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {
@@ -15881,17 +16562,18 @@ var MatExpansionModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token used to provide a grid list to a tile and to avoid circular imports.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_GRID_LIST = new core.InjectionToken('MAT_GRID_LIST');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element, _gridList) {
@@ -15949,7 +16631,7 @@ var MatGridTile = /** @class */ (function () {
      * @return {?}
      */
     function (property, value) {
-        (/** @type {?} */ (this._element.nativeElement.style))[property] = value;
+        ((/** @type {?} */ (this._element.nativeElement.style)))[property] = value;
     };
     MatGridTile.decorators = [
         { type: core.Component, args: [{selector: 'mat-grid-tile',
@@ -16051,7 +16733,7 @@ var MatGridTileFooterCssMatStyler = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -16153,17 +16835,21 @@ TileCoordinator = /** @class */ (function () {
         this.tracker.fill(0, 0, this.tracker.length);
         this.positions = tiles.map(function (tile) { return _this._trackTile(tile); });
     };
+    /** Calculates the row and col position of a tile. */
     /**
      * Calculates the row and col position of a tile.
+     * @private
      * @param {?} tile
      * @return {?}
      */
     TileCoordinator.prototype._trackTile = /**
      * Calculates the row and col position of a tile.
+     * @private
      * @param {?} tile
      * @return {?}
      */
     function (tile) {
+        // Find a gap large enough for this tile.
         /** @type {?} */
         var gapStartIndex = this._findMatchingGap(tile.colspan);
         // Place tile in the resulting gap.
@@ -16173,13 +16859,16 @@ TileCoordinator = /** @class */ (function () {
         this.columnIndex = gapStartIndex + tile.colspan;
         return new TilePosition(this.rowIndex, gapStartIndex);
     };
+    /** Finds the next available space large enough to fit the tile. */
     /**
      * Finds the next available space large enough to fit the tile.
+     * @private
      * @param {?} tileCols
      * @return {?}
      */
     TileCoordinator.prototype._findMatchingGap = /**
      * Finds the next available space large enough to fit the tile.
+     * @private
      * @param {?} tileCols
      * @return {?}
      */
@@ -16188,6 +16877,7 @@ TileCoordinator = /** @class */ (function () {
             throw Error("mat-grid-list: tile with colspan " + tileCols + " is wider than " +
                 ("grid with cols=\"" + this.tracker.length + "\"."));
         }
+        // Start index is inclusive, end index is exclusive.
         /** @type {?} */
         var gapStartIndex = -1;
         /** @type {?} */
@@ -16220,12 +16910,15 @@ TileCoordinator = /** @class */ (function () {
         // at least zero so the tile doesn't get pulled out of the grid.
         return Math.max(gapStartIndex, 0);
     };
+    /** Move "down" to the next row. */
     /**
      * Move "down" to the next row.
+     * @private
      * @return {?}
      */
     TileCoordinator.prototype._nextRow = /**
      * Move "down" to the next row.
+     * @private
      * @return {?}
      */
     function () {
@@ -16239,12 +16932,18 @@ TileCoordinator = /** @class */ (function () {
     /**
      * Finds the end index (exclusive) of a gap given the index from which to start looking.
      * The gap ends when a non-zero value is found.
+     */
+    /**
+     * Finds the end index (exclusive) of a gap given the index from which to start looking.
+     * The gap ends when a non-zero value is found.
+     * @private
      * @param {?} gapStartIndex
      * @return {?}
      */
     TileCoordinator.prototype._findGapEndIndex = /**
      * Finds the end index (exclusive) of a gap given the index from which to start looking.
      * The gap ends when a non-zero value is found.
+     * @private
      * @param {?} gapStartIndex
      * @return {?}
      */
@@ -16257,14 +16956,17 @@ TileCoordinator = /** @class */ (function () {
         // The gap ends with the end of the row.
         return this.tracker.length;
     };
+    /** Update the tile tracker to account for the given tile in the given space. */
     /**
      * Update the tile tracker to account for the given tile in the given space.
+     * @private
      * @param {?} start
      * @param {?} tile
      * @return {?}
      */
     TileCoordinator.prototype._markTilePosition = /**
      * Update the tile tracker to account for the given tile in the given space.
+     * @private
      * @param {?} start
      * @param {?} tile
      * @return {?}
@@ -16294,12 +16996,14 @@ TilePosition = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+
+/**
  * RegExp that can be used to check whether a value will
  * be allowed inside a CSS `calc()` expression.
-  @type {?} */
+ * @type {?}
+ */
 var cssCalcAllowedValue = /^-?\d+((\.\d+)?[A-Za-z%$]?)+$/;
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
@@ -16448,8 +17152,11 @@ TileStyler = /** @class */ (function () {
      * @return {?}
      */
     function (tile, rowIndex, colIndex) {
+        // Percent of the available horizontal space that one column takes up.
         /** @type {?} */
         var percentWidthPerTile = 100 / this._cols;
+        // Fraction of the vertical gutter size that each column takes up.
+        // For example, if there are 5 columns, each column uses 4/5 = 0.8 times the gutter width.
         /** @type {?} */
         var gutterWidthFractionPerTile = (this._cols - 1) / this._cols;
         this.setColStyles(tile, colIndex, percentWidthPerTile, gutterWidthFractionPerTile);
@@ -16473,8 +17180,11 @@ TileStyler = /** @class */ (function () {
      * @return {?}
      */
     function (tile, colIndex, percentWidth, gutterWidth) {
+        // Base horizontal size of a column.
         /** @type {?} */
         var baseTileWidth = this.getBaseTileSize(percentWidth, gutterWidth);
+        // The width and horizontal position of each tile is always calculated the same way, but the
+        // height and vertical position depends on the rowMode.
         /** @type {?} */
         var side = this._direction === 'rtl' ? 'right' : 'left';
         tile._setStyle(side, this.getTilePosition(baseTileWidth, colIndex));
@@ -16681,10 +17391,12 @@ RatioTileStyler = /** @class */ (function (_super) {
         });
     };
     /**
+     * @private
      * @param {?} value
      * @return {?}
      */
     RatioTileStyler.prototype._parseRatio = /**
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -16728,10 +17440,13 @@ FitTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (tile, rowIndex) {
+        // Percent of the available vertical space that one row takes up.
         /** @type {?} */
         var percentHeightPerTile = 100 / this._rowspan;
+        // Fraction of the horizontal gutter size that each column takes up.
         /** @type {?} */
         var gutterHeightPerTile = (this._rows - 1) / this._rows;
+        // Base vertical size of a column.
         /** @type {?} */
         var baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterHeightPerTile);
         tile._setStyle('top', this.getTilePosition(baseTileHeight, rowIndex));
@@ -16772,8 +17487,11 @@ function normalizeUnits(value) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(kara): Conditional (responsive) column count / row size.
+// TODO(kara): Re-layout on window resize / media change (debounced).
+// TODO(kara): gridTileHeader and gridTileFooter.
 /** @type {?} */
 var MAT_FIT_MODE = 'fit';
 var MatGridList = /** @class */ (function () {
@@ -16866,12 +17584,15 @@ var MatGridList = /** @class */ (function () {
     function () {
         this._layoutTiles();
     };
+    /** Throw a friendly error if cols property is missing */
     /**
      * Throw a friendly error if cols property is missing
+     * @private
      * @return {?}
      */
     MatGridList.prototype._checkCols = /**
      * Throw a friendly error if cols property is missing
+     * @private
      * @return {?}
      */
     function () {
@@ -16880,12 +17601,15 @@ var MatGridList = /** @class */ (function () {
                 "Example: <mat-grid-list cols=\"3\">");
         }
     };
+    /** Default to equal width:height if rowHeight property is missing */
     /**
      * Default to equal width:height if rowHeight property is missing
+     * @private
      * @return {?}
      */
     MatGridList.prototype._checkRowHeight = /**
      * Default to equal width:height if rowHeight property is missing
+     * @private
      * @return {?}
      */
     function () {
@@ -16893,13 +17617,16 @@ var MatGridList = /** @class */ (function () {
             this._setTileStyler('1:1');
         }
     };
+    /** Creates correct Tile Styler subtype based on rowHeight passed in by user */
     /**
      * Creates correct Tile Styler subtype based on rowHeight passed in by user
+     * @private
      * @param {?} rowHeight
      * @return {?}
      */
     MatGridList.prototype._setTileStyler = /**
      * Creates correct Tile Styler subtype based on rowHeight passed in by user
+     * @private
      * @param {?} rowHeight
      * @return {?}
      */
@@ -16917,12 +17644,15 @@ var MatGridList = /** @class */ (function () {
             this._tileStyler = new FixedTileStyler(rowHeight);
         }
     };
+    /** Computes and applies the size and position for all children grid tiles. */
     /**
      * Computes and applies the size and position for all children grid tiles.
+     * @private
      * @return {?}
      */
     MatGridList.prototype._layoutTiles = /**
      * Computes and applies the size and position for all children grid tiles.
+     * @private
      * @return {?}
      */
     function () {
@@ -16958,7 +17688,7 @@ var MatGridList = /** @class */ (function () {
      */
     function (style) {
         if (style) {
-            (/** @type {?} */ (this._element.nativeElement.style))[style[0]] = style[1];
+            ((/** @type {?} */ (this._element.nativeElement.style)))[style[0]] = style[1];
         }
     };
     MatGridList.decorators = [
@@ -16993,7 +17723,7 @@ var MatGridList = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatGridListModule = /** @class */ (function () {
     function MatGridListModule() {
@@ -17026,7 +17756,7 @@ var MatGridListModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Returns an exception to be thrown in the case when attempting to
@@ -17081,11 +17811,11 @@ SvgIconConfig = /** @class */ (function () {
     function SvgIconConfig(data) {
         // Note that we can't use `instanceof SVGElement` here,
         // because it'll break during server-side rendering.
-        if (!!(/** @type {?} */ (data)).nodeName) {
-            this.svgElement = /** @type {?} */ (data);
+        if (!!((/** @type {?} */ (data))).nodeName) {
+            this.svgElement = (/** @type {?} */ (data));
         }
         else {
-            this.url = /** @type {?} */ (data);
+            this.url = (/** @type {?} */ (data));
         }
     }
     return SvgIconConfig;
@@ -17137,18 +17867,22 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon by URL in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIcon = /**
      * Registers an icon by URL in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     function (iconName, url) {
-        return this.addSvgIconInNamespace('', iconName, url);
+        return (/** @type {?} */ (this)).addSvgIconInNamespace('', iconName, url);
     };
     /**
      * Registers an icon using an HTML string in the default namespace.
@@ -17157,18 +17891,22 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon using an HTML string in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconLiteral = /**
      * Registers an icon using an HTML string in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @return {?}
+     * @return {THIS}
      */
     function (iconName, literal) {
-        return this.addSvgIconLiteralInNamespace('', iconName, literal);
+        return (/** @type {?} */ (this)).addSvgIconLiteralInNamespace('', iconName, literal);
     };
     /**
      * Registers an icon by URL in the specified namespace.
@@ -17178,20 +17916,24 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon by URL in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconInNamespace = /**
      * Registers an icon by URL in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     function (namespace, iconName, url) {
-        return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url));
+        return (/** @type {?} */ (this))._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url));
     };
     /**
      * Registers an icon using an HTML string in the specified namespace.
@@ -17201,27 +17943,31 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon using an HTML string in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconLiteralInNamespace = /**
      * Registers an icon using an HTML string in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @return {?}
+     * @return {THIS}
      */
     function (namespace, iconName, literal) {
         /** @type {?} */
-        var sanitizedLiteral = this._sanitizer.sanitize(core.SecurityContext.HTML, literal);
+        var sanitizedLiteral = (/** @type {?} */ (this))._sanitizer.sanitize(core.SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
         /** @type {?} */
-        var svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral);
-        return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement));
+        var svgElement = (/** @type {?} */ (this))._createSvgElementForSingleIcon(sanitizedLiteral);
+        return (/** @type {?} */ (this))._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement));
     };
     /**
      * Registers an icon set by URL in the default namespace.
@@ -17229,16 +17975,20 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon set by URL in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSet = /**
      * Registers an icon set by URL in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     function (url) {
-        return this.addSvgIconSetInNamespace('', url);
+        return (/** @type {?} */ (this)).addSvgIconSetInNamespace('', url);
     };
     /**
      * Registers an icon set using an HTML string in the default namespace.
@@ -17246,16 +17996,20 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon set using an HTML string in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} literal SVG source of the icon set.
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSetLiteral = /**
      * Registers an icon set using an HTML string in the default namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} literal SVG source of the icon set.
-     * @return {?}
+     * @return {THIS}
      */
     function (literal) {
-        return this.addSvgIconSetLiteralInNamespace('', literal);
+        return (/** @type {?} */ (this)).addSvgIconSetLiteralInNamespace('', literal);
     };
     /**
      * Registers an icon set by URL in the specified namespace.
@@ -17264,18 +18018,22 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon set by URL in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSetInNamespace = /**
      * Registers an icon set by URL in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} url
-     * @return {?}
+     * @return {THIS}
      */
     function (namespace, url) {
-        return this._addSvgIconSetConfig(namespace, new SvgIconConfig(url));
+        return (/** @type {?} */ (this))._addSvgIconSetConfig(namespace, new SvgIconConfig(url));
     };
     /**
      * Registers an icon set using an HTML string in the specified namespace.
@@ -17284,25 +18042,29 @@ var MatIconRegistry = /** @class */ (function () {
      */
     /**
      * Registers an icon set using an HTML string in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} literal SVG source of the icon set.
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSetLiteralInNamespace = /**
      * Registers an icon set using an HTML string in the specified namespace.
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} literal SVG source of the icon set.
-     * @return {?}
+     * @return {THIS}
      */
     function (namespace, literal) {
         /** @type {?} */
-        var sanitizedLiteral = this._sanitizer.sanitize(core.SecurityContext.HTML, literal);
+        var sanitizedLiteral = (/** @type {?} */ (this))._sanitizer.sanitize(core.SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
         /** @type {?} */
-        var svgElement = this._svgElementFromString(sanitizedLiteral);
-        return this._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement));
+        var svgElement = (/** @type {?} */ (this))._svgElementFromString(sanitizedLiteral);
+        return (/** @type {?} */ (this))._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement));
     };
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
@@ -17317,23 +18079,27 @@ var MatIconRegistry = /** @class */ (function () {
      * component with the alias as the fontSet input will cause the class name to be applied
      * to the `<mat-icon>` element.
      *
+     * @template THIS
+     * @this {THIS}
      * @param {?} alias Alias for the font.
      * @param {?=} className Class name override to be used instead of the alias.
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.registerFontClassAlias = /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
      * to the `<mat-icon>` element.
      *
+     * @template THIS
+     * @this {THIS}
      * @param {?} alias Alias for the font.
      * @param {?=} className Class name override to be used instead of the alias.
-     * @return {?}
+     * @return {THIS}
      */
     function (alias, className) {
         if (className === void 0) { className = alias; }
-        this._fontCssClassesByAlias.set(alias, className);
-        return this;
+        (/** @type {?} */ (this))._fontCssClassesByAlias.set(alias, className);
+        return (/** @type {?} */ (this));
     };
     /**
      * Returns the CSS class name associated with the alias by a previous call to
@@ -17364,19 +18130,23 @@ var MatIconRegistry = /** @class */ (function () {
      * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
+     * @template THIS
+     * @this {THIS}
      * @param {?} className
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype.setDefaultFontSetClass = /**
      * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
+     * @template THIS
+     * @this {THIS}
      * @param {?} className
-     * @return {?}
+     * @return {THIS}
      */
     function (className) {
-        this._defaultFontSetClass = className;
-        return this;
+        (/** @type {?} */ (this))._defaultFontSetClass = className;
+        return (/** @type {?} */ (this));
     };
     /**
      * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
@@ -17433,7 +18203,7 @@ var MatIconRegistry = /** @class */ (function () {
         if (cachedIcon) {
             return rxjs.of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(operators.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), operators.map(function (svg) { return cloneSvg(svg); }));
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(operators.tap(function (svg) { return _this._cachedIconsByUrl.set((/** @type {?} */ (url)), svg); }), operators.map(function (svg) { return cloneSvg(svg); }));
     };
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -17463,6 +18233,7 @@ var MatIconRegistry = /** @class */ (function () {
      */
     function (name, namespace) {
         if (namespace === void 0) { namespace = ''; }
+        // Return (copy of) cached icon if possible.
         /** @type {?} */
         var key = iconKey(namespace, name);
         /** @type {?} */
@@ -17470,6 +18241,7 @@ var MatIconRegistry = /** @class */ (function () {
         if (config) {
             return this._getSvgFromConfig(config);
         }
+        // See if we have any icon sets registered for the namespace.
         /** @type {?} */
         var iconSetConfigs = this._iconSetConfigs.get(namespace);
         if (iconSetConfigs) {
@@ -17479,11 +18251,16 @@ var MatIconRegistry = /** @class */ (function () {
     };
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
+     */
+    /**
+     * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
+     * @private
      * @param {?} config
      * @return {?}
      */
     MatIconRegistry.prototype._getSvgFromConfig = /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
+     * @private
      * @param {?} config
      * @return {?}
      */
@@ -17504,6 +18281,15 @@ var MatIconRegistry = /** @class */ (function () {
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.
+     */
+    /**
+     * Attempts to find an icon with the specified name in any of the SVG icon sets.
+     * First searches the available cached icons for a nested element with a matching name, and
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
+     * that have not been cached, and searches again after all fetches are completed.
+     * The returned Observable produces the SVG element if possible, and throws
+     * an error if no icon with the specified name can be found.
+     * @private
      * @param {?} name
      * @param {?} iconSetConfigs
      * @return {?}
@@ -17515,12 +18301,15 @@ var MatIconRegistry = /** @class */ (function () {
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.
+     * @private
      * @param {?} name
      * @param {?} iconSetConfigs
      * @return {?}
      */
     function (name, iconSetConfigs) {
         var _this = this;
+        // For all the icon set SVG elements we've fetched, see if any contain an icon with the
+        // requested name.
         /** @type {?} */
         var namedIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
         if (namedIcon) {
@@ -17529,6 +18318,8 @@ var MatIconRegistry = /** @class */ (function () {
             // it from the icon set.
             return rxjs.of(namedIcon);
         }
+        // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
+        // fetched, fetch them now and look for iconName in the results.
         /** @type {?} */
         var iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
@@ -17557,6 +18348,12 @@ var MatIconRegistry = /** @class */ (function () {
      * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
+     */
+    /**
+     * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
+     * tag matches the specified name. If found, copies the nested element to a new SVG element and
+     * returns it. Returns null if no matching element is found.
+     * @private
      * @param {?} iconName
      * @param {?} iconSetConfigs
      * @return {?}
@@ -17565,6 +18362,7 @@ var MatIconRegistry = /** @class */ (function () {
      * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
+     * @private
      * @param {?} iconName
      * @param {?} iconSetConfigs
      * @return {?}
@@ -17587,12 +18385,18 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
      * from it.
+     */
+    /**
+     * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
+     * from it.
+     * @private
      * @param {?} config
      * @return {?}
      */
     MatIconRegistry.prototype._loadSvgIconFromConfig = /**
      * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
      * from it.
+     * @private
      * @param {?} config
      * @return {?}
      */
@@ -17604,12 +18408,18 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
      * from it.
+     */
+    /**
+     * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
+     * from it.
+     * @private
      * @param {?} config
      * @return {?}
      */
     MatIconRegistry.prototype._loadSvgIconSetFromConfig = /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
      * from it.
+     * @private
      * @param {?} config
      * @return {?}
      */
@@ -17630,11 +18440,16 @@ var MatIconRegistry = /** @class */ (function () {
     };
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
+     */
+    /**
+     * Creates a DOM element from the given SVG string, and adds default attributes.
+     * @private
      * @param {?} responseText
      * @return {?}
      */
     MatIconRegistry.prototype._createSvgElementForSingleIcon = /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
+     * @private
      * @param {?} responseText
      * @return {?}
      */
@@ -17648,6 +18463,12 @@ var MatIconRegistry = /** @class */ (function () {
      * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
+     */
+    /**
+     * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
+     * tag matches the specified name. If found, copies the nested element to a new SVG element and
+     * returns it. Returns null if no matching element is found.
+     * @private
      * @param {?} iconSet
      * @param {?} iconName
      * @return {?}
@@ -17656,6 +18477,7 @@ var MatIconRegistry = /** @class */ (function () {
      * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
+     * @private
      * @param {?} iconSet
      * @param {?} iconName
      * @return {?}
@@ -17666,13 +18488,15 @@ var MatIconRegistry = /** @class */ (function () {
         if (!iconSource) {
             return null;
         }
+        // Clone the element and remove the ID to prevent multiple elements from being added
+        // to the page with the same ID.
         /** @type {?} */
-        var iconElement = /** @type {?} */ (iconSource.cloneNode(true));
+        var iconElement = (/** @type {?} */ (iconSource.cloneNode(true)));
         iconElement.removeAttribute('id');
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
         if (iconElement.nodeName.toLowerCase() === 'svg') {
-            return this._setSvgAttributes(/** @type {?} */ (iconElement));
+            return this._setSvgAttributes((/** @type {?} */ (iconElement)));
         }
         // If the node is a <symbol>, it won't be rendered so we have to convert it into <svg>. Note
         // that the same could be achieved by referring to it via <use href="#id">, however the <use>
@@ -17680,6 +18504,11 @@ var MatIconRegistry = /** @class */ (function () {
         if (iconElement.nodeName.toLowerCase() === 'symbol') {
             return this._setSvgAttributes(this._toSvgElement(iconElement));
         }
+        // createElement('SVG') doesn't work as expected; the DOM ends up with
+        // the correct nodes, but the SVG content doesn't render. Instead we
+        // have to create an empty SVG node using innerHTML and append its content.
+        // Elements created using DOMParser.parseFromString have the same problem.
+        // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
         /** @type {?} */
         var svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
@@ -17688,11 +18517,16 @@ var MatIconRegistry = /** @class */ (function () {
     };
     /**
      * Creates a DOM element from the given SVG string.
+     */
+    /**
+     * Creates a DOM element from the given SVG string.
+     * @private
      * @param {?} str
      * @return {?}
      */
     MatIconRegistry.prototype._svgElementFromString = /**
      * Creates a DOM element from the given SVG string.
+     * @private
      * @param {?} str
      * @return {?}
      */
@@ -17701,7 +18535,7 @@ var MatIconRegistry = /** @class */ (function () {
         var div = this._document.createElement('DIV');
         div.innerHTML = str;
         /** @type {?} */
-        var svg = /** @type {?} */ (div.querySelector('svg'));
+        var svg = (/** @type {?} */ (div.querySelector('svg')));
         if (!svg) {
             throw Error('<svg> tag not found');
         }
@@ -17709,11 +18543,16 @@ var MatIconRegistry = /** @class */ (function () {
     };
     /**
      * Converts an element into an SVG node by cloning all of its children.
+     */
+    /**
+     * Converts an element into an SVG node by cloning all of its children.
+     * @private
      * @param {?} element
      * @return {?}
      */
     MatIconRegistry.prototype._toSvgElement = /**
      * Converts an element into an SVG node by cloning all of its children.
+     * @private
      * @param {?} element
      * @return {?}
      */
@@ -17729,11 +18568,16 @@ var MatIconRegistry = /** @class */ (function () {
     };
     /**
      * Sets the default attributes for an SVG element to be used as an icon.
+     */
+    /**
+     * Sets the default attributes for an SVG element to be used as an icon.
+     * @private
      * @param {?} svg
      * @return {?}
      */
     MatIconRegistry.prototype._setSvgAttributes = /**
      * Sets the default attributes for an SVG element to be used as an icon.
+     * @private
      * @param {?} svg
      * @return {?}
      */
@@ -17748,12 +18592,18 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Returns an Observable which produces the string contents of the given URL. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
+     */
+    /**
+     * Returns an Observable which produces the string contents of the given URL. Results may be
+     * cached, so future calls with the same URL may not cause another HTTP request.
+     * @private
      * @param {?} safeUrl
      * @return {?}
      */
     MatIconRegistry.prototype._fetchUrl = /**
      * Returns an Observable which produces the string contents of the given URL. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
+     * @private
      * @param {?} safeUrl
      * @return {?}
      */
@@ -17770,11 +18620,16 @@ var MatIconRegistry = /** @class */ (function () {
         if (!url) {
             throw getMatIconFailedToSanitizeUrlError(safeUrl);
         }
+        // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
+        // already a request in progress for that URL. It's necessary to call share() on the
+        // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
         /** @type {?} */
         var inProgressFetch = this._inProgressUrlFetches.get(url);
         if (inProgressFetch) {
             return inProgressFetch;
         }
+        // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
+        // Observable. Figure out why and fix it.
         /** @type {?} */
         var req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
         this._inProgressUrlFetches.set(url, req);
@@ -17782,44 +18637,67 @@ var MatIconRegistry = /** @class */ (function () {
     };
     /**
      * Registers an icon config by name in the specified namespace.
+     * @param namespace Namespace in which to register the icon config.
+     * @param iconName Name under which to register the config.
+     * @param config Config to be registered.
+     */
+    /**
+     * Registers an icon config by name in the specified namespace.
+     * @private
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon config.
      * @param {?} iconName Name under which to register the config.
      * @param {?} config Config to be registered.
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype._addSvgIconConfig = /**
      * Registers an icon config by name in the specified namespace.
+     * @private
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon config.
      * @param {?} iconName Name under which to register the config.
      * @param {?} config Config to be registered.
-     * @return {?}
+     * @return {THIS}
      */
     function (namespace, iconName, config) {
-        this._svgIconConfigs.set(iconKey(namespace, iconName), config);
-        return this;
+        (/** @type {?} */ (this))._svgIconConfigs.set(iconKey(namespace, iconName), config);
+        return (/** @type {?} */ (this));
     };
     /**
      * Registers an icon set config in the specified namespace.
+     * @param namespace Namespace in which to register the icon config.
+     * @param config Config to be registered.
+     */
+    /**
+     * Registers an icon set config in the specified namespace.
+     * @private
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon config.
      * @param {?} config Config to be registered.
-     * @return {?}
+     * @return {THIS}
      */
     MatIconRegistry.prototype._addSvgIconSetConfig = /**
      * Registers an icon set config in the specified namespace.
+     * @private
+     * @template THIS
+     * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon config.
      * @param {?} config Config to be registered.
-     * @return {?}
+     * @return {THIS}
      */
     function (namespace, config) {
         /** @type {?} */
-        var configNamespace = this._iconSetConfigs.get(namespace);
+        var configNamespace = (/** @type {?} */ (this))._iconSetConfigs.get(namespace);
         if (configNamespace) {
             configNamespace.push(config);
         }
         else {
-            this._iconSetConfigs.set(namespace, [config]);
+            (/** @type {?} */ (this))._iconSetConfigs.set(namespace, [config]);
         }
-        return this;
+        return (/** @type {?} */ (this));
     };
     MatIconRegistry.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
@@ -17844,9 +18722,10 @@ var MatIconRegistry = /** @class */ (function () {
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
     return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var ICON_REGISTRY_PROVIDER = {
     // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
@@ -17854,7 +18733,7 @@ var ICON_REGISTRY_PROVIDER = {
         [new core.Optional(), new core.SkipSelf(), MatIconRegistry],
         [new core.Optional(), http.HttpClient],
         platformBrowser.DomSanitizer,
-        [new core.Optional(), /** @type {?} */ (common.DOCUMENT)],
+        [new core.Optional(), (/** @type {?} */ (common.DOCUMENT))],
     ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
 };
@@ -17864,7 +18743,7 @@ var ICON_REGISTRY_PROVIDER = {
  * @return {?}
  */
 function cloneSvg(svg) {
-    return /** @type {?} */ (svg.cloneNode(true));
+    return (/** @type {?} */ (svg.cloneNode(true)));
 }
 /**
  * Returns the cache key to use for an icon namespace and name.
@@ -17878,12 +18757,15 @@ function iconKey(namespace, name) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatIcon.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatIcon.
+/**
  * \@docs-private
  */
 MatIconBase = /** @class */ (function () {
@@ -17894,11 +18776,12 @@ MatIconBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatIconMixinBase = mixinColor(MatIconBase);
-/** *
+/**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_ICON_LOCATION = new core.InjectionToken('mat-icon-location', {
     providedIn: 'root',
     factory: MAT_ICON_LOCATION_FACTORY
@@ -17918,9 +18801,10 @@ function MAT_ICON_LOCATION_FACTORY() {
         getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
     };
 }
-/** *
+/**
  * SVG attributes that accept a FuncIRI (e.g. `url(<something>)`).
-  @type {?} */
+ * @type {?}
+ */
 var funcIriAttributes = [
     'clip-path',
     'color-profile',
@@ -17936,13 +18820,15 @@ var funcIriAttributes = [
     'stroke'
 ];
 var ɵ0$5 = function (attr) { return "[" + attr + "]"; };
-/** *
+/**
  * Selector that can be used to find all elements that are using a `FuncIRI`.
-  @type {?} */
+ * @type {?}
+ */
 var funcIriAttributeSelector = funcIriAttributes.map(ɵ0$5).join(', ');
-/** *
+/**
  * Regex that can be used to extract the id out of a FuncIRI.
-  @type {?} */
+ * @type {?}
+ */
 var funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
 /**
  * Component to display an icon. It can be used in the following ways:
@@ -17973,11 +18859,7 @@ var funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  */
 var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
-    function MatIcon(elementRef, _iconRegistry, ariaHidden, /**
-           * @deprecated `location` parameter to be made required.
-           * @breaking-change 8.0.0
-           */
-    _location) {
+    function MatIcon(elementRef, _iconRegistry, ariaHidden, _location) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
         _this._location = _location;
@@ -18058,6 +18940,20 @@ var MatIcon = /** @class */ (function (_super) {
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
      *   'a:b:c' -> (throws Error)`
+     */
+    /**
+     * Splits an svgIcon binding value into its icon set and icon name components.
+     * Returns a 2-element array of [(icon set), (icon name)].
+     * The separator for the two fields is ':'. If there is no separator, an empty
+     * string is returned for the icon set and the entire value is returned for
+     * the icon name. If the argument is falsy, returns an array of two empty strings.
+     * Throws an error if the name contains two or more ':' separators.
+     * Examples:
+     *   `'social:cake' -> ['social', 'cake']
+     *   'penguin' -> ['', 'penguin']
+     *   null -> ['', '']
+     *   'a:b:c' -> (throws Error)`
+     * @private
      * @param {?} iconName
      * @return {?}
      */
@@ -18073,6 +18969,7 @@ var MatIcon = /** @class */ (function (_super) {
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
      *   'a:b:c' -> (throws Error)`
+     * @private
      * @param {?} iconName
      * @return {?}
      */
@@ -18084,7 +18981,7 @@ var MatIcon = /** @class */ (function (_super) {
         var parts = iconName.split(':');
         switch (parts.length) {
             case 1: return ['', parts[0]]; // Use default namespace.
-            case 2: return /** @type {?} */ (parts);
+            case 2: return (/** @type {?} */ (parts));
             default: throw Error("Invalid icon name: \"" + iconName + "\"");
         }
     };
@@ -18099,7 +18996,7 @@ var MatIcon = /** @class */ (function (_super) {
     function (changes) {
         var _this = this;
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        if (changes["svgIcon"]) {
+        if (changes.svgIcon) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
                 this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(operators.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
@@ -18161,26 +19058,33 @@ var MatIcon = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatIcon.prototype._usingFontIcon = /**
+     * @private
      * @return {?}
      */
     function () {
         return !this.svgIcon;
     };
     /**
+     * @private
      * @param {?} svg
      * @return {?}
      */
     MatIcon.prototype._setSvgElement = /**
+     * @private
      * @param {?} svg
      * @return {?}
      */
     function (svg) {
         this._clearSvgElement();
+        // Workaround for IE11 and Edge ignoring `style` tags inside dynamically-created SVGs.
+        // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/10898469/
+        // Do this before inserting the element into the DOM, in order to avoid a style recalculation.
         /** @type {?} */
-        var styleTags = /** @type {?} */ (svg.querySelectorAll('style'));
+        var styleTags = (/** @type {?} */ (svg.querySelectorAll('style')));
         for (var i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }
@@ -18196,9 +19100,11 @@ var MatIcon = /** @class */ (function (_super) {
         this._elementRef.nativeElement.appendChild(svg);
     };
     /**
+     * @private
      * @return {?}
      */
     MatIcon.prototype._clearSvgElement = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -18222,9 +19128,11 @@ var MatIcon = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatIcon.prototype._updateFontIconClasses = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -18260,6 +19168,12 @@ var MatIcon = /** @class */ (function (_super) {
      * Cleans up a value to be used as a fontIcon or fontSet.
      * Since the value ends up being assigned as a CSS class, we
      * have to trim the value and omit space-separated values.
+     */
+    /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -18267,6 +19181,7 @@ var MatIcon = /** @class */ (function (_super) {
      * Cleans up a value to be used as a fontIcon or fontSet.
      * Since the value ends up being assigned as a CSS class, we
      * have to trim the value and omit space-separated values.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -18277,6 +19192,12 @@ var MatIcon = /** @class */ (function (_super) {
      * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
      * reference. This is required because WebKit browsers require references to be prefixed with
      * the current path, if the page has a `base` tag.
+     */
+    /**
+     * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
+     * reference. This is required because WebKit browsers require references to be prefixed with
+     * the current path, if the page has a `base` tag.
+     * @private
      * @param {?} path
      * @return {?}
      */
@@ -18284,6 +19205,7 @@ var MatIcon = /** @class */ (function (_super) {
      * Prepends the current path to all elements that have an attribute pointing to a `FuncIRI`
      * reference. This is required because WebKit browsers require references to be prefixed with
      * the current path, if the page has a `base` tag.
+     * @private
      * @param {?} path
      * @return {?}
      */
@@ -18301,12 +19223,18 @@ var MatIcon = /** @class */ (function (_super) {
     /**
      * Caches the children of an SVG element that have `url()`
      * references that we need to prefix with the current path.
+     */
+    /**
+     * Caches the children of an SVG element that have `url()`
+     * references that we need to prefix with the current path.
+     * @private
      * @param {?} element
      * @return {?}
      */
     MatIcon.prototype._cacheChildrenWithExternalReferences = /**
      * Caches the children of an SVG element that have `url()`
      * references that we need to prefix with the current path.
+     * @private
      * @param {?} element
      * @return {?}
      */
@@ -18330,8 +19258,8 @@ var MatIcon = /** @class */ (function (_super) {
                     if (!attributes) {
                         attributes = [];
                         elements.set(elementWithReference, attributes);
-                    } /** @type {?} */
-                    ((attributes)).push({ name: attr, value: match[1] });
+                    }
+                    (/** @type {?} */ (attributes)).push({ name: attr, value: match[1] });
                 }
             });
         };
@@ -18372,7 +19300,7 @@ var MatIcon = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatIconModule = /** @class */ (function () {
     function MatIconModule() {
@@ -18389,12 +19317,15 @@ var MatIconModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatList.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatList.
+/**
  * \@docs-private
  */
 MatListBase = /** @class */ (function () {
@@ -18404,10 +19335,13 @@ MatListBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatListMixinBase = mixinDisableRipple(MatListBase);
+// Boilerplate for applying mixins to MatListItem.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatListItem.
+/**
  * \@docs-private
  */
 MatListItemBase = /** @class */ (function () {
@@ -18546,6 +19480,8 @@ var MatListItem = /** @class */ (function (_super) {
         _this._isInteractiveList = false;
         _this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
         _this._list = navList || list;
+        // If no type attributed is specified for <button>, set it to "button".
+        // If a type attribute is already specified, do nothing.
         /** @type {?} */
         var element = _this._getHostElement();
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
@@ -18618,7 +19554,7 @@ var MatListItem = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -18646,9 +19582,10 @@ MatListOptionBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSelectionList; }),
@@ -18674,8 +19611,7 @@ MatSelectionListChange = /** @class */ (function () {
  */
 var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
-    function MatListOption(_element, _changeDetector, /** @docs-private */
-    selectionList) {
+    function MatListOption(_element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
@@ -18741,6 +19677,11 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        // List options that are selected at initialization can't be reported properly to the form
+        // control. This is because it takes some time until the selection-list knows about all
+        // available options. Also it can happen that the ControlValueAccessor has an initial value
+        // that should be used instead. Deferring the value change report to the next tick ensures
+        // that the form control value is not being overwritten.
         /** @type {?} */
         var wasSelected = this._selected;
         Promise.resolve().then(function () {
@@ -19277,13 +20218,16 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (fn) {
         this._onTouched = fn;
     };
+    /** Sets the selected options based on the specified values. */
     /**
      * Sets the selected options based on the specified values.
+     * @private
      * @param {?} values
      * @return {?}
      */
     MatSelectionList.prototype._setOptionsFromValues = /**
      * Sets the selected options based on the specified values.
+     * @private
      * @param {?} values
      * @return {?}
      */
@@ -19305,23 +20249,29 @@ var MatSelectionList = /** @class */ (function (_super) {
             }
         });
     };
+    /** Returns the values of the selected options. */
     /**
      * Returns the values of the selected options.
+     * @private
      * @return {?}
      */
     MatSelectionList.prototype._getSelectedOptionValues = /**
      * Returns the values of the selected options.
+     * @private
      * @return {?}
      */
     function () {
         return this.options.filter(function (option) { return option.selected; }).map(function (option) { return option.value; });
     };
+    /** Toggles the state of the currently focused option if enabled. */
     /**
      * Toggles the state of the currently focused option if enabled.
+     * @private
      * @return {?}
      */
     MatSelectionList.prototype._toggleFocusedOption = /**
      * Toggles the state of the currently focused option if enabled.
+     * @private
      * @return {?}
      */
     function () {
@@ -19341,16 +20291,24 @@ var MatSelectionList = /** @class */ (function (_super) {
     /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
+     */
+    /**
+     * Sets the selected state on all of the options
+     * and emits an event if anything changed.
+     * @private
      * @param {?} isSelected
      * @return {?}
      */
     MatSelectionList.prototype._setAllOptionsSelected = /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
+     * @private
      * @param {?} isSelected
      * @return {?}
      */
     function (isSelected) {
+        // Keep track of whether anything changed, because we only want to
+        // emit the changed event when something actually changed.
         /** @type {?} */
         var hasChanged = false;
         this.options.forEach(function (option) {
@@ -19364,24 +20322,34 @@ var MatSelectionList = /** @class */ (function (_super) {
     };
     /**
      * Utility to ensure all indexes are valid.
+     * @param index The index to be checked.
+     * @returns True if the index is valid for our list of options.
+     */
+    /**
+     * Utility to ensure all indexes are valid.
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
     MatSelectionList.prototype._isValidIndex = /**
      * Utility to ensure all indexes are valid.
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
     function (index) {
         return index >= 0 && index < this.options.length;
     };
+    /** Returns the index of the specified list option. */
     /**
      * Returns the index of the specified list option.
+     * @private
      * @param {?} option
      * @return {?}
      */
     MatSelectionList.prototype._getOptionIndex = /**
      * Returns the index of the specified list option.
+     * @private
      * @param {?} option
      * @return {?}
      */
@@ -19426,7 +20394,7 @@ var MatSelectionList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatListModule = /** @class */ (function () {
     function MatListModule() {
@@ -19465,7 +20433,7 @@ var MatListModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Menu content that will be rendered lazily once the menu is opened.
@@ -19509,12 +20477,11 @@ var MatMenuContent = /** @class */ (function () {
             this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
         }
         /** @type {?} */
-        var element = this._template.elementRef.nativeElement; /** @type {?} */
-        ((
+        var element = this._template.elementRef.nativeElement;
         // Because we support opening the same menu from different triggers (which in turn have their
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
         // risk it staying attached to a pane that's no longer in the DOM.
-        element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        (/** @type {?} */ (element.parentNode)).insertBefore(this._outlet.outletElement, element);
         this._portal.attach(this._outlet, context);
         this._attached.next();
     };
@@ -19567,23 +20534,24 @@ var MatMenuContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matMenuAnimations = {
     /**
-       * This animation controls the menu panel's entry and exit from the page.
-       *
-       * When the menu panel is added to the DOM, it scales in and fades in its border.
-       *
-       * When the menu panel is removed from the DOM, it simply fades out after a brief
-       * delay to display the ripple.
-       */
+     * This animation controls the menu panel's entry and exit from the page.
+     *
+     * When the menu panel is added to the DOM, it scales in and fades in its border.
+     *
+     * When the menu panel is removed from the DOM, it simply fades out after a brief
+     * delay to display the ripple.
+     */
     transformMenu: animations$1.trigger('transformMenu', [
         animations$1.state('void', animations$1.style({
             opacity: 0,
@@ -19596,9 +20564,9 @@ var matMenuAnimations = {
         animations$1.transition('* => void', animations$1.animate('100ms 25ms linear', animations$1.style({ opacity: 0 })))
     ]),
     /**
-       * This animation fades in the background color and content of the menu panel
-       * after its containing element is scaled in.
-       */
+     * This animation fades in the background color and content of the menu panel
+     * after its containing element is scaled in.
+     */
     fadeInItems: animations$1.trigger('fadeInItems', [
         // TODO(crisbeto): this is inside the `transformMenu`
         // now. Remove next time we do breaking changes.
@@ -19609,22 +20577,24 @@ var matMenuAnimations = {
         ])
     ])
 };
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var fadeInItems = matMenuAnimations.fadeInItems;
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -19656,22 +20626,26 @@ function throwMatMenuInvalidPositionY() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token used to provide the parent menu to menu-specific components.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_PANEL = new core.InjectionToken('MAT_MENU_PANEL');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatMenuItem.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatMenuItem.
+/**
  * \@docs-private
  */
 MatMenuItemBase = /** @class */ (function () {
@@ -19868,11 +20842,12 @@ var MatMenuItem = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for `mat-menu`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
     factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY
@@ -19889,10 +20864,11 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
         backdropClass: 'cdk-overlay-transparent-backdrop',
     };
 }
-/** *
+/**
  * Start elevation for the menu panel.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_BASE_ELEVATION = 4;
 var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
@@ -20205,6 +21181,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (depth) {
+        // The elevation starts at the base and increases by one for each level.
         /** @type {?} */
         var newElevation = "mat-elevation-z" + (MAT_MENU_BASE_ELEVATION + depth);
         /** @type {?} */
@@ -20392,11 +21369,12 @@ var MatMenu = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that determines the scroll handling while the menu is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
@@ -20406,22 +21384,26 @@ var MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy
 function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 };
-/** *
+/**
  * Default top padding of the menu panel.
-  @type {?} */
+ * @type {?}
+ */
 var MENU_PANEL_TOP_PADDING = 8;
-/** *
+/**
  * Options for binding a passive event listener.
-  @type {?} */
+ * @type {?}
+ */
 var passiveEventListenerOptions = platform.normalizePassiveListenerOptions({ passive: true });
+// TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -20458,6 +21440,7 @@ var MatMenuTrigger = /** @class */ (function () {
          * @deprecated Switch to `menuOpened` instead
          * \@breaking-change 8.0.0
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onMenuOpen = this.menuOpened;
         /**
          * Event emitted when the associated menu is closed.
@@ -20468,6 +21451,7 @@ var MatMenuTrigger = /** @class */ (function () {
          * @deprecated Switch to `menuClosed` instead
          * \@breaking-change 8.0.0
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onMenuClose = this.menuClosed;
         _element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         if (_menuItemInstance) {
@@ -20616,7 +21600,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this._checkMenu();
         /** @type {?} */
         var overlayRef = this._createOverlay();
-        this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
+        this._setPosition((/** @type {?} */ (overlayRef.getConfig().positionStrategy)));
         overlayRef.attach(this._getPortal());
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
@@ -20662,12 +21646,15 @@ var MatMenuTrigger = /** @class */ (function () {
             this._element.nativeElement.focus();
         }
     };
+    /** Closes the menu and does the necessary cleanup. */
     /**
      * Closes the menu and does the necessary cleanup.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._destroyMenu = /**
      * Closes the menu and does the necessary cleanup.
+     * @private
      * @return {?}
      */
     function () {
@@ -20687,7 +21674,7 @@ var MatMenuTrigger = /** @class */ (function () {
                     .pipe(operators.filter(function (event) { return event.toState === 'void'; }), operators.take(1), 
                 // Interrupt if the content got re-attached.
                 operators.takeUntil(menu.lazyContent._attached))
-                    .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
+                    .subscribe(function () { return (/** @type {?} */ (menu.lazyContent)).detach(); }, undefined, function () {
                     // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
@@ -20706,11 +21693,17 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method sets the menu state to open and focuses the first item if
      * the menu was opened via the keyboard.
+     */
+    /**
+     * This method sets the menu state to open and focuses the first item if
+     * the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._initMenu = /**
      * This method sets the menu state to open and focuses the first item if
      * the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     function () {
@@ -20720,12 +21713,15 @@ var MatMenuTrigger = /** @class */ (function () {
         this._setIsMenuOpen(true);
         this.menu.focusFirstItem(this._openedBy || 'program');
     };
+    /** Updates the menu elevation based on the amount of parent menus that it has. */
     /**
      * Updates the menu elevation based on the amount of parent menus that it has.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._setMenuElevation = /**
      * Updates the menu elevation based on the amount of parent menus that it has.
+     * @private
      * @return {?}
      */
     function () {
@@ -20744,11 +21740,17 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.
+     */
+    /**
+     * This method resets the menu when it's closed, most importantly restoring
+     * focus to the menu trigger if the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._resetMenu = /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     function () {
@@ -20766,11 +21768,17 @@ var MatMenuTrigger = /** @class */ (function () {
         }
         this._openedBy = null;
     };
+    // set state rather than toggle to support triggers sharing a menu
+    // set state rather than toggle to support triggers sharing a menu
     /**
+     * @private
      * @param {?} isOpen
      * @return {?}
      */
-    MatMenuTrigger.prototype._setIsMenuOpen = /**
+    MatMenuTrigger.prototype._setIsMenuOpen = 
+    // set state rather than toggle to support triggers sharing a menu
+    /**
+     * @private
      * @param {?} isOpen
      * @return {?}
      */
@@ -20784,11 +21792,17 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method checks that a valid instance of MatMenu has been passed into
      * matMenuTriggerFor. If not, an exception is thrown.
+     */
+    /**
+     * This method checks that a valid instance of MatMenu has been passed into
+     * matMenuTriggerFor. If not, an exception is thrown.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._checkMenu = /**
      * This method checks that a valid instance of MatMenu has been passed into
      * matMenuTriggerFor. If not, an exception is thrown.
+     * @private
      * @return {?}
      */
     function () {
@@ -20799,18 +21813,24 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method creates the overlay from the provided menu's template and saves its
      * OverlayRef so that it can be attached to the DOM when openMenu is called.
+     */
+    /**
+     * This method creates the overlay from the provided menu's template and saves its
+     * OverlayRef so that it can be attached to the DOM when openMenu is called.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._createOverlay = /**
      * This method creates the overlay from the provided menu's template and saves its
      * OverlayRef so that it can be attached to the DOM when openMenu is called.
+     * @private
      * @return {?}
      */
     function () {
         if (!this._overlayRef) {
             /** @type {?} */
             var config = this._getOverlayConfig();
-            this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
+            this._subscribeToPositions((/** @type {?} */ (config.positionStrategy)));
             this._overlayRef = this._overlay.create(config);
             // Consume the `keydownEvents` in order to prevent them from going to another overlay.
             // Ideally we'd also have our keyboard event logic in here, however doing so will
@@ -20821,10 +21841,16 @@ var MatMenuTrigger = /** @class */ (function () {
     };
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
+     * @returns OverlayConfig
+     */
+    /**
+     * This method builds the configuration object needed to create the overlay, the OverlayState.
+     * @private
      * @return {?} OverlayConfig
      */
     MatMenuTrigger.prototype._getOverlayConfig = /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
+     * @private
      * @return {?} OverlayConfig
      */
     function () {
@@ -20843,6 +21869,12 @@ var MatMenuTrigger = /** @class */ (function () {
      * Listens to changes in the position of the overlay and sets the correct classes
      * on the menu based on the new position. This ensures the animation origin is always
      * correct, even if a fallback position is used for the overlay.
+     */
+    /**
+     * Listens to changes in the position of the overlay and sets the correct classes
+     * on the menu based on the new position. This ensures the animation origin is always
+     * correct, even if a fallback position is used for the overlay.
+     * @private
      * @param {?} position
      * @return {?}
      */
@@ -20850,6 +21882,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * Listens to changes in the position of the overlay and sets the correct classes
      * on the menu based on the new position. This ensures the animation origin is always
      * correct, even if a fallback position is used for the overlay.
+     * @private
      * @param {?} position
      * @return {?}
      */
@@ -20860,20 +21893,27 @@ var MatMenuTrigger = /** @class */ (function () {
                 /** @type {?} */
                 var posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
                 /** @type {?} */
-                var posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
-                ((_this.menu.setPositionClasses))(posX, posY);
+                var posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
+                (/** @type {?} */ (_this.menu.setPositionClasses))(posX, posY);
             });
         }
     };
     /**
      * Sets the appropriate positions on a position strategy
      * so the overlay connects with the trigger correctly.
+     * @param positionStrategy Strategy whose position to update.
+     */
+    /**
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @private
      * @param {?} positionStrategy Strategy whose position to update.
      * @return {?}
      */
     MatMenuTrigger.prototype._setPosition = /**
      * Sets the appropriate positions on a position strategy
      * so the overlay connects with the trigger correctly.
+     * @private
      * @param {?} positionStrategy Strategy whose position to update.
      * @return {?}
      */
@@ -20914,32 +21954,38 @@ var MatMenuTrigger = /** @class */ (function () {
             }
         ]);
     };
+    /** Cleans up the active subscriptions. */
     /**
      * Cleans up the active subscriptions.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._cleanUpSubscriptions = /**
      * Cleans up the active subscriptions.
+     * @private
      * @return {?}
      */
     function () {
         this._closeSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
     };
+    /** Returns a stream that emits whenever an action that should close the menu occurs. */
     /**
      * Returns a stream that emits whenever an action that should close the menu occurs.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._menuClosingActions = /**
      * Returns a stream that emits whenever an action that should close the menu occurs.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
         /** @type {?} */
-        var backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        var backdrop = (/** @type {?} */ (this._overlayRef)).backdropClick();
         /** @type {?} */
-        var detachments = /** @type {?} */ ((this._overlayRef)).detachments();
+        var detachments = (/** @type {?} */ (this._overlayRef)).detachments();
         /** @type {?} */
         var parentClose = this._parentMenu ? this._parentMenu.closed : rxjs.of();
         /** @type {?} */
@@ -21010,12 +22056,15 @@ var MatMenuTrigger = /** @class */ (function () {
             this.toggleMenu();
         }
     };
+    /** Handles the cases where the user hovers over the trigger. */
     /**
      * Handles the cases where the user hovers over the trigger.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._handleHover = /**
      * Handles the cases where the user hovers over the trigger.
+     * @private
      * @return {?}
      */
     function () {
@@ -21046,12 +22095,15 @@ var MatMenuTrigger = /** @class */ (function () {
             }
         });
     };
+    /** Gets the portal that should be attached to the overlay. */
     /**
      * Gets the portal that should be attached to the overlay.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._getPortal = /**
      * Gets the portal that should be attached to the overlay.
+     * @private
      * @return {?}
      */
     function () {
@@ -21101,7 +22153,7 @@ var MatMenuTrigger = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
@@ -21124,25 +22176,26 @@ var MatMenuModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The following are all the animations for the mat-select component, with each
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matSelectAnimations = {
     /**
-       * This animation transforms the select's overlay panel on and off the page.
-       *
-       * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
-       * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
-       * side to ensure the option text correctly overlaps the trigger text.
-       *
-       * When the panel is removed from the DOM, it simply fades out linearly.
-       */
+     * This animation transforms the select's overlay panel on and off the page.
+     *
+     * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
+     * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
+     * side to ensure the option text correctly overlaps the trigger text.
+     *
+     * When the panel is removed from the DOM, it simply fades out linearly.
+     */
     transformPanel: animations$1.trigger('transformPanel', [
         animations$1.state('void', animations$1.style({
             transform: 'scaleY(0.8)',
@@ -21165,12 +22218,12 @@ var matSelectAnimations = {
         animations$1.transition('* => void', animations$1.animate('100ms 25ms linear', animations$1.style({ opacity: 0 })))
     ]),
     /**
-       * This animation fades in the background color and text content of the
-       * select's options. It is time delayed to occur 100ms after the overlay
-       * panel has transformed in.
-       * @deprecated Not used anymore. To be removed.
-       * @breaking-change 8.0.0
-       */
+     * This animation fades in the background color and text content of the
+     * select's options. It is time delayed to occur 100ms after the overlay
+     * panel has transformed in.
+     * @deprecated Not used anymore. To be removed.
+     * \@breaking-change 8.0.0
+     */
     fadeInContent: animations$1.trigger('fadeInContent', [
         animations$1.state('showing', animations$1.style({ opacity: 1 })),
         animations$1.transition('void => showing', [
@@ -21179,22 +22232,24 @@ var matSelectAnimations = {
         ])
     ])
 };
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var transformPanel = matSelectAnimations.transformPanel;
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -21228,27 +22283,32 @@ function getMatSelectNonFunctionValueError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$6 = 0;
-/** *
+/**
  * The max height of the select's overlay panel
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_MAX_HEIGHT = 256;
-/** *
+/**
  * The panel's padding on the x-axis
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_PADDING_X = 16;
-/** *
+/**
  * The panel's x axis padding if it is indented (e.g. there is an option group).
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
-/** *
+/**
  * The height of the select items in `em` units.
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_ITEM_HEIGHT_EM = 3;
-/** *
+// TODO(josephperrott): Revert to a constant after 2018 spec updates are fully merged.
+/**
  * Distance between the panel edge and the option text in
  * multi-selection mode.
  *
@@ -21256,16 +22316,19 @@ var SELECT_ITEM_HEIGHT_EM = 3;
  * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
-  @type {?} */
+ * @type {?}
+ */
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = 0;
-/** *
+/**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_VIEWPORT_PADDING = 8;
-/** *
+/**
  * Injection token that determines the scroll handling while a select is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
 /**
  * \@docs-private
@@ -21275,9 +22338,10 @@ var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-stra
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_SELECT_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
@@ -21296,10 +22360,13 @@ MatSelectChange = /** @class */ (function () {
     }
     return MatSelectChange;
 }());
+// Boilerplate for applying mixins to MatSelect.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSelect.
+/**
  * \@docs-private
  */
 MatSelectBase = /** @class */ (function () {
@@ -21706,7 +22773,7 @@ var MatSelect = /** @class */ (function (_super) {
     function (changes) {
         // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
         // the parent form field know to run change detection when the disabled state changes.
-        if (changes["disabled"]) {
+        if (changes.disabled) {
             this.stateChanges.next();
         }
     };
@@ -21959,13 +23026,16 @@ var MatSelect = /** @class */ (function (_super) {
             this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
         }
     };
+    /** Handles keyboard events while the select is closed. */
     /**
      * Handles keyboard events while the select is closed.
+     * @private
      * @param {?} event
      * @return {?}
      */
     MatSelect.prototype._handleClosedKeydown = /**
      * Handles keyboard events while the select is closed.
+     * @private
      * @param {?} event
      * @return {?}
      */
@@ -21994,13 +23064,16 @@ var MatSelect = /** @class */ (function (_super) {
             }
         }
     };
+    /** Handles keyboard events when the selected is open. */
     /**
      * Handles keyboard events when the selected is open.
+     * @private
      * @param {?} event
      * @return {?}
      */
     MatSelect.prototype._handleOpenKeydown = /**
      * Handles keyboard events when the selected is open.
+     * @private
      * @param {?} event
      * @return {?}
      */
@@ -22111,12 +23184,19 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         return this._parentFormField ? "mat-" + this._parentFormField.color : '';
     };
+    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
+    /** Sets the pseudo checkbox padding size based on the width of the pseudo checkbox. */
+    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
     /**
      * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
+     * @private
      * @return {?}
      */
-    MatSelect.prototype._setPseudoCheckboxPaddingSize = /**
+    MatSelect.prototype._setPseudoCheckboxPaddingSize = 
+    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
+    /**
      * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
+     * @private
      * @return {?}
      */
     function () {
@@ -22141,9 +23221,11 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     /**
+     * @private
      * @return {?}
      */
     MatSelect.prototype._initializeSelection = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -22157,12 +23239,18 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
+     */
+    /**
+     * Sets the selected option based on a value. If no option can be
+     * found with the designated value, the select trigger is cleared.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatSelect.prototype._setSelectionByValue = /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -22190,11 +23278,17 @@ var MatSelect = /** @class */ (function (_super) {
     };
     /**
      * Finds and selects and option based on its value.
+     * @returns Option that has the corresponding value.
+     */
+    /**
+     * Finds and selects and option based on its value.
+     * @private
      * @param {?} value
      * @return {?} Option that has the corresponding value.
      */
     MatSelect.prototype._selectValue = /**
      * Finds and selects and option based on its value.
+     * @private
      * @param {?} value
      * @return {?} Option that has the corresponding value.
      */
@@ -22219,12 +23313,15 @@ var MatSelect = /** @class */ (function (_super) {
         }
         return correspondingOption;
     };
+    /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     /**
      * Sets up a key manager to listen to keyboard events on the overlay panel.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._initKeyManager = /**
      * Sets up a key manager to listen to keyboard events on the overlay panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -22249,12 +23346,15 @@ var MatSelect = /** @class */ (function (_super) {
             }
         });
     };
+    /** Drops current option subscriptions and IDs and resets from scratch. */
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._resetOptions = /**
      * Drops current option subscriptions and IDs and resets from scratch.
+     * @private
      * @return {?}
      */
     function () {
@@ -22277,14 +23377,17 @@ var MatSelect = /** @class */ (function (_super) {
         });
         this._setOptionIds();
     };
+    /** Invoked when an option is clicked. */
     /**
      * Invoked when an option is clicked.
+     * @private
      * @param {?} option
      * @param {?} isUserInput
      * @return {?}
      */
     MatSelect.prototype._onSelect = /**
      * Invoked when an option is clicked.
+     * @private
      * @param {?} option
      * @param {?} isUserInput
      * @return {?}
@@ -22318,12 +23421,15 @@ var MatSelect = /** @class */ (function (_super) {
         }
         this.stateChanges.next();
     };
+    /** Sorts the selected values in the selected based on their order in the panel. */
     /**
      * Sorts the selected values in the selected based on their order in the panel.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._sortValues = /**
      * Sorts the selected values in the selected based on their order in the panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -22338,13 +23444,16 @@ var MatSelect = /** @class */ (function (_super) {
             this.stateChanges.next();
         }
     };
+    /** Emits change event to set the model value. */
     /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
     MatSelect.prototype._propagateChanges = /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
@@ -22352,10 +23461,10 @@ var MatSelect = /** @class */ (function (_super) {
         /** @type {?} */
         var valueToEmit = null;
         if (this.multiple) {
-            valueToEmit = (/** @type {?} */ (this.selected)).map(function (option) { return option.value; });
+            valueToEmit = ((/** @type {?} */ (this.selected))).map(function (option) { return option.value; });
         }
         else {
-            valueToEmit = this.selected ? (/** @type {?} */ (this.selected)).value : fallbackValue;
+            valueToEmit = this.selected ? ((/** @type {?} */ (this.selected))).value : fallbackValue;
         }
         this._value = valueToEmit;
         this.valueChange.emit(valueToEmit);
@@ -22363,12 +23472,15 @@ var MatSelect = /** @class */ (function (_super) {
         this.selectionChange.emit(new MatSelectChange(this, valueToEmit));
         this._changeDetectorRef.markForCheck();
     };
+    /** Records option IDs to pass to the aria-owns property. */
     /**
      * Records option IDs to pass to the aria-owns property.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._setOptionIds = /**
      * Records option IDs to pass to the aria-owns property.
+     * @private
      * @return {?}
      */
     function () {
@@ -22377,11 +23489,17 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
+     */
+    /**
+     * Highlights the selected item. If no option is selected, it will highlight
+     * the first item instead.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._highlightCorrectOption = /**
      * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
+     * @private
      * @return {?}
      */
     function () {
@@ -22394,12 +23512,15 @@ var MatSelect = /** @class */ (function (_super) {
             }
         }
     };
+    /** Scrolls the active option into view. */
     /**
      * Scrolls the active option into view.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._scrollActiveOptionIntoView = /**
      * Scrolls the active option into view.
+     * @private
      * @return {?}
      */
     function () {
@@ -22421,13 +23542,16 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         this._elementRef.nativeElement.focus();
     };
+    /** Gets the index of the provided option in the option list. */
     /**
      * Gets the index of the provided option in the option list.
+     * @private
      * @param {?} option
      * @return {?}
      */
     MatSelect.prototype._getOptionIndex = /**
      * Gets the index of the provided option in the option list.
+     * @private
      * @param {?} option
      * @return {?}
      */
@@ -22436,12 +23560,15 @@ var MatSelect = /** @class */ (function (_super) {
             return result === undefined ? (option === current ? index : undefined) : result;
         }, undefined);
     };
+    /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
     /**
      * Calculates the scroll position and x- and y-offsets of the overlay panel.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._calculateOverlayPosition = /**
      * Calculates the scroll position and x- and y-offsets of the overlay panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -22453,11 +23580,15 @@ var MatSelect = /** @class */ (function (_super) {
         var panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         /** @type {?} */
         var scrollContainerHeight = items * itemHeight;
+        // The farthest the panel can be scrolled before it hits the bottom
         /** @type {?} */
         var maxScroll = scrollContainerHeight - panelHeight;
+        // If no value is selected we open the popup to the first item.
         /** @type {?} */
-        var selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
+        var selectedOptionOffset = this.empty ? 0 : (/** @type {?} */ (this._getOptionIndex(this._selectionModel.selected[0])));
         selectedOptionOffset += _countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
+        // We must maintain a scroll buffer so the selected option will be scrolled to the
+        // center of the overlay panel rather than the top.
         /** @type {?} */
         var scrollBuffer = panelHeight / 2;
         this._scrollTop = this._calculateOverlayScroll(selectedOptionOffset, scrollBuffer, maxScroll);
@@ -22500,6 +23631,10 @@ var MatSelect = /** @class */ (function (_super) {
         var optionOffsetFromScrollTop = itemHeight * selectedIndex;
         /** @type {?} */
         var halfOptionHeight = itemHeight / 2;
+        // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
+        // scroll container, then subtracts the scroll buffer to scroll the option down to
+        // the center of the overlay panel. Half the option height must be re-added to the
+        // scrollTop so the option is centered based on its middle, not its top edge.
         /** @type {?} */
         var optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
         return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
@@ -22560,6 +23695,14 @@ var MatSelect = /** @class */ (function (_super) {
      * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
      * can't be calculated until the panel has been attached, because we need to know the
      * content width in order to constrain the panel within the viewport.
+     */
+    /**
+     * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
+     * This must be adjusted to align the selected option text over the trigger text when
+     * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
+     * can't be calculated until the panel has been attached, because we need to know the
+     * content width in order to constrain the panel within the viewport.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._calculateOverlayOffsetX = /**
@@ -22568,6 +23711,7 @@ var MatSelect = /** @class */ (function (_super) {
      * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
      * can't be calculated until the panel has been attached, because we need to know the
      * content width in order to constrain the panel within the viewport.
+     * @private
      * @return {?}
      */
     function () {
@@ -22595,6 +23739,7 @@ var MatSelect = /** @class */ (function (_super) {
         if (!isRtl) {
             offsetX *= -1;
         }
+        // Determine how much the select overflows on each side.
         /** @type {?} */
         var leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
         /** @type {?} */
@@ -22617,6 +23762,12 @@ var MatSelect = /** @class */ (function (_super) {
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
+     */
+    /**
+     * Calculates the y-offset of the select's overlay panel in relation to the
+     * top start corner of the trigger. It has to be adjusted in order for the
+     * selected option to be aligned over the trigger when the panel opens.
+     * @private
      * @param {?} selectedIndex
      * @param {?} scrollBuffer
      * @param {?} maxScroll
@@ -22626,6 +23777,7 @@ var MatSelect = /** @class */ (function (_super) {
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
+     * @private
      * @param {?} selectedIndex
      * @param {?} scrollBuffer
      * @param {?} maxScroll
@@ -22652,6 +23804,8 @@ var MatSelect = /** @class */ (function (_super) {
             var firstDisplayedIndex = this._getItemCount() - maxOptionsDisplayed;
             /** @type {?} */
             var selectedDisplayIndex = selectedIndex - firstDisplayedIndex;
+            // The first item is partially out of the viewport. Therefore we need to calculate what
+            // portion of it is shown in the viewport and account for it in our offset.
             /** @type {?} */
             var partialItemHeight = itemHeight - (this._getItemCount() * itemHeight - SELECT_PANEL_MAX_HEIGHT) % itemHeight;
             // Because the panel height is longer than the height of the options alone,
@@ -22676,6 +23830,13 @@ var MatSelect = /** @class */ (function (_super) {
      * If it will not fit, tries to adjust the scroll position and the associated
      * y-offset so the panel can open fully on-screen. If it still won't fit,
      * sets the offset back to 0 to allow the fallback position to take over.
+     */
+    /**
+     * Checks that the attempted overlay position will fit within the viewport.
+     * If it will not fit, tries to adjust the scroll position and the associated
+     * y-offset so the panel can open fully on-screen. If it still won't fit,
+     * sets the offset back to 0 to allow the fallback position to take over.
+     * @private
      * @param {?} maxScroll
      * @return {?}
      */
@@ -22684,6 +23845,7 @@ var MatSelect = /** @class */ (function (_super) {
      * If it will not fit, tries to adjust the scroll position and the associated
      * y-offset so the panel can open fully on-screen. If it still won't fit,
      * sets the offset back to 0 to allow the fallback position to take over.
+     * @private
      * @param {?} maxScroll
      * @return {?}
      */
@@ -22712,19 +23874,23 @@ var MatSelect = /** @class */ (function (_super) {
             this._transformOrigin = this._getOriginBasedOnOption();
         }
     };
+    /** Adjusts the overlay panel up to fit in the viewport. */
     /**
      * Adjusts the overlay panel up to fit in the viewport.
+     * @private
      * @param {?} panelHeightBottom
      * @param {?} bottomSpaceAvailable
      * @return {?}
      */
     MatSelect.prototype._adjustPanelUp = /**
      * Adjusts the overlay panel up to fit in the viewport.
+     * @private
      * @param {?} panelHeightBottom
      * @param {?} bottomSpaceAvailable
      * @return {?}
      */
     function (panelHeightBottom, bottomSpaceAvailable) {
+        // Browsers ignore fractional scroll offsets, so we need to round.
         /** @type {?} */
         var distanceBelowViewport = Math.round(panelHeightBottom - bottomSpaceAvailable);
         // Scrolls the panel up by the distance it was extending past the boundary, then
@@ -22741,8 +23907,10 @@ var MatSelect = /** @class */ (function (_super) {
             this._transformOrigin = "50% bottom 0px";
         }
     };
+    /** Adjusts the overlay panel down to fit in the viewport. */
     /**
      * Adjusts the overlay panel down to fit in the viewport.
+     * @private
      * @param {?} panelHeightTop
      * @param {?} topSpaceAvailable
      * @param {?} maxScroll
@@ -22750,12 +23918,14 @@ var MatSelect = /** @class */ (function (_super) {
      */
     MatSelect.prototype._adjustPanelDown = /**
      * Adjusts the overlay panel down to fit in the viewport.
+     * @private
      * @param {?} panelHeightTop
      * @param {?} topSpaceAvailable
      * @param {?} maxScroll
      * @return {?}
      */
     function (panelHeightTop, topSpaceAvailable, maxScroll) {
+        // Browsers ignore fractional scroll offsets, so we need to round.
         /** @type {?} */
         var distanceAboveViewport = Math.round(panelHeightTop - topSpaceAvailable);
         // Scrolls the panel down by the distance it was extending past the boundary, then
@@ -22773,12 +23943,15 @@ var MatSelect = /** @class */ (function (_super) {
             return;
         }
     };
+    /** Sets the transform origin point based on the selected option. */
     /**
      * Sets the transform origin point based on the selected option.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._getOriginBasedOnOption = /**
      * Sets the transform origin point based on the selected option.
+     * @private
      * @return {?}
      */
     function () {
@@ -22790,23 +23963,29 @@ var MatSelect = /** @class */ (function (_super) {
         var originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return "50% " + originY + "px 0px";
     };
+    /** Calculates the amount of items in the select. This includes options and group labels. */
     /**
      * Calculates the amount of items in the select. This includes options and group labels.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._getItemCount = /**
      * Calculates the amount of items in the select. This includes options and group labels.
+     * @private
      * @return {?}
      */
     function () {
         return this.options.length + this.optionGroups.length;
     };
+    /** Calculates the height of the select's options. */
     /**
      * Calculates the height of the select's options.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._getItemHeight = /**
      * Calculates the height of the select's options.
+     * @private
      * @return {?}
      */
     function () {
@@ -22949,7 +24128,7 @@ var MatSelect = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSelectModule = /** @class */ (function () {
     function MatSelectModule() {
@@ -22972,14 +24151,17 @@ var MatSelectModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by MatTooltip.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matTooltipAnimations = {
-    /** Animation that transitions a tooltip in and out. */
+    /**
+     * Animation that transitions a tooltip in and out.
+     */
     tooltipState: animations$1.trigger('state', [
         animations$1.state('initial, void, hidden', animations$1.style({ opacity: 0, transform: 'scale(0)' })),
         animations$1.state('visible', animations$1.style({ transform: 'scale(1)' })),
@@ -22994,15 +24176,17 @@ var matTooltipAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Time in ms to throttle repositioning after scroll events.
-  @type {?} */
+ * @type {?}
+ */
 var SCROLL_THROTTLE_MS = 20;
-/** *
+/**
  * CSS class that will be attached to the overlay panel.
-  @type {?} */
+ * @type {?}
+ */
 var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
@@ -23013,9 +24197,10 @@ var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 function getMatTooltipInvalidPositionError(position) {
     return Error("Tooltip position \"" + position + "\" is invalid.");
 }
-/** *
+/**
  * Injection token that determines the scroll handling while a tooltip is visible.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
@@ -23025,17 +24210,19 @@ var MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-st
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 };
-/** *
+/**
  * Injection token to be used to override the default options for `matTooltip`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
     factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
@@ -23089,9 +24276,9 @@ var MatTooltip = /** @class */ (function () {
         /** @type {?} */
         var element = _elementRef.nativeElement;
         /** @type {?} */
-        var elementStyle = /** @type {?} */ (element.style);
+        var elementStyle = (/** @type {?} */ (element.style));
         /** @type {?} */
-        var hasGestures = typeof window === 'undefined' || (/** @type {?} */ (window)).Hammer || hammerLoader;
+        var hasGestures = typeof window === 'undefined' || ((/** @type {?} */ (window))).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!platform$$1.IOS && !platform$$1.ANDROID) {
@@ -23146,7 +24333,7 @@ var MatTooltip = /** @class */ (function () {
                 if (this._overlayRef) {
                     this._updatePosition();
                     if (this._tooltipInstance) {
-                        /** @type {?} */ ((this._tooltipInstance)).show(0);
+                        (/** @type {?} */ (this._tooltipInstance)).show(0);
                     }
                     this._overlayRef.updatePosition();
                 }
@@ -23264,7 +24451,7 @@ var MatTooltip = /** @class */ (function () {
         var _this = this;
         if (delay === void 0) { delay = this.showDelay; }
         if (this.disabled || !this.message || (this._isTooltipVisible() &&
-            !/** @type {?} */ ((this._tooltipInstance))._showTimeoutId && !/** @type {?} */ ((this._tooltipInstance))._hideTimeoutId)) {
+            !(/** @type {?} */ (this._tooltipInstance))._showTimeoutId && !(/** @type {?} */ (this._tooltipInstance))._hideTimeoutId)) {
             return;
         }
         /** @type {?} */
@@ -23276,8 +24463,8 @@ var MatTooltip = /** @class */ (function () {
             .pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
-        this._updateTooltipMessage(); /** @type {?} */
-        ((this._tooltipInstance)).show(delay);
+        this._updateTooltipMessage();
+        (/** @type {?} */ (this._tooltipInstance)).show(delay);
     };
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     /**
@@ -23349,12 +24536,15 @@ var MatTooltip = /** @class */ (function () {
     function () {
         this.hide(this._defaultOptions.touchendHideDelay);
     };
+    /** Create the overlay config and position strategy */
     /**
      * Create the overlay config and position strategy
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._createOverlay = /**
      * Create the overlay config and position strategy
+     * @private
      * @return {?}
      */
     function () {
@@ -23362,6 +24552,7 @@ var MatTooltip = /** @class */ (function () {
         if (this._overlayRef) {
             return this._overlayRef;
         }
+        // Create connected position strategy that listens for scroll events to reposition.
         /** @type {?} */
         var strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
@@ -23393,12 +24584,15 @@ var MatTooltip = /** @class */ (function () {
             .subscribe(function () { return _this._detach(); });
         return this._overlayRef;
     };
+    /** Detaches the currently-attached tooltip. */
     /**
      * Detaches the currently-attached tooltip.
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._detach = /**
      * Detaches the currently-attached tooltip.
+     * @private
      * @return {?}
      */
     function () {
@@ -23407,17 +24601,20 @@ var MatTooltip = /** @class */ (function () {
         }
         this._tooltipInstance = null;
     };
+    /** Updates the position of the current tooltip. */
     /**
      * Updates the position of the current tooltip.
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._updatePosition = /**
      * Updates the position of the current tooltip.
+     * @private
      * @return {?}
      */
     function () {
         /** @type {?} */
-        var position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
+        var position = (/** @type {?} */ ((/** @type {?} */ (this._overlayRef)).getConfig().positionStrategy));
         /** @type {?} */
         var origin = this._getOrigin();
         /** @type {?} */
@@ -23511,12 +24708,15 @@ var MatTooltip = /** @class */ (function () {
             fallback: { overlayX: x, overlayY: y }
         };
     };
+    /** Updates the tooltip message and repositions the overlay according to the new message length */
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
+     * @private
      * @return {?}
      */
     MatTooltip.prototype._updateTooltipMessage = /**
      * Updates the tooltip message and repositions the overlay according to the new message length
+     * @private
      * @return {?}
      */
     function () {
@@ -23528,18 +24728,21 @@ var MatTooltip = /** @class */ (function () {
             this._tooltipInstance._markForCheck();
             this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe(function () {
                 if (_this._tooltipInstance) {
-                    /** @type {?} */ ((_this._overlayRef)).updatePosition();
+                    (/** @type {?} */ (_this._overlayRef)).updatePosition();
                 }
             });
         }
     };
+    /** Updates the tooltip class */
     /**
      * Updates the tooltip class
+     * @private
      * @param {?} tooltipClass
      * @return {?}
      */
     MatTooltip.prototype._setTooltipClass = /**
      * Updates the tooltip class
+     * @private
      * @param {?} tooltipClass
      * @return {?}
      */
@@ -23549,14 +24752,17 @@ var MatTooltip = /** @class */ (function () {
             this._tooltipInstance._markForCheck();
         }
     };
+    /** Inverts an overlay position. */
     /**
      * Inverts an overlay position.
+     * @private
      * @param {?} x
      * @param {?} y
      * @return {?}
      */
     MatTooltip.prototype._invertPosition = /**
      * Inverts an overlay position.
+     * @private
      * @param {?} x
      * @param {?} y
      * @return {?}
@@ -23744,7 +24950,7 @@ var TooltipComponent = /** @class */ (function () {
      */
     function (event) {
         /** @type {?} */
-        var toState = /** @type {?} */ (event.toState);
+        var toState = (/** @type {?} */ (event.toState));
         if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
         }
@@ -23820,7 +25026,7 @@ var TooltipComponent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
@@ -23847,7 +25053,7 @@ var MatTooltipModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -23890,6 +25096,7 @@ var MatPaginatorIntl = /** @class */ (function () {
             length = Math.max(length, 0);
             /** @type {?} */
             var startIndex = page * pageSize;
+            // If the start index exceeds the list length, do not try and fix the end index to the end.
             /** @type {?} */
             var endIndex = startIndex < length ?
                 Math.min(startIndex + pageSize, length) :
@@ -23911,9 +25118,10 @@ var MatPaginatorIntl = /** @class */ (function () {
 function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatPaginatorIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,
@@ -23923,11 +25131,12 @@ var MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The default page size if there is no page size and there are no provided page size options.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_PAGE_SIZE = 50;
 /**
  * Change event object that is emitted when the user selects a
@@ -23942,10 +25151,13 @@ PageEvent = /** @class */ (function () {
     }
     return PageEvent;
 }());
+// Boilerplate for applying mixins to MatPaginator.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatPaginator.
+/**
  * \@docs-private
  */
 MatPaginatorBase = /** @class */ (function () {
@@ -24248,6 +25460,8 @@ var MatPaginator = /** @class */ (function (_super) {
      * @return {?}
      */
     function (pageSize) {
+        // Current page needs to be updated to reflect the new page size. Navigate to the page
+        // containing the previous page's first item.
         /** @type {?} */
         var startIndex = this.pageIndex * this.pageSize;
         /** @type {?} */
@@ -24283,11 +25497,17 @@ var MatPaginator = /** @class */ (function (_super) {
     /**
      * Updates the list of page size options to display to the user. Includes making sure that
      * the page size is an option and that the list is sorted.
+     */
+    /**
+     * Updates the list of page size options to display to the user. Includes making sure that
+     * the page size is an option and that the list is sorted.
+     * @private
      * @return {?}
      */
     MatPaginator.prototype._updateDisplayedPageSizeOptions = /**
      * Updates the list of page size options to display to the user. Includes making sure that
      * the page size is an option and that the list is sorted.
+     * @private
      * @return {?}
      */
     function () {
@@ -24308,13 +25528,16 @@ var MatPaginator = /** @class */ (function (_super) {
         this._displayedPageSizeOptions.sort(function (a, b) { return a - b; });
         this._changeDetectorRef.markForCheck();
     };
+    /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @private
      * @param {?} previousPageIndex
      * @return {?}
      */
     MatPaginator.prototype._emitPageEvent = /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @private
      * @param {?} previousPageIndex
      * @return {?}
      */
@@ -24359,7 +25582,7 @@ var MatPaginator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {
@@ -24382,12 +25605,19 @@ var MatPaginatorModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(josephperrott): Benchpress tests.
+// TODO(josephperrott): Add ARIA attributes for progress bar "for".
+// Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// TODO(josephperrott): Benchpress tests.
+// TODO(josephperrott): Add ARIA attributes for progress bar "for".
+// Boilerplate for applying mixins to MatProgressBar.
+/**
  * \@docs-private
  */
 MatProgressBarBase = /** @class */ (function () {
@@ -24398,11 +25628,12 @@ MatProgressBarBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
-/** *
+/**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
 /**
  * \@docs-private
@@ -24419,19 +25650,21 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
         getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
     };
 }
-/** *
+/**
  * Counter used to generate unique IDs for progress bars.
-  @type {?} */
+ * @type {?}
+ */
 var progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
  */
 var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);
-    function MatProgressBar(_elementRef, _ngZone, _animationMode, /**
-                   * @deprecated `location` parameter to be made required.
-                   * @breaking-change 8.0.0
-                   */
+    function MatProgressBar(_elementRef, _ngZone, _animationMode, 
+    /**
+     * @deprecated `location` parameter to be made required.
+     * @breaking-change 8.0.0
+     */
     location) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
@@ -24465,6 +25698,12 @@ var MatProgressBar = /** @class */ (function (_super) {
          * ID of the progress bar.
          */
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
+        // We need to prefix the SVG reference with the current path, otherwise they won't work
+        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
+        // because named route URLs can contain parentheses (see #12338). Also we don't use since
+        // we can't tell the difference between whether
+        // the consumer is using the hash location strategy or not, because `Location` normalizes
+        // both `/#/foo/bar` and `/foo/bar` to the same thing.
         /** @type {?} */
         var path = location ? location.getPathname().split('#')[0] : '';
         _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
@@ -24572,12 +25811,15 @@ var MatProgressBar = /** @class */ (function (_super) {
     function () {
         this._animationEndSubscription.unsubscribe();
     };
+    /** Emit an animationEnd event if in determinate or buffer mode. */
     /**
      * Emit an animationEnd event if in determinate or buffer mode.
+     * @private
      * @return {?}
      */
     MatProgressBar.prototype.emitAnimationEnd = /**
      * Emit an animationEnd event if in determinate or buffer mode.
+     * @private
      * @return {?}
      */
     function () {
@@ -24635,7 +25877,7 @@ function clamp(v, min, max) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatProgressBarModule = /** @class */ (function () {
     function MatProgressBarModule() {
@@ -24652,22 +25894,27 @@ var MatProgressBarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Base reference size of the spinner.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var BASE_SIZE = 100;
-/** *
+/**
  * Base reference stroke width of the spinner.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var BASE_STROKE_WIDTH = 10;
+// Boilerplate for applying mixins to MatProgressSpinner.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatProgressSpinner.
+/**
  * \@docs-private
  */
 MatProgressSpinnerBase = /** @class */ (function () {
@@ -24678,9 +25925,10 @@ MatProgressSpinnerBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
-/** *
+/**
  * Injection token to be used to override the default options for `mat-progress-spinner`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionToken('mat-progress-spinner-default-options', {
     providedIn: 'root',
     factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
@@ -24692,6 +25940,10 @@ var MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionToken('mat-progress
 function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
     return { diameter: BASE_SIZE };
 }
+// .0001 percentage difference is necessary in order to avoid unwanted animation frames
+// for example because the animation duration is 4 seconds, .1% accounts to 4ms
+// which are enough to see the flicker described in
+// https://github.com/angular/material2/issues/8984
 /** @type {?} */
 var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {\n    0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }\n    12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }\n    12.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(72.5deg); }\n    25%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(72.5deg); }\n\n    25.0001%   { stroke-dashoffset: START_VALUE;  transform: rotate(270deg); }\n    37.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(270deg); }\n    37.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(161.5deg); }\n    50%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(161.5deg); }\n\n    50.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(180deg); }\n    62.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(180deg); }\n    62.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(251.5deg); }\n    75%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(251.5deg); }\n\n    75.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(90deg); }\n    87.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(90deg); }\n    87.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(341.5deg); }\n    100%    { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(341.5deg); }\n  }\n";
 /**
@@ -24699,9 +25951,7 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
  */
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
-    function MatProgressSpinner(_elementRef, platform$$1, _document, 
-    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
-    animationMode, defaults) {
+    function MatProgressSpinner(_elementRef, platform$$1, _document, animationMode, defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
@@ -24727,6 +25977,8 @@ var MatProgressSpinner = /** @class */ (function (_super) {
                 _this.strokeWidth = defaults.strokeWidth;
             }
         }
+        // On IE and Edge, we can't animate the `stroke-dashoffset`
+        // reliably so we fall back to a non-spec animation.
         /** @type {?} */
         var animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
         _elementRef.nativeElement.classList.add(animationClass);
@@ -24859,12 +26111,15 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /** Dynamically generates a style tag containing the correct animation for this diameter. */
     /**
      * Dynamically generates a style tag containing the correct animation for this diameter.
+     * @private
      * @return {?}
      */
     MatProgressSpinner.prototype._attachStyleNode = /**
      * Dynamically generates a style tag containing the correct animation for this diameter.
+     * @private
      * @return {?}
      */
     function () {
@@ -24876,16 +26131,19 @@ var MatProgressSpinner = /** @class */ (function (_super) {
             MatProgressSpinner.styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
-            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText(), 0);
+            ((/** @type {?} */ (styleTag.sheet))).insertRule(this._getAnimationText(), 0);
         }
         MatProgressSpinner.diameters.add(this.diameter);
     };
+    /** Generates animation styles adjusted for the spinner's diameter. */
     /**
      * Generates animation styles adjusted for the spinner's diameter.
+     * @private
      * @return {?}
      */
     MatProgressSpinner.prototype._getAnimationText = /**
      * Generates animation styles adjusted for the spinner's diameter.
+     * @private
      * @return {?}
      */
     function () {
@@ -24986,7 +26244,7 @@ var MatSpinner = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatProgressSpinnerModule = /** @class */ (function () {
     function MatProgressSpinnerModule() {
@@ -25010,15 +26268,17 @@ var MatProgressSpinnerModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for radio components.
 /** @type {?} */
 var nextUniqueId$7 = 0;
-/** *
+/**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatRadioGroup; }),
@@ -25037,10 +26297,13 @@ MatRadioChange = /** @class */ (function () {
     }
     return MatRadioChange;
 }());
+// Boilerplate for applying mixins to MatRadioGroup.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatRadioGroup.
+/**
  * \@docs-private
  */
 MatRadioGroupBase = /** @class */ (function () {
@@ -25281,9 +26544,11 @@ var MatRadioGroup = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatRadioGroup.prototype._updateRadioButtonNames = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -25294,16 +26559,20 @@ var MatRadioGroup = /** @class */ (function (_super) {
             });
         }
     };
+    /** Updates the `selected` radio button from the internal _value state. */
     /**
      * Updates the `selected` radio button from the internal _value state.
+     * @private
      * @return {?}
      */
     MatRadioGroup.prototype._updateSelectedRadioFromValue = /**
      * Updates the `selected` radio button from the internal _value state.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
+        // If the value already matches the selected radio, do nothing.
         /** @type {?} */
         var isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
@@ -25327,7 +26596,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
      */
     function () {
         if (this._isInitialized) {
-            this.change.emit(new MatRadioChange(/** @type {?} */ ((this._selected)), this._value));
+            this.change.emit(new MatRadioChange((/** @type {?} */ (this._selected)), this._value));
         }
     };
     /**
@@ -25445,10 +26714,13 @@ var MatRadioGroup = /** @class */ (function (_super) {
     };
     return MatRadioGroup;
 }(_MatRadioGroupMixinBase));
+// Boilerplate for applying mixins to MatRadioButton.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatRadioButton.
+/**
  * \@docs-private
  */
 MatRadioButtonBase = /** @class */ (function () {
@@ -25457,6 +26729,8 @@ MatRadioButtonBase = /** @class */ (function () {
     }
     return MatRadioButtonBase;
 }());
+// As per Material design specifications the selection control radio should use the accent color
+// palette by default. https://material.io/guidelines/components/selection-controls.html
 /** @type {?} */
 var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
@@ -25712,12 +26986,15 @@ var MatRadioButton = /** @class */ (function (_super) {
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._removeUniqueSelectionListener();
     };
+    /** Dispatch change event with current value. */
     /**
      * Dispatch change event with current value.
+     * @private
      * @return {?}
      */
     MatRadioButton.prototype._emitChangeEvent = /**
      * Dispatch change event with current value.
+     * @private
      * @return {?}
      */
     function () {
@@ -25833,7 +27110,7 @@ var MatRadioButton = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatRadioModule = /** @class */ (function () {
     function MatRadioModule() {
@@ -25850,14 +27127,17 @@ var MatRadioModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material drawers.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matDrawerAnimations = {
-    /** Animation that slides a drawer in and out. */
+    /**
+     * Animation that slides a drawer in and out.
+     */
     transformDrawer: animations$1.trigger('transform', [
         // We remove the `transform` here completely, rather than setting it to zero, because:
         // 1. Having a transform can cause elements with ripples or an animated
@@ -25879,7 +27159,7 @@ var matDrawerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -25890,9 +27170,10 @@ var matDrawerAnimations = {
 function throwMatDuplicatedDrawerError(position) {
     throw Error("A drawer was already declared for 'position=\"" + position + "\"'");
 }
-/** *
+/**
  * Configures whether drawers should use auto sizing by default.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
     factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
@@ -25984,10 +27265,11 @@ var MatDrawer = /** @class */ (function () {
          */
         this.openedChange = 
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
-        new core.EventEmitter(/* isAsync */ /* isAsync */ true);
+        new core.EventEmitter(/* isAsync */ true);
         /**
          * Event emitted when the drawer's position changes.
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onPositionChanged = new core.EventEmitter();
         /**
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
@@ -25998,7 +27280,7 @@ var MatDrawer = /** @class */ (function () {
         this.openedChange.subscribe(function (opened) {
             if (opened) {
                 if (_this._doc) {
-                    _this._elementFocusedBeforeDrawerWasOpened = /** @type {?} */ (_this._doc.activeElement);
+                    _this._elementFocusedBeforeDrawerWasOpened = (/** @type {?} */ (_this._doc.activeElement));
                 }
                 if (_this._isFocusTrapEnabled && _this._focusTrap) {
                     _this._trapFocus();
@@ -26009,10 +27291,10 @@ var MatDrawer = /** @class */ (function () {
             }
         });
         /**
-             * Listen to `keydown` events outside the zone so that change detection is not run every
-             * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
-             * and we don't have close disabled.
-             */
+         * Listen to `keydown` events outside the zone so that change detection is not run every
+         * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
+         * and we don't have close disabled.
+         */
         this._ngZone.runOutsideAngular(function () {
             rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) { return _this._ngZone.run(function () {
                 _this.close();
@@ -26160,12 +27442,15 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /** Traps focus inside the drawer. */
     /**
      * Traps focus inside the drawer.
+     * @private
      * @return {?}
      */
     MatDrawer.prototype._trapFocus = /**
      * Traps focus inside the drawer.
+     * @private
      * @return {?}
      */
     function () {
@@ -26184,11 +27469,17 @@ var MatDrawer = /** @class */ (function () {
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
+     */
+    /**
+     * If focus is currently inside the drawer, restores it to where it was before the drawer
+     * opened.
+     * @private
      * @return {?}
      */
     MatDrawer.prototype._restoreFocus = /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
+     * @private
      * @return {?}
      */
     function () {
@@ -26547,7 +27838,6 @@ var MatDrawerContainer = /** @class */ (function () {
             _this._changeDetectorRef.markForCheck();
         });
         this._doCheckSubject.pipe(operators.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
-        // Arbitrary debounce time, less than a frame at 60fps
         operators.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
     };
     /**
@@ -26603,6 +27893,12 @@ var MatDrawerContainer = /** @class */ (function () {
      * Subscribes to drawer events in order to set a class on the main container element when the
      * drawer is open and the backdrop is visible. This ensures any overflow on the container element
      * is properly hidden.
+     */
+    /**
+     * Subscribes to drawer events in order to set a class on the main container element when the
+     * drawer is open and the backdrop is visible. This ensures any overflow on the container element
+     * is properly hidden.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -26610,6 +27906,7 @@ var MatDrawerContainer = /** @class */ (function () {
      * Subscribes to drawer events in order to set a class on the main container element when the
      * drawer is open and the backdrop is visible. This ensures any overflow on the container element
      * is properly hidden.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -26634,12 +27931,18 @@ var MatDrawerContainer = /** @class */ (function () {
     /**
      * Subscribes to drawer onPositionChanged event in order to
      * re-validate drawers when the position changes.
+     */
+    /**
+     * Subscribes to drawer onPositionChanged event in order to
+     * re-validate drawers when the position changes.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
     MatDrawerContainer.prototype._watchDrawerPosition = /**
      * Subscribes to drawer onPositionChanged event in order to
      * re-validate drawers when the position changes.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -26656,13 +27959,16 @@ var MatDrawerContainer = /** @class */ (function () {
             });
         });
     };
+    /** Subscribes to changes in drawer mode so we can run change detection. */
     /**
      * Subscribes to changes in drawer mode so we can run change detection.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
     MatDrawerContainer.prototype._watchDrawerMode = /**
      * Subscribes to changes in drawer mode so we can run change detection.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -26676,13 +27982,16 @@ var MatDrawerContainer = /** @class */ (function () {
             });
         }
     };
+    /** Toggles the 'mat-drawer-opened' class on the main 'mat-drawer-container' element. */
     /**
      * Toggles the 'mat-drawer-opened' class on the main 'mat-drawer-container' element.
+     * @private
      * @param {?} isAdd
      * @return {?}
      */
     MatDrawerContainer.prototype._setContainerClass = /**
      * Toggles the 'mat-drawer-opened' class on the main 'mat-drawer-container' element.
+     * @private
      * @param {?} isAdd
      * @return {?}
      */
@@ -26694,12 +28003,15 @@ var MatDrawerContainer = /** @class */ (function () {
             this._element.nativeElement.classList.remove('mat-drawer-opened');
         }
     };
+    /** Validate the state of the drawer children components. */
     /**
      * Validate the state of the drawer children components.
+     * @private
      * @return {?}
      */
     MatDrawerContainer.prototype._validateDrawers = /**
      * Validate the state of the drawer children components.
+     * @private
      * @return {?}
      */
     function () {
@@ -26731,12 +28043,15 @@ var MatDrawerContainer = /** @class */ (function () {
             this._right = this._end;
         }
     };
+    /** Whether the container is being pushed to the side by one of the drawers. */
     /**
      * Whether the container is being pushed to the side by one of the drawers.
+     * @private
      * @return {?}
      */
     MatDrawerContainer.prototype._isPushed = /**
      * Whether the container is being pushed to the side by one of the drawers.
+     * @private
      * @return {?}
      */
     function () {
@@ -26764,7 +28079,7 @@ var MatDrawerContainer = /** @class */ (function () {
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
             .filter(function (drawer) { return drawer && !drawer.disableClose && _this._canHaveBackdrop(drawer); })
-            .forEach(function (drawer) { return ((drawer)).close(); });
+            .forEach(function (drawer) { return (/** @type {?} */ (drawer)).close(); });
     };
     /**
      * @return {?}
@@ -26777,10 +28092,12 @@ var MatDrawerContainer = /** @class */ (function () {
             (this._isDrawerOpen(this._end) && this._canHaveBackdrop(this._end));
     };
     /**
+     * @private
      * @param {?} drawer
      * @return {?}
      */
     MatDrawerContainer.prototype._canHaveBackdrop = /**
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -26788,10 +28105,12 @@ var MatDrawerContainer = /** @class */ (function () {
         return drawer.mode !== 'side' || !!this._backdropOverride;
     };
     /**
+     * @private
      * @param {?} drawer
      * @return {?}
      */
     MatDrawerContainer.prototype._isDrawerOpen = /**
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -26801,15 +28120,33 @@ var MatDrawerContainer = /** @class */ (function () {
     /**
      * Recalculates and updates the inline styles for the content. Note that this should be used
      * sparingly, because it causes a reflow.
+     */
+    /**
+     * Recalculates and updates the inline styles for the content. Note that this should be used
+     * sparingly, because it causes a reflow.
+     * @private
      * @return {?}
      */
     MatDrawerContainer.prototype._updateContentMargins = /**
      * Recalculates and updates the inline styles for the content. Note that this should be used
      * sparingly, because it causes a reflow.
+     * @private
      * @return {?}
      */
     function () {
+        // 1. For drawers in `over` mode, they don't affect the content.
+        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
+        //    left margin (for left drawer) or right margin (for right the drawer).
+        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
+        //    adding to the left or right margin and simultaneously subtracting the same amount of
+        //    margin from the other side.
         var _this = this;
+        // 1. For drawers in `over` mode, they don't affect the content.
+        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
+        //    left margin (for left drawer) or right margin (for right the drawer).
+        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
+        //    adding to the left or right margin and simultaneously subtracting the same amount of
+        //    margin from the other side.
         /** @type {?} */
         var left = 0;
         /** @type {?} */
@@ -26840,8 +28177,8 @@ var MatDrawerContainer = /** @class */ (function () {
         // allows users to specify a custom size via CSS class in SSR scenarios where the
         // measured widths will always be zero. Note that we reset to `null` here, rather
         // than below, in order to ensure that the types in the `if` below are consistent.
-        left = left || /** @type {?} */ ((null));
-        right = right || /** @type {?} */ ((null));
+        left = left || (/** @type {?} */ (null));
+        right = right || (/** @type {?} */ (null));
         if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
             this._contentMargins = { left: left, right: right };
             // Pull back into the NgZone since in some cases we could be outside. We need to be careful
@@ -26884,7 +28221,7 @@ var MatDrawerContainer = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSidenavContent = /** @class */ (function (_super) {
     __extends(MatSidenavContent, _super);
@@ -27034,7 +28371,7 @@ var MatSidenavContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSidenavModule = /** @class */ (function () {
     function MatSidenavModule() {
@@ -27071,11 +28408,12 @@ var MatSidenavModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
@@ -27083,13 +28421,15 @@ var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for slide-toggle components.
 /** @type {?} */
 var nextUniqueId$8 = 0;
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSlideToggle; }),
@@ -27108,10 +28448,13 @@ MatSlideToggleChange = /** @class */ (function () {
     }
     return MatSlideToggleChange;
 }());
+// Boilerplate for applying mixins to MatSlideToggle.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSlideToggle.
+/**
  * \@docs-private
  */
 MatSlideToggleBase = /** @class */ (function () {
@@ -27127,10 +28470,11 @@ var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixin
  */
 var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, /**
-                   * @deprecated The `_platform` parameter to be removed.
-                   * @breaking-change 8.0.0
-                   */
+    function MatSlideToggle(elementRef, 
+    /**
+     * @deprecated The `_platform` parameter to be removed.
+     * @breaking-change 8.0.0
+     */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -27401,23 +28745,31 @@ var MatSlideToggle = /** @class */ (function (_super) {
     };
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     */
+    /**
+     * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * @private
      * @return {?}
      */
     MatSlideToggle.prototype._emitChangeEvent = /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * @private
      * @return {?}
      */
     function () {
         this.onChange(this.checked);
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     };
+    /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
     /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @private
      * @param {?} distance
      * @return {?}
      */
     MatSlideToggle.prototype._getDragPercentage = /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @private
      * @param {?} distance
      * @return {?}
      */
@@ -27459,6 +28811,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
             /** @type {?} */
             var direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
             this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
+            // Calculate the moved distance based on the thumb bar width.
             /** @type {?} */
             var dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
             this._thumbEl.nativeElement.style.transform = "translate3d(" + dragX + "px, 0, 0)";
@@ -27566,7 +28919,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {
@@ -27586,30 +28939,35 @@ var MatSlideToggleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
-  @type {?} */
+ * @type {?}
+ */
 var MIN_AUTO_TICK_SEPARATION = 30;
-/** *
+/**
  * The thumb gap size for a disabled slider.
-  @type {?} */
+ * @type {?}
+ */
 var DISABLED_THUMB_GAP = 7;
-/** *
+/**
  * The thumb gap size for a non-active slider at its minimum value.
-  @type {?} */
+ * @type {?}
+ */
 var MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
-/** *
+/**
  * The thumb gap size for an active slider at its minimum value.
-  @type {?} */
+ * @type {?}
+ */
 var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
-/** *
+/**
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SLIDER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSlider; }),
@@ -27626,10 +28984,13 @@ MatSliderChange = /** @class */ (function () {
     }
     return MatSliderChange;
 }());
+// Boilerplate for applying mixins to MatSlider.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSlider.
+/**
  * \@docs-private
  */
 MatSliderBase = /** @class */ (function () {
@@ -27646,9 +29007,7 @@ var _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase),
  */
 var MatSlider = /** @class */ (function (_super) {
     __extends(MatSlider, _super);
-    function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
-    // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
-    _animationMode) {
+    function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -27782,7 +29141,7 @@ var MatSlider = /** @class */ (function (_super) {
         function (v) {
             this._step = coercion.coerceNumberProperty(v, this._step);
             if (this._step % 1 !== 0) {
-                this._roundToDecimal = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
+                this._roundToDecimal = (/** @type {?} */ (this._step.toString().split('.').pop())).length;
             }
             // Since this could modify the label, we need to notify the change detection.
             this._changeDetectorRef.markForCheck();
@@ -27825,7 +29184,7 @@ var MatSlider = /** @class */ (function (_super) {
                 this._tickInterval = 'auto';
             }
             else if (typeof value === 'number' || typeof value === 'string') {
-                this._tickInterval = coercion.coerceNumberProperty(value, /** @type {?} */ (this._tickInterval));
+                this._tickInterval = coercion.coerceNumberProperty(value, (/** @type {?} */ (this._tickInterval)));
             }
             else {
                 this._tickInterval = 0;
@@ -28044,6 +29403,8 @@ var MatSlider = /** @class */ (function (_super) {
         function () {
             /** @type {?} */
             var axis = this.vertical ? 'Y' : 'X';
+            // For a horizontal slider in RTL languages we push the ticks container off the left edge
+            // instead of the right edge to avoid causing a horizontal scrollbar to appear.
             /** @type {?} */
             var sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
             /** @type {?} */
@@ -28068,6 +29429,9 @@ var MatSlider = /** @class */ (function (_super) {
             var backgroundSize = this.vertical ? "2px " + tickSize + "%" : tickSize + "% 2px";
             /** @type {?} */
             var axis = this.vertical ? 'Y' : 'X';
+            // Depending on the direction we pushed the ticks container, push the ticks the opposite
+            // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
+            // ticks 180 degrees so we're really cutting off the end edge abd not the start.
             /** @type {?} */
             var sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
             /** @type {?} */
@@ -28097,6 +29461,8 @@ var MatSlider = /** @class */ (function (_super) {
         function () {
             /** @type {?} */
             var axis = this.vertical ? 'Y' : 'X';
+            // For a horizontal slider in RTL languages we push the thumb container off the left edge
+            // instead of the right edge to avoid causing a horizontal scrollbar to appear.
             /** @type {?} */
             var invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
             /** @type {?} */
@@ -28111,22 +29477,31 @@ var MatSlider = /** @class */ (function (_super) {
     /**
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
+     */
+    /**
+     * Whether mouse events should be converted to a slider position by calculating their distance
+     * from the right or bottom edge of the slider as opposed to the top or left.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._shouldInvertMouseCoords = /**
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
+     * @private
      * @return {?}
      */
     function () {
         return (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
     };
+    /** The language direction for this slider element. */
     /**
      * The language direction for this slider element.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._getDirection = /**
      * The language direction for this slider element.
+     * @private
      * @return {?}
      */
     function () {
@@ -28353,26 +29728,32 @@ var MatSlider = /** @class */ (function (_super) {
     function () {
         this._isSliding = false;
     };
+    /** Increments the slider by the given number of steps (negative number decrements). */
     /**
      * Increments the slider by the given number of steps (negative number decrements).
+     * @private
      * @param {?} numSteps
      * @return {?}
      */
     MatSlider.prototype._increment = /**
      * Increments the slider by the given number of steps (negative number decrements).
+     * @private
      * @param {?} numSteps
      * @return {?}
      */
     function (numSteps) {
         this.value = this._clamp((this.value || 0) + this.step * numSteps, this.min, this.max);
     };
+    /** Calculate the new value from the new physical location. The value will always be snapped. */
     /**
      * Calculate the new value from the new physical location. The value will always be snapped.
+     * @private
      * @param {?} pos
      * @return {?}
      */
     MatSlider.prototype._updateValueFromPosition = /**
      * Calculate the new value from the new physical location. The value will always be snapped.
+     * @private
      * @param {?} pos
      * @return {?}
      */
@@ -28386,6 +29767,7 @@ var MatSlider = /** @class */ (function (_super) {
         var size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
         /** @type {?} */
         var posComponent = this.vertical ? pos.y : pos.x;
+        // The exact value is calculated from the event and used to find the closest snap value.
         /** @type {?} */
         var percent = this._clamp((posComponent - offset) / size);
         if (this._shouldInvertMouseCoords()) {
@@ -28404,18 +29786,23 @@ var MatSlider = /** @class */ (function (_super) {
         else {
             /** @type {?} */
             var exactValue = this._calculateValue(percent);
+            // This calculation finds the closest step by finding the closest
+            // whole number divisible by the step relative to the min.
             /** @type {?} */
             var closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
             // The value needs to snap to the min and max.
             this.value = this._clamp(closestValue, this.min, this.max);
         }
     };
+    /** Emits a change event if the current value is different from the last emitted value. */
     /**
      * Emits a change event if the current value is different from the last emitted value.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._emitChangeEvent = /**
      * Emits a change event if the current value is different from the last emitted value.
+     * @private
      * @return {?}
      */
     function () {
@@ -28423,23 +29810,29 @@ var MatSlider = /** @class */ (function (_super) {
         this.valueChange.emit(this.value);
         this.change.emit(this._createChangeEvent());
     };
+    /** Emits an input event when the current value is different from the last emitted value. */
     /**
      * Emits an input event when the current value is different from the last emitted value.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._emitInputEvent = /**
      * Emits an input event when the current value is different from the last emitted value.
+     * @private
      * @return {?}
      */
     function () {
         this.input.emit(this._createChangeEvent());
     };
+    /** Updates the amount of space between ticks as a percentage of the width of the slider. */
     /**
      * Updates the amount of space between ticks as a percentage of the width of the slider.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._updateTickIntervalPercent = /**
      * Updates the amount of space between ticks as a percentage of the width of the slider.
+     * @private
      * @return {?}
      */
     function () {
@@ -28461,13 +29854,16 @@ var MatSlider = /** @class */ (function (_super) {
             this._tickIntervalPercent = this.tickInterval * this.step / (this.max - this.min);
         }
     };
+    /** Creates a slider change object from the specified value. */
     /**
      * Creates a slider change object from the specified value.
+     * @private
      * @param {?=} value
      * @return {?}
      */
     MatSlider.prototype._createChangeEvent = /**
      * Creates a slider change object from the specified value.
+     * @private
      * @param {?=} value
      * @return {?}
      */
@@ -28479,34 +29875,42 @@ var MatSlider = /** @class */ (function (_super) {
         event.value = value;
         return event;
     };
+    /** Calculates the percentage of the slider that a value is. */
     /**
      * Calculates the percentage of the slider that a value is.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatSlider.prototype._calculatePercentage = /**
      * Calculates the percentage of the slider that a value is.
+     * @private
      * @param {?} value
      * @return {?}
      */
     function (value) {
         return ((value || 0) - this.min) / (this.max - this.min);
     };
+    /** Calculates the value a percentage of the slider corresponds to. */
     /**
      * Calculates the value a percentage of the slider corresponds to.
+     * @private
      * @param {?} percentage
      * @return {?}
      */
     MatSlider.prototype._calculateValue = /**
      * Calculates the value a percentage of the slider corresponds to.
+     * @private
      * @param {?} percentage
      * @return {?}
      */
     function (percentage) {
         return this.min + percentage * (this.max - this.min);
     };
+    /** Return a number between two numbers. */
     /**
      * Return a number between two numbers.
+     * @private
      * @param {?} value
      * @param {?=} min
      * @param {?=} max
@@ -28514,6 +29918,7 @@ var MatSlider = /** @class */ (function (_super) {
      */
     MatSlider.prototype._clamp = /**
      * Return a number between two numbers.
+     * @private
      * @param {?} value
      * @param {?=} min
      * @param {?=} max
@@ -28528,12 +29933,19 @@ var MatSlider = /** @class */ (function (_super) {
      * Get the bounding client rect of the slider track element.
      * The track is used rather than the native element to ignore the extra space that the thumb can
      * take up.
+     */
+    /**
+     * Get the bounding client rect of the slider track element.
+     * The track is used rather than the native element to ignore the extra space that the thumb can
+     * take up.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._getSliderDimensions = /**
      * Get the bounding client rect of the slider track element.
      * The track is used rather than the native element to ignore the extra space that the thumb can
      * take up.
+     * @private
      * @return {?}
      */
     function () {
@@ -28542,22 +29954,31 @@ var MatSlider = /** @class */ (function (_super) {
     /**
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
+     */
+    /**
+     * Focuses the native element.
+     * Currently only used to allow a blur event to fire but will be used with keyboard input later.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._focusHostElement = /**
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
+     * @private
      * @return {?}
      */
     function () {
         this._elementRef.nativeElement.focus();
     };
+    /** Blurs the native element. */
     /**
      * Blurs the native element.
+     * @private
      * @return {?}
      */
     MatSlider.prototype._blurHostElement = /**
      * Blurs the native element.
+     * @private
      * @return {?}
      */
     function () {
@@ -28709,7 +30130,7 @@ var MatSlider = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {
@@ -28727,7 +30148,7 @@ var MatSliderModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
@@ -28843,12 +30264,15 @@ MatSnackBarRef = /** @class */ (function () {
             this._afterOpened.complete();
         }
     };
+    /** Cleans up the DOM after closing. */
     /**
      * Cleans up the DOM after closing.
+     * @private
      * @return {?}
      */
     MatSnackBarRef.prototype._finishDismiss = /**
      * Cleans up the DOM after closing.
+     * @private
      * @return {?}
      */
     function () {
@@ -28901,11 +30325,12 @@ MatSnackBarRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a snack bar.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SNACK_BAR_DATA = new core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
@@ -28948,7 +30373,7 @@ MatSnackBarConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -29004,14 +30429,17 @@ var SimpleSnackBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material snack bar.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matSnackBarAnimations = {
-    /** Animation that shows and hides a snack bar. */
+    /**
+     * Animation that shows and hides a snack bar.
+     */
     snackBarState: animations$1.trigger('state', [
         animations$1.state('void, hidden', animations$1.style({
             transform: 'scale(0.8)',
@@ -29030,7 +30458,7 @@ var matSnackBarAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Internal component that wraps user-provided snack bar content.
@@ -29126,6 +30554,8 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             this._completeExit();
         }
         if (toState === 'visible') {
+            // Note: we shouldn't use `this` inside the zone callback,
+            // because it can cause a memory leak.
             /** @type {?} */
             var onEnter_1 = this._onEnter;
             this._ngZone.run(function () {
@@ -29181,11 +30611,17 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     /**
      * Waits for the zone to settle before removing the element. Helps prevent
      * errors where we end up removing an element which is in the middle of an animation.
+     */
+    /**
+     * Waits for the zone to settle before removing the element. Helps prevent
+     * errors where we end up removing an element which is in the middle of an animation.
+     * @private
      * @return {?}
      */
     MatSnackBarContainer.prototype._completeExit = /**
      * Waits for the zone to settle before removing the element. Helps prevent
      * errors where we end up removing an element which is in the middle of an animation.
+     * @private
      * @return {?}
      */
     function () {
@@ -29195,12 +30631,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             _this._onExit.complete();
         });
     };
+    /** Applies the various positioning and user-configured CSS classes to the snack bar. */
     /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
+     * @private
      * @return {?}
      */
     MatSnackBarContainer.prototype._applySnackBarClasses = /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
+     * @private
      * @return {?}
      */
     function () {
@@ -29224,12 +30663,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             element.classList.add('mat-snack-bar-top');
         }
     };
+    /** Asserts that no content is already attached to the container. */
     /**
      * Asserts that no content is already attached to the container.
+     * @private
      * @return {?}
      */
     MatSnackBarContainer.prototype._assertNotAttached = /**
      * Asserts that no content is already attached to the container.
+     * @private
      * @return {?}
      */
     function () {
@@ -29267,7 +30709,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
@@ -29291,11 +30733,12 @@ var MatSnackBarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify default snack bar.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
     factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
@@ -29377,7 +30820,7 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (component, config) {
-        return /** @type {?} */ (this._attach(component, config));
+        return (/** @type {?} */ (this._attach(component, config)));
     };
     /**
      * Creates and dispatches a snack bar with a custom template for the content, removing any
@@ -29467,12 +30910,17 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Attaches the snack bar container component to the overlay.
+     */
+    /**
+     * Attaches the snack bar container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
      */
     MatSnackBar.prototype._attachSnackBarContainer = /**
      * Attaches the snack bar container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
@@ -29493,6 +30941,10 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Places a new component or a template as the content of the snack bar container.
+     */
+    /**
+     * Places a new component or a template as the content of the snack bar container.
+     * @private
      * @template T
      * @param {?} content
      * @param {?=} userConfig
@@ -29500,6 +30952,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     MatSnackBar.prototype._attach = /**
      * Places a new component or a template as the content of the snack bar container.
+     * @private
      * @template T
      * @param {?} content
      * @param {?=} userConfig
@@ -29516,10 +30969,10 @@ var MatSnackBar = /** @class */ (function () {
         var snackBarRef = new MatSnackBarRef(container, overlayRef);
         if (content instanceof core.TemplateRef) {
             /** @type {?} */
-            var portal$$1 = new portal.TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
+            var portal$$1 = new portal.TemplatePortal(content, (/** @type {?} */ (null)), (/** @type {?} */ ({
                 $implicit: config.data,
                 snackBarRef: snackBarRef
-            }));
+            })));
             snackBarRef.instance = container.attachTemplatePortal(portal$$1);
         }
         else {
@@ -29547,14 +31000,17 @@ var MatSnackBar = /** @class */ (function () {
         this._openedSnackBarRef = snackBarRef;
         return this._openedSnackBarRef;
     };
+    /** Animates the old snack bar out and the new one in. */
     /**
      * Animates the old snack bar out and the new one in.
+     * @private
      * @param {?} snackBarRef
      * @param {?} config
      * @return {?}
      */
     MatSnackBar.prototype._animateSnackBar = /**
      * Animates the old snack bar out and the new one in.
+     * @private
      * @param {?} snackBarRef
      * @param {?} config
      * @return {?}
@@ -29585,7 +31041,7 @@ var MatSnackBar = /** @class */ (function () {
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (config.duration && config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter(/** @type {?} */ ((config.duration))); });
+            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter((/** @type {?} */ (config.duration))); });
         }
         if (config.announcementMessage) {
             this._live.announce(config.announcementMessage, config.politeness);
@@ -29593,11 +31049,17 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Creates a new overlay and places it in the correct location.
+     * @param config The user-specified snack bar config.
+     */
+    /**
+     * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified snack bar config.
      * @return {?}
      */
     MatSnackBar.prototype._createOverlay = /**
      * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified snack bar config.
      * @return {?}
      */
@@ -29607,6 +31069,7 @@ var MatSnackBar = /** @class */ (function () {
         overlayConfig.direction = config.direction;
         /** @type {?} */
         var positionStrategy = this._overlay.position().global();
+        // Set horizontal position.
         /** @type {?} */
         var isRtl = config.direction === 'rtl';
         /** @type {?} */
@@ -29636,6 +31099,12 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Creates an injector to be used inside of a snack bar component.
+     * @param config Config that was used to create the snack bar.
+     * @param snackBarRef Reference to the snack bar.
+     */
+    /**
+     * Creates an injector to be used inside of a snack bar component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the snack bar.
      * @param {?} snackBarRef Reference to the snack bar.
@@ -29643,6 +31112,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     MatSnackBar.prototype._createInjector = /**
      * Creates an injector to be used inside of a snack bar component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the snack bar.
      * @param {?} snackBarRef Reference to the snack bar.
@@ -29674,7 +31144,7 @@ var MatSnackBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -29710,12 +31180,15 @@ function getSortInvalidDirectionError(direction) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatSort.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSort.
+/**
  * \@docs-private
  */
 MatSortBase = /** @class */ (function () {
@@ -29871,10 +31344,12 @@ var MatSort = /** @class */ (function (_super) {
         if (!sortable) {
             return '';
         }
+        // Get the sort direction cycle with the potential sortable overrides.
         /** @type {?} */
         var disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
         /** @type {?} */
         var sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
+        // Get and return the next direction in the cycle
         /** @type {?} */
         var nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
         if (nextDirectionIndex >= sortDirectionCycle.length) {
@@ -29945,36 +31420,45 @@ function getSortDirectionCycle(start, disableClear) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
-/** *
+/**
  * Animations used by MatSort.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matSortAnimations = {
-    /** Animation that moves the sort indicator. */
+    /**
+     * Animation that moves the sort indicator.
+     */
     indicator: animations$1.trigger('indicator', [
         animations$1.state('active-asc, asc', animations$1.style({ transform: 'translateY(0px)' })),
         // 10px is the height of the sort indicator, minus the width of the pointers
         animations$1.state('active-desc, desc', animations$1.style({ transform: 'translateY(10px)' })),
         animations$1.transition('active-asc <=> active-desc', animations$1.animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
+    /**
+     * Animation that rotates the left pointer of the indicator based on the sorting direction.
+     */
     leftPointer: animations$1.trigger('leftPointer', [
         animations$1.state('active-asc, asc', animations$1.style({ transform: 'rotate(-45deg)' })),
         animations$1.state('active-desc, desc', animations$1.style({ transform: 'rotate(45deg)' })),
         animations$1.transition('active-asc <=> active-desc', animations$1.animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
+    /**
+     * Animation that rotates the right pointer of the indicator based on the sorting direction.
+     */
     rightPointer: animations$1.trigger('rightPointer', [
         animations$1.state('active-asc, asc', animations$1.style({ transform: 'rotate(45deg)' })),
         animations$1.state('active-desc, desc', animations$1.style({ transform: 'rotate(-45deg)' })),
         animations$1.transition('active-asc <=> active-desc', animations$1.animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that controls the arrow opacity. */
+    /**
+     * Animation that controls the arrow opacity.
+     */
     arrowOpacity: animations$1.trigger('arrowOpacity', [
         animations$1.state('desc-to-active, asc-to-active, active', animations$1.style({ opacity: 1 })),
         animations$1.state('desc-to-hint, asc-to-hint, hint', animations$1.style({ opacity: .54 })),
@@ -29984,12 +31468,12 @@ var matSortAnimations = {
         animations$1.transition('* <=> *', animations$1.animate(SORT_ANIMATION_TRANSITION)),
     ]),
     /**
-       * Animation for the translation of the arrow as a whole. States are separated into two
-       * groups: ones with animations and others that are immediate. Immediate states are asc, desc,
-       * peek, and active. The other states define a specific animation (source-to-destination)
-       * and are determined as a function of their prev user-perceived state and what the next state
-       * should be.
-       */
+     * Animation for the translation of the arrow as a whole. States are separated into two
+     * groups: ones with animations and others that are immediate. Immediate states are asc, desc,
+     * peek, and active. The other states define a specific animation (source-to-destination)
+     * and are determined as a function of their prev user-perceived state and what the next state
+     * should be.
+     */
     arrowPosition: animations$1.trigger('arrowPosition', [
         // Hidden Above => Hint Center
         animations$1.transition('* => desc-to-hint, * => desc-to-active', animations$1.animate(SORT_ANIMATION_TRANSITION, animations$1.keyframes([
@@ -30015,7 +31499,9 @@ var matSortAnimations = {
         animations$1.state('hint-to-desc, active-to-desc, desc', animations$1.style({ transform: 'translateY(-25%)' })),
         animations$1.state('hint-to-asc, active-to-asc, asc', animations$1.style({ transform: 'translateY(25%)' })),
     ]),
-    /** Necessary trigger that calls animate on children animations. */
+    /**
+     * Necessary trigger that calls animate on children animations.
+     */
     allowChildren: animations$1.trigger('allowChildren', [
         animations$1.transition('* <=> *', [
             animations$1.query('@*', animations$1.animateChild(), { optional: true })
@@ -30025,7 +31511,7 @@ var matSortAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -30059,9 +31545,10 @@ var MatSortHeaderIntl = /** @class */ (function () {
 function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatSortHeaderIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
@@ -30071,12 +31558,15 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to the sort header.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to the sort header.
+/**
  * \@docs-private
  */
 MatSortHeaderBase = /** @class */ (function () {
@@ -30258,6 +31748,8 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
             this._disableViewStateAnimation = true;
         }
+        // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
+        // the direction it is facing.
         /** @type {?} */
         var viewState = this._isSorted() ?
             { fromState: this._arrowDirection, toState: 'active' } :
@@ -30420,7 +31912,7 @@ var MatSortHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSortModule = /** @class */ (function () {
     function MatSortModule() {
@@ -30438,7 +31930,7 @@ var MatSortModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
@@ -30455,7 +31947,7 @@ var MatStepLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Stepper data that is required for internationalization.
@@ -30486,9 +31978,10 @@ var MatStepperIntl = /** @class */ (function () {
 function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatStepperIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_STEPPER_INTL_PROVIDER = {
     provide: MatStepperIntl,
     deps: [[new core.Optional(), new core.SkipSelf(), MatStepperIntl]],
@@ -30497,7 +31990,7 @@ var MAT_STEPPER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepHeader = /** @class */ (function (_super) {
     __extends(MatStepHeader, _super);
@@ -30605,21 +32098,26 @@ var MatStepHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material steppers.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matStepperAnimations = {
-    /** Animation that transitions the step along the X axis in a horizontal stepper. */
+    /**
+     * Animation that transitions the step along the X axis in a horizontal stepper.
+     */
     horizontalStepTransition: animations$1.trigger('stepTransition', [
         animations$1.state('previous', animations$1.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
         animations$1.state('current', animations$1.style({ transform: 'none', visibility: 'visible' })),
         animations$1.state('next', animations$1.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
         animations$1.transition('* => *', animations$1.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
     ]),
-    /** Animation that transitions the step along the Y axis in a vertical stepper. */
+    /**
+     * Animation that transitions the step along the Y axis in a vertical stepper.
+     */
     verticalStepTransition: animations$1.trigger('stepTransition', [
         animations$1.state('previous', animations$1.style({ height: '0px', visibility: 'hidden' })),
         animations$1.state('next', animations$1.style({ height: '0px', visibility: 'hidden' })),
@@ -30630,7 +32128,7 @@ var matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Template to be used to override the icons inside the step header.
@@ -30656,7 +32154,7 @@ var MatStepperIcon = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
@@ -30682,6 +32180,9 @@ var MatStep = /** @class */ (function (_super) {
     function (control, form) {
         /** @type {?} */
         var originalErrorState = this._errorStateMatcher.isErrorState(control, form);
+        // Custom error state checks for the validity of form that is not submitted or touched
+        // since user can trigger a form change by calling for another step without directly
+        // interacting with the current form.
         /** @type {?} */
         var customErrorState = !!(control && control.invalid && this.interacted);
         return originalErrorState || customErrorState;
@@ -30743,7 +32244,7 @@ var MatStepper = /** @class */ (function (_super) {
         // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
         // See https://github.com/angular/angular/issues/24084
         operators.distinctUntilChanged(function (x, y) { return x.fromState === y.fromState && x.toState === y.toState; }), operators.takeUntil(this._destroyed)).subscribe(function (event) {
-            if ((/** @type {?} */ (event.toState)) === 'current') {
+            if (((/** @type {?} */ (event.toState))) === 'current') {
                 _this.animationDone.emit();
             }
         });
@@ -30833,7 +32334,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Button that moves to the next step in a stepper workflow.
@@ -30880,7 +32381,7 @@ var MatStepperPrevious = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepperModule = /** @class */ (function () {
     function MatStepperModule() {
@@ -30927,7 +32428,7 @@ var MatStepperModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -30960,7 +32461,7 @@ var MatTable = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Cell definition for the mat-table.
@@ -31119,7 +32620,7 @@ var MatCell = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Header row definition for the mat-table.
@@ -31249,11 +32750,13 @@ var MatRow = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var EXPORTED_DECLARATIONS = [
+    // Table
     MatTable,
+    // Template defs
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatColumnDef,
@@ -31261,9 +32764,11 @@ var EXPORTED_DECLARATIONS = [
     MatRowDef,
     MatFooterCellDef,
     MatFooterRowDef,
+    // Cell directives
     MatHeaderCell,
     MatCell,
     MatFooterCell,
+    // Row directions
     MatHeaderRow,
     MatRow,
     MatFooterRow,
@@ -31283,12 +32788,13 @@ var MatTableModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
  * flaky browser support and the value not being defined in Closure's typings.
-  @type {?} */
+ * @type {?}
+ */
 var MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
@@ -31337,7 +32843,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
             /** @type {?} */
-            var value = (/** @type {?} */ (data))[sortHeaderId];
+            var value = ((/** @type {?} */ (data)))[sortHeaderId];
             if (coercion._isNumberValue(value)) {
                 /** @type {?} */
                 var numberValue = Number(value);
@@ -31369,6 +32875,10 @@ MatTableDataSource = /** @class */ (function (_super) {
                 var valueA = _this.sortingDataAccessor(a, active);
                 /** @type {?} */
                 var valueB = _this.sortingDataAccessor(b, active);
+                // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
+                // one value exists while the other doesn't. In this case, existing value should come first.
+                // This avoids inconsistent results when comparing values to undefined/null.
+                // If neither value exists, return 0 (equal).
                 /** @type {?} */
                 var comparatorResult = 0;
                 if (valueA != null && valueB != null) {
@@ -31400,6 +32910,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @return Whether the filter matches against the data
          */
         _this.filterPredicate = function (data, filter) {
+            // Transform the data into a lowercase string of all property values.
             /** @type {?} */
             var dataStr = Object.keys(data).reduce(function (currentTerm, key) {
                 // Use an obscure Unicode character to delimit the words in the concatenated string.
@@ -31408,8 +32919,9 @@ MatTableDataSource = /** @class */ (function (_super) {
                 // that has a very low chance of being typed in by somebody in a text field. This one in
                 // particular is "White up-pointing triangle with dot" from
                 // https://en.wikipedia.org/wiki/List_of_Unicode_characters
-                return currentTerm + (/** @type {?} */ (data))[key] + '◬';
+                return currentTerm + ((/** @type {?} */ (data)))[key] + '◬';
             }, '').toLowerCase();
+            // Transform the filter by converting it to lowercase and removing whitespace.
             /** @type {?} */
             var transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
@@ -31527,6 +33039,12 @@ MatTableDataSource = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
+        // The events should emit whenever the component emits a change or initializes, or if no
+        // component is provided, a stream with just a null event should be provided.
+        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
+        // pipeline can progress to the next step. Note that the value from these streams are not used,
+        // they purely act as a signal to progress in the pipeline.
         /** @type {?} */
         var sortChange = this._sort ?
             rxjs.merge(this._sort.sortChange, this._sort.initialized) :
@@ -31537,18 +33055,21 @@ MatTableDataSource = /** @class */ (function (_super) {
             rxjs.of(null);
         /** @type {?} */
         var dataStream = this._data;
+        // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
         var filteredData = rxjs.combineLatest(dataStream, this._filter)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
         }));
+        // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
         var orderedData = rxjs.combineLatest(filteredData, sortChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }));
+        // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
         var paginatedData = rxjs.combineLatest(orderedData, pageChange)
             .pipe(operators.map(function (_a) {
@@ -31709,11 +33230,12 @@ MatTableDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token for the MatInkBar's Positioner.
-  @type {?} */
+ * @type {?}
+ */
 var _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
     factory: _MAT_INK_BAR_POSITIONER_FACTORY
@@ -31796,11 +33318,17 @@ var MatInkBar = /** @class */ (function () {
     };
     /**
      * Sets the proper styles to the ink bar element.
+     * @param element
+     */
+    /**
+     * Sets the proper styles to the ink bar element.
+     * @private
      * @param {?} element
      * @return {?}
      */
     MatInkBar.prototype._setStyles = /**
      * Sets the proper styles to the ink bar element.
+     * @private
      * @param {?} element
      * @return {?}
      */
@@ -31831,7 +33359,7 @@ var MatInkBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Decorates the `ng-template` tags and reads out the template from it.
@@ -31852,7 +33380,7 @@ var MatTabContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to flag tab labels for use with the portal directive
@@ -31872,12 +33400,15 @@ var MatTabLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTab.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTab.
+/**
  * \@docs-private
  */
 MatTabBase = /** @class */ (function () {
@@ -31989,14 +33520,17 @@ var MatTab = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material tabs.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matTabsAnimations = {
-    /** Animation translates a tab along the X axis. */
+    /**
+     * Animation translates a tab along the X axis.
+     */
     translateTab: animations$1.trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
         animations$1.state('center, void, left-origin-center, right-origin-center', animations$1.style({ transform: 'none' })),
@@ -32020,7 +33554,7 @@ var matTabsAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The portal host directive for the contents of the tab.
@@ -32096,9 +33630,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
  * \@docs-private
  */
 var MatTabBody = /** @class */ (function () {
-    function MatTabBody(_elementRef, _dir, /**
-                   * @breaking-change 8.0.0 changeDetectorRef to be made required.
-                   */
+    function MatTabBody(_elementRef, _dir, 
+    /**
+     * @breaking-change 8.0.0 changeDetectorRef to be made required.
+     */
     changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -32127,6 +33662,8 @@ var MatTabBody = /** @class */ (function () {
          * Event emitted when the tab completes its animation towards the center.
          */
         this._onCentered = new core.EventEmitter(true);
+        // Note that the default value will always be overwritten by `MatTabBody`, but we need one
+        // anyway to prevent the animations module from throwing an error if the body is used on its own.
         /**
          * Duration for the tab's animation.
          */
@@ -32238,13 +33775,16 @@ var MatTabBody = /** @class */ (function () {
             position == 'left-origin-center' ||
             position == 'right-origin-center';
     };
+    /** Computes the position state that will be used for the tab-body animation trigger. */
     /**
      * Computes the position state that will be used for the tab-body animation trigger.
+     * @private
      * @param {?=} dir
      * @return {?}
      */
     MatTabBody.prototype._computePositionAnimationState = /**
      * Computes the position state that will be used for the tab-body animation trigger.
+     * @private
      * @param {?=} dir
      * @return {?}
      */
@@ -32263,11 +33803,17 @@ var MatTabBody = /** @class */ (function () {
     /**
      * Computes the position state based on the specified origin position. This is used if the
      * tab is becoming visible immediately after creation.
+     */
+    /**
+     * Computes the position state based on the specified origin position. This is used if the
+     * tab is becoming visible immediately after creation.
+     * @private
      * @return {?}
      */
     MatTabBody.prototype._computePositionFromOrigin = /**
      * Computes the position state based on the specified origin position. This is used if the
      * tab is becoming visible immediately after creation.
+     * @private
      * @return {?}
      */
     function () {
@@ -32312,12 +33858,15 @@ var MatTabBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabLabelWrapper.
+/**
  * \@docs-private
  */
 MatTabLabelWrapperBase = /** @class */ (function () {
@@ -32387,17 +33936,21 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
-  @type {?} */
+ * @type {?}
+ */
 var EXAGGERATED_OVERSCROLL = 60;
+// Boilerplate for applying mixins to MatTabHeader.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabHeader.
+/**
  * \@docs-private
  */
 MatTabHeaderBase = /** @class */ (function () {
@@ -32649,7 +34202,7 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._keyManager ? /** @type {?} */ ((this._keyManager.activeItemIndex)) : 0;
+            return this._keyManager ? (/** @type {?} */ (this._keyManager.activeItemIndex)) : 0;
         },
         /** When the focus index is set, we must manually send focus to the correct label */
         set: /**
@@ -32712,6 +34265,9 @@ var MatTabHeader = /** @class */ (function (_super) {
         }
         if (this._labelWrappers && this._labelWrappers.length) {
             this._labelWrappers.toArray()[tabIndex].focus();
+            // Do not let the browser manage scrolling to focus the element, this will be handled
+            // by using translation. In LTR, the scroll left should be 0. In RTL, the scroll width
+            // should be the full width minus the offset width.
             /** @type {?} */
             var containerEl = this._tabListContainer.nativeElement;
             /** @type {?} */
@@ -32843,6 +34399,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         if (!selectedLabel) {
             return;
         }
+        // The view length is the visible width of the tab labels.
         /** @type {?} */
         var viewLength = this._tabListContainer.nativeElement.offsetWidth;
         /** @type {?} */
@@ -32986,7 +34543,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         var selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
-        this._inkBar.alignToElement(/** @type {?} */ ((selectedLabelWrapper)));
+        this._inkBar.alignToElement((/** @type {?} */ (selectedLabelWrapper)));
     };
     MatTabHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-header',
@@ -33024,11 +34581,12 @@ var MatTabHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Used to generate unique ID's for each tab component
-  @type {?} */
+ * @type {?}
+ */
 var nextId$1 = 0;
 /**
  * A simple change event emitted on focus or selection changes.
@@ -33041,14 +34599,18 @@ MatTabChangeEvent = /** @class */ (function () {
     }
     return MatTabChangeEvent;
 }());
-/** *
+/**
  * Injection token that can be used to provide the default options the tabs module.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TABS_CONFIG = new core.InjectionToken('MAT_TABS_CONFIG');
+// Boilerplate for applying mixins to MatTabGroup.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabGroup.
+/**
  * \@docs-private
  */
 MatTabGroupBase = /** @class */ (function () {
@@ -33189,6 +34751,8 @@ var MatTabGroup = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
+        // the amount of tabs changes before the actual change detection runs.
         /** @type {?} */
         var indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
@@ -33291,10 +34855,12 @@ var MatTabGroup = /** @class */ (function (_super) {
         this.focusChange.emit(this._createChangeEvent(index));
     };
     /**
+     * @private
      * @param {?} index
      * @return {?}
      */
     MatTabGroup.prototype._createChangeEvent = /**
+     * @private
      * @param {?} index
      * @return {?}
      */
@@ -33308,10 +34874,17 @@ var MatTabGroup = /** @class */ (function (_super) {
         return event;
     };
     /**
+     * Subscribes to changes in the tab labels. This is needed, because the @Input for the label is
+     * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
+     * binding to be updated, we need to subscribe to changes in it and trigger change detection
+     * manually.
+     */
+    /**
      * Subscribes to changes in the tab labels. This is needed, because the \@Input for the label is
      * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
      * binding to be updated, we need to subscribe to changes in it and trigger change detection
      * manually.
+     * @private
      * @return {?}
      */
     MatTabGroup.prototype._subscribeToTabLabels = /**
@@ -33319,6 +34892,7 @@ var MatTabGroup = /** @class */ (function (_super) {
      * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
      * binding to be updated, we need to subscribe to changes in it and trigger change detection
      * manually.
+     * @private
      * @return {?}
      */
     function () {
@@ -33328,13 +34902,16 @@ var MatTabGroup = /** @class */ (function (_super) {
         }
         this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._stateChanges; })).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
+    /** Clamps the given index to the bounds of 0 and the tabs length. */
     /**
      * Clamps the given index to the bounds of 0 and the tabs length.
+     * @private
      * @param {?} index
      * @return {?}
      */
     MatTabGroup.prototype._clampTabIndex = /**
      * Clamps the given index to the bounds of 0 and the tabs length.
+     * @private
      * @param {?} index
      * @return {?}
      */
@@ -33496,12 +35073,15 @@ var MatTabGroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTabNav.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabNav.
+/**
  * \@docs-private
  */
 MatTabNavBase = /** @class */ (function () {
@@ -33663,7 +35243,10 @@ var MatTabNav = /** @class */ (function (_super) {
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));
-var MatTabLinkBase = /** @class */ (function () {
+// Boilerplate for applying mixins to MatTabLink.
+var   
+// Boilerplate for applying mixins to MatTabLink.
+MatTabLinkBase = /** @class */ (function () {
     function MatTabLinkBase() {
     }
     return MatTabLinkBase;
@@ -33791,7 +35374,7 @@ var MatTabLink = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatTabsModule = /** @class */ (function () {
     function MatTabsModule() {
@@ -33836,12 +35419,15 @@ var MatTabsModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatToolbar.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatToolbar.
+/**
  * \@docs-private
  */
 MatToolbarBase = /** @class */ (function () {
@@ -33889,10 +35475,15 @@ var MatToolbar = /** @class */ (function (_super) {
     };
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     */
+    /**
+     * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @private
      * @return {?}
      */
     MatToolbar.prototype._checkToolbarMixedModes = /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @private
      * @return {?}
      */
     function () {
@@ -33900,6 +35491,8 @@ var MatToolbar = /** @class */ (function (_super) {
         if (!this._toolbarRows.length) {
             return;
         }
+        // Check if there are any other DOM nodes that can display content but aren't inside of
+        // a <mat-toolbar-row> element.
         /** @type {?} */
         var isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
@@ -33948,7 +35541,7 @@ function throwToolbarMixedModesError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
@@ -33965,7 +35558,7 @@ var MatToolbarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
@@ -33989,7 +35582,7 @@ var MatTreeNodeOutlet = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkTreeNode));
@@ -34074,10 +35667,17 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
     // This is a workaround for https://github.com/angular/angular/issues/23091
     // In aot mode, the lifecycle hooks from parent class are not called.
     // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
     /**
      * @return {?}
      */
-    MatNestedTreeNode.prototype.ngAfterContentInit = /**
+    MatNestedTreeNode.prototype.ngAfterContentInit = 
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    /**
      * @return {?}
      */
     function () {
@@ -34124,7 +35724,7 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
@@ -34150,7 +35750,7 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -34183,7 +35783,7 @@ var MatTree = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
@@ -34213,7 +35813,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_TREE_DIRECTIVES = [
@@ -34240,7 +35840,7 @@ var MatTreeModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -34523,7 +36123,7 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Data source for nested tree.
@@ -34591,15 +36191,16 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Current version of Angular Material.
-  @type {?} */
-var VERSION = new core.Version('7.1.0-df488b0');
+ * @type {?}
+ */
+var VERSION = new core.Version('7.1.0-4954bca');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34808,7 +36409,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -34855,12 +36456,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34993,17 +36594,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

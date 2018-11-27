@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -45,7 +45,7 @@ MatTable.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Cell definition for the mat-table.
@@ -187,7 +187,7 @@ MatCell.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Header row definition for the mat-table.
@@ -287,11 +287,13 @@ MatRow.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const EXPORTED_DECLARATIONS = [
+    // Table
     MatTable,
+    // Template defs
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatColumnDef,
@@ -299,9 +301,11 @@ const EXPORTED_DECLARATIONS = [
     MatRowDef,
     MatFooterCellDef,
     MatFooterRowDef,
+    // Cell directives
     MatHeaderCell,
     MatCell,
     MatFooterCell,
+    // Row directions
     MatHeaderRow,
     MatRow,
     MatFooterRow,
@@ -318,12 +322,13 @@ MatTableModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
  * flaky browser support and the value not being defined in Closure's typings.
-  @type {?} */
+ * @type {?}
+ */
 const MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
@@ -364,7 +369,7 @@ class MatTableDataSource extends DataSource {
          */
         this.sortingDataAccessor = (data, sortHeaderId) => {
             /** @type {?} */
-            const value = (/** @type {?} */ (data))[sortHeaderId];
+            const value = ((/** @type {?} */ (data)))[sortHeaderId];
             if (_isNumberValue(value)) {
                 /** @type {?} */
                 const numberValue = Number(value);
@@ -396,6 +401,10 @@ class MatTableDataSource extends DataSource {
                 let valueA = this.sortingDataAccessor(a, active);
                 /** @type {?} */
                 let valueB = this.sortingDataAccessor(b, active);
+                // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
+                // one value exists while the other doesn't. In this case, existing value should come first.
+                // This avoids inconsistent results when comparing values to undefined/null.
+                // If neither value exists, return 0 (equal).
                 /** @type {?} */
                 let comparatorResult = 0;
                 if (valueA != null && valueB != null) {
@@ -427,6 +436,7 @@ class MatTableDataSource extends DataSource {
          * @return Whether the filter matches against the data
          */
         this.filterPredicate = (data, filter) => {
+            // Transform the data into a lowercase string of all property values.
             /** @type {?} */
             const dataStr = Object.keys(data).reduce((currentTerm, key) => {
                 // Use an obscure Unicode character to delimit the words in the concatenated string.
@@ -435,8 +445,9 @@ class MatTableDataSource extends DataSource {
                 // that has a very low chance of being typed in by somebody in a text field. This one in
                 // particular is "White up-pointing triangle with dot" from
                 // https://en.wikipedia.org/wiki/List_of_Unicode_characters
-                return currentTerm + (/** @type {?} */ (data))[key] + '◬';
+                return currentTerm + ((/** @type {?} */ (data)))[key] + '◬';
             }, '').toLowerCase();
+            // Transform the filter by converting it to lowercase and removing whitespace.
             /** @type {?} */
             const transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
@@ -506,6 +517,12 @@ class MatTableDataSource extends DataSource {
      * @return {?}
      */
     _updateChangeSubscription() {
+        // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
+        // The events should emit whenever the component emits a change or initializes, or if no
+        // component is provided, a stream with just a null event should be provided.
+        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
+        // pipeline can progress to the next step. Note that the value from these streams are not used,
+        // they purely act as a signal to progress in the pipeline.
         /** @type {?} */
         const sortChange = this._sort ?
             merge(this._sort.sortChange, this._sort.initialized) :
@@ -516,12 +533,15 @@ class MatTableDataSource extends DataSource {
             of(null);
         /** @type {?} */
         const dataStream = this._data;
+        // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
         const filteredData = combineLatest(dataStream, this._filter)
             .pipe(map(([data]) => this._filterData(data)));
+        // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
         const orderedData = combineLatest(filteredData, sortChange)
             .pipe(map(([data]) => this._orderData(data)));
+        // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
         const paginatedData = combineLatest(orderedData, pageChange)
             .pipe(map(([data]) => this._pageData(data)));
@@ -612,12 +632,12 @@ class MatTableDataSource extends DataSource {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource };

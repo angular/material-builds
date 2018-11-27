@@ -53,7 +53,7 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
@@ -169,12 +169,15 @@ MatSnackBarRef = /** @class */ (function () {
             this._afterOpened.complete();
         }
     };
+    /** Cleans up the DOM after closing. */
     /**
      * Cleans up the DOM after closing.
+     * @private
      * @return {?}
      */
     MatSnackBarRef.prototype._finishDismiss = /**
      * Cleans up the DOM after closing.
+     * @private
      * @return {?}
      */
     function () {
@@ -227,11 +230,12 @@ MatSnackBarRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a snack bar.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SNACK_BAR_DATA = new core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
@@ -274,7 +278,7 @@ MatSnackBarConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -330,14 +334,17 @@ var SimpleSnackBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material snack bar.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matSnackBarAnimations = {
-    /** Animation that shows and hides a snack bar. */
+    /**
+     * Animation that shows and hides a snack bar.
+     */
     snackBarState: animations.trigger('state', [
         animations.state('void, hidden', animations.style({
             transform: 'scale(0.8)',
@@ -356,7 +363,7 @@ var matSnackBarAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Internal component that wraps user-provided snack bar content.
@@ -452,6 +459,8 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             this._completeExit();
         }
         if (toState === 'visible') {
+            // Note: we shouldn't use `this` inside the zone callback,
+            // because it can cause a memory leak.
             /** @type {?} */
             var onEnter_1 = this._onEnter;
             this._ngZone.run(function () {
@@ -507,11 +516,17 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     /**
      * Waits for the zone to settle before removing the element. Helps prevent
      * errors where we end up removing an element which is in the middle of an animation.
+     */
+    /**
+     * Waits for the zone to settle before removing the element. Helps prevent
+     * errors where we end up removing an element which is in the middle of an animation.
+     * @private
      * @return {?}
      */
     MatSnackBarContainer.prototype._completeExit = /**
      * Waits for the zone to settle before removing the element. Helps prevent
      * errors where we end up removing an element which is in the middle of an animation.
+     * @private
      * @return {?}
      */
     function () {
@@ -521,12 +536,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             _this._onExit.complete();
         });
     };
+    /** Applies the various positioning and user-configured CSS classes to the snack bar. */
     /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
+     * @private
      * @return {?}
      */
     MatSnackBarContainer.prototype._applySnackBarClasses = /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
+     * @private
      * @return {?}
      */
     function () {
@@ -550,12 +568,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             element.classList.add('mat-snack-bar-top');
         }
     };
+    /** Asserts that no content is already attached to the container. */
     /**
      * Asserts that no content is already attached to the container.
+     * @private
      * @return {?}
      */
     MatSnackBarContainer.prototype._assertNotAttached = /**
      * Asserts that no content is already attached to the container.
+     * @private
      * @return {?}
      */
     function () {
@@ -593,7 +614,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
@@ -617,11 +638,12 @@ var MatSnackBarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify default snack bar.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
     factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
@@ -703,7 +725,7 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (component, config) {
-        return /** @type {?} */ (this._attach(component, config));
+        return (/** @type {?} */ (this._attach(component, config)));
     };
     /**
      * Creates and dispatches a snack bar with a custom template for the content, removing any
@@ -793,12 +815,17 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Attaches the snack bar container component to the overlay.
+     */
+    /**
+     * Attaches the snack bar container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
      */
     MatSnackBar.prototype._attachSnackBarContainer = /**
      * Attaches the snack bar container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
@@ -819,6 +846,10 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Places a new component or a template as the content of the snack bar container.
+     */
+    /**
+     * Places a new component or a template as the content of the snack bar container.
+     * @private
      * @template T
      * @param {?} content
      * @param {?=} userConfig
@@ -826,6 +857,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     MatSnackBar.prototype._attach = /**
      * Places a new component or a template as the content of the snack bar container.
+     * @private
      * @template T
      * @param {?} content
      * @param {?=} userConfig
@@ -842,10 +874,10 @@ var MatSnackBar = /** @class */ (function () {
         var snackBarRef = new MatSnackBarRef(container, overlayRef);
         if (content instanceof core.TemplateRef) {
             /** @type {?} */
-            var portal$$1 = new portal.TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
+            var portal$$1 = new portal.TemplatePortal(content, (/** @type {?} */ (null)), (/** @type {?} */ ({
                 $implicit: config.data,
                 snackBarRef: snackBarRef
-            }));
+            })));
             snackBarRef.instance = container.attachTemplatePortal(portal$$1);
         }
         else {
@@ -873,14 +905,17 @@ var MatSnackBar = /** @class */ (function () {
         this._openedSnackBarRef = snackBarRef;
         return this._openedSnackBarRef;
     };
+    /** Animates the old snack bar out and the new one in. */
     /**
      * Animates the old snack bar out and the new one in.
+     * @private
      * @param {?} snackBarRef
      * @param {?} config
      * @return {?}
      */
     MatSnackBar.prototype._animateSnackBar = /**
      * Animates the old snack bar out and the new one in.
+     * @private
      * @param {?} snackBarRef
      * @param {?} config
      * @return {?}
@@ -911,7 +946,7 @@ var MatSnackBar = /** @class */ (function () {
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (config.duration && config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter(/** @type {?} */ ((config.duration))); });
+            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter((/** @type {?} */ (config.duration))); });
         }
         if (config.announcementMessage) {
             this._live.announce(config.announcementMessage, config.politeness);
@@ -919,11 +954,17 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Creates a new overlay and places it in the correct location.
+     * @param config The user-specified snack bar config.
+     */
+    /**
+     * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified snack bar config.
      * @return {?}
      */
     MatSnackBar.prototype._createOverlay = /**
      * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified snack bar config.
      * @return {?}
      */
@@ -933,6 +974,7 @@ var MatSnackBar = /** @class */ (function () {
         overlayConfig.direction = config.direction;
         /** @type {?} */
         var positionStrategy = this._overlay.position().global();
+        // Set horizontal position.
         /** @type {?} */
         var isRtl = config.direction === 'rtl';
         /** @type {?} */
@@ -962,6 +1004,12 @@ var MatSnackBar = /** @class */ (function () {
     };
     /**
      * Creates an injector to be used inside of a snack bar component.
+     * @param config Config that was used to create the snack bar.
+     * @param snackBarRef Reference to the snack bar.
+     */
+    /**
+     * Creates an injector to be used inside of a snack bar component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the snack bar.
      * @param {?} snackBarRef Reference to the snack bar.
@@ -969,6 +1017,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     MatSnackBar.prototype._createInjector = /**
      * Creates an injector to be used inside of a snack bar component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the snack bar.
      * @param {?} snackBarRef Reference to the snack bar.

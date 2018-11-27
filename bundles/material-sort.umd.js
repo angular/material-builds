@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -78,12 +78,15 @@ function getSortInvalidDirectionError(direction) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatSort.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSort.
+/**
  * \@docs-private
  */
 MatSortBase = /** @class */ (function () {
@@ -239,10 +242,12 @@ var MatSort = /** @class */ (function (_super) {
         if (!sortable) {
             return '';
         }
+        // Get the sort direction cycle with the potential sortable overrides.
         /** @type {?} */
         var disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
         /** @type {?} */
         var sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
+        // Get and return the next direction in the cycle
         /** @type {?} */
         var nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
         if (nextDirectionIndex >= sortDirectionCycle.length) {
@@ -313,36 +318,45 @@ function getSortDirectionCycle(start, disableClear) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var SORT_ANIMATION_TRANSITION = core$1.AnimationDurations.ENTERING + ' ' +
     core$1.AnimationCurves.STANDARD_CURVE;
-/** *
+/**
  * Animations used by MatSort.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matSortAnimations = {
-    /** Animation that moves the sort indicator. */
+    /**
+     * Animation that moves the sort indicator.
+     */
     indicator: animations.trigger('indicator', [
         animations.state('active-asc, asc', animations.style({ transform: 'translateY(0px)' })),
         // 10px is the height of the sort indicator, minus the width of the pointers
         animations.state('active-desc, desc', animations.style({ transform: 'translateY(10px)' })),
         animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
+    /**
+     * Animation that rotates the left pointer of the indicator based on the sorting direction.
+     */
     leftPointer: animations.trigger('leftPointer', [
         animations.state('active-asc, asc', animations.style({ transform: 'rotate(-45deg)' })),
         animations.state('active-desc, desc', animations.style({ transform: 'rotate(45deg)' })),
         animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
+    /**
+     * Animation that rotates the right pointer of the indicator based on the sorting direction.
+     */
     rightPointer: animations.trigger('rightPointer', [
         animations.state('active-asc, asc', animations.style({ transform: 'rotate(45deg)' })),
         animations.state('active-desc, desc', animations.style({ transform: 'rotate(-45deg)' })),
         animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that controls the arrow opacity. */
+    /**
+     * Animation that controls the arrow opacity.
+     */
     arrowOpacity: animations.trigger('arrowOpacity', [
         animations.state('desc-to-active, asc-to-active, active', animations.style({ opacity: 1 })),
         animations.state('desc-to-hint, asc-to-hint, hint', animations.style({ opacity: .54 })),
@@ -352,12 +366,12 @@ var matSortAnimations = {
         animations.transition('* <=> *', animations.animate(SORT_ANIMATION_TRANSITION)),
     ]),
     /**
-       * Animation for the translation of the arrow as a whole. States are separated into two
-       * groups: ones with animations and others that are immediate. Immediate states are asc, desc,
-       * peek, and active. The other states define a specific animation (source-to-destination)
-       * and are determined as a function of their prev user-perceived state and what the next state
-       * should be.
-       */
+     * Animation for the translation of the arrow as a whole. States are separated into two
+     * groups: ones with animations and others that are immediate. Immediate states are asc, desc,
+     * peek, and active. The other states define a specific animation (source-to-destination)
+     * and are determined as a function of their prev user-perceived state and what the next state
+     * should be.
+     */
     arrowPosition: animations.trigger('arrowPosition', [
         // Hidden Above => Hint Center
         animations.transition('* => desc-to-hint, * => desc-to-active', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
@@ -383,7 +397,9 @@ var matSortAnimations = {
         animations.state('hint-to-desc, active-to-desc, desc', animations.style({ transform: 'translateY(-25%)' })),
         animations.state('hint-to-asc, active-to-asc, asc', animations.style({ transform: 'translateY(25%)' })),
     ]),
-    /** Necessary trigger that calls animate on children animations. */
+    /**
+     * Necessary trigger that calls animate on children animations.
+     */
     allowChildren: animations.trigger('allowChildren', [
         animations.transition('* <=> *', [
             animations.query('@*', animations.animateChild(), { optional: true })
@@ -393,7 +409,7 @@ var matSortAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -427,9 +443,10 @@ var MatSortHeaderIntl = /** @class */ (function () {
 function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatSortHeaderIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
@@ -439,12 +456,15 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to the sort header.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to the sort header.
+/**
  * \@docs-private
  */
 MatSortHeaderBase = /** @class */ (function () {
@@ -626,6 +646,8 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
             this._disableViewStateAnimation = true;
         }
+        // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
+        // the direction it is facing.
         /** @type {?} */
         var viewState = this._isSorted() ?
             { fromState: this._arrowDirection, toState: 'active' } :
@@ -788,7 +810,7 @@ var MatSortHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSortModule = /** @class */ (function () {
     function MatSortModule() {
