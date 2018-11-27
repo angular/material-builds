@@ -217,8 +217,18 @@ var MatBadge = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.description && this._badgeElement) {
-            this._ariaDescriber.removeDescription(this._badgeElement, this.description);
+        /** @type {?} */
+        var badgeElement = this._badgeElement;
+        if (badgeElement) {
+            if (this.description) {
+                this._ariaDescriber.removeDescription(badgeElement, this.description);
+            }
+            // When creating a badge through the Renderer, Angular will keep it in an index.
+            // We have to destroy it ourselves, otherwise it'll be retained in memory.
+            // @breaking-change 8.0.0 remove _renderer from null.
+            if (this._renderer && this._renderer.destroyNode) {
+                this._renderer.destroyNode(badgeElement);
+            }
         }
     };
     /** Injects a span element into the DOM with the content. */
