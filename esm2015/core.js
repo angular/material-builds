@@ -2234,6 +2234,8 @@ const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 /**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+ * \@docs-private
+ * \@breaking-change 8.0.0 Remove this with V8 since it was only targeted for testing.
  * @type {?}
  */
 const JAN = 0;
