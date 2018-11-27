@@ -807,7 +807,7 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function (drawer) {
         var _this = this;
-        drawer._animationStarted.pipe(takeUntil(this._drawers.changes), filter(function (event) { return event.fromState !== event.toState; }))
+        drawer._animationStarted.pipe(filter(function (event) { return event.fromState !== event.toState; }), takeUntil(this._drawers.changes))
             .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.

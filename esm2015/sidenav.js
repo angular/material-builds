@@ -633,7 +633,7 @@ class MatDrawerContainer {
      * @return {?}
      */
     _watchDrawerToggle(drawer) {
-        drawer._animationStarted.pipe(takeUntil(this._drawers.changes), filter((event) => event.fromState !== event.toState))
+        drawer._animationStarted.pipe(filter((event) => event.fromState !== event.toState), takeUntil(this._drawers.changes))
             .subscribe((event) => {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
