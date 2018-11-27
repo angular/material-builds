@@ -1489,7 +1489,7 @@ $mat-ripple-color-opacity: 0.1;
 @mixin mat-option-typography($config) {
   .mat-option {
     font: {
-      family: mat-font-family($config, subheading-2);
+      family: mat-font-family($config);
       size: mat-font-size($config, subheading-2);
     }
   }
