@@ -601,8 +601,10 @@ var MatInput = /** @class */ (function (_super) {
                 // overlapping the label with the options.
                 /** @type {?} */
                 var selectElement = (/** @type {?} */ (this._elementRef.nativeElement));
-                return selectElement.multiple || !this.empty || !!selectElement.options[0].label ||
-                    this.focused;
+                /** @type {?} */
+                var firstOption = selectElement.options[0];
+                return selectElement.multiple || !this.empty || this.focused ||
+                    !!(firstOption && firstOption.label);
             }
             else {
                 return this.focused || !this.empty;
@@ -627,7 +629,9 @@ var MatInput = /** @class */ (function (_super) {
      * @param {?} ids
      * @return {?}
      */
-    function (ids) { this._ariaDescribedby = ids.join(' '); };
+    function (ids) {
+        this._ariaDescribedby = ids.join(' ');
+    };
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

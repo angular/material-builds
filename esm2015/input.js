@@ -476,8 +476,10 @@ class MatInput extends _MatInputMixinBase {
             // overlapping the label with the options.
             /** @type {?} */
             const selectElement = (/** @type {?} */ (this._elementRef.nativeElement));
-            return selectElement.multiple || !this.empty || !!selectElement.options[0].label ||
-                this.focused;
+            /** @type {?} */
+            const firstOption = selectElement.options[0];
+            return selectElement.multiple || !this.empty || this.focused ||
+                !!(firstOption && firstOption.label);
         }
         else {
             return this.focused || !this.empty;
@@ -489,7 +491,9 @@ class MatInput extends _MatInputMixinBase {
      * @param {?} ids
      * @return {?}
      */
-    setDescribedByIds(ids) { this._ariaDescribedby = ids.join(' '); }
+    setDescribedByIds(ids) {
+        this._ariaDescribedby = ids.join(' ');
+    }
     /**
      * Implemented as part of MatFormFieldControl.
      * \@docs-private
