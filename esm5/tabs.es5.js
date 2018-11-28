@@ -950,15 +950,23 @@ var MatTabHeader = /** @class */ (function (_super) {
     function () {
         var _this = this;
         /** @type {?} */
-        var zoneCallback = function () {
-            _this.updatePagination();
-            _this._alignInkBarToSelectedTab();
-            _this._changeDetectorRef.markForCheck();
-        };
-        // The content observer runs outside the `NgZone` by default, which
-        // means that we need to bring the callback back in ourselves.
-        // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
-        this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+        var textContent = this._elementRef.nativeElement.textContent;
+        // We need to diff the text content of the header, because the MutationObserver callback
+        // will fire even if the text content didn't change which is inefficient and is prone
+        // to infinite loops if a poorly constructed expression is passed in (see #14249).
+        if (textContent !== this._currentTextContent) {
+            this._currentTextContent = textContent;
+            /** @type {?} */
+            var zoneCallback = function () {
+                _this.updatePagination();
+                _this._alignInkBarToSelectedTab();
+                _this._changeDetectorRef.markForCheck();
+            };
+            // The content observer runs outside the `NgZone` by default, which
+            // means that we need to bring the callback back in ourselves.
+            // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
+            this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+        }
     };
     /**
      * Updates the view whether pagination should be enabled or not.
@@ -2225,5 +2233,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.es5.js.map
