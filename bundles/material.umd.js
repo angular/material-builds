@@ -34347,7 +34347,9 @@ var MatTabHeader = /** @class */ (function (_super) {
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
         // and ripples will exceed the boundaries of the visible tab bar.
         // See: https://github.com/angular/material2/issues/10276
-        this._tabList.nativeElement.style.transform = "translateX(" + translateX + "px)";
+        // We round the `transform` here, because transforms with sub-pixel precision cause some
+        // browsers to blur the content of the element.
+        this._tabList.nativeElement.style.transform = "translateX(" + Math.round(translateX) + "px)";
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off.
@@ -36234,10 +36236,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.1.0-287f134');
+var VERSION = new core.Version('7.1.0-1c74b03');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
