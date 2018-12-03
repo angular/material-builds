@@ -955,14 +955,16 @@ FitTileStyler = /** @class */ (function (_super) {
  * @param {?} exp
  * @return {?}
  */
-function calc(exp) { return "calc(" + exp + ")"; }
+function calc(exp) {
+    return "calc(" + exp + ")";
+}
 /**
  * Appends pixels to a CSS string if no units are given.
  * @param {?} value
  * @return {?}
  */
 function normalizeUnits(value) {
-    return (value.match(/px|em|rem/)) ? value : value + 'px';
+    return value.match(/([A-Za-z%]+)$/) ? value : value + "px";
 }
 
 /**
@@ -1241,7 +1243,7 @@ exports.MatGridTileText = MatGridTileText;
 exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
