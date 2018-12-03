@@ -926,14 +926,16 @@ FitTileStyler = /** @class */ (function (_super) {
  * @param {?} exp
  * @return {?}
  */
-function calc(exp) { return "calc(" + exp + ")"; }
+function calc(exp) {
+    return "calc(" + exp + ")";
+}
 /**
  * Appends pixels to a CSS string if no units are given.
  * @param {?} value
  * @return {?}
  */
 function normalizeUnits(value) {
-    return (value.match(/px|em|rem/)) ? value : value + 'px';
+    return value.match(/([A-Za-z%]+)$/) ? value : value + "px";
 }
 
 /**
@@ -1215,5 +1217,5 @@ var MatGridListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa4 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa2 };
 //# sourceMappingURL=grid-list.es5.js.map

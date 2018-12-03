@@ -312,7 +312,7 @@ var MatStep = /** @class */ (function (_super) {
     MatStep.ctorParameters = function () { return [
         { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatStepper; }),] }] },
         { type: core$1.ErrorStateMatcher, decorators: [{ type: core.SkipSelf }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [stepper.MAT_STEPPER_GLOBAL_OPTIONS,] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
     ]; };
     MatStep.propDecorators = {
         stepLabel: [{ type: core.ContentChild, args: [MatStepLabel,] }]
