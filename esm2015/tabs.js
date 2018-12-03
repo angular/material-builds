@@ -22,11 +22,12 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token for the MatInkBar's Positioner.
-  @type {?} */
+ * @type {?}
+ */
 const _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
     factory: _MAT_INK_BAR_POSITIONER_FACTORY
@@ -92,6 +93,7 @@ class MatInkBar {
     }
     /**
      * Sets the proper styles to the ink bar element.
+     * @private
      * @param {?} element
      * @return {?}
      */
@@ -121,7 +123,7 @@ MatInkBar.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Decorates the `ng-template` tags and reads out the template from it.
@@ -144,7 +146,7 @@ MatTabContent.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to flag tab labels for use with the portal directive
@@ -159,8 +161,9 @@ MatTabLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTab.
 /**
  * \@docs-private
  */
@@ -255,14 +258,17 @@ MatTab.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material tabs.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matTabsAnimations = {
-    /** Animation translates a tab along the X axis. */
+    /**
+     * Animation translates a tab along the X axis.
+     */
     translateTab: trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
         state('center, void, left-origin-center, right-origin-center', style({ transform: 'none' })),
@@ -286,7 +292,7 @@ const matTabsAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The portal host directive for the contents of the tab.
@@ -358,9 +364,10 @@ class MatTabBody {
      * @param {?} _dir
      * @param {?=} changeDetectorRef
      */
-    constructor(_elementRef, _dir, /**
-                   * @breaking-change 8.0.0 changeDetectorRef to be made required.
-                   */
+    constructor(_elementRef, _dir, 
+    /**
+     * @breaking-change 8.0.0 changeDetectorRef to be made required.
+     */
     changeDetectorRef) {
         this._elementRef = _elementRef;
         this._dir = _dir;
@@ -388,6 +395,8 @@ class MatTabBody {
          * Event emitted when the tab completes its animation towards the center.
          */
         this._onCentered = new EventEmitter(true);
+        // Note that the default value will always be overwritten by `MatTabBody`, but we need one
+        // anyway to prevent the animations module from throwing an error if the body is used on its own.
         /**
          * Duration for the tab's animation.
          */
@@ -469,6 +478,7 @@ class MatTabBody {
     }
     /**
      * Computes the position state that will be used for the tab-body animation trigger.
+     * @private
      * @param {?=} dir
      * @return {?}
      */
@@ -486,6 +496,7 @@ class MatTabBody {
     /**
      * Computes the position state based on the specified origin position. This is used if the
      * tab is becoming visible immediately after creation.
+     * @private
      * @return {?}
      */
     _computePositionFromOrigin() {
@@ -529,8 +540,9 @@ MatTabBody.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
  * \@docs-private
  */
@@ -587,13 +599,15 @@ MatTabLabelWrapper.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
-  @type {?} */
+ * @type {?}
+ */
 const EXAGGERATED_OVERSCROLL = 60;
+// Boilerplate for applying mixins to MatTabHeader.
 /**
  * \@docs-private
  */
@@ -772,15 +786,23 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      */
     _onContentChanges() {
         /** @type {?} */
-        const zoneCallback = () => {
-            this.updatePagination();
-            this._alignInkBarToSelectedTab();
-            this._changeDetectorRef.markForCheck();
-        };
-        // The content observer runs outside the `NgZone` by default, which
-        // means that we need to bring the callback back in ourselves.
-        // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
-        this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+        const textContent = this._elementRef.nativeElement.textContent;
+        // We need to diff the text content of the header, because the MutationObserver callback
+        // will fire even if the text content didn't change which is inefficient and is prone
+        // to infinite loops if a poorly constructed expression is passed in (see #14249).
+        if (textContent !== this._currentTextContent) {
+            this._currentTextContent = textContent;
+            /** @type {?} */
+            const zoneCallback = () => {
+                this.updatePagination();
+                this._alignInkBarToSelectedTab();
+                this._changeDetectorRef.markForCheck();
+            };
+            // The content observer runs outside the `NgZone` by default, which
+            // means that we need to bring the callback back in ourselves.
+            // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
+            this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+        }
     }
     /**
      * Updates the view whether pagination should be enabled or not.
@@ -800,7 +822,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     get focusIndex() {
-        return this._keyManager ? /** @type {?} */ ((this._keyManager.activeItemIndex)) : 0;
+        return this._keyManager ? (/** @type {?} */ (this._keyManager.activeItemIndex)) : 0;
     }
     /**
      * When the focus index is set, we must manually send focus to the correct label
@@ -839,6 +861,9 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         }
         if (this._labelWrappers && this._labelWrappers.length) {
             this._labelWrappers.toArray()[tabIndex].focus();
+            // Do not let the browser manage scrolling to focus the element, this will be handled
+            // by using translation. In LTR, the scroll left should be 0. In RTL, the scroll width
+            // should be the full width minus the offset width.
             /** @type {?} */
             const containerEl = this._tabListContainer.nativeElement;
             /** @type {?} */
@@ -871,7 +896,9 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
         // and ripples will exceed the boundaries of the visible tab bar.
         // See: https://github.com/angular/material2/issues/10276
-        this._tabList.nativeElement.style.transform = `translateX(${translateX}px)`;
+        // We round the `transform` here, because transforms with sub-pixel precision cause some
+        // browsers to blur the content of the element.
+        this._tabList.nativeElement.style.transform = `translateX(${Math.round(translateX)}px)`;
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off.
@@ -923,6 +950,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         if (!selectedLabel) {
             return;
         }
+        // The view length is the visible width of the tab labels.
         /** @type {?} */
         const viewLength = this._tabListContainer.nativeElement.offsetWidth;
         /** @type {?} */
@@ -1010,7 +1038,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         const selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
-        this._inkBar.alignToElement(/** @type {?} */ ((selectedLabelWrapper)));
+        this._inkBar.alignToElement((/** @type {?} */ (selectedLabelWrapper)));
     }
 }
 MatTabHeader.decorators = [
@@ -1047,21 +1075,24 @@ MatTabHeader.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Used to generate unique ID's for each tab component
-  @type {?} */
+ * @type {?}
+ */
 let nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
 class MatTabChangeEvent {
 }
-/** *
+/**
  * Injection token that can be used to provide the default options the tabs module.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_TABS_CONFIG = new InjectionToken('MAT_TABS_CONFIG');
+// Boilerplate for applying mixins to MatTabGroup.
 /**
  * \@docs-private
  */
@@ -1179,6 +1210,8 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     ngAfterContentChecked() {
+        // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
+        // the amount of tabs changes before the actual change detection runs.
         /** @type {?} */
         const indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
@@ -1265,6 +1298,7 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         this.focusChange.emit(this._createChangeEvent(index));
     }
     /**
+     * @private
      * @param {?} index
      * @return {?}
      */
@@ -1282,6 +1316,7 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
      * binding to be updated, we need to subscribe to changes in it and trigger change detection
      * manually.
+     * @private
      * @return {?}
      */
     _subscribeToTabLabels() {
@@ -1293,6 +1328,7 @@ class MatTabGroup extends _MatTabGroupMixinBase {
     }
     /**
      * Clamps the given index to the bounds of 0 and the tabs length.
+     * @private
      * @param {?} index
      * @return {?}
      */
@@ -1411,8 +1447,9 @@ MatTabGroup.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTabNav.
 /**
  * \@docs-private
  */
@@ -1549,6 +1586,7 @@ MatTabNav.propDecorators = {
     _tabLinks: [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] }],
     backgroundColor: [{ type: Input }]
 };
+// Boilerplate for applying mixins to MatTabLink.
 class MatTabLinkBase {
 }
 /** @type {?} */
@@ -1664,7 +1702,7 @@ MatTabLink.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatTabsModule {
 }
@@ -1706,18 +1744,18 @@ MatTabsModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatTabBase as ɵf22, _MatTabMixinBase as ɵg22, MatTabHeaderBase as ɵb22, _MatTabHeaderMixinBase as ɵc22, MatTabLabelWrapperBase as ɵd22, _MatTabLabelWrapperMixinBase as ɵe22, MatTabLinkBase as ɵj22, MatTabNavBase as ɵh22, _MatTabLinkMixinBase as ɵk22, _MatTabNavMixinBase as ɵi22 };
 //# sourceMappingURL=tabs.js.map

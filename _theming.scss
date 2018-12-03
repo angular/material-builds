@@ -1489,7 +1489,7 @@ $mat-ripple-color-opacity: 0.1;
 @mixin mat-option-typography($config) {
   .mat-option {
     font: {
-      family: mat-font-family($config, subheading-2);
+      family: mat-font-family($config);
       size: mat-font-size($config, subheading-2);
     }
   }
@@ -2276,6 +2276,7 @@ $_mat-button-ripple-opacity: 0.1;
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
 
 
   // The color of the checkbox's checkmark / mixedmark.
@@ -2289,7 +2290,7 @@ $_mat-button-ripple-opacity: 0.1;
   $disabled-color: if($is-dark-theme, $white-30pct-opacity-on-dark, $black-26pct-opacity-on-light);
 
   .mat-checkbox-frame {
-    border-color: mat-color(map-get($theme, foreground), secondary-text);
+    border-color: mat-color($foreground, secondary-text);
   }
 
   .mat-checkbox-checkmark {
@@ -2340,7 +2341,7 @@ $_mat-button-ripple-opacity: 0.1;
     }
 
     .mat-checkbox-label {
-      color: $disabled-color;
+      color: mat-color($foreground, secondary-text);
     }
 
     @include cdk-high-contrast {
@@ -2435,10 +2436,13 @@ $mat-chip-remove-font-size: 18px;
     &.mat-chip-disabled {
       opacity: 0.4;
     }
+
+    &::after {
+      background: map_get($foreground, base);
+    }
   }
 
   .mat-chip.mat-standard-chip.mat-chip-selected {
-
     &.mat-primary {
       @include mat-chips-theme-color($primary);
     }
@@ -3694,6 +3698,15 @@ $mat-calendar-weekday-table-font-size: 11px !default;
       background-color: mat-color($background, hover);
     }
 
+    // On touch devices the :hover state will linger on the element after a tap.
+    // Reset it via `@media` after the declaration, because the media query isn't
+    // supported by all browsers yet.
+    @media (hover: none) {
+      &:hover {
+        background: none;
+      }
+    }
+
     .mat-step-label,
     .mat-step-optional {
       // TODO(josephperrott): Update to using a corrected disabled-text contrast
@@ -4074,6 +4087,7 @@ $mat-tooltip-handset-vertical-padding:
     }
   }
 }
+
 
 
 
@@ -4515,9 +4529,7 @@ $mat-form-field-outline-dedupe: 0;
 @mixin mat-form-field-standard-typography($config) {}
 
 
-
 // Theme styles that apply to all appearances of the form-field.
-
 @mixin mat-form-field-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);

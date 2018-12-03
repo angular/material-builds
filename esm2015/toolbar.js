@@ -12,8 +12,9 @@ import { mixinColor, MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatToolbar.
 /**
  * \@docs-private
  */
@@ -60,12 +61,15 @@ class MatToolbar extends _MatToolbarMixinBase {
     }
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @private
      * @return {?}
      */
     _checkToolbarMixedModes() {
         if (!this._toolbarRows.length) {
             return;
         }
+        // Check if there are any other DOM nodes that can display content but aren't inside of
+        // a <mat-toolbar-row> element.
         /** @type {?} */
         const isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
             .filter(node => !(node.classList && node.classList.contains('mat-toolbar-row')))
@@ -113,7 +117,7 @@ function throwToolbarMixedModesError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatToolbarModule {
 }
@@ -127,12 +131,12 @@ MatToolbarModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar };

@@ -42,11 +42,12 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
@@ -54,13 +55,15 @@ var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for slide-toggle components.
 /** @type {?} */
 var nextUniqueId = 0;
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSlideToggle; }),
@@ -79,10 +82,13 @@ MatSlideToggleChange = /** @class */ (function () {
     }
     return MatSlideToggleChange;
 }());
+// Boilerplate for applying mixins to MatSlideToggle.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSlideToggle.
+/**
  * \@docs-private
  */
 MatSlideToggleBase = /** @class */ (function () {
@@ -98,10 +104,11 @@ var _MatSlideToggleMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mix
  */
 var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, /**
-                   * @deprecated The `_platform` parameter to be removed.
-                   * @breaking-change 8.0.0
-                   */
+    function MatSlideToggle(elementRef, 
+    /**
+     * @deprecated The `_platform` parameter to be removed.
+     * @breaking-change 8.0.0
+     */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -372,23 +379,31 @@ var MatSlideToggle = /** @class */ (function (_super) {
     };
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     */
+    /**
+     * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * @private
      * @return {?}
      */
     MatSlideToggle.prototype._emitChangeEvent = /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * @private
      * @return {?}
      */
     function () {
         this.onChange(this.checked);
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     };
+    /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
     /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @private
      * @param {?} distance
      * @return {?}
      */
     MatSlideToggle.prototype._getDragPercentage = /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @private
      * @param {?} distance
      * @return {?}
      */
@@ -430,6 +445,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
             /** @type {?} */
             var direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
             this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
+            // Calculate the moved distance based on the thumb bar width.
             /** @type {?} */
             var dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
             this._thumbEl.nativeElement.style.transform = "translate3d(" + dragX + "px, 0, 0)";
@@ -497,7 +513,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                         '(focus)': '_inputElement.nativeElement.focus()',
                     },
-                    template: "<label class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
                     styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;outline:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}[dir=rtl] .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(-16px,0,0)}.mat-slide-toggle.mat-disabled{opacity:.38}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}._mat-animation-noopable .mat-slide-toggle-thumb-container{transition:none}[dir=rtl] .mat-slide-toggle-thumb-container{left:auto;right:0}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}.mat-slide-toggle-input{bottom:0;left:10px}[dir=rtl] .mat-slide-toggle-input{left:auto;right:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}._mat-animation-noopable .mat-slide-toggle-bar,._mat-animation-noopable .mat-slide-toggle-thumb{transition:none}.mat-slide-toggle .mat-slide-toggle-ripple{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-slide-toggle .mat-slide-toggle-ripple .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple){opacity:.12}.mat-slide-toggle-persistent-ripple{width:100%;height:100%;transform:none}.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:.04}.mat-slide-toggle:not(.mat-disabled).cdk-focused .mat-slide-toggle-persistent-ripple{opacity:.12}.mat-slide-toggle-persistent-ripple,.mat-slide-toggle.mat-disabled .mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:0}@media (hover:none){.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{display:none}}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:1px solid #000}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background:#000;border:1px solid #fff}.mat-slide-toggle-bar{background:#fff}.mat-slide-toggle.cdk-keyboard-focused .mat-slide-toggle-bar{outline:1px dotted;outline-offset:5px}}@media screen and (-ms-high-contrast:black-on-white){.mat-slide-toggle-bar{border:1px solid #000}}"],
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
@@ -537,7 +553,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {

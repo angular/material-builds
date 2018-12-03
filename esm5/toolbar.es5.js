@@ -13,12 +13,15 @@ import { mixinColor, MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatToolbar.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatToolbar.
+/**
  * \@docs-private
  */
 MatToolbarBase = /** @class */ (function () {
@@ -66,10 +69,15 @@ var MatToolbar = /** @class */ (function (_super) {
     };
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     */
+    /**
+     * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @private
      * @return {?}
      */
     MatToolbar.prototype._checkToolbarMixedModes = /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @private
      * @return {?}
      */
     function () {
@@ -77,6 +85,8 @@ var MatToolbar = /** @class */ (function (_super) {
         if (!this._toolbarRows.length) {
             return;
         }
+        // Check if there are any other DOM nodes that can display content but aren't inside of
+        // a <mat-toolbar-row> element.
         /** @type {?} */
         var isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
@@ -125,7 +135,7 @@ function throwToolbarMixedModesError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
@@ -142,12 +152,12 @@ var MatToolbarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar };

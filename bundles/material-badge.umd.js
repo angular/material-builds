@@ -42,14 +42,17 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextId = 0;
+// Boilerplate for applying mixins to MatBadge.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatBadge.
+/**
  * \@docs-private
  */
 MatBadgeBase = /** @class */ (function () {
@@ -214,16 +217,29 @@ var MatBadge = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.description && this._badgeElement) {
-            this._ariaDescriber.removeDescription(this._badgeElement, this.description);
+        /** @type {?} */
+        var badgeElement = this._badgeElement;
+        if (badgeElement) {
+            if (this.description) {
+                this._ariaDescriber.removeDescription(badgeElement, this.description);
+            }
+            // When creating a badge through the Renderer, Angular will keep it in an index.
+            // We have to destroy it ourselves, otherwise it'll be retained in memory.
+            // @breaking-change 8.0.0 remove _renderer from null.
+            if (this._renderer && this._renderer.destroyNode) {
+                this._renderer.destroyNode(badgeElement);
+            }
         }
     };
+    /** Injects a span element into the DOM with the content. */
     /**
      * Injects a span element into the DOM with the content.
+     * @private
      * @return {?}
      */
     MatBadge.prototype._updateTextContent = /**
      * Injects a span element into the DOM with the content.
+     * @private
      * @return {?}
      */
     function () {
@@ -235,15 +251,19 @@ var MatBadge = /** @class */ (function (_super) {
         }
         return this._badgeElement;
     };
+    /** Creates the badge element */
     /**
      * Creates the badge element
+     * @private
      * @return {?}
      */
     MatBadge.prototype._createBadgeElement = /**
      * Creates the badge element
+     * @private
      * @return {?}
      */
     function () {
+        // @breaking-change 8.0.0 Remove null check for _renderer
         /** @type {?} */
         var rootNode = this._renderer || this._document;
         /** @type {?} */
@@ -270,19 +290,23 @@ var MatBadge = /** @class */ (function (_super) {
         }
         return badgeElement;
     };
+    /** Sets the aria-label property on the element */
     /**
      * Sets the aria-label property on the element
+     * @private
      * @param {?} newDescription
      * @param {?} oldDescription
      * @return {?}
      */
     MatBadge.prototype._updateHostAriaDescription = /**
      * Sets the aria-label property on the element
+     * @private
      * @param {?} newDescription
      * @param {?} oldDescription
      * @return {?}
      */
     function (newDescription, oldDescription) {
+        // ensure content available before setting label
         /** @type {?} */
         var content = this._updateTextContent();
         if (oldDescription) {
@@ -292,13 +316,16 @@ var MatBadge = /** @class */ (function (_super) {
             this._ariaDescriber.describe(content, newDescription);
         }
     };
+    /** Adds css theme class given the color to the component host */
     /**
      * Adds css theme class given the color to the component host
+     * @private
      * @param {?} colorPalette
      * @return {?}
      */
     MatBadge.prototype._setColor = /**
      * Adds css theme class given the color to the component host
+     * @private
      * @param {?} colorPalette
      * @return {?}
      */
@@ -353,7 +380,7 @@ var MatBadge = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBadgeModule = /** @class */ (function () {
     function MatBadgeModule() {

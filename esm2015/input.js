@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -85,7 +85,7 @@ MatTextareaAutosize.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -99,20 +99,22 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 /** @type {?} */
 const MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -127,6 +129,7 @@ const MAT_INPUT_INVALID_TYPES = [
 ];
 /** @type {?} */
 let nextUniqueId = 0;
+// Boilerplate for applying mixins to MatInput.
 /**
  * \@docs-private
  */
@@ -161,8 +164,7 @@ class MatInput extends _MatInputMixinBase {
      * @param {?} _autofillMonitor
      * @param {?} ngZone
      */
-    constructor(_elementRef, _platform, /** @docs-private */
-    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
+    constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._platform = _platform;
@@ -224,7 +226,7 @@ class MatInput extends _MatInputMixinBase {
             ngZone.runOutsideAngular(() => {
                 _elementRef.nativeElement.addEventListener('keyup', (event) => {
                     /** @type {?} */
-                    let el = /** @type {?} */ (event.target);
+                    let el = (/** @type {?} */ (event.target));
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
                         // Note: Just setting `0, 0` doesn't fix the issue. Setting
                         // `1, 1` fixes it for the first time that you type text and
@@ -239,7 +241,7 @@ class MatInput extends _MatInputMixinBase {
         this._isServer = !this._platform.isBrowser;
         this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
         if (this._isNativeSelect) {
-            this.controlType = (/** @type {?} */ (element)).multiple ? 'mat-native-select-multiple' :
+            this.controlType = ((/** @type {?} */ (element))).multiple ? 'mat-native-select-multiple' :
                 'mat-native-select';
         }
     }
@@ -305,7 +307,7 @@ class MatInput extends _MatInputMixinBase {
         // input element. To ensure that bindings for `type` work, we need to sync the setter
         // with the native property. Textarea elements don't support the type property or attribute.
         if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-            (/** @type {?} */ (this._elementRef.nativeElement)).type = this._type;
+            ((/** @type {?} */ (this._elementRef.nativeElement))).type = this._type;
         }
     }
     /**
@@ -405,6 +407,7 @@ class MatInput extends _MatInputMixinBase {
     }
     /**
      * Does some manual dirty checking on the native input `value` property.
+     * @protected
      * @return {?}
      */
     _dirtyCheckNativeValue() {
@@ -417,6 +420,7 @@ class MatInput extends _MatInputMixinBase {
     }
     /**
      * Make sure the input is a supported type.
+     * @protected
      * @return {?}
      */
     _validateType() {
@@ -426,6 +430,7 @@ class MatInput extends _MatInputMixinBase {
     }
     /**
      * Checks whether the input type is one of the types that are never empty.
+     * @protected
      * @return {?}
      */
     _isNeverEmpty() {
@@ -433,15 +438,18 @@ class MatInput extends _MatInputMixinBase {
     }
     /**
      * Checks whether the input is invalid based on the native validation.
+     * @protected
      * @return {?}
      */
     _isBadInput() {
+        // The `validity` property won't be present on platform-server.
         /** @type {?} */
-        let validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
+        let validity = ((/** @type {?} */ (this._elementRef.nativeElement))).validity;
         return validity && validity.badInput;
     }
     /**
      * Determines if the component host is a textarea.
+     * @protected
      * @return {?}
      */
     _isTextarea() {
@@ -463,10 +471,15 @@ class MatInput extends _MatInputMixinBase {
      */
     get shouldLabelFloat() {
         if (this._isNativeSelect) {
+            // For a single-selection `<select>`, the label should float when the selected option has
+            // a non-empty display value. For a `<select multiple>`, the label *always* floats to avoid
+            // overlapping the label with the options.
             /** @type {?} */
-            const selectElement = /** @type {?} */ (this._elementRef.nativeElement);
-            return selectElement.multiple || !this.empty || !!selectElement.options[0].label ||
-                this.focused;
+            const selectElement = (/** @type {?} */ (this._elementRef.nativeElement));
+            /** @type {?} */
+            const firstOption = selectElement.options[0];
+            return selectElement.multiple || !this.empty || this.focused ||
+                !!(firstOption && firstOption.label);
         }
         else {
             return this.focused || !this.empty;
@@ -478,7 +491,9 @@ class MatInput extends _MatInputMixinBase {
      * @param {?} ids
      * @return {?}
      */
-    setDescribedByIds(ids) { this._ariaDescribedby = ids.join(' '); }
+    setDescribedByIds(ids) {
+        this._ariaDescribedby = ids.join(' ');
+    }
     /**
      * Implemented as part of MatFormFieldControl.
      * \@docs-private
@@ -500,8 +515,8 @@ MatInput.decorators = [
                 exportAs: 'matInput',
                 host: {
                     /**
-                         * @breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-                         */
+                     * \@breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                     */
                     'class': 'mat-input-element mat-form-field-autofill-control',
                     '[class.mat-input-server]': '_isServer',
                     // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -546,7 +561,7 @@ MatInput.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatInputModule {
 }
@@ -560,6 +575,8 @@ MatInputModule.decorators = [
                 ],
                 exports: [
                     TextFieldModule,
+                    // We re-export the `MatFormFieldModule` since `MatInput` will almost always
+                    // be used together with `MatFormField`.
                     MatFormFieldModule,
                     MatInput,
                     MatTextareaAutosize,
@@ -570,12 +587,12 @@ MatInputModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };

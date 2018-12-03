@@ -42,11 +42,12 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token for the MatInkBar's Positioner.
-  @type {?} */
+ * @type {?}
+ */
 var _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
     factory: _MAT_INK_BAR_POSITIONER_FACTORY
@@ -129,11 +130,17 @@ var MatInkBar = /** @class */ (function () {
     };
     /**
      * Sets the proper styles to the ink bar element.
+     * @param element
+     */
+    /**
+     * Sets the proper styles to the ink bar element.
+     * @private
      * @param {?} element
      * @return {?}
      */
     MatInkBar.prototype._setStyles = /**
      * Sets the proper styles to the ink bar element.
+     * @private
      * @param {?} element
      * @return {?}
      */
@@ -164,7 +171,7 @@ var MatInkBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Decorates the `ng-template` tags and reads out the template from it.
@@ -185,7 +192,7 @@ var MatTabContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to flag tab labels for use with the portal directive
@@ -205,12 +212,15 @@ var MatTabLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTab.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTab.
+/**
  * \@docs-private
  */
 MatTabBase = /** @class */ (function () {
@@ -322,14 +332,17 @@ var MatTab = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material tabs.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matTabsAnimations = {
-    /** Animation translates a tab along the X axis. */
+    /**
+     * Animation translates a tab along the X axis.
+     */
     translateTab: animations.trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
         animations.state('center, void, left-origin-center, right-origin-center', animations.style({ transform: 'none' })),
@@ -353,7 +366,7 @@ var matTabsAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The portal host directive for the contents of the tab.
@@ -429,9 +442,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
  * \@docs-private
  */
 var MatTabBody = /** @class */ (function () {
-    function MatTabBody(_elementRef, _dir, /**
-                   * @breaking-change 8.0.0 changeDetectorRef to be made required.
-                   */
+    function MatTabBody(_elementRef, _dir, 
+    /**
+     * @breaking-change 8.0.0 changeDetectorRef to be made required.
+     */
     changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -460,6 +474,8 @@ var MatTabBody = /** @class */ (function () {
          * Event emitted when the tab completes its animation towards the center.
          */
         this._onCentered = new core.EventEmitter(true);
+        // Note that the default value will always be overwritten by `MatTabBody`, but we need one
+        // anyway to prevent the animations module from throwing an error if the body is used on its own.
         /**
          * Duration for the tab's animation.
          */
@@ -571,13 +587,16 @@ var MatTabBody = /** @class */ (function () {
             position == 'left-origin-center' ||
             position == 'right-origin-center';
     };
+    /** Computes the position state that will be used for the tab-body animation trigger. */
     /**
      * Computes the position state that will be used for the tab-body animation trigger.
+     * @private
      * @param {?=} dir
      * @return {?}
      */
     MatTabBody.prototype._computePositionAnimationState = /**
      * Computes the position state that will be used for the tab-body animation trigger.
+     * @private
      * @param {?=} dir
      * @return {?}
      */
@@ -596,11 +615,17 @@ var MatTabBody = /** @class */ (function () {
     /**
      * Computes the position state based on the specified origin position. This is used if the
      * tab is becoming visible immediately after creation.
+     */
+    /**
+     * Computes the position state based on the specified origin position. This is used if the
+     * tab is becoming visible immediately after creation.
+     * @private
      * @return {?}
      */
     MatTabBody.prototype._computePositionFromOrigin = /**
      * Computes the position state based on the specified origin position. This is used if the
      * tab is becoming visible immediately after creation.
+     * @private
      * @return {?}
      */
     function () {
@@ -645,12 +670,15 @@ var MatTabBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabLabelWrapper.
+/**
  * \@docs-private
  */
 MatTabLabelWrapperBase = /** @class */ (function () {
@@ -720,17 +748,21 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
-  @type {?} */
+ * @type {?}
+ */
 var EXAGGERATED_OVERSCROLL = 60;
+// Boilerplate for applying mixins to MatTabHeader.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabHeader.
+/**
  * \@docs-private
  */
 MatTabHeaderBase = /** @class */ (function () {
@@ -937,15 +969,23 @@ var MatTabHeader = /** @class */ (function (_super) {
     function () {
         var _this = this;
         /** @type {?} */
-        var zoneCallback = function () {
-            _this.updatePagination();
-            _this._alignInkBarToSelectedTab();
-            _this._changeDetectorRef.markForCheck();
-        };
-        // The content observer runs outside the `NgZone` by default, which
-        // means that we need to bring the callback back in ourselves.
-        // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
-        this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+        var textContent = this._elementRef.nativeElement.textContent;
+        // We need to diff the text content of the header, because the MutationObserver callback
+        // will fire even if the text content didn't change which is inefficient and is prone
+        // to infinite loops if a poorly constructed expression is passed in (see #14249).
+        if (textContent !== this._currentTextContent) {
+            this._currentTextContent = textContent;
+            /** @type {?} */
+            var zoneCallback = function () {
+                _this.updatePagination();
+                _this._alignInkBarToSelectedTab();
+                _this._changeDetectorRef.markForCheck();
+            };
+            // The content observer runs outside the `NgZone` by default, which
+            // means that we need to bring the callback back in ourselves.
+            // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
+            this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+        }
     };
     /**
      * Updates the view whether pagination should be enabled or not.
@@ -982,7 +1022,7 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._keyManager ? /** @type {?} */ ((this._keyManager.activeItemIndex)) : 0;
+            return this._keyManager ? (/** @type {?} */ (this._keyManager.activeItemIndex)) : 0;
         },
         /** When the focus index is set, we must manually send focus to the correct label */
         set: /**
@@ -1045,6 +1085,9 @@ var MatTabHeader = /** @class */ (function (_super) {
         }
         if (this._labelWrappers && this._labelWrappers.length) {
             this._labelWrappers.toArray()[tabIndex].focus();
+            // Do not let the browser manage scrolling to focus the element, this will be handled
+            // by using translation. In LTR, the scroll left should be 0. In RTL, the scroll width
+            // should be the full width minus the offset width.
             /** @type {?} */
             var containerEl = this._tabListContainer.nativeElement;
             /** @type {?} */
@@ -1087,7 +1130,9 @@ var MatTabHeader = /** @class */ (function (_super) {
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
         // and ripples will exceed the boundaries of the visible tab bar.
         // See: https://github.com/angular/material2/issues/10276
-        this._tabList.nativeElement.style.transform = "translateX(" + translateX + "px)";
+        // We round the `transform` here, because transforms with sub-pixel precision cause some
+        // browsers to blur the content of the element.
+        this._tabList.nativeElement.style.transform = "translateX(" + Math.round(translateX) + "px)";
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off.
@@ -1176,6 +1221,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         if (!selectedLabel) {
             return;
         }
+        // The view length is the visible width of the tab labels.
         /** @type {?} */
         var viewLength = this._tabListContainer.nativeElement.offsetWidth;
         /** @type {?} */
@@ -1319,7 +1365,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         var selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
-        this._inkBar.alignToElement(/** @type {?} */ ((selectedLabelWrapper)));
+        this._inkBar.alignToElement((/** @type {?} */ (selectedLabelWrapper)));
     };
     MatTabHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-header',
@@ -1357,11 +1403,12 @@ var MatTabHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Used to generate unique ID's for each tab component
-  @type {?} */
+ * @type {?}
+ */
 var nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
@@ -1374,14 +1421,18 @@ MatTabChangeEvent = /** @class */ (function () {
     }
     return MatTabChangeEvent;
 }());
-/** *
+/**
  * Injection token that can be used to provide the default options the tabs module.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_TABS_CONFIG = new core.InjectionToken('MAT_TABS_CONFIG');
+// Boilerplate for applying mixins to MatTabGroup.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabGroup.
+/**
  * \@docs-private
  */
 MatTabGroupBase = /** @class */ (function () {
@@ -1522,6 +1573,8 @@ var MatTabGroup = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
+        // the amount of tabs changes before the actual change detection runs.
         /** @type {?} */
         var indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
@@ -1624,10 +1677,12 @@ var MatTabGroup = /** @class */ (function (_super) {
         this.focusChange.emit(this._createChangeEvent(index));
     };
     /**
+     * @private
      * @param {?} index
      * @return {?}
      */
     MatTabGroup.prototype._createChangeEvent = /**
+     * @private
      * @param {?} index
      * @return {?}
      */
@@ -1641,10 +1696,17 @@ var MatTabGroup = /** @class */ (function (_super) {
         return event;
     };
     /**
+     * Subscribes to changes in the tab labels. This is needed, because the @Input for the label is
+     * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
+     * binding to be updated, we need to subscribe to changes in it and trigger change detection
+     * manually.
+     */
+    /**
      * Subscribes to changes in the tab labels. This is needed, because the \@Input for the label is
      * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
      * binding to be updated, we need to subscribe to changes in it and trigger change detection
      * manually.
+     * @private
      * @return {?}
      */
     MatTabGroup.prototype._subscribeToTabLabels = /**
@@ -1652,6 +1714,7 @@ var MatTabGroup = /** @class */ (function (_super) {
      * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
      * binding to be updated, we need to subscribe to changes in it and trigger change detection
      * manually.
+     * @private
      * @return {?}
      */
     function () {
@@ -1661,13 +1724,16 @@ var MatTabGroup = /** @class */ (function (_super) {
         }
         this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._stateChanges; })).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
+    /** Clamps the given index to the bounds of 0 and the tabs length. */
     /**
      * Clamps the given index to the bounds of 0 and the tabs length.
+     * @private
      * @param {?} index
      * @return {?}
      */
     MatTabGroup.prototype._clampTabIndex = /**
      * Clamps the given index to the bounds of 0 and the tabs length.
+     * @private
      * @param {?} index
      * @return {?}
      */
@@ -1829,12 +1895,15 @@ var MatTabGroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatTabNav.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatTabNav.
+/**
  * \@docs-private
  */
 MatTabNavBase = /** @class */ (function () {
@@ -1996,7 +2065,10 @@ var MatTabNav = /** @class */ (function (_super) {
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));
-var MatTabLinkBase = /** @class */ (function () {
+// Boilerplate for applying mixins to MatTabLink.
+var   
+// Boilerplate for applying mixins to MatTabLink.
+MatTabLinkBase = /** @class */ (function () {
     function MatTabLinkBase() {
     }
     return MatTabLinkBase;
@@ -2124,7 +2196,7 @@ var MatTabLink = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatTabsModule = /** @class */ (function () {
     function MatTabsModule() {
@@ -2185,17 +2257,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

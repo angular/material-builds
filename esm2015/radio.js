@@ -16,15 +16,17 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for radio components.
 /** @type {?} */
 let nextUniqueId = 0;
-/** *
+/**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatRadioGroup),
@@ -43,6 +45,7 @@ class MatRadioChange {
         this.value = value;
     }
 }
+// Boilerplate for applying mixins to MatRadioGroup.
 /**
  * \@docs-private
  */
@@ -223,6 +226,7 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
         }
     }
     /**
+     * @private
      * @return {?}
      */
     _updateRadioButtonNames() {
@@ -234,9 +238,11 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
     }
     /**
      * Updates the `selected` radio button from the internal _value state.
+     * @private
      * @return {?}
      */
     _updateSelectedRadioFromValue() {
+        // If the value already matches the selected radio, do nothing.
         /** @type {?} */
         const isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
@@ -255,7 +261,7 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
      */
     _emitChangeEvent() {
         if (this._isInitialized) {
-            this.change.emit(new MatRadioChange(/** @type {?} */ ((this._selected)), this._value));
+            this.change.emit(new MatRadioChange((/** @type {?} */ (this._selected)), this._value));
         }
     }
     /**
@@ -329,6 +335,7 @@ MatRadioGroup.propDecorators = {
     disabled: [{ type: Input }],
     required: [{ type: Input }]
 };
+// Boilerplate for applying mixins to MatRadioButton.
 /**
  * \@docs-private
  */
@@ -340,6 +347,8 @@ class MatRadioButtonBase {
         this._elementRef = _elementRef;
     }
 }
+// As per Material design specifications the selection control radio should use the accent color
+// palette by default. https://material.io/guidelines/components/selection-controls.html
 /** @type {?} */
 const _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
@@ -547,6 +556,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
     }
     /**
      * Dispatch change event with current value.
+     * @private
      * @return {?}
      */
     _emitChangeEvent() {
@@ -644,7 +654,7 @@ MatRadioButton.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatRadioModule {
 }
@@ -658,12 +668,12 @@ MatRadioModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroupBase, _MatRadioGroupMixinBase, MatRadioGroup, MatRadioButtonBase, _MatRadioButtonMixinBase, MatRadioButton };

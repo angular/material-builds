@@ -16,33 +16,39 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify the checkbox click behavior.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for checkbox components.
 /** @type {?} */
 let nextUniqueId = 0;
+// TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+// landed.
+// The radius for the checkbox's ripple, in pixels.
 /** @type {?} */
 let calculatedRippleRadius = 0;
-/** *
+/**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatCheckbox),
     multi: true
 };
 /** @enum {number} */
-var TransitionCheckState = {
+const TransitionCheckState = {
     /** The initial state of the component before any user interaction. */
     Init: 0,
     /** The state representing the component when it's becoming checked. */
@@ -61,6 +67,7 @@ TransitionCheckState[TransitionCheckState.Indeterminate] = 'Indeterminate';
  */
 class MatCheckboxChange {
 }
+// Boilerplate for applying mixins to MatCheckbox.
 /**
  * \@docs-private
  */
@@ -256,6 +263,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         // an explicit change detection for the checkbox view and it's children.
         this._changeDetectorRef.detectChanges();
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
@@ -263,6 +271,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
     writeValue(value) {
         this.checked = !!value;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -270,6 +279,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
     registerOnChange(fn) {
         this._controlValueAccessorChangeFn = fn;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -277,6 +287,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
     registerOnTouched(fn) {
         this._onTouched = fn;
     }
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
@@ -291,6 +302,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
     }
     /**
+     * @private
      * @param {?} newState
      * @return {?}
      */
@@ -309,6 +321,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
             /** @type {?} */
             const animationClass = this._currentAnimationClass;
             this._ngZone.runOutsideAngular(() => {
@@ -319,6 +332,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         }
     }
     /**
+     * @private
      * @return {?}
      */
     _emitChangeEvent() {
@@ -394,6 +408,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         event.stopPropagation();
     }
     /**
+     * @private
      * @param {?} oldState
      * @param {?} newState
      * @return {?}
@@ -434,9 +449,12 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         }
         return `mat-checkbox-anim-${animSuffix}`;
     }
+    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+    // landed.
     /**
      * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
      * for the application.
+     * @private
      * @return {?}
      */
     _calculateRippleRadius() {
@@ -498,7 +516,7 @@ MatCheckbox.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
@@ -524,7 +542,7 @@ MatCheckboxRequiredValidator.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatCheckboxModule {
 }
@@ -538,12 +556,12 @@ MatCheckboxModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };

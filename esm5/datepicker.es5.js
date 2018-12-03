@@ -26,7 +26,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -42,7 +42,7 @@ function createMissingDateImplError(provider) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Datepicker data that requires internationalization.
@@ -104,7 +104,7 @@ var MatDatepickerIntl = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
@@ -173,12 +173,12 @@ var MatCalendarBody = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var columnChanges = changes["numCols"];
+        var columnChanges = changes.numCols;
         var _a = this, rows = _a.rows, numCols = _a.numCols;
-        if (changes["rows"] || columnChanges) {
+        if (changes.rows || columnChanges) {
             this._firstRowOffset = rows && rows.length && rows[0].length ? numCols - rows[0].length : 0;
         }
-        if (changes["cellAspectRatio"] || columnChanges || !this._cellPadding) {
+        if (changes.cellAspectRatio || columnChanges || !this._cellPadding) {
             this._cellPadding = 50 * this.cellAspectRatio / numCols + "%";
         }
         if (columnChanges || !this._cellWidth) {
@@ -260,7 +260,7 @@ var MatCalendarBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var DAYS_PER_WEEK = 7;
@@ -299,6 +299,7 @@ var MatMonthView = /** @class */ (function () {
         var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
         /** @type {?} */
         var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
         /** @type {?} */
         var weekdays = longWeekdays.map(function (long, i) {
             return { long: long, narrow: narrowWeekdays[i] };
@@ -428,6 +429,12 @@ var MatMonthView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         var oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -517,12 +524,15 @@ var MatMonthView = /** @class */ (function () {
     function () {
         this._matCalendarBody._focusActiveCell();
     };
+    /** Creates MatCalendarCells for the dates in this month. */
     /**
      * Creates MatCalendarCells for the dates in this month.
+     * @private
      * @return {?}
      */
     MatMonthView.prototype._createWeekCells = /**
      * Creates MatCalendarCells for the dates in this month.
+     * @private
      * @return {?}
      */
     function () {
@@ -548,13 +558,16 @@ var MatMonthView = /** @class */ (function () {
                 .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled, cellClasses));
         }
     };
+    /** Date filter for the month */
     /**
      * Date filter for the month
+     * @private
      * @param {?} date
      * @return {?}
      */
     MatMonthView.prototype._shouldEnableDate = /**
      * Date filter for the month
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -567,12 +580,18 @@ var MatMonthView = /** @class */ (function () {
     /**
      * Gets the date in this month that the given Date falls on.
      * Returns null if the given Date is in another month.
+     */
+    /**
+     * Gets the date in this month that the given Date falls on.
+     * Returns null if the given Date is in another month.
+     * @private
      * @param {?} date
      * @return {?}
      */
     MatMonthView.prototype._getDateInCurrentMonth = /**
      * Gets the date in this month that the given Date falls on.
      * Returns null if the given Date is in another month.
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -580,14 +599,17 @@ var MatMonthView = /** @class */ (function () {
         return date && this._hasSameMonthAndYear(date, this.activeDate) ?
             this._dateAdapter.getDate(date) : null;
     };
+    /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
     /**
      * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @private
      * @param {?} d1
      * @param {?} d2
      * @return {?}
      */
     MatMonthView.prototype._hasSameMonthAndYear = /**
      * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @private
      * @param {?} d1
      * @param {?} d2
      * @return {?}
@@ -597,22 +619,31 @@ var MatMonthView = /** @class */ (function () {
             this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatMonthView.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Determines whether the user has the RTL layout direction. */
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     MatMonthView.prototype._isRtl = /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     function () {
@@ -650,7 +681,7 @@ var MatMonthView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var yearsPerPage = 24;
@@ -826,6 +857,12 @@ var MatMultiYearView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         var oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -893,13 +930,16 @@ var MatMultiYearView = /** @class */ (function () {
     function () {
         this._matCalendarBody._focusActiveCell();
     };
+    /** Creates an MatCalendarCell for the given year. */
     /**
      * Creates an MatCalendarCell for the given year.
+     * @private
      * @param {?} year
      * @return {?}
      */
     MatMultiYearView.prototype._createCellForYear = /**
      * Creates an MatCalendarCell for the given year.
+     * @private
      * @param {?} year
      * @return {?}
      */
@@ -908,13 +948,16 @@ var MatMultiYearView = /** @class */ (function () {
         var yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
         return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
     };
+    /** Whether the given year is enabled. */
     /**
      * Whether the given year is enabled.
+     * @private
      * @param {?} year
      * @return {?}
      */
     MatMultiYearView.prototype._shouldEnableYear = /**
      * Whether the given year is enabled.
+     * @private
      * @param {?} year
      * @return {?}
      */
@@ -940,22 +983,31 @@ var MatMultiYearView = /** @class */ (function () {
         return false;
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatMultiYearView.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Determines whether the user has the RTL layout direction. */
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     MatMultiYearView.prototype._isRtl = /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     function () {
@@ -991,7 +1043,7 @@ var MatMultiYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal component used to display a single year in the datepicker.
@@ -1140,6 +1192,12 @@ var MatYearView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         var oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -1221,12 +1279,18 @@ var MatYearView = /** @class */ (function () {
     /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.
+     */
+    /**
+     * Gets the month in this year that the given Date falls on.
+     * Returns null if the given Date is in another year.
+     * @private
      * @param {?} date
      * @return {?}
      */
     MatYearView.prototype._getMonthInCurrentYear = /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.
+     * @private
      * @param {?} date
      * @return {?}
      */
@@ -1234,14 +1298,17 @@ var MatYearView = /** @class */ (function () {
         return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
             this._dateAdapter.getMonth(date) : null;
     };
+    /** Creates an MatCalendarCell for the given month. */
     /**
      * Creates an MatCalendarCell for the given month.
+     * @private
      * @param {?} month
      * @param {?} monthName
      * @return {?}
      */
     MatYearView.prototype._createCellForMonth = /**
      * Creates an MatCalendarCell for the given month.
+     * @private
      * @param {?} month
      * @param {?} monthName
      * @return {?}
@@ -1251,13 +1318,16 @@ var MatYearView = /** @class */ (function () {
         var ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
         return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
     };
+    /** Whether the given month is enabled. */
     /**
      * Whether the given month is enabled.
+     * @private
      * @param {?} month
      * @return {?}
      */
     MatYearView.prototype._shouldEnableMonth = /**
      * Whether the given month is enabled.
+     * @private
      * @param {?} month
      * @return {?}
      */
@@ -1285,6 +1355,11 @@ var MatYearView = /** @class */ (function () {
     /**
      * Tests whether the combination month/year is after this.maxDate, considering
      * just the month and year of this.maxDate
+     */
+    /**
+     * Tests whether the combination month/year is after this.maxDate, considering
+     * just the month and year of this.maxDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -1292,6 +1367,7 @@ var MatYearView = /** @class */ (function () {
     MatYearView.prototype._isYearAndMonthAfterMaxDate = /**
      * Tests whether the combination month/year is after this.maxDate, considering
      * just the month and year of this.maxDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -1309,6 +1385,11 @@ var MatYearView = /** @class */ (function () {
     /**
      * Tests whether the combination month/year is before this.minDate, considering
      * just the month and year of this.minDate
+     */
+    /**
+     * Tests whether the combination month/year is before this.minDate, considering
+     * just the month and year of this.minDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -1316,6 +1397,7 @@ var MatYearView = /** @class */ (function () {
     MatYearView.prototype._isYearAndMonthBeforeMinDate = /**
      * Tests whether the combination month/year is before this.minDate, considering
      * just the month and year of this.minDate
+     * @private
      * @param {?} year
      * @param {?} month
      * @return {?}
@@ -1331,22 +1413,31 @@ var MatYearView = /** @class */ (function () {
         return false;
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatYearView.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Determines whether the user has the RTL layout direction. */
     /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     MatYearView.prototype._isRtl = /**
      * Determines whether the user has the RTL layout direction.
+     * @private
      * @return {?}
      */
     function () {
@@ -1383,7 +1474,7 @@ var MatYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default header for MatCalendar
@@ -1535,14 +1626,17 @@ var MatCalendarHeader = /** @class */ (function () {
         return !this.calendar.maxDate ||
             !this._isSameView(this.calendar.activeDate, this.calendar.maxDate);
     };
+    /** Whether the two dates represent the same view in the current view mode (month or year). */
     /**
      * Whether the two dates represent the same view in the current view mode (month or year).
+     * @private
      * @param {?} date1
      * @param {?} date2
      * @return {?}
      */
     MatCalendarHeader.prototype._isSameView = /**
      * Whether the two dates represent the same view in the current view mode (month or year).
+     * @private
      * @param {?} date1
      * @param {?} date2
      * @return {?}
@@ -1783,7 +1877,7 @@ var MatCalendar = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
+        var change = changes.minDate || changes.maxDate || changes.dateFilter;
         if (change && !change.firstChange) {
             /** @type {?} */
             var view = this._getCurrentViewComponent();
@@ -1891,22 +1985,31 @@ var MatCalendar = /** @class */ (function () {
         this.currentView = view;
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatCalendar.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Returns the component instance that corresponds to the current calendar view. */
     /**
      * Returns the component instance that corresponds to the current calendar view.
+     * @private
      * @return {?}
      */
     MatCalendar.prototype._getCurrentViewComponent = /**
      * Returns the component instance that corresponds to the current calendar view.
+     * @private
      * @return {?}
      */
     function () {
@@ -1953,14 +2056,17 @@ var MatCalendar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material datepicker.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matDatepickerAnimations = {
-    /** Transforms the height of the datepicker's calendar. */
+    /**
+     * Transforms the height of the datepicker's calendar.
+     */
     transformPanel: trigger('transformPanel', [
         state('void', style({
             opacity: 0,
@@ -1972,7 +2078,9 @@ var matDatepickerAnimations = {
         }))),
         transition('* => void', animate('100ms linear', style({ opacity: 0 })))
     ]),
-    /** Fades in the content of the calendar. */
+    /**
+     * Fades in the content of the calendar.
+     */
     fadeInCalendar: trigger('fadeInCalendar', [
         state('void', style({ opacity: 0 })),
         state('enter', style({ opacity: 1 })),
@@ -1984,15 +2092,17 @@ var matDatepickerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Used to generate a unique ID for each datepicker instance.
-  @type {?} */
+ * @type {?}
+ */
 var datepickerUid = 0;
-/** *
+/**
  * Injection token that determines the scroll handling while the calendar is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
@@ -2002,18 +2112,22 @@ var MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-s
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.reposition(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 };
+// Boilerplate for applying mixins to MatDatepickerContent.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatDatepickerContent.
+/**
  * \@docs-private
  */
 MatDatepickerContentBase = /** @class */ (function () {
@@ -2074,6 +2188,9 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     };
     return MatDatepickerContent;
 }(_MatDatepickerContentMixinBase));
+// TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
+// template reference variables (e.g. #d vs #d="matDatepicker"). We can change this to a directive
+// if angular adds support for `exportAs: '$implicit'` on directives.
 /**
  * Component responsible for managing the datepicker popup/dialog.
  * @template D
@@ -2444,12 +2561,15 @@ var MatDatepicker = /** @class */ (function () {
             completeClose();
         }
     };
+    /** Open the calendar as a dialog. */
     /**
      * Open the calendar as a dialog.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._openAsDialog = /**
      * Open the calendar as a dialog.
+     * @private
      * @return {?}
      */
     function () {
@@ -2470,12 +2590,15 @@ var MatDatepicker = /** @class */ (function () {
         this._dialogRef.componentInstance.datepicker = this;
         this._setColor();
     };
+    /** Open the calendar as a popup. */
     /**
      * Open the calendar as a popup.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._openAsPopup = /**
      * Open the calendar as a popup.
+     * @private
      * @return {?}
      */
     function () {
@@ -2496,12 +2619,15 @@ var MatDatepicker = /** @class */ (function () {
             });
         }
     };
+    /** Create the popup. */
     /**
      * Create the popup.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._createPopup = /**
      * Create the popup.
+     * @private
      * @return {?}
      */
     function () {
@@ -2523,12 +2649,15 @@ var MatDatepicker = /** @class */ (function () {
                 (_this._datepickerInput && event.altKey && event.keyCode === UP_ARROW);
         }))).subscribe(function () { return _this.close(); });
     };
+    /** Create the popup PositionStrategy. */
     /**
      * Create the popup PositionStrategy.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._createPopupPositionStrategy = /**
      * Create the popup PositionStrategy.
+     * @private
      * @return {?}
      */
     function () {
@@ -2566,22 +2695,31 @@ var MatDatepicker = /** @class */ (function () {
         ]);
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatDatepicker.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /** Passes the current theme color along to the calendar overlay. */
     /**
      * Passes the current theme color along to the calendar overlay.
+     * @private
      * @return {?}
      */
     MatDatepicker.prototype._setColor = /**
      * Passes the current theme color along to the calendar overlay.
+     * @private
      * @return {?}
      */
     function () {
@@ -2633,19 +2771,21 @@ var MatDatepicker = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatDatepickerInput; }),
     multi: true
 };
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATEPICKER_VALIDATORS = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(function () { return MatDatepickerInput; }),
@@ -2964,11 +3104,14 @@ var MatDatepickerInput = /** @class */ (function () {
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
      */
-    MatDatepickerInput.prototype.writeValue = /**
+    MatDatepickerInput.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -2976,11 +3119,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this.value = value;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatDatepickerInput.prototype.registerOnChange = /**
+    MatDatepickerInput.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -2988,11 +3134,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this._cvaOnChange = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatDatepickerInput.prototype.registerOnTouched = /**
+    MatDatepickerInput.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -3000,11 +3149,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatDatepickerInput.prototype.setDisabledState = /**
+    MatDatepickerInput.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -3084,13 +3236,16 @@ var MatDatepickerInput = /** @class */ (function () {
         }
         this._onTouched();
     };
+    /** Formats a value and sets it on the input element. */
     /**
      * Formats a value and sets it on the input element.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatDatepickerInput.prototype._formatValue = /**
      * Formats a value and sets it on the input element.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -3099,10 +3254,16 @@ var MatDatepickerInput = /** @class */ (function () {
             value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
     };
     /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
     MatDatepickerInput.prototype._getValidDateOrNull = /**
+     * @private
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -3153,7 +3314,7 @@ var MatDatepickerInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Can be used to override the icon of a `matDatepickerToggle`.
@@ -3208,7 +3369,7 @@ var MatDatepickerToggle = /** @class */ (function () {
      * @return {?}
      */
     function (changes) {
-        if (changes["datepicker"]) {
+        if (changes.datepicker) {
             this._watchStateChanges();
         }
     };
@@ -3245,9 +3406,11 @@ var MatDatepickerToggle = /** @class */ (function () {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatDatepickerToggle.prototype._watchStateChanges = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -3302,7 +3465,7 @@ var MatDatepickerToggle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDatepickerModule = /** @class */ (function () {
     function MatDatepickerModule() {
@@ -3358,12 +3521,12 @@ var MatDatepickerModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };

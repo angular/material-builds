@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepLabel extends CdkStepLabel {
 }
@@ -32,7 +32,7 @@ MatStepLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Stepper data that is required for internationalization.
@@ -62,9 +62,10 @@ MatStepperIntl.decorators = [
 function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatStepperIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_STEPPER_INTL_PROVIDER = {
     provide: MatStepperIntl,
     deps: [[new Optional(), new SkipSelf(), MatStepperIntl]],
@@ -73,7 +74,7 @@ const MAT_STEPPER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepHeader extends CdkStepHeader {
     /**
@@ -161,21 +162,26 @@ MatStepHeader.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material steppers.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matStepperAnimations = {
-    /** Animation that transitions the step along the X axis in a horizontal stepper. */
+    /**
+     * Animation that transitions the step along the X axis in a horizontal stepper.
+     */
     horizontalStepTransition: trigger('stepTransition', [
         state('previous', style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
         state('current', style({ transform: 'none', visibility: 'visible' })),
         state('next', style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
         transition('* => *', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
     ]),
-    /** Animation that transitions the step along the Y axis in a vertical stepper. */
+    /**
+     * Animation that transitions the step along the Y axis in a vertical stepper.
+     */
     verticalStepTransition: trigger('stepTransition', [
         state('previous', style({ height: '0px', visibility: 'hidden' })),
         state('next', style({ height: '0px', visibility: 'hidden' })),
@@ -186,7 +192,7 @@ const matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Template to be used to override the icons inside the step header.
@@ -214,7 +220,7 @@ MatStepperIcon.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStep extends CdkStep {
     /**
@@ -236,6 +242,9 @@ class MatStep extends CdkStep {
     isErrorState(control, form) {
         /** @type {?} */
         const originalErrorState = this._errorStateMatcher.isErrorState(control, form);
+        // Custom error state checks for the validity of form that is not submitted or touched
+        // since user can trigger a form change by calling for another step without directly
+        // interacting with the current form.
         /** @type {?} */
         const customErrorState = !!(control && control.invalid && this.interacted);
         return originalErrorState || customErrorState;
@@ -287,7 +296,7 @@ class MatStepper extends CdkStepper {
         // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
         // See https://github.com/angular/angular/issues/24084
         distinctUntilChanged((x, y) => x.fromState === y.fromState && x.toState === y.toState), takeUntil(this._destroyed)).subscribe(event => {
-            if ((/** @type {?} */ (event.toState)) === 'current') {
+            if (((/** @type {?} */ (event.toState))) === 'current') {
                 this.animationDone.emit();
             }
         });
@@ -376,7 +385,7 @@ MatVerticalStepper.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Button that moves to the next step in a stepper workflow.
@@ -413,7 +422,7 @@ MatStepperPrevious.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepperModule {
 }
@@ -457,12 +466,12 @@ MatStepperModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStepperIntl, MAT_STEPPER_INTL_PROVIDER, matStepperAnimations, MatStepperIcon };

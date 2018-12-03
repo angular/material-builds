@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -107,7 +107,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -121,20 +121,22 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 /** @type {?} */
 var MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -149,10 +151,13 @@ var MAT_INPUT_INVALID_TYPES = [
 ];
 /** @type {?} */
 var nextUniqueId = 0;
+// Boilerplate for applying mixins to MatInput.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatInput.
+/**
  * \@docs-private
  */
 MatInputBase = /** @class */ (function () {
@@ -171,8 +176,7 @@ var _MatInputMixinBase = mixinErrorState(MatInputBase);
  */
 var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
-    function MatInput(_elementRef, _platform, /** @docs-private */
-    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
+    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._platform = _platform;
@@ -234,7 +238,7 @@ var MatInput = /** @class */ (function (_super) {
             ngZone.runOutsideAngular(function () {
                 _elementRef.nativeElement.addEventListener('keyup', function (event) {
                     /** @type {?} */
-                    var el = /** @type {?} */ (event.target);
+                    var el = (/** @type {?} */ (event.target));
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
                         // Note: Just setting `0, 0` doesn't fix the issue. Setting
                         // `1, 1` fixes it for the first time that you type text and
@@ -249,7 +253,7 @@ var MatInput = /** @class */ (function (_super) {
         _this._isServer = !_this._platform.isBrowser;
         _this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
         if (_this._isNativeSelect) {
-            _this.controlType = (/** @type {?} */ (element)).multiple ? 'mat-native-select-multiple' :
+            _this.controlType = ((/** @type {?} */ (element))).multiple ? 'mat-native-select-multiple' :
                 'mat-native-select';
         }
         return _this;
@@ -342,7 +346,7 @@ var MatInput = /** @class */ (function (_super) {
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
             if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-                (/** @type {?} */ (this._elementRef.nativeElement)).type = this._type;
+                ((/** @type {?} */ (this._elementRef.nativeElement))).type = this._type;
             }
         },
         enumerable: true,
@@ -486,10 +490,12 @@ var MatInput = /** @class */ (function (_super) {
     /** Does some manual dirty checking on the native input `value` property. */
     /**
      * Does some manual dirty checking on the native input `value` property.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._dirtyCheckNativeValue = /**
      * Does some manual dirty checking on the native input `value` property.
+     * @protected
      * @return {?}
      */
     function () {
@@ -503,10 +509,12 @@ var MatInput = /** @class */ (function (_super) {
     /** Make sure the input is a supported type. */
     /**
      * Make sure the input is a supported type.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._validateType = /**
      * Make sure the input is a supported type.
+     * @protected
      * @return {?}
      */
     function () {
@@ -517,10 +525,12 @@ var MatInput = /** @class */ (function (_super) {
     /** Checks whether the input type is one of the types that are never empty. */
     /**
      * Checks whether the input type is one of the types that are never empty.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._isNeverEmpty = /**
      * Checks whether the input type is one of the types that are never empty.
+     * @protected
      * @return {?}
      */
     function () {
@@ -529,24 +539,29 @@ var MatInput = /** @class */ (function (_super) {
     /** Checks whether the input is invalid based on the native validation. */
     /**
      * Checks whether the input is invalid based on the native validation.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._isBadInput = /**
      * Checks whether the input is invalid based on the native validation.
+     * @protected
      * @return {?}
      */
     function () {
+        // The `validity` property won't be present on platform-server.
         /** @type {?} */
-        var validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
+        var validity = ((/** @type {?} */ (this._elementRef.nativeElement))).validity;
         return validity && validity.badInput;
     };
     /** Determines if the component host is a textarea. */
     /**
      * Determines if the component host is a textarea.
+     * @protected
      * @return {?}
      */
     MatInput.prototype._isTextarea = /**
      * Determines if the component host is a textarea.
+     * @protected
      * @return {?}
      */
     function () {
@@ -581,10 +596,15 @@ var MatInput = /** @class */ (function (_super) {
          */
         function () {
             if (this._isNativeSelect) {
+                // For a single-selection `<select>`, the label should float when the selected option has
+                // a non-empty display value. For a `<select multiple>`, the label *always* floats to avoid
+                // overlapping the label with the options.
                 /** @type {?} */
-                var selectElement = /** @type {?} */ (this._elementRef.nativeElement);
-                return selectElement.multiple || !this.empty || !!selectElement.options[0].label ||
-                    this.focused;
+                var selectElement = (/** @type {?} */ (this._elementRef.nativeElement));
+                /** @type {?} */
+                var firstOption = selectElement.options[0];
+                return selectElement.multiple || !this.empty || this.focused ||
+                    !!(firstOption && firstOption.label);
             }
             else {
                 return this.focused || !this.empty;
@@ -609,7 +629,9 @@ var MatInput = /** @class */ (function (_super) {
      * @param {?} ids
      * @return {?}
      */
-    function (ids) { this._ariaDescribedby = ids.join(' '); };
+    function (ids) {
+        this._ariaDescribedby = ids.join(' ');
+    };
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -638,8 +660,8 @@ var MatInput = /** @class */ (function (_super) {
                     exportAs: 'matInput',
                     host: {
                         /**
-                             * @breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-                             */
+                         * \@breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                         */
                         'class': 'mat-input-element mat-form-field-autofill-control',
                         '[class.mat-input-server]': '_isServer',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -686,7 +708,7 @@ var MatInput = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
@@ -701,6 +723,8 @@ var MatInputModule = /** @class */ (function () {
                     ],
                     exports: [
                         TextFieldModule,
+                        // We re-export the `MatFormFieldModule` since `MatInput` will almost always
+                        // be used together with `MatFormField`.
                         MatFormFieldModule,
                         MatInput,
                         MatTextareaAutosize,
@@ -713,12 +737,12 @@ var MatInputModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };

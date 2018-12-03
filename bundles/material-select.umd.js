@@ -42,25 +42,26 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The following are all the animations for the mat-select component, with each
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matSelectAnimations = {
     /**
-       * This animation transforms the select's overlay panel on and off the page.
-       *
-       * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
-       * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
-       * side to ensure the option text correctly overlaps the trigger text.
-       *
-       * When the panel is removed from the DOM, it simply fades out linearly.
-       */
+     * This animation transforms the select's overlay panel on and off the page.
+     *
+     * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
+     * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
+     * side to ensure the option text correctly overlaps the trigger text.
+     *
+     * When the panel is removed from the DOM, it simply fades out linearly.
+     */
     transformPanel: animations.trigger('transformPanel', [
         animations.state('void', animations.style({
             transform: 'scaleY(0.8)',
@@ -83,12 +84,12 @@ var matSelectAnimations = {
         animations.transition('* => void', animations.animate('100ms 25ms linear', animations.style({ opacity: 0 })))
     ]),
     /**
-       * This animation fades in the background color and text content of the
-       * select's options. It is time delayed to occur 100ms after the overlay
-       * panel has transformed in.
-       * @deprecated Not used anymore. To be removed.
-       * @breaking-change 8.0.0
-       */
+     * This animation fades in the background color and text content of the
+     * select's options. It is time delayed to occur 100ms after the overlay
+     * panel has transformed in.
+     * @deprecated Not used anymore. To be removed.
+     * \@breaking-change 8.0.0
+     */
     fadeInContent: animations.trigger('fadeInContent', [
         animations.state('showing', animations.style({ opacity: 1 })),
         animations.transition('void => showing', [
@@ -97,22 +98,24 @@ var matSelectAnimations = {
         ])
     ])
 };
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var transformPanel = matSelectAnimations.transformPanel;
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -146,27 +149,32 @@ function getMatSelectNonFunctionValueError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId = 0;
-/** *
+/**
  * The max height of the select's overlay panel
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_MAX_HEIGHT = 256;
-/** *
+/**
  * The panel's padding on the x-axis
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_PADDING_X = 16;
-/** *
+/**
  * The panel's x axis padding if it is indented (e.g. there is an option group).
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
-/** *
+/**
  * The height of the select items in `em` units.
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_ITEM_HEIGHT_EM = 3;
-/** *
+// TODO(josephperrott): Revert to a constant after 2018 spec updates are fully merged.
+/**
  * Distance between the panel edge and the option text in
  * multi-selection mode.
  *
@@ -174,16 +182,19 @@ var SELECT_ITEM_HEIGHT_EM = 3;
  * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
-  @type {?} */
+ * @type {?}
+ */
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = 0;
-/** *
+/**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
-  @type {?} */
+ * @type {?}
+ */
 var SELECT_PANEL_VIEWPORT_PADDING = 8;
-/** *
+/**
  * Injection token that determines the scroll handling while a select is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
 /**
  * \@docs-private
@@ -193,9 +204,10 @@ var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-stra
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_SELECT_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
@@ -214,10 +226,13 @@ MatSelectChange = /** @class */ (function () {
     }
     return MatSelectChange;
 }());
+// Boilerplate for applying mixins to MatSelect.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatSelect.
+/**
  * \@docs-private
  */
 MatSelectBase = /** @class */ (function () {
@@ -624,7 +639,7 @@ var MatSelect = /** @class */ (function (_super) {
     function (changes) {
         // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
         // the parent form field know to run change detection when the disabled state changes.
-        if (changes["disabled"]) {
+        if (changes.disabled) {
             this.stateChanges.next();
         }
     };
@@ -877,13 +892,16 @@ var MatSelect = /** @class */ (function (_super) {
             this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
         }
     };
+    /** Handles keyboard events while the select is closed. */
     /**
      * Handles keyboard events while the select is closed.
+     * @private
      * @param {?} event
      * @return {?}
      */
     MatSelect.prototype._handleClosedKeydown = /**
      * Handles keyboard events while the select is closed.
+     * @private
      * @param {?} event
      * @return {?}
      */
@@ -912,13 +930,16 @@ var MatSelect = /** @class */ (function (_super) {
             }
         }
     };
+    /** Handles keyboard events when the selected is open. */
     /**
      * Handles keyboard events when the selected is open.
+     * @private
      * @param {?} event
      * @return {?}
      */
     MatSelect.prototype._handleOpenKeydown = /**
      * Handles keyboard events when the selected is open.
+     * @private
      * @param {?} event
      * @return {?}
      */
@@ -1029,12 +1050,19 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         return this._parentFormField ? "mat-" + this._parentFormField.color : '';
     };
+    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
+    /** Sets the pseudo checkbox padding size based on the width of the pseudo checkbox. */
+    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
     /**
      * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
+     * @private
      * @return {?}
      */
-    MatSelect.prototype._setPseudoCheckboxPaddingSize = /**
+    MatSelect.prototype._setPseudoCheckboxPaddingSize = 
+    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
+    /**
      * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
+     * @private
      * @return {?}
      */
     function () {
@@ -1059,9 +1087,11 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     /**
+     * @private
      * @return {?}
      */
     MatSelect.prototype._initializeSelection = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -1075,12 +1105,18 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
+     */
+    /**
+     * Sets the selected option based on a value. If no option can be
+     * found with the designated value, the select trigger is cleared.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatSelect.prototype._setSelectionByValue = /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -1108,11 +1144,17 @@ var MatSelect = /** @class */ (function (_super) {
     };
     /**
      * Finds and selects and option based on its value.
+     * @returns Option that has the corresponding value.
+     */
+    /**
+     * Finds and selects and option based on its value.
+     * @private
      * @param {?} value
      * @return {?} Option that has the corresponding value.
      */
     MatSelect.prototype._selectValue = /**
      * Finds and selects and option based on its value.
+     * @private
      * @param {?} value
      * @return {?} Option that has the corresponding value.
      */
@@ -1137,12 +1179,15 @@ var MatSelect = /** @class */ (function (_super) {
         }
         return correspondingOption;
     };
+    /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     /**
      * Sets up a key manager to listen to keyboard events on the overlay panel.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._initKeyManager = /**
      * Sets up a key manager to listen to keyboard events on the overlay panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -1167,12 +1212,15 @@ var MatSelect = /** @class */ (function (_super) {
             }
         });
     };
+    /** Drops current option subscriptions and IDs and resets from scratch. */
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._resetOptions = /**
      * Drops current option subscriptions and IDs and resets from scratch.
+     * @private
      * @return {?}
      */
     function () {
@@ -1195,14 +1243,17 @@ var MatSelect = /** @class */ (function (_super) {
         });
         this._setOptionIds();
     };
+    /** Invoked when an option is clicked. */
     /**
      * Invoked when an option is clicked.
+     * @private
      * @param {?} option
      * @param {?} isUserInput
      * @return {?}
      */
     MatSelect.prototype._onSelect = /**
      * Invoked when an option is clicked.
+     * @private
      * @param {?} option
      * @param {?} isUserInput
      * @return {?}
@@ -1236,12 +1287,15 @@ var MatSelect = /** @class */ (function (_super) {
         }
         this.stateChanges.next();
     };
+    /** Sorts the selected values in the selected based on their order in the panel. */
     /**
      * Sorts the selected values in the selected based on their order in the panel.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._sortValues = /**
      * Sorts the selected values in the selected based on their order in the panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -1256,13 +1310,16 @@ var MatSelect = /** @class */ (function (_super) {
             this.stateChanges.next();
         }
     };
+    /** Emits change event to set the model value. */
     /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
     MatSelect.prototype._propagateChanges = /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
@@ -1270,10 +1327,10 @@ var MatSelect = /** @class */ (function (_super) {
         /** @type {?} */
         var valueToEmit = null;
         if (this.multiple) {
-            valueToEmit = (/** @type {?} */ (this.selected)).map(function (option) { return option.value; });
+            valueToEmit = ((/** @type {?} */ (this.selected))).map(function (option) { return option.value; });
         }
         else {
-            valueToEmit = this.selected ? (/** @type {?} */ (this.selected)).value : fallbackValue;
+            valueToEmit = this.selected ? ((/** @type {?} */ (this.selected))).value : fallbackValue;
         }
         this._value = valueToEmit;
         this.valueChange.emit(valueToEmit);
@@ -1281,12 +1338,15 @@ var MatSelect = /** @class */ (function (_super) {
         this.selectionChange.emit(new MatSelectChange(this, valueToEmit));
         this._changeDetectorRef.markForCheck();
     };
+    /** Records option IDs to pass to the aria-owns property. */
     /**
      * Records option IDs to pass to the aria-owns property.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._setOptionIds = /**
      * Records option IDs to pass to the aria-owns property.
+     * @private
      * @return {?}
      */
     function () {
@@ -1295,11 +1355,17 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
+     */
+    /**
+     * Highlights the selected item. If no option is selected, it will highlight
+     * the first item instead.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._highlightCorrectOption = /**
      * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
+     * @private
      * @return {?}
      */
     function () {
@@ -1312,12 +1378,15 @@ var MatSelect = /** @class */ (function (_super) {
             }
         }
     };
+    /** Scrolls the active option into view. */
     /**
      * Scrolls the active option into view.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._scrollActiveOptionIntoView = /**
      * Scrolls the active option into view.
+     * @private
      * @return {?}
      */
     function () {
@@ -1339,13 +1408,16 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         this._elementRef.nativeElement.focus();
     };
+    /** Gets the index of the provided option in the option list. */
     /**
      * Gets the index of the provided option in the option list.
+     * @private
      * @param {?} option
      * @return {?}
      */
     MatSelect.prototype._getOptionIndex = /**
      * Gets the index of the provided option in the option list.
+     * @private
      * @param {?} option
      * @return {?}
      */
@@ -1354,12 +1426,15 @@ var MatSelect = /** @class */ (function (_super) {
             return result === undefined ? (option === current ? index : undefined) : result;
         }, undefined);
     };
+    /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
     /**
      * Calculates the scroll position and x- and y-offsets of the overlay panel.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._calculateOverlayPosition = /**
      * Calculates the scroll position and x- and y-offsets of the overlay panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -1371,11 +1446,15 @@ var MatSelect = /** @class */ (function (_super) {
         var panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         /** @type {?} */
         var scrollContainerHeight = items * itemHeight;
+        // The farthest the panel can be scrolled before it hits the bottom
         /** @type {?} */
         var maxScroll = scrollContainerHeight - panelHeight;
+        // If no value is selected we open the popup to the first item.
         /** @type {?} */
-        var selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
+        var selectedOptionOffset = this.empty ? 0 : (/** @type {?} */ (this._getOptionIndex(this._selectionModel.selected[0])));
         selectedOptionOffset += core$1._countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
+        // We must maintain a scroll buffer so the selected option will be scrolled to the
+        // center of the overlay panel rather than the top.
         /** @type {?} */
         var scrollBuffer = panelHeight / 2;
         this._scrollTop = this._calculateOverlayScroll(selectedOptionOffset, scrollBuffer, maxScroll);
@@ -1418,6 +1497,10 @@ var MatSelect = /** @class */ (function (_super) {
         var optionOffsetFromScrollTop = itemHeight * selectedIndex;
         /** @type {?} */
         var halfOptionHeight = itemHeight / 2;
+        // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
+        // scroll container, then subtracts the scroll buffer to scroll the option down to
+        // the center of the overlay panel. Half the option height must be re-added to the
+        // scrollTop so the option is centered based on its middle, not its top edge.
         /** @type {?} */
         var optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
         return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
@@ -1478,6 +1561,14 @@ var MatSelect = /** @class */ (function (_super) {
      * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
      * can't be calculated until the panel has been attached, because we need to know the
      * content width in order to constrain the panel within the viewport.
+     */
+    /**
+     * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
+     * This must be adjusted to align the selected option text over the trigger text when
+     * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
+     * can't be calculated until the panel has been attached, because we need to know the
+     * content width in order to constrain the panel within the viewport.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._calculateOverlayOffsetX = /**
@@ -1486,6 +1577,7 @@ var MatSelect = /** @class */ (function (_super) {
      * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
      * can't be calculated until the panel has been attached, because we need to know the
      * content width in order to constrain the panel within the viewport.
+     * @private
      * @return {?}
      */
     function () {
@@ -1513,6 +1605,7 @@ var MatSelect = /** @class */ (function (_super) {
         if (!isRtl) {
             offsetX *= -1;
         }
+        // Determine how much the select overflows on each side.
         /** @type {?} */
         var leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
         /** @type {?} */
@@ -1535,6 +1628,12 @@ var MatSelect = /** @class */ (function (_super) {
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
+     */
+    /**
+     * Calculates the y-offset of the select's overlay panel in relation to the
+     * top start corner of the trigger. It has to be adjusted in order for the
+     * selected option to be aligned over the trigger when the panel opens.
+     * @private
      * @param {?} selectedIndex
      * @param {?} scrollBuffer
      * @param {?} maxScroll
@@ -1544,6 +1643,7 @@ var MatSelect = /** @class */ (function (_super) {
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
+     * @private
      * @param {?} selectedIndex
      * @param {?} scrollBuffer
      * @param {?} maxScroll
@@ -1570,6 +1670,8 @@ var MatSelect = /** @class */ (function (_super) {
             var firstDisplayedIndex = this._getItemCount() - maxOptionsDisplayed;
             /** @type {?} */
             var selectedDisplayIndex = selectedIndex - firstDisplayedIndex;
+            // The first item is partially out of the viewport. Therefore we need to calculate what
+            // portion of it is shown in the viewport and account for it in our offset.
             /** @type {?} */
             var partialItemHeight = itemHeight - (this._getItemCount() * itemHeight - SELECT_PANEL_MAX_HEIGHT) % itemHeight;
             // Because the panel height is longer than the height of the options alone,
@@ -1594,6 +1696,13 @@ var MatSelect = /** @class */ (function (_super) {
      * If it will not fit, tries to adjust the scroll position and the associated
      * y-offset so the panel can open fully on-screen. If it still won't fit,
      * sets the offset back to 0 to allow the fallback position to take over.
+     */
+    /**
+     * Checks that the attempted overlay position will fit within the viewport.
+     * If it will not fit, tries to adjust the scroll position and the associated
+     * y-offset so the panel can open fully on-screen. If it still won't fit,
+     * sets the offset back to 0 to allow the fallback position to take over.
+     * @private
      * @param {?} maxScroll
      * @return {?}
      */
@@ -1602,6 +1711,7 @@ var MatSelect = /** @class */ (function (_super) {
      * If it will not fit, tries to adjust the scroll position and the associated
      * y-offset so the panel can open fully on-screen. If it still won't fit,
      * sets the offset back to 0 to allow the fallback position to take over.
+     * @private
      * @param {?} maxScroll
      * @return {?}
      */
@@ -1630,19 +1740,23 @@ var MatSelect = /** @class */ (function (_super) {
             this._transformOrigin = this._getOriginBasedOnOption();
         }
     };
+    /** Adjusts the overlay panel up to fit in the viewport. */
     /**
      * Adjusts the overlay panel up to fit in the viewport.
+     * @private
      * @param {?} panelHeightBottom
      * @param {?} bottomSpaceAvailable
      * @return {?}
      */
     MatSelect.prototype._adjustPanelUp = /**
      * Adjusts the overlay panel up to fit in the viewport.
+     * @private
      * @param {?} panelHeightBottom
      * @param {?} bottomSpaceAvailable
      * @return {?}
      */
     function (panelHeightBottom, bottomSpaceAvailable) {
+        // Browsers ignore fractional scroll offsets, so we need to round.
         /** @type {?} */
         var distanceBelowViewport = Math.round(panelHeightBottom - bottomSpaceAvailable);
         // Scrolls the panel up by the distance it was extending past the boundary, then
@@ -1659,8 +1773,10 @@ var MatSelect = /** @class */ (function (_super) {
             this._transformOrigin = "50% bottom 0px";
         }
     };
+    /** Adjusts the overlay panel down to fit in the viewport. */
     /**
      * Adjusts the overlay panel down to fit in the viewport.
+     * @private
      * @param {?} panelHeightTop
      * @param {?} topSpaceAvailable
      * @param {?} maxScroll
@@ -1668,12 +1784,14 @@ var MatSelect = /** @class */ (function (_super) {
      */
     MatSelect.prototype._adjustPanelDown = /**
      * Adjusts the overlay panel down to fit in the viewport.
+     * @private
      * @param {?} panelHeightTop
      * @param {?} topSpaceAvailable
      * @param {?} maxScroll
      * @return {?}
      */
     function (panelHeightTop, topSpaceAvailable, maxScroll) {
+        // Browsers ignore fractional scroll offsets, so we need to round.
         /** @type {?} */
         var distanceAboveViewport = Math.round(panelHeightTop - topSpaceAvailable);
         // Scrolls the panel down by the distance it was extending past the boundary, then
@@ -1691,12 +1809,15 @@ var MatSelect = /** @class */ (function (_super) {
             return;
         }
     };
+    /** Sets the transform origin point based on the selected option. */
     /**
      * Sets the transform origin point based on the selected option.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._getOriginBasedOnOption = /**
      * Sets the transform origin point based on the selected option.
+     * @private
      * @return {?}
      */
     function () {
@@ -1708,23 +1829,29 @@ var MatSelect = /** @class */ (function (_super) {
         var originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return "50% " + originY + "px 0px";
     };
+    /** Calculates the amount of items in the select. This includes options and group labels. */
     /**
      * Calculates the amount of items in the select. This includes options and group labels.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._getItemCount = /**
      * Calculates the amount of items in the select. This includes options and group labels.
+     * @private
      * @return {?}
      */
     function () {
         return this.options.length + this.optionGroups.length;
     };
+    /** Calculates the height of the select's options. */
     /**
      * Calculates the height of the select's options.
+     * @private
      * @return {?}
      */
     MatSelect.prototype._getItemHeight = /**
      * Calculates the height of the select's options.
+     * @private
      * @return {?}
      */
     function () {
@@ -1867,7 +1994,7 @@ var MatSelect = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSelectModule = /** @class */ (function () {
     function MatSelectModule() {

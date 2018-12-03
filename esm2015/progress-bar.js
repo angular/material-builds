@@ -14,8 +14,11 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(josephperrott): Benchpress tests.
+// TODO(josephperrott): Add ARIA attributes for progress bar "for".
+// Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
  */
@@ -29,11 +32,12 @@ class MatProgressBarBase {
 }
 /** @type {?} */
 const _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
-/** *
+/**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
 /**
  * \@docs-private
@@ -50,9 +54,10 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
         getPathname: () => _location ? (_location.pathname + _location.search) : ''
     };
 }
-/** *
+/**
  * Counter used to generate unique IDs for progress bars.
-  @type {?} */
+ * @type {?}
+ */
 let progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
@@ -64,10 +69,11 @@ class MatProgressBar extends _MatProgressBarMixinBase {
      * @param {?=} _animationMode
      * @param {?=} location
      */
-    constructor(_elementRef, _ngZone, _animationMode, /**
-                   * @deprecated `location` parameter to be made required.
-                   * @breaking-change 8.0.0
-                   */
+    constructor(_elementRef, _ngZone, _animationMode, 
+    /**
+     * @deprecated `location` parameter to be made required.
+     * @breaking-change 8.0.0
+     */
     location) {
         super(_elementRef);
         this._elementRef = _elementRef;
@@ -101,6 +107,12 @@ class MatProgressBar extends _MatProgressBarMixinBase {
          * ID of the progress bar.
          */
         this.progressbarId = `mat-progress-bar-${progressbarId++}`;
+        // We need to prefix the SVG reference with the current path, otherwise they won't work
+        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
+        // because named route URLs can contain parentheses (see #12338). Also we don't use since
+        // we can't tell the difference between whether
+        // the consumer is using the hash location strategy or not, because `Location` normalizes
+        // both `/#/foo/bar` and `/foo/bar` to the same thing.
         /** @type {?} */
         const path = location ? location.getPathname().split('#')[0] : '';
         this._rectangleFillValue = `url('${path}#${this.progressbarId}')`;
@@ -176,6 +188,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
     }
     /**
      * Emit an animationEnd event if in determinate or buffer mode.
+     * @private
      * @return {?}
      */
     emitAnimationEnd() {
@@ -230,7 +243,7 @@ function clamp(v, min = 0, max = 100) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatProgressBarModule {
 }
@@ -244,12 +257,12 @@ MatProgressBarModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatProgressBarModule, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBarBase, _MatProgressBarMixinBase, MAT_PROGRESS_BAR_LOCATION, MatProgressBar };

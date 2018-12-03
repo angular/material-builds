@@ -20,11 +20,12 @@ import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
@@ -68,13 +69,16 @@ class MatBottomSheetConfig {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material bottom sheet.
-  @type {?} */
+ * @type {?}
+ */
 const matBottomSheetAnimations = {
-    /** Animation that shows and hides a bottom sheet. */
+    /**
+     * Animation that shows and hides a bottom sheet.
+     */
     bottomSheetState: trigger('state', [
         state('void, hidden', style({ transform: 'translateY(100%)' })),
         state('visible', style({ transform: 'translateY(0%)' })),
@@ -85,8 +89,9 @@ const matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * \@docs-private
@@ -199,6 +204,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
         this._animationStateChanged.emit(event);
     }
     /**
+     * @private
      * @param {?} cssClass
      * @param {?} add
      * @return {?}
@@ -209,6 +215,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
         add ? classList.add(cssClass) : classList.remove(cssClass);
     }
     /**
+     * @private
      * @return {?}
      */
     _validatePortalAttached() {
@@ -217,6 +224,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
         }
     }
     /**
+     * @private
      * @return {?}
      */
     _setPanelClass() {
@@ -234,6 +242,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
     }
     /**
      * Moves the focus inside the focus trap.
+     * @private
      * @return {?}
      */
     _trapFocus() {
@@ -244,6 +253,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
     }
     /**
      * Restores focus to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     _restoreFocus() {
@@ -259,10 +269,11 @@ class MatBottomSheetContainer extends BasePortalOutlet {
     }
     /**
      * Saves a reference to the element that was focused before the bottom sheet was opened.
+     * @private
      * @return {?}
      */
     _savePreviouslyFocusedElement() {
-        this._elementFocusedBeforeOpened = /** @type {?} */ (this._document.activeElement);
+        this._elementFocusedBeforeOpened = (/** @type {?} */ (this._document.activeElement));
         // The `focus` method isn't available during server-side rendering.
         if (this._elementRef.nativeElement.focus) {
             Promise.resolve().then(() => this._elementRef.nativeElement.focus());
@@ -303,7 +314,7 @@ MatBottomSheetContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatBottomSheetModule {
 }
@@ -323,7 +334,7 @@ MatBottomSheetModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
@@ -410,11 +421,12 @@ class MatBottomSheetRef {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify default bottom sheet options.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-default-options');
 /**
  * Service to trigger Material Design bottom sheets.
@@ -472,10 +484,10 @@ class MatBottomSheet {
         /** @type {?} */
         const ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof TemplateRef) {
-            container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
+            container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({
                 $implicit: _config.data,
                 bottomSheetRef: ref
-            })));
+            }))));
         }
         else {
             /** @type {?} */
@@ -523,6 +535,7 @@ class MatBottomSheet {
     }
     /**
      * Attaches the bottom sheet container component to the overlay.
+     * @private
      * @param {?} overlayRef
      * @param {?} config
      * @return {?}
@@ -542,6 +555,7 @@ class MatBottomSheet {
     }
     /**
      * Creates a new overlay and places it in the correct location.
+     * @private
      * @param {?} config The user-specified bottom sheet config.
      * @return {?}
      */
@@ -565,6 +579,7 @@ class MatBottomSheet {
     }
     /**
      * Creates an injector to be used inside of a bottom sheet component.
+     * @private
      * @template T
      * @param {?} config Config that was used to create the bottom sheet.
      * @param {?} bottomSheetRef Reference to the bottom sheet.
@@ -612,12 +627,12 @@ function _applyConfigDefaults(defaults, config) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatBottomSheetModule, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MAT_BOTTOM_SHEET_DATA, MatBottomSheetConfig, MatBottomSheetContainer, matBottomSheetAnimations, MatBottomSheetRef };

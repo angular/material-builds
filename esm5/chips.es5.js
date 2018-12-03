@@ -21,7 +21,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Event object emitted by MatChip when selected or deselected.
@@ -38,10 +38,13 @@ MatChipSelectionChange = /** @class */ (function () {
     }
     return MatChipSelectionChange;
 }());
+// Boilerplate for applying mixins to MatChip.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatChip.
+/**
  * \@docs-private
  */
 MatChipBase = /** @class */ (function () {
@@ -206,14 +209,14 @@ var MatChip = /** @class */ (function (_super) {
     Object.defineProperty(MatChip.prototype, "selectable", {
         /**
          * Whether or not the chip is selectable. When a chip is not selectable,
-         * changes to it's selected state are always ignored. By default a chip is
-         * selectable, and it becomes non-selectable if it's parent chip list is
+         * changes to its selected state are always ignored. By default a chip is
+         * selectable, and it becomes non-selectable if its parent chip list is
          * not selectable.
          */
         get: /**
          * Whether or not the chip is selectable. When a chip is not selectable,
-         * changes to it's selected state are always ignored. By default a chip is
-         * selectable, and it becomes non-selectable if it's parent chip list is
+         * changes to its selected state are always ignored. By default a chip is
+         * selectable, and it becomes non-selectable if its parent chip list is
          * not selectable.
          * @return {?}
          */
@@ -271,11 +274,11 @@ var MatChip = /** @class */ (function (_super) {
             var attr = CHIP_ATTRIBUTE_NAMES_1[_i];
             if (this._elementRef.nativeElement.hasAttribute(attr) ||
                 this._elementRef.nativeElement.tagName.toLowerCase() === attr) {
-                (/** @type {?} */ (this._elementRef.nativeElement)).classList.add(attr);
+                ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add(attr);
                 return;
             }
         }
-        (/** @type {?} */ (this._elementRef.nativeElement)).classList.add('mat-standard-chip');
+        ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add('mat-standard-chip');
     };
     /**
      * @return {?}
@@ -465,10 +468,12 @@ var MatChip = /** @class */ (function (_super) {
         });
     };
     /**
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
     MatChip.prototype._dispatchSelectionChange = /**
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
@@ -581,21 +586,25 @@ var MatChipRemove = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for the chips module.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatChipList.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatChipList.
+/**
  * \@docs-private
  */
 MatChipListBase = /** @class */ (function () {
@@ -609,6 +618,7 @@ MatChipListBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+// Increasing integer for generating unique ids for chip-list components.
 /** @type {?} */
 var nextUniqueId = 0;
 /**
@@ -625,12 +635,11 @@ MatChipListChange = /** @class */ (function () {
     return MatChipListChange;
 }());
 /**
- * A material design chips component (named ChipList for it's similarity to the List component).
+ * A material design chips component (named ChipList for its similarity to the List component).
  */
 var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
-    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
-    ngControl) {
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -1101,11 +1110,14 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (ids) { this._ariaDescribedby = ids.join(' '); };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
      */
-    MatChipList.prototype.writeValue = /**
+    MatChipList.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -1115,11 +1127,14 @@ var MatChipList = /** @class */ (function (_super) {
         }
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatChipList.prototype.registerOnChange = /**
+    MatChipList.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -1127,11 +1142,14 @@ var MatChipList = /** @class */ (function (_super) {
         this._onChange = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatChipList.prototype.registerOnTouched = /**
+    MatChipList.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -1139,11 +1157,14 @@ var MatChipList = /** @class */ (function (_super) {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatChipList.prototype.setDisabledState = /**
+    MatChipList.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -1233,7 +1254,7 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (event) {
         /** @type {?} */
-        var target = /** @type {?} */ (event.target);
+        var target = (/** @type {?} */ (event.target));
         // If they are on an empty input and hit backspace, focus the last chip
         if (event.keyCode === BACKSPACE && this._isInputEmpty(target)) {
             this._keyManager.setLastItemActive();
@@ -1259,10 +1280,12 @@ var MatChipList = /** @class */ (function (_super) {
      */
     /**
      * Check the tab index as you should not be allowed to focus an empty list.
+     * @protected
      * @return {?}
      */
     MatChipList.prototype._updateTabIndex = /**
      * Check the tab index as you should not be allowed to focus an empty list.
+     * @protected
      * @return {?}
      */
     function () {
@@ -1276,11 +1299,13 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * If the amount of chips changed, we need to update the
      * key manager state and focus the next closest chip.
+     * @protected
      * @return {?}
      */
     MatChipList.prototype._updateFocusForDestroyedChips = /**
      * If the amount of chips changed, we need to update the
      * key manager state and focus the next closest chip.
+     * @protected
      * @return {?}
      */
     function () {
@@ -1294,12 +1319,20 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * Utility to ensure all indexes are valid.
      *
+     * @param index The index to be checked.
+     * @returns True if the index is valid for our list of chips.
+     */
+    /**
+     * Utility to ensure all indexes are valid.
+     *
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of chips.
      */
     MatChipList.prototype._isValidIndex = /**
      * Utility to ensure all indexes are valid.
      *
+     * @private
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of chips.
      */
@@ -1307,17 +1340,19 @@ var MatChipList = /** @class */ (function (_super) {
         return index >= 0 && index < this.chips.length;
     };
     /**
+     * @private
      * @param {?} element
      * @return {?}
      */
     MatChipList.prototype._isInputEmpty = /**
+     * @private
      * @param {?} element
      * @return {?}
      */
     function (element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
             /** @type {?} */
-            var input = /** @type {?} */ (element);
+            var input = (/** @type {?} */ (element));
             return !input.value;
         }
         return false;
@@ -1355,12 +1390,18 @@ var MatChipList = /** @class */ (function (_super) {
     };
     /**
      * Finds and selects the chip based on its value.
+     * @returns Chip that has the corresponding value.
+     */
+    /**
+     * Finds and selects the chip based on its value.
+     * @private
      * @param {?} value
      * @param {?=} isUserInput
      * @return {?} Chip that has the corresponding value.
      */
     MatChipList.prototype._selectValue = /**
      * Finds and selects the chip based on its value.
+     * @private
      * @param {?} value
      * @param {?=} isUserInput
      * @return {?} Chip that has the corresponding value.
@@ -1379,9 +1420,11 @@ var MatChipList = /** @class */ (function (_super) {
         return correspondingChip;
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._initializeSelection = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -1397,11 +1440,17 @@ var MatChipList = /** @class */ (function (_super) {
     };
     /**
      * Deselects every chip in the list.
+     * @param skip Chip that should not be deselected.
+     */
+    /**
+     * Deselects every chip in the list.
+     * @private
      * @param {?=} skip Chip that should not be deselected.
      * @return {?}
      */
     MatChipList.prototype._clearSelection = /**
      * Deselects every chip in the list.
+     * @private
      * @param {?=} skip Chip that should not be deselected.
      * @return {?}
      */
@@ -1417,11 +1466,17 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * Sorts the model values, ensuring that they keep the same
      * order that they have in the panel.
+     */
+    /**
+     * Sorts the model values, ensuring that they keep the same
+     * order that they have in the panel.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._sortValues = /**
      * Sorts the model values, ensuring that they keep the same
      * order that they have in the panel.
+     * @private
      * @return {?}
      */
     function () {
@@ -1436,13 +1491,16 @@ var MatChipList = /** @class */ (function (_super) {
             this.stateChanges.next();
         }
     };
+    /** Emits change event to set the model value. */
     /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
     MatChipList.prototype._propagateChanges = /**
      * Emits change event to set the model value.
+     * @private
      * @param {?=} fallbackValue
      * @return {?}
      */
@@ -1508,9 +1566,11 @@ var MatChipList = /** @class */ (function (_super) {
         this.stateChanges.next();
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._resetChips = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -1520,9 +1580,11 @@ var MatChipList = /** @class */ (function (_super) {
         this._listenToChipsRemoved();
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._dropSubscriptions = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -1543,12 +1605,15 @@ var MatChipList = /** @class */ (function (_super) {
             this._chipRemoveSubscription = null;
         }
     };
+    /** Listens to user-generated selection events on each chip. */
     /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._listenToChipsSelection = /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     function () {
@@ -1570,12 +1635,15 @@ var MatChipList = /** @class */ (function (_super) {
             }
         });
     };
+    /** Listens to user-generated selection events on each chip. */
     /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._listenToChipsFocus = /**
      * Listens to user-generated selection events on each chip.
+     * @private
      * @return {?}
      */
     function () {
@@ -1594,9 +1662,11 @@ var MatChipList = /** @class */ (function (_super) {
         });
     };
     /**
+     * @private
      * @return {?}
      */
     MatChipList.prototype._listenToChipsRemoved = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -1614,19 +1684,22 @@ var MatChipList = /** @class */ (function (_super) {
             }
         });
     };
+    /** Checks whether an event comes from inside a chip element. */
     /**
      * Checks whether an event comes from inside a chip element.
+     * @private
      * @param {?} event
      * @return {?}
      */
     MatChipList.prototype._originatesFromChip = /**
      * Checks whether an event comes from inside a chip element.
+     * @private
      * @param {?} event
      * @return {?}
      */
     function (event) {
         /** @type {?} */
-        var currentElement = /** @type {?} */ (event.target);
+        var currentElement = (/** @type {?} */ (event.target));
         while (currentElement && currentElement !== this._elementRef.nativeElement) {
             if (currentElement.classList.contains('mat-chip')) {
                 return true;
@@ -1635,12 +1708,15 @@ var MatChipList = /** @class */ (function (_super) {
         }
         return false;
     };
+    /** Checks whether any of the chips is focused. */
     /**
      * Checks whether any of the chips is focused.
+     * @private
      * @return {?}
      */
     MatChipList.prototype._hasFocusedChip = /**
      * Checks whether any of the chips is focused.
+     * @private
      * @return {?}
      */
     function () {
@@ -1669,7 +1745,7 @@ var MatChipList = /** @class */ (function (_super) {
                         '[id]': '_uid',
                     },
                     providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
-                    styles: [".mat-chip{position:relative;overflow:hidden;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;background-color:#000;opacity:0;content:'';pointer-events:none;transition:opacity .2s cubic-bezier(.35,0,.25,1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:0}.mat-standard-chip:focus::after{opacity:.16}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}.mat-standard-chip:focus{outline:dotted 2px}}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}"],
+                    styles: [".mat-chip{position:relative;overflow:hidden;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:'';pointer-events:none;transition:opacity .2s cubic-bezier(.35,0,.25,1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:0}.mat-standard-chip:focus::after{opacity:.16}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}.mat-standard-chip:focus{outline:dotted 2px}}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}"],
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 },] },
@@ -1704,8 +1780,9 @@ var MatChipList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids.
 /** @type {?} */
 var nextUniqueId$1 = 0;
 /**
@@ -1740,7 +1817,7 @@ var MatChipInput = /** @class */ (function () {
          */
         this.id = "mat-chip-list-input-" + nextUniqueId$1++;
         this._disabled = false;
-        this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
+        this._inputElement = (/** @type {?} */ (this._elementRef.nativeElement));
     }
     Object.defineProperty(MatChipInput.prototype, "chipList", {
         /** Register input for chip list */
@@ -1897,13 +1974,16 @@ var MatChipInput = /** @class */ (function () {
     function () {
         this._inputElement.focus();
     };
+    /** Checks whether a keycode is one of the configured separators. */
     /**
      * Checks whether a keycode is one of the configured separators.
+     * @private
      * @param {?} keyCode
      * @return {?}
      */
     MatChipInput.prototype._isSeparatorKey = /**
      * Checks whether a keycode is one of the configured separators.
+     * @private
      * @param {?} keyCode
      * @return {?}
      */
@@ -1948,7 +2028,7 @@ var MatChipInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var CHIP_DECLARATIONS = [
@@ -1959,9 +2039,9 @@ var CHIP_DECLARATIONS = [
     MatChipAvatar,
     MatChipTrailingIcon,
 ];
-var ɵ0 = {
+var ɵ0 = ({
     separatorKeyCodes: [ENTER]
-};
+});
 var MatChipsModule = /** @class */ (function () {
     function MatChipsModule() {
     }
@@ -1973,7 +2053,7 @@ var MatChipsModule = /** @class */ (function () {
                         ErrorStateMatcher,
                         {
                             provide: MAT_CHIPS_DEFAULT_OPTIONS,
-                            useValue: /** @type {?} */ ((ɵ0))
+                            useValue: (/** @type {?} */ (ɵ0))
                         }
                     ]
                 },] },
@@ -1983,12 +2063,12 @@ var MatChipsModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput, MAT_CHIPS_DEFAULT_OPTIONS };

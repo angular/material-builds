@@ -22,6 +22,8 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     private _elementRef;
     private _focusMonitor?;
     private _parentMenu?;
+    /** ARIA role for the menu item. */
+    role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
     private _document;
     /** Stream that emits when the menu item is hovered. */
     readonly _hovered: Subject<MatMenuItem>;

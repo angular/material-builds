@@ -42,26 +42,32 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify the checkbox click behavior.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for checkbox components.
 /** @type {?} */
 var nextUniqueId = 0;
+// TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+// landed.
+// The radius for the checkbox's ripple, in pixels.
 /** @type {?} */
 var calculatedRippleRadius = 0;
-/** *
+/**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatCheckbox; }),
@@ -93,10 +99,13 @@ MatCheckboxChange = /** @class */ (function () {
     }
     return MatCheckboxChange;
 }());
+// Boilerplate for applying mixins to MatCheckbox.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatCheckbox.
+/**
  * \@docs-private
  */
 MatCheckboxBase = /** @class */ (function () {
@@ -332,11 +341,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._changeDetectorRef.detectChanges();
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
      */
-    MatCheckbox.prototype.writeValue = /**
+    MatCheckbox.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -344,11 +356,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this.checked = !!value;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatCheckbox.prototype.registerOnChange = /**
+    MatCheckbox.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -356,11 +371,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._controlValueAccessorChangeFn = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatCheckbox.prototype.registerOnTouched = /**
+    MatCheckbox.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -368,11 +386,14 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatCheckbox.prototype.setDisabledState = /**
+    MatCheckbox.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -389,10 +410,12 @@ var MatCheckbox = /** @class */ (function (_super) {
         return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
     };
     /**
+     * @private
      * @param {?} newState
      * @return {?}
      */
     MatCheckbox.prototype._transitionCheckState = /**
+     * @private
      * @param {?} newState
      * @return {?}
      */
@@ -411,6 +434,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
             /** @type {?} */
             var animationClass_1 = this._currentAnimationClass;
             this._ngZone.runOutsideAngular(function () {
@@ -421,9 +445,11 @@ var MatCheckbox = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatCheckbox.prototype._emitChangeEvent = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -529,11 +555,13 @@ var MatCheckbox = /** @class */ (function (_super) {
         event.stopPropagation();
     };
     /**
+     * @private
      * @param {?} oldState
      * @param {?} newState
      * @return {?}
      */
     MatCheckbox.prototype._getAnimationClassForCheckStateTransition = /**
+     * @private
      * @param {?} oldState
      * @param {?} newState
      * @return {?}
@@ -574,14 +602,27 @@ var MatCheckbox = /** @class */ (function (_super) {
         }
         return "mat-checkbox-anim-" + animSuffix;
     };
+    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+    // landed.
     /**
      * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
      * for the application.
-     * @return {?}
      */
-    MatCheckbox.prototype._calculateRippleRadius = /**
+    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+    // landed.
+    /**
      * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
      * for the application.
+     * @private
+     * @return {?}
+     */
+    MatCheckbox.prototype._calculateRippleRadius = 
+    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
+    // landed.
+    /**
+     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
+     * for the application.
+     * @private
      * @return {?}
      */
     function () {
@@ -644,7 +685,7 @@ var MatCheckbox = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
@@ -674,7 +715,7 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {

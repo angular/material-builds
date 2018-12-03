@@ -20,7 +20,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId = 0;
@@ -49,14 +49,17 @@ var MatError = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the MatFormField.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matFormFieldAnimations = {
-    /** Animation that transitions the form field's error and hint messages. */
+    /**
+     * Animation that transitions the form field's error and hint messages.
+     */
     transitionMessages: trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
         state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
@@ -69,7 +72,7 @@ var matFormFieldAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -90,7 +93,7 @@ MatFormFieldControl = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -118,7 +121,7 @@ function getMatFormFieldMissingControlError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$1 = 0;
@@ -157,7 +160,7 @@ var MatHint = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The floating label for a `mat-form-field`.
@@ -175,7 +178,7 @@ var MatLabel = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The placeholder text for an `MatFormField`.
@@ -196,7 +199,7 @@ var MatPlaceholder = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Prefix to be placed the the front of the form field.
@@ -214,7 +217,7 @@ var MatPrefix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Suffix to be placed at the end of the form field.
@@ -232,7 +235,7 @@ var MatSuffix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$2 = 0;
@@ -254,15 +257,17 @@ MatFormFieldBase = /** @class */ (function () {
     }
     return MatFormFieldBase;
 }());
-/** *
+/**
  * Base class to which we're applying the form field mixins.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
-/** *
+/**
  * Injection token that can be used to configure the
  * default options for all form field within an app.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
@@ -443,7 +448,7 @@ var MatFormField = /** @class */ (function (_super) {
             this._elementRef.nativeElement.classList.add("mat-form-field-type-" + control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(function () {
+        control.stateChanges.pipe(startWith((/** @type {?} */ (null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
@@ -595,11 +600,17 @@ var MatFormField = /** @class */ (function (_super) {
     /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `mat-placeholder` directive).
+     */
+    /**
+     * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
+     * or child element with the `mat-placeholder` directive).
+     * @private
      * @return {?}
      */
     MatFormField.prototype._validatePlaceholders = /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `mat-placeholder` directive).
+     * @private
      * @return {?}
      */
     function () {
@@ -607,12 +618,15 @@ var MatFormField = /** @class */ (function (_super) {
             throw getMatFormFieldPlaceholderConflictError();
         }
     };
+    /** Does any extra processing that is required when handling the hints. */
     /**
      * Does any extra processing that is required when handling the hints.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._processHints = /**
      * Does any extra processing that is required when handling the hints.
+     * @private
      * @return {?}
      */
     function () {
@@ -622,20 +636,26 @@ var MatFormField = /** @class */ (function (_super) {
     /**
      * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
+     */
+    /**
+     * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
+     * attribute being considered as `align="start"`.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._validateHints = /**
      * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
         if (this._hintChildren) {
             /** @type {?} */
-            var startHint_1 = void 0;
+            var startHint_1;
             /** @type {?} */
-            var endHint_1 = void 0;
+            var endHint_1;
             this._hintChildren.forEach(function (hint) {
                 if (hint.align === 'start') {
                     if (startHint_1 || _this.hintLabel) {
@@ -655,11 +675,17 @@ var MatFormField = /** @class */ (function (_super) {
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.
+     */
+    /**
+     * Sets the list of element IDs that describe the child control. This allows the control to update
+     * its `aria-describedby` attribute accordingly.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._syncDescribedByIds = /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.
+     * @private
      * @return {?}
      */
     function () {
@@ -692,10 +718,12 @@ var MatFormField = /** @class */ (function (_super) {
     /** Throws an error if the form field's control is missing. */
     /**
      * Throws an error if the form field's control is missing.
+     * @protected
      * @return {?}
      */
     MatFormField.prototype._validateControlChild = /**
      * Throws an error if the form field's control is missing.
+     * @protected
      * @return {?}
      */
     function () {
@@ -730,7 +758,7 @@ var MatFormField = /** @class */ (function (_super) {
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
-        if (!/** @type {?} */ ((document.documentElement)).contains(this._elementRef.nativeElement)) {
+        if (!(/** @type {?} */ (document.documentElement)).contains(this._elementRef.nativeElement)) {
             this._outlineGapCalculationNeeded = true;
             return;
         }
@@ -764,25 +792,31 @@ var MatFormField = /** @class */ (function (_super) {
         }
         this._outlineGapCalculationNeeded = false;
     };
+    /** Gets the start end of the rect considering the current directionality. */
     /**
      * Gets the start end of the rect considering the current directionality.
+     * @private
      * @param {?} rect
      * @return {?}
      */
     MatFormField.prototype._getStartEnd = /**
      * Gets the start end of the rect considering the current directionality.
+     * @private
      * @param {?} rect
      * @return {?}
      */
     function (rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
     };
+    /** Updates the outline gap the new time the zone stabilizes. */
     /**
      * Updates the outline gap the new time the zone stabilizes.
+     * @private
      * @return {?}
      */
     MatFormField.prototype._updateOutlineGapOnStable = /**
      * Updates the outline gap the new time the zone stabilizes.
+     * @private
      * @return {?}
      */
     function () {
@@ -866,7 +900,7 @@ var MatFormField = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatFormFieldModule = /** @class */ (function () {
     function MatFormFieldModule() {
@@ -902,12 +936,12 @@ var MatFormFieldModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };

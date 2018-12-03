@@ -15,16 +15,18 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
-/** *
+/**
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
-  @type {?} */
+ * @type {?}
+ */
 var BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
@@ -34,10 +36,13 @@ var BUTTON_HOST_ATTRIBUTES = [
     'mat-mini-fab',
     'mat-fab',
 ];
+// Boilerplate for applying mixins to MatButton.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatButton.
+/**
  * \@docs-private
  */
 MatButtonBase = /** @class */ (function () {
@@ -53,9 +58,7 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(elementRef, _platform, _focusMonitor, 
-    // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
-    _animationMode) {
+    function MatButton(elementRef, _platform, _focusMonitor, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
@@ -73,7 +76,7 @@ var MatButton = /** @class */ (function (_super) {
         for (var _i = 0, BUTTON_HOST_ATTRIBUTES_1 = BUTTON_HOST_ATTRIBUTES; _i < BUTTON_HOST_ATTRIBUTES_1.length; _i++) {
             var attr = BUTTON_HOST_ATTRIBUTES_1[_i];
             if (_this._hasHostAttributes(attr)) {
-                (/** @type {?} */ (elementRef.nativeElement)).classList.add(attr);
+                ((/** @type {?} */ (elementRef.nativeElement))).classList.add(attr);
             }
         }
         _this._focusMonitor.monitor(_this._elementRef, true);
@@ -226,7 +229,7 @@ var MatAnchor = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonModule = /** @class */ (function () {
     function MatButtonModule() {
@@ -254,12 +257,12 @@ var MatButtonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatButtonModule, MatButtonBase, _MatButtonMixinBase, MatButton, MatAnchor };

@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -42,11 +42,12 @@ AnimationDurations.EXITING = '195ms';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that configures whether the Material sanity checks are enabled.
-  @type {?} */
+ * @type {?}
+ */
 const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
     factory: MATERIAL_SANITY_CHECKS_FACTORY,
@@ -96,6 +97,7 @@ class MatCommonModule {
     }
     /**
      * Whether any sanity checks are enabled
+     * @private
      * @return {?}
      */
     _areChecksEnabled() {
@@ -103,14 +105,16 @@ class MatCommonModule {
     }
     /**
      * Whether the code is running in tests.
+     * @private
      * @return {?}
      */
     _isTestEnv() {
         /** @type {?} */
-        const window = /** @type {?} */ (this._window);
+        const window = (/** @type {?} */ (this._window));
         return window && (window.__karma__ || window.jasmine);
     }
     /**
+     * @private
      * @return {?}
      */
     _checkDoctypeIsDefined() {
@@ -120,6 +124,7 @@ class MatCommonModule {
         }
     }
     /**
+     * @private
      * @return {?}
      */
     _checkThemeIsPresent() {
@@ -152,7 +157,7 @@ class MatCommonModule {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !(/** @type {?} */ (this._window))['Hammer'] && !this._hammerLoader) {
+        if (this._areChecksEnabled() && !((/** @type {?} */ (this._window)))['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -172,7 +177,7 @@ MatCommonModule.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -203,7 +208,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `color` property.
@@ -248,7 +253,7 @@ function mixinColor(base, defaultColor) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disableRipple` property.
@@ -280,7 +285,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -315,7 +320,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with updateErrorState method.
@@ -352,7 +357,7 @@ function mixinErrorState(base) {
             /** @type {?} */
             const matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
             /** @type {?} */
-            const control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
+            const control = this.ngControl ? (/** @type {?} */ (this.ngControl.control)) : null;
             /** @type {?} */
             const newState = matcher.isErrorState(control, parent);
             if (newState !== oldState) {
@@ -365,7 +370,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
@@ -401,7 +406,7 @@ function mixinInitialized(base) {
                     this._notifySubscriber(subscriber);
                 }
                 else {
-                    /** @type {?} */ ((this._pendingSubscribers)).push(subscriber);
+                    (/** @type {?} */ (this._pendingSubscribers)).push(subscriber);
                 }
             });
         }
@@ -416,8 +421,8 @@ function mixinInitialized(base) {
                 throw Error('This directive has already been marked as initialized and ' +
                     'should not be called twice.');
             }
-            this._isInitialized = true; /** @type {?} */
-            ((this._pendingSubscribers)).forEach(this._notifySubscriber);
+            this._isInitialized = true;
+            (/** @type {?} */ (this._pendingSubscribers)).forEach(this._notifySubscriber);
             this._pendingSubscribers = null;
         }
         /**
@@ -434,16 +439,17 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * InjectionToken for datepicker that can be used to override default locale code.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
     factory: MAT_DATE_LOCALE_FACTORY,
@@ -455,12 +461,13 @@ const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
 function MAT_DATE_LOCALE_FACTORY() {
     return inject(LOCALE_ID);
 }
-/** *
+/**
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
  * \@breaking-change 8.0.0
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
@@ -556,22 +563,25 @@ class DateAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+// TODO(mmalerba): Remove when we no longer support safari 9.
+/**
  * Whether the browser supports the Intl API.
-  @type {?} */
+ * @type {?}
+ */
 const SUPPORTS_INTL_API = typeof Intl != 'undefined';
-/** *
+/**
  * The default month names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 const DEFAULT_MONTH_NAMES = {
     'long': [
         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -581,23 +591,26 @@ const DEFAULT_MONTH_NAMES = {
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
 const ɵ0 = i => String(i + 1);
-/** *
+/**
  * The default date names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 const DEFAULT_DATE_NAMES = range(31, ɵ0);
-/** *
+/**
  * The default day of the week names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 const DEFAULT_DAY_OF_WEEK_NAMES = {
     'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 };
-/** *
+/**
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
-  @type {?} */
+ * @type {?}
+ */
 const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
@@ -891,6 +904,7 @@ class NativeDateAdapter extends DateAdapter {
     }
     /**
      * Creates a date but allows the month and date to overflow.
+     * @private
      * @param {?} year
      * @param {?} month
      * @param {?} date
@@ -908,6 +922,7 @@ class NativeDateAdapter extends DateAdapter {
     }
     /**
      * Pads a number to make it two digits.
+     * @private
      * @param {?} n The number to pad.
      * @return {?} The padded number.
      */
@@ -918,6 +933,7 @@ class NativeDateAdapter extends DateAdapter {
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
      * date parsing.
+     * @private
      * @param {?} str The string to strip direction characters from.
      * @return {?} The stripped string.
      */
@@ -930,6 +946,7 @@ class NativeDateAdapter extends DateAdapter {
      * very frequently, and the current valid rule is not always valid in previous years though.
      * We work around this problem building a new Date object which has its internal UTC
      * representation with the local date and time.
+     * @private
      * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
      *    timeZone set to 'utc' to work fine.
      * @param {?} date Date from which we want to get the string representation according to dtf
@@ -952,7 +969,7 @@ NativeDateAdapter.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @type {?} */
@@ -970,7 +987,7 @@ const MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NativeDateModule {
 }
@@ -994,7 +1011,7 @@ MatNativeDateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1032,12 +1049,18 @@ ErrorStateMatcher.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
 /** @type {?} */
 const ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
@@ -1049,10 +1072,11 @@ const ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'slideleft'
 ];
 const ɵ0$2 = () => { }, ɵ1 = () => { };
-/** *
+/**
  * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
  * been loaded on the page.
-  @type {?} */
+ * @type {?}
+ */
 const noopHammerInstance = {
     on: ɵ0$2,
     off: ɵ1,
@@ -1091,7 +1115,7 @@ class GestureConfig extends HammerGestureConfig {
      */
     buildHammer(element) {
         /** @type {?} */
-        const hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        const hammer = typeof window !== 'undefined' ? ((/** @type {?} */ (window))).Hammer : null;
         if (!hammer) {
             // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
             // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
@@ -1105,12 +1129,16 @@ class GestureConfig extends HammerGestureConfig {
         }
         /** @type {?} */
         const mc = new hammer(element, this._hammerOptions || undefined);
+        // Default Hammer Recognizers.
         /** @type {?} */
         const pan = new hammer.Pan();
         /** @type {?} */
         const swipe = new hammer.Swipe();
         /** @type {?} */
         const press = new hammer.Press();
+        // Notice that a HammerJS recognizer can only depend on one other recognizer once.
+        // Otherwise the previous `recognizeWith` will be dropped.
+        // TODO: Confirm threshold numbers with Material Design UX Team
         /** @type {?} */
         const slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
         /** @type {?} */
@@ -1125,10 +1153,11 @@ class GestureConfig extends HammerGestureConfig {
         longpress.recognizeWith(slide);
         // Add customized gestures to Hammer manager
         mc.add([swipe, press, pan, slide, longpress]);
-        return /** @type {?} */ (mc);
+        return (/** @type {?} */ (mc));
     }
     /**
      * Creates a new recognizer, without affecting the default recognizers of HammerJS
+     * @private
      * @param {?} base
      * @param {?} options
      * @param {...?} inheritances
@@ -1136,7 +1165,7 @@ class GestureConfig extends HammerGestureConfig {
      */
     _createRecognizer(base, options, ...inheritances) {
         /** @type {?} */
-        let recognizer = new (/** @type {?} */ (base.constructor))(options);
+        let recognizer = new ((/** @type {?} */ (base.constructor)))(options);
         inheritances.push(base);
         inheritances.forEach(item => recognizer.recognizeWith(item));
         return recognizer;
@@ -1153,7 +1182,7 @@ GestureConfig.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1229,11 +1258,11 @@ MatLineModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @enum {number} */
-var RippleState = {
+const RippleState = {
     FADING_IN: 0, VISIBLE: 1, FADING_OUT: 2, HIDDEN: 3,
 };
 RippleState[RippleState.FADING_IN] = 'FADING_IN';
@@ -1269,24 +1298,27 @@ class RippleRef {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
-  @type {?} */
+ * @type {?}
+ */
 const defaultRippleAnimationConfig = {
     enterDuration: 450,
     exitDuration: 400
 };
-/** *
+/**
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
  * events to avoid synthetic mouse events.
-  @type {?} */
+ * @type {?}
+ */
 const ignoreMouseEventsTimeout = 800;
-/** *
+/**
  * Options that apply to all the event listeners that are bound by the ripple renderer.
-  @type {?} */
+ * @type {?}
+ */
 const passiveEventOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
@@ -1321,6 +1353,8 @@ class RippleRenderer {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = (event) => {
+            // Screen readers will fire fake mouse events for space/enter. Skip launching a
+            // ripple in this case for consistency with the non-screen-reader experience.
             /** @type {?} */
             const isFakeMousedown = isFakeMousedownFromScreenReader(event);
             /** @type {?} */
@@ -1341,6 +1375,8 @@ class RippleRenderer {
                 // time after a touchstart event.
                 this._lastTouchStartEvent = Date.now();
                 this._isPointerDown = true;
+                // Use `changedTouches` so we skip any touches where the user put
+                // their finger down, but used another finger to tap the element again.
                 /** @type {?} */
                 const touches = event.changedTouches;
                 for (let i = 0; i < touches.length; i++) {
@@ -1358,6 +1394,8 @@ class RippleRenderer {
             this._isPointerDown = false;
             // Fade-out all ripples that are visible and not persistent.
             this._activeRipples.forEach(ripple => {
+                // By default, only ripples that are completely visible will fade out on pointer release.
+                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
                 /** @type {?} */
                 const isVisible = ripple.state === RippleState.VISIBLE ||
                     ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
@@ -1419,6 +1457,7 @@ class RippleRenderer {
         // ripple elements. This is critical because then the `scale` would not animate properly.
         enforceStyleRecalculation(ripple);
         ripple.style.transform = 'scale(1)';
+        // Exposed reference to the ripple that will be returned.
         /** @type {?} */
         const rippleRef = new RippleRef(this, ripple, config);
         rippleRef.state = RippleState.FADING_IN;
@@ -1458,7 +1497,7 @@ class RippleRenderer {
         if (!this._activeRipples.size) {
             this._containerRect = null;
         }
-        // For ripples that are not active anymore, don't re-un the fade-out animation.
+        // For ripples that are not active anymore, don't re-run the fade-out animation.
         if (!wasActive) {
             return;
         }
@@ -1471,8 +1510,8 @@ class RippleRenderer {
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(() => {
-            rippleRef.state = RippleState.HIDDEN; /** @type {?} */
-            ((rippleEl.parentNode)).removeChild(rippleEl);
+            rippleRef.state = RippleState.HIDDEN;
+            (/** @type {?} */ (rippleEl.parentNode)).removeChild(rippleEl);
         }, animationConfig.exitDuration);
     }
     /**
@@ -1502,6 +1541,7 @@ class RippleRenderer {
     }
     /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
+     * @private
      * @param {?} fn
      * @param {?=} delay
      * @return {?}
@@ -1516,7 +1556,7 @@ class RippleRenderer {
     _removeTriggerEvents() {
         if (this._triggerElement) {
             this._triggerEvents.forEach((fn, type) => {
-                /** @type {?} */ ((this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
+                (/** @type {?} */ (this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
             });
         }
     }
@@ -1549,11 +1589,12 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify the global ripple options.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
 class MatRipple {
     /**
@@ -1654,6 +1695,7 @@ class MatRipple {
     }
     /**
      * Sets up the the trigger event listeners if ripples are enabled.
+     * @private
      * @return {?}
      */
     _setupTriggerEventsIfEnabled() {
@@ -1707,7 +1749,7 @@ MatRipple.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatRippleModule {
 }
@@ -1721,7 +1763,7 @@ MatRippleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -1778,7 +1820,7 @@ MatPseudoCheckbox.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatPseudoCheckboxModule {
 }
@@ -1791,8 +1833,9 @@ MatPseudoCheckboxModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatOptgroup.
 /**
  * \@docs-private
  */
@@ -1800,6 +1843,7 @@ class MatOptgroupBase {
 }
 /** @type {?} */
 const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+// Counter for unique group ids.
 /** @type {?} */
 let _uniqueOptgroupIdCounter = 0;
 /**
@@ -1837,12 +1881,13 @@ MatOptgroup.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
-  @type {?} */
+ * @type {?}
+ */
 let _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
@@ -1857,9 +1902,10 @@ class MatOptionSelectionChange {
         this.isUserInput = isUserInput;
     }
 }
-/** *
+/**
  * Injection token used to provide the parent component to options.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 /**
  * Single option inside of a `<mat-select>` element.
@@ -1887,6 +1933,7 @@ class MatOption {
         /**
          * Event emitted when the option is selected or deselected.
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onSelectionChange = new EventEmitter();
         /**
          * Emits when the state of the option changes and any parents have to be notified.
@@ -2065,6 +2112,7 @@ class MatOption {
     }
     /**
      * Emits the selection change event.
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
@@ -2156,7 +2204,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatOptionModule {
 }
@@ -2170,87 +2218,58 @@ MatOptionModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * InjectionToken that can be used to specify the global label options.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/** *
+/**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+ * \@docs-private
+ * \@breaking-change 8.0.0 Remove this with V8 since it was only targeted for testing.
+ * @type {?}
+ */
 const JAN = 0;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const FEB = 1;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const MAR = 2;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const APR = 3;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const MAY = 4;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const JUN = 5;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const JUL = 6;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const AUG = 7;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const SEP = 8;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const OCT = 9;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const NOV = 10;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 const DEC = 11;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };

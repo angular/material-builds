@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
@@ -66,7 +66,7 @@ var MatTreeNodeOutlet = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var _MatTreeNodeMixinBase = core$1.mixinTabIndex(core$1.mixinDisabled(tree.CdkTreeNode));
@@ -151,10 +151,17 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
     // This is a workaround for https://github.com/angular/angular/issues/23091
     // In aot mode, the lifecycle hooks from parent class are not called.
     // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
     /**
      * @return {?}
      */
-    MatNestedTreeNode.prototype.ngAfterContentInit = /**
+    MatNestedTreeNode.prototype.ngAfterContentInit = 
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    /**
      * @return {?}
      */
     function () {
@@ -201,7 +208,7 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
@@ -227,7 +234,7 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -260,7 +267,7 @@ var MatTree = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
@@ -290,7 +297,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_TREE_DIRECTIVES = [
@@ -317,7 +324,7 @@ var MatTreeModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -600,7 +607,7 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Data source for nested tree.

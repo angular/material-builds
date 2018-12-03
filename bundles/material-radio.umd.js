@@ -42,15 +42,17 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Increasing integer for generating unique ids for radio components.
 /** @type {?} */
 var nextUniqueId = 0;
-/** *
+/**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatRadioGroup; }),
@@ -69,10 +71,13 @@ MatRadioChange = /** @class */ (function () {
     }
     return MatRadioChange;
 }());
+// Boilerplate for applying mixins to MatRadioGroup.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatRadioGroup.
+/**
  * \@docs-private
  */
 MatRadioGroupBase = /** @class */ (function () {
@@ -313,9 +318,11 @@ var MatRadioGroup = /** @class */ (function (_super) {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatRadioGroup.prototype._updateRadioButtonNames = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -326,16 +333,20 @@ var MatRadioGroup = /** @class */ (function (_super) {
             });
         }
     };
+    /** Updates the `selected` radio button from the internal _value state. */
     /**
      * Updates the `selected` radio button from the internal _value state.
+     * @private
      * @return {?}
      */
     MatRadioGroup.prototype._updateSelectedRadioFromValue = /**
      * Updates the `selected` radio button from the internal _value state.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
+        // If the value already matches the selected radio, do nothing.
         /** @type {?} */
         var isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
@@ -359,7 +370,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
      */
     function () {
         if (this._isInitialized) {
-            this.change.emit(new MatRadioChange(/** @type {?} */ ((this._selected)), this._value));
+            this.change.emit(new MatRadioChange((/** @type {?} */ (this._selected)), this._value));
         }
     };
     /**
@@ -477,10 +488,13 @@ var MatRadioGroup = /** @class */ (function (_super) {
     };
     return MatRadioGroup;
 }(_MatRadioGroupMixinBase));
+// Boilerplate for applying mixins to MatRadioButton.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatRadioButton.
+/**
  * \@docs-private
  */
 MatRadioButtonBase = /** @class */ (function () {
@@ -489,6 +503,8 @@ MatRadioButtonBase = /** @class */ (function () {
     }
     return MatRadioButtonBase;
 }());
+// As per Material design specifications the selection control radio should use the accent color
+// palette by default. https://material.io/guidelines/components/selection-controls.html
 /** @type {?} */
 var _MatRadioButtonMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
@@ -744,12 +760,15 @@ var MatRadioButton = /** @class */ (function (_super) {
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._removeUniqueSelectionListener();
     };
+    /** Dispatch change event with current value. */
     /**
      * Dispatch change event with current value.
+     * @private
      * @return {?}
      */
     MatRadioButton.prototype._emitChangeEvent = /**
      * Dispatch change event with current value.
+     * @private
      * @return {?}
      */
     function () {
@@ -865,7 +884,7 @@ var MatRadioButton = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatRadioModule = /** @class */ (function () {
     function MatRadioModule() {

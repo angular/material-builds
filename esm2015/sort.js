@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -50,8 +50,9 @@ function getSortInvalidDirectionError(direction) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatSort.
 /**
  * \@docs-private
  */
@@ -158,10 +159,12 @@ class MatSort extends _MatSortMixinBase {
         if (!sortable) {
             return '';
         }
+        // Get the sort direction cycle with the potential sortable overrides.
         /** @type {?} */
         const disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
         /** @type {?} */
         let sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
+        // Get and return the next direction in the cycle
         /** @type {?} */
         let nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
         if (nextDirectionIndex >= sortDirectionCycle.length) {
@@ -222,36 +225,45 @@ function getSortDirectionCycle(start, disableClear) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
-/** *
+/**
  * Animations used by MatSort.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matSortAnimations = {
-    /** Animation that moves the sort indicator. */
+    /**
+     * Animation that moves the sort indicator.
+     */
     indicator: trigger('indicator', [
         state('active-asc, asc', style({ transform: 'translateY(0px)' })),
         // 10px is the height of the sort indicator, minus the width of the pointers
         state('active-desc, desc', style({ transform: 'translateY(10px)' })),
         transition('active-asc <=> active-desc', animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
+    /**
+     * Animation that rotates the left pointer of the indicator based on the sorting direction.
+     */
     leftPointer: trigger('leftPointer', [
         state('active-asc, asc', style({ transform: 'rotate(-45deg)' })),
         state('active-desc, desc', style({ transform: 'rotate(45deg)' })),
         transition('active-asc <=> active-desc', animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
+    /**
+     * Animation that rotates the right pointer of the indicator based on the sorting direction.
+     */
     rightPointer: trigger('rightPointer', [
         state('active-asc, asc', style({ transform: 'rotate(45deg)' })),
         state('active-desc, desc', style({ transform: 'rotate(-45deg)' })),
         transition('active-asc <=> active-desc', animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that controls the arrow opacity. */
+    /**
+     * Animation that controls the arrow opacity.
+     */
     arrowOpacity: trigger('arrowOpacity', [
         state('desc-to-active, asc-to-active, active', style({ opacity: 1 })),
         state('desc-to-hint, asc-to-hint, hint', style({ opacity: .54 })),
@@ -261,12 +273,12 @@ const matSortAnimations = {
         transition('* <=> *', animate(SORT_ANIMATION_TRANSITION)),
     ]),
     /**
-       * Animation for the translation of the arrow as a whole. States are separated into two
-       * groups: ones with animations and others that are immediate. Immediate states are asc, desc,
-       * peek, and active. The other states define a specific animation (source-to-destination)
-       * and are determined as a function of their prev user-perceived state and what the next state
-       * should be.
-       */
+     * Animation for the translation of the arrow as a whole. States are separated into two
+     * groups: ones with animations and others that are immediate. Immediate states are asc, desc,
+     * peek, and active. The other states define a specific animation (source-to-destination)
+     * and are determined as a function of their prev user-perceived state and what the next state
+     * should be.
+     */
     arrowPosition: trigger('arrowPosition', [
         // Hidden Above => Hint Center
         transition('* => desc-to-hint, * => desc-to-active', animate(SORT_ANIMATION_TRANSITION, keyframes([
@@ -292,7 +304,9 @@ const matSortAnimations = {
         state('hint-to-desc, active-to-desc, desc', style({ transform: 'translateY(-25%)' })),
         state('hint-to-asc, active-to-asc, asc', style({ transform: 'translateY(25%)' })),
     ]),
-    /** Necessary trigger that calls animate on children animations. */
+    /**
+     * Necessary trigger that calls animate on children animations.
+     */
     allowChildren: trigger('allowChildren', [
         transition('* <=> *', [
             query('@*', animateChild(), { optional: true })
@@ -302,7 +316,7 @@ const matSortAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -335,9 +349,10 @@ MatSortHeaderIntl.decorators = [
 function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatSortHeaderIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
@@ -347,8 +362,9 @@ const MAT_SORT_HEADER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to the sort header.
 /**
  * \@docs-private
  */
@@ -493,6 +509,8 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
         if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
             this._disableViewStateAnimation = true;
         }
+        // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
+        // the direction it is facing.
         /** @type {?} */
         const viewState = this._isSorted() ?
             { fromState: this._arrowDirection, toState: 'active' } :
@@ -602,7 +620,7 @@ MatSortHeader.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSortModule {
 }
@@ -617,12 +635,17 @@ MatSortModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations };

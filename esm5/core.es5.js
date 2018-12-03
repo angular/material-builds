@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -49,11 +49,12 @@ var AnimationDurations = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that configures whether the Material sanity checks are enabled.
-  @type {?} */
+ * @type {?}
+ */
 var MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
     factory: MATERIAL_SANITY_CHECKS_FACTORY,
@@ -97,34 +98,42 @@ var MatCommonModule = /** @class */ (function () {
             this._hasDoneGlobalChecks = true;
         }
     }
+    /** Whether any sanity checks are enabled */
     /**
      * Whether any sanity checks are enabled
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._areChecksEnabled = /**
      * Whether any sanity checks are enabled
+     * @private
      * @return {?}
      */
     function () {
         return this._sanityChecksEnabled && isDevMode() && !this._isTestEnv();
     };
+    /** Whether the code is running in tests. */
     /**
      * Whether the code is running in tests.
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._isTestEnv = /**
      * Whether the code is running in tests.
+     * @private
      * @return {?}
      */
     function () {
         /** @type {?} */
-        var window = /** @type {?} */ (this._window);
+        var window = (/** @type {?} */ (this._window));
         return window && (window.__karma__ || window.jasmine);
     };
     /**
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctypeIsDefined = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -134,9 +143,11 @@ var MatCommonModule = /** @class */ (function () {
         }
     };
     /**
+     * @private
      * @return {?}
      */
     MatCommonModule.prototype._checkThemeIsPresent = /**
+     * @private
      * @return {?}
      */
     function () {
@@ -174,7 +185,7 @@ var MatCommonModule = /** @class */ (function () {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !(/** @type {?} */ (this._window))['Hammer'] && !this._hammerLoader) {
+        if (this._areChecksEnabled() && !((/** @type {?} */ (this._window)))['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -195,7 +206,7 @@ var MatCommonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -234,7 +245,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `color` property.
@@ -287,7 +298,7 @@ function mixinColor(base, defaultColor) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disableRipple` property.
@@ -328,7 +339,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -372,7 +383,7 @@ function mixinTabIndex(base, defaultTabIndex) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with updateErrorState method.
@@ -415,7 +426,7 @@ function mixinErrorState(base) {
             /** @type {?} */
             var matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
             /** @type {?} */
-            var control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
+            var control = this.ngControl ? (/** @type {?} */ (this.ngControl.control)) : null;
             /** @type {?} */
             var newState = matcher.isErrorState(control, parent);
             if (newState !== oldState) {
@@ -429,7 +440,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
@@ -467,7 +478,7 @@ function mixinInitialized(base) {
                     _this._notifySubscriber(subscriber);
                 }
                 else {
-                    /** @type {?} */ ((_this._pendingSubscribers)).push(subscriber);
+                    (/** @type {?} */ (_this._pendingSubscribers)).push(subscriber);
                 }
             });
             return _this;
@@ -494,8 +505,8 @@ function mixinInitialized(base) {
                 throw Error('This directive has already been marked as initialized and ' +
                     'should not be called twice.');
             }
-            this._isInitialized = true; /** @type {?} */
-            ((this._pendingSubscribers)).forEach(this._notifySubscriber);
+            this._isInitialized = true;
+            (/** @type {?} */ (this._pendingSubscribers)).forEach(this._notifySubscriber);
             this._pendingSubscribers = null;
         };
         /** Emits and completes the subscriber stream (should only emit once). */
@@ -519,16 +530,17 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * InjectionToken for datepicker that can be used to override default locale code.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
     factory: MAT_DATE_LOCALE_FACTORY,
@@ -540,12 +552,13 @@ var MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
 function MAT_DATE_LOCALE_FACTORY() {
     return inject(LOCALE_ID);
 }
-/** *
+/**
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
  * \@breaking-change 8.0.0
-  @type {?} */
+ * @type {?}
+ */
 var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
@@ -729,22 +742,25 @@ DateAdapter = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+// TODO(mmalerba): Remove when we no longer support safari 9.
+/**
  * Whether the browser supports the Intl API.
-  @type {?} */
+ * @type {?}
+ */
 var SUPPORTS_INTL_API = typeof Intl != 'undefined';
-/** *
+/**
  * The default month names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_MONTH_NAMES = {
     'long': [
         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -754,23 +770,26 @@ var DEFAULT_MONTH_NAMES = {
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
 var ɵ0 = function (i) { return String(i + 1); };
-/** *
+/**
  * The default date names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_DATE_NAMES = range(31, ɵ0);
-/** *
+/**
  * The default day of the week names to use if Intl API is not available.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_DAY_OF_WEEK_NAMES = {
     'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 };
-/** *
+/**
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
-  @type {?} */
+ * @type {?}
+ */
 var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
@@ -1167,8 +1186,10 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function () {
         return new Date(NaN);
     };
+    /** Creates a date but allows the month and date to overflow. */
     /**
      * Creates a date but allows the month and date to overflow.
+     * @private
      * @param {?} year
      * @param {?} month
      * @param {?} date
@@ -1176,6 +1197,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      */
     NativeDateAdapter.prototype._createDateWithOverflow = /**
      * Creates a date but allows the month and date to overflow.
+     * @private
      * @param {?} year
      * @param {?} month
      * @param {?} date
@@ -1193,11 +1215,18 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     };
     /**
      * Pads a number to make it two digits.
+     * @param n The number to pad.
+     * @returns The padded number.
+     */
+    /**
+     * Pads a number to make it two digits.
+     * @private
      * @param {?} n The number to pad.
      * @return {?} The padded number.
      */
     NativeDateAdapter.prototype._2digit = /**
      * Pads a number to make it two digits.
+     * @private
      * @param {?} n The number to pad.
      * @return {?} The padded number.
      */
@@ -1208,6 +1237,14 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
      * date parsing.
+     * @param str The string to strip direction characters from.
+     * @returns The stripped string.
+     */
+    /**
+     * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
+     * other browsers do not. We remove them to make output consistent and because they interfere with
+     * date parsing.
+     * @private
      * @param {?} str The string to strip direction characters from.
      * @return {?} The stripped string.
      */
@@ -1215,6 +1252,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
      * date parsing.
+     * @private
      * @param {?} str The string to strip direction characters from.
      * @return {?} The stripped string.
      */
@@ -1227,6 +1265,18 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * very frequently, and the current valid rule is not always valid in previous years though.
      * We work around this problem building a new Date object which has its internal UTC
      * representation with the local date and time.
+     * @param dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param date Date from which we want to get the string representation according to dtf
+     * @returns A Date object with its UTC representation based on the passed in date info
+     */
+    /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @private
      * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
      *    timeZone set to 'utc' to work fine.
      * @param {?} date Date from which we want to get the string representation according to dtf
@@ -1238,6 +1288,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * very frequently, and the current valid rule is not always valid in previous years though.
      * We work around this problem building a new Date object which has its internal UTC
      * representation with the local date and time.
+     * @private
      * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
      *    timeZone set to 'utc' to work fine.
      * @param {?} date Date from which we want to get the string representation according to dtf
@@ -1261,7 +1312,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @type {?} */
@@ -1279,7 +1330,7 @@ var MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var NativeDateModule = /** @class */ (function () {
     function NativeDateModule() {
@@ -1309,7 +1360,7 @@ var MatNativeDateModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1363,12 +1414,18 @@ var ErrorStateMatcher = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
 /** @type {?} */
 var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
@@ -1380,10 +1437,11 @@ var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'slideleft'
 ];
 var ɵ0$2 = function () { }, ɵ1 = function () { };
-/** *
+/**
  * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
  * been loaded on the page.
-  @type {?} */
+ * @type {?}
+ */
 var noopHammerInstance = {
     on: ɵ0$2,
     off: ɵ1,
@@ -1446,7 +1504,7 @@ var GestureConfig = /** @class */ (function (_super) {
      */
     function (element) {
         /** @type {?} */
-        var hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        var hammer = typeof window !== 'undefined' ? ((/** @type {?} */ (window))).Hammer : null;
         if (!hammer) {
             // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
             // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
@@ -1460,12 +1518,16 @@ var GestureConfig = /** @class */ (function (_super) {
         }
         /** @type {?} */
         var mc = new hammer(element, this._hammerOptions || undefined);
+        // Default Hammer Recognizers.
         /** @type {?} */
         var pan = new hammer.Pan();
         /** @type {?} */
         var swipe = new hammer.Swipe();
         /** @type {?} */
         var press = new hammer.Press();
+        // Notice that a HammerJS recognizer can only depend on one other recognizer once.
+        // Otherwise the previous `recognizeWith` will be dropped.
+        // TODO: Confirm threshold numbers with Material Design UX Team
         /** @type {?} */
         var slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
         /** @type {?} */
@@ -1480,10 +1542,12 @@ var GestureConfig = /** @class */ (function (_super) {
         longpress.recognizeWith(slide);
         // Add customized gestures to Hammer manager
         mc.add([swipe, press, pan, slide, longpress]);
-        return /** @type {?} */ (mc);
+        return (/** @type {?} */ (mc));
     };
+    /** Creates a new recognizer, without affecting the default recognizers of HammerJS */
     /**
      * Creates a new recognizer, without affecting the default recognizers of HammerJS
+     * @private
      * @param {?} base
      * @param {?} options
      * @param {...?} inheritances
@@ -1491,6 +1555,7 @@ var GestureConfig = /** @class */ (function (_super) {
      */
     GestureConfig.prototype._createRecognizer = /**
      * Creates a new recognizer, without affecting the default recognizers of HammerJS
+     * @private
      * @param {?} base
      * @param {?} options
      * @param {...?} inheritances
@@ -1502,7 +1567,7 @@ var GestureConfig = /** @class */ (function (_super) {
             inheritances[_i - 2] = arguments[_i];
         }
         /** @type {?} */
-        var recognizer = new (/** @type {?} */ (base.constructor))(options);
+        var recognizer = new ((/** @type {?} */ (base.constructor)))(options);
         inheritances.push(base);
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
@@ -1520,7 +1585,7 @@ var GestureConfig = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1606,7 +1671,7 @@ var MatLineModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @enum {number} */
@@ -1650,24 +1715,27 @@ RippleRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
-  @type {?} */
+ * @type {?}
+ */
 var defaultRippleAnimationConfig = {
     enterDuration: 450,
     exitDuration: 400
 };
-/** *
+/**
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
  * events to avoid synthetic mouse events.
-  @type {?} */
+ * @type {?}
+ */
 var ignoreMouseEventsTimeout = 800;
-/** *
+/**
  * Options that apply to all the event listeners that are bound by the ripple renderer.
-  @type {?} */
+ * @type {?}
+ */
 var passiveEventOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
@@ -1704,6 +1772,8 @@ RippleRenderer = /** @class */ (function () {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = function (event) {
+            // Screen readers will fire fake mouse events for space/enter. Skip launching a
+            // ripple in this case for consistency with the non-screen-reader experience.
             /** @type {?} */
             var isFakeMousedown = isFakeMousedownFromScreenReader(event);
             /** @type {?} */
@@ -1724,6 +1794,8 @@ RippleRenderer = /** @class */ (function () {
                 // time after a touchstart event.
                 _this._lastTouchStartEvent = Date.now();
                 _this._isPointerDown = true;
+                // Use `changedTouches` so we skip any touches where the user put
+                // their finger down, but used another finger to tap the element again.
                 /** @type {?} */
                 var touches = event.changedTouches;
                 for (var i = 0; i < touches.length; i++) {
@@ -1741,6 +1813,8 @@ RippleRenderer = /** @class */ (function () {
             _this._isPointerDown = false;
             // Fade-out all ripples that are visible and not persistent.
             _this._activeRipples.forEach(function (ripple) {
+                // By default, only ripples that are completely visible will fade out on pointer release.
+                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
                 /** @type {?} */
                 var isVisible = ripple.state === RippleState.VISIBLE ||
                     ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
@@ -1817,6 +1891,7 @@ RippleRenderer = /** @class */ (function () {
         // ripple elements. This is critical because then the `scale` would not animate properly.
         enforceStyleRecalculation(ripple);
         ripple.style.transform = 'scale(1)';
+        // Exposed reference to the ripple that will be returned.
         /** @type {?} */
         var rippleRef = new RippleRef(this, ripple, config);
         rippleRef.state = RippleState.FADING_IN;
@@ -1862,7 +1937,7 @@ RippleRenderer = /** @class */ (function () {
         if (!this._activeRipples.size) {
             this._containerRect = null;
         }
-        // For ripples that are not active anymore, don't re-un the fade-out animation.
+        // For ripples that are not active anymore, don't re-run the fade-out animation.
         if (!wasActive) {
             return;
         }
@@ -1875,8 +1950,8 @@ RippleRenderer = /** @class */ (function () {
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(function () {
-            rippleRef.state = RippleState.HIDDEN; /** @type {?} */
-            ((rippleEl.parentNode)).removeChild(rippleEl);
+            rippleRef.state = RippleState.HIDDEN;
+            (/** @type {?} */ (rippleEl.parentNode)).removeChild(rippleEl);
         }, animationConfig.exitDuration);
     };
     /** Fades out all currently active ripples. */
@@ -1916,14 +1991,17 @@ RippleRenderer = /** @class */ (function () {
         });
         this._triggerElement = element;
     };
+    /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
     /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
+     * @private
      * @param {?} fn
      * @param {?=} delay
      * @return {?}
      */
     RippleRenderer.prototype.runTimeoutOutsideZone = /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
+     * @private
      * @param {?} fn
      * @param {?=} delay
      * @return {?}
@@ -1945,7 +2023,7 @@ RippleRenderer = /** @class */ (function () {
         var _this = this;
         if (this._triggerElement) {
             this._triggerEvents.forEach(function (fn, type) {
-                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
+                (/** @type {?} */ (_this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
             });
         }
     };
@@ -1979,11 +2057,12 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to specify the global ripple options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
     function MatRipple(_elementRef, ngZone, platform, globalOptions, animationMode) {
@@ -2118,12 +2197,15 @@ var MatRipple = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /** Sets up the the trigger event listeners if ripples are enabled. */
     /**
      * Sets up the the trigger event listeners if ripples are enabled.
+     * @private
      * @return {?}
      */
     MatRipple.prototype._setupTriggerEventsIfEnabled = /**
      * Sets up the the trigger event listeners if ripples are enabled.
+     * @private
      * @return {?}
      */
     function () {
@@ -2187,7 +2269,7 @@ var MatRipple = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatRippleModule = /** @class */ (function () {
     function MatRippleModule() {
@@ -2204,7 +2286,7 @@ var MatRippleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -2259,7 +2341,7 @@ var MatPseudoCheckbox = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatPseudoCheckboxModule = /** @class */ (function () {
     function MatPseudoCheckboxModule() {
@@ -2275,12 +2357,15 @@ var MatPseudoCheckboxModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatOptgroup.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatOptgroup.
+/**
  * \@docs-private
  */
 MatOptgroupBase = /** @class */ (function () {
@@ -2290,6 +2375,7 @@ MatOptgroupBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+// Counter for unique group ids.
 /** @type {?} */
 var _uniqueOptgroupIdCounter = 0;
 /**
@@ -2330,12 +2416,13 @@ var MatOptgroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
-  @type {?} */
+ * @type {?}
+ */
 var _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
@@ -2351,9 +2438,10 @@ MatOptionSelectionChange = /** @class */ (function () {
     }
     return MatOptionSelectionChange;
 }());
-/** *
+/**
  * Injection token used to provide the parent component to options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 /**
  * Single option inside of a `<mat-select>` element.
@@ -2375,6 +2463,7 @@ var MatOption = /** @class */ (function () {
         /**
          * Event emitted when the option is selected or deselected.
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onSelectionChange = new EventEmitter();
         /**
          * Emits when the state of the option changes and any parents have to be notified.
@@ -2662,13 +2751,16 @@ var MatOption = /** @class */ (function () {
     function () {
         this._stateChanges.complete();
     };
+    /** Emits the selection change event. */
     /**
      * Emits the selection change event.
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
     MatOption.prototype._emitSelectionChangeEvent = /**
      * Emits the selection change event.
+     * @private
      * @param {?=} isUserInput
      * @return {?}
      */
@@ -2762,7 +2854,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatOptionModule = /** @class */ (function () {
     function MatOptionModule() {
@@ -2779,87 +2871,58 @@ var MatOptionModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * InjectionToken that can be used to specify the global label options.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/** *
+/**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+ * \@docs-private
+ * \@breaking-change 8.0.0 Remove this with V8 since it was only targeted for testing.
+ * @type {?}
+ */
 var JAN = 0;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var FEB = 1;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var MAR = 2;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var APR = 3;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var MAY = 4;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var JUN = 5;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var JUL = 6;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var AUG = 7;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var SEP = 8;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var OCT = 9;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var NOV = 10;
-/** *
- * When constructing a Date, the month is zero-based. This can be confusing, since people are
- * used to seeing them one-based. So we create these aliases to make writing the tests easier.
-  @type {?} */
+/** @type {?} */
 var DEC = 11;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };

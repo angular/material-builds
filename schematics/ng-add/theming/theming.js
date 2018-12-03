@@ -8,26 +8,27 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
-const schematics_1 = require("@angular-devkit/schematics");
-const schematics_2 = require("@angular/cdk/schematics");
+const schematics_1 = require("@angular/cdk/schematics");
 const change_1 = require("@schematics/angular/utility/change");
 const config_1 = require("@schematics/angular/utility/config");
-const path_1 = require("path");
-const custom_theme_1 = require("./custom-theme");
 const chalk_1 = require("chalk");
+const path_1 = require("path");
+const create_custom_theme_1 = require("./create-custom-theme");
 /** Path segment that can be found in paths that refer to a prebuilt theme. */
 const prebuiltThemePathSegment = '@angular/material/prebuilt-themes';
 /** Default file name of the custom theme that can be generated. */
 const defaultCustomThemeFilename = 'custom-theme.scss';
+/** Object that maps a CLI target to its default builder name. */
+const defaultTargetBuilders = {
+    build: '@angular-devkit/build-angular:browser',
+    test: '@angular-devkit/build-angular:karma',
+};
 /** Add pre-built styles to the main project style file. */
 function addThemeToAppStyles(options) {
     return function (host) {
         const workspace = config_1.getWorkspace(host);
-        const project = schematics_2.getProjectFromWorkspace(workspace, options.project);
+        const project = schematics_1.getProjectFromWorkspace(workspace, options.project);
         const themeName = options.theme || 'indigo-pink';
-        // Because the build setup for the Angular CLI can be changed so dramatically, we can't know
-        // where to generate anything if the project is not using the default config for build and test.
-        assertDefaultBuildersConfigured(project);
         if (themeName === 'custom') {
             insertCustomTheme(project, options.project, host, workspace);
         }
@@ -43,8 +44,8 @@ exports.addThemeToAppStyles = addThemeToAppStyles;
  * Scss file for the custom theme will be created.
  */
 function insertCustomTheme(project, projectName, host, workspace) {
-    const stylesPath = schematics_2.getProjectStyleFile(project, 'scss');
-    const themeContent = custom_theme_1.createCustomTheme(projectName);
+    const stylesPath = schematics_1.getProjectStyleFile(project, 'scss');
+    const themeContent = create_custom_theme_1.createCustomTheme(projectName);
     if (!stylesPath) {
         if (!project.sourceRoot) {
             throw new Error(`Could not find source root for project: "${projectName}". Please make ` +
@@ -76,7 +77,11 @@ function insertPrebuiltTheme(project, host, theme, workspace) {
 }
 /** Adds a theming style entry to the given project target options. */
 function addThemeStyleToTarget(project, targetName, host, assetPath, workspace) {
-    const targetOptions = schematics_2.getProjectTargetOptions(project, targetName);
+    // Do not update the builder options in case the target does not use the default CLI builder.
+    if (!validateDefaultTargetBuilder(project, targetName)) {
+        return;
+    }
+    const targetOptions = schematics_1.getProjectTargetOptions(project, targetName);
     if (!targetOptions.styles) {
         targetOptions.styles = [assetPath];
     }
@@ -106,21 +111,31 @@ function addThemeStyleToTarget(project, targetName, host, assetPath, workspace) 
     }
     host.overwrite('angular.json', JSON.stringify(workspace, null, 2));
 }
-/** Throws if the project is not using the default Angular devkit builders. */
-function assertDefaultBuildersConfigured(project) {
-    checkProjectTargetBuilder(project, 'build', '@angular-devkit/build-angular:browser');
-    checkProjectTargetBuilder(project, 'test', '@angular-devkit/build-angular:karma');
-}
 /**
- * Checks if the specified project target is configured with the default builders which are
- * provided by the Angular CLI.
+ * Validates that the specified project target is configured with the default builders which are
+ * provided by the Angular CLI. If the configured builder does not match the default builder,
+ * this function can either throw or just show a warning.
  */
-function checkProjectTargetBuilder(project, targetName, defaultBuilder) {
+function validateDefaultTargetBuilder(project, targetName) {
+    const defaultBuilder = defaultTargetBuilders[targetName];
     const targetConfig = project.architect && project.architect[targetName] ||
         project.targets && project.targets[targetName];
-    if (!targetConfig || targetConfig['builder'] !== defaultBuilder) {
-        throw new schematics_1.SchematicsException(`Your project is not using the default builders for "${targetName}". The Angular Material ` +
-            'schematics can only be used if the original builders from the Angular CLI are configured.');
+    const isDefaultBuilder = targetConfig && targetConfig['builder'] === defaultBuilder;
+    // Because the build setup for the Angular CLI can be customized by developers, we can't know
+    // where to put the theme file in the workspace configuration if custom builders are being
+    // used. In case the builder has been changed for the "build" target, we throw an error and
+    // exit because setting up a theme is a primary goal of `ng-add`. Otherwise if just the "test"
+    // builder has been changed, we warn because a theme is not mandatory for running tests
+    // with Material. See: https://github.com/angular/material2/issues/14176
+    if (!isDefaultBuilder && targetName === 'build') {
+        throw new Error(`Your project is not using the default builders for "${targetName}". The ` +
+            `Angular Material schematics cannot add a theme to the workspace configuration if the ` +
+            `builder has been changed. Exiting..`);
     }
+    else if (!isDefaultBuilder) {
+        console.warn(`Your project is not using the default builders for "${targetName}". This ` +
+            `means that we cannot add the configured theme to the "${targetName}" target.`);
+    }
+    return isDefaultBuilder;
 }
 //# sourceMappingURL=theming.js.map

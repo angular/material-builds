@@ -40,4 +40,4 @@ $${name}-theme: mat-light-theme($${name}-primary, $${name}-accent, $${name}-warn
 `;
 }
 exports.createCustomTheme = createCustomTheme;
-//# sourceMappingURL=custom-theme.js.map
+//# sourceMappingURL=create-custom-theme.js.map

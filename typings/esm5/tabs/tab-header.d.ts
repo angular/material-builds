@@ -59,9 +59,11 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     private _scrollDistanceChanged;
     /** Used to manage focus between the tabs. */
     private _keyManager;
-    private _selectedIndex;
+    /** Cached text content of the header. */
+    private _currentTextContent;
     /** The index of the active tab. */
     selectedIndex: number;
+    private _selectedIndex;
     /** Event emitted when the option is selected. */
     readonly selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */

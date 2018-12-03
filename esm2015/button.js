@@ -14,16 +14,18 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
-  @type {?} */
+ * @type {?}
+ */
 const DEFAULT_ROUND_BUTTON_COLOR = 'accent';
-/** *
+/**
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
-  @type {?} */
+ * @type {?}
+ */
 const BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
@@ -33,6 +35,7 @@ const BUTTON_HOST_ATTRIBUTES = [
     'mat-mini-fab',
     'mat-fab',
 ];
+// Boilerplate for applying mixins to MatButton.
 /**
  * \@docs-private
  */
@@ -56,9 +59,7 @@ class MatButton extends _MatButtonMixinBase {
      * @param {?} _focusMonitor
      * @param {?=} _animationMode
      */
-    constructor(elementRef, _platform, _focusMonitor, 
-    // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
-    _animationMode) {
+    constructor(elementRef, _platform, _focusMonitor, _animationMode) {
         super(elementRef);
         this._platform = _platform;
         this._focusMonitor = _focusMonitor;
@@ -75,7 +76,7 @@ class MatButton extends _MatButtonMixinBase {
         // attributes, add the correct corresponding class.
         for (const attr of BUTTON_HOST_ATTRIBUTES) {
             if (this._hasHostAttributes(attr)) {
-                (/** @type {?} */ (elementRef.nativeElement)).classList.add(attr);
+                ((/** @type {?} */ (elementRef.nativeElement))).classList.add(attr);
             }
         }
         this._focusMonitor.monitor(this._elementRef, true);
@@ -204,7 +205,7 @@ MatAnchor.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatButtonModule {
 }
@@ -229,12 +230,12 @@ MatButtonModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatButtonModule, MatButtonBase, _MatButtonMixinBase, MatButton, MatAnchor };

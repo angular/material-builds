@@ -42,18 +42,20 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that can be used to configure the
  * default options for all button toggles within an app.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS');
-/** *
+/**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatButtonToggleGroup; }),
@@ -271,11 +273,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
         this._changeDetector.markForCheck();
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatButtonToggleGroup.prototype.registerOnChange = /**
+    MatButtonToggleGroup.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -283,11 +288,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
         this._controlValueAccessorChangeFn = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
      */
-    MatButtonToggleGroup.prototype.registerOnTouched = /**
+    MatButtonToggleGroup.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} fn
      * @return {?}
      */
@@ -295,11 +303,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
         this._onTouched = fn;
     };
     // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} isDisabled
      * @return {?}
      */
-    MatButtonToggleGroup.prototype.setDisabledState = /**
+    MatButtonToggleGroup.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
      * @param {?} isDisabled
      * @return {?}
      */
@@ -321,7 +332,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
         /** @type {?} */
         var source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
         /** @type {?} */
-        var event = new MatButtonToggleChange(/** @type {?} */ ((source)), this.value);
+        var event = new MatButtonToggleChange((/** @type {?} */ (source)), this.value);
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     };
@@ -350,7 +361,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
         // Deselect the currently-selected toggle, if we're in single-selection
         // mode and the button being toggled isn't selected at the moment.
         if (!this.multiple && this.selected && !toggle.checked) {
-            (/** @type {?} */ (this.selected)).checked = false;
+            ((/** @type {?} */ (this.selected))).checked = false;
         }
         if (select) {
             this._selectionModel.select(toggle);
@@ -400,13 +411,16 @@ var MatButtonToggleGroup = /** @class */ (function () {
         }
         return toggle.value === this._rawValue;
     };
+    /** Updates the selection state of the toggles in the group based on a value. */
     /**
      * Updates the selection state of the toggles in the group based on a value.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatButtonToggleGroup.prototype._setSelectionByValue = /**
      * Updates the selection state of the toggles in the group based on a value.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -428,25 +442,31 @@ var MatButtonToggleGroup = /** @class */ (function () {
             this._selectValue(value);
         }
     };
+    /** Clears the selected toggles. */
     /**
      * Clears the selected toggles.
+     * @private
      * @return {?}
      */
     MatButtonToggleGroup.prototype._clearSelection = /**
      * Clears the selected toggles.
+     * @private
      * @return {?}
      */
     function () {
         this._selectionModel.clear();
         this._buttonToggles.forEach(function (toggle) { return toggle.checked = false; });
     };
+    /** Selects a value if there's a toggle that corresponds to it. */
     /**
      * Selects a value if there's a toggle that corresponds to it.
+     * @private
      * @param {?} value
      * @return {?}
      */
     MatButtonToggleGroup.prototype._selectValue = /**
      * Selects a value if there's a toggle that corresponds to it.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -495,10 +515,13 @@ var MatButtonToggleGroup = /** @class */ (function () {
     };
     return MatButtonToggleGroup;
 }());
+// Boilerplate for applying mixins to the MatButtonToggle class.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to the MatButtonToggle class.
+/**
  * \@docs-private
  */
 MatButtonToggleBase = /** @class */ (function () {
@@ -744,7 +767,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonToggleModule = /** @class */ (function () {
     function MatButtonToggleModule() {

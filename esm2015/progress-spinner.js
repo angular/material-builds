@@ -14,18 +14,21 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Base reference size of the spinner.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const BASE_SIZE = 100;
-/** *
+/**
  * Base reference stroke width of the spinner.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const BASE_STROKE_WIDTH = 10;
+// Boilerplate for applying mixins to MatProgressSpinner.
 /**
  * \@docs-private
  */
@@ -39,9 +42,10 @@ class MatProgressSpinnerBase {
 }
 /** @type {?} */
 const _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
-/** *
+/**
  * Injection token to be used to override the default options for `mat-progress-spinner`.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
     providedIn: 'root',
     factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
@@ -53,6 +57,10 @@ const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-sp
 function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
     return { diameter: BASE_SIZE };
 }
+// .0001 percentage difference is necessary in order to avoid unwanted animation frames
+// for example because the animation duration is 4 seconds, .1% accounts to 4ms
+// which are enough to see the flicker described in
+// https://github.com/angular/material2/issues/8984
 /** @type {?} */
 const INDETERMINATE_ANIMATION_TEMPLATE = `
  @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {
@@ -88,9 +96,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @param {?=} animationMode
      * @param {?=} defaults
      */
-    constructor(_elementRef, platform, _document, 
-    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
-    animationMode, defaults) {
+    constructor(_elementRef, platform, _document, animationMode, defaults) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._document = _document;
@@ -116,6 +122,8 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
                 this.strokeWidth = defaults.strokeWidth;
             }
         }
+        // On IE and Edge, we can't animate the `stroke-dashoffset`
+        // reliably so we fall back to a non-spec animation.
         /** @type {?} */
         const animationClass = `mat-progress-spinner-indeterminate${this._fallbackAnimation ? '-fallback' : ''}-animation`;
         _elementRef.nativeElement.classList.add(animationClass);
@@ -209,6 +217,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
     }
     /**
      * Dynamically generates a style tag containing the correct animation for this diameter.
+     * @private
      * @return {?}
      */
     _attachStyleNode() {
@@ -220,12 +229,13 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
             MatProgressSpinner.styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
-            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText(), 0);
+            ((/** @type {?} */ (styleTag.sheet))).insertRule(this._getAnimationText(), 0);
         }
         MatProgressSpinner.diameters.add(this.diameter);
     }
     /**
      * Generates animation styles adjusted for the spinner's diameter.
+     * @private
      * @return {?}
      */
     _getAnimationText() {
@@ -329,7 +339,7 @@ MatSpinner.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatProgressSpinnerModule {
 }
@@ -350,12 +360,12 @@ MatProgressSpinnerModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatProgressSpinnerModule, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinner, MatSpinner };

@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -85,6 +85,7 @@ var MatPaginatorIntl = /** @class */ (function () {
             length = Math.max(length, 0);
             /** @type {?} */
             var startIndex = page * pageSize;
+            // If the start index exceeds the list length, do not try and fix the end index to the end.
             /** @type {?} */
             var endIndex = startIndex < length ?
                 Math.min(startIndex + pageSize, length) :
@@ -106,9 +107,10 @@ var MatPaginatorIntl = /** @class */ (function () {
 function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatPaginatorIntl();
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,
@@ -118,11 +120,12 @@ var MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * The default page size if there is no page size and there are no provided page size options.
-  @type {?} */
+ * @type {?}
+ */
 var DEFAULT_PAGE_SIZE = 50;
 /**
  * Change event object that is emitted when the user selects a
@@ -137,10 +140,13 @@ PageEvent = /** @class */ (function () {
     }
     return PageEvent;
 }());
+// Boilerplate for applying mixins to MatPaginator.
 /**
  * \@docs-private
  */
-var   /**
+var   
+// Boilerplate for applying mixins to MatPaginator.
+/**
  * \@docs-private
  */
 MatPaginatorBase = /** @class */ (function () {
@@ -443,6 +449,8 @@ var MatPaginator = /** @class */ (function (_super) {
      * @return {?}
      */
     function (pageSize) {
+        // Current page needs to be updated to reflect the new page size. Navigate to the page
+        // containing the previous page's first item.
         /** @type {?} */
         var startIndex = this.pageIndex * this.pageSize;
         /** @type {?} */
@@ -478,11 +486,17 @@ var MatPaginator = /** @class */ (function (_super) {
     /**
      * Updates the list of page size options to display to the user. Includes making sure that
      * the page size is an option and that the list is sorted.
+     */
+    /**
+     * Updates the list of page size options to display to the user. Includes making sure that
+     * the page size is an option and that the list is sorted.
+     * @private
      * @return {?}
      */
     MatPaginator.prototype._updateDisplayedPageSizeOptions = /**
      * Updates the list of page size options to display to the user. Includes making sure that
      * the page size is an option and that the list is sorted.
+     * @private
      * @return {?}
      */
     function () {
@@ -503,13 +517,16 @@ var MatPaginator = /** @class */ (function (_super) {
         this._displayedPageSizeOptions.sort(function (a, b) { return a - b; });
         this._changeDetectorRef.markForCheck();
     };
+    /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @private
      * @param {?} previousPageIndex
      * @return {?}
      */
     MatPaginator.prototype._emitPageEvent = /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @private
      * @param {?} previousPageIndex
      * @return {?}
      */
@@ -554,7 +571,7 @@ var MatPaginator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {

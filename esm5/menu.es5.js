@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, ContentChild, ContentChildren, EventEmitter, Input, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
+import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, ContentChild, ContentChildren, EventEmitter, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
@@ -22,7 +22,7 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Menu content that will be rendered lazily once the menu is opened.
@@ -66,12 +66,11 @@ var MatMenuContent = /** @class */ (function () {
             this._outlet = new DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
         }
         /** @type {?} */
-        var element = this._template.elementRef.nativeElement; /** @type {?} */
-        ((
+        var element = this._template.elementRef.nativeElement;
         // Because we support opening the same menu from different triggers (which in turn have their
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
         // risk it staying attached to a pane that's no longer in the DOM.
-        element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        (/** @type {?} */ (element.parentNode)).insertBefore(this._outlet.outletElement, element);
         this._portal.attach(this._outlet, context);
         this._attached.next();
     };
@@ -124,23 +123,24 @@ var MatMenuContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var matMenuAnimations = {
     /**
-       * This animation controls the menu panel's entry and exit from the page.
-       *
-       * When the menu panel is added to the DOM, it scales in and fades in its border.
-       *
-       * When the menu panel is removed from the DOM, it simply fades out after a brief
-       * delay to display the ripple.
-       */
+     * This animation controls the menu panel's entry and exit from the page.
+     *
+     * When the menu panel is added to the DOM, it scales in and fades in its border.
+     *
+     * When the menu panel is removed from the DOM, it simply fades out after a brief
+     * delay to display the ripple.
+     */
     transformMenu: trigger('transformMenu', [
         state('void', style({
             opacity: 0,
@@ -153,9 +153,9 @@ var matMenuAnimations = {
         transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 })))
     ]),
     /**
-       * This animation fades in the background color and content of the menu panel
-       * after its containing element is scaled in.
-       */
+     * This animation fades in the background color and content of the menu panel
+     * after its containing element is scaled in.
+     */
     fadeInItems: trigger('fadeInItems', [
         // TODO(crisbeto): this is inside the `transformMenu`
         // now. Remove next time we do breaking changes.
@@ -166,22 +166,24 @@ var matMenuAnimations = {
         ])
     ])
 };
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var fadeInItems = matMenuAnimations.fadeInItems;
-/** *
+/**
  * @deprecated
  * \@breaking-change 8.0.0
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -213,22 +215,26 @@ function throwMatMenuInvalidPositionY() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token used to provide the parent menu to menu-specific components.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Boilerplate for applying mixins to MatMenuItem.
 /**
  * \@docs-private
  */
-var  /**
+var  
+// Boilerplate for applying mixins to MatMenuItem.
+/**
  * \@docs-private
  */
 MatMenuItemBase = /** @class */ (function () {
@@ -251,6 +257,10 @@ var MatMenuItem = /** @class */ (function (_super) {
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
         _this._parentMenu = _parentMenu;
+        /**
+         * ARIA role for the menu item.
+         */
+        _this.role = 'menuitem';
         /**
          * Stream that emits when the menu item is hovered.
          */
@@ -398,7 +408,7 @@ var MatMenuItem = /** @class */ (function (_super) {
                     exportAs: 'matMenuItem',
                     inputs: ['disabled', 'disableRipple'],
                     host: {
-                        'role': 'menuitem',
+                        '[attr.role]': 'role',
                         'class': 'mat-menu-item',
                         '[class.mat-menu-item-highlighted]': '_highlighted',
                         '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
@@ -420,16 +430,20 @@ var MatMenuItem = /** @class */ (function (_super) {
         { type: FocusMonitor },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_PANEL,] }, { type: Optional }] }
     ]; };
+    MatMenuItem.propDecorators = {
+        role: [{ type: Input }]
+    };
     return MatMenuItem;
 }(_MatMenuItemMixinBase));
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token to be used to override the default options for `mat-menu`.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
     factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY
@@ -446,10 +460,11 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
         backdropClass: 'cdk-overlay-transparent-backdrop',
     };
 }
-/** *
+/**
  * Start elevation for the menu panel.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_BASE_ELEVATION = 4;
 var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
@@ -762,6 +777,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (depth) {
+        // The elevation starts at the base and increases by one for each level.
         /** @type {?} */
         var newElevation = "mat-elevation-z" + (MAT_MENU_BASE_ELEVATION + depth);
         /** @type {?} */
@@ -949,11 +965,12 @@ var MatMenu = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Injection token that determines the scroll handling while the menu is open.
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
@@ -963,22 +980,26 @@ var MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
 function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.reposition(); };
 }
-/** *
+/**
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 var MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 };
-/** *
+/**
  * Default top padding of the menu panel.
-  @type {?} */
+ * @type {?}
+ */
 var MENU_PANEL_TOP_PADDING = 8;
-/** *
+/**
  * Options for binding a passive event listener.
-  @type {?} */
+ * @type {?}
+ */
 var passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
+// TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -1015,6 +1036,7 @@ var MatMenuTrigger = /** @class */ (function () {
          * @deprecated Switch to `menuOpened` instead
          * \@breaking-change 8.0.0
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onMenuOpen = this.menuOpened;
         /**
          * Event emitted when the associated menu is closed.
@@ -1025,6 +1047,7 @@ var MatMenuTrigger = /** @class */ (function () {
          * @deprecated Switch to `menuClosed` instead
          * \@breaking-change 8.0.0
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onMenuClose = this.menuClosed;
         _element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         if (_menuItemInstance) {
@@ -1173,7 +1196,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this._checkMenu();
         /** @type {?} */
         var overlayRef = this._createOverlay();
-        this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
+        this._setPosition((/** @type {?} */ (overlayRef.getConfig().positionStrategy)));
         overlayRef.attach(this._getPortal());
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
@@ -1219,12 +1242,15 @@ var MatMenuTrigger = /** @class */ (function () {
             this._element.nativeElement.focus();
         }
     };
+    /** Closes the menu and does the necessary cleanup. */
     /**
      * Closes the menu and does the necessary cleanup.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._destroyMenu = /**
      * Closes the menu and does the necessary cleanup.
+     * @private
      * @return {?}
      */
     function () {
@@ -1244,7 +1270,7 @@ var MatMenuTrigger = /** @class */ (function () {
                     .pipe(filter(function (event) { return event.toState === 'void'; }), take(1), 
                 // Interrupt if the content got re-attached.
                 takeUntil(menu.lazyContent._attached))
-                    .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
+                    .subscribe(function () { return (/** @type {?} */ (menu.lazyContent)).detach(); }, undefined, function () {
                     // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
@@ -1263,11 +1289,17 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method sets the menu state to open and focuses the first item if
      * the menu was opened via the keyboard.
+     */
+    /**
+     * This method sets the menu state to open and focuses the first item if
+     * the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._initMenu = /**
      * This method sets the menu state to open and focuses the first item if
      * the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     function () {
@@ -1277,12 +1309,15 @@ var MatMenuTrigger = /** @class */ (function () {
         this._setIsMenuOpen(true);
         this.menu.focusFirstItem(this._openedBy || 'program');
     };
+    /** Updates the menu elevation based on the amount of parent menus that it has. */
     /**
      * Updates the menu elevation based on the amount of parent menus that it has.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._setMenuElevation = /**
      * Updates the menu elevation based on the amount of parent menus that it has.
+     * @private
      * @return {?}
      */
     function () {
@@ -1301,11 +1336,17 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.
+     */
+    /**
+     * This method resets the menu when it's closed, most importantly restoring
+     * focus to the menu trigger if the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._resetMenu = /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.
+     * @private
      * @return {?}
      */
     function () {
@@ -1323,11 +1364,17 @@ var MatMenuTrigger = /** @class */ (function () {
         }
         this._openedBy = null;
     };
+    // set state rather than toggle to support triggers sharing a menu
+    // set state rather than toggle to support triggers sharing a menu
     /**
+     * @private
      * @param {?} isOpen
      * @return {?}
      */
-    MatMenuTrigger.prototype._setIsMenuOpen = /**
+    MatMenuTrigger.prototype._setIsMenuOpen = 
+    // set state rather than toggle to support triggers sharing a menu
+    /**
+     * @private
      * @param {?} isOpen
      * @return {?}
      */
@@ -1341,11 +1388,17 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method checks that a valid instance of MatMenu has been passed into
      * matMenuTriggerFor. If not, an exception is thrown.
+     */
+    /**
+     * This method checks that a valid instance of MatMenu has been passed into
+     * matMenuTriggerFor. If not, an exception is thrown.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._checkMenu = /**
      * This method checks that a valid instance of MatMenu has been passed into
      * matMenuTriggerFor. If not, an exception is thrown.
+     * @private
      * @return {?}
      */
     function () {
@@ -1356,18 +1409,24 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * This method creates the overlay from the provided menu's template and saves its
      * OverlayRef so that it can be attached to the DOM when openMenu is called.
+     */
+    /**
+     * This method creates the overlay from the provided menu's template and saves its
+     * OverlayRef so that it can be attached to the DOM when openMenu is called.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._createOverlay = /**
      * This method creates the overlay from the provided menu's template and saves its
      * OverlayRef so that it can be attached to the DOM when openMenu is called.
+     * @private
      * @return {?}
      */
     function () {
         if (!this._overlayRef) {
             /** @type {?} */
             var config = this._getOverlayConfig();
-            this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
+            this._subscribeToPositions((/** @type {?} */ (config.positionStrategy)));
             this._overlayRef = this._overlay.create(config);
             // Consume the `keydownEvents` in order to prevent them from going to another overlay.
             // Ideally we'd also have our keyboard event logic in here, however doing so will
@@ -1378,10 +1437,16 @@ var MatMenuTrigger = /** @class */ (function () {
     };
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
+     * @returns OverlayConfig
+     */
+    /**
+     * This method builds the configuration object needed to create the overlay, the OverlayState.
+     * @private
      * @return {?} OverlayConfig
      */
     MatMenuTrigger.prototype._getOverlayConfig = /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
+     * @private
      * @return {?} OverlayConfig
      */
     function () {
@@ -1400,6 +1465,12 @@ var MatMenuTrigger = /** @class */ (function () {
      * Listens to changes in the position of the overlay and sets the correct classes
      * on the menu based on the new position. This ensures the animation origin is always
      * correct, even if a fallback position is used for the overlay.
+     */
+    /**
+     * Listens to changes in the position of the overlay and sets the correct classes
+     * on the menu based on the new position. This ensures the animation origin is always
+     * correct, even if a fallback position is used for the overlay.
+     * @private
      * @param {?} position
      * @return {?}
      */
@@ -1407,6 +1478,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * Listens to changes in the position of the overlay and sets the correct classes
      * on the menu based on the new position. This ensures the animation origin is always
      * correct, even if a fallback position is used for the overlay.
+     * @private
      * @param {?} position
      * @return {?}
      */
@@ -1417,20 +1489,27 @@ var MatMenuTrigger = /** @class */ (function () {
                 /** @type {?} */
                 var posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
                 /** @type {?} */
-                var posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
-                ((_this.menu.setPositionClasses))(posX, posY);
+                var posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
+                (/** @type {?} */ (_this.menu.setPositionClasses))(posX, posY);
             });
         }
     };
     /**
      * Sets the appropriate positions on a position strategy
      * so the overlay connects with the trigger correctly.
+     * @param positionStrategy Strategy whose position to update.
+     */
+    /**
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @private
      * @param {?} positionStrategy Strategy whose position to update.
      * @return {?}
      */
     MatMenuTrigger.prototype._setPosition = /**
      * Sets the appropriate positions on a position strategy
      * so the overlay connects with the trigger correctly.
+     * @private
      * @param {?} positionStrategy Strategy whose position to update.
      * @return {?}
      */
@@ -1471,32 +1550,38 @@ var MatMenuTrigger = /** @class */ (function () {
             }
         ]);
     };
+    /** Cleans up the active subscriptions. */
     /**
      * Cleans up the active subscriptions.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._cleanUpSubscriptions = /**
      * Cleans up the active subscriptions.
+     * @private
      * @return {?}
      */
     function () {
         this._closeSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
     };
+    /** Returns a stream that emits whenever an action that should close the menu occurs. */
     /**
      * Returns a stream that emits whenever an action that should close the menu occurs.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._menuClosingActions = /**
      * Returns a stream that emits whenever an action that should close the menu occurs.
+     * @private
      * @return {?}
      */
     function () {
         var _this = this;
         /** @type {?} */
-        var backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        var backdrop = (/** @type {?} */ (this._overlayRef)).backdropClick();
         /** @type {?} */
-        var detachments = /** @type {?} */ ((this._overlayRef)).detachments();
+        var detachments = (/** @type {?} */ (this._overlayRef)).detachments();
         /** @type {?} */
         var parentClose = this._parentMenu ? this._parentMenu.closed : of();
         /** @type {?} */
@@ -1567,12 +1652,15 @@ var MatMenuTrigger = /** @class */ (function () {
             this.toggleMenu();
         }
     };
+    /** Handles the cases where the user hovers over the trigger. */
     /**
      * Handles the cases where the user hovers over the trigger.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._handleHover = /**
      * Handles the cases where the user hovers over the trigger.
+     * @private
      * @return {?}
      */
     function () {
@@ -1603,12 +1691,15 @@ var MatMenuTrigger = /** @class */ (function () {
             }
         });
     };
+    /** Gets the portal that should be attached to the overlay. */
     /**
      * Gets the portal that should be attached to the overlay.
+     * @private
      * @return {?}
      */
     MatMenuTrigger.prototype._getPortal = /**
      * Gets the portal that should be attached to the overlay.
+     * @private
      * @return {?}
      */
     function () {
@@ -1658,7 +1749,7 @@ var MatMenuTrigger = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
@@ -1681,18 +1772,18 @@ var MatMenuModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
 //# sourceMappingURL=menu.es5.js.map

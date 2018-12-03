@@ -19,30 +19,35 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
-  @type {?} */
+ * @type {?}
+ */
 const MIN_AUTO_TICK_SEPARATION = 30;
-/** *
+/**
  * The thumb gap size for a disabled slider.
-  @type {?} */
+ * @type {?}
+ */
 const DISABLED_THUMB_GAP = 7;
-/** *
+/**
  * The thumb gap size for a non-active slider at its minimum value.
-  @type {?} */
+ * @type {?}
+ */
 const MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
-/** *
+/**
  * The thumb gap size for an active slider at its minimum value.
-  @type {?} */
+ * @type {?}
+ */
 const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
-/** *
+/**
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const MAT_SLIDER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlider),
@@ -53,6 +58,7 @@ const MAT_SLIDER_VALUE_ACCESSOR = {
  */
 class MatSliderChange {
 }
+// Boilerplate for applying mixins to MatSlider.
 /**
  * \@docs-private
  */
@@ -79,9 +85,7 @@ class MatSlider extends _MatSliderMixinBase {
      * @param {?} tabIndex
      * @param {?=} _animationMode
      */
-    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
-    // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
-    _animationMode) {
+    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
@@ -197,7 +201,7 @@ class MatSlider extends _MatSliderMixinBase {
     set step(v) {
         this._step = coerceNumberProperty(v, this._step);
         if (this._step % 1 !== 0) {
-            this._roundToDecimal = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
+            this._roundToDecimal = (/** @type {?} */ (this._step.toString().split('.').pop())).length;
         }
         // Since this could modify the label, we need to notify the change detection.
         this._changeDetectorRef.markForCheck();
@@ -227,7 +231,7 @@ class MatSlider extends _MatSliderMixinBase {
             this._tickInterval = 'auto';
         }
         else if (typeof value === 'number' || typeof value === 'string') {
-            this._tickInterval = coerceNumberProperty(value, /** @type {?} */ (this._tickInterval));
+            this._tickInterval = coerceNumberProperty(value, (/** @type {?} */ (this._tickInterval)));
         }
         else {
             this._tickInterval = 0;
@@ -380,6 +384,8 @@ class MatSlider extends _MatSliderMixinBase {
     get _ticksContainerStyles() {
         /** @type {?} */
         let axis = this.vertical ? 'Y' : 'X';
+        // For a horizontal slider in RTL languages we push the ticks container off the left edge
+        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
         /** @type {?} */
         let sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
         /** @type {?} */
@@ -399,6 +405,9 @@ class MatSlider extends _MatSliderMixinBase {
         let backgroundSize = this.vertical ? `2px ${tickSize}%` : `${tickSize}% 2px`;
         /** @type {?} */
         let axis = this.vertical ? 'Y' : 'X';
+        // Depending on the direction we pushed the ticks container, push the ticks the opposite
+        // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
+        // ticks 180 degrees so we're really cutting off the end edge abd not the start.
         /** @type {?} */
         let sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
         /** @type {?} */
@@ -424,6 +433,8 @@ class MatSlider extends _MatSliderMixinBase {
     get _thumbContainerStyles() {
         /** @type {?} */
         let axis = this.vertical ? 'Y' : 'X';
+        // For a horizontal slider in RTL languages we push the thumb container off the left edge
+        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
         /** @type {?} */
         let invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
         /** @type {?} */
@@ -435,6 +446,7 @@ class MatSlider extends _MatSliderMixinBase {
     /**
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
+     * @private
      * @return {?}
      */
     _shouldInvertMouseCoords() {
@@ -442,6 +454,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * The language direction for this slider element.
+     * @private
      * @return {?}
      */
     _getDirection() {
@@ -632,6 +645,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Increments the slider by the given number of steps (negative number decrements).
+     * @private
      * @param {?} numSteps
      * @return {?}
      */
@@ -640,6 +654,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Calculate the new value from the new physical location. The value will always be snapped.
+     * @private
      * @param {?} pos
      * @return {?}
      */
@@ -653,6 +668,7 @@ class MatSlider extends _MatSliderMixinBase {
         let size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
         /** @type {?} */
         let posComponent = this.vertical ? pos.y : pos.x;
+        // The exact value is calculated from the event and used to find the closest snap value.
         /** @type {?} */
         let percent = this._clamp((posComponent - offset) / size);
         if (this._shouldInvertMouseCoords()) {
@@ -671,6 +687,8 @@ class MatSlider extends _MatSliderMixinBase {
         else {
             /** @type {?} */
             const exactValue = this._calculateValue(percent);
+            // This calculation finds the closest step by finding the closest
+            // whole number divisible by the step relative to the min.
             /** @type {?} */
             const closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
             // The value needs to snap to the min and max.
@@ -679,6 +697,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Emits a change event if the current value is different from the last emitted value.
+     * @private
      * @return {?}
      */
     _emitChangeEvent() {
@@ -688,6 +707,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Emits an input event when the current value is different from the last emitted value.
+     * @private
      * @return {?}
      */
     _emitInputEvent() {
@@ -695,6 +715,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Updates the amount of space between ticks as a percentage of the width of the slider.
+     * @private
      * @return {?}
      */
     _updateTickIntervalPercent() {
@@ -718,6 +739,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Creates a slider change object from the specified value.
+     * @private
      * @param {?=} value
      * @return {?}
      */
@@ -730,6 +752,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Calculates the percentage of the slider that a value is.
+     * @private
      * @param {?} value
      * @return {?}
      */
@@ -738,6 +761,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Calculates the value a percentage of the slider corresponds to.
+     * @private
      * @param {?} percentage
      * @return {?}
      */
@@ -746,6 +770,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Return a number between two numbers.
+     * @private
      * @param {?} value
      * @param {?=} min
      * @param {?=} max
@@ -758,6 +783,7 @@ class MatSlider extends _MatSliderMixinBase {
      * Get the bounding client rect of the slider track element.
      * The track is used rather than the native element to ignore the extra space that the thumb can
      * take up.
+     * @private
      * @return {?}
      */
     _getSliderDimensions() {
@@ -766,6 +792,7 @@ class MatSlider extends _MatSliderMixinBase {
     /**
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
+     * @private
      * @return {?}
      */
     _focusHostElement() {
@@ -773,6 +800,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * Blurs the native element.
+     * @private
      * @return {?}
      */
     _blurHostElement() {
@@ -881,7 +909,7 @@ MatSlider.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSliderModule {
 }
@@ -896,12 +924,12 @@ MatSliderModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSliderBase, _MatSliderMixinBase, MatSlider };

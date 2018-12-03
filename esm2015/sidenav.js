@@ -21,14 +21,17 @@ import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** *
+/**
  * Animations used by the Material drawers.
  * \@docs-private
-  @type {?} */
+ * @type {?}
+ */
 const matDrawerAnimations = {
-    /** Animation that slides a drawer in and out. */
+    /**
+     * Animation that slides a drawer in and out.
+     */
     transformDrawer: trigger('transform', [
         // We remove the `transform` here completely, rather than setting it to zero, because:
         // 1. Having a transform can cause elements with ripples or an animated
@@ -50,7 +53,7 @@ const matDrawerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -61,9 +64,10 @@ const matDrawerAnimations = {
 function throwMatDuplicatedDrawerError(position) {
     throw Error(`A drawer was already declared for 'position="${position}"'`);
 }
-/** *
+/**
  * Configures whether drawers should use auto sizing by default.
-  @type {?} */
+ * @type {?}
+ */
 const MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
     factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
@@ -162,10 +166,11 @@ class MatDrawer {
          */
         this.openedChange = 
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
-        new EventEmitter(/* isAsync */ /* isAsync */ true);
+        new EventEmitter(/* isAsync */ true);
         /**
          * Event emitted when the drawer's position changes.
          */
+        // tslint:disable-next-line:no-output-on-prefix
         this.onPositionChanged = new EventEmitter();
         /**
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
@@ -176,7 +181,7 @@ class MatDrawer {
         this.openedChange.subscribe((opened) => {
             if (opened) {
                 if (this._doc) {
-                    this._elementFocusedBeforeDrawerWasOpened = /** @type {?} */ (this._doc.activeElement);
+                    this._elementFocusedBeforeDrawerWasOpened = (/** @type {?} */ (this._doc.activeElement));
                 }
                 if (this._isFocusTrapEnabled && this._focusTrap) {
                     this._trapFocus();
@@ -187,10 +192,10 @@ class MatDrawer {
             }
         });
         /**
-             * Listen to `keydown` events outside the zone so that change detection is not run every
-             * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
-             * and we don't have close disabled.
-             */
+         * Listen to `keydown` events outside the zone so that change detection is not run every
+         * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
+         * and we don't have close disabled.
+         */
         this._ngZone.runOutsideAngular(() => {
             fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose)).subscribe(event => this._ngZone.run(() => {
                 this.close();
@@ -296,6 +301,7 @@ class MatDrawer {
     }
     /**
      * Traps focus inside the drawer.
+     * @private
      * @return {?}
      */
     _trapFocus() {
@@ -313,6 +319,7 @@ class MatDrawer {
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
+     * @private
      * @return {?}
      */
     _restoreFocus() {
@@ -583,7 +590,6 @@ class MatDrawerContainer {
             this._changeDetectorRef.markForCheck();
         });
         this._doCheckSubject.pipe(debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
-        // Arbitrary debounce time, less than a frame at 60fps
         takeUntil(this._destroyed)).subscribe(() => this._updateContentMargins());
     }
     /**
@@ -622,11 +628,12 @@ class MatDrawerContainer {
      * Subscribes to drawer events in order to set a class on the main container element when the
      * drawer is open and the backdrop is visible. This ensures any overflow on the container element
      * is properly hidden.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
     _watchDrawerToggle(drawer) {
-        drawer._animationStarted.pipe(takeUntil(this._drawers.changes), filter((event) => event.fromState !== event.toState))
+        drawer._animationStarted.pipe(filter((event) => event.fromState !== event.toState), takeUntil(this._drawers.changes))
             .subscribe((event) => {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
@@ -643,6 +650,7 @@ class MatDrawerContainer {
     /**
      * Subscribes to drawer onPositionChanged event in order to
      * re-validate drawers when the position changes.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -660,6 +668,7 @@ class MatDrawerContainer {
     }
     /**
      * Subscribes to changes in drawer mode so we can run change detection.
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -674,6 +683,7 @@ class MatDrawerContainer {
     }
     /**
      * Toggles the 'mat-drawer-opened' class on the main 'mat-drawer-container' element.
+     * @private
      * @param {?} isAdd
      * @return {?}
      */
@@ -687,6 +697,7 @@ class MatDrawerContainer {
     }
     /**
      * Validate the state of the drawer children components.
+     * @private
      * @return {?}
      */
     _validateDrawers() {
@@ -719,6 +730,7 @@ class MatDrawerContainer {
     }
     /**
      * Whether the container is being pushed to the side by one of the drawers.
+     * @private
      * @return {?}
      */
     _isPushed() {
@@ -739,7 +751,7 @@ class MatDrawerContainer {
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
             .filter(drawer => drawer && !drawer.disableClose && this._canHaveBackdrop(drawer))
-            .forEach(drawer => /** @type {?} */ ((drawer)).close());
+            .forEach(drawer => (/** @type {?} */ (drawer)).close());
     }
     /**
      * @return {?}
@@ -749,6 +761,7 @@ class MatDrawerContainer {
             (this._isDrawerOpen(this._end) && this._canHaveBackdrop(this._end));
     }
     /**
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -756,6 +769,7 @@ class MatDrawerContainer {
         return drawer.mode !== 'side' || !!this._backdropOverride;
     }
     /**
+     * @private
      * @param {?} drawer
      * @return {?}
      */
@@ -765,9 +779,22 @@ class MatDrawerContainer {
     /**
      * Recalculates and updates the inline styles for the content. Note that this should be used
      * sparingly, because it causes a reflow.
+     * @private
      * @return {?}
      */
     _updateContentMargins() {
+        // 1. For drawers in `over` mode, they don't affect the content.
+        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
+        //    left margin (for left drawer) or right margin (for right the drawer).
+        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
+        //    adding to the left or right margin and simultaneously subtracting the same amount of
+        //    margin from the other side.
+        // 1. For drawers in `over` mode, they don't affect the content.
+        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
+        //    left margin (for left drawer) or right margin (for right the drawer).
+        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
+        //    adding to the left or right margin and simultaneously subtracting the same amount of
+        //    margin from the other side.
         /** @type {?} */
         let left = 0;
         /** @type {?} */
@@ -798,8 +825,8 @@ class MatDrawerContainer {
         // allows users to specify a custom size via CSS class in SSR scenarios where the
         // measured widths will always be zero. Note that we reset to `null` here, rather
         // than below, in order to ensure that the types in the `if` below are consistent.
-        left = left || /** @type {?} */ ((null));
-        right = right || /** @type {?} */ ((null));
+        left = left || (/** @type {?} */ (null));
+        right = right || (/** @type {?} */ (null));
         if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
             this._contentMargins = { left, right };
             // Pull back into the NgZone since in some cases we could be outside. We need to be careful
@@ -841,7 +868,7 @@ MatDrawerContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSidenavContent extends MatDrawerContent {
     /**
@@ -967,7 +994,7 @@ MatSidenavContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSidenavModule {
 }
@@ -1001,12 +1028,12 @@ MatSidenavModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
