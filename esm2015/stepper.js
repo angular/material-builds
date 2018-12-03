@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, defineInjectable } from '@angular/core';
-import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, MAT_STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -263,7 +263,7 @@ MatStep.decorators = [
 MatStep.ctorParameters = () => [
     { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(() => MatStepper),] }] },
     { type: ErrorStateMatcher, decorators: [{ type: SkipSelf }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_STEPPER_GLOBAL_OPTIONS,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [STEPPER_GLOBAL_OPTIONS,] }] }
 ];
 MatStep.propDecorators = {
     stepLabel: [{ type: ContentChild, args: [MatStepLabel,] }]
