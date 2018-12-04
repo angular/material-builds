@@ -929,6 +929,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         operators.switchMap(function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
+            _this._changeDetectorRef.detectChanges();
             if (_this.panelOpen) {
                 (/** @type {?} */ (_this._overlayRef)).updatePosition();
             }
@@ -1309,7 +1310,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
