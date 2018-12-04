@@ -6,8 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef, AfterViewInit, ViewContainerRef } from '@angular/core';
 import { CanDisableRipple, CanDisableRippleCtor, MatOptgroup, MatOption } from '@angular/material/core';
+import { TemplatePortal } from '@angular/cdk/portal';
 /** Event object that is emitted when an autocomplete option is selected. */
 export declare class MatAutocompleteSelectedEvent {
     /** Reference to the autocomplete panel that emitted the event. */
@@ -33,13 +34,16 @@ export interface MatAutocompleteDefaultOptions {
 export declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
 /** @docs-private */
 export declare function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): MatAutocompleteDefaultOptions;
-export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple {
+export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, AfterViewInit, CanDisableRipple {
     private _changeDetectorRef;
     private _elementRef;
+    private _viewContainerRef;
     /** Manages active item in option list based on key events. */
     _keyManager: ActiveDescendantKeyManager<MatOption>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
+    /** @docs-private */
+    _portal: TemplatePortal;
     /** Whether the autocomplete panel is open. */
     readonly isOpen: boolean;
     _isOpen: boolean;
@@ -80,7 +84,8 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     };
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, defaults: MatAutocompleteDefaultOptions);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _viewContainerRef: ViewContainerRef, defaults: MatAutocompleteDefaultOptions);
+    ngAfterViewInit(): void;
     ngAfterContentInit(): void;
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options

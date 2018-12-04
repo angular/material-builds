@@ -7,7 +7,7 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
@@ -47,7 +47,6 @@ export declare function getMatAutocompleteMissingPanelError(): Error;
 export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     private _element;
     private _overlay;
-    private _viewContainerRef;
     private _zone;
     private _changeDetectorRef;
     private _dir;
@@ -55,9 +54,9 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _document;
     private _viewportRuler?;
     private _overlayRef;
-    private _portal;
     private _componentDestroyed;
     private _autocompleteDisabled;
+    private _autocomplete;
     private _scrollStrategy;
     /** Old value of the native input. Used to work around issues with the `input` event on IE. */
     private _previousValue;
@@ -103,7 +102,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      * act as a regular input and the user won't be able to open the panel.
      */
     autocompleteDisabled: boolean;
-    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;
@@ -173,6 +172,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      */
     private _clearPreviousSelectedOption;
     private _attachOverlay;
+    private _detachOverlay;
     private _getOverlayConfig;
     private _getOverlayPosition;
     private _getConnectedElement;
