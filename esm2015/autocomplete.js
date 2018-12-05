@@ -709,7 +709,6 @@ class MatAutocompleteTrigger {
         switchMap(() => {
             this._resetActiveItem();
             this.autocomplete._setVisibility();
-            this._changeDetectorRef.detectChanges();
             if (this.panelOpen) {
                 (/** @type {?} */ (this._overlayRef)).updatePosition();
             }

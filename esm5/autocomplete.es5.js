@@ -910,7 +910,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         switchMap(function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
-            _this._changeDetectorRef.detectChanges();
             if (_this.panelOpen) {
                 (/** @type {?} */ (_this._overlayRef)).updatePosition();
             }
