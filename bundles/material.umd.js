@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/stepper'), require('@angular/cdk/table'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/stepper', '@angular/cdk/table', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.overlay,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.stepper,global.ng.cdk.table,global.ng.cdk.tree));
-}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,operators,a11y,animations,keycodes,common,animations$1,observers,portal,overlay,scrolling,forms,layout,collections,textField,accordion,http,stepper,table,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/stepper'), require('@angular/cdk/table'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/stepper', '@angular/cdk/table', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.stepper,global.ng.cdk.table,global.ng.cdk.tree));
+}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,operators,a11y,animations,keycodes,common,animations$1,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,stepper,table,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -3920,11 +3920,10 @@ function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
 }
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
-    function MatAutocomplete(_changeDetectorRef, _elementRef, _viewContainerRef, defaults) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
-        _this._viewContainerRef = _viewContainerRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
@@ -4006,15 +4005,6 @@ var MatAutocomplete = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    MatAutocomplete.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        this._portal = new portal.TemplatePortal(this.template, this._viewContainerRef);
-    };
     /**
      * @return {?}
      */
@@ -4110,7 +4100,6 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.ctorParameters = function () { return [
         { type: core.ChangeDetectorRef },
         { type: core.ElementRef },
-        { type: core.ViewContainerRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
     ]; };
     MatAutocomplete.propDecorators = {
@@ -4211,10 +4200,11 @@ function getMatAutocompleteMissingPanelError() {
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
 var MatAutocompleteTrigger = /** @class */ (function () {
-    function MatAutocompleteTrigger(_element, _overlay, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
+    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
         var _this = this;
         this._element = _element;
         this._overlay = _overlay;
+        this._viewContainerRef = _viewContainerRef;
         this._zone = _zone;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
@@ -4227,10 +4217,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * Whether or not the label state is being overridden.
          */
         this._manuallyFloatingLabel = false;
-        /**
-         * The subscription for closing actions (some are bound to document).
-         */
-        this._closingActionsSubscription = rxjs.Subscription.EMPTY;
         /**
          * Subscription to viewport size changes.
          */
@@ -4290,24 +4276,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
         this._scrollStrategy = scrollStrategy;
     }
-    Object.defineProperty(MatAutocompleteTrigger.prototype, "autocomplete", {
-        /** The autocomplete panel to be attached to this trigger. */
-        get: /**
-         * The autocomplete panel to be attached to this trigger.
-         * @return {?}
-         */
-        function () { return this._autocomplete; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._autocomplete = value;
-            this._detachOverlay();
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
         /**
          * Whether the autocomplete is disabled. When disabled, the element will
@@ -4387,8 +4355,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             // Only emit if the panel was visible.
             this.autocomplete.closed.emit();
         }
-        this.autocomplete._isOpen = false;
-        this._detachOverlay();
+        this.autocomplete._isOpen = this._overlayAttached = false;
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+            this._closingActionsSubscription.unsubscribe();
+        }
         // Note that in some cases this can end up being called after the component is destroyed.
         // Add a check to ensure that we don't try to run change detection on a destroyed view.
         if (!this._componentDestroyed) {
@@ -4877,6 +4848,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             throw getMatAutocompleteMissingPanelError();
         }
         if (!this._overlayRef) {
+            this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef);
             this._overlayRef = this._overlay.create(this._getOverlayConfig());
             // Use the `keydownEvents` in order to take advantage of
             // the overlay event targeting provided by the CDK overlay.
@@ -4901,7 +4873,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._overlayRef.updateSize({ width: this._getPanelWidth() });
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this.autocomplete._portal);
+            this._overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         /** @type {?} */
@@ -4912,21 +4884,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {
             this.autocomplete.opened.emit();
-        }
-    };
-    /**
-     * @private
-     * @return {?}
-     */
-    MatAutocompleteTrigger.prototype._detachOverlay = /**
-     * @private
-     * @return {?}
-     */
-    function () {
-        this._overlayAttached = false;
-        this._closingActionsSubscription.unsubscribe();
-        if (this._overlayRef) {
-            this._overlayRef.detach();
         }
     };
     /**
@@ -5077,6 +5034,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     MatAutocompleteTrigger.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: overlay.Overlay },
+        { type: core.ViewContainerRef },
         { type: core.NgZone },
         { type: core.ChangeDetectorRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
@@ -36283,10 +36241,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.1.1-aa17fbd');
+var VERSION = new core.Version('7.1.1-63be232');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36495,7 +36453,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

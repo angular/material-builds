@@ -8,12 +8,12 @@
 import { __extends } from 'tslib';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, Output, TemplateRef, ViewChild, ViewEncapsulation, ViewContainerRef, Directive, forwardRef, Host, NgZone, Optional, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, Output, TemplateRef, ViewChild, ViewEncapsulation, Directive, forwardRef, Host, NgZone, Optional, ViewContainerRef, NgModule } from '@angular/core';
 import { MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, mixinDisableRipple, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MatOptionModule, MatCommonModule } from '@angular/material/core';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { filter, take, switchMap, delay, tap, map } from 'rxjs/operators';
 import { ViewportRuler } from '@angular/cdk/scrolling';
@@ -77,11 +77,10 @@ function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
 }
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
-    function MatAutocomplete(_changeDetectorRef, _elementRef, _viewContainerRef, defaults) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
-        _this._viewContainerRef = _viewContainerRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
@@ -163,15 +162,6 @@ var MatAutocomplete = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    MatAutocomplete.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        this._portal = new TemplatePortal(this.template, this._viewContainerRef);
-    };
     /**
      * @return {?}
      */
@@ -267,7 +257,6 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.ctorParameters = function () { return [
         { type: ChangeDetectorRef },
         { type: ElementRef },
-        { type: ViewContainerRef },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
     ]; };
     MatAutocomplete.propDecorators = {
@@ -368,10 +357,11 @@ function getMatAutocompleteMissingPanelError() {
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
 var MatAutocompleteTrigger = /** @class */ (function () {
-    function MatAutocompleteTrigger(_element, _overlay, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
+    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
         var _this = this;
         this._element = _element;
         this._overlay = _overlay;
+        this._viewContainerRef = _viewContainerRef;
         this._zone = _zone;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
@@ -384,10 +374,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * Whether or not the label state is being overridden.
          */
         this._manuallyFloatingLabel = false;
-        /**
-         * The subscription for closing actions (some are bound to document).
-         */
-        this._closingActionsSubscription = Subscription.EMPTY;
         /**
          * Subscription to viewport size changes.
          */
@@ -447,24 +433,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
         this._scrollStrategy = scrollStrategy;
     }
-    Object.defineProperty(MatAutocompleteTrigger.prototype, "autocomplete", {
-        /** The autocomplete panel to be attached to this trigger. */
-        get: /**
-         * The autocomplete panel to be attached to this trigger.
-         * @return {?}
-         */
-        function () { return this._autocomplete; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._autocomplete = value;
-            this._detachOverlay();
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
         /**
          * Whether the autocomplete is disabled. When disabled, the element will
@@ -544,8 +512,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             // Only emit if the panel was visible.
             this.autocomplete.closed.emit();
         }
-        this.autocomplete._isOpen = false;
-        this._detachOverlay();
+        this.autocomplete._isOpen = this._overlayAttached = false;
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+            this._closingActionsSubscription.unsubscribe();
+        }
         // Note that in some cases this can end up being called after the component is destroyed.
         // Add a check to ensure that we don't try to run change detection on a destroyed view.
         if (!this._componentDestroyed) {
@@ -1034,6 +1005,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             throw getMatAutocompleteMissingPanelError();
         }
         if (!this._overlayRef) {
+            this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
             this._overlayRef = this._overlay.create(this._getOverlayConfig());
             // Use the `keydownEvents` in order to take advantage of
             // the overlay event targeting provided by the CDK overlay.
@@ -1058,7 +1030,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._overlayRef.updateSize({ width: this._getPanelWidth() });
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this.autocomplete._portal);
+            this._overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         /** @type {?} */
@@ -1069,21 +1041,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {
             this.autocomplete.opened.emit();
-        }
-    };
-    /**
-     * @private
-     * @return {?}
-     */
-    MatAutocompleteTrigger.prototype._detachOverlay = /**
-     * @private
-     * @return {?}
-     */
-    function () {
-        this._overlayAttached = false;
-        this._closingActionsSubscription.unsubscribe();
-        if (this._overlayRef) {
-            this._overlayRef.detach();
         }
     };
     /**
@@ -1234,6 +1191,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     MatAutocompleteTrigger.ctorParameters = function () { return [
         { type: ElementRef },
         { type: Overlay },
+        { type: ViewContainerRef },
         { type: NgZone },
         { type: ChangeDetectorRef },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
@@ -1285,5 +1243,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa30 };
 //# sourceMappingURL=autocomplete.es5.js.map
