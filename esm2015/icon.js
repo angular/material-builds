@@ -1069,6 +1069,7 @@ MatIcon.decorators = [
                     'role': 'img',
                     'class': 'mat-icon',
                     '[class.mat-icon-inline]': 'inline',
+                    '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
                 },
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
