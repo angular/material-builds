@@ -1563,7 +1563,6 @@ var MatIcon = /** @class */ (function (_super) {
                         'role': 'img',
                         'class': 'mat-icon',
                         '[class.mat-icon-inline]': 'inline',
-                        '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
                     },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
