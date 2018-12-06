@@ -3212,7 +3212,16 @@ var MatFormField = /** @class */ (function (_super) {
         _this._defaults = _defaults;
         _this._platform = _platform;
         _this._ngZone = _ngZone;
-        _this._outlineGapCalculationNeeded = false;
+        /**
+         * Whether the outline gap needs to be calculated
+         * immediately on the next change detection run.
+         */
+        _this._outlineGapCalculationNeededImmediately = false;
+        /**
+         * Whether the outline gap needs to be calculated next time the zone has stabilized.
+         */
+        _this._outlineGapCalculationNeededOnStable = false;
+        _this._destroyed = new rxjs.Subject();
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -3385,7 +3394,18 @@ var MatFormField = /** @class */ (function (_super) {
         });
         // Run change detection if the value changes.
         if (control.ngControl && control.ngControl.valueChanges) {
-            control.ngControl.valueChanges.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            control.ngControl.valueChanges
+                .pipe(operators.takeUntil(this._destroyed))
+                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        }
+        // @breaking-change 7.0.0 Remove this check once _ngZone is required. Also reconsider
+        // whether the `ngAfterContentChecked` below is still necessary.
+        if (this._ngZone) {
+            this._ngZone.onStable.asObservable().pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
+                if (_this._outlineGapCalculationNeededOnStable) {
+                    _this.updateOutlineGap();
+                }
+            });
         }
         // Run change detection and update the outline if the suffix or prefix changes.
         rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(function () {
@@ -3411,7 +3431,7 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function () {
         this._validateControlChild();
-        if (this._outlineGapCalculationNeeded) {
+        if (this._outlineGapCalculationNeededImmediately) {
             this.updateOutlineGap();
         }
     };
@@ -3425,6 +3445,16 @@ var MatFormField = /** @class */ (function (_super) {
         // Avoid animations on load.
         this._subscriptAnimationState = 'enter';
         this._changeDetectorRef.detectChanges();
+    };
+    /**
+     * @return {?}
+     */
+    MatFormField.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /** Determines whether a class from the NgControl should be forwarded to the host element. */
     /**
@@ -3689,7 +3719,7 @@ var MatFormField = /** @class */ (function (_super) {
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
         if (!(/** @type {?} */ (document.documentElement)).contains(this._elementRef.nativeElement)) {
-            this._outlineGapCalculationNeeded = true;
+            this._outlineGapCalculationNeededImmediately = true;
             return;
         }
         /** @type {?} */
@@ -3697,12 +3727,27 @@ var MatFormField = /** @class */ (function (_super) {
         /** @type {?} */
         var gapWidth = 0;
         /** @type {?} */
-        var startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
+        var container = this._connectionContainerRef.nativeElement;
         /** @type {?} */
-        var gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
+        var startEls = container.querySelectorAll('.mat-form-field-outline-start');
+        /** @type {?} */
+        var gapEls = container.querySelectorAll('.mat-form-field-outline-gap');
         if (this._label && this._label.nativeElement.children.length) {
             /** @type {?} */
-            var containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
+            var containerRect = container.getBoundingClientRect();
+            // If the container's width and height are zero, it means that the element is
+            // invisible and we can't calculate the outline gap. Mark the element as needing
+            // to be checked the next time the zone stabilizes. We can't do this immediately
+            // on the next change detection, because even if the element becomes visible,
+            // the `ClientRect` won't be reclaculated immediately. We reset the
+            // `_outlineGapCalculationNeededImmediately` flag some we don't run the checks twice.
+            if (containerRect.width === 0 && containerRect.height === 0) {
+                this._outlineGapCalculationNeededOnStable = true;
+                this._outlineGapCalculationNeededImmediately = false;
+                return;
+            }
+            /** @type {?} */
+            var containerStart = this._getStartEnd(containerRect);
             /** @type {?} */
             var labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
             /** @type {?} */
@@ -3720,7 +3765,8 @@ var MatFormField = /** @class */ (function (_super) {
         for (var i = 0; i < gapEls.length; i++) {
             gapEls.item(i).style.width = gapWidth + "px";
         }
-        this._outlineGapCalculationNeeded = false;
+        this._outlineGapCalculationNeededOnStable =
+            this._outlineGapCalculationNeededImmediately = false;
     };
     /** Gets the start end of the rect considering the current directionality. */
     /**
@@ -3738,14 +3784,19 @@ var MatFormField = /** @class */ (function (_super) {
     function (rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
     };
-    /** Updates the outline gap the new time the zone stabilizes. */
     /**
      * Updates the outline gap the new time the zone stabilizes.
+     * @breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
+     */
+    /**
+     * Updates the outline gap the new time the zone stabilizes.
+     * \@breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
      * @private
      * @return {?}
      */
     MatFormField.prototype._updateOutlineGapOnStable = /**
      * Updates the outline gap the new time the zone stabilizes.
+     * \@breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
      * @private
      * @return {?}
      */
@@ -3753,7 +3804,7 @@ var MatFormField = /** @class */ (function (_super) {
         var _this = this;
         // @breaking-change 8.0.0 Remove this check and else block once _ngZone is required.
         if (this._ngZone) {
-            this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () { return _this.updateOutlineGap(); });
+            this._outlineGapCalculationNeededOnStable = true;
         }
         else {
             Promise.resolve().then(function () { return _this.updateOutlineGap(); });
@@ -36247,10 +36298,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.1.1-f7dcc27');
+var VERSION = new core.Version('7.1.1-e579181');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36459,7 +36510,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -36644,17 +36695,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa18 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf18 = MatTabBase;
-exports.ɵg18 = _MatTabMixinBase;
-exports.ɵb18 = MatTabHeaderBase;
-exports.ɵc18 = _MatTabHeaderMixinBase;
-exports.ɵd18 = MatTabLabelWrapperBase;
-exports.ɵe18 = _MatTabLabelWrapperMixinBase;
-exports.ɵj18 = MatTabLinkBase;
-exports.ɵh18 = MatTabNavBase;
-exports.ɵk18 = _MatTabLinkMixinBase;
-exports.ɵi18 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

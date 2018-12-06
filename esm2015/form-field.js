@@ -10,8 +10,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
-import { fromEvent, merge } from 'rxjs';
-import { startWith, take } from 'rxjs/operators';
+import { fromEvent, merge, Subject } from 'rxjs';
+import { startWith, take, takeUntil } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -266,7 +266,16 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._defaults = _defaults;
         this._platform = _platform;
         this._ngZone = _ngZone;
-        this._outlineGapCalculationNeeded = false;
+        /**
+         * Whether the outline gap needs to be calculated
+         * immediately on the next change detection run.
+         */
+        this._outlineGapCalculationNeededImmediately = false;
+        /**
+         * Whether the outline gap needs to be calculated next time the zone has stabilized.
+         */
+        this._outlineGapCalculationNeededOnStable = false;
+        this._destroyed = new Subject();
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -388,7 +397,18 @@ class MatFormField extends _MatFormFieldMixinBase {
         });
         // Run change detection if the value changes.
         if (control.ngControl && control.ngControl.valueChanges) {
-            control.ngControl.valueChanges.subscribe(() => this._changeDetectorRef.markForCheck());
+            control.ngControl.valueChanges
+                .pipe(takeUntil(this._destroyed))
+                .subscribe(() => this._changeDetectorRef.markForCheck());
+        }
+        // @breaking-change 7.0.0 Remove this check once _ngZone is required. Also reconsider
+        // whether the `ngAfterContentChecked` below is still necessary.
+        if (this._ngZone) {
+            this._ngZone.onStable.asObservable().pipe(takeUntil(this._destroyed)).subscribe(() => {
+                if (this._outlineGapCalculationNeededOnStable) {
+                    this.updateOutlineGap();
+                }
+            });
         }
         // Run change detection and update the outline if the suffix or prefix changes.
         merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(() => {
@@ -411,7 +431,7 @@ class MatFormField extends _MatFormFieldMixinBase {
      */
     ngAfterContentChecked() {
         this._validateControlChild();
-        if (this._outlineGapCalculationNeeded) {
+        if (this._outlineGapCalculationNeededImmediately) {
             this.updateOutlineGap();
         }
     }
@@ -422,6 +442,13 @@ class MatFormField extends _MatFormFieldMixinBase {
         // Avoid animations on load.
         this._subscriptAnimationState = 'enter';
         this._changeDetectorRef.detectChanges();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._destroyed.next();
+        this._destroyed.complete();
     }
     /**
      * Determines whether a class from the NgControl should be forwarded to the host element.
@@ -602,7 +629,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
         if (!(/** @type {?} */ (document.documentElement)).contains(this._elementRef.nativeElement)) {
-            this._outlineGapCalculationNeeded = true;
+            this._outlineGapCalculationNeededImmediately = true;
             return;
         }
         /** @type {?} */
@@ -610,12 +637,27 @@ class MatFormField extends _MatFormFieldMixinBase {
         /** @type {?} */
         let gapWidth = 0;
         /** @type {?} */
-        const startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
+        const container = this._connectionContainerRef.nativeElement;
         /** @type {?} */
-        const gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
+        const startEls = container.querySelectorAll('.mat-form-field-outline-start');
+        /** @type {?} */
+        const gapEls = container.querySelectorAll('.mat-form-field-outline-gap');
         if (this._label && this._label.nativeElement.children.length) {
             /** @type {?} */
-            const containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
+            const containerRect = container.getBoundingClientRect();
+            // If the container's width and height are zero, it means that the element is
+            // invisible and we can't calculate the outline gap. Mark the element as needing
+            // to be checked the next time the zone stabilizes. We can't do this immediately
+            // on the next change detection, because even if the element becomes visible,
+            // the `ClientRect` won't be reclaculated immediately. We reset the
+            // `_outlineGapCalculationNeededImmediately` flag some we don't run the checks twice.
+            if (containerRect.width === 0 && containerRect.height === 0) {
+                this._outlineGapCalculationNeededOnStable = true;
+                this._outlineGapCalculationNeededImmediately = false;
+                return;
+            }
+            /** @type {?} */
+            const containerStart = this._getStartEnd(containerRect);
             /** @type {?} */
             const labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
             /** @type {?} */
@@ -632,7 +674,8 @@ class MatFormField extends _MatFormFieldMixinBase {
         for (let i = 0; i < gapEls.length; i++) {
             gapEls.item(i).style.width = `${gapWidth}px`;
         }
-        this._outlineGapCalculationNeeded = false;
+        this._outlineGapCalculationNeededOnStable =
+            this._outlineGapCalculationNeededImmediately = false;
     }
     /**
      * Gets the start end of the rect considering the current directionality.
@@ -645,13 +688,14 @@ class MatFormField extends _MatFormFieldMixinBase {
     }
     /**
      * Updates the outline gap the new time the zone stabilizes.
+     * \@breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
      * @private
      * @return {?}
      */
     _updateOutlineGapOnStable() {
         // @breaking-change 8.0.0 Remove this check and else block once _ngZone is required.
         if (this._ngZone) {
-            this._ngZone.onStable.pipe(take(1)).subscribe(() => this.updateOutlineGap());
+            this._outlineGapCalculationNeededOnStable = true;
         }
         else {
             Promise.resolve().then(() => this.updateOutlineGap());

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList, OnDestroy } from '@angular/core';
 import { CanColor, CanColorCtor, FloatLabelType, LabelOptions } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
@@ -45,7 +45,7 @@ export interface MatFormFieldDefaultOptions {
  */
 export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormFieldDefaultOptions>;
 /** Container for form controls that applies Material Design styling and behavior. */
-export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, CanColor {
+export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;
@@ -53,7 +53,14 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _platform?;
     private _ngZone?;
     private _labelOptions;
-    private _outlineGapCalculationNeeded;
+    /**
+     * Whether the outline gap needs to be calculated
+     * immediately on the next change detection run.
+     */
+    private _outlineGapCalculationNeededImmediately;
+    /** Whether the outline gap needs to be calculated next time the zone has stabilized. */
+    private _outlineGapCalculationNeededOnStable;
+    private _destroyed;
     /** The form-field appearance style. */
     appearance: MatFormFieldAppearance;
     _appearance: MatFormFieldAppearance;
@@ -109,6 +116,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
     /** Determines whether a class from the NgControl should be forwarded to the host element. */
     _shouldForward(prop: keyof NgControl): boolean;
     _hasPlaceholder(): boolean;
@@ -146,6 +154,9 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     updateOutlineGap(): void;
     /** Gets the start end of the rect considering the current directionality. */
     private _getStartEnd;
-    /** Updates the outline gap the new time the zone stabilizes. */
+    /**
+     * Updates the outline gap the new time the zone stabilizes.
+     * @breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
+     */
     private _updateOutlineGapOnStable;
 }
