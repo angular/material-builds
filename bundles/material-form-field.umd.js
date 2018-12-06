@@ -514,6 +514,9 @@ var MatFormField = /** @class */ (function (_super) {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
+        if (this._dir) {
+            this._dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () { return _this.updateOutlineGap(); });
+        }
     };
     /**
      * @return {?}
