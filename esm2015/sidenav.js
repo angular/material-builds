@@ -168,6 +168,10 @@ class MatDrawer {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new EventEmitter(/* isAsync */ true);
         /**
+         * Emits when the component is destroyed.
+         */
+        this._destroyed = new Subject();
+        /**
          * Event emitted when the drawer's position changes.
          */
         // tslint:disable-next-line:no-output-on-prefix
@@ -197,7 +201,7 @@ class MatDrawer {
          * and we don't have close disabled.
          */
         this._ngZone.runOutsideAngular(() => {
-            fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose)).subscribe(event => this._ngZone.run(() => {
+            fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose), takeUntil(this._destroyed)).subscribe(event => this._ngZone.run(() => {
                 this.close();
                 event.stopPropagation();
             }));
@@ -367,6 +371,8 @@ class MatDrawer {
         }
         this._animationStarted.complete();
         this._animationEnd.complete();
+        this._destroyed.next();
+        this._destroyed.complete();
     }
     /**
      * Whether the drawer is opened. We overload this because we trigger an event when it

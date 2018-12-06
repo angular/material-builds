@@ -27301,6 +27301,10 @@ var MatDrawer = /** @class */ (function () {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new core.EventEmitter(/* isAsync */ true);
         /**
+         * Emits when the component is destroyed.
+         */
+        this._destroyed = new rxjs.Subject();
+        /**
          * Event emitted when the drawer's position changes.
          */
         // tslint:disable-next-line:no-output-on-prefix
@@ -27330,7 +27334,7 @@ var MatDrawer = /** @class */ (function () {
          * and we don't have close disabled.
          */
         this._ngZone.runOutsideAngular(function () {
-            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) { return _this._ngZone.run(function () {
+            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }), operators.takeUntil(_this._destroyed)).subscribe(function (event) { return _this._ngZone.run(function () {
                 _this.close();
                 event.stopPropagation();
             }); });
@@ -27570,6 +27574,8 @@ var MatDrawer = /** @class */ (function () {
         }
         this._animationStarted.complete();
         this._animationEnd.complete();
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     Object.defineProperty(MatDrawer.prototype, "opened", {
         /**
@@ -36241,10 +36247,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.1.1-a72d05f');
+var VERSION = new core.Version('7.1.1-f7dcc27');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36453,7 +36459,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -36638,17 +36644,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa18 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf18 = MatTabBase;
+exports.ɵg18 = _MatTabMixinBase;
+exports.ɵb18 = MatTabHeaderBase;
+exports.ɵc18 = _MatTabHeaderMixinBase;
+exports.ɵd18 = MatTabLabelWrapperBase;
+exports.ɵe18 = _MatTabLabelWrapperMixinBase;
+exports.ɵj18 = MatTabLinkBase;
+exports.ɵh18 = MatTabNavBase;
+exports.ɵk18 = _MatTabLinkMixinBase;
+exports.ɵi18 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

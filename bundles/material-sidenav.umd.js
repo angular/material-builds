@@ -182,6 +182,10 @@ var MatDrawer = /** @class */ (function () {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new core.EventEmitter(/* isAsync */ true);
         /**
+         * Emits when the component is destroyed.
+         */
+        this._destroyed = new rxjs.Subject();
+        /**
          * Event emitted when the drawer's position changes.
          */
         // tslint:disable-next-line:no-output-on-prefix
@@ -211,7 +215,7 @@ var MatDrawer = /** @class */ (function () {
          * and we don't have close disabled.
          */
         this._ngZone.runOutsideAngular(function () {
-            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) { return _this._ngZone.run(function () {
+            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }), operators.takeUntil(_this._destroyed)).subscribe(function (event) { return _this._ngZone.run(function () {
                 _this.close();
                 event.stopPropagation();
             }); });
@@ -451,6 +455,8 @@ var MatDrawer = /** @class */ (function () {
         }
         this._animationStarted.complete();
         this._animationEnd.complete();
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     Object.defineProperty(MatDrawer.prototype, "opened", {
         /**
