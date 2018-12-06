@@ -12,7 +12,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { CdkScrollable, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher, ViewportRuler, ScrollingModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { fromEvent, merge, Subject } from 'rxjs';
@@ -592,7 +592,12 @@ var MatDrawer = /** @class */ (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = /** @class */ (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize, _animationMode) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize, _animationMode, 
+    /**
+     * @deprecated viewportRuler to become a required parameter.
+     * @breaking-change 8.0.0
+     */
+    viewportRuler) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
@@ -626,6 +631,13 @@ var MatDrawerContainer = /** @class */ (function () {
                 _this._validateDrawers();
                 _this._updateContentMargins();
             });
+        }
+        // Since the minimum width of the sidenav depends on the viewport width,
+        // we need to recompute the margins if the viewport changes.
+        if (viewportRuler) {
+            viewportRuler.change()
+                .pipe(takeUntil(this._destroyed))
+                .subscribe(function () { return _this._updateContentMargins(); });
         }
         this._autosize = defaultAutosize;
     }
@@ -1107,7 +1119,8 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: NgZone },
         { type: ChangeDetectorRef },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: ViewportRuler, decorators: [{ type: Optional }] }
     ]; };
     MatDrawerContainer.propDecorators = {
         _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],

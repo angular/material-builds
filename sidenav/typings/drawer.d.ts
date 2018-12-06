@@ -9,7 +9,7 @@ import { AnimationEvent } from '@angular/animations';
 import { FocusMonitor, FocusOrigin, FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
-import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 /**
@@ -185,7 +185,12 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     }>;
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
     readonly scrollable: CdkScrollable;
-    constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean, _animationMode?: string | undefined);
+    constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean, _animationMode?: string | undefined, 
+    /**
+     * @deprecated viewportRuler to become a required parameter.
+     * @breaking-change 8.0.0
+     */
+    viewportRuler?: ViewportRuler);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */
