@@ -5252,8 +5252,14 @@ var MatBadge = /** @class */ (function (_super) {
          */
         function (newDescription) {
             if (newDescription !== this._description) {
+                /** @type {?} */
+                var badgeElement = this._badgeElement;
                 this._updateHostAriaDescription(newDescription, this._description);
                 this._description = newDescription;
+                if (badgeElement) {
+                    newDescription ? badgeElement.setAttribute('aria-label', newDescription) :
+                        badgeElement.removeAttribute('aria-label');
+                }
             }
         },
         enumerable: true,
@@ -36314,7 +36320,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.1.1-b2788bf');
+var VERSION = new core.Version('7.1.1-014dc79');
 
 exports.VERSION = VERSION;
 exports.ɵa30 = MatAutocompleteOrigin;
@@ -36526,7 +36532,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
