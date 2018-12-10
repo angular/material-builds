@@ -11,7 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { CdkScrollable, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher, ViewportRuler, ScrollingModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { fromEvent, merge, Subject } from 'rxjs';
@@ -168,6 +168,10 @@ class MatDrawer {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new EventEmitter(/* isAsync */ true);
         /**
+         * Emits when the component is destroyed.
+         */
+        this._destroyed = new Subject();
+        /**
          * Event emitted when the drawer's position changes.
          */
         // tslint:disable-next-line:no-output-on-prefix
@@ -197,7 +201,7 @@ class MatDrawer {
          * and we don't have close disabled.
          */
         this._ngZone.runOutsideAngular(() => {
-            fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose)).subscribe(event => this._ngZone.run(() => {
+            fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose), takeUntil(this._destroyed)).subscribe(event => this._ngZone.run(() => {
                 this.close();
                 event.stopPropagation();
             }));
@@ -367,6 +371,8 @@ class MatDrawer {
         }
         this._animationStarted.complete();
         this._animationEnd.complete();
+        this._destroyed.next();
+        this._destroyed.complete();
     }
     /**
      * Whether the drawer is opened. We overload this because we trigger an event when it
@@ -484,8 +490,14 @@ class MatDrawerContainer {
      * @param {?} _changeDetectorRef
      * @param {?=} defaultAutosize
      * @param {?=} _animationMode
+     * @param {?=} viewportRuler
      */
-    constructor(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize = false, _animationMode) {
+    constructor(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize = false, _animationMode, 
+    /**
+     * @deprecated viewportRuler to become a required parameter.
+     * @breaking-change 8.0.0
+     */
+    viewportRuler) {
         this._dir = _dir;
         this._element = _element;
         this._ngZone = _ngZone;
@@ -517,6 +529,13 @@ class MatDrawerContainer {
                 this._validateDrawers();
                 this._updateContentMargins();
             });
+        }
+        // Since the minimum width of the sidenav depends on the viewport width,
+        // we need to recompute the margins if the viewport changes.
+        if (viewportRuler) {
+            viewportRuler.change()
+                .pipe(takeUntil(this._destroyed))
+                .subscribe(() => this._updateContentMargins());
         }
         this._autosize = defaultAutosize;
     }
@@ -855,7 +874,8 @@ MatDrawerContainer.ctorParameters = () => [
     { type: NgZone },
     { type: ChangeDetectorRef },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: ViewportRuler, decorators: [{ type: Optional }] }
 ];
 MatDrawerContainer.propDecorators = {
     _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],

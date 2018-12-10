@@ -113,8 +113,14 @@ class MatBadge extends _MatBadgeMixinBase {
      */
     set description(newDescription) {
         if (newDescription !== this._description) {
+            /** @type {?} */
+            const badgeElement = this._badgeElement;
             this._updateHostAriaDescription(newDescription, this._description);
             this._description = newDescription;
+            if (badgeElement) {
+                newDescription ? badgeElement.setAttribute('aria-label', newDescription) :
+                    badgeElement.removeAttribute('aria-label');
+            }
         }
     }
     /**

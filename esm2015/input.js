@@ -478,8 +478,10 @@ class MatInput extends _MatInputMixinBase {
             const selectElement = (/** @type {?} */ (this._elementRef.nativeElement));
             /** @type {?} */
             const firstOption = selectElement.options[0];
-            return selectElement.multiple || !this.empty || this.focused ||
-                !!(firstOption && firstOption.label);
+            // On most browsers the `selectedIndex` will always be 0, however on IE and Edge it'll be
+            // -1 if the `value` is set to something, that isn't in the list of options, at a later point.
+            return this.focused || selectElement.multiple || !this.empty ||
+                !!(selectElement.selectedIndex > -1 && firstOption && firstOption.label);
         }
         else {
             return this.focused || !this.empty;

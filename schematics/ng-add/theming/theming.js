@@ -8,7 +8,8 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
-const schematics_1 = require("@angular/cdk/schematics");
+const schematics_1 = require("@angular-devkit/schematics");
+const schematics_2 = require("@angular/cdk/schematics");
 const change_1 = require("@schematics/angular/utility/change");
 const config_1 = require("@schematics/angular/utility/config");
 const chalk_1 = require("chalk");
@@ -27,7 +28,7 @@ const defaultTargetBuilders = {
 function addThemeToAppStyles(options) {
     return function (host) {
         const workspace = config_1.getWorkspace(host);
-        const project = schematics_1.getProjectFromWorkspace(workspace, options.project);
+        const project = schematics_2.getProjectFromWorkspace(workspace, options.project);
         const themeName = options.theme || 'indigo-pink';
         if (themeName === 'custom') {
             insertCustomTheme(project, options.project, host, workspace);
@@ -44,12 +45,12 @@ exports.addThemeToAppStyles = addThemeToAppStyles;
  * Scss file for the custom theme will be created.
  */
 function insertCustomTheme(project, projectName, host, workspace) {
-    const stylesPath = schematics_1.getProjectStyleFile(project, 'scss');
+    const stylesPath = schematics_2.getProjectStyleFile(project, 'scss');
     const themeContent = create_custom_theme_1.createCustomTheme(projectName);
     if (!stylesPath) {
         if (!project.sourceRoot) {
-            throw new Error(`Could not find source root for project: "${projectName}". Please make ` +
-                `sure that the "sourceRoot" property is set in the workspace config.`);
+            throw new schematics_1.SchematicsException(`Could not find source root for project: "${projectName}". ` +
+                `Please make sure that the "sourceRoot" property is set in the workspace config.`);
         }
         // Normalize the path through the devkit utilities because we want to avoid having
         // unnecessary path segments and windows backslash delimiters.
@@ -81,7 +82,7 @@ function addThemeStyleToTarget(project, targetName, host, assetPath, workspace) 
     if (!validateDefaultTargetBuilder(project, targetName)) {
         return;
     }
-    const targetOptions = schematics_1.getProjectTargetOptions(project, targetName);
+    const targetOptions = schematics_2.getProjectTargetOptions(project, targetName);
     if (!targetOptions.styles) {
         targetOptions.styles = [assetPath];
     }
@@ -128,9 +129,9 @@ function validateDefaultTargetBuilder(project, targetName) {
     // builder has been changed, we warn because a theme is not mandatory for running tests
     // with Material. See: https://github.com/angular/material2/issues/14176
     if (!isDefaultBuilder && targetName === 'build') {
-        throw new Error(`Your project is not using the default builders for "${targetName}". The ` +
-            `Angular Material schematics cannot add a theme to the workspace configuration if the ` +
-            `builder has been changed. Exiting..`);
+        throw new schematics_1.SchematicsException(`Your project is not using the default builders for ` +
+            `"${targetName}". The Angular Material schematics cannot add a theme to the workspace ` +
+            `configuration if the builder has been changed.`);
     }
     else if (!isDefaultBuilder) {
         console.warn(`Your project is not using the default builders for "${targetName}". This ` +
