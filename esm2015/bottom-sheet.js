@@ -42,6 +42,10 @@ class MatBottomSheetConfig {
          */
         this.hasBackdrop = true;
         /**
+         * Custom class for the backdrop.
+         */
+        this.backdropClass = 'mat-bottom-sheet-backdrop';
+        /**
          * Whether the user can use escape or clicking outside to close the bottom sheet.
          */
         this.disableClose = false;

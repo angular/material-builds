@@ -47,7 +47,7 @@ MatDialogConfig = /** @class */ (function () {
         /**
          * Custom class for the backdrop,
          */
-        this.backdropClass = '';
+        this.backdropClass = 'mat-dialog-backdrop';
         /**
          * Whether the user can use escape or clicking on the backdrop to close the modal.
          */
@@ -902,7 +902,7 @@ var MatDialog = /** @class */ (function () {
      */
     function (dialogConfig) {
         /** @type {?} */
-        var state$$1 = new OverlayConfig({
+        var overlayConfig = new OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
@@ -915,9 +915,9 @@ var MatDialog = /** @class */ (function () {
             disposeOnNavigation: dialogConfig.closeOnNavigation
         });
         if (dialogConfig.backdropClass) {
-            state$$1.backdropClass = dialogConfig.backdropClass;
+            overlayConfig.backdropClass = dialogConfig.backdropClass;
         }
-        return state$$1;
+        return overlayConfig;
     };
     /**
      * Attaches an MatDialogContainer to a dialog's already-created overlay.

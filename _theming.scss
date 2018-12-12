@@ -1955,11 +1955,16 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
 @mixin mat-bottom-sheet-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
+  $backdrop-color: invert(mat-color($background, card, 0.288));
 
   .mat-bottom-sheet-container {
     @include _mat-theme-elevation(16, $theme);
     background: mat-color($background, dialog);
     color: mat-color($foreground, text);
+  }
+
+  .mat-bottom-sheet-backdrop {
+    background: $backdrop-color;
   }
 }
 
@@ -2667,11 +2672,16 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 @mixin mat-dialog-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
+  $backdrop-color: invert(mat-color($background, card, 0.288));
 
   .mat-dialog-container {
     @include _mat-theme-elevation(24, $theme);
     background: mat-color($background, dialog);
     color: mat-color($foreground, text);
+  }
+
+  .mat-dialog-backdrop {
+    background: $backdrop-color;
   }
 }
 
