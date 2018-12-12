@@ -1966,7 +1966,7 @@ var MatChipInput = /** @class */ (function () {
         if (!this._inputElement.value && !!event) {
             this._chipList._keydown(event);
         }
-        if (!event || this._isSeparatorKey(event.keyCode)) {
+        if (!event || this._isSeparatorKey(event)) {
             this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
             if (event) {
                 event.preventDefault();
@@ -1999,18 +1999,23 @@ var MatChipInput = /** @class */ (function () {
     /**
      * Checks whether a keycode is one of the configured separators.
      * @private
-     * @param {?} keyCode
+     * @param {?} event
      * @return {?}
      */
     MatChipInput.prototype._isSeparatorKey = /**
      * Checks whether a keycode is one of the configured separators.
      * @private
-     * @param {?} keyCode
+     * @param {?} event
      * @return {?}
      */
-    function (keyCode) {
+    function (event) {
+        if (keycodes.hasModifierKey(event)) {
+            return false;
+        }
         /** @type {?} */
         var separators = this.separatorKeyCodes;
+        /** @type {?} */
+        var keyCode = event.keyCode;
         return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
     };
     MatChipInput.decorators = [

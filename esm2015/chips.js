@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BACKSPACE, DELETE, SPACE, END, HOME, ENTER } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, SPACE, END, HOME, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
@@ -1442,7 +1442,7 @@ class MatChipInput {
         if (!this._inputElement.value && !!event) {
             this._chipList._keydown(event);
         }
-        if (!event || this._isSeparatorKey(event.keyCode)) {
+        if (!event || this._isSeparatorKey(event)) {
             this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
             if (event) {
                 event.preventDefault();
@@ -1466,12 +1466,17 @@ class MatChipInput {
     /**
      * Checks whether a keycode is one of the configured separators.
      * @private
-     * @param {?} keyCode
+     * @param {?} event
      * @return {?}
      */
-    _isSeparatorKey(keyCode) {
+    _isSeparatorKey(event) {
+        if (hasModifierKey(event)) {
+            return false;
+        }
         /** @type {?} */
         const separators = this.separatorKeyCodes;
+        /** @type {?} */
+        const keyCode = event.keyCode;
         return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
     }
 }
