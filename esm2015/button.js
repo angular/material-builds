@@ -59,9 +59,13 @@ class MatButton extends _MatButtonMixinBase {
      * @param {?} _focusMonitor
      * @param {?=} _animationMode
      */
-    constructor(elementRef, _platform, _focusMonitor, _animationMode) {
+    constructor(elementRef, 
+    /**
+     * @deprecated Platform checks for SSR are no longer needed
+     * @breaking-change 8.0.0
+     */
+    _platform, _focusMonitor, _animationMode) {
         super(elementRef);
-        this._platform = _platform;
         this._focusMonitor = _focusMonitor;
         this._animationMode = _animationMode;
         /**

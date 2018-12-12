@@ -58,9 +58,13 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(elementRef, _platform, _focusMonitor, _animationMode) {
+    function MatButton(elementRef, 
+    /**
+     * @deprecated Platform checks for SSR are no longer needed
+     * @breaking-change 8.0.0
+     */
+    _platform, _focusMonitor, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
-        _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._animationMode = _animationMode;
         /**
