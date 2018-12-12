@@ -747,10 +747,8 @@ var MatSnackBar = /** @class */ (function () {
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
-        // Since the snack bar has `role="alert"`, we don't
-        // want to announce the same message twice.
-        if (_config.announcementMessage === message) {
-            _config.announcementMessage = undefined;
+        if (!_config.announcementMessage) {
+            _config.announcementMessage = message;
         }
         return this.openFromComponent(SimpleSnackBar, _config);
     };

@@ -19,6 +19,11 @@ export declare const _MatButtonMixinBase: CanDisableRippleCtor & CanDisableCtor 
  * Material design button.
  */
 export declare class MatButton extends _MatButtonMixinBase implements OnDestroy, CanDisable, CanColor, CanDisableRipple {
+    /**
+     * @deprecated Platform checks for SSR are no longer needed
+     * @breaking-change 8.0.0
+     */
+    private _platform;
     private _focusMonitor;
     _animationMode?: string | undefined;
     /** Whether the button is round. */
