@@ -5,25 +5,29 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
+import { DateAdapter, MatDateFormats, MatDateSelectionModel } from '@angular/material/core';
 import { MatCalendarBody, MatCalendarCell } from './calendar-body';
 /**
  * An internal component used to display a single year in the datepicker.
  * @docs-private
  */
-export declare class MatYearView<D> implements AfterContentInit {
+export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
+    private _selected;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
     /** The date to display in this year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
-    /** The currently selected date. */
+    /**
+     * The currently selected date.
+     * @deprecated Please get/set the selection via the `MatDateSelectionModel` instead.
+     * @breaking-change 9.0.0 remove this property.
+     */
     selected: D | null;
-    private _selected;
     /** The minimum selectable date. */
     minDate: D | null;
     private _minDate;
@@ -39,9 +43,9 @@ export declare class MatYearView<D> implements AfterContentInit {
     /** Emits when any date is activated. */
     readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
-    _matCalendarBody: MatCalendarBody;
+    _matCalendarBody: MatCalendarBody<D>;
     /** Grid of calendar cells representing the months of the year. */
-    _months: MatCalendarCell[][];
+    _months: MatCalendarCell<D>[][];
     /** The label for this year (e.g. "2017"). */
     _yearLabel: string;
     /** The month in this year that today falls on. Null if today is in a different year. */
@@ -51,8 +55,10 @@ export declare class MatYearView<D> implements AfterContentInit {
      * Null if the selected Date is in a different year.
      */
     _selectedMonth: number | null;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
+    private dateSubscription;
+    constructor(_changeDetectorRef: ChangeDetectorRef, _selected: MatDateSelectionModel<D>, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /** Handles when a new month is selected. */
     _monthSelected(month: number): void;
     /** Handles keydown events on the calendar body when calendar is in year view. */
@@ -87,4 +93,5 @@ export declare class MatYearView<D> implements AfterContentInit {
     private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
+    private extractCurrentMonth;
 }

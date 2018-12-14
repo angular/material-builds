@@ -9,7 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
-import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
+import { CanColor, CanColorCtor, DateAdapter, MatSingleDateSelectionModel, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { MatCalendar } from './calendar';
@@ -48,12 +48,15 @@ export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinB
     constructor(elementRef: ElementRef);
     ngAfterViewInit(): void;
 }
-/** Component responsible for managing the datepicker popup/dialog. */
+/**
+ * Component responsible for managing the datepicker popup/dialog.
+ */
 export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     private _dialog;
     private _overlay;
     private _ngZone;
     private _viewContainerRef;
+    readonly _dateSelection: MatSingleDateSelectionModel<D>;
     private _dateAdapter;
     private _dir;
     private _document;
@@ -102,7 +105,6 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     id: string;
     /** The currently selected date. */
     _selected: D | null;
-    private _validSelected;
     /** The minimum selectable date. */
     readonly _minDate: D | null;
     /** The maximum selectable date. */
@@ -119,14 +121,14 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     /** The element that was focused before the datepicker was opened. */
     private _focusedElementBeforeOpen;
     /** Subscription to value changes in the associated input element. */
-    private _inputSubscription;
+    private _subscriptions;
     /** The input element this datepicker is associated with. */
     _datepickerInput: MatDatepickerInput<D>;
     /** Emits when the datepicker is disabled. */
     readonly _disabledChange: Subject<boolean>;
     /** Emits new selected date when selected date changes. */
     readonly _selectedChanged: Subject<D>;
-    constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
+    constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _dateSelection: MatSingleDateSelectionModel<D>, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date */
     select(date: D): void;

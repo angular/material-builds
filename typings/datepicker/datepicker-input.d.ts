@@ -46,7 +46,7 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     _dateFilter: (date: D | null) => boolean;
     /** The value of the input. */
     value: D | null;
-    private _value;
+    private _selectionModel;
     /** The minimum valid date. */
     min: D | null;
     private _min;
@@ -69,6 +69,7 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     private _validatorOnChange;
     private _datepickerSubscription;
     private _localeSubscription;
+    private _isSelectionInitialized;
     /** The form control validator for whether the input parses. */
     private _parseValidator;
     /** The form control validator for the min date. */

@@ -7,7 +7,7 @@
  */
 import { ComponentType, Portal } from '@angular/cdk/portal';
 import { AfterContentInit, AfterViewChecked, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { DateAdapter, MatDateFormats } from '@angular/material/core';
+import { DateAdapter, MatDateFormats, MatDateSelectionModel } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
@@ -51,6 +51,7 @@ export declare class MatCalendarHeader<D> {
  * @docs-private
  */
 export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
+    readonly selectionModel: MatDateSelectionModel<D>;
     private _dateAdapter;
     private _dateFormats;
     private _changeDetectorRef;
@@ -59,6 +60,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     /** A portal containing the header component type for this calendar. */
     _calendarHeaderPortal: Portal<any>;
     private _intlChanges;
+    private _selectionSubscription;
     /**
      * Used for scheduling that focus should be moved to the active cell on the next tick.
      * We need to schedule it, rather than do it immediately, because we have to wait
@@ -70,9 +72,12 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     private _startAt;
     /** Whether the calendar should be started in month or year view. */
     startView: MatCalendarView;
-    /** The currently selected date. */
+    /**
+     * The currently selected date.
+     * @deprecated use `selectionModel` to set selected date
+     * @breaking-change 9.0.0 remove this property.
+     */
     selected: D | null;
-    private _selected;
     /** The minimum selectable date. */
     minDate: D | null;
     private _minDate;
@@ -83,7 +88,11 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     dateFilter: (date: D) => boolean;
     /** Function that can be used to add custom CSS classes to dates. */
     dateClass: (date: D) => MatCalendarCellCssClasses;
-    /** Emits when the currently selected date changes. */
+    /**
+     * Emits when the currently selected date changes.
+     * @deprecated Listen to selectionModel valueChange.
+     * @breaking-change 9.0.0
+     */
     readonly selectedChange: EventEmitter<D>;
     /**
      * Emits the year chosen in multiyear view.
@@ -116,7 +125,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
      * Emits whenever there is a state change that the header may need to respond to.
      */
     stateChanges: Subject<void>;
-    constructor(_intl: MatDatepickerIntl, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatDatepickerIntl, selectionModel: MatDateSelectionModel<D>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
@@ -124,8 +133,12 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     focusActiveCell(): void;
     /** Updates today's date after an update of the active date */
     updateTodaysDate(): void;
-    /** Handles date selection in the month view. */
-    _dateSelected(date: D): void;
+    /**
+     * Handles date selection in the month view.
+     * @deprecated listen to valueChange in `selectionModel`.
+     * @breaking-change 9.0.0 remove method.
+     */
+    _dateSelected(date: MatDateSelectionModel<D>): void;
     /** Handles year selection in the multiyear view. */
     _yearSelectedInMultiYearView(normalizedYear: D): void;
     /** Handles month selection in the year view. */

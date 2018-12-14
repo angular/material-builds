@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
+import { NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, SkipSelf, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
 import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -983,6 +983,292 @@ const MAT_NATIVE_DATE_FORMATS = {
         dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
         monthYearA11yLabel: { year: 'numeric', month: 'long' },
     }
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * A selection model used to represent the currently selected value in a date picker.
+ * @abstract
+ * @template D
+ */
+class MatDateSelectionModel {
+    /**
+     * @protected
+     * @param {?} adapter
+     */
+    constructor(adapter) {
+        this.adapter = adapter;
+        /**
+         * Emits when the selected value has changed.
+         */
+        this.selectionChange = new Subject();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.selectionChange.complete();
+    }
+}
+/**
+ * A concrete implementation of a `MatDateSelectionModel` that holds a single date.
+ * @template D
+ */
+class MatSingleDateSelectionModel extends MatDateSelectionModel {
+    /**
+     * @param {?} adapter
+     */
+    constructor(adapter) {
+        super(adapter);
+        this.date = null;
+    }
+    /**
+     * Sets the current selection.
+     * @param {?} date
+     * @return {?}
+     */
+    setSelection(date) {
+        this.date = date;
+    }
+    /**
+     * Gets the current selection.
+     * @return {?}
+     */
+    getSelection() {
+        return this.isValid() ? this.adapter.deserialize(this.date) : null;
+    }
+    /**
+     * Adds the given date to the selection model. For a `MatSingleDateSelectionModel` this means
+     * simply replacing the current selection with the given selection.
+     * @param {?} date
+     * @return {?}
+     */
+    add(date) {
+        if (!this.adapter.sameDate(date, this.date)) {
+            this.date = date;
+            this.selectionChange.next();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    clone() {
+        /** @type {?} */
+        const cloned = new MatSingleDateSelectionModel(this.adapter);
+        cloned.setSelection(this.date);
+        return cloned;
+    }
+    /**
+     * @return {?}
+     */
+    getFirstSelectedDate() { return this.date; }
+    /**
+     * @return {?}
+     */
+    getLastSelectedDate() { return this.date; }
+    /**
+     * @return {?}
+     */
+    isComplete() { return !!this.date; }
+    /**
+     * @param {?} other
+     * @return {?}
+     */
+    isSame(other) {
+        return other instanceof MatSingleDateSelectionModel &&
+            this.adapter.sameDate(other.date, this.date);
+    }
+    /**
+     * @return {?}
+     */
+    isValid() {
+        return !!(this.date &&
+            this.adapter.isDateInstance(this.date) &&
+            this.adapter.isValid(this.date));
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    contains(value) {
+        return !!(this.date && this.adapter.sameDate(value, this.date));
+    }
+    /**
+     * Determines if the single date is within a given date range. Retuns false if either dates of
+     * the range is null or if the selection is undefined.
+     * @param {?} range
+     * @return {?}
+     */
+    overlaps(range) {
+        return !!(this.date && range.start && range.end &&
+            this.adapter.compareDate(range.start, this.date) <= 0 &&
+            this.adapter.compareDate(this.date, range.end) <= 0);
+    }
+}
+MatSingleDateSelectionModel.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+MatSingleDateSelectionModel.ctorParameters = () => [
+    { type: DateAdapter }
+];
+/**
+ * Concrete implementation of a MatDateSelectionModel that holds a date range, represented by
+ * a start date and an end date.
+ * @template D
+ */
+class MatRangeDateSelectionModel extends MatDateSelectionModel {
+    /**
+     * @param {?} adapter
+     */
+    constructor(adapter) {
+        super(adapter);
+        this.start = null;
+        this.end = null;
+    }
+    /**
+     * Sets the current selection.
+     * @param {?} range
+     * @return {?}
+     */
+    setSelection(range) {
+        this.start = range.start;
+        this.end = range.end;
+    }
+    /**
+     * Gets the current selection.
+     * @return {?}
+     */
+    getSelection() {
+        return {
+            start: this.start,
+            end: this.end,
+        };
+    }
+    /**
+     * Adds the given date to the selection model. For a `MatRangeDateSelectionModel` this means:
+     * - Setting the start date if nothing is already selected.
+     * - Setting the end date if the start date is already set but the end is not.
+     * - Clearing the selection and setting the start date if both the start and end are already set.
+     * @param {?} date
+     * @return {?}
+     */
+    add(date) {
+        if (!this.start) {
+            this.start = date;
+        }
+        else if (!this.end) {
+            this.end = date;
+        }
+        else {
+            this.start = date;
+            this.end = null;
+        }
+        this.selectionChange.next();
+    }
+    /**
+     * @return {?}
+     */
+    clone() {
+        /** @type {?} */
+        const cloned = new MatRangeDateSelectionModel(this.adapter);
+        cloned.setSelection({ start: this.start, end: this.end });
+        return cloned;
+    }
+    /**
+     * @return {?}
+     */
+    getFirstSelectedDate() { return this.start; }
+    /**
+     * @return {?}
+     */
+    getLastSelectedDate() { return this.end; }
+    /**
+     * @return {?}
+     */
+    isComplete() {
+        return !!(this.start && this.end);
+    }
+    /**
+     * @param {?} other
+     * @return {?}
+     */
+    isSame(other) {
+        return other instanceof MatRangeDateSelectionModel &&
+            this.adapter.sameDate(this.start, other.start) &&
+            this.adapter.sameDate(this.end, other.end);
+    }
+    /**
+     * @return {?}
+     */
+    isValid() {
+        return !!(this.start && this.end &&
+            this.adapter.isValid((/** @type {?} */ (this.start))) && this.adapter.isValid((/** @type {?} */ (this.end))));
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    contains(value) {
+        if (this.start && this.end) {
+            return this.adapter.compareDate(this.start, value) <= 0 &&
+                this.adapter.compareDate(this.end, value) >= 0;
+        }
+        else if (this.start) {
+            return this.adapter.sameDate(this.start, value);
+        }
+        return false;
+    }
+    /**
+     * Returns true if the given range and the selection overlap in any way. False if otherwise, that
+     * includes incomplete selections or ranges.
+     * @param {?} range
+     * @return {?}
+     */
+    overlaps(range) {
+        if (!(this.start && this.end && range.start && range.end)) {
+            return false;
+        }
+        return (this.isBetween(range.start, this.start, this.end) ||
+            this.isBetween(range.end, this.start, this.end) ||
+            (this.adapter.compareDate(range.start, this.start) <= 0 &&
+                this.adapter.compareDate(this.end, range.end) <= 0));
+    }
+    /**
+     * @private
+     * @param {?} value
+     * @param {?} from
+     * @param {?} to
+     * @return {?}
+     */
+    isBetween(value, from, to) {
+        return this.adapter.compareDate(from, value) <= 0 && this.adapter.compareDate(value, to) <= 0;
+    }
+}
+MatRangeDateSelectionModel.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+MatRangeDateSelectionModel.ctorParameters = () => [
+    { type: DateAdapter }
+];
+/**
+ * @template D
+ * @param {?} parent
+ * @param {?} adapter
+ * @return {?}
+ */
+function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
+    return parent || new MatSingleDateSelectionModel(adapter);
+}
+/** @type {?} */
+const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER = {
+    provide: MatDateSelectionModel,
+    deps: [[new Optional(), new SkipSelf(), MatDateSelectionModel], DateAdapter],
+    useFactory: MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY,
 };
 
 /**
@@ -2272,5 +2558,5 @@ const DEC = 11;
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY, MatDateSelectionModel, MatSingleDateSelectionModel, MatRangeDateSelectionModel, MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
 //# sourceMappingURL=core.js.map

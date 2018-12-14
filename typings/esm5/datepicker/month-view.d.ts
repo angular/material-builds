@@ -5,16 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
+import { DateAdapter, MatDateFormats, MatDateSelectionModel } from '@angular/material/core';
 import { MatCalendarBody, MatCalendarCell, MatCalendarCellCssClasses } from './calendar-body';
 /**
  * An internal component used to display a single month in the datepicker.
  * @docs-private
  */
-export declare class MatMonthView<D> implements AfterContentInit {
+export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
+    readonly _selectionModel: MatDateSelectionModel<D>;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
@@ -23,9 +24,12 @@ export declare class MatMonthView<D> implements AfterContentInit {
      */
     activeDate: D;
     private _activeDate;
-    /** The currently selected date. */
+    /**
+     * The currently selected date.
+     * @deprecated Please get/set the selection via the `MatDateSelectionModel` instead.
+     * @breaking-change 9.0.0 remove this property.
+     */
     selected: D | null;
-    private _selected;
     /** The minimum selectable date. */
     minDate: D | null;
     private _minDate;
@@ -43,11 +47,11 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** Emits when any date is activated. */
     readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
-    _matCalendarBody: MatCalendarBody;
+    _matCalendarBody: MatCalendarBody<D>;
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
     /** Grid of calendar cells representing the dates of the month. */
-    _weeks: MatCalendarCell[][];
+    _weeks: MatCalendarCell<D>[][];
     /** The number of blank cells in the first row before the 1st of the month. */
     _firstWeekOffset: number;
     /**
@@ -62,8 +66,10 @@ export declare class MatMonthView<D> implements AfterContentInit {
         long: string;
         narrow: string;
     }[];
-    constructor(_changeDetectorRef: ChangeDetectorRef, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
+    private dateSubscription;
+    constructor(_changeDetectorRef: ChangeDetectorRef, _selectionModel: MatDateSelectionModel<D>, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /** Handles when a new date is selected. */
     _dateSelected(date: number): void;
     /** Handles keydown events on the calendar body when calendar is in month view. */
@@ -74,6 +80,8 @@ export declare class MatMonthView<D> implements AfterContentInit {
     _focusActiveCell(): void;
     /** Creates MatCalendarCells for the dates in this month. */
     private _createWeekCells;
+    /** Extract selected date from current selection */
+    private extractDate;
     /** Date filter for the month */
     private _shouldEnableDate;
     /**

@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { DateAdapter } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
+import { DateAdapter, MatDateSelectionModel } from '@angular/material/core';
 import { MatCalendarBody, MatCalendarCell } from './calendar-body';
 export declare const yearsPerPage = 24;
 export declare const yearsPerRow = 4;
@@ -15,16 +15,20 @@ export declare const yearsPerRow = 4;
  * An internal component used to display a year selector in the datepicker.
  * @docs-private
  */
-export declare class MatMultiYearView<D> implements AfterContentInit {
+export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
+    private _selected;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
-    /** The currently selected date. */
+    /**
+     * The currently selected date.
+     * @deprecated Please get/set the selection via the `MatDateSelectionModel` instead.
+     * @breaking-change 9.0.0 remove this property.
+     */
     selected: D | null;
-    private _selected;
     /** The minimum selectable date. */
     minDate: D | null;
     private _minDate;
@@ -40,15 +44,17 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     /** Emits when any date is activated. */
     readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
-    _matCalendarBody: MatCalendarBody;
+    _matCalendarBody: MatCalendarBody<D>;
     /** Grid of calendar cells representing the currently displayed years. */
-    _years: MatCalendarCell[][];
+    _years: MatCalendarCell<D>[][];
     /** The year that today falls on. */
     _todayYear: number;
     /** The year of the selected date. Null if the selected date is null. */
     _selectedYear: number | null;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
+    private dateSubscription;
+    constructor(_changeDetectorRef: ChangeDetectorRef, _selected: MatDateSelectionModel<D>, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /** Initializes this multi-year view. */
     _init(): void;
     /** Handles when a new year is selected. */
@@ -69,4 +75,5 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
+    private extractYear;
 }
