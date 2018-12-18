@@ -60,10 +60,13 @@ MatBottomSheetConfig = /** @class */ (function () {
          * the `HashLocationStrategy`).
          */
         this.closeOnNavigation = true;
+        // Note that this is disabled by default, because while the a11y recommendations are to focus
+        // the first focusable element, doing so prevents screen readers from reading out the
+        // rest of the bottom sheet content.
         /**
          * Whether the bottom sheet should focus the first focusable element on open.
          */
-        this.autoFocus = true;
+        this.autoFocus = false;
         /**
          * Whether the bottom sheet should restore focus to the
          * previously-focused element, after it's closed.
