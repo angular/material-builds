@@ -46,8 +46,8 @@ export declare class MatTreeFlattener<T, F> {
     transformFunction: (node: T, level: number) => F;
     getLevel: (node: F) => number;
     isExpandable: (node: F) => boolean;
-    getChildren: (node: T) => Observable<T[]> | T[];
-    constructor(transformFunction: (node: T, level: number) => F, getLevel: (node: F) => number, isExpandable: (node: F) => boolean, getChildren: (node: T) => Observable<T[]> | T[]);
+    getChildren: (node: T) => Observable<T[]> | T[] | undefined | null;
+    constructor(transformFunction: (node: T, level: number) => F, getLevel: (node: F) => number, isExpandable: (node: F) => boolean, getChildren: (node: T) => Observable<T[]> | T[] | undefined | null);
     _flattenNode(node: T, level: number, resultNodes: F[], parentMap: boolean[]): F[];
     _flattenChildren(children: T[], level: number, resultNodes: F[], parentMap: boolean[]): void;
     /**

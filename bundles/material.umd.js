@@ -36076,13 +36076,15 @@ MatTreeFlattener = /** @class */ (function () {
         if (this.isExpandable(flatNode)) {
             /** @type {?} */
             var childrenNodes = this.getChildren(node);
-            if (Array.isArray(childrenNodes)) {
-                this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
-            }
-            else {
-                childrenNodes.pipe(operators.take(1)).subscribe(function (children) {
-                    _this._flattenChildren(children, level, resultNodes, parentMap);
-                });
+            if (childrenNodes) {
+                if (Array.isArray(childrenNodes)) {
+                    this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
+                }
+                else {
+                    childrenNodes.pipe(operators.take(1)).subscribe(function (children) {
+                        _this._flattenChildren(children, level, resultNodes, parentMap);
+                    });
+                }
             }
         }
         return resultNodes;
@@ -36332,7 +36334,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.1.1-fbb2a13');
+var VERSION = new core.Version('7.1.1-eeda91d');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;

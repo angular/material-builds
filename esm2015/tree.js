@@ -334,13 +334,15 @@ class MatTreeFlattener {
         if (this.isExpandable(flatNode)) {
             /** @type {?} */
             const childrenNodes = this.getChildren(node);
-            if (Array.isArray(childrenNodes)) {
-                this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
-            }
-            else {
-                childrenNodes.pipe(take(1)).subscribe(children => {
-                    this._flattenChildren(children, level, resultNodes, parentMap);
-                });
+            if (childrenNodes) {
+                if (Array.isArray(childrenNodes)) {
+                    this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
+                }
+                else {
+                    childrenNodes.pipe(take(1)).subscribe(children => {
+                        this._flattenChildren(children, level, resultNodes, parentMap);
+                    });
+                }
             }
         }
         return resultNodes;
