@@ -154,4 +154,5 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     _resetAnimation(): void;
     /** Callback that is invoked when the panel animation completes. */
     _onAnimationDone(event: AnimationEvent): void;
+    _onAnimationStart(event: AnimationEvent): void;
 }
