@@ -1227,7 +1227,11 @@ var MatMenuTrigger = /** @class */ (function () {
         this._checkMenu();
         /** @type {?} */
         var overlayRef = this._createOverlay();
-        this._setPosition((/** @type {?} */ (overlayRef.getConfig().positionStrategy)));
+        /** @type {?} */
+        var overlayConfig = overlayRef.getConfig();
+        this._setPosition((/** @type {?} */ (overlayConfig.positionStrategy)));
+        overlayConfig.hasBackdrop = this.menu.hasBackdrop == null ? !this.triggersSubmenu() :
+            this.menu.hasBackdrop;
         overlayRef.attach(this._getPortal());
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
@@ -1486,7 +1490,6 @@ var MatMenuTrigger = /** @class */ (function () {
                 .flexibleConnectedTo(this._element)
                 .withLockedPosition()
                 .withTransformOriginOn('.mat-menu-panel'),
-            hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._scrollStrategy(),
             direction: this._dir
@@ -1811,12 +1814,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
