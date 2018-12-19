@@ -41,6 +41,6 @@
   },
   "sideEffects": false,
   "releaseGitCommitSha": "1b6e7b13a552fc83d22da92a9aa36c1db6e8563e",
-  "releaseGitBranch": "master",
+  "releaseGitBranch": "7.2.x",
   "releaseGitUser": " <>"
 }
