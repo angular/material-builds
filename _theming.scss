@@ -171,7 +171,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
  *    `white-on-black` or `black-on-white`.
  */
 @mixin cdk-high-contrast($target: active) {
-  @media screen and (-ms-high-contrast: $target) {
+  @media (-ms-high-contrast: $target) {
     @content;
   }
 }
@@ -1777,11 +1777,6 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
     width: $size;
     height: $size;
     line-height: $size;
-
-    @include cdk-high-contrast {
-      outline: solid 1px;
-      border-radius: 0;
-    }
   }
 
   &.mat-badge-above {
@@ -1861,6 +1856,11 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   .mat-badge-content {
     color: mat-color($primary, default-contrast);
     background: mat-color($primary);
+
+    @include cdk-high-contrast {
+      outline: solid 1px;
+      border-radius: 0;
+    }
   }
 
   .mat-badge-accent {
