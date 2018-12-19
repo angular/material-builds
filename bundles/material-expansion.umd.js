@@ -154,6 +154,12 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @type {?}
  */
 var uniqueId = 0;
+/**
+ * Injection token that can be used to configure the defalt
+ * options for the expansion panel component.
+ * @type {?}
+ */
+var MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new core.InjectionToken('MAT_EXPANSION_PANEL_DEFAULT_OPTIONS');
 var ɵ0 = undefined;
 /**
  * `<mat-expansion-panel>`
@@ -165,7 +171,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
     function MatExpansionPanel(accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, 
     // @breaking-change 8.0.0 _document and _animationMode to be made required
-    _document, _animationMode) {
+    _document, _animationMode, defaultOptions) {
         var _this = _super.call(this, accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
         _this._viewContainerRef = _viewContainerRef;
         _this._animationMode = _animationMode;
@@ -206,6 +212,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                 }
             }
         });
+        if (defaultOptions) {
+            _this.hideToggle = defaultOptions.hideToggle;
+        }
         return _this;
     }
     Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
@@ -343,7 +352,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         { type: collections.UniqueSelectionDispatcher },
         { type: core.ViewContainerRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: core.Optional }] }
     ]; };
     MatExpansionPanel.propDecorators = {
         hideToggle: [{ type: core.Input }],
@@ -378,7 +388,7 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
 var MatExpansionPanelHeader = /** @class */ (function () {
-    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
+    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions) {
         var _this = this;
         this.panel = panel;
         this._element = _element;
@@ -401,6 +411,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                 panel.accordion._handleHeaderFocus(_this);
             }
         });
+        if (defaultOptions) {
+            this.expandedHeight = defaultOptions.expandedHeight;
+            this.collapsedHeight = defaultOptions.collapsedHeight;
+        }
     }
     Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
         /**
@@ -567,7 +581,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         { type: MatExpansionPanel, decorators: [{ type: core.Host }] },
         { type: core.ElementRef },
         { type: a11y.FocusMonitor },
-        { type: core.ChangeDetectorRef }
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: core.Optional }] }
     ]; };
     MatExpansionPanelHeader.propDecorators = {
         expandedHeight: [{ type: core.Input }],
@@ -755,6 +770,7 @@ var MatExpansionModule = /** @class */ (function () {
 exports.MatExpansionModule = MatExpansionModule;
 exports.MatAccordion = MatAccordion;
 exports.MAT_ACCORDION = MAT_ACCORDION;
+exports.MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = MAT_EXPANSION_PANEL_DEFAULT_OPTIONS;
 exports.MatExpansionPanel = MatExpansionPanel;
 exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
 exports.MatExpansionPanelHeader = MatExpansionPanelHeader;

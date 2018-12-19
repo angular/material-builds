@@ -133,6 +133,12 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @type {?}
  */
 var uniqueId = 0;
+/**
+ * Injection token that can be used to configure the defalt
+ * options for the expansion panel component.
+ * @type {?}
+ */
+var MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new InjectionToken('MAT_EXPANSION_PANEL_DEFAULT_OPTIONS');
 var ɵ0 = undefined;
 /**
  * `<mat-expansion-panel>`
@@ -144,7 +150,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
     function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, 
     // @breaking-change 8.0.0 _document and _animationMode to be made required
-    _document, _animationMode) {
+    _document, _animationMode, defaultOptions) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
         _this._viewContainerRef = _viewContainerRef;
         _this._animationMode = _animationMode;
@@ -185,6 +191,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                 }
             }
         });
+        if (defaultOptions) {
+            _this.hideToggle = defaultOptions.hideToggle;
+        }
         return _this;
     }
     Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
@@ -322,7 +331,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         { type: UniqueSelectionDispatcher },
         { type: ViewContainerRef },
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: Optional }] }
     ]; };
     MatExpansionPanel.propDecorators = {
         hideToggle: [{ type: Input }],
@@ -357,7 +367,7 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
 var MatExpansionPanelHeader = /** @class */ (function () {
-    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
+    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions) {
         var _this = this;
         this.panel = panel;
         this._element = _element;
@@ -380,6 +390,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                 panel.accordion._handleHeaderFocus(_this);
             }
         });
+        if (defaultOptions) {
+            this.expandedHeight = defaultOptions.expandedHeight;
+            this.collapsedHeight = defaultOptions.collapsedHeight;
+        }
     }
     Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
         /**
@@ -546,7 +560,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         { type: MatExpansionPanel, decorators: [{ type: Host }] },
         { type: ElementRef },
         { type: FocusMonitor },
-        { type: ChangeDetectorRef }
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: Optional }] }
     ]; };
     MatExpansionPanelHeader.propDecorators = {
         expandedHeight: [{ type: Input }],
@@ -741,5 +756,5 @@ var MatExpansionModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.es5.js.map

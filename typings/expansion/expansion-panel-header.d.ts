@@ -7,7 +7,7 @@
  */
 import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
-import { MatExpansionPanel } from './expansion-panel';
+import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-panel';
 /**
  * `<mat-expansion-panel-header>`
  *
@@ -19,7 +19,7 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
     private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */

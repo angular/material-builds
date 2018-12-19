@@ -134,6 +134,12 @@ MatExpansionPanelContent.ctorParameters = () => [
  * @type {?}
  */
 let uniqueId = 0;
+/**
+ * Injection token that can be used to configure the defalt
+ * options for the expansion panel component.
+ * @type {?}
+ */
+const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new InjectionToken('MAT_EXPANSION_PANEL_DEFAULT_OPTIONS');
 const ɵ0 = undefined;
 /**
  * `<mat-expansion-panel>`
@@ -149,10 +155,11 @@ class MatExpansionPanel extends CdkAccordionItem {
      * @param {?} _viewContainerRef
      * @param {?=} _document
      * @param {?=} _animationMode
+     * @param {?=} defaultOptions
      */
     constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, 
     // @breaking-change 8.0.0 _document and _animationMode to be made required
-    _document, _animationMode) {
+    _document, _animationMode, defaultOptions) {
         super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
         this._viewContainerRef = _viewContainerRef;
         this._animationMode = _animationMode;
@@ -193,6 +200,9 @@ class MatExpansionPanel extends CdkAccordionItem {
                 }
             }
         });
+        if (defaultOptions) {
+            this.hideToggle = defaultOptions.hideToggle;
+        }
     }
     /**
      * Whether the toggle indicator should be hidden.
@@ -299,7 +309,8 @@ MatExpansionPanel.ctorParameters = () => [
     { type: UniqueSelectionDispatcher },
     { type: ViewContainerRef },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: Optional }] }
 ];
 MatExpansionPanel.propDecorators = {
     hideToggle: [{ type: Input }],
@@ -334,8 +345,9 @@ class MatExpansionPanelHeader {
      * @param {?} _element
      * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
+     * @param {?=} defaultOptions
      */
-    constructor(panel, _element, _focusMonitor, _changeDetectorRef) {
+    constructor(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions) {
         this.panel = panel;
         this._element = _element;
         this._focusMonitor = _focusMonitor;
@@ -357,6 +369,10 @@ class MatExpansionPanelHeader {
                 panel.accordion._handleHeaderFocus(this);
             }
         });
+        if (defaultOptions) {
+            this.expandedHeight = defaultOptions.expandedHeight;
+            this.collapsedHeight = defaultOptions.collapsedHeight;
+        }
     }
     /**
      * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
@@ -476,7 +492,8 @@ MatExpansionPanelHeader.ctorParameters = () => [
     { type: MatExpansionPanel, decorators: [{ type: Host }] },
     { type: ElementRef },
     { type: FocusMonitor },
-    { type: ChangeDetectorRef }
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: Optional }] }
 ];
 MatExpansionPanelHeader.propDecorators = {
     expandedHeight: [{ type: Input }],
@@ -639,5 +656,5 @@ MatExpansionModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.js.map

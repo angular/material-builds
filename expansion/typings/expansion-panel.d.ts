@@ -9,12 +9,29 @@ import { AnimationEvent } from '@angular/animations';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AfterContentInit, ChangeDetectorRef, EventEmitter, ElementRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, ElementRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, InjectionToken } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatExpansionPanelContent } from './expansion-panel-content';
 import { MatAccordionBase } from './accordion-base';
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
+/**
+ * Object that can be used to override the default options
+ * for all of the expansion panels in a module.
+ */
+export interface MatExpansionPanelDefaultOptions {
+    /** Height of the header while the panel is expanded. */
+    expandedHeight: string;
+    /** Height of the header while the panel is collapsed. */
+    collapsedHeight: string;
+    /** Whether the toggle indicator should be hidden. */
+    hideToggle: boolean;
+}
+/**
+ * Injection token that can be used to configure the defalt
+ * options for the expansion panel component.
+ */
+export declare const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS: InjectionToken<MatExpansionPanelDefaultOptions>;
 /**
  * `<mat-expansion-panel>`
  *
@@ -46,7 +63,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _headerId: string;
     /** Stream of body animation done events. */
     _bodyAnimationDone: Subject<AnimationEvent>;
-    constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document?: any, _animationMode?: string | undefined);
+    constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document?: any, _animationMode?: string | undefined, defaultOptions?: MatExpansionPanelDefaultOptions);
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */
