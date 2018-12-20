@@ -1562,7 +1562,8 @@ $mat-ripple-color-opacity: 0.1;
     background: mat-color(map-get($theme, warn));
   }
 
-  .mat-pseudo-checkbox-checked {
+  .mat-pseudo-checkbox-checked,
+  .mat-pseudo-checkbox-indeterminate {
     &.mat-pseudo-checkbox-disabled {
       background: $disabled-color;
     }
@@ -2328,7 +2329,8 @@ $_mat-button-ripple-opacity: 0.1;
   }
 
   .mat-checkbox-disabled {
-    &.mat-checkbox-checked:not(.mat-checkbox-indeterminate) {
+    &.mat-checkbox-checked,
+    &.mat-checkbox-indeterminate {
       .mat-checkbox-background {
         background-color: $disabled-color;
       }
@@ -4588,6 +4590,20 @@ $mat-form-field-outline-dedupe: 0;
       &.mat-warn {
         background-color: $underline-color-warn;
       }
+    }
+  }
+
+  .mat-form-field-type-mat-native-select.mat-focused:not(.mat-form-field-invalid) {
+    .mat-form-field-infix::after {
+      color: $underline-focused-color;
+    }
+
+    &.mat-accent .mat-form-field-infix::after {
+      color: $underline-color-accent;
+    }
+
+    &.mat-warn .mat-form-field-infix::after {
+      color: $underline-color-warn;
     }
   }
 
