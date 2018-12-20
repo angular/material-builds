@@ -7,7 +7,7 @@
  */
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { __extends } from 'tslib';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -244,7 +244,7 @@ var MatSelectTrigger = /** @class */ (function () {
 }());
 var MatSelect = /** @class */ (function (_super) {
     __extends(MatSelect, _super);
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer) {
         var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -252,6 +252,7 @@ var MatSelect = /** @class */ (function (_super) {
         _this._dir = _dir;
         _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
+        _this._liveAnnouncer = _liveAnnouncer;
         /**
          * Whether or not the overlay panel is open.
          */
@@ -903,12 +904,19 @@ var MatSelect = /** @class */ (function (_super) {
             this.open();
         }
         else if (!this.multiple) {
+            /** @type {?} */
+            var selectedOption = this.selected;
             if (keyCode === HOME || keyCode === END) {
                 keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
             }
             else {
                 manager.onKeydown(event);
+            }
+            // Since the value has changed, we need to announce it ourselves.
+            // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
+            if (this._liveAnnouncer && selectedOption !== this.selected) {
+                this._liveAnnouncer.announce(((/** @type {?} */ (this.selected))).viewValue);
             }
         }
     };
@@ -1944,7 +1952,8 @@ var MatSelect = /** @class */ (function (_super) {
         { type: MatFormField, decorators: [{ type: Optional }] },
         { type: NgControl, decorators: [{ type: Self }, { type: Optional }] },
         { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] }
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] },
+        { type: LiveAnnouncer }
     ]; };
     MatSelect.propDecorators = {
         trigger: [{ type: ViewChild, args: ['trigger',] }],
