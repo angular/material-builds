@@ -1173,7 +1173,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                         '[attr.autocomplete]': 'autocompleteAttribute',
                         '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
-                        '[attr.aria-activedescendant]': '(panelOpen && activeOption) ? activeOption.id : null',
+                        '[attr.aria-activedescendant]': 'activeOption?.id',
                         '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
                         '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
                         // Note: we use `focusin`, as opposed to `focus`, in order to open the panel

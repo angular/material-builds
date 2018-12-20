@@ -1562,8 +1562,7 @@ $mat-ripple-color-opacity: 0.1;
     background: mat-color(map-get($theme, warn));
   }
 
-  .mat-pseudo-checkbox-checked,
-  .mat-pseudo-checkbox-indeterminate {
+  .mat-pseudo-checkbox-checked {
     &.mat-pseudo-checkbox-disabled {
       background: $disabled-color;
     }
@@ -2329,8 +2328,7 @@ $_mat-button-ripple-opacity: 0.1;
   }
 
   .mat-checkbox-disabled {
-    &.mat-checkbox-checked,
-    &.mat-checkbox-indeterminate {
+    &.mat-checkbox-checked:not(.mat-checkbox-indeterminate) {
       .mat-checkbox-background {
         background-color: $disabled-color;
       }
