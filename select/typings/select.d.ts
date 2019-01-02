@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
@@ -87,6 +87,11 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _dir;
     private _parentFormField;
     ngControl: NgControl;
+    /**
+     * @deprecated _liveAnnouncer to be turned into a required parameter.
+     * @breaking-change 8.0.0
+     */
+    private _liveAnnouncer?;
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
     private _panelOpen;
@@ -218,7 +223,12 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, 
+    /**
+     * @deprecated _liveAnnouncer to be turned into a required parameter.
+     * @breaking-change 8.0.0
+     */
+    _liveAnnouncer?: LiveAnnouncer | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;

@@ -1192,7 +1192,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                         '[attr.autocomplete]': 'autocompleteAttribute',
                         '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
-                        '[attr.aria-activedescendant]': 'activeOption?.id',
+                        '[attr.aria-activedescendant]': '(panelOpen && activeOption) ? activeOption.id : null',
                         '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
                         '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
                         // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
@@ -1267,7 +1267,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
