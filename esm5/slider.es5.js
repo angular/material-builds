@@ -9,7 +9,7 @@ import { __extends } from 'tslib';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, hasModifierKey } from '@angular/cdk/keycodes';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { mixinColor, mixinDisabled, mixinTabIndex, GestureConfig, MatCommonModule } from '@angular/material/core';
@@ -750,7 +750,7 @@ var MatSlider = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (this.disabled) {
+        if (this.disabled || hasModifierKey(event)) {
             return;
         }
         /** @type {?} */

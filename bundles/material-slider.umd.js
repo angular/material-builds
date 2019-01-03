@@ -772,7 +772,7 @@ var MatSlider = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (this.disabled) {
+        if (this.disabled || keycodes.hasModifierKey(event)) {
             return;
         }
         /** @type {?} */
