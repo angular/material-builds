@@ -478,7 +478,9 @@ var MatInput = /** @class */ (function (_super) {
      * Focuses the input.
      * @return {?}
      */
-    function () { this._elementRef.nativeElement.focus(); };
+    function () {
+        this._elementRef.nativeElement.focus();
+    };
     /** Callback for the cases where the focused state of the input changes. */
     /**
      * Callback for the cases where the focused state of the input changes.
@@ -491,7 +493,7 @@ var MatInput = /** @class */ (function (_super) {
      * @return {?}
      */
     function (isFocused) {
-        if (isFocused !== this.focused && !this.readonly) {
+        if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
             this.focused = isFocused;
             this.stateChanges.next();
         }

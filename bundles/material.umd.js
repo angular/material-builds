@@ -12083,7 +12083,9 @@ var MatInput = /** @class */ (function (_super) {
      * Focuses the input.
      * @return {?}
      */
-    function () { this._elementRef.nativeElement.focus(); };
+    function () {
+        this._elementRef.nativeElement.focus();
+    };
     /** Callback for the cases where the focused state of the input changes. */
     /**
      * Callback for the cases where the focused state of the input changes.
@@ -12096,7 +12098,7 @@ var MatInput = /** @class */ (function (_super) {
      * @return {?}
      */
     function (isFocused) {
-        if (isFocused !== this.focused && !this.readonly) {
+        if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
             this.focused = isFocused;
             this.stateChanges.next();
         }
@@ -29835,7 +29837,7 @@ var MatSlider = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (this.disabled) {
+        if (this.disabled || keycodes.hasModifierKey(event)) {
             return;
         }
         /** @type {?} */
@@ -36375,10 +36377,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.0-65d615b');
+var VERSION = new core.Version('7.2.0-7d2748e');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36588,7 +36590,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
