@@ -381,14 +381,16 @@ class MatInput extends _MatInputMixinBase {
      * Focuses the input.
      * @return {?}
      */
-    focus() { this._elementRef.nativeElement.focus(); }
+    focus() {
+        this._elementRef.nativeElement.focus();
+    }
     /**
      * Callback for the cases where the focused state of the input changes.
      * @param {?} isFocused
      * @return {?}
      */
     _focusChanged(isFocused) {
-        if (isFocused !== this.focused && !this.readonly) {
+        if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
             this.focused = isFocused;
             this.stateChanges.next();
         }
