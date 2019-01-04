@@ -1090,6 +1090,7 @@ var MatSelect = /** @class */ (function (_super) {
         // has changed after it was checked" errors from Angular.
         Promise.resolve().then(function () {
             _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value);
+            _this.stateChanges.next();
         });
     };
     /**

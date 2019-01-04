@@ -878,6 +878,7 @@ class MatSelect extends _MatSelectMixinBase {
         // has changed after it was checked" errors from Angular.
         Promise.resolve().then(() => {
             this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value);
+            this.stateChanges.next();
         });
     }
     /**
