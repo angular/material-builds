@@ -26445,74 +26445,55 @@ MatRadioChange = /** @class */ (function () {
     }
     return MatRadioChange;
 }());
-// Boilerplate for applying mixins to MatRadioGroup.
-/**
- * \@docs-private
- */
-var   
-// Boilerplate for applying mixins to MatRadioGroup.
-/**
- * \@docs-private
- */
-MatRadioGroupBase = /** @class */ (function () {
-    function MatRadioGroupBase() {
-    }
-    return MatRadioGroupBase;
-}());
-/** @type {?} */
-var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
-var MatRadioGroup = /** @class */ (function (_super) {
-    __extends(MatRadioGroup, _super);
+var MatRadioGroup = /** @class */ (function () {
     function MatRadioGroup(_changeDetector) {
-        var _this = _super.call(this) || this;
-        _this._changeDetector = _changeDetector;
+        this._changeDetector = _changeDetector;
         /**
          * Selected value for the radio group.
          */
-        _this._value = null;
+        this._value = null;
         /**
          * The HTML name attribute applied to radio buttons in this group.
          */
-        _this._name = "mat-radio-group-" + nextUniqueId$7++;
+        this._name = "mat-radio-group-" + nextUniqueId$7++;
         /**
          * The currently selected radio button. Should match value.
          */
-        _this._selected = null;
+        this._selected = null;
         /**
          * Whether the `value` has been set to its initial value.
          */
-        _this._isInitialized = false;
+        this._isInitialized = false;
         /**
          * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
          */
-        _this._labelPosition = 'after';
+        this._labelPosition = 'after';
         /**
          * Whether the radio group is disabled.
          */
-        _this._disabled = false;
+        this._disabled = false;
         /**
          * Whether the radio group is required.
          */
-        _this._required = false;
+        this._required = false;
         /**
          * The method to be called in order to update ngModel
          */
-        _this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = function () { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
          */
-        _this.onTouched = function () { };
+        this.onTouched = function () { };
         /**
          * Event emitted when the group value changes.
          * Change events are only emitted when the value changes due to user interaction with
          * a radio button (the same behavior as `<input type-"radio">`).
          */
-        _this.change = new core.EventEmitter();
-        return _this;
+        this.change = new core.EventEmitter();
     }
     Object.defineProperty(MatRadioGroup.prototype, "name", {
         /** Name of the radio button group. All radio buttons inside this group will use this name. */
@@ -26843,7 +26824,6 @@ var MatRadioGroup = /** @class */ (function (_super) {
                         'role': 'radiogroup',
                         'class': 'mat-radio-group',
                     },
-                    inputs: ['disabled'],
                 },] },
     ];
     /** @nocollapse */
@@ -26861,7 +26841,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         required: [{ type: core.Input }]
     };
     return MatRadioGroup;
-}(_MatRadioGroupMixinBase));
+}());
 // Boilerplate for applying mixins to MatRadioButton.
 /**
  * \@docs-private
@@ -36377,10 +36357,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.0-7d2748e');
+var VERSION = new core.Version('7.2.0-390310d');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36590,7 +36570,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -36677,8 +36657,6 @@ exports.MatSpinner = MatSpinner;
 exports.MatRadioModule = MatRadioModule;
 exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
 exports.MatRadioChange = MatRadioChange;
-exports.MatRadioGroupBase = MatRadioGroupBase;
-exports._MatRadioGroupMixinBase = _MatRadioGroupMixinBase;
 exports.MatRadioGroup = MatRadioGroup;
 exports.MatRadioButtonBase = MatRadioButtonBase;
 exports._MatRadioButtonMixinBase = _MatRadioButtonMixinBase;

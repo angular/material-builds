@@ -10,7 +10,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { mixinColor, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 
@@ -45,23 +45,14 @@ class MatRadioChange {
         this.value = value;
     }
 }
-// Boilerplate for applying mixins to MatRadioGroup.
-/**
- * \@docs-private
- */
-class MatRadioGroupBase {
-}
-/** @type {?} */
-const _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
-class MatRadioGroup extends _MatRadioGroupMixinBase {
+class MatRadioGroup {
     /**
      * @param {?} _changeDetector
      */
     constructor(_changeDetector) {
-        super();
         this._changeDetector = _changeDetector;
         /**
          * Selected value for the radio group.
@@ -318,7 +309,6 @@ MatRadioGroup.decorators = [
                     'role': 'radiogroup',
                     'class': 'mat-radio-group',
                 },
-                inputs: ['disabled'],
             },] },
 ];
 /** @nocollapse */
@@ -677,5 +667,5 @@ MatRadioModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroupBase, _MatRadioGroupMixinBase, MatRadioGroup, MatRadioButtonBase, _MatRadioButtonMixinBase, MatRadioButton };
+export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroup, MatRadioButtonBase, _MatRadioButtonMixinBase, MatRadioButton };
 //# sourceMappingURL=radio.js.map
