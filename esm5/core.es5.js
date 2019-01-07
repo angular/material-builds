@@ -972,7 +972,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * @return {?}
      */
     function (date) {
-        return this.createDate(this.getYear(date), this.getMonth(date), this.getDate(date));
+        return new Date(date.getTime());
     };
     /**
      * @param {?} year

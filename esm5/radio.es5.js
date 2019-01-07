@@ -11,7 +11,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { mixinColor, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 
@@ -46,74 +46,55 @@ MatRadioChange = /** @class */ (function () {
     }
     return MatRadioChange;
 }());
-// Boilerplate for applying mixins to MatRadioGroup.
-/**
- * \@docs-private
- */
-var  
-// Boilerplate for applying mixins to MatRadioGroup.
-/**
- * \@docs-private
- */
-MatRadioGroupBase = /** @class */ (function () {
-    function MatRadioGroupBase() {
-    }
-    return MatRadioGroupBase;
-}());
-/** @type {?} */
-var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
-var MatRadioGroup = /** @class */ (function (_super) {
-    __extends(MatRadioGroup, _super);
+var MatRadioGroup = /** @class */ (function () {
     function MatRadioGroup(_changeDetector) {
-        var _this = _super.call(this) || this;
-        _this._changeDetector = _changeDetector;
+        this._changeDetector = _changeDetector;
         /**
          * Selected value for the radio group.
          */
-        _this._value = null;
+        this._value = null;
         /**
          * The HTML name attribute applied to radio buttons in this group.
          */
-        _this._name = "mat-radio-group-" + nextUniqueId++;
+        this._name = "mat-radio-group-" + nextUniqueId++;
         /**
          * The currently selected radio button. Should match value.
          */
-        _this._selected = null;
+        this._selected = null;
         /**
          * Whether the `value` has been set to its initial value.
          */
-        _this._isInitialized = false;
+        this._isInitialized = false;
         /**
          * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
          */
-        _this._labelPosition = 'after';
+        this._labelPosition = 'after';
         /**
          * Whether the radio group is disabled.
          */
-        _this._disabled = false;
+        this._disabled = false;
         /**
          * Whether the radio group is required.
          */
-        _this._required = false;
+        this._required = false;
         /**
          * The method to be called in order to update ngModel
          */
-        _this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = function () { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
          */
-        _this.onTouched = function () { };
+        this.onTouched = function () { };
         /**
          * Event emitted when the group value changes.
          * Change events are only emitted when the value changes due to user interaction with
          * a radio button (the same behavior as `<input type-"radio">`).
          */
-        _this.change = new EventEmitter();
-        return _this;
+        this.change = new EventEmitter();
     }
     Object.defineProperty(MatRadioGroup.prototype, "name", {
         /** Name of the radio button group. All radio buttons inside this group will use this name. */
@@ -444,7 +425,6 @@ var MatRadioGroup = /** @class */ (function (_super) {
                         'role': 'radiogroup',
                         'class': 'mat-radio-group',
                     },
-                    inputs: ['disabled'],
                 },] },
     ];
     /** @nocollapse */
@@ -462,7 +442,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         required: [{ type: Input }]
     };
     return MatRadioGroup;
-}(_MatRadioGroupMixinBase));
+}());
 // Boilerplate for applying mixins to MatRadioButton.
 /**
  * \@docs-private
@@ -885,5 +865,5 @@ var MatRadioModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroupBase, _MatRadioGroupMixinBase, MatRadioGroup, MatRadioButtonBase, _MatRadioButtonMixinBase, MatRadioButton };
+export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroup, MatRadioButtonBase, _MatRadioButtonMixinBase, MatRadioButton };
 //# sourceMappingURL=radio.es5.js.map

@@ -748,7 +748,7 @@ class NativeDateAdapter extends DateAdapter {
      * @return {?}
      */
     clone(date) {
-        return this.createDate(this.getYear(date), this.getMonth(date), this.getDate(date));
+        return new Date(date.getTime());
     }
     /**
      * @param {?} year

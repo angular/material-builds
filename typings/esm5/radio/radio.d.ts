@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -28,14 +28,10 @@ export declare class MatRadioChange {
     /** The value of the MatRadioButton. */
     value: any);
 }
-/** @docs-private */
-export declare class MatRadioGroupBase {
-}
-export declare const _MatRadioGroupMixinBase: CanDisableCtor & typeof MatRadioGroupBase;
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
-export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements AfterContentInit, ControlValueAccessor, CanDisable {
+export declare class MatRadioGroup implements AfterContentInit, ControlValueAccessor {
     private _changeDetector;
     /** Selected value for the radio group. */
     private _value;
