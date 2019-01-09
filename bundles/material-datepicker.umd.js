@@ -1542,9 +1542,9 @@ var MatCalendarHeader = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatCalendarHeader.prototype, "prevButtonLabel", {
-        /** The label for the the previous button. */
+        /** The label for the previous button. */
         get: /**
-         * The label for the the previous button.
+         * The label for the previous button.
          * @return {?}
          */
         function () {
@@ -1558,9 +1558,9 @@ var MatCalendarHeader = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatCalendarHeader.prototype, "nextButtonLabel", {
-        /** The label for the the next button. */
+        /** The label for the next button. */
         get: /**
-         * The label for the the next button.
+         * The label for the next button.
          * @return {?}
          */
         function () {

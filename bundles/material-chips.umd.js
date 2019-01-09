@@ -1215,16 +1215,16 @@ var MatChipList = /** @class */ (function (_super) {
         }
     };
     /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      */
     /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      * @return {?}
      */
     MatChipList.prototype.focus = /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      * @return {?}
      */

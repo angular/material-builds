@@ -29,9 +29,9 @@ export declare class MatCalendarHeader<D> {
     /** The label for the current calendar view. */
     readonly periodButtonText: string;
     readonly periodButtonLabel: string;
-    /** The label for the the previous button. */
+    /** The label for the previous button. */
     readonly prevButtonLabel: string;
-    /** The label for the the next button. */
+    /** The label for the next button. */
     readonly nextButtonLabel: string;
     /** Handles user clicks on the period label. */
     currentPeriodClicked(): void;

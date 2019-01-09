@@ -86,7 +86,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * @docs-private Implemented as part of RippleTarget
      */
     readonly rippleDisabled: boolean;
-    /** Sets up the the trigger event listeners if ripples are enabled. */
+    /** Sets up the trigger event listeners if ripples are enabled. */
     private _setupTriggerEventsIfEnabled;
     /**
      * Launches a manual ripple using the specified ripple configuration.

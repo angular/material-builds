@@ -1694,7 +1694,7 @@ class MatRipple {
         return this.disabled || !!this._globalOptions.disabled;
     }
     /**
-     * Sets up the the trigger event listeners if ripples are enabled.
+     * Sets up the trigger event listeners if ripples are enabled.
      * @private
      * @return {?}
      */
