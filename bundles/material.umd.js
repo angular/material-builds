@@ -2230,14 +2230,14 @@ var MatRipple = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /** Sets up the the trigger event listeners if ripples are enabled. */
+    /** Sets up the trigger event listeners if ripples are enabled. */
     /**
-     * Sets up the the trigger event listeners if ripples are enabled.
+     * Sets up the trigger event listeners if ripples are enabled.
      * @private
      * @return {?}
      */
     MatRipple.prototype._setupTriggerEventsIfEnabled = /**
-     * Sets up the the trigger event listeners if ripples are enabled.
+     * Sets up the trigger event listeners if ripples are enabled.
      * @private
      * @return {?}
      */
@@ -3132,7 +3132,7 @@ var MatPlaceholder = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * Prefix to be placed the the front of the form field.
+ * Prefix to be placed in front of the form field.
  */
 var MatPrefix = /** @class */ (function () {
     function MatPrefix() {
@@ -9397,16 +9397,16 @@ var MatChipList = /** @class */ (function (_super) {
         }
     };
     /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      */
     /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      * @return {?}
      */
     MatChipList.prototype.focus = /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      * @return {?}
      */
@@ -13871,9 +13871,9 @@ var MatCalendarHeader = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatCalendarHeader.prototype, "prevButtonLabel", {
-        /** The label for the the previous button. */
+        /** The label for the previous button. */
         get: /**
-         * The label for the the previous button.
+         * The label for the previous button.
          * @return {?}
          */
         function () {
@@ -13887,9 +13887,9 @@ var MatCalendarHeader = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatCalendarHeader.prototype, "nextButtonLabel", {
-        /** The label for the the next button. */
+        /** The label for the next button. */
         get: /**
-         * The label for the the next button.
+         * The label for the next button.
          * @return {?}
          */
         function () {
@@ -36359,7 +36359,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-22b0ad6');
+var VERSION = new core.Version('7.2.1-5465a46');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;

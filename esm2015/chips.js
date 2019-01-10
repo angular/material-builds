@@ -895,7 +895,7 @@ class MatChipList extends _MatChipListMixinBase {
         }
     }
     /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      * @return {?}
      */

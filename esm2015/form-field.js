@@ -185,7 +185,7 @@ MatPlaceholder.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * Prefix to be placed the the front of the form field.
+ * Prefix to be placed in front of the form field.
  */
 class MatPrefix {
 }

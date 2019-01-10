@@ -1239,7 +1239,7 @@ class MatCalendarHeader {
             this._intl.switchToMultiYearViewLabel : this._intl.switchToMonthViewLabel;
     }
     /**
-     * The label for the the previous button.
+     * The label for the previous button.
      * @return {?}
      */
     get prevButtonLabel() {
@@ -1250,7 +1250,7 @@ class MatCalendarHeader {
         }[this.calendar.currentView];
     }
     /**
-     * The label for the the next button.
+     * The label for the next button.
      * @return {?}
      */
     get nextButtonLabel() {

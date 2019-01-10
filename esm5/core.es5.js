@@ -2197,14 +2197,14 @@ var MatRipple = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /** Sets up the the trigger event listeners if ripples are enabled. */
+    /** Sets up the trigger event listeners if ripples are enabled. */
     /**
-     * Sets up the the trigger event listeners if ripples are enabled.
+     * Sets up the trigger event listeners if ripples are enabled.
      * @private
      * @return {?}
      */
     MatRipple.prototype._setupTriggerEventsIfEnabled = /**
-     * Sets up the the trigger event listeners if ripples are enabled.
+     * Sets up the trigger event listeners if ripples are enabled.
      * @private
      * @return {?}
      */

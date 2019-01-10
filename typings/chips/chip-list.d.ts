@@ -197,7 +197,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      */
     onContainerClick(event: MouseEvent): void;
     /**
-     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      */
     focus(): void;
