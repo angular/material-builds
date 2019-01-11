@@ -7,7 +7,7 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/observers'), require('@angular/platform-browser')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/slideToggle', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers', '@angular/platform-browser'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/material/slide-toggle', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers', '@angular/platform-browser'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.platform,global.ng.forms,global.ng.material.core,global.ng.platformBrowser.animations,global.ng.cdk.observers,global.ng.platformBrowser));
 }(this, (function (exports,core,a11y,bidi,coercion,platform,forms,core$1,animations,observers,platformBrowser) { 'use strict';
 

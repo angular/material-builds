@@ -7,7 +7,7 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('@angular/cdk/layout'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/keycodes'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/bidi')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/bottomSheet', ['exports', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/keycodes', 'rxjs', 'rxjs/operators', '@angular/cdk/bidi'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/keycodes', 'rxjs', 'rxjs/operators', '@angular/cdk/bidi'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}),global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.ng.cdk.layout,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.keycodes,global.rxjs,global.rxjs.operators,global.ng.cdk.bidi));
 }(this, (function (exports,core,animations,core$1,portal,layout,common,a11y,overlay,keycodes,rxjs,operators,bidi) { 'use strict';
 

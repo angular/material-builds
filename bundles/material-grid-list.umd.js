@@ -7,7 +7,7 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/gridList', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/bidi'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/material/grid-list', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/bidi'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = {}),global.ng.core,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.bidi));
 }(this, (function (exports,core,core$1,coercion,bidi) { 'use strict';
 
@@ -1243,7 +1243,7 @@ exports.MatGridTileText = MatGridTileText;
 exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
 exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

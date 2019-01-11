@@ -7,7 +7,7 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/material/core'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/progressBar', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/material/core', '@angular/common'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/material/progress-bar', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/material/core', '@angular/common'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}),global.ng.core,global.rxjs,global.rxjs.operators,global.ng.platformBrowser.animations,global.ng.material.core,global.ng.common));
 }(this, (function (exports,core,rxjs,operators,animations,core$1,common) { 'use strict';
 
