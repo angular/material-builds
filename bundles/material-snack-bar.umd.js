@@ -7,7 +7,7 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/animations'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/core'), require('@angular/material/button'), require('@angular/cdk/a11y'), require('@angular/cdk/layout')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs', '@angular/core', '@angular/animations', '@angular/cdk/portal', 'rxjs/operators', '@angular/cdk/overlay', '@angular/common', '@angular/material/core', '@angular/material/button', '@angular/cdk/a11y', '@angular/cdk/layout'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/material/snack-bar', ['exports', 'rxjs', '@angular/core', '@angular/animations', '@angular/cdk/portal', 'rxjs/operators', '@angular/cdk/overlay', '@angular/common', '@angular/material/core', '@angular/material/button', '@angular/cdk/a11y', '@angular/cdk/layout'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.rxjs,global.ng.core,global.ng.animations,global.ng.cdk.portal,global.rxjs.operators,global.ng.cdk.overlay,global.ng.common,global.ng.material.core,global.ng.material.button,global.ng.cdk.a11y,global.ng.cdk.layout));
 }(this, (function (exports,rxjs,core,animations,portal,operators,overlay,common,core$1,button,a11y,layout) { 'use strict';
 

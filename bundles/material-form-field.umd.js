@@ -7,7 +7,7 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations'), require('@angular/common'), require('@angular/cdk/observers')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/cdk/platform', '@angular/platform-browser/animations', '@angular/common', '@angular/cdk/observers'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/material/form-field', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/cdk/platform', '@angular/platform-browser/animations', '@angular/common', '@angular/cdk/observers'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.rxjs,global.rxjs.operators,global.ng.cdk.platform,global.ng.platformBrowser.animations,global.ng.common,global.ng.cdk.observers));
 }(this, (function (exports,core,animations,bidi,coercion,core$1,rxjs,operators,platform,animations$1,common,observers) { 'use strict';
 

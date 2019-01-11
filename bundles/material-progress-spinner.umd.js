@@ -7,7 +7,7 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/progressSpinner', ['exports', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations'], factory) :
+	typeof define === 'function' && define.amd ? define('@angular/material/progress-spinner', ['exports', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressSpinner = {}),global.ng.cdk.coercion,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.core,global.ng.platformBrowser.animations));
 }(this, (function (exports,coercion,platform,common,core,core$1,animations) { 'use strict';
 
