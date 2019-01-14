@@ -1185,6 +1185,18 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         this._indexToSelect = coerceNumberProperty(value, null);
     }
     /**
+     * Duration for the tab animation. Will be normalized to milliseconds if no units are set.
+     * @return {?}
+     */
+    get animationDuration() { return this._animationDuration; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set animationDuration(value) {
+        this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
+    }
+    /**
      * Background color of the tab group.
      * @return {?}
      */

@@ -595,6 +595,44 @@ MatDialogRef = /** @class */ (function () {
         (/** @type {?} */ (this))._overlayRef.updatePosition();
         return (/** @type {?} */ (this));
     };
+    /** Add a CSS class or an array of classes to the overlay pane. */
+    /**
+     * Add a CSS class or an array of classes to the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    MatDialogRef.prototype.addPanelClass = /**
+     * Add a CSS class or an array of classes to the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    function (classes) {
+        (/** @type {?} */ (this))._overlayRef.addPanelClass(classes);
+        return (/** @type {?} */ (this));
+    };
+    /** Remove a CSS class or an array of classes from the overlay pane. */
+    /**
+     * Remove a CSS class or an array of classes from the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    MatDialogRef.prototype.removePanelClass = /**
+     * Remove a CSS class or an array of classes from the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    function (classes) {
+        (/** @type {?} */ (this))._overlayRef.removePanelClass(classes);
+        return (/** @type {?} */ (this));
+    };
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.

@@ -467,6 +467,28 @@ class MatDialogRef {
         return (/** @type {?} */ (this));
     }
     /**
+     * Add a CSS class or an array of classes to the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    addPanelClass(classes) {
+        (/** @type {?} */ (this))._overlayRef.addPanelClass(classes);
+        return (/** @type {?} */ (this));
+    }
+    /**
+     * Remove a CSS class or an array of classes from the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    removePanelClass(classes) {
+        (/** @type {?} */ (this))._overlayRef.removePanelClass(classes);
+        return (/** @type {?} */ (this));
+    }
+    /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
      * \@breaking-change 8.0.0

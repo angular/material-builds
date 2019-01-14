@@ -1509,6 +1509,23 @@ var MatTabGroup = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatTabGroup.prototype, "animationDuration", {
+        /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
+        get: /**
+         * Duration for the tab animation. Will be normalized to milliseconds if no units are set.
+         * @return {?}
+         */
+        function () { return this._animationDuration; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatTabGroup.prototype, "backgroundColor", {
         /** Background color of the tab group. */
         get: /**

@@ -10846,6 +10846,44 @@ MatDialogRef = /** @class */ (function () {
         (/** @type {?} */ (this))._overlayRef.updatePosition();
         return (/** @type {?} */ (this));
     };
+    /** Add a CSS class or an array of classes to the overlay pane. */
+    /**
+     * Add a CSS class or an array of classes to the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    MatDialogRef.prototype.addPanelClass = /**
+     * Add a CSS class or an array of classes to the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    function (classes) {
+        (/** @type {?} */ (this))._overlayRef.addPanelClass(classes);
+        return (/** @type {?} */ (this));
+    };
+    /** Remove a CSS class or an array of classes from the overlay pane. */
+    /**
+     * Remove a CSS class or an array of classes from the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    MatDialogRef.prototype.removePanelClass = /**
+     * Remove a CSS class or an array of classes from the overlay pane.
+     * @template THIS
+     * @this {THIS}
+     * @param {?} classes
+     * @return {THIS}
+     */
+    function (classes) {
+        (/** @type {?} */ (this))._overlayRef.removePanelClass(classes);
+        return (/** @type {?} */ (this));
+    };
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
@@ -34877,6 +34915,23 @@ var MatTabGroup = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatTabGroup.prototype, "animationDuration", {
+        /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
+        get: /**
+         * Duration for the tab animation. Will be normalized to milliseconds if no units are set.
+         * @return {?}
+         */
+        function () { return this._animationDuration; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatTabGroup.prototype, "backgroundColor", {
         /** Background color of the tab group. */
         get: /**
@@ -36370,10 +36425,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-d83059b');
+var VERSION = new core.Version('7.2.1-b62f3f3');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36583,7 +36638,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

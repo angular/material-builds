@@ -57,8 +57,9 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     private _selectedIndex;
     /** Position of the tab header. */
     headerPosition: MatTabHeaderPosition;
-    /** Duration for the tab animation. Must be a valid CSS value (e.g. 600ms). */
+    /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
     animationDuration: string;
+    private _animationDuration;
     /** Background color of the tab group. */
     backgroundColor: ThemePalette;
     private _backgroundColor;
