@@ -36425,7 +36425,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-4b786bd');
+var VERSION = new core.Version('7.2.1-0fd6456');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -36638,7 +36638,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -36821,17 +36821,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf21 = MatTabBase;
-exports.ɵg21 = _MatTabMixinBase;
-exports.ɵb21 = MatTabHeaderBase;
-exports.ɵc21 = _MatTabHeaderMixinBase;
-exports.ɵd21 = MatTabLabelWrapperBase;
-exports.ɵe21 = _MatTabLabelWrapperMixinBase;
-exports.ɵj21 = MatTabLinkBase;
-exports.ɵh21 = MatTabNavBase;
-exports.ɵk21 = _MatTabLinkMixinBase;
-exports.ɵi21 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
