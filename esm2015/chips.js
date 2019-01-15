@@ -792,7 +792,10 @@ class MatChipList extends _MatChipListMixinBase {
         // it back to the first chip when the user tabs out.
         this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe(() => {
             this._tabIndex = -1;
-            setTimeout(() => this._tabIndex = this._userTabIndex || 0);
+            setTimeout(() => {
+                this._tabIndex = this._userTabIndex || 0;
+                this._changeDetectorRef.markForCheck();
+            });
         });
         // When the list changes, re-subscribe
         this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
