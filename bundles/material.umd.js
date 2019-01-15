@@ -34171,13 +34171,14 @@ var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
  */
 var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
+    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
+        _this._platform = _platform;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -34515,6 +34516,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         /** @type {?} */
         var scrollDistance = this.scrollDistance;
         /** @type {?} */
+        var platform$$1 = this._platform;
+        /** @type {?} */
         var translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
         // Don't use `translate3d` here because we don't want to create a new layer. A new layer
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
@@ -34525,8 +34528,12 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._tabList.nativeElement.style.transform = "translateX(" + Math.round(translateX) + "px)";
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
-        // it doesn't get thrown off.
-        this._tabListContainer.nativeElement.scrollLeft = 0;
+        // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
+        // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
+        // @breaking-change 8.0.0 Remove null check for `platform`.
+        if (platform$$1 && (platform$$1.TRIDENT || platform$$1.EDGE)) {
+            this._tabListContainer.nativeElement.scrollLeft = 0;
+        }
     };
     Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
         /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
@@ -34777,7 +34784,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef },
         { type: scrolling.ViewportRuler },
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-        { type: core.NgZone }
+        { type: core.NgZone },
+        { type: platform.Platform }
     ]; };
     MatTabHeader.propDecorators = {
         _labelWrappers: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
@@ -36428,10 +36436,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-73d0fb9');
+var VERSION = new core.Version('7.2.1-220e6b2');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36641,7 +36649,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -36824,17 +36832,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

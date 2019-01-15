@@ -11,6 +11,7 @@ import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, E
 import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
+import { Platform } from '@angular/cdk/platform';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
@@ -34,6 +35,7 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     private _viewportRuler;
     private _dir;
     private _ngZone?;
+    private _platform?;
     _labelWrappers: QueryList<MatTabLabelWrapper>;
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
@@ -68,7 +70,7 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     readonly selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     readonly indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone?: NgZone | undefined);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone?: NgZone | undefined, _platform?: Platform | undefined);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**

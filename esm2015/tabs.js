@@ -629,14 +629,16 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @param {?} _viewportRuler
      * @param {?} _dir
      * @param {?=} _ngZone
+     * @param {?=} _platform
      */
-    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
+    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform) {
         super();
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._viewportRuler = _viewportRuler;
         this._dir = _dir;
         this._ngZone = _ngZone;
+        this._platform = _platform;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -891,6 +893,8 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         /** @type {?} */
         const scrollDistance = this.scrollDistance;
         /** @type {?} */
+        const platform = this._platform;
+        /** @type {?} */
         const translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
         // Don't use `translate3d` here because we don't want to create a new layer. A new layer
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
@@ -901,8 +905,12 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         this._tabList.nativeElement.style.transform = `translateX(${Math.round(translateX)}px)`;
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
-        // it doesn't get thrown off.
-        this._tabListContainer.nativeElement.scrollLeft = 0;
+        // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
+        // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
+        // @breaking-change 8.0.0 Remove null check for `platform`.
+        if (platform && (platform.TRIDENT || platform.EDGE)) {
+            this._tabListContainer.nativeElement.scrollLeft = 0;
+        }
     }
     /**
      * Sets the distance in pixels that the tab header should be transformed in the X-axis.
@@ -1061,7 +1069,8 @@ MatTabHeader.ctorParameters = () => [
     { type: ChangeDetectorRef },
     { type: ViewportRuler },
     { type: Directionality, decorators: [{ type: Optional }] },
-    { type: NgZone }
+    { type: NgZone },
+    { type: Platform }
 ];
 MatTabHeader.propDecorators = {
     _labelWrappers: [{ type: ContentChildren, args: [MatTabLabelWrapper,] }],
@@ -1769,5 +1778,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatTabBase as ɵf22, _MatTabMixinBase as ɵg22, MatTabHeaderBase as ɵb22, _MatTabHeaderMixinBase as ɵc22, MatTabLabelWrapperBase as ɵd22, _MatTabLabelWrapperMixinBase as ɵe22, MatTabLinkBase as ɵj22, MatTabNavBase as ɵh22, _MatTabLinkMixinBase as ɵk22, _MatTabNavMixinBase as ɵi22 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.js.map
