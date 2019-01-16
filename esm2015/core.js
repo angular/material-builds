@@ -1601,7 +1601,7 @@ class MatRipple {
      * @param {?} _elementRef
      * @param {?} ngZone
      * @param {?} platform
-     * @param {?} globalOptions
+     * @param {?=} globalOptions
      * @param {?=} animationMode
      */
     constructor(_elementRef, ngZone, platform, globalOptions, animationMode) {

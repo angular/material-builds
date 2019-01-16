@@ -633,7 +633,15 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
+        /** @type {?} */
+        var group = this.buttonToggleGroup;
         this._focusMonitor.stopMonitoring(this._elementRef);
+        // Remove the toggle from the selection once it's destroyed. Needs to happen
+        // on the next tick in order to avoid "changed after checked" errors.
+        if (group && group._isSelected(this)) {
+            Promise.resolve().then(function () { return group._syncButtonToggle(_this, false); });
+        }
     };
     /** Focuses the button. */
     /**

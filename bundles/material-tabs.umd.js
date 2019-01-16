@@ -885,6 +885,10 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
+        // We don't handle any key bindings with a modifier key.
+        if (keycodes.hasModifierKey(event)) {
+            return;
+        }
         switch (event.keyCode) {
             case keycodes.HOME:
                 this._keyManager.setFirstItemActive();
@@ -2105,7 +2109,7 @@ var _MatTabLinkMixinBase = core$1.mixinTabIndex(core$1.mixinDisableRipple(core$1
  */
 var MatTabLink = /** @class */ (function (_super) {
     __extends(MatTabLink, _super);
-    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform$$1, globalOptions, tabIndex, _focusMonitor) {
+    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform$$1, globalRippleOptions, tabIndex, _focusMonitor) {
         var _this = _super.call(this) || this;
         _this._tabNavBar = _tabNavBar;
         _this._elementRef = _elementRef;
@@ -2114,26 +2118,10 @@ var MatTabLink = /** @class */ (function (_super) {
          * Whether the tab link is active or not.
          */
         _this._isActive = false;
-        /**
-         * Whether the ripples are globally disabled through the RippleGlobalOptions
-         */
-        _this._ripplesGloballyDisabled = false;
-        /**
-         * Ripple configuration for ripples that are launched on pointer down.
-         * \@docs-private
-         */
-        _this.rippleConfig = {};
         _this._tabLinkRipple = new core$1.RippleRenderer(_this, ngZone, _elementRef, platform$$1);
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
+        _this.rippleConfig = globalRippleOptions || {};
         _this.tabIndex = parseInt(tabIndex) || 0;
-        if (globalOptions) {
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            _this._ripplesGloballyDisabled = !!globalOptions.disabled;
-            _this.rippleConfig = {
-                terminateOnPointerUp: globalOptions.terminateOnPointerUp,
-                animation: globalOptions.animation,
-            };
-        }
         if (_focusMonitor) {
             _focusMonitor.monitor(_elementRef);
         }
@@ -2161,17 +2149,17 @@ var MatTabLink = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatTabLink.prototype, "rippleDisabled", {
         /**
-         * Whether ripples are disabled on interaction
+         * Whether ripples are disabled on interaction.
          * @docs-private
          */
         get: /**
-         * Whether ripples are disabled on interaction
+         * Whether ripples are disabled on interaction.
          * \@docs-private
          * @return {?}
          */
         function () {
             return this.disabled || this.disableRipple || this._tabNavBar.disableRipple ||
-                this._ripplesGloballyDisabled;
+                !!this.rippleConfig.disabled;
         },
         enumerable: true,
         configurable: true
@@ -2282,17 +2270,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

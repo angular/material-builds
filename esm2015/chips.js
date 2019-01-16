@@ -85,21 +85,12 @@ class MatChip extends _MatChipMixinBase {
      * @param {?} _elementRef
      * @param {?} _ngZone
      * @param {?} platform
-     * @param {?} globalOptions
+     * @param {?} globalRippleOptions
      */
-    constructor(_elementRef, _ngZone, platform, globalOptions) {
+    constructor(_elementRef, _ngZone, platform, globalRippleOptions) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
-        /**
-         * Whether the ripples are globally disabled through the RippleGlobalOptions
-         */
-        this._ripplesGloballyDisabled = false;
-        /**
-         * Ripple configuration for ripples that are launched on pointer down.
-         * \@docs-private
-         */
-        this.rippleConfig = {};
         /**
          * Whether the chip has focus.
          */
@@ -134,14 +125,7 @@ class MatChip extends _MatChipMixinBase {
         this._addHostClassName();
         this._chipRipple = new RippleRenderer(this, _ngZone, _elementRef, platform);
         this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
-        if (globalOptions) {
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            this._ripplesGloballyDisabled = !!globalOptions.disabled;
-            this.rippleConfig = {
-                animation: globalOptions.animation,
-                terminateOnPointerUp: globalOptions.terminateOnPointerUp,
-            };
-        }
+        this.rippleConfig = globalRippleOptions || {};
     }
     /**
      * Whether ripples are disabled on interaction
@@ -149,7 +133,7 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     get rippleDisabled() {
-        return this.disabled || this.disableRipple || this._ripplesGloballyDisabled;
+        return this.disabled || this.disableRipple || !!this.rippleConfig.disabled;
     }
     /**
      * Whether the chip is selected.

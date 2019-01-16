@@ -13,7 +13,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
+import { END, ENTER, HOME, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
@@ -722,6 +722,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _handleKeydown(event) {
+        // We don't handle any key bindings with a modifier key.
+        if (hasModifierKey(event)) {
+            return;
+        }
         switch (event.keyCode) {
             case HOME:
                 this._keyManager.setFirstItemActive();
@@ -1621,11 +1625,11 @@ class MatTabLink extends _MatTabLinkMixinBase {
      * @param {?} _elementRef
      * @param {?} ngZone
      * @param {?} platform
-     * @param {?} globalOptions
+     * @param {?} globalRippleOptions
      * @param {?} tabIndex
      * @param {?=} _focusMonitor
      */
-    constructor(_tabNavBar, _elementRef, ngZone, platform, globalOptions, tabIndex, _focusMonitor) {
+    constructor(_tabNavBar, _elementRef, ngZone, platform, globalRippleOptions, tabIndex, _focusMonitor) {
         super();
         this._tabNavBar = _tabNavBar;
         this._elementRef = _elementRef;
@@ -1634,26 +1638,10 @@ class MatTabLink extends _MatTabLinkMixinBase {
          * Whether the tab link is active or not.
          */
         this._isActive = false;
-        /**
-         * Whether the ripples are globally disabled through the RippleGlobalOptions
-         */
-        this._ripplesGloballyDisabled = false;
-        /**
-         * Ripple configuration for ripples that are launched on pointer down.
-         * \@docs-private
-         */
-        this.rippleConfig = {};
         this._tabLinkRipple = new RippleRenderer(this, ngZone, _elementRef, platform);
         this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
+        this.rippleConfig = globalRippleOptions || {};
         this.tabIndex = parseInt(tabIndex) || 0;
-        if (globalOptions) {
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            this._ripplesGloballyDisabled = !!globalOptions.disabled;
-            this.rippleConfig = {
-                terminateOnPointerUp: globalOptions.terminateOnPointerUp,
-                animation: globalOptions.animation,
-            };
-        }
         if (_focusMonitor) {
             _focusMonitor.monitor(_elementRef);
         }
@@ -1674,13 +1662,13 @@ class MatTabLink extends _MatTabLinkMixinBase {
         }
     }
     /**
-     * Whether ripples are disabled on interaction
+     * Whether ripples are disabled on interaction.
      * \@docs-private
      * @return {?}
      */
     get rippleDisabled() {
         return this.disabled || this.disableRipple || this._tabNavBar.disableRipple ||
-            this._ripplesGloballyDisabled;
+            !!this.rippleConfig.disabled;
     }
     /**
      * @return {?}
@@ -1778,5 +1766,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.js.map

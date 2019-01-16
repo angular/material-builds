@@ -24,6 +24,8 @@ export declare class MatTableDataSource<T> extends DataSource<T> {
     private readonly _renderData;
     /** Stream that emits when a new filter string is set on the data source. */
     private readonly _filter;
+    /** Used to react to internal changes of the paginator that are made by the data source itself. */
+    private readonly _internalPageChanges;
     /**
      * Subscription to the changes that should trigger an update to the table's rendered rows, such
      * as filtering, sorting, pagination, or base data changes.

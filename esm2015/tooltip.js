@@ -674,6 +674,12 @@ class TooltipComponent {
     /**
      * @return {?}
      */
+    ngOnDestroy() {
+        this._onHide.complete();
+    }
+    /**
+     * @return {?}
+     */
     _animationStart() {
         this._closeOnInteraction = false;
     }

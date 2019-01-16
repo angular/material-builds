@@ -57,13 +57,13 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     private _ngZone;
     /** Reference to the RippleRenderer for the chip. */
     private _chipRipple;
-    /** Whether the ripples are globally disabled through the RippleGlobalOptions */
-    private _ripplesGloballyDisabled;
     /**
-     * Ripple configuration for ripples that are launched on pointer down.
+     * Ripple configuration for ripples that are launched on pointer down. The ripple config
+     * is set to the global ripple options since we don't have any configurable options for
+     * the chip ripples.
      * @docs-private
      */
-    rippleConfig: RippleConfig;
+    rippleConfig: RippleConfig & RippleGlobalOptions;
     /**
      * Whether ripples are disabled on interaction
      * @docs-private
@@ -110,7 +110,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     readonly removed: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
     readonly ariaSelected: string | null;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null);
     _addHostClassName(): void;
     ngOnDestroy(): void;
     /** Selects the chip. */

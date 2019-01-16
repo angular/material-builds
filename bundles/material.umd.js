@@ -4902,12 +4902,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (!this.autocomplete) {
             throw getMatAutocompleteMissingPanelError();
         }
-        if (!this._overlayRef) {
+        /** @type {?} */
+        var overlayRef = this._overlayRef;
+        if (!overlayRef) {
             this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef);
-            this._overlayRef = this._overlay.create(this._getOverlayConfig());
+            overlayRef = this._overlay.create(this._getOverlayConfig());
+            this._overlayRef = overlayRef;
             // Use the `keydownEvents` in order to take advantage of
             // the overlay event targeting provided by the CDK overlay.
-            this._overlayRef.keydownEvents().subscribe(function (event) {
+            overlayRef.keydownEvents().subscribe(function (event) {
                 // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
                 // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
                 if (event.keyCode === keycodes.ESCAPE || (event.keyCode === keycodes.UP_ARROW && event.altKey)) {
@@ -4917,18 +4920,21 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             });
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
-                    if (_this.panelOpen && _this._overlayRef) {
-                        _this._overlayRef.updateSize({ width: _this._getPanelWidth() });
+                    if (_this.panelOpen && overlayRef) {
+                        overlayRef.updateSize({ width: _this._getPanelWidth() });
                     }
                 });
             }
         }
         else {
-            // Update the panel width and direction, in case anything has changed.
-            this._overlayRef.updateSize({ width: this._getPanelWidth() });
+            /** @type {?} */
+            var position = (/** @type {?} */ (overlayRef.getConfig().positionStrategy));
+            // Update the trigger, panel width and direction, in case anything has changed.
+            position.setOrigin(this._getConnectedElement());
+            overlayRef.updateSize({ width: this._getPanelWidth() });
         }
-        if (this._overlayRef && !this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this._portal);
+        if (overlayRef && !overlayRef.hasAttached()) {
+            overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         /** @type {?} */
@@ -5910,6 +5916,7 @@ MatBottomSheetRef = /** @class */ (function () {
          */
         this._afterOpened = new rxjs.Subject();
         this.containerInstance = containerInstance;
+        this.disableClose = containerInstance.bottomSheetConfig.disableClose;
         // Emit when opening animation completes
         containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
             .subscribe(function () {
@@ -5923,9 +5930,11 @@ MatBottomSheetRef = /** @class */ (function () {
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
-        if (!containerInstance.bottomSheetConfig.disableClose) {
-            rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
-        }
+        rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () {
+            if (!_this.disableClose) {
+                _this.dismiss();
+            }
+        });
     }
     /**
      * Dismisses the bottom sheet.
@@ -7126,7 +7135,15 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
+        /** @type {?} */
+        var group = this.buttonToggleGroup;
         this._focusMonitor.stopMonitoring(this._elementRef);
+        // Remove the toggle from the selection once it's destroyed. Needs to happen
+        // on the next tick in order to avoid "changed after checked" errors.
+        if (group && group._isSelected(this)) {
+            Promise.resolve().then(function () { return group._syncButtonToggle(_this, false); });
+        }
     };
     /** Focuses the button. */
     /**
@@ -8295,19 +8312,10 @@ var MatChipTrailingIcon = /** @class */ (function () {
  */
 var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(_elementRef, _ngZone, platform$$1, globalOptions) {
+    function MatChip(_elementRef, _ngZone, platform$$1, globalRippleOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._ngZone = _ngZone;
-        /**
-         * Whether the ripples are globally disabled through the RippleGlobalOptions
-         */
-        _this._ripplesGloballyDisabled = false;
-        /**
-         * Ripple configuration for ripples that are launched on pointer down.
-         * \@docs-private
-         */
-        _this.rippleConfig = {};
         /**
          * Whether the chip has focus.
          */
@@ -8342,14 +8350,7 @@ var MatChip = /** @class */ (function (_super) {
         _this._addHostClassName();
         _this._chipRipple = new RippleRenderer(_this, _ngZone, _elementRef, platform$$1);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
-        if (globalOptions) {
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            _this._ripplesGloballyDisabled = !!globalOptions.disabled;
-            _this.rippleConfig = {
-                animation: globalOptions.animation,
-                terminateOnPointerUp: globalOptions.terminateOnPointerUp,
-            };
-        }
+        _this.rippleConfig = globalRippleOptions || {};
         return _this;
     }
     Object.defineProperty(MatChip.prototype, "rippleDisabled", {
@@ -8363,7 +8364,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.disabled || this.disableRipple || this._ripplesGloballyDisabled;
+            return this.disabled || this.disableRipple || !!this.rippleConfig.disabled;
         },
         enumerable: true,
         configurable: true
@@ -21609,7 +21610,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._overlayRef = null;
         this._menuOpen = false;
-        this._closeSubscription = rxjs.Subscription.EMPTY;
+        this._closingActionsSubscription = rxjs.Subscription.EMPTY;
         this._hoverSubscription = rxjs.Subscription.EMPTY;
         this._menuCloseSubscription = rxjs.Subscription.EMPTY;
         /**
@@ -21723,6 +21724,7 @@ var MatMenuTrigger = /** @class */ (function () {
         }
         this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         this._cleanUpSubscriptions();
+        this._closingActionsSubscription.unsubscribe();
     };
     Object.defineProperty(MatMenuTrigger.prototype, "menuOpen", {
         /** Whether the menu is open. */
@@ -21798,7 +21800,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
-        this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
+        this._closingActionsSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
         this._initMenu();
         if (this.menu instanceof MatMenu) {
             this.menu._startAnimation();
@@ -21857,7 +21859,7 @@ var MatMenuTrigger = /** @class */ (function () {
         }
         /** @type {?} */
         var menu = this.menu;
-        this._closeSubscription.unsubscribe();
+        this._closingActionsSubscription.unsubscribe();
         this._overlayRef.detach();
         if (menu instanceof MatMenu) {
             menu._resetAnimation();
@@ -22158,7 +22160,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._closeSubscription.unsubscribe();
+        this._closingActionsSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
     };
     /** Returns a stream that emits whenever an action that should close the menu occurs. */
@@ -25132,6 +25134,15 @@ var TooltipComponent = /** @class */ (function () {
      */
     function () {
         return this._visibility === 'visible';
+    };
+    /**
+     * @return {?}
+     */
+    TooltipComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._onHide.complete();
     };
     /**
      * @return {?}
@@ -32074,7 +32085,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: '[mat-sort-header]',
                     exportAs: 'matSortHeader',
                     template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-sorted]=\"_isSorted()\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.disabled]=\"_isDisabled() || null\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" (focus)=\"_setIndicatorHintVisible(true)\" (blur)=\"_setIndicatorHintVisible(false)\"><ng-content></ng-content></button><div class=\"mat-sort-header-arrow\" [@arrowOpacity]=\"_getArrowViewState()\" [@arrowPosition]=\"_getArrowViewState()\" [@allowChildren]=\"_getArrowDirectionState()\" (@arrowPosition.start)=\"_disableViewStateAnimation = true\" (@arrowPosition.done)=\"_disableViewStateAnimation = false\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div>",
-                    styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}@media (-ms-high-contrast:active){.mat-sort-header-stem{width:0;border-left:solid 2px}}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}@media (-ms-high-contrast:active){.mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}@media (-ms-high-contrast:active){.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
+                    styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-button::-moz-focus-inner{border:0}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}@media (-ms-high-contrast:active){.mat-sort-header-stem{width:0;border-left:solid 2px}}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}@media (-ms-high-contrast:active){.mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}@media (-ms-high-contrast:active){.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                     host: {
                         '(click)': '_handleClick()',
                         '(mouseenter)': '_setIndicatorHintVisible(true)',
@@ -32477,7 +32488,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
     MatHorizontalStepper.decorators = [
         { type: core.Component, args: [{selector: 'mat-horizontal-stepper',
                     exportAs: 'matHorizontalStepper',
-                    template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [attr.aria-label]=\"step.ariaLabel || null\" [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\" [index]=\"i\" [state]=\"_getIndicatorType(i, step.state)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [errorMessage]=\"step.errorMessage\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone.next($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
+                    template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [attr.aria-label]=\"step.ariaLabel || null\" [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\" [index]=\"i\" [state]=\"_getIndicatorType(i, step.state)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [errorMessage]=\"step.errorMessage\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone.next($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative;top:36px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{border-top-width:1px;border-top-style:solid;content:'';display:inline-block;height:0;position:absolute;top:36px;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto;padding:24px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
@@ -32510,7 +32521,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     MatVerticalStepper.decorators = [
         { type: core.Component, args: [{selector: 'mat-vertical-stepper',
                     exportAs: 'matVerticalStepper',
-                    template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [attr.aria-label]=\"step.ariaLabel || null\" [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\" [index]=\"i\" [state]=\"_getIndicatorType(i, step.state)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [errorMessage]=\"step.errorMessage\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone.next($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
+                    template: "<div class=\"mat-step\" *ngFor=\"let step of steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [attr.aria-label]=\"step.ariaLabel || null\" [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\" [index]=\"i\" [state]=\"_getIndicatorType(i, step.state)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [errorMessage]=\"step.errorMessage\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone.next($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative;top:36px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{border-top-width:1px;border-top-style:solid;content:'';display:inline-block;height:0;position:absolute;top:36px;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto;padding:24px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
@@ -33030,6 +33041,10 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this._filter = new rxjs.BehaviorSubject('');
         /**
+         * Used to react to internal changes of the paginator that are made by the data source itself.
+         */
+        _this._internalPageChanges = new rxjs.Subject();
+        /**
          * Subscription to the changes that should trigger an update to the table's rendered rows, such
          * as filtering, sorting, pagination, or base data changes.
          */
@@ -33253,7 +33268,7 @@ MatTableDataSource = /** @class */ (function (_super) {
             rxjs.of(null);
         /** @type {?} */
         var pageChange = this._paginator ?
-            rxjs.merge(this._paginator.page, this._paginator.initialized) :
+            rxjs.merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized) :
             rxjs.of(null);
         /** @type {?} */
         var dataStream = this._data;
@@ -33385,15 +33400,24 @@ MatTableDataSource = /** @class */ (function (_super) {
     function (filteredDataLength) {
         var _this = this;
         Promise.resolve().then(function () {
-            if (!_this.paginator) {
+            /** @type {?} */
+            var paginator = _this.paginator;
+            if (!paginator) {
                 return;
             }
-            _this.paginator.length = filteredDataLength;
+            paginator.length = filteredDataLength;
             // If the page index is set beyond the page, reduce it to the last page.
-            if (_this.paginator.pageIndex > 0) {
+            if (paginator.pageIndex > 0) {
                 /** @type {?} */
-                var lastPageIndex = Math.ceil(_this.paginator.length / _this.paginator.pageSize) - 1 || 0;
-                _this.paginator.pageIndex = Math.min(_this.paginator.pageIndex, lastPageIndex);
+                var lastPageIndex = Math.ceil(paginator.length / paginator.pageSize) - 1 || 0;
+                /** @type {?} */
+                var newPageIndex = Math.min(paginator.pageIndex, lastPageIndex);
+                if (newPageIndex !== paginator.pageIndex) {
+                    paginator.pageIndex = newPageIndex;
+                    // Since the paginator only emits after user-generated changes,
+                    // we need our own stream so we know to should re-render the data.
+                    _this._internalPageChanges.next();
+                }
             }
         });
     };
@@ -34275,6 +34299,10 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
+        // We don't handle any key bindings with a modifier key.
+        if (keycodes.hasModifierKey(event)) {
+            return;
+        }
         switch (event.keyCode) {
             case keycodes.HOME:
                 this._keyManager.setFirstItemActive();
@@ -35495,7 +35523,7 @@ var _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTab
  */
 var MatTabLink = /** @class */ (function (_super) {
     __extends(MatTabLink, _super);
-    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform$$1, globalOptions, tabIndex, _focusMonitor) {
+    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform$$1, globalRippleOptions, tabIndex, _focusMonitor) {
         var _this = _super.call(this) || this;
         _this._tabNavBar = _tabNavBar;
         _this._elementRef = _elementRef;
@@ -35504,26 +35532,10 @@ var MatTabLink = /** @class */ (function (_super) {
          * Whether the tab link is active or not.
          */
         _this._isActive = false;
-        /**
-         * Whether the ripples are globally disabled through the RippleGlobalOptions
-         */
-        _this._ripplesGloballyDisabled = false;
-        /**
-         * Ripple configuration for ripples that are launched on pointer down.
-         * \@docs-private
-         */
-        _this.rippleConfig = {};
         _this._tabLinkRipple = new RippleRenderer(_this, ngZone, _elementRef, platform$$1);
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
+        _this.rippleConfig = globalRippleOptions || {};
         _this.tabIndex = parseInt(tabIndex) || 0;
-        if (globalOptions) {
-            // TODO(paul): Do not copy each option manually. Allow dynamic global option changes: #9729
-            _this._ripplesGloballyDisabled = !!globalOptions.disabled;
-            _this.rippleConfig = {
-                terminateOnPointerUp: globalOptions.terminateOnPointerUp,
-                animation: globalOptions.animation,
-            };
-        }
         if (_focusMonitor) {
             _focusMonitor.monitor(_elementRef);
         }
@@ -35551,17 +35563,17 @@ var MatTabLink = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatTabLink.prototype, "rippleDisabled", {
         /**
-         * Whether ripples are disabled on interaction
+         * Whether ripples are disabled on interaction.
          * @docs-private
          */
         get: /**
-         * Whether ripples are disabled on interaction
+         * Whether ripples are disabled on interaction.
          * \@docs-private
          * @return {?}
          */
         function () {
             return this.disabled || this.disableRipple || this._tabNavBar.disableRipple ||
-                this._ripplesGloballyDisabled;
+                !!this.rippleConfig.disabled;
         },
         enumerable: true,
         configurable: true
@@ -36436,10 +36448,9 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-5773a5b');
+var VERSION = new core.Version('7.2.1-1220315');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -36455,6 +36466,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
+exports.MatAutocompleteOrigin = MatAutocompleteOrigin;
 exports.MatBadgeModule = MatBadgeModule;
 exports.MatBadgeBase = MatBadgeBase;
 exports._MatBadgeMixinBase = _MatBadgeMixinBase;
@@ -36649,7 +36661,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -36696,12 +36708,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -36832,17 +36844,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

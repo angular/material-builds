@@ -1047,7 +1047,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._overlayRef = null;
         this._menuOpen = false;
-        this._closeSubscription = rxjs.Subscription.EMPTY;
+        this._closingActionsSubscription = rxjs.Subscription.EMPTY;
         this._hoverSubscription = rxjs.Subscription.EMPTY;
         this._menuCloseSubscription = rxjs.Subscription.EMPTY;
         /**
@@ -1161,6 +1161,7 @@ var MatMenuTrigger = /** @class */ (function () {
         }
         this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         this._cleanUpSubscriptions();
+        this._closingActionsSubscription.unsubscribe();
     };
     Object.defineProperty(MatMenuTrigger.prototype, "menuOpen", {
         /** Whether the menu is open. */
@@ -1236,7 +1237,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
-        this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
+        this._closingActionsSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
         this._initMenu();
         if (this.menu instanceof MatMenu) {
             this.menu._startAnimation();
@@ -1295,7 +1296,7 @@ var MatMenuTrigger = /** @class */ (function () {
         }
         /** @type {?} */
         var menu = this.menu;
-        this._closeSubscription.unsubscribe();
+        this._closingActionsSubscription.unsubscribe();
         this._overlayRef.detach();
         if (menu instanceof MatMenu) {
             menu._resetAnimation();
@@ -1596,7 +1597,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._closeSubscription.unsubscribe();
+        this._closingActionsSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
     };
     /** Returns a stream that emits whenever an action that should close the menu occurs. */
@@ -1814,12 +1815,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

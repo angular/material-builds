@@ -39,7 +39,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _portal;
     private _overlayRef;
     private _menuOpen;
-    private _closeSubscription;
+    private _closingActionsSubscription;
     private _hoverSubscription;
     private _menuCloseSubscription;
     private _scrollStrategy;
