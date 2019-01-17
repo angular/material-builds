@@ -67,9 +67,9 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     selectedIndex: number;
     private _selectedIndex;
     /** Event emitted when the option is selected. */
-    readonly selectFocusedIndex: EventEmitter<{}>;
+    readonly selectFocusedIndex: EventEmitter<number>;
     /** Event emitted when a label is focused. */
-    readonly indexFocused: EventEmitter<{}>;
+    readonly indexFocused: EventEmitter<number>;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone?: NgZone | undefined, _platform?: Platform | undefined);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;

@@ -36515,7 +36515,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-463ac9e');
+var VERSION = new core.Version('7.2.1-9d2cb6c');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36728,7 +36728,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
