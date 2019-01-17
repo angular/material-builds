@@ -860,7 +860,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
 MatSelectionList.decorators = [
     { type: Component, args: [{selector: 'mat-selection-list',
                 exportAs: 'matSelectionList',
-                inputs: ['disabled', 'disableRipple', 'tabIndex'],
+                inputs: ['disableRipple'],
                 host: {
                     'role': 'listbox',
                     '[tabIndex]': 'tabIndex',
