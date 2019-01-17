@@ -395,6 +395,26 @@ var MatListOption = /** @class */ (function (_super) {
         _this.checkboxPosition = 'after';
         return _this;
     }
+    Object.defineProperty(MatListOption.prototype, "value", {
+        /** Value of the option */
+        get: /**
+         * Value of the option
+         * @return {?}
+         */
+        function () { return this._value; },
+        set: /**
+         * @param {?} newValue
+         * @return {?}
+         */
+        function (newValue) {
+            if (this.selected && newValue !== this.value) {
+                this.selected = false;
+            }
+            this._value = newValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatListOption.prototype, "disabled", {
         /** Whether the option is disabled. */
         get: /**

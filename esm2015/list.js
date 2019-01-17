@@ -328,6 +328,21 @@ class MatListOption extends _MatListOptionMixinBase {
         this.checkboxPosition = 'after';
     }
     /**
+     * Value of the option
+     * @return {?}
+     */
+    get value() { return this._value; }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+    set value(newValue) {
+        if (this.selected && newValue !== this.value) {
+            this.selected = false;
+        }
+        this._value = newValue;
+    }
+    /**
      * Whether the option is disabled.
      * @return {?}
      */
