@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('rxjs'), require('@angular/common'), require('@angular/material/divider')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/list', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', 'rxjs', '@angular/common', '@angular/material/divider'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.forms,global.rxjs,global.ng.common,global.ng.material.divider));
-}(this, (function (exports,core,core$1,a11y,coercion,collections,keycodes,forms,rxjs,common,divider) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('@angular/common'), require('@angular/material/divider')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/list', ['exports', '@angular/core', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', '@angular/common', '@angular/material/divider'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = {}),global.ng.core,global.ng.material.core,global.rxjs,global.rxjs.operators,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.forms,global.ng.common,global.ng.material.divider));
+}(this, (function (exports,core,core$1,rxjs,operators,a11y,coercion,collections,keycodes,forms,common,divider) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -79,8 +79,31 @@ var _MatListItemMixinBase = core$1.mixinDisableRipple(MatListItemBase);
 var MatNavList = /** @class */ (function (_super) {
     __extends(MatNavList, _super);
     function MatNavList() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * Emits when the state of the list changes.
+         */
+        _this._stateChanges = new rxjs.Subject();
+        return _this;
     }
+    /**
+     * @return {?}
+     */
+    MatNavList.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatNavList.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.complete();
+    };
     MatNavList.decorators = [
         { type: core.Component, args: [{selector: 'mat-nav-list',
                     exportAs: 'matNavList',
@@ -106,6 +129,10 @@ var MatList = /** @class */ (function (_super) {
     function MatList(_elementRef) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
+        /**
+         * Emits when the state of the list changes.
+         */
+        _this._stateChanges = new rxjs.Subject();
         return _this;
     }
     /**
@@ -129,6 +156,24 @@ var MatList = /** @class */ (function (_super) {
             }
         }
         return null;
+    };
+    /**
+     * @return {?}
+     */
+    MatList.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatList.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.complete();
     };
     MatList.decorators = [
         { type: core.Component, args: [{selector: 'mat-list, mat-action-list',
@@ -199,10 +244,13 @@ var MatListSubheaderCssMatStyler = /** @class */ (function () {
  */
 var MatListItem = /** @class */ (function (_super) {
     __extends(MatListItem, _super);
-    function MatListItem(_element, navList, list) {
+    function MatListItem(_element, navList, list, 
+    // @breaking-change 8.0.0 `_changeDetectorRef` to be made into a required parameter.
+    _changeDetectorRef) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._isInteractiveList = false;
+        _this._destroyed = new rxjs.Subject();
         _this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
         _this._list = navList || list;
         // If no type attributed is specified for <button>, set it to "button".
@@ -211,6 +259,14 @@ var MatListItem = /** @class */ (function (_super) {
         var element = _this._getHostElement();
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
             element.setAttribute('type', 'button');
+        }
+        // @breaking-change 8.0.0 Remove null check for _changeDetectorRef.
+        if (_this._list && _changeDetectorRef) {
+            // React to changes in the state of the parent list since
+            // some of the item's properties depend on it (e.g. `disableRipple`).
+            _this._list._stateChanges.pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+                _changeDetectorRef.markForCheck();
+            });
         }
         return _this;
     }
@@ -222,6 +278,16 @@ var MatListItem = /** @class */ (function (_super) {
      */
     function () {
         core$1.setLines(this._lines, this._element);
+    };
+    /**
+     * @return {?}
+     */
+    MatListItem.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /** Whether this list item should show a ripple effect when clicked. */
     /**
@@ -267,7 +333,8 @@ var MatListItem = /** @class */ (function (_super) {
     MatListItem.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: MatNavList, decorators: [{ type: core.Optional }] },
-        { type: MatList, decorators: [{ type: core.Optional }] }
+        { type: MatList, decorators: [{ type: core.Optional }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatListItem.propDecorators = {
         _lines: [{ type: core.ContentChildren, args: [core$1.MatLine,] }],

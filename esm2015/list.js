@@ -5,14 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, Optional, ViewEncapsulation, Attribute, ChangeDetectorRef, EventEmitter, forwardRef, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, Optional, ViewEncapsulation, ChangeDetectorRef, Attribute, EventEmitter, forwardRef, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { MatLine, setLines, mixinDisableRipple, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SPACE, ENTER, HOME, END, UP_ARROW, DOWN_ARROW, A, hasModifierKey } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -37,6 +38,25 @@ class MatListItemBase {
 /** @type {?} */
 const _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 class MatNavList extends _MatListMixinBase {
+    constructor() {
+        super(...arguments);
+        /**
+         * Emits when the state of the list changes.
+         */
+        this._stateChanges = new Subject();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnChanges() {
+        this._stateChanges.next();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._stateChanges.complete();
+    }
 }
 MatNavList.decorators = [
     { type: Component, args: [{selector: 'mat-nav-list',
@@ -61,6 +81,10 @@ class MatList extends _MatListMixinBase {
     constructor(_elementRef) {
         super();
         this._elementRef = _elementRef;
+        /**
+         * Emits when the state of the list changes.
+         */
+        this._stateChanges = new Subject();
     }
     /**
      * @return {?}
@@ -80,6 +104,18 @@ class MatList extends _MatListMixinBase {
             }
         }
         return null;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnChanges() {
+        this._stateChanges.next();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._stateChanges.complete();
     }
 }
 MatList.decorators = [
@@ -143,11 +179,15 @@ class MatListItem extends _MatListItemMixinBase {
      * @param {?} _element
      * @param {?=} navList
      * @param {?=} list
+     * @param {?=} _changeDetectorRef
      */
-    constructor(_element, navList, list) {
+    constructor(_element, navList, list, 
+    // @breaking-change 8.0.0 `_changeDetectorRef` to be made into a required parameter.
+    _changeDetectorRef) {
         super();
         this._element = _element;
         this._isInteractiveList = false;
+        this._destroyed = new Subject();
         this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
         this._list = navList || list;
         // If no type attributed is specified for <button>, set it to "button".
@@ -157,12 +197,27 @@ class MatListItem extends _MatListItemMixinBase {
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
             element.setAttribute('type', 'button');
         }
+        // @breaking-change 8.0.0 Remove null check for _changeDetectorRef.
+        if (this._list && _changeDetectorRef) {
+            // React to changes in the state of the parent list since
+            // some of the item's properties depend on it (e.g. `disableRipple`).
+            this._list._stateChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {
+                _changeDetectorRef.markForCheck();
+            });
+        }
     }
     /**
      * @return {?}
      */
     ngAfterContentInit() {
         setLines(this._lines, this._element);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._destroyed.next();
+        this._destroyed.complete();
     }
     /**
      * Whether this list item should show a ripple effect when clicked.
@@ -199,7 +254,8 @@ MatListItem.decorators = [
 MatListItem.ctorParameters = () => [
     { type: ElementRef },
     { type: MatNavList, decorators: [{ type: Optional }] },
-    { type: MatList, decorators: [{ type: Optional }] }
+    { type: MatList, decorators: [{ type: Optional }] },
+    { type: ChangeDetectorRef }
 ];
 MatListItem.propDecorators = {
     _lines: [{ type: ContentChildren, args: [MatLine,] }],
