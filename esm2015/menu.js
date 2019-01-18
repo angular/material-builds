@@ -839,7 +839,7 @@ class MatMenuTrigger {
         this._focusMonitor = _focusMonitor;
         this._overlayRef = null;
         this._menuOpen = false;
-        this._closeSubscription = Subscription.EMPTY;
+        this._closingActionsSubscription = Subscription.EMPTY;
         this._hoverSubscription = Subscription.EMPTY;
         this._menuCloseSubscription = Subscription.EMPTY;
         /**
@@ -933,6 +933,7 @@ class MatMenuTrigger {
         }
         this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         this._cleanUpSubscriptions();
+        this._closingActionsSubscription.unsubscribe();
     }
     /**
      * Whether the menu is open.
@@ -982,7 +983,7 @@ class MatMenuTrigger {
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
-        this._closeSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
+        this._closingActionsSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
         this._initMenu();
         if (this.menu instanceof MatMenu) {
             this.menu._startAnimation();
@@ -1019,7 +1020,7 @@ class MatMenuTrigger {
         }
         /** @type {?} */
         const menu = this.menu;
-        this._closeSubscription.unsubscribe();
+        this._closingActionsSubscription.unsubscribe();
         this._overlayRef.detach();
         if (menu instanceof MatMenu) {
             menu._resetAnimation();
@@ -1225,7 +1226,7 @@ class MatMenuTrigger {
      * @return {?}
      */
     _cleanUpSubscriptions() {
-        this._closeSubscription.unsubscribe();
+        this._closingActionsSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
     }
     /**
@@ -1406,5 +1407,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
 //# sourceMappingURL=menu.js.map

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { HttpClient } from '@angular/common/http';
-import { Optional } from '@angular/core';
+import { Optional, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 /**
@@ -40,7 +40,7 @@ export declare function getMatIconFailedToSanitizeLiteralError(literal: SafeHtml
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-export declare class MatIconRegistry {
+export declare class MatIconRegistry implements OnDestroy {
     private _httpClient;
     private _sanitizer;
     private _document;
@@ -158,6 +158,7 @@ export declare class MatIconRegistry {
      * @param namespace Namespace in which to look for the icon.
      */
     getNamedSvgIcon(name: string, namespace?: string): Observable<SVGElement>;
+    ngOnDestroy(): void;
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
      */

@@ -319,6 +319,14 @@ class MatIconRegistry {
         return throwError(getMatIconNameNotFoundError(key));
     }
     /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._svgIconConfigs.clear();
+        this._iconSetConfigs.clear();
+        this._cachedIconsByUrl.clear();
+    }
+    /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
      * @private
      * @param {?} config

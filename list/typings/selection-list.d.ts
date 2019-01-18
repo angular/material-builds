@@ -55,6 +55,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     checkboxPosition: 'before' | 'after';
     /** Value of the option */
     value: any;
+    private _value;
     /** Whether the option is disabled. */
     disabled: any;
     /** Whether the option is selected. */

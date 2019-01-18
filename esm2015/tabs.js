@@ -13,7 +13,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
+import { END, ENTER, HOME, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
@@ -629,14 +629,16 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @param {?} _viewportRuler
      * @param {?} _dir
      * @param {?=} _ngZone
+     * @param {?=} _platform
      */
-    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
+    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform) {
         super();
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._viewportRuler = _viewportRuler;
         this._dir = _dir;
         this._ngZone = _ngZone;
+        this._platform = _platform;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -720,6 +722,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _handleKeydown(event) {
+        // We don't handle any key bindings with a modifier key.
+        if (hasModifierKey(event)) {
+            return;
+        }
         switch (event.keyCode) {
             case HOME:
                 this._keyManager.setFirstItemActive();
@@ -891,6 +897,8 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         /** @type {?} */
         const scrollDistance = this.scrollDistance;
         /** @type {?} */
+        const platform = this._platform;
+        /** @type {?} */
         const translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
         // Don't use `translate3d` here because we don't want to create a new layer. A new layer
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
@@ -901,8 +909,12 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         this._tabList.nativeElement.style.transform = `translateX(${Math.round(translateX)}px)`;
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
-        // it doesn't get thrown off.
-        this._tabListContainer.nativeElement.scrollLeft = 0;
+        // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
+        // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
+        // @breaking-change 8.0.0 Remove null check for `platform`.
+        if (platform && (platform.TRIDENT || platform.EDGE)) {
+            this._tabListContainer.nativeElement.scrollLeft = 0;
+        }
     }
     /**
      * Sets the distance in pixels that the tab header should be transformed in the X-axis.
@@ -1061,7 +1073,8 @@ MatTabHeader.ctorParameters = () => [
     { type: ChangeDetectorRef },
     { type: ViewportRuler },
     { type: Directionality, decorators: [{ type: Optional }] },
-    { type: NgZone }
+    { type: NgZone },
+    { type: Platform }
 ];
 MatTabHeader.propDecorators = {
     _labelWrappers: [{ type: ContentChildren, args: [MatTabLabelWrapper,] }],
@@ -1183,6 +1196,18 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      */
     set selectedIndex(value) {
         this._indexToSelect = coerceNumberProperty(value, null);
+    }
+    /**
+     * Duration for the tab animation. Will be normalized to milliseconds if no units are set.
+     * @return {?}
+     */
+    get animationDuration() { return this._animationDuration; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set animationDuration(value) {
+        this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
     }
     /**
      * Background color of the tab group.
@@ -1757,5 +1782,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.js.map

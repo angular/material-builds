@@ -536,6 +536,17 @@ var MatIconRegistry = /** @class */ (function () {
         return rxjs.throwError(getMatIconNameNotFoundError(key));
     };
     /**
+     * @return {?}
+     */
+    MatIconRegistry.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._svgIconConfigs.clear();
+        this._iconSetConfigs.clear();
+        this._cachedIconsByUrl.clear();
+    };
+    /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
      */
     /**

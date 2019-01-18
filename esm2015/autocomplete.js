@@ -773,12 +773,15 @@ class MatAutocompleteTrigger {
         if (!this.autocomplete) {
             throw getMatAutocompleteMissingPanelError();
         }
-        if (!this._overlayRef) {
+        /** @type {?} */
+        let overlayRef = this._overlayRef;
+        if (!overlayRef) {
             this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
-            this._overlayRef = this._overlay.create(this._getOverlayConfig());
+            overlayRef = this._overlay.create(this._getOverlayConfig());
+            this._overlayRef = overlayRef;
             // Use the `keydownEvents` in order to take advantage of
             // the overlay event targeting provided by the CDK overlay.
-            this._overlayRef.keydownEvents().subscribe(event => {
+            overlayRef.keydownEvents().subscribe(event => {
                 // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
                 // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
                 if (event.keyCode === ESCAPE || (event.keyCode === UP_ARROW && event.altKey)) {
@@ -788,18 +791,21 @@ class MatAutocompleteTrigger {
             });
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
-                    if (this.panelOpen && this._overlayRef) {
-                        this._overlayRef.updateSize({ width: this._getPanelWidth() });
+                    if (this.panelOpen && overlayRef) {
+                        overlayRef.updateSize({ width: this._getPanelWidth() });
                     }
                 });
             }
         }
         else {
-            // Update the panel width and direction, in case anything has changed.
-            this._overlayRef.updateSize({ width: this._getPanelWidth() });
+            /** @type {?} */
+            const position = (/** @type {?} */ (overlayRef.getConfig().positionStrategy));
+            // Update the trigger, panel width and direction, in case anything has changed.
+            position.setOrigin(this._getConnectedElement());
+            overlayRef.updateSize({ width: this._getPanelWidth() });
         }
-        if (this._overlayRef && !this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this._portal);
+        if (overlayRef && !overlayRef.hasAttached()) {
+            overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         /** @type {?} */
@@ -970,5 +976,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin };
 //# sourceMappingURL=autocomplete.js.map

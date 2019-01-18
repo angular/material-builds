@@ -21,6 +21,8 @@ export declare class MatBottomSheetRef<T = any, R = any> {
      * @docs-private
      */
     containerInstance: MatBottomSheetContainer;
+    /** Whether the user is allowed to close the bottom sheet. */
+    disableClose: boolean | undefined;
     /** Subject for notifying the user that the bottom sheet has been dismissed. */
     private readonly _afterDismissed;
     /** Subject for notifying the user that the bottom sheet has opened and appeared. */

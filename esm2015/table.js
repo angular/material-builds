@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, Eleme
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { BehaviorSubject, combineLatest, merge, of, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, of, Subscription, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -354,6 +354,10 @@ class MatTableDataSource extends DataSource {
          */
         this._filter = new BehaviorSubject('');
         /**
+         * Used to react to internal changes of the paginator that are made by the data source itself.
+         */
+        this._internalPageChanges = new Subject();
+        /**
          * Subscription to the changes that should trigger an update to the table's rendered rows, such
          * as filtering, sorting, pagination, or base data changes.
          */
@@ -529,7 +533,7 @@ class MatTableDataSource extends DataSource {
             of(null);
         /** @type {?} */
         const pageChange = this._paginator ?
-            merge(this._paginator.page, this._paginator.initialized) :
+            merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized) :
             of(null);
         /** @type {?} */
         const dataStream = this._data;
@@ -604,15 +608,24 @@ class MatTableDataSource extends DataSource {
      */
     _updatePaginator(filteredDataLength) {
         Promise.resolve().then(() => {
-            if (!this.paginator) {
+            /** @type {?} */
+            const paginator = this.paginator;
+            if (!paginator) {
                 return;
             }
-            this.paginator.length = filteredDataLength;
+            paginator.length = filteredDataLength;
             // If the page index is set beyond the page, reduce it to the last page.
-            if (this.paginator.pageIndex > 0) {
+            if (paginator.pageIndex > 0) {
                 /** @type {?} */
-                const lastPageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize) - 1 || 0;
-                this.paginator.pageIndex = Math.min(this.paginator.pageIndex, lastPageIndex);
+                const lastPageIndex = Math.ceil(paginator.length / paginator.pageSize) - 1 || 0;
+                /** @type {?} */
+                const newPageIndex = Math.min(paginator.pageIndex, lastPageIndex);
+                if (newPageIndex !== paginator.pageIndex) {
+                    paginator.pageIndex = newPageIndex;
+                    // Since the paginator only emits after user-generated changes,
+                    // we need our own stream so we know to should re-render the data.
+                    this._internalPageChanges.next();
+                }
             }
         });
     }

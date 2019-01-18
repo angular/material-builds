@@ -134,7 +134,7 @@ export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
  * Internal component that wraps the tooltip's content.
  * @docs-private
  */
-export declare class TooltipComponent {
+export declare class TooltipComponent implements OnDestroy {
     private _changeDetectorRef;
     private _breakpointObserver;
     /** Message to display in the tooltip */
@@ -170,6 +170,7 @@ export declare class TooltipComponent {
     afterHidden(): Observable<void>;
     /** Whether the tooltip is being displayed. */
     isVisible(): boolean;
+    ngOnDestroy(): void;
     _animationStart(): void;
     _animationDone(event: AnimationEvent): void;
     /**

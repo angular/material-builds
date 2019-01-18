@@ -434,6 +434,7 @@ MatBottomSheetRef = /** @class */ (function () {
          */
         this._afterOpened = new Subject();
         this.containerInstance = containerInstance;
+        this.disableClose = containerInstance.bottomSheetConfig.disableClose;
         // Emit when opening animation completes
         containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), take(1))
             .subscribe(function () {
@@ -447,9 +448,11 @@ MatBottomSheetRef = /** @class */ (function () {
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
-        if (!containerInstance.bottomSheetConfig.disableClose) {
-            merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(filter(function (event) { return event.keyCode === ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
-        }
+        merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(filter(function (event) { return event.keyCode === ESCAPE; }))).subscribe(function () {
+            if (!_this.disableClose) {
+                _this.dismiss();
+            }
+        });
     }
     /**
      * Dismisses the bottom sheet.

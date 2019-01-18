@@ -14,7 +14,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
+import { END, ENTER, HOME, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
@@ -762,13 +762,14 @@ var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
  */
 var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
+    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
+        _this._platform = _platform;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -865,6 +866,10 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
+        // We don't handle any key bindings with a modifier key.
+        if (hasModifierKey(event)) {
+            return;
+        }
         switch (event.keyCode) {
             case HOME:
                 this._keyManager.setFirstItemActive();
@@ -1106,6 +1111,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         /** @type {?} */
         var scrollDistance = this.scrollDistance;
         /** @type {?} */
+        var platform = this._platform;
+        /** @type {?} */
         var translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
         // Don't use `translate3d` here because we don't want to create a new layer. A new layer
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
@@ -1116,8 +1123,12 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._tabList.nativeElement.style.transform = "translateX(" + Math.round(translateX) + "px)";
         // Setting the `transform` on IE will change the scroll offset of the parent, causing the
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
-        // it doesn't get thrown off.
-        this._tabListContainer.nativeElement.scrollLeft = 0;
+        // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
+        // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
+        // @breaking-change 8.0.0 Remove null check for `platform`.
+        if (platform && (platform.TRIDENT || platform.EDGE)) {
+            this._tabListContainer.nativeElement.scrollLeft = 0;
+        }
     };
     Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
         /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
@@ -1368,7 +1379,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         { type: ChangeDetectorRef },
         { type: ViewportRuler },
         { type: Directionality, decorators: [{ type: Optional }] },
-        { type: NgZone }
+        { type: NgZone },
+        { type: Platform }
     ]; };
     MatTabHeader.propDecorators = {
         _labelWrappers: [{ type: ContentChildren, args: [MatTabLabelWrapper,] }],
@@ -1505,6 +1517,23 @@ var MatTabGroup = /** @class */ (function (_super) {
          */
         function (value) {
             this._indexToSelect = coerceNumberProperty(value, null);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatTabGroup.prototype, "animationDuration", {
+        /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
+        get: /**
+         * Duration for the tab animation. Will be normalized to milliseconds if no units are set.
+         * @return {?}
+         */
+        function () { return this._animationDuration; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
         },
         enumerable: true,
         configurable: true
@@ -2235,5 +2264,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.es5.js.map

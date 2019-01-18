@@ -808,6 +808,15 @@ var TooltipComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
+    TooltipComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._onHide.complete();
+    };
+    /**
+     * @return {?}
+     */
     TooltipComponent.prototype._animationStart = /**
      * @return {?}
      */
