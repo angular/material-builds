@@ -189,6 +189,9 @@ var MatTooltip = /** @class */ (function () {
                 _ngZone.run(function () { return _this.show(); });
             }
         });
+        if (_defaultOptions && _defaultOptions.position) {
+            this.position = _defaultOptions.position;
+        }
     }
     Object.defineProperty(MatTooltip.prototype, "position", {
         /** Allows the user to define the position of the tooltip relative to the parent element */
