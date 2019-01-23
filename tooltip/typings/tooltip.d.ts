@@ -40,6 +40,7 @@ export interface MatTooltipDefaultOptions {
     showDelay: number;
     hideDelay: number;
     touchendHideDelay: number;
+    position?: TooltipPosition;
 }
 /** Injection token to be used to override the default options for `matTooltip`. */
 export declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;

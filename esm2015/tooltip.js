@@ -201,6 +201,9 @@ class MatTooltip {
                 _ngZone.run(() => this.show());
             }
         });
+        if (_defaultOptions && _defaultOptions.position) {
+            this.position = _defaultOptions.position;
+        }
     }
     /**
      * Allows the user to define the position of the tooltip relative to the parent element
