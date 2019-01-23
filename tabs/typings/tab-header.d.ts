@@ -7,7 +7,7 @@
  */
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, AfterViewInit } from '@angular/core';
 import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
@@ -29,7 +29,7 @@ export declare const _MatTabHeaderMixinBase: CanDisableRippleCtor & typeof MatTa
  * left and right across the header.
  * @docs-private
  */
-export declare class MatTabHeader extends _MatTabHeaderMixinBase implements AfterContentChecked, AfterContentInit, OnDestroy, CanDisableRipple {
+export declare class MatTabHeader extends _MatTabHeaderMixinBase implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy, CanDisableRipple {
     private _elementRef;
     private _changeDetectorRef;
     private _viewportRuler;
@@ -40,6 +40,8 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
+    _nextPaginator: ElementRef<HTMLElement>;
+    _previousPaginator: ElementRef<HTMLElement>;
     /** The distance in pixels that the tab labels should be translated to the left. */
     private _scrollDistance;
     /** Whether the header should scroll to the selected index after the view has been checked. */
@@ -63,6 +65,8 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     private _keyManager;
     /** Cached text content of the header. */
     private _currentTextContent;
+    /** Stream that will stop the automated scrolling. */
+    private _stopScrolling;
     /** The index of the active tab. */
     selectedIndex: number;
     private _selectedIndex;
@@ -72,11 +76,13 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     readonly indexFocused: EventEmitter<number>;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone?: NgZone | undefined, _platform?: Platform | undefined);
     ngAfterContentChecked(): void;
+    /** Handles keyboard events on the header. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
      * Aligns the ink bar to the selected tab on load.
      */
     ngAfterContentInit(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**
      * Callback for when the MutationObserver detects that the content has changed.
@@ -117,7 +123,12 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
      * This is an expensive call that forces a layout reflow to compute box and scroll metrics and
      * should be called sparingly.
      */
-    _scrollHeader(scrollDir: ScrollDirection): void;
+    _scrollHeader(direction: ScrollDirection): {
+        maxScrollDistance: number;
+        distance: number;
+    };
+    /** Handles click events on the pagination arrows. */
+    _handlePaginatorClick(direction: ScrollDirection): void;
     /**
      * Moves the tab list such that the desired tab label (marked by index) is moved into view.
      *
@@ -154,4 +165,18 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     _getMaxScrollDistance(): number;
     /** Tells the ink-bar to align itself to the current label wrapper */
     _alignInkBarToSelectedTab(): void;
+    /** Stops the currently-running paginator interval.  */
+    _stopInterval(): void;
+    /**
+     * Handles the user pressing down on one of the paginators.
+     * Starts scrolling the header after a certain amount of time.
+     * @param direction In which direction the paginator should be scrolled.
+     */
+    _handlePaginatorPress(direction: ScrollDirection): void;
+    /**
+     * Scrolls the header to a given position.
+     * @param position Position to which to scroll.
+     * @returns Information on the current scroll distance and the maximum.
+     */
+    private _scrollTo;
 }

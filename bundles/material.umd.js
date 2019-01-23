@@ -34255,11 +34255,28 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * Config used to bind passive event listeners
+ * @type {?}
+ */
+var passiveEventListenerOptions$1 = (/** @type {?} */ (platform.normalizePassiveListenerOptions({ passive: true })));
+/**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
  * @type {?}
  */
 var EXAGGERATED_OVERSCROLL = 60;
+/**
+ * Amount of milliseconds to wait before starting to scroll the header automatically.
+ * Set a little conservatively in order to handle fake events dispatched on touch devices.
+ * @type {?}
+ */
+var HEADER_SCROLL_DELAY = 650;
+/**
+ * Interval in milliseconds at which to scroll the header
+ * while the user is holding their pointer.
+ * @type {?}
+ */
+var HEADER_SCROLL_INTERVAL = 100;
 // Boilerplate for applying mixins to MatTabHeader.
 /**
  * \@docs-private
@@ -34317,6 +34334,10 @@ var MatTabHeader = /** @class */ (function (_super) {
          * Whether the tab list can be scrolled more towards the beginning of the tab label list.
          */
         _this._disableScrollBefore = true;
+        /**
+         * Stream that will stop the automated scrolling.
+         */
+        _this._stopScrolling = new rxjs.Subject();
         _this._selectedIndex = 0;
         /**
          * Event emitted when the option is selected.
@@ -34326,6 +34347,24 @@ var MatTabHeader = /** @class */ (function (_super) {
          * Event emitted when a label is focused.
          */
         _this.indexFocused = new core.EventEmitter();
+        /** @type {?} */
+        var element = _elementRef.nativeElement;
+        /** @type {?} */
+        var bindEvent = function () {
+            rxjs.fromEvent(element, 'mouseleave')
+                .pipe(operators.takeUntil(_this._destroyed))
+                .subscribe(function () {
+                _this._stopInterval();
+            });
+        };
+        // @breaking-change 8.0.0 remove null check once _ngZone is made into a required parameter.
+        if (_ngZone) {
+            // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
+            _ngZone.runOutsideAngular(bindEvent);
+        }
+        else {
+            bindEvent();
+        }
         return _this;
     }
     Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
@@ -34380,11 +34419,14 @@ var MatTabHeader = /** @class */ (function (_super) {
             this._changeDetectorRef.markForCheck();
         }
     };
+    /** Handles keyboard events on the header. */
     /**
+     * Handles keyboard events on the header.
      * @param {?} event
      * @return {?}
      */
     MatTabHeader.prototype._handleKeydown = /**
+     * Handles keyboard events on the header.
      * @param {?} event
      * @return {?}
      */
@@ -34457,12 +34499,33 @@ var MatTabHeader = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
+    MatTabHeader.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // We need to handle these events manually, because we want to bind passive event listeners.
+        rxjs.fromEvent(this._previousPaginator.nativeElement, 'touchstart', passiveEventListenerOptions$1)
+            .pipe(operators.takeUntil(this._destroyed))
+            .subscribe(function () {
+            _this._handlePaginatorPress('before');
+        });
+        rxjs.fromEvent(this._nextPaginator.nativeElement, 'touchstart', passiveEventListenerOptions$1)
+            .pipe(operators.takeUntil(this._destroyed))
+            .subscribe(function () {
+            _this._handlePaginatorPress('after');
+        });
+    };
+    /**
+     * @return {?}
+     */
     MatTabHeader.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () {
         this._destroyed.next();
         this._destroyed.complete();
+        this._stopScrolling.complete();
     };
     /**
      * Callback for when the MutationObserver detects that the content has changed.
@@ -34661,15 +34724,11 @@ var MatTabHeader = /** @class */ (function (_super) {
          */
         function () { return this._scrollDistance; },
         set: /**
-         * @param {?} v
+         * @param {?} value
          * @return {?}
          */
-        function (v) {
-            this._scrollDistance = Math.max(0, Math.min(this._getMaxScrollDistance(), v));
-            // Mark that the scroll distance has changed so that after the view is checked, the CSS
-            // transformation can move the header.
-            this._scrollDistanceChanged = true;
-            this._checkScrollingControls();
+        function (value) {
+            this._scrollTo(value);
         },
         enumerable: true,
         configurable: true
@@ -34689,7 +34748,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      *
      * This is an expensive call that forces a layout reflow to compute box and scroll metrics and
      * should be called sparingly.
-     * @param {?} scrollDir
+     * @param {?} direction
      * @return {?}
      */
     MatTabHeader.prototype._scrollHeader = /**
@@ -34699,14 +34758,31 @@ var MatTabHeader = /** @class */ (function (_super) {
      *
      * This is an expensive call that forces a layout reflow to compute box and scroll metrics and
      * should be called sparingly.
-     * @param {?} scrollDir
+     * @param {?} direction
      * @return {?}
      */
-    function (scrollDir) {
+    function (direction) {
         /** @type {?} */
         var viewLength = this._tabListContainer.nativeElement.offsetWidth;
         // Move the scroll distance one-third the length of the tab list's viewport.
-        this.scrollDistance += (scrollDir == 'before' ? -1 : 1) * viewLength / 3;
+        /** @type {?} */
+        var scrollAmount = (direction == 'before' ? -1 : 1) * viewLength / 3;
+        return this._scrollTo(this._scrollDistance + scrollAmount);
+    };
+    /** Handles click events on the pagination arrows. */
+    /**
+     * Handles click events on the pagination arrows.
+     * @param {?} direction
+     * @return {?}
+     */
+    MatTabHeader.prototype._handlePaginatorClick = /**
+     * Handles click events on the pagination arrows.
+     * @param {?} direction
+     * @return {?}
+     */
+    function (direction) {
+        this._stopInterval();
+        this._scrollHeader(direction);
     };
     /**
      * Moves the tab list such that the desired tab label (marked by index) is moved into view.
@@ -34882,10 +34958,82 @@ var MatTabHeader = /** @class */ (function (_super) {
             null;
         this._inkBar.alignToElement((/** @type {?} */ (selectedLabelWrapper)));
     };
+    /** Stops the currently-running paginator interval.  */
+    /**
+     * Stops the currently-running paginator interval.
+     * @return {?}
+     */
+    MatTabHeader.prototype._stopInterval = /**
+     * Stops the currently-running paginator interval.
+     * @return {?}
+     */
+    function () {
+        this._stopScrolling.next();
+    };
+    /**
+     * Handles the user pressing down on one of the paginators.
+     * Starts scrolling the header after a certain amount of time.
+     * @param direction In which direction the paginator should be scrolled.
+     */
+    /**
+     * Handles the user pressing down on one of the paginators.
+     * Starts scrolling the header after a certain amount of time.
+     * @param {?} direction In which direction the paginator should be scrolled.
+     * @return {?}
+     */
+    MatTabHeader.prototype._handlePaginatorPress = /**
+     * Handles the user pressing down on one of the paginators.
+     * Starts scrolling the header after a certain amount of time.
+     * @param {?} direction In which direction the paginator should be scrolled.
+     * @return {?}
+     */
+    function (direction) {
+        var _this = this;
+        // Avoid overlapping timers.
+        this._stopInterval();
+        // Start a timer after the delay and keep firing based on the interval.
+        rxjs.timer(HEADER_SCROLL_DELAY, HEADER_SCROLL_INTERVAL)
+            // Keep the timer going until something tells it to stop or the component is destroyed.
+            .pipe(operators.takeUntil(rxjs.merge(this._stopScrolling, this._destroyed)))
+            .subscribe(function () {
+            var _a = _this._scrollHeader(direction), maxScrollDistance = _a.maxScrollDistance, distance = _a.distance;
+            // Stop the timer if we've reached the start or the end.
+            if (distance === 0 || distance >= maxScrollDistance) {
+                _this._stopInterval();
+            }
+        });
+    };
+    /**
+     * Scrolls the header to a given position.
+     * @param position Position to which to scroll.
+     * @returns Information on the current scroll distance and the maximum.
+     */
+    /**
+     * Scrolls the header to a given position.
+     * @private
+     * @param {?} position Position to which to scroll.
+     * @return {?} Information on the current scroll distance and the maximum.
+     */
+    MatTabHeader.prototype._scrollTo = /**
+     * Scrolls the header to a given position.
+     * @private
+     * @param {?} position Position to which to scroll.
+     * @return {?} Information on the current scroll distance and the maximum.
+     */
+    function (position) {
+        /** @type {?} */
+        var maxScrollDistance = this._getMaxScrollDistance();
+        this._scrollDistance = Math.max(0, Math.min(maxScrollDistance, position));
+        // Mark that the scroll distance has changed so that after the view is checked, the CSS
+        // transformation can move the header.
+        this._scrollDistanceChanged = true;
+        this._checkScrollingControls();
+        return { maxScrollDistance: maxScrollDistance, distance: this._scrollDistance };
+    };
     MatTabHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-header',
-                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
-                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}[mat-align-tabs=center] .mat-tab-labels{justify-content:center}[mat-align-tabs=end] .mat-tab-labels{justify-content:flex-end}"],
+                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" #previousPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_handlePaginatorClick('before')\" (mousedown)=\"_handlePaginatorPress('before')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" #nextPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (mousedown)=\"_handlePaginatorPress('after')\" (click)=\"_handlePaginatorClick('after')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}[mat-align-tabs=center] .mat-tab-labels{justify-content:center}[mat-align-tabs=end] .mat-tab-labels{justify-content:flex-end}"],
                     inputs: ['disableRipple'],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -34910,6 +35058,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         _inkBar: [{ type: core.ViewChild, args: [MatInkBar,] }],
         _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer',] }],
         _tabList: [{ type: core.ViewChild, args: ['tabList',] }],
+        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
+        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }],
         selectedIndex: [{ type: core.Input }],
         selectFocusedIndex: [{ type: core.Output }],
         indexFocused: [{ type: core.Output }]
@@ -36538,7 +36688,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-2a5ca3b');
+var VERSION = new core.Version('7.2.1-e661317');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36751,7 +36901,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -36798,12 +36948,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -36934,17 +37084,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
