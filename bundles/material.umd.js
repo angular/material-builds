@@ -24606,6 +24606,9 @@ var MatTooltip = /** @class */ (function () {
                 _ngZone.run(function () { return _this.show(); });
             }
         });
+        if (_defaultOptions && _defaultOptions.position) {
+            this.position = _defaultOptions.position;
+        }
     }
     Object.defineProperty(MatTooltip.prototype, "position", {
         /** Allows the user to define the position of the tooltip relative to the parent element */
@@ -36535,7 +36538,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.2.1-70861fe');
+var VERSION = new core.Version('7.2.1-cbdddf4');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36748,7 +36751,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
