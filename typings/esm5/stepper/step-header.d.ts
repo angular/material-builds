@@ -43,4 +43,5 @@ export declare class MatStepHeader extends CdkStepHeader implements OnDestroy {
     _getHostElement(): HTMLElement;
     /** Template context variables that are exposed to the `matStepperIcon` instances. */
     _getIconContext(): MatStepperIconContext;
+    _getDefaultTextForState(state: StepState): string;
 }
