@@ -2550,6 +2550,9 @@ class MatDatepickerInput {
             this._valueChange.emit(date);
             this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
         }
+        else {
+            this._validatorOnChange();
+        }
     }
     /**
      * @return {?}
