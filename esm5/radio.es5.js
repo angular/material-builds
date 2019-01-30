@@ -286,6 +286,7 @@ var MatRadioGroup = /** @class */ (function () {
         if (this._radios) {
             this._radios.forEach(function (radio) {
                 radio.name = _this.name;
+                radio._markForCheck();
             });
         }
     };

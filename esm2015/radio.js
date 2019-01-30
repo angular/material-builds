@@ -224,6 +224,7 @@ class MatRadioGroup {
         if (this._radios) {
             this._radios.forEach(radio => {
                 radio.name = this.name;
+                radio._markForCheck();
             });
         }
     }
