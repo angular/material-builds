@@ -33,6 +33,8 @@ export declare class MatStepHeader extends CdkStepHeader implements OnDestroy {
     active: boolean;
     /** Whether the given step is optional. */
     optional: boolean;
+    /** Whether the ripple should be disabled. */
+    disableRipple: boolean;
     constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
     ngOnDestroy(): void;
     /** Returns string label of given step if it is a text label. */
