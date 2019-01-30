@@ -182,7 +182,10 @@ var MatCheckbox = /** @class */ (function (_super) {
                 // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
                 // See https://github.com/angular/angular/issues/17793. To work around this, we defer
                 // telling the form control it has been touched until the next tick.
-                Promise.resolve().then(function () { return _this._onTouched(); });
+                Promise.resolve().then(function () {
+                    _this._onTouched();
+                    _changeDetectorRef.markForCheck();
+                });
             }
         });
         return _this;

@@ -918,11 +918,8 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var _this = this;
             this._disabled = coercion.coerceBooleanProperty(value);
-            if (this.chips) {
-                this.chips.forEach(function (chip) { return chip.disabled = _this._disabled; });
-            }
+            this._syncChipsDisabledState();
         },
         enumerable: true,
         configurable: true
@@ -1040,6 +1037,13 @@ var MatChipList = /** @class */ (function (_super) {
         });
         // When the list changes, re-subscribe
         this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe(function () {
+            if (_this.disabled) {
+                // Since this happens after the content has been
+                // checked, we need to defer it to the next tick.
+                Promise.resolve().then(function () {
+                    _this._syncChipsDisabledState();
+                });
+            }
             _this._resetChips();
             // Reset chips selected/deselected status
             _this._initializeSelection();
@@ -1729,6 +1733,25 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         return this.chips.some(function (chip) { return chip._hasFocus; });
+    };
+    /** Syncs the list's disabled state with the individual chips. */
+    /**
+     * Syncs the list's disabled state with the individual chips.
+     * @private
+     * @return {?}
+     */
+    MatChipList.prototype._syncChipsDisabledState = /**
+     * Syncs the list's disabled state with the individual chips.
+     * @private
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.chips) {
+            this.chips.forEach(function (chip) {
+                chip.disabled = _this._disabled;
+            });
+        }
     };
     MatChipList.decorators = [
         { type: core.Component, args: [{selector: 'mat-chip-list',

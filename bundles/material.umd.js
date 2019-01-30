@@ -7691,7 +7691,10 @@ var MatCheckbox = /** @class */ (function (_super) {
                 // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
                 // See https://github.com/angular/angular/issues/17793. To work around this, we defer
                 // telling the form control it has been touched until the next tick.
-                Promise.resolve().then(function () { return _this._onTouched(); });
+                Promise.resolve().then(function () {
+                    _this._onTouched();
+                    _changeDetectorRef.markForCheck();
+                });
             }
         });
         return _this;
@@ -9117,11 +9120,8 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var _this = this;
             this._disabled = coercion.coerceBooleanProperty(value);
-            if (this.chips) {
-                this.chips.forEach(function (chip) { return chip.disabled = _this._disabled; });
-            }
+            this._syncChipsDisabledState();
         },
         enumerable: true,
         configurable: true
@@ -9239,6 +9239,13 @@ var MatChipList = /** @class */ (function (_super) {
         });
         // When the list changes, re-subscribe
         this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe(function () {
+            if (_this.disabled) {
+                // Since this happens after the content has been
+                // checked, we need to defer it to the next tick.
+                Promise.resolve().then(function () {
+                    _this._syncChipsDisabledState();
+                });
+            }
             _this._resetChips();
             // Reset chips selected/deselected status
             _this._initializeSelection();
@@ -9928,6 +9935,25 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         return this.chips.some(function (chip) { return chip._hasFocus; });
+    };
+    /** Syncs the list's disabled state with the individual chips. */
+    /**
+     * Syncs the list's disabled state with the individual chips.
+     * @private
+     * @return {?}
+     */
+    MatChipList.prototype._syncChipsDisabledState = /**
+     * Syncs the list's disabled state with the individual chips.
+     * @private
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.chips) {
+            this.chips.forEach(function (chip) {
+                chip.disabled = _this._disabled;
+            });
+        }
     };
     MatChipList.decorators = [
         { type: core.Component, args: [{selector: 'mat-chip-list',
@@ -36711,7 +36737,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.0-be2bc8f');
+var VERSION = new core.Version('7.3.0-cd72c9d');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36924,7 +36950,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37107,17 +37133,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa15 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf15 = MatTabBase;
+exports.ɵg15 = _MatTabMixinBase;
+exports.ɵb15 = MatTabHeaderBase;
+exports.ɵc15 = _MatTabHeaderMixinBase;
+exports.ɵd15 = MatTabLabelWrapperBase;
+exports.ɵe15 = _MatTabLabelWrapperMixinBase;
+exports.ɵj15 = MatTabLinkBase;
+exports.ɵh15 = MatTabNavBase;
+exports.ɵk15 = _MatTabLinkMixinBase;
+exports.ɵi15 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

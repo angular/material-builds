@@ -703,9 +703,7 @@ class MatChipList extends _MatChipListMixinBase {
      */
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
-        if (this.chips) {
-            this.chips.forEach(chip => chip.disabled = this._disabled);
-        }
+        this._syncChipsDisabledState();
     }
     /**
      * Whether or not this chip list is selectable. When a chip list is not selectable,
@@ -783,6 +781,13 @@ class MatChipList extends _MatChipListMixinBase {
         });
         // When the list changes, re-subscribe
         this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
+            if (this.disabled) {
+                // Since this happens after the content has been
+                // checked, we need to defer it to the next tick.
+                Promise.resolve().then(() => {
+                    this._syncChipsDisabledState();
+                });
+            }
             this._resetChips();
             // Reset chips selected/deselected status
             this._initializeSelection();
@@ -1247,6 +1252,18 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _hasFocusedChip() {
         return this.chips.some(chip => chip._hasFocus);
+    }
+    /**
+     * Syncs the list's disabled state with the individual chips.
+     * @private
+     * @return {?}
+     */
+    _syncChipsDisabledState() {
+        if (this.chips) {
+            this.chips.forEach(chip => {
+                chip.disabled = this._disabled;
+            });
+        }
     }
 }
 MatChipList.decorators = [
