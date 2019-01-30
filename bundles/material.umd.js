@@ -7691,7 +7691,10 @@ var MatCheckbox = /** @class */ (function (_super) {
                 // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
                 // See https://github.com/angular/angular/issues/17793. To work around this, we defer
                 // telling the form control it has been touched until the next tick.
-                Promise.resolve().then(function () { return _this._onTouched(); });
+                Promise.resolve().then(function () {
+                    _this._onTouched();
+                    _changeDetectorRef.markForCheck();
+                });
             }
         });
         return _this;
@@ -20645,7 +20648,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatSelectionList.propDecorators = {
-        options: [{ type: core.ContentChildren, args: [MatListOption,] }],
+        options: [{ type: core.ContentChildren, args: [MatListOption, { descendants: true },] }],
         selectionChange: [{ type: core.Output }],
         tabIndex: [{ type: core.Input }],
         compareWith: [{ type: core.Input }],
@@ -36711,7 +36714,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.0-21489c2');
+var VERSION = new core.Version('7.3.0-01af4db');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36924,7 +36927,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
