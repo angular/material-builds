@@ -136,7 +136,10 @@ var MatButtonToggleGroup = /** @class */ (function () {
             var _this = this;
             this._name = value;
             if (this._buttonToggles) {
-                this._buttonToggles.forEach(function (toggle) { return toggle.name = _this._name; });
+                this._buttonToggles.forEach(function (toggle) {
+                    toggle.name = _this._name;
+                    toggle._markForCheck();
+                });
             }
         },
         enumerable: true,

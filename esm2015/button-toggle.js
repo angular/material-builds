@@ -102,7 +102,10 @@ class MatButtonToggleGroup {
     set name(value) {
         this._name = value;
         if (this._buttonToggles) {
-            this._buttonToggles.forEach(toggle => toggle.name = this._name);
+            this._buttonToggles.forEach(toggle => {
+                toggle.name = this._name;
+                toggle._markForCheck();
+            });
         }
     }
     /**

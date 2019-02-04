@@ -1201,7 +1201,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatSelectionList.propDecorators = {
-        options: [{ type: core.ContentChildren, args: [MatListOption,] }],
+        options: [{ type: core.ContentChildren, args: [MatListOption, { descendants: true },] }],
         selectionChange: [{ type: core.Output }],
         tabIndex: [{ type: core.Input }],
         compareWith: [{ type: core.Input }],
