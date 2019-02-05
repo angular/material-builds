@@ -68,6 +68,10 @@ class MatDialogConfig {
          */
         this.ariaDescribedBy = null;
         /**
+         * ID of the element that labels the dialog.
+         */
+        this.ariaLabelledBy = null;
+        /**
          * Aria label to assign to the dialog element
          */
         this.ariaLabel = null;
@@ -165,10 +169,7 @@ class MatDialogContainer extends BasePortalOutlet {
          * Emits when an animation state changes.
          */
         this._animationStateChanged = new EventEmitter();
-        /**
-         * ID of the element that should be considered as the dialog's label.
-         */
-        this._ariaLabelledBy = null;
+        this._ariaLabelledBy = _config.ariaLabelledBy || null;
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.

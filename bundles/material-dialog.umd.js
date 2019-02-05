@@ -106,6 +106,10 @@ MatDialogConfig = /** @class */ (function () {
          */
         this.ariaDescribedBy = null;
         /**
+         * ID of the element that labels the dialog.
+         */
+        this.ariaLabelledBy = null;
+        /**
          * Aria label to assign to the dialog element
          */
         this.ariaLabel = null;
@@ -198,10 +202,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
          * Emits when an animation state changes.
          */
         _this._animationStateChanged = new core.EventEmitter();
-        /**
-         * ID of the element that should be considered as the dialog's label.
-         */
-        _this._ariaLabelledBy = null;
+        _this._ariaLabelledBy = _config.ariaLabelledBy || null;
         return _this;
     }
     /**
