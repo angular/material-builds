@@ -605,11 +605,19 @@ var MatMenu = /** @class */ (function () {
          * @return {?}
          */
         function (classes) {
+            var _this = this;
+            /** @type {?} */
+            var previousPanelClass = this._previousPanelClass;
+            if (previousPanelClass && previousPanelClass.length) {
+                previousPanelClass.split(' ').forEach(function (className) {
+                    _this._classList[className] = false;
+                });
+            }
+            this._previousPanelClass = classes;
             if (classes && classes.length) {
-                this._classList = classes.split(' ').reduce(function (obj, className) {
-                    obj[className] = true;
-                    return obj;
-                }, {});
+                classes.split(' ').forEach(function (className) {
+                    _this._classList[className] = true;
+                });
                 this._elementRef.nativeElement.className = '';
             }
         },
@@ -1800,5 +1808,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
 //# sourceMappingURL=menu.es5.js.map

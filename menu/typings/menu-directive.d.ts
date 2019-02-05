@@ -91,6 +91,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      * @param classes list of class names
      */
     panelClass: string;
+    private _previousPanelClass;
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
      * menu template that displays in the overlay container.  Otherwise, it's difficult
