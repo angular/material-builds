@@ -142,9 +142,4 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     focus(): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition;
-    /**
-     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
-     * for the application.
-     */
-    private _calculateRippleRadius;
 }

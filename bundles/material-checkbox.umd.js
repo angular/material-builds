@@ -57,11 +57,6 @@ var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-acti
 // Increasing integer for generating unique ids for checkbox components.
 /** @type {?} */
 var nextUniqueId = 0;
-// TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
-// landed.
-// The radius for the checkbox's ripple, in pixels.
-/** @type {?} */
-var calculatedRippleRadius = 0;
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -215,15 +210,17 @@ var MatCheckbox = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    // TODO: Delete next major revision.
+    // TODO: Delete next major revision.
     /**
      * @return {?}
      */
-    MatCheckbox.prototype.ngAfterViewChecked = /**
+    MatCheckbox.prototype.ngAfterViewChecked = 
+    // TODO: Delete next major revision.
+    /**
      * @return {?}
      */
-    function () {
-        this._calculateRippleRadius();
-    };
+    function () { };
     /**
      * @return {?}
      */
@@ -604,37 +601,6 @@ var MatCheckbox = /** @class */ (function (_super) {
                 break;
         }
         return "mat-checkbox-anim-" + animSuffix;
-    };
-    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
-    // landed.
-    /**
-     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
-     * for the application.
-     */
-    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
-    // landed.
-    /**
-     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
-     * for the application.
-     * @private
-     * @return {?}
-     */
-    MatCheckbox.prototype._calculateRippleRadius = 
-    // TODO(josephperrott): Revert to constants for ripple radius once 2018 Checkbox updates have
-    // landed.
-    /**
-     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
-     * for the application.
-     * @private
-     * @return {?}
-     */
-    function () {
-        if (!calculatedRippleRadius) {
-            /** @type {?} */
-            var rippleWidth = this._elementRef.nativeElement.querySelector('.mat-checkbox-ripple').clientWidth || 0;
-            calculatedRippleRadius = rippleWidth / 2;
-        }
-        this.ripple.radius = calculatedRippleRadius;
     };
     MatCheckbox.decorators = [
         { type: core.Component, args: [{selector: 'mat-checkbox',
