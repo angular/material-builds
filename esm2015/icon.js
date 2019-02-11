@@ -1075,7 +1075,7 @@ MatIcon.decorators = [
                 inputs: ['color'],
                 host: {
                     'role': 'img',
-                    'class': 'mat-icon',
+                    'class': 'mat-icon notranslate',
                     '[class.mat-icon-inline]': 'inline',
                     '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
                 },

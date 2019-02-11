@@ -43,10 +43,10 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
     color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
     pageIndex: number;
-    _pageIndex: number;
+    private _pageIndex;
     /** The length of the total number of items that are being paginated. Defaulted to 0. */
     length: number;
-    _length: number;
+    private _length;
     /** Number of items to display on a page. By default set to 50. */
     pageSize: number;
     private _pageSize;

@@ -914,6 +914,7 @@ MatAutocompleteTrigger.decorators = [
                     '[attr.aria-activedescendant]': '(panelOpen && activeOption) ? activeOption.id : null',
                     '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
                     '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
+                    '[attr.aria-haspopup]': '!autocompleteDisabled',
                     // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                     // a little earlier. This avoids issues where IE delays the focusing of the input.
                     '(focusin)': '_handleFocus()',

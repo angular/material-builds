@@ -625,11 +625,19 @@ var MatMenu = /** @class */ (function () {
          * @return {?}
          */
         function (classes) {
+            var _this = this;
+            /** @type {?} */
+            var previousPanelClass = this._previousPanelClass;
+            if (previousPanelClass && previousPanelClass.length) {
+                previousPanelClass.split(' ').forEach(function (className) {
+                    _this._classList[className] = false;
+                });
+            }
+            this._previousPanelClass = classes;
             if (classes && classes.length) {
-                this._classList = classes.split(' ').reduce(function (obj, className) {
-                    obj[className] = true;
-                    return obj;
-                }, {});
+                classes.split(' ').forEach(function (className) {
+                    _this._classList[className] = true;
+                });
                 this._elementRef.nativeElement.className = '';
             }
         },
@@ -1815,12 +1823,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb22 = MatMenuItemBase;
-exports.ɵc22 = _MatMenuItemMixinBase;
-exports.ɵf22 = MAT_MENU_PANEL;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
