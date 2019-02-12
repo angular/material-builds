@@ -194,7 +194,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
         if (event.toState === 'hidden') {
             this._restoreFocus();
         }
-        else if (event.toState === 'visible' && this.bottomSheetConfig.autoFocus) {
+        else if (event.toState === 'visible') {
             this._trapFocus();
         }
         this._animationStateChanged.emit(event);
@@ -252,7 +252,9 @@ class MatBottomSheetContainer extends BasePortalOutlet {
         if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         }
-        this._focusTrap.focusInitialElementWhenReady();
+        if (this.bottomSheetConfig.autoFocus) {
+            this._focusTrap.focusInitialElementWhenReady();
+        }
     }
     /**
      * Restores focus to the element that was focused before the bottom sheet was opened.

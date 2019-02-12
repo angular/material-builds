@@ -5708,7 +5708,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         if (event.toState === 'hidden') {
             this._restoreFocus();
         }
-        else if (event.toState === 'visible' && this.bottomSheetConfig.autoFocus) {
+        else if (event.toState === 'visible') {
             this._trapFocus();
         }
         this._animationStateChanged.emit(event);
@@ -5790,7 +5790,9 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         }
-        this._focusTrap.focusInitialElementWhenReady();
+        if (this.bottomSheetConfig.autoFocus) {
+            this._focusTrap.focusInitialElementWhenReady();
+        }
     };
     /** Restores focus to the element that was focused before the bottom sheet was opened. */
     /**
@@ -36719,7 +36721,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.2-123976f');
+var VERSION = new core.Version('7.3.2-3787695');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36932,7 +36934,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
