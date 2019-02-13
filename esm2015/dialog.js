@@ -937,6 +937,18 @@ class MatDialogClose {
             // be resolved at constructor time.
             this.dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
+        if (typeof this._hasAriaLabel === 'undefined') {
+            /** @type {?} */
+            const element = this._elementRef.nativeElement;
+            if (element.hasAttribute('mat-icon-button')) {
+                this._hasAriaLabel = true;
+            }
+            else {
+                /** @type {?} */
+                const buttonTextContent = element.textContent;
+                this._hasAriaLabel = !buttonTextContent || buttonTextContent.trim().length === 0;
+            }
+        }
     }
     /**
      * @param {?} changes
@@ -948,6 +960,9 @@ class MatDialogClose {
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
+        if (changes.ariaLabel) {
+            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
+        }
     }
 }
 MatDialogClose.decorators = [
@@ -956,7 +971,7 @@ MatDialogClose.decorators = [
                 exportAs: 'matDialogClose',
                 host: {
                     '(click)': 'dialogRef.close(dialogResult)',
-                    '[attr.aria-label]': 'ariaLabel',
+                    '[attr.aria-label]': '_hasAriaLabel ? ariaLabel : null',
                     'type': 'button',
                 }
             },] },
