@@ -20227,9 +20227,7 @@ var MatSelectionList = /** @class */ (function (_super) {
             // strategy. Therefore the options will not check for any changes if the `MatSelectionList`
             // changed its state. Since we know that a change to `disabled` property of the list affects
             // the state of the options, we manually mark each option for check.
-            if (this.options) {
-                this.options.forEach(function (option) { return option._markForCheck(); });
-            }
+            this._markOptionsForCheck();
         },
         enumerable: true,
         configurable: true
@@ -20267,6 +20265,21 @@ var MatSelectionList = /** @class */ (function (_super) {
                 }
             }
         });
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatSelectionList.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        /** @type {?} */
+        var disableRippleChanges = changes.disableRipple;
+        if (disableRippleChanges && !disableRippleChanges.firstChange) {
+            this._markOptionsForCheck();
+        }
     };
     /**
      * @return {?}
@@ -20631,6 +20644,22 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (option) {
         return this.options.toArray().indexOf(option);
+    };
+    /** Marks all the options to be checked in the next change detection run. */
+    /**
+     * Marks all the options to be checked in the next change detection run.
+     * @private
+     * @return {?}
+     */
+    MatSelectionList.prototype._markOptionsForCheck = /**
+     * Marks all the options to be checked in the next change detection run.
+     * @private
+     * @return {?}
+     */
+    function () {
+        if (this.options) {
+            this.options.forEach(function (option) { return option._markForCheck(); });
+        }
     };
     MatSelectionList.decorators = [
         { type: core.Component, args: [{selector: 'mat-selection-list',
@@ -36736,7 +36765,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.2-e2c9873');
+var VERSION = new core.Version('7.3.2-b98eb03');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36949,7 +36978,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37132,17 +37161,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf20 = MatTabBase;
+exports.ɵg20 = _MatTabMixinBase;
+exports.ɵb20 = MatTabHeaderBase;
+exports.ɵc20 = _MatTabHeaderMixinBase;
+exports.ɵd20 = MatTabLabelWrapperBase;
+exports.ɵe20 = _MatTabLabelWrapperMixinBase;
+exports.ɵj20 = MatTabLinkBase;
+exports.ɵh20 = MatTabNavBase;
+exports.ɵk20 = _MatTabLinkMixinBase;
+exports.ɵi20 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
