@@ -216,7 +216,7 @@ $cdk-text-field-autofill-color-frame-count: 0;
 
 // Mixin used to apply custom background and foreground colors to an autofilled text field.
 // Based on: https://stackoverflow.com/questions/2781549/
-// removing-input-background-colour-for-chrome-autocomplete#answer-37.3.2-45e90a660
+// removing-input-background-colour-for-chrome-autocomplete#answer-37.3.2-9ca572260
 @mixin cdk-text-field-autofill-color($background, $foreground:'') {
   @keyframes cdk-text-field-autofill-color-#{$cdk-text-field-autofill-color-frame-count} {
     to {
