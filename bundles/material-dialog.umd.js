@@ -1314,7 +1314,7 @@ var MatDialogClose = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
+        var proxiedChange = changes['_matDialogClose'] || changes['_matDialogCloseResult'];
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }

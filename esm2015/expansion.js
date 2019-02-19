@@ -355,11 +355,13 @@ class MatExpansionPanelHeader {
         this._parentChangeSubscription = Subscription.EMPTY;
         /** @type {?} */
         const accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(filter(changes => !!changes.hideToggle)) : EMPTY;
+            panel.accordion._stateChanges.pipe(filter(changes => !!changes['hideToggle'])) :
+            EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(changes => !!(changes.hideToggle || changes.disabled))))
-            .subscribe(() => this._changeDetectorRef.markForCheck());
+        this._parentChangeSubscription =
+            merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(changes => !!(changes['hideToggle'] || changes['disabled']))))
+                .subscribe(() => this._changeDetectorRef.markForCheck());
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
             .pipe(filter(() => panel._containsFocus()))

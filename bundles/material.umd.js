@@ -11534,7 +11534,7 @@ var MatDialogClose = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
+        var proxiedChange = changes['_matDialogClose'] || changes['_matDialogCloseResult'];
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
@@ -12574,12 +12574,12 @@ var MatCalendarBody = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var columnChanges = changes.numCols;
+        var columnChanges = changes['numCols'];
         var _a = this, rows = _a.rows, numCols = _a.numCols;
-        if (changes.rows || columnChanges) {
+        if (changes['rows'] || columnChanges) {
             this._firstRowOffset = rows && rows.length && rows[0].length ? numCols - rows[0].length : 0;
         }
-        if (changes.cellAspectRatio || columnChanges || !this._cellPadding) {
+        if (changes['cellAspectRatio'] || columnChanges || !this._cellPadding) {
             this._cellPadding = 50 * this.cellAspectRatio / numCols + "%";
         }
         if (columnChanges || !this._cellWidth) {
@@ -14278,7 +14278,7 @@ var MatCalendar = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var change = changes.minDate || changes.maxDate || changes.dateFilter;
+        var change = changes['minDate'] || changes['maxDate'] || changes['dateFilter'];
         if (change && !change.firstChange) {
             /** @type {?} */
             var view = this._getCurrentViewComponent();
@@ -15773,7 +15773,7 @@ var MatDatepickerToggle = /** @class */ (function () {
      * @return {?}
      */
     function (changes) {
-        if (changes.datepicker) {
+        if (changes['datepicker']) {
             this._watchStateChanges();
         }
     };
@@ -16359,11 +16359,13 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes.hideToggle; })) : rxjs.EMPTY;
+            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes['hideToggle']; })) :
+            rxjs.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
-        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes.hideToggle || changes.disabled); })))
-            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._parentChangeSubscription =
+            rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes['hideToggle'] || changes['disabled']); })))
+                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
             .pipe(operators.filter(function () { return panel._containsFocus(); }))
@@ -19178,7 +19180,7 @@ var MatIcon = /** @class */ (function (_super) {
     function (changes) {
         var _this = this;
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        if (changes.svgIcon) {
+        if (changes['svgIcon']) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
                 this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(operators.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
@@ -23109,7 +23111,7 @@ var MatSelect = /** @class */ (function (_super) {
     function (changes) {
         // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
         // the parent form field know to run change detection when the disabled state changes.
-        if (changes.disabled) {
+        if (changes['disabled']) {
             this.stateChanges.next();
         }
     };
@@ -36765,7 +36767,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.2-3ae6eb2');
+var VERSION = new core.Version('7.3.2-5216d38');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36978,7 +36980,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37025,12 +37027,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -37161,17 +37163,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf19 = MatTabBase;
-exports.ɵg19 = _MatTabMixinBase;
-exports.ɵb19 = MatTabHeaderBase;
-exports.ɵc19 = _MatTabHeaderMixinBase;
-exports.ɵd19 = MatTabLabelWrapperBase;
-exports.ɵe19 = _MatTabLabelWrapperMixinBase;
-exports.ɵj19 = MatTabLinkBase;
-exports.ɵh19 = MatTabNavBase;
-exports.ɵk19 = _MatTabLinkMixinBase;
-exports.ɵi19 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

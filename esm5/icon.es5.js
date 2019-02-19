@@ -1268,7 +1268,7 @@ var MatIcon = /** @class */ (function (_super) {
     function (changes) {
         var _this = this;
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        if (changes.svgIcon) {
+        if (changes['svgIcon']) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
                 this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });

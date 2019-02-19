@@ -376,11 +376,13 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._parentChangeSubscription = Subscription.EMPTY;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(filter(function (changes) { return !!changes.hideToggle; })) : EMPTY;
+            panel.accordion._stateChanges.pipe(filter(function (changes) { return !!changes['hideToggle']; })) :
+            EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(function (changes) { return !!(changes.hideToggle || changes.disabled); })))
-            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._parentChangeSubscription =
+            merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(function (changes) { return !!(changes['hideToggle'] || changes['disabled']); })))
+                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
             .pipe(filter(function () { return panel._containsFocus(); }))

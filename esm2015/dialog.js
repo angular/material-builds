@@ -956,7 +956,7 @@ class MatDialogClose {
      */
     ngOnChanges(changes) {
         /** @type {?} */
-        const proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
+        const proxiedChange = changes['_matDialogClose'] || changes['_matDialogCloseResult'];
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }

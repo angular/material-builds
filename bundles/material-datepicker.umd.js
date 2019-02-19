@@ -189,12 +189,12 @@ var MatCalendarBody = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var columnChanges = changes.numCols;
+        var columnChanges = changes['numCols'];
         var _a = this, rows = _a.rows, numCols = _a.numCols;
-        if (changes.rows || columnChanges) {
+        if (changes['rows'] || columnChanges) {
             this._firstRowOffset = rows && rows.length && rows[0].length ? numCols - rows[0].length : 0;
         }
-        if (changes.cellAspectRatio || columnChanges || !this._cellPadding) {
+        if (changes['cellAspectRatio'] || columnChanges || !this._cellPadding) {
             this._cellPadding = 50 * this.cellAspectRatio / numCols + "%";
         }
         if (columnChanges || !this._cellWidth) {
@@ -1893,7 +1893,7 @@ var MatCalendar = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var change = changes.minDate || changes.maxDate || changes.dateFilter;
+        var change = changes['minDate'] || changes['maxDate'] || changes['dateFilter'];
         if (change && !change.firstChange) {
             /** @type {?} */
             var view = this._getCurrentViewComponent();
@@ -3388,7 +3388,7 @@ var MatDatepickerToggle = /** @class */ (function () {
      * @return {?}
      */
     function (changes) {
-        if (changes.datepicker) {
+        if (changes['datepicker']) {
             this._watchStateChanges();
         }
     };
