@@ -23,11 +23,13 @@ function default_1(options) {
         // of the CLI project. This tag should be preferred because all Angular dependencies should
         // have the same version tag if possible.
         const ngCoreVersionTag = package_config_1.getPackageVersionFromPackageJson(host, '@angular/core');
+        const angularDependencyVersion = ngCoreVersionTag || version_names_1.requiredAngularVersionRange;
         // In order to align the Material and CDK version with the other Angular dependencies,
         // we use tilde instead of caret. This is default for Angular dependencies in new CLI projects.
         package_config_1.addPackageToPackageJson(host, '@angular/cdk', `~${version_names_1.materialVersion}`);
         package_config_1.addPackageToPackageJson(host, '@angular/material', `~${version_names_1.materialVersion}`);
-        package_config_1.addPackageToPackageJson(host, '@angular/animations', ngCoreVersionTag || version_names_1.requiredAngularVersionRange);
+        package_config_1.addPackageToPackageJson(host, '@angular/forms', angularDependencyVersion);
+        package_config_1.addPackageToPackageJson(host, '@angular/animations', angularDependencyVersion);
         if (options.gestures) {
             package_config_1.addPackageToPackageJson(host, 'hammerjs', version_names_1.hammerjsVersion);
         }
