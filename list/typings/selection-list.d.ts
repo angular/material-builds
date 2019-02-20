@@ -7,7 +7,7 @@
  */
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, SimpleChanges, OnChanges } from '@angular/core';
 import { CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatListAvatarCssMatStyler, MatListIconCssMatStyler } from './list';
@@ -94,7 +94,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy {
+export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager<MatListOption>;
@@ -125,6 +125,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     _onTouched: () => void;
     constructor(_element: ElementRef<HTMLElement>, tabIndex: string);
     ngAfterContentInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Focuses the last active list option. */
     focus(): void;
@@ -172,4 +173,6 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _isValidIndex;
     /** Returns the index of the specified list option. */
     private _getOptionIndex;
+    /** Marks all the options to be checked in the next change detection run. */
+    private _markOptionsForCheck;
 }

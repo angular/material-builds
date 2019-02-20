@@ -1257,6 +1257,18 @@ var MatDialogClose = /** @class */ (function () {
             // be resolved at constructor time.
             this.dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
+        if (typeof this._hasAriaLabel === 'undefined') {
+            /** @type {?} */
+            var element = this._elementRef.nativeElement;
+            if (element.hasAttribute('mat-icon-button')) {
+                this._hasAriaLabel = true;
+            }
+            else {
+                /** @type {?} */
+                var buttonTextContent = element.textContent;
+                this._hasAriaLabel = !buttonTextContent || buttonTextContent.trim().length === 0;
+            }
+        }
     };
     /**
      * @param {?} changes
@@ -1268,9 +1280,12 @@ var MatDialogClose = /** @class */ (function () {
      */
     function (changes) {
         /** @type {?} */
-        var proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
+        var proxiedChange = changes['_matDialogClose'] || changes['_matDialogCloseResult'];
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
+        }
+        if (changes.ariaLabel) {
+            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
         }
     };
     MatDialogClose.decorators = [
@@ -1279,7 +1294,7 @@ var MatDialogClose = /** @class */ (function () {
                     exportAs: 'matDialogClose',
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',
-                        '[attr.aria-label]': 'ariaLabel',
+                        '[attr.aria-label]': '_hasAriaLabel ? ariaLabel : null',
                         'type': 'button',
                     }
                 },] },

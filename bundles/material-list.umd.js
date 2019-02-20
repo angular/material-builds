@@ -769,9 +769,7 @@ var MatSelectionList = /** @class */ (function (_super) {
             // strategy. Therefore the options will not check for any changes if the `MatSelectionList`
             // changed its state. Since we know that a change to `disabled` property of the list affects
             // the state of the options, we manually mark each option for check.
-            if (this.options) {
-                this.options.forEach(function (option) { return option._markForCheck(); });
-            }
+            this._markOptionsForCheck();
         },
         enumerable: true,
         configurable: true
@@ -809,6 +807,21 @@ var MatSelectionList = /** @class */ (function (_super) {
                 }
             }
         });
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatSelectionList.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        /** @type {?} */
+        var disableRippleChanges = changes.disableRipple;
+        if (disableRippleChanges && !disableRippleChanges.firstChange) {
+            this._markOptionsForCheck();
+        }
     };
     /**
      * @return {?}
@@ -1173,6 +1186,22 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (option) {
         return this.options.toArray().indexOf(option);
+    };
+    /** Marks all the options to be checked in the next change detection run. */
+    /**
+     * Marks all the options to be checked in the next change detection run.
+     * @private
+     * @return {?}
+     */
+    MatSelectionList.prototype._markOptionsForCheck = /**
+     * Marks all the options to be checked in the next change detection run.
+     * @private
+     * @return {?}
+     */
+    function () {
+        if (this.options) {
+            this.options.forEach(function (option) { return option._markForCheck(); });
+        }
     };
     MatSelectionList.decorators = [
         { type: core.Component, args: [{selector: 'mat-selection-list',

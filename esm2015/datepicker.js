@@ -169,12 +169,12 @@ class MatCalendarBody {
      */
     ngOnChanges(changes) {
         /** @type {?} */
-        const columnChanges = changes.numCols;
+        const columnChanges = changes['numCols'];
         const { rows, numCols } = this;
-        if (changes.rows || columnChanges) {
+        if (changes['rows'] || columnChanges) {
             this._firstRowOffset = rows && rows.length && rows[0].length ? numCols - rows[0].length : 0;
         }
-        if (changes.cellAspectRatio || columnChanges || !this._cellPadding) {
+        if (changes['cellAspectRatio'] || columnChanges || !this._cellPadding) {
             this._cellPadding = `${50 * this.cellAspectRatio / numCols}%`;
         }
         if (columnChanges || !this._cellWidth) {
@@ -1505,7 +1505,7 @@ class MatCalendar {
      */
     ngOnChanges(changes) {
         /** @type {?} */
-        const change = changes.minDate || changes.maxDate || changes.dateFilter;
+        const change = changes['minDate'] || changes['maxDate'] || changes['dateFilter'];
         if (change && !change.firstChange) {
             /** @type {?} */
             const view = this._getCurrentViewComponent();
@@ -2687,7 +2687,7 @@ class MatDatepickerToggle {
      * @return {?}
      */
     ngOnChanges(changes) {
-        if (changes.datepicker) {
+        if (changes['datepicker']) {
             this._watchStateChanges();
         }
     }

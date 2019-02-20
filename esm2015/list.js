@@ -597,9 +597,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         // strategy. Therefore the options will not check for any changes if the `MatSelectionList`
         // changed its state. Since we know that a change to `disabled` property of the list affects
         // the state of the options, we manually mark each option for check.
-        if (this.options) {
-            this.options.forEach(option => option._markForCheck());
-        }
+        this._markOptionsForCheck();
     }
     /**
      * @return {?}
@@ -629,6 +627,17 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 }
             }
         });
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        /** @type {?} */
+        const disableRippleChanges = changes.disableRipple;
+        if (disableRippleChanges && !disableRippleChanges.firstChange) {
+            this._markOptionsForCheck();
+        }
     }
     /**
      * @return {?}
@@ -870,6 +879,16 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      */
     _getOptionIndex(option) {
         return this.options.toArray().indexOf(option);
+    }
+    /**
+     * Marks all the options to be checked in the next change detection run.
+     * @private
+     * @return {?}
+     */
+    _markOptionsForCheck() {
+        if (this.options) {
+            this.options.forEach(option => option._markForCheck());
+        }
     }
 }
 MatSelectionList.decorators = [
