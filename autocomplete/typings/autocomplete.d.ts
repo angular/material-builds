@@ -93,4 +93,6 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     _setVisibility(): void;
     /** Emits the `select` event. */
     _emitSelectEvent(option: MatOption): void;
+    /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
+    private _setVisibilityClasses;
 }

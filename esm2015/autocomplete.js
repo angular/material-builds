@@ -130,9 +130,16 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
      */
     set classList(value) {
         if (value && value.length) {
-            value.split(' ').forEach(className => this._classList[className.trim()] = true);
-            this._elementRef.nativeElement.className = '';
+            this._classList = value.split(' ').reduce((classList, className) => {
+                classList[className.trim()] = true;
+                return classList;
+            }, (/** @type {?} */ ({})));
         }
+        else {
+            this._classList = {};
+        }
+        this._setVisibilityClasses(this._classList);
+        this._elementRef.nativeElement.className = '';
     }
     /**
      * @return {?}
@@ -166,8 +173,7 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
      */
     _setVisibility() {
         this.showPanel = !!this.options.length;
-        this._classList['mat-autocomplete-visible'] = this.showPanel;
-        this._classList['mat-autocomplete-hidden'] = !this.showPanel;
+        this._setVisibilityClasses(this._classList);
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -179,6 +185,16 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
         /** @type {?} */
         const event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
+    }
+    /**
+     * Sets the autocomplete visibility classes on a classlist based on the panel is visible.
+     * @private
+     * @param {?} classList
+     * @return {?}
+     */
+    _setVisibilityClasses(classList) {
+        classList['mat-autocomplete-visible'] = this.showPanel;
+        classList['mat-autocomplete-hidden'] = !this.showPanel;
     }
 }
 MatAutocomplete.decorators = [

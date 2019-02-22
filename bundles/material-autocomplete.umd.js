@@ -172,11 +172,17 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var _this = this;
             if (value && value.length) {
-                value.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
-                this._elementRef.nativeElement.className = '';
+                this._classList = value.split(' ').reduce(function (classList, className) {
+                    classList[className.trim()] = true;
+                    return classList;
+                }, (/** @type {?} */ ({})));
             }
+            else {
+                this._classList = {};
+            }
+            this._setVisibilityClasses(this._classList);
+            this._elementRef.nativeElement.className = '';
         },
         enumerable: true,
         configurable: true
@@ -236,8 +242,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
      */
     function () {
         this.showPanel = !!this.options.length;
-        this._classList['mat-autocomplete-visible'] = this.showPanel;
-        this._classList['mat-autocomplete-hidden'] = !this.showPanel;
+        this._setVisibilityClasses(this._classList);
         this._changeDetectorRef.markForCheck();
     };
     /** Emits the `select` event. */
@@ -255,6 +260,23 @@ var MatAutocomplete = /** @class */ (function (_super) {
         /** @type {?} */
         var event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
+    };
+    /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
+    /**
+     * Sets the autocomplete visibility classes on a classlist based on the panel is visible.
+     * @private
+     * @param {?} classList
+     * @return {?}
+     */
+    MatAutocomplete.prototype._setVisibilityClasses = /**
+     * Sets the autocomplete visibility classes on a classlist based on the panel is visible.
+     * @private
+     * @param {?} classList
+     * @return {?}
+     */
+    function (classList) {
+        classList['mat-autocomplete-visible'] = this.showPanel;
+        classList['mat-autocomplete-hidden'] = !this.showPanel;
     };
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{selector: 'mat-autocomplete',

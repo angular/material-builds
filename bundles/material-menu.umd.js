@@ -1076,6 +1076,12 @@ var MatMenuTrigger = /** @class */ (function () {
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
         /**
+         * Whether focus should be restored when the menu is closed.
+         * Note that disabling this option can have accessibility implications
+         * and it's up to you to manage focus, if you decide to turn it off.
+         */
+        this.restoreFocus = true;
+        /**
          * Event emitted when the associated menu is opened.
          */
         this.menuOpened = new core.EventEmitter();
@@ -1407,13 +1413,15 @@ var MatMenuTrigger = /** @class */ (function () {
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
-        if (!this._openedBy) {
-            // Note that the focus style will show up both for `program` and
-            // `keyboard` so we don't have to specify which one it is.
-            this.focus();
-        }
-        else if (!this.triggersSubmenu()) {
-            this.focus(this._openedBy);
+        if (this.restoreFocus) {
+            if (!this._openedBy) {
+                // Note that the focus style will show up both for `program` and
+                // `keyboard` so we don't have to specify which one it is.
+                this.focus();
+            }
+            else if (!this.triggersSubmenu()) {
+                this.focus(this._openedBy);
+            }
         }
         this._openedBy = null;
     };
@@ -1791,6 +1799,7 @@ var MatMenuTrigger = /** @class */ (function () {
         _deprecatedMatMenuTriggerFor: [{ type: core.Input, args: ['mat-menu-trigger-for',] }],
         menu: [{ type: core.Input, args: ['matMenuTriggerFor',] }],
         menuData: [{ type: core.Input, args: ['matMenuTriggerData',] }],
+        restoreFocus: [{ type: core.Input, args: ['matMenuTriggerRestoreFocus',] }],
         menuOpened: [{ type: core.Output }],
         onMenuOpen: [{ type: core.Output }],
         menuClosed: [{ type: core.Output }],

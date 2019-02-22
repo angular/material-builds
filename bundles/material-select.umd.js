@@ -931,7 +931,7 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else if (!this.multiple) {
             /** @type {?} */
-            var selectedOption = this.selected;
+            var previouslySelectedOption = this.selected;
             if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
                 keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
@@ -939,10 +939,12 @@ var MatSelect = /** @class */ (function (_super) {
             else {
                 manager.onKeydown(event);
             }
+            /** @type {?} */
+            var selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
             // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-            if (this._liveAnnouncer && selectedOption !== this.selected) {
-                this._liveAnnouncer.announce(((/** @type {?} */ (this.selected))).viewValue);
+            if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
+                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue);
             }
         }
     };

@@ -4051,11 +4051,17 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var _this = this;
             if (value && value.length) {
-                value.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
-                this._elementRef.nativeElement.className = '';
+                this._classList = value.split(' ').reduce(function (classList, className) {
+                    classList[className.trim()] = true;
+                    return classList;
+                }, (/** @type {?} */ ({})));
             }
+            else {
+                this._classList = {};
+            }
+            this._setVisibilityClasses(this._classList);
+            this._elementRef.nativeElement.className = '';
         },
         enumerable: true,
         configurable: true
@@ -4115,8 +4121,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
      */
     function () {
         this.showPanel = !!this.options.length;
-        this._classList['mat-autocomplete-visible'] = this.showPanel;
-        this._classList['mat-autocomplete-hidden'] = !this.showPanel;
+        this._setVisibilityClasses(this._classList);
         this._changeDetectorRef.markForCheck();
     };
     /** Emits the `select` event. */
@@ -4134,6 +4139,23 @@ var MatAutocomplete = /** @class */ (function (_super) {
         /** @type {?} */
         var event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
+    };
+    /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
+    /**
+     * Sets the autocomplete visibility classes on a classlist based on the panel is visible.
+     * @private
+     * @param {?} classList
+     * @return {?}
+     */
+    MatAutocomplete.prototype._setVisibilityClasses = /**
+     * Sets the autocomplete visibility classes on a classlist based on the panel is visible.
+     * @private
+     * @param {?} classList
+     * @return {?}
+     */
+    function (classList) {
+        classList['mat-autocomplete-visible'] = this.showPanel;
+        classList['mat-autocomplete-hidden'] = !this.showPanel;
     };
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{selector: 'mat-autocomplete',
@@ -21774,6 +21796,12 @@ var MatMenuTrigger = /** @class */ (function () {
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
         /**
+         * Whether focus should be restored when the menu is closed.
+         * Note that disabling this option can have accessibility implications
+         * and it's up to you to manage focus, if you decide to turn it off.
+         */
+        this.restoreFocus = true;
+        /**
          * Event emitted when the associated menu is opened.
          */
         this.menuOpened = new core.EventEmitter();
@@ -22105,13 +22133,15 @@ var MatMenuTrigger = /** @class */ (function () {
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
-        if (!this._openedBy) {
-            // Note that the focus style will show up both for `program` and
-            // `keyboard` so we don't have to specify which one it is.
-            this.focus();
-        }
-        else if (!this.triggersSubmenu()) {
-            this.focus(this._openedBy);
+        if (this.restoreFocus) {
+            if (!this._openedBy) {
+                // Note that the focus style will show up both for `program` and
+                // `keyboard` so we don't have to specify which one it is.
+                this.focus();
+            }
+            else if (!this.triggersSubmenu()) {
+                this.focus(this._openedBy);
+            }
         }
         this._openedBy = null;
     };
@@ -22489,6 +22519,7 @@ var MatMenuTrigger = /** @class */ (function () {
         _deprecatedMatMenuTriggerFor: [{ type: core.Input, args: ['mat-menu-trigger-for',] }],
         menu: [{ type: core.Input, args: ['matMenuTriggerFor',] }],
         menuData: [{ type: core.Input, args: ['matMenuTriggerData',] }],
+        restoreFocus: [{ type: core.Input, args: ['matMenuTriggerRestoreFocus',] }],
         menuOpened: [{ type: core.Output }],
         onMenuOpen: [{ type: core.Output }],
         menuClosed: [{ type: core.Output }],
@@ -23411,7 +23442,7 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else if (!this.multiple) {
             /** @type {?} */
-            var selectedOption = this.selected;
+            var previouslySelectedOption = this.selected;
             if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
                 keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
@@ -23419,10 +23450,12 @@ var MatSelect = /** @class */ (function (_super) {
             else {
                 manager.onKeydown(event);
             }
+            /** @type {?} */
+            var selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
             // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-            if (this._liveAnnouncer && selectedOption !== this.selected) {
-                this._liveAnnouncer.announce(((/** @type {?} */ (this.selected))).viewValue);
+            if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
+                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue);
             }
         }
     };
@@ -36784,7 +36817,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.3-b67837f');
+var VERSION = new core.Version('7.3.3-0673574');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36997,7 +37030,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37180,17 +37213,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
