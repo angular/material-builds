@@ -867,6 +867,12 @@ class MatMenuTrigger {
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
         /**
+         * Whether focus should be restored when the menu is closed.
+         * Note that disabling this option can have accessibility implications
+         * and it's up to you to manage focus, if you decide to turn it off.
+         */
+        this.restoreFocus = true;
+        /**
          * Event emitted when the associated menu is opened.
          */
         this.menuOpened = new EventEmitter();
@@ -1104,13 +1110,15 @@ class MatMenuTrigger {
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
-        if (!this._openedBy) {
-            // Note that the focus style will show up both for `program` and
-            // `keyboard` so we don't have to specify which one it is.
-            this.focus();
-        }
-        else if (!this.triggersSubmenu()) {
-            this.focus(this._openedBy);
+        if (this.restoreFocus) {
+            if (!this._openedBy) {
+                // Note that the focus style will show up both for `program` and
+                // `keyboard` so we don't have to specify which one it is.
+                this.focus();
+            }
+            else if (!this.triggersSubmenu()) {
+                this.focus(this._openedBy);
+            }
         }
         this._openedBy = null;
     }
@@ -1382,6 +1390,7 @@ MatMenuTrigger.propDecorators = {
     _deprecatedMatMenuTriggerFor: [{ type: Input, args: ['mat-menu-trigger-for',] }],
     menu: [{ type: Input, args: ['matMenuTriggerFor',] }],
     menuData: [{ type: Input, args: ['matMenuTriggerData',] }],
+    restoreFocus: [{ type: Input, args: ['matMenuTriggerRestoreFocus',] }],
     menuOpened: [{ type: Output }],
     onMenuOpen: [{ type: Output }],
     menuClosed: [{ type: Output }],
@@ -1423,5 +1432,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.js.map

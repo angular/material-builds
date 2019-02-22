@@ -328,6 +328,16 @@ class MatListOption extends _MatListOptionMixinBase {
         this.checkboxPosition = 'after';
     }
     /**
+     * Theme color of the list option. This sets the color of the checkbox.
+     * @return {?}
+     */
+    get color() { return this._color || this.selectionList.color; }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+    set color(newValue) { this._color = newValue; }
+    /**
      * Value of the option
      * @return {?}
      */
@@ -520,6 +530,11 @@ MatListOption.decorators = [
                     'tabindex': '-1',
                     '[class.mat-list-item-disabled]': 'disabled',
                     '[class.mat-list-item-with-avatar]': '_avatar || _icon',
+                    // Manually set the "primary" or "warn" class if the color has been explicitly
+                    // set to "primary" or "warn". The pseudo checkbox picks up these classes for
+                    // its theme. The accent theme palette is the default and doesn't need to be set.
+                    '[class.mat-primary]': 'color === "primary"',
+                    '[class.mat-warn]': 'color === "warn"',
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
@@ -540,6 +555,7 @@ MatListOption.propDecorators = {
     _lines: [{ type: ContentChildren, args: [MatLine,] }],
     _text: [{ type: ViewChild, args: ['text',] }],
     checkboxPosition: [{ type: Input }],
+    color: [{ type: Input }],
     value: [{ type: Input }],
     disabled: [{ type: Input }],
     selected: [{ type: Input }]
@@ -563,6 +579,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
          * Tabindex of the selection list.
          */
         this.tabIndex = 0;
+        /**
+         * Theme color of the selection list. This sets the checkbox color for all list options.
+         */
+        this.color = 'accent';
         this._disabled = false;
         /**
          * The currently selected options.
@@ -635,7 +655,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     ngOnChanges(changes) {
         /** @type {?} */
         const disableRippleChanges = changes.disableRipple;
-        if (disableRippleChanges && !disableRippleChanges.firstChange) {
+        /** @type {?} */
+        const colorChanges = changes.color;
+        if ((disableRippleChanges && !disableRippleChanges.firstChange) ||
+            (colorChanges && !colorChanges.firstChange)) {
             this._markOptionsForCheck();
         }
     }
@@ -921,6 +944,7 @@ MatSelectionList.propDecorators = {
     options: [{ type: ContentChildren, args: [MatListOption, { descendants: true },] }],
     selectionChange: [{ type: Output }],
     tabIndex: [{ type: Input }],
+    color: [{ type: Input }],
     compareWith: [{ type: Input }],
     disabled: [{ type: Input }]
 };

@@ -59,6 +59,12 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _menu;
     /** Data to be passed along to any lazily-rendered content. */
     menuData: any;
+    /**
+     * Whether focus should be restored when the menu is closed.
+     * Note that disabling this option can have accessibility implications
+     * and it's up to you to manage focus, if you decide to turn it off.
+     */
+    restoreFocus: boolean;
     /** Event emitted when the associated menu is opened. */
     readonly menuOpened: EventEmitter<void>;
     /**
