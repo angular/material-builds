@@ -395,6 +395,21 @@ var MatListOption = /** @class */ (function (_super) {
         _this.checkboxPosition = 'after';
         return _this;
     }
+    Object.defineProperty(MatListOption.prototype, "color", {
+        /** Theme color of the list option. This sets the color of the checkbox. */
+        get: /**
+         * Theme color of the list option. This sets the color of the checkbox.
+         * @return {?}
+         */
+        function () { return this._color || this.selectionList.color; },
+        set: /**
+         * @param {?} newValue
+         * @return {?}
+         */
+        function (newValue) { this._color = newValue; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatListOption.prototype, "value", {
         /** Value of the option */
         get: /**
@@ -668,6 +683,11 @@ var MatListOption = /** @class */ (function (_super) {
                         'tabindex': '-1',
                         '[class.mat-list-item-disabled]': 'disabled',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
+                        // Manually set the "primary" or "warn" class if the color has been explicitly
+                        // set to "primary" or "warn". The pseudo checkbox picks up these classes for
+                        // its theme. The accent theme palette is the default and doesn't need to be set.
+                        '[class.mat-primary]': 'color === "primary"',
+                        '[class.mat-warn]': 'color === "warn"',
                         '[attr.aria-selected]': 'selected.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                     },
@@ -688,6 +708,7 @@ var MatListOption = /** @class */ (function (_super) {
         _lines: [{ type: ContentChildren, args: [MatLine,] }],
         _text: [{ type: ViewChild, args: ['text',] }],
         checkboxPosition: [{ type: Input }],
+        color: [{ type: Input }],
         value: [{ type: Input }],
         disabled: [{ type: Input }],
         selected: [{ type: Input }]
@@ -710,6 +731,10 @@ var MatSelectionList = /** @class */ (function (_super) {
          * Tabindex of the selection list.
          */
         _this.tabIndex = 0;
+        /**
+         * Theme color of the selection list. This sets the checkbox color for all list options.
+         */
+        _this.color = 'accent';
         _this._disabled = false;
         /**
          * The currently selected options.
@@ -797,7 +822,10 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (changes) {
         /** @type {?} */
         var disableRippleChanges = changes.disableRipple;
-        if (disableRippleChanges && !disableRippleChanges.firstChange) {
+        /** @type {?} */
+        var colorChanges = changes.color;
+        if ((disableRippleChanges && !disableRippleChanges.firstChange) ||
+            (colorChanges && !colorChanges.firstChange)) {
             this._markOptionsForCheck();
         }
     };
@@ -1211,6 +1239,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         options: [{ type: ContentChildren, args: [MatListOption, { descendants: true },] }],
         selectionChange: [{ type: Output }],
         tabIndex: [{ type: Input }],
+        color: [{ type: Input }],
         compareWith: [{ type: Input }],
         disabled: [{ type: Input }]
     };

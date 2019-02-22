@@ -8,7 +8,7 @@
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, SimpleChanges, OnChanges } from '@angular/core';
-import { CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
+import { CanDisableRipple, CanDisableRippleCtor, MatLine, ThemePalette } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatListAvatarCssMatStyler, MatListIconCssMatStyler } from './list';
 /** @docs-private */
@@ -53,6 +53,9 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     _text: ElementRef;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: 'before' | 'after';
+    /** Theme color of the list option. This sets the color of the checkbox. */
+    color: ThemePalette;
+    private _color;
     /** Value of the option */
     value: any;
     private _value;
@@ -104,6 +107,8 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     readonly selectionChange: EventEmitter<MatSelectionListChange>;
     /** Tabindex of the selection list. */
     tabIndex: number;
+    /** Theme color of the selection list. This sets the checkbox color for all list options. */
+    color: ThemePalette;
     /**
      * Function used for comparing an option against the selected value when determining which
      * options should appear as selected. The first argument is the value of an options. The second
