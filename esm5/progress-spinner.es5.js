@@ -294,7 +294,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
                         '[style.height.px]': 'diameter',
                         '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
                         '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
-                        '[attr.aria-valuenow]': 'value',
+                        '[attr.aria-valuenow]': 'mode === "determinate" ? value : null',
                         '[attr.mode]': 'mode',
                     },
                     inputs: ['color'],
