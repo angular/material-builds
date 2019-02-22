@@ -725,6 +725,8 @@ var MatMenu = /** @class */ (function () {
     function (event) {
         /** @type {?} */
         var keyCode = event.keyCode;
+        /** @type {?} */
+        var manager = this._keyManager;
         switch (keyCode) {
             case keycodes.ESCAPE:
                 this.closed.emit('keydown');
@@ -739,11 +741,18 @@ var MatMenu = /** @class */ (function () {
                     this.closed.emit('keydown');
                 }
                 break;
+            case keycodes.HOME:
+            case keycodes.END:
+                if (!keycodes.hasModifierKey(event)) {
+                    keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+                    event.preventDefault();
+                }
+                break;
             default:
                 if (keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) {
-                    this._keyManager.setFocusOrigin('keyboard');
+                    manager.setFocusOrigin('keyboard');
                 }
-                this._keyManager.onKeydown(event);
+                manager.onKeydown(event);
         }
     };
     /**

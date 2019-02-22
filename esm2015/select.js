@@ -539,6 +539,14 @@ class MatSelect extends _MatSelectMixinBase {
                 this._changeDetectorRef.markForCheck();
             }
         });
+        this._viewportRuler.change()
+            .pipe(takeUntil(this._destroy))
+            .subscribe(() => {
+            if (this._panelOpen) {
+                this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                this._changeDetectorRef.markForCheck();
+            }
+        });
     }
     /**
      * @return {?}

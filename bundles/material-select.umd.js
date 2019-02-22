@@ -599,6 +599,14 @@ var MatSelect = /** @class */ (function (_super) {
                 _this._changeDetectorRef.markForCheck();
             }
         });
+        this._viewportRuler.change()
+            .pipe(operators.takeUntil(this._destroy))
+            .subscribe(function () {
+            if (_this._panelOpen) {
+                _this._triggerRect = _this.trigger.nativeElement.getBoundingClientRect();
+                _this._changeDetectorRef.markForCheck();
+            }
+        });
     };
     /**
      * @return {?}

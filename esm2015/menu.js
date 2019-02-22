@@ -13,7 +13,7 @@ import { trigger, state, style, animate, transition, query, group } from '@angul
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
+import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW, HOME, END, hasModifierKey } from '@angular/cdk/keycodes';
 import { startWith, switchMap, take, delay, filter, takeUntil } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -594,6 +594,8 @@ class MatMenu {
     _handleKeydown(event) {
         /** @type {?} */
         const keyCode = event.keyCode;
+        /** @type {?} */
+        const manager = this._keyManager;
         switch (keyCode) {
             case ESCAPE:
                 this.closed.emit('keydown');
@@ -608,11 +610,18 @@ class MatMenu {
                     this.closed.emit('keydown');
                 }
                 break;
+            case HOME:
+            case END:
+                if (!hasModifierKey(event)) {
+                    keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
+                    event.preventDefault();
+                }
+                break;
             default:
                 if (keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
-                    this._keyManager.setFocusOrigin('keyboard');
+                    manager.setFocusOrigin('keyboard');
                 }
-                this._keyManager.onKeydown(event);
+                manager.onKeydown(event);
         }
     }
     /**
