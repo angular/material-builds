@@ -23411,7 +23411,7 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else if (!this.multiple) {
             /** @type {?} */
-            var selectedOption = this.selected;
+            var previouslySelectedOption = this.selected;
             if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
                 keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
@@ -23419,10 +23419,12 @@ var MatSelect = /** @class */ (function (_super) {
             else {
                 manager.onKeydown(event);
             }
+            /** @type {?} */
+            var selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
             // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-            if (this._liveAnnouncer && selectedOption !== this.selected) {
-                this._liveAnnouncer.announce(((/** @type {?} */ (this.selected))).viewValue);
+            if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
+                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue);
             }
         }
     };
@@ -36784,7 +36786,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.3-b67837f');
+var VERSION = new core.Version('7.3.3-a115b3a');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36997,7 +36999,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

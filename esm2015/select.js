@@ -752,7 +752,7 @@ class MatSelect extends _MatSelectMixinBase {
         }
         else if (!this.multiple) {
             /** @type {?} */
-            const selectedOption = this.selected;
+            const previouslySelectedOption = this.selected;
             if (keyCode === HOME || keyCode === END) {
                 keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
@@ -760,10 +760,12 @@ class MatSelect extends _MatSelectMixinBase {
             else {
                 manager.onKeydown(event);
             }
+            /** @type {?} */
+            const selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
             // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-            if (this._liveAnnouncer && selectedOption !== this.selected) {
-                this._liveAnnouncer.announce(((/** @type {?} */ (this.selected))).viewValue);
+            if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
+                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue);
             }
         }
     }
