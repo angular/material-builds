@@ -865,5 +865,5 @@ MatGridListModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa6 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa8 };
 //# sourceMappingURL=grid-list.js.map
