@@ -1460,6 +1460,7 @@ class MatCalendar {
     set activeDate(value) {
         this._clampedActiveDate = this._dateAdapter.clampDate(value, this.minDate, this.maxDate);
         this.stateChanges.next();
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Whether the calendar is in month view.
@@ -1473,6 +1474,7 @@ class MatCalendar {
     set currentView(value) {
         this._currentView = value;
         this._moveFocusOnNextTick = true;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * @return {?}

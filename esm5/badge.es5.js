@@ -11,6 +11,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
@@ -39,13 +40,14 @@ var _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
  */
 var MatBadge = /** @class */ (function (_super) {
     __extends(MatBadge, _super);
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
+    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
         var _this = _super.call(this) || this;
         _this._document = _document;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._ariaDescriber = _ariaDescriber;
         _this._renderer = _renderer;
+        _this._animationMode = _animationMode;
         /**
          * Whether the badge has any content.
          */
@@ -251,12 +253,15 @@ var MatBadge = /** @class */ (function (_super) {
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
         badgeElement.classList.add('mat-badge-content');
         badgeElement.textContent = this.content;
+        if (this._animationMode === 'NoopAnimations') {
+            badgeElement.classList.add('_mat-animation-noopable');
+        }
         if (this.description) {
             badgeElement.setAttribute('aria-label', this.description);
         }
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
-        if (typeof requestAnimationFrame === 'function') {
+        if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
             this._ngZone.runOutsideAngular(function () {
                 requestAnimationFrame(function () {
                     badgeElement.classList.add(activeClass);
@@ -342,7 +347,8 @@ var MatBadge = /** @class */ (function (_super) {
         { type: NgZone },
         { type: ElementRef },
         { type: AriaDescriber },
-        { type: Renderer2 }
+        { type: Renderer2 },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatBadge.propDecorators = {
         color: [{ type: Input, args: ['matBadgeColor',] }],

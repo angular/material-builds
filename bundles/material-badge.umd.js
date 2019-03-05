@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/core'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/common', '@angular/core', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.common,global.ng.core,global.ng.material.core));
-}(this, (function (exports,a11y,coercion,common,core,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.common,global.ng.core,global.ng.material.core,global.ng.platformBrowser.animations));
+}(this, (function (exports,a11y,coercion,common,core,core$1,animations) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -67,13 +67,14 @@ var _MatBadgeMixinBase = core$1.mixinDisabled(MatBadgeBase);
  */
 var MatBadge = /** @class */ (function (_super) {
     __extends(MatBadge, _super);
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
+    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
         var _this = _super.call(this) || this;
         _this._document = _document;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._ariaDescriber = _ariaDescriber;
         _this._renderer = _renderer;
+        _this._animationMode = _animationMode;
         /**
          * Whether the badge has any content.
          */
@@ -279,12 +280,15 @@ var MatBadge = /** @class */ (function (_super) {
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
         badgeElement.classList.add('mat-badge-content');
         badgeElement.textContent = this.content;
+        if (this._animationMode === 'NoopAnimations') {
+            badgeElement.classList.add('_mat-animation-noopable');
+        }
         if (this.description) {
             badgeElement.setAttribute('aria-label', this.description);
         }
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
-        if (typeof requestAnimationFrame === 'function') {
+        if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
             this._ngZone.runOutsideAngular(function () {
                 requestAnimationFrame(function () {
                     badgeElement.classList.add(activeClass);
@@ -370,7 +374,8 @@ var MatBadge = /** @class */ (function (_super) {
         { type: core.NgZone },
         { type: core.ElementRef },
         { type: a11y.AriaDescriber },
-        { type: core.Renderer2 }
+        { type: core.Renderer2 },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatBadge.propDecorators = {
         color: [{ type: core.Input, args: ['matBadgeColor',] }],

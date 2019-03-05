@@ -22,6 +22,7 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, C
     private _ariaDescriber;
     /** @breaking-change 8.0.0 Make _renderer a required param and remove _document. */
     private _renderer?;
+    private _animationMode?;
     /** Whether the badge has any content. */
     _hasContent: boolean;
     /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
@@ -51,7 +52,7 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, C
     private _badgeElement;
     constructor(_document: any, _ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _ariaDescriber: AriaDescriber, 
     /** @breaking-change 8.0.0 Make _renderer a required param and remove _document. */
-    _renderer?: Renderer2 | undefined);
+    _renderer?: Renderer2 | undefined, _animationMode?: string | undefined);
     /** Whether the badge is above the host or not */
     isAbove(): boolean;
     /** Whether the badge is after the host or not */

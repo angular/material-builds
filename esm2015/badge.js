@@ -10,6 +10,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
@@ -35,14 +36,16 @@ class MatBadge extends _MatBadgeMixinBase {
      * @param {?} _elementRef
      * @param {?} _ariaDescriber
      * @param {?=} _renderer
+     * @param {?=} _animationMode
      */
-    constructor(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
+    constructor(_document, _ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
         super();
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
         this._renderer = _renderer;
+        this._animationMode = _animationMode;
         /**
          * Whether the badge has any content.
          */
@@ -197,12 +200,15 @@ class MatBadge extends _MatBadgeMixinBase {
         badgeElement.setAttribute('id', `mat-badge-content-${this._id}`);
         badgeElement.classList.add('mat-badge-content');
         badgeElement.textContent = this.content;
+        if (this._animationMode === 'NoopAnimations') {
+            badgeElement.classList.add('_mat-animation-noopable');
+        }
         if (this.description) {
             badgeElement.setAttribute('aria-label', this.description);
         }
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
-        if (typeof requestAnimationFrame === 'function') {
+        if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
             this._ngZone.runOutsideAngular(() => {
                 requestAnimationFrame(() => {
                     badgeElement.classList.add(activeClass);
@@ -274,7 +280,8 @@ MatBadge.ctorParameters = () => [
     { type: NgZone },
     { type: ElementRef },
     { type: AriaDescriber },
-    { type: Renderer2 }
+    { type: Renderer2 },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatBadge.propDecorators = {
     color: [{ type: Input, args: ['matBadgeColor',] }],
