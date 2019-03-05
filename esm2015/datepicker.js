@@ -2673,10 +2673,7 @@ class MatDatepickerToggle {
      * @return {?}
      */
     get disabled() {
-        if (this._disabled === undefined && this.datepicker) {
-            return this.datepicker.disabled;
-        }
-        return !!this._disabled;
+        return this._disabled === undefined ? this.datepicker.disabled : !!this._disabled;
     }
     /**
      * @param {?} value
