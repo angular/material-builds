@@ -1827,6 +1827,7 @@ var MatCalendar = /** @class */ (function () {
         function (value) {
             this._clampedActiveDate = this._dateAdapter.clampDate(value, this.minDate, this.maxDate);
             this.stateChanges.next();
+            this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -1845,6 +1846,7 @@ var MatCalendar = /** @class */ (function () {
         function (value) {
             this._currentView = value;
             this._moveFocusOnNextTick = true;
+            this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
         configurable: true
