@@ -492,11 +492,18 @@ var MatFormField = /** @class */ (function (_super) {
         }
         // @breaking-change 7.0.0 Remove this check once _ngZone is required. Also reconsider
         // whether the `ngAfterContentChecked` below is still necessary.
-        if (this._ngZone) {
-            this._ngZone.onStable.asObservable().pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
-                if (_this._outlineGapCalculationNeededOnStable) {
-                    _this.updateOutlineGap();
-                }
+        /** @type {?} */
+        var zone = this._ngZone;
+        if (zone) {
+            // Note that we have to run outside of the `NgZone` explicitly,
+            // in order to avoid throwing users into an infinite loop
+            // if `zone-patch-rxjs` is included.
+            zone.runOutsideAngular(function () {
+                zone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+                    if (_this._outlineGapCalculationNeededOnStable) {
+                        _this.updateOutlineGap();
+                    }
+                });
             });
         }
         // Run change detection and update the outline if the suffix or prefix changes.
