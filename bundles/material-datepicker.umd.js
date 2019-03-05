@@ -3367,7 +3367,10 @@ var MatDatepickerToggle = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._disabled === undefined ? this.datepicker.disabled : !!this._disabled;
+            if (this._disabled === undefined && this.datepicker) {
+                return this.datepicker.disabled;
+            }
+            return !!this._disabled;
         },
         set: /**
          * @param {?} value
