@@ -698,7 +698,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _setFocusedOption(option) {
-        this._keyManager.updateActiveItemIndex(this._getOptionIndex(option));
+        this._keyManager.updateActiveItem(option);
     }
     /**
      * Removes an option from the selection list and updates the active item.
