@@ -457,7 +457,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = rxjs.defer(function () {
+        this.optionSelections = (/** @type {?} */ (rxjs.defer(function () {
             if (_this.autocomplete && _this.autocomplete.options) {
                 return rxjs.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
             }
@@ -466,7 +466,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             return _this._zone.onStable
                 .asObservable()
                 .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelections; }));
-        });
+        })));
         if (typeof window !== 'undefined') {
             _zone.runOutsideAngular(function () {
                 window.addEventListener('blur', _this._windowBlurHandler);

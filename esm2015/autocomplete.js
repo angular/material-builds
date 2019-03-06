@@ -387,7 +387,7 @@ class MatAutocompleteTrigger {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = defer(() => {
+        this.optionSelections = (/** @type {?} */ (defer(() => {
             if (this.autocomplete && this.autocomplete.options) {
                 return merge(...this.autocomplete.options.map(option => option.onSelectionChange));
             }
@@ -396,7 +396,7 @@ class MatAutocompleteTrigger {
             return this._zone.onStable
                 .asObservable()
                 .pipe(take(1), switchMap(() => this.optionSelections));
-        });
+        })));
         if (typeof window !== 'undefined') {
             _zone.runOutsideAngular(() => {
                 window.addEventListener('blur', this._windowBlurHandler);

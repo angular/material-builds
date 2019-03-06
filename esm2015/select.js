@@ -366,14 +366,14 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * Combined stream of all of the child options' change events.
          */
-        this.optionSelectionChanges = defer(() => {
+        this.optionSelectionChanges = (/** @type {?} */ (defer(() => {
             if (this.options) {
                 return merge(...this.options.map(option => option.onSelectionChange));
             }
             return this._ngZone.onStable
                 .asObservable()
                 .pipe(take(1), switchMap(() => this.optionSelectionChanges));
-        });
+        })));
         /**
          * Event emitted when the select panel has been toggled.
          */

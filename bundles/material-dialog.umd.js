@@ -784,13 +784,14 @@ var MatDialog = /** @class */ (function () {
         this._afterAllClosedAtThisLevel = new rxjs.Subject();
         this._afterOpenedAtThisLevel = new rxjs.Subject();
         this._ariaHiddenElements = new Map();
+        // TODO (jelbourn): tighten the typing right-hand side of this expression.
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = rxjs.defer(function () { return _this.openDialogs.length ?
+        this.afterAllClosed = (/** @type {?} */ (rxjs.defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            _this._afterAllClosed.pipe(operators.startWith(undefined)); });
+            _this._afterAllClosed.pipe(operators.startWith((/** @type {?} */ (undefined)))); })));
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {

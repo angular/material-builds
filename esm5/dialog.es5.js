@@ -751,13 +751,14 @@ var MatDialog = /** @class */ (function () {
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenedAtThisLevel = new Subject();
         this._ariaHiddenElements = new Map();
+        // TODO (jelbourn): tighten the typing right-hand side of this expression.
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = defer(function () { return _this.openDialogs.length ?
+        this.afterAllClosed = (/** @type {?} */ (defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            _this._afterAllClosed.pipe(startWith(undefined)); });
+            _this._afterAllClosed.pipe(startWith((/** @type {?} */ (undefined)))); })));
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {

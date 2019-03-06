@@ -355,14 +355,14 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Combined stream of all of the child options' change events.
          */
-        _this.optionSelectionChanges = defer(function () {
+        _this.optionSelectionChanges = (/** @type {?} */ (defer(function () {
             if (_this.options) {
                 return merge.apply(void 0, _this.options.map(function (option) { return option.onSelectionChange; }));
             }
             return _this._ngZone.onStable
                 .asObservable()
                 .pipe(take(1), switchMap(function () { return _this.optionSelectionChanges; }));
-        });
+        })));
         /**
          * Event emitted when the select panel has been toggled.
          */

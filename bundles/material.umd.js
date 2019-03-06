@@ -4343,7 +4343,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = rxjs.defer(function () {
+        this.optionSelections = (/** @type {?} */ (rxjs.defer(function () {
             if (_this.autocomplete && _this.autocomplete.options) {
                 return rxjs.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
             }
@@ -4352,7 +4352,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             return _this._zone.onStable
                 .asObservable()
                 .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelections; }));
-        });
+        })));
         if (typeof window !== 'undefined') {
             _zone.runOutsideAngular(function () {
                 window.addEventListener('blur', _this._windowBlurHandler);
@@ -11038,13 +11038,14 @@ var MatDialog = /** @class */ (function () {
         this._afterAllClosedAtThisLevel = new rxjs.Subject();
         this._afterOpenedAtThisLevel = new rxjs.Subject();
         this._ariaHiddenElements = new Map();
+        // TODO (jelbourn): tighten the typing right-hand side of this expression.
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = rxjs.defer(function () { return _this.openDialogs.length ?
+        this.afterAllClosed = (/** @type {?} */ (rxjs.defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            _this._afterAllClosed.pipe(operators.startWith(undefined)); });
+            _this._afterAllClosed.pipe(operators.startWith((/** @type {?} */ (undefined)))); })));
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
@@ -22933,14 +22934,14 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Combined stream of all of the child options' change events.
          */
-        _this.optionSelectionChanges = rxjs.defer(function () {
+        _this.optionSelectionChanges = (/** @type {?} */ (rxjs.defer(function () {
             if (_this.options) {
                 return rxjs.merge.apply(void 0, _this.options.map(function (option) { return option.onSelectionChange; }));
             }
             return _this._ngZone.onStable
                 .asObservable()
                 .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelectionChanges; }));
-        });
+        })));
         /**
          * Event emitted when the select panel has been toggled.
          */
@@ -36887,7 +36888,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.3-4704653');
+var VERSION = new core.Version('7.3.3-5fb022f');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37100,7 +37101,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37283,17 +37284,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
