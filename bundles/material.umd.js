@@ -32249,10 +32249,22 @@ var MatSortHeader = /** @class */ (function (_super) {
         }
         return this._sort.direction == 'asc' ? 'ascending' : 'descending';
     };
+    /** Whether the arrow inside the sort header should be rendered. */
+    /**
+     * Whether the arrow inside the sort header should be rendered.
+     * @return {?}
+     */
+    MatSortHeader.prototype._renderArrow = /**
+     * Whether the arrow inside the sort header should be rendered.
+     * @return {?}
+     */
+    function () {
+        return !this._isDisabled() || this._isSorted();
+    };
     MatSortHeader.decorators = [
         { type: core.Component, args: [{selector: '[mat-sort-header]',
                     exportAs: 'matSortHeader',
-                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-sorted]=\"_isSorted()\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.disabled]=\"_isDisabled() || null\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" (focus)=\"_setIndicatorHintVisible(true)\" (blur)=\"_setIndicatorHintVisible(false)\"><ng-content></ng-content></button><div class=\"mat-sort-header-arrow\" [@arrowOpacity]=\"_getArrowViewState()\" [@arrowPosition]=\"_getArrowViewState()\" [@allowChildren]=\"_getArrowDirectionState()\" (@arrowPosition.start)=\"_disableViewStateAnimation = true\" (@arrowPosition.done)=\"_disableViewStateAnimation = false\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div>",
+                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-sorted]=\"_isSorted()\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.disabled]=\"_isDisabled() || null\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" (focus)=\"_setIndicatorHintVisible(true)\" (blur)=\"_setIndicatorHintVisible(false)\"><ng-content></ng-content></button><div class=\"mat-sort-header-arrow\" *ngIf=\"_renderArrow()\" [@arrowOpacity]=\"_getArrowViewState()\" [@arrowPosition]=\"_getArrowViewState()\" [@allowChildren]=\"_getArrowDirectionState()\" (@arrowPosition.start)=\"_disableViewStateAnimation = true\" (@arrowPosition.done)=\"_disableViewStateAnimation = false\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div>",
                     styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-button::-moz-focus-inner{border:0}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}@media (-ms-high-contrast:active){.mat-sort-header-stem{width:0;border-left:solid 2px}}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}@media (-ms-high-contrast:active){.mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}@media (-ms-high-contrast:active){.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                     host: {
                         '(click)': '_handleClick()',
@@ -36786,7 +36798,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.3-87477c3');
+var VERSION = new core.Version('7.3.3-4a7fdfe');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -36999,7 +37011,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37046,12 +37058,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -37182,17 +37194,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
