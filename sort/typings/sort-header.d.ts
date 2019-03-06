@@ -120,5 +120,7 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
      * ensures this is true.
      */
     _getAriaSortAttribute(): "ascending" | "descending" | null;
+    /** Whether the arrow inside the sort header should be rendered. */
+    _renderArrow(): boolean;
 }
 export {};
