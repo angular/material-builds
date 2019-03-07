@@ -260,7 +260,7 @@ var MatTree = /** @class */ (function (_super) {
                 },] },
     ];
     MatTree.propDecorators = {
-        _nodeOutlet: [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] }]
+        _nodeOutlet: [{ type: core.ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]
     };
     return MatTree;
 }(tree.CdkTree));

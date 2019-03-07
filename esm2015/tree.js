@@ -214,7 +214,7 @@ MatTree.decorators = [
             },] },
 ];
 MatTree.propDecorators = {
-    _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet,] }]
+    _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]
 };
 
 /**

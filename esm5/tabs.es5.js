@@ -302,8 +302,8 @@ var MatTab = /** @class */ (function (_super) {
     ]; };
     MatTab.propDecorators = {
         templateLabel: [{ type: ContentChild, args: [MatTabLabel,] }],
-        _explicitContent: [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef },] }],
-        _implicitContent: [{ type: ViewChild, args: [TemplateRef,] }],
+        _explicitContent: [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef, static: true },] }],
+        _implicitContent: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
         textLabel: [{ type: Input, args: ['label',] }],
         ariaLabel: [{ type: Input, args: ['aria-label',] }],
         ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }]
@@ -1532,9 +1532,9 @@ var MatTabHeader = /** @class */ (function (_super) {
     ]; };
     MatTabHeader.propDecorators = {
         _labelWrappers: [{ type: ContentChildren, args: [MatTabLabelWrapper,] }],
-        _inkBar: [{ type: ViewChild, args: [MatInkBar,] }],
-        _tabListContainer: [{ type: ViewChild, args: ['tabListContainer',] }],
-        _tabList: [{ type: ViewChild, args: ['tabList',] }],
+        _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
+        _tabListContainer: [{ type: ViewChild, args: ['tabListContainer', { static: true },] }],
+        _tabList: [{ type: ViewChild, args: ['tabList', { static: true },] }],
         _nextPaginator: [{ type: ViewChild, args: ['nextPaginator',] }],
         _previousPaginator: [{ type: ViewChild, args: ['previousPaginator',] }],
         selectedIndex: [{ type: Input }],
@@ -2219,7 +2219,7 @@ var MatTabNav = /** @class */ (function (_super) {
         { type: ViewportRuler }
     ]; };
     MatTabNav.propDecorators = {
-        _inkBar: [{ type: ViewChild, args: [MatInkBar,] }],
+        _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
         _tabLinks: [{ type: ContentChildren, args: [forwardRef(function () { return MatTabLink; }), { descendants: true },] }],
         backgroundColor: [{ type: Input }]
     };

@@ -574,7 +574,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         { type: MatSnackBarConfig }
     ]; };
     MatSnackBarContainer.propDecorators = {
-        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
+        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
     };
     return MatSnackBarContainer;
 }(BasePortalOutlet));

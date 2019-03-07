@@ -368,7 +368,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
         { type: MatDialogConfig }
     ]; };
     MatDialogContainer.propDecorators = {
-        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
+        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
     };
     return MatDialogContainer;
 }(BasePortalOutlet));

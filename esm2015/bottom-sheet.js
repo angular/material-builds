@@ -314,7 +314,7 @@ MatBottomSheetContainer.ctorParameters = () => [
     { type: MatBottomSheetConfig }
 ];
 MatBottomSheetContainer.propDecorators = {
-    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
+    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
 };
 
 /**

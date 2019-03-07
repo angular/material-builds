@@ -321,8 +321,8 @@ var MatTab = /** @class */ (function (_super) {
     ]; };
     MatTab.propDecorators = {
         templateLabel: [{ type: core.ContentChild, args: [MatTabLabel,] }],
-        _explicitContent: [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef },] }],
-        _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
+        _explicitContent: [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef, static: true },] }],
+        _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
         textLabel: [{ type: core.Input, args: ['label',] }],
         ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
         ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }]
@@ -1551,9 +1551,9 @@ var MatTabHeader = /** @class */ (function (_super) {
     ]; };
     MatTabHeader.propDecorators = {
         _labelWrappers: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
-        _inkBar: [{ type: core.ViewChild, args: [MatInkBar,] }],
-        _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer',] }],
-        _tabList: [{ type: core.ViewChild, args: ['tabList',] }],
+        _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
+        _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
+        _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
         _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
         _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }],
         selectedIndex: [{ type: core.Input }],
@@ -2238,7 +2238,7 @@ var MatTabNav = /** @class */ (function (_super) {
         { type: scrolling.ViewportRuler }
     ]; };
     MatTabNav.propDecorators = {
-        _inkBar: [{ type: core.ViewChild, args: [MatInkBar,] }],
+        _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
         _tabLinks: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatTabLink; }), { descendants: true },] }],
         backgroundColor: [{ type: core.Input }]
     };

@@ -381,7 +381,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         { type: MatBottomSheetConfig }
     ]; };
     MatBottomSheetContainer.propDecorators = {
-        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
+        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
     };
     return MatBottomSheetContainer;
 }(BasePortalOutlet));

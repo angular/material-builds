@@ -312,7 +312,7 @@ MatDialogContainer.ctorParameters = () => [
     { type: MatDialogConfig }
 ];
 MatDialogContainer.propDecorators = {
-    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
+    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
 };
 
 /**
