@@ -784,7 +784,6 @@ var MatRadioButton = /** @class */ (function (_super) {
         this._emitChangeEvent();
         if (this.radioGroup) {
             this.radioGroup._controlValueAccessorChangeFn(this.value);
-            this.radioGroup._touch();
             if (groupValueChanged) {
                 this.radioGroup._emitChangeEvent();
             }
