@@ -276,8 +276,12 @@ var MatBadge = /** @class */ (function (_super) {
         var badgeElement = rootNode.createElement('span');
         /** @type {?} */
         var activeClass = 'mat-badge-active';
+        /** @type {?} */
+        var contentClass = 'mat-badge-content';
+        // Clear any existing badges which may have persisted from a server-side render.
+        this._clearExistingBadges(contentClass);
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
-        badgeElement.classList.add('mat-badge-content');
+        badgeElement.classList.add(contentClass);
         badgeElement.textContent = this.content;
         if (this.description) {
             badgeElement.setAttribute('aria-label', this.description);
@@ -342,6 +346,33 @@ var MatBadge = /** @class */ (function (_super) {
             }
             if (colorPalette) {
                 this._elementRef.nativeElement.classList.add("mat-badge-" + colorPalette);
+            }
+        }
+    };
+    /** Clears any existing badges that might be left over from server-side rendering. */
+    /**
+     * Clears any existing badges that might be left over from server-side rendering.
+     * @private
+     * @param {?} cssClass
+     * @return {?}
+     */
+    MatBadge.prototype._clearExistingBadges = /**
+     * Clears any existing badges that might be left over from server-side rendering.
+     * @private
+     * @param {?} cssClass
+     * @return {?}
+     */
+    function (cssClass) {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var childCount = element.children.length;
+        // Use a reverse while, because we'll be removing elements from the list as we're iterating.
+        while (childCount--) {
+            /** @type {?} */
+            var currentChild = element.children[childCount];
+            if (currentChild.classList.contains(cssClass)) {
+                element.removeChild(currentChild);
             }
         }
     };

@@ -65,4 +65,6 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, C
     private _updateHostAriaDescription;
     /** Adds css theme class given the color to the component host */
     private _setColor;
+    /** Clears any existing badges that might be left over from server-side rendering. */
+    private _clearExistingBadges;
 }
