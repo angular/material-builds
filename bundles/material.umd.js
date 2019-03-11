@@ -20394,13 +20394,13 @@ var MatSelectionList = /** @class */ (function (_super) {
     function () {
         this._modelChanges.unsubscribe();
     };
-    /** Focuses the last active list option. */
+    /** Focuses the selection list. */
     /**
-     * Focuses the last active list option.
+     * Focuses the selection list.
      * @return {?}
      */
     MatSelectionList.prototype.focus = /**
-     * Focuses the last active list option.
+     * Focuses the selection list.
      * @return {?}
      */
     function () {
@@ -20464,10 +20464,10 @@ var MatSelectionList = /** @class */ (function (_super) {
         if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
-                this._keyManager.updateActiveItemIndex(optionIndex - 1);
+                this._keyManager.updateActiveItem(optionIndex - 1);
             }
             else if (optionIndex === 0 && this.options.length > 1) {
-                this._keyManager.updateActiveItemIndex(Math.min(optionIndex + 1, this.options.length - 1));
+                this._keyManager.updateActiveItem(Math.min(optionIndex + 1, this.options.length - 1));
             }
         }
         return this._keyManager.activeItem;
@@ -20773,7 +20773,6 @@ var MatSelectionList = /** @class */ (function (_super) {
                         'role': 'listbox',
                         '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list mat-list-base',
-                        '(focus)': 'focus()',
                         '(blur)': '_onTouched()',
                         '(keydown)': '_keydown($event)',
                         'aria-multiselectable': 'true',
@@ -36918,7 +36917,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.4-c2f3d48');
+var VERSION = new core.Version('7.3.4-4895443');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37131,7 +37130,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa7 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
