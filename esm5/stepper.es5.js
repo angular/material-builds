@@ -362,9 +362,7 @@ var MatStepper = /** @class */ (function (_super) {
         });
     };
     MatStepper.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matStepper]'
-                },] },
+        { type: Directive, args: [{ selector: '[matStepper]', providers: [{ provide: CdkStepper, useExisting: MatStepper }] },] },
     ];
     MatStepper.propDecorators = {
         _stepHeader: [{ type: ViewChildren, args: [MatStepHeader,] }],
@@ -399,7 +397,10 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                         'role': 'tablist',
                     },
                     animations: [matStepperAnimations.horizontalStepTransition],
-                    providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
+                    providers: [
+                        { provide: MatStepper, useExisting: MatHorizontalStepper },
+                        { provide: CdkStepper, useExisting: MatHorizontalStepper }
+                    ],
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
@@ -430,7 +431,10 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                         'role': 'tablist',
                     },
                     animations: [matStepperAnimations.verticalStepTransition],
-                    providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
+                    providers: [
+                        { provide: MatStepper, useExisting: MatVerticalStepper },
+                        { provide: CdkStepper, useExisting: MatVerticalStepper }
+                    ],
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
@@ -461,11 +465,9 @@ var MatStepperNext = /** @class */ (function (_super) {
         { type: Directive, args: [{
                     selector: 'button[matStepperNext]',
                     host: {
-                        '(click)': '_stepper.next()',
                         '[type]': 'type',
                     },
-                    inputs: ['type'],
-                    providers: [{ provide: CdkStepper, useExisting: MatStepper }]
+                    inputs: ['type']
                 },] },
     ];
     return MatStepperNext;
@@ -482,11 +484,9 @@ var MatStepperPrevious = /** @class */ (function (_super) {
         { type: Directive, args: [{
                     selector: 'button[matStepperPrevious]',
                     host: {
-                        '(click)': '_stepper.previous()',
                         '[type]': 'type',
                     },
-                    inputs: ['type'],
-                    providers: [{ provide: CdkStepper, useExisting: MatStepper }]
+                    inputs: ['type']
                 },] },
     ];
     return MatStepperPrevious;

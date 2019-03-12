@@ -32781,9 +32781,7 @@ var MatStepper = /** @class */ (function (_super) {
         });
     };
     MatStepper.decorators = [
-        { type: core.Directive, args: [{
-                    selector: '[matStepper]'
-                },] },
+        { type: core.Directive, args: [{ selector: '[matStepper]', providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }] },] },
     ];
     MatStepper.propDecorators = {
         _stepHeader: [{ type: core.ViewChildren, args: [MatStepHeader,] }],
@@ -32818,7 +32816,10 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                         'role': 'tablist',
                     },
                     animations: [matStepperAnimations.horizontalStepTransition],
-                    providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
+                    providers: [
+                        { provide: MatStepper, useExisting: MatHorizontalStepper },
+                        { provide: stepper.CdkStepper, useExisting: MatHorizontalStepper }
+                    ],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
@@ -32849,7 +32850,10 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                         'role': 'tablist',
                     },
                     animations: [matStepperAnimations.verticalStepTransition],
-                    providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
+                    providers: [
+                        { provide: MatStepper, useExisting: MatVerticalStepper },
+                        { provide: stepper.CdkStepper, useExisting: MatVerticalStepper }
+                    ],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
@@ -32880,11 +32884,9 @@ var MatStepperNext = /** @class */ (function (_super) {
         { type: core.Directive, args: [{
                     selector: 'button[matStepperNext]',
                     host: {
-                        '(click)': '_stepper.next()',
                         '[type]': 'type',
                     },
-                    inputs: ['type'],
-                    providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }]
+                    inputs: ['type']
                 },] },
     ];
     return MatStepperNext;
@@ -32901,11 +32903,9 @@ var MatStepperPrevious = /** @class */ (function (_super) {
         { type: core.Directive, args: [{
                     selector: 'button[matStepperPrevious]',
                     host: {
-                        '(click)': '_stepper.previous()',
                         '[type]': 'type',
                     },
-                    inputs: ['type'],
-                    providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }]
+                    inputs: ['type']
                 },] },
     ];
     return MatStepperPrevious;
@@ -36917,7 +36917,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.4-f1b13a2');
+var VERSION = new core.Version('7.3.4-decddb5');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37130,7 +37130,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa11 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

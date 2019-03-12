@@ -320,9 +320,7 @@ class MatStepper extends CdkStepper {
     }
 }
 MatStepper.decorators = [
-    { type: Directive, args: [{
-                selector: '[matStepper]'
-            },] },
+    { type: Directive, args: [{ selector: '[matStepper]', providers: [{ provide: CdkStepper, useExisting: MatStepper }] },] },
 ];
 MatStepper.propDecorators = {
     _stepHeader: [{ type: ViewChildren, args: [MatStepHeader,] }],
@@ -354,7 +352,10 @@ MatHorizontalStepper.decorators = [
                     'role': 'tablist',
                 },
                 animations: [matStepperAnimations.horizontalStepTransition],
-                providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
+                providers: [
+                    { provide: MatStepper, useExisting: MatHorizontalStepper },
+                    { provide: CdkStepper, useExisting: MatHorizontalStepper }
+                ],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -388,7 +389,10 @@ MatVerticalStepper.decorators = [
                     'role': 'tablist',
                 },
                 animations: [matStepperAnimations.verticalStepTransition],
-                providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
+                providers: [
+                    { provide: MatStepper, useExisting: MatVerticalStepper },
+                    { provide: CdkStepper, useExisting: MatVerticalStepper }
+                ],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -414,11 +418,9 @@ MatStepperNext.decorators = [
     { type: Directive, args: [{
                 selector: 'button[matStepperNext]',
                 host: {
-                    '(click)': '_stepper.next()',
                     '[type]': 'type',
                 },
-                inputs: ['type'],
-                providers: [{ provide: CdkStepper, useExisting: MatStepper }]
+                inputs: ['type']
             },] },
 ];
 /**
@@ -430,11 +432,9 @@ MatStepperPrevious.decorators = [
     { type: Directive, args: [{
                 selector: 'button[matStepperPrevious]',
                 host: {
-                    '(click)': '_stepper.previous()',
                     '[type]': 'type',
                 },
-                inputs: ['type'],
-                providers: [{ provide: CdkStepper, useExisting: MatStepper }]
+                inputs: ['type']
             },] },
 ];
 
