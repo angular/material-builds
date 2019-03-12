@@ -67,7 +67,9 @@ var MatTable = /** @class */ (function (_super) {
                         'class': 'mat-table',
                     },
                     encapsulation: core.ViewEncapsulation.None,
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
                 },] },
     ];
     return MatTable;
@@ -307,7 +309,9 @@ var MatHeaderRow = /** @class */ (function (_super) {
                         'class': 'mat-header-row',
                         'role': 'row',
                     },
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matHeaderRow',
                     providers: [{ provide: table.CdkHeaderRow, useExisting: MatHeaderRow }],
@@ -330,7 +334,9 @@ var MatFooterRow = /** @class */ (function (_super) {
                         'class': 'mat-footer-row',
                         'role': 'row',
                     },
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matFooterRow',
                     providers: [{ provide: table.CdkFooterRow, useExisting: MatFooterRow }],
@@ -353,7 +359,9 @@ var MatRow = /** @class */ (function (_super) {
                         'class': 'mat-row',
                         'role': 'row',
                     },
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRow',
                     providers: [{ provide: table.CdkRow, useExisting: MatRow }],
