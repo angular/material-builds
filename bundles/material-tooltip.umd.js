@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/platform-browser'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/core'), require('rxjs'), require('@angular/common'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/platform-browser', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators', '@angular/core', 'rxjs', '@angular/common', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.platformBrowser,global.ng.cdk.overlay,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.rxjs.operators,global.ng.core,global.rxjs,global.ng.common,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,platformBrowser,overlay,scrolling,platform,portal,operators,core,rxjs,common,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/core'), require('@angular/platform-browser'), require('rxjs'), require('rxjs/operators'), require('@angular/common'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/core', '@angular/platform-browser', 'rxjs', 'rxjs/operators', '@angular/common', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.core,global.ng.platformBrowser,global.rxjs,global.rxjs.operators,global.ng.common,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,overlay,platform,portal,scrolling,core,platformBrowser,rxjs,operators,common,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -164,8 +164,6 @@ var MatTooltip = /** @class */ (function () {
         /** @type {?} */
         var element = _elementRef.nativeElement;
         /** @type {?} */
-        var elementStyle = (/** @type {?} */ (element.style));
-        /** @type {?} */
         var hasGestures = typeof window === 'undefined' || ((/** @type {?} */ (window))).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
@@ -180,20 +178,6 @@ var MatTooltip = /** @class */ (function () {
             this._manualListeners.set('touchstart', function () { return _this.show(); });
         }
         this._manualListeners.forEach(function (listener, event) { return element.addEventListener(event, listener); });
-        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-            // When we bind a gesture event on an element (in this case `longpress`), HammerJS
-            // will add some inline styles by default, including `user-select: none`. This is
-            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
-            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
-            // behavior for text fields, we always clear the `user-select` to avoid such issues.
-            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
-        }
-        // Hammer applies `-webkit-user-drag: none` on all elements by default,
-        // which breaks the native drag&drop. If the consumer explicitly made
-        // the element draggable, clear the `-webkit-user-drag`.
-        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
-            elementStyle.webkitUserDrag = '';
-        }
         _focusMonitor.monitor(_elementRef).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
@@ -300,6 +284,37 @@ var MatTooltip = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Setup styling-specific things
+     */
+    /**
+     * Setup styling-specific things
+     * @return {?}
+     */
+    MatTooltip.prototype.ngOnInit = /**
+     * Setup styling-specific things
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var elementStyle = (/** @type {?} */ (element.style));
+        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+            // When we bind a gesture event on an element (in this case `longpress`), HammerJS
+            // will add some inline styles by default, including `user-select: none`. This is
+            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
+            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
+            // behavior for text fields, we always clear the `user-select` to avoid such issues.
+            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
+        }
+        // Hammer applies `-webkit-user-drag: none` on all elements by default,
+        // which breaks the native drag&drop. If the consumer explicitly made
+        // the element draggable, clear the `-webkit-user-drag`.
+        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
+            elementStyle.webkitUserDrag = '';
+        }
+    };
     /**
      * Dispose the tooltip when destroyed.
      */

@@ -9,11 +9,11 @@ import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { HammerLoader } from '@angular/platform-browser';
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
-import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { HammerLoader } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to throttle repositioning after scroll events. */
@@ -52,7 +52,7 @@ export declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefault
  *
  * https://material.io/design/components/tooltips.html
  */
-export declare class MatTooltip implements OnDestroy {
+export declare class MatTooltip implements OnDestroy, OnInit {
     private _overlay;
     private _elementRef;
     private _scrollDispatcher;
@@ -88,6 +88,10 @@ export declare class MatTooltip implements OnDestroy {
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
     constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, hammerLoader?: HammerLoader);
+    /**
+     * Setup styling-specific things
+     */
+    ngOnInit(): void;
     /**
      * Dispose the tooltip when destroyed.
      */

@@ -12,14 +12,14 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { HAMMER_LOADER, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { take, takeUntil } from 'rxjs/operators';
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
+import { HAMMER_LOADER, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { GestureConfig, MatCommonModule } from '@angular/material/core';
 
@@ -150,8 +150,6 @@ var MatTooltip = /** @class */ (function () {
         /** @type {?} */
         var element = _elementRef.nativeElement;
         /** @type {?} */
-        var elementStyle = (/** @type {?} */ (element.style));
-        /** @type {?} */
         var hasGestures = typeof window === 'undefined' || ((/** @type {?} */ (window))).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
@@ -166,20 +164,6 @@ var MatTooltip = /** @class */ (function () {
             this._manualListeners.set('touchstart', function () { return _this.show(); });
         }
         this._manualListeners.forEach(function (listener, event) { return element.addEventListener(event, listener); });
-        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-            // When we bind a gesture event on an element (in this case `longpress`), HammerJS
-            // will add some inline styles by default, including `user-select: none`. This is
-            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
-            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
-            // behavior for text fields, we always clear the `user-select` to avoid such issues.
-            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
-        }
-        // Hammer applies `-webkit-user-drag: none` on all elements by default,
-        // which breaks the native drag&drop. If the consumer explicitly made
-        // the element draggable, clear the `-webkit-user-drag`.
-        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
-            elementStyle.webkitUserDrag = '';
-        }
         _focusMonitor.monitor(_elementRef).pipe(takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
@@ -286,6 +270,37 @@ var MatTooltip = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Setup styling-specific things
+     */
+    /**
+     * Setup styling-specific things
+     * @return {?}
+     */
+    MatTooltip.prototype.ngOnInit = /**
+     * Setup styling-specific things
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var elementStyle = (/** @type {?} */ (element.style));
+        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+            // When we bind a gesture event on an element (in this case `longpress`), HammerJS
+            // will add some inline styles by default, including `user-select: none`. This is
+            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
+            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
+            // behavior for text fields, we always clear the `user-select` to avoid such issues.
+            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
+        }
+        // Hammer applies `-webkit-user-drag: none` on all elements by default,
+        // which breaks the native drag&drop. If the consumer explicitly made
+        // the element draggable, clear the `-webkit-user-drag`.
+        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
+            elementStyle.webkitUserDrag = '';
+        }
+    };
     /**
      * Dispose the tooltip when destroyed.
      */

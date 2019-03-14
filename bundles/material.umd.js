@@ -24762,8 +24762,6 @@ var MatTooltip = /** @class */ (function () {
         /** @type {?} */
         var element = _elementRef.nativeElement;
         /** @type {?} */
-        var elementStyle = (/** @type {?} */ (element.style));
-        /** @type {?} */
         var hasGestures = typeof window === 'undefined' || ((/** @type {?} */ (window))).Hammer || hammerLoader;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
@@ -24778,20 +24776,6 @@ var MatTooltip = /** @class */ (function () {
             this._manualListeners.set('touchstart', function () { return _this.show(); });
         }
         this._manualListeners.forEach(function (listener, event) { return element.addEventListener(event, listener); });
-        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-            // When we bind a gesture event on an element (in this case `longpress`), HammerJS
-            // will add some inline styles by default, including `user-select: none`. This is
-            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
-            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
-            // behavior for text fields, we always clear the `user-select` to avoid such issues.
-            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
-        }
-        // Hammer applies `-webkit-user-drag: none` on all elements by default,
-        // which breaks the native drag&drop. If the consumer explicitly made
-        // the element draggable, clear the `-webkit-user-drag`.
-        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
-            elementStyle.webkitUserDrag = '';
-        }
         _focusMonitor.monitor(_elementRef).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
@@ -24898,6 +24882,37 @@ var MatTooltip = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Setup styling-specific things
+     */
+    /**
+     * Setup styling-specific things
+     * @return {?}
+     */
+    MatTooltip.prototype.ngOnInit = /**
+     * Setup styling-specific things
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var elementStyle = (/** @type {?} */ (element.style));
+        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+            // When we bind a gesture event on an element (in this case `longpress`), HammerJS
+            // will add some inline styles by default, including `user-select: none`. This is
+            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
+            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
+            // behavior for text fields, we always clear the `user-select` to avoid such issues.
+            elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
+        }
+        // Hammer applies `-webkit-user-drag: none` on all elements by default,
+        // which breaks the native drag&drop. If the consumer explicitly made
+        // the element draggable, clear the `-webkit-user-drag`.
+        if (element.draggable && elementStyle.webkitUserDrag === 'none') {
+            elementStyle.webkitUserDrag = '';
+        }
+    };
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -36925,7 +36940,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.4-a146499');
+var VERSION = new core.Version('7.3.4-59818d1');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37138,7 +37153,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37185,12 +37200,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb22 = MatMenuItemBase;
+exports.ɵc22 = _MatMenuItemMixinBase;
+exports.ɵf22 = MAT_MENU_PANEL;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
