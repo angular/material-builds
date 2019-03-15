@@ -3006,7 +3006,7 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
-exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
