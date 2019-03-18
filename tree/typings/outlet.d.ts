@@ -13,5 +13,6 @@ import { ViewContainerRef } from '@angular/core';
  */
 export declare class MatTreeNodeOutlet implements CdkTreeNodeOutlet {
     viewContainer: ViewContainerRef;
-    constructor(viewContainer: ViewContainerRef);
+    _node?: any;
+    constructor(viewContainer: ViewContainerRef, _node?: any);
 }

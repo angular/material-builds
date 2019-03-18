@@ -649,7 +649,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         this._modelChanges.unsubscribe();
     }
     /**
-     * Focuses the last active list option.
+     * Focuses the selection list.
      * @return {?}
      */
     focus() {
@@ -688,10 +688,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
-                this._keyManager.updateActiveItemIndex(optionIndex - 1);
+                this._keyManager.updateActiveItem(optionIndex - 1);
             }
             else if (optionIndex === 0 && this.options.length > 1) {
-                this._keyManager.updateActiveItemIndex(Math.min(optionIndex + 1, this.options.length - 1));
+                this._keyManager.updateActiveItem(Math.min(optionIndex + 1, this.options.length - 1));
             }
         }
         return this._keyManager.activeItem;
@@ -902,7 +902,6 @@ MatSelectionList.decorators = [
                     'role': 'listbox',
                     '[tabIndex]': 'tabIndex',
                     'class': 'mat-selection-list mat-list-base',
-                    '(focus)': 'focus()',
                     '(blur)': '_onTouched()',
                     '(keydown)': '_keydown($event)',
                     'aria-multiselectable': 'true',

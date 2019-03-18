@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { CDK_TREE_NODE_OUTLET_NODE, CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
+import { Directive, Inject, Optional, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
-import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import { mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
@@ -23,8 +23,9 @@ import { map, take } from 'rxjs/operators';
  * inside the outlet.
  */
 var MatTreeNodeOutlet = /** @class */ (function () {
-    function MatTreeNodeOutlet(viewContainer) {
+    function MatTreeNodeOutlet(viewContainer, _node) {
         this.viewContainer = viewContainer;
+        this._node = _node;
     }
     MatTreeNodeOutlet.decorators = [
         { type: Directive, args: [{
@@ -33,7 +34,8 @@ var MatTreeNodeOutlet = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTreeNodeOutlet.ctorParameters = function () { return [
-        { type: ViewContainerRef }
+        { type: ViewContainerRef },
+        { type: undefined, decorators: [{ type: Inject, args: [CDK_TREE_NODE_OUTLET_NODE,] }, { type: Optional }] }
     ]; };
     return MatTreeNodeOutlet;
 }());
@@ -162,7 +164,8 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
                     inputs: ['disabled', 'tabIndex'],
                     providers: [
                         { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
-                        { provide: CdkTreeNode, useExisting: MatNestedTreeNode }
+                        { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
+                        { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
                     ]
                 },] },
     ];
@@ -175,7 +178,11 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
     ]; };
     MatNestedTreeNode.propDecorators = {
         node: [{ type: Input, args: ['matNestedTreeNode',] }],
-        nodeOutlet: [{ type: ContentChildren, args: [MatTreeNodeOutlet,] }]
+        nodeOutlet: [{ type: ContentChildren, args: [MatTreeNodeOutlet, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }]
     };
     return MatNestedTreeNode;
 }(_MatNestedTreeNodeMixinBase));
@@ -229,7 +236,9 @@ var MatTree = /** @class */ (function (_super) {
                     },
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
                     encapsulation: ViewEncapsulation.None,
-                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    // See note on CdkTree for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
                     providers: [{ provide: CdkTree, useExisting: MatTree }]
                 },] },
     ];
@@ -257,9 +266,6 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     MatTreeNodeToggle.decorators = [
         { type: Directive, args: [{
                     selector: '[matTreeNodeToggle]',
-                    host: {
-                        '(click)': '_toggle($event)',
-                    },
                     providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
                 },] },
     ];

@@ -127,7 +127,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
-    /** Focuses the last active list option. */
+    /** Focuses the selection list. */
     focus(): void;
     /** Selects all of the options. */
     selectAll(): void;

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/tree'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/core', '@angular/cdk/tree', '@angular/material/core', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}),global.ng.core,global.ng.cdk.tree,global.ng.material.core,global.ng.common,global.ng.cdk.collections,global.rxjs,global.rxjs.operators));
-}(this, (function (exports,core,tree,core$1,common,collections,rxjs,operators) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/tree'), require('@angular/core'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/cdk/tree', '@angular/core', '@angular/material/core', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}),global.ng.cdk.tree,global.ng.core,global.ng.material.core,global.ng.common,global.ng.cdk.collections,global.rxjs,global.rxjs.operators));
+}(this, (function (exports,tree,core,core$1,common,collections,rxjs,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -49,8 +49,9 @@ function __extends(d, b) {
  * inside the outlet.
  */
 var MatTreeNodeOutlet = /** @class */ (function () {
-    function MatTreeNodeOutlet(viewContainer) {
+    function MatTreeNodeOutlet(viewContainer, _node) {
         this.viewContainer = viewContainer;
+        this._node = _node;
     }
     MatTreeNodeOutlet.decorators = [
         { type: core.Directive, args: [{
@@ -59,7 +60,8 @@ var MatTreeNodeOutlet = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTreeNodeOutlet.ctorParameters = function () { return [
-        { type: core.ViewContainerRef }
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [tree.CDK_TREE_NODE_OUTLET_NODE,] }, { type: core.Optional }] }
     ]; };
     return MatTreeNodeOutlet;
 }());
@@ -188,7 +190,8 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
                     inputs: ['disabled', 'tabIndex'],
                     providers: [
                         { provide: tree.CdkNestedTreeNode, useExisting: MatNestedTreeNode },
-                        { provide: tree.CdkTreeNode, useExisting: MatNestedTreeNode }
+                        { provide: tree.CdkTreeNode, useExisting: MatNestedTreeNode },
+                        { provide: tree.CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
                     ]
                 },] },
     ];
@@ -201,7 +204,11 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
     ]; };
     MatNestedTreeNode.propDecorators = {
         node: [{ type: core.Input, args: ['matNestedTreeNode',] }],
-        nodeOutlet: [{ type: core.ContentChildren, args: [MatTreeNodeOutlet,] }]
+        nodeOutlet: [{ type: core.ContentChildren, args: [MatTreeNodeOutlet, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }]
     };
     return MatNestedTreeNode;
 }(_MatNestedTreeNodeMixinBase));
@@ -255,7 +262,9 @@ var MatTree = /** @class */ (function (_super) {
                     },
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    // See note on CdkTree for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
                     providers: [{ provide: tree.CdkTree, useExisting: MatTree }]
                 },] },
     ];
@@ -283,9 +292,6 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     MatTreeNodeToggle.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matTreeNodeToggle]',
-                    host: {
-                        '(click)': '_toggle($event)',
-                    },
                     providers: [{ provide: tree.CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
                 },] },
     ];

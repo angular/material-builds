@@ -20335,13 +20335,13 @@ var MatSelectionList = /** @class */ (function (_super) {
     function () {
         this._modelChanges.unsubscribe();
     };
-    /** Focuses the last active list option. */
+    /** Focuses the selection list. */
     /**
-     * Focuses the last active list option.
+     * Focuses the selection list.
      * @return {?}
      */
     MatSelectionList.prototype.focus = /**
-     * Focuses the last active list option.
+     * Focuses the selection list.
      * @return {?}
      */
     function () {
@@ -20405,10 +20405,10 @@ var MatSelectionList = /** @class */ (function (_super) {
         if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
-                this._keyManager.updateActiveItemIndex(optionIndex - 1);
+                this._keyManager.updateActiveItem(optionIndex - 1);
             }
             else if (optionIndex === 0 && this.options.length > 1) {
-                this._keyManager.updateActiveItemIndex(Math.min(optionIndex + 1, this.options.length - 1));
+                this._keyManager.updateActiveItem(Math.min(optionIndex + 1, this.options.length - 1));
             }
         }
         return this._keyManager.activeItem;
@@ -20714,7 +20714,6 @@ var MatSelectionList = /** @class */ (function (_super) {
                         'role': 'listbox',
                         '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list mat-list-base',
-                        '(focus)': 'focus()',
                         '(blur)': '_onTouched()',
                         '(keydown)': '_keydown($event)',
                         'aria-multiselectable': 'true',
@@ -36194,8 +36193,9 @@ var MatToolbarModule = /** @class */ (function () {
  * inside the outlet.
  */
 var MatTreeNodeOutlet = /** @class */ (function () {
-    function MatTreeNodeOutlet(viewContainer) {
+    function MatTreeNodeOutlet(viewContainer, _node) {
         this.viewContainer = viewContainer;
+        this._node = _node;
     }
     MatTreeNodeOutlet.decorators = [
         { type: core.Directive, args: [{
@@ -36204,7 +36204,8 @@ var MatTreeNodeOutlet = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTreeNodeOutlet.ctorParameters = function () { return [
-        { type: core.ViewContainerRef }
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [tree.CDK_TREE_NODE_OUTLET_NODE,] }, { type: core.Optional }] }
     ]; };
     return MatTreeNodeOutlet;
 }());
@@ -36333,7 +36334,8 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
                     inputs: ['disabled', 'tabIndex'],
                     providers: [
                         { provide: tree.CdkNestedTreeNode, useExisting: MatNestedTreeNode },
-                        { provide: tree.CdkTreeNode, useExisting: MatNestedTreeNode }
+                        { provide: tree.CdkTreeNode, useExisting: MatNestedTreeNode },
+                        { provide: tree.CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
                     ]
                 },] },
     ];
@@ -36346,7 +36348,11 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
     ]; };
     MatNestedTreeNode.propDecorators = {
         node: [{ type: core.Input, args: ['matNestedTreeNode',] }],
-        nodeOutlet: [{ type: core.ContentChildren, args: [MatTreeNodeOutlet,] }]
+        nodeOutlet: [{ type: core.ContentChildren, args: [MatTreeNodeOutlet, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }]
     };
     return MatNestedTreeNode;
 }(_MatNestedTreeNodeMixinBase));
@@ -36400,7 +36406,9 @@ var MatTree = /** @class */ (function (_super) {
                     },
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    // See note on CdkTree for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
                     providers: [{ provide: tree.CdkTree, useExisting: MatTree }]
                 },] },
     ];
@@ -36428,9 +36436,6 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     MatTreeNodeToggle.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matTreeNodeToggle]',
-                    host: {
-                        '(click)': '_toggle($event)',
-                    },
                     providers: [{ provide: tree.CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
                 },] },
     ];
@@ -36828,7 +36833,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.4-464a9bb');
+var VERSION = new core.Version('7.3.4-c2c1bdb');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37088,12 +37093,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -37224,17 +37229,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa16 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf16 = MatTabBase;
+exports.ɵg16 = _MatTabMixinBase;
+exports.ɵb16 = MatTabHeaderBase;
+exports.ɵc16 = _MatTabHeaderMixinBase;
+exports.ɵd16 = MatTabLabelWrapperBase;
+exports.ɵe16 = _MatTabLabelWrapperMixinBase;
+exports.ɵj16 = MatTabLinkBase;
+exports.ɵh16 = MatTabNavBase;
+exports.ɵk16 = _MatTabLinkMixinBase;
+exports.ɵi16 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
