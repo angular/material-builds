@@ -828,9 +828,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (changes) {
         /** @type {?} */
-        var disableRippleChanges = changes['disableRipple'];
+        var disableRippleChanges = changes.disableRipple;
         /** @type {?} */
-        var colorChanges = changes['color'];
+        var colorChanges = changes.color;
         if ((disableRippleChanges && !disableRippleChanges.firstChange) ||
             (colorChanges && !colorChanges.firstChange)) {
             this._markOptionsForCheck();

@@ -11604,8 +11604,8 @@ var MatDialogClose = /** @class */ (function () {
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
-        if (changes['ariaLabel']) {
-            this._hasAriaLabel = !!changes['ariaLabel'].currentValue;
+        if (changes.ariaLabel) {
+            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
         }
     };
     MatDialogClose.decorators = [
@@ -20383,9 +20383,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (changes) {
         /** @type {?} */
-        var disableRippleChanges = changes['disableRipple'];
+        var disableRippleChanges = changes.disableRipple;
         /** @type {?} */
-        var colorChanges = changes['color'];
+        var colorChanges = changes.color;
         if ((disableRippleChanges && !disableRippleChanges.firstChange) ||
             (colorChanges && !colorChanges.firstChange)) {
             this._markOptionsForCheck();
@@ -36956,7 +36956,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.5-bd66e5c');
+var VERSION = new core.Version('7.3.5-962e303');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37169,7 +37169,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

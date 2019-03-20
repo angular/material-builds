@@ -660,9 +660,9 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      */
     ngOnChanges(changes) {
         /** @type {?} */
-        const disableRippleChanges = changes['disableRipple'];
+        const disableRippleChanges = changes.disableRipple;
         /** @type {?} */
-        const colorChanges = changes['color'];
+        const colorChanges = changes.color;
         if ((disableRippleChanges && !disableRippleChanges.firstChange) ||
             (colorChanges && !colorChanges.firstChange)) {
             this._markOptionsForCheck();
