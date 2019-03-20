@@ -592,7 +592,7 @@ class MatDialog {
          */
         this.afterAllClosed = (/** @type {?} */ (defer(() => this.openDialogs.length ?
             this._afterAllClosed :
-            this._afterAllClosed.pipe(startWith((/** @type {?} */ (undefined)))))));
+            this._afterAllClosed.pipe(startWith(undefined)))));
         this._scrollStrategy = scrollStrategy;
     }
     /**
@@ -961,8 +961,8 @@ class MatDialogClose {
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
-        if (changes.ariaLabel) {
-            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
+        if (changes['ariaLabel']) {
+            this._hasAriaLabel = !!changes['ariaLabel'].currentValue;
         }
     }
 }

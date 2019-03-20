@@ -791,7 +791,7 @@ var MatDialog = /** @class */ (function () {
          */
         this.afterAllClosed = (/** @type {?} */ (rxjs.defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            _this._afterAllClosed.pipe(operators.startWith((/** @type {?} */ (undefined)))); })));
+            _this._afterAllClosed.pipe(operators.startWith(undefined)); })));
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
@@ -1319,8 +1319,8 @@ var MatDialogClose = /** @class */ (function () {
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
-        if (changes.ariaLabel) {
-            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
+        if (changes['ariaLabel']) {
+            this._hasAriaLabel = !!changes['ariaLabel'].currentValue;
         }
     };
     MatDialogClose.decorators = [

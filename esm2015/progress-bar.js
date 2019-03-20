@@ -173,10 +173,12 @@ class MatProgressBar extends _MatProgressBarMixinBase {
             // Run outside angular so change detection didn't get triggered on every transition end
             // instead only on the animation that we care about (primary value bar's transitionend)
             this._ngZone.runOutsideAngular((() => {
+                /** @type {?} */
+                const element = this._primaryValueBar.nativeElement;
                 this._animationEndSubscription =
-                    fromEvent(this._primaryValueBar.nativeElement, 'transitionend')
-                        .pipe(filter(((e) => e.target === this._primaryValueBar.nativeElement)))
-                        .subscribe(_ => this._ngZone.run(() => this.emitAnimationEnd()));
+                    ((/** @type {?} */ (fromEvent(element, 'transitionend'))))
+                        .pipe(filter(((e) => e.target === element)))
+                        .subscribe(() => this._ngZone.run(() => this.emitAnimationEnd()));
             }));
         }
     }

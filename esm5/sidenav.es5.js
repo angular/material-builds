@@ -195,7 +195,7 @@ var MatDrawer = /** @class */ (function () {
          * and we don't have close disabled.
          */
         this._ngZone.runOutsideAngular(function () {
-            fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; }), takeUntil(_this._destroyed)).subscribe(function (event) { return _this._ngZone.run(function () {
+            ((/** @type {?} */ (fromEvent(_this._elementRef.nativeElement, 'keydown')))).pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; }), takeUntil(_this._destroyed)).subscribe(function (event) { return _this._ngZone.run(function () {
                 _this.close();
                 event.stopPropagation();
             }); });

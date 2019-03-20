@@ -230,12 +230,12 @@ var MatProgressBar = /** @class */ (function (_super) {
             // Run outside angular so change detection didn't get triggered on every transition end
             // instead only on the animation that we care about (primary value bar's transitionend)
             this._ngZone.runOutsideAngular((function () {
+                /** @type {?} */
+                var element = _this._primaryValueBar.nativeElement;
                 _this._animationEndSubscription =
-                    rxjs.fromEvent(_this._primaryValueBar.nativeElement, 'transitionend')
-                        .pipe(operators.filter((function (e) {
-                        return e.target === _this._primaryValueBar.nativeElement;
-                    })))
-                        .subscribe(function (_) { return _this._ngZone.run(function () { return _this.emitAnimationEnd(); }); });
+                    ((/** @type {?} */ (rxjs.fromEvent(element, 'transitionend'))))
+                        .pipe(operators.filter((function (e) { return e.target === element; })))
+                        .subscribe(function () { return _this._ngZone.run(function () { return _this.emitAnimationEnd(); }); });
             }));
         }
     };

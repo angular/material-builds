@@ -620,7 +620,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (!this._document) {
             return of(null);
         }
-        return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))
+        return merge((/** @type {?} */ (fromEvent(this._document, 'click'))), (/** @type {?} */ (fromEvent(this._document, 'touchend'))))
             .pipe(filter(function (event) {
             /** @type {?} */
             var clickTarget = (/** @type {?} */ (event.target));

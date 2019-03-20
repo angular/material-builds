@@ -673,11 +673,11 @@ MatTableDataSource = /** @class */ (function (_super) {
         // they purely act as a signal to progress in the pipeline.
         /** @type {?} */
         var sortChange = this._sort ?
-            rxjs.merge(this._sort.sortChange, this._sort.initialized) :
+            (/** @type {?} */ (rxjs.merge(this._sort.sortChange, this._sort.initialized))) :
             rxjs.of(null);
         /** @type {?} */
         var pageChange = this._paginator ?
-            rxjs.merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized) :
+            (/** @type {?} */ (rxjs.merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized))) :
             rxjs.of(null);
         /** @type {?} */
         var dataStream = this._data;

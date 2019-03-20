@@ -639,7 +639,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (!this._document) {
             return rxjs.of(null);
         }
-        return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
+        return rxjs.merge((/** @type {?} */ (rxjs.fromEvent(this._document, 'click'))), (/** @type {?} */ (rxjs.fromEvent(this._document, 'touchend'))))
             .pipe(operators.filter(function (event) {
             /** @type {?} */
             var clickTarget = (/** @type {?} */ (event.target));
