@@ -1319,8 +1319,8 @@ var MatDialogClose = /** @class */ (function () {
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
-        if (changes.ariaLabel) {
-            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
+        if (changes['ariaLabel']) {
+            this._hasAriaLabel = !!changes['ariaLabel'].currentValue;
         }
     };
     MatDialogClose.decorators = [
