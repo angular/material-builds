@@ -92,20 +92,6 @@ class MatBadge extends _MatBadgeMixinBase {
         this._overlap = coerceBooleanProperty(val);
     }
     /**
-     * The content for the badge
-     * @return {?}
-     */
-    get content() { return this._content; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set content(value) {
-        this._content = value;
-        this._hasContent = value != null && `${value}`.trim().length > 0;
-        this._updateTextContent();
-    }
-    /**
      * Message used to describe the decorated element via aria-describedby
      * @return {?}
      */
@@ -151,6 +137,20 @@ class MatBadge extends _MatBadgeMixinBase {
      */
     isAfter() {
         return this.position.indexOf('before') === -1;
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        /** @type {?} */
+        const contentChange = changes['content'];
+        if (contentChange) {
+            /** @type {?} */
+            const value = contentChange.currentValue;
+            this._hasContent = value != null && `${value}`.trim().length > 0;
+            this._updateTextContent();
+        }
     }
     /**
      * @return {?}

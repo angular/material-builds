@@ -5258,25 +5258,6 @@ var MatBadge = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatBadge.prototype, "content", {
-        /** The content for the badge */
-        get: /**
-         * The content for the badge
-         * @return {?}
-         */
-        function () { return this._content; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._content = value;
-            this._hasContent = value != null && ("" + value).trim().length > 0;
-            this._updateTextContent();
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatBadge.prototype, "description", {
         /** Message used to describe the decorated element via aria-describedby */
         get: /**
@@ -5343,6 +5324,24 @@ var MatBadge = /** @class */ (function (_super) {
      */
     function () {
         return this.position.indexOf('before') === -1;
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatBadge.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        /** @type {?} */
+        var contentChange = changes['content'];
+        if (contentChange) {
+            /** @type {?} */
+            var value = contentChange.currentValue;
+            this._hasContent = value != null && ("" + value).trim().length > 0;
+            this._updateTextContent();
+        }
     };
     /**
      * @return {?}
@@ -36956,7 +36955,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.5-177a433');
+var VERSION = new core.Version('7.3.5-f889547');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37169,7 +37168,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
