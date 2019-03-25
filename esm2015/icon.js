@@ -861,12 +861,14 @@ class MatIcon extends _MatIconMixinBase {
      */
     ngOnChanges(changes) {
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        if (changes['svgIcon']) {
+        /** @type {?} */
+        const svgIconChanges = changes['svgIcon'];
+        if (svgIconChanges) {
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
                 this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(take(1)).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
             }
-            else {
+            else if (svgIconChanges.previousValue) {
                 this._clearSvgElement();
             }
         }

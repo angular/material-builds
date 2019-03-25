@@ -433,7 +433,11 @@ MatSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalOutlet></ng-template>",
                 styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}@media (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}"],
-                changeDetection: ChangeDetectionStrategy.OnPush,
+                // In Ivy embedded views will be change detected from their declaration place, rather than
+                // where they were stamped out. This means that we can't have the snack bar container be OnPush,
+                // because it might cause snack bars that were opened from a template not to be out of date.
+                // tslint:disable-next-line:validate-decorators
+                changeDetection: ChangeDetectionStrategy.Default,
                 encapsulation: ViewEncapsulation.None,
                 animations: [matSnackBarAnimations.snackBarState],
                 host: {

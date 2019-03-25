@@ -389,8 +389,8 @@ MatSlideToggle.decorators = [
                 host: {
                     'class': 'mat-slide-toggle',
                     '[id]': 'id',
-                    '[attr.tabindex]': '-1',
                     // Needs to be `-1` so it can still receive programmatic focus.
+                    '[attr.tabindex]': 'disabled ? null : -1',
                     '[class.mat-checked]': 'checked',
                     '[class.mat-disabled]': 'disabled',
                     '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
