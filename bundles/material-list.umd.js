@@ -809,7 +809,6 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
         this._keyManager = new a11y.FocusKeyManager(this.options)
             .withWrap()
             .withTypeAhead()
@@ -818,11 +817,8 @@ var MatSelectionList = /** @class */ (function (_super) {
             .skipPredicate(function () { return false; })
             .withAllowedModifierKeys(['shiftKey']);
         if (this._tempValues) {
-            // Needs to be wrapped in a promise in order to avoid "changed after checked errors".
-            Promise.resolve().then(function () {
-                _this._setOptionsFromValues((/** @type {?} */ (_this._tempValues)));
-                _this._tempValues = null;
-            });
+            this._setOptionsFromValues(this._tempValues);
+            this._tempValues = null;
         }
         // Sync external changes to the model back to the options.
         this._modelChanges = this.selectedOptions.onChange.subscribe(function (event) {

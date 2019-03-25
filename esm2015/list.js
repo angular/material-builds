@@ -634,11 +634,8 @@ class MatSelectionList extends _MatSelectionListMixinBase {
             .skipPredicate(() => false)
             .withAllowedModifierKeys(['shiftKey']);
         if (this._tempValues) {
-            // Needs to be wrapped in a promise in order to avoid "changed after checked errors".
-            Promise.resolve().then(() => {
-                this._setOptionsFromValues((/** @type {?} */ (this._tempValues)));
-                this._tempValues = null;
-            });
+            this._setOptionsFromValues(this._tempValues);
+            this._tempValues = null;
         }
         // Sync external changes to the model back to the options.
         this._modelChanges = this.selectedOptions.onChange.subscribe(event => {
