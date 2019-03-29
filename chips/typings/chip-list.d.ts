@@ -258,6 +258,6 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     private _originatesFromChip;
     /** Checks whether any of the chips is focused. */
     private _hasFocusedChip;
-    /** Syncs the list's disabled state with the individual chips. */
-    private _syncChipsDisabledState;
+    /** Syncs the list's state with the individual chips. */
+    private _syncChipsState;
 }

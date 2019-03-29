@@ -371,6 +371,7 @@ class MatDrawer {
         }
         this._animationStarted.complete();
         this._animationEnd.complete();
+        this._modeChanged.complete();
         this._destroyed.next();
         this._destroyed.complete();
     }
@@ -615,6 +616,7 @@ class MatDrawerContainer {
      * @return {?}
      */
     ngOnDestroy() {
+        this._contentMarginChanges.complete();
         this._doCheckSubject.complete();
         this._destroyed.next();
         this._destroyed.complete();

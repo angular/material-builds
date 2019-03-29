@@ -30,7 +30,7 @@ function getMatIconNameNotFoundError(iconName) {
 }
 /**
  * Returns an exception to be thrown when the consumer attempts to use
- * `<mat-icon>` without including \@angular/http.
+ * `<mat-icon>` without including \@angular/common/http.
  * \@docs-private
  * @return {?}
  */

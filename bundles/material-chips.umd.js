@@ -125,6 +125,10 @@ var MatChip = /** @class */ (function (_super) {
          * Whether the chip list is selectable
          */
         _this.chipListSelectable = true;
+        /**
+         * Whether the chip list is in multi-selection mode.
+         */
+        _this._chipListMultiple = false;
         _this._selected = false;
         _this._selectable = true;
         _this._removable = true;
@@ -262,7 +266,10 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.selectable ? this.selected.toString() : null;
+            // Remove the `aria-selected` when the chip is deselected in single-selection mode, because
+            // it adds noise to NVDA users where "not selected" will be read out for each chip.
+            return this.selectable && (this._chipListMultiple || this.selected) ?
+                this.selected.toString() : null;
         },
         enumerable: true,
         configurable: true
@@ -745,6 +752,7 @@ var MatChipList = /** @class */ (function (_super) {
          */
         function (value) {
             this._multiple = coercion.coerceBooleanProperty(value);
+            this._syncChipsState();
         },
         enumerable: true,
         configurable: true
@@ -919,7 +927,7 @@ var MatChipList = /** @class */ (function (_super) {
          */
         function (value) {
             this._disabled = coercion.coerceBooleanProperty(value);
-            this._syncChipsDisabledState();
+            this._syncChipsState();
         },
         enumerable: true,
         configurable: true
@@ -1041,7 +1049,7 @@ var MatChipList = /** @class */ (function (_super) {
                 // Since this happens after the content has been
                 // checked, we need to defer it to the next tick.
                 Promise.resolve().then(function () {
-                    _this._syncChipsDisabledState();
+                    _this._syncChipsState();
                 });
             }
             _this._resetChips();
@@ -1734,14 +1742,14 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         return this.chips.some(function (chip) { return chip._hasFocus; });
     };
-    /** Syncs the list's disabled state with the individual chips. */
+    /** Syncs the list's state with the individual chips. */
     /**
-     * Syncs the list's disabled state with the individual chips.
+     * Syncs the list's state with the individual chips.
      * @private
      * @return {?}
      */
-    MatChipList.prototype._syncChipsDisabledState = /**
-     * Syncs the list's disabled state with the individual chips.
+    MatChipList.prototype._syncChipsState = /**
+     * Syncs the list's state with the individual chips.
      * @private
      * @return {?}
      */
@@ -1750,6 +1758,7 @@ var MatChipList = /** @class */ (function (_super) {
         if (this.chips) {
             this.chips.forEach(function (chip) {
                 chip.disabled = _this._disabled;
+                chip._chipListMultiple = _this.multiple;
             });
         }
     };

@@ -99,6 +99,10 @@ class MatChip extends _MatChipMixinBase {
          * Whether the chip list is selectable
          */
         this.chipListSelectable = true;
+        /**
+         * Whether the chip list is in multi-selection mode.
+         */
+        this._chipListMultiple = false;
         this._selected = false;
         this._selectable = true;
         this._removable = true;
@@ -198,7 +202,10 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     get ariaSelected() {
-        return this.selectable ? this.selected.toString() : null;
+        // Remove the `aria-selected` when the chip is deselected in single-selection mode, because
+        // it adds noise to NVDA users where "not selected" will be read out for each chip.
+        return this.selectable && (this._chipListMultiple || this.selected) ?
+            this.selected.toString() : null;
     }
     /**
      * @return {?}
@@ -599,6 +606,7 @@ class MatChipList extends _MatChipListMixinBase {
      */
     set multiple(value) {
         this._multiple = coerceBooleanProperty(value);
+        this._syncChipsState();
     }
     /**
      * A function to compare the option values with the selected values. The first argument
@@ -703,7 +711,7 @@ class MatChipList extends _MatChipListMixinBase {
      */
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
-        this._syncChipsDisabledState();
+        this._syncChipsState();
     }
     /**
      * Whether or not this chip list is selectable. When a chip list is not selectable,
@@ -785,7 +793,7 @@ class MatChipList extends _MatChipListMixinBase {
                 // Since this happens after the content has been
                 // checked, we need to defer it to the next tick.
                 Promise.resolve().then(() => {
-                    this._syncChipsDisabledState();
+                    this._syncChipsState();
                 });
             }
             this._resetChips();
@@ -1254,14 +1262,15 @@ class MatChipList extends _MatChipListMixinBase {
         return this.chips.some(chip => chip._hasFocus);
     }
     /**
-     * Syncs the list's disabled state with the individual chips.
+     * Syncs the list's state with the individual chips.
      * @private
      * @return {?}
      */
-    _syncChipsDisabledState() {
+    _syncChipsState() {
         if (this.chips) {
             this.chips.forEach(chip => {
                 chip.disabled = this._disabled;
+                chip._chipListMultiple = this.multiple;
             });
         }
     }
