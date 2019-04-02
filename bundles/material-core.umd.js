@@ -2730,6 +2730,29 @@ var MatOption = /** @class */ (function () {
             this._emitSelectionChangeEvent(true);
         }
     };
+    /**
+     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+     * attributes adds a significant amount of noise to screen-reader users without providing useful
+     * information.
+     */
+    /**
+     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+     * attributes adds a significant amount of noise to screen-reader users without providing useful
+     * information.
+     * @return {?}
+     */
+    MatOption.prototype._getAriaSelected = /**
+     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+     * attributes adds a significant amount of noise to screen-reader users without providing useful
+     * information.
+     * @return {?}
+     */
+    function () {
+        return this.selected || (this.multiple ? false : null);
+    };
     /** Returns the correct tabindex for the option depending on disabled state. */
     /**
      * Returns the correct tabindex for the option depending on disabled state.
@@ -2811,7 +2834,7 @@ var MatOption = /** @class */ (function () {
                         '[class.mat-option-multiple]': 'multiple',
                         '[class.mat-active]': 'active',
                         '[id]': 'id',
-                        '[attr.aria-selected]': 'selected.toString()',
+                        '[attr.aria-selected]': '_getAriaSelected()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[class.mat-option-disabled]': 'disabled',
                         '(click)': '_selectViaInteraction()',
