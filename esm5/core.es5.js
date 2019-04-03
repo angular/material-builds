@@ -756,7 +756,18 @@ var MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
  * Whether the browser supports the Intl API.
  * @type {?}
  */
-var SUPPORTS_INTL_API = typeof Intl != 'undefined';
+var SUPPORTS_INTL_API;
+// We need a try/catch around the reference to `Intl`, because accessing it in some cases can
+// cause IE to throw. These cases are tied to particular versions of Windows and can happen if
+// the consumer is providing a polyfilled `Map`. See:
+// https://github.com/Microsoft/ChakraCore/issues/3189
+// https://github.com/angular/material2/issues/15687
+try {
+    SUPPORTS_INTL_API = typeof Intl != 'undefined';
+}
+catch (_a) {
+    SUPPORTS_INTL_API = false;
+}
 /**
  * The default month names to use if Intl API is not available.
  * @type {?}
