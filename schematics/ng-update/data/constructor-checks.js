@@ -14,6 +14,12 @@ const schematics_1 = require("@angular/cdk/schematics");
  * automatically through type checking.
  */
 exports.constructorChecks = {
+    [schematics_1.TargetVersion.V8]: [
+        {
+            pr: 'https://github.com/angular/material2/pull/15647',
+            changes: ['MatFormField', 'MatTabLink', 'MatVerticalStepper']
+        }
+    ],
     [schematics_1.TargetVersion.V7]: [
         {
             pr: 'https://github.com/angular/material2/pull/11706',

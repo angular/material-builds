@@ -350,7 +350,7 @@ var MatFormField = /** @class */ (function (_super) {
             var oldValue = this._appearance;
             this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
             if (this._appearance === 'outline' && oldValue !== value) {
-                this._updateOutlineGapOnStable();
+                this._outlineGapCalculationNeededOnStable = true;
             }
         },
         enumerable: true,
@@ -490,25 +490,19 @@ var MatFormField = /** @class */ (function (_super) {
                 .pipe(operators.takeUntil(this._destroyed))
                 .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         }
-        // @breaking-change 7.0.0 Remove this check once _ngZone is required. Also reconsider
-        // whether the `ngAfterContentChecked` below is still necessary.
-        /** @type {?} */
-        var zone = this._ngZone;
-        if (zone) {
-            // Note that we have to run outside of the `NgZone` explicitly,
-            // in order to avoid throwing users into an infinite loop
-            // if `zone-patch-rxjs` is included.
-            zone.runOutsideAngular(function () {
-                zone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
-                    if (_this._outlineGapCalculationNeededOnStable) {
-                        _this.updateOutlineGap();
-                    }
-                });
+        // Note that we have to run outside of the `NgZone` explicitly,
+        // in order to avoid throwing users into an infinite loop
+        // if `zone-patch-rxjs` is included.
+        this._ngZone.runOutsideAngular(function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+                if (_this._outlineGapCalculationNeededOnStable) {
+                    _this.updateOutlineGap();
+                }
             });
-        }
+        });
         // Run change detection and update the outline if the suffix or prefix changes.
         rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(function () {
-            _this._updateOutlineGapOnStable();
+            _this._outlineGapCalculationNeededOnStable = true;
             _this._changeDetectorRef.markForCheck();
         });
         // Re-validate when the number of hints changes.
@@ -814,7 +808,7 @@ var MatFormField = /** @class */ (function (_super) {
             !labelEl.textContent.trim()) {
             return;
         }
-        if (this._platform && !this._platform.isBrowser) {
+        if (!this._platform.isBrowser) {
             // getBoundingClientRect isn't available on the server.
             return;
         }
@@ -885,32 +879,6 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function (rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
-    };
-    /**
-     * Updates the outline gap the new time the zone stabilizes.
-     * @breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
-     */
-    /**
-     * Updates the outline gap the new time the zone stabilizes.
-     * \@breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
-     * @private
-     * @return {?}
-     */
-    MatFormField.prototype._updateOutlineGapOnStable = /**
-     * Updates the outline gap the new time the zone stabilizes.
-     * \@breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
-     * @private
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        // @breaking-change 8.0.0 Remove this check and else block once _ngZone is required.
-        if (this._ngZone) {
-            this._outlineGapCalculationNeededOnStable = true;
-        }
-        else {
-            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-        }
     };
     MatFormField.decorators = [
         { type: core.Component, args: [{selector: 'mat-form-field',

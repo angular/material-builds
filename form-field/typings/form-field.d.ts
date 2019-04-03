@@ -50,8 +50,8 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _changeDetectorRef;
     private _dir;
     private _defaults;
-    private _platform?;
-    private _ngZone?;
+    private _platform;
+    private _ngZone;
     private _labelOptions;
     /**
      * Whether the outline gap needs to be calculated
@@ -107,7 +107,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform?: Platform | undefined, _ngZone?: NgZone | undefined, _animationMode?: string);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform: Platform, _ngZone: NgZone, _animationMode: string);
     /**
      * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.
@@ -154,9 +154,4 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     updateOutlineGap(): void;
     /** Gets the start end of the rect considering the current directionality. */
     private _getStartEnd;
-    /**
-     * Updates the outline gap the new time the zone stabilizes.
-     * @breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
-     */
-    private _updateOutlineGapOnStable;
 }

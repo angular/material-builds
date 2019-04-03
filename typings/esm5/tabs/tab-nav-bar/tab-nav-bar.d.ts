@@ -59,11 +59,7 @@ export declare const _MatTabLinkMixinBase: HasTabIndexCtor & CanDisableRippleCto
 export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestroy, CanDisable, CanDisableRipple, HasTabIndex, RippleTarget {
     private _tabNavBar;
     _elementRef: ElementRef;
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0 `_focusMonitor` parameter to be made required.
-     */
-    private _focusMonitor?;
+    private _focusMonitor;
     /** Whether the tab link is active or not. */
     protected _isActive: boolean;
     /** Reference to the RippleRenderer for the tab-link. */
@@ -82,11 +78,6 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
      * @docs-private
      */
     readonly rippleDisabled: boolean;
-    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, 
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0 `_focusMonitor` parameter to be made required.
-     */
-    _focusMonitor?: FocusMonitor | undefined);
+    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, _focusMonitor: FocusMonitor);
     ngOnDestroy(): void;
 }

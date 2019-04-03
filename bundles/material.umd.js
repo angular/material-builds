@@ -3292,7 +3292,7 @@ var MatFormField = /** @class */ (function (_super) {
             var oldValue = this._appearance;
             this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
             if (this._appearance === 'outline' && oldValue !== value) {
-                this._updateOutlineGapOnStable();
+                this._outlineGapCalculationNeededOnStable = true;
             }
         },
         enumerable: true,
@@ -3432,25 +3432,19 @@ var MatFormField = /** @class */ (function (_super) {
                 .pipe(operators.takeUntil(this._destroyed))
                 .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         }
-        // @breaking-change 7.0.0 Remove this check once _ngZone is required. Also reconsider
-        // whether the `ngAfterContentChecked` below is still necessary.
-        /** @type {?} */
-        var zone = this._ngZone;
-        if (zone) {
-            // Note that we have to run outside of the `NgZone` explicitly,
-            // in order to avoid throwing users into an infinite loop
-            // if `zone-patch-rxjs` is included.
-            zone.runOutsideAngular(function () {
-                zone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
-                    if (_this._outlineGapCalculationNeededOnStable) {
-                        _this.updateOutlineGap();
-                    }
-                });
+        // Note that we have to run outside of the `NgZone` explicitly,
+        // in order to avoid throwing users into an infinite loop
+        // if `zone-patch-rxjs` is included.
+        this._ngZone.runOutsideAngular(function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+                if (_this._outlineGapCalculationNeededOnStable) {
+                    _this.updateOutlineGap();
+                }
             });
-        }
+        });
         // Run change detection and update the outline if the suffix or prefix changes.
         rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(function () {
-            _this._updateOutlineGapOnStable();
+            _this._outlineGapCalculationNeededOnStable = true;
             _this._changeDetectorRef.markForCheck();
         });
         // Re-validate when the number of hints changes.
@@ -3756,7 +3750,7 @@ var MatFormField = /** @class */ (function (_super) {
             !labelEl.textContent.trim()) {
             return;
         }
-        if (this._platform && !this._platform.isBrowser) {
+        if (!this._platform.isBrowser) {
             // getBoundingClientRect isn't available on the server.
             return;
         }
@@ -3827,32 +3821,6 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function (rect) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
-    };
-    /**
-     * Updates the outline gap the new time the zone stabilizes.
-     * @breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
-     */
-    /**
-     * Updates the outline gap the new time the zone stabilizes.
-     * \@breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
-     * @private
-     * @return {?}
-     */
-    MatFormField.prototype._updateOutlineGapOnStable = /**
-     * Updates the outline gap the new time the zone stabilizes.
-     * \@breaking-change 7.0.0 Remove this method and only set the property once `_ngZone` is required.
-     * @private
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        // @breaking-change 8.0.0 Remove this check and else block once _ngZone is required.
-        if (this._ngZone) {
-            this._outlineGapCalculationNeededOnStable = true;
-        }
-        else {
-            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-        }
     };
     MatFormField.decorators = [
         { type: core.Component, args: [{selector: 'mat-form-field',
@@ -36061,9 +36029,7 @@ var MatTabLink = /** @class */ (function (_super) {
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.rippleConfig = globalRippleOptions || {};
         _this.tabIndex = parseInt(tabIndex) || 0;
-        if (_focusMonitor) {
-            _focusMonitor.monitor(_elementRef);
-        }
+        _focusMonitor.monitor(_elementRef);
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
@@ -36111,9 +36077,7 @@ var MatTabLink = /** @class */ (function (_super) {
      */
     function () {
         this._tabLinkRipple._removeTriggerEvents();
-        if (this._focusMonitor) {
-            this._focusMonitor.stopMonitoring(this._elementRef);
-        }
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     MatTabLink.decorators = [
         { type: core.Directive, args: [{
@@ -36979,7 +36943,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.6-c3ead65');
+var VERSION = new core.Version('7.3.6-526351a');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37239,12 +37203,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb22 = MatMenuItemBase;
+exports.ɵc22 = _MatMenuItemMixinBase;
+exports.ɵf22 = MAT_MENU_PANEL;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -37375,17 +37339,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
