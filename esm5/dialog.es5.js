@@ -1237,10 +1237,6 @@ var MatDialogClose = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this._elementRef = _elementRef;
         this._dialog = _dialog;
-        /**
-         * Screenreader label for the button.
-         */
-        this.ariaLabel = 'Close dialog';
     }
     /**
      * @return {?}
@@ -1257,18 +1253,6 @@ var MatDialogClose = /** @class */ (function () {
             // be resolved at constructor time.
             this.dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
-        if (typeof this._hasAriaLabel === 'undefined') {
-            /** @type {?} */
-            var element = this._elementRef.nativeElement;
-            if (element.hasAttribute('mat-icon-button')) {
-                this._hasAriaLabel = true;
-            }
-            else {
-                /** @type {?} */
-                var buttonTextContent = element.textContent;
-                this._hasAriaLabel = !buttonTextContent || buttonTextContent.trim().length === 0;
-            }
-        }
     };
     /**
      * @param {?} changes
@@ -1284,9 +1268,6 @@ var MatDialogClose = /** @class */ (function () {
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
-        if (changes.ariaLabel) {
-            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
-        }
     };
     MatDialogClose.decorators = [
         { type: Directive, args: [{
@@ -1294,7 +1275,7 @@ var MatDialogClose = /** @class */ (function () {
                     exportAs: 'matDialogClose',
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',
-                        '[attr.aria-label]': '_hasAriaLabel ? ariaLabel : null',
+                        '[attr.aria-label]': 'ariaLabel || null',
                         'type': 'button',
                     }
                 },] },

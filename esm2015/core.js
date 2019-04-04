@@ -577,7 +577,18 @@ const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
  * Whether the browser supports the Intl API.
  * @type {?}
  */
-const SUPPORTS_INTL_API = typeof Intl != 'undefined';
+let SUPPORTS_INTL_API;
+// We need a try/catch around the reference to `Intl`, because accessing it in some cases can
+// cause IE to throw. These cases are tied to particular versions of Windows and can happen if
+// the consumer is providing a polyfilled `Map`. See:
+// https://github.com/Microsoft/ChakraCore/issues/3189
+// https://github.com/angular/material2/issues/15687
+try {
+    SUPPORTS_INTL_API = typeof Intl != 'undefined';
+}
+catch (_a) {
+    SUPPORTS_INTL_API = false;
+}
 /**
  * The default month names to use if Intl API is not available.
  * @type {?}
@@ -2073,6 +2084,16 @@ class MatOption {
         }
     }
     /**
+     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+     * attributes adds a significant amount of noise to screen-reader users without providing useful
+     * information.
+     * @return {?}
+     */
+    _getAriaSelected() {
+        return this.selected || (this.multiple ? false : null);
+    }
+    /**
      * Returns the correct tabindex for the option depending on disabled state.
      * @return {?}
      */
@@ -2130,7 +2151,7 @@ MatOption.decorators = [
                     '[class.mat-option-multiple]': 'multiple',
                     '[class.mat-active]': 'active',
                     '[id]': 'id',
-                    '[attr.aria-selected]': 'selected.toString()',
+                    '[attr.aria-selected]': '_getAriaSelected()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[class.mat-option-disabled]': 'disabled',
                     '(click)': '_selectViaInteraction()',

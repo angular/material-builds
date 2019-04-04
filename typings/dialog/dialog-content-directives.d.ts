@@ -20,11 +20,6 @@ export declare class MatDialogClose implements OnInit, OnChanges {
     /** Dialog close input. */
     dialogResult: any;
     _matDialogClose: any;
-    /**
-     * Whether the button should have an `aria-label`. Used for clearing the
-     * attribute to prevent it from being read instead of the button's text.
-     */
-    _hasAriaLabel?: boolean;
     constructor(dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;

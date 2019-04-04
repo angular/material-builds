@@ -370,9 +370,12 @@ class MatBottomSheetRef {
             this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
+        containerInstance._animationStateChanged
+            .pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
             .subscribe(() => {
-            this._overlayRef.dispose();
+            _overlayRef.dispose();
+        });
+        _overlayRef.detachments().pipe(take(1)).subscribe(() => {
             this._afterDismissed.next(this._result);
             this._afterDismissed.complete();
         });

@@ -429,17 +429,16 @@ var MatTooltip = /** @class */ (function () {
         if (this._overlayRef) {
             return this._overlayRef;
         }
+        /** @type {?} */
+        var scrollableAncestors = this._scrollDispatcher.getAncestorScrollContainers(this._elementRef);
         // Create connected position strategy that listens for scroll events to reposition.
         /** @type {?} */
         var strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
-            .withViewportMargin(8);
-        /** @type {?} */
-        var scrollableAncestors = this._scrollDispatcher
-            .getAncestorScrollContainers(this._elementRef);
-        strategy.withScrollableContainers(scrollableAncestors);
+            .withViewportMargin(8)
+            .withScrollableContainers(scrollableAncestors);
         strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe(function (change) {
             if (_this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {

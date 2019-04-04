@@ -455,6 +455,7 @@ var MatDrawer = /** @class */ (function () {
         }
         this._animationStarted.complete();
         this._animationEnd.complete();
+        this._modeChanged.complete();
         this._destroyed.next();
         this._destroyed.complete();
     };
@@ -780,6 +781,7 @@ var MatDrawerContainer = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        this._contentMarginChanges.complete();
         this._doCheckSubject.complete();
         this._destroyed.next();
         this._destroyed.complete();

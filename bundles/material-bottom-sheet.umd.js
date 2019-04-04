@@ -474,9 +474,12 @@ MatBottomSheetRef = /** @class */ (function () {
             _this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
+        containerInstance._animationStateChanged
+            .pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
             .subscribe(function () {
-            _this._overlayRef.dispose();
+            _overlayRef.dispose();
+        });
+        _overlayRef.detachments().pipe(operators.take(1)).subscribe(function () {
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });

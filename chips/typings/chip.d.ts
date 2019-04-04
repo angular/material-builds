@@ -73,6 +73,8 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _hasFocus: boolean;
     /** Whether the chip list is selectable */
     chipListSelectable: boolean;
+    /** Whether the chip list is in multi-selection mode. */
+    _chipListMultiple: boolean;
     /** The chip avatar */
     avatar: MatChipAvatar;
     /** The chip's trailing icon. */

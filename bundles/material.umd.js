@@ -789,7 +789,18 @@ var MAT_DATE_FORMATS = new core.InjectionToken('mat-date-formats');
  * Whether the browser supports the Intl API.
  * @type {?}
  */
-var SUPPORTS_INTL_API = typeof Intl != 'undefined';
+var SUPPORTS_INTL_API;
+// We need a try/catch around the reference to `Intl`, because accessing it in some cases can
+// cause IE to throw. These cases are tied to particular versions of Windows and can happen if
+// the consumer is providing a polyfilled `Map`. See:
+// https://github.com/Microsoft/ChakraCore/issues/3189
+// https://github.com/angular/material2/issues/15687
+try {
+    SUPPORTS_INTL_API = typeof Intl != 'undefined';
+}
+catch (_a) {
+    SUPPORTS_INTL_API = false;
+}
 /**
  * The default month names to use if Intl API is not available.
  * @type {?}
@@ -2730,6 +2741,29 @@ var MatOption = /** @class */ (function () {
             this._emitSelectionChangeEvent(true);
         }
     };
+    /**
+     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+     * attributes adds a significant amount of noise to screen-reader users without providing useful
+     * information.
+     */
+    /**
+     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+     * attributes adds a significant amount of noise to screen-reader users without providing useful
+     * information.
+     * @return {?}
+     */
+    MatOption.prototype._getAriaSelected = /**
+     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+     * attributes adds a significant amount of noise to screen-reader users without providing useful
+     * information.
+     * @return {?}
+     */
+    function () {
+        return this.selected || (this.multiple ? false : null);
+    };
     /** Returns the correct tabindex for the option depending on disabled state. */
     /**
      * Returns the correct tabindex for the option depending on disabled state.
@@ -2811,7 +2845,7 @@ var MatOption = /** @class */ (function () {
                         '[class.mat-option-multiple]': 'multiple',
                         '[class.mat-active]': 'active',
                         '[id]': 'id',
-                        '[attr.aria-selected]': 'selected.toString()',
+                        '[attr.aria-selected]': '_getAriaSelected()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[class.mat-option-disabled]': 'disabled',
                         '(click)': '_selectViaInteraction()',
@@ -3823,7 +3857,7 @@ var MatFormField = /** @class */ (function (_super) {
     MatFormField.decorators = [
         { type: core.Component, args: [{selector: 'mat-form-field',
                     exportAs: 'matFormField',
-                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" (cdkObserveContent)=\"updateOutlineGap()\" [cdkObserveContentDisabled]=\"appearance != 'outline'\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" (cdkObserveContent)=\"updateOutlineGap()\" [cdkObserveContentDisabled]=\"appearance != 'outline'\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&#32;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here
                     // in form-field-input.css. The MatInput styles are fairly minimal so it shouldn't be a
                     // big deal for people who aren't using MatInput.
@@ -5963,9 +5997,12 @@ MatBottomSheetRef = /** @class */ (function () {
             _this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
+        containerInstance._animationStateChanged
+            .pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
             .subscribe(function () {
-            _this._overlayRef.dispose();
+            _overlayRef.dispose();
+        });
+        _overlayRef.detachments().pipe(operators.take(1)).subscribe(function () {
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
@@ -8335,6 +8372,10 @@ var MatChip = /** @class */ (function (_super) {
          * Whether the chip list is selectable
          */
         _this.chipListSelectable = true;
+        /**
+         * Whether the chip list is in multi-selection mode.
+         */
+        _this._chipListMultiple = false;
         _this._selected = false;
         _this._selectable = true;
         _this._removable = true;
@@ -8472,7 +8513,10 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.selectable ? this.selected.toString() : null;
+            // Remove the `aria-selected` when the chip is deselected in single-selection mode, because
+            // it adds noise to NVDA users where "not selected" will be read out for each chip.
+            return this.selectable && (this._chipListMultiple || this.selected) ?
+                this.selected.toString() : null;
         },
         enumerable: true,
         configurable: true
@@ -8955,6 +8999,7 @@ var MatChipList = /** @class */ (function (_super) {
          */
         function (value) {
             this._multiple = coercion.coerceBooleanProperty(value);
+            this._syncChipsState();
         },
         enumerable: true,
         configurable: true
@@ -9129,7 +9174,7 @@ var MatChipList = /** @class */ (function (_super) {
          */
         function (value) {
             this._disabled = coercion.coerceBooleanProperty(value);
-            this._syncChipsDisabledState();
+            this._syncChipsState();
         },
         enumerable: true,
         configurable: true
@@ -9251,7 +9296,7 @@ var MatChipList = /** @class */ (function (_super) {
                 // Since this happens after the content has been
                 // checked, we need to defer it to the next tick.
                 Promise.resolve().then(function () {
-                    _this._syncChipsDisabledState();
+                    _this._syncChipsState();
                 });
             }
             _this._resetChips();
@@ -9944,14 +9989,14 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         return this.chips.some(function (chip) { return chip._hasFocus; });
     };
-    /** Syncs the list's disabled state with the individual chips. */
+    /** Syncs the list's state with the individual chips. */
     /**
-     * Syncs the list's disabled state with the individual chips.
+     * Syncs the list's state with the individual chips.
      * @private
      * @return {?}
      */
-    MatChipList.prototype._syncChipsDisabledState = /**
-     * Syncs the list's disabled state with the individual chips.
+    MatChipList.prototype._syncChipsState = /**
+     * Syncs the list's state with the individual chips.
      * @private
      * @return {?}
      */
@@ -9960,6 +10005,7 @@ var MatChipList = /** @class */ (function (_super) {
         if (this.chips) {
             this.chips.forEach(function (chip) {
                 chip.disabled = _this._disabled;
+                chip._chipListMultiple = _this.multiple;
             });
         }
     };
@@ -11526,10 +11572,6 @@ var MatDialogClose = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this._elementRef = _elementRef;
         this._dialog = _dialog;
-        /**
-         * Screenreader label for the button.
-         */
-        this.ariaLabel = 'Close dialog';
     }
     /**
      * @return {?}
@@ -11546,18 +11588,6 @@ var MatDialogClose = /** @class */ (function () {
             // be resolved at constructor time.
             this.dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
-        if (typeof this._hasAriaLabel === 'undefined') {
-            /** @type {?} */
-            var element = this._elementRef.nativeElement;
-            if (element.hasAttribute('mat-icon-button')) {
-                this._hasAriaLabel = true;
-            }
-            else {
-                /** @type {?} */
-                var buttonTextContent = element.textContent;
-                this._hasAriaLabel = !buttonTextContent || buttonTextContent.trim().length === 0;
-            }
-        }
     };
     /**
      * @param {?} changes
@@ -11573,9 +11603,6 @@ var MatDialogClose = /** @class */ (function () {
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
-        if (changes.ariaLabel) {
-            this._hasAriaLabel = !!changes.ariaLabel.currentValue;
-        }
     };
     MatDialogClose.decorators = [
         { type: core.Directive, args: [{
@@ -11583,7 +11610,7 @@ var MatDialogClose = /** @class */ (function () {
                     exportAs: 'matDialogClose',
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',
-                        '[attr.aria-label]': '_hasAriaLabel ? ariaLabel : null',
+                        '[attr.aria-label]': 'ariaLabel || null',
                         'type': 'button',
                     }
                 },] },
@@ -24955,17 +24982,16 @@ var MatTooltip = /** @class */ (function () {
         if (this._overlayRef) {
             return this._overlayRef;
         }
+        /** @type {?} */
+        var scrollableAncestors = this._scrollDispatcher.getAncestorScrollContainers(this._elementRef);
         // Create connected position strategy that listens for scroll events to reposition.
         /** @type {?} */
         var strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
-            .withViewportMargin(8);
-        /** @type {?} */
-        var scrollableAncestors = this._scrollDispatcher
-            .getAncestorScrollContainers(this._elementRef);
-        strategy.withScrollableContainers(scrollableAncestors);
+            .withViewportMargin(8)
+            .withScrollableContainers(scrollableAncestors);
         strategy.positionChanges.pipe(operators.takeUntil(this._destroyed)).subscribe(function (change) {
             if (_this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
@@ -27933,6 +27959,7 @@ var MatDrawer = /** @class */ (function () {
         }
         this._animationStarted.complete();
         this._animationEnd.complete();
+        this._modeChanged.complete();
         this._destroyed.next();
         this._destroyed.complete();
     };
@@ -28258,6 +28285,7 @@ var MatDrawerContainer = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        this._contentMarginChanges.complete();
         this._doCheckSubject.complete();
         this._destroyed.next();
         this._destroyed.complete();
@@ -36839,7 +36867,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.6-1bd98de');
+var VERSION = new core.Version('7.3.6-307889e');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37052,7 +37080,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
