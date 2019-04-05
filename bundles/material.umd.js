@@ -19867,7 +19867,7 @@ var MatListItem = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef }
     ]; };
     MatListItem.propDecorators = {
-        _lines: [{ type: core.ContentChildren, args: [MatLine,] }],
+        _lines: [{ type: core.ContentChildren, args: [MatLine, { descendants: true },] }],
         _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
         _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler, { static: false },] }]
     };
@@ -36943,7 +36943,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.6-833d428');
+var VERSION = new core.Version('7.3.6-a258400');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37156,7 +37156,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

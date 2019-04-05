@@ -318,7 +318,7 @@ var MatListItem = /** @class */ (function (_super) {
         { type: ChangeDetectorRef }
     ]; };
     MatListItem.propDecorators = {
-        _lines: [{ type: ContentChildren, args: [MatLine,] }],
+        _lines: [{ type: ContentChildren, args: [MatLine, { descendants: true },] }],
         _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
         _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler, { static: false },] }]
     };
