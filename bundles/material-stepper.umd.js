@@ -336,7 +336,7 @@ var MatStep = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
     ]; };
     MatStep.propDecorators = {
-        stepLabel: [{ type: core.ContentChild, args: [MatStepLabel,] }]
+        stepLabel: [{ type: core.ContentChild, args: [MatStepLabel, { static: false },] }]
     };
     return MatStep;
 }(stepper.CdkStep));

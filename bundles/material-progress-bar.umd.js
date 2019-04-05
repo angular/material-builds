@@ -293,7 +293,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     MatProgressBar.propDecorators = {
         value: [{ type: core.Input }],
         bufferValue: [{ type: core.Input }],
-        _primaryValueBar: [{ type: core.ViewChild, args: ['primaryValueBar',] }],
+        _primaryValueBar: [{ type: core.ViewChild, args: ['primaryValueBar', { static: false },] }],
         animationEnd: [{ type: core.Output }],
         mode: [{ type: core.Input }]
     };

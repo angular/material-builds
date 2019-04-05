@@ -262,8 +262,8 @@ MatListItem.ctorParameters = () => [
 ];
 MatListItem.propDecorators = {
     _lines: [{ type: ContentChildren, args: [MatLine,] }],
-    _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
-    _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }]
+    _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
+    _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler, { static: false },] }]
 };
 
 /**
@@ -553,10 +553,10 @@ MatListOption.ctorParameters = () => [
     { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(() => MatSelectionList),] }] }
 ];
 MatListOption.propDecorators = {
-    _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
-    _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }],
+    _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
+    _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler, { static: false },] }],
     _lines: [{ type: ContentChildren, args: [MatLine,] }],
-    _text: [{ type: ViewChild, args: ['text',] }],
+    _text: [{ type: ViewChild, args: ['text', { static: false },] }],
     checkboxPosition: [{ type: Input }],
     color: [{ type: Input }],
     value: [{ type: Input }],

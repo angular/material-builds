@@ -571,7 +571,7 @@ MatMonthView.propDecorators = {
     selectedChange: [{ type: Output }],
     _userSelection: [{ type: Output }],
     activeDateChange: [{ type: Output }],
-    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
+    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody, { static: false },] }]
 };
 
 /**
@@ -859,7 +859,7 @@ MatMultiYearView.propDecorators = {
     selectedChange: [{ type: Output }],
     yearSelected: [{ type: Output }],
     activeDateChange: [{ type: Output }],
-    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
+    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody, { static: false },] }]
 };
 
 /**
@@ -1184,7 +1184,7 @@ MatYearView.propDecorators = {
     selectedChange: [{ type: Output }],
     monthSelected: [{ type: Output }],
     activeDateChange: [{ type: Output }],
-    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
+    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody, { static: false },] }]
 };
 
 /**
@@ -1627,9 +1627,9 @@ MatCalendar.propDecorators = {
     yearSelected: [{ type: Output }],
     monthSelected: [{ type: Output }],
     _userSelection: [{ type: Output }],
-    monthView: [{ type: ViewChild, args: [MatMonthView,] }],
-    yearView: [{ type: ViewChild, args: [MatYearView,] }],
-    multiYearView: [{ type: ViewChild, args: [MatMultiYearView,] }]
+    monthView: [{ type: ViewChild, args: [MatMonthView, { static: false },] }],
+    yearView: [{ type: ViewChild, args: [MatYearView, { static: false },] }],
+    multiYearView: [{ type: ViewChild, args: [MatMultiYearView, { static: false },] }]
 };
 
 /**
@@ -1759,7 +1759,7 @@ MatDatepickerContent.ctorParameters = () => [
     { type: ElementRef }
 ];
 MatDatepickerContent.propDecorators = {
-    _calendar: [{ type: ViewChild, args: [MatCalendar,] }]
+    _calendar: [{ type: ViewChild, args: [MatCalendar, { static: false },] }]
 };
 // TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
 // template reference variables (e.g. #d vs #d="matDatepicker"). We can change this to a directive
@@ -2766,8 +2766,8 @@ MatDatepickerToggle.propDecorators = {
     tabIndex: [{ type: Input }],
     disabled: [{ type: Input }],
     disableRipple: [{ type: Input }],
-    _customIcon: [{ type: ContentChild, args: [MatDatepickerToggleIcon,] }],
-    _button: [{ type: ViewChild, args: ['button',] }]
+    _customIcon: [{ type: ContentChild, args: [MatDatepickerToggleIcon, { static: false },] }],
+    _button: [{ type: ViewChild, args: ['button', { static: false },] }]
 };
 
 /**

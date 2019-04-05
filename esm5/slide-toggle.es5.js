@@ -511,8 +511,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
         { type: Directionality, decorators: [{ type: Optional }] }
     ]; };
     MatSlideToggle.propDecorators = {
-        _thumbEl: [{ type: ViewChild, args: ['thumbContainer',] }],
-        _thumbBarEl: [{ type: ViewChild, args: ['toggleBar',] }],
+        _thumbEl: [{ type: ViewChild, args: ['thumbContainer', { static: false },] }],
+        _thumbBarEl: [{ type: ViewChild, args: ['toggleBar', { static: false },] }],
         name: [{ type: Input }],
         id: [{ type: Input }],
         labelPosition: [{ type: Input }],
@@ -523,7 +523,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         change: [{ type: Output }],
         toggleChange: [{ type: Output }],
         dragChange: [{ type: Output }],
-        _inputElement: [{ type: ViewChild, args: ['input',] }]
+        _inputElement: [{ type: ViewChild, args: ['input', { static: false },] }]
     };
     return MatSlideToggle;
 }(_MatSlideToggleMixinBase));

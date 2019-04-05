@@ -640,7 +640,7 @@ MatRadioButton.propDecorators = {
     disabled: [{ type: Input }],
     required: [{ type: Input }],
     change: [{ type: Output }],
-    _inputElement: [{ type: ViewChild, args: ['input',] }]
+    _inputElement: [{ type: ViewChild, args: ['input', { static: false },] }]
 };
 
 /**

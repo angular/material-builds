@@ -1526,13 +1526,13 @@ MatSelect.ctorParameters = () => [
     { type: LiveAnnouncer }
 ];
 MatSelect.propDecorators = {
-    trigger: [{ type: ViewChild, args: ['trigger',] }],
-    panel: [{ type: ViewChild, args: ['panel',] }],
-    overlayDir: [{ type: ViewChild, args: [CdkConnectedOverlay,] }],
+    trigger: [{ type: ViewChild, args: ['trigger', { static: false },] }],
+    panel: [{ type: ViewChild, args: ['panel', { static: false },] }],
+    overlayDir: [{ type: ViewChild, args: [CdkConnectedOverlay, { static: false },] }],
     options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
     optionGroups: [{ type: ContentChildren, args: [MatOptgroup,] }],
     panelClass: [{ type: Input }],
-    customTrigger: [{ type: ContentChild, args: [MatSelectTrigger,] }],
+    customTrigger: [{ type: ContentChild, args: [MatSelectTrigger, { static: false },] }],
     placeholder: [{ type: Input }],
     required: [{ type: Input }],
     multiple: [{ type: Input }],

@@ -301,7 +301,7 @@ var MatTab = /** @class */ (function (_super) {
         { type: ViewContainerRef }
     ]; };
     MatTab.propDecorators = {
-        templateLabel: [{ type: ContentChild, args: [MatTabLabel,] }],
+        templateLabel: [{ type: ContentChild, args: [MatTabLabel, { static: false },] }],
         _explicitContent: [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef, static: true },] }],
         _implicitContent: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
         textLabel: [{ type: Input, args: ['label',] }],
@@ -640,7 +640,7 @@ var MatTabBody = /** @class */ (function () {
         _beforeCentering: [{ type: Output }],
         _afterLeavingCenter: [{ type: Output }],
         _onCentered: [{ type: Output }],
-        _portalHost: [{ type: ViewChild, args: [PortalHostDirective,] }],
+        _portalHost: [{ type: ViewChild, args: [PortalHostDirective, { static: false },] }],
         _content: [{ type: Input, args: ['content',] }],
         origin: [{ type: Input }],
         animationDuration: [{ type: Input }],
@@ -1535,8 +1535,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
         _tabListContainer: [{ type: ViewChild, args: ['tabListContainer', { static: true },] }],
         _tabList: [{ type: ViewChild, args: ['tabList', { static: true },] }],
-        _nextPaginator: [{ type: ViewChild, args: ['nextPaginator',] }],
-        _previousPaginator: [{ type: ViewChild, args: ['previousPaginator',] }],
+        _nextPaginator: [{ type: ViewChild, args: ['nextPaginator', { static: false },] }],
+        _previousPaginator: [{ type: ViewChild, args: ['previousPaginator', { static: false },] }],
         selectedIndex: [{ type: Input }],
         selectFocusedIndex: [{ type: Output }],
         indexFocused: [{ type: Output }]
@@ -2038,8 +2038,8 @@ var MatTabGroup = /** @class */ (function (_super) {
     ]; };
     MatTabGroup.propDecorators = {
         _tabs: [{ type: ContentChildren, args: [MatTab,] }],
-        _tabBodyWrapper: [{ type: ViewChild, args: ['tabBodyWrapper',] }],
-        _tabHeader: [{ type: ViewChild, args: ['tabHeader',] }],
+        _tabBodyWrapper: [{ type: ViewChild, args: ['tabBodyWrapper', { static: false },] }],
+        _tabHeader: [{ type: ViewChild, args: ['tabHeader', { static: false },] }],
         dynamicHeight: [{ type: Input }],
         selectedIndex: [{ type: Input }],
         headerPosition: [{ type: Input }],
@@ -2394,5 +2394,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.es5.js.map

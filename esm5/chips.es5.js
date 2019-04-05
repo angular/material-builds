@@ -507,9 +507,9 @@ var MatChip = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] }
     ]; };
     MatChip.propDecorators = {
-        avatar: [{ type: ContentChild, args: [MatChipAvatar,] }],
-        trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon,] }],
-        removeIcon: [{ type: ContentChild, args: [forwardRef(function () { return MatChipRemove; }),] }],
+        avatar: [{ type: ContentChild, args: [MatChipAvatar, { static: false },] }],
+        trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
+        removeIcon: [{ type: ContentChild, args: [forwardRef(function () { return MatChipRemove; }), { static: false },] }],
         selected: [{ type: Input }],
         value: [{ type: Input }],
         selectable: [{ type: Input }],

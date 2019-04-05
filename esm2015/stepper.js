@@ -283,7 +283,7 @@ MatStep.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [STEPPER_GLOBAL_OPTIONS,] }] }
 ];
 MatStep.propDecorators = {
-    stepLabel: [{ type: ContentChild, args: [MatStepLabel,] }]
+    stepLabel: [{ type: ContentChild, args: [MatStepLabel, { static: false },] }]
 };
 class MatStepper extends CdkStepper {
     constructor() {

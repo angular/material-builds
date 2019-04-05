@@ -858,7 +858,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         disabled: [{ type: core.Input }],
         required: [{ type: core.Input }],
         change: [{ type: core.Output }],
-        _inputElement: [{ type: core.ViewChild, args: ['input',] }]
+        _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }]
     };
     return MatRadioButton;
 }(_MatRadioButtonMixinBase));

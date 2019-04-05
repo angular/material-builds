@@ -6497,7 +6497,7 @@ var MatButton = /** @class */ (function (_super) {
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatButton.propDecorators = {
-        ripple: [{ type: core.ViewChild, args: [MatRipple,] }]
+        ripple: [{ type: core.ViewChild, args: [MatRipple, { static: false },] }]
     };
     return MatButton;
 }(_MatButtonMixinBase));
@@ -7310,7 +7310,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
     MatButtonToggle.propDecorators = {
         ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
         ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
-        _buttonElement: [{ type: core.ViewChild, args: ['button',] }],
+        _buttonElement: [{ type: core.ViewChild, args: ['button', { static: false },] }],
         id: [{ type: core.Input }],
         name: [{ type: core.Input }],
         value: [{ type: core.Input }],
@@ -8227,8 +8227,8 @@ var MatCheckbox = /** @class */ (function (_super) {
         change: [{ type: core.Output }],
         indeterminateChange: [{ type: core.Output }],
         value: [{ type: core.Input }],
-        _inputElement: [{ type: core.ViewChild, args: ['input',] }],
-        ripple: [{ type: core.ViewChild, args: [MatRipple,] }],
+        _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }],
+        ripple: [{ type: core.ViewChild, args: [MatRipple, { static: false },] }],
         checked: [{ type: core.Input }],
         disabled: [{ type: core.Input }],
         indeterminate: [{ type: core.Input }]
@@ -8771,9 +8771,9 @@ var MatChip = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] }
     ]; };
     MatChip.propDecorators = {
-        avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],
-        trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon,] }],
-        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] }],
+        avatar: [{ type: core.ContentChild, args: [MatChipAvatar, { static: false },] }],
+        trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
+        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }), { static: false },] }],
         selected: [{ type: core.Input }],
         value: [{ type: core.Input }],
         selectable: [{ type: core.Input }],
@@ -13135,7 +13135,7 @@ var MatMonthView = /** @class */ (function () {
         selectedChange: [{ type: core.Output }],
         _userSelection: [{ type: core.Output }],
         activeDateChange: [{ type: core.Output }],
-        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody,] }]
+        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody, { static: false },] }]
     };
     return MatMonthView;
 }());
@@ -13497,7 +13497,7 @@ var MatMultiYearView = /** @class */ (function () {
         selectedChange: [{ type: core.Output }],
         yearSelected: [{ type: core.Output }],
         activeDateChange: [{ type: core.Output }],
-        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody,] }]
+        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody, { static: false },] }]
     };
     return MatMultiYearView;
 }());
@@ -13928,7 +13928,7 @@ var MatYearView = /** @class */ (function () {
         selectedChange: [{ type: core.Output }],
         monthSelected: [{ type: core.Output }],
         activeDateChange: [{ type: core.Output }],
-        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody,] }]
+        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody, { static: false },] }]
     };
     return MatYearView;
 }());
@@ -14510,9 +14510,9 @@ var MatCalendar = /** @class */ (function () {
         yearSelected: [{ type: core.Output }],
         monthSelected: [{ type: core.Output }],
         _userSelection: [{ type: core.Output }],
-        monthView: [{ type: core.ViewChild, args: [MatMonthView,] }],
-        yearView: [{ type: core.ViewChild, args: [MatYearView,] }],
-        multiYearView: [{ type: core.ViewChild, args: [MatMultiYearView,] }]
+        monthView: [{ type: core.ViewChild, args: [MatMonthView, { static: false },] }],
+        yearView: [{ type: core.ViewChild, args: [MatYearView, { static: false },] }],
+        multiYearView: [{ type: core.ViewChild, args: [MatMultiYearView, { static: false },] }]
     };
     return MatCalendar;
 }());
@@ -14647,7 +14647,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
         { type: core.ElementRef }
     ]; };
     MatDatepickerContent.propDecorators = {
-        _calendar: [{ type: core.ViewChild, args: [MatCalendar,] }]
+        _calendar: [{ type: core.ViewChild, args: [MatCalendar, { static: false },] }]
     };
     return MatDatepickerContent;
 }(_MatDatepickerContentMixinBase));
@@ -15926,8 +15926,8 @@ var MatDatepickerToggle = /** @class */ (function () {
         tabIndex: [{ type: core.Input }],
         disabled: [{ type: core.Input }],
         disableRipple: [{ type: core.Input }],
-        _customIcon: [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] }],
-        _button: [{ type: core.ViewChild, args: ['button',] }]
+        _customIcon: [{ type: core.ContentChild, args: [MatDatepickerToggleIcon, { static: false },] }],
+        _button: [{ type: core.ViewChild, args: ['button', { static: false },] }]
     };
     return MatDatepickerToggle;
 }());
@@ -16386,8 +16386,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         hideToggle: [{ type: core.Input }],
         afterExpand: [{ type: core.Output }],
         afterCollapse: [{ type: core.Output }],
-        _lazyContent: [{ type: core.ContentChild, args: [MatExpansionPanelContent,] }],
-        _body: [{ type: core.ViewChild, args: ['body',] }]
+        _lazyContent: [{ type: core.ContentChild, args: [MatExpansionPanelContent, { static: false },] }],
+        _body: [{ type: core.ViewChild, args: ['body', { static: false },] }]
     };
     return MatExpansionPanel;
 }(accordion.CdkAccordionItem));
@@ -19868,8 +19868,8 @@ var MatListItem = /** @class */ (function (_super) {
     ]; };
     MatListItem.propDecorators = {
         _lines: [{ type: core.ContentChildren, args: [MatLine,] }],
-        _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
-        _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] }]
+        _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
+        _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler, { static: false },] }]
     };
     return MatListItem;
 }(_MatListItemMixinBase));
@@ -20255,10 +20255,10 @@ var MatListOption = /** @class */ (function (_super) {
         { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSelectionList; }),] }] }
     ]; };
     MatListOption.propDecorators = {
-        _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
-        _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] }],
+        _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
+        _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler, { static: false },] }],
         _lines: [{ type: core.ContentChildren, args: [MatLine,] }],
-        _text: [{ type: core.ViewChild, args: ['text',] }],
+        _text: [{ type: core.ViewChild, args: ['text', { static: false },] }],
         checkboxPosition: [{ type: core.Input }],
         color: [{ type: core.Input }],
         value: [{ type: core.Input }],
@@ -21794,9 +21794,9 @@ var MatMenu = /** @class */ (function () {
         backdropClass: [{ type: core.Input }],
         xPosition: [{ type: core.Input }],
         yPosition: [{ type: core.Input }],
-        templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
+        templateRef: [{ type: core.ViewChild, args: [core.TemplateRef, { static: false },] }],
         items: [{ type: core.ContentChildren, args: [MatMenuItem,] }],
-        lazyContent: [{ type: core.ContentChild, args: [MatMenuContent,] }],
+        lazyContent: [{ type: core.ContentChild, args: [MatMenuContent, { static: false },] }],
         overlapTrigger: [{ type: core.Input }],
         hasBackdrop: [{ type: core.Input }],
         panelClass: [{ type: core.Input, args: ['class',] }],
@@ -24581,13 +24581,13 @@ var MatSelect = /** @class */ (function (_super) {
         { type: a11y.LiveAnnouncer }
     ]; };
     MatSelect.propDecorators = {
-        trigger: [{ type: core.ViewChild, args: ['trigger',] }],
-        panel: [{ type: core.ViewChild, args: ['panel',] }],
-        overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] }],
+        trigger: [{ type: core.ViewChild, args: ['trigger', { static: false },] }],
+        panel: [{ type: core.ViewChild, args: ['panel', { static: false },] }],
+        overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay, { static: false },] }],
         options: [{ type: core.ContentChildren, args: [MatOption, { descendants: true },] }],
         optionGroups: [{ type: core.ContentChildren, args: [MatOptgroup,] }],
         panelClass: [{ type: core.Input }],
-        customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger,] }],
+        customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger, { static: false },] }],
         placeholder: [{ type: core.Input }],
         required: [{ type: core.Input }],
         multiple: [{ type: core.Input }],
@@ -26364,7 +26364,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     MatProgressBar.propDecorators = {
         value: [{ type: core.Input }],
         bufferValue: [{ type: core.Input }],
-        _primaryValueBar: [{ type: core.ViewChild, args: ['primaryValueBar',] }],
+        _primaryValueBar: [{ type: core.ViewChild, args: ['primaryValueBar', { static: false },] }],
         animationEnd: [{ type: core.Output }],
         mode: [{ type: core.Input }]
     };
@@ -27592,7 +27592,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         disabled: [{ type: core.Input }],
         required: [{ type: core.Input }],
         change: [{ type: core.Output }],
-        _inputElement: [{ type: core.ViewChild, args: ['input',] }]
+        _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }]
     };
     return MatRadioButton;
 }(_MatRadioButtonMixinBase));
@@ -28720,8 +28720,8 @@ var MatDrawerContainer = /** @class */ (function () {
     ]; };
     MatDrawerContainer.propDecorators = {
         _drawers: [{ type: core.ContentChildren, args: [MatDrawer,] }],
-        _content: [{ type: core.ContentChild, args: [MatDrawerContent,] }],
-        _userContent: [{ type: core.ViewChild, args: [MatDrawerContent,] }],
+        _content: [{ type: core.ContentChild, args: [MatDrawerContent, { static: false },] }],
+        _userContent: [{ type: core.ViewChild, args: [MatDrawerContent, { static: false },] }],
         autosize: [{ type: core.Input }],
         hasBackdrop: [{ type: core.Input }],
         backdropClick: [{ type: core.Output }]
@@ -28874,7 +28874,7 @@ var MatSidenavContainer = /** @class */ (function (_super) {
     ];
     MatSidenavContainer.propDecorators = {
         _drawers: [{ type: core.ContentChildren, args: [MatSidenav,] }],
-        _content: [{ type: core.ContentChild, args: [MatSidenavContent,] }]
+        _content: [{ type: core.ContentChild, args: [MatSidenavContent, { static: false },] }]
     };
     return MatSidenavContainer;
 }(MatDrawerContainer));
@@ -29410,8 +29410,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatSlideToggle.propDecorators = {
-        _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer',] }],
-        _thumbBarEl: [{ type: core.ViewChild, args: ['toggleBar',] }],
+        _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer', { static: false },] }],
+        _thumbBarEl: [{ type: core.ViewChild, args: ['toggleBar', { static: false },] }],
         name: [{ type: core.Input }],
         id: [{ type: core.Input }],
         labelPosition: [{ type: core.Input }],
@@ -29422,7 +29422,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         change: [{ type: core.Output }],
         toggleChange: [{ type: core.Output }],
         dragChange: [{ type: core.Output }],
-        _inputElement: [{ type: core.ViewChild, args: ['input',] }]
+        _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }]
     };
     return MatSlideToggle;
 }(_MatSlideToggleMixinBase));
@@ -30633,7 +30633,7 @@ var MatSlider = /** @class */ (function (_super) {
         change: [{ type: core.Output }],
         input: [{ type: core.Output }],
         valueChange: [{ type: core.Output }],
-        _sliderWrapper: [{ type: core.ViewChild, args: ['sliderWrapper',] }]
+        _sliderWrapper: [{ type: core.ViewChild, args: ['sliderWrapper', { static: false },] }]
     };
     return MatSlider;
 }(_MatSliderMixinBase));
@@ -32750,7 +32750,7 @@ var MatStep = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
     ]; };
     MatStep.propDecorators = {
-        stepLabel: [{ type: core.ContentChild, args: [MatStepLabel,] }]
+        stepLabel: [{ type: core.ContentChild, args: [MatStepLabel, { static: false },] }]
     };
     return MatStep;
 }(stepper.CdkStep));
@@ -34077,7 +34077,7 @@ var MatTab = /** @class */ (function (_super) {
         { type: core.ViewContainerRef }
     ]; };
     MatTab.propDecorators = {
-        templateLabel: [{ type: core.ContentChild, args: [MatTabLabel,] }],
+        templateLabel: [{ type: core.ContentChild, args: [MatTabLabel, { static: false },] }],
         _explicitContent: [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef, static: true },] }],
         _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
         textLabel: [{ type: core.Input, args: ['label',] }],
@@ -34416,7 +34416,7 @@ var MatTabBody = /** @class */ (function () {
         _beforeCentering: [{ type: core.Output }],
         _afterLeavingCenter: [{ type: core.Output }],
         _onCentered: [{ type: core.Output }],
-        _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }],
+        _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective, { static: false },] }],
         _content: [{ type: core.Input, args: ['content',] }],
         origin: [{ type: core.Input }],
         animationDuration: [{ type: core.Input }],
@@ -35311,8 +35311,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
         _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
         _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
-        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
-        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }],
+        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator', { static: false },] }],
+        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator', { static: false },] }],
         selectedIndex: [{ type: core.Input }],
         selectFocusedIndex: [{ type: core.Output }],
         indexFocused: [{ type: core.Output }]
@@ -35814,8 +35814,8 @@ var MatTabGroup = /** @class */ (function (_super) {
     ]; };
     MatTabGroup.propDecorators = {
         _tabs: [{ type: core.ContentChildren, args: [MatTab,] }],
-        _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper',] }],
-        _tabHeader: [{ type: core.ViewChild, args: ['tabHeader',] }],
+        _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper', { static: false },] }],
+        _tabHeader: [{ type: core.ViewChild, args: ['tabHeader', { static: false },] }],
         dynamicHeight: [{ type: core.Input }],
         selectedIndex: [{ type: core.Input }],
         headerPosition: [{ type: core.Input }],
@@ -36943,7 +36943,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('7.3.6-4816ecd');
+var VERSION = new core.Version('7.3.6-833d428');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37156,7 +37156,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37203,12 +37203,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -37339,17 +37339,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

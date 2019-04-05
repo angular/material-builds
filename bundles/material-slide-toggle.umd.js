@@ -534,8 +534,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatSlideToggle.propDecorators = {
-        _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer',] }],
-        _thumbBarEl: [{ type: core.ViewChild, args: ['toggleBar',] }],
+        _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer', { static: false },] }],
+        _thumbBarEl: [{ type: core.ViewChild, args: ['toggleBar', { static: false },] }],
         name: [{ type: core.Input }],
         id: [{ type: core.Input }],
         labelPosition: [{ type: core.Input }],
@@ -546,7 +546,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         change: [{ type: core.Output }],
         toggleChange: [{ type: core.Output }],
         dragChange: [{ type: core.Output }],
-        _inputElement: [{ type: core.ViewChild, args: ['input',] }]
+        _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }]
     };
     return MatSlideToggle;
 }(_MatSlideToggleMixinBase));

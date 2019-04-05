@@ -320,7 +320,7 @@ var MatTab = /** @class */ (function (_super) {
         { type: core.ViewContainerRef }
     ]; };
     MatTab.propDecorators = {
-        templateLabel: [{ type: core.ContentChild, args: [MatTabLabel,] }],
+        templateLabel: [{ type: core.ContentChild, args: [MatTabLabel, { static: false },] }],
         _explicitContent: [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef, static: true },] }],
         _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
         textLabel: [{ type: core.Input, args: ['label',] }],
@@ -659,7 +659,7 @@ var MatTabBody = /** @class */ (function () {
         _beforeCentering: [{ type: core.Output }],
         _afterLeavingCenter: [{ type: core.Output }],
         _onCentered: [{ type: core.Output }],
-        _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }],
+        _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective, { static: false },] }],
         _content: [{ type: core.Input, args: ['content',] }],
         origin: [{ type: core.Input }],
         animationDuration: [{ type: core.Input }],
@@ -1554,8 +1554,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
         _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
         _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
-        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
-        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }],
+        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator', { static: false },] }],
+        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator', { static: false },] }],
         selectedIndex: [{ type: core.Input }],
         selectFocusedIndex: [{ type: core.Output }],
         indexFocused: [{ type: core.Output }]
@@ -2057,8 +2057,8 @@ var MatTabGroup = /** @class */ (function (_super) {
     ]; };
     MatTabGroup.propDecorators = {
         _tabs: [{ type: core.ContentChildren, args: [MatTab,] }],
-        _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper',] }],
-        _tabHeader: [{ type: core.ViewChild, args: ['tabHeader',] }],
+        _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper', { static: false },] }],
+        _tabHeader: [{ type: core.ViewChild, args: ['tabHeader', { static: false },] }],
         dynamicHeight: [{ type: core.Input }],
         selectedIndex: [{ type: core.Input }],
         headerPosition: [{ type: core.Input }],
@@ -2416,17 +2416,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

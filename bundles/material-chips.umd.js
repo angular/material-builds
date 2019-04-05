@@ -528,9 +528,9 @@ var MatChip = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] }
     ]; };
     MatChip.propDecorators = {
-        avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],
-        trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon,] }],
-        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] }],
+        avatar: [{ type: core.ContentChild, args: [MatChipAvatar, { static: false },] }],
+        trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
+        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }), { static: false },] }],
         selected: [{ type: core.Input }],
         value: [{ type: core.Input }],
         selectable: [{ type: core.Input }],

@@ -1126,8 +1126,8 @@ var MatDrawerContainer = /** @class */ (function () {
     ]; };
     MatDrawerContainer.propDecorators = {
         _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],
-        _content: [{ type: ContentChild, args: [MatDrawerContent,] }],
-        _userContent: [{ type: ViewChild, args: [MatDrawerContent,] }],
+        _content: [{ type: ContentChild, args: [MatDrawerContent, { static: false },] }],
+        _userContent: [{ type: ViewChild, args: [MatDrawerContent, { static: false },] }],
         autosize: [{ type: Input }],
         hasBackdrop: [{ type: Input }],
         backdropClick: [{ type: Output }]
@@ -1280,7 +1280,7 @@ var MatSidenavContainer = /** @class */ (function (_super) {
     ];
     MatSidenavContainer.propDecorators = {
         _drawers: [{ type: ContentChildren, args: [MatSidenav,] }],
-        _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
+        _content: [{ type: ContentChild, args: [MatSidenavContent, { static: false },] }]
     };
     return MatSidenavContainer;
 }(MatDrawerContainer));
