@@ -8,7 +8,6 @@
 import { __extends } from 'tslib';
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { DOCUMENT } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -40,9 +39,8 @@ var _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
  */
 var MatBadge = /** @class */ (function (_super) {
     __extends(MatBadge, _super);
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
+    function MatBadge(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
         var _this = _super.call(this) || this;
-        _this._document = _document;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._ariaDescriber = _ariaDescriber;
@@ -204,8 +202,7 @@ var MatBadge = /** @class */ (function (_super) {
             }
             // When creating a badge through the Renderer, Angular will keep it in an index.
             // We have to destroy it ourselves, otherwise it'll be retained in memory.
-            // @breaking-change 8.0.0 remove _renderer from null.
-            if (this._renderer && this._renderer.destroyNode) {
+            if (this._renderer.destroyNode) {
                 this._renderer.destroyNode(badgeElement);
             }
         }
@@ -242,11 +239,8 @@ var MatBadge = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // @breaking-change 8.0.0 Remove null check for _renderer
         /** @type {?} */
-        var rootNode = this._renderer || this._document;
-        /** @type {?} */
-        var badgeElement = rootNode.createElement('span');
+        var badgeElement = this._renderer.createElement('span');
         /** @type {?} */
         var activeClass = 'mat-badge-active';
         /** @type {?} */
@@ -373,7 +367,6 @@ var MatBadge = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
         { type: NgZone },
         { type: ElementRef },
         { type: AriaDescriber },

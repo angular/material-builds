@@ -442,11 +442,7 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
  * \@docs-private
  */
 var MatTabBody = /** @class */ (function () {
-    function MatTabBody(_elementRef, _dir, 
-    /**
-     * @breaking-change 8.0.0 changeDetectorRef to be made required.
-     */
-    changeDetectorRef) {
+    function MatTabBody(_elementRef, _dir, changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
         this._dir = _dir;
@@ -480,8 +476,8 @@ var MatTabBody = /** @class */ (function () {
          * Duration for the tab's animation.
          */
         this.animationDuration = '500ms';
-        if (this._dir && changeDetectorRef) {
-            this._dirChangeSubscription = this._dir.change.subscribe(function (dir) {
+        if (_dir) {
+            this._dirChangeSubscription = _dir.change.subscribe(function (dir) {
                 _this._computePositionAnimationState(dir);
                 changeDetectorRef.markForCheck();
             });
@@ -843,24 +839,14 @@ var MatTabHeader = /** @class */ (function (_super) {
          * Event emitted when a label is focused.
          */
         _this.indexFocused = new core.EventEmitter();
-        /** @type {?} */
-        var element = _elementRef.nativeElement;
-        /** @type {?} */
-        var bindEvent = function () {
-            rxjs.fromEvent(element, 'mouseleave')
+        // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
+        _ngZone.runOutsideAngular(function () {
+            rxjs.fromEvent(_elementRef.nativeElement, 'mouseleave')
                 .pipe(operators.takeUntil(_this._destroyed))
                 .subscribe(function () {
                 _this._stopInterval();
             });
-        };
-        // @breaking-change 8.0.0 remove null check once _ngZone is made into a required parameter.
-        if (_ngZone) {
-            // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
-            _ngZone.runOutsideAngular(bindEvent);
-        }
-        else {
-            bindEvent();
-        }
+        });
         return _this;
     }
     Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
@@ -1043,16 +1029,13 @@ var MatTabHeader = /** @class */ (function (_super) {
         // to infinite loops if a poorly constructed expression is passed in (see #14249).
         if (textContent !== this._currentTextContent) {
             this._currentTextContent = textContent;
-            /** @type {?} */
-            var zoneCallback = function () {
+            // The content observer runs outside the `NgZone` by default, which
+            // means that we need to bring the callback back in ourselves.
+            this._ngZone.run(function () {
                 _this.updatePagination();
                 _this._alignInkBarToSelectedTab();
                 _this._changeDetectorRef.markForCheck();
-            };
-            // The content observer runs outside the `NgZone` by default, which
-            // means that we need to bring the callback back in ourselves.
-            // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
-            this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+            });
         }
     };
     /**
@@ -1207,8 +1190,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
         // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-        // @breaking-change 8.0.0 Remove null check for `platform`.
-        if (platform$$1 && (platform$$1.TRIDENT || platform$$1.EDGE)) {
+        if (platform$$1.TRIDENT || platform$$1.EDGE) {
             this._tabListContainer.nativeElement.scrollLeft = 0;
         }
     };
@@ -2416,17 +2398,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

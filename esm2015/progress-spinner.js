@@ -93,27 +93,23 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @param {?} _elementRef
      * @param {?} platform
      * @param {?} _document
-     * @param {?=} animationMode
+     * @param {?} animationMode
      * @param {?=} defaults
      */
     constructor(_elementRef, platform, _document, animationMode, defaults) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._document = _document;
-        this.animationMode = animationMode;
-        this.defaults = defaults;
         this._value = 0;
         this._fallbackAnimation = false;
-        /**
-         * Whether the _mat-animation-noopable class should be applied, disabling animations.
-         */
-        this._noopAnimations = this.animationMode === 'NoopAnimations' && (!!this.defaults && !this.defaults._forceAnimations);
         this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
         this.mode = 'determinate';
         this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
+        this._noopAnimations = animationMode === 'NoopAnimations' &&
+            (!!defaults && !defaults._forceAnimations);
         if (defaults) {
             if (defaults.diameter) {
                 this.diameter = defaults.diameter;
@@ -301,12 +297,10 @@ class MatSpinner extends MatProgressSpinner {
      * @param {?} elementRef
      * @param {?} platform
      * @param {?} document
-     * @param {?=} animationMode
+     * @param {?} animationMode
      * @param {?=} defaults
      */
-    constructor(elementRef, platform, document, 
-    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
-    animationMode, defaults) {
+    constructor(elementRef, platform, document, animationMode, defaults) {
         super(elementRef, platform, document, animationMode, defaults);
         this.mode = 'indeterminate';
     }

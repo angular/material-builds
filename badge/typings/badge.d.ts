@@ -16,12 +16,10 @@ export declare type MatBadgePosition = 'above after' | 'above before' | 'below b
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
 /** Directive to display a text badge. */
 export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, OnChanges, CanDisable {
-    private _document;
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;
-    /** @breaking-change 8.0.0 Make _renderer a required param and remove _document. */
-    private _renderer?;
+    private _renderer;
     private _animationMode?;
     /** Whether the badge has any content. */
     _hasContent: boolean;
@@ -49,9 +47,7 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     /** Unique id for the badge */
     _id: number;
     private _badgeElement;
-    constructor(_document: any, _ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _ariaDescriber: AriaDescriber, 
-    /** @breaking-change 8.0.0 Make _renderer a required param and remove _document. */
-    _renderer?: Renderer2 | undefined, _animationMode?: string | undefined);
+    constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _ariaDescriber: AriaDescriber, _renderer: Renderer2, _animationMode?: string | undefined);
     /** Whether the badge is above the host or not */
     isAbove(): boolean;
     /** Whether the badge is after the host or not */

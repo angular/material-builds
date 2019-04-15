@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.common,global.ng.core,global.ng.material.core,global.ng.platformBrowser.animations));
-}(this, (function (exports,a11y,coercion,common,core,core$1,animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.core,global.ng.material.core,global.ng.platformBrowser.animations));
+}(this, (function (exports,a11y,coercion,core,core$1,animations) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -67,9 +67,8 @@ var _MatBadgeMixinBase = core$1.mixinDisabled(MatBadgeBase);
  */
 var MatBadge = /** @class */ (function (_super) {
     __extends(MatBadge, _super);
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
+    function MatBadge(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
         var _this = _super.call(this) || this;
-        _this._document = _document;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._ariaDescriber = _ariaDescriber;
@@ -231,8 +230,7 @@ var MatBadge = /** @class */ (function (_super) {
             }
             // When creating a badge through the Renderer, Angular will keep it in an index.
             // We have to destroy it ourselves, otherwise it'll be retained in memory.
-            // @breaking-change 8.0.0 remove _renderer from null.
-            if (this._renderer && this._renderer.destroyNode) {
+            if (this._renderer.destroyNode) {
                 this._renderer.destroyNode(badgeElement);
             }
         }
@@ -269,11 +267,8 @@ var MatBadge = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // @breaking-change 8.0.0 Remove null check for _renderer
         /** @type {?} */
-        var rootNode = this._renderer || this._document;
-        /** @type {?} */
-        var badgeElement = rootNode.createElement('span');
+        var badgeElement = this._renderer.createElement('span');
         /** @type {?} */
         var activeClass = 'mat-badge-active';
         /** @type {?} */
@@ -400,7 +395,6 @@ var MatBadge = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: core.NgZone },
         { type: core.ElementRef },
         { type: a11y.AriaDescriber },

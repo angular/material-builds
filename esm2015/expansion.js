@@ -153,13 +153,11 @@ class MatExpansionPanel extends CdkAccordionItem {
      * @param {?} _changeDetectorRef
      * @param {?} _uniqueSelectionDispatcher
      * @param {?} _viewContainerRef
-     * @param {?=} _document
-     * @param {?=} _animationMode
+     * @param {?} _document
+     * @param {?} _animationMode
      * @param {?=} defaultOptions
      */
-    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, 
-    // @breaking-change 8.0.0 _document and _animationMode to be made required
-    _document, _animationMode, defaultOptions) {
+    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, _document, _animationMode, defaultOptions) {
         super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
         this._viewContainerRef = _viewContainerRef;
         this._animationMode = _animationMode;
@@ -269,7 +267,7 @@ class MatExpansionPanel extends CdkAccordionItem {
      * @return {?}
      */
     _containsFocus() {
-        if (this._body && this._document) {
+        if (this._body) {
             /** @type {?} */
             const focusedElement = this._document.activeElement;
             /** @type {?} */

@@ -122,10 +122,6 @@ var MatNavList = /** @class */ (function (_super) {
 }(_MatListMixinBase));
 var MatList = /** @class */ (function (_super) {
     __extends(MatList, _super);
-    /**
-     * @deprecated _elementRef parameter to be made required.
-     * @breaking-change 8.0.0
-     */
     function MatList(_elementRef) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
@@ -133,7 +129,7 @@ var MatList = /** @class */ (function (_super) {
          * Emits when the state of the list changes.
          */
         _this._stateChanges = new rxjs.Subject();
-        if (_this._getListType() === 'action-list' && _elementRef) {
+        if (_this._getListType() === 'action-list') {
             _elementRef.nativeElement.classList.add('mat-action-list');
         }
         return _this;
@@ -146,17 +142,12 @@ var MatList = /** @class */ (function (_super) {
      */
     function () {
         /** @type {?} */
-        var elementRef = this._elementRef;
-        // @breaking-change 8.0.0 Remove null check once _elementRef is a required param.
-        if (elementRef) {
-            /** @type {?} */
-            var nodeName = elementRef.nativeElement.nodeName.toLowerCase();
-            if (nodeName === 'mat-list') {
-                return 'list';
-            }
-            if (nodeName === 'mat-action-list') {
-                return 'action-list';
-            }
+        var nodeName = this._elementRef.nativeElement.nodeName.toLowerCase();
+        if (nodeName === 'mat-list') {
+            return 'list';
+        }
+        if (nodeName === 'mat-action-list') {
+            return 'action-list';
         }
         return null;
     };
@@ -247,9 +238,7 @@ var MatListSubheaderCssMatStyler = /** @class */ (function () {
  */
 var MatListItem = /** @class */ (function (_super) {
     __extends(MatListItem, _super);
-    function MatListItem(_element, navList, list, 
-    // @breaking-change 8.0.0 `_changeDetectorRef` to be made into a required parameter.
-    _changeDetectorRef) {
+    function MatListItem(_element, _changeDetectorRef, navList, list) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._isInteractiveList = false;
@@ -263,8 +252,7 @@ var MatListItem = /** @class */ (function (_super) {
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
             element.setAttribute('type', 'button');
         }
-        // @breaking-change 8.0.0 Remove null check for _changeDetectorRef.
-        if (_this._list && _changeDetectorRef) {
+        if (_this._list) {
             // React to changes in the state of the parent list since
             // some of the item's properties depend on it (e.g. `disableRipple`).
             _this._list._stateChanges.pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
@@ -335,9 +323,9 @@ var MatListItem = /** @class */ (function (_super) {
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
         { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
         { type: MatNavList, decorators: [{ type: core.Optional }] },
-        { type: MatList, decorators: [{ type: core.Optional }] },
-        { type: core.ChangeDetectorRef }
+        { type: MatList, decorators: [{ type: core.Optional }] }
     ]; };
     MatListItem.propDecorators = {
         _lines: [{ type: core.ContentChildren, args: [core$1.MatLine, { descendants: true },] }],

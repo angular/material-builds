@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/button', ['exports', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.button = {}),global.ng.cdk.a11y,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.ng.platformBrowser.animations,global.ng.common));
-}(this, (function (exports,a11y,platform,core,core$1,animations,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/button', ['exports', '@angular/cdk/a11y', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.button = {}),global.ng.cdk.a11y,global.ng.core,global.ng.material.core,global.ng.platformBrowser.animations,global.ng.common));
+}(this, (function (exports,a11y,core,core$1,animations,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -85,12 +85,7 @@ var _MatButtonMixinBase = core$1.mixinColor(core$1.mixinDisabled(core$1.mixinDis
  */
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(elementRef, 
-    /**
-     * @deprecated Platform checks for SSR are no longer needed
-     * @breaking-change 8.0.0
-     */
-    _platform, _focusMonitor, _animationMode) {
+    function MatButton(elementRef, _focusMonitor, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._animationMode = _animationMode;
@@ -191,7 +186,6 @@ var MatButton = /** @class */ (function (_super) {
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
         { type: core.ElementRef },
-        { type: platform.Platform },
         { type: a11y.FocusMonitor },
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
@@ -205,10 +199,8 @@ var MatButton = /** @class */ (function (_super) {
  */
 var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
-    function MatAnchor(platform$$1, focusMonitor, elementRef, 
-    // @breaking-change 8.0.0 `animationMode` parameter to be made required.
-    animationMode) {
-        return _super.call(this, elementRef, platform$$1, focusMonitor, animationMode) || this;
+    function MatAnchor(focusMonitor, elementRef, animationMode) {
+        return _super.call(this, elementRef, focusMonitor, animationMode) || this;
     }
     /**
      * @param {?} event
@@ -247,7 +239,6 @@ var MatAnchor = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAnchor.ctorParameters = function () { return [
-        { type: platform.Platform },
         { type: a11y.FocusMonitor },
         { type: core.ElementRef },
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }

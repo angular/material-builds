@@ -23,14 +23,10 @@ export declare class MatNavList extends _MatListMixinBase implements CanDisableR
     ngOnDestroy(): void;
 }
 export declare class MatList extends _MatListMixinBase implements CanDisableRipple, OnChanges, OnDestroy {
-    private _elementRef?;
+    private _elementRef;
     /** Emits when the state of the list changes. */
     _stateChanges: Subject<void>;
-    /**
-     * @deprecated _elementRef parameter to be made required.
-     * @breaking-change 8.0.0
-     */
-    constructor(_elementRef?: ElementRef<HTMLElement> | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>);
     _getListType(): 'list' | 'action-list' | null;
     ngOnChanges(): void;
     ngOnDestroy(): void;
@@ -62,7 +58,7 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     _lines: QueryList<MatLine>;
     _avatar: MatListAvatarCssMatStyler;
     _icon: MatListIconCssMatStyler;
-    constructor(_element: ElementRef<HTMLElement>, navList?: MatNavList, list?: MatList, _changeDetectorRef?: ChangeDetectorRef);
+    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, navList?: MatNavList, list?: MatList);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether this list item should show a ripple effect when clicked. */

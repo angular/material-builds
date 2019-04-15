@@ -36,10 +36,8 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
  * `<mat-progress-spinner>` component.
  */
 export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor {
-    _elementRef: ElementRef;
+    _elementRef: ElementRef<HTMLElement>;
     private _document;
-    private animationMode?;
-    private defaults?;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
@@ -61,7 +59,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     mode: ProgressSpinnerMode;
     /** Value of the progress circle. */
     value: number;
-    constructor(_elementRef: ElementRef, platform: Platform, _document: any, animationMode?: string | undefined, defaults?: MatProgressSpinnerDefaultOptions | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
     /** The radius of the spinner, adjusted for stroke width. */
     readonly _circleRadius: number;
     /** The view box of the spinner's svg element. */
@@ -84,5 +82,5 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
  * indeterminate `<mat-progress-spinner>` instance.
  */
 export declare class MatSpinner extends MatProgressSpinner {
-    constructor(elementRef: ElementRef, platform: Platform, document: any, animationMode?: string, defaults?: MatProgressSpinnerDefaultOptions);
+    constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
 }

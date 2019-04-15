@@ -7,7 +7,6 @@
  */
 import { __extends } from 'tslib';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, Optional, Inject, Input, NgModule } from '@angular/core';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -58,12 +57,7 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(elementRef, 
-    /**
-     * @deprecated Platform checks for SSR are no longer needed
-     * @breaking-change 8.0.0
-     */
-    _platform, _focusMonitor, _animationMode) {
+    function MatButton(elementRef, _focusMonitor, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._animationMode = _animationMode;
@@ -164,7 +158,6 @@ var MatButton = /** @class */ (function (_super) {
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: Platform },
         { type: FocusMonitor },
         { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
@@ -178,10 +171,8 @@ var MatButton = /** @class */ (function (_super) {
  */
 var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
-    function MatAnchor(platform, focusMonitor, elementRef, 
-    // @breaking-change 8.0.0 `animationMode` parameter to be made required.
-    animationMode) {
-        return _super.call(this, elementRef, platform, focusMonitor, animationMode) || this;
+    function MatAnchor(focusMonitor, elementRef, animationMode) {
+        return _super.call(this, elementRef, focusMonitor, animationMode) || this;
     }
     /**
      * @param {?} event
@@ -220,7 +211,6 @@ var MatAnchor = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAnchor.ctorParameters = function () { return [
-        { type: Platform },
         { type: FocusMonitor },
         { type: ElementRef },
         { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }

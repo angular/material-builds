@@ -76,20 +76,16 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
-        _this.animationMode = animationMode;
-        _this.defaults = defaults;
         _this._value = 0;
         _this._fallbackAnimation = false;
-        /**
-         * Whether the _mat-animation-noopable class should be applied, disabling animations.
-         */
-        _this._noopAnimations = _this.animationMode === 'NoopAnimations' && (!!_this.defaults && !_this.defaults._forceAnimations);
         _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
         _this.mode = 'determinate';
         _this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
+        _this._noopAnimations = animationMode === 'NoopAnimations' &&
+            (!!defaults && !defaults._forceAnimations);
         if (defaults) {
             if (defaults.diameter) {
                 _this.diameter = defaults.diameter;
@@ -328,9 +324,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
  */
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
-    function MatSpinner(elementRef, platform, document, 
-    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
-    animationMode, defaults) {
+    function MatSpinner(elementRef, platform, document, animationMode, defaults) {
         var _this = _super.call(this, elementRef, platform, document, animationMode, defaults) || this;
         _this.mode = 'indeterminate';
         return _this;

@@ -74,9 +74,7 @@ MatNavList.decorators = [
 ];
 class MatList extends _MatListMixinBase {
     /**
-     * @deprecated _elementRef parameter to be made required.
-     * \@breaking-change 8.0.0
-     * @param {?=} _elementRef
+     * @param {?} _elementRef
      */
     constructor(_elementRef) {
         super();
@@ -85,7 +83,7 @@ class MatList extends _MatListMixinBase {
          * Emits when the state of the list changes.
          */
         this._stateChanges = new Subject();
-        if (this._getListType() === 'action-list' && _elementRef) {
+        if (this._getListType() === 'action-list') {
             _elementRef.nativeElement.classList.add('mat-action-list');
         }
     }
@@ -94,17 +92,12 @@ class MatList extends _MatListMixinBase {
      */
     _getListType() {
         /** @type {?} */
-        const elementRef = this._elementRef;
-        // @breaking-change 8.0.0 Remove null check once _elementRef is a required param.
-        if (elementRef) {
-            /** @type {?} */
-            const nodeName = elementRef.nativeElement.nodeName.toLowerCase();
-            if (nodeName === 'mat-list') {
-                return 'list';
-            }
-            if (nodeName === 'mat-action-list') {
-                return 'action-list';
-            }
+        const nodeName = this._elementRef.nativeElement.nodeName.toLowerCase();
+        if (nodeName === 'mat-list') {
+            return 'list';
+        }
+        if (nodeName === 'mat-action-list') {
+            return 'action-list';
         }
         return null;
     }
@@ -180,13 +173,11 @@ MatListSubheaderCssMatStyler.decorators = [
 class MatListItem extends _MatListItemMixinBase {
     /**
      * @param {?} _element
+     * @param {?} _changeDetectorRef
      * @param {?=} navList
      * @param {?=} list
-     * @param {?=} _changeDetectorRef
      */
-    constructor(_element, navList, list, 
-    // @breaking-change 8.0.0 `_changeDetectorRef` to be made into a required parameter.
-    _changeDetectorRef) {
+    constructor(_element, _changeDetectorRef, navList, list) {
         super();
         this._element = _element;
         this._isInteractiveList = false;
@@ -200,8 +191,7 @@ class MatListItem extends _MatListItemMixinBase {
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
             element.setAttribute('type', 'button');
         }
-        // @breaking-change 8.0.0 Remove null check for _changeDetectorRef.
-        if (this._list && _changeDetectorRef) {
+        if (this._list) {
             // React to changes in the state of the parent list since
             // some of the item's properties depend on it (e.g. `disableRipple`).
             this._list._stateChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {
@@ -256,9 +246,9 @@ MatListItem.decorators = [
 /** @nocollapse */
 MatListItem.ctorParameters = () => [
     { type: ElementRef },
+    { type: ChangeDetectorRef },
     { type: MatNavList, decorators: [{ type: Optional }] },
-    { type: MatList, decorators: [{ type: Optional }] },
-    { type: ChangeDetectorRef }
+    { type: MatList, decorators: [{ type: Optional }] }
 ];
 MatListItem.propDecorators = {
     _lines: [{ type: ContentChildren, args: [MatLine, { descendants: true },] }],

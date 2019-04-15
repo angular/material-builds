@@ -148,9 +148,7 @@ var ɵ0 = undefined;
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
-    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, 
-    // @breaking-change 8.0.0 _document and _animationMode to be made required
-    _document, _animationMode, defaultOptions) {
+    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, _document, _animationMode, defaultOptions) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
         _this._viewContainerRef = _viewContainerRef;
         _this._animationMode = _animationMode;
@@ -292,7 +290,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this._body && this._document) {
+        if (this._body) {
             /** @type {?} */
             var focusedElement = this._document.activeElement;
             /** @type {?} */

@@ -77,11 +77,7 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     animationDuration: string;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     position: number;
-    constructor(_elementRef: ElementRef<HTMLElement>, _dir: Directionality, 
-    /**
-     * @breaking-change 8.0.0 changeDetectorRef to be made required.
-     */
-    changeDetectorRef?: ChangeDetectorRef);
+    constructor(_elementRef: ElementRef<HTMLElement>, _dir: Directionality, changeDetectorRef: ChangeDetectorRef);
     /**
      * After initialized, check if the content is centered and has an origin. If so, set the
      * special position states that transition the tab from the left or right before centering.

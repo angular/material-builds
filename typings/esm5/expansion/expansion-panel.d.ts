@@ -40,7 +40,7 @@ export declare const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS: InjectionToken<MatExpa
  */
 export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
-    _animationMode?: string | undefined;
+    _animationMode: string;
     private _document;
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
@@ -63,7 +63,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _headerId: string;
     /** Stream of body animation done events. */
     _bodyAnimationDone: Subject<AnimationEvent>;
-    constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document?: any, _animationMode?: string | undefined, defaultOptions?: MatExpansionPanelDefaultOptions);
+    constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document: any, _animationMode: string, defaultOptions?: MatExpansionPanelDefaultOptions);
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */

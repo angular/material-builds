@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, Optional, Inject, Input, NgModule } from '@angular/core';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -55,16 +54,10 @@ const _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButto
 class MatButton extends _MatButtonMixinBase {
     /**
      * @param {?} elementRef
-     * @param {?} _platform
      * @param {?} _focusMonitor
-     * @param {?=} _animationMode
+     * @param {?} _animationMode
      */
-    constructor(elementRef, 
-    /**
-     * @deprecated Platform checks for SSR are no longer needed
-     * @breaking-change 8.0.0
-     */
-    _platform, _focusMonitor, _animationMode) {
+    constructor(elementRef, _focusMonitor, _animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
         this._animationMode = _animationMode;
@@ -141,7 +134,6 @@ MatButton.decorators = [
 /** @nocollapse */
 MatButton.ctorParameters = () => [
     { type: ElementRef },
-    { type: Platform },
     { type: FocusMonitor },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
@@ -153,15 +145,12 @@ MatButton.propDecorators = {
  */
 class MatAnchor extends MatButton {
     /**
-     * @param {?} platform
      * @param {?} focusMonitor
      * @param {?} elementRef
-     * @param {?=} animationMode
+     * @param {?} animationMode
      */
-    constructor(platform, focusMonitor, elementRef, 
-    // @breaking-change 8.0.0 `animationMode` parameter to be made required.
-    animationMode) {
-        super(elementRef, platform, focusMonitor, animationMode);
+    constructor(focusMonitor, elementRef, animationMode) {
+        super(elementRef, focusMonitor, animationMode);
     }
     /**
      * @param {?} event
@@ -198,7 +187,6 @@ MatAnchor.decorators = [
 ];
 /** @nocollapse */
 MatAnchor.ctorParameters = () => [
-    { type: Platform },
     { type: FocusMonitor },
     { type: ElementRef },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }

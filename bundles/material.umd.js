@@ -5196,9 +5196,8 @@ var _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
  */
 var MatBadge = /** @class */ (function (_super) {
     __extends(MatBadge, _super);
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
+    function MatBadge(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
         var _this = _super.call(this) || this;
-        _this._document = _document;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._ariaDescriber = _ariaDescriber;
@@ -5360,8 +5359,7 @@ var MatBadge = /** @class */ (function (_super) {
             }
             // When creating a badge through the Renderer, Angular will keep it in an index.
             // We have to destroy it ourselves, otherwise it'll be retained in memory.
-            // @breaking-change 8.0.0 remove _renderer from null.
-            if (this._renderer && this._renderer.destroyNode) {
+            if (this._renderer.destroyNode) {
                 this._renderer.destroyNode(badgeElement);
             }
         }
@@ -5398,11 +5396,8 @@ var MatBadge = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // @breaking-change 8.0.0 Remove null check for _renderer
         /** @type {?} */
-        var rootNode = this._renderer || this._document;
-        /** @type {?} */
-        var badgeElement = rootNode.createElement('span');
+        var badgeElement = this._renderer.createElement('span');
         /** @type {?} */
         var activeClass = 'mat-badge-active';
         /** @type {?} */
@@ -5529,7 +5524,6 @@ var MatBadge = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: core.NgZone },
         { type: core.ElementRef },
         { type: a11y.AriaDescriber },
@@ -6386,12 +6380,7 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(elementRef, 
-    /**
-     * @deprecated Platform checks for SSR are no longer needed
-     * @breaking-change 8.0.0
-     */
-    _platform, _focusMonitor, _animationMode) {
+    function MatButton(elementRef, _focusMonitor, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._animationMode = _animationMode;
@@ -6492,7 +6481,6 @@ var MatButton = /** @class */ (function (_super) {
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
         { type: core.ElementRef },
-        { type: platform.Platform },
         { type: a11y.FocusMonitor },
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
@@ -6506,10 +6494,8 @@ var MatButton = /** @class */ (function (_super) {
  */
 var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
-    function MatAnchor(platform$$1, focusMonitor, elementRef, 
-    // @breaking-change 8.0.0 `animationMode` parameter to be made required.
-    animationMode) {
-        return _super.call(this, elementRef, platform$$1, focusMonitor, animationMode) || this;
+    function MatAnchor(focusMonitor, elementRef, animationMode) {
+        return _super.call(this, elementRef, focusMonitor, animationMode) || this;
     }
     /**
      * @param {?} event
@@ -6548,7 +6534,6 @@ var MatAnchor = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAnchor.ctorParameters = function () { return [
-        { type: platform.Platform },
         { type: a11y.FocusMonitor },
         { type: core.ElementRef },
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
@@ -16196,9 +16181,7 @@ var ɵ0$4 = undefined;
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
-    function MatExpansionPanel(accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, 
-    // @breaking-change 8.0.0 _document and _animationMode to be made required
-    _document, _animationMode, defaultOptions) {
+    function MatExpansionPanel(accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, _document, _animationMode, defaultOptions) {
         var _this = _super.call(this, accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
         _this._viewContainerRef = _viewContainerRef;
         _this._animationMode = _animationMode;
@@ -16340,7 +16323,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this._body && this._document) {
+        if (this._body) {
             /** @type {?} */
             var focusedElement = this._document.activeElement;
             /** @type {?} */
@@ -19649,10 +19632,6 @@ var MatNavList = /** @class */ (function (_super) {
 }(_MatListMixinBase));
 var MatList = /** @class */ (function (_super) {
     __extends(MatList, _super);
-    /**
-     * @deprecated _elementRef parameter to be made required.
-     * @breaking-change 8.0.0
-     */
     function MatList(_elementRef) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
@@ -19660,7 +19639,7 @@ var MatList = /** @class */ (function (_super) {
          * Emits when the state of the list changes.
          */
         _this._stateChanges = new rxjs.Subject();
-        if (_this._getListType() === 'action-list' && _elementRef) {
+        if (_this._getListType() === 'action-list') {
             _elementRef.nativeElement.classList.add('mat-action-list');
         }
         return _this;
@@ -19673,17 +19652,12 @@ var MatList = /** @class */ (function (_super) {
      */
     function () {
         /** @type {?} */
-        var elementRef = this._elementRef;
-        // @breaking-change 8.0.0 Remove null check once _elementRef is a required param.
-        if (elementRef) {
-            /** @type {?} */
-            var nodeName = elementRef.nativeElement.nodeName.toLowerCase();
-            if (nodeName === 'mat-list') {
-                return 'list';
-            }
-            if (nodeName === 'mat-action-list') {
-                return 'action-list';
-            }
+        var nodeName = this._elementRef.nativeElement.nodeName.toLowerCase();
+        if (nodeName === 'mat-list') {
+            return 'list';
+        }
+        if (nodeName === 'mat-action-list') {
+            return 'action-list';
         }
         return null;
     };
@@ -19774,9 +19748,7 @@ var MatListSubheaderCssMatStyler = /** @class */ (function () {
  */
 var MatListItem = /** @class */ (function (_super) {
     __extends(MatListItem, _super);
-    function MatListItem(_element, navList, list, 
-    // @breaking-change 8.0.0 `_changeDetectorRef` to be made into a required parameter.
-    _changeDetectorRef) {
+    function MatListItem(_element, _changeDetectorRef, navList, list) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._isInteractiveList = false;
@@ -19790,8 +19762,7 @@ var MatListItem = /** @class */ (function (_super) {
         if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
             element.setAttribute('type', 'button');
         }
-        // @breaking-change 8.0.0 Remove null check for _changeDetectorRef.
-        if (_this._list && _changeDetectorRef) {
+        if (_this._list) {
             // React to changes in the state of the parent list since
             // some of the item's properties depend on it (e.g. `disableRipple`).
             _this._list._stateChanges.pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
@@ -19862,9 +19833,9 @@ var MatListItem = /** @class */ (function (_super) {
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
         { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
         { type: MatNavList, decorators: [{ type: core.Optional }] },
-        { type: MatList, decorators: [{ type: core.Optional }] },
-        { type: core.ChangeDetectorRef }
+        { type: MatList, decorators: [{ type: core.Optional }] }
     ]; };
     MatListItem.propDecorators = {
         _lines: [{ type: core.ContentChildren, args: [MatLine, { descendants: true },] }],
@@ -26463,20 +26434,16 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
-        _this.animationMode = animationMode;
-        _this.defaults = defaults;
         _this._value = 0;
         _this._fallbackAnimation = false;
-        /**
-         * Whether the _mat-animation-noopable class should be applied, disabling animations.
-         */
-        _this._noopAnimations = _this.animationMode === 'NoopAnimations' && (!!_this.defaults && !_this.defaults._forceAnimations);
         _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
         _this.mode = 'determinate';
         _this._fallbackAnimation = platform$$1.EDGE || platform$$1.TRIDENT;
+        _this._noopAnimations = animationMode === 'NoopAnimations' &&
+            (!!defaults && !defaults._forceAnimations);
         if (defaults) {
             if (defaults.diameter) {
                 _this.diameter = defaults.diameter;
@@ -26715,9 +26682,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
  */
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
-    function MatSpinner(elementRef, platform$$1, document, 
-    // @breaking-change 8.0.0 animationMode and defaults parameters to be made required.
-    animationMode, defaults) {
+    function MatSpinner(elementRef, platform$$1, document, animationMode, defaults) {
         var _this = _super.call(this, elementRef, platform$$1, document, animationMode, defaults) || this;
         _this.mode = 'indeterminate';
         return _this;
@@ -34199,11 +34164,7 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
  * \@docs-private
  */
 var MatTabBody = /** @class */ (function () {
-    function MatTabBody(_elementRef, _dir, 
-    /**
-     * @breaking-change 8.0.0 changeDetectorRef to be made required.
-     */
-    changeDetectorRef) {
+    function MatTabBody(_elementRef, _dir, changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
         this._dir = _dir;
@@ -34237,8 +34198,8 @@ var MatTabBody = /** @class */ (function () {
          * Duration for the tab's animation.
          */
         this.animationDuration = '500ms';
-        if (this._dir && changeDetectorRef) {
-            this._dirChangeSubscription = this._dir.change.subscribe(function (dir) {
+        if (_dir) {
+            this._dirChangeSubscription = _dir.change.subscribe(function (dir) {
                 _this._computePositionAnimationState(dir);
                 changeDetectorRef.markForCheck();
             });
@@ -34600,24 +34561,14 @@ var MatTabHeader = /** @class */ (function (_super) {
          * Event emitted when a label is focused.
          */
         _this.indexFocused = new core.EventEmitter();
-        /** @type {?} */
-        var element = _elementRef.nativeElement;
-        /** @type {?} */
-        var bindEvent = function () {
-            rxjs.fromEvent(element, 'mouseleave')
+        // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
+        _ngZone.runOutsideAngular(function () {
+            rxjs.fromEvent(_elementRef.nativeElement, 'mouseleave')
                 .pipe(operators.takeUntil(_this._destroyed))
                 .subscribe(function () {
                 _this._stopInterval();
             });
-        };
-        // @breaking-change 8.0.0 remove null check once _ngZone is made into a required parameter.
-        if (_ngZone) {
-            // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
-            _ngZone.runOutsideAngular(bindEvent);
-        }
-        else {
-            bindEvent();
-        }
+        });
         return _this;
     }
     Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
@@ -34800,16 +34751,13 @@ var MatTabHeader = /** @class */ (function (_super) {
         // to infinite loops if a poorly constructed expression is passed in (see #14249).
         if (textContent !== this._currentTextContent) {
             this._currentTextContent = textContent;
-            /** @type {?} */
-            var zoneCallback = function () {
+            // The content observer runs outside the `NgZone` by default, which
+            // means that we need to bring the callback back in ourselves.
+            this._ngZone.run(function () {
                 _this.updatePagination();
                 _this._alignInkBarToSelectedTab();
                 _this._changeDetectorRef.markForCheck();
-            };
-            // The content observer runs outside the `NgZone` by default, which
-            // means that we need to bring the callback back in ourselves.
-            // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
-            this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
+            });
         }
     };
     /**
@@ -34964,8 +34912,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
         // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-        // @breaking-change 8.0.0 Remove null check for `platform`.
-        if (platform$$1 && (platform$$1.TRIDENT || platform$$1.EDGE)) {
+        if (platform$$1.TRIDENT || platform$$1.EDGE) {
             this._tabListContainer.nativeElement.scrollLeft = 0;
         }
     };
@@ -36943,7 +36890,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.1-73c4bed');
+var VERSION = new core.Version('8.0.0-beta.1-7ace9ab');
 
 exports.VERSION = VERSION;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37156,7 +37103,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37203,12 +37150,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -37339,17 +37286,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
