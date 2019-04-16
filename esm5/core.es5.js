@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
+import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
 import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { __extends, __assign } from 'tslib';
@@ -17,6 +17,16 @@ import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Current version of Angular Material.
+ * @type {?}
+ */
+var VERSION = new Version('8.0.0-beta.2-6bcb1da');
 
 /**
  * @fileoverview added by tsickle
@@ -2959,5 +2969,5 @@ var DEC = 11;
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
+export { VERSION, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
 //# sourceMappingURL=core.es5.js.map

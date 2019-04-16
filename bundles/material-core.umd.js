@@ -55,6 +55,16 @@ var __assign = function() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * Current version of Angular Material.
+ * @type {?}
+ */
+var VERSION = new core.Version('8.0.0-beta.2-6bcb1da');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 /**
  * \@docs-private
@@ -2982,6 +2992,7 @@ var NOV = 10;
 /** @type {?} */
 var DEC = 11;
 
+exports.VERSION = VERSION;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;

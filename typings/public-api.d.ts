@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-export * from './version';
 export * from '@angular/material/autocomplete';
 export * from '@angular/material/badge';
 export * from '@angular/material/bottom-sheet';
