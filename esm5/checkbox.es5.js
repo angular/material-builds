@@ -661,14 +661,31 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * This module is used by both original and MDC-based checkbox implementations.
+ */
+var _MatCheckboxRequiredValidatorModule = /** @class */ (function () {
+    function _MatCheckboxRequiredValidatorModule() {
+    }
+    _MatCheckboxRequiredValidatorModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [MatCheckboxRequiredValidator],
+                    declarations: [MatCheckboxRequiredValidator],
+                },] },
+    ];
+    return _MatCheckboxRequiredValidatorModule;
+}());
 var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {
     }
     MatCheckboxModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, MatRippleModule, MatCommonModule, ObserversModule],
-                    exports: [MatCheckbox, MatCheckboxRequiredValidator, MatCommonModule],
-                    declarations: [MatCheckbox, MatCheckboxRequiredValidator],
+                    imports: [
+                        CommonModule, MatRippleModule, MatCommonModule, ObserversModule,
+                        _MatCheckboxRequiredValidatorModule
+                    ],
+                    exports: [MatCheckbox, MatCommonModule, _MatCheckboxRequiredValidatorModule],
+                    declarations: [MatCheckbox],
                 },] },
     ];
     return MatCheckboxModule;
@@ -684,5 +701,5 @@ var MatCheckboxModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, _MatCheckboxRequiredValidatorModule, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
 //# sourceMappingURL=checkbox.es5.js.map

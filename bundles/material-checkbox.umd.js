@@ -686,14 +686,31 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * This module is used by both original and MDC-based checkbox implementations.
+ */
+var _MatCheckboxRequiredValidatorModule = /** @class */ (function () {
+    function _MatCheckboxRequiredValidatorModule() {
+    }
+    _MatCheckboxRequiredValidatorModule.decorators = [
+        { type: core.NgModule, args: [{
+                    exports: [MatCheckboxRequiredValidator],
+                    declarations: [MatCheckboxRequiredValidator],
+                },] },
+    ];
+    return _MatCheckboxRequiredValidatorModule;
+}());
 var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {
     }
     MatCheckboxModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule],
-                    exports: [MatCheckbox, MatCheckboxRequiredValidator, core$1.MatCommonModule],
-                    declarations: [MatCheckbox, MatCheckboxRequiredValidator],
+                    imports: [
+                        common.CommonModule, core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule,
+                        _MatCheckboxRequiredValidatorModule
+                    ],
+                    exports: [MatCheckbox, core$1.MatCommonModule, _MatCheckboxRequiredValidatorModule],
+                    declarations: [MatCheckbox],
                 },] },
     ];
     return MatCheckboxModule;
@@ -706,6 +723,7 @@ exports.MatCheckboxBase = MatCheckboxBase;
 exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
 exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
+exports._MatCheckboxRequiredValidatorModule = _MatCheckboxRequiredValidatorModule;
 exports.MatCheckboxModule = MatCheckboxModule;
 exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;

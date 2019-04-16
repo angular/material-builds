@@ -525,13 +525,28 @@ MatCheckboxRequiredValidator.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * This module is used by both original and MDC-based checkbox implementations.
+ */
+// tslint:disable-next-line:class-name
+class _MatCheckboxRequiredValidatorModule {
+}
+_MatCheckboxRequiredValidatorModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [MatCheckboxRequiredValidator],
+                declarations: [MatCheckboxRequiredValidator],
+            },] },
+];
 class MatCheckboxModule {
 }
 MatCheckboxModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MatRippleModule, MatCommonModule, ObserversModule],
-                exports: [MatCheckbox, MatCheckboxRequiredValidator, MatCommonModule],
-                declarations: [MatCheckbox, MatCheckboxRequiredValidator],
+                imports: [
+                    CommonModule, MatRippleModule, MatCommonModule, ObserversModule,
+                    _MatCheckboxRequiredValidatorModule
+                ],
+                exports: [MatCheckbox, MatCommonModule, _MatCheckboxRequiredValidatorModule],
+                declarations: [MatCheckbox],
             },] },
 ];
 
@@ -545,5 +560,5 @@ MatCheckboxModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, _MatCheckboxRequiredValidatorModule, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
 //# sourceMappingURL=checkbox.js.map

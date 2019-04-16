@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-6bcb1da');
+var VERSION = new core.Version('8.0.0-beta.2-3e17ce7');
 
 /**
  * @fileoverview added by tsickle
@@ -8265,14 +8265,31 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * This module is used by both original and MDC-based checkbox implementations.
+ */
+var _MatCheckboxRequiredValidatorModule = /** @class */ (function () {
+    function _MatCheckboxRequiredValidatorModule() {
+    }
+    _MatCheckboxRequiredValidatorModule.decorators = [
+        { type: core.NgModule, args: [{
+                    exports: [MatCheckboxRequiredValidator],
+                    declarations: [MatCheckboxRequiredValidator],
+                },] },
+    ];
+    return _MatCheckboxRequiredValidatorModule;
+}());
 var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {
     }
     MatCheckboxModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, MatRippleModule, MatCommonModule, observers.ObserversModule],
-                    exports: [MatCheckbox, MatCheckboxRequiredValidator, MatCommonModule],
-                    declarations: [MatCheckbox, MatCheckboxRequiredValidator],
+                    imports: [
+                        common.CommonModule, MatRippleModule, MatCommonModule, observers.ObserversModule,
+                        _MatCheckboxRequiredValidatorModule
+                    ],
+                    exports: [MatCheckbox, MatCommonModule, _MatCheckboxRequiredValidatorModule],
+                    declarations: [MatCheckbox],
                 },] },
     ];
     return MatCheckboxModule;
@@ -36966,6 +36983,7 @@ exports.MatCheckboxBase = MatCheckboxBase;
 exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
 exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
+exports._MatCheckboxRequiredValidatorModule = _MatCheckboxRequiredValidatorModule;
 exports.MatCheckboxModule = MatCheckboxModule;
 exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;
@@ -37160,12 +37178,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb22 = MatMenuItemBase;
-exports.ɵc22 = _MatMenuItemMixinBase;
-exports.ɵf22 = MAT_MENU_PANEL;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
