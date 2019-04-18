@@ -447,6 +447,35 @@ var MatFormField = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatFormField.prototype, "_control", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            // TODO(crisbeto): we need this hacky workaround in order to support both Ivy
+            // and ViewEngine. We should clean this up once Ivy is the default renderer.
+            return this._explicitFormFieldControl || this._controlNonStatic || this._controlStatic;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._explicitFormFieldControl = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatFormField.prototype, "_labelChild", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._labelChildNonStatic || this._labelChildStatic;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.
@@ -935,13 +964,15 @@ var MatFormField = /** @class */ (function (_super) {
         hideRequiredMarker: [{ type: core.Input }],
         hintLabel: [{ type: core.Input }],
         floatLabel: [{ type: core.Input }],
-        underlineRef: [{ type: core.ViewChild, args: ['underline',] }],
-        _connectionContainerRef: [{ type: core.ViewChild, args: ['connectionContainer',] }],
-        _inputContainerRef: [{ type: core.ViewChild, args: ['inputContainer',] }],
-        _label: [{ type: core.ViewChild, args: ['label',] }],
-        _control: [{ type: core.ContentChild, args: [MatFormFieldControl,] }],
-        _placeholderChild: [{ type: core.ContentChild, args: [MatPlaceholder,] }],
-        _labelChild: [{ type: core.ContentChild, args: [MatLabel,] }],
+        underlineRef: [{ type: core.ViewChild, args: ['underline', { static: false },] }],
+        _connectionContainerRef: [{ type: core.ViewChild, args: ['connectionContainer', { static: true },] }],
+        _inputContainerRef: [{ type: core.ViewChild, args: ['inputContainer', { static: false },] }],
+        _label: [{ type: core.ViewChild, args: ['label', { static: false },] }],
+        _controlNonStatic: [{ type: core.ContentChild, args: [MatFormFieldControl, { static: false },] }],
+        _controlStatic: [{ type: core.ContentChild, args: [MatFormFieldControl, { static: true },] }],
+        _labelChildNonStatic: [{ type: core.ContentChild, args: [MatLabel, { static: false },] }],
+        _labelChildStatic: [{ type: core.ContentChild, args: [MatLabel, { static: true },] }],
+        _placeholderChild: [{ type: core.ContentChild, args: [MatPlaceholder, { static: false },] }],
         _errorChildren: [{ type: core.ContentChildren, args: [MatError,] }],
         _hintChildren: [{ type: core.ContentChildren, args: [MatHint,] }],
         _prefixChildren: [{ type: core.ContentChildren, args: [MatPrefix,] }],

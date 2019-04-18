@@ -100,9 +100,14 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _connectionContainerRef: ElementRef;
     _inputContainerRef: ElementRef;
     private _label;
+    _controlNonStatic: MatFormFieldControl<any>;
+    _controlStatic: MatFormFieldControl<any>;
     _control: MatFormFieldControl<any>;
+    private _explicitFormFieldControl;
+    _labelChildNonStatic: MatLabel;
+    _labelChildStatic: MatLabel;
+    readonly _labelChild: MatLabel;
     _placeholderChild: MatPlaceholder;
-    _labelChild: MatLabel;
     _errorChildren: QueryList<MatError>;
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
