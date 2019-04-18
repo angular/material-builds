@@ -220,8 +220,8 @@ MatAutocomplete.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
 ];
 MatAutocomplete.propDecorators = {
-    template: [{ type: ViewChild, args: [TemplateRef,] }],
-    panel: [{ type: ViewChild, args: ['panel',] }],
+    template: [{ type: ViewChild, args: [TemplateRef, { static: false },] }],
+    panel: [{ type: ViewChild, args: ['panel', { static: false },] }],
     options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
     optionGroups: [{ type: ContentChildren, args: [MatOptgroup,] }],
     displayWith: [{ type: Input }],
