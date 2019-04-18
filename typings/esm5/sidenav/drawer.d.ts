@@ -116,6 +116,8 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      */
     toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
     readonly _width: number;
+    _animationStartListener(event: AnimationEvent): void;
+    _animationDoneListener(event: AnimationEvent): void;
 }
 /**
  * `<mat-drawer-container>` component.

@@ -13,7 +13,7 @@ import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, ScrollingModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, HostListener, NgModule } from '@angular/core';
 import { fromEvent, merge, Subject } from 'rxjs';
 import { debounceTime, filter, map, startWith, take, takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -432,6 +432,30 @@ class MatDrawer {
     get _width() {
         return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
     }
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    _animationStartListener(event) {
+        this._animationStarted.next(event);
+    }
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    _animationDoneListener(event) {
+        this._animationEnd.next(event);
+    }
 }
 MatDrawer.decorators = [
     { type: Component, args: [{selector: 'mat-drawer',
@@ -441,8 +465,6 @@ MatDrawer.decorators = [
                 host: {
                     'class': 'mat-drawer',
                     '[@transform]': '_animationState',
-                    '(@transform.start)': '_animationStarted.next($event)',
-                    '(@transform.done)': '_animationEnd.next($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
                     '[class.mat-drawer-end]': 'position === "end"',
@@ -475,7 +497,9 @@ MatDrawer.propDecorators = {
     _closedStream: [{ type: Output, args: ['closed',] }],
     closedStart: [{ type: Output }],
     onPositionChanged: [{ type: Output, args: ['positionChanged',] }],
-    opened: [{ type: Input }]
+    opened: [{ type: Input }],
+    _animationStartListener: [{ type: HostListener, args: ['@transform.start', ['$event'],] }],
+    _animationDoneListener: [{ type: HostListener, args: ['@transform.done', ['$event'],] }]
 };
 /**
  * `<mat-drawer-container>` component.
@@ -973,8 +997,6 @@ MatSidenav.decorators = [
                     'class': 'mat-drawer mat-sidenav',
                     'tabIndex': '-1',
                     '[@transform]': '_animationState',
-                    '(@transform.start)': '_animationStarted.next($event)',
-                    '(@transform.done)': '_animationEnd.next($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
                     '[class.mat-drawer-end]': 'position === "end"',

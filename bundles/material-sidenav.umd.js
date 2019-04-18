@@ -560,6 +560,60 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MatDrawer.prototype._animationStartListener = 
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this._animationStarted.next(event);
+    };
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MatDrawer.prototype._animationDoneListener = 
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this._animationEnd.next(event);
+    };
     MatDrawer.decorators = [
         { type: core.Component, args: [{selector: 'mat-drawer',
                     exportAs: 'matDrawer',
@@ -568,8 +622,6 @@ var MatDrawer = /** @class */ (function () {
                     host: {
                         'class': 'mat-drawer',
                         '[@transform]': '_animationState',
-                        '(@transform.start)': '_animationStarted.next($event)',
-                        '(@transform.done)': '_animationEnd.next($event)',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',
@@ -602,7 +654,9 @@ var MatDrawer = /** @class */ (function () {
         _closedStream: [{ type: core.Output, args: ['closed',] }],
         closedStart: [{ type: core.Output }],
         onPositionChanged: [{ type: core.Output, args: ['positionChanged',] }],
-        opened: [{ type: core.Input }]
+        opened: [{ type: core.Input }],
+        _animationStartListener: [{ type: core.HostListener, args: ['@transform.start', ['$event'],] }],
+        _animationDoneListener: [{ type: core.HostListener, args: ['@transform.done', ['$event'],] }]
     };
     return MatDrawer;
 }());
@@ -1257,8 +1311,6 @@ var MatSidenav = /** @class */ (function (_super) {
                         'class': 'mat-drawer mat-sidenav',
                         'tabIndex': '-1',
                         '[@transform]': '_animationState',
-                        '(@transform.start)': '_animationStarted.next($event)',
-                        '(@transform.done)': '_animationEnd.next($event)',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',
