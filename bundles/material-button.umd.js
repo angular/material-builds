@@ -195,7 +195,7 @@ var MatButton = /** @class */ (function (_super) {
     return MatButton;
 }(_MatButtonMixinBase));
 /**
- * Raised Material design button.
+ * Material design anchor button.
  */
 var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);

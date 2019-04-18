@@ -141,7 +141,7 @@ MatButton.propDecorators = {
     ripple: [{ type: ViewChild, args: [MatRipple, { static: false },] }]
 };
 /**
- * Raised Material design button.
+ * Material design anchor button.
  */
 class MatAnchor extends MatButton {
     /**

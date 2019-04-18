@@ -36,7 +36,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     _hasHostAttributes(...attributes: string[]): boolean;
 }
 /**
- * Raised Material design button.
+ * Material design anchor button.
  */
 export declare class MatAnchor extends MatButton {
     /** Tabindex of the button. */
