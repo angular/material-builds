@@ -301,7 +301,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
     ]; };
     MatAutocomplete.propDecorators = {
-        template: [{ type: core.ViewChild, args: [core.TemplateRef, { static: false },] }],
+        template: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
         panel: [{ type: core.ViewChild, args: ['panel', { static: false },] }],
         options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }],
         optionGroups: [{ type: core.ContentChildren, args: [core$1.MatOptgroup,] }],
