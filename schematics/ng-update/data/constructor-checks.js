@@ -46,6 +46,10 @@ exports.constructorChecks = {
         {
             pr: 'https://github.com/angular/material2/pull/15806',
             changes: ['MatSlideToggle']
+        },
+        {
+            pr: 'https://github.com/angular/material2/pull/15773',
+            changes: ['MatDrawerContainer']
         }
     ],
     [schematics_1.TargetVersion.V7]: [

@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-cf76707');
+var VERSION = new core.Version('8.0.0-beta.2-20a879a');
 
 /**
  * @fileoverview added by tsickle
@@ -28264,12 +28264,7 @@ var MatDrawer = /** @class */ (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = /** @class */ (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize, _animationMode, 
-    /**
-     * @deprecated viewportRuler to become a required parameter.
-     * @breaking-change 8.0.0
-     */
-    viewportRuler) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, viewportRuler, defaultAutosize, _animationMode) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
@@ -28306,11 +28301,9 @@ var MatDrawerContainer = /** @class */ (function () {
         }
         // Since the minimum width of the sidenav depends on the viewport width,
         // we need to recompute the margins if the viewport changes.
-        if (viewportRuler) {
-            viewportRuler.change()
-                .pipe(operators.takeUntil(this._destroyed))
-                .subscribe(function () { return _this._updateContentMargins(); });
-        }
+        viewportRuler.change()
+            .pipe(operators.takeUntil(this._destroyed))
+            .subscribe(function () { return _this._updateContentMargins(); });
         this._autosize = defaultAutosize;
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -28791,9 +28784,9 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: core.ElementRef },
         { type: core.NgZone },
         { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-        { type: scrolling.ViewportRuler, decorators: [{ type: core.Optional }] }
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatDrawerContainer.propDecorators = {
         _drawers: [{ type: core.ContentChildren, args: [MatDrawer,] }],
@@ -37249,7 +37242,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

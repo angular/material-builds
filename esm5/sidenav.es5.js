@@ -647,12 +647,7 @@ var MatDrawer = /** @class */ (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = /** @class */ (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize, _animationMode, 
-    /**
-     * @deprecated viewportRuler to become a required parameter.
-     * @breaking-change 8.0.0
-     */
-    viewportRuler) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, viewportRuler, defaultAutosize, _animationMode) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
@@ -689,11 +684,9 @@ var MatDrawerContainer = /** @class */ (function () {
         }
         // Since the minimum width of the sidenav depends on the viewport width,
         // we need to recompute the margins if the viewport changes.
-        if (viewportRuler) {
-            viewportRuler.change()
-                .pipe(takeUntil(this._destroyed))
-                .subscribe(function () { return _this._updateContentMargins(); });
-        }
+        viewportRuler.change()
+            .pipe(takeUntil(this._destroyed))
+            .subscribe(function () { return _this._updateContentMargins(); });
         this._autosize = defaultAutosize;
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -1174,9 +1167,9 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: ElementRef },
         { type: NgZone },
         { type: ChangeDetectorRef },
+        { type: ViewportRuler },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-        { type: ViewportRuler, decorators: [{ type: Optional }] }
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatDrawerContainer.propDecorators = {
         _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],

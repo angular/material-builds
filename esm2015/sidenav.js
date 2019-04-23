@@ -513,16 +513,11 @@ class MatDrawerContainer {
      * @param {?} _element
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
+     * @param {?} viewportRuler
      * @param {?=} defaultAutosize
      * @param {?=} _animationMode
-     * @param {?=} viewportRuler
      */
-    constructor(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize = false, _animationMode, 
-    /**
-     * @deprecated viewportRuler to become a required parameter.
-     * @breaking-change 8.0.0
-     */
-    viewportRuler) {
+    constructor(_dir, _element, _ngZone, _changeDetectorRef, viewportRuler, defaultAutosize = false, _animationMode) {
         this._dir = _dir;
         this._element = _element;
         this._ngZone = _ngZone;
@@ -557,11 +552,9 @@ class MatDrawerContainer {
         }
         // Since the minimum width of the sidenav depends on the viewport width,
         // we need to recompute the margins if the viewport changes.
-        if (viewportRuler) {
-            viewportRuler.change()
-                .pipe(takeUntil(this._destroyed))
-                .subscribe(() => this._updateContentMargins());
-        }
+        viewportRuler.change()
+            .pipe(takeUntil(this._destroyed))
+            .subscribe(() => this._updateContentMargins());
         this._autosize = defaultAutosize;
     }
     /**
@@ -899,9 +892,9 @@ MatDrawerContainer.ctorParameters = () => [
     { type: ElementRef },
     { type: NgZone },
     { type: ChangeDetectorRef },
+    { type: ViewportRuler },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-    { type: ViewportRuler, decorators: [{ type: Optional }] }
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatDrawerContainer.propDecorators = {
     _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],

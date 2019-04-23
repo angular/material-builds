@@ -187,12 +187,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     }>;
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
     readonly scrollable: CdkScrollable;
-    constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean, _animationMode?: string | undefined, 
-    /**
-     * @deprecated viewportRuler to become a required parameter.
-     * @breaking-change 8.0.0
-     */
-    viewportRuler?: ViewportRuler);
+    constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, defaultAutosize?: boolean, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */
