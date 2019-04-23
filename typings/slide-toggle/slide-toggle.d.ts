@@ -7,7 +7,6 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HammerInput, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
@@ -91,12 +90,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     readonly inputId: string;
     /** Reference to the underlying input element. */
     _inputElement: ElementRef<HTMLInputElement>;
-    constructor(elementRef: ElementRef, 
-    /**
-     * @deprecated The `_platform` parameter to be removed.
-     * @breaking-change 8.0.0
-     */
-    _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality | undefined);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */

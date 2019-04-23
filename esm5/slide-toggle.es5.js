@@ -10,7 +10,6 @@ import { __extends } from 'tslib';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Platform } from '@angular/cdk/platform';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, GestureConfig, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -81,12 +80,7 @@ var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixin
  */
 var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, 
-    /**
-     * @deprecated The `_platform` parameter to be removed.
-     * @breaking-change 8.0.0
-     */
-    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
+    function MatSlideToggle(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -501,7 +495,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
     /** @nocollapse */
     MatSlideToggle.ctorParameters = function () { return [
         { type: ElementRef },
-        { type: Platform },
         { type: FocusMonitor },
         { type: ChangeDetectorRef },
         { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
