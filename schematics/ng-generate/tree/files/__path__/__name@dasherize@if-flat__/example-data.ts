@@ -16,7 +16,7 @@ export const files = [
               { name: 'BUILD.bazel', type: 'file' },
             ]
           },
-          { name: 'lib', type: 'folder' }
+          { name: 'material', type: 'folder' }
         ]
       }
     ]

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', 'rxjs', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.rxjs,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay,global.ng.cdk.platform));
-}(this, (function (exports,core,portal,common,rxjs,animations,a11y,core$1,coercion,keycodes,operators,bidi,overlay,platform) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/animations', '@angular/core', '@angular/cdk/portal', '@angular/common', 'rxjs', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.animations,global.ng.core,global.ng.cdk.portal,global.ng.common,global.rxjs,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay,global.ng.cdk.platform));
+}(this, (function (exports,animations,core,portal,common,rxjs,a11y,core$1,coercion,keycodes,operators,bidi,overlay,platform) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -39,6 +39,66 @@ function __extends(d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
+ * \@docs-private
+ * @type {?}
+ */
+var matMenuAnimations = {
+    /**
+     * This animation controls the menu panel's entry and exit from the page.
+     *
+     * When the menu panel is added to the DOM, it scales in and fades in its border.
+     *
+     * When the menu panel is removed from the DOM, it simply fades out after a brief
+     * delay to display the ripple.
+     */
+    transformMenu: animations.trigger('transformMenu', [
+        animations.state('void', animations.style({
+            opacity: 0,
+            transform: 'scale(0.8)'
+        })),
+        animations.transition('void => enter', animations.group([
+            animations.query('.mat-menu-content', animations.animate('100ms linear', animations.style({ opacity: 1 }))),
+            animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.style({ transform: 'scale(1)' })),
+        ])),
+        animations.transition('* => void', animations.animate('100ms 25ms linear', animations.style({ opacity: 0 })))
+    ]),
+    /**
+     * This animation fades in the background color and content of the menu panel
+     * after its containing element is scaled in.
+     */
+    fadeInItems: animations.trigger('fadeInItems', [
+        // TODO(crisbeto): this is inside the `transformMenu`
+        // now. Remove next time we do breaking changes.
+        animations.state('showing', animations.style({ opacity: 1 })),
+        animations.transition('void => *', [
+            animations.style({ opacity: 0 }),
+            animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
+    ])
+};
+/**
+ * @deprecated
+ * \@breaking-change 8.0.0
+ * \@docs-private
+ * @type {?}
+ */
+var fadeInItems = matMenuAnimations.fadeInItems;
+/**
+ * @deprecated
+ * \@breaking-change 8.0.0
+ * \@docs-private
+ * @type {?}
+ */
+var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -140,66 +200,6 @@ var MatMenuContent = /** @class */ (function () {
     ]; };
     return MatMenuContent;
 }());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * Animations used by the mat-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
- * \@docs-private
- * @type {?}
- */
-var matMenuAnimations = {
-    /**
-     * This animation controls the menu panel's entry and exit from the page.
-     *
-     * When the menu panel is added to the DOM, it scales in and fades in its border.
-     *
-     * When the menu panel is removed from the DOM, it simply fades out after a brief
-     * delay to display the ripple.
-     */
-    transformMenu: animations.trigger('transformMenu', [
-        animations.state('void', animations.style({
-            opacity: 0,
-            transform: 'scale(0.8)'
-        })),
-        animations.transition('void => enter', animations.group([
-            animations.query('.mat-menu-content', animations.animate('100ms linear', animations.style({ opacity: 1 }))),
-            animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.style({ transform: 'scale(1)' })),
-        ])),
-        animations.transition('* => void', animations.animate('100ms 25ms linear', animations.style({ opacity: 0 })))
-    ]),
-    /**
-     * This animation fades in the background color and content of the menu panel
-     * after its containing element is scaled in.
-     */
-    fadeInItems: animations.trigger('fadeInItems', [
-        // TODO(crisbeto): this is inside the `transformMenu`
-        // now. Remove next time we do breaking changes.
-        animations.state('showing', animations.style({ opacity: 1 })),
-        animations.transition('void => *', [
-            animations.style({ opacity: 0 }),
-            animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-        ])
-    ])
-};
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-var fadeInItems = matMenuAnimations.fadeInItems;
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -1861,12 +1861,12 @@ var MatMenuModule = /** @class */ (function () {
     return MatMenuModule;
 }());
 
-exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
-exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
+exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
+exports.MatMenuModule = MatMenuModule;
 exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
