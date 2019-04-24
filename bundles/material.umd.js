@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-a800c2a');
+var VERSION = new core.Version('8.0.0-beta.2-3a7beb9');
 
 /**
  * @fileoverview added by tsickle
@@ -20870,66 +20870,6 @@ var MatListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * Animations used by the mat-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
- * \@docs-private
- * @type {?}
- */
-var matMenuAnimations = {
-    /**
-     * This animation controls the menu panel's entry and exit from the page.
-     *
-     * When the menu panel is added to the DOM, it scales in and fades in its border.
-     *
-     * When the menu panel is removed from the DOM, it simply fades out after a brief
-     * delay to display the ripple.
-     */
-    transformMenu: animations$1.trigger('transformMenu', [
-        animations$1.state('void', animations$1.style({
-            opacity: 0,
-            transform: 'scale(0.8)'
-        })),
-        animations$1.transition('void => enter', animations$1.group([
-            animations$1.query('.mat-menu-content', animations$1.animate('100ms linear', animations$1.style({ opacity: 1 }))),
-            animations$1.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'scale(1)' })),
-        ])),
-        animations$1.transition('* => void', animations$1.animate('100ms 25ms linear', animations$1.style({ opacity: 0 })))
-    ]),
-    /**
-     * This animation fades in the background color and content of the menu panel
-     * after its containing element is scaled in.
-     */
-    fadeInItems: animations$1.trigger('fadeInItems', [
-        // TODO(crisbeto): this is inside the `transformMenu`
-        // now. Remove next time we do breaking changes.
-        animations$1.state('showing', animations$1.style({ opacity: 1 })),
-        animations$1.transition('void => *', [
-            animations$1.style({ opacity: 0 }),
-            animations$1.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-        ])
-    ])
-};
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-var fadeInItems = matMenuAnimations.fadeInItems;
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-var transformMenu = matMenuAnimations.transformMenu;
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * Menu content that will be rendered lazily once the menu is opened.
  */
 var MatMenuContent = /** @class */ (function () {
@@ -21025,6 +20965,66 @@ var MatMenuContent = /** @class */ (function () {
     ]; };
     return MatMenuContent;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
+ * \@docs-private
+ * @type {?}
+ */
+var matMenuAnimations = {
+    /**
+     * This animation controls the menu panel's entry and exit from the page.
+     *
+     * When the menu panel is added to the DOM, it scales in and fades in its border.
+     *
+     * When the menu panel is removed from the DOM, it simply fades out after a brief
+     * delay to display the ripple.
+     */
+    transformMenu: animations$1.trigger('transformMenu', [
+        animations$1.state('void', animations$1.style({
+            opacity: 0,
+            transform: 'scale(0.8)'
+        })),
+        animations$1.transition('void => enter', animations$1.group([
+            animations$1.query('.mat-menu-content', animations$1.animate('100ms linear', animations$1.style({ opacity: 1 }))),
+            animations$1.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'scale(1)' })),
+        ])),
+        animations$1.transition('* => void', animations$1.animate('100ms 25ms linear', animations$1.style({ opacity: 0 })))
+    ]),
+    /**
+     * This animation fades in the background color and content of the menu panel
+     * after its containing element is scaled in.
+     */
+    fadeInItems: animations$1.trigger('fadeInItems', [
+        // TODO(crisbeto): this is inside the `transformMenu`
+        // now. Remove next time we do breaking changes.
+        animations$1.state('showing', animations$1.style({ opacity: 1 })),
+        animations$1.transition('void => *', [
+            animations$1.style({ opacity: 0 }),
+            animations$1.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
+    ])
+};
+/**
+ * @deprecated
+ * \@breaking-change 8.0.0
+ * \@docs-private
+ * @type {?}
+ */
+var fadeInItems = matMenuAnimations.fadeInItems;
+/**
+ * @deprecated
+ * \@breaking-change 8.0.0
+ * \@docs-private
+ * @type {?}
+ */
+var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -37272,7 +37272,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37325,12 +37325,12 @@ exports.ɵc24 = _MatMenuItemMixinBase;
 exports.ɵf24 = MAT_MENU_PANEL;
 exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
+exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
-exports.MatMenuModule = MatMenuModule;
 exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;

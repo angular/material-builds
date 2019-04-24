@@ -9,7 +9,7 @@ import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, ViewContainerRef } from '@angular/core';
-import { MatMenu } from './menu';
+import { MatMenu } from './menu-directive';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 /** Injection token that determines the scroll handling while the menu is open. */
