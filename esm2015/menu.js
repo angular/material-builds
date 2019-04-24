@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, ContentChild, ContentChildren, EventEmitter, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
+import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
+import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, HostListener, ContentChild, ContentChildren, EventEmitter, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
-import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -18,6 +18,66 @@ import { startWith, switchMap, take, delay, filter, takeUntil } from 'rxjs/opera
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
+ * \@docs-private
+ * @type {?}
+ */
+const matMenuAnimations = {
+    /**
+     * This animation controls the menu panel's entry and exit from the page.
+     *
+     * When the menu panel is added to the DOM, it scales in and fades in its border.
+     *
+     * When the menu panel is removed from the DOM, it simply fades out after a brief
+     * delay to display the ripple.
+     */
+    transformMenu: trigger('transformMenu', [
+        state('void', style({
+            opacity: 0,
+            transform: 'scale(0.8)'
+        })),
+        transition('void => enter', group([
+            query('.mat-menu-content', animate('100ms linear', style({ opacity: 1 }))),
+            animate('120ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'scale(1)' })),
+        ])),
+        transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 })))
+    ]),
+    /**
+     * This animation fades in the background color and content of the menu panel
+     * after its containing element is scaled in.
+     */
+    fadeInItems: trigger('fadeInItems', [
+        // TODO(crisbeto): this is inside the `transformMenu`
+        // now. Remove next time we do breaking changes.
+        state('showing', style({ opacity: 1 })),
+        transition('void => *', [
+            style({ opacity: 0 }),
+            animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
+    ])
+};
+/**
+ * @deprecated
+ * \@breaking-change 8.0.0
+ * \@docs-private
+ * @type {?}
+ */
+const fadeInItems = matMenuAnimations.fadeInItems;
+/**
+ * @deprecated
+ * \@breaking-change 8.0.0
+ * \@docs-private
+ * @type {?}
+ */
+const transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -103,66 +163,6 @@ MatMenuContent.ctorParameters = () => [
     { type: ViewContainerRef },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * Animations used by the mat-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
- * \@docs-private
- * @type {?}
- */
-const matMenuAnimations = {
-    /**
-     * This animation controls the menu panel's entry and exit from the page.
-     *
-     * When the menu panel is added to the DOM, it scales in and fades in its border.
-     *
-     * When the menu panel is removed from the DOM, it simply fades out after a brief
-     * delay to display the ripple.
-     */
-    transformMenu: trigger('transformMenu', [
-        state('void', style({
-            opacity: 0,
-            transform: 'scale(0.8)'
-        })),
-        transition('void => enter', group([
-            query('.mat-menu-content', animate('100ms linear', style({ opacity: 1 }))),
-            animate('120ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'scale(1)' })),
-        ])),
-        transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 })))
-    ]),
-    /**
-     * This animation fades in the background color and content of the menu panel
-     * after its containing element is scaled in.
-     */
-    fadeInItems: trigger('fadeInItems', [
-        // TODO(crisbeto): this is inside the `transformMenu`
-        // now. Remove next time we do breaking changes.
-        state('showing', style({ opacity: 1 })),
-        transition('void => *', [
-            style({ opacity: 0 }),
-            animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-        ])
-    ])
-};
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-const fadeInItems = matMenuAnimations.fadeInItems;
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-const transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -313,6 +313,11 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * @param {?} event
      * @return {?}
      */
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
     _checkDisabled(event) {
         if (this.disabled) {
             event.preventDefault();
@@ -323,6 +328,11 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * Emits to the hover stream.
      * @return {?}
      */
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritte.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
     _handleMouseEnter() {
         this._hovered.next(this);
     }
@@ -364,8 +374,6 @@ MatMenuItem.decorators = [
                     '[attr.tabindex]': '_getTabIndex()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.disabled]': 'disabled || null',
-                    '(click)': '_checkDisabled($event)',
-                    '(mouseenter)': '_handleMouseEnter()',
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
@@ -380,7 +388,9 @@ MatMenuItem.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_PANEL,] }, { type: Optional }] }
 ];
 MatMenuItem.propDecorators = {
-    role: [{ type: Input }]
+    role: [{ type: Input }],
+    _checkDisabled: [{ type: HostListener, args: ['click', ['$event'],] }],
+    _handleMouseEnter: [{ type: HostListener, args: ['mouseenter',] }]
 };
 
 /**
@@ -1432,5 +1442,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
 //# sourceMappingURL=menu.js.map
