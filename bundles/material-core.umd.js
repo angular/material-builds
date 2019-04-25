@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-87b2cf6');
+var VERSION = new core.Version('8.0.0-beta.2-fde980c');
 
 /**
  * @fileoverview added by tsickle
@@ -804,7 +804,7 @@ var SUPPORTS_INTL_API;
 // cause IE to throw. These cases are tied to particular versions of Windows and can happen if
 // the consumer is providing a polyfilled `Map`. See:
 // https://github.com/Microsoft/ChakraCore/issues/3189
-// https://github.com/angular/material2/issues/15687
+// https://github.com/angular/components/issues/15687
 try {
     SUPPORTS_INTL_API = typeof Intl != 'undefined';
 }

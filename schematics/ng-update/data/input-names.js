@@ -11,7 +11,7 @@ const schematics_1 = require("@angular/cdk/schematics");
 exports.inputNames = {
     [schematics_1.TargetVersion.V6]: [
         {
-            pr: 'https://github.com/angular/material2/pull/10218',
+            pr: 'https://github.com/angular/components/pull/10218',
             changes: [
                 {
                     replace: 'align',
@@ -23,7 +23,7 @@ exports.inputNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10279',
+            pr: 'https://github.com/angular/components/pull/10279',
             changes: [
                 {
                     replace: 'align',
@@ -35,7 +35,7 @@ exports.inputNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10294',
+            pr: 'https://github.com/angular/components/pull/10294',
             changes: [
                 {
                     replace: 'dividerColor',
@@ -54,7 +54,7 @@ exports.inputNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10309',
+            pr: 'https://github.com/angular/components/pull/10309',
             changes: [
                 {
                     replace: 'mat-dynamic-height',
@@ -66,7 +66,7 @@ exports.inputNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10342',
+            pr: 'https://github.com/angular/components/pull/10342',
             changes: [
                 {
                     replace: 'align',
@@ -78,7 +78,7 @@ exports.inputNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10344',
+            pr: 'https://github.com/angular/components/pull/10344',
             changes: [
                 {
                     replace: 'tooltip-position',
@@ -90,7 +90,7 @@ exports.inputNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10373',
+            pr: 'https://github.com/angular/components/pull/10373',
             changes: [
                 {
                     replace: 'thumb-label',

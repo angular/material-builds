@@ -11,7 +11,7 @@ const schematics_1 = require("@angular/cdk/schematics");
 exports.classNames = {
     [schematics_1.TargetVersion.V6]: [
         {
-            pr: 'https://github.com/angular/material2/pull/10291',
+            pr: 'https://github.com/angular/components/pull/10291',
             changes: [
                 {
                     replace: 'FloatPlaceholderType',

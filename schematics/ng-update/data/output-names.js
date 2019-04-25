@@ -11,7 +11,7 @@ const schematics_1 = require("@angular/cdk/schematics");
 exports.outputNames = {
     [schematics_1.TargetVersion.V6]: [
         {
-            pr: 'https://github.com/angular/material2/pull/10163',
+            pr: 'https://github.com/angular/components/pull/10163',
             changes: [
                 {
                     replace: 'change',
@@ -37,7 +37,7 @@ exports.outputNames = {
             ],
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10279',
+            pr: 'https://github.com/angular/components/pull/10279',
             changes: [
                 {
                     replace: 'align-changed',
@@ -63,7 +63,7 @@ exports.outputNames = {
             ],
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10309',
+            pr: 'https://github.com/angular/components/pull/10309',
             changes: [
                 {
                     replace: 'selectChange',
@@ -75,7 +75,7 @@ exports.outputNames = {
             ],
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10311',
+            pr: 'https://github.com/angular/components/pull/10311',
             changes: [
                 {
                     replace: 'remove',

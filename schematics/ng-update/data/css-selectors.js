@@ -11,7 +11,7 @@ const schematics_1 = require("@angular/cdk/schematics");
 exports.cssSelectors = {
     [schematics_1.TargetVersion.V6]: [
         {
-            pr: 'https://github.com/angular/material2/pull/10296',
+            pr: 'https://github.com/angular/components/pull/10296',
             changes: [
                 {
                     replace: '.mat-form-field-placeholder',
@@ -78,7 +78,7 @@ exports.cssSelectors = {
         // TODO(devversion): this shouldn't be here because it's not a CSS selector. Move into misc
         // rule.
         {
-            pr: 'https://github.com/angular/material2/pull/10430',
+            pr: 'https://github.com/angular/components/pull/10430',
             changes: [
                 {
                     replace: '$mat-font-family',

@@ -11,7 +11,7 @@ const schematics_1 = require("@angular/cdk/schematics");
 exports.propertyNames = {
     [schematics_1.TargetVersion.V6]: [
         {
-            pr: 'https://github.com/angular/material2/pull/10163',
+            pr: 'https://github.com/angular/components/pull/10163',
             changes: [
                 {
                     replace: 'change',
@@ -37,7 +37,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10218',
+            pr: 'https://github.com/angular/components/pull/10218',
             changes: [
                 {
                     replace: 'align',
@@ -49,7 +49,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10253',
+            pr: 'https://github.com/angular/components/pull/10253',
             changes: [
                 {
                     replace: 'extraClasses',
@@ -61,7 +61,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10279',
+            pr: 'https://github.com/angular/components/pull/10279',
             changes: [
                 {
                     replace: 'align',
@@ -94,7 +94,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10293',
+            pr: 'https://github.com/angular/components/pull/10293',
             changes: [
                 {
                     replace: 'shouldPlaceholderFloat',
@@ -106,7 +106,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10294',
+            pr: 'https://github.com/angular/components/pull/10294',
             changes: [
                 {
                     replace: 'dividerColor',
@@ -125,7 +125,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10309',
+            pr: 'https://github.com/angular/components/pull/10309',
             changes: [
                 {
                     replace: 'selectChange',
@@ -144,7 +144,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10311',
+            pr: 'https://github.com/angular/components/pull/10311',
             changes: [
                 {
                     replace: 'destroy',
@@ -163,7 +163,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10342',
+            pr: 'https://github.com/angular/components/pull/10342',
             changes: [
                 {
                     replace: 'align',
@@ -175,7 +175,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10344',
+            pr: 'https://github.com/angular/components/pull/10344',
             changes: [
                 {
                     replace: '_positionDeprecated',
@@ -187,7 +187,7 @@ exports.propertyNames = {
             ]
         },
         {
-            pr: 'https://github.com/angular/material2/pull/10373',
+            pr: 'https://github.com/angular/components/pull/10373',
             changes: [
                 {
                     replace: '_thumbLabelDeprecated',

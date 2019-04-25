@@ -25,7 +25,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.2-87b2cf6');
+const VERSION = new Version('8.0.0-beta.2-fde980c');
 
 /**
  * @fileoverview added by tsickle
@@ -592,7 +592,7 @@ let SUPPORTS_INTL_API;
 // cause IE to throw. These cases are tied to particular versions of Windows and can happen if
 // the consumer is providing a polyfilled `Map`. See:
 // https://github.com/Microsoft/ChakraCore/issues/3189
-// https://github.com/angular/material2/issues/15687
+// https://github.com/angular/components/issues/15687
 try {
     SUPPORTS_INTL_API = typeof Intl != 'undefined';
 }
