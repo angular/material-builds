@@ -26,11 +26,11 @@ export declare class MatSlideToggleChange {
     checked: boolean);
 }
 /** @docs-private */
-export declare class MatSlideToggleBase {
+declare class MatSlideToggleBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatSlideToggleMixinBase: HasTabIndexCtor & CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatSlideToggleBase;
+declare const _MatSlideToggleMixinBase: HasTabIndexCtor & CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
 export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
     private _focusMonitor;
@@ -121,3 +121,4 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
 }
+export {};

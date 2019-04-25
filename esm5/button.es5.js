@@ -39,7 +39,7 @@ var BUTTON_HOST_ATTRIBUTES = [
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatButton.
 /**
  * \@docs-private
@@ -259,5 +259,5 @@ var MatButtonModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatButtonModule, MatButtonBase, _MatButtonMixinBase, MatButton, MatAnchor };
+export { MatButtonModule, MatButton, MatAnchor };
 //# sourceMappingURL=button.es5.js.map

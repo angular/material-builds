@@ -522,7 +522,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to the MatButtonToggle class.
 /**
  * \@docs-private
@@ -798,8 +798,6 @@ exports.MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MAT_BUTTON_TOGGLE_GROUP_VALUE_A
 exports.MatButtonToggleGroupMultiple = MatButtonToggleGroupMultiple;
 exports.MatButtonToggleChange = MatButtonToggleChange;
 exports.MatButtonToggleGroup = MatButtonToggleGroup;
-exports.MatButtonToggleBase = MatButtonToggleBase;
-exports._MatButtonToggleMixinBase = _MatButtonToggleMixinBase;
 exports.MatButtonToggle = MatButtonToggle;
 exports.MatButtonToggleModule = MatButtonToggleModule;
 

@@ -124,12 +124,12 @@ export declare class MatRadioGroup implements AfterContentInit, ControlValueAcce
     setDisabledState(isDisabled: boolean): void;
 }
 /** @docs-private */
-export declare class MatRadioButtonBase {
+declare class MatRadioButtonBase {
     _elementRef: ElementRef;
     disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatRadioButtonMixinBase: CanColorCtor & CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;
+declare const _MatRadioButtonMixinBase: CanColorCtor & CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -204,3 +204,4 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
      */
     _onInputChange(event: Event): void;
 }
+export {};

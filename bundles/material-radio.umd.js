@@ -473,7 +473,7 @@ var MatRadioGroup = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatRadioButton.
 /**
  * \@docs-private
@@ -884,8 +884,6 @@ exports.MatRadioModule = MatRadioModule;
 exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
 exports.MatRadioChange = MatRadioChange;
 exports.MatRadioGroup = MatRadioGroup;
-exports.MatRadioButtonBase = MatRadioButtonBase;
-exports._MatRadioButtonMixinBase = _MatRadioButtonMixinBase;
 exports.MatRadioButton = MatRadioButton;
 
 Object.defineProperty(exports, '__esModule', { value: true });

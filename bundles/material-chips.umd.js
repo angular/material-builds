@@ -63,7 +63,7 @@ MatChipSelectionChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatChip.
 /**
  * \@docs-private
@@ -76,8 +76,6 @@ MatChipBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatChipMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatChipBase)), 'primary');
-/** @type {?} */
-var CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -281,16 +279,18 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // Add class for the different chips
-        for (var _i = 0, CHIP_ATTRIBUTE_NAMES_1 = CHIP_ATTRIBUTE_NAMES; _i < CHIP_ATTRIBUTE_NAMES_1.length; _i++) {
-            var attr = CHIP_ATTRIBUTE_NAMES_1[_i];
-            if (this._elementRef.nativeElement.hasAttribute(attr) ||
-                this._elementRef.nativeElement.tagName.toLowerCase() === attr) {
-                ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add(attr);
-                return;
-            }
+        /** @type {?} */
+        var basicChipAttrName = 'mat-basic-chip';
+        /** @type {?} */
+        var element = (/** @type {?} */ (this._elementRef.nativeElement));
+        if (element.hasAttribute(basicChipAttrName) ||
+            element.tagName.toLowerCase() === basicChipAttrName) {
+            element.classList.add(basicChipAttrName);
+            return;
         }
-        ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add('mat-standard-chip');
+        else {
+            element.classList.add('mat-standard-chip');
+        }
     };
     /**
      * @return {?}
@@ -614,7 +614,7 @@ var MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-optio
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatChipList.
 /**
  * \@docs-private
@@ -2107,13 +2107,9 @@ var MatChipsModule = /** @class */ (function () {
 }());
 
 exports.MatChipsModule = MatChipsModule;
-exports.MatChipListBase = MatChipListBase;
-exports._MatChipListMixinBase = _MatChipListMixinBase;
 exports.MatChipListChange = MatChipListChange;
 exports.MatChipList = MatChipList;
 exports.MatChipSelectionChange = MatChipSelectionChange;
-exports.MatChipBase = MatChipBase;
-exports._MatChipMixinBase = _MatChipMixinBase;
 exports.MatChipAvatar = MatChipAvatar;
 exports.MatChipTrailingIcon = MatChipTrailingIcon;
 exports.MatChip = MatChip;

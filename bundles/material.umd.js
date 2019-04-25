@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-07a16de');
+var VERSION = new core.Version('8.0.0-beta.2-8b5c0f1');
 
 /**
  * @fileoverview added by tsickle
@@ -2417,7 +2417,7 @@ var MatPseudoCheckboxModule = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatOptgroup.
 /**
  * \@docs-private
@@ -3221,7 +3221,7 @@ var outlineGapPadding = 5;
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
-var   /**
+var /**
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
@@ -3996,7 +3996,7 @@ MatAutocompleteSelectedEvent = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatAutocomplete.
 /**
  * \@docs-private
@@ -5220,7 +5220,7 @@ var nextId = 0;
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatBadge.
 /**
  * \@docs-private
@@ -6403,7 +6403,7 @@ var BUTTON_HOST_ATTRIBUTES = [
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatButton.
 /**
  * \@docs-private
@@ -7095,7 +7095,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to the MatButtonToggle class.
 /**
  * \@docs-private
@@ -7708,7 +7708,7 @@ MatCheckboxChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatCheckbox.
 /**
  * \@docs-private
@@ -8349,7 +8349,7 @@ MatChipSelectionChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatChip.
 /**
  * \@docs-private
@@ -8362,8 +8362,6 @@ MatChipBase = /** @class */ (function () {
 }());
 /** @type {?} */
 var _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
-/** @type {?} */
-var CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -8567,16 +8565,18 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // Add class for the different chips
-        for (var _i = 0, CHIP_ATTRIBUTE_NAMES_1 = CHIP_ATTRIBUTE_NAMES; _i < CHIP_ATTRIBUTE_NAMES_1.length; _i++) {
-            var attr = CHIP_ATTRIBUTE_NAMES_1[_i];
-            if (this._elementRef.nativeElement.hasAttribute(attr) ||
-                this._elementRef.nativeElement.tagName.toLowerCase() === attr) {
-                ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add(attr);
-                return;
-            }
+        /** @type {?} */
+        var basicChipAttrName = 'mat-basic-chip';
+        /** @type {?} */
+        var element = (/** @type {?} */ (this._elementRef.nativeElement));
+        if (element.hasAttribute(basicChipAttrName) ||
+            element.tagName.toLowerCase() === basicChipAttrName) {
+            element.classList.add(basicChipAttrName);
+            return;
         }
-        ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add('mat-standard-chip');
+        else {
+            element.classList.add('mat-standard-chip');
+        }
     };
     /**
      * @return {?}
@@ -8900,7 +8900,7 @@ var MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-optio
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatChipList.
 /**
  * \@docs-private
@@ -11944,7 +11944,7 @@ var nextUniqueId$5 = 0;
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatInput.
 /**
  * \@docs-private
@@ -14631,7 +14631,7 @@ var MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatDatepickerContent.
 /**
  * \@docs-private
@@ -19053,7 +19053,7 @@ function iconKey(namespace, name) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatIcon.
 /**
  * \@docs-private
@@ -19616,7 +19616,7 @@ var MatIconModule = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatList.
 /**
  * \@docs-private
@@ -19632,7 +19632,7 @@ var _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatListItem.
 /**
  * \@docs-private
@@ -19910,7 +19910,7 @@ var MatListItem = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var   /**
+var /**
  * \@docs-private
  */
 MatSelectionListBase = /** @class */ (function () {
@@ -19923,7 +19923,7 @@ var _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
-var   /**
+var /**
  * \@docs-private
  */
 MatListOptionBase = /** @class */ (function () {
@@ -21077,7 +21077,7 @@ var MAT_MENU_PANEL = new core.InjectionToken('MAT_MENU_PANEL');
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatMenuItem.
 /**
  * \@docs-private
@@ -22884,7 +22884,7 @@ MatSelectChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSelect.
 /**
  * \@docs-private
@@ -25722,7 +25722,7 @@ PageEvent = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatPaginator.
 /**
  * \@docs-private
@@ -26174,15 +26174,11 @@ var MatPaginatorModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// TODO(josephperrott): Benchpress tests.
-// TODO(josephperrott): Add ARIA attributes for progress bar "for".
 // Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
  */
-var   
-// TODO(josephperrott): Benchpress tests.
-// TODO(josephperrott): Add ARIA attributes for progress bar "for".
+var 
 // Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
@@ -26479,7 +26475,7 @@ var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatProgressSpinner.
 /**
  * \@docs-private
@@ -27260,7 +27256,7 @@ var MatRadioGroup = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatRadioButton.
 /**
  * \@docs-private
@@ -29063,7 +29059,7 @@ MatSlideToggleChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSlideToggle.
 /**
  * \@docs-private
@@ -29593,7 +29589,7 @@ MatSliderChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSlider.
 /**
  * \@docs-private
@@ -31795,7 +31791,7 @@ function getSortInvalidDirectionError(direction) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSort.
 /**
  * \@docs-private
@@ -32173,7 +32169,7 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to the sort header.
 /**
  * \@docs-private
@@ -32632,6 +32628,18 @@ var MatStepHeader = /** @class */ (function (_super) {
     function () {
         this._intlSubscription.unsubscribe();
         this._focusMonitor.stopMonitoring(this._elementRef);
+    };
+    /** Focuses the step header. */
+    /**
+     * Focuses the step header.
+     * @return {?}
+     */
+    MatStepHeader.prototype.focus = /**
+     * Focuses the step header.
+     * @return {?}
+     */
+    function () {
+        this._focusMonitor.focusVia(this._elementRef, 'program');
     };
     /** Returns string label of given step if it is a text label. */
     /**
@@ -34111,7 +34119,7 @@ var MatTabLabel = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatTab.
 /**
  * \@docs-private
@@ -34565,7 +34573,7 @@ var MatTabBody = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
  * \@docs-private
@@ -34666,7 +34674,7 @@ var HEADER_SCROLL_INTERVAL = 100;
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatTabHeader.
 /**
  * \@docs-private
@@ -35467,7 +35475,7 @@ var MAT_TABS_CONFIG = new core.InjectionToken('MAT_TABS_CONFIG');
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatTabGroup.
 /**
  * \@docs-private
@@ -35955,7 +35963,7 @@ var MatTabGroup = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatTabNav.
 /**
  * \@docs-private
@@ -36120,7 +36128,7 @@ var MatTabNav = /** @class */ (function (_super) {
     return MatTabNav;
 }(_MatTabNavMixinBase));
 // Boilerplate for applying mixins to MatTabLink.
-var   
+var 
 // Boilerplate for applying mixins to MatTabLink.
 MatTabLinkBase = /** @class */ (function () {
     function MatTabLinkBase() {
@@ -36281,7 +36289,7 @@ var MatTabsModule = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatToolbar.
 /**
  * \@docs-private
@@ -37065,8 +37073,6 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
-exports.MatAutocompleteBase = MatAutocompleteBase;
-exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
 exports.MatAutocomplete = MatAutocomplete;
 exports.MatAutocompleteModule = MatAutocompleteModule;
@@ -37080,8 +37086,6 @@ exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
 exports.MatAutocompleteOrigin = MatAutocompleteOrigin;
 exports.MatBadgeModule = MatBadgeModule;
-exports.MatBadgeBase = MatBadgeBase;
-exports._MatBadgeMixinBase = _MatBadgeMixinBase;
 exports.MatBadge = MatBadge;
 exports.MatBottomSheetModule = MatBottomSheetModule;
 exports.MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = MAT_BOTTOM_SHEET_DEFAULT_OPTIONS;
@@ -37092,8 +37096,6 @@ exports.MatBottomSheetContainer = MatBottomSheetContainer;
 exports.matBottomSheetAnimations = matBottomSheetAnimations;
 exports.MatBottomSheetRef = MatBottomSheetRef;
 exports.MatButtonModule = MatButtonModule;
-exports.MatButtonBase = MatButtonBase;
-exports._MatButtonMixinBase = _MatButtonMixinBase;
 exports.MatButton = MatButton;
 exports.MatAnchor = MatAnchor;
 exports.MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS;
@@ -37101,8 +37103,6 @@ exports.MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MAT_BUTTON_TOGGLE_GROUP_VALUE_A
 exports.MatButtonToggleGroupMultiple = MatButtonToggleGroupMultiple;
 exports.MatButtonToggleChange = MatButtonToggleChange;
 exports.MatButtonToggleGroup = MatButtonToggleGroup;
-exports.MatButtonToggleBase = MatButtonToggleBase;
-exports._MatButtonToggleMixinBase = _MatButtonToggleMixinBase;
 exports.MatButtonToggle = MatButtonToggle;
 exports.MatButtonToggleModule = MatButtonToggleModule;
 exports.MatCardContent = MatCardContent;
@@ -37123,8 +37123,6 @@ exports.MatCardModule = MatCardModule;
 exports.MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR;
 exports.TransitionCheckState = TransitionCheckState;
 exports.MatCheckboxChange = MatCheckboxChange;
-exports.MatCheckboxBase = MatCheckboxBase;
-exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
 exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
 exports._MatCheckboxRequiredValidatorModule = _MatCheckboxRequiredValidatorModule;
@@ -37132,13 +37130,9 @@ exports.MatCheckboxModule = MatCheckboxModule;
 exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;
 exports.MatChipsModule = MatChipsModule;
-exports.MatChipListBase = MatChipListBase;
-exports._MatChipListMixinBase = _MatChipListMixinBase;
 exports.MatChipListChange = MatChipListChange;
 exports.MatChipList = MatChipList;
 exports.MatChipSelectionChange = MatChipSelectionChange;
-exports.MatChipBase = MatChipBase;
-exports._MatChipMixinBase = _MatChipMixinBase;
 exports.MatChipAvatar = MatChipAvatar;
 exports.MatChipTrailingIcon = MatChipTrailingIcon;
 exports.MatChip = MatChip;
@@ -37180,8 +37174,6 @@ exports._getOptionScrollPosition = _getOptionScrollPosition;
 exports.MatOptionSelectionChange = MatOptionSelectionChange;
 exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
 exports.MatOption = MatOption;
-exports.MatOptgroupBase = MatOptgroupBase;
-exports._MatOptgroupMixinBase = _MatOptgroupMixinBase;
 exports.MatOptgroup = MatOptgroup;
 exports.MAT_LABEL_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
 exports.MatRippleModule = MatRippleModule;
@@ -37214,8 +37206,6 @@ exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER;
-exports.MatDatepickerContentBase = MatDatepickerContentBase;
-exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;
 exports.MatDatepicker = MatDatepicker;
 exports.matDatepickerAnimations = matDatepickerAnimations;
@@ -37261,8 +37251,6 @@ exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
 exports.matExpansionAnimations = matExpansionAnimations;
 exports.MatFormFieldModule = MatFormFieldModule;
 exports.MatError = MatError;
-exports.MatFormFieldBase = MatFormFieldBase;
-exports._MatFormFieldMixinBase = _MatFormFieldMixinBase;
 exports.MAT_FORM_FIELD_DEFAULT_OPTIONS = MAT_FORM_FIELD_DEFAULT_OPTIONS;
 exports.MatFormField = MatFormField;
 exports.MatFormFieldControl = MatFormFieldControl;
@@ -37285,8 +37273,6 @@ exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
 exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
 exports.MatIconModule = MatIconModule;
 exports.MAT_ICON_LOCATION_FACTORY = MAT_ICON_LOCATION_FACTORY;
-exports.MatIconBase = MatIconBase;
-exports._MatIconMixinBase = _MatIconMixinBase;
 exports.MAT_ICON_LOCATION = MAT_ICON_LOCATION;
 exports.MatIcon = MatIcon;
 exports.getMatIconNameNotFoundError = getMatIconNameNotFoundError;
@@ -37297,37 +37283,25 @@ exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.MatIconRegistry = MatIconRegistry;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
 exports.MatTextareaAutosize = MatTextareaAutosize;
-exports.MatInputBase = MatInputBase;
-exports._MatInputMixinBase = _MatInputMixinBase;
 exports.MatInput = MatInput;
 exports.getMatInputUnsupportedTypeError = getMatInputUnsupportedTypeError;
 exports.MatInputModule = MatInputModule;
 exports.MAT_INPUT_VALUE_ACCESSOR = MAT_INPUT_VALUE_ACCESSOR;
 exports.MatListModule = MatListModule;
-exports.MatListBase = MatListBase;
-exports._MatListMixinBase = _MatListMixinBase;
-exports.MatListItemBase = MatListItemBase;
-exports._MatListItemMixinBase = _MatListItemMixinBase;
 exports.MatNavList = MatNavList;
 exports.MatList = MatList;
 exports.MatListAvatarCssMatStyler = MatListAvatarCssMatStyler;
 exports.MatListIconCssMatStyler = MatListIconCssMatStyler;
 exports.MatListSubheaderCssMatStyler = MatListSubheaderCssMatStyler;
 exports.MatListItem = MatListItem;
-exports.MatSelectionListBase = MatSelectionListBase;
-exports._MatSelectionListMixinBase = _MatSelectionListMixinBase;
-exports.MatListOptionBase = MatListOptionBase;
-exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
 exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵd24 = MAT_MENU_PANEL;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
@@ -37340,22 +37314,16 @@ exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
 exports.MatPaginatorModule = MatPaginatorModule;
 exports.PageEvent = PageEvent;
-exports.MatPaginatorBase = MatPaginatorBase;
-exports._MatPaginatorBase = _MatPaginatorBase;
 exports.MatPaginator = MatPaginator;
 exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
 exports.MatPaginatorIntl = MatPaginatorIntl;
 exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
 exports.MatProgressBarModule = MatProgressBarModule;
 exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
-exports.MatProgressBarBase = MatProgressBarBase;
-exports._MatProgressBarMixinBase = _MatProgressBarMixinBase;
 exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
 exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
-exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
-exports._MatProgressSpinnerMixinBase = _MatProgressSpinnerMixinBase;
 exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS;
 exports.MatProgressSpinner = MatProgressSpinner;
 exports.MatSpinner = MatSpinner;
@@ -37363,8 +37331,6 @@ exports.MatRadioModule = MatRadioModule;
 exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
 exports.MatRadioChange = MatRadioChange;
 exports.MatRadioGroup = MatRadioGroup;
-exports.MatRadioButtonBase = MatRadioButtonBase;
-exports._MatRadioButtonMixinBase = _MatRadioButtonMixinBase;
 exports.MatRadioButton = MatRadioButton;
 exports.MatSelectModule = MatSelectModule;
 exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
@@ -37376,8 +37342,6 @@ exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
 exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
-exports.MatSelectBase = MatSelectBase;
-exports._MatSelectMixinBase = _MatSelectMixinBase;
 exports.MatSelectTrigger = MatSelectTrigger;
 exports.MatSelect = MatSelect;
 exports.matSelectAnimations = matSelectAnimations;
@@ -37397,15 +37361,11 @@ exports.matDrawerAnimations = matDrawerAnimations;
 exports.MatSlideToggleModule = MatSlideToggleModule;
 exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MAT_SLIDE_TOGGLE_VALUE_ACCESSOR;
 exports.MatSlideToggleChange = MatSlideToggleChange;
-exports.MatSlideToggleBase = MatSlideToggleBase;
-exports._MatSlideToggleMixinBase = _MatSlideToggleMixinBase;
 exports.MatSlideToggle = MatSlideToggle;
 exports.MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS;
 exports.MatSliderModule = MatSliderModule;
 exports.MAT_SLIDER_VALUE_ACCESSOR = MAT_SLIDER_VALUE_ACCESSOR;
 exports.MatSliderChange = MatSliderChange;
-exports.MatSliderBase = MatSliderBase;
-exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
 exports.MatSnackBarModule = MatSnackBarModule;
 exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY;
@@ -37418,14 +37378,10 @@ exports.MatSnackBarRef = MatSnackBarRef;
 exports.SimpleSnackBar = SimpleSnackBar;
 exports.matSnackBarAnimations = matSnackBarAnimations;
 exports.MatSortModule = MatSortModule;
-exports.MatSortHeaderBase = MatSortHeaderBase;
-exports._MatSortHeaderMixinBase = _MatSortHeaderMixinBase;
 exports.MatSortHeader = MatSortHeader;
 exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
 exports.MatSortHeaderIntl = MatSortHeaderIntl;
 exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
-exports.MatSortBase = MatSortBase;
-exports._MatSortMixinBase = _MatSortMixinBase;
 exports.MatSort = MatSort;
 exports.matSortAnimations = matSortAnimations;
 exports.MatStepperModule = MatStepperModule;
@@ -37460,16 +37416,6 @@ exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
 exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
@@ -37484,14 +37430,10 @@ exports.MatTabContent = MatTabContent;
 exports.MatTabsModule = MatTabsModule;
 exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
-exports.MatTabGroupBase = MatTabGroupBase;
-exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
 exports.MatToolbarModule = MatToolbarModule;
 exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
-exports.MatToolbarBase = MatToolbarBase;
-exports._MatToolbarMixinBase = _MatToolbarMixinBase;
 exports.MatToolbarRow = MatToolbarRow;
 exports.MatToolbar = MatToolbar;
 exports.MatTooltipModule = MatTooltipModule;
@@ -37506,8 +37448,6 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
-exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
 exports.MatTreeNodeDef = MatTreeNodeDef;
 exports.MatNestedTreeNode = MatNestedTreeNode;

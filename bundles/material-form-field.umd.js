@@ -269,7 +269,7 @@ var outlineGapPadding = 5;
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
-var   /**
+var /**
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
@@ -1019,8 +1019,6 @@ var MatFormFieldModule = /** @class */ (function () {
 
 exports.MatFormFieldModule = MatFormFieldModule;
 exports.MatError = MatError;
-exports.MatFormFieldBase = MatFormFieldBase;
-exports._MatFormFieldMixinBase = _MatFormFieldMixinBase;
 exports.MAT_FORM_FIELD_DEFAULT_OPTIONS = MAT_FORM_FIELD_DEFAULT_OPTIONS;
 exports.MatFormField = MatFormField;
 exports.MatFormFieldControl = MatFormFieldControl;

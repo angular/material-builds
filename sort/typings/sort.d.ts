@@ -26,9 +26,9 @@ export interface Sort {
     direction: SortDirection;
 }
 /** @docs-private */
-export declare class MatSortBase {
+declare class MatSortBase {
 }
-export declare const _MatSortMixinBase: HasInitializedCtor & CanDisableCtor & typeof MatSortBase;
+declare const _MatSortMixinBase: HasInitializedCtor & CanDisableCtor & typeof MatSortBase;
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
 export declare class MatSort extends _MatSortMixinBase implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
     /** Collection of all registered sortables that this directive manages. */
@@ -71,3 +71,4 @@ export declare class MatSort extends _MatSortMixinBase implements CanDisable, Ha
     ngOnChanges(): void;
     ngOnDestroy(): void;
 }
+export {};

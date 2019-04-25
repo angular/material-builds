@@ -84,7 +84,7 @@ function getSortInvalidDirectionError(direction) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSort.
 /**
  * \@docs-private
@@ -462,7 +462,7 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to the sort header.
 /**
  * \@docs-private
@@ -839,14 +839,10 @@ var MatSortModule = /** @class */ (function () {
 }());
 
 exports.MatSortModule = MatSortModule;
-exports.MatSortHeaderBase = MatSortHeaderBase;
-exports._MatSortHeaderMixinBase = _MatSortHeaderMixinBase;
 exports.MatSortHeader = MatSortHeader;
 exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
 exports.MatSortHeaderIntl = MatSortHeaderIntl;
 exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
-exports.MatSortBase = MatSortBase;
-exports._MatSortMixinBase = _MatSortMixinBase;
 exports.MatSort = MatSort;
 exports.matSortAnimations = matSortAnimations;
 

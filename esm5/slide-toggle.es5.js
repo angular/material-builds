@@ -62,7 +62,7 @@ MatSlideToggleChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatSlideToggle.
 /**
  * \@docs-private
@@ -551,5 +551,5 @@ var MatSlideToggleModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggleBase, _MatSlideToggleMixinBase, MatSlideToggle, MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS };
+export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggle, MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS };
 //# sourceMappingURL=slide-toggle.es5.js.map

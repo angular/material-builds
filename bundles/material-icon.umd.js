@@ -1060,7 +1060,7 @@ function iconKey(namespace, name) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatIcon.
 /**
  * \@docs-private
@@ -1617,8 +1617,6 @@ var MatIconModule = /** @class */ (function () {
 
 exports.MatIconModule = MatIconModule;
 exports.MAT_ICON_LOCATION_FACTORY = MAT_ICON_LOCATION_FACTORY;
-exports.MatIconBase = MatIconBase;
-exports._MatIconMixinBase = _MatIconMixinBase;
 exports.MAT_ICON_LOCATION = MAT_ICON_LOCATION;
 exports.MatIcon = MatIcon;
 exports.getMatIconNameNotFoundError = getMatIconNameNotFoundError;

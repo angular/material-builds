@@ -2143,7 +2143,7 @@ var MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatDatepickerContent.
 /**
  * \@docs-private
@@ -3551,8 +3551,6 @@ exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER;
-exports.MatDatepickerContentBase = MatDatepickerContentBase;
-exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;
 exports.MatDatepicker = MatDatepicker;
 exports.matDatepickerAnimations = matDatepickerAnimations;

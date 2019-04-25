@@ -7,16 +7,16 @@
  */
 import { ElementRef, EventEmitter, NgZone, AfterViewInit, OnDestroy, InjectionToken } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
-/** @docs-private */
-export declare class MatProgressBarBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
 /** Last animation end data. */
 export interface ProgressAnimationEnd {
     value: number;
 }
-export declare const _MatProgressBarMixinBase: CanColorCtor & typeof MatProgressBarBase;
+/** @docs-private */
+declare class MatProgressBarBase {
+    _elementRef: ElementRef;
+    constructor(_elementRef: ElementRef);
+}
+declare const _MatProgressBarMixinBase: CanColorCtor & typeof MatProgressBarBase;
 /**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -90,3 +90,4 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
     /** Emit an animationEnd event if in determinate or buffer mode. */
     private emitAnimationEnd;
 }
+export {};

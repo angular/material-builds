@@ -336,5 +336,5 @@ MatBadgeModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatBadgeModule, MatBadgeBase, _MatBadgeMixinBase, MatBadge };
+export { MatBadgeModule, MatBadge };
 //# sourceMappingURL=badge.js.map

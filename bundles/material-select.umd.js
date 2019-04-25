@@ -238,7 +238,7 @@ MatSelectChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSelect.
 /**
  * \@docs-private
@@ -2054,8 +2054,6 @@ exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
 exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
-exports.MatSelectBase = MatSelectBase;
-exports._MatSelectMixinBase = _MatSelectMixinBase;
 exports.MatSelectTrigger = MatSelectTrigger;
 exports.MatSelect = MatSelect;
 exports.matSelectAnimations = matSelectAnimations;

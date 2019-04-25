@@ -9,11 +9,11 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { ElementRef, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, CanColorCtor, CanDisableCtor, CanDisableRippleCtor, MatRipple } from '@angular/material/core';
 /** @docs-private */
-export declare class MatButtonBase {
+declare class MatButtonBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatButtonMixinBase: CanDisableRippleCtor & CanDisableCtor & CanColorCtor & typeof MatButtonBase;
+declare const _MatButtonMixinBase: CanDisableRippleCtor & CanDisableCtor & CanColorCtor & typeof MatButtonBase;
 /**
  * Material design button.
  */
@@ -44,3 +44,4 @@ export declare class MatAnchor extends MatButton {
     constructor(focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode: string);
     _haltDisabledEvents(event: Event): void;
 }
+export {};

@@ -19,9 +19,9 @@ import { Platform } from '@angular/cdk/platform';
  */
 export declare type ScrollDirection = 'after' | 'before';
 /** @docs-private */
-export declare class MatTabHeaderBase {
+declare class MatTabHeaderBase {
 }
-export declare const _MatTabHeaderMixinBase: CanDisableRippleCtor & typeof MatTabHeaderBase;
+declare const _MatTabHeaderMixinBase: CanDisableRippleCtor & typeof MatTabHeaderBase;
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -180,3 +180,4 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
      */
     private _scrollTo;
 }
+export {};

@@ -681,8 +681,6 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
     return MatTreeNestedDataSource;
 }(collections.DataSource));
 
-exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
-exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
 exports.MatTreeNodeDef = MatTreeNodeDef;
 exports.MatNestedTreeNode = MatNestedTreeNode;

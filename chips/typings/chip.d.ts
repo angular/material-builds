@@ -32,11 +32,11 @@ export declare class MatChipSelectionChange {
     isUserInput?: boolean);
 }
 /** @docs-private */
-export declare class MatChipBase {
+declare class MatChipBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatChipBase;
+declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatChipBase;
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private
@@ -158,3 +158,4 @@ export declare class MatChipRemove {
     /** Calls the parent chip's public `remove()` method if applicable. */
     _handleClick(event: Event): void;
 }
+export {};

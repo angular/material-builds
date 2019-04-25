@@ -9,9 +9,9 @@ import { AriaDescriber } from '@angular/cdk/a11y';
 import { ElementRef, NgZone, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { CanDisable, CanDisableCtor, ThemePalette } from '@angular/material/core';
 /** @docs-private */
-export declare class MatBadgeBase {
+declare class MatBadgeBase {
 }
-export declare const _MatBadgeMixinBase: CanDisableCtor & typeof MatBadgeBase;
+declare const _MatBadgeMixinBase: CanDisableCtor & typeof MatBadgeBase;
 export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after';
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
 /** Directive to display a text badge. */
@@ -65,3 +65,4 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
 }
+export {};

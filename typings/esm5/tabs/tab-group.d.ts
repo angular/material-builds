@@ -26,11 +26,11 @@ export interface MatTabsConfig {
 /** Injection token that can be used to provide the default options the tabs module. */
 export declare const MAT_TABS_CONFIG: InjectionToken<{}>;
 /** @docs-private */
-export declare class MatTabGroupBase {
+declare class MatTabGroupBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeof MatTabGroupBase;
+declare const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeof MatTabGroupBase;
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -111,3 +111,4 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Retrieves the tabindex for the tab. */
     _getTabIndex(tab: MatTab, idx: number): number | null;
 }
+export {};

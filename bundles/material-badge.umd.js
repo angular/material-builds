@@ -50,7 +50,7 @@ var nextId = 0;
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatBadge.
 /**
  * \@docs-private
@@ -434,8 +434,6 @@ var MatBadgeModule = /** @class */ (function () {
 }());
 
 exports.MatBadgeModule = MatBadgeModule;
-exports.MatBadgeBase = MatBadgeBase;
-exports._MatBadgeMixinBase = _MatBadgeMixinBase;
 exports.MatBadge = MatBadge;
 
 Object.defineProperty(exports, '__esModule', { value: true });

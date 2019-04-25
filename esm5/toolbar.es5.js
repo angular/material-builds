@@ -19,7 +19,7 @@ import { mixinColor, MatCommonModule } from '@angular/material/core';
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatToolbar.
 /**
  * \@docs-private
@@ -160,5 +160,5 @@ var MatToolbarModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar };
+export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarRow, MatToolbar };
 //# sourceMappingURL=toolbar.es5.js.map

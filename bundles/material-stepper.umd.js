@@ -124,6 +124,18 @@ var MatStepHeader = /** @class */ (function (_super) {
         this._intlSubscription.unsubscribe();
         this._focusMonitor.stopMonitoring(this._elementRef);
     };
+    /** Focuses the step header. */
+    /**
+     * Focuses the step header.
+     * @return {?}
+     */
+    MatStepHeader.prototype.focus = /**
+     * Focuses the step header.
+     * @return {?}
+     */
+    function () {
+        this._focusMonitor.focusVia(this._elementRef, 'program');
+    };
     /** Returns string label of given step if it is a text label. */
     /**
      * Returns string label of given step if it is a text label.

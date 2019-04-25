@@ -11,9 +11,9 @@ import { CanDisable, CanDisableCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatTabLabel } from './tab-label';
 /** @docs-private */
-export declare class MatTabBase {
+declare class MatTabBase {
 }
-export declare const _MatTabMixinBase: CanDisableCtor & typeof MatTabBase;
+declare const _MatTabMixinBase: CanDisableCtor & typeof MatTabBase;
 export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
@@ -58,3 +58,4 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     ngOnDestroy(): void;
     ngOnInit(): void;
 }
+export {};

@@ -8,9 +8,9 @@
 import { ElementRef } from '@angular/core';
 import { CanDisable, CanDisableCtor } from '@angular/material/core';
 /** @docs-private */
-export declare class MatTabLabelWrapperBase {
+declare class MatTabLabelWrapperBase {
 }
-export declare const _MatTabLabelWrapperMixinBase: CanDisableCtor & typeof MatTabLabelWrapperBase;
+declare const _MatTabLabelWrapperMixinBase: CanDisableCtor & typeof MatTabLabelWrapperBase;
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private
@@ -23,3 +23,4 @@ export declare class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase imp
     getOffsetLeft(): number;
     getOffsetWidth(): number;
 }
+export {};

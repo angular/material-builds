@@ -119,7 +119,7 @@ PageEvent = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatPaginator.
 /**
  * \@docs-private
@@ -577,5 +577,5 @@ var MatPaginatorModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatPaginatorModule, PageEvent, MatPaginatorBase, _MatPaginatorBase, MatPaginator, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER };
+export { MatPaginatorModule, PageEvent, MatPaginator, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER };
 //# sourceMappingURL=paginator.es5.js.map

@@ -144,7 +144,7 @@ PageEvent = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatPaginator.
 /**
  * \@docs-private
@@ -594,8 +594,6 @@ var MatPaginatorModule = /** @class */ (function () {
 
 exports.MatPaginatorModule = MatPaginatorModule;
 exports.PageEvent = PageEvent;
-exports.MatPaginatorBase = MatPaginatorBase;
-exports._MatPaginatorBase = _MatPaginatorBase;
 exports.MatPaginator = MatPaginator;
 exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
 exports.MatPaginatorIntl = MatPaginatorIntl;

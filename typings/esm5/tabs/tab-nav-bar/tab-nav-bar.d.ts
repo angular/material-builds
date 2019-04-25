@@ -13,11 +13,11 @@ import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, C
 import { MatInkBar } from '../ink-bar';
 import { FocusMonitor } from '@angular/cdk/a11y';
 /** @docs-private */
-export declare class MatTabNavBase {
+declare class MatTabNavBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabNavMixinBase: CanDisableRippleCtor & CanColorCtor & typeof MatTabNavBase;
+declare const _MatTabNavMixinBase: CanDisableRippleCtor & CanColorCtor & typeof MatTabNavBase;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -50,9 +50,9 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     /** Aligns the ink bar to the active link. */
     _alignInkBar(): void;
 }
-export declare class MatTabLinkBase {
+declare class MatTabLinkBase {
 }
-export declare const _MatTabLinkMixinBase: HasTabIndexCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatTabLinkBase;
+declare const _MatTabLinkMixinBase: HasTabIndexCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatTabLinkBase;
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
@@ -81,3 +81,4 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, _focusMonitor: FocusMonitor);
     ngOnDestroy(): void;
 }
+export {};

@@ -33,7 +33,7 @@ var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatProgressSpinner.
 /**
  * \@docs-private
@@ -391,5 +391,5 @@ var MatProgressSpinnerModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatProgressSpinnerModule, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinner, MatSpinner };
+export { MatProgressSpinnerModule, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinner, MatSpinner };
 //# sourceMappingURL=progress-spinner.es5.js.map

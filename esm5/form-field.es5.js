@@ -247,7 +247,7 @@ var outlineGapPadding = 5;
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
-var  /**
+var /**
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
@@ -1005,5 +1005,5 @@ var MatFormFieldModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
+export { MatFormFieldModule, MatError, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
 //# sourceMappingURL=form-field.es5.js.map

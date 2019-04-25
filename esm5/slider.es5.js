@@ -69,7 +69,7 @@ MatSliderChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatSlider.
 /**
  * \@docs-private
@@ -1237,5 +1237,5 @@ var MatSliderModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSliderBase, _MatSliderMixinBase, MatSlider };
+export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSlider };
 //# sourceMappingURL=slider.es5.js.map

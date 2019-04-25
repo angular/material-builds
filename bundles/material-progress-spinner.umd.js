@@ -60,7 +60,7 @@ var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatProgressSpinner.
 /**
  * \@docs-private
@@ -410,8 +410,6 @@ var MatProgressSpinnerModule = /** @class */ (function () {
 
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
-exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
-exports._MatProgressSpinnerMixinBase = _MatProgressSpinnerMixinBase;
 exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS;
 exports.MatProgressSpinner = MatProgressSpinner;
 exports.MatSpinner = MatSpinner;

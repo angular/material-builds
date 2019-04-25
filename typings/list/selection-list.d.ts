@@ -12,13 +12,13 @@ import { CanDisableRipple, CanDisableRippleCtor, MatLine, ThemePalette } from '@
 import { ControlValueAccessor } from '@angular/forms';
 import { MatListAvatarCssMatStyler, MatListIconCssMatStyler } from './list';
 /** @docs-private */
-export declare class MatSelectionListBase {
+declare class MatSelectionListBase {
 }
-export declare const _MatSelectionListMixinBase: CanDisableRippleCtor & typeof MatSelectionListBase;
+declare const _MatSelectionListMixinBase: CanDisableRippleCtor & typeof MatSelectionListBase;
 /** @docs-private */
-export declare class MatListOptionBase {
+declare class MatListOptionBase {
 }
-export declare const _MatListOptionMixinBase: CanDisableRippleCtor & typeof MatListOptionBase;
+declare const _MatListOptionMixinBase: CanDisableRippleCtor & typeof MatListOptionBase;
 /** @docs-private */
 export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 /** Change event that is being fired whenever the selected state of an option changes. */
@@ -181,3 +181,4 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     /** Marks all the options to be checked in the next change detection run. */
     private _markOptionsForCheck;
 }
+export {};

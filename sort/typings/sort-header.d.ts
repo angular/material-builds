@@ -11,9 +11,9 @@ import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
 import { MatSortHeaderIntl } from './sort-header-intl';
 /** @docs-private */
-export declare class MatSortHeaderBase {
+declare class MatSortHeaderBase {
 }
-export declare const _MatSortHeaderMixinBase: CanDisableCtor & typeof MatSortHeaderBase;
+declare const _MatSortHeaderMixinBase: CanDisableCtor & typeof MatSortHeaderBase;
 /**
  * Valid positions for the arrow to be in for its opacity and translation. If the state is a
  * sort direction, the position of the arrow will be above/below and opacity 0. If the state is

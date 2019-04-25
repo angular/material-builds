@@ -86,7 +86,7 @@ MatSlideToggleChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSlideToggle.
 /**
  * \@docs-private
@@ -568,8 +568,6 @@ var MatSlideToggleModule = /** @class */ (function () {
 exports.MatSlideToggleModule = MatSlideToggleModule;
 exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MAT_SLIDE_TOGGLE_VALUE_ACCESSOR;
 exports.MatSlideToggleChange = MatSlideToggleChange;
-exports.MatSlideToggleBase = MatSlideToggleBase;
-exports._MatSlideToggleMixinBase = _MatSlideToggleMixinBase;
 exports.MatSlideToggle = MatSlideToggle;
 exports.MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS;
 

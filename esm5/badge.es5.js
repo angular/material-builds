@@ -22,7 +22,7 @@ var nextId = 0;
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatBadge.
 /**
  * \@docs-private
@@ -415,5 +415,5 @@ var MatBadgeModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatBadgeModule, MatBadgeBase, _MatBadgeMixinBase, MatBadge };
+export { MatBadgeModule, MatBadge };
 //# sourceMappingURL=badge.es5.js.map

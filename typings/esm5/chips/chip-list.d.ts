@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
 import { MatChipTextControl } from './chip-text-control';
 /** @docs-private */
-export declare class MatChipListBase {
+declare class MatChipListBase {
     _defaultErrorStateMatcher: ErrorStateMatcher;
     _parentForm: NgForm;
     _parentFormGroup: FormGroupDirective;
@@ -26,7 +26,7 @@ export declare class MatChipListBase {
     /** @docs-private */
     ngControl: NgControl);
 }
-export declare const _MatChipListMixinBase: CanUpdateErrorStateCtor & typeof MatChipListBase;
+declare const _MatChipListMixinBase: CanUpdateErrorStateCtor & typeof MatChipListBase;
 /** Change event object that is emitted when the chip list value has changed. */
 export declare class MatChipListChange {
     /** Chip list that emitted the event. */
@@ -261,3 +261,4 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Syncs the list's state with the individual chips. */
     private _syncChipsState;
 }
+export {};

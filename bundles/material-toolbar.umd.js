@@ -48,7 +48,7 @@ function __extends(d, b) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatToolbar.
 /**
  * \@docs-private
@@ -181,8 +181,6 @@ var MatToolbarModule = /** @class */ (function () {
 
 exports.MatToolbarModule = MatToolbarModule;
 exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
-exports.MatToolbarBase = MatToolbarBase;
-exports._MatToolbarMixinBase = _MatToolbarMixinBase;
 exports.MatToolbarRow = MatToolbarRow;
 exports.MatToolbar = MatToolbar;
 

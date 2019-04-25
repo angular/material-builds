@@ -26,11 +26,11 @@ export declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 };
 /** @docs-private */
-export declare class MatDatepickerContentBase {
+declare class MatDatepickerContentBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepickerContentBase;
+declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepickerContentBase;
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -159,3 +159,4 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     /** Passes the current theme color along to the calendar overlay. */
     private _setColor;
 }
+export {};

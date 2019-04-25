@@ -11,11 +11,11 @@ import { CanColor, CanColorCtor } from '@angular/material/core';
 /** Possible mode for a progress spinner. */
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /** @docs-private */
-export declare class MatProgressSpinnerBase {
+declare class MatProgressSpinnerBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatProgressSpinnerMixinBase: CanColorCtor & typeof MatProgressSpinnerBase;
+declare const _MatProgressSpinnerMixinBase: CanColorCtor & typeof MatProgressSpinnerBase;
 /** Default `mat-progress-spinner` options that can be overridden. */
 export interface MatProgressSpinnerDefaultOptions {
     /** Diameter of the spinner. */
@@ -84,3 +84,4 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
 export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
 }
+export {};

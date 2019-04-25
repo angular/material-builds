@@ -232,7 +232,7 @@ var MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatMenuItem.
 /**
  * \@docs-private
@@ -1856,5 +1856,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_PANEL as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
 //# sourceMappingURL=menu.es5.js.map

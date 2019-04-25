@@ -13,7 +13,7 @@ import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from 
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 /** @docs-private */
-export declare class MatInputBase {
+declare class MatInputBase {
     _defaultErrorStateMatcher: ErrorStateMatcher;
     _parentForm: NgForm;
     _parentFormGroup: FormGroupDirective;
@@ -23,7 +23,7 @@ export declare class MatInputBase {
     /** @docs-private */
     ngControl: NgControl);
 }
-export declare const _MatInputMixinBase: CanUpdateErrorStateCtor & typeof MatInputBase;
+declare const _MatInputMixinBase: CanUpdateErrorStateCtor & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
@@ -140,3 +140,4 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      */
     onContainerClick(): void;
 }
+export {};

@@ -9,11 +9,11 @@ import { ElementRef, OnChanges, OnInit, SimpleChanges, InjectionToken, OnDestroy
 import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
-export declare class MatIconBase {
+declare class MatIconBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatIconMixinBase: CanColorCtor & typeof MatIconBase;
+declare const _MatIconMixinBase: CanColorCtor & typeof MatIconBase;
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -129,3 +129,4 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      */
     private _cacheChildrenWithExternalReferences;
 }
+export {};

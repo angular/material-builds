@@ -44,15 +44,11 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// TODO(josephperrott): Benchpress tests.
-// TODO(josephperrott): Add ARIA attributes for progress bar "for".
 // Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
  */
-var   
-// TODO(josephperrott): Benchpress tests.
-// TODO(josephperrott): Add ARIA attributes for progress bar "for".
+var 
 // Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
@@ -331,8 +327,6 @@ var MatProgressBarModule = /** @class */ (function () {
 
 exports.MatProgressBarModule = MatProgressBarModule;
 exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
-exports.MatProgressBarBase = MatProgressBarBase;
-exports._MatProgressBarMixinBase = _MatProgressBarMixinBase;
 exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
 exports.MatProgressBar = MatProgressBar;
 

@@ -932,5 +932,5 @@ MatSliderModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSliderBase, _MatSliderMixinBase, MatSlider };
+export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSlider };
 //# sourceMappingURL=slider.js.map

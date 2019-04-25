@@ -67,7 +67,7 @@ MatAutocompleteSelectedEvent = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatAutocomplete.
 /**
  * \@docs-private
@@ -1283,8 +1283,6 @@ var MatAutocompleteModule = /** @class */ (function () {
 
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
-exports.MatAutocompleteBase = MatAutocompleteBase;
-exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
 exports.MatAutocomplete = MatAutocomplete;
 exports.MatAutocompleteModule = MatAutocompleteModule;

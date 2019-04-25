@@ -155,7 +155,7 @@ var nextUniqueId = 0;
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatInput.
 /**
  * \@docs-private
@@ -749,5 +749,5 @@ var MatInputModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
+export { MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.es5.js.map

@@ -16,8 +16,6 @@ import { DOCUMENT, CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// TODO(josephperrott): Benchpress tests.
-// TODO(josephperrott): Add ARIA attributes for progress bar "for".
 // Boilerplate for applying mixins to MatProgressBar.
 /**
  * \@docs-private
@@ -267,5 +265,5 @@ MatProgressBarModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatProgressBarModule, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBarBase, _MatProgressBarMixinBase, MAT_PROGRESS_BAR_LOCATION, MatProgressBar };
+export { MatProgressBarModule, MAT_PROGRESS_BAR_LOCATION_FACTORY, MAT_PROGRESS_BAR_LOCATION, MatProgressBar };
 //# sourceMappingURL=progress-bar.js.map

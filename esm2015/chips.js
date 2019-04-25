@@ -51,8 +51,6 @@ class MatChipBase {
 }
 /** @type {?} */
 const _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
-/** @type {?} */
-const CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -211,15 +209,18 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     _addHostClassName() {
-        // Add class for the different chips
-        for (const attr of CHIP_ATTRIBUTE_NAMES) {
-            if (this._elementRef.nativeElement.hasAttribute(attr) ||
-                this._elementRef.nativeElement.tagName.toLowerCase() === attr) {
-                ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add(attr);
-                return;
-            }
+        /** @type {?} */
+        const basicChipAttrName = 'mat-basic-chip';
+        /** @type {?} */
+        const element = (/** @type {?} */ (this._elementRef.nativeElement));
+        if (element.hasAttribute(basicChipAttrName) ||
+            element.tagName.toLowerCase() === basicChipAttrName) {
+            element.classList.add(basicChipAttrName);
+            return;
         }
-        ((/** @type {?} */ (this._elementRef.nativeElement))).classList.add('mat-standard-chip');
+        else {
+            element.classList.add('mat-standard-chip');
+        }
     }
     /**
      * @return {?}
@@ -1567,5 +1568,5 @@ MatChipsModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput, MAT_CHIPS_DEFAULT_OPTIONS };
+export { MatChipsModule, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput, MAT_CHIPS_DEFAULT_OPTIONS };
 //# sourceMappingURL=chips.js.map

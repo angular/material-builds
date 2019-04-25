@@ -26,7 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatList.
 /**
  * \@docs-private
@@ -42,7 +42,7 @@ var _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatListItem.
 /**
  * \@docs-private
@@ -320,7 +320,7 @@ var MatListItem = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var  /**
+var /**
  * \@docs-private
  */
 MatSelectionListBase = /** @class */ (function () {
@@ -333,7 +333,7 @@ var _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
-var  /**
+var /**
  * \@docs-private
  */
 MatListOptionBase = /** @class */ (function () {
@@ -1285,5 +1285,5 @@ var MatListModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList };
+export { MatListModule, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList };
 //# sourceMappingURL=list.es5.js.map

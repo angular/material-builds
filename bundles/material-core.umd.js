@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-07a16de');
+var VERSION = new core.Version('8.0.0-beta.2-8b5c0f1');
 
 /**
  * @fileoverview added by tsickle
@@ -2417,7 +2417,7 @@ var MatPseudoCheckboxModule = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatOptgroup.
 /**
  * \@docs-private
@@ -3026,8 +3026,6 @@ exports._getOptionScrollPosition = _getOptionScrollPosition;
 exports.MatOptionSelectionChange = MatOptionSelectionChange;
 exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
 exports.MatOption = MatOption;
-exports.MatOptgroupBase = MatOptgroupBase;
-exports._MatOptgroupMixinBase = _MatOptgroupMixinBase;
 exports.MatOptgroup = MatOptgroup;
 exports.MAT_LABEL_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
 exports.MatRippleModule = MatRippleModule;

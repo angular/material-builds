@@ -179,7 +179,7 @@ var nextUniqueId = 0;
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatInput.
 /**
  * \@docs-private
@@ -764,8 +764,6 @@ var MatInputModule = /** @class */ (function () {
 }());
 
 exports.MatTextareaAutosize = MatTextareaAutosize;
-exports.MatInputBase = MatInputBase;
-exports._MatInputMixinBase = _MatInputMixinBase;
 exports.MatInput = MatInput;
 exports.getMatInputUnsupportedTypeError = getMatInputUnsupportedTypeError;
 exports.MatInputModule = MatInputModule;

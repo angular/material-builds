@@ -21,7 +21,7 @@ import { NgControl } from '@angular/forms';
  * Boilerplate for applying mixins to MatFormField.
  * @docs-private
  */
-export declare class MatFormFieldBase {
+declare class MatFormFieldBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
@@ -29,7 +29,7 @@ export declare class MatFormFieldBase {
  * Base class to which we're applying the form field mixins.
  * @docs-private
  */
-export declare const _MatFormFieldMixinBase: CanColorCtor & typeof MatFormFieldBase;
+declare const _MatFormFieldMixinBase: CanColorCtor & typeof MatFormFieldBase;
 /** Possible appearance styles for the form field. */
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 /**
@@ -160,3 +160,4 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     /** Gets the start end of the rect considering the current directionality. */
     private _getStartEnd;
 }
+export {};

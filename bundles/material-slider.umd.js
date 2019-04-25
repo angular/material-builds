@@ -91,7 +91,7 @@ MatSliderChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatSlider.
 /**
  * \@docs-private
@@ -1252,8 +1252,6 @@ var MatSliderModule = /** @class */ (function () {
 exports.MatSliderModule = MatSliderModule;
 exports.MAT_SLIDER_VALUE_ACCESSOR = MAT_SLIDER_VALUE_ACCESSOR;
 exports.MatSliderChange = MatSliderChange;
-exports.MatSliderBase = MatSliderBase;
-exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
 
 Object.defineProperty(exports, '__esModule', { value: true });

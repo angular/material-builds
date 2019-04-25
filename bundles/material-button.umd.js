@@ -67,7 +67,7 @@ var BUTTON_HOST_ATTRIBUTES = [
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatButton.
 /**
  * \@docs-private
@@ -278,8 +278,6 @@ var MatButtonModule = /** @class */ (function () {
 }());
 
 exports.MatButtonModule = MatButtonModule;
-exports.MatButtonBase = MatButtonBase;
-exports._MatButtonMixinBase = _MatButtonMixinBase;
 exports.MatButton = MatButton;
 exports.MatAnchor = MatAnchor;
 

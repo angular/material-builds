@@ -48,7 +48,7 @@ function __extends(d, b) {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatList.
 /**
  * \@docs-private
@@ -64,7 +64,7 @@ var _MatListMixinBase = core$1.mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatListItem.
 /**
  * \@docs-private
@@ -342,7 +342,7 @@ var MatListItem = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var   /**
+var /**
  * \@docs-private
  */
 MatSelectionListBase = /** @class */ (function () {
@@ -355,7 +355,7 @@ var _MatSelectionListMixinBase = core$1.mixinDisableRipple(MatSelectionListBase)
 /**
  * \@docs-private
  */
-var   /**
+var /**
  * \@docs-private
  */
 MatListOptionBase = /** @class */ (function () {
@@ -1298,20 +1298,12 @@ var MatListModule = /** @class */ (function () {
 }());
 
 exports.MatListModule = MatListModule;
-exports.MatListBase = MatListBase;
-exports._MatListMixinBase = _MatListMixinBase;
-exports.MatListItemBase = MatListItemBase;
-exports._MatListItemMixinBase = _MatListItemMixinBase;
 exports.MatNavList = MatNavList;
 exports.MatList = MatList;
 exports.MatListAvatarCssMatStyler = MatListAvatarCssMatStyler;
 exports.MatListIconCssMatStyler = MatListIconCssMatStyler;
 exports.MatListSubheaderCssMatStyler = MatListSubheaderCssMatStyler;
 exports.MatListItem = MatListItem;
-exports.MatSelectionListBase = MatSelectionListBase;
-exports._MatSelectionListMixinBase = _MatSelectionListMixinBase;
-exports.MatListOptionBase = MatListOptionBase;
-exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;

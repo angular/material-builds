@@ -139,5 +139,5 @@ MatToolbarModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar };
+export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarRow, MatToolbar };
 //# sourceMappingURL=toolbar.js.map

@@ -57,7 +57,7 @@ function getSortInvalidDirectionError(direction) {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatSort.
 /**
  * \@docs-private
@@ -435,7 +435,7 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to the sort header.
 /**
  * \@docs-private
@@ -826,5 +826,5 @@ var MatSortModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations };
+export { MatSortModule, MatSortHeader, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER, MatSort, matSortAnimations };
 //# sourceMappingURL=sort.es5.js.map

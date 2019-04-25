@@ -9,13 +9,13 @@ import { AfterContentInit, ElementRef, QueryList, OnChanges, OnDestroy, ChangeDe
 import { CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** @docs-private */
-export declare class MatListBase {
+declare class MatListBase {
 }
-export declare const _MatListMixinBase: CanDisableRippleCtor & typeof MatListBase;
+declare const _MatListMixinBase: CanDisableRippleCtor & typeof MatListBase;
 /** @docs-private */
-export declare class MatListItemBase {
+declare class MatListItemBase {
 }
-export declare const _MatListItemMixinBase: CanDisableRippleCtor & typeof MatListItemBase;
+declare const _MatListItemMixinBase: CanDisableRippleCtor & typeof MatListItemBase;
 export declare class MatNavList extends _MatListMixinBase implements CanDisableRipple, OnChanges, OnDestroy {
     /** Emits when the state of the list changes. */
     _stateChanges: Subject<void>;
@@ -66,3 +66,4 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
 }
+export {};

@@ -98,7 +98,7 @@ MatCheckboxChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatCheckbox.
 /**
  * \@docs-private
@@ -719,8 +719,6 @@ var MatCheckboxModule = /** @class */ (function () {
 exports.MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR;
 exports.TransitionCheckState = TransitionCheckState;
 exports.MatCheckboxChange = MatCheckboxChange;
-exports.MatCheckboxBase = MatCheckboxBase;
-exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
 exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
 exports._MatCheckboxRequiredValidatorModule = _MatCheckboxRequiredValidatorModule;

@@ -66,7 +66,7 @@ export declare class MatSelectChange {
     value: any);
 }
 /** @docs-private */
-export declare class MatSelectBase {
+declare class MatSelectBase {
     _elementRef: ElementRef;
     _defaultErrorStateMatcher: ErrorStateMatcher;
     _parentForm: NgForm;
@@ -74,7 +74,7 @@ export declare class MatSelectBase {
     ngControl: NgControl;
     constructor(_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
 }
-export declare const _MatSelectMixinBase: CanDisableCtor & HasTabIndexCtor & CanDisableRippleCtor & CanUpdateErrorStateCtor & typeof MatSelectBase;
+declare const _MatSelectMixinBase: CanDisableCtor & HasTabIndexCtor & CanDisableRippleCtor & CanUpdateErrorStateCtor & typeof MatSelectBase;
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -397,3 +397,4 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      */
     readonly shouldLabelFloat: boolean;
 }
+export {};

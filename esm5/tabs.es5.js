@@ -199,7 +199,7 @@ var MatTabLabel = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatTab.
 /**
  * \@docs-private
@@ -653,7 +653,7 @@ var MatTabBody = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
  * \@docs-private
@@ -754,7 +754,7 @@ var HEADER_SCROLL_INTERVAL = 100;
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatTabHeader.
 /**
  * \@docs-private
@@ -1555,7 +1555,7 @@ var MAT_TABS_CONFIG = new InjectionToken('MAT_TABS_CONFIG');
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatTabGroup.
 /**
  * \@docs-private
@@ -2043,7 +2043,7 @@ var MatTabGroup = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var  
+var 
 // Boilerplate for applying mixins to MatTabNav.
 /**
  * \@docs-private
@@ -2208,7 +2208,7 @@ var MatTabNav = /** @class */ (function (_super) {
     return MatTabNav;
 }(_MatTabNavMixinBase));
 // Boilerplate for applying mixins to MatTabLink.
-var  
+var 
 // Boilerplate for applying mixins to MatTabLink.
 MatTabLinkBase = /** @class */ (function () {
     function MatTabLinkBase() {
@@ -2376,5 +2376,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23 };
 //# sourceMappingURL=tabs.es5.js.map

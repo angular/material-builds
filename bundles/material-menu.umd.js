@@ -252,7 +252,7 @@ var MAT_MENU_PANEL = new core.InjectionToken('MAT_MENU_PANEL');
 /**
  * \@docs-private
  */
-var   
+var 
 // Boilerplate for applying mixins to MatMenuItem.
 /**
  * \@docs-private
@@ -1872,11 +1872,9 @@ exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
 exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵd24 = MAT_MENU_PANEL;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -11,9 +11,9 @@ import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor } fr
 import { Subject } from 'rxjs';
 import { MatMenuPanel } from './menu-panel';
 /** @docs-private */
-export declare class MatMenuItemBase {
+declare class MatMenuItemBase {
 }
-export declare const _MatMenuItemMixinBase: CanDisableRippleCtor & CanDisableCtor & typeof MatMenuItemBase;
+declare const _MatMenuItemMixinBase: CanDisableRippleCtor & CanDisableCtor & typeof MatMenuItemBase;
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
@@ -46,3 +46,4 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     /** Gets the label to be used when determining whether the option should be focused. */
     getLabel(): string;
 }
+export {};

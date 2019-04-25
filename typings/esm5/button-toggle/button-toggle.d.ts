@@ -127,9 +127,9 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _selectValue;
 }
 /** @docs-private */
-export declare class MatButtonToggleBase {
+declare class MatButtonToggleBase {
 }
-export declare const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase;
+declare const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase;
 /** Single button inside of a toggle group. */
 export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;
@@ -185,3 +185,4 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
      */
     _markForCheck(): void;
 }
+export {};

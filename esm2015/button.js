@@ -230,5 +230,5 @@ MatButtonModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatButtonModule, MatButtonBase, _MatButtonMixinBase, MatButton, MatAnchor };
+export { MatButtonModule, MatButton, MatAnchor };
 //# sourceMappingURL=button.js.map
