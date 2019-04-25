@@ -31,7 +31,8 @@ export interface MatMenuDefaultOptions {
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
 /** @docs-private */
 export declare function MAT_MENU_DEFAULT_OPTIONS_FACTORY(): MatMenuDefaultOptions;
-export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
+/** Base class with all of the `MatMenu` functionality. */
+export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
     private _ngZone;
     private _defaultOptions;
@@ -156,4 +157,8 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     /** Callback that is invoked when the panel animation completes. */
     _onAnimationDone(event: AnimationEvent): void;
     _onAnimationStart(event: AnimationEvent): void;
+}
+export declare class MatMenu extends _MatMenuBase {
+}
+export declare class _MatMenu extends MatMenu {
 }

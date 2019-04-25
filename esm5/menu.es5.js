@@ -46,7 +46,9 @@ var matMenuAnimations = {
             transform: 'scale(0.8)'
         })),
         transition('void => enter', group([
-            query('.mat-menu-content', animate('100ms linear', style({ opacity: 1 }))),
+            query('.mat-menu-content, .mat-mdc-menu-content', animate('100ms linear', style({
+                opacity: 1
+            }))),
             animate('120ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'scale(1)' })),
         ])),
         transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 })))
@@ -496,8 +498,12 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
  * @type {?}
  */
 var MAT_MENU_BASE_ELEVATION = 4;
-var MatMenu = /** @class */ (function () {
-    function MatMenu(_elementRef, _ngZone, _defaultOptions) {
+/**
+ * Base class with all of the `MatMenu` functionality.
+ */
+// tslint:disable-next-line:class-name
+var _MatMenuBase = /** @class */ (function () {
+    function _MatMenuBase(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
         this._defaultOptions = _defaultOptions;
@@ -544,7 +550,7 @@ var MatMenu = /** @class */ (function () {
          */
         this.close = this.closed;
     }
-    Object.defineProperty(MatMenu.prototype, "xPosition", {
+    Object.defineProperty(_MatMenuBase.prototype, "xPosition", {
         /** Position of the menu in the X axis. */
         get: /**
          * Position of the menu in the X axis.
@@ -565,7 +571,7 @@ var MatMenu = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatMenu.prototype, "yPosition", {
+    Object.defineProperty(_MatMenuBase.prototype, "yPosition", {
         /** Position of the menu in the Y axis. */
         get: /**
          * Position of the menu in the Y axis.
@@ -586,7 +592,7 @@ var MatMenu = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatMenu.prototype, "overlapTrigger", {
+    Object.defineProperty(_MatMenuBase.prototype, "overlapTrigger", {
         /** Whether the menu should overlap its trigger. */
         get: /**
          * Whether the menu should overlap its trigger.
@@ -603,7 +609,7 @@ var MatMenu = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatMenu.prototype, "hasBackdrop", {
+    Object.defineProperty(_MatMenuBase.prototype, "hasBackdrop", {
         /** Whether the menu has a backdrop. */
         get: /**
          * Whether the menu has a backdrop.
@@ -620,7 +626,7 @@ var MatMenu = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatMenu.prototype, "panelClass", {
+    Object.defineProperty(_MatMenuBase.prototype, "panelClass", {
         /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -654,7 +660,7 @@ var MatMenu = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatMenu.prototype, "classList", {
+    Object.defineProperty(_MatMenuBase.prototype, "classList", {
         /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -682,7 +688,7 @@ var MatMenu = /** @class */ (function () {
     /**
      * @return {?}
      */
-    MatMenu.prototype.ngOnInit = /**
+    _MatMenuBase.prototype.ngOnInit = /**
      * @return {?}
      */
     function () {
@@ -691,7 +697,7 @@ var MatMenu = /** @class */ (function () {
     /**
      * @return {?}
      */
-    MatMenu.prototype.ngAfterContentInit = /**
+    _MatMenuBase.prototype.ngAfterContentInit = /**
      * @return {?}
      */
     function () {
@@ -702,7 +708,7 @@ var MatMenu = /** @class */ (function () {
     /**
      * @return {?}
      */
-    MatMenu.prototype.ngOnDestroy = /**
+    _MatMenuBase.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () {
@@ -714,7 +720,7 @@ var MatMenu = /** @class */ (function () {
      * Stream that emits whenever the hovered menu item changes.
      * @return {?}
      */
-    MatMenu.prototype._hovered = /**
+    _MatMenuBase.prototype._hovered = /**
      * Stream that emits whenever the hovered menu item changes.
      * @return {?}
      */
@@ -727,7 +733,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?} event
      * @return {?}
      */
-    MatMenu.prototype._handleKeydown = /**
+    _MatMenuBase.prototype._handleKeydown = /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.
      * @param {?} event
      * @return {?}
@@ -774,7 +780,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?=} origin Action from which the focus originated. Used to set the correct styling.
      * @return {?}
      */
-    MatMenu.prototype.focusFirstItem = /**
+    _MatMenuBase.prototype.focusFirstItem = /**
      * Focus the first item in the menu.
      * @param {?=} origin Action from which the focus originated. Used to set the correct styling.
      * @return {?}
@@ -801,7 +807,7 @@ var MatMenu = /** @class */ (function () {
      * the user to start from the first option when pressing the down arrow.
      * @return {?}
      */
-    MatMenu.prototype.resetActiveItem = /**
+    _MatMenuBase.prototype.resetActiveItem = /**
      * Resets the active item in the menu. This is used when the menu is opened, allowing
      * the user to start from the first option when pressing the down arrow.
      * @return {?}
@@ -818,7 +824,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?} depth Number of parent menus that come before the menu.
      * @return {?}
      */
-    MatMenu.prototype.setElevation = /**
+    _MatMenuBase.prototype.setElevation = /**
      * Sets the menu panel elevation.
      * @param {?} depth Number of parent menus that come before the menu.
      * @return {?}
@@ -847,7 +853,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?} item
      * @return {?}
      */
-    MatMenu.prototype.addItem = /**
+    _MatMenuBase.prototype.addItem = /**
      * Registers a menu item with the menu.
      * \@docs-private
      * @param {?} item
@@ -874,7 +880,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?} item
      * @return {?}
      */
-    MatMenu.prototype.removeItem = /**
+    _MatMenuBase.prototype.removeItem = /**
      * Removes an item from the menu.
      * \@docs-private
      * @param {?} item
@@ -903,7 +909,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?=} posY Position of the menu along the y axis.
      * @return {?}
      */
-    MatMenu.prototype.setPositionClasses = /**
+    _MatMenuBase.prototype.setPositionClasses = /**
      * Adds classes to the menu panel based on its position. Can be used by
      * consumers to add specific styling based on the position.
      * \@docs-private
@@ -926,7 +932,7 @@ var MatMenu = /** @class */ (function () {
      * Starts the enter animation.
      * @return {?}
      */
-    MatMenu.prototype._startAnimation = /**
+    _MatMenuBase.prototype._startAnimation = /**
      * Starts the enter animation.
      * @return {?}
      */
@@ -939,7 +945,7 @@ var MatMenu = /** @class */ (function () {
      * Resets the panel animation to its initial state.
      * @return {?}
      */
-    MatMenu.prototype._resetAnimation = /**
+    _MatMenuBase.prototype._resetAnimation = /**
      * Resets the panel animation to its initial state.
      * @return {?}
      */
@@ -953,7 +959,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?} event
      * @return {?}
      */
-    MatMenu.prototype._onAnimationDone = /**
+    _MatMenuBase.prototype._onAnimationDone = /**
      * Callback that is invoked when the panel animation completes.
      * @param {?} event
      * @return {?}
@@ -966,7 +972,7 @@ var MatMenu = /** @class */ (function () {
      * @param {?} event
      * @return {?}
      */
-    MatMenu.prototype._onAnimationStart = /**
+    _MatMenuBase.prototype._onAnimationStart = /**
      * @param {?} event
      * @return {?}
      */
@@ -982,29 +988,13 @@ var MatMenu = /** @class */ (function () {
             event.element.scrollTop = 0;
         }
     };
-    MatMenu.decorators = [
-        { type: Component, args: [{selector: 'mat-menu',
-                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.start)=\"_onAnimationStart($event)\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
-                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0}.mat-menu-panel.ng-animating{pointer-events:none}@media (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}@media (-ms-high-contrast:active){.mat-menu-item-highlighted,.mat-menu-item.cdk-keyboard-focused,.mat-menu-item.cdk-program-focused{outline:dotted 1px}}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    exportAs: 'matMenu',
-                    animations: [
-                        matMenuAnimations.transformMenu,
-                        matMenuAnimations.fadeInItems
-                    ],
-                    providers: [
-                        { provide: MAT_MENU_PANEL, useExisting: MatMenu }
-                    ]
-                },] },
-    ];
     /** @nocollapse */
-    MatMenu.ctorParameters = function () { return [
+    _MatMenuBase.ctorParameters = function () { return [
         { type: ElementRef },
         { type: NgZone },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
     ]; };
-    MatMenu.propDecorators = {
+    _MatMenuBase.propDecorators = {
         backdropClass: [{ type: Input }],
         xPosition: [{ type: Input }],
         yPosition: [{ type: Input }],
@@ -1018,8 +1008,49 @@ var MatMenu = /** @class */ (function () {
         closed: [{ type: Output }],
         close: [{ type: Output }]
     };
-    return MatMenu;
+    return _MatMenuBase;
 }());
+var MatMenu = /** @class */ (function (_super) {
+    __extends(MatMenu, _super);
+    function MatMenu() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MatMenu;
+}(_MatMenuBase));
+// Note on the weird inheritance setup: we need three classes, because the MDC-based menu has to
+// extend `MatMenu`, however keeping a reference to it will cause the inlined template and styles
+// to be retained as well. The MDC menu also has to provide itself as a `MatMenu` in order for
+// queries and DI to work correctly, while still not referencing the actual menu class.
+// Class responsibility is split up as follows:
+// * _MatMenuBase - provides all the functionality without any of the Angular metadata.
+// * MatMenu - keeps the same name symbol name as the current menu and
+// is used as a provider for DI and query purposes.
+// * _MatMenu - the actual menu component implementation with the Angular metadata that should
+// be tree shaken away for MDC.
+var _MatMenu = /** @class */ (function (_super) {
+    __extends(_MatMenu, _super);
+    function _MatMenu() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    _MatMenu.decorators = [
+        { type: Component, args: [{selector: 'mat-menu',
+                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.start)=\"_onAnimationStart($event)\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
+                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0}.mat-menu-panel.ng-animating{pointer-events:none}@media (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}@media (-ms-high-contrast:active){.mat-menu-item-highlighted,.mat-menu-item.cdk-keyboard-focused,.mat-menu-item.cdk-program-focused{outline:dotted 1px}}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    exportAs: 'matMenu',
+                    animations: [
+                        matMenuAnimations.transformMenu,
+                        matMenuAnimations.fadeInItems
+                    ],
+                    providers: [
+                        { provide: MAT_MENU_PANEL, useExisting: MatMenu },
+                        { provide: MatMenu, useExisting: _MatMenu }
+                    ]
+                },] },
+    ];
+    return _MatMenu;
+}(MatMenu));
 
 /**
  * @fileoverview added by tsickle
@@ -1525,7 +1556,7 @@ var MatMenuTrigger = /** @class */ (function () {
             positionStrategy: this._overlay.position()
                 .flexibleConnectedTo(this._element)
                 .withLockedPosition()
-                .withTransformOriginOn('.mat-menu-panel'),
+                .withTransformOriginOn('.mat-menu-panel, .mat-mdc-menu-panel'),
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._scrollStrategy(),
             direction: this._dir
@@ -1822,6 +1853,22 @@ var MatMenuTrigger = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * Used by both the current `MatMenuModule` and the MDC `MatMenuModule`
+ * to declare the menu-related directives.
+ */
+var _MatMenuDirectivesModule = /** @class */ (function () {
+    function _MatMenuDirectivesModule() {
+    }
+    _MatMenuDirectivesModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [MatMenuTrigger, MatMenuContent, MatCommonModule],
+                    declarations: [MatMenuTrigger, MatMenuContent],
+                    providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                },] },
+    ];
+    return _MatMenuDirectivesModule;
+}());
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
     }
@@ -1832,9 +1879,10 @@ var MatMenuModule = /** @class */ (function () {
                         MatCommonModule,
                         MatRippleModule,
                         OverlayModule,
+                        _MatMenuDirectivesModule,
                     ],
-                    exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, MatCommonModule],
-                    declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
+                    exports: [_MatMenu, MatMenuItem, _MatMenuDirectivesModule],
+                    declarations: [_MatMenu, MatMenuItem],
                     providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                 },] },
     ];
@@ -1856,5 +1904,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_PANEL as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
 //# sourceMappingURL=menu.es5.js.map

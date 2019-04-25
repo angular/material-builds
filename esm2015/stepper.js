@@ -98,6 +98,13 @@ class MatStepHeader extends CdkStepHeader {
         this._focusMonitor.stopMonitoring(this._elementRef);
     }
     /**
+     * Focuses the step header.
+     * @return {?}
+     */
+    focus() {
+        this._focusMonitor.focusVia(this._elementRef, 'program');
+    }
+    /**
      * Returns string label of given step if it is a text label.
      * @return {?}
      */
