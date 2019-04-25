@@ -14,7 +14,7 @@ import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, ScrollingModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, HostListener, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, HostListener, HostBinding, NgModule } from '@angular/core';
 import { fromEvent, merge, Subject } from 'rxjs';
 import { debounceTime, filter, map, startWith, take, takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -154,6 +154,10 @@ var MatDrawer = /** @class */ (function () {
         /**
          * Current state of the sidenav animation.
          */
+        // @HostBinding is used in the class as it is expected to be extended.  Since @Component decorator
+        // metadata is not inherited by child classes, instead the host binding data is defined in a way
+        // that can be inherited.
+        // tslint:disable:no-host-decorator-in-concrete
         this._animationState = 'void';
         /**
          * Event emitted when the drawer open state is changed.
@@ -601,7 +605,6 @@ var MatDrawer = /** @class */ (function () {
                     animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer',
-                        '[@transform]': '_animationState',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',
@@ -628,6 +631,7 @@ var MatDrawer = /** @class */ (function () {
         mode: [{ type: Input }],
         disableClose: [{ type: Input }],
         autoFocus: [{ type: Input }],
+        _animationState: [{ type: HostBinding, args: ['@transform',] }],
         openedChange: [{ type: Output }],
         _openedStream: [{ type: Output, args: ['opened',] }],
         openedStart: [{ type: Output }],
@@ -1283,7 +1287,6 @@ var MatSidenav = /** @class */ (function (_super) {
                     host: {
                         'class': 'mat-drawer mat-sidenav',
                         'tabIndex': '-1',
-                        '[@transform]': '_animationState',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',

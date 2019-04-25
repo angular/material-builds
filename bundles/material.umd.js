@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-b84a8a6');
+var VERSION = new core.Version('8.0.0-beta.2-07a16de');
 
 /**
  * @fileoverview added by tsickle
@@ -27801,6 +27801,10 @@ var MatDrawer = /** @class */ (function () {
         /**
          * Current state of the sidenav animation.
          */
+        // @HostBinding is used in the class as it is expected to be extended.  Since @Component decorator
+        // metadata is not inherited by child classes, instead the host binding data is defined in a way
+        // that can be inherited.
+        // tslint:disable:no-host-decorator-in-concrete
         this._animationState = 'void';
         /**
          * Event emitted when the drawer open state is changed.
@@ -28248,7 +28252,6 @@ var MatDrawer = /** @class */ (function () {
                     animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer',
-                        '[@transform]': '_animationState',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',
@@ -28275,6 +28278,7 @@ var MatDrawer = /** @class */ (function () {
         mode: [{ type: core.Input }],
         disableClose: [{ type: core.Input }],
         autoFocus: [{ type: core.Input }],
+        _animationState: [{ type: core.HostBinding, args: ['@transform',] }],
         openedChange: [{ type: core.Output }],
         _openedStream: [{ type: core.Output, args: ['opened',] }],
         openedStart: [{ type: core.Output }],
@@ -28930,7 +28934,6 @@ var MatSidenav = /** @class */ (function (_super) {
                     host: {
                         'class': 'mat-drawer mat-sidenav',
                         'tabIndex': '-1',
-                        '[@transform]': '_animationState',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',
@@ -37272,7 +37275,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
