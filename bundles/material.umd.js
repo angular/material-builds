@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-8b5c0f1');
+var VERSION = new core.Version('8.0.0-beta.2-d1366ba');
 
 /**
  * @fileoverview added by tsickle
@@ -32629,18 +32629,6 @@ var MatStepHeader = /** @class */ (function (_super) {
         this._intlSubscription.unsubscribe();
         this._focusMonitor.stopMonitoring(this._elementRef);
     };
-    /** Focuses the step header. */
-    /**
-     * Focuses the step header.
-     * @return {?}
-     */
-    MatStepHeader.prototype.focus = /**
-     * Focuses the step header.
-     * @return {?}
-     */
-    function () {
-        this._focusMonitor.focusVia(this._elementRef, 'program');
-    };
     /** Returns string label of given step if it is a text label. */
     /**
      * Returns string label of given step if it is a text label.
@@ -37263,7 +37251,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37298,10 +37286,10 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵd24 = MAT_MENU_PANEL;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵd23 = MAT_MENU_PANEL;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
@@ -37415,7 +37403,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

@@ -37,8 +37,6 @@ export declare class MatStepHeader extends CdkStepHeader implements OnDestroy {
     disableRipple: boolean;
     constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
     ngOnDestroy(): void;
-    /** Focuses the step header. */
-    focus(): void;
     /** Returns string label of given step if it is a text label. */
     _stringLabel(): string | null;
     /** Returns MatStepLabel if the label of given step is a template label. */
