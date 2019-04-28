@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -52,7 +52,7 @@ var MatTable = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Cell definition for the mat-table.
@@ -211,7 +211,7 @@ var MatCell = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Header row definition for the mat-table.
@@ -347,7 +347,7 @@ var MatRow = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Column that simply shows text content for the header and row cells. Assumes that the table
@@ -382,7 +382,7 @@ var MatTextColumn = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var EXPORTED_DECLARATIONS = [
@@ -425,7 +425,7 @@ var MatTableModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
@@ -482,7 +482,12 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param data Data object that is being accessed.
          * @param sortHeaderId The name of the column that represents the data.
          */
-        _this.sortingDataAccessor = function (data, sortHeaderId) {
+        _this.sortingDataAccessor = (/**
+         * @param {?} data
+         * @param {?} sortHeaderId
+         * @return {?}
+         */
+        function (data, sortHeaderId) {
             /** @type {?} */
             var value = ((/** @type {?} */ (data)))[sortHeaderId];
             if (_isNumberValue(value)) {
@@ -493,7 +498,7 @@ MatTableDataSource = /** @class */ (function (_super) {
                 return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
             }
             return value;
-        };
+        });
         /**
          * Gets a sorted copy of the data array based on the state of the MatSort. Called
          * after changes are made to the filtered data or when sort changes are emitted from MatSort.
@@ -503,7 +508,12 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param data The array of data that should be sorted.
          * @param sort The connected MatSort that holds the current sort state.
          */
-        _this.sortData = function (data, sort) {
+        _this.sortData = (/**
+         * @param {?} data
+         * @param {?} sort
+         * @return {?}
+         */
+        function (data, sort) {
             /** @type {?} */
             var active = sort.active;
             /** @type {?} */
@@ -511,7 +521,12 @@ MatTableDataSource = /** @class */ (function (_super) {
             if (!active || direction == '') {
                 return data;
             }
-            return data.sort(function (a, b) {
+            return data.sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            function (a, b) {
                 /** @type {?} */
                 var valueA = _this.sortingDataAccessor(a, active);
                 /** @type {?} */
@@ -538,8 +553,8 @@ MatTableDataSource = /** @class */ (function (_super) {
                     comparatorResult = -1;
                 }
                 return comparatorResult * (direction == 'asc' ? 1 : -1);
-            });
-        };
+            }));
+        });
         /**
          * Checks if a data object matches the data source's filter string. By default, each data object
          * is converted to a string of its properties and returns true if the filter has
@@ -550,10 +565,20 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param filter Filter string that has been set on the data source.
          * @return Whether the filter matches against the data
          */
-        _this.filterPredicate = function (data, filter) {
+        _this.filterPredicate = (/**
+         * @param {?} data
+         * @param {?} filter
+         * @return {?}
+         */
+        function (data, filter) {
             // Transform the data into a lowercase string of all property values.
             /** @type {?} */
-            var dataStr = Object.keys(data).reduce(function (currentTerm, key) {
+            var dataStr = Object.keys(data).reduce((/**
+             * @param {?} currentTerm
+             * @param {?} key
+             * @return {?}
+             */
+            function (currentTerm, key) {
                 // Use an obscure Unicode character to delimit the words in the concatenated string.
                 // This avoids matches where the values of two columns combined will match the user's query
                 // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
@@ -561,12 +586,12 @@ MatTableDataSource = /** @class */ (function (_super) {
                 // particular is "White up-pointing triangle with dot" from
                 // https://en.wikipedia.org/wiki/List_of_Unicode_characters
                 return currentTerm + ((/** @type {?} */ (data)))[key] + '◬';
-            }, '').toLowerCase();
+            }), '').toLowerCase();
             // Transform the filter by converting it to lowercase and removing whitespace.
             /** @type {?} */
             var transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
-        };
+        });
         _this._data = new BehaviorSubject(initialData);
         _this._updateChangeSubscription();
         return _this;
@@ -699,27 +724,43 @@ MatTableDataSource = /** @class */ (function (_super) {
         // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
         var filteredData = combineLatest(dataStream, this._filter)
-            .pipe(map(function (_a) {
+            .pipe(map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var data = _a[0];
             return _this._filterData(data);
-        }));
+        })));
         // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
         var orderedData = combineLatest(filteredData, sortChange)
-            .pipe(map(function (_a) {
+            .pipe(map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var data = _a[0];
             return _this._orderData(data);
-        }));
+        })));
         // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
         var paginatedData = combineLatest(orderedData, pageChange)
-            .pipe(map(function (_a) {
+            .pipe(map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var data = _a[0];
             return _this._pageData(data);
-        }));
+        })));
         // Watched for paged data changes and send the result to the table to render.
         this._renderChangesSubscription.unsubscribe();
-        this._renderChangesSubscription = paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
+        this._renderChangesSubscription = paginatedData.subscribe((/**
+         * @param {?} data
+         * @return {?}
+         */
+        function (data) { return _this._renderData.next(data); }));
     };
     /**
      * Returns a filtered data array where each filter object contains the filter string within
@@ -746,7 +787,11 @@ MatTableDataSource = /** @class */ (function (_super) {
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overridden for customization.
         this.filteredData =
-            !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
+            !this.filter ? data : data.filter((/**
+             * @param {?} obj
+             * @return {?}
+             */
+            function (obj) { return _this.filterPredicate(obj, _this.filter); }));
         if (this.paginator) {
             this._updatePaginator(this.filteredData.length);
         }
@@ -823,7 +868,10 @@ MatTableDataSource = /** @class */ (function (_super) {
      */
     function (filteredDataLength) {
         var _this = this;
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var paginator = _this.paginator;
             if (!paginator) {
@@ -843,7 +891,7 @@ MatTableDataSource = /** @class */ (function (_super) {
                     _this._internalPageChanges.next();
                 }
             }
-        });
+        }));
     };
     /**
      * Used by the MatTable. Called when it connects to the data source.
@@ -880,12 +928,12 @@ MatTableDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource, MatTextColumn };

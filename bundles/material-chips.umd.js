@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Event object emitted by MatChip when selected or deselected.
@@ -472,12 +472,18 @@ var MatChip = /** @class */ (function (_super) {
         this._ngZone.onStable
             .asObservable()
             .pipe(operators.take(1))
-            .subscribe(function () {
-            _this._ngZone.run(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this._ngZone.run((/**
+             * @return {?}
+             */
+            function () {
                 _this._hasFocus = false;
                 _this._onBlur.next({ chip: _this });
-            });
-        });
+            }));
+        }));
     };
     /**
      * @private
@@ -530,7 +536,10 @@ var MatChip = /** @class */ (function (_super) {
     MatChip.propDecorators = {
         avatar: [{ type: core.ContentChild, args: [MatChipAvatar, { static: false },] }],
         trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
-        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }), { static: false },] }],
+        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatChipRemove; })), { static: false },] }],
         selected: [{ type: core.Input }],
         value: [{ type: core.Input }],
         selectable: [{ type: core.Input }],
@@ -598,7 +607,7 @@ var MatChipRemove = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for the chips module.
@@ -608,7 +617,7 @@ var MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-optio
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatChipList.
 /**
@@ -688,13 +697,24 @@ var MatChipList = /** @class */ (function (_super) {
         /**
          * Function when touched
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * Function when changed
          */
-        _this._onChange = function () { };
+        _this._onChange = (/**
+         * @return {?}
+         */
+        function () { });
         _this._multiple = false;
-        _this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._compareWith = (/**
+         * @param {?} o1
+         * @param {?} o2
+         * @return {?}
+         */
+        function (o1, o2) { return o1 === o2; });
         _this._required = false;
         _this._disabled = false;
         /**
@@ -951,7 +971,11 @@ var MatChipList = /** @class */ (function (_super) {
             var _this = this;
             this._selectable = coercion.coerceBooleanProperty(value);
             if (this.chips) {
-                this.chips.forEach(function (chip) { return chip.chipListSelectable = _this._selectable; });
+                this.chips.forEach((/**
+                 * @param {?} chip
+                 * @return {?}
+                 */
+                function (chip) { return chip.chipListSelectable = _this._selectable; }));
             }
         },
         enumerable: true,
@@ -976,7 +1000,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip.selectionChange; })));
         },
         enumerable: true,
         configurable: true
@@ -988,7 +1016,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip._onFocus; })));
         },
         enumerable: true,
         configurable: true
@@ -1000,7 +1032,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip._onBlur; })));
         },
         enumerable: true,
         configurable: true
@@ -1012,7 +1048,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroyed; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip.destroyed; })));
         },
         enumerable: true,
         configurable: true
@@ -1032,25 +1072,41 @@ var MatChipList = /** @class */ (function (_super) {
         if (this._dir) {
             this._dir.change
                 .pipe(operators.takeUntil(this._destroyed))
-                .subscribe(function (dir) { return _this._keyManager.withHorizontalOrientation(dir); });
+                .subscribe((/**
+             * @param {?} dir
+             * @return {?}
+             */
+            function (dir) { return _this._keyManager.withHorizontalOrientation(dir); }));
         }
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
-        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
+        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._tabIndex = -1;
-            setTimeout(function () {
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
                 _this._tabIndex = _this._userTabIndex || 0;
                 _this._changeDetectorRef.markForCheck();
-            });
-        });
+            }));
+        }));
         // When the list changes, re-subscribe
-        this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe(function () {
+        this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this.disabled) {
                 // Since this happens after the content has been
                 // checked, we need to defer it to the next tick.
-                Promise.resolve().then(function () {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._syncChipsState();
-                });
+                }));
             }
             _this._resetChips();
             // Reset chips selected/deselected status
@@ -1060,7 +1116,7 @@ var MatChipList = /** @class */ (function (_super) {
             // Check to see if we have a destroyed chip and need to refocus
             _this._updateFocusForDestroyedChips();
             _this.stateChanges.next();
-        });
+        }));
     };
     /**
      * @return {?}
@@ -1391,9 +1447,17 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         this._clearSelection();
-        this.chips.forEach(function (chip) { return chip.deselect(); });
+        this.chips.forEach((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) { return chip.deselect(); }));
         if (Array.isArray(value)) {
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue, isUserInput); });
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            function (currentValue) { return _this._selectValue(currentValue, isUserInput); }));
             this._sortValues();
         }
         else {
@@ -1430,9 +1494,13 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         /** @type {?} */
-        var correspondingChip = this.chips.find(function (chip) {
+        var correspondingChip = this.chips.find((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) {
             return chip.value != null && _this._compareWith(chip.value, value);
-        });
+        }));
         if (correspondingChip) {
             isUserInput ? correspondingChip.selectViaInteraction() : correspondingChip.select();
             this._selectionModel.select(correspondingChip);
@@ -1451,12 +1519,15 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             if (_this.ngControl || _this._value) {
                 _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value, false);
                 _this.stateChanges.next();
             }
-        });
+        }));
     };
     /**
      * Deselects every chip in the list.
@@ -1476,11 +1547,15 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (skip) {
         this._selectionModel.clear();
-        this.chips.forEach(function (chip) {
+        this.chips.forEach((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) {
             if (chip !== skip) {
                 chip.deselect();
             }
-        });
+        }));
         this.stateChanges.next();
     };
     /**
@@ -1503,11 +1578,15 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         if (this._multiple) {
             this._selectionModel.clear();
-            this.chips.forEach(function (chip) {
+            this.chips.forEach((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) {
                 if (chip.selected) {
                     _this._selectionModel.select(chip);
                 }
-            });
+            }));
             this.stateChanges.next();
         }
     };
@@ -1528,7 +1607,11 @@ var MatChipList = /** @class */ (function (_super) {
         /** @type {?} */
         var valueToEmit = null;
         if (Array.isArray(this.selected)) {
-            valueToEmit = this.selected.map(function (chip) { return chip.value; });
+            valueToEmit = this.selected.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip.value; }));
         }
         else {
             valueToEmit = this.selected ? this.selected.value : fallbackValue;
@@ -1559,11 +1642,14 @@ var MatChipList = /** @class */ (function (_super) {
                 // If the focus is not moved to chip input, mark the field as touched. If the focus moved
                 // to chip input, do nothing.
                 // Timeout is needed to wait for the focus() event trigger on chip input.
-                setTimeout(function () {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
                     if (!_this.focused) {
                         _this._markAsTouched();
                     }
-                });
+                }));
             }
             else {
                 // If there's no chip input, then mark the field as touched.
@@ -1638,22 +1724,30 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._chipSelectionSubscription = this.chipSelectionChanges.subscribe(function (event) {
+        this._chipSelectionSubscription = this.chipSelectionChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             event.source.selected
                 ? _this._selectionModel.select(event.source)
                 : _this._selectionModel.deselect(event.source);
             // For single selection chip list, make sure the deselected value is unselected.
             if (!_this.multiple) {
-                _this.chips.forEach(function (chip) {
+                _this.chips.forEach((/**
+                 * @param {?} chip
+                 * @return {?}
+                 */
+                function (chip) {
                     if (!_this._selectionModel.isSelected(chip) && chip.selected) {
                         chip.deselect();
                     }
-                });
+                }));
             }
             if (event.isUserInput) {
                 _this._propagateChanges();
             }
-        });
+        }));
     };
     /** Listens to user-generated selection events on each chip. */
     /**
@@ -1668,18 +1762,25 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
+        this._chipFocusSubscription = this.chipFocusChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             /** @type {?} */
             var chipIndex = _this.chips.toArray().indexOf(event.chip);
             if (_this._isValidIndex(chipIndex)) {
                 _this._keyManager.updateActiveItemIndex(chipIndex);
             }
             _this.stateChanges.next();
-        });
-        this._chipBlurSubscription = this.chipBlurChanges.subscribe(function () {
+        }));
+        this._chipBlurSubscription = this.chipBlurChanges.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._blur();
             _this.stateChanges.next();
-        });
+        }));
     };
     /**
      * @private
@@ -1691,7 +1792,11 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
+        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             /** @type {?} */
             var chip = event.chip;
             /** @type {?} */
@@ -1702,7 +1807,7 @@ var MatChipList = /** @class */ (function (_super) {
             if (_this._isValidIndex(chipIndex) && chip._hasFocus) {
                 _this._lastDestroyedChipIndex = chipIndex;
             }
-        });
+        }));
     };
     /** Checks whether an event comes from inside a chip element. */
     /**
@@ -1740,7 +1845,11 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this.chips.some(function (chip) { return chip._hasFocus; });
+        return this.chips.some((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) { return chip._hasFocus; }));
     };
     /** Syncs the list's state with the individual chips. */
     /**
@@ -1756,10 +1865,14 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this.chips) {
-            this.chips.forEach(function (chip) {
+            this.chips.forEach((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) {
                 chip.disabled = _this._disabled;
                 chip._chipListMultiple = _this.multiple;
-            });
+            }));
         }
     };
     MatChipList.decorators = [
@@ -1820,7 +1933,7 @@ var MatChipList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids.
 /** @type {?} */
@@ -2073,7 +2186,7 @@ var MatChipInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var CHIP_DECLARATIONS = [

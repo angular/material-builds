@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, defineInjectable } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, ɵɵdefineInjectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinInitialized, mixinDisabled } from '@angular/material/core';
@@ -16,7 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -52,7 +52,13 @@ class MatPaginatorIntl {
         /**
          * A label for the range of items within the current page and the length of the whole list.
          */
-        this.getRangeLabel = (page, pageSize, length) => {
+        this.getRangeLabel = (/**
+         * @param {?} page
+         * @param {?} pageSize
+         * @param {?} length
+         * @return {?}
+         */
+        (page, pageSize, length) => {
             if (length == 0 || pageSize == 0) {
                 return `0 of ${length}`;
             }
@@ -65,13 +71,13 @@ class MatPaginatorIntl {
                 Math.min(startIndex + pageSize, length) :
                 startIndex + pageSize;
             return `${startIndex + 1} - ${endIndex} of ${length}`;
-        };
+        });
     }
 }
 MatPaginatorIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */ MatPaginatorIntl.ngInjectableDef = defineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+/** @nocollapse */ MatPaginatorIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
 /**
  * \@docs-private
  * @param {?} parentIntl
@@ -93,7 +99,7 @@ const MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The default page size if there is no page size and there are no provided page size options.
@@ -137,7 +143,10 @@ class MatPaginator extends _MatPaginatorBase {
          * Event emitted when the paginator changes the page size or page index.
          */
         this.page = new EventEmitter();
-        this._intlChanges = _intl.changes.subscribe(() => this._changeDetectorRef.markForCheck());
+        this._intlChanges = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        () => this._changeDetectorRef.markForCheck()));
     }
     /**
      * The zero-based page index of the displayed list of items. Defaulted to 0.
@@ -188,7 +197,11 @@ class MatPaginator extends _MatPaginatorBase {
      * @return {?}
      */
     set pageSizeOptions(value) {
-        this._pageSizeOptions = (value || []).map(p => coerceNumberProperty(p));
+        this._pageSizeOptions = (value || []).map((/**
+         * @param {?} p
+         * @return {?}
+         */
+        p => coerceNumberProperty(p)));
         this._updateDisplayedPageSizeOptions();
     }
     /**
@@ -365,7 +378,12 @@ class MatPaginator extends _MatPaginatorBase {
             this._displayedPageSizeOptions.push(this.pageSize);
         }
         // Sort the numbers using a number-specific sort function.
-        this._displayedPageSizeOptions.sort((a, b) => a - b);
+        this._displayedPageSizeOptions.sort((/**
+         * @param {?} a
+         * @param {?} b
+         * @return {?}
+         */
+        (a, b) => a - b));
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -414,7 +432,7 @@ MatPaginator.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatPaginatorModule {
 }
@@ -434,12 +452,12 @@ MatPaginatorModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatPaginatorModule, PageEvent, MatPaginator, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER };

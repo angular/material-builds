@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Subject } from 'rxjs';
-import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, NgModule, Injectable, Injector, Optional, SkipSelf, TemplateRef, defineInjectable, inject, INJECTOR } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, NgModule, Injectable, Injector, Optional, SkipSelf, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
 import { take, takeUntil } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
@@ -50,8 +50,14 @@ class MatSnackBarRef {
         this._dismissedByAction = false;
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
-        this.onAction().subscribe(() => this.dismiss());
-        containerInstance._onExit.subscribe(() => this._finishDismiss());
+        this.onAction().subscribe((/**
+         * @return {?}
+         */
+        () => this.dismiss()));
+        containerInstance._onExit.subscribe((/**
+         * @return {?}
+         */
+        () => this._finishDismiss()));
     }
     /**
      * Dismisses the snack bar.
@@ -89,7 +95,10 @@ class MatSnackBarRef {
      * @return {?}
      */
     _dismissAfter(duration) {
-        this._durationTimeoutId = setTimeout(() => this.dismiss(), duration);
+        this._durationTimeoutId = setTimeout((/**
+         * @return {?}
+         */
+        () => this.dismiss()), duration);
     }
     /**
      * Marks the snackbar as opened
@@ -140,7 +149,7 @@ class MatSnackBarRef {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a snack bar.
@@ -183,7 +192,7 @@ class MatSnackBarConfig {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -232,7 +241,7 @@ SimpleSnackBar.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material snack bar.
@@ -261,7 +270,7 @@ const matSnackBarAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Internal component that wraps user-provided snack bar content.
@@ -345,10 +354,13 @@ class MatSnackBarContainer extends BasePortalOutlet {
             // because it can cause a memory leak.
             /** @type {?} */
             const onEnter = this._onEnter;
-            this._ngZone.run(() => {
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            () => {
                 onEnter.next();
                 onEnter.complete();
-            });
+            }));
         }
     }
     /**
@@ -387,10 +399,13 @@ class MatSnackBarContainer extends BasePortalOutlet {
      * @return {?}
      */
     _completeExit() {
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._onExit.next();
             this._onExit.complete();
-        });
+        }));
     }
     /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
@@ -405,7 +420,11 @@ class MatSnackBarContainer extends BasePortalOutlet {
         if (panelClasses) {
             if (Array.isArray(panelClasses)) {
                 // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-                panelClasses.forEach(cssClass => element.classList.add(cssClass));
+                panelClasses.forEach((/**
+                 * @param {?} cssClass
+                 * @return {?}
+                 */
+                cssClass => element.classList.add(cssClass)));
             }
             else {
                 element.classList.add(panelClasses);
@@ -461,7 +480,7 @@ MatSnackBarContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSnackBarModule {
 }
@@ -482,7 +501,7 @@ MatSnackBarModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify default snack bar.
@@ -664,14 +683,18 @@ class MatSnackBar {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(Breakpoints.Handset).pipe(takeUntil(overlayRef.detachments().pipe(take(1)))).subscribe(state$$1 => {
+        this._breakpointObserver.observe(Breakpoints.Handset).pipe(takeUntil(overlayRef.detachments().pipe(take(1)))).subscribe((/**
+         * @param {?} state
+         * @return {?}
+         */
+        state$$1 => {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }
             else {
                 overlayRef.overlayElement.classList.remove('mat-snack-bar-handset');
             }
-        });
+        }));
         this._animateSnackBar(snackBarRef, config);
         this._openedSnackBarRef = snackBarRef;
         return this._openedSnackBarRef;
@@ -685,7 +708,10 @@ class MatSnackBar {
      */
     _animateSnackBar(snackBarRef, config) {
         // When the snackbar is dismissed, clear the reference to it.
-        snackBarRef.afterDismissed().subscribe(() => {
+        snackBarRef.afterDismissed().subscribe((/**
+         * @return {?}
+         */
+        () => {
             // Clear the snackbar ref if it hasn't already been replaced by a newer snackbar.
             if (this._openedSnackBarRef == snackBarRef) {
                 this._openedSnackBarRef = null;
@@ -693,13 +719,16 @@ class MatSnackBar {
             if (config.announcementMessage) {
                 this._live.clear();
             }
-        });
+        }));
         if (this._openedSnackBarRef) {
             // If a snack bar is already in view, dismiss it and enter the
             // new snack bar after exit animation is complete.
-            this._openedSnackBarRef.afterDismissed().subscribe(() => {
+            this._openedSnackBarRef.afterDismissed().subscribe((/**
+             * @return {?}
+             */
+            () => {
                 snackBarRef.containerInstance.enter();
-            });
+            }));
             this._openedSnackBarRef.dismiss();
         }
         else {
@@ -708,7 +737,10 @@ class MatSnackBar {
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (config.duration && config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter((/** @type {?} */ (config.duration))));
+            snackBarRef.afterOpened().subscribe((/**
+             * @return {?}
+             */
+            () => snackBarRef._dismissAfter((/** @type {?} */ (config.duration)))));
         }
         if (config.announcementMessage) {
             this._live.announce(config.announcementMessage, config.politeness);
@@ -783,16 +815,16 @@ MatSnackBar.ctorParameters = () => [
     { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf }] },
     { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
 ];
-/** @nocollapse */ MatSnackBar.ngInjectableDef = defineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(inject(Overlay), inject(LiveAnnouncer), inject(INJECTOR), inject(BreakpointObserver), inject(MatSnackBar, 12), inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+/** @nocollapse */ MatSnackBar.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };

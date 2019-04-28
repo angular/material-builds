@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatList.
 /**
@@ -255,9 +255,12 @@ var MatListItem = /** @class */ (function (_super) {
         if (_this._list) {
             // React to changes in the state of the parent list since
             // some of the item's properties depend on it (e.g. `disableRipple`).
-            _this._list._stateChanges.pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+            _this._list._stateChanges.pipe(operators.takeUntil(_this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _changeDetectorRef.markForCheck();
-            });
+            }));
         }
         return _this;
     }
@@ -337,7 +340,7 @@ var MatListItem = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -371,7 +374,10 @@ var _MatListOptionMixinBase = core$1.mixinDisableRipple(MatListOptionBase);
  */
 var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatSelectionList; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatSelectionList; })),
     multi: true
 };
 /**
@@ -502,12 +508,15 @@ var MatListOption = /** @class */ (function (_super) {
         // that the form control value is not being overwritten.
         /** @type {?} */
         var wasSelected = this._selected;
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             if (_this._selected || wasSelected) {
                 _this.selected = true;
                 _this._changeDetector.markForCheck();
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -529,7 +538,10 @@ var MatListOption = /** @class */ (function (_super) {
         if (this.selected) {
             // We have to delay this until the next tick in order
             // to avoid changed after checked errors.
-            Promise.resolve().then(function () { return _this.selected = false; });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () { return _this.selected = false; }));
         }
         /** @type {?} */
         var hadFocus = this._hasFocus;
@@ -713,7 +725,10 @@ var MatListOption = /** @class */ (function (_super) {
     MatListOption.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: core.ChangeDetectorRef },
-        { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSelectionList; }),] }] }
+        { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatSelectionList; })),] }] }
     ]; };
     MatListOption.propDecorators = {
         _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
@@ -756,7 +771,11 @@ var MatSelectionList = /** @class */ (function (_super) {
         /**
          * View to model callback that should be called whenever the selected options change.
          */
-        _this._onChange = function (_) { };
+        _this._onChange = (/**
+         * @param {?} _
+         * @return {?}
+         */
+        function (_) { });
         /**
          * Subscription to sync value changes in the SelectionModel back to the SelectionList.
          */
@@ -764,7 +783,10 @@ var MatSelectionList = /** @class */ (function (_super) {
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -802,14 +824,21 @@ var MatSelectionList = /** @class */ (function (_super) {
             .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
             // screenreader users, that allows reading the different options of the list.
-            .skipPredicate(function () { return false; })
+            .skipPredicate((/**
+         * @return {?}
+         */
+        function () { return false; }))
             .withAllowedModifierKeys(['shiftKey']);
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
         }
         // Sync external changes to the model back to the options.
-        this._modelChanges = this.selectedOptions.onChange.subscribe(function (event) {
+        this._modelChanges = this.selectedOptions.onChange.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             if (event.added) {
                 for (var _i = 0, _a = event.added; _i < _a.length; _i++) {
                     var item = _a[_i];
@@ -822,7 +851,7 @@ var MatSelectionList = /** @class */ (function (_super) {
                     item.selected = false;
                 }
             }
-        });
+        }));
     };
     /**
      * @param {?} changes
@@ -967,7 +996,11 @@ var MatSelectionList = /** @class */ (function (_super) {
                 break;
             case keycodes.A:
                 if (keycodes.hasModifierKey(event, 'ctrlKey')) {
-                    this.options.find(function (option) { return !option.selected; }) ? this.selectAll() : this.deselectAll();
+                    this.options.find((/**
+                     * @param {?} option
+                     * @return {?}
+                     */
+                    function (option) { return !option.selected; })) ? this.selectAll() : this.deselectAll();
                     event.preventDefault();
                 }
                 break;
@@ -1083,21 +1116,33 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (values) {
         var _this = this;
-        this.options.forEach(function (option) { return option._setSelected(false); });
-        values.forEach(function (value) {
+        this.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option._setSelected(false); }));
+        values.forEach((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
             /** @type {?} */
-            var correspondingOption = _this.options.find(function (option) {
+            var correspondingOption = _this.options.find((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) {
                 // Skip options that are already in the model. This allows us to handle cases
                 // where the same primitive value is selected multiple times.
                 if (option.selected) {
                     return false;
                 }
                 return _this.compareWith ? _this.compareWith(option.value, value) : option.value === value;
-            });
+            }));
             if (correspondingOption) {
                 correspondingOption._setSelected(true);
             }
-        });
+        }));
     };
     /** Returns the values of the selected options. */
     /**
@@ -1111,7 +1156,15 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this.options.filter(function (option) { return option.selected; }).map(function (option) { return option.value; });
+        return this.options.filter((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option.selected; })).map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option.value; }));
     };
     /** Toggles the state of the currently focused option if enabled. */
     /**
@@ -1161,11 +1214,15 @@ var MatSelectionList = /** @class */ (function (_super) {
         // emit the changed event when something actually changed.
         /** @type {?} */
         var hasChanged = false;
-        this.options.forEach(function (option) {
+        this.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) {
             if (option._setSelected(isSelected)) {
                 hasChanged = true;
             }
-        });
+        }));
         if (hasChanged) {
             this._reportValueChange();
         }
@@ -1219,7 +1276,11 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function () {
         if (this.options) {
-            this.options.forEach(function (option) { return option._markForCheck(); });
+            this.options.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option._markForCheck(); }));
         }
     };
     MatSelectionList.decorators = [
@@ -1260,7 +1321,7 @@ var MatSelectionList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatListModule = /** @class */ (function () {
     function MatListModule() {

@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId = 0;
@@ -71,7 +71,7 @@ var MatError = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the MatFormField.
@@ -94,7 +94,7 @@ var matFormFieldAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -115,7 +115,7 @@ MatFormFieldControl = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -143,7 +143,7 @@ function getMatFormFieldMissingControlError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$1 = 0;
@@ -182,7 +182,7 @@ var MatHint = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The floating label for a `mat-form-field`.
@@ -200,7 +200,7 @@ var MatLabel = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The placeholder text for an `MatFormField`.
@@ -221,7 +221,7 @@ var MatPlaceholder = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Prefix to be placed in front of the form field.
@@ -239,7 +239,7 @@ var MatPrefix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Suffix to be placed at the end of the form field.
@@ -257,7 +257,7 @@ var MatSuffix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$2 = 0;
@@ -508,44 +508,68 @@ var MatFormField = /** @class */ (function (_super) {
             this._elementRef.nativeElement.classList.add("mat-form-field-type-" + control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        control.stateChanges.pipe(operators.startWith((/** @type {?} */ (null)))).subscribe(function () {
+        control.stateChanges.pipe(operators.startWith((/** @type {?} */ (null)))).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         // Run change detection if the value changes.
         if (control.ngControl && control.ngControl.valueChanges) {
             control.ngControl.valueChanges
                 .pipe(operators.takeUntil(this._destroyed))
-                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._changeDetectorRef.markForCheck(); }));
         }
         // Note that we have to run outside of the `NgZone` explicitly,
         // in order to avoid throwing users into an infinite loop
         // if `zone-patch-rxjs` is included.
-        this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 if (_this._outlineGapCalculationNeededOnStable) {
                     _this.updateOutlineGap();
                 }
-            });
-        });
+            }));
+        }));
         // Run change detection and update the outline if the suffix or prefix changes.
-        rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(function () {
+        rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._outlineGapCalculationNeededOnStable = true;
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         // Re-validate when the number of hints changes.
-        this._hintChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
+        this._hintChildren.changes.pipe(operators.startWith(null)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._processHints();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         // Update the aria-described by when the number of errors changes.
-        this._errorChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
+        this._errorChildren.changes.pipe(operators.startWith(null)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         if (this._dir) {
-            this._dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () { return _this.updateOutlineGap(); });
+            this._dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () { return _this.updateOutlineGap(); }));
         }
     };
     /**
@@ -674,9 +698,12 @@ var MatFormField = /** @class */ (function (_super) {
             // because the `transitionend` will never fire.
             if (this._animationsEnabled) {
                 this._showAlwaysAnimate = true;
-                rxjs.fromEvent(this._label.nativeElement, 'transitionend').pipe(operators.take(1)).subscribe(function () {
+                rxjs.fromEvent(this._label.nativeElement, 'transitionend').pipe(operators.take(1)).subscribe((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._showAlwaysAnimate = false;
-                });
+                }));
             }
             this.floatLabel = 'always';
             this._changeDetectorRef.markForCheck();
@@ -741,7 +768,11 @@ var MatFormField = /** @class */ (function (_super) {
             var startHint_1;
             /** @type {?} */
             var endHint_1;
-            this._hintChildren.forEach(function (hint) {
+            this._hintChildren.forEach((/**
+             * @param {?} hint
+             * @return {?}
+             */
+            function (hint) {
                 if (hint.align === 'start') {
                     if (startHint_1 || _this.hintLabel) {
                         throw getMatFormFieldDuplicatedHintError('start');
@@ -754,7 +785,7 @@ var MatFormField = /** @class */ (function (_super) {
                     }
                     endHint_1 = hint;
                 }
-            });
+            }));
         }
     };
     /**
@@ -780,10 +811,18 @@ var MatFormField = /** @class */ (function (_super) {
             if (this._getDisplayedMessages() === 'hint') {
                 /** @type {?} */
                 var startHint = this._hintChildren ?
-                    this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
+                    this._hintChildren.find((/**
+                     * @param {?} hint
+                     * @return {?}
+                     */
+                    function (hint) { return hint.align === 'start'; })) : null;
                 /** @type {?} */
                 var endHint = this._hintChildren ?
-                    this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
+                    this._hintChildren.find((/**
+                     * @param {?} hint
+                     * @return {?}
+                     */
+                    function (hint) { return hint.align === 'end'; })) : null;
                 if (startHint) {
                     ids.push(startHint.id);
                 }
@@ -795,7 +834,11 @@ var MatFormField = /** @class */ (function (_super) {
                 }
             }
             else if (this._errorChildren) {
-                ids = this._errorChildren.map(function (error) { return error.id; });
+                ids = this._errorChildren.map((/**
+                 * @param {?} error
+                 * @return {?}
+                 */
+                function (error) { return error.id; }));
             }
             this._control.setDescribedByIds(ids);
         }
@@ -983,7 +1026,7 @@ var MatFormField = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatFormFieldModule = /** @class */ (function () {
     function MatFormFieldModule() {

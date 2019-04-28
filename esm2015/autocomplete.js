@@ -22,7 +22,7 @@ import { Subscription, defer, fromEvent, merge, of, Subject } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
@@ -130,10 +130,15 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
      */
     set classList(value) {
         if (value && value.length) {
-            this._classList = value.split(' ').reduce((classList, className) => {
+            this._classList = value.split(' ').reduce((/**
+             * @param {?} classList
+             * @param {?} className
+             * @return {?}
+             */
+            (classList, className) => {
                 classList[className.trim()] = true;
                 return classList;
-            }, (/** @type {?} */ ({})));
+            }), (/** @type {?} */ ({})));
         }
         else {
             this._classList = {};
@@ -235,7 +240,7 @@ MatAutocomplete.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive applied to an element to make it usable
@@ -262,7 +267,7 @@ MatAutocompleteOrigin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The height of each autocomplete option.
@@ -285,7 +290,10 @@ const MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-sc
  * @return {?}
  */
 function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
+    return (/**
+     * @return {?}
+     */
+    () => overlay.scrollStrategies.reposition());
 }
 /**
  * \@docs-private
@@ -303,7 +311,10 @@ const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 const MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatAutocompleteTrigger),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatAutocompleteTrigger)),
     multi: true
 };
 /**
@@ -363,21 +374,30 @@ class MatAutocompleteTrigger {
          * Event handler for when the window is blurred. Needs to be an
          * arrow function in order to preserve the context.
          */
-        this._windowBlurHandler = () => {
+        this._windowBlurHandler = (/**
+         * @return {?}
+         */
+        () => {
             // If the user blurred the window while the autocomplete is focused, it means that it'll be
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
             this._canOpenOnNextFocus =
                 document.activeElement !== this._element.nativeElement || this.panelOpen;
-        };
+        });
         /**
          * `View -> model callback called when value changes`
          */
-        this._onChange = () => { };
+        this._onChange = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * `View -> model callback called when autocomplete has been touched`
          */
-        this._onTouched = () => { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * `autocomplete` attribute to be set on the input element.
          * \@docs-private
@@ -387,20 +407,33 @@ class MatAutocompleteTrigger {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = (/** @type {?} */ (defer(() => {
+        this.optionSelections = (/** @type {?} */ (defer((/**
+         * @return {?}
+         */
+        () => {
             if (this.autocomplete && this.autocomplete.options) {
-                return merge(...this.autocomplete.options.map(option => option.onSelectionChange));
+                return merge(...this.autocomplete.options.map((/**
+                 * @param {?} option
+                 * @return {?}
+                 */
+                option => option.onSelectionChange)));
             }
             // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
             // Return a stream that we'll replace with the real one once everything is in place.
             return this._zone.onStable
                 .asObservable()
-                .pipe(take(1), switchMap(() => this.optionSelections));
-        })));
+                .pipe(take(1), switchMap((/**
+             * @return {?}
+             */
+            () => this.optionSelections)));
+        }))));
         if (typeof window !== 'undefined') {
-            _zone.runOutsideAngular(() => {
+            _zone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
                 window.addEventListener('blur', this._windowBlurHandler);
-            });
+            }));
         }
         this._scrollStrategy = scrollStrategy;
     }
@@ -488,11 +521,21 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._overlayAttached)), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
-            this._overlayRef.detachments().pipe(filter(() => this._overlayAttached)) :
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter((/**
+         * @return {?}
+         */
+        () => this._overlayAttached))), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
+            this._overlayRef.detachments().pipe(filter((/**
+             * @return {?}
+             */
+            () => this._overlayAttached))) :
             of()).pipe(
         // Normalize the output so we return a consistent type.
-        map(event => event instanceof MatOptionSelectionChange ? event : null));
+        map((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => event instanceof MatOptionSelectionChange ? event : null)));
     }
     /**
      * The currently active option, coerced to MatOption type.
@@ -514,7 +557,11 @@ class MatAutocompleteTrigger {
             return of(null);
         }
         return merge((/** @type {?} */ (fromEvent(this._document, 'click'))), (/** @type {?} */ (fromEvent(this._document, 'touchend'))))
-            .pipe(filter(event => {
+            .pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             /** @type {?} */
             const clickTarget = (/** @type {?} */ (event.target));
             /** @type {?} */
@@ -524,7 +571,7 @@ class MatAutocompleteTrigger {
                 clickTarget !== this._element.nativeElement &&
                 (!formField || !formField.contains(clickTarget)) &&
                 (!!this._overlayRef && !this._overlayRef.overlayElement.contains(clickTarget));
-        }));
+        })));
     }
     // Implemented as part of ControlValueAccessor.
     /**
@@ -532,7 +579,10 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     writeValue(value) {
-        Promise.resolve(null).then(() => this._setTriggerValue(value));
+        Promise.resolve(null).then((/**
+         * @return {?}
+         */
+        () => this._setTriggerValue(value)));
     }
     // Implemented as part of ControlValueAccessor.
     /**
@@ -692,7 +742,10 @@ class MatAutocompleteTrigger {
         /** @type {?} */
         const firstStable = this._zone.onStable.asObservable().pipe(take(1));
         /** @type {?} */
-        const optionChanges = this.autocomplete.options.changes.pipe(tap(() => this._positionStrategy.reapplyLastPosition()), 
+        const optionChanges = this.autocomplete.options.changes.pipe(tap((/**
+         * @return {?}
+         */
+        () => this._positionStrategy.reapplyLastPosition())), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
         delay(0));
@@ -701,18 +754,25 @@ class MatAutocompleteTrigger {
             .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        switchMap(() => {
+        switchMap((/**
+         * @return {?}
+         */
+        () => {
             this._resetActiveItem();
             this.autocomplete._setVisibility();
             if (this.panelOpen) {
                 (/** @type {?} */ (this._overlayRef)).updatePosition();
             }
             return this.panelClosingActions;
-        }), 
+        })), 
         // when the first closing event occurs...
         take(1))
             // set the value, close the panel, and complete.
-            .subscribe(event => this._setValueAndClose(event));
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => this._setValueAndClose(event)));
     }
     /**
      * Destroys the autocomplete suggestion panel.
@@ -775,11 +835,15 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _clearPreviousSelectedOption(skip) {
-        this.autocomplete.options.forEach(option => {
+        this.autocomplete.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => {
             if (option != skip && option.selected) {
                 option.deselect();
             }
-        });
+        }));
     }
     /**
      * @private
@@ -797,20 +861,27 @@ class MatAutocompleteTrigger {
             this._overlayRef = overlayRef;
             // Use the `keydownEvents` in order to take advantage of
             // the overlay event targeting provided by the CDK overlay.
-            overlayRef.keydownEvents().subscribe(event => {
+            overlayRef.keydownEvents().subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            event => {
                 // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
                 // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
                 if (event.keyCode === ESCAPE || (event.keyCode === UP_ARROW && event.altKey)) {
                     this._resetActiveItem();
                     this._closeKeyEventStream.next();
                 }
-            });
+            }));
             if (this._viewportRuler) {
-                this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
+                this._viewportSubscription = this._viewportRuler.change().subscribe((/**
+                 * @return {?}
+                 */
+                () => {
                     if (this.panelOpen && overlayRef) {
                         overlayRef.updateSize({ width: this._getPanelWidth() });
                     }
-                });
+                }));
             }
         }
         else {
@@ -964,7 +1035,7 @@ MatAutocompleteTrigger.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatAutocompleteModule {
 }
@@ -985,12 +1056,12 @@ MatAutocompleteModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin };

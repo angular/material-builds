@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
@@ -73,7 +73,10 @@ var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
  */
 var MAT_SLIDER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatSlider; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatSlider; })),
     multi: true
 };
 /**
@@ -141,7 +144,10 @@ var MatSlider = /** @class */ (function (_super) {
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        _this.onTouched = function () { };
+        _this.onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this._percent = 0;
         /**
          * Whether or not the thumb is sliding.
@@ -161,7 +167,10 @@ var MatSlider = /** @class */ (function (_super) {
          * The dimensions of the slider.
          */
         _this._sliderDimensions = null;
-        _this._controlValueAccessorChangeFn = function () { };
+        _this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * Subscription to the Directionality change EventEmitter.
          */
@@ -620,14 +629,21 @@ var MatSlider = /** @class */ (function (_super) {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(function (origin) {
+            .subscribe((/**
+         * @param {?} origin
+         * @return {?}
+         */
+        function (origin) {
             _this._isActive = !!origin && origin !== 'keyboard';
             _this._changeDetectorRef.detectChanges();
-        });
+        }));
         if (this._dir) {
-            this._dirChangeSubscription = this._dir.change.subscribe(function () {
+            this._dirChangeSubscription = this._dir.change.subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     };
     /**
@@ -1233,7 +1249,7 @@ var MatSlider = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {

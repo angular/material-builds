@@ -22,7 +22,7 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the mat-menu component.
@@ -84,7 +84,7 @@ var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Menu content that will be rendered lazily once the menu is opened.
@@ -185,7 +185,7 @@ var MatMenuContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -217,7 +217,7 @@ function throwMatMenuInvalidPositionY() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token used to provide the parent menu to menu-specific components.
@@ -228,7 +228,7 @@ var MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatMenuItem.
 /**
@@ -470,7 +470,7 @@ var MatMenuItem = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for `mat-menu`.
@@ -645,15 +645,23 @@ var _MatMenuBase = /** @class */ (function () {
             /** @type {?} */
             var previousPanelClass = this._previousPanelClass;
             if (previousPanelClass && previousPanelClass.length) {
-                previousPanelClass.split(' ').forEach(function (className) {
+                previousPanelClass.split(' ').forEach((/**
+                 * @param {?} className
+                 * @return {?}
+                 */
+                function (className) {
                     _this._classList[className] = false;
-                });
+                }));
             }
             this._previousPanelClass = classes;
             if (classes && classes.length) {
-                classes.split(' ').forEach(function (className) {
+                classes.split(' ').forEach((/**
+                 * @param {?} className
+                 * @return {?}
+                 */
+                function (className) {
                     _this._classList[className] = true;
-                });
+                }));
                 this._elementRef.nativeElement.className = '';
             }
         },
@@ -703,7 +711,10 @@ var _MatMenuBase = /** @class */ (function () {
     function () {
         var _this = this;
         this._keyManager = new FocusKeyManager(this._items).withWrap().withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.closed.emit('tab'); });
+        this._tabSubscription = this._keyManager.tabOut.subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.closed.emit('tab'); }));
     };
     /**
      * @return {?}
@@ -725,7 +736,15 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._itemChanges.pipe(startWith(this._items), switchMap(function (items) { return merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
+        return this._itemChanges.pipe(startWith(this._items), switchMap((/**
+         * @param {?} items
+         * @return {?}
+         */
+        function (items) { return merge.apply(void 0, items.map((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return item._hovered; }))); })));
     };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     /**
@@ -792,7 +811,10 @@ var _MatMenuBase = /** @class */ (function () {
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
                 .pipe(take(1))
-                .subscribe(function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); });
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); }));
         }
         else {
             this._keyManager.setFocusOrigin(origin).setFirstItemActive();
@@ -834,7 +856,11 @@ var _MatMenuBase = /** @class */ (function () {
         /** @type {?} */
         var newElevation = "mat-elevation-z" + (MAT_MENU_BASE_ELEVATION + depth);
         /** @type {?} */
-        var customElevation = Object.keys(this._classList).find(function (c) { return c.startsWith('mat-elevation-z'); });
+        var customElevation = Object.keys(this._classList).find((/**
+         * @param {?} c
+         * @return {?}
+         */
+        function (c) { return c.startsWith('mat-elevation-z'); }));
         if (!customElevation || customElevation === this._previousElevation) {
             if (this._previousElevation) {
                 this._classList[this._previousElevation] = false;
@@ -1054,7 +1080,7 @@ var _MatMenu = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that determines the scroll handling while the menu is open.
@@ -1067,7 +1093,10 @@ var MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
  * @return {?}
  */
 function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.reposition(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay.scrollStrategies.reposition(); });
 }
 /**
  * \@docs-private
@@ -1112,7 +1141,10 @@ var MatMenuTrigger = /** @class */ (function () {
          * Handles touch start events on the trigger.
          * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
          */
-        this._handleTouchStart = function () { return _this._openedBy = 'touch'; };
+        this._handleTouchStart = (/**
+         * @return {?}
+         */
+        function () { return _this._openedBy = 'touch'; });
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
@@ -1190,13 +1222,17 @@ var MatMenuTrigger = /** @class */ (function () {
             this._menu = menu;
             this._menuCloseSubscription.unsubscribe();
             if (menu) {
-                this._menuCloseSubscription = menu.close.asObservable().subscribe(function (reason) {
+                this._menuCloseSubscription = menu.close.asObservable().subscribe((/**
+                 * @param {?} reason
+                 * @return {?}
+                 */
+                function (reason) {
                     _this._destroyMenu();
                     // If a click closed the menu, we should close the entire chain of nested menus.
                     if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
                         _this._parentMenu.closed.emit(reason);
                     }
-                });
+                }));
             }
         },
         enumerable: true,
@@ -1301,7 +1337,10 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
-        this._closingActionsSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
+        this._closingActionsSubscription = this._menuClosingActions().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.closeMenu(); }));
         this._initMenu();
         if (this.menu instanceof MatMenu) {
             this.menu._startAnimation();
@@ -1367,13 +1406,23 @@ var MatMenuTrigger = /** @class */ (function () {
             if (menu.lazyContent) {
                 // Wait for the exit animation to finish before detaching the content.
                 menu._animationDone
-                    .pipe(filter(function (event) { return event.toState === 'void'; }), take(1), 
+                    .pipe(filter((/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) { return event.toState === 'void'; })), take(1), 
                 // Interrupt if the content got re-attached.
                 takeUntil(menu.lazyContent._attached))
-                    .subscribe(function () { return (/** @type {?} */ (menu.lazyContent)).detach(); }, undefined, function () {
+                    .subscribe((/**
+                 * @return {?}
+                 */
+                function () { return (/** @type {?} */ (menu.lazyContent)).detach(); }), undefined, (/**
+                 * @return {?}
+                 */
+                function () {
                     // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
-                });
+                }));
             }
             else {
                 this._resetMenu();
@@ -1586,13 +1635,17 @@ var MatMenuTrigger = /** @class */ (function () {
     function (position) {
         var _this = this;
         if (this.menu.setPositionClasses) {
-            position.positionChanges.subscribe(function (change) {
+            position.positionChanges.subscribe((/**
+             * @param {?} change
+             * @return {?}
+             */
+            function (change) {
                 /** @type {?} */
                 var posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
                 /** @type {?} */
                 var posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
                 (/** @type {?} */ (_this.menu.setPositionClasses))(posX, posY);
-            });
+            }));
         }
     };
     /**
@@ -1686,7 +1739,14 @@ var MatMenuTrigger = /** @class */ (function () {
         /** @type {?} */
         var parentClose = this._parentMenu ? this._parentMenu.closed : of();
         /** @type {?} */
-        var hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(function (active) { return active !== _this._menuItemInstance; }), filter(function () { return _this._menuOpen; })) : of();
+        var hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter((/**
+         * @param {?} active
+         * @return {?}
+         */
+        function (active) { return active !== _this._menuItemInstance; })), filter((/**
+         * @return {?}
+         */
+        function () { return _this._menuOpen; }))) : of();
         return merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
@@ -1774,8 +1834,15 @@ var MatMenuTrigger = /** @class */ (function () {
             // Since we might have multiple competing triggers for the same menu (e.g. a sub-menu
             // with different data and triggers), we have to delay it by a tick to ensure that
             // it won't be closed immediately after it is opened.
-            .pipe(filter(function (active) { return active === _this._menuItemInstance && !active.disabled; }), delay(0, asapScheduler))
-            .subscribe(function () {
+            .pipe(filter((/**
+         * @param {?} active
+         * @return {?}
+         */
+        function (active) { return active === _this._menuItemInstance && !active.disabled; })), delay(0, asapScheduler))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._openedBy = 'mouse';
             // If the same menu is used between multiple triggers, it might still be animating
             // while the new trigger tries to re-open it. Wait for the animation to finish
@@ -1785,12 +1852,15 @@ var MatMenuTrigger = /** @class */ (function () {
                 // 'changed after checked' errors in some cases. See #12194.
                 _this.menu._animationDone
                     .pipe(take(1), delay(0, asapScheduler), takeUntil(_this._parentMenu._hovered()))
-                    .subscribe(function () { return _this.openMenu(); });
+                    .subscribe((/**
+                 * @return {?}
+                 */
+                function () { return _this.openMenu(); }));
             }
             else {
                 _this.openMenu();
             }
-        });
+        }));
     };
     /** Gets the portal that should be attached to the overlay. */
     /**
@@ -1851,7 +1921,7 @@ var MatMenuTrigger = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used by both the current `MatMenuModule` and the MDC `MatMenuModule`
@@ -1891,18 +1961,18 @@ var MatMenuModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
 //# sourceMappingURL=menu.es5.js.map

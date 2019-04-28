@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
@@ -59,7 +59,7 @@ var MatStepLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Stepper data that is required for internationalization.
@@ -79,7 +79,7 @@ var MatStepperIntl = /** @class */ (function () {
     MatStepperIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
 /**
@@ -102,7 +102,7 @@ var MAT_STEPPER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepHeader = /** @class */ (function (_super) {
     __extends(MatStepHeader, _super);
@@ -111,7 +111,10 @@ var MatStepHeader = /** @class */ (function (_super) {
         _this._intl = _intl;
         _this._focusMonitor = _focusMonitor;
         _focusMonitor.monitor(_elementRef, true);
-        _this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
+        _this._intlSubscription = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        function () { return changeDetectorRef.markForCheck(); }));
         return _this;
     }
     /**
@@ -243,7 +246,7 @@ var MatStepHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material steppers.
@@ -273,7 +276,7 @@ var matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Template to be used to override the icons inside the step header.
@@ -299,7 +302,7 @@ var MatStepperIcon = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
@@ -343,7 +346,10 @@ var MatStep = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatStep.ctorParameters = function () { return [
-        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatStepper; }),] }] },
+        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatStepper; })),] }] },
         { type: core$1.ErrorStateMatcher, decorators: [{ type: core.SkipSelf }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
     ]; };
@@ -378,21 +384,37 @@ var MatStepper = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._icons.forEach(function (_a) {
+        this._icons.forEach((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var name = _a.name, templateRef = _a.templateRef;
             return _this._iconOverrides[name] = templateRef;
-        });
+        }));
         // Mark the component for change detection whenever the content children query changes
-        this._steps.changes.pipe(operators.takeUntil(this._destroyed)).subscribe(function () { return _this._stateChanged(); });
+        this._steps.changes.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._stateChanged(); }));
         this._animationDone.pipe(
         // This needs a `distinctUntilChanged` in order to avoid emitting the same event twice due
         // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
         // See https://github.com/angular/angular/issues/24084
-        operators.distinctUntilChanged(function (x, y) { return x.fromState === y.fromState && x.toState === y.toState; }), operators.takeUntil(this._destroyed)).subscribe(function (event) {
+        operators.distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (x, y) { return x.fromState === y.fromState && x.toState === y.toState; })), operators.takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             if (((/** @type {?} */ (event.toState))) === 'current') {
                 _this.animationDone.emit();
             }
-        });
+        }));
     };
     MatStepper.decorators = [
         { type: core.Directive, args: [{ selector: '[matStepper]', providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }] },] },
@@ -484,7 +506,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Button that moves to the next step in a stepper workflow.
@@ -527,7 +549,7 @@ var MatStepperPrevious = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepperModule = /** @class */ (function () {
     function MatStepperModule() {

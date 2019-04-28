@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -48,7 +48,7 @@ MatTable.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Cell definition for the mat-table.
@@ -190,7 +190,7 @@ MatCell.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Header row definition for the mat-table.
@@ -296,7 +296,7 @@ MatRow.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Column that simply shows text content for the header and row cells. Assumes that the table
@@ -335,7 +335,7 @@ MatTextColumn.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const EXPORTED_DECLARATIONS = [
@@ -375,7 +375,7 @@ MatTableModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
@@ -424,7 +424,12 @@ class MatTableDataSource extends DataSource {
          * @param data Data object that is being accessed.
          * @param sortHeaderId The name of the column that represents the data.
          */
-        this.sortingDataAccessor = (data, sortHeaderId) => {
+        this.sortingDataAccessor = (/**
+         * @param {?} data
+         * @param {?} sortHeaderId
+         * @return {?}
+         */
+        (data, sortHeaderId) => {
             /** @type {?} */
             const value = ((/** @type {?} */ (data)))[sortHeaderId];
             if (_isNumberValue(value)) {
@@ -435,7 +440,7 @@ class MatTableDataSource extends DataSource {
                 return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
             }
             return value;
-        };
+        });
         /**
          * Gets a sorted copy of the data array based on the state of the MatSort. Called
          * after changes are made to the filtered data or when sort changes are emitted from MatSort.
@@ -445,7 +450,12 @@ class MatTableDataSource extends DataSource {
          * @param data The array of data that should be sorted.
          * @param sort The connected MatSort that holds the current sort state.
          */
-        this.sortData = (data, sort) => {
+        this.sortData = (/**
+         * @param {?} data
+         * @param {?} sort
+         * @return {?}
+         */
+        (data, sort) => {
             /** @type {?} */
             const active = sort.active;
             /** @type {?} */
@@ -453,7 +463,12 @@ class MatTableDataSource extends DataSource {
             if (!active || direction == '') {
                 return data;
             }
-            return data.sort((a, b) => {
+            return data.sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => {
                 /** @type {?} */
                 let valueA = this.sortingDataAccessor(a, active);
                 /** @type {?} */
@@ -480,8 +495,8 @@ class MatTableDataSource extends DataSource {
                     comparatorResult = -1;
                 }
                 return comparatorResult * (direction == 'asc' ? 1 : -1);
-            });
-        };
+            }));
+        });
         /**
          * Checks if a data object matches the data source's filter string. By default, each data object
          * is converted to a string of its properties and returns true if the filter has
@@ -492,10 +507,20 @@ class MatTableDataSource extends DataSource {
          * @param filter Filter string that has been set on the data source.
          * @return Whether the filter matches against the data
          */
-        this.filterPredicate = (data, filter) => {
+        this.filterPredicate = (/**
+         * @param {?} data
+         * @param {?} filter
+         * @return {?}
+         */
+        (data, filter) => {
             // Transform the data into a lowercase string of all property values.
             /** @type {?} */
-            const dataStr = Object.keys(data).reduce((currentTerm, key) => {
+            const dataStr = Object.keys(data).reduce((/**
+             * @param {?} currentTerm
+             * @param {?} key
+             * @return {?}
+             */
+            (currentTerm, key) => {
                 // Use an obscure Unicode character to delimit the words in the concatenated string.
                 // This avoids matches where the values of two columns combined will match the user's query
                 // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
@@ -503,12 +528,12 @@ class MatTableDataSource extends DataSource {
                 // particular is "White up-pointing triangle with dot" from
                 // https://en.wikipedia.org/wiki/List_of_Unicode_characters
                 return currentTerm + ((/** @type {?} */ (data)))[key] + '◬';
-            }, '').toLowerCase();
+            }), '').toLowerCase();
             // Transform the filter by converting it to lowercase and removing whitespace.
             /** @type {?} */
             const transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
-        };
+        });
         this._data = new BehaviorSubject(initialData);
         this._updateChangeSubscription();
     }
@@ -593,18 +618,34 @@ class MatTableDataSource extends DataSource {
         // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
         const filteredData = combineLatest(dataStream, this._filter)
-            .pipe(map(([data]) => this._filterData(data)));
+            .pipe(map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ([data]) => this._filterData(data))));
         // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
         const orderedData = combineLatest(filteredData, sortChange)
-            .pipe(map(([data]) => this._orderData(data)));
+            .pipe(map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ([data]) => this._orderData(data))));
         // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
         const paginatedData = combineLatest(orderedData, pageChange)
-            .pipe(map(([data]) => this._pageData(data)));
+            .pipe(map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ([data]) => this._pageData(data))));
         // Watched for paged data changes and send the result to the table to render.
         this._renderChangesSubscription.unsubscribe();
-        this._renderChangesSubscription = paginatedData.subscribe(data => this._renderData.next(data));
+        this._renderChangesSubscription = paginatedData.subscribe((/**
+         * @param {?} data
+         * @return {?}
+         */
+        data => this._renderData.next(data)));
     }
     /**
      * Returns a filtered data array where each filter object contains the filter string within
@@ -618,7 +659,11 @@ class MatTableDataSource extends DataSource {
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overridden for customization.
         this.filteredData =
-            !this.filter ? data : data.filter(obj => this.filterPredicate(obj, this.filter));
+            !this.filter ? data : data.filter((/**
+             * @param {?} obj
+             * @return {?}
+             */
+            obj => this.filterPredicate(obj, this.filter)));
         if (this.paginator) {
             this._updatePaginator(this.filteredData.length);
         }
@@ -660,7 +705,10 @@ class MatTableDataSource extends DataSource {
      * @return {?}
      */
     _updatePaginator(filteredDataLength) {
-        Promise.resolve().then(() => {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        () => {
             /** @type {?} */
             const paginator = this.paginator;
             if (!paginator) {
@@ -680,7 +728,7 @@ class MatTableDataSource extends DataSource {
                     this._internalPageChanges.next();
                 }
             }
-        });
+        }));
     }
     /**
      * Used by the MatTable. Called when it connects to the data source.
@@ -698,12 +746,12 @@ class MatTableDataSource extends DataSource {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource, MatTextColumn };

@@ -14,7 +14,7 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatProgressBar.
 /**
@@ -49,7 +49,10 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
     return {
         // Note that this needs to be a function, rather than a property, because Angular
         // will only resolve it once, but we want the current path on each call.
-        getPathname: () => _location ? (_location.pathname + _location.search) : ''
+        getPathname: (/**
+         * @return {?}
+         */
+        () => _location ? (_location.pathname + _location.search) : '')
     };
 }
 /**
@@ -170,14 +173,27 @@ class MatProgressBar extends _MatProgressBarMixinBase {
         if (!this._isNoopAnimation) {
             // Run outside angular so change detection didn't get triggered on every transition end
             // instead only on the animation that we care about (primary value bar's transitionend)
-            this._ngZone.runOutsideAngular((() => {
+            this._ngZone.runOutsideAngular(((/**
+             * @return {?}
+             */
+            () => {
                 /** @type {?} */
                 const element = this._primaryValueBar.nativeElement;
                 this._animationEndSubscription =
                     ((/** @type {?} */ (fromEvent(element, 'transitionend'))))
-                        .pipe(filter(((e) => e.target === element)))
-                        .subscribe(() => this._ngZone.run(() => this.emitAnimationEnd()));
-            }));
+                        .pipe(filter(((/**
+                     * @param {?} e
+                     * @return {?}
+                     */
+                    (e) => e.target === element))))
+                        .subscribe((/**
+                     * @return {?}
+                     */
+                    () => this._ngZone.run((/**
+                     * @return {?}
+                     */
+                    () => this.emitAnimationEnd()))));
+            })));
         }
     }
     /**
@@ -243,7 +259,7 @@ function clamp(v, min = 0, max = 100) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatProgressBarModule {
 }
@@ -257,12 +273,12 @@ MatProgressBarModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatProgressBarModule, MAT_PROGRESS_BAR_LOCATION_FACTORY, MAT_PROGRESS_BAR_LOCATION, MatProgressBar };

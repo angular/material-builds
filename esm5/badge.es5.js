@@ -14,7 +14,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextId = 0;
@@ -259,11 +259,17 @@ var MatBadge = /** @class */ (function (_super) {
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
         if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
-            this._ngZone.runOutsideAngular(function () {
-                requestAnimationFrame(function () {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                requestAnimationFrame((/**
+                 * @return {?}
+                 */
+                function () {
                     badgeElement.classList.add(activeClass);
-                });
-            });
+                }));
+            }));
         }
         else {
             badgeElement.classList.add(activeClass);
@@ -387,7 +393,7 @@ var MatBadge = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBadgeModule = /** @class */ (function () {
     function MatBadgeModule() {
@@ -407,12 +413,12 @@ var MatBadgeModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatBadgeModule, MatBadge };

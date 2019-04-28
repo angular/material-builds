@@ -15,7 +15,7 @@ import { map, take } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
@@ -44,7 +44,7 @@ MatTreeNodeOutlet.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
@@ -178,7 +178,7 @@ MatNestedTreeNode.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
@@ -199,7 +199,7 @@ MatTreeNodePadding.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -229,7 +229,7 @@ MatTree.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
@@ -253,7 +253,7 @@ MatTreeNodeToggle.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const MAT_TREE_DIRECTIVES = [
@@ -277,7 +277,7 @@ MatTreeModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -346,9 +346,13 @@ class MatTreeFlattener {
                     this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
                 }
                 else {
-                    childrenNodes.pipe(take(1)).subscribe(children => {
+                    childrenNodes.pipe(take(1)).subscribe((/**
+                     * @param {?} children
+                     * @return {?}
+                     */
+                    children => {
                         this._flattenChildren(children, level, resultNodes, parentMap);
-                    });
+                    }));
                 }
             }
         }
@@ -362,12 +366,17 @@ class MatTreeFlattener {
      * @return {?}
      */
     _flattenChildren(children, level, resultNodes, parentMap) {
-        children.forEach((child, index) => {
+        children.forEach((/**
+         * @param {?} child
+         * @param {?} index
+         * @return {?}
+         */
+        (child, index) => {
             /** @type {?} */
             let childParentMap = parentMap.slice();
             childParentMap.push(index != children.length - 1);
             this._flattenNode(child, level + 1, resultNodes, childParentMap);
-        });
+        }));
     }
     /**
      * Flatten a list of node type T to flattened version of node F.
@@ -379,7 +388,11 @@ class MatTreeFlattener {
     flattenNodes(structuredData) {
         /** @type {?} */
         let resultNodes = [];
-        structuredData.forEach(node => this._flattenNode(node, 0, resultNodes, []));
+        structuredData.forEach((/**
+         * @param {?} node
+         * @return {?}
+         */
+        node => this._flattenNode(node, 0, resultNodes, [])));
         return resultNodes;
     }
     /**
@@ -395,7 +408,11 @@ class MatTreeFlattener {
         /** @type {?} */
         let currentExpand = [];
         currentExpand[0] = true;
-        nodes.forEach(node => {
+        nodes.forEach((/**
+         * @param {?} node
+         * @return {?}
+         */
+        node => {
             /** @type {?} */
             let expand = true;
             for (let i = 0; i <= this.getLevel(node); i++) {
@@ -407,7 +424,7 @@ class MatTreeFlattener {
             if (this.isExpandable(node)) {
                 currentExpand[this.getLevel(node) + 1] = treeControl.isExpanded(node);
             }
-        });
+        }));
         return results;
     }
 }
@@ -457,10 +474,13 @@ class MatTreeFlatDataSource extends DataSource {
             this.treeControl.expansionModel.onChange,
             this._flattenedData
         ];
-        return merge(...changes).pipe(map(() => {
+        return merge(...changes).pipe(map((/**
+         * @return {?}
+         */
+        () => {
             this._expandedData.next(this.treeFlattener.expandFlattenedNodes(this._flattenedData.value, this.treeControl));
             return this._expandedData.value;
-        }));
+        })));
     }
     /**
      * @return {?}
@@ -472,7 +492,7 @@ class MatTreeFlatDataSource extends DataSource {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Data source for nested tree.
@@ -502,9 +522,12 @@ class MatTreeNestedDataSource extends DataSource {
      */
     connect(collectionViewer) {
         return merge(...[collectionViewer.viewChange, this._data])
-            .pipe(map(() => {
+            .pipe(map((/**
+         * @return {?}
+         */
+        () => {
             return this.data;
-        }));
+        })));
     }
     /**
      * @return {?}
@@ -516,12 +539,12 @@ class MatTreeNestedDataSource extends DataSource {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };

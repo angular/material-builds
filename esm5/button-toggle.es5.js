@@ -15,7 +15,7 @@ import { mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/m
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to configure the
@@ -31,7 +31,10 @@ var MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('MAT_BUTTON_TOGGLE_DE
  */
 var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(function () { return MatButtonToggleGroup; }),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatButtonToggleGroup; })),
     multi: true
 };
 /**
@@ -75,11 +78,17 @@ var MatButtonToggleGroup = /** @class */ (function () {
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
-        this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        this._onTouched = function () { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         this._name = "mat-button-toggle-group-" + _uniqueIdCounter++;
         /**
          * Event that emits whenever the value of the group changes.
@@ -109,10 +118,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
             var _this = this;
             this._name = value;
             if (this._buttonToggles) {
-                this._buttonToggles.forEach(function (toggle) {
+                this._buttonToggles.forEach((/**
+                 * @param {?} toggle
+                 * @return {?}
+                 */
+                function (toggle) {
                     toggle.name = _this._name;
                     toggle._markForCheck();
-                });
+                }));
             }
         },
         enumerable: true,
@@ -145,7 +158,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
             /** @type {?} */
             var selected = this._selectionModel ? this._selectionModel.selected : [];
             if (this.multiple) {
-                return selected.map(function (toggle) { return toggle.value; });
+                return selected.map((/**
+                 * @param {?} toggle
+                 * @return {?}
+                 */
+                function (toggle) { return toggle.value; }));
             }
             return selected[0] ? selected[0].value : undefined;
         },
@@ -205,7 +222,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
         function (value) {
             this._disabled = coerceBooleanProperty(value);
             if (this._buttonToggles) {
-                this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
+                this._buttonToggles.forEach((/**
+                 * @param {?} toggle
+                 * @return {?}
+                 */
+                function (toggle) { return toggle._markForCheck(); }));
             }
         },
         enumerable: true,
@@ -228,7 +249,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
      */
     function () {
         var _a;
-        (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter(function (toggle) { return toggle.checked; }));
+        (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter((/**
+         * @param {?} toggle
+         * @return {?}
+         */
+        function (toggle) { return toggle.checked; })));
     };
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -383,7 +408,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
             return false;
         }
         if (this.multiple && Array.isArray(this._rawValue)) {
-            return this._rawValue.some(function (value) { return toggle.value != null && value === toggle.value; });
+            return this._rawValue.some((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) { return toggle.value != null && value === toggle.value; }));
         }
         return toggle.value === this._rawValue;
     };
@@ -411,7 +440,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
                 throw Error('Value must be an array in multiple-selection mode.');
             }
             this._clearSelection();
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            function (currentValue) { return _this._selectValue(currentValue); }));
         }
         else {
             this._clearSelection();
@@ -431,7 +464,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
      */
     function () {
         this._selectionModel.clear();
-        this._buttonToggles.forEach(function (toggle) { return toggle.checked = false; });
+        this._buttonToggles.forEach((/**
+         * @param {?} toggle
+         * @return {?}
+         */
+        function (toggle) { return toggle.checked = false; }));
     };
     /** Selects a value if there's a toggle that corresponds to it. */
     /**
@@ -448,9 +485,13 @@ var MatButtonToggleGroup = /** @class */ (function () {
      */
     function (value) {
         /** @type {?} */
-        var correspondingOption = this._buttonToggles.find(function (toggle) {
+        var correspondingOption = this._buttonToggles.find((/**
+         * @param {?} toggle
+         * @return {?}
+         */
+        function (toggle) {
             return toggle.value != null && toggle.value === value;
-        });
+        }));
         if (correspondingOption) {
             correspondingOption.checked = true;
             this._selectionModel.select(correspondingOption);
@@ -479,7 +520,10 @@ var MatButtonToggleGroup = /** @class */ (function () {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS,] }] }
     ]; };
     MatButtonToggleGroup.propDecorators = {
-        _buttonToggles: [{ type: ContentChildren, args: [forwardRef(function () { return MatButtonToggle; }),] }],
+        _buttonToggles: [{ type: ContentChildren, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatButtonToggle; })),] }],
         appearance: [{ type: Input }],
         name: [{ type: Input }],
         vertical: [{ type: Input }],
@@ -643,7 +687,10 @@ var MatButtonToggle = /** @class */ (function (_super) {
         // Remove the toggle from the selection once it's destroyed. Needs to happen
         // on the next tick in order to avoid "changed after checked" errors.
         if (group && group._isSelected(this)) {
-            Promise.resolve().then(function () { return group._syncButtonToggle(_this, false); });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () { return group._syncButtonToggle(_this, false); }));
         }
     };
     /** Focuses the button. */
@@ -751,7 +798,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonToggleModule = /** @class */ (function () {
     function MatButtonToggleModule() {
@@ -768,12 +815,12 @@ var MatButtonToggleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleGroupMultiple, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggle, MatButtonToggleModule };

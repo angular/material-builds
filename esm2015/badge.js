@@ -13,7 +13,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 let nextId = 0;
@@ -206,11 +206,17 @@ class MatBadge extends _MatBadgeMixinBase {
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
         if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
-            this._ngZone.runOutsideAngular(() => {
-                requestAnimationFrame(() => {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
+                requestAnimationFrame((/**
+                 * @return {?}
+                 */
+                () => {
                     badgeElement.classList.add(activeClass);
-                });
-            });
+                }));
+            }));
         }
         else {
             badgeElement.classList.add(activeClass);
@@ -311,7 +317,7 @@ MatBadge.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatBadgeModule {
 }
@@ -328,12 +334,12 @@ MatBadgeModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatBadgeModule, MatBadge };

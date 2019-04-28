@@ -24,7 +24,7 @@ import { GestureConfig, MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by MatTooltip.
@@ -49,7 +49,7 @@ const matTooltipAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Time in ms to throttle repositioning after scroll events.
@@ -81,7 +81,10 @@ const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strat
  * @return {?}
  */
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
+    return (/**
+     * @return {?}
+     */
+    () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }));
 }
 /**
  * \@docs-private
@@ -167,24 +170,48 @@ class MatTooltip {
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!platform.IOS && !platform.ANDROID) {
             this._manualListeners
-                .set('mouseenter', () => this.show())
-                .set('mouseleave', () => this.hide());
+                .set('mouseenter', (/**
+             * @return {?}
+             */
+            () => this.show()))
+                .set('mouseleave', (/**
+             * @return {?}
+             */
+            () => this.hide()));
         }
         else if (!hasGestures) {
             // If Hammerjs isn't loaded, fall back to showing on `touchstart`, otherwise
             // there's no way for the user to trigger the tooltip on a touch device.
-            this._manualListeners.set('touchstart', () => this.show());
+            this._manualListeners.set('touchstart', (/**
+             * @return {?}
+             */
+            () => this.show()));
         }
-        this._manualListeners.forEach((listener, event) => element.addEventListener(event, listener));
-        _focusMonitor.monitor(_elementRef).pipe(takeUntil(this._destroyed)).subscribe(origin => {
+        this._manualListeners.forEach((/**
+         * @param {?} listener
+         * @param {?} event
+         * @return {?}
+         */
+        (listener, event) => element.addEventListener(event, listener)));
+        _focusMonitor.monitor(_elementRef).pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} origin
+         * @return {?}
+         */
+        origin => {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
-                _ngZone.run(() => this.hide(0));
+                _ngZone.run((/**
+                 * @return {?}
+                 */
+                () => this.hide(0)));
             }
             else if (origin === 'keyboard') {
-                _ngZone.run(() => this.show());
+                _ngZone.run((/**
+                 * @return {?}
+                 */
+                () => this.show()));
             }
-        });
+        }));
         if (_defaultOptions && _defaultOptions.position) {
             this.position = _defaultOptions.position;
         }
@@ -296,9 +323,14 @@ class MatTooltip {
             this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
-        this._manualListeners.forEach((listener, event) => {
+        this._manualListeners.forEach((/**
+         * @param {?} listener
+         * @param {?} event
+         * @return {?}
+         */
+        (listener, event) => {
             this._elementRef.nativeElement.removeEventListener(event, listener);
-        });
+        }));
         this._manualListeners.clear();
         this._destroyed.next();
         this._destroyed.complete();
@@ -322,7 +354,10 @@ class MatTooltip {
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
             .pipe(takeUntil(this._destroyed))
-            .subscribe(() => this._detach());
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this._detach()));
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage();
         (/** @type {?} */ (this._tooltipInstance)).show(delay);
@@ -388,15 +423,22 @@ class MatTooltip {
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withScrollableContainers(scrollableAncestors);
-        strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe(change => {
+        strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} change
+         * @return {?}
+         */
+        change => {
             if (this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
-                    this._ngZone.run(() => this.hide(0));
+                    this._ngZone.run((/**
+                     * @return {?}
+                     */
+                    () => this.hide(0)));
                 }
             }
-        });
+        }));
         this._overlayRef = this._overlay.create({
             direction: this._dir,
             positionStrategy: strategy,
@@ -406,7 +448,10 @@ class MatTooltip {
         this._updatePosition();
         this._overlayRef.detachments()
             .pipe(takeUntil(this._destroyed))
-            .subscribe(() => this._detach());
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this._detach()));
         return this._overlayRef;
     }
     /**
@@ -518,11 +563,14 @@ class MatTooltip {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1), takeUntil(this._destroyed)).subscribe(() => {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1), takeUntil(this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            () => {
                 if (this._tooltipInstance) {
                     (/** @type {?} */ (this._overlayRef)).updatePosition();
                 }
-            });
+            }));
         }
     }
     /**
@@ -640,13 +688,16 @@ class TooltipComponent {
         }
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
-        this._showTimeoutId = setTimeout(() => {
+        this._showTimeoutId = setTimeout((/**
+         * @return {?}
+         */
+        () => {
             this._visibility = 'visible';
             this._showTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             this._markForCheck();
-        }, delay);
+        }), delay);
     }
     /**
      * Begins the animation to hide the tooltip after the provided delay in ms.
@@ -659,13 +710,16 @@ class TooltipComponent {
             clearTimeout(this._showTimeoutId);
             this._showTimeoutId = null;
         }
-        this._hideTimeoutId = setTimeout(() => {
+        this._hideTimeoutId = setTimeout((/**
+         * @return {?}
+         */
+        () => {
             this._visibility = 'hidden';
             this._hideTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             this._markForCheck();
-        }, delay);
+        }), delay);
     }
     /**
      * Returns an observable that notifies when the tooltip has been hidden from view.
@@ -752,7 +806,7 @@ TooltipComponent.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatTooltipModule {
 }
@@ -776,12 +830,12 @@ MatTooltipModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTooltipModule, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations };

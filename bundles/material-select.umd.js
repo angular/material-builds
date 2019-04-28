@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The following are all the animations for the mat-select component, with each
@@ -123,7 +123,7 @@ var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -157,7 +157,7 @@ function getMatSelectNonFunctionValueError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId = 0;
@@ -210,7 +210,10 @@ var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-stra
  * @return {?}
  */
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.reposition(); });
 }
 /**
  * \@docs-private
@@ -298,7 +301,12 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Comparison function to specify which option is displayed. Defaults to object equality.
          */
-        _this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._compareWith = (/**
+         * @param {?} o1
+         * @param {?} o2
+         * @return {?}
+         */
+        function (o1, o2) { return o1 === o2; });
         /**
          * Unique id for this input.
          */
@@ -314,11 +322,17 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * `View -> model callback called when value changes`
          */
-        _this._onChange = function () { };
+        _this._onChange = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * `View -> model callback called when select has been touched`
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * The IDs of child options to be passed to the aria-owns attribute.
          */
@@ -373,14 +387,24 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Combined stream of all of the child options' change events.
          */
-        _this.optionSelectionChanges = (/** @type {?} */ (rxjs.defer(function () {
+        _this.optionSelectionChanges = (/** @type {?} */ (rxjs.defer((/**
+         * @return {?}
+         */
+        function () {
             if (_this.options) {
-                return rxjs.merge.apply(void 0, _this.options.map(function (option) { return option.onSelectionChange; }));
+                return rxjs.merge.apply(void 0, _this.options.map((/**
+                 * @param {?} option
+                 * @return {?}
+                 */
+                function (option) { return option.onSelectionChange; })));
             }
             return _this._ngZone.onStable
                 .asObservable()
-                .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelectionChanges; }));
-        })));
+                .pipe(operators.take(1), operators.switchMap((/**
+             * @return {?}
+             */
+            function () { return _this.optionSelectionChanges; })));
+        }))));
         /**
          * Event emitted when the select panel has been toggled.
          */
@@ -388,11 +412,25 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Event emitted when the select has been opened.
          */
-        _this._openedStream = _this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
+        _this._openedStream = _this.openedChange.pipe(operators.filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        function (o) { return o; })), operators.map((/**
+         * @return {?}
+         */
+        function () { })));
         /**
          * Event emitted when the select has been closed.
          */
-        _this._closedStream = _this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
+        _this._closedStream = _this.openedChange.pipe(operators.filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        function (o) { return !o; })), operators.map((/**
+         * @return {?}
+         */
+        function () { })));
         /**
          * Event emitted when the selected value has been changed by the user.
          */
@@ -596,7 +634,10 @@ var MatSelect = /** @class */ (function (_super) {
         // https://github.com/angular/angular/issues/24084
         this._panelDoneAnimatingStream
             .pipe(operators.distinctUntilChanged(), operators.takeUntil(this._destroy))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this.panelOpen) {
                 _this._scrollTop = 0;
                 _this.openedChange.emit(true);
@@ -606,15 +647,18 @@ var MatSelect = /** @class */ (function (_super) {
                 _this.overlayDir.offsetX = 0;
                 _this._changeDetectorRef.markForCheck();
             }
-        });
+        }));
         this._viewportRuler.change()
             .pipe(operators.takeUntil(this._destroy))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this._panelOpen) {
                 _this._triggerRect = _this.trigger.nativeElement.getBoundingClientRect();
                 _this._changeDetectorRef.markForCheck();
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -625,14 +669,29 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._initKeyManager();
-        this._selectionModel.onChange.pipe(operators.takeUntil(this._destroy)).subscribe(function (event) {
-            event.added.forEach(function (option) { return option.select(); });
-            event.removed.forEach(function (option) { return option.deselect(); });
-        });
-        this.options.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroy)).subscribe(function () {
+        this._selectionModel.onChange.pipe(operators.takeUntil(this._destroy)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event.added.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option.select(); }));
+            event.removed.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option.deselect(); }));
+        }));
+        this.options.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._resetOptions();
             _this._initializeSelection();
-        });
+        }));
     };
     /**
      * @return {?}
@@ -707,12 +766,15 @@ var MatSelect = /** @class */ (function (_super) {
         this._highlightCorrectOption();
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+        this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
             }
-        });
+        }));
     };
     /** Closes the overlay panel and focuses the host element. */
     /**
@@ -869,7 +931,11 @@ var MatSelect = /** @class */ (function (_super) {
             }
             if (this._multiple) {
                 /** @type {?} */
-                var selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
+                var selectedOptions = this._selectionModel.selected.map((/**
+                 * @param {?} option
+                 * @return {?}
+                 */
+                function (option) { return option.viewValue; }));
                 if (this._isRtl()) {
                     selectedOptions.reverse();
                 }
@@ -993,12 +1059,20 @@ var MatSelect = /** @class */ (function (_super) {
         else if (this._multiple && keyCode === keycodes.A && event.ctrlKey) {
             event.preventDefault();
             /** @type {?} */
-            var hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
-            this.options.forEach(function (option) {
+            var hasDeselectedOptions_1 = this.options.some((/**
+             * @param {?} opt
+             * @return {?}
+             */
+            function (opt) { return !opt.disabled && !opt.selected; }));
+            this.options.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) {
                 if (!option.disabled) {
                     hasDeselectedOptions_1 ? option.select() : option.deselect();
                 }
-            });
+            }));
         }
         else {
             /** @type {?} */
@@ -1057,12 +1131,15 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this.overlayDir.positionChange.pipe(operators.take(1)).subscribe(function () {
+        this.overlayDir.positionChange.pipe(operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._setPseudoCheckboxPaddingSize();
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
-        });
+        }));
     };
     /** Returns the theme to be used on the panel. */
     /**
@@ -1124,10 +1201,13 @@ var MatSelect = /** @class */ (function (_super) {
         var _this = this;
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value);
             _this.stateChanges.next();
-        });
+        }));
     };
     /**
      * Sets the selected option based on a value. If no option can be
@@ -1154,7 +1234,11 @@ var MatSelect = /** @class */ (function (_super) {
                 throw getMatSelectNonArrayValueError();
             }
             this._selectionModel.clear();
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            function (currentValue) { return _this._selectValue(currentValue); }));
             this._sortValues();
         }
         else {
@@ -1188,7 +1272,11 @@ var MatSelect = /** @class */ (function (_super) {
     function (value) {
         var _this = this;
         /** @type {?} */
-        var correspondingOption = this.options.find(function (option) {
+        var correspondingOption = this.options.find((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) {
             try {
                 // Treat null as a special reset value.
                 return option.value != null && _this._compareWith(option.value, value);
@@ -1200,7 +1288,7 @@ var MatSelect = /** @class */ (function (_super) {
                 }
                 return false;
             }
-        });
+        }));
         if (correspondingOption) {
             this._selectionModel.select(correspondingOption);
         }
@@ -1224,20 +1312,26 @@ var MatSelect = /** @class */ (function (_super) {
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
-        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
+        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             // Restore focus to the trigger before closing. Ensures that the focus
             // position won't be lost if the user got focus into the overlay.
             _this.focus();
             _this.close();
-        });
-        this._keyManager.change.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
+        }));
+        this._keyManager.change.pipe(operators.takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this._panelOpen && _this.panel) {
                 _this._scrollActiveOptionIntoView();
             }
             else if (!_this._panelOpen && !_this.multiple && _this._keyManager.activeItem) {
                 _this._keyManager.activeItem._selectViaInteraction();
             }
-        });
+        }));
     };
     /** Drops current option subscriptions and IDs and resets from scratch. */
     /**
@@ -1254,20 +1348,31 @@ var MatSelect = /** @class */ (function (_super) {
         var _this = this;
         /** @type {?} */
         var changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
-        this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe(function (event) {
+        this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             _this._onSelect(event.source, event.isUserInput);
             if (event.isUserInput && !_this.multiple && _this._panelOpen) {
                 _this.close();
                 _this.focus();
             }
-        });
+        }));
         // Listen to changes in the internal state of the options and react accordingly.
         // Handles cases like the labels of the selected options changing.
-        rxjs.merge.apply(void 0, this.options.map(function (option) { return option._stateChanges; })).pipe(operators.takeUntil(changedOrDestroyed))
-            .subscribe(function () {
+        rxjs.merge.apply(void 0, this.options.map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option._stateChanges; }))).pipe(operators.takeUntil(changedOrDestroyed))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._changeDetectorRef.markForCheck();
             _this.stateChanges.next();
-        });
+        }));
         this._setOptionIds();
     };
     /** Invoked when an option is clicked. */
@@ -1330,10 +1435,15 @@ var MatSelect = /** @class */ (function (_super) {
         if (this.multiple) {
             /** @type {?} */
             var options_1 = this.options.toArray();
-            this._selectionModel.sort(function (a, b) {
+            this._selectionModel.sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            function (a, b) {
                 return _this.sortComparator ? _this.sortComparator(a, b, options_1) :
                     options_1.indexOf(a) - options_1.indexOf(b);
-            });
+            }));
             this.stateChanges.next();
         }
     };
@@ -1354,7 +1464,11 @@ var MatSelect = /** @class */ (function (_super) {
         /** @type {?} */
         var valueToEmit = null;
         if (this.multiple) {
-            valueToEmit = ((/** @type {?} */ (this.selected))).map(function (option) { return option.value; });
+            valueToEmit = ((/** @type {?} */ (this.selected))).map((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option.value; }));
         }
         else {
             valueToEmit = this.selected ? ((/** @type {?} */ (this.selected))).value : fallbackValue;
@@ -1377,7 +1491,11 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._optionIds = this.options.map(function (option) { return option.id; }).join(' ');
+        this._optionIds = this.options.map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option.id; })).join(' ');
     };
     /**
      * Highlights the selected item. If no option is selected, it will highlight
@@ -1449,9 +1567,15 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option) {
-        return this.options.reduce(function (result, current, index) {
+        return this.options.reduce((/**
+         * @param {?} result
+         * @param {?} current
+         * @param {?} index
+         * @return {?}
+         */
+        function (result, current, index) {
             return result === undefined ? (option === current ? index : undefined) : result;
-        }, undefined);
+        }), undefined);
     };
     /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
     /**
@@ -2023,7 +2147,7 @@ var MatSelect = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSelectModule = /** @class */ (function () {
     function MatSelectModule() {

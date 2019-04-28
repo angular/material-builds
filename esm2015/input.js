@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -85,7 +85,7 @@ MatTextareaAutosize.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -99,7 +99,7 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
@@ -112,7 +112,7 @@ const MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 /** @type {?} */
@@ -210,7 +210,11 @@ class MatInput extends _MatInputMixinBase {
             'month',
             'time',
             'week'
-        ].filter(t => getSupportedInputTypes().has(t));
+        ].filter((/**
+         * @param {?} t
+         * @return {?}
+         */
+        t => getSupportedInputTypes().has(t)));
         /** @type {?} */
         const element = this._elementRef.nativeElement;
         // If no input value accessor was explicitly specified, use the element as the input value
@@ -223,8 +227,15 @@ class MatInput extends _MatInputMixinBase {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            ngZone.runOutsideAngular(() => {
-                _elementRef.nativeElement.addEventListener('keyup', (event) => {
+            ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
+                _elementRef.nativeElement.addEventListener('keyup', (/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                (event) => {
                     /** @type {?} */
                     let el = (/** @type {?} */ (event.target));
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
@@ -235,8 +246,8 @@ class MatInput extends _MatInputMixinBase {
                         el.setSelectionRange(1, 1);
                         el.setSelectionRange(0, 0);
                     }
-                });
-            });
+                }));
+            }));
         }
         this._isServer = !this._platform.isBrowser;
         this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
@@ -341,10 +352,14 @@ class MatInput extends _MatInputMixinBase {
      */
     ngOnInit() {
         if (this._platform.isBrowser) {
-            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(event => {
+            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            event => {
                 this.autofilled = event.isAutofilled;
                 this.stateChanges.next();
-            });
+            }));
         }
     }
     /**
@@ -565,7 +580,7 @@ MatInput.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatInputModule {
 }
@@ -591,12 +606,12 @@ MatInputModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };

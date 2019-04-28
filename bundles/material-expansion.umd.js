@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
@@ -53,7 +53,7 @@ var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Time and timing curve for expansion panel animations.
@@ -123,7 +123,7 @@ var matExpansionAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Expansion panel content that will be rendered lazily
@@ -147,7 +147,7 @@ var MatExpansionPanelContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Counter for generating unique element ids.
@@ -198,9 +198,18 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         _this._document = _document;
         // We need a Subject with distinctUntilChanged, because the `done` event
         // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
-        _this._bodyAnimationDone.pipe(operators.distinctUntilChanged(function (x, y) {
+        _this._bodyAnimationDone.pipe(operators.distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (x, y) {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(function (event) {
+        }))).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             if (event.fromState !== 'void') {
                 if (event.toState === 'expanded') {
                     _this.afterExpand.emit();
@@ -209,7 +218,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     _this.afterCollapse.emit();
                 }
             }
-        });
+        }));
         if (defaultOptions) {
             _this.hideToggle = defaultOptions.hideToggle;
         }
@@ -274,9 +283,15 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = this;
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(operators.startWith((/** @type {?} */ (null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
+            this.opened.pipe(operators.startWith((/** @type {?} */ (null))), operators.filter((/**
+             * @return {?}
+             */
+            function () { return _this.expanded && !_this._portal; })), operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
-            });
+            }));
         }
     };
     /**
@@ -378,7 +393,7 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * `<mat-expansion-panel-header>`
@@ -395,22 +410,43 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes['hideToggle']; })) :
+            panel.accordion._stateChanges.pipe(operators.filter((/**
+             * @param {?} changes
+             * @return {?}
+             */
+            function (changes) { return !!changes['hideToggle']; }))) :
             rxjs.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
         this._parentChangeSubscription =
-            rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes['hideToggle'] || changes['disabled']); })))
-                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter((/**
+             * @param {?} changes
+             * @return {?}
+             */
+            function (changes) { return !!(changes['hideToggle'] || changes['disabled']); }))))
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._changeDetectorRef.markForCheck(); }));
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
-            .pipe(operators.filter(function () { return panel._containsFocus(); }))
-            .subscribe(function () { return _focusMonitor.focusVia(_element, 'program'); });
-        _focusMonitor.monitor(_element).subscribe(function (origin) {
+            .pipe(operators.filter((/**
+         * @return {?}
+         */
+        function () { return panel._containsFocus(); })))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () { return _focusMonitor.focusVia(_element, 'program'); }));
+        _focusMonitor.monitor(_element).subscribe((/**
+         * @param {?} origin
+         * @return {?}
+         */
+        function (origin) {
             if (origin && panel.accordion) {
                 panel.accordion._handleHeaderFocus(_this);
             }
-        });
+        }));
         if (defaultOptions) {
             this.expandedHeight = defaultOptions.expandedHeight;
             this.collapsedHeight = defaultOptions.collapsedHeight;
@@ -629,7 +665,7 @@ var MatExpansionPanelTitle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive for a Material Design Accordion.
@@ -736,7 +772,7 @@ var MatAccordion = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {

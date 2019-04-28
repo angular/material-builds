@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -78,7 +78,13 @@ var MatPaginatorIntl = /** @class */ (function () {
         /**
          * A label for the range of items within the current page and the length of the whole list.
          */
-        this.getRangeLabel = function (page, pageSize, length) {
+        this.getRangeLabel = (/**
+         * @param {?} page
+         * @param {?} pageSize
+         * @param {?} length
+         * @return {?}
+         */
+        function (page, pageSize, length) {
             if (length == 0 || pageSize == 0) {
                 return "0 of " + length;
             }
@@ -91,12 +97,12 @@ var MatPaginatorIntl = /** @class */ (function () {
                 Math.min(startIndex + pageSize, length) :
                 startIndex + pageSize;
             return startIndex + 1 + " - " + endIndex + " of " + length;
-        };
+        });
     }
     MatPaginatorIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = core.defineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 }());
 /**
@@ -120,7 +126,7 @@ var MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The default page size if there is no page size and there are no provided page size options.
@@ -176,7 +182,10 @@ var MatPaginator = /** @class */ (function (_super) {
          * Event emitted when the paginator changes the page size or page index.
          */
         _this.page = new core.EventEmitter();
-        _this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        _this._intlChanges = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._changeDetectorRef.markForCheck(); }));
         return _this;
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
@@ -245,7 +254,11 @@ var MatPaginator = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._pageSizeOptions = (value || []).map(function (p) { return coercion.coerceNumberProperty(p); });
+            this._pageSizeOptions = (value || []).map((/**
+             * @param {?} p
+             * @return {?}
+             */
+            function (p) { return coercion.coerceNumberProperty(p); }));
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,
@@ -514,7 +527,12 @@ var MatPaginator = /** @class */ (function (_super) {
             this._displayedPageSizeOptions.push(this.pageSize);
         }
         // Sort the numbers using a number-specific sort function.
-        this._displayedPageSizeOptions.sort(function (a, b) { return a - b; });
+        this._displayedPageSizeOptions.sort((/**
+         * @param {?} a
+         * @param {?} b
+         * @return {?}
+         */
+        function (a, b) { return a - b; }));
         this._changeDetectorRef.markForCheck();
     };
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
@@ -571,7 +589,7 @@ var MatPaginator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {

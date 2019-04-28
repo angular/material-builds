@@ -19,7 +19,7 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
@@ -50,7 +50,10 @@ const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
  */
 const MAT_SLIDER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatSlider),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatSlider)),
     multi: true
 };
 /**
@@ -116,7 +119,10 @@ class MatSlider extends _MatSliderMixinBase {
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        this.onTouched = () => { };
+        this.onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         this._percent = 0;
         /**
          * Whether or not the thumb is sliding.
@@ -136,7 +142,10 @@ class MatSlider extends _MatSliderMixinBase {
          * The dimensions of the slider.
          */
         this._sliderDimensions = null;
-        this._controlValueAccessorChangeFn = () => { };
+        this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * Subscription to the Directionality change EventEmitter.
          */
@@ -466,14 +475,21 @@ class MatSlider extends _MatSliderMixinBase {
     ngOnInit() {
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe((origin) => {
+            .subscribe((/**
+         * @param {?} origin
+         * @return {?}
+         */
+        (origin) => {
             this._isActive = !!origin && origin !== 'keyboard';
             this._changeDetectorRef.detectChanges();
-        });
+        }));
         if (this._dir) {
-            this._dirChangeSubscription = this._dir.change.subscribe(() => {
+            this._dirChangeSubscription = this._dir.change.subscribe((/**
+             * @return {?}
+             */
+            () => {
                 this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     }
     /**
@@ -909,7 +925,7 @@ MatSlider.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSliderModule {
 }
@@ -924,12 +940,12 @@ MatSliderModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSlider };

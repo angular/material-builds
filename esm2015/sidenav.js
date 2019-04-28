@@ -21,7 +21,7 @@ import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material drawers.
@@ -53,7 +53,7 @@ const matDrawerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -96,9 +96,12 @@ class MatDrawerContent extends CdkScrollable {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._container._contentMarginChanges.subscribe(() => {
+        this._container._contentMarginChanges.subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._changeDetectorRef.markForCheck();
-        });
+        }));
     }
 }
 MatDrawerContent.decorators = [
@@ -116,7 +119,10 @@ MatDrawerContent.decorators = [
 /** @nocollapse */
 MatDrawerContent.ctorParameters = () => [
     { type: ChangeDetectorRef },
-    { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatDrawerContainer),] }] },
+    { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    () => MatDrawerContainer)),] }] },
     { type: ElementRef },
     { type: ScrollDispatcher },
     { type: NgZone }
@@ -186,7 +192,11 @@ class MatDrawer {
          */
         this._modeChanged = new Subject();
         this._opened = false;
-        this.openedChange.subscribe((opened) => {
+        this.openedChange.subscribe((/**
+         * @param {?} opened
+         * @return {?}
+         */
+        (opened) => {
             if (opened) {
                 if (this._doc) {
                     this._elementFocusedBeforeDrawerWasOpened = (/** @type {?} */ (this._doc.activeElement));
@@ -198,29 +208,52 @@ class MatDrawer {
             else {
                 this._restoreFocus();
             }
-        });
+        }));
         /**
          * Listen to `keydown` events outside the zone so that change detection is not run every
          * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
          * and we don't have close disabled.
          */
-        this._ngZone.runOutsideAngular(() => {
-            ((/** @type {?} */ (fromEvent(this._elementRef.nativeElement, 'keydown')))).pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose), takeUntil(this._destroyed)).subscribe(event => this._ngZone.run(() => {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
+            ((/** @type {?} */ (fromEvent(this._elementRef.nativeElement, 'keydown')))).pipe(filter((/**
+             * @param {?} event
+             * @return {?}
+             */
+            event => event.keyCode === ESCAPE && !this.disableClose)), takeUntil(this._destroyed)).subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            event => this._ngZone.run((/**
+             * @return {?}
+             */
+            () => {
                 this.close();
                 event.stopPropagation();
-            }));
-        });
+            }))));
+        }));
         // We need a Subject with distinctUntilChanged, because the `done` event
         // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
-        this._animationEnd.pipe(distinctUntilChanged((x, y) => {
+        this._animationEnd.pipe(distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        (x, y) => {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe((event) => {
+        }))).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
             const { fromState, toState } = event;
             if ((toState.indexOf('open') === 0 && fromState === 'void') ||
                 (toState === 'void' && fromState.indexOf('open') === 0)) {
                 this.openedChange.emit(this._opened);
             }
-        });
+        }));
     }
     /**
      * The side that the drawer is attached to.
@@ -277,28 +310,56 @@ class MatDrawer {
      * @return {?}
      */
     get _openedStream() {
-        return this.openedChange.pipe(filter(o => o), map(() => { }));
+        return this.openedChange.pipe(filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        o => o)), map((/**
+         * @return {?}
+         */
+        () => { })));
     }
     /**
      * Event emitted when the drawer has started opening.
      * @return {?}
      */
     get openedStart() {
-        return this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState.indexOf('open') === 0), map(() => { }));
+        return this._animationStarted.pipe(filter((/**
+         * @param {?} e
+         * @return {?}
+         */
+        e => e.fromState !== e.toState && e.toState.indexOf('open') === 0)), map((/**
+         * @return {?}
+         */
+        () => { })));
     }
     /**
      * Event emitted when the drawer has been closed.
      * @return {?}
      */
     get _closedStream() {
-        return this.openedChange.pipe(filter(o => !o), map(() => { }));
+        return this.openedChange.pipe(filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        o => !o)), map((/**
+         * @return {?}
+         */
+        () => { })));
     }
     /**
      * Event emitted when the drawer has started closing.
      * @return {?}
      */
     get closedStart() {
-        return this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState === 'void'), map(() => { }));
+        return this._animationStarted.pipe(filter((/**
+         * @param {?} e
+         * @return {?}
+         */
+        e => e.fromState !== e.toState && e.toState === 'void')), map((/**
+         * @return {?}
+         */
+        () => { })));
     }
     /**
      * @return {?}
@@ -316,13 +377,17 @@ class MatDrawer {
         if (!this.autoFocus) {
             return;
         }
-        this._focusTrap.focusInitialElementWhenReady().then(hasMovedFocus => {
+        this._focusTrap.focusInitialElementWhenReady().then((/**
+         * @param {?} hasMovedFocus
+         * @return {?}
+         */
+        hasMovedFocus => {
             // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
             // still works. We need to check that `focus` is a function due to Universal.
             if (!hasMovedFocus && typeof this._elementRef.nativeElement.focus === 'function') {
                 this._elementRef.nativeElement.focus();
             }
-        });
+        }));
     }
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
@@ -426,9 +491,17 @@ class MatDrawer {
         if (this._focusTrap) {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
-        return new Promise(resolve => {
-            this.openedChange.pipe(take(1)).subscribe(open => resolve(open ? 'open' : 'close'));
-        });
+        return new Promise((/**
+         * @param {?} resolve
+         * @return {?}
+         */
+        resolve => {
+            this.openedChange.pipe(take(1)).subscribe((/**
+             * @param {?} open
+             * @return {?}
+             */
+            open => resolve(open ? 'open' : 'close')));
+        }));
     }
     /**
      * @return {?}
@@ -549,16 +622,22 @@ class MatDrawerContainer {
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
-            _dir.change.pipe(takeUntil(this._destroyed)).subscribe(() => {
+            _dir.change.pipe(takeUntil(this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            () => {
                 this._validateDrawers();
                 this._updateContentMargins();
-            });
+            }));
         }
         // Since the minimum width of the sidenav depends on the viewport width,
         // we need to recompute the margins if the viewport changes.
         viewportRuler.change()
             .pipe(takeUntil(this._destroyed))
-            .subscribe(() => this._updateContentMargins());
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this._updateContentMargins()));
         this._autosize = defaultAutosize;
     }
     /**
@@ -616,22 +695,32 @@ class MatDrawerContainer {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._drawers.changes.pipe(startWith(null)).subscribe(() => {
+        this._drawers.changes.pipe(startWith(null)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._validateDrawers();
-            this._drawers.forEach((drawer) => {
+            this._drawers.forEach((/**
+             * @param {?} drawer
+             * @return {?}
+             */
+            (drawer) => {
                 this._watchDrawerToggle(drawer);
                 this._watchDrawerPosition(drawer);
                 this._watchDrawerMode(drawer);
-            });
+            }));
             if (!this._drawers.length ||
                 this._isDrawerOpen(this._start) ||
                 this._isDrawerOpen(this._end)) {
                 this._updateContentMargins();
             }
             this._changeDetectorRef.markForCheck();
-        });
+        }));
         this._doCheckSubject.pipe(debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
-        takeUntil(this._destroyed)).subscribe(() => this._updateContentMargins());
+        takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => this._updateContentMargins()));
     }
     /**
      * @return {?}
@@ -647,14 +736,22 @@ class MatDrawerContainer {
      * @return {?}
      */
     open() {
-        this._drawers.forEach(drawer => drawer.open());
+        this._drawers.forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        drawer => drawer.open()));
     }
     /**
      * Calls `close` of both start and end drawers
      * @return {?}
      */
     close() {
-        this._drawers.forEach(drawer => drawer.close());
+        this._drawers.forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        drawer => drawer.close()));
     }
     /**
      * @return {?}
@@ -663,7 +760,10 @@ class MatDrawerContainer {
         // If users opted into autosizing, do a check every change detection cycle.
         if (this._autosize && this._isPushed()) {
             // Run outside the NgZone, otherwise the debouncer will throw us into an infinite loop.
-            this._ngZone.runOutsideAngular(() => this._doCheckSubject.next());
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => this._doCheckSubject.next()));
         }
     }
     /**
@@ -675,8 +775,16 @@ class MatDrawerContainer {
      * @return {?}
      */
     _watchDrawerToggle(drawer) {
-        drawer._animationStarted.pipe(filter((event) => event.fromState !== event.toState), takeUntil(this._drawers.changes))
-            .subscribe((event) => {
+        drawer._animationStarted.pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => event.fromState !== event.toState)), takeUntil(this._drawers.changes))
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
             if (event.toState !== 'open-instant' && this._animationMode !== 'NoopAnimations') {
@@ -684,9 +792,12 @@ class MatDrawerContainer {
             }
             this._updateContentMargins();
             this._changeDetectorRef.markForCheck();
-        });
+        }));
         if (drawer.mode !== 'side') {
-            drawer.openedChange.pipe(takeUntil(this._drawers.changes)).subscribe(() => this._setContainerClass(drawer.opened));
+            drawer.openedChange.pipe(takeUntil(this._drawers.changes)).subscribe((/**
+             * @return {?}
+             */
+            () => this._setContainerClass(drawer.opened)));
         }
     }
     /**
@@ -702,11 +813,17 @@ class MatDrawerContainer {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
-        drawer.onPositionChanged.pipe(takeUntil(this._drawers.changes)).subscribe(() => {
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
+        drawer.onPositionChanged.pipe(takeUntil(this._drawers.changes)).subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe((/**
+             * @return {?}
+             */
+            () => {
                 this._validateDrawers();
-            });
-        });
+            }));
+        }));
     }
     /**
      * Subscribes to changes in drawer mode so we can run change detection.
@@ -717,10 +834,13 @@ class MatDrawerContainer {
     _watchDrawerMode(drawer) {
         if (drawer) {
             drawer._modeChanged.pipe(takeUntil(merge(this._drawers.changes, this._destroyed)))
-                .subscribe(() => {
+                .subscribe((/**
+             * @return {?}
+             */
+            () => {
                 this._updateContentMargins();
                 this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     }
     /**
@@ -745,7 +865,11 @@ class MatDrawerContainer {
     _validateDrawers() {
         this._start = this._end = null;
         // Ensure that we have at most one start and one end drawer.
-        this._drawers.forEach(drawer => {
+        this._drawers.forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        drawer => {
             if (drawer.position == 'end') {
                 if (this._end != null) {
                     throwMatDuplicatedDrawerError('end');
@@ -758,7 +882,7 @@ class MatDrawerContainer {
                 }
                 this._start = drawer;
             }
-        });
+        }));
         this._right = this._left = null;
         // Detect if we're LTR or RTL.
         if (this._dir && this._dir.value === 'rtl') {
@@ -792,8 +916,16 @@ class MatDrawerContainer {
     _closeModalDrawer() {
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
-            .filter(drawer => drawer && !drawer.disableClose && this._canHaveBackdrop(drawer))
-            .forEach(drawer => (/** @type {?} */ (drawer)).close());
+            .filter((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        drawer => drawer && !drawer.disableClose && this._canHaveBackdrop(drawer)))
+            .forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        drawer => (/** @type {?} */ (drawer)).close()));
     }
     /**
      * @return {?}
@@ -873,7 +1005,10 @@ class MatDrawerContainer {
             this._contentMargins = { left, right };
             // Pull back into the NgZone since in some cases we could be outside. We need to be careful
             // to do it only when something changed, otherwise we can end up hitting the zone too often.
-            this._ngZone.run(() => this._contentMarginChanges.next(this._contentMargins));
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            () => this._contentMarginChanges.next(this._contentMargins)));
         }
     }
 }
@@ -911,7 +1046,7 @@ MatDrawerContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSidenavContent extends MatDrawerContent {
     /**
@@ -940,7 +1075,10 @@ MatSidenavContent.decorators = [
 /** @nocollapse */
 MatSidenavContent.ctorParameters = () => [
     { type: ChangeDetectorRef },
-    { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatSidenavContainer),] }] },
+    { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    () => MatSidenavContainer)),] }] },
     { type: ElementRef },
     { type: ScrollDispatcher },
     { type: NgZone }
@@ -1034,7 +1172,7 @@ MatSidenavContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSidenavModule {
 }
@@ -1068,12 +1206,12 @@ MatSidenavModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };

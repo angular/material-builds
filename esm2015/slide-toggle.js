@@ -17,7 +17,7 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
@@ -25,12 +25,15 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
  */
 const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
-    factory: () => ({ disableToggleValue: false, disableDragValue: false })
+    factory: (/**
+     * @return {?}
+     */
+    () => ({ disableToggleValue: false, disableDragValue: false }))
 });
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for slide-toggle components.
 /** @type {?} */
@@ -41,7 +44,10 @@ let nextUniqueId = 0;
  */
 const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatSlideToggle),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatSlideToggle)),
     multi: true
 };
 /**
@@ -93,8 +99,15 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this.defaults = defaults;
         this._animationMode = _animationMode;
         this._dir = _dir;
-        this.onChange = (_) => { };
-        this.onTouched = () => { };
+        this.onChange = (/**
+         * @param {?} _
+         * @return {?}
+         */
+        (_) => { });
+        this.onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         this._uniqueId = `mat-slide-toggle-${++nextUniqueId}`;
         this._required = false;
         this._checked = false;
@@ -176,16 +189,23 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
     ngAfterContentInit() {
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(focusOrigin => {
+            .subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        focusOrigin => {
             if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
                 // Angular does not expect events to be raised during change detection, so any state
                 // change (such as a form control's 'ng-touched') will cause a changed-after-checked
                 // error. See https://github.com/angular/angular/issues/17793. To work around this,
                 // we defer telling the form control it has been touched until the next tick.
-                Promise.resolve().then(() => this.onTouched());
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                () => this.onTouched()));
             }
-        });
+        }));
     }
     /**
      * @return {?}
@@ -352,7 +372,13 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
-            this._ngZone.runOutsideAngular(() => setTimeout(() => {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => setTimeout((/**
+             * @return {?}
+             */
+            () => {
                 if (this._dragging) {
                     this._dragging = false;
                     this._thumbEl.nativeElement.classList.remove('mat-dragging');
@@ -360,7 +386,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
                     // of the thumb position after drag.
                     this._thumbEl.nativeElement.style.transform = '';
                 }
-            }));
+            }))));
         }
     }
     /**
@@ -427,7 +453,7 @@ MatSlideToggle.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSlideToggleModule {
 }
@@ -444,12 +470,12 @@ MatSlideToggleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggle, MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS };

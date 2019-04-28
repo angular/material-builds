@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -58,7 +58,7 @@ function createMissingDateImplError(provider) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Datepicker data that requires internationalization.
@@ -114,13 +114,13 @@ var MatDatepickerIntl = /** @class */ (function () {
     MatDatepickerIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
@@ -231,15 +231,21 @@ var MatCalendarBody = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 /** @type {?} */
                 var activeCell = _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
                 if (activeCell) {
                     activeCell.focus();
                 }
-            });
-        });
+            }));
+        }));
     };
     MatCalendarBody.decorators = [
         { type: core.Component, args: [{selector: '[mat-calendar-body]',
@@ -276,7 +282,7 @@ var MatCalendarBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var DAYS_PER_WEEK = 7;
@@ -317,9 +323,14 @@ var MatMonthView = /** @class */ (function () {
         var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
         // Rotate the labels for days of the week based on the configured first day of the week.
         /** @type {?} */
-        var weekdays = longWeekdays.map(function (long, i) {
+        var weekdays = longWeekdays.map((/**
+         * @param {?} long
+         * @param {?} i
+         * @return {?}
+         */
+        function (long, i) {
             return { long: long, narrow: narrowWeekdays[i] };
-        });
+        }));
         this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
         this._activeDate = this._dateAdapter.today();
     }
@@ -697,7 +708,7 @@ var MatMonthView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var yearsPerPage = 24;
@@ -836,7 +847,11 @@ var MatMultiYearView = /** @class */ (function () {
         for (var i = 0, row = []; i < yearsPerPage; i++) {
             row.push(activeYear - activeOffset + i);
             if (row.length == yearsPerRow) {
-                this._years.push(row.map(function (year) { return _this._createCellForYear(year); }));
+                this._years.push(row.map((/**
+                 * @param {?} year
+                 * @return {?}
+                 */
+                function (year) { return _this._createCellForYear(year); })));
                 row = [];
             }
         }
@@ -1059,7 +1074,7 @@ var MatMultiYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal component used to display a single year in the datepicker.
@@ -1277,7 +1292,15 @@ var MatYearView = /** @class */ (function () {
         /** @type {?} */
         var monthNames = this._dateAdapter.getMonthNames('short');
         // First row of months only contains 5 elements so we can fit the year label on the same row.
-        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
+        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map((/**
+         * @param {?} row
+         * @return {?}
+         */
+        function (row) { return row.map((/**
+         * @param {?} month
+         * @return {?}
+         */
+        function (month) { return _this._createCellForMonth(month, monthNames[month]); })); }));
         this._changeDetectorRef.markForCheck();
     };
     /** Focuses the active cell after the microtask queue is empty. */
@@ -1490,7 +1513,7 @@ var MatYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default header for MatCalendar
@@ -1502,7 +1525,10 @@ var MatCalendarHeader = /** @class */ (function () {
         this.calendar = calendar;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        this.calendar.stateChanges.subscribe(function () { return changeDetectorRef.markForCheck(); });
+        this.calendar.stateChanges.subscribe((/**
+         * @return {?}
+         */
+        function () { return changeDetectorRef.markForCheck(); }));
     }
     Object.defineProperty(MatCalendarHeader.prototype, "periodButtonText", {
         /** The label for the current calendar view. */
@@ -1680,7 +1706,10 @@ var MatCalendarHeader = /** @class */ (function () {
     /** @nocollapse */
     MatCalendarHeader.ctorParameters = function () { return [
         { type: MatDatepickerIntl },
-        { type: MatCalendar, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatCalendar; }),] }] },
+        { type: MatCalendar, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatCalendar; })),] }] },
         { type: core$1.DateAdapter, decorators: [{ type: core.Optional }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_DATE_FORMATS,] }] },
         { type: core.ChangeDetectorRef }
@@ -1736,10 +1765,13 @@ var MatCalendar = /** @class */ (function () {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        this._intlChanges = _intl.changes.subscribe(function () {
+        this._intlChanges = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _changeDetectorRef.markForCheck();
             _this.stateChanges.next();
-        });
+        }));
     }
     Object.defineProperty(MatCalendar.prototype, "startAt", {
         /** A date representing the period (month or year) to start the calendar in. */
@@ -2074,7 +2106,7 @@ var MatCalendar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material datepicker.
@@ -2110,7 +2142,7 @@ var matDatepickerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to generate a unique ID for each datepicker instance.
@@ -2128,7 +2160,10 @@ var MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scr
  * @return {?}
  */
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.reposition(); });
 }
 /**
  * \@docs-private
@@ -2506,7 +2541,11 @@ var MatDatepicker = /** @class */ (function () {
         }
         this._datepickerInput = input$$1;
         this._inputSubscription =
-            this._datepickerInput._valueChange.subscribe(function (value) { return _this._selected = value; });
+            this._datepickerInput._valueChange.subscribe((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) { return _this._selected = value; }));
     };
     /** Open the calendar. */
     /**
@@ -2556,7 +2595,10 @@ var MatDatepicker = /** @class */ (function () {
             this._calendarPortal.detach();
         }
         /** @type {?} */
-        var completeClose = function () {
+        var completeClose = (/**
+         * @return {?}
+         */
+        function () {
             // The `_opened` could've been reset already if
             // we got two events in quick succession.
             if (_this._opened) {
@@ -2564,7 +2606,7 @@ var MatDatepicker = /** @class */ (function () {
                 _this.closedStream.emit();
                 _this._focusedElementBeforeOpen = null;
             }
-        };
+        });
         if (this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
             // Because IE moves focus asynchronously, we can't count on it being restored before we've
@@ -2604,7 +2646,10 @@ var MatDatepicker = /** @class */ (function () {
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
         });
-        this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
+        this._dialogRef.afterClosed().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.close(); }));
         this._dialogRef.componentInstance.datepicker = this;
         this._setColor();
     };
@@ -2632,9 +2677,12 @@ var MatDatepicker = /** @class */ (function () {
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._popupRef.updatePosition();
-            });
+            }));
         }
     };
     /** Create the popup. */
@@ -2661,11 +2709,18 @@ var MatDatepicker = /** @class */ (function () {
         });
         this._popupRef = this._overlay.create(overlayConfig);
         this._popupRef.overlayElement.setAttribute('role', 'dialog');
-        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) {
+        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             // Closing on alt + up is only valid when there's an input associated with the datepicker.
             return event.keyCode === keycodes.ESCAPE ||
                 (_this._datepickerInput && event.altKey && event.keyCode === keycodes.UP_ARROW);
-        }))).subscribe(function () { return _this.close(); });
+        })))).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.close(); }));
     };
     /** Create the popup PositionStrategy. */
     /**
@@ -2789,7 +2844,7 @@ var MatDatepicker = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -2797,7 +2852,10 @@ var MatDatepicker = /** @class */ (function () {
  */
 var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatDatepickerInput; })),
     multi: true
 };
 /**
@@ -2806,7 +2864,10 @@ var MAT_DATEPICKER_VALUE_ACCESSOR = {
  */
 var MAT_DATEPICKER_VALIDATORS = {
     provide: forms.NG_VALIDATORS,
-    useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatDatepickerInput; })),
     multi: true
 };
 /**
@@ -2856,47 +2917,71 @@ var MatDatepickerInput = /** @class */ (function () {
          * Emits when the disabled state has changed
          */
         this._disabledChange = new core.EventEmitter();
-        this._onTouched = function () { };
-        this._cvaOnChange = function () { };
-        this._validatorOnChange = function () { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
+        this._cvaOnChange = (/**
+         * @return {?}
+         */
+        function () { });
+        this._validatorOnChange = (/**
+         * @return {?}
+         */
+        function () { });
         this._datepickerSubscription = rxjs.Subscription.EMPTY;
         this._localeSubscription = rxjs.Subscription.EMPTY;
         /**
          * The form control validator for whether the input parses.
          */
-        this._parseValidator = function () {
+        this._parseValidator = (/**
+         * @return {?}
+         */
+        function () {
             return _this._lastValueValid ?
                 null : { 'matDatepickerParse': { 'text': _this._elementRef.nativeElement.value } };
-        };
+        });
         /**
          * The form control validator for the min date.
          */
-        this._minValidator = function (control) {
+        this._minValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
             /** @type {?} */
             var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.min || !controlValue ||
                 _this._dateAdapter.compareDate(_this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
-        };
+        });
         /**
          * The form control validator for the max date.
          */
-        this._maxValidator = function (control) {
+        this._maxValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
             /** @type {?} */
             var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.max || !controlValue ||
                 _this._dateAdapter.compareDate(_this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
-        };
+        });
         /**
          * The form control validator for the date filter.
          */
-        this._filterValidator = function (control) {
+        this._filterValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
             /** @type {?} */
             var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return !_this._dateFilter || !controlValue || _this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
-        };
+        });
         /**
          * The combined form control validator for this input.
          */
@@ -2912,9 +2997,12 @@ var MatDatepickerInput = /** @class */ (function () {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         // Update the displayed date when the locale changes.
-        this._localeSubscription = _dateAdapter.localeChanges.subscribe(function () {
+        this._localeSubscription = _dateAdapter.localeChanges.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this.value = _this.value;
-        });
+        }));
     }
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepicker", {
         /** The datepicker that this input is associated with. */
@@ -2931,13 +3019,17 @@ var MatDatepickerInput = /** @class */ (function () {
             this._datepicker = value;
             this._datepicker._registerInput(this);
             this._datepickerSubscription.unsubscribe();
-            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe(function (selected) {
+            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe((/**
+             * @param {?} selected
+             * @return {?}
+             */
+            function (selected) {
                 _this.value = selected;
                 _this._cvaOnChange(selected);
                 _this._onTouched();
                 _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
                 _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-            });
+            }));
         },
         enumerable: true,
         configurable: true
@@ -3335,7 +3427,7 @@ var MatDatepickerInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Can be used to override the icon of a `matDatepickerToggle`.
@@ -3449,7 +3541,10 @@ var MatDatepickerToggle = /** @class */ (function () {
             rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
             rxjs.of();
         this._stateChanges.unsubscribe();
-        this._stateChanges = rxjs.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._stateChanges = rxjs.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._changeDetectorRef.markForCheck(); }));
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',
@@ -3489,7 +3584,7 @@ var MatDatepickerToggle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDatepickerModule = /** @class */ (function () {
     function MatDatepickerModule() {

@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatProgressBar.
 /**
@@ -80,7 +80,10 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
     return {
         // Note that this needs to be a function, rather than a property, because Angular
         // will only resolve it once, but we want the current path on each call.
-        getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
+        getPathname: (/**
+         * @return {?}
+         */
+        function () { return _location ? (_location.pathname + _location.search) : ''; })
     };
 }
 /**
@@ -225,14 +228,27 @@ var MatProgressBar = /** @class */ (function (_super) {
         if (!this._isNoopAnimation) {
             // Run outside angular so change detection didn't get triggered on every transition end
             // instead only on the animation that we care about (primary value bar's transitionend)
-            this._ngZone.runOutsideAngular((function () {
+            this._ngZone.runOutsideAngular(((/**
+             * @return {?}
+             */
+            function () {
                 /** @type {?} */
                 var element = _this._primaryValueBar.nativeElement;
                 _this._animationEndSubscription =
                     ((/** @type {?} */ (rxjs.fromEvent(element, 'transitionend'))))
-                        .pipe(operators.filter((function (e) { return e.target === element; })))
-                        .subscribe(function () { return _this._ngZone.run(function () { return _this.emitAnimationEnd(); }); });
-            }));
+                        .pipe(operators.filter(((/**
+                     * @param {?} e
+                     * @return {?}
+                     */
+                    function (e) { return e.target === element; }))))
+                        .subscribe((/**
+                     * @return {?}
+                     */
+                    function () { return _this._ngZone.run((/**
+                     * @return {?}
+                     */
+                    function () { return _this.emitAnimationEnd(); })); }));
+            })));
         }
     };
     /**
@@ -310,7 +326,7 @@ function clamp(v, min, max) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatProgressBarModule = /** @class */ (function () {
     function MatProgressBarModule() {

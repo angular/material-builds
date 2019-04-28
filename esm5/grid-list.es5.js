@@ -13,7 +13,7 @@ import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token used to provide a grid list to a tile and to avoid circular imports.
@@ -24,7 +24,7 @@ var MAT_GRID_LIST = new InjectionToken('MAT_GRID_LIST');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element, _gridList) {
@@ -184,7 +184,7 @@ var MatGridTileFooterCssMatStyler = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -284,7 +284,11 @@ TileCoordinator = /** @class */ (function () {
         this.rowIndex = 0;
         this.tracker = new Array(numColumns);
         this.tracker.fill(0, 0, this.tracker.length);
-        this.positions = tiles.map(function (tile) { return _this._trackTile(tile); });
+        this.positions = tiles.map((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        function (tile) { return _this._trackTile(tile); }));
     };
     /** Calculates the row and col position of a tile. */
     /**
@@ -447,7 +451,7 @@ TilePosition = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -766,10 +770,14 @@ FixedTileStyler = /** @class */ (function (_super) {
     function (list) {
         list._setListStyle(['height', null]);
         if (list._tiles) {
-            list._tiles.forEach(function (tile) {
+            list._tiles.forEach((/**
+             * @param {?} tile
+             * @return {?}
+             */
+            function (tile) {
                 tile._setStyle('top', null);
                 tile._setStyle('height', null);
-            });
+            }));
         }
     };
     return FixedTileStyler;
@@ -836,10 +844,14 @@ RatioTileStyler = /** @class */ (function (_super) {
      */
     function (list) {
         list._setListStyle(['paddingBottom', null]);
-        list._tiles.forEach(function (tile) {
+        list._tiles.forEach((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        function (tile) {
             tile._setStyle('marginTop', null);
             tile._setStyle('paddingTop', null);
-        });
+        }));
     };
     /**
      * @private
@@ -913,10 +925,14 @@ FitTileStyler = /** @class */ (function (_super) {
      */
     function (list) {
         if (list._tiles) {
-            list._tiles.forEach(function (tile) {
+            list._tiles.forEach((/**
+             * @param {?} tile
+             * @return {?}
+             */
+            function (tile) {
                 tile._setStyle('top', null);
                 tile._setStyle('height', null);
-            });
+            }));
         }
     };
     return FitTileStyler;
@@ -940,7 +956,7 @@ function normalizeUnits(value) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
@@ -1116,16 +1132,25 @@ var MatGridList = /** @class */ (function () {
         /** @type {?} */
         var tracker = this._tileCoordinator;
         /** @type {?} */
-        var tiles = this._tiles.filter(function (tile) { return !tile._gridList || tile._gridList === _this; });
+        var tiles = this._tiles.filter((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        function (tile) { return !tile._gridList || tile._gridList === _this; }));
         /** @type {?} */
         var direction = this._dir ? this._dir.value : 'ltr';
         this._tileCoordinator.update(this.cols, tiles);
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
-        tiles.forEach(function (tile, index) {
+        tiles.forEach((/**
+         * @param {?} tile
+         * @param {?} index
+         * @return {?}
+         */
+        function (tile, index) {
             /** @type {?} */
             var pos = tracker.positions[index];
             _this._tileStyler.setStyle(tile, pos.row, pos.col);
-        });
+        }));
         this._setListStyle(this._tileStyler.getComputedHeight());
     };
     /** Sets style on the main grid-list element, given the style name and value. */
@@ -1176,7 +1201,7 @@ var MatGridList = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatGridListModule = /** @class */ (function () {
     function MatGridListModule() {
@@ -1209,13 +1234,13 @@ var MatGridListModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa4 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa6 };
 //# sourceMappingURL=grid-list.es5.js.map

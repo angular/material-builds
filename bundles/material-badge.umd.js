@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextId = 0;
@@ -287,11 +287,17 @@ var MatBadge = /** @class */ (function (_super) {
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
         if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
-            this._ngZone.runOutsideAngular(function () {
-                requestAnimationFrame(function () {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                requestAnimationFrame((/**
+                 * @return {?}
+                 */
+                function () {
                     badgeElement.classList.add(activeClass);
-                });
-            });
+                }));
+            }));
         }
         else {
             badgeElement.classList.add(activeClass);
@@ -415,7 +421,7 @@ var MatBadge = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBadgeModule = /** @class */ (function () {
     function MatBadgeModule() {

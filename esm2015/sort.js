@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, Inject, defineInjectable } from '@angular/core';
+import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, Inject, ɵɵdefineInjectable } from '@angular/core';
 import { mixinDisabled, mixinInitialized, AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -50,7 +50,7 @@ function getSortInvalidDirectionError(direction) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatSort.
 /**
@@ -225,7 +225,7 @@ function getSortDirectionCycle(start, disableClear) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
@@ -316,7 +316,7 @@ const matSortAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -332,15 +332,19 @@ class MatSortHeaderIntl {
         /**
          * ARIA label for the sorting button.
          */
-        this.sortButtonLabel = (id) => {
+        this.sortButtonLabel = (/**
+         * @param {?} id
+         * @return {?}
+         */
+        (id) => {
             return `Change sorting for ${id}`;
-        };
+        });
     }
 }
 MatSortHeaderIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+/** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
 /**
  * \@docs-private
  * @param {?} parentIntl
@@ -362,7 +366,7 @@ const MAT_SORT_HEADER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to the sort header.
 /**
@@ -418,7 +422,10 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
             throw getSortHeaderNotContainedWithinSortError();
         }
         this._rerenderSubscription = merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
-            .subscribe(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             if (this._isSorted()) {
                 this._updateArrowDirection();
             }
@@ -428,7 +435,7 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
                 this._setAnimationTransitionState({ fromState: 'active', toState: this._arrowDirection });
             }
             changeDetectorRef.markForCheck();
-        });
+        }));
     }
     /**
      * Overrides the disable clear value of the containing MatSort for this MatSortable.
@@ -627,7 +634,7 @@ MatSortHeader.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSortModule {
 }
@@ -642,17 +649,17 @@ MatSortModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSortModule, MatSortHeader, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER, MatSort, matSortAnimations };

@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
@@ -68,7 +68,7 @@ var MatTreeNodeOutlet = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var _MatTreeNodeMixinBase = core$1.mixinTabIndex(core$1.mixinDisabled(tree.CdkTreeNode));
@@ -215,7 +215,7 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
@@ -241,7 +241,7 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -276,7 +276,7 @@ var MatTree = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
@@ -303,7 +303,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_TREE_DIRECTIVES = [
@@ -330,7 +330,7 @@ var MatTreeModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -436,9 +436,13 @@ MatTreeFlattener = /** @class */ (function () {
                     this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
                 }
                 else {
-                    childrenNodes.pipe(operators.take(1)).subscribe(function (children) {
+                    childrenNodes.pipe(operators.take(1)).subscribe((/**
+                     * @param {?} children
+                     * @return {?}
+                     */
+                    function (children) {
                         _this._flattenChildren(children, level, resultNodes, parentMap);
-                    });
+                    }));
                 }
             }
         }
@@ -460,12 +464,17 @@ MatTreeFlattener = /** @class */ (function () {
      */
     function (children, level, resultNodes, parentMap) {
         var _this = this;
-        children.forEach(function (child, index) {
+        children.forEach((/**
+         * @param {?} child
+         * @param {?} index
+         * @return {?}
+         */
+        function (child, index) {
             /** @type {?} */
             var childParentMap = parentMap.slice();
             childParentMap.push(index != children.length - 1);
             _this._flattenNode(child, level + 1, resultNodes, childParentMap);
-        });
+        }));
     };
     /**
      * Flatten a list of node type T to flattened version of node F.
@@ -490,7 +499,11 @@ MatTreeFlattener = /** @class */ (function () {
         var _this = this;
         /** @type {?} */
         var resultNodes = [];
-        structuredData.forEach(function (node) { return _this._flattenNode(node, 0, resultNodes, []); });
+        structuredData.forEach((/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) { return _this._flattenNode(node, 0, resultNodes, []); }));
         return resultNodes;
     };
     /**
@@ -518,7 +531,11 @@ MatTreeFlattener = /** @class */ (function () {
         /** @type {?} */
         var currentExpand = [];
         currentExpand[0] = true;
-        nodes.forEach(function (node) {
+        nodes.forEach((/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) {
             /** @type {?} */
             var expand = true;
             for (var i = 0; i <= _this.getLevel(node); i++) {
@@ -530,7 +547,7 @@ MatTreeFlattener = /** @class */ (function () {
             if (_this.isExpandable(node)) {
                 currentExpand[_this.getLevel(node) + 1] = treeControl.isExpanded(node);
             }
-        });
+        }));
         return results;
     };
     return MatTreeFlattener;
@@ -596,10 +613,13 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
             this.treeControl.expansionModel.onChange,
             this._flattenedData
         ];
-        return rxjs.merge.apply(void 0, changes).pipe(operators.map(function () {
+        return rxjs.merge.apply(void 0, changes).pipe(operators.map((/**
+         * @return {?}
+         */
+        function () {
             _this._expandedData.next(_this.treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this.treeControl));
             return _this._expandedData.value;
-        }));
+        })));
     };
     /**
      * @return {?}
@@ -615,7 +635,7 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Data source for nested tree.
@@ -665,9 +685,12 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
      */
     function (collectionViewer) {
         var _this = this;
-        return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map(function () {
+        return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map((/**
+         * @return {?}
+         */
+        function () {
             return _this.data;
-        }));
+        })));
     };
     /**
      * @return {?}

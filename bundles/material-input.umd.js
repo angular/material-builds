@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -131,7 +131,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -145,7 +145,7 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
@@ -158,7 +158,7 @@ var MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 /** @type {?} */
@@ -246,7 +246,11 @@ var MatInput = /** @class */ (function (_super) {
             'month',
             'time',
             'week'
-        ].filter(function (t) { return platform.getSupportedInputTypes().has(t); });
+        ].filter((/**
+         * @param {?} t
+         * @return {?}
+         */
+        function (t) { return platform.getSupportedInputTypes().has(t); }));
         /** @type {?} */
         var element = _this._elementRef.nativeElement;
         // If no input value accessor was explicitly specified, use the element as the input value
@@ -259,8 +263,15 @@ var MatInput = /** @class */ (function (_super) {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            ngZone.runOutsideAngular(function () {
-                _elementRef.nativeElement.addEventListener('keyup', function (event) {
+            ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                _elementRef.nativeElement.addEventListener('keyup', (/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) {
                     /** @type {?} */
                     var el = (/** @type {?} */ (event.target));
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
@@ -271,8 +282,8 @@ var MatInput = /** @class */ (function (_super) {
                         el.setSelectionRange(1, 1);
                         el.setSelectionRange(0, 0);
                     }
-                });
-            });
+                }));
+            }));
         }
         _this._isServer = !_this._platform.isBrowser;
         _this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
@@ -424,10 +435,14 @@ var MatInput = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this._platform.isBrowser) {
-            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(function (event) {
+            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
                 _this.autofilled = event.isAutofilled;
                 _this.stateChanges.next();
-            });
+            }));
         }
     };
     /**
@@ -736,7 +751,7 @@ var MatInput = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatInputModule = /** @class */ (function () {
     function MatInputModule() {

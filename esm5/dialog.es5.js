@@ -20,7 +20,7 @@ import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -102,7 +102,7 @@ MatDialogConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var animationBody = [
@@ -132,7 +132,7 @@ var matDialogAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -282,7 +282,10 @@ var MatDialogContainer = /** @class */ (function (_super) {
                 // Move focus onto the dialog immediately in order to prevent the user from accidentally
                 // opening multiple dialogs at the same time. Needs to be async, because the element
                 // may not be focusable immediately.
-                Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () { return _this._elementRef.nativeElement.focus(); }));
             }
         }
     };
@@ -375,7 +378,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
@@ -393,8 +396,8 @@ MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, 
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location, id) {
-        if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
+        if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
         this.id = id;
@@ -417,24 +420,48 @@ MatDialogRef = /** @class */ (function () {
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), take(1))
-            .subscribe(function () {
+        _containerInstance._animationStateChanged.pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'enter'; })), take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._afterOpened.next();
             _this._afterOpened.complete();
-        });
+        }));
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), take(1)).subscribe(function () { return _this._overlayRef.dispose(); });
-        _overlayRef.detachments().subscribe(function () {
+        _containerInstance._animationStateChanged.pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })), take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._overlayRef.dispose(); }));
+        _overlayRef.detachments().subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._beforeClosed.next(_this._result);
             _this._beforeClosed.complete();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
             _this.componentInstance = (/** @type {?} */ (null));
             _this._overlayRef.dispose();
-        });
+        }));
         _overlayRef.keydownEvents()
-            .pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; }))
-            .subscribe(function () { return _this.close(); });
+            .pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.keyCode === ESCAPE && !_this.disableClose; })))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.close(); }));
     }
     /**
      * Close the dialog.
@@ -454,12 +481,19 @@ MatDialogRef = /** @class */ (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'start'; }), take(1))
-            .subscribe(function () {
+        this._containerInstance._animationStateChanged.pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'start'; })), take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._beforeClosed.next(dialogResult);
             _this._beforeClosed.complete();
             _this._overlayRef.detachBackdrop();
-        });
+        }));
         this._containerInstance._startExitAnimation();
     };
     /**
@@ -693,7 +727,7 @@ MatDialogRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a dialog.
@@ -716,7 +750,10 @@ var MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy'
  * @return {?}
  */
 function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.block(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay.scrollStrategies.block(); });
 }
 /**
  * \@docs-private
@@ -724,7 +761,10 @@ function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay) {
  * @return {?}
  */
 function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.block(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay.scrollStrategies.block(); });
 }
 /**
  * \@docs-private
@@ -756,9 +796,12 @@ var MatDialog = /** @class */ (function () {
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = (/** @type {?} */ (defer(function () { return _this.openDialogs.length ?
+        this.afterAllClosed = (/** @type {?} */ (defer((/**
+         * @return {?}
+         */
+        function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            _this._afterAllClosed.pipe(startWith(undefined)); })));
+            _this._afterAllClosed.pipe(startWith(undefined)); }))));
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
@@ -855,7 +898,10 @@ var MatDialog = /** @class */ (function () {
             this._hideNonDialogContentFromAssistiveTechnology();
         }
         this.openDialogs.push(dialogRef);
-        dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
+        dialogRef.afterClosed().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._removeOpenDialog(dialogRef); }));
         this.afterOpened.next(dialogRef);
         return dialogRef;
     };
@@ -888,7 +934,11 @@ var MatDialog = /** @class */ (function () {
      * @return {?}
      */
     function (id) {
-        return this.openDialogs.find(function (dialog) { return dialog.id === id; });
+        return this.openDialogs.find((/**
+         * @param {?} dialog
+         * @return {?}
+         */
+        function (dialog) { return dialog.id === id; }));
     };
     /**
      * @return {?}
@@ -1032,11 +1082,14 @@ var MatDialog = /** @class */ (function () {
         var dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
-            overlayRef.backdropClick().subscribe(function () {
+            overlayRef.backdropClick().subscribe((/**
+             * @return {?}
+             */
+            function () {
                 if (!dialogRef.disableClose) {
                     dialogRef.close();
                 }
-            });
+            }));
         }
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef }))));
@@ -1127,14 +1180,19 @@ var MatDialog = /** @class */ (function () {
             // If all the dialogs were closed, remove/restore the `aria-hidden`
             // to a the siblings and emit to the `afterAllClosed` stream.
             if (!this.openDialogs.length) {
-                this._ariaHiddenElements.forEach(function (previousValue, element) {
+                this._ariaHiddenElements.forEach((/**
+                 * @param {?} previousValue
+                 * @param {?} element
+                 * @return {?}
+                 */
+                function (previousValue, element) {
                     if (previousValue) {
                         element.setAttribute('aria-hidden', previousValue);
                     }
                     else {
                         element.removeAttribute('aria-hidden');
                     }
-                });
+                }));
                 this._ariaHiddenElements.clear();
                 this._afterAllClosed.next();
             }
@@ -1224,7 +1282,7 @@ function _applyConfigDefaults(config, defaultOptions) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Counter used to generate unique IDs for dialog elements.
@@ -1317,13 +1375,16 @@ var MatDialogTitle = /** @class */ (function () {
             this._dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
         if (this._dialogRef) {
-            Promise.resolve().then(function () {
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () {
                 /** @type {?} */
                 var container = _this._dialogRef._containerInstance;
                 if (container && !container._ariaLabelledBy) {
                     container._ariaLabelledBy = _this.id;
                 }
-            });
+            }));
         }
     };
     MatDialogTitle.decorators = [
@@ -1388,12 +1449,16 @@ function getClosestDialog(element, openDialogs) {
     while (parent && !parent.classList.contains('mat-dialog-container')) {
         parent = parent.parentElement;
     }
-    return parent ? openDialogs.find(function (dialog) { return dialog.id === (/** @type {?} */ (parent)).id; }) : null;
+    return parent ? openDialogs.find((/**
+     * @param {?} dialog
+     * @return {?}
+     */
+    function (dialog) { return dialog.id === (/** @type {?} */ (parent)).id; })) : null;
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDialogModule = /** @class */ (function () {
     function MatDialogModule() {
@@ -1433,12 +1498,12 @@ var MatDialogModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };

@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token for the MatInkBar's Positioner.
@@ -39,10 +39,14 @@ const _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
  */
 function _MAT_INK_BAR_POSITIONER_FACTORY() {
     /** @type {?} */
-    const method = (element) => ({
+    const method = (/**
+     * @param {?} element
+     * @return {?}
+     */
+    (element) => ({
         left: element ? (element.offsetLeft || 0) + 'px' : '0',
         width: element ? (element.offsetWidth || 0) + 'px' : '0',
-    });
+    }));
     return method;
 }
 /**
@@ -69,9 +73,15 @@ class MatInkBar {
     alignToElement(element) {
         this.show();
         if (typeof requestAnimationFrame !== 'undefined') {
-            this._ngZone.runOutsideAngular(() => {
-                requestAnimationFrame(() => this._setStyles(element));
-            });
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
+                requestAnimationFrame((/**
+                 * @return {?}
+                 */
+                () => this._setStyles(element)));
+            }));
         }
         else {
             this._setStyles(element);
@@ -123,7 +133,7 @@ MatInkBar.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Decorates the `ng-template` tags and reads out the template from it.
@@ -146,7 +156,7 @@ MatTabContent.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to flag tab labels for use with the portal directive
@@ -161,7 +171,7 @@ MatTabLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTab.
 /**
@@ -258,7 +268,7 @@ MatTab.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material tabs.
@@ -292,7 +302,7 @@ const matTabsAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The portal host directive for the contents of the tab.
@@ -324,14 +334,21 @@ class MatTabBodyPortal extends CdkPortalOutlet {
         super.ngOnInit();
         this._centeringSub = this._host._beforeCentering
             .pipe(startWith(this._host._isCenterPosition(this._host._position)))
-            .subscribe((isCentering) => {
+            .subscribe((/**
+         * @param {?} isCentering
+         * @return {?}
+         */
+        (isCentering) => {
             if (isCentering && !this.hasAttached()) {
                 this.attach(this._host._content);
             }
-        });
-        this._leavingSub = this._host._afterLeavingCenter.subscribe(() => {
+        }));
+        this._leavingSub = this._host._afterLeavingCenter.subscribe((/**
+         * @return {?}
+         */
+        () => {
             this.detach();
-        });
+        }));
     }
     /**
      * Clean up centering subscription.
@@ -352,7 +369,10 @@ MatTabBodyPortal.decorators = [
 MatTabBodyPortal.ctorParameters = () => [
     { type: ComponentFactoryResolver },
     { type: ViewContainerRef },
-    { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef(() => MatTabBody),] }] }
+    { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    () => MatTabBody)),] }] }
 ];
 /**
  * Wrapper for the contents of a tab.
@@ -398,16 +418,29 @@ class MatTabBody {
          */
         this.animationDuration = '500ms';
         if (_dir) {
-            this._dirChangeSubscription = _dir.change.subscribe((dir) => {
+            this._dirChangeSubscription = _dir.change.subscribe((/**
+             * @param {?} dir
+             * @return {?}
+             */
+            (dir) => {
                 this._computePositionAnimationState(dir);
                 changeDetectorRef.markForCheck();
-            });
+            }));
         }
         // Ensure that we get unique animation events, because the `.done` callback can get
         // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
-        this._translateTabComplete.pipe(distinctUntilChanged((x, y) => {
+        this._translateTabComplete.pipe(distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        (x, y) => {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(event => {
+        }))).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             // If the transition to the center is complete, emit an event.
             if (this._isCenterPosition(event.toState) && this._isCenterPosition(this._position)) {
                 this._onCentered.emit();
@@ -415,7 +448,7 @@ class MatTabBody {
             if (this._isCenterPosition(event.fromState) && !this._isCenterPosition(this._position)) {
                 this._afterLeavingCenter.emit();
             }
-        });
+        }));
     }
     /**
      * The shifted index position of the tab body, where zero represents the active center tab.
@@ -536,7 +569,7 @@ MatTabBody.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
@@ -595,7 +628,7 @@ MatTabLabelWrapper.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Config used to bind passive event listeners
@@ -690,13 +723,19 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
          */
         this.indexFocused = new EventEmitter();
         // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
-        _ngZone.runOutsideAngular(() => {
+        _ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
             fromEvent(_elementRef.nativeElement, 'mouseleave')
                 .pipe(takeUntil(this._destroyed))
-                .subscribe(() => {
+                .subscribe((/**
+             * @return {?}
+             */
+            () => {
                 this._stopInterval();
-            });
-        });
+            }));
+        }));
     }
     /**
      * The index of the active tab.
@@ -780,10 +819,13 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         /** @type {?} */
         const resize = this._viewportRuler.change(150);
         /** @type {?} */
-        const realign = () => {
+        const realign = (/**
+         * @return {?}
+         */
+        () => {
             this.updatePagination();
             this._alignInkBarToSelectedTab();
-        };
+        });
         this._keyManager = new FocusKeyManager(this._labelWrappers)
             .withHorizontalOrientation(this._getLayoutDirection())
             .withWrap();
@@ -793,17 +835,24 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
         // On dir change or window resize, realign the ink bar and update the orientation of
         // the key manager if the direction has changed.
-        merge(dirChange, resize).pipe(takeUntil(this._destroyed)).subscribe(() => {
+        merge(dirChange, resize).pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             realign();
             this._keyManager.withHorizontalOrientation(this._getLayoutDirection());
-        });
+        }));
         // If there is a change in the focus key manager we need to emit the `indexFocused`
         // event in order to provide a public event that notifies about focus changes. Also we realign
         // the tabs container by scrolling the new focused tab into the visible section.
-        this._keyManager.change.pipe(takeUntil(this._destroyed)).subscribe(newFocusIndex => {
+        this._keyManager.change.pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} newFocusIndex
+         * @return {?}
+         */
+        newFocusIndex => {
             this.indexFocused.emit(newFocusIndex);
             this._setTabFocus(newFocusIndex);
-        });
+        }));
     }
     /**
      * @return {?}
@@ -812,14 +861,20 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         // We need to handle these events manually, because we want to bind passive event listeners.
         fromEvent(this._previousPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
             .pipe(takeUntil(this._destroyed))
-            .subscribe(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._handlePaginatorPress('before');
-        });
+        }));
         fromEvent(this._nextPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
             .pipe(takeUntil(this._destroyed))
-            .subscribe(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._handlePaginatorPress('after');
-        });
+        }));
     }
     /**
      * @return {?}
@@ -843,11 +898,14 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
             this._currentTextContent = textContent;
             // The content observer runs outside the `NgZone` by default, which
             // means that we need to bring the callback back in ourselves.
-            this._ngZone.run(() => {
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            () => {
                 this.updatePagination();
                 this._alignInkBarToSelectedTab();
                 this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     }
     /**
@@ -1118,13 +1176,16 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         timer(HEADER_SCROLL_DELAY, HEADER_SCROLL_INTERVAL)
             // Keep the timer going until something tells it to stop or the component is destroyed.
             .pipe(takeUntil(merge(this._stopScrolling, this._destroyed)))
-            .subscribe(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             const { maxScrollDistance, distance } = this._scrollHeader(direction);
             // Stop the timer if we've reached the start or the end.
             if (distance === 0 || distance >= maxScrollDistance) {
                 this._stopInterval();
             }
-        });
+        }));
     }
     /**
      * Scrolls the header to a given position.
@@ -1180,7 +1241,7 @@ MatTabHeader.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to generate unique ID's for each tab component
@@ -1341,22 +1402,35 @@ class MatTabGroup extends _MatTabGroupMixinBase {
             }
             // Changing these values after change detection has run
             // since the checked content may contain references to them.
-            Promise.resolve().then(() => {
-                this._tabs.forEach((tab, index) => tab.isActive = index === indexToSelect);
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            () => {
+                this._tabs.forEach((/**
+                 * @param {?} tab
+                 * @param {?} index
+                 * @return {?}
+                 */
+                (tab, index) => tab.isActive = index === indexToSelect));
                 if (!isFirstRun) {
                     this.selectedIndexChange.emit(indexToSelect);
                 }
-            });
+            }));
         }
         // Setup the position for each tab and optionally setup an origin on the next selected tab.
-        this._tabs.forEach((tab, index) => {
+        this._tabs.forEach((/**
+         * @param {?} tab
+         * @param {?} index
+         * @return {?}
+         */
+        (tab, index) => {
             tab.position = index - indexToSelect;
             // If there is already a selected tab, then set up an origin for the next selected tab
             // if it doesn't have one already.
             if (this._selectedIndex != null && tab.position == 0 && !tab.origin) {
                 tab.origin = indexToSelect - this._selectedIndex;
             }
-        });
+        }));
         if (this._selectedIndex !== indexToSelect) {
             this._selectedIndex = indexToSelect;
             this._changeDetectorRef.markForCheck();
@@ -1369,7 +1443,10 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         this._subscribeToTabLabels();
         // Subscribe to changes in the amount of tabs, in order to be
         // able to re-render the content as new tabs are added or removed.
-        this._tabsSubscription = this._tabs.changes.subscribe(() => {
+        this._tabsSubscription = this._tabs.changes.subscribe((/**
+         * @return {?}
+         */
+        () => {
             /** @type {?} */
             const indexToSelect = this._clampTabIndex(this._indexToSelect);
             // Maintain the previously-selected tab if a new tab is added or removed and there is no
@@ -1389,7 +1466,7 @@ class MatTabGroup extends _MatTabGroupMixinBase {
             }
             this._subscribeToTabLabels();
             this._changeDetectorRef.markForCheck();
-        });
+        }));
     }
     /**
      * @return {?}
@@ -1440,8 +1517,15 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._stateChanges))
-            .subscribe(() => this._changeDetectorRef.markForCheck());
+        this._tabLabelSubscription = merge(...this._tabs.map((/**
+         * @param {?} tab
+         * @return {?}
+         */
+        tab => tab._stateChanges)))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this._changeDetectorRef.markForCheck()));
     }
     /**
      * Clamps the given index to the bounds of 0 and the tabs length.
@@ -1564,7 +1648,7 @@ MatTabGroup.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTabNav.
 /**
@@ -1637,13 +1721,19 @@ class MatTabNav extends _MatTabNavMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._ngZone.runOutsideAngular(() => {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
             /** @type {?} */
             const dirChange = this._dir ? this._dir.change : of(null);
             return merge(dirChange, this._viewportRuler.change(10))
                 .pipe(takeUntil(this._onDestroy))
-                .subscribe(() => this._alignInkBar());
-        });
+                .subscribe((/**
+             * @return {?}
+             */
+            () => this._alignInkBar()));
+        }));
     }
     /**
      * Checks if the active link has been changed and, if so, will update the ink bar.
@@ -1652,7 +1742,11 @@ class MatTabNav extends _MatTabNavMixinBase {
     ngAfterContentChecked() {
         if (this._activeLinkChanged) {
             /** @type {?} */
-            const activeTab = this._tabLinks.find(tab => tab.active);
+            const activeTab = this._tabLinks.find((/**
+             * @param {?} tab
+             * @return {?}
+             */
+            tab => tab.active));
             this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
@@ -1700,7 +1794,10 @@ MatTabNav.ctorParameters = () => [
 ];
 MatTabNav.propDecorators = {
     _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
-    _tabLinks: [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] }],
+    _tabLinks: [{ type: ContentChildren, args: [forwardRef((/**
+                 * @return {?}
+                 */
+                () => MatTabLink)), { descendants: true },] }],
     backgroundColor: [{ type: Input }]
 };
 // Boilerplate for applying mixins to MatTabLink.
@@ -1799,7 +1896,7 @@ MatTabLink.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatTabsModule {
 }
@@ -1841,18 +1938,18 @@ MatTabsModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22 };
 //# sourceMappingURL=tabs.js.map

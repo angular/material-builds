@@ -12,7 +12,7 @@ import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token used to provide a grid list to a tile and to avoid circular imports.
@@ -23,7 +23,7 @@ const MAT_GRID_LIST = new InjectionToken('MAT_GRID_LIST');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatGridTile {
     /**
@@ -155,7 +155,7 @@ MatGridTileFooterCssMatStyler.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -214,7 +214,11 @@ class TileCoordinator {
         this.rowIndex = 0;
         this.tracker = new Array(numColumns);
         this.tracker.fill(0, 0, this.tracker.length);
-        this.positions = tiles.map(tile => this._trackTile(tile));
+        this.positions = tiles.map((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        tile => this._trackTile(tile)));
     }
     /**
      * Calculates the row and col position of a tile.
@@ -336,7 +340,7 @@ class TilePosition {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -519,10 +523,14 @@ class FixedTileStyler extends TileStyler {
     reset(list) {
         list._setListStyle(['height', null]);
         if (list._tiles) {
-            list._tiles.forEach(tile => {
+            list._tiles.forEach((/**
+             * @param {?} tile
+             * @return {?}
+             */
+            tile => {
                 tile._setStyle('top', null);
                 tile._setStyle('height', null);
-            });
+            }));
         }
     }
 }
@@ -570,10 +578,14 @@ class RatioTileStyler extends TileStyler {
      */
     reset(list) {
         list._setListStyle(['paddingBottom', null]);
-        list._tiles.forEach(tile => {
+        list._tiles.forEach((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        tile => {
             tile._setStyle('marginTop', null);
             tile._setStyle('paddingTop', null);
-        });
+        }));
     }
     /**
      * @private
@@ -621,10 +633,14 @@ class FitTileStyler extends TileStyler {
      */
     reset(list) {
         if (list._tiles) {
-            list._tiles.forEach(tile => {
+            list._tiles.forEach((/**
+             * @param {?} tile
+             * @return {?}
+             */
+            tile => {
                 tile._setStyle('top', null);
                 tile._setStyle('height', null);
-            });
+            }));
         }
     }
 }
@@ -647,7 +663,7 @@ function normalizeUnits(value) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
@@ -774,16 +790,25 @@ class MatGridList {
         /** @type {?} */
         const tracker = this._tileCoordinator;
         /** @type {?} */
-        const tiles = this._tiles.filter(tile => !tile._gridList || tile._gridList === this);
+        const tiles = this._tiles.filter((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        tile => !tile._gridList || tile._gridList === this));
         /** @type {?} */
         const direction = this._dir ? this._dir.value : 'ltr';
         this._tileCoordinator.update(this.cols, tiles);
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
-        tiles.forEach((tile, index) => {
+        tiles.forEach((/**
+         * @param {?} tile
+         * @param {?} index
+         * @return {?}
+         */
+        (tile, index) => {
             /** @type {?} */
             const pos = tracker.positions[index];
             this._tileStyler.setStyle(tile, pos.row, pos.col);
-        });
+        }));
         this._setListStyle(this._tileStyler.getComputedHeight());
     }
     /**
@@ -827,7 +852,7 @@ MatGridList.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatGridListModule {
 }
@@ -857,13 +882,13 @@ MatGridListModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa4 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MAT_GRID_LIST as ɵa6 };
 //# sourceMappingURL=grid-list.js.map

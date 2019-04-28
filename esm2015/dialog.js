@@ -19,7 +19,7 @@ import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -96,7 +96,7 @@ class MatDialogConfig {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const animationBody = [
@@ -126,7 +126,7 @@ const matDialogAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -242,7 +242,10 @@ class MatDialogContainer extends BasePortalOutlet {
                 // Move focus onto the dialog immediately in order to prevent the user from accidentally
                 // opening multiple dialogs at the same time. Needs to be async, because the element
                 // may not be focusable immediately.
-                Promise.resolve().then(() => this._elementRef.nativeElement.focus());
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                () => this._elementRef.nativeElement.focus()));
             }
         }
     }
@@ -317,7 +320,7 @@ MatDialogContainer.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
@@ -359,24 +362,48 @@ class MatDialogRef {
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'enter'), take(1))
-            .subscribe(() => {
+        _containerInstance._animationStateChanged.pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => event.phaseName === 'done' && event.toState === 'enter')), take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._afterOpened.next();
             this._afterOpened.complete();
-        });
+        }));
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'exit'), take(1)).subscribe(() => this._overlayRef.dispose());
-        _overlayRef.detachments().subscribe(() => {
+        _containerInstance._animationStateChanged.pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => event.phaseName === 'done' && event.toState === 'exit')), take(1)).subscribe((/**
+         * @return {?}
+         */
+        () => this._overlayRef.dispose()));
+        _overlayRef.detachments().subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._beforeClosed.next(this._result);
             this._beforeClosed.complete();
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
             this.componentInstance = (/** @type {?} */ (null));
             this._overlayRef.dispose();
-        });
+        }));
         _overlayRef.keydownEvents()
-            .pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose))
-            .subscribe(() => this.close());
+            .pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => event.keyCode === ESCAPE && !this.disableClose)))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this.close()));
     }
     /**
      * Close the dialog.
@@ -386,12 +413,19 @@ class MatDialogRef {
     close(dialogResult) {
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1))
-            .subscribe(() => {
+        this._containerInstance._animationStateChanged.pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => event.phaseName === 'start')), take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._beforeClosed.next(dialogResult);
             this._beforeClosed.complete();
             this._overlayRef.detachBackdrop();
-        });
+        }));
         this._containerInstance._startExitAnimation();
     }
     /**
@@ -519,7 +553,7 @@ class MatDialogRef {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a dialog.
@@ -542,7 +576,10 @@ const MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strateg
  * @return {?}
  */
 function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.block();
+    return (/**
+     * @return {?}
+     */
+    () => overlay.scrollStrategies.block());
 }
 /**
  * \@docs-private
@@ -550,7 +587,10 @@ function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay) {
  * @return {?}
  */
 function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.block();
+    return (/**
+     * @return {?}
+     */
+    () => overlay.scrollStrategies.block());
 }
 /**
  * \@docs-private
@@ -590,9 +630,12 @@ class MatDialog {
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = (/** @type {?} */ (defer(() => this.openDialogs.length ?
+        this.afterAllClosed = (/** @type {?} */ (defer((/**
+         * @return {?}
+         */
+        () => this.openDialogs.length ?
             this._afterAllClosed :
-            this._afterAllClosed.pipe(startWith(undefined)))));
+            this._afterAllClosed.pipe(startWith(undefined))))));
         this._scrollStrategy = scrollStrategy;
     }
     /**
@@ -650,7 +693,10 @@ class MatDialog {
             this._hideNonDialogContentFromAssistiveTechnology();
         }
         this.openDialogs.push(dialogRef);
-        dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
+        dialogRef.afterClosed().subscribe((/**
+         * @return {?}
+         */
+        () => this._removeOpenDialog(dialogRef)));
         this.afterOpened.next(dialogRef);
         return dialogRef;
     }
@@ -667,7 +713,11 @@ class MatDialog {
      * @return {?}
      */
     getDialogById(id) {
-        return this.openDialogs.find(dialog => dialog.id === id);
+        return this.openDialogs.find((/**
+         * @param {?} dialog
+         * @return {?}
+         */
+        dialog => dialog.id === id));
     }
     /**
      * @return {?}
@@ -753,11 +803,14 @@ class MatDialog {
         const dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
-            overlayRef.backdropClick().subscribe(() => {
+            overlayRef.backdropClick().subscribe((/**
+             * @return {?}
+             */
+            () => {
                 if (!dialogRef.disableClose) {
                     dialogRef.close();
                 }
-            });
+            }));
         }
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({ $implicit: config.data, dialogRef }))));
@@ -820,14 +873,19 @@ class MatDialog {
             // If all the dialogs were closed, remove/restore the `aria-hidden`
             // to a the siblings and emit to the `afterAllClosed` stream.
             if (!this.openDialogs.length) {
-                this._ariaHiddenElements.forEach((previousValue, element) => {
+                this._ariaHiddenElements.forEach((/**
+                 * @param {?} previousValue
+                 * @param {?} element
+                 * @return {?}
+                 */
+                (previousValue, element) => {
                     if (previousValue) {
                         element.setAttribute('aria-hidden', previousValue);
                     }
                     else {
                         element.removeAttribute('aria-hidden');
                     }
-                });
+                }));
                 this._ariaHiddenElements.clear();
                 this._afterAllClosed.next();
             }
@@ -901,7 +959,7 @@ function _applyConfigDefaults(config, defaultOptions) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Counter used to generate unique IDs for dialog elements.
@@ -992,13 +1050,16 @@ class MatDialogTitle {
             this._dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
         if (this._dialogRef) {
-            Promise.resolve().then(() => {
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            () => {
                 /** @type {?} */
                 const container = this._dialogRef._containerInstance;
                 if (container && !container._ariaLabelledBy) {
                     container._ariaLabelledBy = this.id;
                 }
-            });
+            }));
         }
     }
 }
@@ -1056,12 +1117,16 @@ function getClosestDialog(element, openDialogs) {
     while (parent && !parent.classList.contains('mat-dialog-container')) {
         parent = parent.parentElement;
     }
-    return parent ? openDialogs.find(dialog => dialog.id === (/** @type {?} */ (parent)).id) : null;
+    return parent ? openDialogs.find((/**
+     * @param {?} dialog
+     * @return {?}
+     */
+    dialog => dialog.id === (/** @type {?} */ (parent)).id)) : null;
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatDialogModule {
 }
@@ -1098,12 +1163,12 @@ MatDialogModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };

@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
@@ -50,12 +50,15 @@ function __extends(d, b) {
  */
 var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
-    factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
+    factory: (/**
+     * @return {?}
+     */
+    function () { return ({ disableToggleValue: false, disableDragValue: false }); })
 });
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for slide-toggle components.
 /** @type {?} */
@@ -66,7 +69,10 @@ var nextUniqueId = 0;
  */
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatSlideToggle; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatSlideToggle; })),
     multi: true
 };
 /**
@@ -112,8 +118,15 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this.defaults = defaults;
         _this._animationMode = _animationMode;
         _this._dir = _dir;
-        _this.onChange = function (_) { };
-        _this.onTouched = function () { };
+        _this.onChange = (/**
+         * @param {?} _
+         * @return {?}
+         */
+        function (_) { });
+        _this.onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this._uniqueId = "mat-slide-toggle-" + ++nextUniqueId;
         _this._required = false;
         _this._checked = false;
@@ -215,16 +228,23 @@ var MatSlideToggle = /** @class */ (function (_super) {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(function (focusOrigin) {
+            .subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        function (focusOrigin) {
             if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
                 // Angular does not expect events to be raised during change detection, so any state
                 // change (such as a form control's 'ng-touched') will cause a changed-after-checked
                 // error. See https://github.com/angular/angular/issues/17793. To work around this,
                 // we defer telling the form control it has been touched until the next tick.
-                Promise.resolve().then(function () { return _this.onTouched(); });
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () { return _this.onTouched(); }));
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -466,7 +486,13 @@ var MatSlideToggle = /** @class */ (function (_super) {
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
-            this._ngZone.runOutsideAngular(function () { return setTimeout(function () {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () { return setTimeout((/**
+             * @return {?}
+             */
+            function () {
                 if (_this._dragging) {
                     _this._dragging = false;
                     _this._thumbEl.nativeElement.classList.remove('mat-dragging');
@@ -474,7 +500,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                     // of the thumb position after drag.
                     _this._thumbEl.nativeElement.style.transform = '';
                 }
-            }); });
+            })); }));
         }
     };
     /** Method being called whenever the label text changes. */
@@ -547,7 +573,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {

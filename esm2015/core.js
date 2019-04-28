@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
+import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, ɵɵdefineInjectable } from '@angular/core';
 import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -19,17 +19,17 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.2-c0d493f');
+const VERSION = new Version('8.0.0-beta.2-e02fa3a');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
@@ -187,7 +187,7 @@ MatCommonModule.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -218,7 +218,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `color` property.
@@ -263,7 +263,7 @@ function mixinColor(base, defaultColor) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disableRipple` property.
@@ -295,7 +295,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -330,7 +330,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with updateErrorState method.
@@ -380,7 +380,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
@@ -409,7 +409,11 @@ function mixinInitialized(base) {
              * Observable stream that emits when the directive initializes. If already initialized, the
              * subscriber is stored to be notified once _markInitialized is called.
              */
-            this.initialized = new Observable(subscriber => {
+            this.initialized = new Observable((/**
+             * @param {?} subscriber
+             * @return {?}
+             */
+            subscriber => {
                 // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
                 // when _markInitialized is called.
                 if (this._isInitialized) {
@@ -418,7 +422,7 @@ function mixinInitialized(base) {
                 else {
                     (/** @type {?} */ (this._pendingSubscribers)).push(subscriber);
                 }
-            });
+            }));
         }
         /**
          * Marks the state as initialized and notifies pending subscribers. Should be called at the end
@@ -449,12 +453,12 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -573,14 +577,14 @@ class DateAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(mmalerba): Remove when we no longer support safari 9.
 /**
@@ -611,12 +615,16 @@ const DEFAULT_MONTH_NAMES = {
     'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
-const ɵ0 = i => String(i + 1);
+const ɵ0 = /**
+ * @param {?} i
+ * @return {?}
+ */
+i => String(i + 1);
 /**
  * The default date names to use if Intl API is not available.
  * @type {?}
  */
-const DEFAULT_DATE_NAMES = range(31, ɵ0);
+const DEFAULT_DATE_NAMES = range(31, (ɵ0));
 /**
  * The default day of the week names to use if Intl API is not available.
  * @type {?}
@@ -711,7 +719,11 @@ class NativeDateAdapter extends DateAdapter {
         if (SUPPORTS_INTL_API) {
             /** @type {?} */
             const dtf = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
-            return range(12, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, i, 1))));
+            return range(12, (/**
+             * @param {?} i
+             * @return {?}
+             */
+            i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, i, 1)))));
         }
         return DEFAULT_MONTH_NAMES[style];
     }
@@ -722,7 +734,11 @@ class NativeDateAdapter extends DateAdapter {
         if (SUPPORTS_INTL_API) {
             /** @type {?} */
             const dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
-            return range(31, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1))));
+            return range(31, (/**
+             * @param {?} i
+             * @return {?}
+             */
+            i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1)))));
         }
         return DEFAULT_DATE_NAMES;
     }
@@ -734,7 +750,11 @@ class NativeDateAdapter extends DateAdapter {
         if (SUPPORTS_INTL_API) {
             /** @type {?} */
             const dtf = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
-            return range(7, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1))));
+            return range(7, (/**
+             * @param {?} i
+             * @return {?}
+             */
+            i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1)))));
         }
         return DEFAULT_DAY_OF_WEEK_NAMES[style];
     }
@@ -990,7 +1010,7 @@ NativeDateAdapter.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @type {?} */
@@ -1008,7 +1028,7 @@ const MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NativeDateModule {
 }
@@ -1032,7 +1052,7 @@ MatNativeDateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1066,16 +1086,16 @@ class ErrorStateMatcher {
 ErrorStateMatcher.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */ ErrorStateMatcher.ngInjectableDef = defineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+/** @nocollapse */ ErrorStateMatcher.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
@@ -1092,15 +1112,21 @@ const ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'slideright',
     'slideleft'
 ];
-const ɵ0$2 = () => { }, ɵ1 = () => { };
+const ɵ0$2 = /**
+ * @return {?}
+ */
+() => { }, ɵ1 = /**
+ * @return {?}
+ */
+() => { };
 /**
  * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
  * been loaded on the page.
  * @type {?}
  */
 const noopHammerInstance = {
-    on: ɵ0$2,
-    off: ɵ1,
+    on: (ɵ0$2),
+    off: (ɵ1),
 };
 /**
  * Adjusts configuration of our gesture library, Hammer.
@@ -1188,7 +1214,11 @@ class GestureConfig extends HammerGestureConfig {
         /** @type {?} */
         let recognizer = new ((/** @type {?} */ (base.constructor)))(options);
         inheritances.push(base);
-        inheritances.forEach(item => recognizer.recognizeWith(item));
+        inheritances.forEach((/**
+         * @param {?} item
+         * @return {?}
+         */
+        item => recognizer.recognizeWith(item)));
         return recognizer;
     }
 }
@@ -1203,7 +1233,7 @@ GestureConfig.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1228,7 +1258,11 @@ MatLine.decorators = [
 function setLines(lines, element) {
     // Note: doesn't need to unsubscribe, because `changes`
     // gets completed by Angular when the view is destroyed.
-    lines.changes.pipe(startWith(lines)).subscribe(({ length }) => {
+    lines.changes.pipe(startWith(lines)).subscribe((/**
+     * @param {?} __0
+     * @return {?}
+     */
+    ({ length }) => {
         setClass(element, 'mat-2-line', false);
         setClass(element, 'mat-3-line', false);
         setClass(element, 'mat-multi-line', false);
@@ -1238,7 +1272,7 @@ function setLines(lines, element) {
         else if (length > 3) {
             setClass(element, `mat-multi-line`, true);
         }
-    });
+    }));
 }
 /**
  * Adds or removes a class from an element.
@@ -1279,7 +1313,7 @@ MatLineModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @enum {number} */
@@ -1319,7 +1353,7 @@ class RippleRef {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default ripple animation configuration for ripples without an explicit
@@ -1373,7 +1407,11 @@ class RippleRenderer {
         /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
-        this.onMousedown = (event) => {
+        this.onMousedown = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
             // Screen readers will fire fake mouse events for space/enter. Skip launching a
             // ripple in this case for consistency with the non-screen-reader experience.
             /** @type {?} */
@@ -1385,11 +1423,15 @@ class RippleRenderer {
                 this._isPointerDown = true;
                 this.fadeInRipple(event.clientX, event.clientY, this._target.rippleConfig);
             }
-        };
+        });
         /**
          * Function being called whenever the trigger is being pressed using touch.
          */
-        this.onTouchStart = (event) => {
+        this.onTouchStart = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
             if (!this._target.rippleDisabled) {
                 // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
                 // events will launch a second ripple if we don't ignore mouse events for a specific
@@ -1404,17 +1446,24 @@ class RippleRenderer {
                     this.fadeInRipple(touches[i].clientX, touches[i].clientY, this._target.rippleConfig);
                 }
             }
-        };
+        });
         /**
          * Function being called whenever the trigger is being released.
          */
-        this.onPointerUp = () => {
+        this.onPointerUp = (/**
+         * @return {?}
+         */
+        () => {
             if (!this._isPointerDown) {
                 return;
             }
             this._isPointerDown = false;
             // Fade-out all ripples that are visible and not persistent.
-            this._activeRipples.forEach(ripple => {
+            this._activeRipples.forEach((/**
+             * @param {?} ripple
+             * @return {?}
+             */
+            ripple => {
                 // By default, only ripples that are completely visible will fade out on pointer release.
                 // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
                 /** @type {?} */
@@ -1423,8 +1472,8 @@ class RippleRenderer {
                 if (!ripple.config.persistent && isVisible) {
                     ripple.fadeOut();
                 }
-            });
-        };
+            }));
+        });
         // Only do anything if we're on the browser.
         if (platform.isBrowser) {
             this._containerElement = elementRef.nativeElement;
@@ -1489,7 +1538,10 @@ class RippleRenderer {
         }
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
-        this.runTimeoutOutsideZone(() => {
+        this.runTimeoutOutsideZone((/**
+         * @return {?}
+         */
+        () => {
             /** @type {?} */
             const isMostRecentTransientRipple = rippleRef === this._mostRecentTransientRipple;
             rippleRef.state = RippleState.VISIBLE;
@@ -1500,7 +1552,7 @@ class RippleRenderer {
             if (!config.persistent && (!isMostRecentTransientRipple || !this._isPointerDown)) {
                 rippleRef.fadeOut();
             }
-        }, duration);
+        }), duration);
         return rippleRef;
     }
     /**
@@ -1530,17 +1582,24 @@ class RippleRenderer {
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
-        this.runTimeoutOutsideZone(() => {
+        this.runTimeoutOutsideZone((/**
+         * @return {?}
+         */
+        () => {
             rippleRef.state = RippleState.HIDDEN;
             (/** @type {?} */ (rippleEl.parentNode)).removeChild(rippleEl);
-        }, animationConfig.exitDuration);
+        }), animationConfig.exitDuration);
     }
     /**
      * Fades out all currently active ripples.
      * @return {?}
      */
     fadeOutAll() {
-        this._activeRipples.forEach(ripple => ripple.fadeOut());
+        this._activeRipples.forEach((/**
+         * @param {?} ripple
+         * @return {?}
+         */
+        ripple => ripple.fadeOut()));
     }
     /**
      * Sets up the trigger event listeners
@@ -1553,11 +1612,19 @@ class RippleRenderer {
         }
         // Remove all previously registered event listeners from the trigger element.
         this._removeTriggerEvents();
-        this._ngZone.runOutsideAngular(() => {
-            this._triggerEvents.forEach((fn, type) => {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
+            this._triggerEvents.forEach((/**
+             * @param {?} fn
+             * @param {?} type
+             * @return {?}
+             */
+            (fn, type) => {
                 element.addEventListener(type, fn, passiveEventOptions);
-            });
-        });
+            }));
+        }));
         this._triggerElement = element;
     }
     /**
@@ -1568,7 +1635,10 @@ class RippleRenderer {
      * @return {?}
      */
     runTimeoutOutsideZone(fn, delay = 0) {
-        this._ngZone.runOutsideAngular(() => setTimeout(fn, delay));
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => setTimeout(fn, delay)));
     }
     /**
      * Removes previously registered event listeners from the trigger element.
@@ -1576,9 +1646,14 @@ class RippleRenderer {
      */
     _removeTriggerEvents() {
         if (this._triggerElement) {
-            this._triggerEvents.forEach((fn, type) => {
+            this._triggerEvents.forEach((/**
+             * @param {?} fn
+             * @param {?} type
+             * @return {?}
+             */
+            (fn, type) => {
                 (/** @type {?} */ (this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
-            });
+            }));
         }
     }
 }
@@ -1610,7 +1685,7 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify the global ripple options.
@@ -1770,7 +1845,7 @@ MatRipple.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatRippleModule {
 }
@@ -1784,7 +1859,7 @@ MatRippleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -1841,7 +1916,7 @@ MatPseudoCheckbox.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatPseudoCheckboxModule {
 }
@@ -1854,7 +1929,7 @@ MatPseudoCheckboxModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatOptgroup.
 /**
@@ -1902,7 +1977,7 @@ MatOptgroup.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
@@ -2235,7 +2310,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatOptionModule {
 }
@@ -2249,7 +2324,7 @@ MatOptionModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * InjectionToken that can be used to specify the global label options.
@@ -2259,7 +2334,7 @@ const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -2295,12 +2370,12 @@ const DEC = 11;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { VERSION, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };

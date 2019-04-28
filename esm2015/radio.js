@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for radio components.
 /** @type {?} */
@@ -29,7 +29,10 @@ let nextUniqueId = 0;
  */
 const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatRadioGroup),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatRadioGroup)),
     multi: true
 };
 /**
@@ -85,12 +88,18 @@ class MatRadioGroup {
         /**
          * The method to be called in order to update ngModel
          */
-        this._controlValueAccessorChangeFn = () => { };
+        this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
          */
-        this.onTouched = () => { };
+        this.onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * Event emitted when the group value changes.
          * Change events are only emitted when the value changes due to user interaction with
@@ -222,10 +231,14 @@ class MatRadioGroup {
      */
     _updateRadioButtonNames() {
         if (this._radios) {
-            this._radios.forEach(radio => {
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            radio => {
                 radio.name = this.name;
                 radio._markForCheck();
-            });
+            }));
         }
     }
     /**
@@ -239,12 +252,16 @@ class MatRadioGroup {
         const isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
             this._selected = null;
-            this._radios.forEach(radio => {
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            radio => {
                 radio.checked = this.value === radio.value;
                 if (radio.checked) {
                     this._selected = radio;
                 }
-            });
+            }));
         }
     }
     /**
@@ -261,7 +278,11 @@ class MatRadioGroup {
      */
     _markRadiosForCheck() {
         if (this._radios) {
-            this._radios.forEach(radio => radio._markForCheck());
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            radio => radio._markForCheck()));
         }
     }
     /**
@@ -318,7 +339,10 @@ MatRadioGroup.ctorParameters = () => [
 ];
 MatRadioGroup.propDecorators = {
     change: [{ type: Output }],
-    _radios: [{ type: ContentChildren, args: [forwardRef(() => MatRadioButton), { descendants: true },] }],
+    _radios: [{ type: ContentChildren, args: [forwardRef((/**
+                 * @return {?}
+                 */
+                () => MatRadioButton)), { descendants: true },] }],
     name: [{ type: Input }],
     labelPosition: [{ type: Input }],
     value: [{ type: Input }],
@@ -382,16 +406,24 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
         /**
          * Unregister function for _radioDispatcher
          */
-        this._removeUniqueSelectionListener = () => { };
+        this._removeUniqueSelectionListener = (/**
+         * @return {?}
+         */
+        () => { });
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         this.radioGroup = radioGroup;
         this._removeUniqueSelectionListener =
-            _radioDispatcher.listen((id, name) => {
+            _radioDispatcher.listen((/**
+             * @param {?} id
+             * @param {?} name
+             * @return {?}
+             */
+            (id, name) => {
                 if (id !== this.id && name === this.name) {
                     this.checked = false;
                 }
-            });
+            }));
     }
     /**
      * Whether this radio button is checked.
@@ -532,11 +564,15 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
     ngAfterViewInit() {
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(focusOrigin => {
+            .subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        focusOrigin => {
             if (!focusOrigin && this.radioGroup) {
                 this.radioGroup._touch();
             }
-        });
+        }));
     }
     /**
      * @return {?}
@@ -645,7 +681,7 @@ MatRadioButton.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatRadioModule {
 }
@@ -659,12 +695,12 @@ MatRadioModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroup, MatRadioButton };

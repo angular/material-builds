@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify the checkbox click behavior.
@@ -52,7 +52,7 @@ var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-acti
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for checkbox components.
 /** @type {?} */
@@ -65,7 +65,10 @@ var nextUniqueId = 0;
  */
 var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatCheckbox; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatCheckbox; })),
     multi: true
 };
 /** @enum {number} */
@@ -162,27 +165,40 @@ var MatCheckbox = /** @class */ (function (_super) {
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this._currentAnimationClass = '';
         _this._currentCheckState = TransitionCheckState.Init;
-        _this._controlValueAccessorChangeFn = function () { };
+        _this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         _this._checked = false;
         _this._disabled = false;
         _this._indeterminate = false;
         _this.tabIndex = parseInt(tabIndex) || 0;
-        _this._focusMonitor.monitor(elementRef, true).subscribe(function (focusOrigin) {
+        _this._focusMonitor.monitor(elementRef, true).subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        function (focusOrigin) {
             if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
                 // Angular does not expect events to be raised during change detection, so any state change
                 // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
                 // See https://github.com/angular/angular/issues/17793. To work around this, we defer
                 // telling the form control it has been touched until the next tick.
-                Promise.resolve().then(function () {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._onTouched();
                     _changeDetectorRef.markForCheck();
-                });
+                }));
             }
-        });
+        }));
         return _this;
     }
     Object.defineProperty(MatCheckbox.prototype, "inputId", {
@@ -437,11 +453,17 @@ var MatCheckbox = /** @class */ (function (_super) {
             // Remove the animation class to avoid animation when the checkbox is moved between containers
             /** @type {?} */
             var animationClass_1 = this._currentAnimationClass;
-            this._ngZone.runOutsideAngular(function () {
-                setTimeout(function () {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
                     element.classList.remove(animationClass_1);
-                }, 1000);
-            });
+                }), 1000);
+            }));
         }
     };
     /**
@@ -509,10 +531,13 @@ var MatCheckbox = /** @class */ (function (_super) {
         if (!this.disabled && this._clickAction !== 'noop') {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this.indeterminate && this._clickAction !== 'check') {
-                Promise.resolve().then(function () {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._indeterminate = false;
                     _this.indeterminateChange.emit(_this._indeterminate);
-                });
+                }));
             }
             this.toggle();
             this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
@@ -654,12 +679,15 @@ var MatCheckbox = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: forms.NG_VALIDATORS,
-    useExisting: core.forwardRef(function () { return MatCheckboxRequiredValidator; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatCheckboxRequiredValidator; })),
     multi: true
 };
 /**
@@ -684,7 +712,7 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * This module is used by both original and MDC-based checkbox implementations.

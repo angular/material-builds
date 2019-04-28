@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify the checkbox click behavior.
@@ -26,7 +26,7 @@ const MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action'
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for checkbox components.
 /** @type {?} */
@@ -39,7 +39,10 @@ let nextUniqueId = 0;
  */
 const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatCheckbox),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatCheckbox)),
     multi: true
 };
 /** @enum {number} */
@@ -135,27 +138,40 @@ class MatCheckbox extends _MatCheckboxMixinBase {
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
-        this._onTouched = () => { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         this._currentAnimationClass = '';
         this._currentCheckState = TransitionCheckState.Init;
-        this._controlValueAccessorChangeFn = () => { };
+        this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        () => { });
         this._checked = false;
         this._disabled = false;
         this._indeterminate = false;
         this.tabIndex = parseInt(tabIndex) || 0;
-        this._focusMonitor.monitor(elementRef, true).subscribe(focusOrigin => {
+        this._focusMonitor.monitor(elementRef, true).subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        focusOrigin => {
             if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
                 // Angular does not expect events to be raised during change detection, so any state change
                 // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
                 // See https://github.com/angular/angular/issues/17793. To work around this, we defer
                 // telling the form control it has been touched until the next tick.
-                Promise.resolve().then(() => {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                () => {
                     this._onTouched();
                     _changeDetectorRef.markForCheck();
-                });
+                }));
             }
-        });
+        }));
     }
     /**
      * Returns the unique id for the visual hidden input.
@@ -321,11 +337,17 @@ class MatCheckbox extends _MatCheckboxMixinBase {
             // Remove the animation class to avoid animation when the checkbox is moved between containers
             /** @type {?} */
             const animationClass = this._currentAnimationClass;
-            this._ngZone.runOutsideAngular(() => {
-                setTimeout(() => {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                () => {
                     element.classList.remove(animationClass);
-                }, 1000);
-            });
+                }), 1000);
+            }));
         }
     }
     /**
@@ -368,10 +390,13 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         if (!this.disabled && this._clickAction !== 'noop') {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this.indeterminate && this._clickAction !== 'check') {
-                Promise.resolve().then(() => {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                () => {
                     this._indeterminate = false;
                     this.indeterminateChange.emit(this._indeterminate);
-                });
+                }));
             }
             this.toggle();
             this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
@@ -497,12 +522,15 @@ MatCheckbox.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => MatCheckboxRequiredValidator),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatCheckboxRequiredValidator)),
     multi: true
 };
 /**
@@ -523,7 +551,7 @@ MatCheckboxRequiredValidator.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * This module is used by both original and MDC-based checkbox implementations.
@@ -552,12 +580,12 @@ MatCheckboxModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, _MatCheckboxRequiredValidatorModule, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };

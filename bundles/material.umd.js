@@ -53,17 +53,17 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-beta.2-c0d493f');
+var VERSION = new core.Version('8.0.0-beta.2-e02fa3a');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -92,7 +92,7 @@ var AnimationDurations = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
@@ -249,7 +249,7 @@ var MatCommonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -288,7 +288,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `color` property.
@@ -341,7 +341,7 @@ function mixinColor(base, defaultColor) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disableRipple` property.
@@ -382,7 +382,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -426,7 +426,7 @@ function mixinTabIndex(base, defaultTabIndex) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with updateErrorState method.
@@ -483,7 +483,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
@@ -514,7 +514,11 @@ function mixinInitialized(base) {
              * Observable stream that emits when the directive initializes. If already initialized, the
              * subscriber is stored to be notified once _markInitialized is called.
              */
-            _this.initialized = new rxjs.Observable(function (subscriber) {
+            _this.initialized = new rxjs.Observable((/**
+             * @param {?} subscriber
+             * @return {?}
+             */
+            function (subscriber) {
                 // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
                 // when _markInitialized is called.
                 if (_this._isInitialized) {
@@ -523,7 +527,7 @@ function mixinInitialized(base) {
                 else {
                     (/** @type {?} */ (_this._pendingSubscribers)).push(subscriber);
                 }
-            });
+            }));
             return _this;
         }
         /**
@@ -573,12 +577,12 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -785,14 +789,14 @@ DateAdapter = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_DATE_FORMATS = new core.InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(mmalerba): Remove when we no longer support safari 9.
 /**
@@ -823,12 +827,16 @@ var DEFAULT_MONTH_NAMES = {
     'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
-var ɵ0 = function (i) { return String(i + 1); };
+var ɵ0 = /**
+ * @param {?} i
+ * @return {?}
+ */
+function (i) { return String(i + 1); };
 /**
  * The default date names to use if Intl API is not available.
  * @type {?}
  */
-var DEFAULT_DATE_NAMES = range(31, ɵ0);
+var DEFAULT_DATE_NAMES = range(31, (ɵ0));
 /**
  * The default day of the week names to use if Intl API is not available.
  * @type {?}
@@ -942,9 +950,13 @@ var NativeDateAdapter = /** @class */ (function (_super) {
         if (SUPPORTS_INTL_API) {
             /** @type {?} */
             var dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
-            return range(12, function (i) {
+            return range(12, (/**
+             * @param {?} i
+             * @return {?}
+             */
+            function (i) {
                 return _this._stripDirectionalityCharacters(_this._format(dtf_1, new Date(2017, i, 1)));
-            });
+            }));
         }
         return DEFAULT_MONTH_NAMES[style];
     };
@@ -959,7 +971,11 @@ var NativeDateAdapter = /** @class */ (function (_super) {
         if (SUPPORTS_INTL_API) {
             /** @type {?} */
             var dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
-            return range(31, function (i) { return _this._stripDirectionalityCharacters(_this._format(dtf_2, new Date(2017, 0, i + 1))); });
+            return range(31, (/**
+             * @param {?} i
+             * @return {?}
+             */
+            function (i) { return _this._stripDirectionalityCharacters(_this._format(dtf_2, new Date(2017, 0, i + 1))); }));
         }
         return DEFAULT_DATE_NAMES;
     };
@@ -976,7 +992,11 @@ var NativeDateAdapter = /** @class */ (function (_super) {
         if (SUPPORTS_INTL_API) {
             /** @type {?} */
             var dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
-            return range(7, function (i) { return _this._stripDirectionalityCharacters(_this._format(dtf_3, new Date(2017, 0, i + 1))); });
+            return range(7, (/**
+             * @param {?} i
+             * @return {?}
+             */
+            function (i) { return _this._stripDirectionalityCharacters(_this._format(dtf_3, new Date(2017, 0, i + 1))); }));
         }
         return DEFAULT_DAY_OF_WEEK_NAMES[style];
     };
@@ -1366,7 +1386,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @type {?} */
@@ -1384,7 +1404,7 @@ var MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var NativeDateModule = /** @class */ (function () {
     function NativeDateModule() {
@@ -1414,7 +1434,7 @@ var MatNativeDateModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1462,18 +1482,18 @@ var ErrorStateMatcher = /** @class */ (function () {
     ErrorStateMatcher.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.defineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
@@ -1490,15 +1510,21 @@ var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'slideright',
     'slideleft'
 ];
-var ɵ0$2 = function () { }, ɵ1 = function () { };
+var ɵ0$2 = /**
+ * @return {?}
+ */
+function () { }, ɵ1 = /**
+ * @return {?}
+ */
+function () { };
 /**
  * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
  * been loaded on the page.
  * @type {?}
  */
 var noopHammerInstance = {
-    on: ɵ0$2,
-    off: ɵ1,
+    on: (ɵ0$2),
+    off: (ɵ1),
 };
 /**
  * Adjusts configuration of our gesture library, Hammer.
@@ -1623,7 +1649,11 @@ var GestureConfig = /** @class */ (function (_super) {
         /** @type {?} */
         var recognizer = new ((/** @type {?} */ (base.constructor)))(options);
         inheritances.push(base);
-        inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
+        inheritances.forEach((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return recognizer.recognizeWith(item); }));
         return recognizer;
     };
     GestureConfig.decorators = [
@@ -1639,7 +1669,7 @@ var GestureConfig = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1667,7 +1697,11 @@ var MatLine = /** @class */ (function () {
 function setLines(lines, element) {
     // Note: doesn't need to unsubscribe, because `changes`
     // gets completed by Angular when the view is destroyed.
-    lines.changes.pipe(operators.startWith(lines)).subscribe(function (_a) {
+    lines.changes.pipe(operators.startWith(lines)).subscribe((/**
+     * @param {?} __0
+     * @return {?}
+     */
+    function (_a) {
         var length = _a.length;
         setClass(element, 'mat-2-line', false);
         setClass(element, 'mat-3-line', false);
@@ -1678,7 +1712,7 @@ function setLines(lines, element) {
         else if (length > 3) {
             setClass(element, "mat-multi-line", true);
         }
-    });
+    }));
 }
 /**
  * Adds or removes a class from an element.
@@ -1725,7 +1759,7 @@ var MatLineModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /** @enum {number} */
@@ -1769,7 +1803,7 @@ RippleRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default ripple animation configuration for ripples without an explicit
@@ -1825,7 +1859,11 @@ RippleRenderer = /** @class */ (function () {
         /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
-        this.onMousedown = function (event) {
+        this.onMousedown = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             // Screen readers will fire fake mouse events for space/enter. Skip launching a
             // ripple in this case for consistency with the non-screen-reader experience.
             /** @type {?} */
@@ -1837,11 +1875,15 @@ RippleRenderer = /** @class */ (function () {
                 _this._isPointerDown = true;
                 _this.fadeInRipple(event.clientX, event.clientY, _this._target.rippleConfig);
             }
-        };
+        });
         /**
          * Function being called whenever the trigger is being pressed using touch.
          */
-        this.onTouchStart = function (event) {
+        this.onTouchStart = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             if (!_this._target.rippleDisabled) {
                 // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
                 // events will launch a second ripple if we don't ignore mouse events for a specific
@@ -1856,17 +1898,24 @@ RippleRenderer = /** @class */ (function () {
                     _this.fadeInRipple(touches[i].clientX, touches[i].clientY, _this._target.rippleConfig);
                 }
             }
-        };
+        });
         /**
          * Function being called whenever the trigger is being released.
          */
-        this.onPointerUp = function () {
+        this.onPointerUp = (/**
+         * @return {?}
+         */
+        function () {
             if (!_this._isPointerDown) {
                 return;
             }
             _this._isPointerDown = false;
             // Fade-out all ripples that are visible and not persistent.
-            _this._activeRipples.forEach(function (ripple) {
+            _this._activeRipples.forEach((/**
+             * @param {?} ripple
+             * @return {?}
+             */
+            function (ripple) {
                 // By default, only ripples that are completely visible will fade out on pointer release.
                 // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
                 /** @type {?} */
@@ -1875,8 +1924,8 @@ RippleRenderer = /** @class */ (function () {
                 if (!ripple.config.persistent && isVisible) {
                     ripple.fadeOut();
                 }
-            });
-        };
+            }));
+        });
         // Only do anything if we're on the browser.
         if (platform$$1.isBrowser) {
             this._containerElement = elementRef.nativeElement;
@@ -1956,7 +2005,10 @@ RippleRenderer = /** @class */ (function () {
         }
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
-        this.runTimeoutOutsideZone(function () {
+        this.runTimeoutOutsideZone((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var isMostRecentTransientRipple = rippleRef === _this._mostRecentTransientRipple;
             rippleRef.state = RippleState.VISIBLE;
@@ -1967,7 +2019,7 @@ RippleRenderer = /** @class */ (function () {
             if (!config.persistent && (!isMostRecentTransientRipple || !_this._isPointerDown)) {
                 rippleRef.fadeOut();
             }
-        }, duration);
+        }), duration);
         return rippleRef;
     };
     /** Fades out a ripple reference. */
@@ -2003,10 +2055,13 @@ RippleRenderer = /** @class */ (function () {
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
-        this.runTimeoutOutsideZone(function () {
+        this.runTimeoutOutsideZone((/**
+         * @return {?}
+         */
+        function () {
             rippleRef.state = RippleState.HIDDEN;
             (/** @type {?} */ (rippleEl.parentNode)).removeChild(rippleEl);
-        }, animationConfig.exitDuration);
+        }), animationConfig.exitDuration);
     };
     /** Fades out all currently active ripples. */
     /**
@@ -2018,7 +2073,11 @@ RippleRenderer = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._activeRipples.forEach(function (ripple) { return ripple.fadeOut(); });
+        this._activeRipples.forEach((/**
+         * @param {?} ripple
+         * @return {?}
+         */
+        function (ripple) { return ripple.fadeOut(); }));
     };
     /** Sets up the trigger event listeners */
     /**
@@ -2038,11 +2097,19 @@ RippleRenderer = /** @class */ (function () {
         }
         // Remove all previously registered event listeners from the trigger element.
         this._removeTriggerEvents();
-        this._ngZone.runOutsideAngular(function () {
-            _this._triggerEvents.forEach(function (fn, type) {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
+            _this._triggerEvents.forEach((/**
+             * @param {?} fn
+             * @param {?} type
+             * @return {?}
+             */
+            function (fn, type) {
                 element.addEventListener(type, fn, passiveEventOptions);
-            });
-        });
+            }));
+        }));
         this._triggerElement = element;
     };
     /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
@@ -2062,7 +2129,10 @@ RippleRenderer = /** @class */ (function () {
      */
     function (fn, delay) {
         if (delay === void 0) { delay = 0; }
-        this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay); });
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () { return setTimeout(fn, delay); }));
     };
     /** Removes previously registered event listeners from the trigger element. */
     /**
@@ -2076,9 +2146,14 @@ RippleRenderer = /** @class */ (function () {
     function () {
         var _this = this;
         if (this._triggerElement) {
-            this._triggerEvents.forEach(function (fn, type) {
+            this._triggerEvents.forEach((/**
+             * @param {?} fn
+             * @param {?} type
+             * @return {?}
+             */
+            function (fn, type) {
                 (/** @type {?} */ (_this._triggerElement)).removeEventListener(type, fn, passiveEventOptions);
-            });
+            }));
         }
     };
     return RippleRenderer;
@@ -2111,7 +2186,7 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify the global ripple options.
@@ -2323,7 +2398,7 @@ var MatRipple = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatRippleModule = /** @class */ (function () {
     function MatRippleModule() {
@@ -2340,7 +2415,7 @@ var MatRippleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -2395,7 +2470,7 @@ var MatPseudoCheckbox = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatPseudoCheckboxModule = /** @class */ (function () {
     function MatPseudoCheckboxModule() {
@@ -2411,7 +2486,7 @@ var MatPseudoCheckboxModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatOptgroup.
 /**
@@ -2470,7 +2545,7 @@ var MatOptgroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
@@ -2931,7 +3006,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatOptionModule = /** @class */ (function () {
     function MatOptionModule() {
@@ -2948,7 +3023,7 @@ var MatOptionModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * InjectionToken that can be used to specify the global label options.
@@ -2958,7 +3033,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-label-global-options
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -2994,7 +3069,7 @@ var DEC = 11;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId = 0;
@@ -3023,7 +3098,7 @@ var MatError = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the MatFormField.
@@ -3046,7 +3121,7 @@ var matFormFieldAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -3067,7 +3142,7 @@ MatFormFieldControl = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -3095,7 +3170,7 @@ function getMatFormFieldMissingControlError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$1 = 0;
@@ -3134,7 +3209,7 @@ var MatHint = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The floating label for a `mat-form-field`.
@@ -3152,7 +3227,7 @@ var MatLabel = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The placeholder text for an `MatFormField`.
@@ -3173,7 +3248,7 @@ var MatPlaceholder = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Prefix to be placed in front of the form field.
@@ -3191,7 +3266,7 @@ var MatPrefix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Suffix to be placed at the end of the form field.
@@ -3209,7 +3284,7 @@ var MatSuffix = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$2 = 0;
@@ -3460,44 +3535,68 @@ var MatFormField = /** @class */ (function (_super) {
             this._elementRef.nativeElement.classList.add("mat-form-field-type-" + control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        control.stateChanges.pipe(operators.startWith((/** @type {?} */ (null)))).subscribe(function () {
+        control.stateChanges.pipe(operators.startWith((/** @type {?} */ (null)))).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         // Run change detection if the value changes.
         if (control.ngControl && control.ngControl.valueChanges) {
             control.ngControl.valueChanges
                 .pipe(operators.takeUntil(this._destroyed))
-                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._changeDetectorRef.markForCheck(); }));
         }
         // Note that we have to run outside of the `NgZone` explicitly,
         // in order to avoid throwing users into an infinite loop
         // if `zone-patch-rxjs` is included.
-        this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 if (_this._outlineGapCalculationNeededOnStable) {
                     _this.updateOutlineGap();
                 }
-            });
-        });
+            }));
+        }));
         // Run change detection and update the outline if the suffix or prefix changes.
-        rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(function () {
+        rxjs.merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._outlineGapCalculationNeededOnStable = true;
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         // Re-validate when the number of hints changes.
-        this._hintChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
+        this._hintChildren.changes.pipe(operators.startWith(null)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._processHints();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         // Update the aria-described by when the number of errors changes.
-        this._errorChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
+        this._errorChildren.changes.pipe(operators.startWith(null)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         if (this._dir) {
-            this._dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () { return _this.updateOutlineGap(); });
+            this._dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () { return _this.updateOutlineGap(); }));
         }
     };
     /**
@@ -3626,9 +3725,12 @@ var MatFormField = /** @class */ (function (_super) {
             // because the `transitionend` will never fire.
             if (this._animationsEnabled) {
                 this._showAlwaysAnimate = true;
-                rxjs.fromEvent(this._label.nativeElement, 'transitionend').pipe(operators.take(1)).subscribe(function () {
+                rxjs.fromEvent(this._label.nativeElement, 'transitionend').pipe(operators.take(1)).subscribe((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._showAlwaysAnimate = false;
-                });
+                }));
             }
             this.floatLabel = 'always';
             this._changeDetectorRef.markForCheck();
@@ -3693,7 +3795,11 @@ var MatFormField = /** @class */ (function (_super) {
             var startHint_1;
             /** @type {?} */
             var endHint_1;
-            this._hintChildren.forEach(function (hint) {
+            this._hintChildren.forEach((/**
+             * @param {?} hint
+             * @return {?}
+             */
+            function (hint) {
                 if (hint.align === 'start') {
                     if (startHint_1 || _this.hintLabel) {
                         throw getMatFormFieldDuplicatedHintError('start');
@@ -3706,7 +3812,7 @@ var MatFormField = /** @class */ (function (_super) {
                     }
                     endHint_1 = hint;
                 }
-            });
+            }));
         }
     };
     /**
@@ -3732,10 +3838,18 @@ var MatFormField = /** @class */ (function (_super) {
             if (this._getDisplayedMessages() === 'hint') {
                 /** @type {?} */
                 var startHint = this._hintChildren ?
-                    this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
+                    this._hintChildren.find((/**
+                     * @param {?} hint
+                     * @return {?}
+                     */
+                    function (hint) { return hint.align === 'start'; })) : null;
                 /** @type {?} */
                 var endHint = this._hintChildren ?
-                    this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
+                    this._hintChildren.find((/**
+                     * @param {?} hint
+                     * @return {?}
+                     */
+                    function (hint) { return hint.align === 'end'; })) : null;
                 if (startHint) {
                     ids.push(startHint.id);
                 }
@@ -3747,7 +3861,11 @@ var MatFormField = /** @class */ (function (_super) {
                 }
             }
             else if (this._errorChildren) {
-                ids = this._errorChildren.map(function (error) { return error.id; });
+                ids = this._errorChildren.map((/**
+                 * @param {?} error
+                 * @return {?}
+                 */
+                function (error) { return error.id; }));
             }
             this._control.setDescribedByIds(ids);
         }
@@ -3935,7 +4053,7 @@ var MatFormField = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatFormFieldModule = /** @class */ (function () {
     function MatFormFieldModule() {
@@ -3971,7 +4089,7 @@ var MatFormFieldModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
@@ -4102,10 +4220,15 @@ var MatAutocomplete = /** @class */ (function (_super) {
          */
         function (value) {
             if (value && value.length) {
-                this._classList = value.split(' ').reduce(function (classList, className) {
+                this._classList = value.split(' ').reduce((/**
+                 * @param {?} classList
+                 * @param {?} className
+                 * @return {?}
+                 */
+                function (classList, className) {
                     classList[className.trim()] = true;
                     return classList;
-                }, (/** @type {?} */ ({})));
+                }), (/** @type {?} */ ({})));
             }
             else {
                 this._classList = {};
@@ -4247,7 +4370,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive applied to an element to make it usable
@@ -4272,7 +4395,7 @@ var MatAutocompleteOrigin = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The height of each autocomplete option.
@@ -4295,7 +4418,10 @@ var MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete
  * @return {?}
  */
 function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.reposition(); });
 }
 /**
  * \@docs-private
@@ -4313,7 +4439,10 @@ var MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 var MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatAutocompleteTrigger; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatAutocompleteTrigger; })),
     multi: true
 };
 /**
@@ -4362,21 +4491,30 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * Event handler for when the window is blurred. Needs to be an
          * arrow function in order to preserve the context.
          */
-        this._windowBlurHandler = function () {
+        this._windowBlurHandler = (/**
+         * @return {?}
+         */
+        function () {
             // If the user blurred the window while the autocomplete is focused, it means that it'll be
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
             _this._canOpenOnNextFocus =
                 document.activeElement !== _this._element.nativeElement || _this.panelOpen;
-        };
+        });
         /**
          * `View -> model callback called when value changes`
          */
-        this._onChange = function () { };
+        this._onChange = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * `View -> model callback called when autocomplete has been touched`
          */
-        this._onTouched = function () { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * `autocomplete` attribute to be set on the input element.
          * \@docs-private
@@ -4386,20 +4524,33 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = (/** @type {?} */ (rxjs.defer(function () {
+        this.optionSelections = (/** @type {?} */ (rxjs.defer((/**
+         * @return {?}
+         */
+        function () {
             if (_this.autocomplete && _this.autocomplete.options) {
-                return rxjs.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
+                return rxjs.merge.apply(void 0, _this.autocomplete.options.map((/**
+                 * @param {?} option
+                 * @return {?}
+                 */
+                function (option) { return option.onSelectionChange; })));
             }
             // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
             // Return a stream that we'll replace with the real one once everything is in place.
             return _this._zone.onStable
                 .asObservable()
-                .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelections; }));
-        })));
+                .pipe(operators.take(1), operators.switchMap((/**
+             * @return {?}
+             */
+            function () { return _this.optionSelections; })));
+        }))));
         if (typeof window !== 'undefined') {
-            _zone.runOutsideAngular(function () {
+            _zone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
                 window.addEventListener('blur', _this._windowBlurHandler);
-            });
+            }));
         }
         this._scrollStrategy = scrollStrategy;
     }
@@ -4528,11 +4679,21 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
-                this._overlayRef.detachments().pipe(operators.filter(function () { return _this._overlayAttached; })) :
+            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter((/**
+             * @return {?}
+             */
+            function () { return _this._overlayAttached; }))), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
+                this._overlayRef.detachments().pipe(operators.filter((/**
+                 * @return {?}
+                 */
+                function () { return _this._overlayAttached; }))) :
                 rxjs.of()).pipe(
             // Normalize the output so we return a consistent type.
-            operators.map(function (event) { return event instanceof MatOptionSelectionChange ? event : null; }));
+            operators.map((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return event instanceof MatOptionSelectionChange ? event : null; })));
         },
         enumerable: true,
         configurable: true
@@ -4569,7 +4730,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             return rxjs.of(null);
         }
         return rxjs.merge((/** @type {?} */ (rxjs.fromEvent(this._document, 'click'))), (/** @type {?} */ (rxjs.fromEvent(this._document, 'touchend'))))
-            .pipe(operators.filter(function (event) {
+            .pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             /** @type {?} */
             var clickTarget = (/** @type {?} */ (event.target));
             /** @type {?} */
@@ -4579,7 +4744,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 clickTarget !== _this._element.nativeElement &&
                 (!formField || !formField.contains(clickTarget)) &&
                 (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
-        }));
+        })));
     };
     // Implemented as part of ControlValueAccessor.
     // Implemented as part of ControlValueAccessor.
@@ -4595,7 +4760,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function (value) {
         var _this = this;
-        Promise.resolve(null).then(function () { return _this._setTriggerValue(value); });
+        Promise.resolve(null).then((/**
+         * @return {?}
+         */
+        function () { return _this._setTriggerValue(value); }));
     };
     // Implemented as part of ControlValueAccessor.
     // Implemented as part of ControlValueAccessor.
@@ -4839,7 +5007,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /** @type {?} */
         var firstStable = this._zone.onStable.asObservable().pipe(operators.take(1));
         /** @type {?} */
-        var optionChanges = this.autocomplete.options.changes.pipe(operators.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
+        var optionChanges = this.autocomplete.options.changes.pipe(operators.tap((/**
+         * @return {?}
+         */
+        function () { return _this._positionStrategy.reapplyLastPosition(); })), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
         operators.delay(0));
@@ -4848,18 +5019,25 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        operators.switchMap(function () {
+        operators.switchMap((/**
+         * @return {?}
+         */
+        function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
             if (_this.panelOpen) {
                 (/** @type {?} */ (_this._overlayRef)).updatePosition();
             }
             return _this.panelClosingActions;
-        }), 
+        })), 
         // when the first closing event occurs...
         operators.take(1))
             // set the value, close the panel, and complete.
-            .subscribe(function (event) { return _this._setValueAndClose(event); });
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return _this._setValueAndClose(event); }));
     };
     /** Destroys the autocomplete suggestion panel. */
     /**
@@ -4955,11 +5133,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (skip) {
-        this.autocomplete.options.forEach(function (option) {
+        this.autocomplete.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) {
             if (option != skip && option.selected) {
                 option.deselect();
             }
-        });
+        }));
     };
     /**
      * @private
@@ -4982,20 +5164,27 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._overlayRef = overlayRef;
             // Use the `keydownEvents` in order to take advantage of
             // the overlay event targeting provided by the CDK overlay.
-            overlayRef.keydownEvents().subscribe(function (event) {
+            overlayRef.keydownEvents().subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
                 // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
                 // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
                 if (event.keyCode === keycodes.ESCAPE || (event.keyCode === keycodes.UP_ARROW && event.altKey)) {
                     _this._resetActiveItem();
                     _this._closeKeyEventStream.next();
                 }
-            });
+            }));
             if (this._viewportRuler) {
-                this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
+                this._viewportSubscription = this._viewportRuler.change().subscribe((/**
+                 * @return {?}
+                 */
+                function () {
                     if (_this.panelOpen && overlayRef) {
                         overlayRef.updateSize({ width: _this._getPanelWidth() });
                     }
-                });
+                }));
             }
         }
         else {
@@ -5188,7 +5377,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatAutocompleteModule = /** @class */ (function () {
     function MatAutocompleteModule() {
@@ -5212,7 +5401,7 @@ var MatAutocompleteModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextId = 0;
@@ -5457,11 +5646,17 @@ var MatBadge = /** @class */ (function (_super) {
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
         if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
-            this._ngZone.runOutsideAngular(function () {
-                requestAnimationFrame(function () {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                requestAnimationFrame((/**
+                 * @return {?}
+                 */
+                function () {
                     badgeElement.classList.add(activeClass);
-                });
-            });
+                }));
+            }));
         }
         else {
             badgeElement.classList.add(activeClass);
@@ -5585,7 +5780,7 @@ var MatBadge = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBadgeModule = /** @class */ (function () {
     function MatBadgeModule() {
@@ -5605,7 +5800,7 @@ var MatBadgeModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
@@ -5662,7 +5857,7 @@ MatBottomSheetConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material bottom sheet.
@@ -5682,7 +5877,7 @@ var matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
 /**
@@ -5712,11 +5907,14 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         _this._document = document;
         _this._breakpointSubscription = breakpointObserver
             .observe([layout.Breakpoints.Medium, layout.Breakpoints.Large, layout.Breakpoints.XLarge])
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(layout.Breakpoints.Medium));
             _this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(layout.Breakpoints.Large));
             _this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(layout.Breakpoints.XLarge));
-        });
+        }));
         return _this;
     }
     /** Attach a component portal as content to this bottom sheet container. */
@@ -5870,7 +6068,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         var panelClass = this.bottomSheetConfig.panelClass;
         if (Array.isArray(panelClass)) {
             // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-            panelClass.forEach(function (cssClass) { return element.classList.add(cssClass); });
+            panelClass.forEach((/**
+             * @param {?} cssClass
+             * @return {?}
+             */
+            function (cssClass) { return element.classList.add(cssClass); }));
         }
         else if (panelClass) {
             element.classList.add(panelClass);
@@ -5933,7 +6135,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         this._elementFocusedBeforeOpened = (/** @type {?} */ (this._document.activeElement));
         // The `focus` method isn't available during server-side rendering.
         if (this._elementRef.nativeElement.focus) {
-            Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () { return _this._elementRef.nativeElement.focus(); }));
         }
     };
     MatBottomSheetContainer.decorators = [
@@ -5972,7 +6177,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBottomSheetModule = /** @class */ (function () {
     function MatBottomSheetModule() {
@@ -5995,7 +6200,7 @@ var MatBottomSheetModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
@@ -6022,26 +6227,50 @@ MatBottomSheetRef = /** @class */ (function () {
         this.containerInstance = containerInstance;
         this.disableClose = containerInstance.bottomSheetConfig.disableClose;
         // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
-            .subscribe(function () {
+        containerInstance._animationStateChanged.pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'visible'; })), operators.take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._afterOpened.next();
             _this._afterOpened.complete();
-        });
+        }));
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged
-            .pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
-            .subscribe(function () {
+            .pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; })), operators.take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _overlayRef.dispose();
-        });
-        _overlayRef.detachments().pipe(operators.take(1)).subscribe(function () {
+        }));
+        _overlayRef.detachments().pipe(operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
-        });
-        rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () {
+        }));
+        rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.keyCode === keycodes.ESCAPE; })))).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (!_this.disableClose) {
                 _this.dismiss();
             }
-        });
+        }));
     }
     /**
      * Dismisses the bottom sheet.
@@ -6061,7 +6290,14 @@ MatBottomSheetRef = /** @class */ (function () {
         var _this = this;
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this.containerInstance._animationStateChanged.pipe(operators.filter((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return event.phaseName === 'start'; })), operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._overlayRef.detachBackdrop(); }));
             this._result = result;
             this.containerInstance.exit();
         }
@@ -6123,7 +6359,7 @@ MatBottomSheetRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify default bottom sheet options.
@@ -6204,16 +6440,22 @@ var MatBottomSheet = /** @class */ (function () {
             ref.instance = contentRef.instance;
         }
         // When the bottom sheet is dismissed, clear the reference to it.
-        ref.afterDismissed().subscribe(function () {
+        ref.afterDismissed().subscribe((/**
+         * @return {?}
+         */
+        function () {
             // Clear the bottom sheet ref if it hasn't already been replaced by a newer one.
             if (_this._openedBottomSheetRef == ref) {
                 _this._openedBottomSheetRef = null;
             }
-        });
+        }));
         if (this._openedBottomSheetRef) {
             // If a bottom sheet is already in view, dismiss it and enter the
             // new bottom sheet after exit animation is complete.
-            this._openedBottomSheetRef.afterDismissed().subscribe(function () { return ref.containerInstance.enter(); });
+            this._openedBottomSheetRef.afterDismissed().subscribe((/**
+             * @return {?}
+             */
+            function () { return ref.containerInstance.enter(); }));
             this._openedBottomSheetRef.dismiss();
         }
         else {
@@ -6363,7 +6605,7 @@ var MatBottomSheet = /** @class */ (function () {
         { type: common.Location, decorators: [{ type: core.Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12), core.inject(common.Location, 8), core.inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.ɵɵinject(overlay.Overlay), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(MatBottomSheet, 12), core.ɵɵinject(common.Location, 8), core.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**
@@ -6378,7 +6620,7 @@ function _applyConfigDefaults(defaults, config) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
@@ -6503,7 +6745,11 @@ var MatButton = /** @class */ (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             attributes[_i] = arguments[_i];
         }
-        return attributes.some(function (attribute) { return _this._getHostElement().hasAttribute(attribute); });
+        return attributes.some((/**
+         * @param {?} attribute
+         * @return {?}
+         */
+        function (attribute) { return _this._getHostElement().hasAttribute(attribute); }));
     };
     MatButton.decorators = [
         { type: core.Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],\n             button[mat-flat-button]",
@@ -6587,7 +6833,7 @@ var MatAnchor = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonModule = /** @class */ (function () {
     function MatButtonModule() {
@@ -6615,7 +6861,7 @@ var MatButtonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to configure the
@@ -6631,7 +6877,10 @@ var MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('MAT_BUTTON_TOGG
  */
 var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatButtonToggleGroup; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatButtonToggleGroup; })),
     multi: true
 };
 /**
@@ -6675,11 +6924,17 @@ var MatButtonToggleGroup = /** @class */ (function () {
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
-        this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        this._onTouched = function () { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         this._name = "mat-button-toggle-group-" + _uniqueIdCounter$1++;
         /**
          * Event that emits whenever the value of the group changes.
@@ -6709,10 +6964,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
             var _this = this;
             this._name = value;
             if (this._buttonToggles) {
-                this._buttonToggles.forEach(function (toggle) {
+                this._buttonToggles.forEach((/**
+                 * @param {?} toggle
+                 * @return {?}
+                 */
+                function (toggle) {
                     toggle.name = _this._name;
                     toggle._markForCheck();
-                });
+                }));
             }
         },
         enumerable: true,
@@ -6745,7 +7004,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
             /** @type {?} */
             var selected = this._selectionModel ? this._selectionModel.selected : [];
             if (this.multiple) {
-                return selected.map(function (toggle) { return toggle.value; });
+                return selected.map((/**
+                 * @param {?} toggle
+                 * @return {?}
+                 */
+                function (toggle) { return toggle.value; }));
             }
             return selected[0] ? selected[0].value : undefined;
         },
@@ -6805,7 +7068,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
         function (value) {
             this._disabled = coercion.coerceBooleanProperty(value);
             if (this._buttonToggles) {
-                this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
+                this._buttonToggles.forEach((/**
+                 * @param {?} toggle
+                 * @return {?}
+                 */
+                function (toggle) { return toggle._markForCheck(); }));
             }
         },
         enumerable: true,
@@ -6828,7 +7095,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
      */
     function () {
         var _a;
-        (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter(function (toggle) { return toggle.checked; }));
+        (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter((/**
+         * @param {?} toggle
+         * @return {?}
+         */
+        function (toggle) { return toggle.checked; })));
     };
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -6983,7 +7254,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
             return false;
         }
         if (this.multiple && Array.isArray(this._rawValue)) {
-            return this._rawValue.some(function (value) { return toggle.value != null && value === toggle.value; });
+            return this._rawValue.some((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) { return toggle.value != null && value === toggle.value; }));
         }
         return toggle.value === this._rawValue;
     };
@@ -7011,7 +7286,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
                 throw Error('Value must be an array in multiple-selection mode.');
             }
             this._clearSelection();
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            function (currentValue) { return _this._selectValue(currentValue); }));
         }
         else {
             this._clearSelection();
@@ -7031,7 +7310,11 @@ var MatButtonToggleGroup = /** @class */ (function () {
      */
     function () {
         this._selectionModel.clear();
-        this._buttonToggles.forEach(function (toggle) { return toggle.checked = false; });
+        this._buttonToggles.forEach((/**
+         * @param {?} toggle
+         * @return {?}
+         */
+        function (toggle) { return toggle.checked = false; }));
     };
     /** Selects a value if there's a toggle that corresponds to it. */
     /**
@@ -7048,9 +7331,13 @@ var MatButtonToggleGroup = /** @class */ (function () {
      */
     function (value) {
         /** @type {?} */
-        var correspondingOption = this._buttonToggles.find(function (toggle) {
+        var correspondingOption = this._buttonToggles.find((/**
+         * @param {?} toggle
+         * @return {?}
+         */
+        function (toggle) {
             return toggle.value != null && toggle.value === value;
-        });
+        }));
         if (correspondingOption) {
             correspondingOption.checked = true;
             this._selectionModel.select(correspondingOption);
@@ -7079,7 +7366,10 @@ var MatButtonToggleGroup = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS,] }] }
     ]; };
     MatButtonToggleGroup.propDecorators = {
-        _buttonToggles: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatButtonToggle; }),] }],
+        _buttonToggles: [{ type: core.ContentChildren, args: [core.forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatButtonToggle; })),] }],
         appearance: [{ type: core.Input }],
         name: [{ type: core.Input }],
         vertical: [{ type: core.Input }],
@@ -7243,7 +7533,10 @@ var MatButtonToggle = /** @class */ (function (_super) {
         // Remove the toggle from the selection once it's destroyed. Needs to happen
         // on the next tick in order to avoid "changed after checked" errors.
         if (group && group._isSelected(this)) {
-            Promise.resolve().then(function () { return group._syncButtonToggle(_this, false); });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () { return group._syncButtonToggle(_this, false); }));
         }
     };
     /** Focuses the button. */
@@ -7351,7 +7644,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonToggleModule = /** @class */ (function () {
     function MatButtonToggleModule() {
@@ -7368,7 +7661,7 @@ var MatButtonToggleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Content of a card, needed as it's used as a selector in the API.
@@ -7615,7 +7908,7 @@ var MatCardTitleGroup = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatCardModule = /** @class */ (function () {
     function MatCardModule() {
@@ -7652,7 +7945,7 @@ var MatCardModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify the checkbox click behavior.
@@ -7662,7 +7955,7 @@ var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-acti
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for checkbox components.
 /** @type {?} */
@@ -7675,7 +7968,10 @@ var nextUniqueId$3 = 0;
  */
 var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatCheckbox; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatCheckbox; })),
     multi: true
 };
 /** @enum {number} */
@@ -7772,27 +8068,40 @@ var MatCheckbox = /** @class */ (function (_super) {
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this._currentAnimationClass = '';
         _this._currentCheckState = TransitionCheckState.Init;
-        _this._controlValueAccessorChangeFn = function () { };
+        _this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         _this._checked = false;
         _this._disabled = false;
         _this._indeterminate = false;
         _this.tabIndex = parseInt(tabIndex) || 0;
-        _this._focusMonitor.monitor(elementRef, true).subscribe(function (focusOrigin) {
+        _this._focusMonitor.monitor(elementRef, true).subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        function (focusOrigin) {
             if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
                 // Angular does not expect events to be raised during change detection, so any state change
                 // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
                 // See https://github.com/angular/angular/issues/17793. To work around this, we defer
                 // telling the form control it has been touched until the next tick.
-                Promise.resolve().then(function () {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._onTouched();
                     _changeDetectorRef.markForCheck();
-                });
+                }));
             }
-        });
+        }));
         return _this;
     }
     Object.defineProperty(MatCheckbox.prototype, "inputId", {
@@ -8047,11 +8356,17 @@ var MatCheckbox = /** @class */ (function (_super) {
             // Remove the animation class to avoid animation when the checkbox is moved between containers
             /** @type {?} */
             var animationClass_1 = this._currentAnimationClass;
-            this._ngZone.runOutsideAngular(function () {
-                setTimeout(function () {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
                     element.classList.remove(animationClass_1);
-                }, 1000);
-            });
+                }), 1000);
+            }));
         }
     };
     /**
@@ -8119,10 +8434,13 @@ var MatCheckbox = /** @class */ (function (_super) {
         if (!this.disabled && this._clickAction !== 'noop') {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this.indeterminate && this._clickAction !== 'check') {
-                Promise.resolve().then(function () {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._indeterminate = false;
                     _this.indeterminateChange.emit(_this._indeterminate);
-                });
+                }));
             }
             this.toggle();
             this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
@@ -8264,12 +8582,15 @@ var MatCheckbox = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: forms.NG_VALIDATORS,
-    useExisting: core.forwardRef(function () { return MatCheckboxRequiredValidator; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatCheckboxRequiredValidator; })),
     multi: true
 };
 /**
@@ -8294,7 +8615,7 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * This module is used by both original and MDC-based checkbox implementations.
@@ -8328,7 +8649,7 @@ var MatCheckboxModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Event object emitted by MatChip when selected or deselected.
@@ -8758,12 +9079,18 @@ var MatChip = /** @class */ (function (_super) {
         this._ngZone.onStable
             .asObservable()
             .pipe(operators.take(1))
-            .subscribe(function () {
-            _this._ngZone.run(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this._ngZone.run((/**
+             * @return {?}
+             */
+            function () {
                 _this._hasFocus = false;
                 _this._onBlur.next({ chip: _this });
-            });
-        });
+            }));
+        }));
     };
     /**
      * @private
@@ -8816,7 +9143,10 @@ var MatChip = /** @class */ (function (_super) {
     MatChip.propDecorators = {
         avatar: [{ type: core.ContentChild, args: [MatChipAvatar, { static: false },] }],
         trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
-        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }), { static: false },] }],
+        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatChipRemove; })), { static: false },] }],
         selected: [{ type: core.Input }],
         value: [{ type: core.Input }],
         selectable: [{ type: core.Input }],
@@ -8884,7 +9214,7 @@ var MatChipRemove = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for the chips module.
@@ -8894,7 +9224,7 @@ var MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-optio
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatChipList.
 /**
@@ -8974,13 +9304,24 @@ var MatChipList = /** @class */ (function (_super) {
         /**
          * Function when touched
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * Function when changed
          */
-        _this._onChange = function () { };
+        _this._onChange = (/**
+         * @return {?}
+         */
+        function () { });
         _this._multiple = false;
-        _this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._compareWith = (/**
+         * @param {?} o1
+         * @param {?} o2
+         * @return {?}
+         */
+        function (o1, o2) { return o1 === o2; });
         _this._required = false;
         _this._disabled = false;
         /**
@@ -9237,7 +9578,11 @@ var MatChipList = /** @class */ (function (_super) {
             var _this = this;
             this._selectable = coercion.coerceBooleanProperty(value);
             if (this.chips) {
-                this.chips.forEach(function (chip) { return chip.chipListSelectable = _this._selectable; });
+                this.chips.forEach((/**
+                 * @param {?} chip
+                 * @return {?}
+                 */
+                function (chip) { return chip.chipListSelectable = _this._selectable; }));
             }
         },
         enumerable: true,
@@ -9262,7 +9607,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip.selectionChange; })));
         },
         enumerable: true,
         configurable: true
@@ -9274,7 +9623,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip._onFocus; })));
         },
         enumerable: true,
         configurable: true
@@ -9286,7 +9639,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip._onBlur; })));
         },
         enumerable: true,
         configurable: true
@@ -9298,7 +9655,11 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroyed; }));
+            return rxjs.merge.apply(void 0, this.chips.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip.destroyed; })));
         },
         enumerable: true,
         configurable: true
@@ -9318,25 +9679,41 @@ var MatChipList = /** @class */ (function (_super) {
         if (this._dir) {
             this._dir.change
                 .pipe(operators.takeUntil(this._destroyed))
-                .subscribe(function (dir) { return _this._keyManager.withHorizontalOrientation(dir); });
+                .subscribe((/**
+             * @param {?} dir
+             * @return {?}
+             */
+            function (dir) { return _this._keyManager.withHorizontalOrientation(dir); }));
         }
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
-        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
+        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._tabIndex = -1;
-            setTimeout(function () {
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
                 _this._tabIndex = _this._userTabIndex || 0;
                 _this._changeDetectorRef.markForCheck();
-            });
-        });
+            }));
+        }));
         // When the list changes, re-subscribe
-        this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe(function () {
+        this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this.disabled) {
                 // Since this happens after the content has been
                 // checked, we need to defer it to the next tick.
-                Promise.resolve().then(function () {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
                     _this._syncChipsState();
-                });
+                }));
             }
             _this._resetChips();
             // Reset chips selected/deselected status
@@ -9346,7 +9723,7 @@ var MatChipList = /** @class */ (function (_super) {
             // Check to see if we have a destroyed chip and need to refocus
             _this._updateFocusForDestroyedChips();
             _this.stateChanges.next();
-        });
+        }));
     };
     /**
      * @return {?}
@@ -9677,9 +10054,17 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         this._clearSelection();
-        this.chips.forEach(function (chip) { return chip.deselect(); });
+        this.chips.forEach((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) { return chip.deselect(); }));
         if (Array.isArray(value)) {
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue, isUserInput); });
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            function (currentValue) { return _this._selectValue(currentValue, isUserInput); }));
             this._sortValues();
         }
         else {
@@ -9716,9 +10101,13 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         /** @type {?} */
-        var correspondingChip = this.chips.find(function (chip) {
+        var correspondingChip = this.chips.find((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) {
             return chip.value != null && _this._compareWith(chip.value, value);
-        });
+        }));
         if (correspondingChip) {
             isUserInput ? correspondingChip.selectViaInteraction() : correspondingChip.select();
             this._selectionModel.select(correspondingChip);
@@ -9737,12 +10126,15 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             if (_this.ngControl || _this._value) {
                 _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value, false);
                 _this.stateChanges.next();
             }
-        });
+        }));
     };
     /**
      * Deselects every chip in the list.
@@ -9762,11 +10154,15 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (skip) {
         this._selectionModel.clear();
-        this.chips.forEach(function (chip) {
+        this.chips.forEach((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) {
             if (chip !== skip) {
                 chip.deselect();
             }
-        });
+        }));
         this.stateChanges.next();
     };
     /**
@@ -9789,11 +10185,15 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         if (this._multiple) {
             this._selectionModel.clear();
-            this.chips.forEach(function (chip) {
+            this.chips.forEach((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) {
                 if (chip.selected) {
                     _this._selectionModel.select(chip);
                 }
-            });
+            }));
             this.stateChanges.next();
         }
     };
@@ -9814,7 +10214,11 @@ var MatChipList = /** @class */ (function (_super) {
         /** @type {?} */
         var valueToEmit = null;
         if (Array.isArray(this.selected)) {
-            valueToEmit = this.selected.map(function (chip) { return chip.value; });
+            valueToEmit = this.selected.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) { return chip.value; }));
         }
         else {
             valueToEmit = this.selected ? this.selected.value : fallbackValue;
@@ -9845,11 +10249,14 @@ var MatChipList = /** @class */ (function (_super) {
                 // If the focus is not moved to chip input, mark the field as touched. If the focus moved
                 // to chip input, do nothing.
                 // Timeout is needed to wait for the focus() event trigger on chip input.
-                setTimeout(function () {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
                     if (!_this.focused) {
                         _this._markAsTouched();
                     }
-                });
+                }));
             }
             else {
                 // If there's no chip input, then mark the field as touched.
@@ -9924,22 +10331,30 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._chipSelectionSubscription = this.chipSelectionChanges.subscribe(function (event) {
+        this._chipSelectionSubscription = this.chipSelectionChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             event.source.selected
                 ? _this._selectionModel.select(event.source)
                 : _this._selectionModel.deselect(event.source);
             // For single selection chip list, make sure the deselected value is unselected.
             if (!_this.multiple) {
-                _this.chips.forEach(function (chip) {
+                _this.chips.forEach((/**
+                 * @param {?} chip
+                 * @return {?}
+                 */
+                function (chip) {
                     if (!_this._selectionModel.isSelected(chip) && chip.selected) {
                         chip.deselect();
                     }
-                });
+                }));
             }
             if (event.isUserInput) {
                 _this._propagateChanges();
             }
-        });
+        }));
     };
     /** Listens to user-generated selection events on each chip. */
     /**
@@ -9954,18 +10369,25 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
+        this._chipFocusSubscription = this.chipFocusChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             /** @type {?} */
             var chipIndex = _this.chips.toArray().indexOf(event.chip);
             if (_this._isValidIndex(chipIndex)) {
                 _this._keyManager.updateActiveItemIndex(chipIndex);
             }
             _this.stateChanges.next();
-        });
-        this._chipBlurSubscription = this.chipBlurChanges.subscribe(function () {
+        }));
+        this._chipBlurSubscription = this.chipBlurChanges.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._blur();
             _this.stateChanges.next();
-        });
+        }));
     };
     /**
      * @private
@@ -9977,7 +10399,11 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
+        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             /** @type {?} */
             var chip = event.chip;
             /** @type {?} */
@@ -9988,7 +10414,7 @@ var MatChipList = /** @class */ (function (_super) {
             if (_this._isValidIndex(chipIndex) && chip._hasFocus) {
                 _this._lastDestroyedChipIndex = chipIndex;
             }
-        });
+        }));
     };
     /** Checks whether an event comes from inside a chip element. */
     /**
@@ -10026,7 +10452,11 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this.chips.some(function (chip) { return chip._hasFocus; });
+        return this.chips.some((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        function (chip) { return chip._hasFocus; }));
     };
     /** Syncs the list's state with the individual chips. */
     /**
@@ -10042,10 +10472,14 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this.chips) {
-            this.chips.forEach(function (chip) {
+            this.chips.forEach((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            function (chip) {
                 chip.disabled = _this._disabled;
                 chip._chipListMultiple = _this.multiple;
-            });
+            }));
         }
     };
     MatChipList.decorators = [
@@ -10106,7 +10540,7 @@ var MatChipList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids.
 /** @type {?} */
@@ -10359,7 +10793,7 @@ var MatChipInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var CHIP_DECLARATIONS = [
@@ -10394,7 +10828,7 @@ var MatChipsModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -10476,7 +10910,7 @@ MatDialogConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var animationBody = [
@@ -10506,7 +10940,7 @@ var matDialogAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -10656,7 +11090,10 @@ var MatDialogContainer = /** @class */ (function (_super) {
                 // Move focus onto the dialog immediately in order to prevent the user from accidentally
                 // opening multiple dialogs at the same time. Needs to be async, because the element
                 // may not be focusable immediately.
-                Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () { return _this._elementRef.nativeElement.focus(); }));
             }
         }
     };
@@ -10749,7 +11186,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
@@ -10767,8 +11204,8 @@ MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, 
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location, id) {
-        if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
+        if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
         this.id = id;
@@ -10791,24 +11228,48 @@ MatDialogRef = /** @class */ (function () {
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), operators.take(1))
-            .subscribe(function () {
+        _containerInstance._animationStateChanged.pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'enter'; })), operators.take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._afterOpened.next();
             _this._afterOpened.complete();
-        });
+        }));
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.dispose(); });
-        _overlayRef.detachments().subscribe(function () {
+        _containerInstance._animationStateChanged.pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })), operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._overlayRef.dispose(); }));
+        _overlayRef.detachments().subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._beforeClosed.next(_this._result);
             _this._beforeClosed.complete();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
             _this.componentInstance = (/** @type {?} */ (null));
             _this._overlayRef.dispose();
-        });
+        }));
         _overlayRef.keydownEvents()
-            .pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }))
-            .subscribe(function () { return _this.close(); });
+            .pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.close(); }));
     }
     /**
      * Close the dialog.
@@ -10828,12 +11289,19 @@ MatDialogRef = /** @class */ (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1))
-            .subscribe(function () {
+        this._containerInstance._animationStateChanged.pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'start'; })), operators.take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._beforeClosed.next(dialogResult);
             _this._beforeClosed.complete();
             _this._overlayRef.detachBackdrop();
-        });
+        }));
         this._containerInstance._startExitAnimation();
     };
     /**
@@ -11067,7 +11535,7 @@ MatDialogRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a dialog.
@@ -11090,7 +11558,10 @@ var MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-stra
  * @return {?}
  */
 function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.block(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.block(); });
 }
 /**
  * \@docs-private
@@ -11098,7 +11569,10 @@ function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay$$1) {
  * @return {?}
  */
 function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.block(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.block(); });
 }
 /**
  * \@docs-private
@@ -11130,9 +11604,12 @@ var MatDialog = /** @class */ (function () {
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = (/** @type {?} */ (rxjs.defer(function () { return _this.openDialogs.length ?
+        this.afterAllClosed = (/** @type {?} */ (rxjs.defer((/**
+         * @return {?}
+         */
+        function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            _this._afterAllClosed.pipe(operators.startWith(undefined)); })));
+            _this._afterAllClosed.pipe(operators.startWith(undefined)); }))));
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
@@ -11229,7 +11706,10 @@ var MatDialog = /** @class */ (function () {
             this._hideNonDialogContentFromAssistiveTechnology();
         }
         this.openDialogs.push(dialogRef);
-        dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
+        dialogRef.afterClosed().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._removeOpenDialog(dialogRef); }));
         this.afterOpened.next(dialogRef);
         return dialogRef;
     };
@@ -11262,7 +11742,11 @@ var MatDialog = /** @class */ (function () {
      * @return {?}
      */
     function (id) {
-        return this.openDialogs.find(function (dialog) { return dialog.id === id; });
+        return this.openDialogs.find((/**
+         * @param {?} dialog
+         * @return {?}
+         */
+        function (dialog) { return dialog.id === id; }));
     };
     /**
      * @return {?}
@@ -11406,11 +11890,14 @@ var MatDialog = /** @class */ (function () {
         var dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
-            overlayRef.backdropClick().subscribe(function () {
+            overlayRef.backdropClick().subscribe((/**
+             * @return {?}
+             */
+            function () {
                 if (!dialogRef.disableClose) {
                     dialogRef.close();
                 }
-            });
+            }));
         }
         if (componentOrTemplateRef instanceof core.TemplateRef) {
             dialogContainer.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef }))));
@@ -11501,14 +11988,19 @@ var MatDialog = /** @class */ (function () {
             // If all the dialogs were closed, remove/restore the `aria-hidden`
             // to a the siblings and emit to the `afterAllClosed` stream.
             if (!this.openDialogs.length) {
-                this._ariaHiddenElements.forEach(function (previousValue, element) {
+                this._ariaHiddenElements.forEach((/**
+                 * @param {?} previousValue
+                 * @param {?} element
+                 * @return {?}
+                 */
+                function (previousValue, element) {
                     if (previousValue) {
                         element.setAttribute('aria-hidden', previousValue);
                     }
                     else {
                         element.removeAttribute('aria-hidden');
                     }
-                });
+                }));
                 this._ariaHiddenElements.clear();
                 this._afterAllClosed.next();
             }
@@ -11598,7 +12090,7 @@ function _applyConfigDefaults$1(config, defaultOptions) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Counter used to generate unique IDs for dialog elements.
@@ -11691,13 +12183,16 @@ var MatDialogTitle = /** @class */ (function () {
             this._dialogRef = (/** @type {?} */ (getClosestDialog(this._elementRef, this._dialog.openDialogs)));
         }
         if (this._dialogRef) {
-            Promise.resolve().then(function () {
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () {
                 /** @type {?} */
                 var container = _this._dialogRef._containerInstance;
                 if (container && !container._ariaLabelledBy) {
                     container._ariaLabelledBy = _this.id;
                 }
-            });
+            }));
         }
     };
     MatDialogTitle.decorators = [
@@ -11762,12 +12257,16 @@ function getClosestDialog(element, openDialogs) {
     while (parent && !parent.classList.contains('mat-dialog-container')) {
         parent = parent.parentElement;
     }
-    return parent ? openDialogs.find(function (dialog) { return dialog.id === (/** @type {?} */ (parent)).id; }) : null;
+    return parent ? openDialogs.find((/**
+     * @param {?} dialog
+     * @return {?}
+     */
+    function (dialog) { return dialog.id === (/** @type {?} */ (parent)).id; })) : null;
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDialogModule = /** @class */ (function () {
     function MatDialogModule() {
@@ -11807,7 +12306,7 @@ var MatDialogModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -11896,7 +12395,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -11910,7 +12409,7 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
@@ -11923,7 +12422,7 @@ var MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 /** @type {?} */
@@ -12011,7 +12510,11 @@ var MatInput = /** @class */ (function (_super) {
             'month',
             'time',
             'week'
-        ].filter(function (t) { return platform.getSupportedInputTypes().has(t); });
+        ].filter((/**
+         * @param {?} t
+         * @return {?}
+         */
+        function (t) { return platform.getSupportedInputTypes().has(t); }));
         /** @type {?} */
         var element = _this._elementRef.nativeElement;
         // If no input value accessor was explicitly specified, use the element as the input value
@@ -12024,8 +12527,15 @@ var MatInput = /** @class */ (function (_super) {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            ngZone.runOutsideAngular(function () {
-                _elementRef.nativeElement.addEventListener('keyup', function (event) {
+            ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                _elementRef.nativeElement.addEventListener('keyup', (/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) {
                     /** @type {?} */
                     var el = (/** @type {?} */ (event.target));
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
@@ -12036,8 +12546,8 @@ var MatInput = /** @class */ (function (_super) {
                         el.setSelectionRange(1, 1);
                         el.setSelectionRange(0, 0);
                     }
-                });
-            });
+                }));
+            }));
         }
         _this._isServer = !_this._platform.isBrowser;
         _this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
@@ -12189,10 +12699,14 @@ var MatInput = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this._platform.isBrowser) {
-            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(function (event) {
+            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
                 _this.autofilled = event.isAutofilled;
                 _this.stateChanges.next();
-            });
+            }));
         }
     };
     /**
@@ -12501,7 +13015,7 @@ var MatInput = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
@@ -12530,7 +13044,7 @@ var MatInputModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -12546,7 +13060,7 @@ function createMissingDateImplError(provider) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Datepicker data that requires internationalization.
@@ -12602,13 +13116,13 @@ var MatDatepickerIntl = /** @class */ (function () {
     MatDatepickerIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
@@ -12719,15 +13233,21 @@ var MatCalendarBody = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 /** @type {?} */
                 var activeCell = _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
                 if (activeCell) {
                     activeCell.focus();
                 }
-            });
-        });
+            }));
+        }));
     };
     MatCalendarBody.decorators = [
         { type: core.Component, args: [{selector: '[mat-calendar-body]',
@@ -12764,7 +13284,7 @@ var MatCalendarBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var DAYS_PER_WEEK = 7;
@@ -12805,9 +13325,14 @@ var MatMonthView = /** @class */ (function () {
         var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
         // Rotate the labels for days of the week based on the configured first day of the week.
         /** @type {?} */
-        var weekdays = longWeekdays.map(function (long, i) {
+        var weekdays = longWeekdays.map((/**
+         * @param {?} long
+         * @param {?} i
+         * @return {?}
+         */
+        function (long, i) {
             return { long: long, narrow: narrowWeekdays[i] };
-        });
+        }));
         this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
         this._activeDate = this._dateAdapter.today();
     }
@@ -13185,7 +13710,7 @@ var MatMonthView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var yearsPerPage = 24;
@@ -13324,7 +13849,11 @@ var MatMultiYearView = /** @class */ (function () {
         for (var i = 0, row = []; i < yearsPerPage; i++) {
             row.push(activeYear - activeOffset + i);
             if (row.length == yearsPerRow) {
-                this._years.push(row.map(function (year) { return _this._createCellForYear(year); }));
+                this._years.push(row.map((/**
+                 * @param {?} year
+                 * @return {?}
+                 */
+                function (year) { return _this._createCellForYear(year); })));
                 row = [];
             }
         }
@@ -13547,7 +14076,7 @@ var MatMultiYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal component used to display a single year in the datepicker.
@@ -13765,7 +14294,15 @@ var MatYearView = /** @class */ (function () {
         /** @type {?} */
         var monthNames = this._dateAdapter.getMonthNames('short');
         // First row of months only contains 5 elements so we can fit the year label on the same row.
-        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
+        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map((/**
+         * @param {?} row
+         * @return {?}
+         */
+        function (row) { return row.map((/**
+         * @param {?} month
+         * @return {?}
+         */
+        function (month) { return _this._createCellForMonth(month, monthNames[month]); })); }));
         this._changeDetectorRef.markForCheck();
     };
     /** Focuses the active cell after the microtask queue is empty. */
@@ -13978,7 +14515,7 @@ var MatYearView = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default header for MatCalendar
@@ -13990,7 +14527,10 @@ var MatCalendarHeader = /** @class */ (function () {
         this.calendar = calendar;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        this.calendar.stateChanges.subscribe(function () { return changeDetectorRef.markForCheck(); });
+        this.calendar.stateChanges.subscribe((/**
+         * @return {?}
+         */
+        function () { return changeDetectorRef.markForCheck(); }));
     }
     Object.defineProperty(MatCalendarHeader.prototype, "periodButtonText", {
         /** The label for the current calendar view. */
@@ -14168,7 +14708,10 @@ var MatCalendarHeader = /** @class */ (function () {
     /** @nocollapse */
     MatCalendarHeader.ctorParameters = function () { return [
         { type: MatDatepickerIntl },
-        { type: MatCalendar, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatCalendar; }),] }] },
+        { type: MatCalendar, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatCalendar; })),] }] },
         { type: DateAdapter, decorators: [{ type: core.Optional }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] }] },
         { type: core.ChangeDetectorRef }
@@ -14224,10 +14767,13 @@ var MatCalendar = /** @class */ (function () {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        this._intlChanges = _intl.changes.subscribe(function () {
+        this._intlChanges = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _changeDetectorRef.markForCheck();
             _this.stateChanges.next();
-        });
+        }));
     }
     Object.defineProperty(MatCalendar.prototype, "startAt", {
         /** A date representing the period (month or year) to start the calendar in. */
@@ -14562,7 +15108,7 @@ var MatCalendar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material datepicker.
@@ -14598,7 +15144,7 @@ var matDatepickerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to generate a unique ID for each datepicker instance.
@@ -14616,7 +15162,10 @@ var MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scr
  * @return {?}
  */
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.reposition(); });
 }
 /**
  * \@docs-private
@@ -14994,7 +15543,11 @@ var MatDatepicker = /** @class */ (function () {
         }
         this._datepickerInput = input;
         this._inputSubscription =
-            this._datepickerInput._valueChange.subscribe(function (value) { return _this._selected = value; });
+            this._datepickerInput._valueChange.subscribe((/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) { return _this._selected = value; }));
     };
     /** Open the calendar. */
     /**
@@ -15044,7 +15597,10 @@ var MatDatepicker = /** @class */ (function () {
             this._calendarPortal.detach();
         }
         /** @type {?} */
-        var completeClose = function () {
+        var completeClose = (/**
+         * @return {?}
+         */
+        function () {
             // The `_opened` could've been reset already if
             // we got two events in quick succession.
             if (_this._opened) {
@@ -15052,7 +15608,7 @@ var MatDatepicker = /** @class */ (function () {
                 _this.closedStream.emit();
                 _this._focusedElementBeforeOpen = null;
             }
-        };
+        });
         if (this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
             // Because IE moves focus asynchronously, we can't count on it being restored before we've
@@ -15092,7 +15648,10 @@ var MatDatepicker = /** @class */ (function () {
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
         });
-        this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
+        this._dialogRef.afterClosed().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.close(); }));
         this._dialogRef.componentInstance.datepicker = this;
         this._setColor();
     };
@@ -15120,9 +15679,12 @@ var MatDatepicker = /** @class */ (function () {
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._popupRef.updatePosition();
-            });
+            }));
         }
     };
     /** Create the popup. */
@@ -15149,11 +15711,18 @@ var MatDatepicker = /** @class */ (function () {
         });
         this._popupRef = this._overlay.create(overlayConfig);
         this._popupRef.overlayElement.setAttribute('role', 'dialog');
-        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) {
+        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             // Closing on alt + up is only valid when there's an input associated with the datepicker.
             return event.keyCode === keycodes.ESCAPE ||
                 (_this._datepickerInput && event.altKey && event.keyCode === keycodes.UP_ARROW);
-        }))).subscribe(function () { return _this.close(); });
+        })))).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.close(); }));
     };
     /** Create the popup PositionStrategy. */
     /**
@@ -15277,7 +15846,7 @@ var MatDatepicker = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -15285,7 +15854,10 @@ var MatDatepicker = /** @class */ (function () {
  */
 var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatDatepickerInput; })),
     multi: true
 };
 /**
@@ -15294,7 +15866,10 @@ var MAT_DATEPICKER_VALUE_ACCESSOR = {
  */
 var MAT_DATEPICKER_VALIDATORS = {
     provide: forms.NG_VALIDATORS,
-    useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatDatepickerInput; })),
     multi: true
 };
 /**
@@ -15344,47 +15919,71 @@ var MatDatepickerInput = /** @class */ (function () {
          * Emits when the disabled state has changed
          */
         this._disabledChange = new core.EventEmitter();
-        this._onTouched = function () { };
-        this._cvaOnChange = function () { };
-        this._validatorOnChange = function () { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
+        this._cvaOnChange = (/**
+         * @return {?}
+         */
+        function () { });
+        this._validatorOnChange = (/**
+         * @return {?}
+         */
+        function () { });
         this._datepickerSubscription = rxjs.Subscription.EMPTY;
         this._localeSubscription = rxjs.Subscription.EMPTY;
         /**
          * The form control validator for whether the input parses.
          */
-        this._parseValidator = function () {
+        this._parseValidator = (/**
+         * @return {?}
+         */
+        function () {
             return _this._lastValueValid ?
                 null : { 'matDatepickerParse': { 'text': _this._elementRef.nativeElement.value } };
-        };
+        });
         /**
          * The form control validator for the min date.
          */
-        this._minValidator = function (control) {
+        this._minValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
             /** @type {?} */
             var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.min || !controlValue ||
                 _this._dateAdapter.compareDate(_this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
-        };
+        });
         /**
          * The form control validator for the max date.
          */
-        this._maxValidator = function (control) {
+        this._maxValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
             /** @type {?} */
             var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.max || !controlValue ||
                 _this._dateAdapter.compareDate(_this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
-        };
+        });
         /**
          * The form control validator for the date filter.
          */
-        this._filterValidator = function (control) {
+        this._filterValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
             /** @type {?} */
             var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return !_this._dateFilter || !controlValue || _this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
-        };
+        });
         /**
          * The combined form control validator for this input.
          */
@@ -15400,9 +15999,12 @@ var MatDatepickerInput = /** @class */ (function () {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         // Update the displayed date when the locale changes.
-        this._localeSubscription = _dateAdapter.localeChanges.subscribe(function () {
+        this._localeSubscription = _dateAdapter.localeChanges.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this.value = _this.value;
-        });
+        }));
     }
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepicker", {
         /** The datepicker that this input is associated with. */
@@ -15419,13 +16021,17 @@ var MatDatepickerInput = /** @class */ (function () {
             this._datepicker = value;
             this._datepicker._registerInput(this);
             this._datepickerSubscription.unsubscribe();
-            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe(function (selected) {
+            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe((/**
+             * @param {?} selected
+             * @return {?}
+             */
+            function (selected) {
                 _this.value = selected;
                 _this._cvaOnChange(selected);
                 _this._onTouched();
                 _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
                 _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-            });
+            }));
         },
         enumerable: true,
         configurable: true
@@ -15823,7 +16429,7 @@ var MatDatepickerInput = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Can be used to override the icon of a `matDatepickerToggle`.
@@ -15937,7 +16543,10 @@ var MatDatepickerToggle = /** @class */ (function () {
             rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
             rxjs.of();
         this._stateChanges.unsubscribe();
-        this._stateChanges = rxjs.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._stateChanges = rxjs.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._changeDetectorRef.markForCheck(); }));
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',
@@ -15977,7 +16586,7 @@ var MatDatepickerToggle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDatepickerModule = /** @class */ (function () {
     function MatDatepickerModule() {
@@ -16033,7 +16642,7 @@ var MatDatepickerModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDivider = /** @class */ (function () {
     function MatDivider() {
@@ -16095,7 +16704,7 @@ var MatDivider = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatDividerModule = /** @class */ (function () {
     function MatDividerModule() {
@@ -16112,7 +16721,7 @@ var MatDividerModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
@@ -16123,7 +16732,7 @@ var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Time and timing curve for expansion panel animations.
@@ -16193,7 +16802,7 @@ var matExpansionAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Expansion panel content that will be rendered lazily
@@ -16217,7 +16826,7 @@ var MatExpansionPanelContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Counter for generating unique element ids.
@@ -16268,9 +16877,18 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         _this._document = _document;
         // We need a Subject with distinctUntilChanged, because the `done` event
         // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
-        _this._bodyAnimationDone.pipe(operators.distinctUntilChanged(function (x, y) {
+        _this._bodyAnimationDone.pipe(operators.distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (x, y) {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(function (event) {
+        }))).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             if (event.fromState !== 'void') {
                 if (event.toState === 'expanded') {
                     _this.afterExpand.emit();
@@ -16279,7 +16897,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     _this.afterCollapse.emit();
                 }
             }
-        });
+        }));
         if (defaultOptions) {
             _this.hideToggle = defaultOptions.hideToggle;
         }
@@ -16344,9 +16962,15 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = this;
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(operators.startWith((/** @type {?} */ (null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
+            this.opened.pipe(operators.startWith((/** @type {?} */ (null))), operators.filter((/**
+             * @return {?}
+             */
+            function () { return _this.expanded && !_this._portal; })), operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
-            });
+            }));
         }
     };
     /**
@@ -16448,7 +17072,7 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * `<mat-expansion-panel-header>`
@@ -16465,22 +17089,43 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes['hideToggle']; })) :
+            panel.accordion._stateChanges.pipe(operators.filter((/**
+             * @param {?} changes
+             * @return {?}
+             */
+            function (changes) { return !!changes['hideToggle']; }))) :
             rxjs.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
         this._parentChangeSubscription =
-            rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes['hideToggle'] || changes['disabled']); })))
-                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter((/**
+             * @param {?} changes
+             * @return {?}
+             */
+            function (changes) { return !!(changes['hideToggle'] || changes['disabled']); }))))
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._changeDetectorRef.markForCheck(); }));
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
-            .pipe(operators.filter(function () { return panel._containsFocus(); }))
-            .subscribe(function () { return _focusMonitor.focusVia(_element, 'program'); });
-        _focusMonitor.monitor(_element).subscribe(function (origin) {
+            .pipe(operators.filter((/**
+         * @return {?}
+         */
+        function () { return panel._containsFocus(); })))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () { return _focusMonitor.focusVia(_element, 'program'); }));
+        _focusMonitor.monitor(_element).subscribe((/**
+         * @param {?} origin
+         * @return {?}
+         */
+        function (origin) {
             if (origin && panel.accordion) {
                 panel.accordion._handleHeaderFocus(_this);
             }
-        });
+        }));
         if (defaultOptions) {
             this.expandedHeight = defaultOptions.expandedHeight;
             this.collapsedHeight = defaultOptions.collapsedHeight;
@@ -16699,7 +17344,7 @@ var MatExpansionPanelTitle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Directive for a Material Design Accordion.
@@ -16806,7 +17451,7 @@ var MatAccordion = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {
@@ -16839,7 +17484,7 @@ var MatExpansionModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token used to provide a grid list to a tile and to avoid circular imports.
@@ -16850,7 +17495,7 @@ var MAT_GRID_LIST = new core.InjectionToken('MAT_GRID_LIST');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element, _gridList) {
@@ -17010,7 +17655,7 @@ var MatGridTileFooterCssMatStyler = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -17110,7 +17755,11 @@ TileCoordinator = /** @class */ (function () {
         this.rowIndex = 0;
         this.tracker = new Array(numColumns);
         this.tracker.fill(0, 0, this.tracker.length);
-        this.positions = tiles.map(function (tile) { return _this._trackTile(tile); });
+        this.positions = tiles.map((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        function (tile) { return _this._trackTile(tile); }));
     };
     /** Calculates the row and col position of a tile. */
     /**
@@ -17273,7 +17922,7 @@ TilePosition = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -17592,10 +18241,14 @@ FixedTileStyler = /** @class */ (function (_super) {
     function (list) {
         list._setListStyle(['height', null]);
         if (list._tiles) {
-            list._tiles.forEach(function (tile) {
+            list._tiles.forEach((/**
+             * @param {?} tile
+             * @return {?}
+             */
+            function (tile) {
                 tile._setStyle('top', null);
                 tile._setStyle('height', null);
-            });
+            }));
         }
     };
     return FixedTileStyler;
@@ -17662,10 +18315,14 @@ RatioTileStyler = /** @class */ (function (_super) {
      */
     function (list) {
         list._setListStyle(['paddingBottom', null]);
-        list._tiles.forEach(function (tile) {
+        list._tiles.forEach((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        function (tile) {
             tile._setStyle('marginTop', null);
             tile._setStyle('paddingTop', null);
-        });
+        }));
     };
     /**
      * @private
@@ -17739,10 +18396,14 @@ FitTileStyler = /** @class */ (function (_super) {
      */
     function (list) {
         if (list._tiles) {
-            list._tiles.forEach(function (tile) {
+            list._tiles.forEach((/**
+             * @param {?} tile
+             * @return {?}
+             */
+            function (tile) {
                 tile._setStyle('top', null);
                 tile._setStyle('height', null);
-            });
+            }));
         }
     };
     return FitTileStyler;
@@ -17766,7 +18427,7 @@ function normalizeUnits(value) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
@@ -17942,16 +18603,25 @@ var MatGridList = /** @class */ (function () {
         /** @type {?} */
         var tracker = this._tileCoordinator;
         /** @type {?} */
-        var tiles = this._tiles.filter(function (tile) { return !tile._gridList || tile._gridList === _this; });
+        var tiles = this._tiles.filter((/**
+         * @param {?} tile
+         * @return {?}
+         */
+        function (tile) { return !tile._gridList || tile._gridList === _this; }));
         /** @type {?} */
         var direction = this._dir ? this._dir.value : 'ltr';
         this._tileCoordinator.update(this.cols, tiles);
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
-        tiles.forEach(function (tile, index) {
+        tiles.forEach((/**
+         * @param {?} tile
+         * @param {?} index
+         * @return {?}
+         */
+        function (tile, index) {
             /** @type {?} */
             var pos = tracker.positions[index];
             _this._tileStyler.setStyle(tile, pos.row, pos.col);
-        });
+        }));
         this._setListStyle(this._tileStyler.getComputedHeight());
     };
     /** Sets style on the main grid-list element, given the style name and value. */
@@ -18002,7 +18672,7 @@ var MatGridList = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatGridListModule = /** @class */ (function () {
     function MatGridListModule() {
@@ -18035,7 +18705,7 @@ var MatGridListModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Returns an exception to be thrown in the case when attempting to
@@ -18482,7 +19152,15 @@ var MatIconRegistry = /** @class */ (function () {
         if (cachedIcon) {
             return rxjs.of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(operators.tap(function (svg) { return _this._cachedIconsByUrl.set((/** @type {?} */ (url)), svg); }), operators.map(function (svg) { return cloneSvg(svg); }));
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(operators.tap((/**
+         * @param {?} svg
+         * @return {?}
+         */
+        function (svg) { return _this._cachedIconsByUrl.set((/** @type {?} */ (url)), svg); })), operators.map((/**
+         * @param {?} svg
+         * @return {?}
+         */
+        function (svg) { return cloneSvg(svg); })));
     };
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -18561,7 +19239,15 @@ var MatIconRegistry = /** @class */ (function () {
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config).pipe(operators.tap(function (svg) { return config.svgElement = svg; }), operators.map(function (svg) { return cloneSvg(svg); }));
+            return this._loadSvgIconFromConfig(config).pipe(operators.tap((/**
+             * @param {?} svg
+             * @return {?}
+             */
+            function (svg) { return config.svgElement = svg; })), operators.map((/**
+             * @param {?} svg
+             * @return {?}
+             */
+            function (svg) { return cloneSvg(svg); })));
         }
     };
     /**
@@ -18612,27 +19298,42 @@ var MatIconRegistry = /** @class */ (function () {
         // fetched, fetch them now and look for iconName in the results.
         /** @type {?} */
         var iconSetFetchRequests = iconSetConfigs
-            .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
-            .map(function (iconSetConfig) {
-            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(operators.catchError(function (err) {
+            .filter((/**
+         * @param {?} iconSetConfig
+         * @return {?}
+         */
+        function (iconSetConfig) { return !iconSetConfig.svgElement; }))
+            .map((/**
+         * @param {?} iconSetConfig
+         * @return {?}
+         */
+        function (iconSetConfig) {
+            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(operators.catchError((/**
+             * @param {?} err
+             * @return {?}
+             */
+            function (err) {
                 /** @type {?} */
                 var url = _this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
                 console.error("Loading icon set URL: " + url + " failed: " + err.message);
                 return rxjs.of(null);
-            }));
-        });
+            })));
+        }));
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return rxjs.forkJoin(iconSetFetchRequests).pipe(operators.map(function () {
+        return rxjs.forkJoin(iconSetFetchRequests).pipe(operators.map((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
             }
             return foundIcon;
-        }));
+        })));
     };
     /**
      * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
@@ -18693,7 +19394,11 @@ var MatIconRegistry = /** @class */ (function () {
     function (config) {
         var _this = this;
         return this._fetchUrl(config.url)
-            .pipe(operators.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
+            .pipe(operators.map((/**
+         * @param {?} svgText
+         * @return {?}
+         */
+        function (svgText) { return _this._createSvgElementForSingleIcon(svgText); })));
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -18719,14 +19424,18 @@ var MatIconRegistry = /** @class */ (function () {
         if (config.svgElement) {
             return rxjs.of(config.svgElement);
         }
-        return this._fetchUrl(config.url).pipe(operators.map(function (svgText) {
+        return this._fetchUrl(config.url).pipe(operators.map((/**
+         * @param {?} svgText
+         * @return {?}
+         */
+        function (svgText) {
             // It is possible that the icon set was parsed and cached by an earlier request, so parsing
             // only needs to occur if the cache is yet unset.
             if (!config.svgElement) {
                 config.svgElement = _this._svgElementFromString(svgText);
             }
             return config.svgElement;
-        }));
+        })));
     };
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -18921,7 +19630,10 @@ var MatIconRegistry = /** @class */ (function () {
         // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
         /** @type {?} */
-        var req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
+        var req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize((/**
+         * @return {?}
+         */
+        function () { return _this._inProgressUrlFetches.delete(url); })), operators.share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
@@ -18998,7 +19710,7 @@ var MatIconRegistry = /** @class */ (function () {
         { type: platformBrowser.DomSanitizer },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
-    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.inject(http.HttpClient, 8), core.inject(platformBrowser.DomSanitizer), core.inject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
+    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.ɵɵinject(http.HttpClient, 8), core.ɵɵinject(platformBrowser.DomSanitizer), core.ɵɵinject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 /**
@@ -19047,7 +19759,7 @@ function iconKey(namespace, name) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatIcon.
 /**
@@ -19088,7 +19800,10 @@ function MAT_ICON_LOCATION_FACTORY() {
     return {
         // Note that this needs to be a function, rather than a property, because Angular
         // will only resolve it once, but we want the current path on each call.
-        getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
+        getPathname: (/**
+         * @return {?}
+         */
+        function () { return _location ? (_location.pathname + _location.search) : ''; })
     };
 }
 /**
@@ -19109,12 +19824,16 @@ var funcIriAttributes = [
     'mask',
     'stroke'
 ];
-var ɵ0$5 = function (attr) { return "[" + attr + "]"; };
+var ɵ0$5 = /**
+ * @param {?} attr
+ * @return {?}
+ */
+function (attr) { return "[" + attr + "]"; };
 /**
  * Selector that can be used to find all elements that are using a `FuncIRI`.
  * @type {?}
  */
-var funcIriAttributeSelector = funcIriAttributes.map(ɵ0$5).join(', ');
+var funcIriAttributeSelector = funcIriAttributes.map((ɵ0$5)).join(', ');
 /**
  * Regex that can be used to extract the id out of a FuncIRI.
  * @type {?}
@@ -19291,7 +20010,15 @@ var MatIcon = /** @class */ (function (_super) {
         if (svgIconChanges) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(operators.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(operators.take(1)).subscribe((/**
+                 * @param {?} svg
+                 * @return {?}
+                 */
+                function (svg) { return _this._setSvgElement(svg); }), (/**
+                 * @param {?} err
+                 * @return {?}
+                 */
+                function (err) { return console.log("Error retrieving icon: " + err.message); }));
             }
             else if (svgIconChanges.previousValue) {
                 this._clearSvgElement();
@@ -19505,11 +20232,20 @@ var MatIcon = /** @class */ (function (_super) {
         /** @type {?} */
         var elements = this._elementsWithExternalReferences;
         if (elements) {
-            elements.forEach(function (attrs, element) {
-                attrs.forEach(function (attr) {
+            elements.forEach((/**
+             * @param {?} attrs
+             * @param {?} element
+             * @return {?}
+             */
+            function (attrs, element) {
+                attrs.forEach((/**
+                 * @param {?} attr
+                 * @return {?}
+                 */
+                function (attr) {
                     element.setAttribute(attr.name, "url('" + path + "#" + attr.value + "')");
-                });
-            });
+                }));
+            }));
         }
     };
     /**
@@ -19537,7 +20273,11 @@ var MatIcon = /** @class */ (function (_super) {
         var elements = this._elementsWithExternalReferences =
             this._elementsWithExternalReferences || new Map();
         var _loop_1 = function (i) {
-            funcIriAttributes.forEach(function (attr) {
+            funcIriAttributes.forEach((/**
+             * @param {?} attr
+             * @return {?}
+             */
+            function (attr) {
                 /** @type {?} */
                 var elementWithReference = elementsWithFuncIri[i];
                 /** @type {?} */
@@ -19553,7 +20293,7 @@ var MatIcon = /** @class */ (function (_super) {
                     }
                     (/** @type {?} */ (attributes)).push({ name: attr, value: match[1] });
                 }
-            });
+            }));
         };
         for (var i = 0; i < elementsWithFuncIri.length; i++) {
             _loop_1(i);
@@ -19593,7 +20333,7 @@ var MatIcon = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatIconModule = /** @class */ (function () {
     function MatIconModule() {
@@ -19610,7 +20350,7 @@ var MatIconModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatList.
 /**
@@ -19823,9 +20563,12 @@ var MatListItem = /** @class */ (function (_super) {
         if (_this._list) {
             // React to changes in the state of the parent list since
             // some of the item's properties depend on it (e.g. `disableRipple`).
-            _this._list._stateChanges.pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+            _this._list._stateChanges.pipe(operators.takeUntil(_this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _changeDetectorRef.markForCheck();
-            });
+            }));
         }
         return _this;
     }
@@ -19905,7 +20648,7 @@ var MatListItem = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -19939,7 +20682,10 @@ var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
  */
 var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatSelectionList; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatSelectionList; })),
     multi: true
 };
 /**
@@ -20070,12 +20816,15 @@ var MatListOption = /** @class */ (function (_super) {
         // that the form control value is not being overwritten.
         /** @type {?} */
         var wasSelected = this._selected;
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             if (_this._selected || wasSelected) {
                 _this.selected = true;
                 _this._changeDetector.markForCheck();
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -20097,7 +20846,10 @@ var MatListOption = /** @class */ (function (_super) {
         if (this.selected) {
             // We have to delay this until the next tick in order
             // to avoid changed after checked errors.
-            Promise.resolve().then(function () { return _this.selected = false; });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () { return _this.selected = false; }));
         }
         /** @type {?} */
         var hadFocus = this._hasFocus;
@@ -20281,7 +21033,10 @@ var MatListOption = /** @class */ (function (_super) {
     MatListOption.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: core.ChangeDetectorRef },
-        { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSelectionList; }),] }] }
+        { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatSelectionList; })),] }] }
     ]; };
     MatListOption.propDecorators = {
         _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
@@ -20324,7 +21079,11 @@ var MatSelectionList = /** @class */ (function (_super) {
         /**
          * View to model callback that should be called whenever the selected options change.
          */
-        _this._onChange = function (_) { };
+        _this._onChange = (/**
+         * @param {?} _
+         * @return {?}
+         */
+        function (_) { });
         /**
          * Subscription to sync value changes in the SelectionModel back to the SelectionList.
          */
@@ -20332,7 +21091,10 @@ var MatSelectionList = /** @class */ (function (_super) {
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -20370,14 +21132,21 @@ var MatSelectionList = /** @class */ (function (_super) {
             .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
             // screenreader users, that allows reading the different options of the list.
-            .skipPredicate(function () { return false; })
+            .skipPredicate((/**
+         * @return {?}
+         */
+        function () { return false; }))
             .withAllowedModifierKeys(['shiftKey']);
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
         }
         // Sync external changes to the model back to the options.
-        this._modelChanges = this.selectedOptions.onChange.subscribe(function (event) {
+        this._modelChanges = this.selectedOptions.onChange.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             if (event.added) {
                 for (var _i = 0, _a = event.added; _i < _a.length; _i++) {
                     var item = _a[_i];
@@ -20390,7 +21159,7 @@ var MatSelectionList = /** @class */ (function (_super) {
                     item.selected = false;
                 }
             }
-        });
+        }));
     };
     /**
      * @param {?} changes
@@ -20535,7 +21304,11 @@ var MatSelectionList = /** @class */ (function (_super) {
                 break;
             case keycodes.A:
                 if (keycodes.hasModifierKey(event, 'ctrlKey')) {
-                    this.options.find(function (option) { return !option.selected; }) ? this.selectAll() : this.deselectAll();
+                    this.options.find((/**
+                     * @param {?} option
+                     * @return {?}
+                     */
+                    function (option) { return !option.selected; })) ? this.selectAll() : this.deselectAll();
                     event.preventDefault();
                 }
                 break;
@@ -20651,21 +21424,33 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (values) {
         var _this = this;
-        this.options.forEach(function (option) { return option._setSelected(false); });
-        values.forEach(function (value) {
+        this.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option._setSelected(false); }));
+        values.forEach((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
             /** @type {?} */
-            var correspondingOption = _this.options.find(function (option) {
+            var correspondingOption = _this.options.find((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) {
                 // Skip options that are already in the model. This allows us to handle cases
                 // where the same primitive value is selected multiple times.
                 if (option.selected) {
                     return false;
                 }
                 return _this.compareWith ? _this.compareWith(option.value, value) : option.value === value;
-            });
+            }));
             if (correspondingOption) {
                 correspondingOption._setSelected(true);
             }
-        });
+        }));
     };
     /** Returns the values of the selected options. */
     /**
@@ -20679,7 +21464,15 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this.options.filter(function (option) { return option.selected; }).map(function (option) { return option.value; });
+        return this.options.filter((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option.selected; })).map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option.value; }));
     };
     /** Toggles the state of the currently focused option if enabled. */
     /**
@@ -20729,11 +21522,15 @@ var MatSelectionList = /** @class */ (function (_super) {
         // emit the changed event when something actually changed.
         /** @type {?} */
         var hasChanged = false;
-        this.options.forEach(function (option) {
+        this.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) {
             if (option._setSelected(isSelected)) {
                 hasChanged = true;
             }
-        });
+        }));
         if (hasChanged) {
             this._reportValueChange();
         }
@@ -20787,7 +21584,11 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function () {
         if (this.options) {
-            this.options.forEach(function (option) { return option._markForCheck(); });
+            this.options.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option._markForCheck(); }));
         }
     };
     MatSelectionList.decorators = [
@@ -20828,7 +21629,7 @@ var MatSelectionList = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatListModule = /** @class */ (function () {
     function MatListModule() {
@@ -20867,7 +21668,7 @@ var MatListModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the mat-menu component.
@@ -20929,7 +21730,7 @@ var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Menu content that will be rendered lazily once the menu is opened.
@@ -21030,7 +21831,7 @@ var MatMenuContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -21062,7 +21863,7 @@ function throwMatMenuInvalidPositionY() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token used to provide the parent menu to menu-specific components.
@@ -21073,7 +21874,7 @@ var MAT_MENU_PANEL = new core.InjectionToken('MAT_MENU_PANEL');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatMenuItem.
 /**
@@ -21315,7 +22116,7 @@ var MatMenuItem = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for `mat-menu`.
@@ -21490,15 +22291,23 @@ var _MatMenuBase = /** @class */ (function () {
             /** @type {?} */
             var previousPanelClass = this._previousPanelClass;
             if (previousPanelClass && previousPanelClass.length) {
-                previousPanelClass.split(' ').forEach(function (className) {
+                previousPanelClass.split(' ').forEach((/**
+                 * @param {?} className
+                 * @return {?}
+                 */
+                function (className) {
                     _this._classList[className] = false;
-                });
+                }));
             }
             this._previousPanelClass = classes;
             if (classes && classes.length) {
-                classes.split(' ').forEach(function (className) {
+                classes.split(' ').forEach((/**
+                 * @param {?} className
+                 * @return {?}
+                 */
+                function (className) {
                     _this._classList[className] = true;
-                });
+                }));
                 this._elementRef.nativeElement.className = '';
             }
         },
@@ -21548,7 +22357,10 @@ var _MatMenuBase = /** @class */ (function () {
     function () {
         var _this = this;
         this._keyManager = new a11y.FocusKeyManager(this._items).withWrap().withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.closed.emit('tab'); });
+        this._tabSubscription = this._keyManager.tabOut.subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.closed.emit('tab'); }));
     };
     /**
      * @return {?}
@@ -21570,7 +22382,15 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._itemChanges.pipe(operators.startWith(this._items), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
+        return this._itemChanges.pipe(operators.startWith(this._items), operators.switchMap((/**
+         * @param {?} items
+         * @return {?}
+         */
+        function (items) { return rxjs.merge.apply(void 0, items.map((/**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) { return item._hovered; }))); })));
     };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     /**
@@ -21637,7 +22457,10 @@ var _MatMenuBase = /** @class */ (function () {
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
                 .pipe(operators.take(1))
-                .subscribe(function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); });
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); }));
         }
         else {
             this._keyManager.setFocusOrigin(origin).setFirstItemActive();
@@ -21679,7 +22502,11 @@ var _MatMenuBase = /** @class */ (function () {
         /** @type {?} */
         var newElevation = "mat-elevation-z" + (MAT_MENU_BASE_ELEVATION + depth);
         /** @type {?} */
-        var customElevation = Object.keys(this._classList).find(function (c) { return c.startsWith('mat-elevation-z'); });
+        var customElevation = Object.keys(this._classList).find((/**
+         * @param {?} c
+         * @return {?}
+         */
+        function (c) { return c.startsWith('mat-elevation-z'); }));
         if (!customElevation || customElevation === this._previousElevation) {
             if (this._previousElevation) {
                 this._classList[this._previousElevation] = false;
@@ -21899,7 +22726,7 @@ var _MatMenu = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that determines the scroll handling while the menu is open.
@@ -21912,7 +22739,10 @@ var MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy
  * @return {?}
  */
 function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.reposition(); });
 }
 /**
  * \@docs-private
@@ -21957,7 +22787,10 @@ var MatMenuTrigger = /** @class */ (function () {
          * Handles touch start events on the trigger.
          * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
          */
-        this._handleTouchStart = function () { return _this._openedBy = 'touch'; };
+        this._handleTouchStart = (/**
+         * @return {?}
+         */
+        function () { return _this._openedBy = 'touch'; });
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = null;
@@ -22035,13 +22868,17 @@ var MatMenuTrigger = /** @class */ (function () {
             this._menu = menu;
             this._menuCloseSubscription.unsubscribe();
             if (menu) {
-                this._menuCloseSubscription = menu.close.asObservable().subscribe(function (reason) {
+                this._menuCloseSubscription = menu.close.asObservable().subscribe((/**
+                 * @param {?} reason
+                 * @return {?}
+                 */
+                function (reason) {
                     _this._destroyMenu();
                     // If a click closed the menu, we should close the entire chain of nested menus.
                     if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
                         _this._parentMenu.closed.emit(reason);
                     }
-                });
+                }));
             }
         },
         enumerable: true,
@@ -22146,7 +22983,10 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
-        this._closingActionsSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
+        this._closingActionsSubscription = this._menuClosingActions().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.closeMenu(); }));
         this._initMenu();
         if (this.menu instanceof MatMenu) {
             this.menu._startAnimation();
@@ -22212,13 +23052,23 @@ var MatMenuTrigger = /** @class */ (function () {
             if (menu.lazyContent) {
                 // Wait for the exit animation to finish before detaching the content.
                 menu._animationDone
-                    .pipe(operators.filter(function (event) { return event.toState === 'void'; }), operators.take(1), 
+                    .pipe(operators.filter((/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) { return event.toState === 'void'; })), operators.take(1), 
                 // Interrupt if the content got re-attached.
                 operators.takeUntil(menu.lazyContent._attached))
-                    .subscribe(function () { return (/** @type {?} */ (menu.lazyContent)).detach(); }, undefined, function () {
+                    .subscribe((/**
+                 * @return {?}
+                 */
+                function () { return (/** @type {?} */ (menu.lazyContent)).detach(); }), undefined, (/**
+                 * @return {?}
+                 */
+                function () {
                     // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
-                });
+                }));
             }
             else {
                 this._resetMenu();
@@ -22431,13 +23281,17 @@ var MatMenuTrigger = /** @class */ (function () {
     function (position) {
         var _this = this;
         if (this.menu.setPositionClasses) {
-            position.positionChanges.subscribe(function (change) {
+            position.positionChanges.subscribe((/**
+             * @param {?} change
+             * @return {?}
+             */
+            function (change) {
                 /** @type {?} */
                 var posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
                 /** @type {?} */
                 var posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
                 (/** @type {?} */ (_this.menu.setPositionClasses))(posX, posY);
-            });
+            }));
         }
     };
     /**
@@ -22531,7 +23385,14 @@ var MatMenuTrigger = /** @class */ (function () {
         /** @type {?} */
         var parentClose = this._parentMenu ? this._parentMenu.closed : rxjs.of();
         /** @type {?} */
-        var hover = this._parentMenu ? this._parentMenu._hovered().pipe(operators.filter(function (active) { return active !== _this._menuItemInstance; }), operators.filter(function () { return _this._menuOpen; })) : rxjs.of();
+        var hover = this._parentMenu ? this._parentMenu._hovered().pipe(operators.filter((/**
+         * @param {?} active
+         * @return {?}
+         */
+        function (active) { return active !== _this._menuItemInstance; })), operators.filter((/**
+         * @return {?}
+         */
+        function () { return _this._menuOpen; }))) : rxjs.of();
         return rxjs.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
@@ -22619,8 +23480,15 @@ var MatMenuTrigger = /** @class */ (function () {
             // Since we might have multiple competing triggers for the same menu (e.g. a sub-menu
             // with different data and triggers), we have to delay it by a tick to ensure that
             // it won't be closed immediately after it is opened.
-            .pipe(operators.filter(function (active) { return active === _this._menuItemInstance && !active.disabled; }), operators.delay(0, rxjs.asapScheduler))
-            .subscribe(function () {
+            .pipe(operators.filter((/**
+         * @param {?} active
+         * @return {?}
+         */
+        function (active) { return active === _this._menuItemInstance && !active.disabled; })), operators.delay(0, rxjs.asapScheduler))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._openedBy = 'mouse';
             // If the same menu is used between multiple triggers, it might still be animating
             // while the new trigger tries to re-open it. Wait for the animation to finish
@@ -22630,12 +23498,15 @@ var MatMenuTrigger = /** @class */ (function () {
                 // 'changed after checked' errors in some cases. See #12194.
                 _this.menu._animationDone
                     .pipe(operators.take(1), operators.delay(0, rxjs.asapScheduler), operators.takeUntil(_this._parentMenu._hovered()))
-                    .subscribe(function () { return _this.openMenu(); });
+                    .subscribe((/**
+                 * @return {?}
+                 */
+                function () { return _this.openMenu(); }));
             }
             else {
                 _this.openMenu();
             }
-        });
+        }));
     };
     /** Gets the portal that should be attached to the overlay. */
     /**
@@ -22696,7 +23567,7 @@ var MatMenuTrigger = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used by both the current `MatMenuModule` and the MDC `MatMenuModule`
@@ -22736,7 +23607,7 @@ var MatMenuModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The following are all the animations for the mat-select component, with each
@@ -22817,7 +23688,7 @@ var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -22851,7 +23722,7 @@ function getMatSelectNonFunctionValueError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextUniqueId$6 = 0;
@@ -22904,7 +23775,10 @@ var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-stra
  * @return {?}
  */
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.reposition(); });
 }
 /**
  * \@docs-private
@@ -22992,7 +23866,12 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Comparison function to specify which option is displayed. Defaults to object equality.
          */
-        _this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._compareWith = (/**
+         * @param {?} o1
+         * @param {?} o2
+         * @return {?}
+         */
+        function (o1, o2) { return o1 === o2; });
         /**
          * Unique id for this input.
          */
@@ -23008,11 +23887,17 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * `View -> model callback called when value changes`
          */
-        _this._onChange = function () { };
+        _this._onChange = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * `View -> model callback called when select has been touched`
          */
-        _this._onTouched = function () { };
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * The IDs of child options to be passed to the aria-owns attribute.
          */
@@ -23067,14 +23952,24 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Combined stream of all of the child options' change events.
          */
-        _this.optionSelectionChanges = (/** @type {?} */ (rxjs.defer(function () {
+        _this.optionSelectionChanges = (/** @type {?} */ (rxjs.defer((/**
+         * @return {?}
+         */
+        function () {
             if (_this.options) {
-                return rxjs.merge.apply(void 0, _this.options.map(function (option) { return option.onSelectionChange; }));
+                return rxjs.merge.apply(void 0, _this.options.map((/**
+                 * @param {?} option
+                 * @return {?}
+                 */
+                function (option) { return option.onSelectionChange; })));
             }
             return _this._ngZone.onStable
                 .asObservable()
-                .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelectionChanges; }));
-        })));
+                .pipe(operators.take(1), operators.switchMap((/**
+             * @return {?}
+             */
+            function () { return _this.optionSelectionChanges; })));
+        }))));
         /**
          * Event emitted when the select panel has been toggled.
          */
@@ -23082,11 +23977,25 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Event emitted when the select has been opened.
          */
-        _this._openedStream = _this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
+        _this._openedStream = _this.openedChange.pipe(operators.filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        function (o) { return o; })), operators.map((/**
+         * @return {?}
+         */
+        function () { })));
         /**
          * Event emitted when the select has been closed.
          */
-        _this._closedStream = _this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
+        _this._closedStream = _this.openedChange.pipe(operators.filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        function (o) { return !o; })), operators.map((/**
+         * @return {?}
+         */
+        function () { })));
         /**
          * Event emitted when the selected value has been changed by the user.
          */
@@ -23290,7 +24199,10 @@ var MatSelect = /** @class */ (function (_super) {
         // https://github.com/angular/angular/issues/24084
         this._panelDoneAnimatingStream
             .pipe(operators.distinctUntilChanged(), operators.takeUntil(this._destroy))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this.panelOpen) {
                 _this._scrollTop = 0;
                 _this.openedChange.emit(true);
@@ -23300,15 +24212,18 @@ var MatSelect = /** @class */ (function (_super) {
                 _this.overlayDir.offsetX = 0;
                 _this._changeDetectorRef.markForCheck();
             }
-        });
+        }));
         this._viewportRuler.change()
             .pipe(operators.takeUntil(this._destroy))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this._panelOpen) {
                 _this._triggerRect = _this.trigger.nativeElement.getBoundingClientRect();
                 _this._changeDetectorRef.markForCheck();
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -23319,14 +24234,29 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._initKeyManager();
-        this._selectionModel.onChange.pipe(operators.takeUntil(this._destroy)).subscribe(function (event) {
-            event.added.forEach(function (option) { return option.select(); });
-            event.removed.forEach(function (option) { return option.deselect(); });
-        });
-        this.options.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroy)).subscribe(function () {
+        this._selectionModel.onChange.pipe(operators.takeUntil(this._destroy)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            event.added.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option.select(); }));
+            event.removed.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option.deselect(); }));
+        }));
+        this.options.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._resetOptions();
             _this._initializeSelection();
-        });
+        }));
     };
     /**
      * @return {?}
@@ -23401,12 +24331,15 @@ var MatSelect = /** @class */ (function (_super) {
         this._highlightCorrectOption();
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+        this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
             }
-        });
+        }));
     };
     /** Closes the overlay panel and focuses the host element. */
     /**
@@ -23563,7 +24496,11 @@ var MatSelect = /** @class */ (function (_super) {
             }
             if (this._multiple) {
                 /** @type {?} */
-                var selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
+                var selectedOptions = this._selectionModel.selected.map((/**
+                 * @param {?} option
+                 * @return {?}
+                 */
+                function (option) { return option.viewValue; }));
                 if (this._isRtl()) {
                     selectedOptions.reverse();
                 }
@@ -23687,12 +24624,20 @@ var MatSelect = /** @class */ (function (_super) {
         else if (this._multiple && keyCode === keycodes.A && event.ctrlKey) {
             event.preventDefault();
             /** @type {?} */
-            var hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
-            this.options.forEach(function (option) {
+            var hasDeselectedOptions_1 = this.options.some((/**
+             * @param {?} opt
+             * @return {?}
+             */
+            function (opt) { return !opt.disabled && !opt.selected; }));
+            this.options.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) {
                 if (!option.disabled) {
                     hasDeselectedOptions_1 ? option.select() : option.deselect();
                 }
-            });
+            }));
         }
         else {
             /** @type {?} */
@@ -23751,12 +24696,15 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this.overlayDir.positionChange.pipe(operators.take(1)).subscribe(function () {
+        this.overlayDir.positionChange.pipe(operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._setPseudoCheckboxPaddingSize();
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
-        });
+        }));
     };
     /** Returns the theme to be used on the panel. */
     /**
@@ -23818,10 +24766,13 @@ var MatSelect = /** @class */ (function (_super) {
         var _this = this;
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value);
             _this.stateChanges.next();
-        });
+        }));
     };
     /**
      * Sets the selected option based on a value. If no option can be
@@ -23848,7 +24799,11 @@ var MatSelect = /** @class */ (function (_super) {
                 throw getMatSelectNonArrayValueError();
             }
             this._selectionModel.clear();
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            function (currentValue) { return _this._selectValue(currentValue); }));
             this._sortValues();
         }
         else {
@@ -23882,7 +24837,11 @@ var MatSelect = /** @class */ (function (_super) {
     function (value) {
         var _this = this;
         /** @type {?} */
-        var correspondingOption = this.options.find(function (option) {
+        var correspondingOption = this.options.find((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) {
             try {
                 // Treat null as a special reset value.
                 return option.value != null && _this._compareWith(option.value, value);
@@ -23894,7 +24853,7 @@ var MatSelect = /** @class */ (function (_super) {
                 }
                 return false;
             }
-        });
+        }));
         if (correspondingOption) {
             this._selectionModel.select(correspondingOption);
         }
@@ -23918,20 +24877,26 @@ var MatSelect = /** @class */ (function (_super) {
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
-        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
+        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             // Restore focus to the trigger before closing. Ensures that the focus
             // position won't be lost if the user got focus into the overlay.
             _this.focus();
             _this.close();
-        });
-        this._keyManager.change.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
+        }));
+        this._keyManager.change.pipe(operators.takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this._panelOpen && _this.panel) {
                 _this._scrollActiveOptionIntoView();
             }
             else if (!_this._panelOpen && !_this.multiple && _this._keyManager.activeItem) {
                 _this._keyManager.activeItem._selectViaInteraction();
             }
-        });
+        }));
     };
     /** Drops current option subscriptions and IDs and resets from scratch. */
     /**
@@ -23948,20 +24913,31 @@ var MatSelect = /** @class */ (function (_super) {
         var _this = this;
         /** @type {?} */
         var changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
-        this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe(function (event) {
+        this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             _this._onSelect(event.source, event.isUserInput);
             if (event.isUserInput && !_this.multiple && _this._panelOpen) {
                 _this.close();
                 _this.focus();
             }
-        });
+        }));
         // Listen to changes in the internal state of the options and react accordingly.
         // Handles cases like the labels of the selected options changing.
-        rxjs.merge.apply(void 0, this.options.map(function (option) { return option._stateChanges; })).pipe(operators.takeUntil(changedOrDestroyed))
-            .subscribe(function () {
+        rxjs.merge.apply(void 0, this.options.map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option._stateChanges; }))).pipe(operators.takeUntil(changedOrDestroyed))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._changeDetectorRef.markForCheck();
             _this.stateChanges.next();
-        });
+        }));
         this._setOptionIds();
     };
     /** Invoked when an option is clicked. */
@@ -24024,10 +25000,15 @@ var MatSelect = /** @class */ (function (_super) {
         if (this.multiple) {
             /** @type {?} */
             var options_1 = this.options.toArray();
-            this._selectionModel.sort(function (a, b) {
+            this._selectionModel.sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            function (a, b) {
                 return _this.sortComparator ? _this.sortComparator(a, b, options_1) :
                     options_1.indexOf(a) - options_1.indexOf(b);
-            });
+            }));
             this.stateChanges.next();
         }
     };
@@ -24048,7 +25029,11 @@ var MatSelect = /** @class */ (function (_super) {
         /** @type {?} */
         var valueToEmit = null;
         if (this.multiple) {
-            valueToEmit = ((/** @type {?} */ (this.selected))).map(function (option) { return option.value; });
+            valueToEmit = ((/** @type {?} */ (this.selected))).map((/**
+             * @param {?} option
+             * @return {?}
+             */
+            function (option) { return option.value; }));
         }
         else {
             valueToEmit = this.selected ? ((/** @type {?} */ (this.selected))).value : fallbackValue;
@@ -24071,7 +25056,11 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._optionIds = this.options.map(function (option) { return option.id; }).join(' ');
+        this._optionIds = this.options.map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        function (option) { return option.id; })).join(' ');
     };
     /**
      * Highlights the selected item. If no option is selected, it will highlight
@@ -24143,9 +25132,15 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option) {
-        return this.options.reduce(function (result, current, index) {
+        return this.options.reduce((/**
+         * @param {?} result
+         * @param {?} current
+         * @param {?} index
+         * @return {?}
+         */
+        function (result, current, index) {
             return result === undefined ? (option === current ? index : undefined) : result;
-        }, undefined);
+        }), undefined);
     };
     /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
     /**
@@ -24717,7 +25712,7 @@ var MatSelect = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSelectModule = /** @class */ (function () {
     function MatSelectModule() {
@@ -24740,7 +25735,7 @@ var MatSelectModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by MatTooltip.
@@ -24765,7 +25760,7 @@ var matTooltipAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Time in ms to throttle repositioning after scroll events.
@@ -24797,7 +25792,10 @@ var MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-st
  * @return {?}
  */
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+    return (/**
+     * @return {?}
+     */
+    function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); });
 }
 /**
  * \@docs-private
@@ -24870,24 +25868,48 @@ var MatTooltip = /** @class */ (function () {
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!platform$$1.IOS && !platform$$1.ANDROID) {
             this._manualListeners
-                .set('mouseenter', function () { return _this.show(); })
-                .set('mouseleave', function () { return _this.hide(); });
+                .set('mouseenter', (/**
+             * @return {?}
+             */
+            function () { return _this.show(); }))
+                .set('mouseleave', (/**
+             * @return {?}
+             */
+            function () { return _this.hide(); }));
         }
         else if (!hasGestures) {
             // If Hammerjs isn't loaded, fall back to showing on `touchstart`, otherwise
             // there's no way for the user to trigger the tooltip on a touch device.
-            this._manualListeners.set('touchstart', function () { return _this.show(); });
+            this._manualListeners.set('touchstart', (/**
+             * @return {?}
+             */
+            function () { return _this.show(); }));
         }
-        this._manualListeners.forEach(function (listener, event) { return element.addEventListener(event, listener); });
-        _focusMonitor.monitor(_elementRef).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
+        this._manualListeners.forEach((/**
+         * @param {?} listener
+         * @param {?} event
+         * @return {?}
+         */
+        function (listener, event) { return element.addEventListener(event, listener); }));
+        _focusMonitor.monitor(_elementRef).pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} origin
+         * @return {?}
+         */
+        function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
-                _ngZone.run(function () { return _this.hide(0); });
+                _ngZone.run((/**
+                 * @return {?}
+                 */
+                function () { return _this.hide(0); }));
             }
             else if (origin === 'keyboard') {
-                _ngZone.run(function () { return _this.show(); });
+                _ngZone.run((/**
+                 * @return {?}
+                 */
+                function () { return _this.show(); }));
             }
-        });
+        }));
         if (_defaultOptions && _defaultOptions.position) {
             this.position = _defaultOptions.position;
         }
@@ -25034,9 +26056,14 @@ var MatTooltip = /** @class */ (function () {
             this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
-        this._manualListeners.forEach(function (listener, event) {
+        this._manualListeners.forEach((/**
+         * @param {?} listener
+         * @param {?} event
+         * @return {?}
+         */
+        function (listener, event) {
             _this._elementRef.nativeElement.removeEventListener(event, listener);
-        });
+        }));
         this._manualListeners.clear();
         this._destroyed.next();
         this._destroyed.complete();
@@ -25068,7 +26095,10 @@ var MatTooltip = /** @class */ (function () {
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
             .pipe(operators.takeUntil(this._destroyed))
-            .subscribe(function () { return _this._detach(); });
+            .subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._detach(); }));
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage();
         (/** @type {?} */ (this._tooltipInstance)).show(delay);
@@ -25169,15 +26199,22 @@ var MatTooltip = /** @class */ (function () {
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withScrollableContainers(scrollableAncestors);
-        strategy.positionChanges.pipe(operators.takeUntil(this._destroyed)).subscribe(function (change) {
+        strategy.positionChanges.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} change
+         * @return {?}
+         */
+        function (change) {
             if (_this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
-                    _this._ngZone.run(function () { return _this.hide(0); });
+                    _this._ngZone.run((/**
+                     * @return {?}
+                     */
+                    function () { return _this.hide(0); }));
                 }
             }
-        });
+        }));
         this._overlayRef = this._overlay.create({
             direction: this._dir,
             positionStrategy: strategy,
@@ -25187,7 +26224,10 @@ var MatTooltip = /** @class */ (function () {
         this._updatePosition();
         this._overlayRef.detachments()
             .pipe(operators.takeUntil(this._destroyed))
-            .subscribe(function () { return _this._detach(); });
+            .subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._detach(); }));
         return this._overlayRef;
     };
     /** Detaches the currently-attached tooltip. */
@@ -25332,11 +26372,14 @@ var MatTooltip = /** @class */ (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 if (_this._tooltipInstance) {
                     (/** @type {?} */ (_this._overlayRef)).updatePosition();
                 }
-            });
+            }));
         }
     };
     /** Updates the tooltip class */
@@ -25476,13 +26519,16 @@ var TooltipComponent = /** @class */ (function () {
         }
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
-        this._showTimeoutId = setTimeout(function () {
+        this._showTimeoutId = setTimeout((/**
+         * @return {?}
+         */
+        function () {
             _this._visibility = 'visible';
             _this._showTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
-        }, delay);
+        }), delay);
     };
     /**
      * Begins the animation to hide the tooltip after the provided delay in ms.
@@ -25505,13 +26551,16 @@ var TooltipComponent = /** @class */ (function () {
             clearTimeout(this._showTimeoutId);
             this._showTimeoutId = null;
         }
-        this._hideTimeoutId = setTimeout(function () {
+        this._hideTimeoutId = setTimeout((/**
+         * @return {?}
+         */
+        function () {
             _this._visibility = 'hidden';
             _this._hideTimeoutId = null;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
-        }, delay);
+        }), delay);
     };
     /** Returns an observable that notifies when the tooltip has been hidden from view. */
     /**
@@ -25641,7 +26690,7 @@ var TooltipComponent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
@@ -25668,7 +26717,7 @@ var MatTooltipModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -25704,7 +26753,13 @@ var MatPaginatorIntl = /** @class */ (function () {
         /**
          * A label for the range of items within the current page and the length of the whole list.
          */
-        this.getRangeLabel = function (page, pageSize, length) {
+        this.getRangeLabel = (/**
+         * @param {?} page
+         * @param {?} pageSize
+         * @param {?} length
+         * @return {?}
+         */
+        function (page, pageSize, length) {
             if (length == 0 || pageSize == 0) {
                 return "0 of " + length;
             }
@@ -25717,12 +26772,12 @@ var MatPaginatorIntl = /** @class */ (function () {
                 Math.min(startIndex + pageSize, length) :
                 startIndex + pageSize;
             return startIndex + 1 + " - " + endIndex + " of " + length;
-        };
+        });
     }
     MatPaginatorIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = core.defineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 }());
 /**
@@ -25746,7 +26801,7 @@ var MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The default page size if there is no page size and there are no provided page size options.
@@ -25802,7 +26857,10 @@ var MatPaginator = /** @class */ (function (_super) {
          * Event emitted when the paginator changes the page size or page index.
          */
         _this.page = new core.EventEmitter();
-        _this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        _this._intlChanges = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._changeDetectorRef.markForCheck(); }));
         return _this;
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
@@ -25871,7 +26929,11 @@ var MatPaginator = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._pageSizeOptions = (value || []).map(function (p) { return coercion.coerceNumberProperty(p); });
+            this._pageSizeOptions = (value || []).map((/**
+             * @param {?} p
+             * @return {?}
+             */
+            function (p) { return coercion.coerceNumberProperty(p); }));
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,
@@ -26140,7 +27202,12 @@ var MatPaginator = /** @class */ (function (_super) {
             this._displayedPageSizeOptions.push(this.pageSize);
         }
         // Sort the numbers using a number-specific sort function.
-        this._displayedPageSizeOptions.sort(function (a, b) { return a - b; });
+        this._displayedPageSizeOptions.sort((/**
+         * @param {?} a
+         * @param {?} b
+         * @return {?}
+         */
+        function (a, b) { return a - b; }));
         this._changeDetectorRef.markForCheck();
     };
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
@@ -26197,7 +27264,7 @@ var MatPaginator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {
@@ -26220,7 +27287,7 @@ var MatPaginatorModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatProgressBar.
 /**
@@ -26258,7 +27325,10 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
     return {
         // Note that this needs to be a function, rather than a property, because Angular
         // will only resolve it once, but we want the current path on each call.
-        getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
+        getPathname: (/**
+         * @return {?}
+         */
+        function () { return _location ? (_location.pathname + _location.search) : ''; })
     };
 }
 /**
@@ -26403,14 +27473,27 @@ var MatProgressBar = /** @class */ (function (_super) {
         if (!this._isNoopAnimation) {
             // Run outside angular so change detection didn't get triggered on every transition end
             // instead only on the animation that we care about (primary value bar's transitionend)
-            this._ngZone.runOutsideAngular((function () {
+            this._ngZone.runOutsideAngular(((/**
+             * @return {?}
+             */
+            function () {
                 /** @type {?} */
                 var element = _this._primaryValueBar.nativeElement;
                 _this._animationEndSubscription =
                     ((/** @type {?} */ (rxjs.fromEvent(element, 'transitionend'))))
-                        .pipe(operators.filter((function (e) { return e.target === element; })))
-                        .subscribe(function () { return _this._ngZone.run(function () { return _this.emitAnimationEnd(); }); });
-            }));
+                        .pipe(operators.filter(((/**
+                     * @param {?} e
+                     * @return {?}
+                     */
+                    function (e) { return e.target === element; }))))
+                        .subscribe((/**
+                     * @return {?}
+                     */
+                    function () { return _this._ngZone.run((/**
+                     * @return {?}
+                     */
+                    function () { return _this.emitAnimationEnd(); })); }));
+            })));
         }
     };
     /**
@@ -26488,7 +27571,7 @@ function clamp(v, min, max) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatProgressBarModule = /** @class */ (function () {
     function MatProgressBarModule() {
@@ -26505,7 +27588,7 @@ var MatProgressBarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Base reference size of the spinner.
@@ -26849,7 +27932,7 @@ var MatSpinner = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatProgressSpinnerModule = /** @class */ (function () {
     function MatProgressSpinnerModule() {
@@ -26873,7 +27956,7 @@ var MatProgressSpinnerModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for radio components.
 /** @type {?} */
@@ -26886,7 +27969,10 @@ var nextUniqueId$7 = 0;
  */
 var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatRadioGroup; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatRadioGroup; })),
     multi: true
 };
 /**
@@ -26939,12 +28025,18 @@ var MatRadioGroup = /** @class */ (function () {
         /**
          * The method to be called in order to update ngModel
          */
-        this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
          */
-        this.onTouched = function () { };
+        this.onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * Event emitted when the group value changes.
          * Change events are only emitted when the value changes due to user interaction with
@@ -27140,10 +28232,14 @@ var MatRadioGroup = /** @class */ (function () {
     function () {
         var _this = this;
         if (this._radios) {
-            this._radios.forEach(function (radio) {
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            function (radio) {
                 radio.name = _this.name;
                 radio._markForCheck();
-            });
+            }));
         }
     };
     /** Updates the `selected` radio button from the internal _value state. */
@@ -27164,12 +28260,16 @@ var MatRadioGroup = /** @class */ (function () {
         var isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
             this._selected = null;
-            this._radios.forEach(function (radio) {
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            function (radio) {
                 radio.checked = _this.value === radio.value;
                 if (radio.checked) {
                     _this._selected = radio;
                 }
-            });
+            }));
         }
     };
     /** Dispatch change event with current selection and group value. */
@@ -27194,7 +28294,11 @@ var MatRadioGroup = /** @class */ (function () {
      */
     function () {
         if (this._radios) {
-            this._radios.forEach(function (radio) { return radio._markForCheck(); });
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            function (radio) { return radio._markForCheck(); }));
         }
     };
     /**
@@ -27290,7 +28394,10 @@ var MatRadioGroup = /** @class */ (function () {
     ]; };
     MatRadioGroup.propDecorators = {
         change: [{ type: core.Output }],
-        _radios: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] }],
+        _radios: [{ type: core.ContentChildren, args: [core.forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatRadioButton; })), { descendants: true },] }],
         name: [{ type: core.Input }],
         labelPosition: [{ type: core.Input }],
         value: [{ type: core.Input }],
@@ -27352,16 +28459,24 @@ var MatRadioButton = /** @class */ (function (_super) {
         /**
          * Unregister function for _radioDispatcher
          */
-        _this._removeUniqueSelectionListener = function () { };
+        _this._removeUniqueSelectionListener = (/**
+         * @return {?}
+         */
+        function () { });
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         _this.radioGroup = radioGroup;
         _this._removeUniqueSelectionListener =
-            _radioDispatcher.listen(function (id, name) {
+            _radioDispatcher.listen((/**
+             * @param {?} id
+             * @param {?} name
+             * @return {?}
+             */
+            function (id, name) {
                 if (id !== _this.id && name === _this.name) {
                     _this.checked = false;
                 }
-            });
+            }));
         return _this;
     }
     Object.defineProperty(MatRadioButton.prototype, "checked", {
@@ -27556,11 +28671,15 @@ var MatRadioButton = /** @class */ (function (_super) {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(function (focusOrigin) {
+            .subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        function (focusOrigin) {
             if (!focusOrigin && _this.radioGroup) {
                 _this.radioGroup._touch();
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -27696,7 +28815,7 @@ var MatRadioButton = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatRadioModule = /** @class */ (function () {
     function MatRadioModule() {
@@ -27713,7 +28832,7 @@ var MatRadioModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material drawers.
@@ -27745,7 +28864,7 @@ var matDrawerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -27787,9 +28906,12 @@ var MatDrawerContent = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._container._contentMarginChanges.subscribe(function () {
+        this._container._contentMarginChanges.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
     };
     MatDrawerContent.decorators = [
         { type: core.Component, args: [{selector: 'mat-drawer-content',
@@ -27806,7 +28928,10 @@ var MatDrawerContent = /** @class */ (function (_super) {
     /** @nocollapse */
     MatDrawerContent.ctorParameters = function () { return [
         { type: core.ChangeDetectorRef },
-        { type: MatDrawerContainer, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatDrawerContainer; }),] }] },
+        { type: MatDrawerContainer, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatDrawerContainer; })),] }] },
         { type: core.ElementRef },
         { type: scrolling.ScrollDispatcher },
         { type: core.NgZone }
@@ -27871,7 +28996,11 @@ var MatDrawer = /** @class */ (function () {
          */
         this._modeChanged = new rxjs.Subject();
         this._opened = false;
-        this.openedChange.subscribe(function (opened) {
+        this.openedChange.subscribe((/**
+         * @param {?} opened
+         * @return {?}
+         */
+        function (opened) {
             if (opened) {
                 if (_this._doc) {
                     _this._elementFocusedBeforeDrawerWasOpened = (/** @type {?} */ (_this._doc.activeElement));
@@ -27883,29 +29012,52 @@ var MatDrawer = /** @class */ (function () {
             else {
                 _this._restoreFocus();
             }
-        });
+        }));
         /**
          * Listen to `keydown` events outside the zone so that change detection is not run every
          * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
          * and we don't have close disabled.
          */
-        this._ngZone.runOutsideAngular(function () {
-            ((/** @type {?} */ (rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown')))).pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }), operators.takeUntil(_this._destroyed)).subscribe(function (event) { return _this._ngZone.run(function () {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
+            ((/** @type {?} */ (rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown')))).pipe(operators.filter((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })), operators.takeUntil(_this._destroyed)).subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return _this._ngZone.run((/**
+             * @return {?}
+             */
+            function () {
                 _this.close();
                 event.stopPropagation();
-            }); });
-        });
+            })); }));
+        }));
         // We need a Subject with distinctUntilChanged, because the `done` event
         // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
-        this._animationEnd.pipe(operators.distinctUntilChanged(function (x, y) {
+        this._animationEnd.pipe(operators.distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (x, y) {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(function (event) {
+        }))).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             var fromState = event.fromState, toState = event.toState;
             if ((toState.indexOf('open') === 0 && fromState === 'void') ||
                 (toState === 'void' && fromState.indexOf('open') === 0)) {
                 _this.openedChange.emit(_this._opened);
             }
-        });
+        }));
     }
     Object.defineProperty(MatDrawer.prototype, "position", {
         /** The side that the drawer is attached to. */
@@ -27984,7 +29136,14 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
+            return this.openedChange.pipe(operators.filter((/**
+             * @param {?} o
+             * @return {?}
+             */
+            function (o) { return o; })), operators.map((/**
+             * @return {?}
+             */
+            function () { })));
         },
         enumerable: true,
         configurable: true
@@ -27996,7 +29155,14 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), operators.map(function () { }));
+            return this._animationStarted.pipe(operators.filter((/**
+             * @param {?} e
+             * @return {?}
+             */
+            function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; })), operators.map((/**
+             * @return {?}
+             */
+            function () { })));
         },
         enumerable: true,
         configurable: true
@@ -28008,7 +29174,14 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
+            return this.openedChange.pipe(operators.filter((/**
+             * @param {?} o
+             * @return {?}
+             */
+            function (o) { return !o; })), operators.map((/**
+             * @return {?}
+             */
+            function () { })));
         },
         enumerable: true,
         configurable: true
@@ -28020,7 +29193,14 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), operators.map(function () { }));
+            return this._animationStarted.pipe(operators.filter((/**
+             * @param {?} e
+             * @return {?}
+             */
+            function (e) { return e.fromState !== e.toState && e.toState === 'void'; })), operators.map((/**
+             * @return {?}
+             */
+            function () { })));
         },
         enumerable: true,
         configurable: true
@@ -28052,13 +29232,17 @@ var MatDrawer = /** @class */ (function () {
         if (!this.autoFocus) {
             return;
         }
-        this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
+        this._focusTrap.focusInitialElementWhenReady().then((/**
+         * @param {?} hasMovedFocus
+         * @return {?}
+         */
+        function (hasMovedFocus) {
             // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
             // still works. We need to check that `focus` is a function due to Universal.
             if (!hasMovedFocus && typeof _this._elementRef.nativeElement.focus === 'function') {
                 _this._elementRef.nativeElement.focus();
             }
-        });
+        }));
     };
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
@@ -28221,9 +29405,17 @@ var MatDrawer = /** @class */ (function () {
         if (this._focusTrap) {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
-        return new Promise(function (resolve) {
-            _this.openedChange.pipe(operators.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
-        });
+        return new Promise((/**
+         * @param {?} resolve
+         * @return {?}
+         */
+        function (resolve) {
+            _this.openedChange.pipe(operators.take(1)).subscribe((/**
+             * @param {?} open
+             * @return {?}
+             */
+            function (open) { return resolve(open ? 'open' : 'close'); }));
+        }));
     };
     Object.defineProperty(MatDrawer.prototype, "_width", {
         get: /**
@@ -28343,8 +29535,8 @@ var MatDrawer = /** @class */ (function () {
  */
 var MatDrawerContainer = /** @class */ (function () {
     function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, viewportRuler, defaultAutosize, _animationMode) {
-        if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
+        if (defaultAutosize === void 0) { defaultAutosize = false; }
         this._dir = _dir;
         this._element = _element;
         this._ngZone = _ngZone;
@@ -28372,16 +29564,22 @@ var MatDrawerContainer = /** @class */ (function () {
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
-            _dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
+            _dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._validateDrawers();
                 _this._updateContentMargins();
-            });
+            }));
         }
         // Since the minimum width of the sidenav depends on the viewport width,
         // we need to recompute the margins if the viewport changes.
         viewportRuler.change()
             .pipe(operators.takeUntil(this._destroyed))
-            .subscribe(function () { return _this._updateContentMargins(); });
+            .subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._updateContentMargins(); }));
         this._autosize = defaultAutosize;
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -28479,22 +29677,32 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._drawers.changes.pipe(operators.startWith(null)).subscribe(function () {
+        this._drawers.changes.pipe(operators.startWith(null)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._validateDrawers();
-            _this._drawers.forEach(function (drawer) {
+            _this._drawers.forEach((/**
+             * @param {?} drawer
+             * @return {?}
+             */
+            function (drawer) {
                 _this._watchDrawerToggle(drawer);
                 _this._watchDrawerPosition(drawer);
                 _this._watchDrawerMode(drawer);
-            });
+            }));
             if (!_this._drawers.length ||
                 _this._isDrawerOpen(_this._start) ||
                 _this._isDrawerOpen(_this._end)) {
                 _this._updateContentMargins();
             }
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         this._doCheckSubject.pipe(operators.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
-        operators.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
+        operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._updateContentMargins(); }));
     };
     /**
      * @return {?}
@@ -28518,7 +29726,11 @@ var MatDrawerContainer = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._drawers.forEach(function (drawer) { return drawer.open(); });
+        this._drawers.forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        function (drawer) { return drawer.open(); }));
     };
     /** Calls `close` of both start and end drawers */
     /**
@@ -28530,7 +29742,11 @@ var MatDrawerContainer = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._drawers.forEach(function (drawer) { return drawer.close(); });
+        this._drawers.forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        function (drawer) { return drawer.close(); }));
     };
     /**
      * @return {?}
@@ -28543,7 +29759,10 @@ var MatDrawerContainer = /** @class */ (function () {
         // If users opted into autosizing, do a check every change detection cycle.
         if (this._autosize && this._isPushed()) {
             // Run outside the NgZone, otherwise the debouncer will throw us into an infinite loop.
-            this._ngZone.runOutsideAngular(function () { return _this._doCheckSubject.next(); });
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () { return _this._doCheckSubject.next(); }));
         }
     };
     /**
@@ -28569,8 +29788,16 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function (drawer) {
         var _this = this;
-        drawer._animationStarted.pipe(operators.filter(function (event) { return event.fromState !== event.toState; }), operators.takeUntil(this._drawers.changes))
-            .subscribe(function (event) {
+        drawer._animationStarted.pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.fromState !== event.toState; })), operators.takeUntil(this._drawers.changes))
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
             if (event.toState !== 'open-instant' && _this._animationMode !== 'NoopAnimations') {
@@ -28578,11 +29805,14 @@ var MatDrawerContainer = /** @class */ (function () {
             }
             _this._updateContentMargins();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
         if (drawer.mode !== 'side') {
-            drawer.openedChange.pipe(operators.takeUntil(this._drawers.changes)).subscribe(function () {
+            drawer.openedChange.pipe(operators.takeUntil(this._drawers.changes)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 return _this._setContainerClass(drawer.opened);
-            });
+            }));
         }
     };
     /**
@@ -28610,11 +29840,17 @@ var MatDrawerContainer = /** @class */ (function () {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
-        drawer.onPositionChanged.pipe(operators.takeUntil(this._drawers.changes)).subscribe(function () {
-            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
+        drawer.onPositionChanged.pipe(operators.takeUntil(this._drawers.changes)).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._validateDrawers();
-            });
-        });
+            }));
+        }));
     };
     /** Subscribes to changes in drawer mode so we can run change detection. */
     /**
@@ -28633,10 +29869,13 @@ var MatDrawerContainer = /** @class */ (function () {
         var _this = this;
         if (drawer) {
             drawer._modeChanged.pipe(operators.takeUntil(rxjs.merge(this._drawers.changes, this._destroyed)))
-                .subscribe(function () {
+                .subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     };
     /** Toggles the 'mat-drawer-opened' class on the main 'mat-drawer-container' element. */
@@ -28675,7 +29914,11 @@ var MatDrawerContainer = /** @class */ (function () {
         var _this = this;
         this._start = this._end = null;
         // Ensure that we have at most one start and one end drawer.
-        this._drawers.forEach(function (drawer) {
+        this._drawers.forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        function (drawer) {
             if (drawer.position == 'end') {
                 if (_this._end != null) {
                     throwMatDuplicatedDrawerError('end');
@@ -28688,7 +29931,7 @@ var MatDrawerContainer = /** @class */ (function () {
                 }
                 _this._start = drawer;
             }
-        });
+        }));
         this._right = this._left = null;
         // Detect if we're LTR or RTL.
         if (this._dir && this._dir.value === 'rtl') {
@@ -28735,8 +29978,16 @@ var MatDrawerContainer = /** @class */ (function () {
         var _this = this;
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
-            .filter(function (drawer) { return drawer && !drawer.disableClose && _this._canHaveBackdrop(drawer); })
-            .forEach(function (drawer) { return (/** @type {?} */ (drawer)).close(); });
+            .filter((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        function (drawer) { return drawer && !drawer.disableClose && _this._canHaveBackdrop(drawer); }))
+            .forEach((/**
+         * @param {?} drawer
+         * @return {?}
+         */
+        function (drawer) { return (/** @type {?} */ (drawer)).close(); }));
     };
     /**
      * @return {?}
@@ -28840,7 +30091,10 @@ var MatDrawerContainer = /** @class */ (function () {
             this._contentMargins = { left: left, right: right };
             // Pull back into the NgZone since in some cases we could be outside. We need to be careful
             // to do it only when something changed, otherwise we can end up hitting the zone too often.
-            this._ngZone.run(function () { return _this._contentMarginChanges.next(_this._contentMargins); });
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            function () { return _this._contentMarginChanges.next(_this._contentMargins); }));
         }
     };
     MatDrawerContainer.decorators = [
@@ -28879,7 +30133,7 @@ var MatDrawerContainer = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSidenavContent = /** @class */ (function (_super) {
     __extends(MatSidenavContent, _super);
@@ -28901,7 +30155,10 @@ var MatSidenavContent = /** @class */ (function (_super) {
     /** @nocollapse */
     MatSidenavContent.ctorParameters = function () { return [
         { type: core.ChangeDetectorRef },
-        { type: MatSidenavContainer, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSidenavContainer; }),] }] },
+        { type: MatSidenavContainer, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatSidenavContainer; })),] }] },
         { type: core.ElementRef },
         { type: scrolling.ScrollDispatcher },
         { type: core.NgZone }
@@ -29026,7 +30283,7 @@ var MatSidenavContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSidenavModule = /** @class */ (function () {
     function MatSidenavModule() {
@@ -29063,7 +30320,7 @@ var MatSidenavModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
@@ -29071,12 +30328,15 @@ var MatSidenavModule = /** @class */ (function () {
  */
 var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
-    factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
+    factory: (/**
+     * @return {?}
+     */
+    function () { return ({ disableToggleValue: false, disableDragValue: false }); })
 });
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for slide-toggle components.
 /** @type {?} */
@@ -29087,7 +30347,10 @@ var nextUniqueId$8 = 0;
  */
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatSlideToggle; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatSlideToggle; })),
     multi: true
 };
 /**
@@ -29133,8 +30396,15 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this.defaults = defaults;
         _this._animationMode = _animationMode;
         _this._dir = _dir;
-        _this.onChange = function (_) { };
-        _this.onTouched = function () { };
+        _this.onChange = (/**
+         * @param {?} _
+         * @return {?}
+         */
+        function (_) { });
+        _this.onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this._uniqueId = "mat-slide-toggle-" + ++nextUniqueId$8;
         _this._required = false;
         _this._checked = false;
@@ -29236,16 +30506,23 @@ var MatSlideToggle = /** @class */ (function (_super) {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(function (focusOrigin) {
+            .subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        function (focusOrigin) {
             if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
                 // Angular does not expect events to be raised during change detection, so any state
                 // change (such as a form control's 'ng-touched') will cause a changed-after-checked
                 // error. See https://github.com/angular/angular/issues/17793. To work around this,
                 // we defer telling the form control it has been touched until the next tick.
-                Promise.resolve().then(function () { return _this.onTouched(); });
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () { return _this.onTouched(); }));
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -29487,7 +30764,13 @@ var MatSlideToggle = /** @class */ (function (_super) {
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
-            this._ngZone.runOutsideAngular(function () { return setTimeout(function () {
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () { return setTimeout((/**
+             * @return {?}
+             */
+            function () {
                 if (_this._dragging) {
                     _this._dragging = false;
                     _this._thumbEl.nativeElement.classList.remove('mat-dragging');
@@ -29495,7 +30778,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                     // of the thumb position after drag.
                     _this._thumbEl.nativeElement.style.transform = '';
                 }
-            }); });
+            })); }));
         }
     };
     /** Method being called whenever the label text changes. */
@@ -29568,7 +30851,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {
@@ -29588,7 +30871,7 @@ var MatSlideToggleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
@@ -29619,7 +30902,10 @@ var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
  */
 var MAT_SLIDER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatSlider; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatSlider; })),
     multi: true
 };
 /**
@@ -29687,7 +30973,10 @@ var MatSlider = /** @class */ (function (_super) {
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        _this.onTouched = function () { };
+        _this.onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         _this._percent = 0;
         /**
          * Whether or not the thumb is sliding.
@@ -29707,7 +30996,10 @@ var MatSlider = /** @class */ (function (_super) {
          * The dimensions of the slider.
          */
         _this._sliderDimensions = null;
-        _this._controlValueAccessorChangeFn = function () { };
+        _this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * Subscription to the Directionality change EventEmitter.
          */
@@ -30166,14 +31458,21 @@ var MatSlider = /** @class */ (function (_super) {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(function (origin) {
+            .subscribe((/**
+         * @param {?} origin
+         * @return {?}
+         */
+        function (origin) {
             _this._isActive = !!origin && origin !== 'keyboard';
             _this._changeDetectorRef.detectChanges();
-        });
+        }));
         if (this._dir) {
-            this._dirChangeSubscription = this._dir.change.subscribe(function () {
+            this._dirChangeSubscription = this._dir.change.subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     };
     /**
@@ -30779,7 +32078,7 @@ var MatSlider = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {
@@ -30797,7 +32096,7 @@ var MatSliderModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
@@ -30829,8 +32128,14 @@ MatSnackBarRef = /** @class */ (function () {
         this._dismissedByAction = false;
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
-        this.onAction().subscribe(function () { return _this.dismiss(); });
-        containerInstance._onExit.subscribe(function () { return _this._finishDismiss(); });
+        this.onAction().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.dismiss(); }));
+        containerInstance._onExit.subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._finishDismiss(); }));
     }
     /** Dismisses the snack bar. */
     /**
@@ -30896,7 +32201,10 @@ MatSnackBarRef = /** @class */ (function () {
      */
     function (duration) {
         var _this = this;
-        this._durationTimeoutId = setTimeout(function () { return _this.dismiss(); }, duration);
+        this._durationTimeoutId = setTimeout((/**
+         * @return {?}
+         */
+        function () { return _this.dismiss(); }), duration);
     };
     /** Marks the snackbar as opened */
     /**
@@ -30974,7 +32282,7 @@ MatSnackBarRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a snack bar.
@@ -31022,7 +32330,7 @@ MatSnackBarConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -31078,7 +32386,7 @@ var SimpleSnackBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material snack bar.
@@ -31107,7 +32415,7 @@ var matSnackBarAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Internal component that wraps user-provided snack bar content.
@@ -31207,10 +32515,13 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             // because it can cause a memory leak.
             /** @type {?} */
             var onEnter_1 = this._onEnter;
-            this._ngZone.run(function () {
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            function () {
                 onEnter_1.next();
                 onEnter_1.complete();
-            });
+            }));
         }
     };
     /** Begin animation of snack bar entrance into view. */
@@ -31275,10 +32586,13 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._onExit.next();
             _this._onExit.complete();
-        });
+        }));
     };
     /** Applies the various positioning and user-configured CSS classes to the snack bar. */
     /**
@@ -31299,7 +32613,11 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         if (panelClasses) {
             if (Array.isArray(panelClasses)) {
                 // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-                panelClasses.forEach(function (cssClass) { return element.classList.add(cssClass); });
+                panelClasses.forEach((/**
+                 * @param {?} cssClass
+                 * @return {?}
+                 */
+                function (cssClass) { return element.classList.add(cssClass); }));
             }
             else {
                 element.classList.add(panelClasses);
@@ -31362,7 +32680,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
@@ -31386,7 +32704,7 @@ var MatSnackBarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify default snack bar.
@@ -31641,14 +32959,18 @@ var MatSnackBar = /** @class */ (function () {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(operators.takeUntil(overlayRef.detachments().pipe(operators.take(1)))).subscribe(function (state$$1) {
+        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(operators.takeUntil(overlayRef.detachments().pipe(operators.take(1)))).subscribe((/**
+         * @param {?} state
+         * @return {?}
+         */
+        function (state$$1) {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }
             else {
                 overlayRef.overlayElement.classList.remove('mat-snack-bar-handset');
             }
-        });
+        }));
         this._animateSnackBar(snackBarRef, config);
         this._openedSnackBarRef = snackBarRef;
         return this._openedSnackBarRef;
@@ -31671,7 +32993,10 @@ var MatSnackBar = /** @class */ (function () {
     function (snackBarRef, config) {
         var _this = this;
         // When the snackbar is dismissed, clear the reference to it.
-        snackBarRef.afterDismissed().subscribe(function () {
+        snackBarRef.afterDismissed().subscribe((/**
+         * @return {?}
+         */
+        function () {
             // Clear the snackbar ref if it hasn't already been replaced by a newer snackbar.
             if (_this._openedSnackBarRef == snackBarRef) {
                 _this._openedSnackBarRef = null;
@@ -31679,13 +33004,16 @@ var MatSnackBar = /** @class */ (function () {
             if (config.announcementMessage) {
                 _this._live.clear();
             }
-        });
+        }));
         if (this._openedSnackBarRef) {
             // If a snack bar is already in view, dismiss it and enter the
             // new snack bar after exit animation is complete.
-            this._openedSnackBarRef.afterDismissed().subscribe(function () {
+            this._openedSnackBarRef.afterDismissed().subscribe((/**
+             * @return {?}
+             */
+            function () {
                 snackBarRef.containerInstance.enter();
-            });
+            }));
             this._openedSnackBarRef.dismiss();
         }
         else {
@@ -31694,7 +33022,10 @@ var MatSnackBar = /** @class */ (function () {
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (config.duration && config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter((/** @type {?} */ (config.duration))); });
+            snackBarRef.afterOpened().subscribe((/**
+             * @return {?}
+             */
+            function () { return snackBarRef._dismissAfter((/** @type {?} */ (config.duration))); }));
         }
         if (config.announcementMessage) {
             this._live.announce(config.announcementMessage, config.politeness);
@@ -31791,13 +33122,13 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
         { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.defineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.inject(overlay.Overlay), core.inject(a11y.LiveAnnouncer), core.inject(core.INJECTOR), core.inject(layout.BreakpointObserver), core.inject(MatSnackBar, 12), core.inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.ɵɵinject(overlay.Overlay), core.ɵɵinject(a11y.LiveAnnouncer), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(layout.BreakpointObserver), core.ɵɵinject(MatSnackBar, 12), core.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -31833,7 +33164,7 @@ function getSortInvalidDirectionError(direction) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatSort.
 /**
@@ -32073,7 +33404,7 @@ function getSortDirectionCycle(start, disableClear) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
@@ -32164,7 +33495,7 @@ var matSortAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -32180,14 +33511,18 @@ var MatSortHeaderIntl = /** @class */ (function () {
         /**
          * ARIA label for the sorting button.
          */
-        this.sortButtonLabel = function (id) {
+        this.sortButtonLabel = (/**
+         * @param {?} id
+         * @return {?}
+         */
+        function (id) {
             return "Change sorting for " + id;
-        };
+        });
     }
     MatSortHeaderIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
 /**
@@ -32211,7 +33546,7 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to the sort header.
 /**
@@ -32271,7 +33606,10 @@ var MatSortHeader = /** @class */ (function (_super) {
             throw getSortHeaderNotContainedWithinSortError();
         }
         _this._rerenderSubscription = rxjs.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (_this._isSorted()) {
                 _this._updateArrowDirection();
             }
@@ -32281,7 +33619,7 @@ var MatSortHeader = /** @class */ (function (_super) {
                 _this._setAnimationTransitionState({ fromState: 'active', toState: _this._arrowDirection });
             }
             changeDetectorRef.markForCheck();
-        });
+        }));
         return _this;
     }
     Object.defineProperty(MatSortHeader.prototype, "disableClear", {
@@ -32577,7 +33915,7 @@ var MatSortHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatSortModule = /** @class */ (function () {
     function MatSortModule() {
@@ -32595,7 +33933,7 @@ var MatSortModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
@@ -32612,7 +33950,7 @@ var MatStepLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Stepper data that is required for internationalization.
@@ -32632,7 +33970,7 @@ var MatStepperIntl = /** @class */ (function () {
     MatStepperIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
 /**
@@ -32655,7 +33993,7 @@ var MAT_STEPPER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepHeader = /** @class */ (function (_super) {
     __extends(MatStepHeader, _super);
@@ -32664,7 +34002,10 @@ var MatStepHeader = /** @class */ (function (_super) {
         _this._intl = _intl;
         _this._focusMonitor = _focusMonitor;
         _focusMonitor.monitor(_elementRef, true);
-        _this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
+        _this._intlSubscription = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        function () { return changeDetectorRef.markForCheck(); }));
         return _this;
     }
     /**
@@ -32796,7 +34137,7 @@ var MatStepHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material steppers.
@@ -32826,7 +34167,7 @@ var matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Template to be used to override the icons inside the step header.
@@ -32852,7 +34193,7 @@ var MatStepperIcon = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
@@ -32896,7 +34237,10 @@ var MatStep = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatStep.ctorParameters = function () { return [
-        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatStepper; }),] }] },
+        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatStepper; })),] }] },
         { type: ErrorStateMatcher, decorators: [{ type: core.SkipSelf }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
     ]; };
@@ -32931,21 +34275,37 @@ var MatStepper = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._icons.forEach(function (_a) {
+        this._icons.forEach((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var name = _a.name, templateRef = _a.templateRef;
             return _this._iconOverrides[name] = templateRef;
-        });
+        }));
         // Mark the component for change detection whenever the content children query changes
-        this._steps.changes.pipe(operators.takeUntil(this._destroyed)).subscribe(function () { return _this._stateChanged(); });
+        this._steps.changes.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._stateChanged(); }));
         this._animationDone.pipe(
         // This needs a `distinctUntilChanged` in order to avoid emitting the same event twice due
         // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
         // See https://github.com/angular/angular/issues/24084
-        operators.distinctUntilChanged(function (x, y) { return x.fromState === y.fromState && x.toState === y.toState; }), operators.takeUntil(this._destroyed)).subscribe(function (event) {
+        operators.distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (x, y) { return x.fromState === y.fromState && x.toState === y.toState; })), operators.takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             if (((/** @type {?} */ (event.toState))) === 'current') {
                 _this.animationDone.emit();
             }
-        });
+        }));
     };
     MatStepper.decorators = [
         { type: core.Directive, args: [{ selector: '[matStepper]', providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }] },] },
@@ -33037,7 +34397,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Button that moves to the next step in a stepper workflow.
@@ -33080,7 +34440,7 @@ var MatStepperPrevious = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatStepperModule = /** @class */ (function () {
     function MatStepperModule() {
@@ -33127,7 +34487,7 @@ var MatStepperModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -33163,7 +34523,7 @@ var MatTable = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Cell definition for the mat-table.
@@ -33322,7 +34682,7 @@ var MatCell = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Header row definition for the mat-table.
@@ -33458,7 +34818,7 @@ var MatRow = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Column that simply shows text content for the header and row cells. Assumes that the table
@@ -33493,7 +34853,7 @@ var MatTextColumn = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var EXPORTED_DECLARATIONS = [
@@ -33536,7 +34896,7 @@ var MatTableModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
@@ -33593,7 +34953,12 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param data Data object that is being accessed.
          * @param sortHeaderId The name of the column that represents the data.
          */
-        _this.sortingDataAccessor = function (data, sortHeaderId) {
+        _this.sortingDataAccessor = (/**
+         * @param {?} data
+         * @param {?} sortHeaderId
+         * @return {?}
+         */
+        function (data, sortHeaderId) {
             /** @type {?} */
             var value = ((/** @type {?} */ (data)))[sortHeaderId];
             if (coercion._isNumberValue(value)) {
@@ -33604,7 +34969,7 @@ MatTableDataSource = /** @class */ (function (_super) {
                 return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
             }
             return value;
-        };
+        });
         /**
          * Gets a sorted copy of the data array based on the state of the MatSort. Called
          * after changes are made to the filtered data or when sort changes are emitted from MatSort.
@@ -33614,7 +34979,12 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param data The array of data that should be sorted.
          * @param sort The connected MatSort that holds the current sort state.
          */
-        _this.sortData = function (data, sort) {
+        _this.sortData = (/**
+         * @param {?} data
+         * @param {?} sort
+         * @return {?}
+         */
+        function (data, sort) {
             /** @type {?} */
             var active = sort.active;
             /** @type {?} */
@@ -33622,7 +34992,12 @@ MatTableDataSource = /** @class */ (function (_super) {
             if (!active || direction == '') {
                 return data;
             }
-            return data.sort(function (a, b) {
+            return data.sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            function (a, b) {
                 /** @type {?} */
                 var valueA = _this.sortingDataAccessor(a, active);
                 /** @type {?} */
@@ -33649,8 +35024,8 @@ MatTableDataSource = /** @class */ (function (_super) {
                     comparatorResult = -1;
                 }
                 return comparatorResult * (direction == 'asc' ? 1 : -1);
-            });
-        };
+            }));
+        });
         /**
          * Checks if a data object matches the data source's filter string. By default, each data object
          * is converted to a string of its properties and returns true if the filter has
@@ -33661,10 +35036,20 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param filter Filter string that has been set on the data source.
          * @return Whether the filter matches against the data
          */
-        _this.filterPredicate = function (data, filter) {
+        _this.filterPredicate = (/**
+         * @param {?} data
+         * @param {?} filter
+         * @return {?}
+         */
+        function (data, filter) {
             // Transform the data into a lowercase string of all property values.
             /** @type {?} */
-            var dataStr = Object.keys(data).reduce(function (currentTerm, key) {
+            var dataStr = Object.keys(data).reduce((/**
+             * @param {?} currentTerm
+             * @param {?} key
+             * @return {?}
+             */
+            function (currentTerm, key) {
                 // Use an obscure Unicode character to delimit the words in the concatenated string.
                 // This avoids matches where the values of two columns combined will match the user's query
                 // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
@@ -33672,12 +35057,12 @@ MatTableDataSource = /** @class */ (function (_super) {
                 // particular is "White up-pointing triangle with dot" from
                 // https://en.wikipedia.org/wiki/List_of_Unicode_characters
                 return currentTerm + ((/** @type {?} */ (data)))[key] + '◬';
-            }, '').toLowerCase();
+            }), '').toLowerCase();
             // Transform the filter by converting it to lowercase and removing whitespace.
             /** @type {?} */
             var transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
-        };
+        });
         _this._data = new rxjs.BehaviorSubject(initialData);
         _this._updateChangeSubscription();
         return _this;
@@ -33810,27 +35195,43 @@ MatTableDataSource = /** @class */ (function (_super) {
         // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
         var filteredData = rxjs.combineLatest(dataStream, this._filter)
-            .pipe(operators.map(function (_a) {
+            .pipe(operators.map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var data = _a[0];
             return _this._filterData(data);
-        }));
+        })));
         // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
         var orderedData = rxjs.combineLatest(filteredData, sortChange)
-            .pipe(operators.map(function (_a) {
+            .pipe(operators.map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var data = _a[0];
             return _this._orderData(data);
-        }));
+        })));
         // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
         var paginatedData = rxjs.combineLatest(orderedData, pageChange)
-            .pipe(operators.map(function (_a) {
+            .pipe(operators.map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
             var data = _a[0];
             return _this._pageData(data);
-        }));
+        })));
         // Watched for paged data changes and send the result to the table to render.
         this._renderChangesSubscription.unsubscribe();
-        this._renderChangesSubscription = paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
+        this._renderChangesSubscription = paginatedData.subscribe((/**
+         * @param {?} data
+         * @return {?}
+         */
+        function (data) { return _this._renderData.next(data); }));
     };
     /**
      * Returns a filtered data array where each filter object contains the filter string within
@@ -33857,7 +35258,11 @@ MatTableDataSource = /** @class */ (function (_super) {
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overridden for customization.
         this.filteredData =
-            !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
+            !this.filter ? data : data.filter((/**
+             * @param {?} obj
+             * @return {?}
+             */
+            function (obj) { return _this.filterPredicate(obj, _this.filter); }));
         if (this.paginator) {
             this._updatePaginator(this.filteredData.length);
         }
@@ -33934,7 +35339,10 @@ MatTableDataSource = /** @class */ (function (_super) {
      */
     function (filteredDataLength) {
         var _this = this;
-        Promise.resolve().then(function () {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var paginator = _this.paginator;
             if (!paginator) {
@@ -33954,7 +35362,7 @@ MatTableDataSource = /** @class */ (function (_super) {
                     _this._internalPageChanges.next();
                 }
             }
-        });
+        }));
     };
     /**
      * Used by the MatTable. Called when it connects to the data source.
@@ -33991,7 +35399,7 @@ MatTableDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token for the MatInkBar's Positioner.
@@ -34008,10 +35416,14 @@ var _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
  */
 function _MAT_INK_BAR_POSITIONER_FACTORY() {
     /** @type {?} */
-    var method = function (element) { return ({
+    var method = (/**
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) { return ({
         left: element ? (element.offsetLeft || 0) + 'px' : '0',
         width: element ? (element.offsetWidth || 0) + 'px' : '0',
-    }); };
+    }); });
     return method;
 }
 /**
@@ -34045,9 +35457,15 @@ var MatInkBar = /** @class */ (function () {
         var _this = this;
         this.show();
         if (typeof requestAnimationFrame !== 'undefined') {
-            this._ngZone.runOutsideAngular(function () {
-                requestAnimationFrame(function () { return _this._setStyles(element); });
-            });
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                requestAnimationFrame((/**
+                 * @return {?}
+                 */
+                function () { return _this._setStyles(element); }));
+            }));
         }
         else {
             this._setStyles(element);
@@ -34120,7 +35538,7 @@ var MatInkBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Decorates the `ng-template` tags and reads out the template from it.
@@ -34141,7 +35559,7 @@ var MatTabContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to flag tab labels for use with the portal directive
@@ -34161,7 +35579,7 @@ var MatTabLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTab.
 /**
@@ -34281,7 +35699,7 @@ var MatTab = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material tabs.
@@ -34315,7 +35733,7 @@ var matTabsAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The portal host directive for the contents of the tab.
@@ -34350,14 +35768,21 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
         _super.prototype.ngOnInit.call(this);
         this._centeringSub = this._host._beforeCentering
             .pipe(operators.startWith(this._host._isCenterPosition(this._host._position)))
-            .subscribe(function (isCentering) {
+            .subscribe((/**
+         * @param {?} isCentering
+         * @return {?}
+         */
+        function (isCentering) {
             if (isCentering && !_this.hasAttached()) {
                 _this.attach(_this._host._content);
             }
-        });
-        this._leavingSub = this._host._afterLeavingCenter.subscribe(function () {
+        }));
+        this._leavingSub = this._host._afterLeavingCenter.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this.detach();
-        });
+        }));
     };
     /** Clean up centering subscription. */
     /**
@@ -34382,7 +35807,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
     MatTabBodyPortal.ctorParameters = function () { return [
         { type: core.ComponentFactoryResolver },
         { type: core.ViewContainerRef },
-        { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatTabBody; }),] }] }
+        { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatTabBody; })),] }] }
     ]; };
     return MatTabBodyPortal;
 }(portal.CdkPortalOutlet));
@@ -34426,16 +35854,29 @@ var MatTabBody = /** @class */ (function () {
          */
         this.animationDuration = '500ms';
         if (_dir) {
-            this._dirChangeSubscription = _dir.change.subscribe(function (dir) {
+            this._dirChangeSubscription = _dir.change.subscribe((/**
+             * @param {?} dir
+             * @return {?}
+             */
+            function (dir) {
                 _this._computePositionAnimationState(dir);
                 changeDetectorRef.markForCheck();
-            });
+            }));
         }
         // Ensure that we get unique animation events, because the `.done` callback can get
         // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
-        this._translateTabComplete.pipe(operators.distinctUntilChanged(function (x, y) {
+        this._translateTabComplete.pipe(operators.distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (x, y) {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(function (event) {
+        }))).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             // If the transition to the center is complete, emit an event.
             if (_this._isCenterPosition(event.toState) && _this._isCenterPosition(_this._position)) {
                 _this._onCentered.emit();
@@ -34443,7 +35884,7 @@ var MatTabBody = /** @class */ (function () {
             if (_this._isCenterPosition(event.fromState) && !_this._isCenterPosition(_this._position)) {
                 _this._afterLeavingCenter.emit();
             }
-        });
+        }));
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         /** The shifted index position of the tab body, where zero represents the active center tab. */
@@ -34615,7 +36056,7 @@ var MatTabBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
@@ -34693,7 +36134,7 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Config used to bind passive event listeners
@@ -34789,13 +36230,19 @@ var MatTabHeader = /** @class */ (function (_super) {
          */
         _this.indexFocused = new core.EventEmitter();
         // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
-        _ngZone.runOutsideAngular(function () {
+        _ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
             rxjs.fromEvent(_elementRef.nativeElement, 'mouseleave')
                 .pipe(operators.takeUntil(_this._destroyed))
-                .subscribe(function () {
+                .subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._stopInterval();
-            });
-        });
+            }));
+        }));
         return _this;
     }
     Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
@@ -34902,10 +36349,13 @@ var MatTabHeader = /** @class */ (function (_super) {
         /** @type {?} */
         var resize = this._viewportRuler.change(150);
         /** @type {?} */
-        var realign = function () {
+        var realign = (/**
+         * @return {?}
+         */
+        function () {
             _this.updatePagination();
             _this._alignInkBarToSelectedTab();
-        };
+        });
         this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
             .withHorizontalOrientation(this._getLayoutDirection())
             .withWrap();
@@ -34915,17 +36365,24 @@ var MatTabHeader = /** @class */ (function (_super) {
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
         // On dir change or window resize, realign the ink bar and update the orientation of
         // the key manager if the direction has changed.
-        rxjs.merge(dirChange, resize).pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
+        rxjs.merge(dirChange, resize).pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             realign();
             _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
-        });
+        }));
         // If there is a change in the focus key manager we need to emit the `indexFocused`
         // event in order to provide a public event that notifies about focus changes. Also we realign
         // the tabs container by scrolling the new focused tab into the visible section.
-        this._keyManager.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function (newFocusIndex) {
+        this._keyManager.change.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} newFocusIndex
+         * @return {?}
+         */
+        function (newFocusIndex) {
             _this.indexFocused.emit(newFocusIndex);
             _this._setTabFocus(newFocusIndex);
-        });
+        }));
     };
     /**
      * @return {?}
@@ -34938,14 +36395,20 @@ var MatTabHeader = /** @class */ (function (_super) {
         // We need to handle these events manually, because we want to bind passive event listeners.
         rxjs.fromEvent(this._previousPaginator.nativeElement, 'touchstart', passiveEventListenerOptions$1)
             .pipe(operators.takeUntil(this._destroyed))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._handlePaginatorPress('before');
-        });
+        }));
         rxjs.fromEvent(this._nextPaginator.nativeElement, 'touchstart', passiveEventListenerOptions$1)
             .pipe(operators.takeUntil(this._destroyed))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._handlePaginatorPress('after');
-        });
+        }));
     };
     /**
      * @return {?}
@@ -34980,11 +36443,14 @@ var MatTabHeader = /** @class */ (function (_super) {
             this._currentTextContent = textContent;
             // The content observer runs outside the `NgZone` by default, which
             // means that we need to bring the callback back in ourselves.
-            this._ngZone.run(function () {
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            function () {
                 _this.updatePagination();
                 _this._alignInkBarToSelectedTab();
                 _this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     };
     /**
@@ -35422,13 +36888,16 @@ var MatTabHeader = /** @class */ (function (_super) {
         rxjs.timer(HEADER_SCROLL_DELAY, HEADER_SCROLL_INTERVAL)
             // Keep the timer going until something tells it to stop or the component is destroyed.
             .pipe(operators.takeUntil(rxjs.merge(this._stopScrolling, this._destroyed)))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             var _a = _this._scrollHeader(direction), maxScrollDistance = _a.maxScrollDistance, distance = _a.distance;
             // Stop the timer if we've reached the start or the end.
             if (distance === 0 || distance >= maxScrollDistance) {
                 _this._stopInterval();
             }
-        });
+        }));
     };
     /**
      * Scrolls the header to a given position.
@@ -35496,7 +36965,7 @@ var MatTabHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to generate unique ID's for each tab component
@@ -35697,22 +37166,35 @@ var MatTabGroup = /** @class */ (function (_super) {
             }
             // Changing these values after change detection has run
             // since the checked content may contain references to them.
-            Promise.resolve().then(function () {
-                _this._tabs.forEach(function (tab, index) { return tab.isActive = index === indexToSelect; });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () {
+                _this._tabs.forEach((/**
+                 * @param {?} tab
+                 * @param {?} index
+                 * @return {?}
+                 */
+                function (tab, index) { return tab.isActive = index === indexToSelect; }));
                 if (!isFirstRun_1) {
                     _this.selectedIndexChange.emit(indexToSelect);
                 }
-            });
+            }));
         }
         // Setup the position for each tab and optionally setup an origin on the next selected tab.
-        this._tabs.forEach(function (tab, index) {
+        this._tabs.forEach((/**
+         * @param {?} tab
+         * @param {?} index
+         * @return {?}
+         */
+        function (tab, index) {
             tab.position = index - indexToSelect;
             // If there is already a selected tab, then set up an origin for the next selected tab
             // if it doesn't have one already.
             if (_this._selectedIndex != null && tab.position == 0 && !tab.origin) {
                 tab.origin = indexToSelect - _this._selectedIndex;
             }
-        });
+        }));
         if (this._selectedIndex !== indexToSelect) {
             this._selectedIndex = indexToSelect;
             this._changeDetectorRef.markForCheck();
@@ -35729,7 +37211,10 @@ var MatTabGroup = /** @class */ (function (_super) {
         this._subscribeToTabLabels();
         // Subscribe to changes in the amount of tabs, in order to be
         // able to re-render the content as new tabs are added or removed.
-        this._tabsSubscription = this._tabs.changes.subscribe(function () {
+        this._tabsSubscription = this._tabs.changes.subscribe((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var indexToSelect = _this._clampTabIndex(_this._indexToSelect);
             // Maintain the previously-selected tab if a new tab is added or removed and there is no
@@ -35749,7 +37234,7 @@ var MatTabGroup = /** @class */ (function (_super) {
             }
             _this._subscribeToTabLabels();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
     };
     /**
      * @return {?}
@@ -35832,7 +37317,14 @@ var MatTabGroup = /** @class */ (function (_super) {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._stateChanges; })).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map((/**
+         * @param {?} tab
+         * @return {?}
+         */
+        function (tab) { return tab._stateChanges; }))).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._changeDetectorRef.markForCheck(); }));
     };
     /** Clamps the given index to the bounds of 0 and the tabs length. */
     /**
@@ -36005,7 +37497,7 @@ var MatTabGroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTabNav.
 /**
@@ -36095,13 +37587,19 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._ngZone.runOutsideAngular(function () {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
             return rxjs.merge(dirChange, _this._viewportRuler.change(10))
                 .pipe(operators.takeUntil(_this._onDestroy))
-                .subscribe(function () { return _this._alignInkBar(); });
-        });
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._alignInkBar(); }));
+        }));
     };
     /** Checks if the active link has been changed and, if so, will update the ink bar. */
     /**
@@ -36115,7 +37613,11 @@ var MatTabNav = /** @class */ (function (_super) {
     function () {
         if (this._activeLinkChanged) {
             /** @type {?} */
-            var activeTab = this._tabLinks.find(function (tab) { return tab.active; });
+            var activeTab = this._tabLinks.find((/**
+             * @param {?} tab
+             * @return {?}
+             */
+            function (tab) { return tab.active; }));
             this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
@@ -36170,7 +37672,10 @@ var MatTabNav = /** @class */ (function (_super) {
     ]; };
     MatTabNav.propDecorators = {
         _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
-        _tabLinks: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatTabLink; }), { descendants: true },] }],
+        _tabLinks: [{ type: core.ContentChildren, args: [core.forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatTabLink; })), { descendants: true },] }],
         backgroundColor: [{ type: core.Input }]
     };
     return MatTabNav;
@@ -36286,7 +37791,7 @@ var MatTabLink = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatTabsModule = /** @class */ (function () {
     function MatTabsModule() {
@@ -36331,7 +37836,7 @@ var MatTabsModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatToolbar.
 /**
@@ -36383,7 +37888,10 @@ var MatToolbar = /** @class */ (function (_super) {
             return;
         }
         this._checkToolbarMixedModes();
-        this._toolbarRows.changes.subscribe(function () { return _this._checkToolbarMixedModes(); });
+        this._toolbarRows.changes.subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._checkToolbarMixedModes(); }));
     };
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
@@ -36407,9 +37915,21 @@ var MatToolbar = /** @class */ (function (_super) {
         // a <mat-toolbar-row> element.
         /** @type {?} */
         var isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
-            .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
-            .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
-            .some(function (node) { return !!(node.textContent && node.textContent.trim()); });
+            .filter((/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); }))
+            .filter((/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); }))
+            .some((/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) { return !!(node.textContent && node.textContent.trim()); }));
         if (isCombinedUsage) {
             throwToolbarMixedModesError();
         }
@@ -36453,7 +37973,7 @@ function throwToolbarMixedModesError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
@@ -36470,7 +37990,7 @@ var MatToolbarModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
@@ -36496,7 +38016,7 @@ var MatTreeNodeOutlet = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkTreeNode));
@@ -36643,7 +38163,7 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
@@ -36669,7 +38189,7 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
@@ -36704,7 +38224,7 @@ var MatTree = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
@@ -36731,7 +38251,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_TREE_DIRECTIVES = [
@@ -36758,7 +38278,7 @@ var MatTreeModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -36864,9 +38384,13 @@ MatTreeFlattener = /** @class */ (function () {
                     this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
                 }
                 else {
-                    childrenNodes.pipe(operators.take(1)).subscribe(function (children) {
+                    childrenNodes.pipe(operators.take(1)).subscribe((/**
+                     * @param {?} children
+                     * @return {?}
+                     */
+                    function (children) {
                         _this._flattenChildren(children, level, resultNodes, parentMap);
-                    });
+                    }));
                 }
             }
         }
@@ -36888,12 +38412,17 @@ MatTreeFlattener = /** @class */ (function () {
      */
     function (children, level, resultNodes, parentMap) {
         var _this = this;
-        children.forEach(function (child, index) {
+        children.forEach((/**
+         * @param {?} child
+         * @param {?} index
+         * @return {?}
+         */
+        function (child, index) {
             /** @type {?} */
             var childParentMap = parentMap.slice();
             childParentMap.push(index != children.length - 1);
             _this._flattenNode(child, level + 1, resultNodes, childParentMap);
-        });
+        }));
     };
     /**
      * Flatten a list of node type T to flattened version of node F.
@@ -36918,7 +38447,11 @@ MatTreeFlattener = /** @class */ (function () {
         var _this = this;
         /** @type {?} */
         var resultNodes = [];
-        structuredData.forEach(function (node) { return _this._flattenNode(node, 0, resultNodes, []); });
+        structuredData.forEach((/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) { return _this._flattenNode(node, 0, resultNodes, []); }));
         return resultNodes;
     };
     /**
@@ -36946,7 +38479,11 @@ MatTreeFlattener = /** @class */ (function () {
         /** @type {?} */
         var currentExpand = [];
         currentExpand[0] = true;
-        nodes.forEach(function (node) {
+        nodes.forEach((/**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) {
             /** @type {?} */
             var expand = true;
             for (var i = 0; i <= _this.getLevel(node); i++) {
@@ -36958,7 +38495,7 @@ MatTreeFlattener = /** @class */ (function () {
             if (_this.isExpandable(node)) {
                 currentExpand[_this.getLevel(node) + 1] = treeControl.isExpanded(node);
             }
-        });
+        }));
         return results;
     };
     return MatTreeFlattener;
@@ -37024,10 +38561,13 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
             this.treeControl.expansionModel.onChange,
             this._flattenedData
         ];
-        return rxjs.merge.apply(void 0, changes).pipe(operators.map(function () {
+        return rxjs.merge.apply(void 0, changes).pipe(operators.map((/**
+         * @return {?}
+         */
+        function () {
             _this._expandedData.next(_this.treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this.treeControl));
             return _this._expandedData.value;
-        }));
+        })));
     };
     /**
      * @return {?}
@@ -37043,7 +38583,7 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Data source for nested tree.
@@ -37093,9 +38633,12 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
      */
     function (collectionViewer) {
         var _this = this;
-        return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map(function () {
+        return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map((/**
+         * @return {?}
+         */
+        function () {
             return _this.data;
-        }));
+        })));
     };
     /**
      * @return {?}
@@ -37111,12 +38654,12 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
@@ -37311,7 +38854,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -37346,9 +38889,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -37466,7 +39009,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

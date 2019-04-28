@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The following are all the animations for the mat-select component, with each
@@ -104,7 +104,7 @@ const fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -138,7 +138,7 @@ function getMatSelectNonFunctionValueError() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 let nextUniqueId = 0;
@@ -191,7 +191,10 @@ const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strateg
  * @return {?}
  */
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
+    return (/**
+     * @return {?}
+     */
+    () => overlay.scrollStrategies.reposition());
 }
 /**
  * \@docs-private
@@ -291,7 +294,12 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * Comparison function to specify which option is displayed. Defaults to object equality.
          */
-        this._compareWith = (o1, o2) => o1 === o2;
+        this._compareWith = (/**
+         * @param {?} o1
+         * @param {?} o2
+         * @return {?}
+         */
+        (o1, o2) => o1 === o2);
         /**
          * Unique id for this input.
          */
@@ -307,11 +315,17 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * `View -> model callback called when value changes`
          */
-        this._onChange = () => { };
+        this._onChange = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * `View -> model callback called when select has been touched`
          */
-        this._onTouched = () => { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * The IDs of child options to be passed to the aria-owns attribute.
          */
@@ -366,14 +380,24 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * Combined stream of all of the child options' change events.
          */
-        this.optionSelectionChanges = (/** @type {?} */ (defer(() => {
+        this.optionSelectionChanges = (/** @type {?} */ (defer((/**
+         * @return {?}
+         */
+        () => {
             if (this.options) {
-                return merge(...this.options.map(option => option.onSelectionChange));
+                return merge(...this.options.map((/**
+                 * @param {?} option
+                 * @return {?}
+                 */
+                option => option.onSelectionChange)));
             }
             return this._ngZone.onStable
                 .asObservable()
-                .pipe(take(1), switchMap(() => this.optionSelectionChanges));
-        })));
+                .pipe(take(1), switchMap((/**
+             * @return {?}
+             */
+            () => this.optionSelectionChanges)));
+        }))));
         /**
          * Event emitted when the select panel has been toggled.
          */
@@ -381,11 +405,25 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * Event emitted when the select has been opened.
          */
-        this._openedStream = this.openedChange.pipe(filter(o => o), map(() => { }));
+        this._openedStream = this.openedChange.pipe(filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        o => o)), map((/**
+         * @return {?}
+         */
+        () => { })));
         /**
          * Event emitted when the select has been closed.
          */
-        this._closedStream = this.openedChange.pipe(filter(o => !o), map(() => { }));
+        this._closedStream = this.openedChange.pipe(filter((/**
+         * @param {?} o
+         * @return {?}
+         */
+        o => !o)), map((/**
+         * @return {?}
+         */
+        () => { })));
         /**
          * Event emitted when the selected value has been changed by the user.
          */
@@ -536,7 +574,10 @@ class MatSelect extends _MatSelectMixinBase {
         // https://github.com/angular/angular/issues/24084
         this._panelDoneAnimatingStream
             .pipe(distinctUntilChanged(), takeUntil(this._destroy))
-            .subscribe(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             if (this.panelOpen) {
                 this._scrollTop = 0;
                 this.openedChange.emit(true);
@@ -546,29 +587,47 @@ class MatSelect extends _MatSelectMixinBase {
                 this.overlayDir.offsetX = 0;
                 this._changeDetectorRef.markForCheck();
             }
-        });
+        }));
         this._viewportRuler.change()
             .pipe(takeUntil(this._destroy))
-            .subscribe(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             if (this._panelOpen) {
                 this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
                 this._changeDetectorRef.markForCheck();
             }
-        });
+        }));
     }
     /**
      * @return {?}
      */
     ngAfterContentInit() {
         this._initKeyManager();
-        this._selectionModel.onChange.pipe(takeUntil(this._destroy)).subscribe(event => {
-            event.added.forEach(option => option.select());
-            event.removed.forEach(option => option.deselect());
-        });
-        this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
+        this._selectionModel.onChange.pipe(takeUntil(this._destroy)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
+            event.added.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            option => option.select()));
+            event.removed.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            option => option.deselect()));
+        }));
+        this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._resetOptions();
             this._initializeSelection();
-        });
+        }));
     }
     /**
      * @return {?}
@@ -622,12 +681,15 @@ class MatSelect extends _MatSelectMixinBase {
         this._highlightCorrectOption();
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+        this._ngZone.onStable.asObservable().pipe(take(1)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             if (this._triggerFontSize && this.overlayDir.overlayRef &&
                 this.overlayDir.overlayRef.overlayElement) {
                 this.overlayDir.overlayRef.overlayElement.style.fontSize = `${this._triggerFontSize}px`;
             }
-        });
+        }));
     }
     /**
      * Closes the overlay panel and focuses the host element.
@@ -711,7 +773,11 @@ class MatSelect extends _MatSelectMixinBase {
         }
         if (this._multiple) {
             /** @type {?} */
-            const selectedOptions = this._selectionModel.selected.map(option => option.viewValue);
+            const selectedOptions = this._selectionModel.selected.map((/**
+             * @param {?} option
+             * @return {?}
+             */
+            option => option.viewValue));
             if (this._isRtl()) {
                 selectedOptions.reverse();
             }
@@ -807,12 +873,20 @@ class MatSelect extends _MatSelectMixinBase {
         else if (this._multiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
             /** @type {?} */
-            const hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected);
-            this.options.forEach(option => {
+            const hasDeselectedOptions = this.options.some((/**
+             * @param {?} opt
+             * @return {?}
+             */
+            opt => !opt.disabled && !opt.selected));
+            this.options.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            option => {
                 if (!option.disabled) {
                     hasDeselectedOptions ? option.select() : option.deselect();
                 }
-            });
+            }));
         }
         else {
             /** @type {?} */
@@ -851,12 +925,15 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _onAttached() {
-        this.overlayDir.positionChange.pipe(take(1)).subscribe(() => {
+        this.overlayDir.positionChange.pipe(take(1)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._setPseudoCheckboxPaddingSize();
             this._changeDetectorRef.detectChanges();
             this._calculateOverlayOffsetX();
             this.panel.nativeElement.scrollTop = this._scrollTop;
-        });
+        }));
     }
     /**
      * Returns the theme to be used on the panel.
@@ -894,10 +971,13 @@ class MatSelect extends _MatSelectMixinBase {
     _initializeSelection() {
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
-        Promise.resolve().then(() => {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        () => {
             this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value);
             this.stateChanges.next();
-        });
+        }));
     }
     /**
      * Sets the selected option based on a value. If no option can be
@@ -912,7 +992,11 @@ class MatSelect extends _MatSelectMixinBase {
                 throw getMatSelectNonArrayValueError();
             }
             this._selectionModel.clear();
-            value.forEach((currentValue) => this._selectValue(currentValue));
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            (currentValue) => this._selectValue(currentValue)));
             this._sortValues();
         }
         else {
@@ -935,7 +1019,11 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _selectValue(value) {
         /** @type {?} */
-        const correspondingOption = this.options.find((option) => {
+        const correspondingOption = this.options.find((/**
+         * @param {?} option
+         * @return {?}
+         */
+        (option) => {
             try {
                 // Treat null as a special reset value.
                 return option.value != null && this._compareWith(option.value, value);
@@ -947,7 +1035,7 @@ class MatSelect extends _MatSelectMixinBase {
                 }
                 return false;
             }
-        });
+        }));
         if (correspondingOption) {
             this._selectionModel.select(correspondingOption);
         }
@@ -964,20 +1052,26 @@ class MatSelect extends _MatSelectMixinBase {
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
-        this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {
+        this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             // Restore focus to the trigger before closing. Ensures that the focus
             // position won't be lost if the user got focus into the overlay.
             this.focus();
             this.close();
-        });
-        this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(() => {
+        }));
+        this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             if (this._panelOpen && this.panel) {
                 this._scrollActiveOptionIntoView();
             }
             else if (!this._panelOpen && !this.multiple && this._keyManager.activeItem) {
                 this._keyManager.activeItem._selectViaInteraction();
             }
-        });
+        }));
     }
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
@@ -987,21 +1081,32 @@ class MatSelect extends _MatSelectMixinBase {
     _resetOptions() {
         /** @type {?} */
         const changedOrDestroyed = merge(this.options.changes, this._destroy);
-        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed)).subscribe(event => {
+        this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             this._onSelect(event.source, event.isUserInput);
             if (event.isUserInput && !this.multiple && this._panelOpen) {
                 this.close();
                 this.focus();
             }
-        });
+        }));
         // Listen to changes in the internal state of the options and react accordingly.
         // Handles cases like the labels of the selected options changing.
-        merge(...this.options.map(option => option._stateChanges))
+        merge(...this.options.map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => option._stateChanges)))
             .pipe(takeUntil(changedOrDestroyed))
-            .subscribe(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._changeDetectorRef.markForCheck();
             this.stateChanges.next();
-        });
+        }));
         this._setOptionIds();
     }
     /**
@@ -1049,10 +1154,15 @@ class MatSelect extends _MatSelectMixinBase {
         if (this.multiple) {
             /** @type {?} */
             const options = this.options.toArray();
-            this._selectionModel.sort((a, b) => {
+            this._selectionModel.sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => {
                 return this.sortComparator ? this.sortComparator(a, b, options) :
                     options.indexOf(a) - options.indexOf(b);
-            });
+            }));
             this.stateChanges.next();
         }
     }
@@ -1066,7 +1176,11 @@ class MatSelect extends _MatSelectMixinBase {
         /** @type {?} */
         let valueToEmit = null;
         if (this.multiple) {
-            valueToEmit = ((/** @type {?} */ (this.selected))).map(option => option.value);
+            valueToEmit = ((/** @type {?} */ (this.selected))).map((/**
+             * @param {?} option
+             * @return {?}
+             */
+            option => option.value));
         }
         else {
             valueToEmit = this.selected ? ((/** @type {?} */ (this.selected))).value : fallbackValue;
@@ -1083,7 +1197,11 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _setOptionIds() {
-        this._optionIds = this.options.map(option => option.id).join(' ');
+        this._optionIds = this.options.map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => option.id)).join(' ');
     }
     /**
      * Highlights the selected item. If no option is selected, it will highlight
@@ -1127,9 +1245,15 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _getOptionIndex(option) {
-        return this.options.reduce((result, current, index) => {
+        return this.options.reduce((/**
+         * @param {?} result
+         * @param {?} current
+         * @param {?} index
+         * @return {?}
+         */
+        (result, current, index) => {
             return result === undefined ? (option === current ? index : undefined) : result;
-        }, undefined);
+        }), undefined);
     }
     /**
      * Calculates the scroll position and x- and y-offsets of the overlay panel.
@@ -1553,7 +1677,7 @@ MatSelect.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSelectModule {
 }
@@ -1573,12 +1697,12 @@ MatSelectModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatSelectModule, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectTrigger, MatSelect, matSelectAnimations, transformPanel, fadeInContent };

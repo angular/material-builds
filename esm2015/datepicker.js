@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, Attribute, ContentChild, defineInjectable } from '@angular/core';
+import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, Attribute, ContentChild, ɵɵdefineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, SPACE, ESCAPE } from '@angular/cdk/keycodes';
@@ -25,7 +25,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
@@ -41,7 +41,7 @@ function createMissingDateImplError(provider) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Datepicker data that requires internationalization.
@@ -98,11 +98,11 @@ class MatDatepickerIntl {
 MatDatepickerIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */ MatDatepickerIntl.ngInjectableDef = defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+/** @nocollapse */ MatDatepickerIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
@@ -200,15 +200,21 @@ class MatCalendarBody {
      * @return {?}
      */
     _focusActiveCell() {
-        this._ngZone.runOutsideAngular(() => {
-            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
+            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe((/**
+             * @return {?}
+             */
+            () => {
                 /** @type {?} */
                 const activeCell = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
                 if (activeCell) {
                     activeCell.focus();
                 }
-            });
-        });
+            }));
+        }));
     }
 }
 MatCalendarBody.decorators = [
@@ -244,7 +250,7 @@ MatCalendarBody.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const DAYS_PER_WEEK = 7;
@@ -291,9 +297,14 @@ class MatMonthView {
         const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
         // Rotate the labels for days of the week based on the configured first day of the week.
         /** @type {?} */
-        let weekdays = longWeekdays.map((long, i) => {
+        let weekdays = longWeekdays.map((/**
+         * @param {?} long
+         * @param {?} i
+         * @return {?}
+         */
+        (long, i) => {
             return { long, narrow: narrowWeekdays[i] };
-        });
+        }));
         this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
         this._activeDate = this._dateAdapter.today();
     }
@@ -576,7 +587,7 @@ MatMonthView.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const yearsPerPage = 24;
@@ -691,7 +702,11 @@ class MatMultiYearView {
         for (let i = 0, row = []; i < yearsPerPage; i++) {
             row.push(activeYear - activeOffset + i);
             if (row.length == yearsPerRow) {
-                this._years.push(row.map(year => this._createCellForYear(year)));
+                this._years.push(row.map((/**
+                 * @param {?} year
+                 * @return {?}
+                 */
+                year => this._createCellForYear(year))));
                 row = [];
             }
         }
@@ -864,7 +879,7 @@ MatMultiYearView.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * An internal component used to display a single year in the datepicker.
@@ -1047,7 +1062,15 @@ class MatYearView {
         /** @type {?} */
         let monthNames = this._dateAdapter.getMonthNames('short');
         // First row of months only contains 5 elements so we can fit the year label on the same row.
-        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(row => row.map(month => this._createCellForMonth(month, monthNames[month])));
+        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map((/**
+         * @param {?} row
+         * @return {?}
+         */
+        row => row.map((/**
+         * @param {?} month
+         * @return {?}
+         */
+        month => this._createCellForMonth(month, monthNames[month])))));
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -1189,7 +1212,7 @@ MatYearView.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default header for MatCalendar
@@ -1208,7 +1231,10 @@ class MatCalendarHeader {
         this.calendar = calendar;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
+        this.calendar.stateChanges.subscribe((/**
+         * @return {?}
+         */
+        () => changeDetectorRef.markForCheck()));
     }
     /**
      * The label for the current calendar view.
@@ -1335,7 +1361,10 @@ MatCalendarHeader.decorators = [
 /** @nocollapse */
 MatCalendarHeader.ctorParameters = () => [
     { type: MatDatepickerIntl },
-    { type: MatCalendar, decorators: [{ type: Inject, args: [forwardRef(() => MatCalendar),] }] },
+    { type: MatCalendar, decorators: [{ type: Inject, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    () => MatCalendar)),] }] },
     { type: DateAdapter, decorators: [{ type: Optional }] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
     { type: ChangeDetectorRef }
@@ -1394,10 +1423,13 @@ class MatCalendar {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        this._intlChanges = _intl.changes.subscribe(() => {
+        this._intlChanges = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        () => {
             _changeDetectorRef.markForCheck();
             this.stateChanges.next();
-        });
+        }));
     }
     /**
      * A date representing the period (month or year) to start the calendar in.
@@ -1634,7 +1666,7 @@ MatCalendar.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material datepicker.
@@ -1670,7 +1702,7 @@ const matDatepickerAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to generate a unique ID for each datepicker instance.
@@ -1688,7 +1720,10 @@ const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll
  * @return {?}
  */
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
+    return (/**
+     * @return {?}
+     */
+    () => overlay.scrollStrategies.reposition());
 }
 /**
  * \@docs-private
@@ -1993,7 +2028,11 @@ class MatDatepicker {
         }
         this._datepickerInput = input;
         this._inputSubscription =
-            this._datepickerInput._valueChange.subscribe((value) => this._selected = value);
+            this._datepickerInput._valueChange.subscribe((/**
+             * @param {?} value
+             * @return {?}
+             */
+            (value) => this._selected = value));
     }
     /**
      * Open the calendar.
@@ -2032,7 +2071,10 @@ class MatDatepicker {
             this._calendarPortal.detach();
         }
         /** @type {?} */
-        const completeClose = () => {
+        const completeClose = (/**
+         * @return {?}
+         */
+        () => {
             // The `_opened` could've been reset already if
             // we got two events in quick succession.
             if (this._opened) {
@@ -2040,7 +2082,7 @@ class MatDatepicker {
                 this.closedStream.emit();
                 this._focusedElementBeforeOpen = null;
             }
-        };
+        });
         if (this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
             // Because IE moves focus asynchronously, we can't count on it being restored before we've
@@ -2073,7 +2115,10 @@ class MatDatepicker {
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
         });
-        this._dialogRef.afterClosed().subscribe(() => this.close());
+        this._dialogRef.afterClosed().subscribe((/**
+         * @return {?}
+         */
+        () => this.close()));
         this._dialogRef.componentInstance.datepicker = this;
         this._setColor();
     }
@@ -2094,9 +2139,12 @@ class MatDatepicker {
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe((/**
+             * @return {?}
+             */
+            () => {
                 this._popupRef.updatePosition();
-            });
+            }));
         }
     }
     /**
@@ -2116,11 +2164,18 @@ class MatDatepicker {
         });
         this._popupRef = this._overlay.create(overlayConfig);
         this._popupRef.overlayElement.setAttribute('role', 'dialog');
-        merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter(event => {
+        merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             // Closing on alt + up is only valid when there's an input associated with the datepicker.
             return event.keyCode === ESCAPE ||
                 (this._datepickerInput && event.altKey && event.keyCode === UP_ARROW);
-        }))).subscribe(() => this.close());
+        })))).subscribe((/**
+         * @return {?}
+         */
+        () => this.close()));
     }
     /**
      * Create the popup PositionStrategy.
@@ -2222,7 +2277,7 @@ MatDatepicker.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -2230,7 +2285,10 @@ MatDatepicker.propDecorators = {
  */
 const MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatDatepickerInput),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatDatepickerInput)),
     multi: true
 };
 /**
@@ -2239,7 +2297,10 @@ const MAT_DATEPICKER_VALUE_ACCESSOR = {
  */
 const MAT_DATEPICKER_VALIDATORS = {
     provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => MatDatepickerInput),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatDatepickerInput)),
     multi: true
 };
 /**
@@ -2291,47 +2352,71 @@ class MatDatepickerInput {
          * Emits when the disabled state has changed
          */
         this._disabledChange = new EventEmitter();
-        this._onTouched = () => { };
-        this._cvaOnChange = () => { };
-        this._validatorOnChange = () => { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        () => { });
+        this._cvaOnChange = (/**
+         * @return {?}
+         */
+        () => { });
+        this._validatorOnChange = (/**
+         * @return {?}
+         */
+        () => { });
         this._datepickerSubscription = Subscription.EMPTY;
         this._localeSubscription = Subscription.EMPTY;
         /**
          * The form control validator for whether the input parses.
          */
-        this._parseValidator = () => {
+        this._parseValidator = (/**
+         * @return {?}
+         */
+        () => {
             return this._lastValueValid ?
                 null : { 'matDatepickerParse': { 'text': this._elementRef.nativeElement.value } };
-        };
+        });
         /**
          * The form control validator for the min date.
          */
-        this._minValidator = (control) => {
+        this._minValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        (control) => {
             /** @type {?} */
             const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return (!this.min || !controlValue ||
                 this._dateAdapter.compareDate(this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': this.min, 'actual': controlValue } };
-        };
+        });
         /**
          * The form control validator for the max date.
          */
-        this._maxValidator = (control) => {
+        this._maxValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        (control) => {
             /** @type {?} */
             const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return (!this.max || !controlValue ||
                 this._dateAdapter.compareDate(this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': this.max, 'actual': controlValue } };
-        };
+        });
         /**
          * The form control validator for the date filter.
          */
-        this._filterValidator = (control) => {
+        this._filterValidator = (/**
+         * @param {?} control
+         * @return {?}
+         */
+        (control) => {
             /** @type {?} */
             const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return !this._dateFilter || !controlValue || this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
-        };
+        });
         /**
          * The combined form control validator for this input.
          */
@@ -2347,9 +2432,12 @@ class MatDatepickerInput {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         // Update the displayed date when the locale changes.
-        this._localeSubscription = _dateAdapter.localeChanges.subscribe(() => {
+        this._localeSubscription = _dateAdapter.localeChanges.subscribe((/**
+         * @return {?}
+         */
+        () => {
             this.value = this.value;
-        });
+        }));
     }
     /**
      * The datepicker that this input is associated with.
@@ -2363,13 +2451,17 @@ class MatDatepickerInput {
         this._datepicker = value;
         this._datepicker._registerInput(this);
         this._datepickerSubscription.unsubscribe();
-        this._datepickerSubscription = this._datepicker._selectedChanged.subscribe((selected) => {
+        this._datepickerSubscription = this._datepicker._selectedChanged.subscribe((/**
+         * @param {?} selected
+         * @return {?}
+         */
+        (selected) => {
             this.value = selected;
             this._cvaOnChange(selected);
             this._onTouched();
             this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
             this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-        });
+        }));
     }
     /**
      * Function that can be used to filter out dates within the datepicker.
@@ -2641,7 +2733,7 @@ MatDatepickerInput.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Can be used to override the icon of a `matDatepickerToggle`.
@@ -2733,7 +2825,10 @@ class MatDatepickerToggle {
             merge(this.datepicker.openedStream, this.datepicker.closedStream) :
             of();
         this._stateChanges.unsubscribe();
-        this._stateChanges = merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(() => this._changeDetectorRef.markForCheck());
+        this._stateChanges = merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe((/**
+         * @return {?}
+         */
+        () => this._changeDetectorRef.markForCheck()));
     }
 }
 MatDatepickerToggle.decorators = [
@@ -2772,7 +2867,7 @@ MatDatepickerToggle.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatDatepickerModule {
 }
@@ -2825,12 +2920,12 @@ MatDatepickerModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };

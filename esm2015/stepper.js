@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, defineInjectable } from '@angular/core';
+import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, ɵɵdefineInjectable } from '@angular/core';
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepLabel extends CdkStepLabel {
 }
@@ -32,7 +32,7 @@ MatStepLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Stepper data that is required for internationalization.
@@ -53,7 +53,7 @@ class MatStepperIntl {
 MatStepperIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */ MatStepperIntl.ngInjectableDef = defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+/** @nocollapse */ MatStepperIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
 /**
  * \@docs-private
  * @param {?} parentIntl
@@ -74,7 +74,7 @@ const MAT_STEPPER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepHeader extends CdkStepHeader {
     /**
@@ -88,7 +88,10 @@ class MatStepHeader extends CdkStepHeader {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         _focusMonitor.monitor(_elementRef, true);
-        this._intlSubscription = _intl.changes.subscribe(() => changeDetectorRef.markForCheck());
+        this._intlSubscription = _intl.changes.subscribe((/**
+         * @return {?}
+         */
+        () => changeDetectorRef.markForCheck()));
     }
     /**
      * @return {?}
@@ -186,7 +189,7 @@ MatStepHeader.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material steppers.
@@ -216,7 +219,7 @@ const matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Template to be used to override the icons inside the step header.
@@ -244,7 +247,7 @@ MatStepperIcon.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStep extends CdkStep {
     /**
@@ -285,7 +288,10 @@ MatStep.decorators = [
 ];
 /** @nocollapse */
 MatStep.ctorParameters = () => [
-    { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(() => MatStepper),] }] },
+    { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    () => MatStepper)),] }] },
     { type: ErrorStateMatcher, decorators: [{ type: SkipSelf }] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [STEPPER_GLOBAL_OPTIONS,] }] }
 ];
@@ -312,18 +318,34 @@ class MatStepper extends CdkStepper {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._icons.forEach(({ name, templateRef }) => this._iconOverrides[name] = templateRef);
+        this._icons.forEach((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ({ name, templateRef }) => this._iconOverrides[name] = templateRef));
         // Mark the component for change detection whenever the content children query changes
-        this._steps.changes.pipe(takeUntil(this._destroyed)).subscribe(() => this._stateChanged());
+        this._steps.changes.pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => this._stateChanged()));
         this._animationDone.pipe(
         // This needs a `distinctUntilChanged` in order to avoid emitting the same event twice due
         // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
         // See https://github.com/angular/angular/issues/24084
-        distinctUntilChanged((x, y) => x.fromState === y.fromState && x.toState === y.toState), takeUntil(this._destroyed)).subscribe(event => {
+        distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        (x, y) => x.fromState === y.fromState && x.toState === y.toState)), takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             if (((/** @type {?} */ (event.toState))) === 'current') {
                 this.animationDone.emit();
             }
-        });
+        }));
     }
 }
 MatStepper.decorators = [
@@ -414,7 +436,7 @@ MatVerticalStepper.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Button that moves to the next step in a stepper workflow.
@@ -447,7 +469,7 @@ MatStepperPrevious.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepperModule {
 }
@@ -491,12 +513,12 @@ MatStepperModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStepperIntl, MAT_STEPPER_INTL_PROVIDER, matStepperAnimations, MatStepperIcon };

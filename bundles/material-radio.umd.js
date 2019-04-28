@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for radio components.
 /** @type {?} */
@@ -55,7 +55,10 @@ var nextUniqueId = 0;
  */
 var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
-    useExisting: core.forwardRef(function () { return MatRadioGroup; }),
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatRadioGroup; })),
     multi: true
 };
 /**
@@ -108,12 +111,18 @@ var MatRadioGroup = /** @class */ (function () {
         /**
          * The method to be called in order to update ngModel
          */
-        this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
          */
-        this.onTouched = function () { };
+        this.onTouched = (/**
+         * @return {?}
+         */
+        function () { });
         /**
          * Event emitted when the group value changes.
          * Change events are only emitted when the value changes due to user interaction with
@@ -309,10 +318,14 @@ var MatRadioGroup = /** @class */ (function () {
     function () {
         var _this = this;
         if (this._radios) {
-            this._radios.forEach(function (radio) {
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            function (radio) {
                 radio.name = _this.name;
                 radio._markForCheck();
-            });
+            }));
         }
     };
     /** Updates the `selected` radio button from the internal _value state. */
@@ -333,12 +346,16 @@ var MatRadioGroup = /** @class */ (function () {
         var isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
             this._selected = null;
-            this._radios.forEach(function (radio) {
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            function (radio) {
                 radio.checked = _this.value === radio.value;
                 if (radio.checked) {
                     _this._selected = radio;
                 }
-            });
+            }));
         }
     };
     /** Dispatch change event with current selection and group value. */
@@ -363,7 +380,11 @@ var MatRadioGroup = /** @class */ (function () {
      */
     function () {
         if (this._radios) {
-            this._radios.forEach(function (radio) { return radio._markForCheck(); });
+            this._radios.forEach((/**
+             * @param {?} radio
+             * @return {?}
+             */
+            function (radio) { return radio._markForCheck(); }));
         }
     };
     /**
@@ -459,7 +480,10 @@ var MatRadioGroup = /** @class */ (function () {
     ]; };
     MatRadioGroup.propDecorators = {
         change: [{ type: core.Output }],
-        _radios: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] }],
+        _radios: [{ type: core.ContentChildren, args: [core.forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatRadioButton; })), { descendants: true },] }],
         name: [{ type: core.Input }],
         labelPosition: [{ type: core.Input }],
         value: [{ type: core.Input }],
@@ -521,16 +545,24 @@ var MatRadioButton = /** @class */ (function (_super) {
         /**
          * Unregister function for _radioDispatcher
          */
-        _this._removeUniqueSelectionListener = function () { };
+        _this._removeUniqueSelectionListener = (/**
+         * @return {?}
+         */
+        function () { });
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         _this.radioGroup = radioGroup;
         _this._removeUniqueSelectionListener =
-            _radioDispatcher.listen(function (id, name) {
+            _radioDispatcher.listen((/**
+             * @param {?} id
+             * @param {?} name
+             * @return {?}
+             */
+            function (id, name) {
                 if (id !== _this.id && name === _this.name) {
                     _this.checked = false;
                 }
-            });
+            }));
         return _this;
     }
     Object.defineProperty(MatRadioButton.prototype, "checked", {
@@ -725,11 +757,15 @@ var MatRadioButton = /** @class */ (function (_super) {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef, true)
-            .subscribe(function (focusOrigin) {
+            .subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        function (focusOrigin) {
             if (!focusOrigin && _this.radioGroup) {
                 _this.radioGroup._touch();
             }
-        });
+        }));
     };
     /**
      * @return {?}
@@ -865,7 +901,7 @@ var MatRadioButton = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatRadioModule = /** @class */ (function () {
     function MatRadioModule() {

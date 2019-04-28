@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token for the MatInkBar's Positioner.
@@ -40,10 +40,14 @@ var _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
  */
 function _MAT_INK_BAR_POSITIONER_FACTORY() {
     /** @type {?} */
-    var method = function (element) { return ({
+    var method = (/**
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) { return ({
         left: element ? (element.offsetLeft || 0) + 'px' : '0',
         width: element ? (element.offsetWidth || 0) + 'px' : '0',
-    }); };
+    }); });
     return method;
 }
 /**
@@ -77,9 +81,15 @@ var MatInkBar = /** @class */ (function () {
         var _this = this;
         this.show();
         if (typeof requestAnimationFrame !== 'undefined') {
-            this._ngZone.runOutsideAngular(function () {
-                requestAnimationFrame(function () { return _this._setStyles(element); });
-            });
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                requestAnimationFrame((/**
+                 * @return {?}
+                 */
+                function () { return _this._setStyles(element); }));
+            }));
         }
         else {
             this._setStyles(element);
@@ -152,7 +162,7 @@ var MatInkBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Decorates the `ng-template` tags and reads out the template from it.
@@ -173,7 +183,7 @@ var MatTabContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to flag tab labels for use with the portal directive
@@ -193,7 +203,7 @@ var MatTabLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTab.
 /**
@@ -313,7 +323,7 @@ var MatTab = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material tabs.
@@ -347,7 +357,7 @@ var matTabsAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The portal host directive for the contents of the tab.
@@ -382,14 +392,21 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
         _super.prototype.ngOnInit.call(this);
         this._centeringSub = this._host._beforeCentering
             .pipe(startWith(this._host._isCenterPosition(this._host._position)))
-            .subscribe(function (isCentering) {
+            .subscribe((/**
+         * @param {?} isCentering
+         * @return {?}
+         */
+        function (isCentering) {
             if (isCentering && !_this.hasAttached()) {
                 _this.attach(_this._host._content);
             }
-        });
-        this._leavingSub = this._host._afterLeavingCenter.subscribe(function () {
+        }));
+        this._leavingSub = this._host._afterLeavingCenter.subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this.detach();
-        });
+        }));
     };
     /** Clean up centering subscription. */
     /**
@@ -414,7 +431,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
     MatTabBodyPortal.ctorParameters = function () { return [
         { type: ComponentFactoryResolver },
         { type: ViewContainerRef },
-        { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef(function () { return MatTabBody; }),] }] }
+        { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef((/**
+                         * @return {?}
+                         */
+                        function () { return MatTabBody; })),] }] }
     ]; };
     return MatTabBodyPortal;
 }(CdkPortalOutlet));
@@ -458,16 +478,29 @@ var MatTabBody = /** @class */ (function () {
          */
         this.animationDuration = '500ms';
         if (_dir) {
-            this._dirChangeSubscription = _dir.change.subscribe(function (dir) {
+            this._dirChangeSubscription = _dir.change.subscribe((/**
+             * @param {?} dir
+             * @return {?}
+             */
+            function (dir) {
                 _this._computePositionAnimationState(dir);
                 changeDetectorRef.markForCheck();
-            });
+            }));
         }
         // Ensure that we get unique animation events, because the `.done` callback can get
         // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
-        this._translateTabComplete.pipe(distinctUntilChanged(function (x, y) {
+        this._translateTabComplete.pipe(distinctUntilChanged((/**
+         * @param {?} x
+         * @param {?} y
+         * @return {?}
+         */
+        function (x, y) {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(function (event) {
+        }))).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
             // If the transition to the center is complete, emit an event.
             if (_this._isCenterPosition(event.toState) && _this._isCenterPosition(_this._position)) {
                 _this._onCentered.emit();
@@ -475,7 +508,7 @@ var MatTabBody = /** @class */ (function () {
             if (_this._isCenterPosition(event.fromState) && !_this._isCenterPosition(_this._position)) {
                 _this._afterLeavingCenter.emit();
             }
-        });
+        }));
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         /** The shifted index position of the tab body, where zero represents the active center tab. */
@@ -647,7 +680,7 @@ var MatTabBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /**
@@ -725,7 +758,7 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Config used to bind passive event listeners
@@ -821,13 +854,19 @@ var MatTabHeader = /** @class */ (function (_super) {
          */
         _this.indexFocused = new EventEmitter();
         // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
-        _ngZone.runOutsideAngular(function () {
+        _ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
             fromEvent(_elementRef.nativeElement, 'mouseleave')
                 .pipe(takeUntil(_this._destroyed))
-                .subscribe(function () {
+                .subscribe((/**
+             * @return {?}
+             */
+            function () {
                 _this._stopInterval();
-            });
-        });
+            }));
+        }));
         return _this;
     }
     Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
@@ -934,10 +973,13 @@ var MatTabHeader = /** @class */ (function (_super) {
         /** @type {?} */
         var resize = this._viewportRuler.change(150);
         /** @type {?} */
-        var realign = function () {
+        var realign = (/**
+         * @return {?}
+         */
+        function () {
             _this.updatePagination();
             _this._alignInkBarToSelectedTab();
-        };
+        });
         this._keyManager = new FocusKeyManager(this._labelWrappers)
             .withHorizontalOrientation(this._getLayoutDirection())
             .withWrap();
@@ -947,17 +989,24 @@ var MatTabHeader = /** @class */ (function (_super) {
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
         // On dir change or window resize, realign the ink bar and update the orientation of
         // the key manager if the direction has changed.
-        merge(dirChange, resize).pipe(takeUntil(this._destroyed)).subscribe(function () {
+        merge(dirChange, resize).pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             realign();
             _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
-        });
+        }));
         // If there is a change in the focus key manager we need to emit the `indexFocused`
         // event in order to provide a public event that notifies about focus changes. Also we realign
         // the tabs container by scrolling the new focused tab into the visible section.
-        this._keyManager.change.pipe(takeUntil(this._destroyed)).subscribe(function (newFocusIndex) {
+        this._keyManager.change.pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} newFocusIndex
+         * @return {?}
+         */
+        function (newFocusIndex) {
             _this.indexFocused.emit(newFocusIndex);
             _this._setTabFocus(newFocusIndex);
-        });
+        }));
     };
     /**
      * @return {?}
@@ -970,14 +1019,20 @@ var MatTabHeader = /** @class */ (function (_super) {
         // We need to handle these events manually, because we want to bind passive event listeners.
         fromEvent(this._previousPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
             .pipe(takeUntil(this._destroyed))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._handlePaginatorPress('before');
-        });
+        }));
         fromEvent(this._nextPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
             .pipe(takeUntil(this._destroyed))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._handlePaginatorPress('after');
-        });
+        }));
     };
     /**
      * @return {?}
@@ -1012,11 +1067,14 @@ var MatTabHeader = /** @class */ (function (_super) {
             this._currentTextContent = textContent;
             // The content observer runs outside the `NgZone` by default, which
             // means that we need to bring the callback back in ourselves.
-            this._ngZone.run(function () {
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            function () {
                 _this.updatePagination();
                 _this._alignInkBarToSelectedTab();
                 _this._changeDetectorRef.markForCheck();
-            });
+            }));
         }
     };
     /**
@@ -1454,13 +1512,16 @@ var MatTabHeader = /** @class */ (function (_super) {
         timer(HEADER_SCROLL_DELAY, HEADER_SCROLL_INTERVAL)
             // Keep the timer going until something tells it to stop or the component is destroyed.
             .pipe(takeUntil(merge(this._stopScrolling, this._destroyed)))
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             var _a = _this._scrollHeader(direction), maxScrollDistance = _a.maxScrollDistance, distance = _a.distance;
             // Stop the timer if we've reached the start or the end.
             if (distance === 0 || distance >= maxScrollDistance) {
                 _this._stopInterval();
             }
-        });
+        }));
     };
     /**
      * Scrolls the header to a given position.
@@ -1528,7 +1589,7 @@ var MatTabHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Used to generate unique ID's for each tab component
@@ -1729,22 +1790,35 @@ var MatTabGroup = /** @class */ (function (_super) {
             }
             // Changing these values after change detection has run
             // since the checked content may contain references to them.
-            Promise.resolve().then(function () {
-                _this._tabs.forEach(function (tab, index) { return tab.isActive = index === indexToSelect; });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () {
+                _this._tabs.forEach((/**
+                 * @param {?} tab
+                 * @param {?} index
+                 * @return {?}
+                 */
+                function (tab, index) { return tab.isActive = index === indexToSelect; }));
                 if (!isFirstRun_1) {
                     _this.selectedIndexChange.emit(indexToSelect);
                 }
-            });
+            }));
         }
         // Setup the position for each tab and optionally setup an origin on the next selected tab.
-        this._tabs.forEach(function (tab, index) {
+        this._tabs.forEach((/**
+         * @param {?} tab
+         * @param {?} index
+         * @return {?}
+         */
+        function (tab, index) {
             tab.position = index - indexToSelect;
             // If there is already a selected tab, then set up an origin for the next selected tab
             // if it doesn't have one already.
             if (_this._selectedIndex != null && tab.position == 0 && !tab.origin) {
                 tab.origin = indexToSelect - _this._selectedIndex;
             }
-        });
+        }));
         if (this._selectedIndex !== indexToSelect) {
             this._selectedIndex = indexToSelect;
             this._changeDetectorRef.markForCheck();
@@ -1761,7 +1835,10 @@ var MatTabGroup = /** @class */ (function (_super) {
         this._subscribeToTabLabels();
         // Subscribe to changes in the amount of tabs, in order to be
         // able to re-render the content as new tabs are added or removed.
-        this._tabsSubscription = this._tabs.changes.subscribe(function () {
+        this._tabsSubscription = this._tabs.changes.subscribe((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var indexToSelect = _this._clampTabIndex(_this._indexToSelect);
             // Maintain the previously-selected tab if a new tab is added or removed and there is no
@@ -1781,7 +1858,7 @@ var MatTabGroup = /** @class */ (function (_super) {
             }
             _this._subscribeToTabLabels();
             _this._changeDetectorRef.markForCheck();
-        });
+        }));
     };
     /**
      * @return {?}
@@ -1864,7 +1941,14 @@ var MatTabGroup = /** @class */ (function (_super) {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = merge.apply(void 0, this._tabs.map(function (tab) { return tab._stateChanges; })).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._tabLabelSubscription = merge.apply(void 0, this._tabs.map((/**
+         * @param {?} tab
+         * @return {?}
+         */
+        function (tab) { return tab._stateChanges; }))).subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._changeDetectorRef.markForCheck(); }));
     };
     /** Clamps the given index to the bounds of 0 and the tabs length. */
     /**
@@ -2037,7 +2121,7 @@ var MatTabGroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatTabNav.
 /**
@@ -2127,13 +2211,19 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._ngZone.runOutsideAngular(function () {
+        this._ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        function () {
             /** @type {?} */
             var dirChange = _this._dir ? _this._dir.change : of(null);
             return merge(dirChange, _this._viewportRuler.change(10))
                 .pipe(takeUntil(_this._onDestroy))
-                .subscribe(function () { return _this._alignInkBar(); });
-        });
+                .subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._alignInkBar(); }));
+        }));
     };
     /** Checks if the active link has been changed and, if so, will update the ink bar. */
     /**
@@ -2147,7 +2237,11 @@ var MatTabNav = /** @class */ (function (_super) {
     function () {
         if (this._activeLinkChanged) {
             /** @type {?} */
-            var activeTab = this._tabLinks.find(function (tab) { return tab.active; });
+            var activeTab = this._tabLinks.find((/**
+             * @param {?} tab
+             * @return {?}
+             */
+            function (tab) { return tab.active; }));
             this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
@@ -2202,7 +2296,10 @@ var MatTabNav = /** @class */ (function (_super) {
     ]; };
     MatTabNav.propDecorators = {
         _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
-        _tabLinks: [{ type: ContentChildren, args: [forwardRef(function () { return MatTabLink; }), { descendants: true },] }],
+        _tabLinks: [{ type: ContentChildren, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    function () { return MatTabLink; })), { descendants: true },] }],
         backgroundColor: [{ type: Input }]
     };
     return MatTabNav;
@@ -2318,7 +2415,7 @@ var MatTabLink = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatTabsModule = /** @class */ (function () {
     function MatTabsModule() {
@@ -2363,18 +2460,18 @@ var MatTabsModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22 };
 //# sourceMappingURL=tabs.es5.js.map

@@ -19,7 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatList.
 /**
@@ -194,9 +194,12 @@ class MatListItem extends _MatListItemMixinBase {
         if (this._list) {
             // React to changes in the state of the parent list since
             // some of the item's properties depend on it (e.g. `disableRipple`).
-            this._list._stateChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {
+            this._list._stateChanges.pipe(takeUntil(this._destroyed)).subscribe((/**
+             * @return {?}
+             */
+            () => {
                 _changeDetectorRef.markForCheck();
-            });
+            }));
         }
     }
     /**
@@ -258,7 +261,7 @@ MatListItem.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -280,7 +283,10 @@ const _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
  */
 const MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatSelectionList),
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatSelectionList)),
     multi: true
 };
 /**
@@ -390,12 +396,15 @@ class MatListOption extends _MatListOptionMixinBase {
         // that the form control value is not being overwritten.
         /** @type {?} */
         const wasSelected = this._selected;
-        Promise.resolve().then(() => {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        () => {
             if (this._selected || wasSelected) {
                 this.selected = true;
                 this._changeDetector.markForCheck();
             }
-        });
+        }));
     }
     /**
      * @return {?}
@@ -410,7 +419,10 @@ class MatListOption extends _MatListOptionMixinBase {
         if (this.selected) {
             // We have to delay this until the next tick in order
             // to avoid changed after checked errors.
-            Promise.resolve().then(() => this.selected = false);
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            () => this.selected = false));
         }
         /** @type {?} */
         const hadFocus = this._hasFocus;
@@ -540,7 +552,10 @@ MatListOption.decorators = [
 MatListOption.ctorParameters = () => [
     { type: ElementRef },
     { type: ChangeDetectorRef },
-    { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(() => MatSelectionList),] }] }
+    { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef((/**
+                     * @return {?}
+                     */
+                    () => MatSelectionList)),] }] }
 ];
 MatListOption.propDecorators = {
     _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
@@ -584,7 +599,11 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         /**
          * View to model callback that should be called whenever the selected options change.
          */
-        this._onChange = (_) => { };
+        this._onChange = (/**
+         * @param {?} _
+         * @return {?}
+         */
+        (_) => { });
         /**
          * Subscription to sync value changes in the SelectionModel back to the SelectionList.
          */
@@ -592,7 +611,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
-        this._onTouched = () => { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /**
@@ -621,14 +643,21 @@ class MatSelectionList extends _MatSelectionListMixinBase {
             .withTypeAhead()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
             // screenreader users, that allows reading the different options of the list.
-            .skipPredicate(() => false)
+            .skipPredicate((/**
+         * @return {?}
+         */
+        () => false))
             .withAllowedModifierKeys(['shiftKey']);
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
         }
         // Sync external changes to the model back to the options.
-        this._modelChanges = this.selectedOptions.onChange.subscribe(event => {
+        this._modelChanges = this.selectedOptions.onChange.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             if (event.added) {
                 for (let item of event.added) {
                     item.selected = true;
@@ -639,7 +668,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                     item.selected = false;
                 }
             }
-        });
+        }));
     }
     /**
      * @param {?} changes
@@ -741,7 +770,11 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 break;
             case A:
                 if (hasModifierKey(event, 'ctrlKey')) {
-                    this.options.find(option => !option.selected) ? this.selectAll() : this.deselectAll();
+                    this.options.find((/**
+                     * @param {?} option
+                     * @return {?}
+                     */
+                    option => !option.selected)) ? this.selectAll() : this.deselectAll();
                     event.preventDefault();
                 }
                 break;
@@ -814,21 +847,33 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _setOptionsFromValues(values) {
-        this.options.forEach(option => option._setSelected(false));
-        values.forEach(value => {
+        this.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => option._setSelected(false)));
+        values.forEach((/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => {
             /** @type {?} */
-            const correspondingOption = this.options.find(option => {
+            const correspondingOption = this.options.find((/**
+             * @param {?} option
+             * @return {?}
+             */
+            option => {
                 // Skip options that are already in the model. This allows us to handle cases
                 // where the same primitive value is selected multiple times.
                 if (option.selected) {
                     return false;
                 }
                 return this.compareWith ? this.compareWith(option.value, value) : option.value === value;
-            });
+            }));
             if (correspondingOption) {
                 correspondingOption._setSelected(true);
             }
-        });
+        }));
     }
     /**
      * Returns the values of the selected options.
@@ -836,7 +881,15 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _getSelectedOptionValues() {
-        return this.options.filter(option => option.selected).map(option => option.value);
+        return this.options.filter((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => option.selected)).map((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => option.value));
     }
     /**
      * Toggles the state of the currently focused option if enabled.
@@ -869,11 +922,15 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         // emit the changed event when something actually changed.
         /** @type {?} */
         let hasChanged = false;
-        this.options.forEach(option => {
+        this.options.forEach((/**
+         * @param {?} option
+         * @return {?}
+         */
+        option => {
             if (option._setSelected(isSelected)) {
                 hasChanged = true;
             }
-        });
+        }));
         if (hasChanged) {
             this._reportValueChange();
         }
@@ -903,7 +960,11 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      */
     _markOptionsForCheck() {
         if (this.options) {
-            this.options.forEach(option => option._markForCheck());
+            this.options.forEach((/**
+             * @param {?} option
+             * @return {?}
+             */
+            option => option._markForCheck()));
         }
     }
 }
@@ -943,7 +1004,7 @@ MatSelectionList.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatListModule {
 }
@@ -979,12 +1040,12 @@ MatListModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatListModule, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList };

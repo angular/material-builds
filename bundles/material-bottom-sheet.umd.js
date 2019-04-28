@@ -53,7 +53,7 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
@@ -110,7 +110,7 @@ MatBottomSheetConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material bottom sheet.
@@ -130,7 +130,7 @@ var matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
 /**
@@ -160,11 +160,14 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         _this._document = document;
         _this._breakpointSubscription = breakpointObserver
             .observe([layout.Breakpoints.Medium, layout.Breakpoints.Large, layout.Breakpoints.XLarge])
-            .subscribe(function () {
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(layout.Breakpoints.Medium));
             _this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(layout.Breakpoints.Large));
             _this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(layout.Breakpoints.XLarge));
-        });
+        }));
         return _this;
     }
     /** Attach a component portal as content to this bottom sheet container. */
@@ -318,7 +321,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         var panelClass = this.bottomSheetConfig.panelClass;
         if (Array.isArray(panelClass)) {
             // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-            panelClass.forEach(function (cssClass) { return element.classList.add(cssClass); });
+            panelClass.forEach((/**
+             * @param {?} cssClass
+             * @return {?}
+             */
+            function (cssClass) { return element.classList.add(cssClass); }));
         }
         else if (panelClass) {
             element.classList.add(panelClass);
@@ -381,7 +388,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         this._elementFocusedBeforeOpened = (/** @type {?} */ (this._document.activeElement));
         // The `focus` method isn't available during server-side rendering.
         if (this._elementRef.nativeElement.focus) {
-            Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+            Promise.resolve().then((/**
+             * @return {?}
+             */
+            function () { return _this._elementRef.nativeElement.focus(); }));
         }
     };
     MatBottomSheetContainer.decorators = [
@@ -420,7 +430,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatBottomSheetModule = /** @class */ (function () {
     function MatBottomSheetModule() {
@@ -443,7 +453,7 @@ var MatBottomSheetModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
@@ -470,26 +480,50 @@ MatBottomSheetRef = /** @class */ (function () {
         this.containerInstance = containerInstance;
         this.disableClose = containerInstance.bottomSheetConfig.disableClose;
         // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
-            .subscribe(function () {
+        containerInstance._animationStateChanged.pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'visible'; })), operators.take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._afterOpened.next();
             _this._afterOpened.complete();
-        });
+        }));
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged
-            .pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
-            .subscribe(function () {
+            .pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; })), operators.take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
             _overlayRef.dispose();
-        });
-        _overlayRef.detachments().pipe(operators.take(1)).subscribe(function () {
+        }));
+        _overlayRef.detachments().pipe(operators.take(1)).subscribe((/**
+         * @return {?}
+         */
+        function () {
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
-        });
-        rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () {
+        }));
+        rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) { return event.keyCode === keycodes.ESCAPE; })))).subscribe((/**
+         * @return {?}
+         */
+        function () {
             if (!_this.disableClose) {
                 _this.dismiss();
             }
-        });
+        }));
     }
     /**
      * Dismisses the bottom sheet.
@@ -509,7 +543,14 @@ MatBottomSheetRef = /** @class */ (function () {
         var _this = this;
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this.containerInstance._animationStateChanged.pipe(operators.filter((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) { return event.phaseName === 'start'; })), operators.take(1)).subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._overlayRef.detachBackdrop(); }));
             this._result = result;
             this.containerInstance.exit();
         }
@@ -571,7 +612,7 @@ MatBottomSheetRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify default bottom sheet options.
@@ -652,16 +693,22 @@ var MatBottomSheet = /** @class */ (function () {
             ref.instance = contentRef.instance;
         }
         // When the bottom sheet is dismissed, clear the reference to it.
-        ref.afterDismissed().subscribe(function () {
+        ref.afterDismissed().subscribe((/**
+         * @return {?}
+         */
+        function () {
             // Clear the bottom sheet ref if it hasn't already been replaced by a newer one.
             if (_this._openedBottomSheetRef == ref) {
                 _this._openedBottomSheetRef = null;
             }
-        });
+        }));
         if (this._openedBottomSheetRef) {
             // If a bottom sheet is already in view, dismiss it and enter the
             // new bottom sheet after exit animation is complete.
-            this._openedBottomSheetRef.afterDismissed().subscribe(function () { return ref.containerInstance.enter(); });
+            this._openedBottomSheetRef.afterDismissed().subscribe((/**
+             * @return {?}
+             */
+            function () { return ref.containerInstance.enter(); }));
             this._openedBottomSheetRef.dismiss();
         }
         else {
@@ -811,7 +858,7 @@ var MatBottomSheet = /** @class */ (function () {
         { type: common.Location, decorators: [{ type: core.Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12), core.inject(common.Location, 8), core.inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.ɵɵinject(overlay.Overlay), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(MatBottomSheet, 12), core.ɵɵinject(common.Location, 8), core.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**

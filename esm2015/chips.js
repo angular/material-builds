@@ -20,7 +20,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Event object emitted by MatChip when selected or deselected.
@@ -343,12 +343,18 @@ class MatChip extends _MatChipMixinBase {
         this._ngZone.onStable
             .asObservable()
             .pipe(take(1))
-            .subscribe(() => {
-            this._ngZone.run(() => {
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            () => {
                 this._hasFocus = false;
                 this._onBlur.next({ chip: this });
-            });
-        });
+            }));
+        }));
     }
     /**
      * @private
@@ -396,7 +402,10 @@ MatChip.ctorParameters = () => [
 MatChip.propDecorators = {
     avatar: [{ type: ContentChild, args: [MatChipAvatar, { static: false },] }],
     trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
-    removeIcon: [{ type: ContentChild, args: [forwardRef(() => MatChipRemove), { static: false },] }],
+    removeIcon: [{ type: ContentChild, args: [forwardRef((/**
+                 * @return {?}
+                 */
+                () => MatChipRemove)), { static: false },] }],
     selected: [{ type: Input }],
     value: [{ type: Input }],
     selectable: [{ type: Input }],
@@ -458,7 +467,7 @@ MatChipRemove.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token to be used to override the default options for the chips module.
@@ -468,7 +477,7 @@ const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options'
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatChipList.
 /**
@@ -556,13 +565,24 @@ class MatChipList extends _MatChipListMixinBase {
         /**
          * Function when touched
          */
-        this._onTouched = () => { };
+        this._onTouched = (/**
+         * @return {?}
+         */
+        () => { });
         /**
          * Function when changed
          */
-        this._onChange = () => { };
+        this._onChange = (/**
+         * @return {?}
+         */
+        () => { });
         this._multiple = false;
-        this._compareWith = (o1, o2) => o1 === o2;
+        this._compareWith = (/**
+         * @param {?} o1
+         * @param {?} o2
+         * @return {?}
+         */
+        (o1, o2) => o1 === o2);
         this._required = false;
         this._disabled = false;
         /**
@@ -727,7 +747,11 @@ class MatChipList extends _MatChipListMixinBase {
     set selectable(value) {
         this._selectable = coerceBooleanProperty(value);
         if (this.chips) {
-            this.chips.forEach(chip => chip.chipListSelectable = this._selectable);
+            this.chips.forEach((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            chip => chip.chipListSelectable = this._selectable));
         }
     }
     /**
@@ -743,28 +767,44 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     get chipSelectionChanges() {
-        return merge(...this.chips.map(chip => chip.selectionChange));
+        return merge(...this.chips.map((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => chip.selectionChange)));
     }
     /**
      * Combined stream of all of the child chips' focus change events.
      * @return {?}
      */
     get chipFocusChanges() {
-        return merge(...this.chips.map(chip => chip._onFocus));
+        return merge(...this.chips.map((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => chip._onFocus)));
     }
     /**
      * Combined stream of all of the child chips' blur change events.
      * @return {?}
      */
     get chipBlurChanges() {
-        return merge(...this.chips.map(chip => chip._onBlur));
+        return merge(...this.chips.map((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => chip._onBlur)));
     }
     /**
      * Combined stream of all of the child chips' remove change events.
      * @return {?}
      */
     get chipRemoveChanges() {
-        return merge(...this.chips.map(chip => chip.destroyed));
+        return merge(...this.chips.map((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => chip.destroyed)));
     }
     /**
      * @return {?}
@@ -777,25 +817,41 @@ class MatChipList extends _MatChipListMixinBase {
         if (this._dir) {
             this._dir.change
                 .pipe(takeUntil(this._destroyed))
-                .subscribe(dir => this._keyManager.withHorizontalOrientation(dir));
+                .subscribe((/**
+             * @param {?} dir
+             * @return {?}
+             */
+            dir => this._keyManager.withHorizontalOrientation(dir)));
         }
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
-        this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe(() => {
+        this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._tabIndex = -1;
-            setTimeout(() => {
+            setTimeout((/**
+             * @return {?}
+             */
+            () => {
                 this._tabIndex = this._userTabIndex || 0;
                 this._changeDetectorRef.markForCheck();
-            });
-        });
+            }));
+        }));
         // When the list changes, re-subscribe
-        this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
+        this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => {
             if (this.disabled) {
                 // Since this happens after the content has been
                 // checked, we need to defer it to the next tick.
-                Promise.resolve().then(() => {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                () => {
                     this._syncChipsState();
-                });
+                }));
             }
             this._resetChips();
             // Reset chips selected/deselected status
@@ -805,7 +861,7 @@ class MatChipList extends _MatChipListMixinBase {
             // Check to see if we have a destroyed chip and need to refocus
             this._updateFocusForDestroyedChips();
             this.stateChanges.next();
-        });
+        }));
     }
     /**
      * @return {?}
@@ -1008,9 +1064,17 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _setSelectionByValue(value, isUserInput = true) {
         this._clearSelection();
-        this.chips.forEach(chip => chip.deselect());
+        this.chips.forEach((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => chip.deselect()));
         if (Array.isArray(value)) {
-            value.forEach(currentValue => this._selectValue(currentValue, isUserInput));
+            value.forEach((/**
+             * @param {?} currentValue
+             * @return {?}
+             */
+            currentValue => this._selectValue(currentValue, isUserInput)));
             this._sortValues();
         }
         else {
@@ -1034,9 +1098,13 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _selectValue(value, isUserInput = true) {
         /** @type {?} */
-        const correspondingChip = this.chips.find(chip => {
+        const correspondingChip = this.chips.find((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => {
             return chip.value != null && this._compareWith(chip.value, value);
-        });
+        }));
         if (correspondingChip) {
             isUserInput ? correspondingChip.selectViaInteraction() : correspondingChip.select();
             this._selectionModel.select(correspondingChip);
@@ -1050,12 +1118,15 @@ class MatChipList extends _MatChipListMixinBase {
     _initializeSelection() {
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
-        Promise.resolve().then(() => {
+        Promise.resolve().then((/**
+         * @return {?}
+         */
+        () => {
             if (this.ngControl || this._value) {
                 this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value, false);
                 this.stateChanges.next();
             }
-        });
+        }));
     }
     /**
      * Deselects every chip in the list.
@@ -1065,11 +1136,15 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _clearSelection(skip) {
         this._selectionModel.clear();
-        this.chips.forEach(chip => {
+        this.chips.forEach((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => {
             if (chip !== skip) {
                 chip.deselect();
             }
-        });
+        }));
         this.stateChanges.next();
     }
     /**
@@ -1081,11 +1156,15 @@ class MatChipList extends _MatChipListMixinBase {
     _sortValues() {
         if (this._multiple) {
             this._selectionModel.clear();
-            this.chips.forEach(chip => {
+            this.chips.forEach((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            chip => {
                 if (chip.selected) {
                     this._selectionModel.select(chip);
                 }
-            });
+            }));
             this.stateChanges.next();
         }
     }
@@ -1099,7 +1178,11 @@ class MatChipList extends _MatChipListMixinBase {
         /** @type {?} */
         let valueToEmit = null;
         if (Array.isArray(this.selected)) {
-            valueToEmit = this.selected.map(chip => chip.value);
+            valueToEmit = this.selected.map((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            chip => chip.value));
         }
         else {
             valueToEmit = this.selected ? this.selected.value : fallbackValue;
@@ -1124,11 +1207,14 @@ class MatChipList extends _MatChipListMixinBase {
                 // If the focus is not moved to chip input, mark the field as touched. If the focus moved
                 // to chip input, do nothing.
                 // Timeout is needed to wait for the focus() event trigger on chip input.
-                setTimeout(() => {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                () => {
                     if (!this.focused) {
                         this._markAsTouched();
                     }
-                });
+                }));
             }
             else {
                 // If there's no chip input, then mark the field as touched.
@@ -1183,22 +1269,30 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _listenToChipsSelection() {
-        this._chipSelectionSubscription = this.chipSelectionChanges.subscribe(event => {
+        this._chipSelectionSubscription = this.chipSelectionChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             event.source.selected
                 ? this._selectionModel.select(event.source)
                 : this._selectionModel.deselect(event.source);
             // For single selection chip list, make sure the deselected value is unselected.
             if (!this.multiple) {
-                this.chips.forEach(chip => {
+                this.chips.forEach((/**
+                 * @param {?} chip
+                 * @return {?}
+                 */
+                chip => {
                     if (!this._selectionModel.isSelected(chip) && chip.selected) {
                         chip.deselect();
                     }
-                });
+                }));
             }
             if (event.isUserInput) {
                 this._propagateChanges();
             }
-        });
+        }));
     }
     /**
      * Listens to user-generated selection events on each chip.
@@ -1206,25 +1300,36 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _listenToChipsFocus() {
-        this._chipFocusSubscription = this.chipFocusChanges.subscribe(event => {
+        this._chipFocusSubscription = this.chipFocusChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             /** @type {?} */
             let chipIndex = this.chips.toArray().indexOf(event.chip);
             if (this._isValidIndex(chipIndex)) {
                 this._keyManager.updateActiveItemIndex(chipIndex);
             }
             this.stateChanges.next();
-        });
-        this._chipBlurSubscription = this.chipBlurChanges.subscribe(() => {
+        }));
+        this._chipBlurSubscription = this.chipBlurChanges.subscribe((/**
+         * @return {?}
+         */
+        () => {
             this._blur();
             this.stateChanges.next();
-        });
+        }));
     }
     /**
      * @private
      * @return {?}
      */
     _listenToChipsRemoved() {
-        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(event => {
+        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
             /** @type {?} */
             const chip = event.chip;
             /** @type {?} */
@@ -1235,7 +1340,7 @@ class MatChipList extends _MatChipListMixinBase {
             if (this._isValidIndex(chipIndex) && chip._hasFocus) {
                 this._lastDestroyedChipIndex = chipIndex;
             }
-        });
+        }));
     }
     /**
      * Checks whether an event comes from inside a chip element.
@@ -1260,7 +1365,11 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _hasFocusedChip() {
-        return this.chips.some(chip => chip._hasFocus);
+        return this.chips.some((/**
+         * @param {?} chip
+         * @return {?}
+         */
+        chip => chip._hasFocus));
     }
     /**
      * Syncs the list's state with the individual chips.
@@ -1269,10 +1378,14 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _syncChipsState() {
         if (this.chips) {
-            this.chips.forEach(chip => {
+            this.chips.forEach((/**
+             * @param {?} chip
+             * @return {?}
+             */
+            chip => {
                 chip.disabled = this._disabled;
                 chip._chipListMultiple = this.multiple;
-            });
+            }));
         }
     }
 }
@@ -1332,7 +1445,7 @@ MatChipList.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids.
 /** @type {?} */
@@ -1528,7 +1641,7 @@ MatChipInput.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const CHIP_DECLARATIONS = [
@@ -1560,12 +1673,12 @@ MatChipsModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatChipsModule, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput, MAT_CHIPS_DEFAULT_OPTIONS };

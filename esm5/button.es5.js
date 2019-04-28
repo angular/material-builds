@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
@@ -139,7 +139,11 @@ var MatButton = /** @class */ (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             attributes[_i] = arguments[_i];
         }
-        return attributes.some(function (attribute) { return _this._getHostElement().hasAttribute(attribute); });
+        return attributes.some((/**
+         * @param {?} attribute
+         * @return {?}
+         */
+        function (attribute) { return _this._getHostElement().hasAttribute(attribute); }));
     };
     MatButton.decorators = [
         { type: Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],\n             button[mat-flat-button]",
@@ -223,7 +227,7 @@ var MatAnchor = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var MatButtonModule = /** @class */ (function () {
     function MatButtonModule() {
@@ -251,12 +255,12 @@ var MatButtonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { MatButtonModule, MatButton, MatAnchor };
