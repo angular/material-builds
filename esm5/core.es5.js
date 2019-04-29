@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new Version('8.0.0-beta.2-5147454');
+var VERSION = new Version('8.0.0-beta.2-84928d2');
 
 /**
  * @fileoverview added by tsickle
