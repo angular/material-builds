@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-3968918');
+var VERSION = new core.Version('8.0.0-rc.0-fb15e89');
 
 /**
  * @fileoverview added by tsickle
@@ -38860,7 +38860,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39015,7 +39015,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
