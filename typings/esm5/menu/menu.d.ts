@@ -161,4 +161,5 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
 export declare class MatMenu extends _MatMenuBase {
 }
 export declare class _MatMenu extends MatMenu {
+    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
 }

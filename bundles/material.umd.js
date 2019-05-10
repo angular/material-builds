@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-03a9a39');
+var VERSION = new core.Version('8.0.0-rc.0-10c546c');
 
 /**
  * @fileoverview added by tsickle
@@ -22701,8 +22701,8 @@ var MatMenu = /** @class */ (function (_super) {
 // be tree shaken away for MDC.
 var _MatMenu = /** @class */ (function (_super) {
     __extends(_MatMenu, _super);
-    function _MatMenu() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function _MatMenu(elementRef, ngZone, defaultOptions) {
+        return _super.call(this, elementRef, ngZone, defaultOptions) || this;
     }
     _MatMenu.decorators = [
         { type: core.Component, args: [{selector: 'mat-menu',
@@ -22721,6 +22721,12 @@ var _MatMenu = /** @class */ (function (_super) {
                     ]
                 },] },
     ];
+    /** @nocollapse */
+    _MatMenu.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
+    ]; };
     return _MatMenu;
 }(MatMenu));
 
@@ -38854,7 +38860,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

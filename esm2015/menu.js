@@ -832,6 +832,14 @@ class MatMenu extends _MatMenuBase {
 // be tree shaken away for MDC.
 // tslint:disable-next-line:class-name
 class _MatMenu extends MatMenu {
+    /**
+     * @param {?} elementRef
+     * @param {?} ngZone
+     * @param {?} defaultOptions
+     */
+    constructor(elementRef, ngZone, defaultOptions) {
+        super(elementRef, ngZone, defaultOptions);
+    }
 }
 _MatMenu.decorators = [
     { type: Component, args: [{selector: 'mat-menu',
@@ -849,6 +857,12 @@ _MatMenu.decorators = [
                     { provide: MatMenu, useExisting: _MatMenu }
                 ]
             },] },
+];
+/** @nocollapse */
+_MatMenu.ctorParameters = () => [
+    { type: ElementRef },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
 ];
 
 /**

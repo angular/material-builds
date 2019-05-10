@@ -1075,8 +1075,8 @@ var MatMenu = /** @class */ (function (_super) {
 // be tree shaken away for MDC.
 var _MatMenu = /** @class */ (function (_super) {
     __extends(_MatMenu, _super);
-    function _MatMenu() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function _MatMenu(elementRef, ngZone, defaultOptions) {
+        return _super.call(this, elementRef, ngZone, defaultOptions) || this;
     }
     _MatMenu.decorators = [
         { type: core.Component, args: [{selector: 'mat-menu',
@@ -1095,6 +1095,12 @@ var _MatMenu = /** @class */ (function (_super) {
                     ]
                 },] },
     ];
+    /** @nocollapse */
+    _MatMenu.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
+    ]; };
     return _MatMenu;
 }(MatMenu));
 
