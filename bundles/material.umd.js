@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-fc0b971');
+var VERSION = new core.Version('8.0.0-rc.0-5aaca54');
 
 /**
  * @fileoverview added by tsickle
@@ -4516,6 +4516,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () { });
         /**
+         * Position of the autocomplete panel relative to the trigger element. A position of `auto`
+         * will render the panel underneath the trigger if there is enough space for it to fit in
+         * the viewport, otherwise the panel will be shown above it. If the position is set to
+         * `above` or `below`, the panel will always be shown above or below the trigger. no matter
+         * whether it fits completely in the viewport.
+         */
+        this.position = 'auto';
+        /**
          * `autocomplete` attribute to be set on the input element.
          * \@docs-private
          */
@@ -4575,6 +4583,22 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes['position'] && this._positionStrategy) {
+            this._setStrategyPositions(this._positionStrategy);
+            if (this.panelOpen) {
+                (/** @type {?} */ (this._overlayRef)).updatePosition();
+            }
+        }
+    };
     /**
      * @return {?}
      */
@@ -5188,10 +5212,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             }
         }
         else {
-            /** @type {?} */
-            var position = (/** @type {?} */ (overlayRef.getConfig().positionStrategy));
             // Update the trigger, panel width and direction, in case anything has changed.
-            position.setOrigin(this._getConnectedElement());
+            this._positionStrategy.setOrigin(this._getConnectedElement());
             overlayRef.updateSize({ width: this._getPanelWidth() });
         }
         if (overlayRef && !overlayRef.hasAttached()) {
@@ -5233,29 +5255,59 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._positionStrategy = this._overlay.position()
+        /** @type {?} */
+        var strategy = this._overlay.position()
             .flexibleConnectedTo(this._getConnectedElement())
             .withFlexibleDimensions(false)
-            .withPush(false)
-            .withPositions([
-            {
-                originX: 'start',
-                originY: 'bottom',
-                overlayX: 'start',
-                overlayY: 'top'
-            },
-            {
-                originX: 'start',
-                originY: 'top',
-                overlayX: 'start',
-                overlayY: 'bottom',
-                // The overlay edge connected to the trigger should have squared corners, while
-                // the opposite end has rounded corners. We apply a CSS class to swap the
-                // border-radius based on the overlay position.
-                panelClass: 'mat-autocomplete-panel-above'
-            }
-        ]);
-        return this._positionStrategy;
+            .withPush(false);
+        this._setStrategyPositions(strategy);
+        this._positionStrategy = strategy;
+        return strategy;
+    };
+    /** Sets the positions on a position strategy based on the directive's input state. */
+    /**
+     * Sets the positions on a position strategy based on the directive's input state.
+     * @private
+     * @param {?} positionStrategy
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._setStrategyPositions = /**
+     * Sets the positions on a position strategy based on the directive's input state.
+     * @private
+     * @param {?} positionStrategy
+     * @return {?}
+     */
+    function (positionStrategy) {
+        /** @type {?} */
+        var belowPosition = {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top'
+        };
+        /** @type {?} */
+        var abovePosition = {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'bottom',
+            // The overlay edge connected to the trigger should have squared corners, while
+            // the opposite end has rounded corners. We apply a CSS class to swap the
+            // border-radius based on the overlay position.
+            panelClass: 'mat-autocomplete-panel-above'
+        };
+        /** @type {?} */
+        var positions;
+        if (this.position === 'above') {
+            positions = [abovePosition];
+        }
+        else if (this.position === 'below') {
+            positions = [belowPosition];
+        }
+        else {
+            positions = [belowPosition, abovePosition];
+        }
+        positionStrategy.withPositions(positions);
     };
     /**
      * @private
@@ -5368,6 +5420,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ]; };
     MatAutocompleteTrigger.propDecorators = {
         autocomplete: [{ type: core.Input, args: ['matAutocomplete',] }],
+        position: [{ type: core.Input, args: ['matAutocompletePosition',] }],
         connectedTo: [{ type: core.Input, args: ['matAutocompleteConnectedTo',] }],
         autocompleteAttribute: [{ type: core.Input, args: ['autocomplete',] }],
         autocompleteDisabled: [{ type: core.Input, args: ['matAutocompleteDisabled',] }]
@@ -5593,6 +5646,23 @@ var MatBadge = /** @class */ (function (_super) {
                 this._renderer.destroyNode(badgeElement);
             }
         }
+    };
+    /**
+     * Gets the element into which the badge's content is being rendered.
+     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
+     */
+    /**
+     * Gets the element into which the badge's content is being rendered.
+     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
+     * @return {?}
+     */
+    MatBadge.prototype.getBadgeElement = /**
+     * Gets the element into which the badge's content is being rendered.
+     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
+     * @return {?}
+     */
+    function () {
+        return this._badgeElement;
     };
     /** Injects a span element into the DOM with the content. */
     /**
@@ -38866,7 +38936,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -38901,9 +38971,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39021,7 +39091,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
