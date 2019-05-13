@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BACKSPACE, DELETE, SPACE, END, HOME, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, SPACE, END, HOME, hasModifierKey, TAB, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
@@ -823,20 +823,11 @@ class MatChipList extends _MatChipListMixinBase {
              */
             dir => this._keyManager.withHorizontalOrientation(dir)));
         }
-        // Prevents the chip list from capturing focus and redirecting
-        // it back to the first chip when the user tabs out.
         this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe((/**
          * @return {?}
          */
         () => {
-            this._tabIndex = -1;
-            setTimeout((/**
-             * @return {?}
-             */
-            () => {
-                this._tabIndex = this._userTabIndex || 0;
-                this._changeDetectorRef.markForCheck();
-            }));
+            this._allowFocusEscape();
         }));
         // When the list changes, re-subscribe
         this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe((/**
@@ -1027,10 +1018,16 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _updateFocusForDestroyedChips() {
-        if (this._lastDestroyedChipIndex != null && this.chips.length) {
-            /** @type {?} */
-            const newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
-            this._keyManager.setActiveItem(newChipIndex);
+        // Move focus to the closest chip. If no other chips remain, focus the chip-list itself.
+        if (this._lastDestroyedChipIndex != null) {
+            if (this.chips.length) {
+                /** @type {?} */
+                const newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
+                this._keyManager.setActiveItem(newChipIndex);
+            }
+            else {
+                this.focus();
+            }
         }
         this._lastDestroyedChipIndex = null;
     }
@@ -1230,6 +1227,24 @@ class MatChipList extends _MatChipListMixinBase {
         this._onTouched();
         this._changeDetectorRef.markForCheck();
         this.stateChanges.next();
+    }
+    /**
+     * Removes the `tabindex` from the chip list and resets it back afterwards, allowing the
+     * user to tab out of it. This prevents the list from capturing focus and redirecting
+     * it back to the first chip, creating a focus trap, if it user tries to tab away.
+     * @return {?}
+     */
+    _allowFocusEscape() {
+        if (this._tabIndex !== -1) {
+            this._tabIndex = -1;
+            setTimeout((/**
+             * @return {?}
+             */
+            () => {
+                this._tabIndex = this._userTabIndex || 0;
+                this._changeDetectorRef.markForCheck();
+            }));
+        }
     }
     /**
      * @private
@@ -1536,6 +1551,11 @@ class MatChipInput {
      * @return {?}
      */
     _keydown(event) {
+        // Allow the user's focus to escape when they're tabbing forward. Note that we don't
+        // want to do this when going backwards, because focus should go back to the first chip.
+        if (event && event.keyCode === TAB && !hasModifierKey(event, 'shiftKey')) {
+            this._chipList._allowFocusEscape();
+        }
         this._emitChipEnd(event);
     }
     /**
