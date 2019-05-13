@@ -7,7 +7,7 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
@@ -44,7 +44,7 @@ export declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
  * @docs-private
  */
 export declare function getMatAutocompleteMissingPanelError(): Error;
-export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnChanges, OnDestroy {
+export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     private _element;
     private _overlay;
     private _viewContainerRef;
@@ -89,14 +89,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnC
     /** The autocomplete panel to be attached to this trigger. */
     autocomplete: MatAutocomplete;
     /**
-     * Position of the autocomplete panel relative to the trigger element. A position of `auto`
-     * will render the panel underneath the trigger if there is enough space for it to fit in
-     * the viewport, otherwise the panel will be shown above it. If the position is set to
-     * `above` or `below`, the panel will always be shown above or below the trigger. no matter
-     * whether it fits completely in the viewport.
-     */
-    position: 'auto' | 'above' | 'below';
-    /**
      * Reference relative to which to position the autocomplete panel.
      * Defaults to the autocomplete trigger element.
      */
@@ -112,7 +104,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnC
      */
     autocompleteDisabled: boolean;
     constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
-    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;
@@ -184,8 +175,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnC
     private _attachOverlay;
     private _getOverlayConfig;
     private _getOverlayPosition;
-    /** Sets the positions on a position strategy based on the directive's input state. */
-    private _setStrategyPositions;
     private _getConnectedElement;
     private _getPanelWidth;
     /** Returns the width of the input element, so the panel width can match it. */
