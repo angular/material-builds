@@ -775,10 +775,19 @@ class MatAutocompleteTrigger {
          * @return {?}
          */
         () => {
+            /** @type {?} */
+            const wasOpen = this.panelOpen;
             this._resetActiveItem();
             this.autocomplete._setVisibility();
             if (this.panelOpen) {
                 (/** @type {?} */ (this._overlayRef)).updatePosition();
+                // If the `panelOpen` state changed, we need to make sure to emit the `opened`
+                // event, because we may not have emitted it when the panel was attached. This
+                // can happen if the users opens the panel and there are no options, but the
+                // options come in slightly later or as a result of the value changing.
+                if (wasOpen !== this.panelOpen) {
+                    this.autocomplete.opened.emit();
+                }
             }
             return this.panelClosingActions;
         })), 
