@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-43b4fec');
+var VERSION = new core.Version('8.0.0-rc.0-3712b8f');
 
 /**
  * @fileoverview added by tsickle
