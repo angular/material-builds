@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-e488152');
+var VERSION = new core.Version('8.0.0-rc.0-5fb6125');
 
 /**
  * @fileoverview added by tsickle
@@ -9753,11 +9753,20 @@ var MatChipList = /** @class */ (function (_super) {
              */
             function (dir) { return _this._keyManager.withHorizontalOrientation(dir); }));
         }
+        // Prevents the chip list from capturing focus and redirecting
+        // it back to the first chip when the user tabs out.
         this._keyManager.tabOut.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
          * @return {?}
          */
         function () {
-            _this._allowFocusEscape();
+            _this._tabIndex = -1;
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this._tabIndex = _this._userTabIndex || 0;
+                _this._changeDetectorRef.markForCheck();
+            }));
         }));
         // When the list changes, re-subscribe
         this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe((/**
@@ -10344,36 +10353,6 @@ var MatChipList = /** @class */ (function (_super) {
         this.stateChanges.next();
     };
     /**
-     * Removes the `tabindex` from the chip list and resets it back afterwards, allowing the
-     * user to tab out of it. This prevents the list from capturing focus and redirecting
-     * it back to the first chip, creating a focus trap, if it user tries to tab away.
-     */
-    /**
-     * Removes the `tabindex` from the chip list and resets it back afterwards, allowing the
-     * user to tab out of it. This prevents the list from capturing focus and redirecting
-     * it back to the first chip, creating a focus trap, if it user tries to tab away.
-     * @return {?}
-     */
-    MatChipList.prototype._allowFocusEscape = /**
-     * Removes the `tabindex` from the chip list and resets it back afterwards, allowing the
-     * user to tab out of it. This prevents the list from capturing focus and redirecting
-     * it back to the first chip, creating a focus trap, if it user tries to tab away.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this._tabIndex !== -1) {
-            this._tabIndex = -1;
-            setTimeout((/**
-             * @return {?}
-             */
-            function () {
-                _this._tabIndex = _this._userTabIndex || 0;
-                _this._changeDetectorRef.markForCheck();
-            }));
-        }
-    };
-    /**
      * @private
      * @return {?}
      */
@@ -10753,11 +10732,6 @@ var MatChipInput = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        // Allow the user's focus to escape when they're tabbing forward. Note that we don't
-        // want to do this when going backwards, because focus should go back to the first chip.
-        if (event && event.keyCode === keycodes.TAB && !keycodes.hasModifierKey(event, 'shiftKey')) {
-            this._chipList._allowFocusEscape();
-        }
         this._emitChipEnd(event);
     };
     /** Checks to see if the blur should emit the (chipEnd) event. */
@@ -38987,7 +38961,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

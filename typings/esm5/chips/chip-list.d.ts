@@ -247,12 +247,6 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     _blur(): void;
     /** Mark the field as touched */
     _markAsTouched(): void;
-    /**
-     * Removes the `tabindex` from the chip list and resets it back afterwards, allowing the
-     * user to tab out of it. This prevents the list from capturing focus and redirecting
-     * it back to the first chip, creating a focus trap, if it user tries to tab away.
-     */
-    _allowFocusEscape(): void;
     private _resetChips;
     private _dropSubscriptions;
     /** Listens to user-generated selection events on each chip. */
