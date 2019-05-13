@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-31e72a7');
+var VERSION = new core.Version('8.0.0-rc.0-6c03e2f');
 
 /**
  * @fileoverview added by tsickle
@@ -28480,6 +28480,7 @@ var MatRadioGroup = /** @class */ (function () {
                      * @return {?}
                      */
                     function () { return MatRadioButton; })), { descendants: true },] }],
+        color: [{ type: core.Input }],
         name: [{ type: core.Input }],
         labelPosition: [{ type: core.Input }],
         value: [{ type: core.Input }],
@@ -28507,7 +28508,7 @@ MatRadioButtonBase = /** @class */ (function () {
 // As per Material design specifications the selection control radio should use the accent color
 // palette by default. https://material.io/guidelines/components/selection-controls.html
 /** @type {?} */
-var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
+var _MatRadioButtonMixinBase = mixinDisableRipple(mixinTabIndex(MatRadioButtonBase));
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -28685,6 +28686,23 @@ var MatRadioButton = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatRadioButton.prototype, "color", {
+        /** Theme color of the radio button. */
+        get: /**
+         * Theme color of the radio button.
+         * @return {?}
+         */
+        function () {
+            return this._color || (this.radioGroup && this.radioGroup.color) || 'accent';
+        },
+        set: /**
+         * @param {?} newValue
+         * @return {?}
+         */
+        function (newValue) { this._color = newValue; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatRadioButton.prototype, "inputId", {
         /** ID of the native input element inside `<mat-radio-button>` */
         get: /**
@@ -28850,7 +28868,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: 'mat-radio-button',
                     template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-radio-persistent-ripple\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-describedby]=\"ariaDescribedby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"></div><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
                     styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent;outline:0}.mat-radio-label{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle;width:100%}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}@media (-ms-high-contrast:active){.mat-radio-checked .mat-radio-inner-circle{border:solid 10px}}.mat-radio-label-content{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto;display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button:not(.mat-radio-disabled).cdk-keyboard-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple,.mat-radio-persistent-ripple{opacity:0}@media (hover:none){.mat-radio-container:hover .mat-radio-persistent-ripple{display:none}}.mat-radio-input{bottom:0;left:50%}@media (-ms-high-contrast:active){.mat-radio-disabled{opacity:.5}}"],
-                    inputs: ['color', 'disableRipple', 'tabIndex'],
+                    inputs: ['disableRipple', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRadioButton',
                     host: {
@@ -28858,6 +28876,9 @@ var MatRadioButton = /** @class */ (function (_super) {
                         '[class.mat-radio-checked]': 'checked',
                         '[class.mat-radio-disabled]': 'disabled',
                         '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                        '[class.mat-primary]': 'color === "primary"',
+                        '[class.mat-accent]': 'color === "accent"',
+                        '[class.mat-warn]': 'color === "warn"',
                         // Needs to be -1 so the `focus` event still fires.
                         '[attr.tabindex]': '-1',
                         '[attr.id]': 'id',
@@ -28889,6 +28910,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         labelPosition: [{ type: core.Input }],
         disabled: [{ type: core.Input }],
         required: [{ type: core.Input }],
+        color: [{ type: core.Input }],
         change: [{ type: core.Output }],
         _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }]
     };
@@ -38936,7 +38958,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

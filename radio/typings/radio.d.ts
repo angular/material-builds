@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, ThemePalette } from '@angular/material/core';
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -62,6 +62,8 @@ export declare class MatRadioGroup implements AfterContentInit, ControlValueAcce
     readonly change: EventEmitter<MatRadioChange>;
     /** Child radio buttons. */
     _radios: QueryList<MatRadioButton>;
+    /** Theme color for all of the radio buttons in the group. */
+    color: ThemePalette;
     /** Name of the radio button group. All radio buttons inside this group will use this name. */
     name: string;
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
@@ -129,11 +131,11 @@ declare class MatRadioButtonBase {
     disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-declare const _MatRadioButtonMixinBase: CanColorCtor & CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;
+declare const _MatRadioButtonMixinBase: CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
-export declare class MatRadioButton extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor, CanDisableRipple, HasTabIndex {
+export declare class MatRadioButton extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanDisableRipple, HasTabIndex {
     private _changeDetector;
     private _focusMonitor;
     private _radioDispatcher;
@@ -160,6 +162,9 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     disabled: boolean;
     /** Whether the radio button is required. */
     required: boolean;
+    /** Theme color of the radio button. */
+    color: ThemePalette;
+    private _color;
     /**
      * Event emitted when the checked state of this radio button changes.
      * Change events are only emitted when the value changes due to user interaction with
