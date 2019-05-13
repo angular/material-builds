@@ -143,8 +143,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * @param positionStrategy Strategy whose position to update.
      */
     private _setPosition;
-    /** Cleans up the active subscriptions. */
-    private _cleanUpSubscriptions;
     /** Returns a stream that emits whenever an action that should close the menu occurs. */
     private _menuClosingActions;
     /** Handles mouse presses on the trigger. */

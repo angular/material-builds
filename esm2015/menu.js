@@ -1036,8 +1036,9 @@ class MatMenuTrigger {
             this._overlayRef = null;
         }
         this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
-        this._cleanUpSubscriptions();
+        this._menuCloseSubscription.unsubscribe();
         this._closingActionsSubscription.unsubscribe();
+        this._hoverSubscription.unsubscribe();
     }
     /**
      * Whether the menu is open.
@@ -1342,15 +1343,6 @@ class MatMenuTrigger {
                 offsetY: -offsetY
             }
         ]);
-    }
-    /**
-     * Cleans up the active subscriptions.
-     * @private
-     * @return {?}
-     */
-    _cleanUpSubscriptions() {
-        this._closingActionsSubscription.unsubscribe();
-        this._hoverSubscription.unsubscribe();
     }
     /**
      * Returns a stream that emits whenever an action that should close the menu occurs.

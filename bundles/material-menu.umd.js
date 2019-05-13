@@ -1286,8 +1286,9 @@ var MatMenuTrigger = /** @class */ (function () {
             this._overlayRef = null;
         }
         this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
-        this._cleanUpSubscriptions();
+        this._menuCloseSubscription.unsubscribe();
         this._closingActionsSubscription.unsubscribe();
+        this._hoverSubscription.unsubscribe();
     };
     Object.defineProperty(MatMenuTrigger.prototype, "menuOpen", {
         /** Whether the menu is open. */
@@ -1729,21 +1730,6 @@ var MatMenuTrigger = /** @class */ (function () {
                 offsetY: -offsetY
             }
         ]);
-    };
-    /** Cleans up the active subscriptions. */
-    /**
-     * Cleans up the active subscriptions.
-     * @private
-     * @return {?}
-     */
-    MatMenuTrigger.prototype._cleanUpSubscriptions = /**
-     * Cleans up the active subscriptions.
-     * @private
-     * @return {?}
-     */
-    function () {
-        this._closingActionsSubscription.unsubscribe();
-        this._hoverSubscription.unsubscribe();
     };
     /** Returns a stream that emits whenever an action that should close the menu occurs. */
     /**
