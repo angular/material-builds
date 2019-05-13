@@ -128,6 +128,8 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _modelChanges;
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
+    /** Whether the list has been destroyed. */
+    private _destroyed;
     constructor(_element: ElementRef<HTMLElement>, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;

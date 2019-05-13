@@ -70,13 +70,13 @@ export declare class MatTreeFlattener<T, F> {
  * to type `F` for `MatTree` to consume.
  */
 export declare class MatTreeFlatDataSource<T, F> extends DataSource<F> {
-    private treeControl;
-    private treeFlattener;
+    private _treeControl;
+    private _treeFlattener;
     _flattenedData: BehaviorSubject<F[]>;
     _expandedData: BehaviorSubject<F[]>;
     _data: BehaviorSubject<T[]>;
     data: T[];
-    constructor(treeControl: FlatTreeControl<F>, treeFlattener: MatTreeFlattener<T, F>, initialData?: T[]);
+    constructor(_treeControl: FlatTreeControl<F>, _treeFlattener: MatTreeFlattener<T, F>, initialData?: T[]);
     connect(collectionViewer: CollectionViewer): Observable<F[]>;
     disconnect(): void;
 }

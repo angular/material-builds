@@ -422,7 +422,9 @@ class MatListOption extends _MatListOptionMixinBase {
             Promise.resolve().then((/**
              * @return {?}
              */
-            () => this.selected = false));
+            () => {
+                this.selected = false;
+            }));
         }
         /** @type {?} */
         const hadFocus = this._hasFocus;
@@ -688,6 +690,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
+        this._destroyed = true;
         this._modelChanges.unsubscribe();
     }
     /**
@@ -791,7 +794,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _reportValueChange() {
-        if (this.options) {
+        // Stop reporting value changes after the list has been destroyed. This avoids
+        // cases where the list might wrongly reset its value once it is removed, but
+        // the form control is still live.
+        if (this.options && !this._destroyed) {
             this._onChange(this._getSelectedOptionValues());
         }
     }

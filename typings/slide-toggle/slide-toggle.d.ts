@@ -39,8 +39,8 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     defaults: MatSlideToggleDefaultOptions;
     _animationMode?: string | undefined;
     private _dir?;
-    private onChange;
-    private onTouched;
+    private _onChange;
+    private _onTouched;
     private _uniqueId;
     private _required;
     private _checked;

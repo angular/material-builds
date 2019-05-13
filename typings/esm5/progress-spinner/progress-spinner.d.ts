@@ -42,12 +42,12 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _strokeWidth;
     private _fallbackAnimation;
     /** Tracks diameters of existing instances to de-dupe generated styles (default d = 100) */
-    private static diameters;
+    private static _diameters;
     /**
      * Used for storing all of the generated keyframe animations.
      * @dynamic
      */
-    private static styleTag;
+    private static _styleTag;
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
     _noopAnimations: boolean;
     /** The diameter of the progress spinner (will set width and height of svg). */

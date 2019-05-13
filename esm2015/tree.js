@@ -438,14 +438,14 @@ class MatTreeFlattener {
  */
 class MatTreeFlatDataSource extends DataSource {
     /**
-     * @param {?} treeControl
-     * @param {?} treeFlattener
+     * @param {?} _treeControl
+     * @param {?} _treeFlattener
      * @param {?=} initialData
      */
-    constructor(treeControl, treeFlattener, initialData = []) {
+    constructor(_treeControl, _treeFlattener, initialData = []) {
         super();
-        this.treeControl = treeControl;
-        this.treeFlattener = treeFlattener;
+        this._treeControl = _treeControl;
+        this._treeFlattener = _treeFlattener;
         this._flattenedData = new BehaviorSubject([]);
         this._expandedData = new BehaviorSubject([]);
         this._data = new BehaviorSubject(initialData);
@@ -460,8 +460,8 @@ class MatTreeFlatDataSource extends DataSource {
      */
     set data(value) {
         this._data.next(value);
-        this._flattenedData.next(this.treeFlattener.flattenNodes(this.data));
-        this.treeControl.dataNodes = this._flattenedData.value;
+        this._flattenedData.next(this._treeFlattener.flattenNodes(this.data));
+        this._treeControl.dataNodes = this._flattenedData.value;
     }
     /**
      * @param {?} collectionViewer
@@ -471,14 +471,14 @@ class MatTreeFlatDataSource extends DataSource {
         /** @type {?} */
         const changes = [
             collectionViewer.viewChange,
-            this.treeControl.expansionModel.onChange,
+            this._treeControl.expansionModel.onChange,
             this._flattenedData
         ];
         return merge(...changes).pipe(map((/**
          * @return {?}
          */
         () => {
-            this._expandedData.next(this.treeFlattener.expandFlattenedNodes(this._flattenedData.value, this.treeControl));
+            this._expandedData.next(this._treeFlattener.expandFlattenedNodes(this._flattenedData.value, this._treeControl));
             return this._expandedData.value;
         })));
     }

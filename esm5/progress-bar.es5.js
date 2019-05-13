@@ -134,7 +134,7 @@ var MatProgressBar = /** @class */ (function (_super) {
             this._value = clamp(v || 0);
             // When noop animation is set to true, trigger animationEnd directly.
             if (this._isNoopAnimation) {
-                this.emitAnimationEnd();
+                this._emitAnimationEnd();
             }
         },
         enumerable: true,
@@ -220,7 +220,7 @@ var MatProgressBar = /** @class */ (function (_super) {
                     function () { return _this._ngZone.run((/**
                      * @return {?}
                      */
-                    function () { return _this.emitAnimationEnd(); })); }));
+                    function () { return _this._emitAnimationEnd(); })); }));
             })));
         }
     };
@@ -239,7 +239,7 @@ var MatProgressBar = /** @class */ (function (_super) {
      * @private
      * @return {?}
      */
-    MatProgressBar.prototype.emitAnimationEnd = /**
+    MatProgressBar.prototype._emitAnimationEnd = /**
      * Emit an animationEnd event if in determinate or buffer mode.
      * @private
      * @return {?}

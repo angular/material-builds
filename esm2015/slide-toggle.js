@@ -99,12 +99,12 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this.defaults = defaults;
         this._animationMode = _animationMode;
         this._dir = _dir;
-        this.onChange = (/**
+        this._onChange = (/**
          * @param {?} _
          * @return {?}
          */
         (_) => { });
-        this.onTouched = (/**
+        this._onTouched = (/**
          * @return {?}
          */
         () => { });
@@ -203,7 +203,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
                 Promise.resolve().then((/**
                  * @return {?}
                  */
-                () => this.onTouched()));
+                () => this._onTouched()));
             }
         }));
     }
@@ -270,7 +270,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     registerOnChange(fn) {
-        this.onChange = fn;
+        this._onChange = fn;
     }
     /**
      * Implemented as part of ControlValueAccessor.
@@ -278,7 +278,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     registerOnTouched(fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     }
     /**
      * Implemented as a part of ControlValueAccessor.
@@ -302,7 +302,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      */
     toggle() {
         this.checked = !this.checked;
-        this.onChange(this.checked);
+        this._onChange(this.checked);
     }
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
@@ -310,7 +310,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     _emitChangeEvent() {
-        this.onChange(this.checked);
+        this._onChange(this.checked);
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     }
     /**
