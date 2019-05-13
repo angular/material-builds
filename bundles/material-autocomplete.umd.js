@@ -452,7 +452,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
             _this._canOpenOnNextFocus =
-                document.activeElement !== _this._element.nativeElement || _this.panelOpen;
+                _this._document.activeElement !== _this._element.nativeElement || _this.panelOpen;
         });
         /**
          * `View -> model callback called when value changes`
@@ -703,9 +703,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (!this._document) {
-            return rxjs.of(null);
-        }
         return rxjs.merge((/** @type {?} */ (rxjs.fromEvent(this._document, 'click'))), (/** @type {?} */ (rxjs.fromEvent(this._document, 'touchend'))))
             .pipe(operators.filter((/**
          * @param {?} event
@@ -851,7 +848,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (this._previousValue !== value) {
             this._previousValue = value;
             this._onChange(value);
-            if (this._canOpen() && document.activeElement === event.target) {
+            if (this._canOpen() && this._document.activeElement === event.target) {
                 this.openPanel();
             }
         }

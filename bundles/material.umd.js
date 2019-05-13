@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-58db9db');
+var VERSION = new core.Version('8.0.0-rc.0-07e8028');
 
 /**
  * @fileoverview added by tsickle
@@ -4499,7 +4499,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
             _this._canOpenOnNextFocus =
-                document.activeElement !== _this._element.nativeElement || _this.panelOpen;
+                _this._document.activeElement !== _this._element.nativeElement || _this.panelOpen;
         });
         /**
          * `View -> model callback called when value changes`
@@ -4750,9 +4750,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (!this._document) {
-            return rxjs.of(null);
-        }
         return rxjs.merge((/** @type {?} */ (rxjs.fromEvent(this._document, 'click'))), (/** @type {?} */ (rxjs.fromEvent(this._document, 'touchend'))))
             .pipe(operators.filter((/**
          * @param {?} event
@@ -4898,7 +4895,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         if (this._previousValue !== value) {
             this._previousValue = value;
             this._onChange(value);
-            if (this._canOpen() && document.activeElement === event.target) {
+            if (this._canOpen() && this._document.activeElement === event.target) {
                 this.openPanel();
             }
         }
@@ -13323,7 +13320,7 @@ var MatCalendarBody = /** @class */ (function () {
     MatCalendarBody.decorators = [
         { type: core.Component, args: [{selector: '[mat-calendar-body]',
                     template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [ngClass]=\"item.cssClasses\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" [attr.aria-selected]=\"selectedValue === item.value\" (click)=\"_cellClicked(item)\" [style.width]=\"_cellWidth\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
-                    styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}@media (-ms-high-contrast:active){.mat-calendar-body-cell-content{border:none}}@media (-ms-high-contrast:active){.mat-calendar-body-selected,.mat-datepicker-popup:not(:empty){outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
+                    styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}@media (-ms-high-contrast:active){.mat-calendar-body-cell-content{border:none}}@media (-ms-high-contrast:active){.mat-calendar-body-selected,.mat-datepicker-popup:not(:empty){outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}.cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected),.cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){outline:dotted 2px}}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
                     host: {
                         'class': 'mat-calendar-body',
                         'role': 'grid',
@@ -13751,7 +13748,7 @@ var MatMonthView = /** @class */ (function () {
     };
     MatMonthView.decorators = [
         { type: core.Component, args: [{selector: 'mat-month-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\" role=\"presentation\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMonthView',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
@@ -14119,7 +14116,7 @@ var MatMultiYearView = /** @class */ (function () {
     };
     MatMultiYearView.decorators = [
         { type: core.Component, args: [{selector: 'mat-multi-year-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\" role=\"presentation\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMultiYearView',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
@@ -14557,7 +14554,7 @@ var MatYearView = /** @class */ (function () {
     };
     MatYearView.decorators = [
         { type: core.Component, args: [{selector: 'mat-year-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\" role=\"presentation\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matYearView',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
@@ -24663,7 +24660,9 @@ var MatSelect = /** @class */ (function (_super) {
             // Since the value has changed, we need to announce it ourselves.
             // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
             if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
-                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue);
+                // We set a duration on the live announcement, because we want the live element to be
+                // cleared after a while so that users can't navigate to it using the arrow keys.
+                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue, 10000);
             }
         }
     };
@@ -38956,7 +38955,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

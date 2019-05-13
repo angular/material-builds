@@ -1005,7 +1005,9 @@ var MatSelect = /** @class */ (function (_super) {
             // Since the value has changed, we need to announce it ourselves.
             // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
             if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
-                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue);
+                // We set a duration on the live announcement, because we want the live element to be
+                // cleared after a while so that users can't navigate to it using the arrow keys.
+                this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue, 10000);
             }
         }
     };
