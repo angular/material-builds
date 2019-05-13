@@ -819,8 +819,10 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (iconSet, iconName) {
+        // Use the `id="iconName"` syntax in order to escape special
+        // characters in the ID (versus using the #iconName syntax).
         /** @type {?} */
-        var iconSource = iconSet.querySelector('#' + iconName);
+        var iconSource = iconSet.querySelector("[id=\"" + iconName + "\"]");
         if (!iconSource) {
             return null;
         }

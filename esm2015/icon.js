@@ -508,8 +508,10 @@ class MatIconRegistry {
      * @return {?}
      */
     _extractSvgIconFromSet(iconSet, iconName) {
+        // Use the `id="iconName"` syntax in order to escape special
+        // characters in the ID (versus using the #iconName syntax).
         /** @type {?} */
-        const iconSource = iconSet.querySelector('#' + iconName);
+        const iconSource = iconSet.querySelector(`[id="${iconName}"]`);
         if (!iconSource) {
             return null;
         }

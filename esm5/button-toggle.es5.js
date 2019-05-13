@@ -767,6 +767,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
                         // but can still receive focus from things like cdkFocusInitial.
                         '[attr.tabindex]': '-1',
                         '[attr.id]': 'id',
+                        '[attr.name]': 'null',
                         '(focus)': 'focus()',
                     }
                 },] },
