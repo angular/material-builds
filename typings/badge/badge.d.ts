@@ -54,6 +54,11 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     isAfter(): boolean;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
+    /**
+     * Gets the element into which the badge's content is being rendered.
+     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
+     */
+    getBadgeElement(): HTMLElement | undefined;
     /** Injects a span element into the DOM with the content. */
     private _updateTextContent;
     /** Creates the badge element */

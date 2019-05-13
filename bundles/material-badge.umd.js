@@ -235,6 +235,23 @@ var MatBadge = /** @class */ (function (_super) {
             }
         }
     };
+    /**
+     * Gets the element into which the badge's content is being rendered.
+     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
+     */
+    /**
+     * Gets the element into which the badge's content is being rendered.
+     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
+     * @return {?}
+     */
+    MatBadge.prototype.getBadgeElement = /**
+     * Gets the element into which the badge's content is being rendered.
+     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
+     * @return {?}
+     */
+    function () {
+        return this._badgeElement;
+    };
     /** Injects a span element into the DOM with the content. */
     /**
      * Injects a span element into the DOM with the content.
