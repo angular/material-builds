@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-e630bd6');
+var VERSION = new core.Version('8.0.0-rc.0-f6cd86e');
 
 /**
  * @fileoverview added by tsickle
@@ -24038,12 +24038,17 @@ var MatSelect = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            if (_this.options) {
-                return rxjs.merge.apply(void 0, _this.options.map((/**
+            /** @type {?} */
+            var options = _this.options;
+            if (options) {
+                return options.changes.pipe(operators.startWith(options), operators.switchMap((/**
+                 * @return {?}
+                 */
+                function () { return rxjs.merge.apply(void 0, options.map((/**
                  * @param {?} option
                  * @return {?}
                  */
-                function (option) { return option.onSelectionChange; })));
+                function (option) { return option.onSelectionChange; }))); })));
             }
             return _this._ngZone.onStable
                 .asObservable()

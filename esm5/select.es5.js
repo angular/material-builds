@@ -373,12 +373,17 @@ var MatSelect = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            if (_this.options) {
-                return merge.apply(void 0, _this.options.map((/**
+            /** @type {?} */
+            var options = _this.options;
+            if (options) {
+                return options.changes.pipe(startWith(options), switchMap((/**
+                 * @return {?}
+                 */
+                function () { return merge.apply(void 0, options.map((/**
                  * @param {?} option
                  * @return {?}
                  */
-                function (option) { return option.onSelectionChange; })));
+                function (option) { return option.onSelectionChange; }))); })));
             }
             return _this._ngZone.onStable
                 .asObservable()

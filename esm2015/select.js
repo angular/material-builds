@@ -384,12 +384,17 @@ class MatSelect extends _MatSelectMixinBase {
          * @return {?}
          */
         () => {
-            if (this.options) {
-                return merge(...this.options.map((/**
+            /** @type {?} */
+            const options = this.options;
+            if (options) {
+                return options.changes.pipe(startWith(options), switchMap((/**
+                 * @return {?}
+                 */
+                () => merge(...options.map((/**
                  * @param {?} option
                  * @return {?}
                  */
-                option => option.onSelectionChange)));
+                option => option.onSelectionChange))))));
             }
             return this._ngZone.onStable
                 .asObservable()
