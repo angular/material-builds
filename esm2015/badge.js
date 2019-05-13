@@ -167,14 +167,6 @@ class MatBadge extends _MatBadgeMixinBase {
         }
     }
     /**
-     * Gets the element into which the badge's content is being rendered.
-     * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
-     * @return {?}
-     */
-    getBadgeElement() {
-        return this._badgeElement;
-    }
-    /**
      * Injects a span element into the DOM with the content.
      * @private
      * @return {?}
