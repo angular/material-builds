@@ -469,6 +469,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () { });
         /**
+         * Position of the autocomplete panel relative to the trigger element. A position of `auto`
+         * will render the panel underneath the trigger if there is enough space for it to fit in
+         * the viewport, otherwise the panel will be shown above it. If the position is set to
+         * `above` or `below`, the panel will always be shown above or below the trigger. no matter
+         * whether it fits completely in the viewport.
+         */
+        this.position = 'auto';
+        /**
          * `autocomplete` attribute to be set on the input element.
          * \@docs-private
          */
@@ -528,6 +536,22 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes['position'] && this._positionStrategy) {
+            this._setStrategyPositions(this._positionStrategy);
+            if (this.panelOpen) {
+                (/** @type {?} */ (this._overlayRef)).updatePosition();
+            }
+        }
+    };
     /**
      * @return {?}
      */
@@ -1141,10 +1165,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             }
         }
         else {
-            /** @type {?} */
-            var position = (/** @type {?} */ (overlayRef.getConfig().positionStrategy));
             // Update the trigger, panel width and direction, in case anything has changed.
-            position.setOrigin(this._getConnectedElement());
+            this._positionStrategy.setOrigin(this._getConnectedElement());
             overlayRef.updateSize({ width: this._getPanelWidth() });
         }
         if (overlayRef && !overlayRef.hasAttached()) {
@@ -1186,29 +1208,59 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._positionStrategy = this._overlay.position()
+        /** @type {?} */
+        var strategy = this._overlay.position()
             .flexibleConnectedTo(this._getConnectedElement())
             .withFlexibleDimensions(false)
-            .withPush(false)
-            .withPositions([
-            {
-                originX: 'start',
-                originY: 'bottom',
-                overlayX: 'start',
-                overlayY: 'top'
-            },
-            {
-                originX: 'start',
-                originY: 'top',
-                overlayX: 'start',
-                overlayY: 'bottom',
-                // The overlay edge connected to the trigger should have squared corners, while
-                // the opposite end has rounded corners. We apply a CSS class to swap the
-                // border-radius based on the overlay position.
-                panelClass: 'mat-autocomplete-panel-above'
-            }
-        ]);
-        return this._positionStrategy;
+            .withPush(false);
+        this._setStrategyPositions(strategy);
+        this._positionStrategy = strategy;
+        return strategy;
+    };
+    /** Sets the positions on a position strategy based on the directive's input state. */
+    /**
+     * Sets the positions on a position strategy based on the directive's input state.
+     * @private
+     * @param {?} positionStrategy
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._setStrategyPositions = /**
+     * Sets the positions on a position strategy based on the directive's input state.
+     * @private
+     * @param {?} positionStrategy
+     * @return {?}
+     */
+    function (positionStrategy) {
+        /** @type {?} */
+        var belowPosition = {
+            originX: 'start',
+            originY: 'bottom',
+            overlayX: 'start',
+            overlayY: 'top'
+        };
+        /** @type {?} */
+        var abovePosition = {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'bottom',
+            // The overlay edge connected to the trigger should have squared corners, while
+            // the opposite end has rounded corners. We apply a CSS class to swap the
+            // border-radius based on the overlay position.
+            panelClass: 'mat-autocomplete-panel-above'
+        };
+        /** @type {?} */
+        var positions;
+        if (this.position === 'above') {
+            positions = [abovePosition];
+        }
+        else if (this.position === 'below') {
+            positions = [belowPosition];
+        }
+        else {
+            positions = [belowPosition, abovePosition];
+        }
+        positionStrategy.withPositions(positions);
     };
     /**
      * @private
@@ -1321,6 +1373,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ]; };
     MatAutocompleteTrigger.propDecorators = {
         autocomplete: [{ type: core.Input, args: ['matAutocomplete',] }],
+        position: [{ type: core.Input, args: ['matAutocompletePosition',] }],
         connectedTo: [{ type: core.Input, args: ['matAutocompleteConnectedTo',] }],
         autocompleteAttribute: [{ type: core.Input, args: ['autocomplete',] }],
         autocompleteDisabled: [{ type: core.Input, args: ['matAutocompleteDisabled',] }]
