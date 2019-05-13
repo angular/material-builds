@@ -132,7 +132,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
         this._value = clamp(v || 0);
         // When noop animation is set to true, trigger animationEnd directly.
         if (this._isNoopAnimation) {
-            this.emitAnimationEnd();
+            this._emitAnimationEnd();
         }
     }
     /**
@@ -192,7 +192,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
                     () => this._ngZone.run((/**
                      * @return {?}
                      */
-                    () => this.emitAnimationEnd()))));
+                    () => this._emitAnimationEnd()))));
             })));
         }
     }
@@ -207,7 +207,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
      * @private
      * @return {?}
      */
-    emitAnimationEnd() {
+    _emitAnimationEnd() {
         if (this.mode === 'determinate' || this.mode === 'buffer') {
             this.animationEnd.next({ value: this.value });
         }

@@ -570,11 +570,11 @@ var   /**
  */
 MatTreeFlatDataSource = /** @class */ (function (_super) {
     __extends(MatTreeFlatDataSource, _super);
-    function MatTreeFlatDataSource(treeControl, treeFlattener, initialData) {
+    function MatTreeFlatDataSource(_treeControl, _treeFlattener, initialData) {
         if (initialData === void 0) { initialData = []; }
         var _this = _super.call(this) || this;
-        _this.treeControl = treeControl;
-        _this.treeFlattener = treeFlattener;
+        _this._treeControl = _treeControl;
+        _this._treeFlattener = _treeFlattener;
         _this._flattenedData = new rxjs.BehaviorSubject([]);
         _this._expandedData = new rxjs.BehaviorSubject([]);
         _this._data = new rxjs.BehaviorSubject(initialData);
@@ -591,8 +591,8 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
          */
         function (value) {
             this._data.next(value);
-            this._flattenedData.next(this.treeFlattener.flattenNodes(this.data));
-            this.treeControl.dataNodes = this._flattenedData.value;
+            this._flattenedData.next(this._treeFlattener.flattenNodes(this.data));
+            this._treeControl.dataNodes = this._flattenedData.value;
         },
         enumerable: true,
         configurable: true
@@ -610,14 +610,14 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
         /** @type {?} */
         var changes = [
             collectionViewer.viewChange,
-            this.treeControl.expansionModel.onChange,
+            this._treeControl.expansionModel.onChange,
             this._flattenedData
         ];
         return rxjs.merge.apply(void 0, changes).pipe(operators.map((/**
          * @return {?}
          */
         function () {
-            _this._expandedData.next(_this.treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this.treeControl));
+            _this._expandedData.next(_this._treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this._treeControl));
             return _this._expandedData.value;
         })));
     };

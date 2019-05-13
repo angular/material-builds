@@ -541,7 +541,9 @@ var MatListOption = /** @class */ (function (_super) {
             Promise.resolve().then((/**
              * @return {?}
              */
-            function () { return _this.selected = false; }));
+            function () {
+                _this.selected = false;
+            }));
         }
         /** @type {?} */
         var hadFocus = this._hasFocus;
@@ -878,6 +880,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        this._destroyed = true;
         this._modelChanges.unsubscribe();
     };
     /** Focuses the selection list. */
@@ -1022,7 +1025,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.options) {
+        // Stop reporting value changes after the list has been destroyed. This avoids
+        // cases where the list might wrongly reset its value once it is removed, but
+        // the form control is still live.
+        if (this.options && !this._destroyed) {
             this._onChange(this._getSelectedOptionValues());
         }
     };

@@ -135,7 +135,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     set diameter(size) {
         this._diameter = coerceNumberProperty(size);
-        if (!this._fallbackAnimation && !MatProgressSpinner.diameters.has(this._diameter)) {
+        if (!this._fallbackAnimation && !MatProgressSpinner._diameters.has(this._diameter)) {
             this._attachStyleNode();
         }
     }
@@ -218,16 +218,16 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     _attachStyleNode() {
         /** @type {?} */
-        let styleTag = MatProgressSpinner.styleTag;
+        let styleTag = MatProgressSpinner._styleTag;
         if (!styleTag) {
             styleTag = this._document.createElement('style');
             this._document.head.appendChild(styleTag);
-            MatProgressSpinner.styleTag = styleTag;
+            MatProgressSpinner._styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
             ((/** @type {?} */ (styleTag.sheet))).insertRule(this._getAnimationText(), 0);
         }
-        MatProgressSpinner.diameters.add(this.diameter);
+        MatProgressSpinner._diameters.add(this.diameter);
     }
     /**
      * Generates animation styles adjusted for the spinner's diameter.
@@ -245,12 +245,12 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
 /**
  * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
  */
-MatProgressSpinner.diameters = new Set([BASE_SIZE]);
+MatProgressSpinner._diameters = new Set([BASE_SIZE]);
 /**
  * Used for storing all of the generated keyframe animations.
  * \@dynamic
  */
-MatProgressSpinner.styleTag = null;
+MatProgressSpinner._styleTag = null;
 MatProgressSpinner.decorators = [
     { type: Component, args: [{selector: 'mat-progress-spinner',
                 exportAs: 'matProgressSpinner',

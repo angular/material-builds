@@ -88,6 +88,6 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Emit an animationEnd event if in determinate or buffer mode. */
-    private emitAnimationEnd;
+    private _emitAnimationEnd;
 }
 export {};

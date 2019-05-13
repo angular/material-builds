@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-70bc4d5');
+var VERSION = new core.Version('8.0.0-rc.0-40b335c');
 
 /**
  * @fileoverview added by tsickle
@@ -1859,7 +1859,7 @@ RippleRenderer = /** @class */ (function () {
         /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
-        this.onMousedown = (/**
+        this._onMousedown = (/**
          * @param {?} event
          * @return {?}
          */
@@ -1879,7 +1879,7 @@ RippleRenderer = /** @class */ (function () {
         /**
          * Function being called whenever the trigger is being pressed using touch.
          */
-        this.onTouchStart = (/**
+        this._onTouchStart = (/**
          * @param {?} event
          * @return {?}
          */
@@ -1902,7 +1902,7 @@ RippleRenderer = /** @class */ (function () {
         /**
          * Function being called whenever the trigger is being released.
          */
-        this.onPointerUp = (/**
+        this._onPointerUp = (/**
          * @return {?}
          */
         function () {
@@ -1931,12 +1931,12 @@ RippleRenderer = /** @class */ (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents
-                .set('mousedown', this.onMousedown)
-                .set('mouseup', this.onPointerUp)
-                .set('mouseleave', this.onPointerUp)
-                .set('touchstart', this.onTouchStart)
-                .set('touchend', this.onPointerUp)
-                .set('touchcancel', this.onPointerUp);
+                .set('mousedown', this._onMousedown)
+                .set('mouseup', this._onPointerUp)
+                .set('mouseleave', this._onPointerUp)
+                .set('touchstart', this._onTouchStart)
+                .set('touchend', this._onPointerUp)
+                .set('touchcancel', this._onPointerUp);
         }
     }
     /**
@@ -2005,7 +2005,7 @@ RippleRenderer = /** @class */ (function () {
         }
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
-        this.runTimeoutOutsideZone((/**
+        this._runTimeoutOutsideZone((/**
          * @return {?}
          */
         function () {
@@ -2055,7 +2055,7 @@ RippleRenderer = /** @class */ (function () {
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
-        this.runTimeoutOutsideZone((/**
+        this._runTimeoutOutsideZone((/**
          * @return {?}
          */
         function () {
@@ -2120,7 +2120,7 @@ RippleRenderer = /** @class */ (function () {
      * @param {?=} delay
      * @return {?}
      */
-    RippleRenderer.prototype.runTimeoutOutsideZone = /**
+    RippleRenderer.prototype._runTimeoutOutsideZone = /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
      * @private
      * @param {?} fn
@@ -20849,7 +20849,9 @@ var MatListOption = /** @class */ (function (_super) {
             Promise.resolve().then((/**
              * @return {?}
              */
-            function () { return _this.selected = false; }));
+            function () {
+                _this.selected = false;
+            }));
         }
         /** @type {?} */
         var hadFocus = this._hasFocus;
@@ -21186,6 +21188,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        this._destroyed = true;
         this._modelChanges.unsubscribe();
     };
     /** Focuses the selection list. */
@@ -21330,7 +21333,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.options) {
+        // Stop reporting value changes after the list has been destroyed. This avoids
+        // cases where the list might wrongly reset its value once it is removed, but
+        // the form control is still live.
+        if (this.options && !this._destroyed) {
             this._onChange(this._getSelectedOptionValues());
         }
     };
@@ -27412,7 +27418,7 @@ var MatProgressBar = /** @class */ (function (_super) {
             this._value = clamp(v || 0);
             // When noop animation is set to true, trigger animationEnd directly.
             if (this._isNoopAnimation) {
-                this.emitAnimationEnd();
+                this._emitAnimationEnd();
             }
         },
         enumerable: true,
@@ -27498,7 +27504,7 @@ var MatProgressBar = /** @class */ (function (_super) {
                     function () { return _this._ngZone.run((/**
                      * @return {?}
                      */
-                    function () { return _this.emitAnimationEnd(); })); }));
+                    function () { return _this._emitAnimationEnd(); })); }));
             })));
         }
     };
@@ -27517,7 +27523,7 @@ var MatProgressBar = /** @class */ (function (_super) {
      * @private
      * @return {?}
      */
-    MatProgressBar.prototype.emitAnimationEnd = /**
+    MatProgressBar.prototype._emitAnimationEnd = /**
      * Emit an animationEnd event if in determinate or buffer mode.
      * @private
      * @return {?}
@@ -27693,7 +27699,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
          */
         function (size) {
             this._diameter = coercion.coerceNumberProperty(size);
-            if (!this._fallbackAnimation && !MatProgressSpinner.diameters.has(this._diameter)) {
+            if (!this._fallbackAnimation && !MatProgressSpinner._diameters.has(this._diameter)) {
                 this._attachStyleNode();
             }
         },
@@ -27820,16 +27826,16 @@ var MatProgressSpinner = /** @class */ (function (_super) {
      */
     function () {
         /** @type {?} */
-        var styleTag = MatProgressSpinner.styleTag;
+        var styleTag = MatProgressSpinner._styleTag;
         if (!styleTag) {
             styleTag = this._document.createElement('style');
             this._document.head.appendChild(styleTag);
-            MatProgressSpinner.styleTag = styleTag;
+            MatProgressSpinner._styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
             ((/** @type {?} */ (styleTag.sheet))).insertRule(this._getAnimationText(), 0);
         }
-        MatProgressSpinner.diameters.add(this.diameter);
+        MatProgressSpinner._diameters.add(this.diameter);
     };
     /** Generates animation styles adjusted for the spinner's diameter. */
     /**
@@ -27852,12 +27858,12 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     /**
      * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
      */
-    MatProgressSpinner.diameters = new Set([BASE_SIZE]);
+    MatProgressSpinner._diameters = new Set([BASE_SIZE]);
     /**
      * Used for storing all of the generated keyframe animations.
      * \@dynamic
      */
-    MatProgressSpinner.styleTag = null;
+    MatProgressSpinner._styleTag = null;
     MatProgressSpinner.decorators = [
         { type: core.Component, args: [{selector: 'mat-progress-spinner',
                     exportAs: 'matProgressSpinner',
@@ -30402,12 +30408,12 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this.defaults = defaults;
         _this._animationMode = _animationMode;
         _this._dir = _dir;
-        _this.onChange = (/**
+        _this._onChange = (/**
          * @param {?} _
          * @return {?}
          */
         function (_) { });
-        _this.onTouched = (/**
+        _this._onTouched = (/**
          * @return {?}
          */
         function () { });
@@ -30526,7 +30532,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                 Promise.resolve().then((/**
                  * @return {?}
                  */
-                function () { return _this.onTouched(); }));
+                function () { return _this._onTouched(); }));
             }
         }));
     };
@@ -30620,7 +30626,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fn) {
-        this.onChange = fn;
+        this._onChange = fn;
     };
     /** Implemented as part of ControlValueAccessor. */
     /**
@@ -30634,7 +30640,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     };
     /** Implemented as a part of ControlValueAccessor. */
     /**
@@ -30674,7 +30680,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function () {
         this.checked = !this.checked;
-        this.onChange(this.checked);
+        this._onChange(this.checked);
     };
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
@@ -30690,7 +30696,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.onChange(this.checked);
+        this._onChange(this.checked);
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     };
     /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
@@ -38524,11 +38530,11 @@ var   /**
  */
 MatTreeFlatDataSource = /** @class */ (function (_super) {
     __extends(MatTreeFlatDataSource, _super);
-    function MatTreeFlatDataSource(treeControl, treeFlattener, initialData) {
+    function MatTreeFlatDataSource(_treeControl, _treeFlattener, initialData) {
         if (initialData === void 0) { initialData = []; }
         var _this = _super.call(this) || this;
-        _this.treeControl = treeControl;
-        _this.treeFlattener = treeFlattener;
+        _this._treeControl = _treeControl;
+        _this._treeFlattener = _treeFlattener;
         _this._flattenedData = new rxjs.BehaviorSubject([]);
         _this._expandedData = new rxjs.BehaviorSubject([]);
         _this._data = new rxjs.BehaviorSubject(initialData);
@@ -38545,8 +38551,8 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
          */
         function (value) {
             this._data.next(value);
-            this._flattenedData.next(this.treeFlattener.flattenNodes(this.data));
-            this.treeControl.dataNodes = this._flattenedData.value;
+            this._flattenedData.next(this._treeFlattener.flattenNodes(this.data));
+            this._treeControl.dataNodes = this._flattenedData.value;
         },
         enumerable: true,
         configurable: true
@@ -38564,14 +38570,14 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
         /** @type {?} */
         var changes = [
             collectionViewer.viewChange,
-            this.treeControl.expansionModel.onChange,
+            this._treeControl.expansionModel.onChange,
             this._flattenedData
         ];
         return rxjs.merge.apply(void 0, changes).pipe(operators.map((/**
          * @return {?}
          */
         function () {
-            _this._expandedData.next(_this.treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this.treeControl));
+            _this._expandedData.next(_this._treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this._treeControl));
             return _this._expandedData.value;
         })));
     };
@@ -38860,7 +38866,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -38895,9 +38901,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39015,7 +39021,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

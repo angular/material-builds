@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new Version('8.0.0-rc.0-70bc4d5');
+var VERSION = new Version('8.0.0-rc.0-40b335c');
 
 /**
  * @fileoverview added by tsickle
@@ -1826,7 +1826,7 @@ RippleRenderer = /** @class */ (function () {
         /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
-        this.onMousedown = (/**
+        this._onMousedown = (/**
          * @param {?} event
          * @return {?}
          */
@@ -1846,7 +1846,7 @@ RippleRenderer = /** @class */ (function () {
         /**
          * Function being called whenever the trigger is being pressed using touch.
          */
-        this.onTouchStart = (/**
+        this._onTouchStart = (/**
          * @param {?} event
          * @return {?}
          */
@@ -1869,7 +1869,7 @@ RippleRenderer = /** @class */ (function () {
         /**
          * Function being called whenever the trigger is being released.
          */
-        this.onPointerUp = (/**
+        this._onPointerUp = (/**
          * @return {?}
          */
         function () {
@@ -1898,12 +1898,12 @@ RippleRenderer = /** @class */ (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents
-                .set('mousedown', this.onMousedown)
-                .set('mouseup', this.onPointerUp)
-                .set('mouseleave', this.onPointerUp)
-                .set('touchstart', this.onTouchStart)
-                .set('touchend', this.onPointerUp)
-                .set('touchcancel', this.onPointerUp);
+                .set('mousedown', this._onMousedown)
+                .set('mouseup', this._onPointerUp)
+                .set('mouseleave', this._onPointerUp)
+                .set('touchstart', this._onTouchStart)
+                .set('touchend', this._onPointerUp)
+                .set('touchcancel', this._onPointerUp);
         }
     }
     /**
@@ -1972,7 +1972,7 @@ RippleRenderer = /** @class */ (function () {
         }
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
-        this.runTimeoutOutsideZone((/**
+        this._runTimeoutOutsideZone((/**
          * @return {?}
          */
         function () {
@@ -2022,7 +2022,7 @@ RippleRenderer = /** @class */ (function () {
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
-        this.runTimeoutOutsideZone((/**
+        this._runTimeoutOutsideZone((/**
          * @return {?}
          */
         function () {
@@ -2087,7 +2087,7 @@ RippleRenderer = /** @class */ (function () {
      * @param {?=} delay
      * @return {?}
      */
-    RippleRenderer.prototype.runTimeoutOutsideZone = /**
+    RippleRenderer.prototype._runTimeoutOutsideZone = /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
      * @private
      * @param {?} fn

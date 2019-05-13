@@ -118,12 +118,12 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this.defaults = defaults;
         _this._animationMode = _animationMode;
         _this._dir = _dir;
-        _this.onChange = (/**
+        _this._onChange = (/**
          * @param {?} _
          * @return {?}
          */
         function (_) { });
-        _this.onTouched = (/**
+        _this._onTouched = (/**
          * @return {?}
          */
         function () { });
@@ -242,7 +242,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                 Promise.resolve().then((/**
                  * @return {?}
                  */
-                function () { return _this.onTouched(); }));
+                function () { return _this._onTouched(); }));
             }
         }));
     };
@@ -336,7 +336,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fn) {
-        this.onChange = fn;
+        this._onChange = fn;
     };
     /** Implemented as part of ControlValueAccessor. */
     /**
@@ -350,7 +350,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     };
     /** Implemented as a part of ControlValueAccessor. */
     /**
@@ -390,7 +390,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function () {
         this.checked = !this.checked;
-        this.onChange(this.checked);
+        this._onChange(this.checked);
     };
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
@@ -406,7 +406,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.onChange(this.checked);
+        this._onChange(this.checked);
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     };
     /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
