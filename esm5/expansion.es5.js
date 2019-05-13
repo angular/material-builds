@@ -705,12 +705,16 @@ var MatAccordion = /** @class */ (function (_super) {
         /** @type {?} */
         var manager = this._keyManager;
         if (keyCode === HOME) {
-            manager.setFirstItemActive();
-            event.preventDefault();
+            if (!hasModifierKey(event)) {
+                manager.setFirstItemActive();
+                event.preventDefault();
+            }
         }
         else if (keyCode === END) {
-            manager.setLastItemActive();
-            event.preventDefault();
+            if (!hasModifierKey(event)) {
+                manager.setLastItemActive();
+                event.preventDefault();
+            }
         }
         else {
             this._keyManager.onKeydown(event);

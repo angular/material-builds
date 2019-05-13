@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-3712b8f');
+var VERSION = new core.Version('8.0.0-rc.0-7794304');
 
 /**
  * @fileoverview added by tsickle
@@ -17475,12 +17475,16 @@ var MatAccordion = /** @class */ (function (_super) {
         /** @type {?} */
         var manager = this._keyManager;
         if (keyCode === keycodes.HOME) {
-            manager.setFirstItemActive();
-            event.preventDefault();
+            if (!keycodes.hasModifierKey(event)) {
+                manager.setFirstItemActive();
+                event.preventDefault();
+            }
         }
         else if (keyCode === keycodes.END) {
-            manager.setLastItemActive();
-            event.preventDefault();
+            if (!keycodes.hasModifierKey(event)) {
+                manager.setLastItemActive();
+                event.preventDefault();
+            }
         }
         else {
             this._keyManager.onKeydown(event);
