@@ -265,9 +265,10 @@ class MatButtonToggleGroup {
      * @param {?} toggle Toggle to be synced.
      * @param {?} select Whether the toggle should be selected.
      * @param {?=} isUserInput Whether the change was a result of a user interaction.
+     * @param {?=} deferEvents Whether to defer emitting the change events.
      * @return {?}
      */
-    _syncButtonToggle(toggle, select, isUserInput = false) {
+    _syncButtonToggle(toggle, select, isUserInput = false, deferEvents = false) {
         // Deselect the currently-selected toggle, if we're in single-selection
         // mode and the button being toggled isn't selected at the moment.
         if (!this.multiple && this.selected && !toggle.checked) {
@@ -279,13 +280,14 @@ class MatButtonToggleGroup {
         else {
             this._selectionModel.deselect(toggle);
         }
-        // Only emit the change event for user input.
-        if (isUserInput) {
-            this._emitChangeEvent();
+        // We need to defer in some cases in order to avoid "changed after checked errors", however
+        // the side-effect is that we may end up updating the model value out of sequence in others
+        // The `deferEvents` flag allows us to decide whether to do it on a case-by-case basis.
+        if (deferEvents) {
         }
-        // Note: we emit this one no matter whether it was a user interaction, because
-        // it is used by Angular to sync up the two-way data binding.
-        this.valueChange.emit(this.value);
+        else {
+            this._updateModelValue(isUserInput);
+        }
     }
     /**
      * Checks whether a button toggle is selected.
@@ -372,6 +374,21 @@ class MatButtonToggleGroup {
             correspondingOption.checked = true;
             this._selectionModel.select(correspondingOption);
         }
+    }
+    /**
+     * Syncs up the group's value with the model and emits the change event.
+     * @private
+     * @param {?} isUserInput
+     * @return {?}
+     */
+    _updateModelValue(isUserInput) {
+        // Only emit the change event for user input.
+        if (isUserInput) {
+            this._emitChangeEvent();
+        }
+        // Note: we emit this one no matter whether it was a user interaction, because
+        // it is used by Angular to sync up the two-way data binding.
+        this.valueChange.emit(this.value);
     }
 }
 MatButtonToggleGroup.decorators = [
@@ -533,10 +550,7 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
         // Remove the toggle from the selection once it's destroyed. Needs to happen
         // on the next tick in order to avoid "changed after checked" errors.
         if (group && group._isSelected(this)) {
-            Promise.resolve().then((/**
-             * @return {?}
-             */
-            () => group._syncButtonToggle(this, false)));
+            group._syncButtonToggle(this, false, false, true);
         }
     }
     /**

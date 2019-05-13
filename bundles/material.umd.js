@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.0-1218592');
+var VERSION = new core.Version('8.0.0-rc.0-a833dfb');
 
 /**
  * @fileoverview added by tsickle
@@ -7264,12 +7264,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
      * @param toggle Toggle to be synced.
      * @param select Whether the toggle should be selected.
      * @param isUserInput Whether the change was a result of a user interaction.
+     * @param deferEvents Whether to defer emitting the change events.
      */
     /**
      * Syncs a button toggle's selected state with the model value.
      * @param {?} toggle Toggle to be synced.
      * @param {?} select Whether the toggle should be selected.
      * @param {?=} isUserInput Whether the change was a result of a user interaction.
+     * @param {?=} deferEvents Whether to defer emitting the change events.
      * @return {?}
      */
     MatButtonToggleGroup.prototype._syncButtonToggle = /**
@@ -7277,10 +7279,12 @@ var MatButtonToggleGroup = /** @class */ (function () {
      * @param {?} toggle Toggle to be synced.
      * @param {?} select Whether the toggle should be selected.
      * @param {?=} isUserInput Whether the change was a result of a user interaction.
+     * @param {?=} deferEvents Whether to defer emitting the change events.
      * @return {?}
      */
-    function (toggle, select, isUserInput) {
+    function (toggle, select, isUserInput, deferEvents) {
         if (isUserInput === void 0) { isUserInput = false; }
+        if (deferEvents === void 0) { deferEvents = false; }
         // Deselect the currently-selected toggle, if we're in single-selection
         // mode and the button being toggled isn't selected at the moment.
         if (!this.multiple && this.selected && !toggle.checked) {
@@ -7292,13 +7296,14 @@ var MatButtonToggleGroup = /** @class */ (function () {
         else {
             this._selectionModel.deselect(toggle);
         }
-        // Only emit the change event for user input.
-        if (isUserInput) {
-            this._emitChangeEvent();
+        // We need to defer in some cases in order to avoid "changed after checked errors", however
+        // the side-effect is that we may end up updating the model value out of sequence in others
+        // The `deferEvents` flag allows us to decide whether to do it on a case-by-case basis.
+        if (deferEvents) {
         }
-        // Note: we emit this one no matter whether it was a user interaction, because
-        // it is used by Angular to sync up the two-way data binding.
-        this.valueChange.emit(this.value);
+        else {
+            this._updateModelValue(isUserInput);
+        }
     };
     /** Checks whether a button toggle is selected. */
     /**
@@ -7418,6 +7423,28 @@ var MatButtonToggleGroup = /** @class */ (function () {
             correspondingOption.checked = true;
             this._selectionModel.select(correspondingOption);
         }
+    };
+    /** Syncs up the group's value with the model and emits the change event. */
+    /**
+     * Syncs up the group's value with the model and emits the change event.
+     * @private
+     * @param {?} isUserInput
+     * @return {?}
+     */
+    MatButtonToggleGroup.prototype._updateModelValue = /**
+     * Syncs up the group's value with the model and emits the change event.
+     * @private
+     * @param {?} isUserInput
+     * @return {?}
+     */
+    function (isUserInput) {
+        // Only emit the change event for user input.
+        if (isUserInput) {
+            this._emitChangeEvent();
+        }
+        // Note: we emit this one no matter whether it was a user interaction, because
+        // it is used by Angular to sync up the two-way data binding.
+        this.valueChange.emit(this.value);
     };
     MatButtonToggleGroup.decorators = [
         { type: core.Directive, args: [{
@@ -7602,17 +7629,13 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
         /** @type {?} */
         var group = this.buttonToggleGroup;
         this._focusMonitor.stopMonitoring(this._elementRef);
         // Remove the toggle from the selection once it's destroyed. Needs to happen
         // on the next tick in order to avoid "changed after checked" errors.
         if (group && group._isSelected(this)) {
-            Promise.resolve().then((/**
-             * @return {?}
-             */
-            function () { return group._syncButtonToggle(_this, false); }));
+            group._syncButtonToggle(this, false, false, true);
         }
     };
     /** Focuses the button. */
@@ -38996,7 +39019,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

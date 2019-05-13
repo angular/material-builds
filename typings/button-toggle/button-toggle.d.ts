@@ -113,8 +113,9 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
      * @param toggle Toggle to be synced.
      * @param select Whether the toggle should be selected.
      * @param isUserInput Whether the change was a result of a user interaction.
+     * @param deferEvents Whether to defer emitting the change events.
      */
-    _syncButtonToggle(toggle: MatButtonToggle, select: boolean, isUserInput?: boolean): void;
+    _syncButtonToggle(toggle: MatButtonToggle, select: boolean, isUserInput?: boolean, deferEvents?: boolean): void;
     /** Checks whether a button toggle is selected. */
     _isSelected(toggle: MatButtonToggle): boolean;
     /** Determines whether a button toggle should be checked on init. */
@@ -125,6 +126,8 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _clearSelection;
     /** Selects a value if there's a toggle that corresponds to it. */
     private _selectValue;
+    /** Syncs up the group's value with the model and emits the change event. */
+    private _updateModelValue;
 }
 /** @docs-private */
 declare class MatButtonToggleBase {
