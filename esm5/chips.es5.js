@@ -558,10 +558,8 @@ var MatChipRemove = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        /** @type {?} */
-        var parentChip = this._parentChip;
-        if (parentChip.removable && !parentChip.disabled) {
-            parentChip.remove();
+        if (this._parentChip.removable) {
+            this._parentChip.remove();
         }
         // We need to stop event propagation because otherwise the event will bubble up to the
         // form field and cause the `onContainerClick` method to be invoked. This method would then
