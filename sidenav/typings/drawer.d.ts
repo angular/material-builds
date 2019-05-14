@@ -194,6 +194,11 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     open(): void;
     /** Calls `close` of both start and end drawers */
     close(): void;
+    /**
+     * Recalculates and updates the inline styles for the content. Note that this should be used
+     * sparingly, because it causes a reflow.
+     */
+    updateContentMargins(): void;
     ngDoCheck(): void;
     /**
      * Subscribes to drawer events in order to set a class on the main container element when the
@@ -219,9 +224,4 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     _isShowingBackdrop(): boolean;
     private _canHaveBackdrop;
     private _isDrawerOpen;
-    /**
-     * Recalculates and updates the inline styles for the content. Note that this should be used
-     * sparingly, because it causes a reflow.
-     */
-    private _updateContentMargins;
 }

@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.1-94c27b5');
+var VERSION = new core.Version('8.0.0-rc.1-b5889ca');
 
 /**
  * @fileoverview added by tsickle
@@ -29734,7 +29734,7 @@ var MatDrawerContainer = /** @class */ (function () {
              */
             function () {
                 _this._validateDrawers();
-                _this._updateContentMargins();
+                _this.updateContentMargins();
             }));
         }
         // Since the minimum width of the sidenav depends on the viewport width,
@@ -29744,7 +29744,7 @@ var MatDrawerContainer = /** @class */ (function () {
             .subscribe((/**
          * @return {?}
          */
-        function () { return _this._updateContentMargins(); }));
+        function () { return _this.updateContentMargins(); }));
         this._autosize = defaultAutosize;
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -29859,7 +29859,7 @@ var MatDrawerContainer = /** @class */ (function () {
             if (!_this._drawers.length ||
                 _this._isDrawerOpen(_this._start) ||
                 _this._isDrawerOpen(_this._end)) {
-                _this._updateContentMargins();
+                _this.updateContentMargins();
             }
             _this._changeDetectorRef.markForCheck();
         }));
@@ -29867,7 +29867,7 @@ var MatDrawerContainer = /** @class */ (function () {
         operators.takeUntil(this._destroyed)).subscribe((/**
          * @return {?}
          */
-        function () { return _this._updateContentMargins(); }));
+        function () { return _this.updateContentMargins(); }));
     };
     /**
      * @return {?}
@@ -29912,6 +29912,70 @@ var MatDrawerContainer = /** @class */ (function () {
          * @return {?}
          */
         function (drawer) { return drawer.close(); }));
+    };
+    /**
+     * Recalculates and updates the inline styles for the content. Note that this should be used
+     * sparingly, because it causes a reflow.
+     */
+    /**
+     * Recalculates and updates the inline styles for the content. Note that this should be used
+     * sparingly, because it causes a reflow.
+     * @return {?}
+     */
+    MatDrawerContainer.prototype.updateContentMargins = /**
+     * Recalculates and updates the inline styles for the content. Note that this should be used
+     * sparingly, because it causes a reflow.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // 1. For drawers in `over` mode, they don't affect the content.
+        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
+        //    left margin (for left drawer) or right margin (for right the drawer).
+        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
+        //    adding to the left or right margin and simultaneously subtracting the same amount of
+        //    margin from the other side.
+        /** @type {?} */
+        var left = 0;
+        /** @type {?} */
+        var right = 0;
+        if (this._left && this._left.opened) {
+            if (this._left.mode == 'side') {
+                left += this._left._width;
+            }
+            else if (this._left.mode == 'push') {
+                /** @type {?} */
+                var width = this._left._width;
+                left += width;
+                right -= width;
+            }
+        }
+        if (this._right && this._right.opened) {
+            if (this._right.mode == 'side') {
+                right += this._right._width;
+            }
+            else if (this._right.mode == 'push') {
+                /** @type {?} */
+                var width = this._right._width;
+                right += width;
+                left -= width;
+            }
+        }
+        // If either `right` or `left` is zero, don't set a style to the element. This
+        // allows users to specify a custom size via CSS class in SSR scenarios where the
+        // measured widths will always be zero. Note that we reset to `null` here, rather
+        // than below, in order to ensure that the types in the `if` below are consistent.
+        left = left || (/** @type {?} */ (null));
+        right = right || (/** @type {?} */ (null));
+        if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
+            this._contentMargins = { left: left, right: right };
+            // Pull back into the NgZone since in some cases we could be outside. We need to be careful
+            // to do it only when something changed, otherwise we can end up hitting the zone too often.
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            function () { return _this._contentMarginChanges.next(_this._contentMargins); }));
+        }
     };
     /**
      * @return {?}
@@ -29968,7 +30032,7 @@ var MatDrawerContainer = /** @class */ (function () {
             if (event.toState !== 'open-instant' && _this._animationMode !== 'NoopAnimations') {
                 _this._element.nativeElement.classList.add('mat-drawer-transition');
             }
-            _this._updateContentMargins();
+            _this.updateContentMargins();
             _this._changeDetectorRef.markForCheck();
         }));
         if (drawer.mode !== 'side') {
@@ -30038,7 +30102,7 @@ var MatDrawerContainer = /** @class */ (function () {
              * @return {?}
              */
             function () {
-                _this._updateContentMargins();
+                _this.updateContentMargins();
                 _this._changeDetectorRef.markForCheck();
             }));
         }
@@ -30189,78 +30253,6 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function (drawer) {
         return drawer != null && drawer.opened;
-    };
-    /**
-     * Recalculates and updates the inline styles for the content. Note that this should be used
-     * sparingly, because it causes a reflow.
-     */
-    /**
-     * Recalculates and updates the inline styles for the content. Note that this should be used
-     * sparingly, because it causes a reflow.
-     * @private
-     * @return {?}
-     */
-    MatDrawerContainer.prototype._updateContentMargins = /**
-     * Recalculates and updates the inline styles for the content. Note that this should be used
-     * sparingly, because it causes a reflow.
-     * @private
-     * @return {?}
-     */
-    function () {
-        // 1. For drawers in `over` mode, they don't affect the content.
-        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
-        //    left margin (for left drawer) or right margin (for right the drawer).
-        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
-        //    adding to the left or right margin and simultaneously subtracting the same amount of
-        //    margin from the other side.
-        var _this = this;
-        // 1. For drawers in `over` mode, they don't affect the content.
-        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
-        //    left margin (for left drawer) or right margin (for right the drawer).
-        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
-        //    adding to the left or right margin and simultaneously subtracting the same amount of
-        //    margin from the other side.
-        /** @type {?} */
-        var left = 0;
-        /** @type {?} */
-        var right = 0;
-        if (this._left && this._left.opened) {
-            if (this._left.mode == 'side') {
-                left += this._left._width;
-            }
-            else if (this._left.mode == 'push') {
-                /** @type {?} */
-                var width = this._left._width;
-                left += width;
-                right -= width;
-            }
-        }
-        if (this._right && this._right.opened) {
-            if (this._right.mode == 'side') {
-                right += this._right._width;
-            }
-            else if (this._right.mode == 'push') {
-                /** @type {?} */
-                var width = this._right._width;
-                right += width;
-                left -= width;
-            }
-        }
-        // If either `right` or `left` is zero, don't set a style to the element. This
-        // allows users to specify a custom size via CSS class in SSR scenarios where the
-        // measured widths will always be zero. Note that we reset to `null` here, rather
-        // than below, in order to ensure that the types in the `if` below are consistent.
-        left = left || (/** @type {?} */ (null));
-        right = right || (/** @type {?} */ (null));
-        if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
-            this._contentMargins = { left: left, right: right };
-            // Pull back into the NgZone since in some cases we could be outside. We need to be careful
-            // to do it only when something changed, otherwise we can end up hitting the zone too often.
-            this._ngZone.run((/**
-             * @return {?}
-             */
-            function () { return _this._contentMarginChanges.next(_this._contentMargins); }));
-        }
     };
     MatDrawerContainer.decorators = [
         { type: core.Component, args: [{selector: 'mat-drawer-container',
@@ -39019,7 +39011,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

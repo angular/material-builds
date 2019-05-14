@@ -627,7 +627,7 @@ class MatDrawerContainer {
              */
             () => {
                 this._validateDrawers();
-                this._updateContentMargins();
+                this.updateContentMargins();
             }));
         }
         // Since the minimum width of the sidenav depends on the viewport width,
@@ -637,7 +637,7 @@ class MatDrawerContainer {
             .subscribe((/**
          * @return {?}
          */
-        () => this._updateContentMargins()));
+        () => this.updateContentMargins()));
         this._autosize = defaultAutosize;
     }
     /**
@@ -712,7 +712,7 @@ class MatDrawerContainer {
             if (!this._drawers.length ||
                 this._isDrawerOpen(this._start) ||
                 this._isDrawerOpen(this._end)) {
-                this._updateContentMargins();
+                this.updateContentMargins();
             }
             this._changeDetectorRef.markForCheck();
         }));
@@ -720,7 +720,7 @@ class MatDrawerContainer {
         takeUntil(this._destroyed)).subscribe((/**
          * @return {?}
          */
-        () => this._updateContentMargins()));
+        () => this.updateContentMargins()));
     }
     /**
      * @return {?}
@@ -752,6 +752,60 @@ class MatDrawerContainer {
          * @return {?}
          */
         drawer => drawer.close()));
+    }
+    /**
+     * Recalculates and updates the inline styles for the content. Note that this should be used
+     * sparingly, because it causes a reflow.
+     * @return {?}
+     */
+    updateContentMargins() {
+        // 1. For drawers in `over` mode, they don't affect the content.
+        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
+        //    left margin (for left drawer) or right margin (for right the drawer).
+        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
+        //    adding to the left or right margin and simultaneously subtracting the same amount of
+        //    margin from the other side.
+        /** @type {?} */
+        let left = 0;
+        /** @type {?} */
+        let right = 0;
+        if (this._left && this._left.opened) {
+            if (this._left.mode == 'side') {
+                left += this._left._width;
+            }
+            else if (this._left.mode == 'push') {
+                /** @type {?} */
+                const width = this._left._width;
+                left += width;
+                right -= width;
+            }
+        }
+        if (this._right && this._right.opened) {
+            if (this._right.mode == 'side') {
+                right += this._right._width;
+            }
+            else if (this._right.mode == 'push') {
+                /** @type {?} */
+                const width = this._right._width;
+                right += width;
+                left -= width;
+            }
+        }
+        // If either `right` or `left` is zero, don't set a style to the element. This
+        // allows users to specify a custom size via CSS class in SSR scenarios where the
+        // measured widths will always be zero. Note that we reset to `null` here, rather
+        // than below, in order to ensure that the types in the `if` below are consistent.
+        left = left || (/** @type {?} */ (null));
+        right = right || (/** @type {?} */ (null));
+        if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
+            this._contentMargins = { left, right };
+            // Pull back into the NgZone since in some cases we could be outside. We need to be careful
+            // to do it only when something changed, otherwise we can end up hitting the zone too often.
+            this._ngZone.run((/**
+             * @return {?}
+             */
+            () => this._contentMarginChanges.next(this._contentMargins)));
+        }
     }
     /**
      * @return {?}
@@ -790,7 +844,7 @@ class MatDrawerContainer {
             if (event.toState !== 'open-instant' && this._animationMode !== 'NoopAnimations') {
                 this._element.nativeElement.classList.add('mat-drawer-transition');
             }
-            this._updateContentMargins();
+            this.updateContentMargins();
             this._changeDetectorRef.markForCheck();
         }));
         if (drawer.mode !== 'side') {
@@ -838,7 +892,7 @@ class MatDrawerContainer {
              * @return {?}
              */
             () => {
-                this._updateContentMargins();
+                this.updateContentMargins();
                 this._changeDetectorRef.markForCheck();
             }));
         }
@@ -949,67 +1003,6 @@ class MatDrawerContainer {
      */
     _isDrawerOpen(drawer) {
         return drawer != null && drawer.opened;
-    }
-    /**
-     * Recalculates and updates the inline styles for the content. Note that this should be used
-     * sparingly, because it causes a reflow.
-     * @private
-     * @return {?}
-     */
-    _updateContentMargins() {
-        // 1. For drawers in `over` mode, they don't affect the content.
-        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
-        //    left margin (for left drawer) or right margin (for right the drawer).
-        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
-        //    adding to the left or right margin and simultaneously subtracting the same amount of
-        //    margin from the other side.
-        // 1. For drawers in `over` mode, they don't affect the content.
-        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
-        //    left margin (for left drawer) or right margin (for right the drawer).
-        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
-        //    adding to the left or right margin and simultaneously subtracting the same amount of
-        //    margin from the other side.
-        /** @type {?} */
-        let left = 0;
-        /** @type {?} */
-        let right = 0;
-        if (this._left && this._left.opened) {
-            if (this._left.mode == 'side') {
-                left += this._left._width;
-            }
-            else if (this._left.mode == 'push') {
-                /** @type {?} */
-                let width = this._left._width;
-                left += width;
-                right -= width;
-            }
-        }
-        if (this._right && this._right.opened) {
-            if (this._right.mode == 'side') {
-                right += this._right._width;
-            }
-            else if (this._right.mode == 'push') {
-                /** @type {?} */
-                let width = this._right._width;
-                right += width;
-                left -= width;
-            }
-        }
-        // If either `right` or `left` is zero, don't set a style to the element. This
-        // allows users to specify a custom size via CSS class in SSR scenarios where the
-        // measured widths will always be zero. Note that we reset to `null` here, rather
-        // than below, in order to ensure that the types in the `if` below are consistent.
-        left = left || (/** @type {?} */ (null));
-        right = right || (/** @type {?} */ (null));
-        if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
-            this._contentMargins = { left, right };
-            // Pull back into the NgZone since in some cases we could be outside. We need to be careful
-            // to do it only when something changed, otherwise we can end up hitting the zone too often.
-            this._ngZone.run((/**
-             * @return {?}
-             */
-            () => this._contentMarginChanges.next(this._contentMargins)));
-        }
     }
 }
 MatDrawerContainer.decorators = [
