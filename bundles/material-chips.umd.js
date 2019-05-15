@@ -1955,7 +1955,11 @@ var MatChipList = /** @class */ (function (_super) {
         tabIndex: [{ type: core.Input }],
         change: [{ type: core.Output }],
         valueChange: [{ type: core.Output }],
-        chips: [{ type: core.ContentChildren, args: [MatChip,] }]
+        chips: [{ type: core.ContentChildren, args: [MatChip, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }]
     };
     return MatChipList;
 }(_MatChipListMixinBase));

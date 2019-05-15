@@ -1457,7 +1457,11 @@ MatChipList.propDecorators = {
     tabIndex: [{ type: Input }],
     change: [{ type: Output }],
     valueChange: [{ type: Output }],
-    chips: [{ type: ContentChildren, args: [MatChip,] }]
+    chips: [{ type: ContentChildren, args: [MatChip, {
+                    // We need to use `descendants: true`, because Ivy will no longer match
+                    // indirect descendants if it's left as false.
+                    descendants: true
+                },] }]
 };
 
 /**

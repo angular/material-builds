@@ -3658,7 +3658,9 @@ exports.MatDatepickerToggleIcon = MatDatepickerToggleIcon;
 exports.MatDatepickerToggle = MatDatepickerToggle;
 exports.MatMonthView = MatMonthView;
 exports.MatYearView = MatYearView;
-exports.ɵa34 = MatMultiYearView;
+exports.yearsPerPage = yearsPerPage;
+exports.yearsPerRow = yearsPerRow;
+exports.MatMultiYearView = MatMultiYearView;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
