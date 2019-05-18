@@ -7,7 +7,7 @@
  */
 import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, Inject, ɵɵdefineInjectable } from '@angular/core';
+import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, Inject, ΔdefineInjectable } from '@angular/core';
 import { mixinDisabled, mixinInitialized, AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
@@ -409,7 +409,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
     MatSortHeaderIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = ΔdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
 /**

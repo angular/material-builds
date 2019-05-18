@@ -79,7 +79,7 @@ var MatStepperIntl = /** @class */ (function () {
     MatStepperIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
 /**

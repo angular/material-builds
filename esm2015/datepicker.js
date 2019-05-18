@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, Attribute, ContentChild, ɵɵdefineInjectable } from '@angular/core';
+import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, Attribute, ContentChild, ΔdefineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, SPACE, ESCAPE } from '@angular/cdk/keycodes';
@@ -98,7 +98,7 @@ class MatDatepickerIntl {
 MatDatepickerIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */ MatDatepickerIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+/** @nocollapse */ MatDatepickerIntl.ngInjectableDef = ΔdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle

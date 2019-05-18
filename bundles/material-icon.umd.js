@@ -1049,7 +1049,7 @@ var MatIconRegistry = /** @class */ (function () {
         { type: platformBrowser.DomSanitizer },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
-    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.ɵɵinject(http.HttpClient, 8), core.ɵɵinject(platformBrowser.DomSanitizer), core.ɵɵinject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
+    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.Δinject(http.HttpClient, 8), core.Δinject(platformBrowser.DomSanitizer), core.Δinject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 /**

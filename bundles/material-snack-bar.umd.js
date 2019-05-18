@@ -1079,7 +1079,7 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
         { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.ɵɵinject(overlay.Overlay), core.ɵɵinject(a11y.LiveAnnouncer), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(layout.BreakpointObserver), core.ɵɵinject(MatSnackBar, 12), core.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.Δinject(overlay.Overlay), core.Δinject(a11y.LiveAnnouncer), core.Δinject(core.INJECTOR), core.Δinject(layout.BreakpointObserver), core.Δinject(MatSnackBar, 12), core.Δinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
 }());
 

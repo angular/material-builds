@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Subject } from 'rxjs';
-import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, NgModule, Injectable, Injector, Optional, SkipSelf, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, NgModule, Injectable, Injector, Optional, SkipSelf, TemplateRef, ΔdefineInjectable, Δinject, INJECTOR } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { __extends, __assign } from 'tslib';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
@@ -1046,7 +1046,7 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf }] },
         { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatSnackBar.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+    /** @nocollapse */ MatSnackBar.ngInjectableDef = ΔdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(Δinject(Overlay), Δinject(LiveAnnouncer), Δinject(INJECTOR), Δinject(BreakpointObserver), Δinject(MatSnackBar, 12), Δinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
 }());
 

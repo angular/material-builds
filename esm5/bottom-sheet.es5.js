@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, NgModule, Injectable, Injector, SkipSelf, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR } from '@angular/core';
+import { InjectionToken, Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, NgModule, Injectable, Injector, SkipSelf, TemplateRef, ΔdefineInjectable, Δinject, INJECTOR } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { __extends, __assign } from 'tslib';
@@ -826,7 +826,7 @@ var MatBottomSheet = /** @class */ (function () {
         { type: Location, decorators: [{ type: Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatBottomSheet.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = ΔdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(Δinject(Overlay), Δinject(INJECTOR), Δinject(MatBottomSheet, 12), Δinject(Location, 8), Δinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**

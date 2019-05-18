@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, ɵɵdefineInjectable } from '@angular/core';
+import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, ΔdefineInjectable } from '@angular/core';
 import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { __extends, __assign } from 'tslib';
@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new Version('8.0.0-rc.1-301371a');
+var VERSION = new Version('8.0.0-rc.1-bb9a5ee');
 
 /**
  * @fileoverview added by tsickle
@@ -1449,7 +1449,7 @@ var ErrorStateMatcher = /** @class */ (function () {
     ErrorStateMatcher.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = ΔdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 

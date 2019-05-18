@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, ɵɵdefineInjectable } from '@angular/core';
+import { Directive, Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Output, ViewChildren, TemplateRef, ΔdefineInjectable } from '@angular/core';
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, STEPPER_GLOBAL_OPTIONS, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -58,7 +58,7 @@ var MatStepperIntl = /** @class */ (function () {
     MatStepperIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatStepperIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+    /** @nocollapse */ MatStepperIntl.ngInjectableDef = ΔdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
 /**
