@@ -10,9 +10,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { DialogPosition } from './dialog-config';
 import { MatDialogContainer } from './dialog-container';
-/**
- * Reference to a dialog opened via the MatDialog service.
- */
+/** Reference to a dialog opened via the MatDialog service. */
 export declare class MatDialogRef<T, R = any> {
     private _overlayRef;
     _containerInstance: MatDialogContainer;

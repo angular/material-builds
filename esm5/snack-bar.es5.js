@@ -5,13 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Subject } from 'rxjs';
-import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, NgModule, Injectable, Injector, Optional, SkipSelf, TemplateRef, ΔdefineInjectable, Δinject, INJECTOR } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone, ViewChild, ViewEncapsulation, Injectable, Inject, NgModule, Injector, Optional, SkipSelf, TemplateRef, ΔdefineInjectable, Δinject, INJECTOR } from '@angular/core';
 import { __extends, __assign } from 'tslib';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { OverlayRef, OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,186 +23,29 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * Reference to a snack bar dispatched from the snack bar service.
- * @template T
+ * Animations used by the Material snack bar.
+ * \@docs-private
+ * @type {?}
  */
-var  /**
- * Reference to a snack bar dispatched from the snack bar service.
- * @template T
- */
-MatSnackBarRef = /** @class */ (function () {
-    function MatSnackBarRef(containerInstance, _overlayRef) {
-        var _this = this;
-        this._overlayRef = _overlayRef;
-        /**
-         * Subject for notifying the user that the snack bar has been dismissed.
-         */
-        this._afterDismissed = new Subject();
-        /**
-         * Subject for notifying the user that the snack bar has opened and appeared.
-         */
-        this._afterOpened = new Subject();
-        /**
-         * Subject for notifying the user that the snack bar action was called.
-         */
-        this._onAction = new Subject();
-        /**
-         * Whether the snack bar was dismissed using the action button.
-         */
-        this._dismissedByAction = false;
-        this.containerInstance = containerInstance;
-        // Dismiss snackbar on action.
-        this.onAction().subscribe((/**
-         * @return {?}
-         */
-        function () { return _this.dismiss(); }));
-        containerInstance._onExit.subscribe((/**
-         * @return {?}
-         */
-        function () { return _this._finishDismiss(); }));
-    }
-    /** Dismisses the snack bar. */
+var matSnackBarAnimations = {
     /**
-     * Dismisses the snack bar.
-     * @return {?}
+     * Animation that shows and hides a snack bar.
      */
-    MatSnackBarRef.prototype.dismiss = /**
-     * Dismisses the snack bar.
-     * @return {?}
-     */
-    function () {
-        if (!this._afterDismissed.closed) {
-            this.containerInstance.exit();
-        }
-        clearTimeout(this._durationTimeoutId);
-    };
-    /** Marks the snackbar action clicked. */
-    /**
-     * Marks the snackbar action clicked.
-     * @return {?}
-     */
-    MatSnackBarRef.prototype.dismissWithAction = /**
-     * Marks the snackbar action clicked.
-     * @return {?}
-     */
-    function () {
-        if (!this._onAction.closed) {
-            this._dismissedByAction = true;
-            this._onAction.next();
-            this._onAction.complete();
-        }
-    };
-    /**
-     * Marks the snackbar action clicked.
-     * @deprecated Use `dismissWithAction` instead.
-     * @breaking-change 8.0.0
-     */
-    /**
-     * Marks the snackbar action clicked.
-     * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 8.0.0
-     * @return {?}
-     */
-    MatSnackBarRef.prototype.closeWithAction = /**
-     * Marks the snackbar action clicked.
-     * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 8.0.0
-     * @return {?}
-     */
-    function () {
-        this.dismissWithAction();
-    };
-    /** Dismisses the snack bar after some duration */
-    /**
-     * Dismisses the snack bar after some duration
-     * @param {?} duration
-     * @return {?}
-     */
-    MatSnackBarRef.prototype._dismissAfter = /**
-     * Dismisses the snack bar after some duration
-     * @param {?} duration
-     * @return {?}
-     */
-    function (duration) {
-        var _this = this;
-        this._durationTimeoutId = setTimeout((/**
-         * @return {?}
-         */
-        function () { return _this.dismiss(); }), duration);
-    };
-    /** Marks the snackbar as opened */
-    /**
-     * Marks the snackbar as opened
-     * @return {?}
-     */
-    MatSnackBarRef.prototype._open = /**
-     * Marks the snackbar as opened
-     * @return {?}
-     */
-    function () {
-        if (!this._afterOpened.closed) {
-            this._afterOpened.next();
-            this._afterOpened.complete();
-        }
-    };
-    /** Cleans up the DOM after closing. */
-    /**
-     * Cleans up the DOM after closing.
-     * @private
-     * @return {?}
-     */
-    MatSnackBarRef.prototype._finishDismiss = /**
-     * Cleans up the DOM after closing.
-     * @private
-     * @return {?}
-     */
-    function () {
-        this._overlayRef.dispose();
-        if (!this._onAction.closed) {
-            this._onAction.complete();
-        }
-        this._afterDismissed.next({ dismissedByAction: this._dismissedByAction });
-        this._afterDismissed.complete();
-        this._dismissedByAction = false;
-    };
-    /** Gets an observable that is notified when the snack bar is finished closing. */
-    /**
-     * Gets an observable that is notified when the snack bar is finished closing.
-     * @return {?}
-     */
-    MatSnackBarRef.prototype.afterDismissed = /**
-     * Gets an observable that is notified when the snack bar is finished closing.
-     * @return {?}
-     */
-    function () {
-        return this._afterDismissed.asObservable();
-    };
-    /** Gets an observable that is notified when the snack bar has opened and appeared. */
-    /**
-     * Gets an observable that is notified when the snack bar has opened and appeared.
-     * @return {?}
-     */
-    MatSnackBarRef.prototype.afterOpened = /**
-     * Gets an observable that is notified when the snack bar has opened and appeared.
-     * @return {?}
-     */
-    function () {
-        return this.containerInstance._onEnter;
-    };
-    /** Gets an observable that is notified when the snack bar action is called. */
-    /**
-     * Gets an observable that is notified when the snack bar action is called.
-     * @return {?}
-     */
-    MatSnackBarRef.prototype.onAction = /**
-     * Gets an observable that is notified when the snack bar action is called.
-     * @return {?}
-     */
-    function () {
-        return this._onAction.asObservable();
-    };
-    return MatSnackBarRef;
-}());
+    snackBarState: trigger('state', [
+        state('void, hidden', style({
+            transform: 'scale(0.8)',
+            opacity: 0,
+        })),
+        state('visible', style({
+            transform: 'scale(1)',
+            opacity: 1,
+        })),
+        transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
+        transition('* => void, * => hidden', animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', style({
+            opacity: 0
+        }))),
+    ])
+};
 
 /**
  * @fileoverview added by tsickle
@@ -251,91 +94,6 @@ MatSnackBarConfig = /** @class */ (function () {
     }
     return MatSnackBarConfig;
 }());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * A component used to open as the default snack bar, matching material spec.
- * This should only be used internally by the snack bar service.
- */
-var SimpleSnackBar = /** @class */ (function () {
-    function SimpleSnackBar(snackBarRef, data) {
-        this.snackBarRef = snackBarRef;
-        this.data = data;
-    }
-    /** Performs the action on the snack bar. */
-    /**
-     * Performs the action on the snack bar.
-     * @return {?}
-     */
-    SimpleSnackBar.prototype.action = /**
-     * Performs the action on the snack bar.
-     * @return {?}
-     */
-    function () {
-        this.snackBarRef.dismissWithAction();
-    };
-    Object.defineProperty(SimpleSnackBar.prototype, "hasAction", {
-        /** If the action button should be shown. */
-        get: /**
-         * If the action button should be shown.
-         * @return {?}
-         */
-        function () {
-            return !!this.data.action;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    SimpleSnackBar.decorators = [
-        { type: Component, args: [{selector: 'simple-snack-bar',
-                    template: "<span>{{data.message}}</span><div class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\"><button mat-button (click)=\"action()\">{{data.action}}</button></div>",
-                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;align-items:center;height:100%;line-height:20px;opacity:1}.mat-simple-snackbar-action{flex-shrink:0;margin:-8px -8px -8px 8px}.mat-simple-snackbar-action button{max-height:36px;min-width:0}[dir=rtl] .mat-simple-snackbar-action{margin-left:-8px;margin-right:8px}"],
-                    encapsulation: ViewEncapsulation.None,
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    host: {
-                        'class': 'mat-simple-snackbar',
-                    }
-                },] },
-    ];
-    /** @nocollapse */
-    SimpleSnackBar.ctorParameters = function () { return [
-        { type: MatSnackBarRef },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] }] }
-    ]; };
-    return SimpleSnackBar;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * Animations used by the Material snack bar.
- * \@docs-private
- * @type {?}
- */
-var matSnackBarAnimations = {
-    /**
-     * Animation that shows and hides a snack bar.
-     */
-    snackBarState: trigger('state', [
-        state('void, hidden', style({
-            transform: 'scale(0.8)',
-            opacity: 0,
-        })),
-        state('visible', style({
-            transform: 'scale(1)',
-            opacity: 1,
-        })),
-        transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
-        transition('* => void, * => hidden', animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', style({
-            opacity: 0
-        }))),
-    ])
-};
 
 /**
  * @fileoverview added by tsickle
@@ -601,6 +359,252 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     };
     return MatSnackBarContainer;
 }(BasePortalOutlet));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Reference to a snack bar dispatched from the snack bar service.
+ * @template T
+ */
+var MatSnackBarRef = /** @class */ (function () {
+    function MatSnackBarRef(containerInstance, _overlayRef) {
+        var _this = this;
+        this._overlayRef = _overlayRef;
+        /**
+         * Subject for notifying the user that the snack bar has been dismissed.
+         */
+        this._afterDismissed = new Subject();
+        /**
+         * Subject for notifying the user that the snack bar has opened and appeared.
+         */
+        this._afterOpened = new Subject();
+        /**
+         * Subject for notifying the user that the snack bar action was called.
+         */
+        this._onAction = new Subject();
+        /**
+         * Whether the snack bar was dismissed using the action button.
+         */
+        this._dismissedByAction = false;
+        this.containerInstance = containerInstance;
+        // Dismiss snackbar on action.
+        this.onAction().subscribe((/**
+         * @return {?}
+         */
+        function () { return _this.dismiss(); }));
+        containerInstance._onExit.subscribe((/**
+         * @return {?}
+         */
+        function () { return _this._finishDismiss(); }));
+    }
+    /** Dismisses the snack bar. */
+    /**
+     * Dismisses the snack bar.
+     * @return {?}
+     */
+    MatSnackBarRef.prototype.dismiss = /**
+     * Dismisses the snack bar.
+     * @return {?}
+     */
+    function () {
+        if (!this._afterDismissed.closed) {
+            this.containerInstance.exit();
+        }
+        clearTimeout(this._durationTimeoutId);
+    };
+    /** Marks the snackbar action clicked. */
+    /**
+     * Marks the snackbar action clicked.
+     * @return {?}
+     */
+    MatSnackBarRef.prototype.dismissWithAction = /**
+     * Marks the snackbar action clicked.
+     * @return {?}
+     */
+    function () {
+        if (!this._onAction.closed) {
+            this._dismissedByAction = true;
+            this._onAction.next();
+            this._onAction.complete();
+        }
+    };
+    /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     * @breaking-change 8.0.0
+     */
+    /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     * \@breaking-change 8.0.0
+     * @return {?}
+     */
+    MatSnackBarRef.prototype.closeWithAction = /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     * \@breaking-change 8.0.0
+     * @return {?}
+     */
+    function () {
+        this.dismissWithAction();
+    };
+    /** Dismisses the snack bar after some duration */
+    /**
+     * Dismisses the snack bar after some duration
+     * @param {?} duration
+     * @return {?}
+     */
+    MatSnackBarRef.prototype._dismissAfter = /**
+     * Dismisses the snack bar after some duration
+     * @param {?} duration
+     * @return {?}
+     */
+    function (duration) {
+        var _this = this;
+        this._durationTimeoutId = setTimeout((/**
+         * @return {?}
+         */
+        function () { return _this.dismiss(); }), duration);
+    };
+    /** Marks the snackbar as opened */
+    /**
+     * Marks the snackbar as opened
+     * @return {?}
+     */
+    MatSnackBarRef.prototype._open = /**
+     * Marks the snackbar as opened
+     * @return {?}
+     */
+    function () {
+        if (!this._afterOpened.closed) {
+            this._afterOpened.next();
+            this._afterOpened.complete();
+        }
+    };
+    /** Cleans up the DOM after closing. */
+    /**
+     * Cleans up the DOM after closing.
+     * @private
+     * @return {?}
+     */
+    MatSnackBarRef.prototype._finishDismiss = /**
+     * Cleans up the DOM after closing.
+     * @private
+     * @return {?}
+     */
+    function () {
+        this._overlayRef.dispose();
+        if (!this._onAction.closed) {
+            this._onAction.complete();
+        }
+        this._afterDismissed.next({ dismissedByAction: this._dismissedByAction });
+        this._afterDismissed.complete();
+        this._dismissedByAction = false;
+    };
+    /** Gets an observable that is notified when the snack bar is finished closing. */
+    /**
+     * Gets an observable that is notified when the snack bar is finished closing.
+     * @return {?}
+     */
+    MatSnackBarRef.prototype.afterDismissed = /**
+     * Gets an observable that is notified when the snack bar is finished closing.
+     * @return {?}
+     */
+    function () {
+        return this._afterDismissed.asObservable();
+    };
+    /** Gets an observable that is notified when the snack bar has opened and appeared. */
+    /**
+     * Gets an observable that is notified when the snack bar has opened and appeared.
+     * @return {?}
+     */
+    MatSnackBarRef.prototype.afterOpened = /**
+     * Gets an observable that is notified when the snack bar has opened and appeared.
+     * @return {?}
+     */
+    function () {
+        return this.containerInstance._onEnter;
+    };
+    /** Gets an observable that is notified when the snack bar action is called. */
+    /**
+     * Gets an observable that is notified when the snack bar action is called.
+     * @return {?}
+     */
+    MatSnackBarRef.prototype.onAction = /**
+     * Gets an observable that is notified when the snack bar action is called.
+     * @return {?}
+     */
+    function () {
+        return this._onAction.asObservable();
+    };
+    MatSnackBarRef.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    MatSnackBarRef.ctorParameters = function () { return [
+        { type: MatSnackBarContainer },
+        { type: OverlayRef }
+    ]; };
+    return MatSnackBarRef;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * A component used to open as the default snack bar, matching material spec.
+ * This should only be used internally by the snack bar service.
+ */
+var SimpleSnackBar = /** @class */ (function () {
+    function SimpleSnackBar(snackBarRef, data) {
+        this.snackBarRef = snackBarRef;
+        this.data = data;
+    }
+    /** Performs the action on the snack bar. */
+    /**
+     * Performs the action on the snack bar.
+     * @return {?}
+     */
+    SimpleSnackBar.prototype.action = /**
+     * Performs the action on the snack bar.
+     * @return {?}
+     */
+    function () {
+        this.snackBarRef.dismissWithAction();
+    };
+    Object.defineProperty(SimpleSnackBar.prototype, "hasAction", {
+        /** If the action button should be shown. */
+        get: /**
+         * If the action button should be shown.
+         * @return {?}
+         */
+        function () {
+            return !!this.data.action;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    SimpleSnackBar.decorators = [
+        { type: Component, args: [{selector: 'simple-snack-bar',
+                    template: "<span>{{data.message}}</span><div class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\"><button mat-button (click)=\"action()\">{{data.action}}</button></div>",
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;align-items:center;height:100%;line-height:20px;opacity:1}.mat-simple-snackbar-action{flex-shrink:0;margin:-8px -8px -8px 8px}.mat-simple-snackbar-action button{max-height:36px;min-width:0}[dir=rtl] .mat-simple-snackbar-action{margin-left:-8px;margin-right:8px}"],
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    host: {
+                        'class': 'mat-simple-snackbar',
+                    }
+                },] },
+    ];
+    /** @nocollapse */
+    SimpleSnackBar.ctorParameters = function () { return [
+        { type: MatSnackBarRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] }] }
+    ]; };
+    return SimpleSnackBar;
+}());
 
 /**
  * @fileoverview added by tsickle

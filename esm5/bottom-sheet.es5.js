@@ -13,7 +13,7 @@ import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, Porta
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT, CommonModule, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
-import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { OverlayModule, OverlayRef, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { merge, Subject, of } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -427,11 +427,7 @@ var MatBottomSheetModule = /** @class */ (function () {
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  * @template T, R
  */
-var  /**
- * Reference to a bottom sheet dispatched from the bottom sheet service.
- * @template T, R
- */
-MatBottomSheetRef = /** @class */ (function () {
+var MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef, 
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location) {
@@ -575,6 +571,15 @@ MatBottomSheetRef = /** @class */ (function () {
     function () {
         return this._overlayRef.keydownEvents();
     };
+    MatBottomSheetRef.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    MatBottomSheetRef.ctorParameters = function () { return [
+        { type: MatBottomSheetContainer },
+        { type: OverlayRef },
+        { type: Location }
+    ]; };
     return MatBottomSheetRef;
 }());
 
