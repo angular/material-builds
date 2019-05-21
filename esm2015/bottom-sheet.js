@@ -12,7 +12,7 @@ import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, Porta
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT, CommonModule, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
-import { OverlayModule, OverlayRef, Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { merge, Subject, of } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -470,15 +470,6 @@ class MatBottomSheetRef {
         return this._overlayRef.keydownEvents();
     }
 }
-MatBottomSheetRef.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-MatBottomSheetRef.ctorParameters = () => [
-    { type: MatBottomSheetContainer },
-    { type: OverlayRef },
-    { type: Location }
-];
 
 /**
  * @fileoverview added by tsickle

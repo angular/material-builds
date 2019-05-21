@@ -5,11 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OverlayRef } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
+import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 import { MatBottomSheetContainer } from './bottom-sheet-container';
-/** Reference to a bottom sheet dispatched from the bottom sheet service. */
+/**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ */
 export declare class MatBottomSheetRef<T = any, R = any> {
     private _overlayRef;
     /** Instance of the component making up the content of the bottom sheet. */

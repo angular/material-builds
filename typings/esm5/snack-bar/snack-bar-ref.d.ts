@@ -13,7 +13,9 @@ export interface MatSnackBarDismiss {
     /** Whether the snack bar was dismissed using the action button. */
     dismissedByAction: boolean;
 }
-/** Reference to a snack bar dispatched from the snack bar service. */
+/**
+ * Reference to a snack bar dispatched from the snack bar service.
+ */
 export declare class MatSnackBarRef<T> {
     private _overlayRef;
     /** The instance of the component making up the content of the snack bar. */

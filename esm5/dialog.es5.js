@@ -12,10 +12,10 @@ import { DOCUMENT, Location, CommonModule } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { OverlayRef, Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
+import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { MatCommonModule } from '@angular/material/core';
 
 /**
@@ -388,7 +388,11 @@ var uniqueId = 0;
  * Reference to a dialog opened via the MatDialog service.
  * @template T, R
  */
-var MatDialogRef = /** @class */ (function () {
+var  /**
+ * Reference to a dialog opened via the MatDialog service.
+ * @template T, R
+ */
+MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, 
     // @breaking-change 8.0.0 `_location` parameter to be removed.
     _location, id) {
@@ -718,16 +722,6 @@ var MatDialogRef = /** @class */ (function () {
     function () {
         return (/** @type {?} */ (this._overlayRef.getConfig().positionStrategy));
     };
-    MatDialogRef.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    MatDialogRef.ctorParameters = function () { return [
-        { type: OverlayRef },
-        { type: MatDialogContainer },
-        { type: Location },
-        { type: String }
-    ]; };
     return MatDialogRef;
 }());
 
