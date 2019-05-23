@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.1-92448bc');
+var VERSION = new core.Version('8.0.0-rc.1-bdc6811');
 
 /**
  * @fileoverview added by tsickle
@@ -5511,6 +5511,13 @@ var MatBadge = /** @class */ (function (_super) {
          * Unique id for the badge
          */
         _this._id = nextId++;
+        if (core.isDevMode()) {
+            /** @type {?} */
+            var nativeElement = _elementRef.nativeElement;
+            if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
+                throw Error('matBadge must be attached to an element node.');
+            }
+        }
         return _this;
     }
     Object.defineProperty(MatBadge.prototype, "color", {
@@ -39019,7 +39026,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39174,7 +39181,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
