@@ -93,13 +93,6 @@ var MatBadge = /** @class */ (function (_super) {
          * Unique id for the badge
          */
         _this._id = nextId++;
-        if (core.isDevMode()) {
-            /** @type {?} */
-            var nativeElement = _elementRef.nativeElement;
-            if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
-                throw Error('matBadge must be attached to an element node.');
-            }
-        }
         return _this;
     }
     Object.defineProperty(MatBadge.prototype, "color", {
