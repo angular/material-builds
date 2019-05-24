@@ -90,15 +90,16 @@ function walk(ctx, checker) {
             // specific to a given secondary entry-point (e.g. exports with the type of "string")
             // would resolve to the module types provided by TypeScript itself.
             const symbol = getDeclarationSymbolOfNode(elementName, checker);
-            // If the symbol can't be found, add failure saying the symbol
-            // can't be found.
-            if (!symbol || !symbol.valueDeclaration) {
+            // If the symbol can't be found, or no declaration could be found within
+            // the symbol, add failure to report that the given symbol can't be found.
+            if (!symbol || (!symbol.valueDeclaration && symbol.declarations.length === 0)) {
                 return ctx.addFailureAtNode(element, element.getText() + Rule.SYMBOL_NOT_FOUND_FAILURE_STR);
             }
             // The filename for the source file of the node that contains the
             // first declaration of the symbol. All symbol declarations must be
             // part of a defining node, so parent can be asserted to be defined.
-            const sourceFile = symbol.valueDeclaration.getSourceFile().fileName;
+            const resolvedNode = symbol.valueDeclaration || symbol.declarations[0];
+            const sourceFile = resolvedNode.getSourceFile().fileName;
             // File the module the symbol belongs to from a regex match of the
             // filename. This will always match since only "@angular/material"
             // elements are analyzed.
