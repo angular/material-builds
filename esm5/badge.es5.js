@@ -8,7 +8,7 @@
 import { __extends } from 'tslib';
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, isDevMode, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
@@ -65,6 +65,13 @@ var MatBadge = /** @class */ (function (_super) {
          * Unique id for the badge
          */
         _this._id = nextId++;
+        if (isDevMode()) {
+            /** @type {?} */
+            var nativeElement = _elementRef.nativeElement;
+            if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
+                throw Error('matBadge must be attached to an element node.');
+            }
+        }
         return _this;
     }
     Object.defineProperty(MatBadge.prototype, "color", {
