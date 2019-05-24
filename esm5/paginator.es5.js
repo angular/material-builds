@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, ΔdefineInjectable } from '@angular/core';
+import { Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, ɵɵdefineInjectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { __extends } from 'tslib';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -77,7 +77,7 @@ var MatPaginatorIntl = /** @class */ (function () {
     MatPaginatorIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = ΔdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 }());
 /**

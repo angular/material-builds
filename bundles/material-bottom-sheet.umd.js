@@ -858,7 +858,7 @@ var MatBottomSheet = /** @class */ (function () {
         { type: common.Location, decorators: [{ type: core.Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.Δinject(overlay.Overlay), core.Δinject(core.INJECTOR), core.Δinject(MatBottomSheet, 12), core.Δinject(common.Location, 8), core.Δinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.ɵɵinject(overlay.Overlay), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(MatBottomSheet, 12), core.ɵɵinject(common.Location, 8), core.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**

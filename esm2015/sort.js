@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, Inject, ΔdefineInjectable } from '@angular/core';
+import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, Inject, ɵɵdefineInjectable } from '@angular/core';
 import { mixinDisabled, mixinInitialized, AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
@@ -344,7 +344,7 @@ class MatSortHeaderIntl {
 MatSortHeaderIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = ΔdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+/** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
 /**
  * \@docs-private
  * @param {?} parentIntl

@@ -114,7 +114,7 @@ var MatDatepickerIntl = /** @class */ (function () {
     MatDatepickerIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
 

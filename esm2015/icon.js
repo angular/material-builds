@@ -7,7 +7,7 @@
  */
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, InjectionToken, inject, ΔdefineInjectable, Δinject } from '@angular/core';
+import { Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, InjectionToken, inject, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, of, throwError } from 'rxjs';
 import { catchError, finalize, map, share, tap, take } from 'rxjs/operators';
@@ -670,7 +670,7 @@ MatIconRegistry.ctorParameters = () => [
     { type: DomSanitizer },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ MatIconRegistry.ngInjectableDef = ΔdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(Δinject(HttpClient, 8), Δinject(DomSanitizer), Δinject(DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
+/** @nocollapse */ MatIconRegistry.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
 /**
  * \@docs-private
  * @param {?} parentRegistry

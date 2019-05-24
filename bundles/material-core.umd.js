@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.1-dc51691');
+var VERSION = new core.Version('8.0.0-rc.1-5c9c79d');
 
 /**
  * @fileoverview added by tsickle
@@ -1482,7 +1482,7 @@ var ErrorStateMatcher = /** @class */ (function () {
     ErrorStateMatcher.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.ΔdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 

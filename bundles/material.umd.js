@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.0-rc.1-dc51691');
+var VERSION = new core.Version('8.0.0-rc.1-5c9c79d');
 
 /**
  * @fileoverview added by tsickle
@@ -1482,7 +1482,7 @@ var ErrorStateMatcher = /** @class */ (function () {
     ErrorStateMatcher.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.ΔdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 
@@ -6688,7 +6688,7 @@ var MatBottomSheet = /** @class */ (function () {
         { type: common.Location, decorators: [{ type: core.Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.Δinject(overlay.Overlay), core.Δinject(core.INJECTOR), core.Δinject(MatBottomSheet, 12), core.Δinject(common.Location, 8), core.Δinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.ɵɵinject(overlay.Overlay), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(MatBottomSheet, 12), core.ɵɵinject(common.Location, 8), core.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**
@@ -13261,7 +13261,7 @@ var MatDatepickerIntl = /** @class */ (function () {
     MatDatepickerIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
 
@@ -19861,7 +19861,7 @@ var MatIconRegistry = /** @class */ (function () {
         { type: platformBrowser.DomSanitizer },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
-    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.Δinject(http.HttpClient, 8), core.Δinject(platformBrowser.DomSanitizer), core.Δinject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
+    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.ɵɵinject(http.HttpClient, 8), core.ɵɵinject(platformBrowser.DomSanitizer), core.ɵɵinject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 /**
@@ -26933,7 +26933,7 @@ var MatPaginatorIntl = /** @class */ (function () {
     MatPaginatorIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 }());
 /**
@@ -33292,7 +33292,7 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
         { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
-    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.Δinject(overlay.Overlay), core.Δinject(a11y.LiveAnnouncer), core.Δinject(core.INJECTOR), core.Δinject(layout.BreakpointObserver), core.Δinject(MatSnackBar, 12), core.Δinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.ɵɵinject(overlay.Overlay), core.ɵɵinject(a11y.LiveAnnouncer), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(layout.BreakpointObserver), core.ɵɵinject(MatSnackBar, 12), core.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
 }());
 
@@ -33692,7 +33692,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
     MatSortHeaderIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
 /**
@@ -34140,7 +34140,7 @@ var MatStepperIntl = /** @class */ (function () {
     MatStepperIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.ΔdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
 /**
@@ -39026,7 +39026,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
