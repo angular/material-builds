@@ -79,6 +79,8 @@ function walk(ctx, checker) {
         if (!declaration.importClause.namedBindings.elements.length) {
             return ctx.addFailureAtNode(declaration, Rule.NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR);
         }
+        // Whether the existing import declaration is using a single quote module specifier.
+        const singleQuoteImport = declaration.moduleSpecifier.getText()[0] === `'`;
         // Map which consists of secondary entry-points and import specifiers which are used
         // within the current import declaration.
         const importMap = new Map();
@@ -124,7 +126,7 @@ function walk(ctx, checker) {
         const newImportStatements = Array.from(importMap.entries())
             .sort()
             .map(([name, elements]) => {
-            const newImport = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(elements)), ts.createStringLiteral(`${module_specifiers_1.materialModuleSpecifier}/${name}`));
+            const newImport = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(elements)), createStringLiteral(`${module_specifiers_1.materialModuleSpecifier}/${name}`, singleQuoteImport));
             return printer.printNode(ts.EmitHint.Unspecified, newImport, sf);
         })
             .join('\n');
@@ -139,6 +141,17 @@ function walk(ctx, checker) {
         ctx.addFailureAtNode(declaration.moduleSpecifier, Rule.ONLY_SUBPACKAGE_FAILURE_STR, new Lint.Replacement(declaration.getStart(), declaration.getWidth(), newImportStatements));
     };
     sf.statements.forEach(cb);
+}
+/**
+ * Creates a string literal from the specified text.
+ * @param text Text of the string literal.
+ * @param singleQuotes Whether single quotes should be used when printing the literal node.
+ */
+function createStringLiteral(text, singleQuotes) {
+    const literal = ts.createStringLiteral(text);
+    // See: https://github.com/microsoft/TypeScript/blob/master/src/compiler/utilities.ts#L584-L590
+    literal['singleQuote'] = singleQuotes;
+    return literal;
 }
 /** Gets the symbol that contains the value declaration of the given node. */
 function getDeclarationSymbolOfNode(node, checker) {
