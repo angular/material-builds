@@ -38,7 +38,7 @@ const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 };
 /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@breaking-change 8.0.0
+ * \@breaking-change 8.0.0-312b6f4
  */
 class MatButtonToggleGroupMultiple {
 }
@@ -448,7 +448,7 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
      * @param {?=} defaultOptions
      */
     constructor(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, 
-    // @breaking-change 8.0.0 `defaultTabIndex` to be made a required parameter.
+    // @breaking-change 8.0.0-312b6f4 `defaultTabIndex` to be made a required parameter.
     defaultTabIndex, defaultOptions) {
         super();
         this._changeDetectorRef = _changeDetectorRef;

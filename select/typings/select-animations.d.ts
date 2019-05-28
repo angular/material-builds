@@ -20,13 +20,13 @@ export declare const matSelectAnimations: {
 };
 /**
  * @deprecated
- * @breaking-change 8.0.0
+ * @breaking-change 8.0.0-312b6f4
  * @docs-private
  */
 export declare const transformPanel: AnimationTriggerMetadata;
 /**
  * @deprecated
- * @breaking-change 8.0.0
+ * @breaking-change 8.0.0-312b6f4
  * @docs-private
  */
 export declare const fadeInContent: AnimationTriggerMetadata;
