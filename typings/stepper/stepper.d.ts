@@ -19,7 +19,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     private _errorStateMatcher;
     /** Content for step label given by `<ng-template matStepLabel>`. */
     stepLabel: MatStepLabel;
-    /** @breaking-change 8.0.0-df926c1 remove the `?` after `stepperOptions` */
+    /** @breaking-change 8.0.0-612a738 remove the `?` after `stepperOptions` */
     constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, stepperOptions?: StepperOptions);
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
