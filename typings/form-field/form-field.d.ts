@@ -94,7 +94,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _animationsEnabled: boolean;
     /**
      * @deprecated
-     * @breaking-change 8.0.0-2b07377
+     * @breaking-change 8.0.0-2adf629
      */
     underlineRef: ElementRef;
     _connectionContainerRef: ElementRef;

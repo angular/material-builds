@@ -14,12 +14,15 @@ const upgrade_data_1 = require("./upgrade-data");
 /** List of additional upgrade rules for Angular Material. */
 const upgradeRules = [
     // Misc check rules
-    'check-class-inheritance-misc',
     'check-class-names-misc',
     'check-imports-misc',
     'check-property-names-misc',
     'check-template-misc',
     'update-angular-material-imports',
+    // Class inheritance misc V6. NOTE: when adding new
+    // data to this rule, consider adding it to the generic
+    // property-names upgrade data.
+    ['check-class-inheritance-misc', schematics_1.TargetVersion.V6],
     // Ripple misc V7
     ['ripple-speed-factor-assignment', schematics_1.TargetVersion.V7],
     ['ripple-speed-factor-template', schematics_1.TargetVersion.V7],
