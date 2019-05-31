@@ -505,22 +505,22 @@ $_mat-elevation-prefix: 'mat-elevation-z';
 
 
 // @deprecated renamed to $dark-primary-text.
-// @breaking-change 8.0.0-2adf629
+// @breaking-change 8.0.0-09427f5
 $black-87-opacity: rgba(black, 0.87);
 // @deprecated renamed to $light-primary-text.
-// @breaking-change 8.0.0-2adf629
+// @breaking-change 8.0.0-09427f5
 $white-87-opacity: rgba(white, 0.87);
 // @deprecated use $dark-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-2adf629
+// @breaking-change 8.0.0-09427f5
 $black-12-opacity: rgba(black, 0.12);
 // @deprecated use $light-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-2adf629
+// @breaking-change 8.0.0-09427f5
 $white-12-opacity: rgba(white, 0.12);
 // @deprecated use $dark-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-2adf629
+// @breaking-change 8.0.0-09427f5
 $black-6-opacity: rgba(black, 0.06);
 // @deprecated use $light-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-2adf629
+// @breaking-change 8.0.0-09427f5
 $white-6-opacity: rgba(white, 0.06);
 
 $dark-primary-text: rgba(black, 0.87);
@@ -4390,7 +4390,7 @@ $mat-form-field-legacy-dedupe: 0;
                 $subscript-font-scale, $infix-padding, $infix-margin-top);
       }
 
-      // @breaking-change 8.0.0-2adf629 will rely on AutofillMonitor instead.
+      // @breaking-change 8.0.0-09427f5 will rely on AutofillMonitor instead.
       .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
       .mat-form-field-label {
         @include _mat-form-field-legacy-label-floating(
@@ -4436,7 +4436,7 @@ $mat-form-field-legacy-dedupe: 0;
                   $subscript-font-scale, $infix-padding, $infix-margin-top);
         }
 
-        // @breaking-change 8.0.0-2adf629 will rely on AutofillMonitor instead.
+        // @breaking-change 8.0.0-09427f5 will rely on AutofillMonitor instead.
         .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
         .mat-form-field-label {
           @include _mat-form-field-legacy-label-floating-print(

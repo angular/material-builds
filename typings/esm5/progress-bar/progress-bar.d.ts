@@ -42,7 +42,7 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _animationMode?: string | undefined, 
     /**
      * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0-2adf629
+     * @breaking-change 8.0.0-09427f5
      */
     location?: MatProgressBarLocation);
     /** Flag that indicates whether NoopAnimations mode is set to true. */

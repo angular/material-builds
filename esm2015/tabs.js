@@ -1707,13 +1707,13 @@ class MatTabNav extends _MatTabNavMixinBase {
     }
     /**
      * Notifies the component that the active link has been changed.
-     * \@breaking-change 8.0.0-2adf629 `element` parameter to be removed.
+     * \@breaking-change 8.0.0-09427f5 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     updateActiveLink(element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
-        // @breaking-change 8.0.0-2adf629
+        // @breaking-change 8.0.0-09427f5
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     }
