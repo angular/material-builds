@@ -46,7 +46,7 @@ export declare class MatSnackBarRef<T> {
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * @breaking-change 8.0.0-612a738
+     * @breaking-change 8.0.0-b261afa
      */
     closeWithAction(): void;
     /** Dismisses the snack bar after some duration */

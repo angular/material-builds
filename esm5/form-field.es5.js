@@ -184,7 +184,7 @@ var MatLabel = /** @class */ (function () {
  * The placeholder text for an `MatFormField`.
  * @deprecated Use `<mat-label>` to specify the label and the `placeholder` attribute to specify the
  *     placeholder.
- * \@breaking-change 8.0.0-612a738
+ * \@breaking-change 8.0.0-b261afa
  */
 var MatPlaceholder = /** @class */ (function () {
     function MatPlaceholder() {
