@@ -96,7 +96,7 @@ var matSelectAnimations = {
      * select's options. It is time delayed to occur 100ms after the overlay
      * panel has transformed in.
      * @deprecated Not used anymore. To be removed.
-     * \@breaking-change 8.0.0-b261afa
+     * \@breaking-change 8.0.0-2b07377
      */
     fadeInContent: animations.trigger('fadeInContent', [
         animations.state('showing', animations.style({ opacity: 1 })),
@@ -108,14 +108,14 @@ var matSelectAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 8.0.0-b261afa
+ * \@breaking-change 8.0.0-2b07377
  * \@docs-private
  * @type {?}
  */
 var transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
- * \@breaking-change 8.0.0-b261afa
+ * \@breaking-change 8.0.0-2b07377
  * \@docs-private
  * @type {?}
  */
@@ -469,11 +469,11 @@ var MatSelect = /** @class */ (function (_super) {
         },
         /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * @breaking-change 8.0.0-b261afa
+         * @breaking-change 8.0.0-2b07377
          */
         set: /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * \@breaking-change 8.0.0-b261afa
+         * \@breaking-change 8.0.0-2b07377
          * @param {?} value
          * @return {?}
          */
@@ -1021,7 +1021,7 @@ var MatSelect = /** @class */ (function (_super) {
             /** @type {?} */
             var selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
-            // @breaking-change 8.0.0-b261afa remove null check for _liveAnnouncer.
+            // @breaking-change 8.0.0-2b07377 remove null check for _liveAnnouncer.
             if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
                 // We set a duration on the live announcement, because we want the live element to be
                 // cleared after a while so that users can't navigate to it using the arrow keys.

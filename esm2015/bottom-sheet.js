@@ -362,7 +362,7 @@ class MatBottomSheetRef {
      * @param {?=} _location
      */
     constructor(containerInstance, _overlayRef, 
-    // @breaking-change 8.0.0-b261afa `_location` parameter to be removed.
+    // @breaking-change 8.0.0-2b07377 `_location` parameter to be removed.
     _location) {
         this._overlayRef = _overlayRef;
         /**
