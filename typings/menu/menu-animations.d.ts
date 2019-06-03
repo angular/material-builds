@@ -18,13 +18,13 @@ export declare const matMenuAnimations: {
 };
 /**
  * @deprecated
- * @breaking-change 8.0.0-ab76eaa
+ * @breaking-change 8.0.0-461d539
  * @docs-private
  */
 export declare const fadeInItems: AnimationTriggerMetadata;
 /**
  * @deprecated
- * @breaking-change 8.0.0-ab76eaa
+ * @breaking-change 8.0.0-461d539
  * @docs-private
  */
 export declare const transformMenu: AnimationTriggerMetadata;
