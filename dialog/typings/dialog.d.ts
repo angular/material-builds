@@ -50,7 +50,7 @@ export declare class MatDialog implements OnDestroy {
     /**
      * Stream that emits when a dialog has been opened.
      * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0-461d539
+     * @breaking-change 8.0.0-6b2a390
      */
     readonly afterOpen: Subject<MatDialogRef<any>>;
     readonly _afterAllClosed: Subject<void>;

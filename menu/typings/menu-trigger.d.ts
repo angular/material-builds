@@ -51,7 +51,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     _openedBy: 'mouse' | 'touch' | null;
     /**
      * @deprecated
-     * @breaking-change 8.0.0-461d539
+     * @breaking-change 8.0.0-6b2a390
      */
     _deprecatedMatMenuTriggerFor: MatMenuPanel;
     /** References the menu instance that the trigger is associated with. */
@@ -70,7 +70,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     /**
      * Event emitted when the associated menu is opened.
      * @deprecated Switch to `menuOpened` instead
-     * @breaking-change 8.0.0-461d539
+     * @breaking-change 8.0.0-6b2a390
      */
     readonly onMenuOpen: EventEmitter<void>;
     /** Event emitted when the associated menu is closed. */
@@ -78,7 +78,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     /**
      * Event emitted when the associated menu is closed.
      * @deprecated Switch to `menuClosed` instead
-     * @breaking-change 8.0.0-461d539
+     * @breaking-change 8.0.0-6b2a390
      */
     readonly onMenuClose: EventEmitter<void>;
     constructor(_overlay: Overlay, _element: ElementRef<HTMLElement>, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);

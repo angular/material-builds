@@ -73,13 +73,13 @@ export declare class MatDialogRef<T, R = any> {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0-461d539
+     * @breaking-change 8.0.0-6b2a390
      */
     afterOpen(): Observable<void>;
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * @breaking-change 8.0.0-461d539
+     * @breaking-change 8.0.0-6b2a390
      */
     beforeClose(): Observable<R | undefined>;
     /** Fetches the position strategy object from the overlay ref. */

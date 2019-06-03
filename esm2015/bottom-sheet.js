@@ -362,7 +362,7 @@ class MatBottomSheetRef {
      * @param {?=} _location
      */
     constructor(containerInstance, _overlayRef, 
-    // @breaking-change 8.0.0-461d539 `_location` parameter to be removed.
+    // @breaking-change 8.0.0-6b2a390 `_location` parameter to be removed.
     _location) {
         this._overlayRef = _overlayRef;
         /**
@@ -624,11 +624,8 @@ class MatBottomSheet {
             hasBackdrop: config.hasBackdrop,
             disposeOnNavigation: config.closeOnNavigation,
             maxWidth: '100%',
-            scrollStrategy: this._overlay.scrollStrategies.block(),
-            positionStrategy: this._overlay.position()
-                .global()
-                .centerHorizontally()
-                .bottom('0')
+            scrollStrategy: config.scrollStrategy || this._overlay.scrollStrategies.block(),
+            positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0')
         });
         if (config.backdropClass) {
             overlayConfig.backdropClass = config.backdropClass;
