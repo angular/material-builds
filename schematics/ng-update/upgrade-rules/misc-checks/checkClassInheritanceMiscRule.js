@@ -30,7 +30,7 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
         if (baseTypes.includes('MatFormFieldControl')) {
             const hasFloatLabelMember = node.members
                 .filter(member => member.name)
-                .find(member => member.name.getText() === 'shouldFloatLabel');
+                .find(member => member.name.getText() === 'shouldLabelFloat');
             if (!hasFloatLabelMember) {
                 this.addFailureAtNode(node, `Found class "${chalk_1.bold(className)}" which extends ` +
                     `"${chalk_1.bold('MatFormFieldControl')}". This class must define ` +
