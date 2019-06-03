@@ -73,7 +73,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
     constructor(_elementRef, _ngZone, _animationMode, 
     /**
      * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0-3b1ae05
+     * @breaking-change 8.0.0-aadfc88
      */
     location) {
         super(_elementRef);

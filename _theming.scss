@@ -505,22 +505,22 @@ $_mat-elevation-prefix: 'mat-elevation-z';
 
 
 // @deprecated renamed to $dark-primary-text.
-// @breaking-change 8.0.0-3b1ae05
+// @breaking-change 8.0.0-aadfc88
 $black-87-opacity: rgba(black, 0.87);
 // @deprecated renamed to $light-primary-text.
-// @breaking-change 8.0.0-3b1ae05
+// @breaking-change 8.0.0-aadfc88
 $white-87-opacity: rgba(white, 0.87);
 // @deprecated use $dark-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-3b1ae05
+// @breaking-change 8.0.0-aadfc88
 $black-12-opacity: rgba(black, 0.12);
 // @deprecated use $light-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-3b1ae05
+// @breaking-change 8.0.0-aadfc88
 $white-12-opacity: rgba(white, 0.12);
 // @deprecated use $dark-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-3b1ae05
+// @breaking-change 8.0.0-aadfc88
 $black-6-opacity: rgba(black, 0.06);
 // @deprecated use $light-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 8.0.0-3b1ae05
+// @breaking-change 8.0.0-aadfc88
 $white-6-opacity: rgba(white, 0.06);
 
 $dark-primary-text: rgba(black, 0.87);
@@ -1257,12 +1257,11 @@ $mat-dark-theme-foreground: (
 // @param $color-map
 // @param $primary
 // @param $lighter
-@function mat-palette($base-palette, $default: 500, $lighter: 100, $darker: 700, $text: $default) {
+@function mat-palette($base-palette, $default: 500, $lighter: 100, $darker: 700) {
   $result: map_merge($base-palette, (
     default: map-get($base-palette, $default),
     lighter: map-get($base-palette, $lighter),
     darker: map-get($base-palette, $darker),
-    text: map-get($base-palette, $text),
 
     default-contrast: mat-contrast($base-palette, $default),
     lighter-contrast: mat-contrast($base-palette, $lighter),
@@ -1495,15 +1494,15 @@ $mat-ripple-color-opacity: 0.1;
   }
 
   .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-    color: mat-color($primary, text);
+    color: mat-color($primary);
   }
 
   .mat-accent .mat-option.mat-selected:not(.mat-option-disabled) {
-    color: mat-color($accent, text);
+    color: mat-color($accent);
   }
 
   .mat-warn .mat-option.mat-selected:not(.mat-option-disabled) {
-    color: mat-color($warn, text);
+    color: mat-color($warn);
   }
 }
 
@@ -2094,7 +2093,7 @@ $_mat-button-ripple-opacity: 0.1;
     color: inherit;
     background: transparent;
 
-    @include _mat-button-theme-property($theme, 'color', text);
+    @include _mat-button-theme-property($theme, 'color', default);
     @include _mat-button-focus-overlay-color($theme);
 
     // Setup the ripple color to be based on the text color. This ensures that the ripples
@@ -2686,14 +2685,14 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   .mat-datepicker-toggle-active {
-    color: mat-color(map-get($theme, primary), text);
+    color: mat-color(map-get($theme, primary));
 
     &.mat-accent {
-      color: mat-color(map-get($theme, accent), text);
+      color: mat-color(map-get($theme, accent));
     }
 
     &.mat-warn {
-      color: mat-color(map-get($theme, warn), text);
+      color: mat-color(map-get($theme, warn));
     }
   }
 }
@@ -2896,15 +2895,15 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-icon {
     &.mat-primary {
-      color: mat-color($primary, text);
+      color: mat-color($primary);
     }
 
     &.mat-accent {
-      color: mat-color($accent, text);
+      color: mat-color($accent);
     }
 
     &.mat-warn {
-      color: mat-color($warn, text);
+      color: mat-color($warn);
     }
   }
 }
@@ -2994,7 +2993,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   .mat-input-element {
-    caret-color: mat-color($primary, text);
+    caret-color: mat-color($primary);
 
     @include input-placeholder {
       color: _mat-control-placeholder-color($theme);
@@ -3017,16 +3016,16 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   .mat-accent .mat-input-element {
-    caret-color: mat-color($accent, text);
+    caret-color: mat-color($accent);
   }
 
   .mat-warn .mat-input-element,
   .mat-form-field-invalid .mat-input-element {
-    caret-color: mat-color($warn, text);
+    caret-color: mat-color($warn);
   }
 
   .mat-form-field-type-mat-native-select.mat-form-field-invalid .mat-form-field-infix::after {
-    color: mat-color($warn, text);
+    color: mat-color($warn);
   }
 }
 
@@ -3427,20 +3426,20 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   .mat-form-field {
     &.mat-focused {
       &.mat-primary .mat-select-arrow {
-        color: mat-color($primary, text);
+        color: mat-color($primary);
       }
 
       &.mat-accent .mat-select-arrow {
-        color: mat-color($accent, text);
+        color: mat-color($accent);
       }
 
       &.mat-warn .mat-select-arrow {
-        color: mat-color($warn, text);
+        color: mat-color($warn);
       }
     }
 
     .mat-select.mat-select-invalid .mat-select-arrow {
-      color: mat-color($warn, text);
+      color: mat-color($warn);
     }
 
     .mat-select.mat-select-disabled .mat-select-arrow {
@@ -3808,7 +3807,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
     .mat-step-icon-state-error {
       background-color: transparent;
-      color: mat-color($warn, text);
+      color: mat-color($warn);
     }
 
     .mat-step-label.mat-step-label-active {
@@ -3816,7 +3815,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     }
 
     .mat-step-label.mat-step-label-error {
-      color: mat-color($warn, text);
+      color: mat-color($warn);
     }
   }
 
@@ -4152,7 +4151,7 @@ $mat-tooltip-handset-vertical-padding:
   }
 
   .mat-simple-snackbar-action {
-    color: if($is-dark-theme, inherit, mat-color($accent, text));
+    color: if($is-dark-theme, inherit, mat-color($accent));
   }
 }
 
@@ -4391,7 +4390,7 @@ $mat-form-field-legacy-dedupe: 0;
                 $subscript-font-scale, $infix-padding, $infix-margin-top);
       }
 
-      // @breaking-change 8.0.0-3b1ae05 will rely on AutofillMonitor instead.
+      // @breaking-change 8.0.0-aadfc88 will rely on AutofillMonitor instead.
       .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
       .mat-form-field-label {
         @include _mat-form-field-legacy-label-floating(
@@ -4437,7 +4436,7 @@ $mat-form-field-legacy-dedupe: 0;
                   $subscript-font-scale, $infix-padding, $infix-margin-top);
         }
 
-        // @breaking-change 8.0.0-3b1ae05 will rely on AutofillMonitor instead.
+        // @breaking-change 8.0.0-aadfc88 will rely on AutofillMonitor instead.
         .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
         .mat-form-field-label {
           @include _mat-form-field-legacy-label-floating-print(
@@ -4626,14 +4625,14 @@ $mat-form-field-outline-dedupe: 0;
 
   // Label colors. Required is used for the `*` star shown in the label.
   $label-color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.6));
-  $focused-label-color: mat-color($primary, text);
-  $required-label-color: mat-color($accent, text);
+  $focused-label-color: mat-color($primary);
+  $required-label-color: mat-color($accent);
 
   // Underline colors.
   $underline-color-base: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
-  $underline-color-accent: mat-color($accent, text);
-  $underline-color-warn: mat-color($warn, text);
-  $underline-focused-color: mat-color($primary, text);
+  $underline-color-accent: mat-color($accent);
+  $underline-color-warn: mat-color($warn);
+  $underline-focused-color: mat-color($primary);
 
   .mat-form-field-label {
     color: $label-color;
