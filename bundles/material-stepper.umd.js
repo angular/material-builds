@@ -306,7 +306,7 @@ var MatStepperIcon = /** @class */ (function () {
  */
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
-    /** @breaking-change 8.0.0-6b2a390 remove the `?` after `stepperOptions` */
+    /** @breaking-change 8.0.0-15038e3 remove the `?` after `stepperOptions` */
     function MatStep(stepper$$1, _errorStateMatcher, stepperOptions) {
         var _this = _super.call(this, stepper$$1, stepperOptions) || this;
         _this._errorStateMatcher = _errorStateMatcher;
@@ -468,7 +468,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
 var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
     function MatVerticalStepper(dir, changeDetectorRef, 
-    // @breaking-change 8.0.0-6b2a390 `elementRef` and `_document` parameters to become required.
+    // @breaking-change 8.0.0-15038e3 `elementRef` and `_document` parameters to become required.
     elementRef, _document) {
         var _this = _super.call(this, dir, changeDetectorRef, elementRef, _document) || this;
         _this._orientation = 'vertical';

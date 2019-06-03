@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
- * \@breaking-change 8.0.0-6b2a390
+ * \@breaking-change 8.0.0-15038e3
  */
 class MatTextareaAutosize extends CdkTextareaAutosize {
     /**
@@ -534,7 +534,7 @@ MatInput.decorators = [
                 exportAs: 'matInput',
                 host: {
                     /**
-                     * \@breaking-change 8.0.0-6b2a390 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                     * \@breaking-change 8.0.0-15038e3 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
                      */
                     'class': 'mat-input-element mat-form-field-autofill-control',
                     '[class.mat-input-server]': '_isServer',
