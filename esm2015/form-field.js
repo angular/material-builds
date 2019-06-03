@@ -170,7 +170,7 @@ MatLabel.decorators = [
  * The placeholder text for an `MatFormField`.
  * @deprecated Use `<mat-label>` to specify the label and the `placeholder` attribute to specify the
  *     placeholder.
- * \@breaking-change 8.0.0-15038e3
+ * \@breaking-change 8.0.0-3b1ae05
  */
 class MatPlaceholder {
 }

@@ -72,7 +72,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     function MatProgressBar(_elementRef, _ngZone, _animationMode, 
     /**
      * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0-15038e3
+     * @breaking-change 8.0.0-3b1ae05
      */
     location) {
         var _this = _super.call(this, _elementRef) || this;
