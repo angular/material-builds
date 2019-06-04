@@ -41,13 +41,19 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
-    /** Tracks diameters of existing instances to de-dupe generated styles (default d = 100) */
-    private static _diameters;
     /**
-     * Used for storing all of the generated keyframe animations.
-     * @dynamic
+     * Element to which we should add the generated style tags for the indeterminate animation.
+     * For most elements this is the document, but for the ones in the Shadow DOM we need to
+     * use the shadow root.
      */
-    private static _styleTag;
+    private _styleRoot;
+    /**
+     * Tracks diameters of existing instances to de-dupe generated styles (default d = 100).
+     * We need to keep track of which elements the diameters were attached to, because for
+     * elements in the Shadow DOM the style tags are attached to the shadow root, rather
+     * than the document head.
+     */
+    private static _diameters;
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
     _noopAnimations: boolean;
     /** The diameter of the progress spinner (will set width and height of svg). */
@@ -84,4 +90,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
 export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
 }
+/** Gets the shadow root of an element, if supported and the element is inside the Shadow DOM. */
+export declare function _getShadowRoot(element: HTMLElement, _document: Document): Node | null;
 export {};

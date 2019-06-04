@@ -9,7 +9,7 @@ import { __extends } from 'tslib';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -19,6 +19,19 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var MAT_RADIO_DEFAULT_OPTIONS = new InjectionToken('mat-radio-default-options', {
+    providedIn: 'root',
+    factory: MAT_RADIO_DEFAULT_OPTIONS_FACTORY
+});
+/**
+ * @return {?}
+ */
+function MAT_RADIO_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        color: 'accent'
+    };
+}
 // Increasing integer for generating unique ids for radio components.
 /** @type {?} */
 var nextUniqueId = 0;
@@ -493,12 +506,13 @@ var _MatRadioButtonMixinBase = mixinDisableRipple(mixinTabIndex(MatRadioButtonBa
  */
 var MatRadioButton = /** @class */ (function (_super) {
     __extends(MatRadioButton, _super);
-    function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode) {
+    function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetector = _changeDetector;
         _this._focusMonitor = _focusMonitor;
         _this._radioDispatcher = _radioDispatcher;
         _this._animationMode = _animationMode;
+        _this._providerOverride = _providerOverride;
         _this._uniqueId = "mat-radio-" + ++nextUniqueId;
         /**
          * The unique ID for the radio button.
@@ -672,7 +686,9 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._color || (this.radioGroup && this.radioGroup.color) || 'accent';
+            return this._color ||
+                (this.radioGroup && this.radioGroup.color) ||
+                this._providerOverride && this._providerOverride.color || 'accent';
         },
         set: /**
          * @param {?} newValue
@@ -876,7 +892,8 @@ var MatRadioButton = /** @class */ (function (_super) {
         { type: ChangeDetectorRef },
         { type: FocusMonitor },
         { type: UniqueSelectionDispatcher },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
     ]; };
     MatRadioButton.propDecorators = {
         id: [{ type: Input }],
@@ -923,5 +940,5 @@ var MatRadioModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroup, MatRadioButton };
+export { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroup, MatRadioButton };
 //# sourceMappingURL=radio.es5.js.map

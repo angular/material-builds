@@ -107,6 +107,14 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
          * Mode of the progress circle
          */
         this.mode = 'determinate';
+        /** @type {?} */
+        const trackedDiameters = MatProgressSpinner._diameters;
+        // The base size is already inserted via the component's structural styles. We still
+        // need to track it so we don't end up adding the same styles again.
+        if (!trackedDiameters.has(_document.head)) {
+            trackedDiameters.set(_document.head, new Set([BASE_SIZE]));
+        }
+        this._styleRoot = _getShadowRoot(_elementRef.nativeElement, _document) || _document.head;
         this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
         this._noopAnimations = animationMode === 'NoopAnimations' &&
             (!!defaults && !defaults._forceAnimations);
@@ -135,8 +143,14 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     set diameter(size) {
         this._diameter = coerceNumberProperty(size);
-        if (!this._fallbackAnimation && !MatProgressSpinner._diameters.has(this._diameter)) {
-            this._attachStyleNode();
+        if (!this._fallbackAnimation) {
+            /** @type {?} */
+            const trackedDiameters = MatProgressSpinner._diameters;
+            /** @type {?} */
+            const diametersForElement = trackedDiameters.get(this._styleRoot);
+            if (!diametersForElement || !diametersForElement.has(this._diameter)) {
+                this._attachStyleNode();
+            }
         }
     }
     /**
@@ -218,16 +232,23 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     _attachStyleNode() {
         /** @type {?} */
-        let styleTag = MatProgressSpinner._styleTag;
-        if (!styleTag) {
-            styleTag = this._document.createElement('style');
-            this._document.head.appendChild(styleTag);
-            MatProgressSpinner._styleTag = styleTag;
+        const styleTag = this._document.createElement('style');
+        /** @type {?} */
+        const styleRoot = this._styleRoot;
+        /** @type {?} */
+        const currentDiameter = this._diameter;
+        /** @type {?} */
+        const diameters = MatProgressSpinner._diameters;
+        /** @type {?} */
+        let diametersForElement = diameters.get(styleRoot);
+        styleTag.setAttribute('mat-spinner-animation', currentDiameter + '');
+        styleTag.textContent = this._getAnimationText();
+        styleRoot.appendChild(styleTag);
+        if (!diametersForElement) {
+            diametersForElement = new Set();
+            diameters.set(styleRoot, diametersForElement);
         }
-        if (styleTag && styleTag.sheet) {
-            ((/** @type {?} */ (styleTag.sheet))).insertRule(this._getAnimationText(), 0);
-        }
-        MatProgressSpinner._diameters.add(this.diameter);
+        diametersForElement.add(currentDiameter);
     }
     /**
      * Generates animation styles adjusted for the spinner's diameter.
@@ -243,14 +264,12 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
     }
 }
 /**
- * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
+ * Tracks diameters of existing instances to de-dupe generated styles (default d = 100).
+ * We need to keep track of which elements the diameters were attached to, because for
+ * elements in the Shadow DOM the style tags are attached to the shadow root, rather
+ * than the document head.
  */
-MatProgressSpinner._diameters = new Set([BASE_SIZE]);
-/**
- * Used for storing all of the generated keyframe animations.
- * \@dynamic
- */
-MatProgressSpinner._styleTag = null;
+MatProgressSpinner._diameters = new WeakMap();
 MatProgressSpinner.decorators = [
     { type: Component, args: [{selector: 'mat-progress-spinner',
                 exportAs: 'matProgressSpinner',
@@ -330,6 +349,31 @@ MatSpinner.ctorParameters = () => [
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] }] }
 ];
+/**
+ * Gets the shadow root of an element, if supported and the element is inside the Shadow DOM.
+ * @param {?} element
+ * @param {?} _document
+ * @return {?}
+ */
+function _getShadowRoot(element, _document) {
+    // TODO(crisbeto): see whether we should move this into the CDK
+    // feature detection utilities once #15616 gets merged in.
+    if (typeof window !== 'undefined') {
+        /** @type {?} */
+        const head = _document.head;
+        // Check whether the browser supports Shadow DOM.
+        if (head && (((/** @type {?} */ (head))).createShadowRoot || head.attachShadow)) {
+            /** @type {?} */
+            const rootNode = element.getRootNode ? element.getRootNode() : null;
+            // We need to take the `ShadowRoot` off of `window`, because the built-in types are
+            // incorrect. See https://github.com/Microsoft/TypeScript/issues/27929.
+            if (rootNode instanceof ((/** @type {?} */ (window))).ShadowRoot) {
+                return rootNode;
+            }
+        }
+    }
+    return null;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -362,5 +406,5 @@ MatProgressSpinnerModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatProgressSpinnerModule, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinner, MatSpinner };
+export { MatProgressSpinner, MatSpinner, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinnerModule };
 //# sourceMappingURL=progress-spinner.js.map
