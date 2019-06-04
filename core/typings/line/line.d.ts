@@ -22,7 +22,7 @@ export declare function setLines(lines: QueryList<MatLine>, element: ElementRef<
  * Helper that takes a query list of lines and sets the correct class on the host.
  * @docs-private
  * @deprecated Use `setLines` instead.
- * @breaking-change 8.0.0-5c51301
+ * @breaking-change 8.0.0-2d93c6d
  */
 export declare class MatLineSetter {
     constructor(lines: QueryList<MatLine>, element: ElementRef<HTMLElement>);

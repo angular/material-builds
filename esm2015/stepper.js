@@ -251,7 +251,7 @@ MatStepperIcon.propDecorators = {
  */
 class MatStep extends CdkStep {
     /**
-     * \@breaking-change 8.0.0-5c51301 remove the `?` after `stepperOptions`
+     * \@breaking-change 8.0.0-2d93c6d remove the `?` after `stepperOptions`
      * @param {?} stepper
      * @param {?} _errorStateMatcher
      * @param {?=} stepperOptions
@@ -400,7 +400,7 @@ class MatVerticalStepper extends MatStepper {
      * @param {?=} _document
      */
     constructor(dir, changeDetectorRef, 
-    // @breaking-change 8.0.0-5c51301 `elementRef` and `_document` parameters to become required.
+    // @breaking-change 8.0.0-2d93c6d `elementRef` and `_document` parameters to become required.
     elementRef, _document) {
         super(dir, changeDetectorRef, elementRef, _document);
         this._orientation = 'vertical';

@@ -39,11 +39,11 @@ var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 };
 /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@breaking-change 8.0.0-5c51301
+ * \@breaking-change 8.0.0-2d93c6d
  */
 var  /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@breaking-change 8.0.0-5c51301
+ * \@breaking-change 8.0.0-2d93c6d
  */
 MatButtonToggleGroupMultiple = /** @class */ (function () {
     function MatButtonToggleGroupMultiple() {
@@ -584,7 +584,7 @@ var _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
 var MatButtonToggle = /** @class */ (function (_super) {
     __extends(MatButtonToggle, _super);
     function MatButtonToggle(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, 
-    // @breaking-change 8.0.0-5c51301 `defaultTabIndex` to be made a required parameter.
+    // @breaking-change 8.0.0-2d93c6d `defaultTabIndex` to be made a required parameter.
     defaultTabIndex, defaultOptions) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;

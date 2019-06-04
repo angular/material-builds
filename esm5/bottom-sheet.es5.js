@@ -433,7 +433,7 @@ var  /**
  */
 MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef, 
-    // @breaking-change 8.0.0-5c51301 `_location` parameter to be removed.
+    // @breaking-change 8.0.0-2d93c6d `_location` parameter to be removed.
     _location) {
         var _this = this;
         this._overlayRef = _overlayRef;
