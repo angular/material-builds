@@ -68,14 +68,14 @@ const matMenuAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 8.0.0-aadfc88
+ * \@breaking-change 8.0.0-5a3e206
  * \@docs-private
  * @type {?}
  */
 const fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
- * \@breaking-change 8.0.0-aadfc88
+ * \@breaking-change 8.0.0-5a3e206
  * \@docs-private
  * @type {?}
  */
@@ -239,7 +239,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * @param {?=} _parentMenu
      */
     constructor(_elementRef, document, _focusMonitor, _parentMenu) {
-        // @breaking-change 8.0.0-aadfc88 make `_focusMonitor` and `document` required params.
+        // @breaking-change 8.0.0-5a3e206 make `_focusMonitor` and `document` required params.
         super();
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
@@ -478,7 +478,7 @@ class _MatMenuBase {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@breaking-change 8.0.0-aadfc88
+         * \@breaking-change 8.0.0-5a3e206
          */
         this.close = this.closed;
     }
@@ -574,7 +574,7 @@ class _MatMenuBase {
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @deprecated Use `panelClass` instead.
-     * \@breaking-change 8.0.0-aadfc88
+     * \@breaking-change 8.0.0-5a3e206
      * @return {?}
      */
     get classList() { return this.panelClass; }
@@ -761,7 +761,7 @@ class _MatMenuBase {
      * @return {?}
      */
     _startAnimation() {
-        // @breaking-change 8.0.0-aadfc88 Combine with _resetAnimation.
+        // @breaking-change 8.0.0-5a3e206 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     }
     /**
@@ -769,7 +769,7 @@ class _MatMenuBase {
      * @return {?}
      */
     _resetAnimation() {
-        // @breaking-change 8.0.0-aadfc88 Combine with _startAnimation.
+        // @breaking-change 8.0.0-5a3e206 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     }
     /**
@@ -957,7 +957,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@breaking-change 8.0.0-aadfc88
+         * \@breaking-change 8.0.0-5a3e206
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuOpen = this.menuOpened;
@@ -968,7 +968,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@breaking-change 8.0.0-aadfc88
+         * \@breaking-change 8.0.0-5a3e206
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuClose = this.menuClosed;
@@ -980,7 +980,7 @@ class MatMenuTrigger {
     }
     /**
      * @deprecated
-     * \@breaking-change 8.0.0-aadfc88
+     * \@breaking-change 8.0.0-5a3e206
      * @return {?}
      */
     get _deprecatedMatMenuTriggerFor() { return this.menu; }
@@ -1142,16 +1142,17 @@ class MatMenuTrigger {
                 event => event.toState === 'void')), take(1), 
                 // Interrupt if the content got re-attached.
                 takeUntil(menu.lazyContent._attached))
-                    .subscribe((/**
-                 * @return {?}
-                 */
-                () => (/** @type {?} */ (menu.lazyContent)).detach()), undefined, (/**
-                 * @return {?}
-                 */
-                () => {
+                    .subscribe({
+                    next: (/**
+                     * @return {?}
+                     */
+                    () => (/** @type {?} */ (menu.lazyContent)).detach()),
                     // No matter whether the content got re-attached, reset the menu.
-                    this._resetMenu();
-                }));
+                    complete: (/**
+                     * @return {?}
+                     */
+                    () => this._resetMenu())
+                });
             }
             else {
                 this._resetMenu();

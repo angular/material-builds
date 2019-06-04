@@ -313,7 +313,7 @@ var MatListItem = /** @class */ (function (_super) {
                     exportAs: 'matListItem',
                     host: {
                         'class': 'mat-list-item',
-                        // @breaking-change 8.0.0-aadfc88 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
+                        // @breaking-change 8.0.0-5a3e206 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
                         '[class.mat-list-item-avatar]': '_avatar || _icon',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                     },
