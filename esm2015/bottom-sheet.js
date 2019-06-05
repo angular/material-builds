@@ -13,7 +13,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT, CommonModule, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { merge, Subject, of } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
@@ -362,7 +362,7 @@ class MatBottomSheetRef {
      * @param {?=} _location
      */
     constructor(containerInstance, _overlayRef, 
-    // @breaking-change 8.0.0-57b9902 `_location` parameter to be removed.
+    // @breaking-change 8.0.0-e7b7b30 `_location` parameter to be removed.
     _location) {
         this._overlayRef = _overlayRef;
         /**
@@ -413,13 +413,10 @@ class MatBottomSheetRef {
          * @return {?}
          */
         event => event.keyCode === ESCAPE)))).subscribe((/**
-         * @param {?} event
          * @return {?}
          */
-        event => {
-            if (!this.disableClose &&
-                (event.type !== 'keydown' || !hasModifierKey((/** @type {?} */ (event))))) {
-                event.preventDefault();
+        () => {
+            if (!this.disableClose) {
                 this.dismiss();
             }
         }));

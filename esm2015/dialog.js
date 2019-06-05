@@ -10,7 +10,7 @@ import { Component, ElementRef, EventEmitter, Inject, Optional, ChangeDetectorRe
 import { DOCUMENT, Location, CommonModule } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
-import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
@@ -119,7 +119,7 @@ const matDialogAnimations = {
      */
     dialogContainer: trigger('dialogContainer', animationBody),
     /**
-     * @deprecated \@breaking-change 8.0.0-57b9902 Use `matDialogAnimations.dialogContainer` instead.
+     * @deprecated \@breaking-change 8.0.0-e7b7b30 Use `matDialogAnimations.dialogContainer` instead.
      */
     slideDialog: trigger('slideDialog', animationBody)
 };
@@ -338,7 +338,7 @@ class MatDialogRef {
      * @param {?=} id
      */
     constructor(_overlayRef, _containerInstance, 
-    // @breaking-change 8.0.0-57b9902 `_location` parameter to be removed.
+    // @breaking-change 8.0.0-e7b7b30 `_location` parameter to be removed.
     _location, id = `mat-dialog-${uniqueId++}`) {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
@@ -399,17 +399,11 @@ class MatDialogRef {
          * @param {?} event
          * @return {?}
          */
-        event => {
-            return event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event);
-        })))
+        event => event.keyCode === ESCAPE && !this.disableClose)))
             .subscribe((/**
-         * @param {?} event
          * @return {?}
          */
-        event => {
-            event.preventDefault();
-            this.close();
-        }));
+        () => this.close()));
     }
     /**
      * Close the dialog.
@@ -532,7 +526,7 @@ class MatDialogRef {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-57b9902
+     * \@breaking-change 8.0.0-e7b7b30
      * @return {?}
      */
     afterOpen() {
@@ -541,7 +535,7 @@ class MatDialogRef {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@breaking-change 8.0.0-57b9902
+     * \@breaking-change 8.0.0-e7b7b30
      * @return {?}
      */
     beforeClose() {
@@ -661,7 +655,7 @@ class MatDialog {
     /**
      * Stream that emits when a dialog has been opened.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-57b9902
+     * \@breaking-change 8.0.0-e7b7b30
      * @return {?}
      */
     get afterOpen() {

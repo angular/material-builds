@@ -2702,15 +2702,9 @@ var MatDatepicker = /** @class */ (function () {
             return event.keyCode === ESCAPE ||
                 (_this._datepickerInput && event.altKey && event.keyCode === UP_ARROW);
         })))).subscribe((/**
-         * @param {?} event
          * @return {?}
          */
-        function (event) {
-            if (event) {
-                event.preventDefault();
-            }
-            _this.close();
-        }));
+        function () { return _this.close(); }));
     };
     /** Create the popup PositionStrategy. */
     /**
@@ -3173,16 +3167,16 @@ var MatDatepickerInput = /** @class */ (function () {
     };
     /**
      * @deprecated
-     * @breaking-change 8.0.0-57b9902 Use `getConnectedOverlayOrigin` instead
+     * @breaking-change 8.0.0-e7b7b30 Use `getConnectedOverlayOrigin` instead
      */
     /**
      * @deprecated
-     * \@breaking-change 8.0.0-57b9902 Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 8.0.0-e7b7b30 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     MatDatepickerInput.prototype.getPopupConnectionElementRef = /**
      * @deprecated
-     * \@breaking-change 8.0.0-57b9902 Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 8.0.0-e7b7b30 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     function () {

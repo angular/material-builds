@@ -460,8 +460,7 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function (e) {
-        if (this._isTooltipVisible() && e.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(e)) {
-            e.preventDefault();
+        if (this._isTooltipVisible() && e.keyCode === keycodes.ESCAPE) {
             e.stopPropagation();
             this.hide(0);
         }

@@ -9,7 +9,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, ScrollingModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
@@ -222,9 +222,7 @@ class MatDrawer {
              * @param {?} event
              * @return {?}
              */
-            event => {
-                return event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event);
-            })), takeUntil(this._destroyed)).subscribe((/**
+            event => event.keyCode === ESCAPE && !this.disableClose)), takeUntil(this._destroyed)).subscribe((/**
              * @param {?} event
              * @return {?}
              */
@@ -234,7 +232,6 @@ class MatDrawer {
             () => {
                 this.close();
                 event.stopPropagation();
-                event.preventDefault();
             }))));
         }));
         // We need a Subject with distinctUntilChanged, because the `done` event

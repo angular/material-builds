@@ -89,14 +89,14 @@ var matMenuAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 8.0.0-57b9902
+ * \@breaking-change 8.0.0-e7b7b30
  * \@docs-private
  * @type {?}
  */
 var fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
- * \@breaking-change 8.0.0-57b9902
+ * \@breaking-change 8.0.0-e7b7b30
  * \@docs-private
  * @type {?}
  */
@@ -274,7 +274,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef, document, _focusMonitor, _parentMenu) {
         var _this = 
-        // @breaking-change 8.0.0-57b9902 make `_focusMonitor` and `document` required params.
+        // @breaking-change 8.0.0-e7b7b30 make `_focusMonitor` and `document` required params.
         _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
@@ -566,7 +566,7 @@ var _MatMenuBase = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@breaking-change 8.0.0-57b9902
+         * \@breaking-change 8.0.0-e7b7b30
          */
         this.close = this.closed;
     }
@@ -694,14 +694,14 @@ var _MatMenuBase = /** @class */ (function () {
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
-         * @breaking-change 8.0.0-57b9902
+         * @breaking-change 8.0.0-e7b7b30
          */
         get: /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
-         * \@breaking-change 8.0.0-57b9902
+         * \@breaking-change 8.0.0-e7b7b30
          * @return {?}
          */
         function () { return this.panelClass; },
@@ -784,10 +784,7 @@ var _MatMenuBase = /** @class */ (function () {
         var manager = this._keyManager;
         switch (keyCode) {
             case keycodes.ESCAPE:
-                if (!keycodes.hasModifierKey(event)) {
-                    event.preventDefault();
-                    this.closed.emit('keydown');
-                }
+                this.closed.emit('keydown');
                 break;
             case keycodes.LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
@@ -986,7 +983,7 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @breaking-change 8.0.0-57b9902 Combine with _resetAnimation.
+        // @breaking-change 8.0.0-e7b7b30 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     };
     /** Resets the panel animation to its initial state. */
@@ -999,7 +996,7 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @breaking-change 8.0.0-57b9902 Combine with _startAnimation.
+        // @breaking-change 8.0.0-e7b7b30 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     };
     /** Callback that is invoked when the panel animation completes. */
@@ -1190,7 +1187,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@breaking-change 8.0.0-57b9902
+         * \@breaking-change 8.0.0-e7b7b30
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuOpen = this.menuOpened;
@@ -1201,7 +1198,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@breaking-change 8.0.0-57b9902
+         * \@breaking-change 8.0.0-e7b7b30
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuClose = this.menuClosed;
@@ -1214,11 +1211,11 @@ var MatMenuTrigger = /** @class */ (function () {
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         /**
          * @deprecated
-         * @breaking-change 8.0.0-57b9902
+         * @breaking-change 8.0.0-e7b7b30
          */
         get: /**
          * @deprecated
-         * \@breaking-change 8.0.0-57b9902
+         * \@breaking-change 8.0.0-e7b7b30
          * @return {?}
          */
         function () { return this.menu; },
