@@ -9,7 +9,7 @@
  * The placeholder text for an `MatFormField`.
  * @deprecated Use `<mat-label>` to specify the label and the `placeholder` attribute to specify the
  *     placeholder.
- * @breaking-change 8.0.0-2d93c6d
+ * @breaking-change 8.0.0-8ecfc72
  */
 export declare class MatPlaceholder {
 }

@@ -465,7 +465,7 @@ var   /**
  */
 MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef, 
-    // @breaking-change 8.0.0-2d93c6d `_location` parameter to be removed.
+    // @breaking-change 8.0.0-8ecfc72 `_location` parameter to be removed.
     _location) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -517,10 +517,13 @@ MatBottomSheetRef = /** @class */ (function () {
          * @return {?}
          */
         function (event) { return event.keyCode === keycodes.ESCAPE; })))).subscribe((/**
+         * @param {?} event
          * @return {?}
          */
-        function () {
-            if (!_this.disableClose) {
+        function (event) {
+            if (!_this.disableClose &&
+                (event.type !== 'keydown' || !keycodes.hasModifierKey((/** @type {?} */ (event))))) {
+                event.preventDefault();
                 _this.dismiss();
             }
         }));

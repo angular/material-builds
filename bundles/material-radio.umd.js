@@ -44,6 +44,19 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var MAT_RADIO_DEFAULT_OPTIONS = new core.InjectionToken('mat-radio-default-options', {
+    providedIn: 'root',
+    factory: MAT_RADIO_DEFAULT_OPTIONS_FACTORY
+});
+/**
+ * @return {?}
+ */
+function MAT_RADIO_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        color: 'accent'
+    };
+}
 // Increasing integer for generating unique ids for radio components.
 /** @type {?} */
 var nextUniqueId = 0;
@@ -518,12 +531,13 @@ var _MatRadioButtonMixinBase = core$1.mixinDisableRipple(core$1.mixinTabIndex(Ma
  */
 var MatRadioButton = /** @class */ (function (_super) {
     __extends(MatRadioButton, _super);
-    function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode) {
+    function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetector = _changeDetector;
         _this._focusMonitor = _focusMonitor;
         _this._radioDispatcher = _radioDispatcher;
         _this._animationMode = _animationMode;
+        _this._providerOverride = _providerOverride;
         _this._uniqueId = "mat-radio-" + ++nextUniqueId;
         /**
          * The unique ID for the radio button.
@@ -697,7 +711,9 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._color || (this.radioGroup && this.radioGroup.color) || 'accent';
+            return this._color ||
+                (this.radioGroup && this.radioGroup.color) ||
+                this._providerOverride && this._providerOverride.color || 'accent';
         },
         set: /**
          * @param {?} newValue
@@ -901,7 +917,8 @@ var MatRadioButton = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef },
         { type: a11y.FocusMonitor },
         { type: collections.UniqueSelectionDispatcher },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
     ]; };
     MatRadioButton.propDecorators = {
         id: [{ type: core.Input }],
@@ -939,6 +956,8 @@ var MatRadioModule = /** @class */ (function () {
 }());
 
 exports.MatRadioModule = MatRadioModule;
+exports.MAT_RADIO_DEFAULT_OPTIONS_FACTORY = MAT_RADIO_DEFAULT_OPTIONS_FACTORY;
+exports.MAT_RADIO_DEFAULT_OPTIONS = MAT_RADIO_DEFAULT_OPTIONS;
 exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
 exports.MatRadioChange = MatRadioChange;
 exports.MatRadioGroup = MatRadioGroup;

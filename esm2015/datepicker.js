@@ -2173,9 +2173,15 @@ class MatDatepicker {
             return event.keyCode === ESCAPE ||
                 (this._datepickerInput && event.altKey && event.keyCode === UP_ARROW);
         })))).subscribe((/**
+         * @param {?} event
          * @return {?}
          */
-        () => this.close()));
+        event => {
+            if (event) {
+                event.preventDefault();
+            }
+            this.close();
+        }));
     }
     /**
      * Create the popup PositionStrategy.
@@ -2572,7 +2578,7 @@ class MatDatepickerInput {
     }
     /**
      * @deprecated
-     * \@breaking-change 8.0.0-2d93c6d Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 8.0.0-8ecfc72 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     getPopupConnectionElementRef() {
