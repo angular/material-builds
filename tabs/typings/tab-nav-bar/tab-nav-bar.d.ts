@@ -40,7 +40,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     constructor(elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler);
     /**
      * Notifies the component that the active link has been changed.
-     * @breaking-change 8.0.0-8ecfc72 `element` parameter to be removed.
+     * @breaking-change 8.0.0-57b9902 `element` parameter to be removed.
      */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;
