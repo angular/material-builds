@@ -236,7 +236,9 @@ var MatDrawer = /** @class */ (function () {
              * @param {?} event
              * @return {?}
              */
-            function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })), operators.takeUntil(_this._destroyed)).subscribe((/**
+            function (event) {
+                return event.keyCode === keycodes.ESCAPE && !_this.disableClose && !keycodes.hasModifierKey(event);
+            })), operators.takeUntil(_this._destroyed)).subscribe((/**
              * @param {?} event
              * @return {?}
              */
@@ -246,6 +248,7 @@ var MatDrawer = /** @class */ (function () {
             function () {
                 _this.close();
                 event.stopPropagation();
+                event.preventDefault();
             })); }));
         }));
         // We need a Subject with distinctUntilChanged, because the `done` event

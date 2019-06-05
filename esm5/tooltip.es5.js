@@ -10,7 +10,7 @@ import { __assign } from 'tslib';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -446,7 +446,8 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function (e) {
-        if (this._isTooltipVisible() && e.keyCode === ESCAPE) {
+        if (this._isTooltipVisible() && e.keyCode === ESCAPE && !hasModifierKey(e)) {
+            e.preventDefault();
             e.stopPropagation();
             this.hide(0);
         }
