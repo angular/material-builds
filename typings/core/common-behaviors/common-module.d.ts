@@ -35,6 +35,8 @@ export declare class MatCommonModule {
     private _isTestEnv;
     private _checkDoctypeIsDefined;
     private _checkThemeIsPresent;
+    /** Checks whether the material version matches the cdk version */
+    private _checkCdkVersionMatch;
     /** Checks whether HammerJS is available. */
     _checkHammerIsAvailable(): void;
 }
