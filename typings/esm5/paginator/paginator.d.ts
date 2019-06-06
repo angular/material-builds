@@ -17,7 +17,7 @@ export declare class PageEvent {
     pageIndex: number;
     /**
      * Index of the page that was selected previously.
-     * @breaking-change 8.0.0-ffad004 To be made into a required property.
+     * @breaking-change 8.0.0-70aee92 To be made into a required property.
      */
     previousPageIndex?: number;
     /** The current page size */

@@ -119,7 +119,7 @@ const matDialogAnimations = {
      */
     dialogContainer: trigger('dialogContainer', animationBody),
     /**
-     * @deprecated \@breaking-change 8.0.0-ffad004 Use `matDialogAnimations.dialogContainer` instead.
+     * @deprecated \@breaking-change 8.0.0-70aee92 Use `matDialogAnimations.dialogContainer` instead.
      */
     slideDialog: trigger('slideDialog', animationBody)
 };
@@ -338,7 +338,7 @@ class MatDialogRef {
      * @param {?=} id
      */
     constructor(_overlayRef, _containerInstance, 
-    // @breaking-change 8.0.0-ffad004 `_location` parameter to be removed.
+    // @breaking-change 8.0.0-70aee92 `_location` parameter to be removed.
     _location, id = `mat-dialog-${uniqueId++}`) {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
@@ -532,7 +532,7 @@ class MatDialogRef {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-ffad004
+     * \@breaking-change 8.0.0-70aee92
      * @return {?}
      */
     afterOpen() {
@@ -541,7 +541,7 @@ class MatDialogRef {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@breaking-change 8.0.0-ffad004
+     * \@breaking-change 8.0.0-70aee92
      * @return {?}
      */
     beforeClose() {
@@ -661,7 +661,7 @@ class MatDialog {
     /**
      * Stream that emits when a dialog has been opened.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-ffad004
+     * \@breaking-change 8.0.0-70aee92
      * @return {?}
      */
     get afterOpen() {
