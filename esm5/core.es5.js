@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new Version('8.0.0-70aee92');
+var VERSION$1 = new Version('8.0.0-f7ce721');
 
 /**
  * @fileoverview added by tsickle
@@ -67,7 +67,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new Version('8.0.0-70aee92');
+var VERSION$2 = new Version('8.0.0-f7ce721');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -596,7 +596,7 @@ function MAT_DATE_LOCALE_FACTORY() {
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
- * \@breaking-change 8.0.0-70aee92
+ * \@breaking-change 8.0.0-f7ce721
  * @type {?}
  */
 var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
@@ -1586,7 +1586,7 @@ var GestureConfig = /** @class */ (function (_super) {
             // `this.events` to the set we support, instead of conditionally setting it to `[]` if
             // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
             // undefined).
-            // @breaking-change 8.0.0-70aee92
+            // @breaking-change 8.0.0-f7ce721
             return noopHammerInstance;
         }
         /** @type {?} */
@@ -1723,13 +1723,13 @@ function setClass(element, className, isAdd) {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-70aee92
+ * \@breaking-change 8.0.0-f7ce721
  */
 var  /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-70aee92
+ * \@breaking-change 8.0.0-f7ce721
  */
 MatLineSetter = /** @class */ (function () {
     function MatLineSetter(lines, element) {
@@ -3033,7 +3033,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  * \@docs-private
- * \@breaking-change 8.0.0-70aee92 Remove this with V8 since it was only targeted for testing.
+ * \@breaking-change 8.0.0-f7ce721 Remove this with V8 since it was only targeted for testing.
  * @type {?}
  */
 var JAN = 0;
