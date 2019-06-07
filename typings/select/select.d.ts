@@ -89,7 +89,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     ngControl: NgControl;
     /**
      * @deprecated _liveAnnouncer to be turned into a required parameter.
-     * @breaking-change 8.0.0-f6903da
+     * @breaking-change 8.0.0-8c4f25f
      */
     private _liveAnnouncer?;
     private _scrollStrategyFactory;
@@ -154,7 +154,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Whether the select is focused. */
     /**
     * @deprecated Setter to be removed as this property is intended to be readonly.
-    * @breaking-change 8.0.0-f6903da
+    * @breaking-change 8.0.0-8c4f25f
     */
     focused: boolean;
     private _focused;
@@ -226,7 +226,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, 
     /**
      * @deprecated _liveAnnouncer to be turned into a required parameter.
-     * @breaking-change 8.0.0-f6903da
+     * @breaking-change 8.0.0-8c4f25f
      */
     _liveAnnouncer?: LiveAnnouncer | undefined);
     ngOnInit(): void;

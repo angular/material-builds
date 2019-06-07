@@ -158,7 +158,7 @@ var matDialogAnimations = {
      */
     dialogContainer: animations.trigger('dialogContainer', animationBody),
     /**
-     * @deprecated \@breaking-change 8.0.0-f6903da Use `matDialogAnimations.dialogContainer` instead.
+     * @deprecated \@breaking-change 8.0.0-8c4f25f Use `matDialogAnimations.dialogContainer` instead.
      */
     slideDialog: animations.trigger('slideDialog', animationBody)
 };
@@ -427,7 +427,7 @@ var   /**
  */
 MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, 
-    // @breaking-change 8.0.0-f6903da `_location` parameter to be removed.
+    // @breaking-change 8.0.0-8c4f25f `_location` parameter to be removed.
     _location, id) {
         var _this = this;
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
@@ -710,18 +710,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0-f6903da
+     * @breaking-change 8.0.0-8c4f25f
      */
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-f6903da
+     * \@breaking-change 8.0.0-8c4f25f
      * @return {?}
      */
     MatDialogRef.prototype.afterOpen = /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-f6903da
+     * \@breaking-change 8.0.0-8c4f25f
      * @return {?}
      */
     function () {
@@ -730,18 +730,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * @breaking-change 8.0.0-f6903da
+     * @breaking-change 8.0.0-8c4f25f
      */
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@breaking-change 8.0.0-f6903da
+     * \@breaking-change 8.0.0-8c4f25f
      * @return {?}
      */
     MatDialogRef.prototype.beforeClose = /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@breaking-change 8.0.0-f6903da
+     * \@breaking-change 8.0.0-8c4f25f
      * @return {?}
      */
     function () {
@@ -871,12 +871,12 @@ var MatDialog = /** @class */ (function () {
         /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * @breaking-change 8.0.0-f6903da
+         * @breaking-change 8.0.0-8c4f25f
          */
         get: /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * \@breaking-change 8.0.0-f6903da
+         * \@breaking-change 8.0.0-8c4f25f
          * @return {?}
          */
         function () {
