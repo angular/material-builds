@@ -9,7 +9,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `@angular/cdk/text-field` instead.
- * @breaking-change 8.0.0-8daaf4d
+ * @breaking-change 8.0.0-98b880b
  */
 export declare class MatTextareaAutosize extends CdkTextareaAutosize {
     matAutosizeMinRows: number;

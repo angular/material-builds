@@ -68,14 +68,14 @@ const matMenuAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 8.0.0-8daaf4d
+ * \@breaking-change 8.0.0-98b880b
  * \@docs-private
  * @type {?}
  */
 const fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
- * \@breaking-change 8.0.0-8daaf4d
+ * \@breaking-change 8.0.0-98b880b
  * \@docs-private
  * @type {?}
  */
@@ -239,7 +239,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * @param {?=} _parentMenu
      */
     constructor(_elementRef, document, _focusMonitor, _parentMenu) {
-        // @breaking-change 8.0.0-8daaf4d make `_focusMonitor` and `document` required params.
+        // @breaking-change 8.0.0-98b880b make `_focusMonitor` and `document` required params.
         super();
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
@@ -478,7 +478,7 @@ class _MatMenuBase {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@breaking-change 8.0.0-8daaf4d
+         * \@breaking-change 8.0.0-98b880b
          */
         this.close = this.closed;
     }
@@ -574,7 +574,7 @@ class _MatMenuBase {
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @deprecated Use `panelClass` instead.
-     * \@breaking-change 8.0.0-8daaf4d
+     * \@breaking-change 8.0.0-98b880b
      * @return {?}
      */
     get classList() { return this.panelClass; }
@@ -764,7 +764,7 @@ class _MatMenuBase {
      * @return {?}
      */
     _startAnimation() {
-        // @breaking-change 8.0.0-8daaf4d Combine with _resetAnimation.
+        // @breaking-change 8.0.0-98b880b Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     }
     /**
@@ -772,7 +772,7 @@ class _MatMenuBase {
      * @return {?}
      */
     _resetAnimation() {
-        // @breaking-change 8.0.0-8daaf4d Combine with _startAnimation.
+        // @breaking-change 8.0.0-98b880b Combine with _startAnimation.
         this._panelAnimationState = 'void';
     }
     /**
@@ -821,6 +821,9 @@ _MatMenuBase.propDecorators = {
     closed: [{ type: Output }],
     close: [{ type: Output }]
 };
+/**
+ * \@docs-private We show the "_MatMenu" class as "MatMenu" in the docs.
+ */
 class MatMenu extends _MatMenuBase {
 }
 // Note on the weird inheritance setup: we need three classes, because the MDC-based menu has to
@@ -833,6 +836,9 @@ class MatMenu extends _MatMenuBase {
 // is used as a provider for DI and query purposes.
 // * _MatMenu - the actual menu component implementation with the Angular metadata that should
 // be tree shaken away for MDC.
+/**
+ * \@docs-public MatMenu
+ */
 // tslint:disable-next-line:class-name
 class _MatMenu extends MatMenu {
     /**
@@ -960,7 +966,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@breaking-change 8.0.0-8daaf4d
+         * \@breaking-change 8.0.0-98b880b
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuOpen = this.menuOpened;
@@ -971,7 +977,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@breaking-change 8.0.0-8daaf4d
+         * \@breaking-change 8.0.0-98b880b
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuClose = this.menuClosed;
@@ -983,7 +989,7 @@ class MatMenuTrigger {
     }
     /**
      * @deprecated
-     * \@breaking-change 8.0.0-8daaf4d
+     * \@breaking-change 8.0.0-98b880b
      * @return {?}
      */
     get _deprecatedMatMenuTriggerFor() { return this.menu; }
@@ -1559,5 +1565,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
 //# sourceMappingURL=menu.js.map

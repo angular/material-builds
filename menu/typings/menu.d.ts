@@ -71,7 +71,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     /**
      * List of the items inside of a menu.
      * @deprecated
-     * @breaking-change 8.0.0-8daaf4d
+     * @breaking-change 8.0.0-98b880b
      */
     items: QueryList<MatMenuItem>;
     /**
@@ -98,7 +98,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @deprecated Use `panelClass` instead.
-     * @breaking-change 8.0.0-8daaf4d
+     * @breaking-change 8.0.0-98b880b
      */
     classList: string;
     /** Event emitted when the menu is closed. */
@@ -106,7 +106,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     /**
      * Event emitted when the menu is closed.
      * @deprecated Switch to `closed` instead
-     * @breaking-change 8.0.0-8daaf4d
+     * @breaking-change 8.0.0-98b880b
      */
     close: EventEmitter<void | "click" | "keydown" | "tab">;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
@@ -158,8 +158,10 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     _onAnimationDone(event: AnimationEvent): void;
     _onAnimationStart(event: AnimationEvent): void;
 }
+/** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
 export declare class MatMenu extends _MatMenuBase {
 }
+/** @docs-public MatMenu */
 export declare class _MatMenu extends MatMenu {
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
 }
