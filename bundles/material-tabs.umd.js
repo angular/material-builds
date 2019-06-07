@@ -2202,23 +2202,23 @@ var MatTabNav = /** @class */ (function (_super) {
     });
     /**
      * Notifies the component that the active link has been changed.
-     * @breaking-change 8.0.0-8c4f25f `element` parameter to be removed.
+     * @breaking-change 8.0.0-8daaf4d `element` parameter to be removed.
      */
     /**
      * Notifies the component that the active link has been changed.
-     * \@breaking-change 8.0.0-8c4f25f `element` parameter to be removed.
+     * \@breaking-change 8.0.0-8daaf4d `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     MatTabNav.prototype.updateActiveLink = /**
      * Notifies the component that the active link has been changed.
-     * \@breaking-change 8.0.0-8c4f25f `element` parameter to be removed.
+     * \@breaking-change 8.0.0-8daaf4d `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     function (element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
-        // @breaking-change 8.0.0-8c4f25f
+        // @breaking-change 8.0.0-8daaf4d
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     };
@@ -2493,7 +2493,7 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

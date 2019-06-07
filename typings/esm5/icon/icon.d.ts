@@ -60,7 +60,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _iconRegistry;
     /**
      * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0-8c4f25f
+     * @breaking-change 8.0.0-8daaf4d
      */
     private _location?;
     /**
@@ -86,7 +86,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, 
     /**
      * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0-8c4f25f
+     * @breaking-change 8.0.0-8daaf4d
      */
     _location?: MatIconLocation | undefined);
     /**

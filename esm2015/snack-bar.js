@@ -83,7 +83,7 @@ class MatSnackBarRef {
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 8.0.0-8c4f25f
+     * \@breaking-change 8.0.0-8daaf4d
      * @return {?}
      */
     closeWithAction() {
