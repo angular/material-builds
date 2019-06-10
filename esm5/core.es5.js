@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Version, Inject, InjectionToken, isDevMode, NgModule, Optional, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, ɵɵdefineInjectable } from '@angular/core';
-import { VERSION } from '@angular/cdk';
-import { BidiModule } from '@angular/cdk/bidi';
+import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, ɵɵdefineInjectable } from '@angular/core';
 import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
+import { BidiModule } from '@angular/cdk/bidi';
+import { VERSION } from '@angular/cdk';
 import { __extends, __assign } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new Version('8.0.1-c1e07ad');
+var VERSION$1 = new Version('8.0.1-7f74211');
 
 /**
  * @fileoverview added by tsickle
@@ -62,6 +62,12 @@ var AnimationDurations = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Private version constant to circumvent test/build issues,
+// i.e. avoid core to depend on the @angular/material primary entry-point
+// Can be removed once the Material primary entry-point no longer
+// re-exports all secondary entry-points
+/** @type {?} */
+var VERSION$2 = new Version('8.0.1-7f74211');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -196,8 +202,8 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (VERSION$1.full !== VERSION.full) {
-            console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
+        if (VERSION$2.full !== VERSION.full) {
+            console.warn('The Angular Material version (' + VERSION$2.full + ') does not match ' +
                 'the Angular CDK version (' + VERSION.full + ').\n' +
                 'Please ensure the versions of these two packages exactly match.');
         }

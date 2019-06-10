@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.cdk,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
-}(this, (function (exports,core,cdk,bidi,platformBrowser,coercion,rxjs,platform,operators,a11y,animations,keycodes,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
+}(this, (function (exports,core,platformBrowser,bidi,cdk,coercion,rxjs,platform,operators,a11y,animations,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.1-c1e07ad');
+var VERSION$1 = new core.Version('8.0.1-7f74211');
 
 /**
  * @fileoverview added by tsickle
@@ -94,6 +94,12 @@ var AnimationDurations = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Private version constant to circumvent test/build issues,
+// i.e. avoid core to depend on the @angular/material primary entry-point
+// Can be removed once the Material primary entry-point no longer
+// re-exports all secondary entry-points
+/** @type {?} */
+var VERSION$2 = new core.Version('8.0.1-7f74211');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -228,8 +234,8 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (VERSION$1.full !== cdk.VERSION.full) {
-            console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
+        if (VERSION$2.full !== cdk.VERSION.full) {
+            console.warn('The Angular Material version (' + VERSION$2.full + ') does not match ' +
                 'the Angular CDK version (' + cdk.VERSION.full + ').\n' +
                 'Please ensure the versions of these two packages exactly match.');
         }
