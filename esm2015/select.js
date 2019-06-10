@@ -77,7 +77,7 @@ const matSelectAnimations = {
      * select's options. It is time delayed to occur 100ms after the overlay
      * panel has transformed in.
      * @deprecated Not used anymore. To be removed.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      */
     fadeInContent: trigger('fadeInContent', [
         state('showing', style({ opacity: 1 })),
@@ -89,14 +89,14 @@ const matSelectAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  * \@docs-private
  * @type {?}
  */
 const transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  * \@docs-private
  * @type {?}
  */
@@ -459,7 +459,7 @@ class MatSelect extends _MatSelectMixinBase {
     }
     /**
      * @deprecated Setter to be removed as this property is intended to be readonly.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      * @param {?} value
      * @return {?}
      */
@@ -842,7 +842,7 @@ class MatSelect extends _MatSelectMixinBase {
             /** @type {?} */
             const selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
-            // @breaking-change 8.0.0-4a934c6 remove null check for _liveAnnouncer.
+            // @breaking-change 8.0.0-2b37515 remove null check for _liveAnnouncer.
             if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
                 // We set a duration on the live announcement, because we want the live element to be
                 // cleared after a while so that users can't navigate to it using the arrow keys.

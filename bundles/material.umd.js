@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/stepper'), require('@angular/cdk/table'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/stepper', '@angular/cdk/table', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.stepper,global.ng.cdk.table,global.ng.cdk.tree));
-}(this, (function (exports,core,platformBrowser,bidi,cdk,coercion,rxjs,platform,operators,a11y,animations,keycodes,common,animations$1,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,stepper,table,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/stepper'), require('@angular/cdk/table'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/stepper', '@angular/cdk/table', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.stepper,global.ng.cdk.table,global.ng.cdk.tree));
+}(this, (function (exports,core,cdk,bidi,platformBrowser,coercion,rxjs,platform,operators,a11y,animations,keycodes,common,animations$1,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,stepper,table,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.0-4a934c6');
+var VERSION$1 = new core.Version('8.0.0-2b37515');
 
 /**
  * @fileoverview added by tsickle
@@ -94,12 +94,6 @@ var AnimationDurations = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// Private version constant to circumvent test/build issues,
-// i.e. avoid core to depend on the @angular/material primary entry-point
-// Can be removed once the Material primary entry-point no longer
-// re-exports all secondary entry-points
-/** @type {?} */
-var VERSION$2 = new core.Version('8.0.0-4a934c6');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -234,8 +228,8 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (VERSION$2.full !== cdk.VERSION.full) {
-            console.warn('The Angular Material version (' + VERSION$2.full + ') does not match ' +
+        if (VERSION$1.full !== cdk.VERSION.full) {
+            console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
                 'the Angular CDK version (' + cdk.VERSION.full + ').\n' +
                 'Please ensure the versions of these two packages exactly match.');
         }
@@ -628,7 +622,7 @@ function MAT_DATE_LOCALE_FACTORY() {
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  * @type {?}
  */
 var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
@@ -1618,7 +1612,7 @@ var GestureConfig = /** @class */ (function (_super) {
             // `this.events` to the set we support, instead of conditionally setting it to `[]` if
             // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
             // undefined).
-            // @breaking-change 8.0.0-4a934c6
+            // @breaking-change 8.0.0-2b37515
             return noopHammerInstance;
         }
         /** @type {?} */
@@ -1755,13 +1749,13 @@ function setClass(element, className, isAdd) {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  */
 var   /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  */
 MatLineSetter = /** @class */ (function () {
     function MatLineSetter(lines, element) {
@@ -3065,7 +3059,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-label-global-options
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  * \@docs-private
- * \@breaking-change 8.0.0-4a934c6 Remove this with V8 since it was only targeted for testing.
+ * \@breaking-change 8.0.0-2b37515 Remove this with V8 since it was only targeted for testing.
  * @type {?}
  */
 var JAN = 0;
@@ -3258,7 +3252,7 @@ var MatLabel = /** @class */ (function () {
  * The placeholder text for an `MatFormField`.
  * @deprecated Use `<mat-label>` to specify the label and the `placeholder` attribute to specify the
  *     placeholder.
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  */
 var MatPlaceholder = /** @class */ (function () {
     function MatPlaceholder() {
@@ -6320,7 +6314,7 @@ var   /**
  */
 MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef, 
-    // @breaking-change 8.0.0-4a934c6 `_location` parameter to be removed.
+    // @breaking-change 8.0.0-2b37515 `_location` parameter to be removed.
     _location) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -6993,11 +6987,11 @@ var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 };
 /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  */
 var   /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  */
 MatButtonToggleGroupMultiple = /** @class */ (function () {
     function MatButtonToggleGroupMultiple() {
@@ -7538,7 +7532,7 @@ var _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
 var MatButtonToggle = /** @class */ (function (_super) {
     __extends(MatButtonToggle, _super);
     function MatButtonToggle(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, 
-    // @breaking-change 8.0.0-4a934c6 `defaultTabIndex` to be made a required parameter.
+    // @breaking-change 8.0.0-2b37515 `defaultTabIndex` to be made a required parameter.
     defaultTabIndex, defaultOptions) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -11103,7 +11097,7 @@ var matDialogAnimations = {
      */
     dialogContainer: animations$1.trigger('dialogContainer', animationBody),
     /**
-     * @deprecated \@breaking-change 8.0.0-4a934c6 Use `matDialogAnimations.dialogContainer` instead.
+     * @deprecated \@breaking-change 8.0.0-2b37515 Use `matDialogAnimations.dialogContainer` instead.
      */
     slideDialog: animations$1.trigger('slideDialog', animationBody)
 };
@@ -11372,7 +11366,7 @@ var   /**
  */
 MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, 
-    // @breaking-change 8.0.0-4a934c6 `_location` parameter to be removed.
+    // @breaking-change 8.0.0-2b37515 `_location` parameter to be removed.
     _location, id) {
         var _this = this;
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
@@ -11655,18 +11649,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0-4a934c6
+     * @breaking-change 8.0.0-2b37515
      */
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      * @return {?}
      */
     MatDialogRef.prototype.afterOpen = /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      * @return {?}
      */
     function () {
@@ -11675,18 +11669,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * @breaking-change 8.0.0-4a934c6
+     * @breaking-change 8.0.0-2b37515
      */
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      * @return {?}
      */
     MatDialogRef.prototype.beforeClose = /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      * @return {?}
      */
     function () {
@@ -11816,12 +11810,12 @@ var MatDialog = /** @class */ (function () {
         /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * @breaking-change 8.0.0-4a934c6
+         * @breaking-change 8.0.0-2b37515
          */
         get: /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * \@breaking-change 8.0.0-4a934c6
+         * \@breaking-change 8.0.0-2b37515
          * @return {?}
          */
         function () {
@@ -12487,7 +12481,7 @@ var MatDialogModule = /** @class */ (function () {
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  */
 var MatTextareaAutosize = /** @class */ (function (_super) {
     __extends(MatTextareaAutosize, _super);
@@ -13143,7 +13137,7 @@ var MatInput = /** @class */ (function (_super) {
                     exportAs: 'matInput',
                     host: {
                         /**
-                         * \@breaking-change 8.0.0-4a934c6 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                         * \@breaking-change 8.0.0-2b37515 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
                          */
                         'class': 'mat-input-element mat-form-field-autofill-control',
                         '[class.mat-input-server]': '_isServer',
@@ -16367,16 +16361,16 @@ var MatDatepickerInput = /** @class */ (function () {
     };
     /**
      * @deprecated
-     * @breaking-change 8.0.0-4a934c6 Use `getConnectedOverlayOrigin` instead
+     * @breaking-change 8.0.0-2b37515 Use `getConnectedOverlayOrigin` instead
      */
     /**
      * @deprecated
-     * \@breaking-change 8.0.0-4a934c6 Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 8.0.0-2b37515 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     MatDatepickerInput.prototype.getPopupConnectionElementRef = /**
      * @deprecated
-     * \@breaking-change 8.0.0-4a934c6 Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 8.0.0-2b37515 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     function () {
@@ -20809,7 +20803,7 @@ var MatListItem = /** @class */ (function (_super) {
                     exportAs: 'matListItem',
                     host: {
                         'class': 'mat-list-item',
-                        // @breaking-change 8.0.0-4a934c6 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
+                        // @breaking-change 8.0.0-2b37515 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
                         '[class.mat-list-item-avatar]': '_avatar || _icon',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                     },
@@ -21909,14 +21903,14 @@ var matMenuAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  * \@docs-private
  * @type {?}
  */
 var fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  * \@docs-private
  * @type {?}
  */
@@ -22094,7 +22088,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef, document, _focusMonitor, _parentMenu) {
         var _this = 
-        // @breaking-change 8.0.0-4a934c6 make `_focusMonitor` and `document` required params.
+        // @breaking-change 8.0.0-2b37515 make `_focusMonitor` and `document` required params.
         _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
@@ -22386,7 +22380,7 @@ var _MatMenuBase = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@breaking-change 8.0.0-4a934c6
+         * \@breaking-change 8.0.0-2b37515
          */
         this.close = this.closed;
     }
@@ -22514,14 +22508,14 @@ var _MatMenuBase = /** @class */ (function () {
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
-         * @breaking-change 8.0.0-4a934c6
+         * @breaking-change 8.0.0-2b37515
          */
         get: /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
-         * \@breaking-change 8.0.0-4a934c6
+         * \@breaking-change 8.0.0-2b37515
          * @return {?}
          */
         function () { return this.panelClass; },
@@ -22806,7 +22800,7 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @breaking-change 8.0.0-4a934c6 Combine with _resetAnimation.
+        // @breaking-change 8.0.0-2b37515 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     };
     /** Resets the panel animation to its initial state. */
@@ -22819,7 +22813,7 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @breaking-change 8.0.0-4a934c6 Combine with _startAnimation.
+        // @breaking-change 8.0.0-2b37515 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     };
     /** Callback that is invoked when the panel animation completes. */
@@ -23019,7 +23013,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@breaking-change 8.0.0-4a934c6
+         * \@breaking-change 8.0.0-2b37515
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuOpen = this.menuOpened;
@@ -23030,7 +23024,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@breaking-change 8.0.0-4a934c6
+         * \@breaking-change 8.0.0-2b37515
          */
         // tslint:disable-next-line:no-output-on-prefix
         this.onMenuClose = this.menuClosed;
@@ -23043,11 +23037,11 @@ var MatMenuTrigger = /** @class */ (function () {
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         /**
          * @deprecated
-         * @breaking-change 8.0.0-4a934c6
+         * @breaking-change 8.0.0-2b37515
          */
         get: /**
          * @deprecated
-         * \@breaking-change 8.0.0-4a934c6
+         * \@breaking-change 8.0.0-2b37515
          * @return {?}
          */
         function () { return this.menu; },
@@ -23860,7 +23854,7 @@ var matSelectAnimations = {
      * select's options. It is time delayed to occur 100ms after the overlay
      * panel has transformed in.
      * @deprecated Not used anymore. To be removed.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      */
     fadeInContent: animations$1.trigger('fadeInContent', [
         animations$1.state('showing', animations$1.style({ opacity: 1 })),
@@ -23872,14 +23866,14 @@ var matSelectAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  * \@docs-private
  * @type {?}
  */
 var transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
- * \@breaking-change 8.0.0-4a934c6
+ * \@breaking-change 8.0.0-2b37515
  * \@docs-private
  * @type {?}
  */
@@ -24233,11 +24227,11 @@ var MatSelect = /** @class */ (function (_super) {
         },
         /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * @breaking-change 8.0.0-4a934c6
+         * @breaking-change 8.0.0-2b37515
          */
         set: /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * \@breaking-change 8.0.0-4a934c6
+         * \@breaking-change 8.0.0-2b37515
          * @param {?} value
          * @return {?}
          */
@@ -24785,7 +24779,7 @@ var MatSelect = /** @class */ (function (_super) {
             /** @type {?} */
             var selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
-            // @breaking-change 8.0.0-4a934c6 remove null check for _liveAnnouncer.
+            // @breaking-change 8.0.0-2b37515 remove null check for _liveAnnouncer.
             if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
                 // We set a duration on the live announcement, because we want the live element to be
                 // cleared after a while so that users can't navigate to it using the arrow keys.
@@ -27551,7 +27545,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     function MatProgressBar(_elementRef, _ngZone, _animationMode, 
     /**
      * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0-4a934c6
+     * @breaking-change 8.0.0-2b37515
      */
     location) {
         var _this = _super.call(this, _elementRef) || this;
@@ -32456,18 +32450,18 @@ MatSnackBarRef = /** @class */ (function () {
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * @breaking-change 8.0.0-4a934c6
+     * @breaking-change 8.0.0-2b37515
      */
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      * @return {?}
      */
     MatSnackBarRef.prototype.closeWithAction = /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 8.0.0-4a934c6
+     * \@breaking-change 8.0.0-2b37515
      * @return {?}
      */
     function () {
@@ -34482,7 +34476,7 @@ var MatStepperIcon = /** @class */ (function () {
  */
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
-    /** @breaking-change 8.0.0-4a934c6 remove the `?` after `stepperOptions` */
+    /** @breaking-change 8.0.0-2b37515 remove the `?` after `stepperOptions` */
     function MatStep(stepper$$1, _errorStateMatcher, stepperOptions) {
         var _this = _super.call(this, stepper$$1, stepperOptions) || this;
         _this._errorStateMatcher = _errorStateMatcher;
@@ -34644,7 +34638,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
 var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
     function MatVerticalStepper(dir, changeDetectorRef, 
-    // @breaking-change 8.0.0-4a934c6 `elementRef` and `_document` parameters to become required.
+    // @breaking-change 8.0.0-2b37515 `elementRef` and `_document` parameters to become required.
     elementRef, _document) {
         var _this = _super.call(this, dir, changeDetectorRef, elementRef, _document) || this;
         _this._orientation = 'vertical';
@@ -37844,23 +37838,23 @@ var MatTabNav = /** @class */ (function (_super) {
     });
     /**
      * Notifies the component that the active link has been changed.
-     * @breaking-change 8.0.0-4a934c6 `element` parameter to be removed.
+     * @breaking-change 8.0.0-2b37515 `element` parameter to be removed.
      */
     /**
      * Notifies the component that the active link has been changed.
-     * \@breaking-change 8.0.0-4a934c6 `element` parameter to be removed.
+     * \@breaking-change 8.0.0-2b37515 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     MatTabNav.prototype.updateActiveLink = /**
      * Notifies the component that the active link has been changed.
-     * \@breaking-change 8.0.0-4a934c6 `element` parameter to be removed.
+     * \@breaking-change 8.0.0-2b37515 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     function (element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
-        // @breaking-change 8.0.0-4a934c6
+        // @breaking-change 8.0.0-2b37515
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     };
@@ -39141,7 +39135,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39176,9 +39170,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39298,7 +39292,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

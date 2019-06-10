@@ -33,7 +33,7 @@ export declare const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatButton
 export declare const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any;
 /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * @breaking-change 8.0.0-4a934c6
+ * @breaking-change 8.0.0-2b37515
  */
 export declare class MatButtonToggleGroupMultiple {
 }
