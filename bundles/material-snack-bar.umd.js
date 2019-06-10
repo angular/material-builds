@@ -128,18 +128,18 @@ MatSnackBarRef = /** @class */ (function () {
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * @breaking-change 8.0.0-ee01689
+     * @breaking-change 8.0.0
      */
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 8.0.0-ee01689
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     MatSnackBarRef.prototype.closeWithAction = /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 8.0.0-ee01689
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     function () {

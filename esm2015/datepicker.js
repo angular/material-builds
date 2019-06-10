@@ -2578,7 +2578,7 @@ class MatDatepickerInput {
     }
     /**
      * @deprecated
-     * \@breaking-change 8.0.0-ee01689 Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 8.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     getPopupConnectionElementRef() {
