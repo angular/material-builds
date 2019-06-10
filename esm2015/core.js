@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION$1 = new Version('8.0.0-2b37515');
+const VERSION$1 = new Version('8.0.1-c1e07ad');
 
 /**
  * @fileoverview added by tsickle
@@ -493,7 +493,7 @@ function MAT_DATE_LOCALE_FACTORY() {
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0
  * @type {?}
  */
 const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
@@ -1185,7 +1185,7 @@ class GestureConfig extends HammerGestureConfig {
             // `this.events` to the set we support, instead of conditionally setting it to `[]` if
             // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
             // undefined).
-            // @breaking-change 8.0.0-2b37515
+            // @breaking-change 8.0.0
             return noopHammerInstance;
         }
         /** @type {?} */
@@ -1304,7 +1304,7 @@ function setClass(element, className, isAdd) {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0
  */
 class MatLineSetter {
     /**
@@ -2355,7 +2355,7 @@ const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  * \@docs-private
- * \@breaking-change 8.0.0-2b37515 Remove this with V8 since it was only targeted for testing.
+ * \@breaking-change 8.0.0 Remove this with V8 since it was only targeted for testing.
  * @type {?}
  */
 const JAN = 0;
