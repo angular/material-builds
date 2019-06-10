@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.cdk,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
-}(this, (function (exports,core,cdk,bidi,platformBrowser,coercion,rxjs,platform,operators,a11y,animations,keycodes,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.rxjs.operators,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
+}(this, (function (exports,core,platformBrowser,bidi,coercion,rxjs,platform,operators,a11y,animations,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.0-2b37515');
+var VERSION = new core.Version('8.0.0-ee01689');
 
 /**
  * @fileoverview added by tsickle
@@ -138,7 +138,6 @@ var MatCommonModule = /** @class */ (function () {
         if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
             this._checkDoctypeIsDefined();
             this._checkThemeIsPresent();
-            this._checkCdkVersionMatch();
             this._hasDoneGlobalChecks = true;
         }
     }
@@ -215,24 +214,6 @@ var MatCommonModule = /** @class */ (function () {
                 'to the theming guide: https://material.angular.io/guide/theming');
         }
         this._document.body.removeChild(testElement);
-    };
-    /** Checks whether the material version matches the cdk version */
-    /**
-     * Checks whether the material version matches the cdk version
-     * @private
-     * @return {?}
-     */
-    MatCommonModule.prototype._checkCdkVersionMatch = /**
-     * Checks whether the material version matches the cdk version
-     * @private
-     * @return {?}
-     */
-    function () {
-        if (VERSION$1.full !== cdk.VERSION.full) {
-            console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
-                'the Angular CDK version (' + cdk.VERSION.full + ').\n' +
-                'Please ensure the versions of these two packages exactly match.');
-        }
     };
     /** Checks whether HammerJS is available. */
     /**
@@ -622,7 +603,7 @@ function MAT_DATE_LOCALE_FACTORY() {
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0-ee01689
  * @type {?}
  */
 var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
@@ -1612,7 +1593,7 @@ var GestureConfig = /** @class */ (function (_super) {
             // `this.events` to the set we support, instead of conditionally setting it to `[]` if
             // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
             // undefined).
-            // @breaking-change 8.0.0-2b37515
+            // @breaking-change 8.0.0-ee01689
             return noopHammerInstance;
         }
         /** @type {?} */
@@ -1749,13 +1730,13 @@ function setClass(element, className, isAdd) {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0-ee01689
  */
 var   /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0-ee01689
  */
 MatLineSetter = /** @class */ (function () {
     function MatLineSetter(lines, element) {
@@ -3059,7 +3040,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-label-global-options
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  * \@docs-private
- * \@breaking-change 8.0.0-2b37515 Remove this with V8 since it was only targeted for testing.
+ * \@breaking-change 8.0.0-ee01689 Remove this with V8 since it was only targeted for testing.
  * @type {?}
  */
 var JAN = 0;
@@ -3086,7 +3067,7 @@ var NOV = 10;
 /** @type {?} */
 var DEC = 11;
 
-exports.VERSION = VERSION$1;
+exports.VERSION = VERSION;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;

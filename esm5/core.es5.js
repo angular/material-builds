@@ -5,10 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Version, Inject, InjectionToken, isDevMode, NgModule, Optional, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, ɵɵdefineInjectable } from '@angular/core';
-import { VERSION } from '@angular/cdk';
-import { BidiModule } from '@angular/cdk/bidi';
+import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, ɵɵdefineInjectable } from '@angular/core';
 import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
+import { BidiModule } from '@angular/cdk/bidi';
 import { __extends, __assign } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
@@ -27,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new Version('8.0.0-2b37515');
+var VERSION = new Version('8.0.0-ee01689');
 
 /**
  * @fileoverview added by tsickle
@@ -106,7 +105,6 @@ var MatCommonModule = /** @class */ (function () {
         if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
             this._checkDoctypeIsDefined();
             this._checkThemeIsPresent();
-            this._checkCdkVersionMatch();
             this._hasDoneGlobalChecks = true;
         }
     }
@@ -183,24 +181,6 @@ var MatCommonModule = /** @class */ (function () {
                 'to the theming guide: https://material.angular.io/guide/theming');
         }
         this._document.body.removeChild(testElement);
-    };
-    /** Checks whether the material version matches the cdk version */
-    /**
-     * Checks whether the material version matches the cdk version
-     * @private
-     * @return {?}
-     */
-    MatCommonModule.prototype._checkCdkVersionMatch = /**
-     * Checks whether the material version matches the cdk version
-     * @private
-     * @return {?}
-     */
-    function () {
-        if (VERSION$1.full !== VERSION.full) {
-            console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
-                'the Angular CDK version (' + VERSION.full + ').\n' +
-                'Please ensure the versions of these two packages exactly match.');
-        }
     };
     /** Checks whether HammerJS is available. */
     /**
@@ -590,7 +570,7 @@ function MAT_DATE_LOCALE_FACTORY() {
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0-ee01689
  * @type {?}
  */
 var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
@@ -1580,7 +1560,7 @@ var GestureConfig = /** @class */ (function (_super) {
             // `this.events` to the set we support, instead of conditionally setting it to `[]` if
             // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
             // undefined).
-            // @breaking-change 8.0.0-2b37515
+            // @breaking-change 8.0.0-ee01689
             return noopHammerInstance;
         }
         /** @type {?} */
@@ -1717,13 +1697,13 @@ function setClass(element, className, isAdd) {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0-ee01689
  */
 var  /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  * @deprecated Use `setLines` instead.
- * \@breaking-change 8.0.0-2b37515
+ * \@breaking-change 8.0.0-ee01689
  */
 MatLineSetter = /** @class */ (function () {
     function MatLineSetter(lines, element) {
@@ -3027,7 +3007,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  * \@docs-private
- * \@breaking-change 8.0.0-2b37515 Remove this with V8 since it was only targeted for testing.
+ * \@breaking-change 8.0.0-ee01689 Remove this with V8 since it was only targeted for testing.
  * @type {?}
  */
 var JAN = 0;
@@ -3064,5 +3044,5 @@ var DEC = 11;
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { VERSION$1 as VERSION, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
+export { VERSION, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, setLines, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
 //# sourceMappingURL=core.es5.js.map

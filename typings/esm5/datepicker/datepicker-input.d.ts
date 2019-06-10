@@ -89,7 +89,7 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     validate(c: AbstractControl): ValidationErrors | null;
     /**
      * @deprecated
-     * @breaking-change 8.0.0-2b37515 Use `getConnectedOverlayOrigin` instead
+     * @breaking-change 8.0.0-ee01689 Use `getConnectedOverlayOrigin` instead
      */
     getPopupConnectionElementRef(): ElementRef;
     /**
