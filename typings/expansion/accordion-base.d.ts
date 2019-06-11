@@ -9,6 +9,8 @@ import { InjectionToken } from '@angular/core';
 import { CdkAccordion } from '@angular/cdk/accordion';
 /** MatAccordion's display modes. */
 export declare type MatAccordionDisplayMode = 'default' | 'flat';
+/** MatAccordion's toggle positions. */
+export declare type MatAccordionTogglePosition = 'before' | 'after';
 /**
  * Base interface for a `MatAccordion`.
  * @docs-private
@@ -18,6 +20,8 @@ export interface MatAccordionBase extends CdkAccordion {
     hideToggle: boolean;
     /** Display mode used for all expansion panels in the accordion. */
     displayMode: MatAccordionDisplayMode;
+    /** The position of the expansion indicator. */
+    togglePosition: MatAccordionTogglePosition;
     /** Handles keyboard events coming in from the panel headers. */
     _handleHeaderKeydown: (event: KeyboardEvent) => void;
     /** Handles focus events on the panel headers. */

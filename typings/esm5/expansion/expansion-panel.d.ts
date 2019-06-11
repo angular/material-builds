@@ -12,7 +12,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, ElementRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, InjectionToken } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatExpansionPanelContent } from './expansion-panel-content';
-import { MatAccordionBase } from './accordion-base';
+import { MatAccordionBase, MatAccordionTogglePosition } from './accordion-base';
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
 /**
@@ -42,9 +42,12 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     private _viewContainerRef;
     _animationMode: string;
     private _document;
+    private _hideToggle;
+    private _togglePosition;
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
-    private _hideToggle;
+    /** Whether the toggle indicator should be hidden. */
+    togglePosition: MatAccordionTogglePosition;
     /** An event emitted after the body's expansion animation happens. */
     afterExpand: EventEmitter<void>;
     /** An event emitted after the body's collapse animation happens. */

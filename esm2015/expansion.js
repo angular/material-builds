@@ -226,6 +226,20 @@ class MatExpansionPanel extends CdkAccordionItem {
         this._hideToggle = coerceBooleanProperty(value);
     }
     /**
+     * Whether the toggle indicator should be hidden.
+     * @return {?}
+     */
+    get togglePosition() {
+        return this._togglePosition || (this.accordion && this.accordion.togglePosition);
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set togglePosition(value) {
+        this._togglePosition = value;
+    }
+    /**
      * Determines whether the expansion panel should have spacing between it and its siblings.
      * @return {?}
      */
@@ -327,6 +341,7 @@ MatExpansionPanel.ctorParameters = () => [
 ];
 MatExpansionPanel.propDecorators = {
     hideToggle: [{ type: Input }],
+    togglePosition: [{ type: Input }],
     afterExpand: [{ type: Output }],
     afterCollapse: [{ type: Output }],
     _lazyContent: [{ type: ContentChild, args: [MatExpansionPanelContent, { static: false },] }],
@@ -372,7 +387,7 @@ class MatExpansionPanelHeader {
              * @param {?} changes
              * @return {?}
              */
-            changes => !!changes['hideToggle']))) :
+            changes => !!(changes['hideToggle'] || changes['togglePosition'])))) :
             EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
@@ -381,7 +396,11 @@ class MatExpansionPanelHeader {
              * @param {?} changes
              * @return {?}
              */
-            changes => !!(changes['hideToggle'] || changes['disabled'])))))
+            changes => {
+                return !!(changes['hideToggle'] ||
+                    changes['disabled'] ||
+                    changes['togglePosition']);
+            }))))
                 .subscribe((/**
              * @return {?}
              */
@@ -447,6 +466,13 @@ class MatExpansionPanelHeader {
         return this.panel.id;
     }
     /**
+     * Gets the toggle position for the header.
+     * @return {?}
+     */
+    _getTogglePosition() {
+        return this.panel.togglePosition;
+    }
+    /**
      * Gets whether the expand indicator should be shown.
      * @return {?}
      */
@@ -494,7 +520,7 @@ class MatExpansionPanelHeader {
 }
 MatExpansionPanelHeader.decorators = [
     { type: Component, args: [{selector: 'mat-expansion-panel-header',
-                styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{padding:0 16px 0 0}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                 template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -511,6 +537,8 @@ MatExpansionPanelHeader.decorators = [
                     '[attr.aria-expanded]': '_isExpanded()',
                     '[attr.aria-disabled]': 'panel.disabled',
                     '[class.mat-expanded]': '_isExpanded()',
+                    '[class.mat-expansion-toggle-indicator-after]': `_getTogglePosition() === 'after'`,
+                    '[class.mat-expansion-toggle-indicator-before]': `_getTogglePosition() === 'before'`,
                     '(click)': '_toggle()',
                     '(keydown)': '_keydown($event)',
                     '[@expansionHeight]': `{
@@ -586,6 +614,10 @@ class MatAccordion extends CdkAccordion {
          *     elevation.
          */
         this.displayMode = 'default';
+        /**
+         * The position of the expansion indicator.
+         */
+        this.togglePosition = 'after';
     }
     /**
      * Whether the expansion indicator should be hidden.
@@ -653,7 +685,8 @@ MatAccordion.decorators = [
 MatAccordion.propDecorators = {
     _headers: [{ type: ContentChildren, args: [MatExpansionPanelHeader, { descendants: true },] }],
     hideToggle: [{ type: Input }],
-    displayMode: [{ type: Input }]
+    displayMode: [{ type: Input }],
+    togglePosition: [{ type: Input }]
 };
 
 /**

@@ -7,7 +7,7 @@
  */
 import { QueryList, AfterContentInit } from '@angular/core';
 import { CdkAccordion } from '@angular/cdk/accordion';
-import { MatAccordionBase, MatAccordionDisplayMode } from './accordion-base';
+import { MatAccordionBase, MatAccordionDisplayMode, MatAccordionTogglePosition } from './accordion-base';
 import { MatExpansionPanelHeader } from './expansion-panel-header';
 /**
  * Directive for a Material Design Accordion.
@@ -27,6 +27,8 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
      *     elevation.
      */
     displayMode: MatAccordionDisplayMode;
+    /** The position of the expansion indicator. */
+    togglePosition: MatAccordionTogglePosition;
     ngAfterContentInit(): void;
     /** Handles keyboard events coming in from the panel headers. */
     _handleHeaderKeydown(event: KeyboardEvent): void;

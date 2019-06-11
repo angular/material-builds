@@ -8,6 +8,7 @@
 import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
 import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-panel';
+import { MatAccordionTogglePosition } from './accordion-base';
 /**
  * `<mat-expansion-panel-header>`
  *
@@ -37,6 +38,8 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
     _getExpandedState(): string;
     /** Gets the panel id. */
     _getPanelId(): string;
+    /** Gets the toggle position for the header. */
+    _getTogglePosition(): MatAccordionTogglePosition;
     /** Gets whether the expand indicator should be shown. */
     _showToggle(): boolean;
     /** Handle keydown event calling to toggle() if appropriate. */
