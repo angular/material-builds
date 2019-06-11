@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.1-cfc3373');
+var VERSION$1 = new core.Version('8.0.1-2e047b4');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.0.1-cfc3373');
+var VERSION$2 = new core.Version('8.0.1-2e047b4');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -11216,6 +11216,12 @@ var MatDialogContainer = /** @class */ (function (_super) {
         // wait for the microtask queue to be empty.
         if (this._config.autoFocus) {
             this._focusTrap.focusInitialElementWhenReady();
+        }
+        else {
+            // Otherwise ensure that focus is on the dialog container. It's possible that a different
+            // component tried to move focus while the open animation was running. See:
+            // https://github.com/angular/components/issues/16215
+            this._elementRef.nativeElement.focus();
         }
     };
     /** Restores focus to the element that was focused before the dialog opened. */

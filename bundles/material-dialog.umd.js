@@ -272,6 +272,12 @@ var MatDialogContainer = /** @class */ (function (_super) {
         if (this._config.autoFocus) {
             this._focusTrap.focusInitialElementWhenReady();
         }
+        else {
+            // Otherwise ensure that focus is on the dialog container. It's possible that a different
+            // component tried to move focus while the open animation was running. See:
+            // https://github.com/angular/components/issues/16215
+            this._elementRef.nativeElement.focus();
+        }
     };
     /** Restores focus to the element that was focused before the dialog opened. */
     /**
