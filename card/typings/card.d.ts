@@ -85,6 +85,8 @@ export declare class MatCardAvatar {
  * - mat-card-footer
  */
 export declare class MatCard {
+    _animationMode?: string | undefined;
+    constructor(_animationMode?: string | undefined);
 }
 /**
  * Component intended to be used within the `<mat-card>` component. It adds styles for a
