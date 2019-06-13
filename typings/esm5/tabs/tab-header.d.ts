@@ -36,7 +36,6 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     private _dir;
     private _ngZone;
     private _platform;
-    _animationMode?: string | undefined;
     _labelWrappers: QueryList<MatTabLabelWrapper>;
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
@@ -75,7 +74,7 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     readonly selectFocusedIndex: EventEmitter<number>;
     /** Event emitted when a label is focused. */
     readonly indexFocused: EventEmitter<number>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone: NgZone, _platform: Platform, _animationMode?: string | undefined);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone: NgZone, _platform: Platform);
     ngAfterContentChecked(): void;
     /** Handles keyboard events on the header. */
     _handleKeydown(event: KeyboardEvent): void;
