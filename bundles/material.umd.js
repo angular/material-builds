@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.1-f28a294');
+var VERSION$1 = new core.Version('8.0.1-30127fa');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.0.1-f28a294');
+var VERSION$2 = new core.Version('8.0.1-30127fa');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -8176,7 +8176,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         _this._clickAction = _clickAction;
         _this._animationMode = _animationMode;
         /**
-         * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
+         * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
          * take precedence so this may be omitted.
          */
         _this.ariaLabel = '';
@@ -39281,7 +39281,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

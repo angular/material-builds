@@ -58,7 +58,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _clickAction;
     _animationMode?: string | undefined;
     /**
-     * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
+     * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
      * take precedence so this may be omitted.
      */
     ariaLabel: string;

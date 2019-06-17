@@ -132,7 +132,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         _this._clickAction = _clickAction;
         _this._animationMode = _animationMode;
         /**
-         * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
+         * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
          * take precedence so this may be omitted.
          */
         _this.ariaLabel = '';

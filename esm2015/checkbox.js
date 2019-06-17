@@ -105,7 +105,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._clickAction = _clickAction;
         this._animationMode = _animationMode;
         /**
-         * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
+         * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
          * take precedence so this may be omitted.
          */
         this.ariaLabel = '';
