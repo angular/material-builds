@@ -70,3 +70,10 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
 }
+export declare function isSameMultiYearView<D>(dateAdapter: DateAdapter<D>, date1: D, date2: D, minDate: D | null, maxDate: D | null): boolean;
+/**
+ * When the multi-year view is first opened, the active year will be in view.
+ * So we compute how many years are between the active year and the *slot* where our
+ * "startingYear" will render when paged into view.
+ */
+export declare function getActiveOffset<D>(dateAdapter: DateAdapter<D>, activeDate: D, minDate: D | null, maxDate: D | null): number;

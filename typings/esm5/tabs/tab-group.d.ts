@@ -38,6 +38,7 @@ declare const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeo
  */
 export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetectorRef;
+    _animationMode?: string | undefined;
     _tabs: QueryList<MatTab>;
     _tabBodyWrapper: ElementRef;
     _tabHeader: MatTabHeader;
@@ -72,7 +73,7 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Event emitted when the tab selection has changed. */
     readonly selectedTabChange: EventEmitter<MatTabChangeEvent>;
     private _groupId;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, _animationMode?: string | undefined);
     /**
      * After the content is checked, this component knows what tabs have been defined
      * and what the selected index should be. This is where we can know exactly what position
