@@ -8,7 +8,7 @@
 import { __extends } from 'tslib';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, Optional, ViewEncapsulation, ChangeDetectorRef, Attribute, EventEmitter, forwardRef, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { MatLine, setLines, mixinDisableRipple, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -479,13 +479,22 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        /** @type {?} */
+        var list = this.selectionList;
+        if (list._value && list._value.some((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { return list.compareWith(value, _this._value); }))) {
+            this._setSelected(true);
+        }
+        /** @type {?} */
+        var wasSelected = this._selected;
         // List options that are selected at initialization can't be reported properly to the form
         // control. This is because it takes some time until the selection-list knows about all
         // available options. Also it can happen that the ControlValueAccessor has an initial value
         // that should be used instead. Deferring the value change report to the next tick ensures
         // that the form control value is not being overwritten.
-        /** @type {?} */
-        var wasSelected = this._selected;
         Promise.resolve().then((/**
          * @return {?}
          */
@@ -693,8 +702,8 @@ var MatListOption = /** @class */ (function (_super) {
                         // its theme. The accent theme palette is the default and doesn't need to be set.
                         '[class.mat-primary]': 'color === "primary"',
                         '[class.mat-warn]': 'color === "warn"',
-                        '[attr.aria-selected]': 'selected.toString()',
-                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-selected]': 'selected',
+                        '[attr.aria-disabled]': 'disabled',
                     },
                     template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\" #text><ng-content></ng-content></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content></div>",
                     encapsulation: ViewEncapsulation.None,
@@ -743,6 +752,17 @@ var MatSelectionList = /** @class */ (function (_super) {
          * Theme color of the selection list. This sets the checkbox color for all list options.
          */
         _this.color = 'accent';
+        /**
+         * Function used for comparing an option against the selected value when determining which
+         * options should appear as selected. The first argument is the value of an options. The second
+         * one is a value from the selected value. A boolean must be returned.
+         */
+        _this.compareWith = (/**
+         * @param {?} a1
+         * @param {?} a2
+         * @return {?}
+         */
+        function (a1, a2) { return a1 === a2; });
         _this._disabled = false;
         /**
          * The currently selected options.
@@ -757,9 +777,9 @@ var MatSelectionList = /** @class */ (function (_super) {
          */
         function (_) { });
         /**
-         * Subscription to sync value changes in the SelectionModel back to the SelectionList.
+         * Emits when the list has been destroyed.
          */
-        _this._modelChanges = Subscription.EMPTY;
+        _this._destroyed = new Subject();
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
@@ -809,12 +829,11 @@ var MatSelectionList = /** @class */ (function (_super) {
          */
         function () { return false; }))
             .withAllowedModifierKeys(['shiftKey']);
-        if (this._tempValues) {
-            this._setOptionsFromValues(this._tempValues);
-            this._tempValues = null;
+        if (this._value) {
+            this._setOptionsFromValues(this._value);
         }
         // Sync external changes to the model back to the options.
-        this._modelChanges = this.selectedOptions.onChange.subscribe((/**
+        this.selectedOptions.onChange.pipe(takeUntil(this._destroyed)).subscribe((/**
          * @param {?} event
          * @return {?}
          */
@@ -858,8 +877,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._destroyed = true;
-        this._modelChanges.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
+        this._isDestroyed = true;
     };
     /** Focuses the selection list. */
     /**
@@ -1006,8 +1026,11 @@ var MatSelectionList = /** @class */ (function (_super) {
         // Stop reporting value changes after the list has been destroyed. This avoids
         // cases where the list might wrongly reset its value once it is removed, but
         // the form control is still live.
-        if (this.options && !this._destroyed) {
-            this._onChange(this._getSelectedOptionValues());
+        if (this.options && !this._isDestroyed) {
+            /** @type {?} */
+            var value = this._getSelectedOptionValues();
+            this._onChange(value);
+            this._value = value;
         }
     };
     /** Emits a change event if the selected state of an option changed. */
@@ -1036,11 +1059,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (values) {
+        this._value = values;
         if (this.options) {
             this._setOptionsFromValues(values || []);
-        }
-        else {
-            this._tempValues = values;
         }
     };
     /** Implemented as a part of ControlValueAccessor. */
@@ -1118,10 +1139,7 @@ var MatSelectionList = /** @class */ (function (_super) {
             function (option) {
                 // Skip options that are already in the model. This allows us to handle cases
                 // where the same primitive value is selected multiple times.
-                if (option.selected) {
-                    return false;
-                }
-                return _this.compareWith ? _this.compareWith(option.value, value) : option.value === value;
+                return option.selected ? false : _this.compareWith(option.value, value);
             }));
             if (correspondingOption) {
                 correspondingOption._setSelected(true);
