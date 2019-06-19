@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.1-b15a7ec');
+var VERSION$1 = new core.Version('8.0.1-b0d1bad');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.0.1-b15a7ec');
+var VERSION$2 = new core.Version('8.0.1-b0d1bad');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -17375,6 +17375,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
+        /**
+         * Whether Angular animations in the panel header should be disabled.
+         */
+        this._animationsDisabled = true;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
             panel.accordion._stateChanges.pipe(operators.filter((/**
@@ -17423,6 +17427,23 @@ var MatExpansionPanelHeader = /** @class */ (function () {
             this.collapsedHeight = defaultOptions.collapsedHeight;
         }
     }
+    /**
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._animationStarted = /**
+     * @return {?}
+     */
+    function () {
+        // Currently the `expansionHeight` animation has a `void => collapsed` transition which is
+        // there to work around a bug in Angular (see #13088), however this introduces a different
+        // issue. The new transition will cause the header to animate in on init (see #16067), if the
+        // consumer has set a header height that is different from the default one. We work around it
+        // by disabling animations on the header and re-enabling them after the first animation has run.
+        // Note that Angular dispatches animation events even if animations are disabled. Ideally this
+        // wouldn't be necessary if we remove the `void => collapsed` transition, but we have to wait
+        // for https://github.com/angular/angular/issues/18847 to be resolved.
+        this._animationsDisabled = false;
+    };
     Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
         /**
          * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
@@ -17593,6 +17614,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                         '[class.mat-expansion-toggle-indicator-before]': "_getTogglePosition() === 'before'",
                         '(click)': '_toggle()',
                         '(keydown)': '_keydown($event)',
+                        '[@.disabled]': '_animationsDisabled',
+                        '(@expansionHeight.start)': '_animationStarted()',
                         '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                     },
                 },] },
@@ -39299,7 +39322,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39334,9 +39357,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39456,7 +39479,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
