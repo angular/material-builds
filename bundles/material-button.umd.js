@@ -102,7 +102,7 @@ var MatButton = /** @class */ (function (_super) {
         for (var _i = 0, BUTTON_HOST_ATTRIBUTES_1 = BUTTON_HOST_ATTRIBUTES; _i < BUTTON_HOST_ATTRIBUTES_1.length; _i++) {
             var attr = BUTTON_HOST_ATTRIBUTES_1[_i];
             if (_this._hasHostAttributes(attr)) {
-                ((/** @type {?} */ (elementRef.nativeElement))).classList.add(attr);
+                ((/** @type {?} */ (_this._getHostElement()))).classList.add(attr);
             }
         }
         _this._focusMonitor.monitor(_this._elementRef, true);
