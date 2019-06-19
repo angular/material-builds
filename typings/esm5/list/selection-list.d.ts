@@ -122,14 +122,14 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     selectedOptions: SelectionModel<MatListOption>;
     /** View to model callback that should be called whenever the selected options change. */
     private _onChange;
-    /** Used for storing the values that were assigned before the options were initialized. */
-    private _tempValues;
-    /** Subscription to sync value changes in the SelectionModel back to the SelectionList. */
-    private _modelChanges;
+    /** Keeps track of the currently-selected value. */
+    _value: string[] | null;
+    /** Emits when the list has been destroyed. */
+    private _destroyed;
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
     /** Whether the list has been destroyed. */
-    private _destroyed;
+    private _isDestroyed;
     constructor(_element: ElementRef<HTMLElement>, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
