@@ -76,9 +76,9 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
+        _this._diameter = BASE_SIZE;
         _this._value = 0;
         _this._fallbackAnimation = false;
-        _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */

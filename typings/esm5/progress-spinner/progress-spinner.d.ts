@@ -38,6 +38,7 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
 export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor {
     _elementRef: ElementRef<HTMLElement>;
     private _document;
+    private _diameter;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
@@ -58,7 +59,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     _noopAnimations: boolean;
     /** The diameter of the progress spinner (will set width and height of svg). */
     diameter: number;
-    private _diameter;
     /** Stroke width of the progress spinner. */
     strokeWidth: number;
     /** Mode of the progress circle */
