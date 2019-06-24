@@ -17,7 +17,7 @@ function addFontsToIndex(options) {
         const project = schematics_1.getProjectFromWorkspace(workspace, options.project);
         const projectIndexHtmlPath = project_index_html_1.getIndexHtmlPath(project);
         const fonts = [
-            'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
+            'https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
         ];
         fonts.forEach(f => {
