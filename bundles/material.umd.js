@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.1-86aad590f');
+var VERSION$1 = new core.Version('8.0.1-bb66df77a');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.0.1-86aad590f');
+var VERSION$2 = new core.Version('8.0.1-bb66df77a');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -6362,6 +6362,7 @@ MatBottomSheetRef = /** @class */ (function () {
          * @return {?}
          */
         function () {
+            clearTimeout(_this._closeFallbackTimeout);
             _overlayRef.dispose();
         }));
         _overlayRef.detachments().pipe(operators.take(1)).subscribe((/**
@@ -6410,9 +6411,23 @@ MatBottomSheetRef = /** @class */ (function () {
              * @return {?}
              */
             function (event) { return event.phaseName === 'start'; })), operators.take(1)).subscribe((/**
+             * @param {?} event
              * @return {?}
              */
-            function () { return _this._overlayRef.detachBackdrop(); }));
+            function (event) {
+                // The logic that disposes of the overlay depends on the exit animation completing, however
+                // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
+                // timeout which will clean everything up if the animation hasn't fired within the specified
+                // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
+                // vast majority of cases the timeout will have been cleared before it has fired.
+                _this._closeFallbackTimeout = setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
+                    _this._overlayRef.dispose();
+                }), event.totalTime + 100);
+                _this._overlayRef.detachBackdrop();
+            }));
             this._result = result;
             this.containerInstance.exit();
         }
@@ -11442,7 +11457,10 @@ MatDialogRef = /** @class */ (function () {
         function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })), operators.take(1)).subscribe((/**
          * @return {?}
          */
-        function () { return _this._overlayRef.dispose(); }));
+        function () {
+            clearTimeout(_this._closeFallbackTimeout);
+            _this._overlayRef.dispose();
+        }));
         _overlayRef.detachments().subscribe((/**
          * @return {?}
          */
@@ -11495,12 +11513,24 @@ MatDialogRef = /** @class */ (function () {
          */
         function (event) { return event.phaseName === 'start'; })), operators.take(1))
             .subscribe((/**
+         * @param {?} event
          * @return {?}
          */
-        function () {
+        function (event) {
             _this._beforeClosed.next(dialogResult);
             _this._beforeClosed.complete();
             _this._overlayRef.detachBackdrop();
+            // The logic that disposes of the overlay depends on the exit animation completing, however
+            // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
+            // timeout which will clean everything up if the animation hasn't fired within the specified
+            // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
+            // vast majority of cases the timeout will have been cleared before it has the chance to fire.
+            _this._closeFallbackTimeout = setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this._overlayRef.dispose();
+            }), event.totalTime + 100);
         }));
         this._containerInstance._startExitAnimation();
     };
@@ -39326,7 +39356,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa10 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

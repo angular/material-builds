@@ -399,6 +399,7 @@ class MatBottomSheetRef {
          * @return {?}
          */
         () => {
+            clearTimeout(this._closeFallbackTimeout);
             _overlayRef.dispose();
         }));
         _overlayRef.detachments().pipe(take(1)).subscribe((/**
@@ -437,9 +438,23 @@ class MatBottomSheetRef {
              * @return {?}
              */
             event => event.phaseName === 'start')), take(1)).subscribe((/**
+             * @param {?} event
              * @return {?}
              */
-            () => this._overlayRef.detachBackdrop()));
+            event => {
+                // The logic that disposes of the overlay depends on the exit animation completing, however
+                // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
+                // timeout which will clean everything up if the animation hasn't fired within the specified
+                // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
+                // vast majority of cases the timeout will have been cleared before it has fired.
+                this._closeFallbackTimeout = setTimeout((/**
+                 * @return {?}
+                 */
+                () => {
+                    this._overlayRef.dispose();
+                }), event.totalTime + 100);
+                this._overlayRef.detachBackdrop();
+            }));
             this._result = result;
             this.containerInstance.exit();
         }
