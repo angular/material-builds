@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.1-93f4b584a');
+var VERSION$1 = new core.Version('8.0.1-0ed9416ab');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.0.1-93f4b584a');
+var VERSION$2 = new core.Version('8.0.1-0ed9416ab');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -11241,20 +11241,28 @@ var MatDialogContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
         if (!this._focusTrap) {
-            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+            this._focusTrap = this._focusTrapFactory.create(element);
         }
-        // If were to attempt to focus immediately, then the content of the dialog would not yet be
+        // If we were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
         if (this._config.autoFocus) {
             this._focusTrap.focusInitialElementWhenReady();
         }
         else {
+            /** @type {?} */
+            var activeElement = this._document.activeElement;
             // Otherwise ensure that focus is on the dialog container. It's possible that a different
             // component tried to move focus while the open animation was running. See:
-            // https://github.com/angular/components/issues/16215
-            this._elementRef.nativeElement.focus();
+            // https://github.com/angular/components/issues/16215. Note that we only want to do this
+            // if the focus isn't inside the dialog already, because it's possible that the consumer
+            // turned off `autoFocus` in order to move focus themselves.
+            if (activeElement !== element && !element.contains(activeElement)) {
+                element.focus();
+            }
         }
     };
     /** Restores focus to the element that was focused before the dialog opened. */
