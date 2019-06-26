@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/cdk/observers'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/platform-browser/animations', '@angular/cdk/portal', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/cdk/observers', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.platformBrowser.animations,global.ng.cdk.portal,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.cdk.bidi,global.rxjs.operators,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.a11y,global.ng.cdk.platform,global.ng.cdk.observers,global.ng.common));
-}(this, (function (exports,core,animations,portal,core$1,rxjs,animations$1,bidi,operators,coercion,keycodes,scrolling,a11y,platform,observers,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/scrolling'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/observers'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/platform-browser/animations', '@angular/cdk/portal', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/scrolling', '@angular/cdk/a11y', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/observers', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.platformBrowser.animations,global.ng.cdk.portal,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.cdk.bidi,global.rxjs.operators,global.ng.cdk.coercion,global.ng.cdk.scrolling,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.cdk.observers,global.ng.common));
+}(this, (function (exports,core,animations,portal,core$1,rxjs,animations$1,bidi,operators,coercion,scrolling,a11y,keycodes,platform,observers,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -805,77 +805,57 @@ var HEADER_SCROLL_DELAY = 650;
  * @type {?}
  */
 var HEADER_SCROLL_INTERVAL = 100;
-// Boilerplate for applying mixins to MatTabHeader.
 /**
- * \@docs-private
+ * Base class for a tab header that supported pagination.
+ * @abstract
  */
-var 
-// Boilerplate for applying mixins to MatTabHeader.
-/**
- * \@docs-private
- */
-MatTabHeaderBase = /** @class */ (function () {
-    function MatTabHeaderBase() {
-    }
-    return MatTabHeaderBase;
-}());
-/** @type {?} */
-var _MatTabHeaderMixinBase = core$1.mixinDisableRipple(MatTabHeaderBase);
-/**
- * The header of the tab group which displays a list of all the tabs in the tab group. Includes
- * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
- * width of the header container, then arrows will be displayed to allow the user to scroll
- * left and right across the header.
- * \@docs-private
- */
-var MatTabHeader = /** @class */ (function (_super) {
-    __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform, _animationMode) {
-        var _this = _super.call(this) || this;
-        _this._elementRef = _elementRef;
-        _this._changeDetectorRef = _changeDetectorRef;
-        _this._viewportRuler = _viewportRuler;
-        _this._dir = _dir;
-        _this._ngZone = _ngZone;
-        _this._platform = _platform;
-        _this._animationMode = _animationMode;
+var MatPaginatedTabHeader = /** @class */ (function () {
+    function MatPaginatedTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform, _animationMode) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._viewportRuler = _viewportRuler;
+        this._dir = _dir;
+        this._ngZone = _ngZone;
+        this._platform = _platform;
+        this._animationMode = _animationMode;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
-        _this._scrollDistance = 0;
+        this._scrollDistance = 0;
         /**
          * Whether the header should scroll to the selected index after the view has been checked.
          */
-        _this._selectedIndexChanged = false;
+        this._selectedIndexChanged = false;
         /**
          * Emits when the component is destroyed.
          */
-        _this._destroyed = new rxjs.Subject();
+        this._destroyed = new rxjs.Subject();
         /**
          * Whether the controls for pagination should be displayed
          */
-        _this._showPaginationControls = false;
+        this._showPaginationControls = false;
         /**
          * Whether the tab list can be scrolled more towards the end of the tab label list.
          */
-        _this._disableScrollAfter = true;
+        this._disableScrollAfter = true;
         /**
          * Whether the tab list can be scrolled more towards the beginning of the tab label list.
          */
-        _this._disableScrollBefore = true;
+        this._disableScrollBefore = true;
         /**
          * Stream that will stop the automated scrolling.
          */
-        _this._stopScrolling = new rxjs.Subject();
-        _this._selectedIndex = 0;
+        this._stopScrolling = new rxjs.Subject();
+        this._selectedIndex = 0;
         /**
          * Event emitted when the option is selected.
          */
-        _this.selectFocusedIndex = new core.EventEmitter();
+        this.selectFocusedIndex = new core.EventEmitter();
         /**
          * Event emitted when a label is focused.
          */
-        _this.indexFocused = new core.EventEmitter();
+        this.indexFocused = new core.EventEmitter();
         // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
         _ngZone.runOutsideAngular((/**
          * @return {?}
@@ -890,9 +870,8 @@ var MatTabHeader = /** @class */ (function (_super) {
                 _this._stopInterval();
             }));
         }));
-        return _this;
     }
-    Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
+    Object.defineProperty(MatPaginatedTabHeader.prototype, "selectedIndex", {
         /** The index of the active tab. */
         get: /**
          * The index of the active tab.
@@ -905,10 +884,12 @@ var MatTabHeader = /** @class */ (function (_super) {
          */
         function (value) {
             value = coercion.coerceNumberProperty(value);
-            this._selectedIndexChanged = this._selectedIndex != value;
-            this._selectedIndex = value;
-            if (this._keyManager) {
-                this._keyManager.updateActiveItemIndex(value);
+            if (this._selectedIndex != value) {
+                this._selectedIndexChanged = true;
+                this._selectedIndex = value;
+                if (this._keyManager) {
+                    this._keyManager.updateActiveItemIndex(value);
+                }
             }
         },
         enumerable: true,
@@ -917,124 +898,7 @@ var MatTabHeader = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
-    MatTabHeader.prototype.ngAfterContentChecked = /**
-     * @return {?}
-     */
-    function () {
-        // If the number of tab labels have changed, check if scrolling should be enabled
-        if (this._tabLabelCount != this._labelWrappers.length) {
-            this.updatePagination();
-            this._tabLabelCount = this._labelWrappers.length;
-            this._changeDetectorRef.markForCheck();
-        }
-        // If the selected index has changed, scroll to the label and check if the scrolling controls
-        // should be disabled.
-        if (this._selectedIndexChanged) {
-            this._scrollToLabel(this._selectedIndex);
-            this._checkScrollingControls();
-            this._alignInkBarToSelectedTab();
-            this._selectedIndexChanged = false;
-            this._changeDetectorRef.markForCheck();
-        }
-        // If the scroll distance has been changed (tab selected, focused, scroll controls activated),
-        // then translate the header to reflect this.
-        if (this._scrollDistanceChanged) {
-            this._updateTabScrollPosition();
-            this._scrollDistanceChanged = false;
-            this._changeDetectorRef.markForCheck();
-        }
-    };
-    /** Handles keyboard events on the header. */
-    /**
-     * Handles keyboard events on the header.
-     * @param {?} event
-     * @return {?}
-     */
-    MatTabHeader.prototype._handleKeydown = /**
-     * Handles keyboard events on the header.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        // We don't handle any key bindings with a modifier key.
-        if (keycodes.hasModifierKey(event)) {
-            return;
-        }
-        switch (event.keyCode) {
-            case keycodes.HOME:
-                this._keyManager.setFirstItemActive();
-                event.preventDefault();
-                break;
-            case keycodes.END:
-                this._keyManager.setLastItemActive();
-                event.preventDefault();
-                break;
-            case keycodes.ENTER:
-            case keycodes.SPACE:
-                this.selectFocusedIndex.emit(this.focusIndex);
-                event.preventDefault();
-                break;
-            default:
-                this._keyManager.onKeydown(event);
-        }
-    };
-    /**
-     * Aligns the ink bar to the selected tab on load.
-     */
-    /**
-     * Aligns the ink bar to the selected tab on load.
-     * @return {?}
-     */
-    MatTabHeader.prototype.ngAfterContentInit = /**
-     * Aligns the ink bar to the selected tab on load.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        /** @type {?} */
-        var dirChange = this._dir ? this._dir.change : rxjs.of(null);
-        /** @type {?} */
-        var resize = this._viewportRuler.change(150);
-        /** @type {?} */
-        var realign = (/**
-         * @return {?}
-         */
-        function () {
-            _this.updatePagination();
-            _this._alignInkBarToSelectedTab();
-        });
-        this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
-            .withHorizontalOrientation(this._getLayoutDirection())
-            .withWrap();
-        this._keyManager.updateActiveItem(0);
-        // Defer the first call in order to allow for slower browsers to lay out the elements.
-        // This helps in cases where the user lands directly on a page with paginated tabs.
-        typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        // On dir change or window resize, realign the ink bar and update the orientation of
-        // the key manager if the direction has changed.
-        rxjs.merge(dirChange, resize).pipe(operators.takeUntil(this._destroyed)).subscribe((/**
-         * @return {?}
-         */
-        function () {
-            realign();
-            _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
-        }));
-        // If there is a change in the focus key manager we need to emit the `indexFocused`
-        // event in order to provide a public event that notifies about focus changes. Also we realign
-        // the tabs container by scrolling the new focused tab into the visible section.
-        this._keyManager.change.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
-         * @param {?} newFocusIndex
-         * @return {?}
-         */
-        function (newFocusIndex) {
-            _this.indexFocused.emit(newFocusIndex);
-            _this._setTabFocus(newFocusIndex);
-        }));
-    };
-    /**
-     * @return {?}
-     */
-    MatTabHeader.prototype.ngAfterViewInit = /**
+    MatPaginatedTabHeader.prototype.ngAfterViewInit = /**
      * @return {?}
      */
     function () {
@@ -1060,13 +924,125 @@ var MatTabHeader = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
-    MatTabHeader.prototype.ngOnDestroy = /**
+    MatPaginatedTabHeader.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        /** @type {?} */
+        var dirChange = this._dir ? this._dir.change : rxjs.of(null);
+        /** @type {?} */
+        var resize = this._viewportRuler.change(150);
+        /** @type {?} */
+        var realign = (/**
+         * @return {?}
+         */
+        function () {
+            _this.updatePagination();
+            _this._alignInkBarToSelectedTab();
+        });
+        this._keyManager = new a11y.FocusKeyManager(this._items)
+            .withHorizontalOrientation(this._getLayoutDirection())
+            .withWrap();
+        this._keyManager.updateActiveItem(0);
+        // Defer the first call in order to allow for slower browsers to lay out the elements.
+        // This helps in cases where the user lands directly on a page with paginated tabs.
+        typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
+        // On dir change or window resize, realign the ink bar and update the orientation of
+        // the key manager if the direction has changed.
+        rxjs.merge(dirChange, resize, this._items.changes).pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            realign();
+            _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
+        }));
+        // If there is a change in the focus key manager we need to emit the `indexFocused`
+        // event in order to provide a public event that notifies about focus changes. Also we realign
+        // the tabs container by scrolling the new focused tab into the visible section.
+        this._keyManager.change.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
+         * @param {?} newFocusIndex
+         * @return {?}
+         */
+        function (newFocusIndex) {
+            _this.indexFocused.emit(newFocusIndex);
+            _this._setTabFocus(newFocusIndex);
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    MatPaginatedTabHeader.prototype.ngAfterContentChecked = /**
+     * @return {?}
+     */
+    function () {
+        // If the number of tab labels have changed, check if scrolling should be enabled
+        if (this._tabLabelCount != this._items.length) {
+            this.updatePagination();
+            this._tabLabelCount = this._items.length;
+            this._changeDetectorRef.markForCheck();
+        }
+        // If the selected index has changed, scroll to the label and check if the scrolling controls
+        // should be disabled.
+        if (this._selectedIndexChanged) {
+            this._scrollToLabel(this._selectedIndex);
+            this._checkScrollingControls();
+            this._alignInkBarToSelectedTab();
+            this._selectedIndexChanged = false;
+            this._changeDetectorRef.markForCheck();
+        }
+        // If the scroll distance has been changed (tab selected, focused, scroll controls activated),
+        // then translate the header to reflect this.
+        if (this._scrollDistanceChanged) {
+            this._updateTabScrollPosition();
+            this._scrollDistanceChanged = false;
+            this._changeDetectorRef.markForCheck();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatPaginatedTabHeader.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () {
         this._destroyed.next();
         this._destroyed.complete();
         this._stopScrolling.complete();
+    };
+    /** Handles keyboard events on the header. */
+    /**
+     * Handles keyboard events on the header.
+     * @param {?} event
+     * @return {?}
+     */
+    MatPaginatedTabHeader.prototype._handleKeydown = /**
+     * Handles keyboard events on the header.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        // We don't handle any key bindings with a modifier key.
+        if (keycodes.hasModifierKey(event)) {
+            return;
+        }
+        switch (event.keyCode) {
+            case keycodes.HOME:
+                this._keyManager.setFirstItemActive();
+                event.preventDefault();
+                break;
+            case keycodes.END:
+                this._keyManager.setLastItemActive();
+                event.preventDefault();
+                break;
+            case keycodes.ENTER:
+            case keycodes.SPACE:
+                this.selectFocusedIndex.emit(this.focusIndex);
+                this._itemSelected(event);
+                break;
+            default:
+                this._keyManager.onKeydown(event);
+        }
     };
     /**
      * Callback for when the MutationObserver detects that the content has changed.
@@ -1075,7 +1051,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * Callback for when the MutationObserver detects that the content has changed.
      * @return {?}
      */
-    MatTabHeader.prototype._onContentChanges = /**
+    MatPaginatedTabHeader.prototype._onContentChanges = /**
      * Callback for when the MutationObserver detects that the content has changed.
      * @return {?}
      */
@@ -1087,7 +1063,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         // will fire even if the text content didn't change which is inefficient and is prone
         // to infinite loops if a poorly constructed expression is passed in (see #14249).
         if (textContent !== this._currentTextContent) {
-            this._currentTextContent = textContent;
+            this._currentTextContent = textContent || '';
             // The content observer runs outside the `NgZone` by default, which
             // means that we need to bring the callback back in ourselves.
             this._ngZone.run((/**
@@ -1103,22 +1079,22 @@ var MatTabHeader = /** @class */ (function (_super) {
     /**
      * Updates the view whether pagination should be enabled or not.
      *
-     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * WARNING: Calling this method can be very costly in terms of performance. It should be called
      * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
      * page.
      */
     /**
      * Updates the view whether pagination should be enabled or not.
      *
-     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * WARNING: Calling this method can be very costly in terms of performance. It should be called
      * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
      * page.
      * @return {?}
      */
-    MatTabHeader.prototype.updatePagination = /**
+    MatPaginatedTabHeader.prototype.updatePagination = /**
      * Updates the view whether pagination should be enabled or not.
      *
-     * WARNING: Calling this method can be very costly in terms of performance.  It should be called
+     * WARNING: Calling this method can be very costly in terms of performance. It should be called
      * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
      * page.
      * @return {?}
@@ -1128,7 +1104,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._checkScrollingControls();
         this._updateTabScrollPosition();
     };
-    Object.defineProperty(MatTabHeader.prototype, "focusIndex", {
+    Object.defineProperty(MatPaginatedTabHeader.prototype, "focusIndex", {
         /** Tracks which element has focus; used for keyboard navigation */
         get: /**
          * Tracks which element has focus; used for keyboard navigation
@@ -1162,18 +1138,18 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @param {?} index
      * @return {?}
      */
-    MatTabHeader.prototype._isValidIndex = /**
+    MatPaginatedTabHeader.prototype._isValidIndex = /**
      * Determines if an index is valid.  If the tabs are not ready yet, we assume that the user is
      * providing a valid index and return true.
      * @param {?} index
      * @return {?}
      */
     function (index) {
-        if (!this._labelWrappers) {
+        if (!this._items) {
             return true;
         }
         /** @type {?} */
-        var tab = this._labelWrappers ? this._labelWrappers.toArray()[index] : null;
+        var tab = this._items ? this._items.toArray()[index] : null;
         return !!tab && !tab.disabled;
     };
     /**
@@ -1186,7 +1162,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @param {?} tabIndex
      * @return {?}
      */
-    MatTabHeader.prototype._setTabFocus = /**
+    MatPaginatedTabHeader.prototype._setTabFocus = /**
      * Sets focus on the HTML element for the label wrapper and scrolls it into the view if
      * scrolling is enabled.
      * @param {?} tabIndex
@@ -1196,8 +1172,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         if (this._showPaginationControls) {
             this._scrollToLabel(tabIndex);
         }
-        if (this._labelWrappers && this._labelWrappers.length) {
-            this._labelWrappers.toArray()[tabIndex].focus();
+        if (this._items && this._items.length) {
+            this._items.toArray()[tabIndex].focus();
             // Do not let the browser manage scrolling to focus the element, this will be handled
             // by using translation. In LTR, the scroll left should be 0. In RTL, the scroll width
             // should be the full width minus the offset width.
@@ -1218,7 +1194,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * The layout direction of the containing app.
      * @return {?}
      */
-    MatTabHeader.prototype._getLayoutDirection = /**
+    MatPaginatedTabHeader.prototype._getLayoutDirection = /**
      * The layout direction of the containing app.
      * @return {?}
      */
@@ -1230,7 +1206,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * Performs the CSS transformation on the tab list that will cause the list to scroll.
      * @return {?}
      */
-    MatTabHeader.prototype._updateTabScrollPosition = /**
+    MatPaginatedTabHeader.prototype._updateTabScrollPosition = /**
      * Performs the CSS transformation on the tab list that will cause the list to scroll.
      * @return {?}
      */
@@ -1252,11 +1228,12 @@ var MatTabHeader = /** @class */ (function (_super) {
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
         // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-        if (platform$$1.TRIDENT || platform$$1.EDGE) {
+        // @breaking-change 9.0.0 Remove null check for `platform` after it can no longer be undefined.
+        if (platform$$1 && (platform$$1.TRIDENT || platform$$1.EDGE)) {
             this._tabListContainer.nativeElement.scrollLeft = 0;
         }
     };
-    Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
+    Object.defineProperty(MatPaginatedTabHeader.prototype, "scrollDistance", {
         /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
         get: /**
          * Sets the distance in pixels that the tab header should be transformed in the X-axis.
@@ -1291,7 +1268,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @param {?} direction
      * @return {?}
      */
-    MatTabHeader.prototype._scrollHeader = /**
+    MatPaginatedTabHeader.prototype._scrollHeader = /**
      * Moves the tab list in the 'before' or 'after' direction (towards the beginning of the list or
      * the end of the list, respectively). The distance to scroll is computed to be a third of the
      * length of the tab list view window.
@@ -1315,7 +1292,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @param {?} direction
      * @return {?}
      */
-    MatTabHeader.prototype._handlePaginatorClick = /**
+    MatPaginatedTabHeader.prototype._handlePaginatorClick = /**
      * Handles click events on the pagination arrows.
      * @param {?} direction
      * @return {?}
@@ -1338,7 +1315,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @param {?} labelIndex
      * @return {?}
      */
-    MatTabHeader.prototype._scrollToLabel = /**
+    MatPaginatedTabHeader.prototype._scrollToLabel = /**
      * Moves the tab list such that the desired tab label (marked by index) is moved into view.
      *
      * This is an expensive call that forces a layout reflow to compute box and scroll metrics and
@@ -1348,24 +1325,25 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function (labelIndex) {
         /** @type {?} */
-        var selectedLabel = this._labelWrappers ? this._labelWrappers.toArray()[labelIndex] : null;
+        var selectedLabel = this._items ? this._items.toArray()[labelIndex] : null;
         if (!selectedLabel) {
             return;
         }
         // The view length is the visible width of the tab labels.
         /** @type {?} */
         var viewLength = this._tabListContainer.nativeElement.offsetWidth;
+        var _a = selectedLabel.elementRef.nativeElement, offsetLeft = _a.offsetLeft, offsetWidth = _a.offsetWidth;
         /** @type {?} */
         var labelBeforePos;
         /** @type {?} */
         var labelAfterPos;
         if (this._getLayoutDirection() == 'ltr') {
-            labelBeforePos = selectedLabel.getOffsetLeft();
-            labelAfterPos = labelBeforePos + selectedLabel.getOffsetWidth();
+            labelBeforePos = offsetLeft;
+            labelAfterPos = labelBeforePos + offsetWidth;
         }
         else {
-            labelAfterPos = this._tabList.nativeElement.offsetWidth - selectedLabel.getOffsetLeft();
-            labelBeforePos = labelAfterPos - selectedLabel.getOffsetWidth();
+            labelAfterPos = this._tabList.nativeElement.offsetWidth - offsetLeft;
+            labelBeforePos = labelAfterPos - offsetWidth;
         }
         /** @type {?} */
         var beforeVisiblePos = this.scrollDistance;
@@ -1397,7 +1375,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * should be called sparingly.
      * @return {?}
      */
-    MatTabHeader.prototype._checkPaginationEnabled = /**
+    MatPaginatedTabHeader.prototype._checkPaginationEnabled = /**
      * Evaluate whether the pagination controls should be displayed. If the scroll width of the
      * tab list is wider than the size of the header container, then the pagination controls should
      * be shown.
@@ -1436,7 +1414,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * should be called sparingly.
      * @return {?}
      */
-    MatTabHeader.prototype._checkScrollingControls = /**
+    MatPaginatedTabHeader.prototype._checkScrollingControls = /**
      * Evaluate whether the before and after controls should be enabled or disabled.
      * If the header is at the beginning of the list (scroll distance is equal to 0) then disable the
      * before button. If the header is at the end of the list (scroll distance is equal to the
@@ -1467,7 +1445,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * should be called sparingly.
      * @return {?}
      */
-    MatTabHeader.prototype._getMaxScrollDistance = /**
+    MatPaginatedTabHeader.prototype._getMaxScrollDistance = /**
      * Determines what is the maximum length in pixels that can be set for the scroll distance. This
      * is equal to the difference in width between the tab list container and tab header container.
      *
@@ -1487,23 +1465,29 @@ var MatTabHeader = /** @class */ (function (_super) {
      * Tells the ink-bar to align itself to the current label wrapper
      * @return {?}
      */
-    MatTabHeader.prototype._alignInkBarToSelectedTab = /**
+    MatPaginatedTabHeader.prototype._alignInkBarToSelectedTab = /**
      * Tells the ink-bar to align itself to the current label wrapper
      * @return {?}
      */
     function () {
         /** @type {?} */
-        var selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
-            this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
-            null;
-        this._inkBar.alignToElement((/** @type {?} */ (selectedLabelWrapper)));
+        var selectedItem = this._items && this._items.length ?
+            this._items.toArray()[this.selectedIndex] : null;
+        /** @type {?} */
+        var selectedLabelWrapper = selectedItem ? selectedItem.elementRef.nativeElement : null;
+        if (selectedLabelWrapper) {
+            this._inkBar.alignToElement(selectedLabelWrapper);
+        }
+        else {
+            this._inkBar.hide();
+        }
     };
     /** Stops the currently-running paginator interval.  */
     /**
      * Stops the currently-running paginator interval.
      * @return {?}
      */
-    MatTabHeader.prototype._stopInterval = /**
+    MatPaginatedTabHeader.prototype._stopInterval = /**
      * Stops the currently-running paginator interval.
      * @return {?}
      */
@@ -1521,7 +1505,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @param {?} direction In which direction the paginator should be scrolled.
      * @return {?}
      */
-    MatTabHeader.prototype._handlePaginatorPress = /**
+    MatPaginatedTabHeader.prototype._handlePaginatorPress = /**
      * Handles the user pressing down on one of the paginators.
      * Starts scrolling the header after a certain amount of time.
      * @param {?} direction In which direction the paginator should be scrolled.
@@ -1557,7 +1541,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @param {?} position Position to which to scroll.
      * @return {?} Information on the current scroll distance and the maximum.
      */
-    MatTabHeader.prototype._scrollTo = /**
+    MatPaginatedTabHeader.prototype._scrollTo = /**
      * Scrolls the header to a given position.
      * @private
      * @param {?} position Position to which to scroll.
@@ -1573,11 +1557,73 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._checkScrollingControls();
         return { maxScrollDistance: maxScrollDistance, distance: this._scrollDistance };
     };
+    /** @nocollapse */
+    MatPaginatedTabHeader.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: String }
+    ]; };
+    return MatPaginatedTabHeader;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * The header of the tab group which displays a list of all the tabs in the tab group. Includes
+ * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
+ * width of the header container, then arrows will be displayed to allow the user to scroll
+ * left and right across the header.
+ * \@docs-private
+ */
+var MatTabHeader = /** @class */ (function (_super) {
+    __extends(MatTabHeader, _super);
+    function MatTabHeader(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform$$1, 
+    // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
+    animationMode) {
+        var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform$$1, animationMode) || this;
+        _this._disableRipple = false;
+        return _this;
+    }
+    Object.defineProperty(MatTabHeader.prototype, "disableRipple", {
+        /** Whether the ripple effect is disabled or not. */
+        get: /**
+         * Whether the ripple effect is disabled or not.
+         * @return {?}
+         */
+        function () { return this._disableRipple; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._disableRipple = coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    MatTabHeader.prototype._itemSelected = /**
+     * @protected
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        event.preventDefault();
+    };
     MatTabHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-header',
-                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" #previousPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_handlePaginatorClick('before')\" (mousedown)=\"_handlePaginatorPress('before')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" #nextPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (mousedown)=\"_handlePaginatorPress('after')\" (click)=\"_handlePaginatorClick('after')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
-                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-tab-list{transition:none;animation:none}.mat-tab-labels{display:flex}[mat-align-tabs=center] .mat-tab-labels{justify-content:center}[mat-align-tabs=end] .mat-tab-labels{justify-content:flex-end}"],
-                    inputs: ['disableRipple'],
+                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" #previousPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_handlePaginatorClick('before')\" (mousedown)=\"_handlePaginatorPress('before')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div #tabList class=\"mat-tab-list\" [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\" role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" #nextPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (mousedown)=\"_handlePaginatorPress('after')\" (click)=\"_handlePaginatorClick('after')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-labels{display:flex}[mat-align-tabs=center] .mat-tab-labels{justify-content:center}[mat-align-tabs=end] .mat-tab-labels{justify-content:flex-end}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}._mat-animation-noopable.mat-tab-list{transition:none;animation:none}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{min-width:72px}}"],
+                    inputs: ['selectedIndex'],
+                    outputs: ['selectFocusedIndex', 'indexFocused'],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: {
@@ -1598,18 +1644,16 @@ var MatTabHeader = /** @class */ (function (_super) {
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatTabHeader.propDecorators = {
-        _labelWrappers: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
+        _items: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
         _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
         _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
         _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
         _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator', { static: false },] }],
         _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator', { static: false },] }],
-        selectedIndex: [{ type: core.Input }],
-        selectFocusedIndex: [{ type: core.Output }],
-        indexFocused: [{ type: core.Output }]
+        disableRipple: [{ type: core.Input }]
     };
     return MatTabHeader;
-}(_MatTabHeaderMixinBase));
+}(MatPaginatedTabHeader));
 
 /**
  * @fileoverview added by tsickle
@@ -2149,39 +2193,23 @@ var MatTabGroup = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-// Boilerplate for applying mixins to MatTabNav.
-/**
- * \@docs-private
- */
-var 
-// Boilerplate for applying mixins to MatTabNav.
-/**
- * \@docs-private
- */
-MatTabNavBase = /** @class */ (function () {
-    function MatTabNavBase(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-    return MatTabNavBase;
-}());
-/** @type {?} */
-var _MatTabNavMixinBase = core$1.mixinDisableRipple(core$1.mixinColor(MatTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
 var MatTabNav = /** @class */ (function (_super) {
     __extends(MatTabNav, _super);
-    function MatTabNav(elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
-        var _this = _super.call(this, elementRef) || this;
-        _this._dir = _dir;
-        _this._ngZone = _ngZone;
-        _this._changeDetectorRef = _changeDetectorRef;
-        _this._viewportRuler = _viewportRuler;
+    function MatTabNav(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
+    /**
+     * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
+     */
+    platform$$1, animationMode) {
+        var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform$$1, animationMode) || this;
+        _this._disableRipple = false;
         /**
-         * Subject that emits when the component has been destroyed.
+         * Theme color of the nav bar.
          */
-        _this._onDestroy = new rxjs.Subject();
+        _this.color = 'primary';
         return _this;
     }
     Object.defineProperty(MatTabNav.prototype, "backgroundColor", {
@@ -2197,37 +2225,41 @@ var MatTabNav = /** @class */ (function (_super) {
          */
         function (value) {
             /** @type {?} */
-            var nativeElement = this._elementRef.nativeElement;
-            nativeElement.classList.remove("mat-background-" + this.backgroundColor);
+            var classList = this._elementRef.nativeElement.classList;
+            classList.remove("mat-background-" + this.backgroundColor);
             if (value) {
-                nativeElement.classList.add("mat-background-" + value);
+                classList.add("mat-background-" + value);
             }
             this._backgroundColor = value;
         },
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatTabNav.prototype, "disableRipple", {
+        /** Whether the ripple effect is disabled or not. */
+        get: /**
+         * Whether the ripple effect is disabled or not.
+         * @return {?}
+         */
+        function () { return this._disableRipple; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._disableRipple = coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
     /**
-     * Notifies the component that the active link has been changed.
-     * @breaking-change 8.0.0 `element` parameter to be removed.
-     */
-    /**
-     * Notifies the component that the active link has been changed.
-     * \@breaking-change 8.0.0 `element` parameter to be removed.
-     * @param {?} element
+     * @protected
      * @return {?}
      */
-    MatTabNav.prototype.updateActiveLink = /**
-     * Notifies the component that the active link has been changed.
-     * \@breaking-change 8.0.0 `element` parameter to be removed.
-     * @param {?} element
+    MatTabNav.prototype._itemSelected = /**
+     * @protected
      * @return {?}
      */
-    function (element) {
-        // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
-        // @breaking-change 8.0.0
-        this._activeLinkChanged = !!element;
-        this._changeDetectorRef.markForCheck();
+    function () {
+        // noop
     };
     /**
      * @return {?}
@@ -2236,78 +2268,56 @@ var MatTabNav = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
-        this._ngZone.runOutsideAngular((/**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
-            return rxjs.merge(dirChange, _this._viewportRuler.change(10))
-                .pipe(operators.takeUntil(_this._onDestroy))
-                .subscribe((/**
-             * @return {?}
-             */
-            function () { return _this._alignInkBar(); }));
-        }));
-    };
-    /** Checks if the active link has been changed and, if so, will update the ink bar. */
-    /**
-     * Checks if the active link has been changed and, if so, will update the ink bar.
-     * @return {?}
-     */
-    MatTabNav.prototype.ngAfterContentChecked = /**
-     * Checks if the active link has been changed and, if so, will update the ink bar.
-     * @return {?}
-     */
-    function () {
-        if (this._activeLinkChanged) {
-            /** @type {?} */
-            var activeTab = this._tabLinks.find((/**
-             * @param {?} tab
-             * @return {?}
-             */
-            function (tab) { return tab.active; }));
-            this._activeLinkElement = activeTab ? activeTab._elementRef : null;
-            this._alignInkBar();
-            this._activeLinkChanged = false;
-        }
+        this.updateActiveLink();
+        _super.prototype.ngAfterContentInit.call(this);
     };
     /**
-     * @return {?}
+     * Notifies the component that the active link has been changed.
+     * @breaking-change 8.0.0 `element` parameter to be removed.
      */
-    MatTabNav.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    };
-    /** Aligns the ink bar to the active link. */
     /**
-     * Aligns the ink bar to the active link.
+     * Notifies the component that the active link has been changed.
+     * \@breaking-change 8.0.0 `element` parameter to be removed.
+     * @param {?=} _element
      * @return {?}
      */
-    MatTabNav.prototype._alignInkBar = /**
-     * Aligns the ink bar to the active link.
+    MatTabNav.prototype.updateActiveLink = /**
+     * Notifies the component that the active link has been changed.
+     * \@breaking-change 8.0.0 `element` parameter to be removed.
+     * @param {?=} _element
      * @return {?}
      */
-    function () {
-        if (this._activeLinkElement) {
-            this._inkBar.show();
-            this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
+    function (_element) {
+        if (!this._items) {
+            return;
         }
-        else {
-            this._inkBar.hide();
+        /** @type {?} */
+        var items = this._items.toArray();
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].active) {
+                this.selectedIndex = i;
+                this._changeDetectorRef.markForCheck();
+                return;
+            }
         }
+        // The ink bar should hide itself if no items are active.
+        this.selectedIndex = -1;
+        this._inkBar.hide();
     };
     MatTabNav.decorators = [
         { type: core.Component, args: [{selector: '[mat-tab-nav-bar]',
                     exportAs: 'matTabNavBar, matTabNav',
-                    inputs: ['color', 'disableRipple'],
-                    template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
-                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}[mat-align-tabs=center] .mat-tab-links{justify-content:center}[mat-align-tabs=end] .mat-tab-links{justify-content:flex-end}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
-                    host: { 'class': 'mat-tab-nav-bar' },
+                    inputs: ['color'],
+                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" #previousPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_handlePaginatorClick('before')\" (mousedown)=\"_handlePaginatorPress('before')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-link-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-links\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" #nextPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (mousedown)=\"_handlePaginatorPress('after')\" (click)=\"_handlePaginatorClick('after')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-links{display:flex}[mat-align-tabs=center] .mat-tab-links{justify-content:center}[mat-align-tabs=end] .mat-tab-links{justify-content:flex-end}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-link-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}"],
+                    host: {
+                        'class': 'mat-tab-nav-bar mat-tab-header',
+                        '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+                        '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
+                        '[class.mat-primary]': 'color !== "warn" && color !== "accent"',
+                        '[class.mat-accent]': 'color === "accent"',
+                        '[class.mat-warn]': 'color === "warn"',
+                    },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
@@ -2318,18 +2328,26 @@ var MatTabNav = /** @class */ (function (_super) {
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
         { type: core.NgZone },
         { type: core.ChangeDetectorRef },
-        { type: scrolling.ViewportRuler }
+        { type: scrolling.ViewportRuler },
+        { type: platform.Platform, decorators: [{ type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatTabNav.propDecorators = {
-        _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
-        _tabLinks: [{ type: core.ContentChildren, args: [core.forwardRef((/**
+        _items: [{ type: core.ContentChildren, args: [core.forwardRef((/**
                      * @return {?}
                      */
                     function () { return MatTabLink; })), { descendants: true },] }],
-        backgroundColor: [{ type: core.Input }]
+        _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
+        _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
+        _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
+        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator', { static: false },] }],
+        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator', { static: false },] }],
+        backgroundColor: [{ type: core.Input }],
+        disableRipple: [{ type: core.Input }],
+        color: [{ type: core.Input }]
     };
     return MatTabNav;
-}(_MatTabNavMixinBase));
+}(MatPaginatedTabHeader));
 // Boilerplate for applying mixins to MatTabLink.
 var 
 // Boilerplate for applying mixins to MatTabLink.
@@ -2345,23 +2363,23 @@ var _MatTabLinkMixinBase = core$1.mixinTabIndex(core$1.mixinDisableRipple(core$1
  */
 var MatTabLink = /** @class */ (function (_super) {
     __extends(MatTabLink, _super);
-    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform$$1, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
+    function MatTabLink(_tabNavBar, elementRef, ngZone, platform$$1, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
         var _this = _super.call(this) || this;
         _this._tabNavBar = _tabNavBar;
-        _this._elementRef = _elementRef;
+        _this.elementRef = elementRef;
         _this._focusMonitor = _focusMonitor;
         /**
          * Whether the tab link is active or not.
          */
         _this._isActive = false;
-        _this._tabLinkRipple = new core$1.RippleRenderer(_this, ngZone, _elementRef, platform$$1);
-        _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
+        _this._tabLinkRipple = new core$1.RippleRenderer(_this, ngZone, elementRef, platform$$1);
+        _this._tabLinkRipple.setupTriggerEvents(elementRef.nativeElement);
         _this.rippleConfig = globalRippleOptions || {};
         _this.tabIndex = parseInt(tabIndex) || 0;
-        _focusMonitor.monitor(_elementRef);
         if (animationMode === 'NoopAnimations') {
             _this.rippleConfig.animation = { enterDuration: 0, exitDuration: 0 };
         }
+        _focusMonitor.monitor(elementRef);
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
@@ -2378,7 +2396,7 @@ var MatTabLink = /** @class */ (function (_super) {
         function (value) {
             if (value !== this._isActive) {
                 this._isActive = value;
-                this._tabNavBar.updateActiveLink(this._elementRef);
+                this._tabNavBar.updateActiveLink(this.elementRef);
             }
         },
         enumerable: true,
@@ -2404,12 +2422,21 @@ var MatTabLink = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
+    MatTabLink.prototype.focus = /**
+     * @return {?}
+     */
+    function () {
+        this.elementRef.nativeElement.focus();
+    };
+    /**
+     * @return {?}
+     */
     MatTabLink.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () {
         this._tabLinkRipple._removeTriggerEvents();
-        this._focusMonitor.stopMonitoring(this._elementRef);
+        this._focusMonitor.stopMonitoring(this.elementRef);
     };
     MatTabLink.decorators = [
         { type: core.Directive, args: [{
@@ -2419,7 +2446,7 @@ var MatTabLink = /** @class */ (function (_super) {
                     host: {
                         'class': 'mat-tab-link',
                         '[attr.aria-current]': 'active',
-                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-disabled]': 'disabled',
                         '[attr.tabIndex]': 'tabIndex',
                         '[class.mat-tab-disabled]': 'disabled',
                         '[class.mat-tab-label-active]': 'active',
@@ -2505,6 +2532,7 @@ exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
 exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
