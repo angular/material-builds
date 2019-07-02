@@ -141,7 +141,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     private _isSingleSelector;
     private _checked;
     /**
-     * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
+     * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
      * take precedence so this may be omitted.
      */
     ariaLabel: string;

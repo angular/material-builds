@@ -29,6 +29,8 @@ export declare class MatDialogRef<T, R = any> {
     private readonly _beforeClosed;
     /** Result to be passed to afterClosed. */
     private _result;
+    /** Handle to the timeout that's running as a fallback in case the exit animation doesn't fire. */
+    private _closeFallbackTimeout;
     constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, _location?: Location, id?: string);
     /**
      * Close the dialog.

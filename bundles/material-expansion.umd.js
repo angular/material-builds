@@ -408,6 +408,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
+        /**
+         * Whether Angular animations in the panel header should be disabled.
+         */
+        this._animationsDisabled = true;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
             panel.accordion._stateChanges.pipe(operators.filter((/**
@@ -452,6 +456,23 @@ var MatExpansionPanelHeader = /** @class */ (function () {
             this.collapsedHeight = defaultOptions.collapsedHeight;
         }
     }
+    /**
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._animationStarted = /**
+     * @return {?}
+     */
+    function () {
+        // Currently the `expansionHeight` animation has a `void => collapsed` transition which is
+        // there to work around a bug in Angular (see #13088), however this introduces a different
+        // issue. The new transition will cause the header to animate in on init (see #16067), if the
+        // consumer has set a header height that is different from the default one. We work around it
+        // by disabling animations on the header and re-enabling them after the first animation has run.
+        // Note that Angular dispatches animation events even if animations are disabled. Ideally this
+        // wouldn't be necessary if we remove the `void => collapsed` transition, but we have to wait
+        // for https://github.com/angular/angular/issues/18847 to be resolved.
+        this._animationsDisabled = false;
+    };
     Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
         /**
          * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
@@ -608,6 +629,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                         '[class.mat-expanded]': '_isExpanded()',
                         '(click)': '_toggle()',
                         '(keydown)': '_keydown($event)',
+                        '[@.disabled]': '_animationsDisabled',
+                        '(@expansionHeight.start)': '_animationStarted()',
                         '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                     },
                 },] },

@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular/cdk/schematics");
 const chalk_1 = require("chalk");
-const glob_1 = require("glob");
+const path_1 = require("path");
 const upgrade_data_1 = require("./upgrade-data");
 /** List of additional upgrade rules for Angular Material. */
 const upgradeRules = [
@@ -28,7 +28,11 @@ const upgradeRules = [
     ['ripple-speed-factor-template', schematics_1.TargetVersion.V7],
 ];
 /** List of absolute paths that refer to directories that contain the Material upgrade rules. */
-const ruleDirectories = glob_1.sync('upgrade-rules/**/', { cwd: __dirname, absolute: true });
+const ruleDirectories = [
+    'misc-checks/',
+    'misc-ripples-v7/',
+    'package-imports-v8/',
+].map(relativePath => path_1.join(__dirname, 'upgrade-rules/', relativePath));
 /** TSLint upgrade configuration that will be passed to the CDK ng-update rule. */
 const tslintUpgradeConfig = {
     upgradeData: upgrade_data_1.materialUpgradeData,

@@ -263,14 +263,28 @@ var MatDialogContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
         if (!this._focusTrap) {
-            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+            this._focusTrap = this._focusTrapFactory.create(element);
         }
-        // If were to attempt to focus immediately, then the content of the dialog would not yet be
+        // If we were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
         if (this._config.autoFocus) {
             this._focusTrap.focusInitialElementWhenReady();
+        }
+        else {
+            /** @type {?} */
+            var activeElement = this._document.activeElement;
+            // Otherwise ensure that focus is on the dialog container. It's possible that a different
+            // component tried to move focus while the open animation was running. See:
+            // https://github.com/angular/components/issues/16215. Note that we only want to do this
+            // if the focus isn't inside the dialog already, because it's possible that the consumer
+            // turned off `autoFocus` in order to move focus themselves.
+            if (activeElement !== element && !element.contains(activeElement)) {
+                element.focus();
+            }
         }
     };
     /** Restores focus to the element that was focused before the dialog opened. */
@@ -473,7 +487,10 @@ MatDialogRef = /** @class */ (function () {
         function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })), operators.take(1)).subscribe((/**
          * @return {?}
          */
-        function () { return _this._overlayRef.dispose(); }));
+        function () {
+            clearTimeout(_this._closeFallbackTimeout);
+            _this._overlayRef.dispose();
+        }));
         _overlayRef.detachments().subscribe((/**
          * @return {?}
          */
@@ -526,12 +543,24 @@ MatDialogRef = /** @class */ (function () {
          */
         function (event) { return event.phaseName === 'start'; })), operators.take(1))
             .subscribe((/**
+         * @param {?} event
          * @return {?}
          */
-        function () {
+        function (event) {
             _this._beforeClosed.next(dialogResult);
             _this._beforeClosed.complete();
             _this._overlayRef.detachBackdrop();
+            // The logic that disposes of the overlay depends on the exit animation completing, however
+            // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
+            // timeout which will clean everything up if the animation hasn't fired within the specified
+            // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
+            // vast majority of cases the timeout will have been cleared before it has the chance to fire.
+            _this._closeFallbackTimeout = setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this._overlayRef.dispose();
+            }), event.totalTime + 100);
         }));
         this._containerInstance._startExitAnimation();
     };

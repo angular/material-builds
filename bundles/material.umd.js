@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION = new core.Version('8.0.1-b4a7d9f');
+var VERSION = new core.Version('8.0.1-aa24d769c');
 
 /**
  * @fileoverview added by tsickle
@@ -5204,6 +5204,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 if (event.keyCode === keycodes.ESCAPE || (event.keyCode === keycodes.UP_ARROW && event.altKey)) {
                     _this._resetActiveItem();
                     _this._closeKeyEventStream.next();
+                    // We need to stop propagation, otherwise the event will eventually
+                    // reach the input itself and cause the overlay to be reopened.
+                    event.stopPropagation();
+                    event.preventDefault();
                 }
             }));
             if (this._viewportRuler) {
@@ -6333,6 +6337,7 @@ MatBottomSheetRef = /** @class */ (function () {
          * @return {?}
          */
         function () {
+            clearTimeout(_this._closeFallbackTimeout);
             _overlayRef.dispose();
         }));
         _overlayRef.detachments().pipe(operators.take(1)).subscribe((/**
@@ -6381,9 +6386,23 @@ MatBottomSheetRef = /** @class */ (function () {
              * @return {?}
              */
             function (event) { return event.phaseName === 'start'; })), operators.take(1)).subscribe((/**
+             * @param {?} event
              * @return {?}
              */
-            function () { return _this._overlayRef.detachBackdrop(); }));
+            function (event) {
+                // The logic that disposes of the overlay depends on the exit animation completing, however
+                // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
+                // timeout which will clean everything up if the animation hasn't fired within the specified
+                // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
+                // vast majority of cases the timeout will have been cleared before it has fired.
+                _this._closeFallbackTimeout = setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
+                    _this._overlayRef.dispose();
+                }), event.totalTime + 100);
+                _this._overlayRef.detachBackdrop();
+            }));
             this._result = result;
             this.containerInstance.exit();
         }
@@ -6763,7 +6782,7 @@ var MatButton = /** @class */ (function (_super) {
         for (var _i = 0, BUTTON_HOST_ATTRIBUTES_1 = BUTTON_HOST_ATTRIBUTES; _i < BUTTON_HOST_ATTRIBUTES_1.length; _i++) {
             var attr = BUTTON_HOST_ATTRIBUTES_1[_i];
             if (_this._hasHostAttributes(attr)) {
-                ((/** @type {?} */ (elementRef.nativeElement))).classList.add(attr);
+                ((/** @type {?} */ (_this._getHostElement()))).classList.add(attr);
             }
         }
         _this._focusMonitor.monitor(_this._elementRef, true);
@@ -8142,7 +8161,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         _this._clickAction = _clickAction;
         _this._animationMode = _animationMode;
         /**
-         * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
+         * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
          * take precedence so this may be omitted.
          */
         _this.ariaLabel = '';
@@ -8640,7 +8659,7 @@ var MatCheckbox = /** @class */ (function (_super) {
     MatCheckbox.decorators = [
         { type: core.Component, args: [{selector: 'mat-checkbox',
                     template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [attr.value]=\"value\" [disabled]=\"disabled\" [attr.name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel || null\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-checked]=\"_getAriaChecked()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleRadius]=\"20\" [matRippleCentered]=\"true\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-checkbox-persistent-ripple\"></div></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
-                    styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-frame{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer;-webkit-tap-highlight-color:transparent}._mat-animation-noopable.mat-checkbox{transition:none;animation:none}.mat-checkbox .mat-ripple-element:not(.mat-checkbox-persistent-ripple){opacity:.16}.mat-checkbox-layout{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex;white-space:nowrap}.mat-checkbox-label{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto}.mat-checkbox-inner-container{display:inline-block;height:16px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:16px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}._mat-animation-noopable .mat-checkbox-frame{transition:none}@media (-ms-high-contrast:active){.mat-checkbox.cdk-keyboard-focused .mat-checkbox-frame{border-style:dotted}}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}._mat-animation-noopable .mat-checkbox-background{transition:none}.mat-checkbox-persistent-ripple{width:100%;height:100%;transform:none}.mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{opacity:.04}.mat-checkbox.cdk-keyboard-focused .mat-checkbox-persistent-ripple{opacity:.12}.mat-checkbox-persistent-ripple,.mat-checkbox.mat-disabled .mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{opacity:0}@media (hover:none){.mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{display:none}}.mat-checkbox-checkmark{top:0;left:0;right:0;bottom:0;position:absolute;width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.13333px}.mat-checkbox-mixedmark{width:calc(100% - 6px);height:2px;opacity:0;transform:scaleX(0) rotate(0);border-radius:2px}@media (-ms-high-contrast:active){.mat-checkbox-mixedmark{height:0;border-top:solid 2px;margin-top:2px}}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox .mat-checkbox-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}"],
+                    styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-frame{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer;-webkit-tap-highlight-color:transparent}._mat-animation-noopable.mat-checkbox{transition:none;animation:none}.mat-checkbox .mat-ripple-element:not(.mat-checkbox-persistent-ripple){opacity:.16}.mat-checkbox-layout{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex;white-space:nowrap}.mat-checkbox-label{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto}.mat-checkbox-inner-container{display:inline-block;height:16px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:16px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}._mat-animation-noopable .mat-checkbox-frame{transition:none}@media (-ms-high-contrast:active){.mat-checkbox.cdk-keyboard-focused .mat-checkbox-frame{border-style:dotted}}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}._mat-animation-noopable .mat-checkbox-background{transition:none}.mat-checkbox-persistent-ripple{width:100%;height:100%;transform:none}.mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{opacity:.04}.mat-checkbox.cdk-keyboard-focused .mat-checkbox-persistent-ripple{opacity:.12}.mat-checkbox-persistent-ripple,.mat-checkbox.mat-checkbox-disabled .mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{opacity:0}@media (hover:none){.mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{display:none}}.mat-checkbox-checkmark{top:0;left:0;right:0;bottom:0;position:absolute;width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.13333px}.mat-checkbox-mixedmark{width:calc(100% - 6px);height:2px;opacity:0;transform:scaleX(0) rotate(0);border-radius:2px}@media (-ms-high-contrast:active){.mat-checkbox-mixedmark{height:0;border-top:solid 2px;margin-top:2px}}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox .mat-checkbox-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}"],
                     exportAs: 'matCheckbox',
                     host: {
                         'class': 'mat-checkbox',
@@ -8825,7 +8844,9 @@ var MatChipTrailingIcon = /** @class */ (function () {
  */
 var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(_elementRef, _ngZone, platform$$1, globalRippleOptions) {
+    function MatChip(_elementRef, _ngZone, platform$$1, globalRippleOptions, 
+    // @breaking-change 8.0.0 `animationMode` parameter to become required.
+    animationMode) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._ngZone = _ngZone;
@@ -8868,6 +8889,7 @@ var MatChip = /** @class */ (function (_super) {
         _this._chipRipple = new RippleRenderer(_this, _ngZone, _elementRef, platform$$1);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.rippleConfig = globalRippleOptions || {};
+        _this._animationsDisabled = animationMode === 'NoopAnimations';
         return _this;
     }
     Object.defineProperty(MatChip.prototype, "rippleDisabled", {
@@ -9230,6 +9252,7 @@ var MatChip = /** @class */ (function (_super) {
                         '[class.mat-chip-with-avatar]': 'avatar',
                         '[class.mat-chip-with-trailing-icon]': 'trailingIcon || removeIcon',
                         '[class.mat-chip-disabled]': 'disabled',
+                        '[class._mat-animation-noopable]': '_animationsDisabled',
                         '[attr.disabled]': 'disabled || null',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.aria-selected]': 'ariaSelected',
@@ -9245,7 +9268,8 @@ var MatChip = /** @class */ (function (_super) {
         { type: core.ElementRef },
         { type: core.NgZone },
         { type: platform.Platform },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatChip.propDecorators = {
         avatar: [{ type: core.ContentChild, args: [MatChipAvatar, { static: false },] }],
@@ -10641,7 +10665,7 @@ var MatChipList = /** @class */ (function (_super) {
                         '[id]': '_uid',
                     },
                     providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
-                    styles: [".mat-chip{position:relative;overflow:hidden;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:'';pointer-events:none;transition:opacity .2s cubic-bezier(.35,0,.25,1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:0}.mat-standard-chip:focus::after{opacity:.16}@media (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}.mat-standard-chip:focus{outline:dotted 2px}}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}"],
+                    styles: [".mat-chip{position:relative;overflow:hidden;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0)}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}._mat-animation-noopable.mat-standard-chip{transition:none;animation:none}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:'';pointer-events:none;transition:opacity .2s cubic-bezier(.35,0,.25,1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:0}.mat-standard-chip:focus::after{opacity:.16}@media (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}.mat-standard-chip:focus{outline:dotted 2px}}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
@@ -11183,14 +11207,28 @@ var MatDialogContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
         if (!this._focusTrap) {
-            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+            this._focusTrap = this._focusTrapFactory.create(element);
         }
-        // If were to attempt to focus immediately, then the content of the dialog would not yet be
+        // If we were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
         if (this._config.autoFocus) {
             this._focusTrap.focusInitialElementWhenReady();
+        }
+        else {
+            /** @type {?} */
+            var activeElement = this._document.activeElement;
+            // Otherwise ensure that focus is on the dialog container. It's possible that a different
+            // component tried to move focus while the open animation was running. See:
+            // https://github.com/angular/components/issues/16215. Note that we only want to do this
+            // if the focus isn't inside the dialog already, because it's possible that the consumer
+            // turned off `autoFocus` in order to move focus themselves.
+            if (activeElement !== element && !element.contains(activeElement)) {
+                element.focus();
+            }
         }
     };
     /** Restores focus to the element that was focused before the dialog opened. */
@@ -11393,7 +11431,10 @@ MatDialogRef = /** @class */ (function () {
         function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })), operators.take(1)).subscribe((/**
          * @return {?}
          */
-        function () { return _this._overlayRef.dispose(); }));
+        function () {
+            clearTimeout(_this._closeFallbackTimeout);
+            _this._overlayRef.dispose();
+        }));
         _overlayRef.detachments().subscribe((/**
          * @return {?}
          */
@@ -11446,12 +11487,24 @@ MatDialogRef = /** @class */ (function () {
          */
         function (event) { return event.phaseName === 'start'; })), operators.take(1))
             .subscribe((/**
+         * @param {?} event
          * @return {?}
          */
-        function () {
+        function (event) {
             _this._beforeClosed.next(dialogResult);
             _this._beforeClosed.complete();
             _this._overlayRef.detachBackdrop();
+            // The logic that disposes of the overlay depends on the exit animation completing, however
+            // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
+            // timeout which will clean everything up if the animation hasn't fired within the specified
+            // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
+            // vast majority of cases the timeout will have been cleared before it has the chance to fire.
+            _this._closeFallbackTimeout = setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this._overlayRef.dispose();
+            }), event.totalTime + 100);
         }));
         this._containerInstance._startExitAnimation();
     };
@@ -13911,8 +13964,7 @@ var MatMultiYearView = /** @class */ (function () {
             /** @type {?} */
             var validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
-            if (Math.floor(this._dateAdapter.getYear(oldActiveDate) / yearsPerPage) !=
-                Math.floor(this._dateAdapter.getYear(this._activeDate) / yearsPerPage)) {
+            if (!isSameMultiYearView(this._dateAdapter, oldActiveDate, this._activeDate, this.minDate, this.maxDate)) {
                 this._init();
             }
         },
@@ -13992,13 +14044,18 @@ var MatMultiYearView = /** @class */ (function () {
     function () {
         var _this = this;
         this._todayYear = this._dateAdapter.getYear(this._dateAdapter.today());
+        // We want a range years such that we maximize the number of
+        // enabled dates visible at once. This prevents issues where the minimum year
+        // is the last item of a page OR the maximum year is the first item of a page.
+        // The offset from the active year to the "slot" for the starting year is the
+        // *actual* first rendered year in the multi-year view.
         /** @type {?} */
         var activeYear = this._dateAdapter.getYear(this._activeDate);
         /** @type {?} */
-        var activeOffset = activeYear % yearsPerPage;
+        var minYearOfPage = activeYear - getActiveOffset(this._dateAdapter, this.activeDate, this.minDate, this.maxDate);
         this._years = [];
         for (var i = 0, row = []; i < yearsPerPage; i++) {
-            row.push(activeYear - activeOffset + i);
+            row.push(minYearOfPage + i);
             if (row.length == yearsPerRow) {
                 this._years.push(row.map((/**
                  * @param {?} year
@@ -14041,12 +14098,6 @@ var MatMultiYearView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
         /** @type {?} */
         var oldActiveDate = this._activeDate;
         /** @type {?} */
@@ -14065,10 +14116,10 @@ var MatMultiYearView = /** @class */ (function () {
                 this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerRow);
                 break;
             case keycodes.HOME:
-                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -this._dateAdapter.getYear(this._activeDate) % yearsPerPage);
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -getActiveOffset(this._dateAdapter, this.activeDate, this.minDate, this.maxDate));
                 break;
             case keycodes.END:
-                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerPage - this._dateAdapter.getYear(this._activeDate) % yearsPerPage - 1);
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerPage - getActiveOffset(this._dateAdapter, this.activeDate, this.minDate, this.maxDate) - 1);
                 break;
             case keycodes.PAGE_UP:
                 this.activeDate =
@@ -14100,7 +14151,7 @@ var MatMultiYearView = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._dateAdapter.getYear(this.activeDate) % yearsPerPage;
+        return getActiveOffset(this._dateAdapter, this.activeDate, this.minDate, this.maxDate);
     };
     /** Focuses the active cell after the microtask queue is empty. */
     /**
@@ -14224,6 +14275,72 @@ var MatMultiYearView = /** @class */ (function () {
     };
     return MatMultiYearView;
 }());
+/**
+ * @template D
+ * @param {?} dateAdapter
+ * @param {?} date1
+ * @param {?} date2
+ * @param {?} minDate
+ * @param {?} maxDate
+ * @return {?}
+ */
+function isSameMultiYearView(dateAdapter, date1, date2, minDate, maxDate) {
+    /** @type {?} */
+    var year1 = dateAdapter.getYear(date1);
+    /** @type {?} */
+    var year2 = dateAdapter.getYear(date2);
+    /** @type {?} */
+    var startingYear = getStartingYear(dateAdapter, minDate, maxDate);
+    return Math.floor((year1 - startingYear) / yearsPerPage) ===
+        Math.floor((year2 - startingYear) / yearsPerPage);
+}
+/**
+ * When the multi-year view is first opened, the active year will be in view.
+ * So we compute how many years are between the active year and the *slot* where our
+ * "startingYear" will render when paged into view.
+ * @template D
+ * @param {?} dateAdapter
+ * @param {?} activeDate
+ * @param {?} minDate
+ * @param {?} maxDate
+ * @return {?}
+ */
+function getActiveOffset(dateAdapter, activeDate, minDate, maxDate) {
+    /** @type {?} */
+    var activeYear = dateAdapter.getYear(activeDate);
+    return euclideanModulo((activeYear - getStartingYear(dateAdapter, minDate, maxDate)), yearsPerPage);
+}
+/**
+ * We pick a "starting" year such that either the maximum year would be at the end
+ * or the minimum year would be at the beginning of a page.
+ * @template D
+ * @param {?} dateAdapter
+ * @param {?} minDate
+ * @param {?} maxDate
+ * @return {?}
+ */
+function getStartingYear(dateAdapter, minDate, maxDate) {
+    /** @type {?} */
+    var startingYear = 0;
+    if (maxDate) {
+        /** @type {?} */
+        var maxYear = dateAdapter.getYear(maxDate);
+        startingYear = maxYear - yearsPerPage + 1;
+    }
+    else if (minDate) {
+        startingYear = dateAdapter.getYear(minDate);
+    }
+    return startingYear;
+}
+/**
+ * Gets remainder that is non-negative, even if first number is negative
+ * @param {?} a
+ * @param {?} b
+ * @return {?}
+ */
+function euclideanModulo(a, b) {
+    return (a % b + b) % b;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -14698,13 +14815,16 @@ var MatCalendarHeader = /** @class */ (function () {
             if (this.calendar.currentView == 'year') {
                 return this._dateAdapter.getYearName(this.calendar.activeDate);
             }
+            // The offset from the active year to the "slot" for the starting year is the
+            // *actual* first rendered year in the multi-year view, and the last year is
+            // just yearsPerPage - 1 away.
             /** @type {?} */
             var activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
             /** @type {?} */
-            var firstYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear - activeYear % 24, 0, 1));
+            var minYearOfPage = activeYear - getActiveOffset(this._dateAdapter, this.calendar.activeDate, this.calendar.minDate, this.calendar.maxDate);
             /** @type {?} */
-            var lastYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear + yearsPerPage - 1 - activeYear % 24, 0, 1));
-            return firstYearInView + " \u2013 " + lastYearInView;
+            var maxYearOfPage = minYearOfPage + yearsPerPage - 1;
+            return minYearOfPage + " \u2013 " + maxYearOfPage;
         },
         enumerable: true,
         configurable: true
@@ -14845,8 +14965,7 @@ var MatCalendarHeader = /** @class */ (function () {
             return this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2);
         }
         // Otherwise we are in 'multi-year' view.
-        return Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ==
-            Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage);
+        return isSameMultiYearView(this._dateAdapter, date1, date2, this.calendar.minDate, this.calendar.maxDate);
     };
     MatCalendarHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-calendar-header',
@@ -17244,6 +17363,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
+        /**
+         * Whether Angular animations in the panel header should be disabled.
+         */
+        this._animationsDisabled = true;
         /** @type {?} */
         var accordionHideToggleChange = panel.accordion ?
             panel.accordion._stateChanges.pipe(operators.filter((/**
@@ -17288,6 +17411,23 @@ var MatExpansionPanelHeader = /** @class */ (function () {
             this.collapsedHeight = defaultOptions.collapsedHeight;
         }
     }
+    /**
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._animationStarted = /**
+     * @return {?}
+     */
+    function () {
+        // Currently the `expansionHeight` animation has a `void => collapsed` transition which is
+        // there to work around a bug in Angular (see #13088), however this introduces a different
+        // issue. The new transition will cause the header to animate in on init (see #16067), if the
+        // consumer has set a header height that is different from the default one. We work around it
+        // by disabling animations on the header and re-enabling them after the first animation has run.
+        // Note that Angular dispatches animation events even if animations are disabled. Ideally this
+        // wouldn't be necessary if we remove the `void => collapsed` transition, but we have to wait
+        // for https://github.com/angular/angular/issues/18847 to be resolved.
+        this._animationsDisabled = false;
+    };
     Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
         /**
          * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
@@ -17444,6 +17584,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                         '[class.mat-expanded]': '_isExpanded()',
                         '(click)': '_toggle()',
                         '(keydown)': '_keydown($event)',
+                        '[@.disabled]': '_animationsDisabled',
+                        '(@expansionHeight.start)': '_animationStarted()',
                         '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                     },
                 },] },
@@ -20972,13 +21114,22 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        /** @type {?} */
+        var list = this.selectionList;
+        if (list._value && list._value.some((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { return list.compareWith(value, _this._value); }))) {
+            this._setSelected(true);
+        }
+        /** @type {?} */
+        var wasSelected = this._selected;
         // List options that are selected at initialization can't be reported properly to the form
         // control. This is because it takes some time until the selection-list knows about all
         // available options. Also it can happen that the ControlValueAccessor has an initial value
         // that should be used instead. Deferring the value change report to the next tick ensures
         // that the form control value is not being overwritten.
-        /** @type {?} */
-        var wasSelected = this._selected;
         Promise.resolve().then((/**
          * @return {?}
          */
@@ -21186,8 +21337,8 @@ var MatListOption = /** @class */ (function (_super) {
                         // its theme. The accent theme palette is the default and doesn't need to be set.
                         '[class.mat-primary]': 'color === "primary"',
                         '[class.mat-warn]': 'color === "warn"',
-                        '[attr.aria-selected]': 'selected.toString()',
-                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-selected]': 'selected',
+                        '[attr.aria-disabled]': 'disabled',
                     },
                     template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\" #text><ng-content></ng-content></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content></div>",
                     encapsulation: core.ViewEncapsulation.None,
@@ -21236,6 +21387,17 @@ var MatSelectionList = /** @class */ (function (_super) {
          * Theme color of the selection list. This sets the checkbox color for all list options.
          */
         _this.color = 'accent';
+        /**
+         * Function used for comparing an option against the selected value when determining which
+         * options should appear as selected. The first argument is the value of an options. The second
+         * one is a value from the selected value. A boolean must be returned.
+         */
+        _this.compareWith = (/**
+         * @param {?} a1
+         * @param {?} a2
+         * @return {?}
+         */
+        function (a1, a2) { return a1 === a2; });
         _this._disabled = false;
         /**
          * The currently selected options.
@@ -21250,9 +21412,9 @@ var MatSelectionList = /** @class */ (function (_super) {
          */
         function (_) { });
         /**
-         * Subscription to sync value changes in the SelectionModel back to the SelectionList.
+         * Emits when the list has been destroyed.
          */
-        _this._modelChanges = rxjs.Subscription.EMPTY;
+        _this._destroyed = new rxjs.Subject();
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
@@ -21302,12 +21464,11 @@ var MatSelectionList = /** @class */ (function (_super) {
          */
         function () { return false; }))
             .withAllowedModifierKeys(['shiftKey']);
-        if (this._tempValues) {
-            this._setOptionsFromValues(this._tempValues);
-            this._tempValues = null;
+        if (this._value) {
+            this._setOptionsFromValues(this._value);
         }
         // Sync external changes to the model back to the options.
-        this._modelChanges = this.selectedOptions.onChange.subscribe((/**
+        this.selectedOptions.onChange.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
          * @param {?} event
          * @return {?}
          */
@@ -21351,8 +21512,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._destroyed = true;
-        this._modelChanges.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
+        this._isDestroyed = true;
     };
     /** Focuses the selection list. */
     /**
@@ -21499,8 +21661,11 @@ var MatSelectionList = /** @class */ (function (_super) {
         // Stop reporting value changes after the list has been destroyed. This avoids
         // cases where the list might wrongly reset its value once it is removed, but
         // the form control is still live.
-        if (this.options && !this._destroyed) {
-            this._onChange(this._getSelectedOptionValues());
+        if (this.options && !this._isDestroyed) {
+            /** @type {?} */
+            var value = this._getSelectedOptionValues();
+            this._onChange(value);
+            this._value = value;
         }
     };
     /** Emits a change event if the selected state of an option changed. */
@@ -21529,11 +21694,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (values) {
+        this._value = values;
         if (this.options) {
             this._setOptionsFromValues(values || []);
-        }
-        else {
-            this._tempValues = values;
         }
     };
     /** Implemented as a part of ControlValueAccessor. */
@@ -21611,10 +21774,7 @@ var MatSelectionList = /** @class */ (function (_super) {
             function (option) {
                 // Skip options that are already in the model. This allows us to handle cases
                 // where the same primitive value is selected multiple times.
-                if (option.selected) {
-                    return false;
-                }
-                return _this.compareWith ? _this.compareWith(option.value, value) : option.value === value;
+                return option.selected ? false : _this.compareWith(option.value, value);
             }));
             if (correspondingOption) {
                 correspondingOption._setSelected(true);
@@ -27831,9 +27991,9 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
+        _this._diameter = BASE_SIZE;
         _this._value = 0;
         _this._fallbackAnimation = false;
-        _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -35674,10 +35834,11 @@ function _MAT_INK_BAR_POSITIONER_FACTORY() {
  * \@docs-private
  */
 var MatInkBar = /** @class */ (function () {
-    function MatInkBar(_elementRef, _ngZone, _inkBarPositioner) {
+    function MatInkBar(_elementRef, _ngZone, _inkBarPositioner, _animationMode) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
         this._inkBarPositioner = _inkBarPositioner;
+        this._animationMode = _animationMode;
     }
     /**
      * Calculates the styles from the provided element in order to align the ink-bar to that element.
@@ -35767,6 +35928,7 @@ var MatInkBar = /** @class */ (function () {
                     selector: 'mat-ink-bar',
                     host: {
                         'class': 'mat-ink-bar',
+                        '[class._mat-animation-noopable]': "_animationMode === 'NoopAnimations'",
                     },
                 },] },
     ];
@@ -35774,7 +35936,8 @@ var MatInkBar = /** @class */ (function () {
     MatInkBar.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: core.NgZone },
-        { type: undefined, decorators: [{ type: core.Inject, args: [_MAT_INK_BAR_POSITIONER,] }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [_MAT_INK_BAR_POSITIONER,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     return MatInkBar;
 }());
@@ -36427,7 +36590,7 @@ var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
  */
 var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform) {
+    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, _platform, _animationMode) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -36435,6 +36598,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         _this._dir = _dir;
         _this._ngZone = _ngZone;
         _this._platform = _platform;
+        _this._animationMode = _animationMode;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -37171,8 +37335,8 @@ var MatTabHeader = /** @class */ (function (_super) {
     };
     MatTabHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-header',
-                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" #previousPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_handlePaginatorClick('before')\" (mousedown)=\"_handlePaginatorPress('before')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" #nextPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (mousedown)=\"_handlePaginatorPress('after')\" (click)=\"_handlePaginatorClick('after')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
-                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}[mat-align-tabs=center] .mat-tab-labels{justify-content:center}[mat-align-tabs=end] .mat-tab-labels{justify-content:flex-end}"],
+                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" #previousPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_handlePaginatorClick('before')\" (mousedown)=\"_handlePaginatorPress('before')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" #nextPaginator aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (mousedown)=\"_handlePaginatorPress('after')\" (click)=\"_handlePaginatorClick('after')\" (touchend)=\"_stopInterval()\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-tab-list{transition:none;animation:none}.mat-tab-labels{display:flex}[mat-align-tabs=center] .mat-tab-labels{justify-content:center}[mat-align-tabs=end] .mat-tab-labels{justify-content:flex-end}"],
                     inputs: ['disableRipple'],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -37190,7 +37354,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         { type: scrolling.ViewportRuler },
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
         { type: core.NgZone },
-        { type: platform.Platform }
+        { type: platform.Platform },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatTabHeader.propDecorators = {
         _labelWrappers: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
@@ -37255,9 +37420,10 @@ var _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'pri
  */
 var MatTabGroup = /** @class */ (function (_super) {
     __extends(MatTabGroup, _super);
-    function MatTabGroup(elementRef, _changeDetectorRef, defaultConfig) {
+    function MatTabGroup(elementRef, _changeDetectorRef, defaultConfig, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this._animationMode = _animationMode;
         /**
          * The tab index that should be selected after the content has been checked.
          */
@@ -37703,8 +37869,8 @@ var MatTabGroup = /** @class */ (function (_super) {
     MatTabGroup.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-group',
                     exportAs: 'matTabGroup',
-                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_tabs.length\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [attr.aria-label]=\"tab.ariaLabel || null\" [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><div class=\"mat-tab-label-content\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" [animationDuration]=\"animationDuration\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
-                    styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{padding:0 12px}}@media (max-width:959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
+                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_tabs.length\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [attr.aria-label]=\"tab.ariaLabel || null\" [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><div class=\"mat-tab-label-content\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" [animationDuration]=\"animationDuration\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
+                    styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-label:focus{outline:dotted 2px}}.mat-tab-label.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-label.mat-tab-disabled{opacity:.5}}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-label{opacity:1}}@media (max-width:599px){.mat-tab-label{padding:0 12px}}@media (max-width:959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-tab-body-wrapper{transition:none;animation:none}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['color', 'disableRipple'],
@@ -37719,7 +37885,8 @@ var MatTabGroup = /** @class */ (function (_super) {
     MatTabGroup.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: core.ChangeDetectorRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TABS_CONFIG,] }, { type: core.Optional }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TABS_CONFIG,] }, { type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatTabGroup.propDecorators = {
         _tabs: [{ type: core.ContentChildren, args: [MatTab,] }],
@@ -37899,7 +38066,7 @@ var MatTabNav = /** @class */ (function (_super) {
                     exportAs: 'matTabNavBar, matTabNav',
                     inputs: ['color', 'disableRipple'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
-                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}[mat-align-tabs=center] .mat-tab-links{justify-content:center}[mat-align-tabs=end] .mat-tab-links{justify-content:flex-end}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
+                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}[mat-align-tabs=center] .mat-tab-links{justify-content:center}[mat-align-tabs=end] .mat-tab-links{justify-content:flex-end}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}@media (-ms-high-contrast:active){.mat-tab-link:focus{outline:dotted 2px}}.mat-tab-link.mat-tab-disabled{cursor:default}@media (-ms-high-contrast:active){.mat-tab-link.mat-tab-disabled{opacity:.5}}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (-ms-high-contrast:active){.mat-tab-link{opacity:1}}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                     host: { 'class': 'mat-tab-nav-bar' },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -37938,7 +38105,7 @@ var _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTab
  */
 var MatTabLink = /** @class */ (function (_super) {
     __extends(MatTabLink, _super);
-    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform$$1, globalRippleOptions, tabIndex, _focusMonitor) {
+    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform$$1, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
         var _this = _super.call(this) || this;
         _this._tabNavBar = _tabNavBar;
         _this._elementRef = _elementRef;
@@ -37952,6 +38119,9 @@ var MatTabLink = /** @class */ (function (_super) {
         _this.rippleConfig = globalRippleOptions || {};
         _this.tabIndex = parseInt(tabIndex) || 0;
         _focusMonitor.monitor(_elementRef);
+        if (animationMode === 'NoopAnimations') {
+            _this.rippleConfig.animation = { enterDuration: 0, exitDuration: 0 };
+        }
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
@@ -38024,7 +38194,8 @@ var MatTabLink = /** @class */ (function (_super) {
         { type: platform.Platform },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
         { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
-        { type: a11y.FocusMonitor }
+        { type: a11y.FocusMonitor },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatTabLink.propDecorators = {
         active: [{ type: core.Input }]
@@ -39031,6 +39202,9 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
+exports.MatMultiYearView = MatMultiYearView;
+exports.yearsPerPage = yearsPerPage;
+exports.yearsPerRow = yearsPerRow;
 exports.MatDatepickerModule = MatDatepickerModule;
 exports.MatCalendarHeader = MatCalendarHeader;
 exports.MatCalendar = MatCalendar;
@@ -39051,9 +39225,6 @@ exports.MatDatepickerToggleIcon = MatDatepickerToggleIcon;
 exports.MatDatepickerToggle = MatDatepickerToggle;
 exports.MatMonthView = MatMonthView;
 exports.MatYearView = MatYearView;
-exports.yearsPerPage = yearsPerPage;
-exports.yearsPerRow = yearsPerRow;
-exports.MatMultiYearView = MatMultiYearView;
 exports.MatDialogModule = MatDialogModule;
 exports.MAT_DIALOG_SCROLL_STRATEGY_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
@@ -39099,7 +39270,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39134,9 +39305,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39254,7 +39425,7 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

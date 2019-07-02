@@ -19,7 +19,10 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
     private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
+    /** Whether Angular animations in the panel header should be disabled. */
+    _animationsDisabled: boolean;
     constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions);
+    _animationStarted(): void;
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */

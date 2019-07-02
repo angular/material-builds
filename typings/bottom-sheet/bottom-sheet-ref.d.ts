@@ -29,6 +29,8 @@ export declare class MatBottomSheetRef<T = any, R = any> {
     private readonly _afterOpened;
     /** Result to be passed down to the `afterDismissed` stream. */
     private _result;
+    /** Handle to the timeout that's running as a fallback in case the exit animation doesn't fire. */
+    private _closeFallbackTimeout;
     constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef, _location?: Location);
     /**
      * Dismisses the bottom sheet.

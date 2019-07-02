@@ -100,9 +100,9 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._document = _document;
+        this._diameter = BASE_SIZE;
         this._value = 0;
         this._fallbackAnimation = false;
-        this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */

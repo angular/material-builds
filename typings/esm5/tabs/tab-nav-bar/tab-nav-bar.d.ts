@@ -78,7 +78,7 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
      * @docs-private
      */
     readonly rippleDisabled: boolean;
-    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, _focusMonitor: FocusMonitor);
+    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, _focusMonitor: FocusMonitor, animationMode?: string);
     ngOnDestroy(): void;
 }
 export {};
