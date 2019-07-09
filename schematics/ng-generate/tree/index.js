@@ -29,9 +29,9 @@ exports.default = default_1;
 function addTreeModulesToModule(options) {
     return (host) => {
         const modulePath = schematics_2.findModuleFromOptions(host, options);
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatTreeModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatTreeModule', '@angular/material/tree');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material/icon');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material/button');
         return host;
     };
 }

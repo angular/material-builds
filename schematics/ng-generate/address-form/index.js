@@ -29,11 +29,11 @@ exports.default = default_1;
 function addFormModulesToModule(options) {
     return (host) => {
         const modulePath = schematics_2.findModuleFromOptions(host, options);
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatInputModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatSelectModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatRadioModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatCardModule', '@angular/material');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatInputModule', '@angular/material/input');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material/button');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatSelectModule', '@angular/material/select');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatRadioModule', '@angular/material/radio');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatCardModule', '@angular/material/card');
         schematics_2.addModuleImportToModule(host, modulePath, 'ReactiveFormsModule', '@angular/forms');
         return host;
     };

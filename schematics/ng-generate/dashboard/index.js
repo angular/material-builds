@@ -29,11 +29,11 @@ exports.default = default_1;
 function addNavModulesToModule(options) {
     return (host) => {
         const modulePath = schematics_2.findModuleFromOptions(host, options);
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatGridListModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatCardModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatMenuModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatGridListModule', '@angular/material/grid-list');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatCardModule', '@angular/material/card');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatMenuModule', '@angular/material/menu');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material/icon');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material/button');
         schematics_2.addModuleImportToModule(host, modulePath, 'LayoutModule', '@angular/cdk/layout');
         return host;
     };

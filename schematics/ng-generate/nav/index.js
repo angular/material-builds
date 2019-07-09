@@ -30,11 +30,11 @@ function addNavModulesToModule(options) {
     return (host) => {
         const modulePath = schematics_2.findModuleFromOptions(host, options);
         schematics_2.addModuleImportToModule(host, modulePath, 'LayoutModule', '@angular/cdk/layout');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatToolbarModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatSidenavModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatListModule', '@angular/material');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatToolbarModule', '@angular/material/toolbar');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material/button');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatSidenavModule', '@angular/material/sidenav');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material/icon');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatListModule', '@angular/material/list');
         return host;
     };
 }

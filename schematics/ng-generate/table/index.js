@@ -29,9 +29,9 @@ exports.default = default_1;
 function addTableModulesToModule(options) {
     return (host) => {
         const modulePath = schematics_2.findModuleFromOptions(host, options);
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatTableModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatPaginatorModule', '@angular/material');
-        schematics_2.addModuleImportToModule(host, modulePath, 'MatSortModule', '@angular/material');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatTableModule', '@angular/material/table');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatPaginatorModule', '@angular/material/paginator');
+        schematics_2.addModuleImportToModule(host, modulePath, 'MatSortModule', '@angular/material/sort');
         return host;
     };
 }
