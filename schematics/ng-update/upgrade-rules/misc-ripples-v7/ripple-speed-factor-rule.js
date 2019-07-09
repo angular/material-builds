@@ -7,10 +7,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const chalk_1 = require("chalk");
-const tslint_1 = require("tslint");
+const schematics_1 = require("@angular/cdk/schematics");
 const ts = require("typescript");
 const ripple_speed_factor_1 = require("./ripple-speed-factor");
+/** Regular expression that matches [matRippleSpeedFactor]="$NUMBER" in templates. */
+const speedFactorNumberRegex = /\[matRippleSpeedFactor]="(\d+(?:\.\d+)?)"/g;
+/** Regular expression that matches [matRippleSpeedFactor]="$NOT_A_NUMBER" in templates. */
+const speedFactorNotParseable = /\[matRippleSpeedFactor]="(?!\d+(?:\.\d+)?")(.*)"/g;
 /**
  * Note that will be added whenever a speed factor expression has been converted to calculate
  * the according duration. This note should encourage people to clean up their code by switching
@@ -22,35 +25,54 @@ const removeNote = `TODO: Cleanup duration calculation.`;
  * ripple option to the new global animation config. Also updates every class member assignment
  * that refers to MatRipple#speedFactor.
  */
-class Rule extends tslint_1.Rules.TypedRule {
-    applyWithProgram(sourceFile, program) {
-        return this.applyWithWalker(new Walker(sourceFile, this.getOptions(), program));
+class RippleSpeedFactorRule extends schematics_1.MigrationRule {
+    constructor() {
+        super(...arguments);
+        // Only enable this rule if the migration targets version 7 as the ripple
+        // speed factor has been removed in that version.
+        this.ruleEnabled = this.targetVersion === schematics_1.TargetVersion.V7;
     }
-}
-exports.Rule = Rule;
-class Walker extends tslint_1.ProgramAwareRuleWalker {
+    visitNode(node) {
+        if (ts.isBinaryExpression(node)) {
+            this._visitBinaryExpression(node);
+        }
+        else if (ts.isPropertyAssignment(node)) {
+            this._visitPropertyAssignment(node);
+        }
+    }
+    visitTemplate(template) {
+        let match;
+        while ((match = speedFactorNumberRegex.exec(template.content)) !== null) {
+            const newEnterDuration = ripple_speed_factor_1.convertSpeedFactorToDuration(parseFloat(match[1]));
+            this._replaceText(template.filePath, template.start + match.index, match[0].length, `[matRippleAnimation]="{enterDuration: ${newEnterDuration}}"`);
+        }
+        while ((match = speedFactorNotParseable.exec(template.content)) !== null) {
+            const newDurationExpression = ripple_speed_factor_1.createSpeedFactorConvertExpression(match[1]);
+            this._replaceText(template.filePath, template.start + match.index, match[0].length, `[matRippleAnimation]="{enterDuration: (${newDurationExpression})}"`);
+        }
+    }
     /** Switches binary expressions (e.g. myRipple.speedFactor = 0.5) to the new animation config. */
-    visitBinaryExpression(expression) {
+    _visitBinaryExpression(expression) {
         if (!ts.isPropertyAccessExpression(expression.left)) {
             return;
         }
         // Left side expression consists of target object and property name (e.g. myInstance.val)
         const leftExpression = expression.left;
-        const targetTypeNode = this.getTypeChecker().getTypeAtLocation(leftExpression.expression);
+        const targetTypeNode = this.typeChecker.getTypeAtLocation(leftExpression.expression);
         if (!targetTypeNode.symbol) {
             return;
         }
         const targetTypeName = targetTypeNode.symbol.getName();
         const propertyName = leftExpression.name.getText();
+        const filePath = leftExpression.getSourceFile().fileName;
         if (targetTypeName === 'MatRipple' && propertyName === 'speedFactor') {
             if (ts.isNumericLiteral(expression.right)) {
                 const numericValue = parseFloat(expression.right.text);
                 const newEnterDurationValue = ripple_speed_factor_1.convertSpeedFactorToDuration(numericValue);
                 // Replace the `speedFactor` property name with `animation`.
-                const propertyNameReplacement = this.createReplacement(leftExpression.name.getStart(), leftExpression.name.getWidth(), 'animation');
+                this._replaceText(filePath, leftExpression.name.getStart(), leftExpression.name.getWidth(), 'animation');
                 // Replace the value assignment with the new animation config.
-                const rightExpressionReplacement = this.createReplacement(expression.right.getStart(), expression.right.getWidth(), `{enterDuration: ${newEnterDurationValue}}`);
-                this.addFailureAtNode(expression, `Found deprecated variable assignment for "${chalk_1.bold('MatRipple')}#${chalk_1.red('speedFactor')}"`, [propertyNameReplacement, rightExpressionReplacement]);
+                this._replaceText(filePath, expression.right.getStart(), expression.right.getWidth(), `{enterDuration: ${newEnterDurationValue}}`);
             }
             else {
                 // Handle the right expression differently if the previous speed factor value can't
@@ -58,21 +80,21 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
                 // calculates the explicit duration based on the non-static speed factor expression.
                 const newExpression = ripple_speed_factor_1.createSpeedFactorConvertExpression(expression.right.getText());
                 // Replace the `speedFactor` property name with `animation`.
-                const propertyNameReplacement = this.createReplacement(leftExpression.name.getStart(), leftExpression.name.getWidth(), 'animation');
+                this._replaceText(filePath, leftExpression.name.getStart(), leftExpression.name.getWidth(), 'animation');
                 // Replace the value assignment with the new animation config and remove TODO.
-                const rightExpressionReplacement = this.createReplacement(expression.right.getStart(), expression.right.getWidth(), `/** ${removeNote} */ {enterDuration: ${newExpression}}`);
-                this.addFailureAtNode(expression, `Found deprecated variable assignment for "${chalk_1.bold('MatRipple')}#${chalk_1.red('speedFactor')}"`, [propertyNameReplacement, rightExpressionReplacement]);
+                this._replaceText(filePath, expression.right.getStart(), expression.right.getWidth(), `/** ${removeNote} */ {enterDuration: ${newExpression}}`);
             }
         }
     }
     /**
-     * Switches a potential global option `baseSpeedFactor` to the new animation config. For this
-     * we assume that the `baseSpeedFactor` is not used in combination with individual speed factors.
+     * Switches the global option `baseSpeedFactor` to the new animation config. For this
+     * we assume that the `baseSpeedFactor` is not used in combination with individual
+     * speed factors.
      */
-    visitPropertyAssignment(assignment) {
+    _visitPropertyAssignment(assignment) {
         // For switching the `baseSpeedFactor` global option we expect the property assignment
-        // to be inside of a normal object literal. Custom ripple global options cannot be switched
-        // automatically.
+        // to be inside of a normal object literal. Custom ripple global options cannot be
+        // witched automatically.
         if (!ts.isObjectLiteralExpression(assignment.parent)) {
             return;
         }
@@ -85,13 +107,14 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
         // immediately in the provider object (e.g. it can happen that someone just imports the
         // config from a separate file).
         const { initializer, name } = assignment;
+        const filePath = assignment.getSourceFile().fileName;
         if (ts.isNumericLiteral(initializer)) {
             const numericValue = parseFloat(initializer.text);
             const newEnterDurationValue = ripple_speed_factor_1.convertSpeedFactorToDuration(numericValue);
-            const keyNameReplacement = this.createReplacement(name.getStart(), assignment.name.getWidth(), `animation`);
-            const initializerReplacement = this.createReplacement(initializer.getStart(), initializer.getWidth(), `{enterDuration: ${newEnterDurationValue}}`);
-            this.addFailureAtNode(assignment, `Found deprecated property assignment for "${chalk_1.bold('MAT_RIPPLE_GLOBAL_OPTIONS')}:` +
-                `${chalk_1.red('baseSpeedFactor')}"`, [keyNameReplacement, initializerReplacement]);
+            // Replace the `baseSpeedFactor` property name with `animation`.
+            this._replaceText(filePath, name.getStart(), name.getWidth(), 'animation');
+            // Replace the value assignment initializer with the new animation config.
+            this._replaceText(filePath, initializer.getStart(), initializer.getWidth(), `{enterDuration: ${newEnterDurationValue}}`);
         }
         else {
             // Handle the right expression differently if the previous speed factor value can't
@@ -99,13 +122,16 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
             // calculates the explicit duration based on the non-static speed factor expression.
             const newExpression = ripple_speed_factor_1.createSpeedFactorConvertExpression(initializer.getText());
             // Replace the `baseSpeedFactor` property name with `animation`.
-            const propertyNameReplacement = this.createReplacement(name.getStart(), name.getWidth(), 'animation');
+            this._replaceText(filePath, name.getStart(), name.getWidth(), 'animation');
             // Replace the value assignment with the new animation config and remove TODO.
-            const rightExpressionReplacement = this.createReplacement(initializer.getStart(), initializer.getWidth(), `/** ${removeNote} */ {enterDuration: ${newExpression}}`);
-            this.addFailureAtNode(assignment, `Found a deprecated property assignment for "${chalk_1.bold('MAT_RIPPLE_GLOBAL_OPTIONS')}:` +
-                `${chalk_1.red('baseSpeedFactor')}.`, [propertyNameReplacement, rightExpressionReplacement]);
+            this._replaceText(filePath, initializer.getStart(), initializer.getWidth(), `/** ${removeNote} */ {enterDuration: ${newExpression}}`);
         }
     }
+    _replaceText(filePath, start, width, newText) {
+        const recorder = this.getUpdateRecorder(filePath);
+        recorder.remove(start, width);
+        recorder.insertRight(start, newText);
+    }
 }
-exports.Walker = Walker;
-//# sourceMappingURL=rippleSpeedFactorAssignmentRule.js.map
+exports.RippleSpeedFactorRule = RippleSpeedFactorRule;
+//# sourceMappingURL=ripple-speed-factor-rule.js.map

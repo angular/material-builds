@@ -8,28 +8,31 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular/cdk/schematics");
-const chalk_1 = require("chalk");
-const tslint_1 = require("tslint");
 const ts = require("typescript");
 /**
- * Rule that detects import declarations that refer to outdated identifiers from Angular Material
- * or the CDK which cannot be updated automatically.
+ * Rule that detects import declarations that refer to outdated identifiers from
+ * Angular Material which cannot be updated automatically.
  */
-class Rule extends tslint_1.Rules.TypedRule {
-    applyWithProgram(sourceFile, program) {
-        return this.applyWithWalker(new Walker(sourceFile, this.getOptions(), program));
+class MiscImportsRule extends schematics_1.MigrationRule {
+    constructor() {
+        super(...arguments);
+        // Only enable this rule if the migration targets version 6. The rule
+        // currently only includes migrations for V6 deprecations.
+        this.ruleEnabled = this.targetVersion === schematics_1.TargetVersion.V6;
     }
-}
-exports.Rule = Rule;
-class Walker extends tslint_1.ProgramAwareRuleWalker {
-    visitImportDeclaration(node) {
-        if (!schematics_1.isMaterialImportDeclaration(node) ||
-            !node.importClause ||
+    visitNode(node) {
+        if (ts.isImportDeclaration(node)) {
+            this._visitImportDeclaration(node);
+        }
+    }
+    _visitImportDeclaration(node) {
+        if (!schematics_1.isMaterialImportDeclaration(node) || !node.importClause ||
             !node.importClause.namedBindings) {
             return;
         }
         const namedBindings = node.importClause.namedBindings;
         if (ts.isNamedImports(namedBindings)) {
+            // Migration for: https://github.com/angular/components/pull/10405 (v6)
             this._checkAnimationConstants(namedBindings);
         }
     }
@@ -41,10 +44,10 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
         namedImports.elements.filter(element => ts.isIdentifier(element.name)).forEach(element => {
             const importName = element.name.text;
             if (importName === 'SHOW_ANIMATION' || importName === 'HIDE_ANIMATION') {
-                this.addFailureAtNode(element, `Found deprecated symbol "${chalk_1.red(importName)}" which has been removed`);
+                this.createFailureAtNode(element, `Found deprecated symbol "${importName}" which has been removed`);
             }
         });
     }
 }
-exports.Walker = Walker;
-//# sourceMappingURL=checkImportsMiscRule.js.map
+exports.MiscImportsRule = MiscImportsRule;
+//# sourceMappingURL=misc-imports-rule.js.map

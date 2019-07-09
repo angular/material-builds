@@ -7,53 +7,31 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const Lint = require("tslint");
+const schematics_1 = require("@angular/cdk/schematics");
 const ts = require("typescript");
 const module_specifiers_1 = require("../../../ng-update/typescript/module-specifiers");
+const ONLY_SUBPACKAGE_FAILURE_STR = `Importing from "@angular/material" is deprecated. ` +
+    `Instead import from the entry-point the symbol belongs to.`;
+const NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR = `Imports from Angular Material should import ` +
+    `specific symbols rather than importing the entire library.`;
 /**
  * Regex for testing file paths against to determine if the file is from the
  * Angular Material library.
  */
 const ANGULAR_MATERIAL_FILEPATH_REGEX = new RegExp(`${module_specifiers_1.materialModuleSpecifier}/(.*?)/`);
 /**
- * A TSLint rule correcting symbols imports to using Angular Material
- * subpackages (e.g. @angular/material/button) rather than the top level
- * package (e.g. @angular/material).
+ * A migration rule that updates imports which refer to the primary Angular Material
+ * entry-point to use the appropriate secondary entry points (e.g. @angular/material/button).
  */
-class Rule extends Lint.Rules.TypedRule {
-    applyWithProgram(sourceFile, program) {
-        return this.applyWithFunction(sourceFile, walk, true, program.getTypeChecker());
+class SecondaryEntryPointsRule extends schematics_1.MigrationRule {
+    constructor() {
+        super(...arguments);
+        this.printer = ts.createPrinter();
+        // Only enable this rule if the migration targets version 8. The primary
+        // entry-point of Material has been marked as deprecated in version 8.
+        this.ruleEnabled = this.targetVersion === schematics_1.TargetVersion.V8;
     }
-}
-Rule.metadata = {
-    ruleName: 'update-angular-material-imports',
-    description: Lint.Utils.dedent `
-        Require all imports for Angular Material to be done via
-        @angular/material subpackages`,
-    options: null,
-    optionsDescription: '',
-    type: 'functionality',
-    typescriptOnly: true,
-};
-Rule.ONLY_SUBPACKAGE_FAILURE_STR = Lint.Utils.dedent `
-      Importing from @angular/material is deprecated. Instead import from
-      subpackage the symbol belongs to. e.g. import {MatButtonModule} from
-      '@angular/material/button'`;
-Rule.NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR = Lint.Utils.dedent `
-      Imports from Angular Material should import specific symbols rather than
-      importing the entire Angular Material library.`;
-Rule.SYMBOL_NOT_FOUND_FAILURE_STR = ` was not found in the Material library.`;
-Rule.SYMBOL_FILE_NOT_FOUND_FAILURE_STR = ` was found to be imported from a file outside the Material library.`;
-exports.Rule = Rule;
-/**
- * A walker to walk a given source file to check for imports from the
- * "@angular/material" module.
- */
-function walk(ctx, checker) {
-    // The source file to walk.
-    const sf = ctx.sourceFile;
-    const printer = ts.createPrinter();
-    const cb = (declaration) => {
+    visitNode(declaration) {
         // Only look at import declarations.
         if (!ts.isImportDeclaration(declaration) ||
             !ts.isStringLiteralLike(declaration.moduleSpecifier)) {
@@ -67,17 +45,20 @@ function walk(ctx, checker) {
         // If no import clause is found, or nothing is named as a binding in the
         // import, add failure saying to import symbols in clause.
         if (!declaration.importClause || !declaration.importClause.namedBindings) {
-            return ctx.addFailureAtNode(declaration, Rule.NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR);
+            this.createFailureAtNode(declaration, NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR);
+            return;
         }
         // All named bindings in import clauses must be named symbols, otherwise add
         // failure saying to import symbols in clause.
         if (!ts.isNamedImports(declaration.importClause.namedBindings)) {
-            return ctx.addFailureAtNode(declaration, Rule.NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR);
+            this.createFailureAtNode(declaration, NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR);
+            return;
         }
         // If no symbols are in the named bindings then add failure saying to
         // import symbols in clause.
         if (!declaration.importClause.namedBindings.elements.length) {
-            return ctx.addFailureAtNode(declaration, Rule.NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR);
+            this.createFailureAtNode(declaration, NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR);
+            return;
         }
         // Whether the existing import declaration is using a single quote module specifier.
         const singleQuoteImport = declaration.moduleSpecifier.getText()[0] === `'`;
@@ -91,11 +72,13 @@ function walk(ctx, checker) {
             // value declaration based on the type of the element as types are not necessarily
             // specific to a given secondary entry-point (e.g. exports with the type of "string")
             // would resolve to the module types provided by TypeScript itself.
-            const symbol = getDeclarationSymbolOfNode(elementName, checker);
+            const symbol = getDeclarationSymbolOfNode(elementName, this.typeChecker);
             // If the symbol can't be found, or no declaration could be found within
             // the symbol, add failure to report that the given symbol can't be found.
-            if (!symbol || (!symbol.valueDeclaration && symbol.declarations.length === 0)) {
-                return ctx.addFailureAtNode(element, element.getText() + Rule.SYMBOL_NOT_FOUND_FAILURE_STR);
+            if (!symbol ||
+                !(symbol.valueDeclaration || (symbol.declarations && symbol.declarations.length !== 0))) {
+                this.createFailureAtNode(element, `"${element.getText()}" was not found in the Material library.`);
+                return;
             }
             // The filename for the source file of the node that contains the
             // first declaration of the symbol. All symbol declarations must be
@@ -107,7 +90,9 @@ function walk(ctx, checker) {
             // elements are analyzed.
             const matches = sourceFile.match(ANGULAR_MATERIAL_FILEPATH_REGEX);
             if (!matches) {
-                return ctx.addFailureAtNode(element, element.getText() + Rule.SYMBOL_FILE_NOT_FOUND_FAILURE_STR);
+                this.createFailureAtNode(element, `"${element.getText()}" was found to be imported ` +
+                    `from a file outside the Material library.`);
+                return;
             }
             const [, moduleName] = matches;
             // The module name where the symbol is defined e.g. card, dialog. The
@@ -127,21 +112,24 @@ function walk(ctx, checker) {
             .sort()
             .map(([name, elements]) => {
             const newImport = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(elements)), createStringLiteral(`${module_specifiers_1.materialModuleSpecifier}/${name}`, singleQuoteImport));
-            return printer.printNode(ts.EmitHint.Unspecified, newImport, sf);
+            return this.printer.printNode(ts.EmitHint.Unspecified, newImport, declaration.getSourceFile());
         })
             .join('\n');
         // Without any import statements that were generated, we can assume that this was an empty
         // import declaration. We still want to add a failure in order to make developers aware that
         // importing from "@angular/material" is deprecated.
         if (!newImportStatements) {
-            return ctx.addFailureAtNode(declaration.moduleSpecifier, Rule.ONLY_SUBPACKAGE_FAILURE_STR);
+            this.createFailureAtNode(declaration.moduleSpecifier, ONLY_SUBPACKAGE_FAILURE_STR);
+            return;
         }
-        // Mark the lint failure at the module specifier, providing the replacement that switches
-        // the import to individual secondary entry-point imports.
-        ctx.addFailureAtNode(declaration.moduleSpecifier, Rule.ONLY_SUBPACKAGE_FAILURE_STR, new Lint.Replacement(declaration.getStart(), declaration.getWidth(), newImportStatements));
-    };
-    sf.statements.forEach(cb);
+        const recorder = this.getUpdateRecorder(declaration.moduleSpecifier.getSourceFile().fileName);
+        // Perform the replacement that switches the primary entry-point import to
+        // the individual secondary entry-point imports.
+        recorder.remove(declaration.getStart(), declaration.getWidth());
+        recorder.insertRight(declaration.getStart(), newImportStatements);
+    }
 }
+exports.SecondaryEntryPointsRule = SecondaryEntryPointsRule;
 /**
  * Creates a string literal from the specified text.
  * @param text Text of the string literal.
@@ -164,4 +152,4 @@ function getDeclarationSymbolOfNode(node, checker) {
     }
     return symbol;
 }
-//# sourceMappingURL=updateAngularMaterialImportsRule.js.map
+//# sourceMappingURL=secondary-entry-points-rule.js.map

@@ -13,52 +13,33 @@ exports.propertyNames = {
         {
             pr: 'https://github.com/angular/components/pull/10163',
             changes: [
-                {
-                    replace: 'change',
-                    replaceWith: 'selectionChange',
-                    whitelist: {
-                        classes: ['MatSelect']
-                    }
-                },
-                {
+                { replace: 'change', replaceWith: 'selectionChange', whitelist: { classes: ['MatSelect'] } }, {
                     replace: 'onOpen',
                     replaceWith: 'openedChange.pipe(filter(isOpen => isOpen))',
-                    whitelist: {
-                        classes: ['MatSelect']
-                    }
+                    whitelist: { classes: ['MatSelect'] }
                 },
                 {
                     replace: 'onClose',
                     replaceWith: 'openedChange.pipe(filter(isOpen => !isOpen))',
-                    whitelist: {
-                        classes: ['MatSelect']
-                    }
+                    whitelist: { classes: ['MatSelect'] }
                 }
             ]
         },
         {
             pr: 'https://github.com/angular/components/pull/10218',
-            changes: [
-                {
+            changes: [{
                     replace: 'align',
                     replaceWith: 'labelPosition',
-                    whitelist: {
-                        classes: ['MatRadioGroup', 'MatRadioButton']
-                    }
-                }
-            ]
+                    whitelist: { classes: ['MatRadioGroup', 'MatRadioButton'] }
+                }]
         },
         {
             pr: 'https://github.com/angular/components/pull/10253',
-            changes: [
-                {
+            changes: [{
                     replace: 'extraClasses',
                     replaceWith: 'panelClass',
-                    whitelist: {
-                        classes: ['MatSnackBarConfig']
-                    }
-                }
-            ]
+                    whitelist: { classes: ['MatSnackBarConfig'] }
+                }]
         },
         {
             pr: 'https://github.com/angular/components/pull/10279',
@@ -66,61 +47,40 @@ exports.propertyNames = {
                 {
                     replace: 'align',
                     replaceWith: 'position',
-                    whitelist: {
-                        classes: ['MatDrawer', 'MatSidenav']
-                    }
+                    whitelist: { classes: ['MatDrawer', 'MatSidenav'] }
                 },
                 {
                     replace: 'onAlignChanged',
                     replaceWith: 'onPositionChanged',
-                    whitelist: {
-                        classes: ['MatDrawer', 'MatSidenav']
-                    }
+                    whitelist: { classes: ['MatDrawer', 'MatSidenav'] }
                 },
                 {
                     replace: 'onOpen',
                     replaceWith: 'openedChange.pipe(filter(isOpen => isOpen))',
-                    whitelist: {
-                        classes: ['MatDrawer', 'MatSidenav']
-                    }
+                    whitelist: { classes: ['MatDrawer', 'MatSidenav'] }
                 },
                 {
                     replace: 'onClose',
                     replaceWith: 'openedChange.pipe(filter(isOpen => !isOpen))',
-                    whitelist: {
-                        classes: ['MatDrawer', 'MatSidenav']
-                    }
+                    whitelist: { classes: ['MatDrawer', 'MatSidenav'] }
                 }
             ]
         },
         {
             pr: 'https://github.com/angular/components/pull/10293',
-            changes: [
-                {
+            changes: [{
                     replace: 'shouldPlaceholderFloat',
                     replaceWith: 'shouldLabelFloat',
-                    whitelist: {
-                        classes: ['MatFormFieldControl', 'MatSelect']
-                    }
-                }
-            ]
+                    whitelist: { classes: ['MatFormFieldControl', 'MatSelect'] }
+                }]
         },
         {
             pr: 'https://github.com/angular/components/pull/10294',
             changes: [
-                {
-                    replace: 'dividerColor',
-                    replaceWith: 'color',
-                    whitelist: {
-                        classes: ['MatFormField']
-                    }
-                },
-                {
+                { replace: 'dividerColor', replaceWith: 'color', whitelist: { classes: ['MatFormField'] } }, {
                     replace: 'floatPlaceholder',
                     replaceWith: 'floatLabel',
-                    whitelist: {
-                        classes: ['MatFormField']
-                    }
+                    whitelist: { classes: ['MatFormField'] }
                 }
             ]
         },
@@ -130,61 +90,33 @@ exports.propertyNames = {
                 {
                     replace: 'selectChange',
                     replaceWith: 'selectedTabChange',
-                    whitelist: {
-                        classes: ['MatTabGroup']
-                    }
+                    whitelist: { classes: ['MatTabGroup'] }
                 },
                 {
                     replace: '_dynamicHeightDeprecated',
                     replaceWith: 'dynamicHeight',
-                    whitelist: {
-                        classes: ['MatTabGroup']
-                    }
+                    whitelist: { classes: ['MatTabGroup'] }
                 }
             ]
         },
         {
             pr: 'https://github.com/angular/components/pull/10311',
             changes: [
-                {
-                    replace: 'destroy',
-                    replaceWith: 'destroyed',
-                    whitelist: {
-                        classes: ['MatChip']
-                    }
-                },
-                {
-                    replace: 'onRemove',
-                    replaceWith: 'removed',
-                    whitelist: {
-                        classes: ['MatChip']
-                    }
-                }
+                { replace: 'destroy', replaceWith: 'destroyed', whitelist: { classes: ['MatChip'] } },
+                { replace: 'onRemove', replaceWith: 'removed', whitelist: { classes: ['MatChip'] } }
             ]
         },
         {
             pr: 'https://github.com/angular/components/pull/10342',
-            changes: [
-                {
-                    replace: 'align',
-                    replaceWith: 'labelPosition',
-                    whitelist: {
-                        classes: ['MatCheckbox']
-                    }
-                }
-            ]
+            changes: [{ replace: 'align', replaceWith: 'labelPosition', whitelist: { classes: ['MatCheckbox'] } }]
         },
         {
             pr: 'https://github.com/angular/components/pull/10344',
-            changes: [
-                {
+            changes: [{
                     replace: '_positionDeprecated',
                     replaceWith: 'position',
-                    whitelist: {
-                        classes: ['MatTooltip']
-                    }
-                }
-            ]
+                    whitelist: { classes: ['MatTooltip'] }
+                }]
         },
         {
             pr: 'https://github.com/angular/components/pull/10373',
@@ -192,16 +124,12 @@ exports.propertyNames = {
                 {
                     replace: '_thumbLabelDeprecated',
                     replaceWith: 'thumbLabel',
-                    whitelist: {
-                        classes: ['MatSlider']
-                    }
+                    whitelist: { classes: ['MatSlider'] }
                 },
                 {
                     replace: '_tickIntervalDeprecated',
                     replaceWith: 'tickInterval',
-                    whitelist: {
-                        classes: ['MatSlider']
-                    }
+                    whitelist: { classes: ['MatSlider'] }
                 }
             ]
         },

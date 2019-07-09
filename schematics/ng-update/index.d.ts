@@ -12,5 +12,3 @@ export declare function updateToV6(): Rule;
 export declare function updateToV7(): Rule;
 /** Entry point for the migration schematics with target of Angular Material v8 */
 export declare function updateToV8(): Rule;
-/** Post-update schematic to be called when update is finished. */
-export declare function postUpdate(): Rule;

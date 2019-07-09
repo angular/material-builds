@@ -9,16 +9,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular/cdk/schematics");
 exports.elementSelectors = {
-    [schematics_1.TargetVersion.V6]: [
-        {
+    [schematics_1.TargetVersion.V6]: [{
             pr: 'https://github.com/angular/components/pull/10297',
-            changes: [
-                {
-                    replace: 'mat-input-container',
-                    replaceWith: 'mat-form-field'
-                }
-            ]
-        }
-    ]
+            changes: [{ replace: 'mat-input-container', replaceWith: 'mat-form-field' }]
+        }]
 };
 //# sourceMappingURL=element-selectors.js.map
