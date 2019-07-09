@@ -40,10 +40,10 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     private _xPosition;
     private _yPosition;
     private _previousElevation;
-    /** Menu items inside the current menu. */
-    private _items;
-    /** Emits whenever the amount of menu items changes. */
-    private _itemChanges;
+    /** All items inside the menu. Includes items nested inside another menu. */
+    _allItems: QueryList<MatMenuItem>;
+    /** Only the direct descendant menu items. */
+    private _directDescendantItems;
     /** Subscription to tab events on the menu panel */
     private _tabSubscription;
     /** Config object to be passed into the menu's ngClass */
@@ -115,6 +115,14 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     ngOnDestroy(): void;
     /** Stream that emits whenever the hovered menu item changes. */
     _hovered(): Observable<MatMenuItem>;
+    addItem(_item: MatMenuItem): void;
+    /**
+     * Removes an item from the menu.
+     * @docs-private
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 9.0.0
+     */
+    removeItem(_item: MatMenuItem): void;
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
@@ -133,16 +141,6 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      */
     setElevation(depth: number): void;
     /**
-     * Registers a menu item with the menu.
-     * @docs-private
-     */
-    addItem(item: MatMenuItem): void;
-    /**
-     * Removes an item from the menu.
-     * @docs-private
-     */
-    removeItem(item: MatMenuItem): void;
-    /**
      * Adds classes to the menu panel based on its position. Can be used by
      * consumers to add specific styling based on the position.
      * @param posX Position of the menu along the x axis.
@@ -157,6 +155,13 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     /** Callback that is invoked when the panel animation completes. */
     _onAnimationDone(event: AnimationEvent): void;
     _onAnimationStart(event: AnimationEvent): void;
+    /**
+     * Sets up a stream that will keep track of any newly-added menu items and will update the list
+     * of direct descendants. We collect the descendants this way, because `_allItems` can include
+     * items that are part of child menus, and using a custom way of registering items is unreliable
+     * when it comes to maintaining the item order.
+     */
+    private _updateDirectDescendants;
 }
 /** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
 export declare class MatMenu extends _MatMenuBase {

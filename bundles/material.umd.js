@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.0.2-207dba653');
+var VERSION$1 = new core.Version('8.0.2-d4f23568d');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.0.2-207dba653');
+var VERSION$2 = new core.Version('8.0.2-d4f23568d');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -22562,13 +22562,9 @@ var _MatMenuBase = /** @class */ (function () {
         this._xPosition = this._defaultOptions.xPosition;
         this._yPosition = this._defaultOptions.yPosition;
         /**
-         * Menu items inside the current menu.
+         * Only the direct descendant menu items.
          */
-        this._items = [];
-        /**
-         * Emits whenever the amount of menu items changes.
-         */
-        this._itemChanges = new rxjs.Subject();
+        this._directDescendantItems = new core.QueryList();
         /**
          * Subscription to tab events on the menu panel
          */
@@ -22762,7 +22758,8 @@ var _MatMenuBase = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._keyManager = new a11y.FocusKeyManager(this._items).withWrap().withTypeAhead();
+        this._updateDirectDescendants();
+        this._keyManager = new a11y.FocusKeyManager(this._directDescendantItems).withWrap().withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe((/**
          * @return {?}
          */
@@ -22775,6 +22772,7 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        this._directDescendantItems.destroy();
         this._tabSubscription.unsubscribe();
         this.closed.complete();
     };
@@ -22788,7 +22786,7 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._itemChanges.pipe(operators.startWith(this._items), operators.switchMap((/**
+        return this._directDescendantItems.changes.pipe(operators.startWith(this._directDescendantItems), operators.switchMap((/**
          * @param {?} items
          * @return {?}
          */
@@ -22798,6 +22796,56 @@ var _MatMenuBase = /** @class */ (function () {
          */
         function (item) { return item._hovered; }))); })));
     };
+    /*
+     * Registers a menu item with the menu.
+     * @docs-private
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 9.0.0
+     */
+    /*
+       * Registers a menu item with the menu.
+       * @docs-private
+       * @deprecated No longer being used. To be removed.
+       * @breaking-change 9.0.0
+       */
+    /**
+     * @param {?} _item
+     * @return {?}
+     */
+    _MatMenuBase.prototype.addItem = /*
+       * Registers a menu item with the menu.
+       * @docs-private
+       * @deprecated No longer being used. To be removed.
+       * @breaking-change 9.0.0
+       */
+    /**
+     * @param {?} _item
+     * @return {?}
+     */
+    function (_item) { };
+    /**
+     * Removes an item from the menu.
+     * @docs-private
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 9.0.0
+     */
+    /**
+     * Removes an item from the menu.
+     * \@docs-private
+     * @deprecated No longer being used. To be removed.
+     * \@breaking-change 9.0.0
+     * @param {?} _item
+     * @return {?}
+     */
+    _MatMenuBase.prototype.removeItem = /**
+     * Removes an item from the menu.
+     * \@docs-private
+     * @deprecated No longer being used. To be removed.
+     * \@breaking-change 9.0.0
+     * @param {?} _item
+     * @return {?}
+     */
+    function (_item) { };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.
@@ -22925,57 +22973,6 @@ var _MatMenuBase = /** @class */ (function () {
         }
     };
     /**
-     * Registers a menu item with the menu.
-     * @docs-private
-     */
-    /**
-     * Registers a menu item with the menu.
-     * \@docs-private
-     * @param {?} item
-     * @return {?}
-     */
-    _MatMenuBase.prototype.addItem = /**
-     * Registers a menu item with the menu.
-     * \@docs-private
-     * @param {?} item
-     * @return {?}
-     */
-    function (item) {
-        // We register the items through this method, rather than picking them up through
-        // `ContentChildren`, because we need the items to be picked up by their closest
-        // `mat-menu` ancestor. If we used `@ContentChildren(MatMenuItem, {descendants: true})`,
-        // all descendant items will bleed into the top-level menu in the case where the consumer
-        // has `mat-menu` instances nested inside each other.
-        if (this._items.indexOf(item) === -1) {
-            this._items.push(item);
-            this._itemChanges.next(this._items);
-        }
-    };
-    /**
-     * Removes an item from the menu.
-     * @docs-private
-     */
-    /**
-     * Removes an item from the menu.
-     * \@docs-private
-     * @param {?} item
-     * @return {?}
-     */
-    _MatMenuBase.prototype.removeItem = /**
-     * Removes an item from the menu.
-     * \@docs-private
-     * @param {?} item
-     * @return {?}
-     */
-    function (item) {
-        /** @type {?} */
-        var index = this._items.indexOf(item);
-        if (this._items.indexOf(item) > -1) {
-            this._items.splice(index, 1);
-            this._itemChanges.next(this._items);
-        }
-    };
-    /**
      * Adds classes to the menu panel based on its position. Can be used by
      * consumers to add specific styling based on the position.
      * @param posX Position of the menu along the x axis.
@@ -23069,6 +23066,45 @@ var _MatMenuBase = /** @class */ (function () {
             event.element.scrollTop = 0;
         }
     };
+    /**
+     * Sets up a stream that will keep track of any newly-added menu items and will update the list
+     * of direct descendants. We collect the descendants this way, because `_allItems` can include
+     * items that are part of child menus, and using a custom way of registering items is unreliable
+     * when it comes to maintaining the item order.
+     */
+    /**
+     * Sets up a stream that will keep track of any newly-added menu items and will update the list
+     * of direct descendants. We collect the descendants this way, because `_allItems` can include
+     * items that are part of child menus, and using a custom way of registering items is unreliable
+     * when it comes to maintaining the item order.
+     * @private
+     * @return {?}
+     */
+    _MatMenuBase.prototype._updateDirectDescendants = /**
+     * Sets up a stream that will keep track of any newly-added menu items and will update the list
+     * of direct descendants. We collect the descendants this way, because `_allItems` can include
+     * items that are part of child menus, and using a custom way of registering items is unreliable
+     * when it comes to maintaining the item order.
+     * @private
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._allItems.changes
+            .pipe(operators.startWith(this._allItems))
+            .subscribe((/**
+         * @param {?} items
+         * @return {?}
+         */
+        function (items) {
+            _this._directDescendantItems.reset(items.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            function (item) { return item._parentMenu === _this; })));
+            _this._directDescendantItems.notifyOnChanges();
+        }));
+    };
     /** @nocollapse */
     _MatMenuBase.ctorParameters = function () { return [
         { type: core.ElementRef },
@@ -23076,6 +23112,7 @@ var _MatMenuBase = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
     ]; };
     _MatMenuBase.propDecorators = {
+        _allItems: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: true },] }],
         backdropClass: [{ type: core.Input }],
         xPosition: [{ type: core.Input }],
         yPosition: [{ type: core.Input }],
@@ -39391,7 +39428,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa7 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

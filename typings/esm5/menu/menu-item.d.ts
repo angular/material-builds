@@ -21,7 +21,7 @@ declare const _MatMenuItemMixinBase: CanDisableRippleCtor & CanDisableCtor & typ
 export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, OnDestroy {
     private _elementRef;
     private _focusMonitor?;
-    private _parentMenu?;
+    _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;
     /** ARIA role for the menu item. */
     role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
     private _document;
