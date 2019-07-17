@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/animations', '@angular/core', '@angular/cdk/portal', '@angular/common', 'rxjs', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.animations,global.ng.core,global.ng.cdk.portal,global.ng.common,global.rxjs,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay,global.ng.cdk.platform));
-}(this, (function (exports,animations,core,portal,common,rxjs,a11y,core$1,coercion,keycodes,operators,bidi,overlay,platform) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/animations', '@angular/cdk/portal', '@angular/common', '@angular/core', 'rxjs', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.animations,global.ng.cdk.portal,global.ng.common,global.ng.core,global.rxjs,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay,global.ng.cdk.platform));
+}(this, (function (exports,animations,portal,common,core,rxjs,a11y,core$1,coercion,keycodes,operators,bidi,overlay,platform) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -110,13 +110,14 @@ var transformMenu = matMenuAnimations.transformMenu;
  * Menu content that will be rendered lazily once the menu is opened.
  */
 var MatMenuContent = /** @class */ (function () {
-    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document, _changeDetectorRef) {
         this._template = _template;
         this._componentFactoryResolver = _componentFactoryResolver;
         this._appRef = _appRef;
         this._injector = _injector;
         this._viewContainerRef = _viewContainerRef;
         this._document = _document;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Emits when the menu content has been attached.
          */
@@ -153,6 +154,15 @@ var MatMenuContent = /** @class */ (function () {
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
         // risk it staying attached to a pane that's no longer in the DOM.
         (/** @type {?} */ (element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        // When `MatMenuContent` is used in an `OnPush` component, the insertion of the menu
+        // content via `createEmbeddedView` does not cause the content to be seen as "dirty"
+        // by Angular. This causes the `@ContentChildren` for menu items within the menu to
+        // not be updated by Angular. By explicitly marking for check here, we tell Angular that
+        // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
+        // @breaking-change 9.0.0 Make change detector ref required
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
         this._portal.attach(this._outlet, context);
         this._attached.next();
     };
@@ -198,7 +208,8 @@ var MatMenuContent = /** @class */ (function () {
         { type: core.ApplicationRef },
         { type: core.Injector },
         { type: core.ViewContainerRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     return MatMenuContent;
 }());
@@ -2035,9 +2046,9 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

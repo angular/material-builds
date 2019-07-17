@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.1-74794d4fa');
+var VERSION$1 = new core.Version('8.1.1-5fb0dc66a');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.1-74794d4fa');
+var VERSION$2 = new core.Version('8.1.1-5fb0dc66a');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -22142,13 +22142,14 @@ var transformMenu = matMenuAnimations.transformMenu;
  * Menu content that will be rendered lazily once the menu is opened.
  */
 var MatMenuContent = /** @class */ (function () {
-    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document, _changeDetectorRef) {
         this._template = _template;
         this._componentFactoryResolver = _componentFactoryResolver;
         this._appRef = _appRef;
         this._injector = _injector;
         this._viewContainerRef = _viewContainerRef;
         this._document = _document;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Emits when the menu content has been attached.
          */
@@ -22185,6 +22186,15 @@ var MatMenuContent = /** @class */ (function () {
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
         // risk it staying attached to a pane that's no longer in the DOM.
         (/** @type {?} */ (element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        // When `MatMenuContent` is used in an `OnPush` component, the insertion of the menu
+        // content via `createEmbeddedView` does not cause the content to be seen as "dirty"
+        // by Angular. This causes the `@ContentChildren` for menu items within the menu to
+        // not be updated by Angular. By explicitly marking for check here, we tell Angular that
+        // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
+        // @breaking-change 9.0.0 Make change detector ref required
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
         this._portal.attach(this._outlet, context);
         this._attached.next();
     };
@@ -22230,7 +22240,8 @@ var MatMenuContent = /** @class */ (function () {
         { type: core.ApplicationRef },
         { type: core.Injector },
         { type: core.ViewContainerRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     return MatMenuContent;
 }());
@@ -39428,7 +39439,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39463,9 +39474,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39585,8 +39596,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb24 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

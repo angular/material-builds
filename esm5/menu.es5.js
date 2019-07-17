@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
-import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, HostListener, ContentChild, ContentChildren, EventEmitter, NgZone, Output, QueryList, ViewChild, Self, NgModule } from '@angular/core';
-import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
+import { ApplicationRef, ChangeDetectorRef, ComponentFactoryResolver, Directive, Inject, Injector, TemplateRef, ViewContainerRef, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, HostListener, ContentChild, ContentChildren, EventEmitter, NgZone, Output, QueryList, ViewChild, Self, NgModule } from '@angular/core';
 import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
 import { __extends } from 'tslib';
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
@@ -90,13 +90,14 @@ var transformMenu = matMenuAnimations.transformMenu;
  * Menu content that will be rendered lazily once the menu is opened.
  */
 var MatMenuContent = /** @class */ (function () {
-    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document, _changeDetectorRef) {
         this._template = _template;
         this._componentFactoryResolver = _componentFactoryResolver;
         this._appRef = _appRef;
         this._injector = _injector;
         this._viewContainerRef = _viewContainerRef;
         this._document = _document;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Emits when the menu content has been attached.
          */
@@ -133,6 +134,15 @@ var MatMenuContent = /** @class */ (function () {
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
         // risk it staying attached to a pane that's no longer in the DOM.
         (/** @type {?} */ (element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        // When `MatMenuContent` is used in an `OnPush` component, the insertion of the menu
+        // content via `createEmbeddedView` does not cause the content to be seen as "dirty"
+        // by Angular. This causes the `@ContentChildren` for menu items within the menu to
+        // not be updated by Angular. By explicitly marking for check here, we tell Angular that
+        // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
+        // @breaking-change 9.0.0 Make change detector ref required
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
         this._portal.attach(this._outlet, context);
         this._attached.next();
     };
@@ -178,7 +188,8 @@ var MatMenuContent = /** @class */ (function () {
         { type: ApplicationRef },
         { type: Injector },
         { type: ViewContainerRef },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: ChangeDetectorRef }
     ]; };
     return MatMenuContent;
 }());
@@ -2016,5 +2027,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
 //# sourceMappingURL=menu.es5.js.map
