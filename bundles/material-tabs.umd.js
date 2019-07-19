@@ -2445,7 +2445,7 @@ var MatTabLink = /** @class */ (function (_super) {
                     inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     host: {
                         'class': 'mat-tab-link',
-                        '[attr.aria-current]': 'active',
+                        '[attr.aria-current]': 'active ? "page" : null',
                         '[attr.aria-disabled]': 'disabled',
                         '[attr.tabIndex]': 'tabIndex',
                         '[class.mat-tab-disabled]': 'disabled',
@@ -2531,8 +2531,8 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb24 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
