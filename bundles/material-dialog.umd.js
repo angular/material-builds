@@ -1107,7 +1107,7 @@ var MatDialog = /** @class */ (function () {
             [MatDialogConfig, config]
         ]));
         /** @type {?} */
-        var containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
+        var containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector, config.componentFactoryResolver);
         /** @type {?} */
         var containerRef = overlay$$1.attach(containerPortal);
         return containerRef.instance;

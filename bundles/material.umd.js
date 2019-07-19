@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.1-a415b52ea');
+var VERSION$1 = new core.Version('8.1.1-565bd7da6');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.1-a415b52ea');
+var VERSION$2 = new core.Version('8.1.1-565bd7da6');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -12084,7 +12084,7 @@ var MatDialog = /** @class */ (function () {
             [MatDialogConfig, config]
         ]));
         /** @type {?} */
-        var containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
+        var containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector, config.componentFactoryResolver);
         /** @type {?} */
         var containerRef = overlay$$1.attach(containerPortal);
         return containerRef.instance;
@@ -39528,7 +39528,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa7 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

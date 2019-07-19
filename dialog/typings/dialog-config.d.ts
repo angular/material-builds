@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ViewContainerRef } from '@angular/core';
+import { ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 /** Valid ARIA roles for a dialog element. */
@@ -83,4 +83,6 @@ export declare class MatDialogConfig<D = any> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation?: boolean;
+    /** Alternate `ComponentFactoryResolver` to use when resolving the associated component. */
+    componentFactoryResolver?: ComponentFactoryResolver;
 }

@@ -815,7 +815,7 @@ class MatDialog {
             [MatDialogConfig, config]
         ]));
         /** @type {?} */
-        const containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
+        const containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector, config.componentFactoryResolver);
         /** @type {?} */
         const containerRef = overlay.attach(containerPortal);
         return containerRef.instance;
