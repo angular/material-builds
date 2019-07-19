@@ -33,6 +33,11 @@ export declare function getMatIconFailedToSanitizeUrlError(url: SafeResourceUrl)
  * @docs-private
  */
 export declare function getMatIconFailedToSanitizeLiteralError(literal: SafeHtml): Error;
+/** Options that can be used to configure how an icon or the icons in an icon set are presented. */
+export interface IconOptions {
+    /** View box to set on the icon. */
+    viewBox?: string;
+}
 /**
  * Service to register and display icons used by the `<mat-icon>` component.
  * - Registers icon URLs by namespace and name.
@@ -71,49 +76,49 @@ export declare class MatIconRegistry implements OnDestroy {
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
-    addSvgIcon(iconName: string, url: SafeResourceUrl): this;
+    addSvgIcon(iconName: string, url: SafeResourceUrl, options?: IconOptions): this;
     /**
      * Registers an icon using an HTML string in the default namespace.
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
-    addSvgIconLiteral(iconName: string, literal: SafeHtml): this;
+    addSvgIconLiteral(iconName: string, literal: SafeHtml, options?: IconOptions): this;
     /**
      * Registers an icon by URL in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
-    addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl): this;
+    addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl, options?: IconOptions): this;
     /**
      * Registers an icon using an HTML string in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
-    addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml): this;
+    addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml, options?: IconOptions): this;
     /**
      * Registers an icon set by URL in the default namespace.
      * @param url
      */
-    addSvgIconSet(url: SafeResourceUrl): this;
+    addSvgIconSet(url: SafeResourceUrl, options?: IconOptions): this;
     /**
      * Registers an icon set using an HTML string in the default namespace.
      * @param literal SVG source of the icon set.
      */
-    addSvgIconSetLiteral(literal: SafeHtml): this;
+    addSvgIconSetLiteral(literal: SafeHtml, options?: IconOptions): this;
     /**
      * Registers an icon set by URL in the specified namespace.
      * @param namespace Namespace in which to register the icon set.
      * @param url
      */
-    addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl): this;
+    addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl, options?: IconOptions): this;
     /**
      * Registers an icon set using an HTML string in the specified namespace.
      * @param namespace Namespace in which to register the icon set.
      * @param literal SVG source of the icon set.
      */
-    addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml): this;
+    addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml, options?: IconOptions): this;
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
