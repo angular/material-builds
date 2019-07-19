@@ -311,11 +311,25 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
         if (!this._focusTrap) {
-            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+            this._focusTrap = this._focusTrapFactory.create(element);
         }
         if (this.bottomSheetConfig.autoFocus) {
             this._focusTrap.focusInitialElementWhenReady();
+        }
+        else {
+            /** @type {?} */
+            var activeElement = this._document.activeElement;
+            // Otherwise ensure that focus is on the container. It's possible that a different
+            // component tried to move focus while the open animation was running. See:
+            // https://github.com/angular/components/issues/16215. Note that we only want to do this
+            // if the focus isn't inside the bottom sheet already, because it's possible that the
+            // consumer turned off `autoFocus` in order to move focus themselves.
+            if (activeElement !== element && !element.contains(activeElement)) {
+                element.focus();
+            }
         }
     };
     /** Restores focus to the element that was focused before the bottom sheet was opened. */

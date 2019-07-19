@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.1-565bd7da6');
+var VERSION$1 = new core.Version('8.1.1-ad09bb2c1');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.1-565bd7da6');
+var VERSION$2 = new core.Version('8.1.1-ad09bb2c1');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -6202,11 +6202,25 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
         if (!this._focusTrap) {
-            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+            this._focusTrap = this._focusTrapFactory.create(element);
         }
         if (this.bottomSheetConfig.autoFocus) {
             this._focusTrap.focusInitialElementWhenReady();
+        }
+        else {
+            /** @type {?} */
+            var activeElement = this._document.activeElement;
+            // Otherwise ensure that focus is on the container. It's possible that a different
+            // component tried to move focus while the open animation was running. See:
+            // https://github.com/angular/components/issues/16215. Note that we only want to do this
+            // if the focus isn't inside the bottom sheet already, because it's possible that the
+            // consumer turned off `autoFocus` in order to move focus themselves.
+            if (activeElement !== element && !element.contains(activeElement)) {
+                element.focus();
+            }
         }
     };
     /** Restores focus to the element that was focused before the bottom sheet was opened. */
@@ -13488,7 +13502,7 @@ var MatCalendarBody = /** @class */ (function () {
     };
     MatCalendarBody.decorators = [
         { type: core.Component, args: [{selector: '[mat-calendar-body]',
-                    template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [ngClass]=\"item.cssClasses\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" [attr.aria-selected]=\"selectedValue === item.value\" (click)=\"_cellClicked(item)\" [style.width]=\"_cellWidth\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
+                    template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop]=\"_cellPadding\" [style.paddingBottom]=\"_cellPadding\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [ngClass]=\"item.cssClasses\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" [attr.aria-selected]=\"selectedValue === item.value\" (click)=\"_cellClicked(item)\" [style.width]=\"_cellWidth\" [style.paddingTop]=\"_cellPadding\" role=\"button\" [style.paddingBottom]=\"_cellPadding\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
                     styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}@media (-ms-high-contrast:active){.mat-calendar-body-cell-content{border:none}}@media (-ms-high-contrast:active){.mat-calendar-body-selected,.mat-datepicker-popup:not(:empty){outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}.cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected),.cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){outline:dotted 2px}}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
                     host: {
                         'class': 'mat-calendar-body',
@@ -39528,7 +39542,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa7 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
