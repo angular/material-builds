@@ -69,8 +69,7 @@ var /**
  * \@docs-private
  */
 SvgIconConfig = /** @class */ (function () {
-    function SvgIconConfig(data, options) {
-        this.options = options;
+    function SvgIconConfig(data) {
         // Note that we can't use `instanceof SVGElement` here,
         // because it'll break during server-side rendering.
         if (!!((/** @type {?} */ (data))).nodeName) {
@@ -133,7 +132,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIcon = /**
@@ -142,11 +140,10 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
-    function (iconName, url, options) {
-        return (/** @type {?} */ (this)).addSvgIconInNamespace('', iconName, url, options);
+    function (iconName, url) {
+        return (/** @type {?} */ (this)).addSvgIconInNamespace('', iconName, url);
     };
     /**
      * Registers an icon using an HTML string in the default namespace.
@@ -159,7 +156,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconLiteral = /**
@@ -168,11 +164,10 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @param {?=} options
      * @return {THIS}
      */
-    function (iconName, literal, options) {
-        return (/** @type {?} */ (this)).addSvgIconLiteralInNamespace('', iconName, literal, options);
+    function (iconName, literal) {
+        return (/** @type {?} */ (this)).addSvgIconLiteralInNamespace('', iconName, literal);
     };
     /**
      * Registers an icon by URL in the specified namespace.
@@ -187,7 +182,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconInNamespace = /**
@@ -197,11 +191,10 @@ var MatIconRegistry = /** @class */ (function () {
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
-    function (namespace, iconName, url, options) {
-        return (/** @type {?} */ (this))._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url, options));
+    function (namespace, iconName, url) {
+        return (/** @type {?} */ (this))._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url));
     };
     /**
      * Registers an icon using an HTML string in the specified namespace.
@@ -216,7 +209,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconLiteralInNamespace = /**
@@ -226,18 +218,17 @@ var MatIconRegistry = /** @class */ (function () {
      * @param {?} namespace Namespace in which the icon should be registered.
      * @param {?} iconName Name under which the icon should be registered.
      * @param {?} literal SVG source of the icon.
-     * @param {?=} options
      * @return {THIS}
      */
-    function (namespace, iconName, literal, options) {
+    function (namespace, iconName, literal) {
         /** @type {?} */
         var sanitizedLiteral = (/** @type {?} */ (this))._sanitizer.sanitize(SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
         /** @type {?} */
-        var svgElement = (/** @type {?} */ (this))._createSvgElementForSingleIcon(sanitizedLiteral, options);
-        return (/** @type {?} */ (this))._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement, options));
+        var svgElement = (/** @type {?} */ (this))._createSvgElementForSingleIcon(sanitizedLiteral);
+        return (/** @type {?} */ (this))._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement));
     };
     /**
      * Registers an icon set by URL in the default namespace.
@@ -248,7 +239,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @template THIS
      * @this {THIS}
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSet = /**
@@ -256,11 +246,10 @@ var MatIconRegistry = /** @class */ (function () {
      * @template THIS
      * @this {THIS}
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
-    function (url, options) {
-        return (/** @type {?} */ (this)).addSvgIconSetInNamespace('', url, options);
+    function (url) {
+        return (/** @type {?} */ (this)).addSvgIconSetInNamespace('', url);
     };
     /**
      * Registers an icon set using an HTML string in the default namespace.
@@ -271,7 +260,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @template THIS
      * @this {THIS}
      * @param {?} literal SVG source of the icon set.
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSetLiteral = /**
@@ -279,11 +267,10 @@ var MatIconRegistry = /** @class */ (function () {
      * @template THIS
      * @this {THIS}
      * @param {?} literal SVG source of the icon set.
-     * @param {?=} options
      * @return {THIS}
      */
-    function (literal, options) {
-        return (/** @type {?} */ (this)).addSvgIconSetLiteralInNamespace('', literal, options);
+    function (literal) {
+        return (/** @type {?} */ (this)).addSvgIconSetLiteralInNamespace('', literal);
     };
     /**
      * Registers an icon set by URL in the specified namespace.
@@ -296,7 +283,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSetInNamespace = /**
@@ -305,11 +291,10 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} url
-     * @param {?=} options
      * @return {THIS}
      */
-    function (namespace, url, options) {
-        return (/** @type {?} */ (this))._addSvgIconSetConfig(namespace, new SvgIconConfig(url, options));
+    function (namespace, url) {
+        return (/** @type {?} */ (this))._addSvgIconSetConfig(namespace, new SvgIconConfig(url));
     };
     /**
      * Registers an icon set using an HTML string in the specified namespace.
@@ -322,7 +307,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} literal SVG source of the icon set.
-     * @param {?=} options
      * @return {THIS}
      */
     MatIconRegistry.prototype.addSvgIconSetLiteralInNamespace = /**
@@ -331,10 +315,9 @@ var MatIconRegistry = /** @class */ (function () {
      * @this {THIS}
      * @param {?} namespace Namespace in which to register the icon set.
      * @param {?} literal SVG source of the icon set.
-     * @param {?=} options
      * @return {THIS}
      */
-    function (namespace, literal, options) {
+    function (namespace, literal) {
         /** @type {?} */
         var sanitizedLiteral = (/** @type {?} */ (this))._sanitizer.sanitize(SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
@@ -342,7 +325,7 @@ var MatIconRegistry = /** @class */ (function () {
         }
         /** @type {?} */
         var svgElement = (/** @type {?} */ (this))._svgElementFromString(sanitizedLiteral);
-        return (/** @type {?} */ (this))._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement, options));
+        return (/** @type {?} */ (this))._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement));
     };
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
@@ -694,7 +677,7 @@ var MatIconRegistry = /** @class */ (function () {
             var config = iconSetConfigs[i];
             if (config.svgElement) {
                 /** @type {?} */
-                var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName, config.options);
+                var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
                 if (foundIcon) {
                     return foundIcon;
                 }
@@ -727,7 +710,7 @@ var MatIconRegistry = /** @class */ (function () {
          * @param {?} svgText
          * @return {?}
          */
-        function (svgText) { return _this._createSvgElementForSingleIcon(svgText, config.options); })));
+        function (svgText) { return _this._createSvgElementForSingleIcon(svgText); })));
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -773,20 +756,18 @@ var MatIconRegistry = /** @class */ (function () {
      * Creates a DOM element from the given SVG string, and adds default attributes.
      * @private
      * @param {?} responseText
-     * @param {?=} options
      * @return {?}
      */
     MatIconRegistry.prototype._createSvgElementForSingleIcon = /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
      * @private
      * @param {?} responseText
-     * @param {?=} options
      * @return {?}
      */
-    function (responseText, options) {
+    function (responseText) {
         /** @type {?} */
         var svg = this._svgElementFromString(responseText);
-        this._setSvgAttributes(svg, options);
+        this._setSvgAttributes(svg);
         return svg;
     };
     /**
@@ -801,7 +782,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @private
      * @param {?} iconSet
      * @param {?} iconName
-     * @param {?=} options
      * @return {?}
      */
     MatIconRegistry.prototype._extractSvgIconFromSet = /**
@@ -811,10 +791,9 @@ var MatIconRegistry = /** @class */ (function () {
      * @private
      * @param {?} iconSet
      * @param {?} iconName
-     * @param {?=} options
      * @return {?}
      */
-    function (iconSet, iconName, options) {
+    function (iconSet, iconName) {
         // Use the `id="iconName"` syntax in order to escape special
         // characters in the ID (versus using the #iconName syntax).
         /** @type {?} */
@@ -830,13 +809,13 @@ var MatIconRegistry = /** @class */ (function () {
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
         if (iconElement.nodeName.toLowerCase() === 'svg') {
-            return this._setSvgAttributes((/** @type {?} */ (iconElement)), options);
+            return this._setSvgAttributes((/** @type {?} */ (iconElement)));
         }
         // If the node is a <symbol>, it won't be rendered so we have to convert it into <svg>. Note
         // that the same could be achieved by referring to it via <use href="#id">, however the <use>
         // tag is problematic on Firefox, because it needs to include the current page path.
         if (iconElement.nodeName.toLowerCase() === 'symbol') {
-            return this._setSvgAttributes(this._toSvgElement(iconElement), options);
+            return this._setSvgAttributes(this._toSvgElement(iconElement));
         }
         // createElement('SVG') doesn't work as expected; the DOM ends up with
         // the correct nodes, but the SVG content doesn't render. Instead we
@@ -847,7 +826,7 @@ var MatIconRegistry = /** @class */ (function () {
         var svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
         svg.appendChild(iconElement);
-        return this._setSvgAttributes(svg, options);
+        return this._setSvgAttributes(svg);
     };
     /**
      * Creates a DOM element from the given SVG string.
@@ -907,25 +886,20 @@ var MatIconRegistry = /** @class */ (function () {
      * Sets the default attributes for an SVG element to be used as an icon.
      * @private
      * @param {?} svg
-     * @param {?=} options
      * @return {?}
      */
     MatIconRegistry.prototype._setSvgAttributes = /**
      * Sets the default attributes for an SVG element to be used as an icon.
      * @private
      * @param {?} svg
-     * @param {?=} options
      * @return {?}
      */
-    function (svg, options) {
+    function (svg) {
         svg.setAttribute('fit', '');
         svg.setAttribute('height', '100%');
         svg.setAttribute('width', '100%');
         svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
         svg.setAttribute('focusable', 'false'); // Disable IE11 default behavior to make SVGs focusable.
-        if (options && options.viewBox) {
-            svg.setAttribute('viewBox', options.viewBox);
-        }
         return svg;
     };
     /**
