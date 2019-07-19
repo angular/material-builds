@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.1-9aa326e14');
+var VERSION$1 = new core.Version('8.1.1-e4f710a41');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.1-9aa326e14');
+var VERSION$2 = new core.Version('8.1.1-e4f710a41');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -35840,17 +35840,17 @@ MatTableDataSource = /** @class */ (function (_super) {
         return this.sortData(data.slice(), this.sort);
     };
     /**
-     * Returns a paged splice of the provided data array according to the provided MatPaginator's page
+     * Returns a paged slice of the provided data array according to the provided MatPaginator's page
      * index and length. If there is no paginator provided, returns the data array as provided.
      */
     /**
-     * Returns a paged splice of the provided data array according to the provided MatPaginator's page
+     * Returns a paged slice of the provided data array according to the provided MatPaginator's page
      * index and length. If there is no paginator provided, returns the data array as provided.
      * @param {?} data
      * @return {?}
      */
     MatTableDataSource.prototype._pageData = /**
-     * Returns a paged splice of the provided data array according to the provided MatPaginator's page
+     * Returns a paged slice of the provided data array according to the provided MatPaginator's page
      * index and length. If there is no paginator provided, returns the data array as provided.
      * @param {?} data
      * @return {?}
@@ -35861,7 +35861,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         }
         /** @type {?} */
         var startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        return data.slice().splice(startIndex, this.paginator.pageSize);
+        return data.slice(startIndex, startIndex + this.paginator.pageSize);
     };
     /**
      * Updates the paginator to reflect the length of the filtered data, and makes sure that the page
@@ -39471,7 +39471,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

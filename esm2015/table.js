@@ -684,7 +684,7 @@ class MatTableDataSource extends DataSource {
         return this.sortData(data.slice(), this.sort);
     }
     /**
-     * Returns a paged splice of the provided data array according to the provided MatPaginator's page
+     * Returns a paged slice of the provided data array according to the provided MatPaginator's page
      * index and length. If there is no paginator provided, returns the data array as provided.
      * @param {?} data
      * @return {?}
@@ -695,7 +695,7 @@ class MatTableDataSource extends DataSource {
         }
         /** @type {?} */
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-        return data.slice().splice(startIndex, this.paginator.pageSize);
+        return data.slice(startIndex, startIndex + this.paginator.pageSize);
     }
     /**
      * Updates the paginator to reflect the length of the filtered data, and makes sure that the page
