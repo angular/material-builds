@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgZone, Optional, Inject, NgModule } from '@angular/core';
+import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgZone, Optional, Inject, Directive, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, CheckboxRequiredValidator, NG_VALIDATORS } from '@angular/forms';
 import { mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, GestureConfig, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ObserversModule } from '@angular/cdk/observers';
@@ -455,12 +455,64 @@ MatSlideToggle.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR = {
+    provide: NG_VALIDATORS,
+    useExisting: forwardRef((/**
+     * @return {?}
+     */
+    () => MatSlideToggleRequiredValidator)),
+    multi: true
+};
+/**
+ * Validator for Material slide-toggle components with the required attribute in a
+ * template-driven form. The default validator for required form controls asserts
+ * that the control value is not undefined but that is not appropriate for a slide-toggle
+ * where the value is always defined.
+ *
+ * Required slide-toggle form controls are valid when checked.
+ */
+class MatSlideToggleRequiredValidator extends CheckboxRequiredValidator {
+}
+MatSlideToggleRequiredValidator.decorators = [
+    { type: Directive, args: [{
+                selector: `mat-slide-toggle[required][formControlName],
+             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]`,
+                providers: [MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR],
+            },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * This module is used by both original and MDC-based slide-toggle implementations.
+ */
+// tslint:disable-next-line:class-name
+class _MatSlideToggleRequiredValidatorModule {
+}
+_MatSlideToggleRequiredValidatorModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [MatSlideToggleRequiredValidator],
+                declarations: [MatSlideToggleRequiredValidator],
+            },] },
+];
 class MatSlideToggleModule {
 }
 MatSlideToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatRippleModule, MatCommonModule, ObserversModule],
-                exports: [MatSlideToggle, MatCommonModule],
+                imports: [
+                    _MatSlideToggleRequiredValidatorModule,
+                    MatRippleModule,
+                    MatCommonModule,
+                    ObserversModule,
+                ],
+                exports: [
+                    _MatSlideToggleRequiredValidatorModule,
+                    MatSlideToggle,
+                    MatCommonModule
+                ],
                 declarations: [MatSlideToggle],
                 providers: [
                     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
@@ -478,5 +530,5 @@ MatSlideToggleModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggle, MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS };
+export { _MatSlideToggleRequiredValidatorModule, MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggle, MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR, MatSlideToggleRequiredValidator };
 //# sourceMappingURL=slide-toggle.js.map

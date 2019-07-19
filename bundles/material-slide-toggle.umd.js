@@ -575,13 +575,71 @@ var MatSlideToggle = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR = {
+    provide: forms.NG_VALIDATORS,
+    useExisting: core.forwardRef((/**
+     * @return {?}
+     */
+    function () { return MatSlideToggleRequiredValidator; })),
+    multi: true
+};
+/**
+ * Validator for Material slide-toggle components with the required attribute in a
+ * template-driven form. The default validator for required form controls asserts
+ * that the control value is not undefined but that is not appropriate for a slide-toggle
+ * where the value is always defined.
+ *
+ * Required slide-toggle form controls are valid when checked.
+ */
+var MatSlideToggleRequiredValidator = /** @class */ (function (_super) {
+    __extends(MatSlideToggleRequiredValidator, _super);
+    function MatSlideToggleRequiredValidator() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MatSlideToggleRequiredValidator.decorators = [
+        { type: core.Directive, args: [{
+                    selector: "mat-slide-toggle[required][formControlName],\n             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]",
+                    providers: [MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR],
+                },] },
+    ];
+    return MatSlideToggleRequiredValidator;
+}(forms.CheckboxRequiredValidator));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * This module is used by both original and MDC-based slide-toggle implementations.
+ */
+var _MatSlideToggleRequiredValidatorModule = /** @class */ (function () {
+    function _MatSlideToggleRequiredValidatorModule() {
+    }
+    _MatSlideToggleRequiredValidatorModule.decorators = [
+        { type: core.NgModule, args: [{
+                    exports: [MatSlideToggleRequiredValidator],
+                    declarations: [MatSlideToggleRequiredValidator],
+                },] },
+    ];
+    return _MatSlideToggleRequiredValidatorModule;
+}());
 var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {
     }
     MatSlideToggleModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule],
-                    exports: [MatSlideToggle, core$1.MatCommonModule],
+                    imports: [
+                        _MatSlideToggleRequiredValidatorModule,
+                        core$1.MatRippleModule,
+                        core$1.MatCommonModule,
+                        observers.ObserversModule,
+                    ],
+                    exports: [
+                        _MatSlideToggleRequiredValidatorModule,
+                        MatSlideToggle,
+                        core$1.MatCommonModule
+                    ],
                     declarations: [MatSlideToggle],
                     providers: [
                         { provide: platformBrowser.HAMMER_GESTURE_CONFIG, useClass: core$1.GestureConfig }
@@ -591,11 +649,14 @@ var MatSlideToggleModule = /** @class */ (function () {
     return MatSlideToggleModule;
 }());
 
+exports._MatSlideToggleRequiredValidatorModule = _MatSlideToggleRequiredValidatorModule;
 exports.MatSlideToggleModule = MatSlideToggleModule;
 exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MAT_SLIDE_TOGGLE_VALUE_ACCESSOR;
 exports.MatSlideToggleChange = MatSlideToggleChange;
 exports.MatSlideToggle = MatSlideToggle;
 exports.MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS;
+exports.MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR = MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR;
+exports.MatSlideToggleRequiredValidator = MatSlideToggleRequiredValidator;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
