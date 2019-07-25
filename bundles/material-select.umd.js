@@ -723,6 +723,9 @@ var MatSelect = /** @class */ (function (_super) {
         if (changes['disabled']) {
             this.stateChanges.next();
         }
+        if (changes['typeaheadDebounceInterval'] && this._keyManager) {
+            this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
+        }
     };
     /**
      * @return {?}
@@ -1315,7 +1318,7 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._keyManager = new a11y.ActiveDescendantKeyManager(this.options)
-            .withTypeAhead()
+            .withTypeAhead(this.typeaheadDebounceInterval)
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
@@ -2141,6 +2144,7 @@ var MatSelect = /** @class */ (function (_super) {
         ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
         ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
         errorStateMatcher: [{ type: core.Input }],
+        typeaheadDebounceInterval: [{ type: core.Input }],
         sortComparator: [{ type: core.Input }],
         id: [{ type: core.Input }],
         openedChange: [{ type: core.Output }],

@@ -652,6 +652,9 @@ class MatSelect extends _MatSelectMixinBase {
         if (changes['disabled']) {
             this.stateChanges.next();
         }
+        if (changes['typeaheadDebounceInterval'] && this._keyManager) {
+            this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
+        }
     }
     /**
      * @return {?}
@@ -1055,7 +1058,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _initKeyManager() {
         this._keyManager = new ActiveDescendantKeyManager(this.options)
-            .withTypeAhead()
+            .withTypeAhead(this.typeaheadDebounceInterval)
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
@@ -1673,6 +1676,7 @@ MatSelect.propDecorators = {
     ariaLabel: [{ type: Input, args: ['aria-label',] }],
     ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
     errorStateMatcher: [{ type: Input }],
+    typeaheadDebounceInterval: [{ type: Input }],
     sortComparator: [{ type: Input }],
     id: [{ type: Input }],
     openedChange: [{ type: Output }],
