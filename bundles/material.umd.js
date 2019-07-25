@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.1-67532dbbb');
+var VERSION$1 = new core.Version('8.1.1-bd24369d3');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.1-67532dbbb');
+var VERSION$2 = new core.Version('8.1.1-bd24369d3');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -24791,9 +24791,6 @@ var MatSelect = /** @class */ (function (_super) {
         if (changes['disabled']) {
             this.stateChanges.next();
         }
-        if (changes['typeaheadDebounceInterval'] && this._keyManager) {
-            this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
-        }
     };
     /**
      * @return {?}
@@ -25386,7 +25383,7 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._keyManager = new a11y.ActiveDescendantKeyManager(this.options)
-            .withTypeAhead(this.typeaheadDebounceInterval)
+            .withTypeAhead()
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
@@ -26212,7 +26209,6 @@ var MatSelect = /** @class */ (function (_super) {
         ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
         ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
         errorStateMatcher: [{ type: core.Input }],
-        typeaheadDebounceInterval: [{ type: core.Input }],
         sortComparator: [{ type: core.Input }],
         id: [{ type: core.Input }],
         openedChange: [{ type: core.Output }],
@@ -39577,7 +39573,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
