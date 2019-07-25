@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.1-174bf4076');
+var VERSION$1 = new core.Version('8.1.1-f23a56a90');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.1-174bf4076');
+var VERSION$2 = new core.Version('8.1.1-f23a56a90');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -7172,7 +7172,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
          */
         function () {
             /** @type {?} */
-            var selected = this._selectionModel.selected;
+            var selected = this._selectionModel ? this._selectionModel.selected : [];
             return this.multiple ? selected : (selected[0] || null);
         },
         enumerable: true,
@@ -7355,11 +7355,16 @@ var MatButtonToggleGroup = /** @class */ (function () {
         if (!this.multiple && this.selected && !toggle.checked) {
             ((/** @type {?} */ (this.selected))).checked = false;
         }
-        if (select) {
-            this._selectionModel.select(toggle);
+        if (this._selectionModel) {
+            if (select) {
+                this._selectionModel.select(toggle);
+            }
+            else {
+                this._selectionModel.deselect(toggle);
+            }
         }
         else {
-            this._selectionModel.deselect(toggle);
+            deferEvents = true;
         }
         // We need to defer in some cases in order to avoid "changed after checked errors", however
         // the side-effect is that we may end up updating the model value out of sequence in others
@@ -7382,7 +7387,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
      * @return {?}
      */
     function (toggle) {
-        return this._selectionModel.isSelected(toggle);
+        return this._selectionModel && this._selectionModel.isSelected(toggle);
     };
     /** Determines whether a button toggle should be checked on init. */
     /**
@@ -24786,6 +24791,9 @@ var MatSelect = /** @class */ (function (_super) {
         if (changes['disabled']) {
             this.stateChanges.next();
         }
+        if (changes['typeaheadDebounceInterval'] && this._keyManager) {
+            this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
+        }
     };
     /**
      * @return {?}
@@ -25378,7 +25386,7 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._keyManager = new a11y.ActiveDescendantKeyManager(this.options)
-            .withTypeAhead()
+            .withTypeAhead(this.typeaheadDebounceInterval)
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
@@ -26204,6 +26212,7 @@ var MatSelect = /** @class */ (function (_super) {
         ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
         ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
         errorStateMatcher: [{ type: core.Input }],
+        typeaheadDebounceInterval: [{ type: core.Input }],
         sortComparator: [{ type: core.Input }],
         id: [{ type: core.Input }],
         openedChange: [{ type: core.Output }],
@@ -39603,9 +39612,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39728,8 +39737,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb23 = MatPaginatedTabHeader;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb24 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

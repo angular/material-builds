@@ -199,6 +199,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     ariaLabelledby: string;
     /** Object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
+    /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
+    typeaheadDebounceInterval: number;
     /**
      * Function used to sort the values in a select in multiple mode.
      * Follows the same logic as `Array.prototype.sort`.
