@@ -223,9 +223,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatExpansionPanel.prototype, "togglePosition", {
-        /** Whether the toggle indicator should be hidden. */
+        /** The position of the expansion indicator. */
         get: /**
-         * Whether the toggle indicator should be hidden.
+         * The position of the expansion indicator.
          * @return {?}
          */
         function () {

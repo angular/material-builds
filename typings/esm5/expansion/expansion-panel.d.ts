@@ -46,7 +46,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     private _togglePosition;
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
-    /** Whether the toggle indicator should be hidden. */
+    /** The position of the expansion indicator. */
     togglePosition: MatAccordionTogglePosition;
     /** An event emitted after the body's expansion animation happens. */
     afterExpand: EventEmitter<void>;

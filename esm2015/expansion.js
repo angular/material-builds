@@ -226,7 +226,7 @@ class MatExpansionPanel extends CdkAccordionItem {
         this._hideToggle = coerceBooleanProperty(value);
     }
     /**
-     * Whether the toggle indicator should be hidden.
+     * The position of the expansion indicator.
      * @return {?}
      */
     get togglePosition() {
