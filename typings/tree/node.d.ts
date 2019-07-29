@@ -6,11 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
-import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy } from '@angular/core';
 import { CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
-import { MatTreeNodeOutlet } from './outlet';
 declare const _MatTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof CdkTreeNode;
-declare const _MatNestedTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof CdkNestedTreeNode;
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
@@ -29,13 +27,17 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  */
-export declare class MatNestedTreeNode<T> extends _MatNestedTreeNodeMixinBase<T> implements AfterContentInit, CanDisable, HasTabIndex, OnDestroy {
+export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implements AfterContentInit, OnDestroy {
     protected _elementRef: ElementRef<HTMLElement>;
     protected _tree: CdkTree<T>;
     protected _differs: IterableDiffers;
     node: T;
-    /** The children node placeholder. */
-    nodeOutlet: QueryList<MatTreeNodeOutlet>;
+    /** Whether the node is disabled. */
+    disabled: any;
+    private _disabled;
+    /** Tabindex for the node. */
+    tabIndex: number;
+    private _tabIndex;
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

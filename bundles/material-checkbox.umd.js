@@ -704,7 +704,6 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
         { type: core.Directive, args: [{
                     selector: "mat-checkbox[required][formControlName],\n             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]",
                     providers: [MAT_CHECKBOX_REQUIRED_VALIDATOR],
-                    host: { '[attr.required]': 'required ? "" : null' }
                 },] },
     ];
     return MatCheckboxRequiredValidator;

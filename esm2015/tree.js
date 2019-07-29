@@ -5,9 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CDK_TREE_NODE_OUTLET_NODE, CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
-import { Directive, Inject, Optional, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { CDK_TREE_NODE_OUTLET_NODE, CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
+import { Attribute, Directive, ElementRef, Input, IterableDiffers, Inject, Optional, ViewContainerRef, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
@@ -17,39 +18,8 @@ import { map, take } from 'rxjs/operators';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/**
- * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
- * inside the outlet.
- */
-class MatTreeNodeOutlet {
-    /**
-     * @param {?} viewContainer
-     * @param {?=} _node
-     */
-    constructor(viewContainer, _node) {
-        this.viewContainer = viewContainer;
-        this._node = _node;
-    }
-}
-MatTreeNodeOutlet.decorators = [
-    { type: Directive, args: [{
-                selector: '[matTreeNodeOutlet]'
-            },] },
-];
-/** @nocollapse */
-MatTreeNodeOutlet.ctorParameters = () => [
-    { type: ViewContainerRef },
-    { type: undefined, decorators: [{ type: Inject, args: [CDK_TREE_NODE_OUTLET_NODE,] }, { type: Optional }] }
-];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /** @type {?} */
 const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
-/** @type {?} */
-const _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  * @template T
@@ -113,7 +83,7 @@ MatTreeNodeDef.propDecorators = {
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
  */
-class MatNestedTreeNode extends _MatNestedTreeNodeMixinBase {
+class MatNestedTreeNode extends CdkNestedTreeNode {
     /**
      * @param {?} _elementRef
      * @param {?} _tree
@@ -125,7 +95,31 @@ class MatNestedTreeNode extends _MatNestedTreeNodeMixinBase {
         this._elementRef = _elementRef;
         this._tree = _tree;
         this._differs = _differs;
+        this._disabled = false;
         this.tabIndex = Number(tabIndex) || 0;
+    }
+    /**
+     * Whether the node is disabled.
+     * @return {?}
+     */
+    get disabled() { return this._disabled; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    /**
+     * Tabindex for the node.
+     * @return {?}
+     */
+    get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set tabIndex(value) {
+        // If the specified tabIndex value is null or undefined, fall back to the default value.
+        this._tabIndex = value != null ? value : 0;
     }
     // This is a workaround for https://github.com/angular/angular/issues/23091
     // In aot mode, the lifecycle hooks from parent class are not called.
@@ -152,7 +146,6 @@ MatNestedTreeNode.decorators = [
                     '[attr.role]': 'role',
                     'class': 'mat-nested-tree-node',
                 },
-                inputs: ['disabled', 'tabIndex'],
                 providers: [
                     { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
                     { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
@@ -169,11 +162,8 @@ MatNestedTreeNode.ctorParameters = () => [
 ];
 MatNestedTreeNode.propDecorators = {
     node: [{ type: Input, args: ['matNestedTreeNode',] }],
-    nodeOutlet: [{ type: ContentChildren, args: [MatTreeNodeOutlet, {
-                    // We need to use `descendants: true`, because Ivy will no longer match
-                    // indirect descendants if it's left as false.
-                    descendants: true
-                },] }]
+    disabled: [{ type: Input }],
+    tabIndex: [{ type: Input }]
 };
 
 /**
@@ -196,6 +186,39 @@ MatTreeNodePadding.propDecorators = {
     level: [{ type: Input, args: ['matTreeNodePadding',] }],
     indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
+ * inside the outlet.
+ */
+class MatTreeNodeOutlet {
+    /**
+     * @param {?} viewContainer
+     * @param {?=} _node
+     */
+    constructor(viewContainer, _node) {
+        this.viewContainer = viewContainer;
+        this._node = _node;
+    }
+}
+MatTreeNodeOutlet.decorators = [
+    { type: Directive, args: [{
+                selector: '[matTreeNodeOutlet]',
+                providers: [{
+                        provide: CdkTreeNodeOutlet,
+                        useExisting: MatTreeNodeOutlet
+                    }]
+            },] },
+];
+/** @nocollapse */
+MatTreeNodeOutlet.ctorParameters = () => [
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Inject, args: [CDK_TREE_NODE_OUTLET_NODE,] }, { type: Optional }] }
+];
 
 /**
  * @fileoverview added by tsickle

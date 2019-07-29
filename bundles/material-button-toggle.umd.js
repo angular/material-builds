@@ -212,7 +212,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
          */
         function () {
             /** @type {?} */
-            var selected = this._selectionModel.selected;
+            var selected = this._selectionModel ? this._selectionModel.selected : [];
             return this.multiple ? selected : (selected[0] || null);
         },
         enumerable: true,
@@ -395,11 +395,16 @@ var MatButtonToggleGroup = /** @class */ (function () {
         if (!this.multiple && this.selected && !toggle.checked) {
             ((/** @type {?} */ (this.selected))).checked = false;
         }
-        if (select) {
-            this._selectionModel.select(toggle);
+        if (this._selectionModel) {
+            if (select) {
+                this._selectionModel.select(toggle);
+            }
+            else {
+                this._selectionModel.deselect(toggle);
+            }
         }
         else {
-            this._selectionModel.deselect(toggle);
+            deferEvents = true;
         }
         // We need to defer in some cases in order to avoid "changed after checked errors", however
         // the side-effect is that we may end up updating the model value out of sequence in others
@@ -422,7 +427,7 @@ var MatButtonToggleGroup = /** @class */ (function () {
      * @return {?}
      */
     function (toggle) {
-        return this._selectionModel.isSelected(toggle);
+        return this._selectionModel && this._selectionModel.isSelected(toggle);
     };
     /** Determines whether a button toggle should be checked on init. */
     /**
