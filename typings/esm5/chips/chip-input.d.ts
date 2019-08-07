@@ -63,7 +63,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
     _emitChipEnd(event?: KeyboardEvent): void;
     _onInput(): void;
     /** Focuses the input. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
 }

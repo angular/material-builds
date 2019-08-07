@@ -556,14 +556,19 @@ var MatCheckbox = /** @class */ (function (_super) {
     /** Focuses the checkbox. */
     /**
      * Focuses the checkbox.
+     * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
     MatCheckbox.prototype.focus = /**
      * Focuses the checkbox.
+     * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
+    function (origin, options) {
+        if (origin === void 0) { origin = 'keyboard'; }
+        this._focusMonitor.focusVia(this._inputElement, origin, options);
     };
     /**
      * @param {?} event

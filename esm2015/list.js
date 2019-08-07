@@ -715,10 +715,11 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     }
     /**
      * Focuses the selection list.
+     * @param {?=} options
      * @return {?}
      */
-    focus() {
-        this._element.nativeElement.focus();
+    focus(options) {
+        this._element.nativeElement.focus(options);
     }
     /**
      * Selects all of the options.

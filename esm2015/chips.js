@@ -954,9 +954,10 @@ class MatChipList extends _MatChipListMixinBase {
     /**
      * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
+     * @param {?=} options
      * @return {?}
      */
-    focus() {
+    focus(options) {
         if (this.disabled) {
             return;
         }
@@ -970,17 +971,18 @@ class MatChipList extends _MatChipListMixinBase {
             this.stateChanges.next();
         }
         else {
-            this._focusInput();
+            this._focusInput(options);
             this.stateChanges.next();
         }
     }
     /**
      * Attempt to focus an input if we have one.
+     * @param {?=} options
      * @return {?}
      */
-    _focusInput() {
+    _focusInput(options) {
         if (this._chipInput) {
-            this._chipInput.focus();
+            this._chipInput.focus(options);
         }
     }
     /**
@@ -1618,10 +1620,11 @@ class MatChipInput {
     }
     /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
-    focus() {
-        this._inputElement.focus();
+    focus(options) {
+        this._inputElement.focus(options);
     }
     /**
      * Checks whether a keycode is one of the configured separators.

@@ -286,14 +286,15 @@ class MatMenuItem extends _MatMenuItemMixinBase {
     /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
-    focus(origin = 'program') {
+    focus(origin = 'program', options) {
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._getHostElement(), origin);
+            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
         }
         else {
-            this._getHostElement().focus();
+            this._getHostElement().focus(options);
         }
     }
     /**
@@ -1140,14 +1141,15 @@ class MatMenuTrigger {
     /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
-    focus(origin = 'program') {
+    focus(origin = 'program', options) {
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._element, origin);
+            this._focusMonitor.focusVia(this._element, origin, options);
         }
         else {
-            this._element.nativeElement.focus();
+            this._element.nativeElement.focus(options);
         }
     }
     /**

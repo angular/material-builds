@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.2-dd4295608');
+var VERSION$1 = new core.Version('8.1.2-e6afdbb9d');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.2-dd4295608');
+var VERSION$2 = new core.Version('8.1.2-e6afdbb9d');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -2741,17 +2741,23 @@ var MatOption = /** @class */ (function () {
     /** Sets focus onto this option. */
     /**
      * Sets focus onto this option.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
     MatOption.prototype.focus = /**
      * Sets focus onto this option.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
-    function () {
+    function (_origin, options) {
+        // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
+        // use `MatOption` in a `FocusKeyManager` and we need it to match `FocusableOption`.
         /** @type {?} */
         var element = this._getHostElement();
         if (typeof element.focus === 'function') {
-            element.focus();
+            element.focus(options);
         }
     };
     /**
@@ -6842,14 +6848,20 @@ var MatButton = /** @class */ (function (_super) {
     /** Focuses the button. */
     /**
      * Focuses the button.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
     MatButton.prototype.focus = /**
      * Focuses the button.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._getHostElement().focus();
+    function (_origin, options) {
+        // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
+        // use `MatButton` in a `FocusKeyManager` and we need it to match `FocusableOption`.
+        this._getHostElement().focus(options);
     };
     /**
      * @return {?}
@@ -7711,14 +7723,16 @@ var MatButtonToggle = /** @class */ (function (_super) {
     /** Focuses the button. */
     /**
      * Focuses the button.
+     * @param {?=} options
      * @return {?}
      */
     MatButtonToggle.prototype.focus = /**
      * Focuses the button.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._buttonElement.nativeElement.focus();
+    function (options) {
+        this._buttonElement.nativeElement.focus(options);
     };
     /** Checks the button toggle due to an interaction with the underlying native button. */
     /**
@@ -8638,14 +8652,19 @@ var MatCheckbox = /** @class */ (function (_super) {
     /** Focuses the checkbox. */
     /**
      * Focuses the checkbox.
+     * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
     MatCheckbox.prototype.focus = /**
      * Focuses the checkbox.
+     * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
+    function (origin, options) {
+        if (origin === void 0) { origin = 'keyboard'; }
+        this._focusMonitor.focusVia(this._inputElement, origin, options);
     };
     /**
      * @param {?} event
@@ -10059,14 +10078,16 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
+     * @param {?=} options
      * @return {?}
      */
     MatChipList.prototype.focus = /**
      * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
+    function (options) {
         if (this.disabled) {
             return;
         }
@@ -10080,22 +10101,24 @@ var MatChipList = /** @class */ (function (_super) {
             this.stateChanges.next();
         }
         else {
-            this._focusInput();
+            this._focusInput(options);
             this.stateChanges.next();
         }
     };
     /** Attempt to focus an input if we have one. */
     /**
      * Attempt to focus an input if we have one.
+     * @param {?=} options
      * @return {?}
      */
     MatChipList.prototype._focusInput = /**
      * Attempt to focus an input if we have one.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
+    function (options) {
         if (this._chipInput) {
-            this._chipInput.focus();
+            this._chipInput.focus(options);
         }
     };
     /**
@@ -10946,14 +10969,16 @@ var MatChipInput = /** @class */ (function () {
     /** Focuses the input. */
     /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
     MatChipInput.prototype.focus = /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._inputElement.focus();
+    function (options) {
+        this._inputElement.focus(options);
     };
     /** Checks whether a keycode is one of the configured separators. */
     /**
@@ -13007,14 +13032,16 @@ var MatInput = /** @class */ (function (_super) {
     /** Focuses the input. */
     /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
     MatInput.prototype.focus = /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._elementRef.nativeElement.focus();
+    function (options) {
+        this._elementRef.nativeElement.focus(options);
     };
     /** Callback for the cases where the focused state of the input changes. */
     /**
@@ -17629,17 +17656,19 @@ var MatExpansionPanelHeader = /** @class */ (function () {
      * Focuses the panel header. Implemented as a part of `FocusableOption`.
      * \@docs-private
      * @param {?=} origin Origin of the action that triggered the focus.
+     * @param {?=} options
      * @return {?}
      */
     MatExpansionPanelHeader.prototype.focus = /**
      * Focuses the panel header. Implemented as a part of `FocusableOption`.
      * \@docs-private
      * @param {?=} origin Origin of the action that triggered the focus.
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
-        this._focusMonitor.focusVia(this._element, origin);
+        this._focusMonitor.focusVia(this._element, origin, options);
     };
     /**
      * @return {?}
@@ -21640,14 +21669,16 @@ var MatSelectionList = /** @class */ (function (_super) {
     /** Focuses the selection list. */
     /**
      * Focuses the selection list.
+     * @param {?=} options
      * @return {?}
      */
     MatSelectionList.prototype.focus = /**
      * Focuses the selection list.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._element.nativeElement.focus();
+    function (options) {
+        this._element.nativeElement.focus(options);
     };
     /** Selects all of the options. */
     /**
@@ -22398,20 +22429,22 @@ var MatMenuItem = /** @class */ (function (_super) {
     /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
     MatMenuItem.prototype.focus = /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._getHostElement(), origin);
+            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
         }
         else {
-            this._getHostElement().focus();
+            this._getHostElement().focus(options);
         }
     };
     /**
@@ -23528,20 +23561,22 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
     MatMenuTrigger.prototype.focus = /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._element, origin);
+            this._focusMonitor.focusVia(this._element, origin, options);
         }
         else {
-            this._element.nativeElement.focus();
+            this._element.nativeElement.focus(options);
         }
     };
     /** Closes the menu and does the necessary cleanup. */
@@ -25622,14 +25657,16 @@ var MatSelect = /** @class */ (function (_super) {
     /** Focuses the select element. */
     /**
      * Focuses the select element.
+     * @param {?=} options
      * @return {?}
      */
     MatSelect.prototype.focus = /**
      * Focuses the select element.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._elementRef.nativeElement.focus();
+    function (options) {
+        this._elementRef.nativeElement.focus(options);
     };
     /** Gets the index of the provided option in the option list. */
     /**
@@ -29209,14 +29246,16 @@ var MatRadioButton = /** @class */ (function (_super) {
     /** Focuses the radio button. */
     /**
      * Focuses the radio button.
+     * @param {?=} options
      * @return {?}
      */
     MatRadioButton.prototype.focus = /**
      * Focuses the radio button.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
+    function (options) {
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard', options);
     };
     /**
      * Marks the radio button as needing checking for change detection.
@@ -31241,14 +31280,16 @@ var MatSlideToggle = /** @class */ (function (_super) {
     /** Focuses the slide-toggle. */
     /**
      * Focuses the slide-toggle.
+     * @param {?=} options
      * @return {?}
      */
     MatSlideToggle.prototype.focus = /**
      * Focuses the slide-toggle.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
+    function (options) {
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard', options);
     };
     /** Toggles the checked state of the slide-toggle. */
     /**
@@ -31861,14 +31902,16 @@ var MatSlider = /** @class */ (function (_super) {
     /** set focus to the host element */
     /**
      * set focus to the host element
+     * @param {?=} options
      * @return {?}
      */
     MatSlider.prototype.focus = /**
      * set focus to the host element
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._focusHostElement();
+    function (options) {
+        this._focusHostElement(options);
     };
     /** blur the host element */
     /**
@@ -32558,16 +32601,18 @@ var MatSlider = /** @class */ (function (_super) {
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      * @private
+     * @param {?=} options
      * @return {?}
      */
     MatSlider.prototype._focusHostElement = /**
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      * @private
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._elementRef.nativeElement.focus();
+    function (options) {
+        this._elementRef.nativeElement.focus(options);
     };
     /** Blurs the native element. */
     /**
@@ -39577,7 +39622,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

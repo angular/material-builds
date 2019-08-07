@@ -16,5 +16,5 @@ export interface MatChipTextControl {
     /** Whether the text control is empty. */
     empty: boolean;
     /** Focuses the text control. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
 }

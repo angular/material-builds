@@ -381,14 +381,16 @@ var MatSlider = /** @class */ (function (_super) {
     /** set focus to the host element */
     /**
      * set focus to the host element
+     * @param {?=} options
      * @return {?}
      */
     MatSlider.prototype.focus = /**
      * set focus to the host element
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._focusHostElement();
+    function (options) {
+        this._focusHostElement(options);
     };
     /** blur the host element */
     /**
@@ -1078,16 +1080,18 @@ var MatSlider = /** @class */ (function (_super) {
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      * @private
+     * @param {?=} options
      * @return {?}
      */
     MatSlider.prototype._focusHostElement = /**
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      * @private
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._elementRef.nativeElement.focus();
+    function (options) {
+        this._elementRef.nativeElement.focus(options);
     };
     /** Blurs the native element. */
     /**

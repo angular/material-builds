@@ -370,14 +370,16 @@ var MatSlideToggle = /** @class */ (function (_super) {
     /** Focuses the slide-toggle. */
     /**
      * Focuses the slide-toggle.
+     * @param {?=} options
      * @return {?}
      */
     MatSlideToggle.prototype.focus = /**
      * Focuses the slide-toggle.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
+    function (options) {
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard', options);
     };
     /** Toggles the checked state of the slide-toggle. */
     /**

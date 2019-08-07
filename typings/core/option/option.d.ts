@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList } from '@angular/core';
+import { FocusOptions, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import { MatOptgroup } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
@@ -36,7 +37,7 @@ export declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParent
 /**
  * Single option inside of a `<mat-select>` element.
  */
-export declare class MatOption implements AfterViewChecked, OnDestroy {
+export declare class MatOption implements FocusableOption, AfterViewChecked, OnDestroy {
     private _element;
     private _changeDetectorRef;
     private _parent;
@@ -79,7 +80,7 @@ export declare class MatOption implements AfterViewChecked, OnDestroy {
     /** Deselects the option. */
     deselect(): void;
     /** Sets focus onto this option. */
-    focus(): void;
+    focus(_origin?: FocusOrigin, options?: FocusOptions): void;
     /**
      * This method sets display styles on the option to make it appear
      * active. This is used by the ActiveDescendantKeyManager so key

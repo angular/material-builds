@@ -487,14 +487,16 @@ var MatInput = /** @class */ (function (_super) {
     /** Focuses the input. */
     /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
     MatInput.prototype.focus = /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._elementRef.nativeElement.focus();
+    function (options) {
+        this._elementRef.nativeElement.focus(options);
     };
     /** Callback for the cases where the focused state of the input changes. */
     /**

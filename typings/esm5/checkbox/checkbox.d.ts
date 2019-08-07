@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, AfterViewChecked } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
@@ -51,7 +51,7 @@ declare const _MatCheckboxMixinBase: HasTabIndexCtor & CanColorCtor & CanDisable
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
  */
-export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewChecked, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple {
+export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewChecked, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
     private _changeDetectorRef;
     private _focusMonitor;
     private _ngZone;
@@ -139,7 +139,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      */
     _onInputClick(event: Event): void;
     /** Focuses the checkbox. */
-    focus(): void;
+    focus(origin?: FocusOrigin, options?: FocusOptions): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition;
 }

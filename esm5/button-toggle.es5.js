@@ -724,14 +724,16 @@ var MatButtonToggle = /** @class */ (function (_super) {
     /** Focuses the button. */
     /**
      * Focuses the button.
+     * @param {?=} options
      * @return {?}
      */
     MatButtonToggle.prototype.focus = /**
      * Focuses the button.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._buttonElement.nativeElement.focus();
+    function (options) {
+        this._buttonElement.nativeElement.focus(options);
     };
     /** Checks the button toggle due to an interaction with the underlying native button. */
     /**

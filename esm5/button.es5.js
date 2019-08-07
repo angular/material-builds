@@ -95,14 +95,20 @@ var MatButton = /** @class */ (function (_super) {
     /** Focuses the button. */
     /**
      * Focuses the button.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
     MatButton.prototype.focus = /**
      * Focuses the button.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._getHostElement().focus();
+    function (_origin, options) {
+        // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
+        // use `MatButton` in a `FocusKeyManager` and we need it to match `FocusableOption`.
+        this._getHostElement().focus(options);
     };
     /**
      * @return {?}

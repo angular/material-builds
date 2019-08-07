@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { ElementRef, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, CanColorCtor, CanDisableCtor, CanDisableRippleCtor, MatRipple } from '@angular/material/core';
 /** @docs-private */
@@ -17,7 +17,7 @@ declare const _MatButtonMixinBase: CanDisableRippleCtor & CanDisableCtor & CanCo
 /**
  * Material design button.
  */
-export declare class MatButton extends _MatButtonMixinBase implements OnDestroy, CanDisable, CanColor, CanDisableRipple {
+export declare class MatButton extends _MatButtonMixinBase implements OnDestroy, CanDisable, CanColor, CanDisableRipple, FocusableOption {
     private _focusMonitor;
     _animationMode: string;
     /** Whether the button is round. */
@@ -29,7 +29,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _animationMode: string);
     ngOnDestroy(): void;
     /** Focuses the button. */
-    focus(): void;
+    focus(_origin?: FocusOrigin, options?: FocusOptions): void;
     _getHostElement(): any;
     _isRippleDisabled(): boolean;
     /** Gets whether the button has one of the given attributes. */

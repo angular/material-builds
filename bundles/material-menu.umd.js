@@ -322,20 +322,22 @@ var MatMenuItem = /** @class */ (function (_super) {
     /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
     MatMenuItem.prototype.focus = /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._getHostElement(), origin);
+            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
         }
         else {
-            this._getHostElement().focus();
+            this._getHostElement().focus(options);
         }
     };
     /**
@@ -1452,20 +1454,22 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
     MatMenuTrigger.prototype.focus = /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._element, origin);
+            this._focusMonitor.focusVia(this._element, origin, options);
         }
         else {
-            this._element.nativeElement.focus();
+            this._element.nativeElement.focus(options);
         }
     };
     /** Closes the menu and does the necessary cleanup. */
