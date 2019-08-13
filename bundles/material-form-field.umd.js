@@ -332,6 +332,8 @@ var MatFormField = /** @class */ (function (_super) {
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
         _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
+        _this._hideRequiredMarker = (_defaults && _defaults.hideRequiredMarker != null) ?
+            _defaults.hideRequiredMarker : false;
         return _this;
     }
     Object.defineProperty(MatFormField.prototype, "appearance", {

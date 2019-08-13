@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.2-1f0ab1b11');
+var VERSION$1 = new core.Version('8.1.2-94c3fed9d');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.2-1f0ab1b11');
+var VERSION$2 = new core.Version('8.1.2-94c3fed9d');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -3390,6 +3390,8 @@ var MatFormField = /** @class */ (function (_super) {
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
         _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
+        _this._hideRequiredMarker = (_defaults && _defaults.hideRequiredMarker != null) ?
+            _defaults.hideRequiredMarker : false;
         return _this;
     }
     Object.defineProperty(MatFormField.prototype, "appearance", {
@@ -39636,7 +39638,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
