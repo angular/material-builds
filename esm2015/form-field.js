@@ -294,6 +294,8 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
         this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
+        this._hideRequiredMarker = (_defaults && _defaults.hideRequiredMarker != null) ?
+            _defaults.hideRequiredMarker : false;
     }
     /**
      * The form-field appearance style.

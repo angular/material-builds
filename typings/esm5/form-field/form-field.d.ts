@@ -38,6 +38,7 @@ export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'o
  */
 export interface MatFormFieldDefaultOptions {
     appearance?: MatFormFieldAppearance;
+    hideRequiredMarker?: boolean;
 }
 /**
  * Injection token that can be used to configure the
