@@ -306,10 +306,11 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * set focus to the host element
+     * @param {?=} options
      * @return {?}
      */
-    focus() {
-        this._focusHostElement();
+    focus(options) {
+        this._focusHostElement(options);
     }
     /**
      * blur the host element
@@ -809,10 +810,11 @@ class MatSlider extends _MatSliderMixinBase {
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      * @private
+     * @param {?=} options
      * @return {?}
      */
-    _focusHostElement() {
-        this._elementRef.nativeElement.focus();
+    _focusHostElement(options) {
+        this._elementRef.nativeElement.focus(options);
     }
     /**
      * Blurs the native element.

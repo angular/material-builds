@@ -331,7 +331,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Scrolls the active option into view. */
     private _scrollActiveOptionIntoView;
     /** Focuses the select element. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** Gets the index of the provided option in the option list. */
     private _getOptionIndex;
     /** Calculates the scroll position and x- and y-offsets of the overlay panel. */

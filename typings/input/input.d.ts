@@ -105,7 +105,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     ngOnDestroy(): void;
     ngDoCheck(): void;
     /** Focuses the input. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;

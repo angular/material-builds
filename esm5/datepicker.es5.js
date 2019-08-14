@@ -299,23 +299,6 @@ var MatMonthView = /** @class */ (function () {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        /** @type {?} */
-        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        /** @type {?} */
-        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-        /** @type {?} */
-        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-        // Rotate the labels for days of the week based on the configured first day of the week.
-        /** @type {?} */
-        var weekdays = longWeekdays.map((/**
-         * @param {?} long
-         * @param {?} i
-         * @return {?}
-         */
-        function (long, i) {
-            return { long: long, narrow: narrowWeekdays[i] };
-        }));
-        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
         this._activeDate = this._dateAdapter.today();
     }
     Object.defineProperty(MatMonthView.prototype, "activeDate", {
@@ -520,6 +503,7 @@ var MatMonthView = /** @class */ (function () {
         this._firstWeekOffset =
             (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
                 this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
+        this._initWeekdays();
         this._createWeekCells();
         this._changeDetectorRef.markForCheck();
     };
@@ -534,6 +518,36 @@ var MatMonthView = /** @class */ (function () {
      */
     function () {
         this._matCalendarBody._focusActiveCell();
+    };
+    /** Initializes the weekdays. */
+    /**
+     * Initializes the weekdays.
+     * @private
+     * @return {?}
+     */
+    MatMonthView.prototype._initWeekdays = /**
+     * Initializes the weekdays.
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        /** @type {?} */
+        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        /** @type {?} */
+        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
+        /** @type {?} */
+        var weekdays = longWeekdays.map((/**
+         * @param {?} long
+         * @param {?} i
+         * @return {?}
+         */
+        function (long, i) {
+            return { long: long, narrow: narrowWeekdays[i] };
+        }));
+        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
     };
     /** Creates MatCalendarCells for the dates in this month. */
     /**

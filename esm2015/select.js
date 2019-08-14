@@ -1240,10 +1240,11 @@ class MatSelect extends _MatSelectMixinBase {
     }
     /**
      * Focuses the select element.
+     * @param {?=} options
      * @return {?}
      */
-    focus() {
-        this._elementRef.nativeElement.focus();
+    focus(options) {
+        this._elementRef.nativeElement.focus(options);
     }
     /**
      * Gets the index of the provided option in the option list.

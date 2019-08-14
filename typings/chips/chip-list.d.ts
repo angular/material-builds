@@ -200,9 +200,9 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** Attempt to focus an input if we have one. */
-    _focusInput(): void;
+    _focusInput(options?: FocusOptions): void;
     /**
      * Pass events to the keyboard manager. Available here for tests.
      */

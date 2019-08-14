@@ -178,7 +178,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** Checks the button toggle due to an interaction with the underlying native button. */
     _onButtonClick(): void;
     /**

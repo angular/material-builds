@@ -24,7 +24,7 @@ export interface MatTabsConfig {
     animationDuration?: string;
 }
 /** Injection token that can be used to provide the default options the tabs module. */
-export declare const MAT_TABS_CONFIG: InjectionToken<{}>;
+export declare const MAT_TABS_CONFIG: InjectionToken<MatTabsConfig>;
 /** @docs-private */
 declare class MatTabGroupBase {
     _elementRef: ElementRef;

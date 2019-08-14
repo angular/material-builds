@@ -72,6 +72,8 @@ export declare class MatMonthView<D> implements AfterContentInit {
     _init(): void;
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(): void;
+    /** Initializes the weekdays. */
+    private _initWeekdays;
     /** Creates MatCalendarCells for the dates in this month. */
     private _createWeekCells;
     /** Date filter for the month */

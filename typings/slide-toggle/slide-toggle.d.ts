@@ -106,7 +106,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
     /** Focuses the slide-toggle. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** Toggles the checked state of the slide-toggle. */
     toggle(): void;
     /**

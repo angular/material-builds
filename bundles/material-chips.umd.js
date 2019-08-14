@@ -1274,14 +1274,16 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
+     * @param {?=} options
      * @return {?}
      */
     MatChipList.prototype.focus = /**
      * Focuses the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
+    function (options) {
         if (this.disabled) {
             return;
         }
@@ -1295,22 +1297,24 @@ var MatChipList = /** @class */ (function (_super) {
             this.stateChanges.next();
         }
         else {
-            this._focusInput();
+            this._focusInput(options);
             this.stateChanges.next();
         }
     };
     /** Attempt to focus an input if we have one. */
     /**
      * Attempt to focus an input if we have one.
+     * @param {?=} options
      * @return {?}
      */
     MatChipList.prototype._focusInput = /**
      * Attempt to focus an input if we have one.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
+    function (options) {
         if (this._chipInput) {
-            this._chipInput.focus();
+            this._chipInput.focus(options);
         }
     };
     /**
@@ -2161,14 +2165,16 @@ var MatChipInput = /** @class */ (function () {
     /** Focuses the input. */
     /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
     MatChipInput.prototype.focus = /**
      * Focuses the input.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._inputElement.focus();
+    function (options) {
+        this._inputElement.focus(options);
     };
     /** Checks whether a keycode is one of the configured separators. */
     /**

@@ -291,20 +291,22 @@ var MatMenuItem = /** @class */ (function (_super) {
     /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
     MatMenuItem.prototype.focus = /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._getHostElement(), origin);
+            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
         }
         else {
-            this._getHostElement().focus();
+            this._getHostElement().focus(options);
         }
     };
     /**
@@ -734,7 +736,10 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._directDescendantItems.changes.pipe(startWith(this._directDescendantItems), switchMap((/**
+        // Coerce the `changes` property because Angular types it as `Observable<any>`
+        /** @type {?} */
+        var itemChanges = (/** @type {?} */ (this._directDescendantItems.changes));
+        return itemChanges.pipe(startWith(this._directDescendantItems), switchMap((/**
          * @param {?} items
          * @return {?}
          */
@@ -1421,20 +1426,22 @@ var MatMenuTrigger = /** @class */ (function () {
     /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
     MatMenuTrigger.prototype.focus = /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._element, origin);
+            this._focusMonitor.focusVia(this._element, origin, options);
         }
         else {
-            this._element.nativeElement.focus();
+            this._element.nativeElement.focus(options);
         }
     };
     /** Closes the menu and does the necessary cleanup. */
@@ -2016,5 +2023,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
 //# sourceMappingURL=menu.es5.js.map

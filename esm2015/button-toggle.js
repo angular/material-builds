@@ -560,10 +560,11 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
     }
     /**
      * Focuses the button.
+     * @param {?=} options
      * @return {?}
      */
-    focus() {
-        this._buttonElement.nativeElement.focus();
+    focus(options) {
+        this._buttonElement.nativeElement.focus(options);
     }
     /**
      * Checks the button toggle due to an interaction with the underlying native button.

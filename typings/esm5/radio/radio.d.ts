@@ -195,7 +195,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     _inputElement: ElementRef<HTMLInputElement>;
     constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, _animationMode?: string | undefined, _providerOverride?: MatRadioDefaultOptions | undefined);
     /** Focuses the radio button. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /**
      * Marks the radio button as needing checking for change detection.
      * This method is exposed because the parent radio group will directly

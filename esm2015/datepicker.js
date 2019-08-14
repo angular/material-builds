@@ -289,23 +289,6 @@ class MatMonthView {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        /** @type {?} */
-        const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        /** @type {?} */
-        const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-        /** @type {?} */
-        const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-        // Rotate the labels for days of the week based on the configured first day of the week.
-        /** @type {?} */
-        let weekdays = longWeekdays.map((/**
-         * @param {?} long
-         * @param {?} i
-         * @return {?}
-         */
-        (long, i) => {
-            return { long, narrow: narrowWeekdays[i] };
-        }));
-        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
         this._activeDate = this._dateAdapter.today();
     }
     /**
@@ -468,6 +451,7 @@ class MatMonthView {
         this._firstWeekOffset =
             (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
                 this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
+        this._initWeekdays();
         this._createWeekCells();
         this._changeDetectorRef.markForCheck();
     }
@@ -477,6 +461,30 @@ class MatMonthView {
      */
     _focusActiveCell() {
         this._matCalendarBody._focusActiveCell();
+    }
+    /**
+     * Initializes the weekdays.
+     * @private
+     * @return {?}
+     */
+    _initWeekdays() {
+        /** @type {?} */
+        const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        /** @type {?} */
+        const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        /** @type {?} */
+        const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
+        /** @type {?} */
+        let weekdays = longWeekdays.map((/**
+         * @param {?} long
+         * @param {?} i
+         * @return {?}
+         */
+        (long, i) => {
+            return { long, narrow: narrowWeekdays[i] };
+        }));
+        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
     }
     /**
      * Creates MatCalendarCells for the dates in this month.

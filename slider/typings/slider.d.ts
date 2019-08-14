@@ -84,7 +84,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     /** The value to be used for display purposes. */
     readonly displayValue: string | number;
     /** set focus to the host element */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** blur the host element */
     blur(): void;
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */

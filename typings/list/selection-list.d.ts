@@ -97,7 +97,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
+export declare class MatSelectionList extends _MatSelectionListMixinBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager<MatListOption>;
@@ -135,7 +135,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Focuses the selection list. */
-    focus(): void;
+    focus(options?: FocusOptions): void;
     /** Selects all of the options. */
     selectAll(): void;
     /** Deselects all of the options. */

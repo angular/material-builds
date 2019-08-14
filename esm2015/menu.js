@@ -274,14 +274,15 @@ class MatMenuItem extends _MatMenuItemMixinBase {
     /**
      * Focuses the menu item.
      * @param {?=} origin
+     * @param {?=} options
      * @return {?}
      */
-    focus(origin = 'program') {
+    focus(origin = 'program', options) {
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._getHostElement(), origin);
+            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
         }
         else {
-            this._getHostElement().focus();
+            this._getHostElement().focus(options);
         }
     }
     /**
@@ -609,7 +610,10 @@ class _MatMenuBase {
      * @return {?}
      */
     _hovered() {
-        return this._directDescendantItems.changes.pipe(startWith(this._directDescendantItems), switchMap((/**
+        // Coerce the `changes` property because Angular types it as `Observable<any>`
+        /** @type {?} */
+        const itemChanges = (/** @type {?} */ (this._directDescendantItems.changes));
+        return itemChanges.pipe(startWith(this._directDescendantItems), switchMap((/**
          * @param {?} items
          * @return {?}
          */
@@ -1128,14 +1132,15 @@ class MatMenuTrigger {
     /**
      * Focuses the menu trigger.
      * @param {?=} origin Source of the menu trigger's focus.
+     * @param {?=} options
      * @return {?}
      */
-    focus(origin = 'program') {
+    focus(origin = 'program', options) {
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._element, origin);
+            this._focusMonitor.focusVia(this._element, origin, options);
         }
         else {
-            this._element.nativeElement.focus();
+            this._element.nativeElement.focus(options);
         }
     }
     /**
@@ -1577,5 +1582,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
 //# sourceMappingURL=menu.js.map

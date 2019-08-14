@@ -1533,14 +1533,16 @@ var MatSelect = /** @class */ (function (_super) {
     /** Focuses the select element. */
     /**
      * Focuses the select element.
+     * @param {?=} options
      * @return {?}
      */
     MatSelect.prototype.focus = /**
      * Focuses the select element.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._elementRef.nativeElement.focus();
+    function (options) {
+        this._elementRef.nativeElement.focus(options);
     };
     /** Gets the index of the provided option in the option list. */
     /**

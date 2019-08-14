@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new Version('8.1.2-8e6ff7ee0');
+var VERSION$1 = new Version('8.1.2-b6c9696cb');
 
 /**
  * @fileoverview added by tsickle
@@ -67,7 +67,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new Version('8.1.2-8e6ff7ee0');
+var VERSION$2 = new Version('8.1.2-b6c9696cb');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -2709,17 +2709,23 @@ var MatOption = /** @class */ (function () {
     /** Sets focus onto this option. */
     /**
      * Sets focus onto this option.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
     MatOption.prototype.focus = /**
      * Sets focus onto this option.
+     * @param {?=} _origin
+     * @param {?=} options
      * @return {?}
      */
-    function () {
+    function (_origin, options) {
+        // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
+        // use `MatOption` in a `FocusKeyManager` and we need it to match `FocusableOption`.
         /** @type {?} */
         var element = this._getHostElement();
         if (typeof element.focus === 'function') {
-            element.focus();
+            element.focus(options);
         }
     };
     /**

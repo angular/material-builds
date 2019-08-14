@@ -33,7 +33,7 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     _triggersSubmenu: boolean;
     constructor(_elementRef: ElementRef<HTMLElement>, document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined);
     /** Focuses the menu item. */
-    focus(origin?: FocusOrigin): void;
+    focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngOnDestroy(): void;
     /** Used to set the `tabindex`. */
     _getTabIndex(): string;

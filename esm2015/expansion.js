@@ -523,10 +523,11 @@ class MatExpansionPanelHeader {
      * Focuses the panel header. Implemented as a part of `FocusableOption`.
      * \@docs-private
      * @param {?=} origin Origin of the action that triggered the focus.
+     * @param {?=} options
      * @return {?}
      */
-    focus(origin = 'program') {
-        this._focusMonitor.focusVia(this._element, origin);
+    focus(origin = 'program', options) {
+        this._focusMonitor.focusVia(this._element, origin, options);
     }
     /**
      * @return {?}

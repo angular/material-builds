@@ -622,17 +622,19 @@ var MatExpansionPanelHeader = /** @class */ (function () {
      * Focuses the panel header. Implemented as a part of `FocusableOption`.
      * \@docs-private
      * @param {?=} origin Origin of the action that triggered the focus.
+     * @param {?=} options
      * @return {?}
      */
     MatExpansionPanelHeader.prototype.focus = /**
      * Focuses the panel header. Implemented as a part of `FocusableOption`.
      * \@docs-private
      * @param {?=} origin Origin of the action that triggered the focus.
+     * @param {?=} options
      * @return {?}
      */
-    function (origin) {
+    function (origin, options) {
         if (origin === void 0) { origin = 'program'; }
-        this._focusMonitor.focusVia(this._element, origin);
+        this._focusMonitor.focusVia(this._element, origin, options);
     };
     /**
      * @return {?}

@@ -884,14 +884,16 @@ var MatSelectionList = /** @class */ (function (_super) {
     /** Focuses the selection list. */
     /**
      * Focuses the selection list.
+     * @param {?=} options
      * @return {?}
      */
     MatSelectionList.prototype.focus = /**
      * Focuses the selection list.
+     * @param {?=} options
      * @return {?}
      */
-    function () {
-        this._element.nativeElement.focus();
+    function (options) {
+        this._element.nativeElement.focus(options);
     };
     /** Selects all of the options. */
     /**
