@@ -622,7 +622,10 @@ class _MatMenuBase {
      * @return {?}
      */
     _hovered() {
-        return this._directDescendantItems.changes.pipe(startWith(this._directDescendantItems), switchMap((/**
+        // Coerce the `changes` property because Angular types it as `Observable<any>`
+        /** @type {?} */
+        const itemChanges = (/** @type {?} */ (this._directDescendantItems.changes));
+        return itemChanges.pipe(startWith(this._directDescendantItems), switchMap((/**
          * @param {?} items
          * @return {?}
          */

@@ -767,7 +767,10 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._directDescendantItems.changes.pipe(operators.startWith(this._directDescendantItems), operators.switchMap((/**
+        // Coerce the `changes` property because Angular types it as `Observable<any>`
+        /** @type {?} */
+        var itemChanges = (/** @type {?} */ (this._directDescendantItems.changes));
+        return itemChanges.pipe(operators.startWith(this._directDescendantItems), operators.switchMap((/**
          * @param {?} items
          * @return {?}
          */

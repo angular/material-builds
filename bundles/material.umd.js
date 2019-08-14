@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.2-48cc5144a');
+var VERSION$1 = new core.Version('8.1.2-a0118a661');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.2-48cc5144a');
+var VERSION$2 = new core.Version('8.1.2-a0118a661');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -22890,7 +22890,10 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._directDescendantItems.changes.pipe(operators.startWith(this._directDescendantItems), operators.switchMap((/**
+        // Coerce the `changes` property because Angular types it as `Observable<any>`
+        /** @type {?} */
+        var itemChanges = (/** @type {?} */ (this._directDescendantItems.changes));
+        return itemChanges.pipe(operators.startWith(this._directDescendantItems), operators.switchMap((/**
          * @param {?} items
          * @return {?}
          */
@@ -39639,7 +39642,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
