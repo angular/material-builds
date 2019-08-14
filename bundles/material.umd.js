@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.2-a0118a661');
+var VERSION$1 = new core.Version('8.1.2-3857ab262');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.2-a0118a661');
+var VERSION$2 = new core.Version('8.1.2-3857ab262');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -24089,6 +24089,7 @@ var MatMenuTrigger = /** @class */ (function () {
         { type: core.Directive, args: [{
                     selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
                     host: {
+                        'class': 'mat-menu-trigger',
                         'aria-haspopup': 'true',
                         '[attr.aria-expanded]': 'menuOpen || null',
                         '(mousedown)': '_handleMousedown($event)',
@@ -39642,7 +39643,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa10 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

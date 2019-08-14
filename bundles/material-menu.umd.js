@@ -1966,6 +1966,7 @@ var MatMenuTrigger = /** @class */ (function () {
         { type: core.Directive, args: [{
                     selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
                     host: {
+                        'class': 'mat-menu-trigger',
                         'aria-haspopup': 'true',
                         '[attr.aria-expanded]': 'menuOpen || null',
                         '(mousedown)': '_handleMousedown($event)',
