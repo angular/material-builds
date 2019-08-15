@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs/operators'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', 'rxjs/operators', '@angular/cdk/scrolling', '@angular/forms', '@angular/material/form-field', 'rxjs'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.core,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.common,global.rxjs.operators,global.ng.cdk.scrolling,global.ng.forms,global.ng.material.formField,global.rxjs));
-}(this, (function (exports,a11y,coercion,core,core$1,bidi,keycodes,overlay,portal,common,operators,scrolling,forms,formField,rxjs) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/forms', '@angular/material/form-field', 'rxjs', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.core,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.forms,global.ng.material.formField,global.rxjs,global.rxjs.operators));
+}(this, (function (exports,a11y,coercion,core,core$1,bidi,keycodes,overlay,platform,portal,scrolling,common,forms,formField,rxjs,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -505,14 +505,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
              */
             function () { return _this.optionSelections; })));
         }))));
-        if (typeof window !== 'undefined') {
-            _zone.runOutsideAngular((/**
-             * @return {?}
-             */
-            function () {
-                window.addEventListener('blur', _this._windowBlurHandler);
-            }));
-        }
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
@@ -536,6 +528,32 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (typeof window !== 'undefined') {
+            this._zone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                window.addEventListener('blur', _this._windowBlurHandler);
+            }));
+            if (platform._supportsShadowDom()) {
+                /** @type {?} */
+                var element = this._element.nativeElement;
+                /** @type {?} */
+                var rootNode = element.getRootNode ? element.getRootNode() : null;
+                // We need to take the `ShadowRoot` off of `window`, because the built-in types are
+                // incorrect. See https://github.com/Microsoft/TypeScript/issues/27929.
+                this._isInsideShadowRoot = rootNode instanceof ((/** @type {?} */ (window))).ShadowRoot;
+            }
+        }
+    };
     /**
      * @param {?} changes
      * @return {?}
@@ -709,13 +727,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * @return {?}
          */
         function (event) {
+            // If we're in the Shadow DOM the event target will be the shadow root so we have to fall
+            // back to check the first element in the path of the click event.
             /** @type {?} */
-            var clickTarget = (/** @type {?} */ (event.target));
+            var clickTarget = (/** @type {?} */ ((_this._isInsideShadowRoot && event.composedPath ? event.composedPath()[0] :
+                event.target)));
             /** @type {?} */
-            var formField$$1 = _this._formField ?
-                _this._formField._elementRef.nativeElement : null;
-            return _this._overlayAttached &&
-                clickTarget !== _this._element.nativeElement &&
+            var formField$$1 = _this._formField ? _this._formField._elementRef.nativeElement : null;
+            return _this._overlayAttached && clickTarget !== _this._element.nativeElement &&
                 (!formField$$1 || !formField$$1.contains(clickTarget)) &&
                 (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
         })));

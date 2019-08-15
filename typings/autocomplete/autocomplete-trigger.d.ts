@@ -7,8 +7,8 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
@@ -44,7 +44,7 @@ export declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
  * @docs-private
  */
 export declare function getMatAutocompleteMissingPanelError(): Error;
-export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnChanges, OnDestroy {
+export declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     private _element;
     private _overlay;
     private _viewContainerRef;
@@ -75,6 +75,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnC
      * comes back.
      */
     private _canOpenOnNextFocus;
+    /** Whether the element is inside of a ShadowRoot component. */
+    private _isInsideShadowRoot;
     /** Stream of keyboard events that can close the panel. */
     private readonly _closeKeyEventStream;
     /**
@@ -112,6 +114,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnC
      */
     autocompleteDisabled: boolean;
     constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
+    ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */

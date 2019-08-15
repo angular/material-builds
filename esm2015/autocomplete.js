@@ -12,13 +12,14 @@ import { MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, mixinDisableRipple
 import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { _supportsShadowDom } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { DOCUMENT, CommonModule } from '@angular/common';
-import { filter, take, switchMap, delay, tap, map } from 'rxjs/operators';
 import { ViewportRuler } from '@angular/cdk/scrolling';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { Subscription, defer, fromEvent, merge, of, Subject } from 'rxjs';
+import { defer, fromEvent, merge, of, Subject, Subscription } from 'rxjs';
+import { delay, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -435,14 +436,6 @@ class MatAutocompleteTrigger {
              */
             () => this.optionSelections)));
         }))));
-        if (typeof window !== 'undefined') {
-            _zone.runOutsideAngular((/**
-             * @return {?}
-             */
-            () => {
-                window.addEventListener('blur', this._windowBlurHandler);
-            }));
-        }
         this._scrollStrategy = scrollStrategy;
     }
     /**
@@ -457,6 +450,28 @@ class MatAutocompleteTrigger {
      */
     set autocompleteDisabled(value) {
         this._autocompleteDisabled = coerceBooleanProperty(value);
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        if (typeof window !== 'undefined') {
+            this._zone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
+                window.addEventListener('blur', this._windowBlurHandler);
+            }));
+            if (_supportsShadowDom()) {
+                /** @type {?} */
+                const element = this._element.nativeElement;
+                /** @type {?} */
+                const rootNode = element.getRootNode ? element.getRootNode() : null;
+                // We need to take the `ShadowRoot` off of `window`, because the built-in types are
+                // incorrect. See https://github.com/Microsoft/TypeScript/issues/27929.
+                this._isInsideShadowRoot = rootNode instanceof ((/** @type {?} */ (window))).ShadowRoot;
+            }
+        }
     }
     /**
      * @param {?} changes
@@ -579,13 +594,14 @@ class MatAutocompleteTrigger {
          * @return {?}
          */
         event => {
+            // If we're in the Shadow DOM the event target will be the shadow root so we have to fall
+            // back to check the first element in the path of the click event.
             /** @type {?} */
-            const clickTarget = (/** @type {?} */ (event.target));
+            const clickTarget = (/** @type {?} */ ((this._isInsideShadowRoot && event.composedPath ? event.composedPath()[0] :
+                event.target)));
             /** @type {?} */
-            const formField = this._formField ?
-                this._formField._elementRef.nativeElement : null;
-            return this._overlayAttached &&
-                clickTarget !== this._element.nativeElement &&
+            const formField = this._formField ? this._formField._elementRef.nativeElement : null;
+            return this._overlayAttached && clickTarget !== this._element.nativeElement &&
                 (!formField || !formField.contains(clickTarget)) &&
                 (!!this._overlayRef && !this._overlayRef.overlayElement.contains(clickTarget));
         })));

@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.3-de06e59b2');
+var VERSION$1 = new core.Version('8.1.3-6e1fe2cca');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.3-de06e59b2');
+var VERSION$2 = new core.Version('8.1.3-6e1fe2cca');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -4585,14 +4585,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
              */
             function () { return _this.optionSelections; })));
         }))));
-        if (typeof window !== 'undefined') {
-            _zone.runOutsideAngular((/**
-             * @return {?}
-             */
-            function () {
-                window.addEventListener('blur', _this._windowBlurHandler);
-            }));
-        }
         this._scrollStrategy = scrollStrategy;
     }
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
@@ -4616,6 +4608,32 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (typeof window !== 'undefined') {
+            this._zone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                window.addEventListener('blur', _this._windowBlurHandler);
+            }));
+            if (platform._supportsShadowDom()) {
+                /** @type {?} */
+                var element = this._element.nativeElement;
+                /** @type {?} */
+                var rootNode = element.getRootNode ? element.getRootNode() : null;
+                // We need to take the `ShadowRoot` off of `window`, because the built-in types are
+                // incorrect. See https://github.com/Microsoft/TypeScript/issues/27929.
+                this._isInsideShadowRoot = rootNode instanceof ((/** @type {?} */ (window))).ShadowRoot;
+            }
+        }
+    };
     /**
      * @param {?} changes
      * @return {?}
@@ -4789,13 +4807,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * @return {?}
          */
         function (event) {
+            // If we're in the Shadow DOM the event target will be the shadow root so we have to fall
+            // back to check the first element in the path of the click event.
             /** @type {?} */
-            var clickTarget = (/** @type {?} */ (event.target));
+            var clickTarget = (/** @type {?} */ ((_this._isInsideShadowRoot && event.composedPath ? event.composedPath()[0] :
+                event.target)));
             /** @type {?} */
-            var formField = _this._formField ?
-                _this._formField._elementRef.nativeElement : null;
-            return _this._overlayAttached &&
-                clickTarget !== _this._element.nativeElement &&
+            var formField = _this._formField ? _this._formField._elementRef.nativeElement : null;
+            return _this._overlayAttached && clickTarget !== _this._element.nativeElement &&
                 (!formField || !formField.contains(clickTarget)) &&
                 (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
         })));
@@ -39643,7 +39662,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39678,9 +39697,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39803,8 +39822,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb24 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
