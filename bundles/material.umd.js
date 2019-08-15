@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.3-d5795376b');
+var VERSION$1 = new core.Version('8.1.3-02a3f3e57');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.3-d5795376b');
+var VERSION$2 = new core.Version('8.1.3-02a3f3e57');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -30174,6 +30174,7 @@ var MatDrawer = /** @class */ (function () {
                         '[class.mat-drawer-over]': 'mode === "over"',
                         '[class.mat-drawer-push]': 'mode === "push"',
                         '[class.mat-drawer-side]': 'mode === "side"',
+                        '[class.mat-drawer-opened]': 'opened',
                         'tabIndex': '-1',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -30913,6 +30914,7 @@ var MatSidenav = /** @class */ (function (_super) {
                         '[class.mat-drawer-over]': 'mode === "over"',
                         '[class.mat-drawer-push]': 'mode === "push"',
                         '[class.mat-drawer-side]': 'mode === "side"',
+                        '[class.mat-drawer-opened]': 'opened',
                         '[class.mat-sidenav-fixed]': 'fixedInViewport',
                         '[style.top.px]': 'fixedInViewport ? fixedTopGap : null',
                         '[style.bottom.px]': 'fixedInViewport ? fixedBottomGap : null',
@@ -39662,7 +39664,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39822,8 +39824,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb23 = MatPaginatedTabHeader;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb22 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
