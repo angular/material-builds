@@ -69,7 +69,7 @@ var MatButton = /** @class */ (function (_super) {
          * Whether the button is icon button.
          */
         _this.isIconButton = _this._hasHostAttributes('mat-icon-button');
-        // For each of the variant selectors that is prevent in the button's host
+        // For each of the variant selectors that is present in the button's host
         // attributes, add the correct corresponding class.
         for (var _i = 0, BUTTON_HOST_ATTRIBUTES_1 = BUTTON_HOST_ATTRIBUTES; _i < BUTTON_HOST_ATTRIBUTES_1.length; _i++) {
             var attr = BUTTON_HOST_ATTRIBUTES_1[_i];
@@ -77,6 +77,10 @@ var MatButton = /** @class */ (function (_super) {
                 ((/** @type {?} */ (_this._getHostElement()))).classList.add(attr);
             }
         }
+        // Add a class that applies to all buttons. This makes it easier to target if somebody
+        // wants to target all Material buttons. We do it here rather than `host` to ensure that
+        // the class is applied to derived classes.
+        elementRef.nativeElement.classList.add('mat-button-base');
         _this._focusMonitor.monitor(_this._elementRef, true);
         if (_this.isRoundButton) {
             _this.color = DEFAULT_ROUND_BUTTON_COLOR;
