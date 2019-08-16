@@ -150,7 +150,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
      */
-    private _shouldInvertMouseCoords;
+    _shouldInvertMouseCoords(): boolean;
     /** The language direction for this slider element. */
     private _getDirection;
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined);

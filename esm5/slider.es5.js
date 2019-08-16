@@ -573,13 +573,11 @@ var MatSlider = /** @class */ (function (_super) {
     /**
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
-     * @private
      * @return {?}
      */
     MatSlider.prototype._shouldInvertMouseCoords = /**
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
-     * @private
      * @return {?}
      */
     function () {
@@ -1188,6 +1186,9 @@ var MatSlider = /** @class */ (function (_super) {
                         '[class.mat-slider-has-ticks]': 'tickInterval',
                         '[class.mat-slider-horizontal]': '!vertical',
                         '[class.mat-slider-axis-inverted]': '_invertAxis',
+                        // Class binding which is only used by the test harness as there is no other
+                        // way for the harness to detect if mouse coordinates need to be inverted.
+                        '[class.mat-slider-invert-mouse-coords]': '_shouldInvertMouseCoords()',
                         '[class.mat-slider-sliding]': '_isSliding',
                         '[class.mat-slider-thumb-label-showing]': 'thumbLabel',
                         '[class.mat-slider-vertical]': 'vertical',
