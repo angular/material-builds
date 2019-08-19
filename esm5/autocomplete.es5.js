@@ -709,8 +709,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * @return {?}
          */
         function (event) {
-            // If we're in the Shadow DOM the event target will be the shadow root so we have to fall
-            // back to check the first element in the path of the click event.
+            // If we're in the Shadow DOM, the event target will be the shadow root, so we have to
+            // fall back to check the first element in the path of the click event.
             /** @type {?} */
             var clickTarget = (/** @type {?} */ ((_this._isInsideShadowRoot && event.composedPath ? event.composedPath()[0] :
                 event.target)));
