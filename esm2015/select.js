@@ -168,12 +168,12 @@ const SELECT_ITEM_HEIGHT_EM = 3;
  * multi-selection mode.
  *
  * Calculated as:
- * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
+ * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
  * @type {?}
  */
-const SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 16;
+let SELECT_MULTIPLE_PANEL_PADDING_X = 0;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
@@ -939,6 +939,7 @@ class MatSelect extends _MatSelectMixinBase {
          * @return {?}
          */
         () => {
+            this._setPseudoCheckboxPaddingSize();
             this._changeDetectorRef.detectChanges();
             this._calculateOverlayOffsetX();
             this.panel.nativeElement.scrollTop = this._scrollTop;
@@ -950,6 +951,21 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _getPanelTheme() {
         return this._parentFormField ? `mat-${this._parentFormField.color}` : '';
+    }
+    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
+    /**
+     * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
+     * @private
+     * @return {?}
+     */
+    _setPseudoCheckboxPaddingSize() {
+        if (!SELECT_MULTIPLE_PANEL_PADDING_X && this.multiple) {
+            /** @type {?} */
+            const pseudoCheckbox = this.panel.nativeElement.querySelector('.mat-pseudo-checkbox');
+            if (pseudoCheckbox) {
+                SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
+            }
+        }
     }
     /**
      * Whether the select has a value.

@@ -33,11 +33,11 @@ export declare const SELECT_ITEM_HEIGHT_EM = 3;
  * multi-selection mode.
  *
  * Calculated as:
- * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
+ * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
  */
-export declare const SELECT_MULTIPLE_PANEL_PADDING_X: number;
+export declare let SELECT_MULTIPLE_PANEL_PADDING_X: number;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
@@ -298,6 +298,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _onAttached(): void;
     /** Returns the theme to be used on the panel. */
     _getPanelTheme(): string;
+    /** Sets the pseudo checkbox padding size based on the width of the pseudo checkbox. */
+    private _setPseudoCheckboxPaddingSize;
     /** Whether the select has a value. */
     readonly empty: boolean;
     private _initializeSelection;
