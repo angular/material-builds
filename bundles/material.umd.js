@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.3-6a21d947f');
+var VERSION$1 = new core.Version('8.1.3-b0495f644');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.3-6a21d947f');
+var VERSION$2 = new core.Version('8.1.3-b0495f644');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -24333,12 +24333,12 @@ var SELECT_ITEM_HEIGHT_EM = 3;
  * multi-selection mode.
  *
  * Calculated as:
- * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
+ * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
  * @type {?}
  */
-exports.SELECT_MULTIPLE_PANEL_PADDING_X = 0;
+var SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 16;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
@@ -25291,7 +25291,6 @@ var MatSelect = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            _this._setPseudoCheckboxPaddingSize();
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
@@ -25308,30 +25307,6 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         return this._parentFormField ? "mat-" + this._parentFormField.color : '';
-    };
-    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
-    /** Sets the pseudo checkbox padding size based on the width of the pseudo checkbox. */
-    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
-    /**
-     * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
-     * @private
-     * @return {?}
-     */
-    MatSelect.prototype._setPseudoCheckboxPaddingSize = 
-    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
-    /**
-     * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
-     * @private
-     * @return {?}
-     */
-    function () {
-        if (!exports.SELECT_MULTIPLE_PANEL_PADDING_X && this.multiple) {
-            /** @type {?} */
-            var pseudoCheckbox = this.panel.nativeElement.querySelector('.mat-pseudo-checkbox');
-            if (pseudoCheckbox) {
-                exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
-            }
-        }
     };
     Object.defineProperty(MatSelect.prototype, "empty", {
         /** Whether the select has a value. */
@@ -25897,13 +25872,13 @@ var MatSelect = /** @class */ (function (_super) {
         /** @type {?} */
         var isRtl = this._isRtl();
         /** @type {?} */
-        var paddingWidth = this.multiple ? exports.SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
+        var paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
         /** @type {?} */
         var offsetX;
         // Adjust the offset, depending on the option padding.
         if (this.multiple) {
-            offsetX = exports.SELECT_MULTIPLE_PANEL_PADDING_X;
+            offsetX = SELECT_MULTIPLE_PANEL_PADDING_X;
         }
         else {
             /** @type {?} */
@@ -39691,7 +39666,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39771,6 +39746,7 @@ exports.SELECT_PANEL_MAX_HEIGHT = SELECT_PANEL_MAX_HEIGHT;
 exports.SELECT_PANEL_PADDING_X = SELECT_PANEL_PADDING_X;
 exports.SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_INDENT_PADDING_X;
 exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
+exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
 exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
