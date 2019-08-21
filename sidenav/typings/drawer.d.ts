@@ -116,6 +116,8 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      */
     toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
     readonly _width: number;
+    /** Updates the enabled state of the focus trap. */
+    private _updateFocusTrapState;
     _animationStartListener(event: AnimationEvent): void;
     _animationDoneListener(event: AnimationEvent): void;
 }

@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.3-1b7dc8935');
+var VERSION$1 = new core.Version('8.1.3-197091cf1');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.3-1b7dc8935');
+var VERSION$2 = new core.Version('8.1.3-197091cf1');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -29778,6 +29778,7 @@ var MatDrawer = /** @class */ (function () {
          */
         function (value) {
             this._mode = value;
+            this._updateFocusTrapState();
             this._modeChanged.next();
         },
         enumerable: true,
@@ -29969,7 +29970,7 @@ var MatDrawer = /** @class */ (function () {
      */
     function () {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-        this._focusTrap.enabled = this._isFocusTrapEnabled;
+        this._updateFocusTrapState();
     };
     /**
      * @return {?}
@@ -30086,9 +30087,7 @@ var MatDrawer = /** @class */ (function () {
             this._animationState = 'void';
             this._restoreFocus();
         }
-        if (this._focusTrap) {
-            this._focusTrap.enabled = this._isFocusTrapEnabled;
-        }
+        this._updateFocusTrapState();
         return new Promise((/**
          * @param {?} resolve
          * @return {?}
@@ -30111,6 +30110,22 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /** Updates the enabled state of the focus trap. */
+    /**
+     * Updates the enabled state of the focus trap.
+     * @private
+     * @return {?}
+     */
+    MatDrawer.prototype._updateFocusTrapState = /**
+     * Updates the enabled state of the focus trap.
+     * @private
+     * @return {?}
+     */
+    function () {
+        if (this._focusTrap) {
+            this._focusTrap.enabled = this._isFocusTrapEnabled;
+        }
+    };
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
     // ViewEngine they're overwritte.
@@ -39673,7 +39688,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39708,9 +39723,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39833,8 +39848,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb24 = MatPaginatedTabHeader;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb22 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

@@ -286,6 +286,7 @@ class MatDrawer {
      */
     set mode(value) {
         this._mode = value;
+        this._updateFocusTrapState();
         this._modeChanged.next();
     }
     /**
@@ -420,7 +421,7 @@ class MatDrawer {
      */
     ngAfterContentInit() {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-        this._focusTrap.enabled = this._isFocusTrapEnabled;
+        this._updateFocusTrapState();
     }
     /**
      * @return {?}
@@ -491,9 +492,7 @@ class MatDrawer {
             this._animationState = 'void';
             this._restoreFocus();
         }
-        if (this._focusTrap) {
-            this._focusTrap.enabled = this._isFocusTrapEnabled;
-        }
+        this._updateFocusTrapState();
         return new Promise((/**
          * @param {?} resolve
          * @return {?}
@@ -511,6 +510,16 @@ class MatDrawer {
      */
     get _width() {
         return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
+    }
+    /**
+     * Updates the enabled state of the focus trap.
+     * @private
+     * @return {?}
+     */
+    _updateFocusTrapState() {
+        if (this._focusTrap) {
+            this._focusTrap.enabled = this._isFocusTrapEnabled;
+        }
     }
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
