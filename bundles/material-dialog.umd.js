@@ -1399,7 +1399,7 @@ var MatDialogClose = /** @class */ (function () {
     };
     MatDialogClose.decorators = [
         { type: core.Directive, args: [{
-                    selector: "button[mat-dialog-close], button[matDialogClose]",
+                    selector: '[mat-dialog-close], [matDialogClose]',
                     exportAs: 'matDialogClose',
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',

@@ -1042,7 +1042,7 @@ class MatDialogClose {
 }
 MatDialogClose.decorators = [
     { type: Directive, args: [{
-                selector: `button[mat-dialog-close], button[matDialogClose]`,
+                selector: '[mat-dialog-close], [matDialogClose]',
                 exportAs: 'matDialogClose',
                 host: {
                     '(click)': 'dialogRef.close(dialogResult)',
