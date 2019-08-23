@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.3-59cc66fdd');
+var VERSION$1 = new core.Version('8.1.3-ab9a847da');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.3-59cc66fdd');
+var VERSION$2 = new core.Version('8.1.3-ab9a847da');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
