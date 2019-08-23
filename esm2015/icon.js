@@ -7,7 +7,7 @@
  */
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, InjectionToken, inject, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
+import { ErrorHandler, Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, InjectionToken, inject, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, of, throwError } from 'rxjs';
 import { catchError, finalize, map, share, tap, take } from 'rxjs/operators';
@@ -92,10 +92,12 @@ class MatIconRegistry {
      * @param {?} _httpClient
      * @param {?} _sanitizer
      * @param {?} document
+     * @param {?=} _errorHandler
      */
-    constructor(_httpClient, _sanitizer, document) {
+    constructor(_httpClient, _sanitizer, document, _errorHandler) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
+        this._errorHandler = _errorHandler;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -414,7 +416,15 @@ class MatIconRegistry {
                 const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
-                console.error(`Loading icon set URL: ${url} failed: ${err.message}`);
+                /** @type {?} */
+                const errorMessage = `Loading icon set URL: ${url} failed: ${err.message}`;
+                // @breaking-change 9.0.0 _errorHandler parameter to be made required
+                if (this._errorHandler) {
+                    this._errorHandler.handleError(new Error(errorMessage));
+                }
+                else {
+                    console.error(errorMessage);
+                }
                 return of(null);
             })));
         }));
@@ -579,7 +589,7 @@ class MatIconRegistry {
      */
     _toSvgElement(element) {
         /** @type {?} */
-        let svg = this._svgElementFromString('<svg></svg>');
+        const svg = this._svgElementFromString('<svg></svg>');
         for (let i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
@@ -684,19 +694,21 @@ MatIconRegistry.decorators = [
 MatIconRegistry.ctorParameters = () => [
     { type: HttpClient, decorators: [{ type: Optional }] },
     { type: DomSanitizer },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+    { type: ErrorHandler, decorators: [{ type: Optional }] }
 ];
-/** @nocollapse */ MatIconRegistry.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
+/** @nocollapse */ MatIconRegistry.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
 /**
  * \@docs-private
  * @param {?} parentRegistry
  * @param {?} httpClient
  * @param {?} sanitizer
  * @param {?=} document
+ * @param {?=} errorHandler
  * @return {?}
  */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
-    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document, errorHandler) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document, errorHandler);
 }
 /**
  * \@docs-private
@@ -709,6 +721,7 @@ const ICON_REGISTRY_PROVIDER = {
         [new Optional(), new SkipSelf(), MatIconRegistry],
         [new Optional(), HttpClient],
         DomSanitizer,
+        [new Optional(), ErrorHandler],
         [new Optional(), (/** @type {?} */ (DOCUMENT))],
     ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY,

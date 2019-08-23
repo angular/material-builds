@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { HttpClient } from '@angular/common/http';
-import { Optional, OnDestroy } from '@angular/core';
+import { ErrorHandler, Optional, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 /**
@@ -48,6 +48,7 @@ export interface IconOptions {
 export declare class MatIconRegistry implements OnDestroy {
     private _httpClient;
     private _sanitizer;
+    private readonly _errorHandler?;
     private _document;
     /**
      * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
@@ -70,7 +71,7 @@ export declare class MatIconRegistry implements OnDestroy {
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
     private _defaultFontSetClass;
-    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any);
+    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any, _errorHandler?: ErrorHandler | undefined);
     /**
      * Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.
@@ -235,7 +236,7 @@ export declare class MatIconRegistry implements OnDestroy {
     private _addSvgIconSetConfig;
 }
 /** @docs-private */
-export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any): MatIconRegistry;
+export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any, errorHandler?: ErrorHandler): MatIconRegistry;
 /** @docs-private */
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MatIconRegistry;

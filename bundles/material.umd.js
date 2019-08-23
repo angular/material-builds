@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.3-66593f4e0');
+var VERSION$1 = new core.Version('8.1.3-75686e87f');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.3-66593f4e0');
+var VERSION$2 = new core.Version('8.1.3-75686e87f');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -19244,9 +19244,10 @@ SvgIconConfig = /** @class */ (function () {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer, document) {
+    function MatIconRegistry(_httpClient, _sanitizer, document, _errorHandler) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
+        this._errorHandler = _errorHandler;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -19800,7 +19801,15 @@ var MatIconRegistry = /** @class */ (function () {
                 var url = _this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
-                console.error("Loading icon set URL: " + url + " failed: " + err.message);
+                /** @type {?} */
+                var errorMessage = "Loading icon set URL: " + url + " failed: " + err.message;
+                // @breaking-change 9.0.0 _errorHandler parameter to be made required
+                if (_this._errorHandler) {
+                    _this._errorHandler.handleError(new Error(errorMessage));
+                }
+                else {
+                    console.error(errorMessage);
+                }
                 return rxjs.of(null);
             })));
         }));
@@ -20202,9 +20211,10 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.ctorParameters = function () { return [
         { type: http.HttpClient, decorators: [{ type: core.Optional }] },
         { type: platformBrowser.DomSanitizer },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: core.ErrorHandler, decorators: [{ type: core.Optional }] }
     ]; };
-    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.ɵɵinject(http.HttpClient, 8), core.ɵɵinject(platformBrowser.DomSanitizer), core.ɵɵinject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
+    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.ɵɵinject(http.HttpClient, 8), core.ɵɵinject(platformBrowser.DomSanitizer), core.ɵɵinject(common.DOCUMENT, 8), core.ɵɵinject(core.ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 /**
@@ -20213,10 +20223,11 @@ var MatIconRegistry = /** @class */ (function () {
  * @param {?} httpClient
  * @param {?} sanitizer
  * @param {?=} document
+ * @param {?=} errorHandler
  * @return {?}
  */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
-    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document, errorHandler) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document, errorHandler);
 }
 /**
  * \@docs-private
@@ -20229,6 +20240,7 @@ var ICON_REGISTRY_PROVIDER = {
         [new core.Optional(), new core.SkipSelf(), MatIconRegistry],
         [new core.Optional(), http.HttpClient],
         platformBrowser.DomSanitizer,
+        [new core.Optional(), core.ErrorHandler],
         [new core.Optional(), (/** @type {?} */ (common.DOCUMENT))],
     ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
@@ -39666,7 +39678,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa7 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
