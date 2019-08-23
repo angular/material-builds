@@ -362,7 +362,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** Prevents the default element actions if it is disabled. */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
@@ -372,7 +372,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     MatMenuItem.prototype._checkDisabled = /**
@@ -382,7 +382,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     function (event) {
@@ -394,7 +394,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** Emits to the hover stream. */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
@@ -403,7 +403,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     MatMenuItem.prototype._handleMouseEnter = /**
@@ -412,7 +412,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     function () {
@@ -2035,5 +2035,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
 //# sourceMappingURL=menu.es5.js.map

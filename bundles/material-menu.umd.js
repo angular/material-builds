@@ -382,7 +382,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** Prevents the default element actions if it is disabled. */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
@@ -392,7 +392,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     MatMenuItem.prototype._checkDisabled = /**
@@ -402,7 +402,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     function (event) {
@@ -414,7 +414,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** Emits to the hover stream. */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
@@ -423,7 +423,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     MatMenuItem.prototype._handleMouseEnter = /**
@@ -432,7 +432,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     function () {
@@ -2054,9 +2054,9 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

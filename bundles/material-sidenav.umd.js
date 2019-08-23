@@ -657,12 +657,12 @@ var MatDrawer = /** @class */ (function () {
     };
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
@@ -672,7 +672,7 @@ var MatDrawer = /** @class */ (function () {
     MatDrawer.prototype._animationStartListener = 
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
@@ -684,12 +684,12 @@ var MatDrawer = /** @class */ (function () {
     };
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
@@ -699,7 +699,7 @@ var MatDrawer = /** @class */ (function () {
     MatDrawer.prototype._animationDoneListener = 
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
