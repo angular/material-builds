@@ -169,12 +169,12 @@ var SELECT_ITEM_HEIGHT_EM = 3;
  * multi-selection mode.
  *
  * Calculated as:
- * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
+ * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
  * @type {?}
  */
-var SELECT_MULTIPLE_PANEL_PADDING_X = 0;
+var SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 16;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
@@ -1124,7 +1124,6 @@ var MatSelect = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            _this._setPseudoCheckboxPaddingSize();
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
@@ -1141,30 +1140,6 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         return this._parentFormField ? "mat-" + this._parentFormField.color : '';
-    };
-    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
-    /** Sets the pseudo checkbox padding size based on the width of the pseudo checkbox. */
-    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
-    /**
-     * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
-     * @private
-     * @return {?}
-     */
-    MatSelect.prototype._setPseudoCheckboxPaddingSize = 
-    // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
-    /**
-     * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
-     * @private
-     * @return {?}
-     */
-    function () {
-        if (!SELECT_MULTIPLE_PANEL_PADDING_X && this.multiple) {
-            /** @type {?} */
-            var pseudoCheckbox = this.panel.nativeElement.querySelector('.mat-pseudo-checkbox');
-            if (pseudoCheckbox) {
-                SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
-            }
-        }
     };
     Object.defineProperty(MatSelect.prototype, "empty", {
         /** Whether the select has a value. */

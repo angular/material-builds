@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { trigger, state, style, animate, transition, query, group } from '@angular/animations';
-import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, HostListener, ContentChild, ContentChildren, EventEmitter, NgZone, Output, QueryList, ViewChild, Self, NgModule } from '@angular/core';
-import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
+import { ApplicationRef, ChangeDetectorRef, ComponentFactoryResolver, Directive, Inject, Injector, TemplateRef, ViewContainerRef, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, Input, HostListener, ContentChild, ContentChildren, EventEmitter, NgZone, Output, QueryList, ViewChild, Self, NgModule } from '@angular/core';
 import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -96,14 +96,16 @@ class MatMenuContent {
      * @param {?} _injector
      * @param {?} _viewContainerRef
      * @param {?} _document
+     * @param {?=} _changeDetectorRef
      */
-    constructor(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+    constructor(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document, _changeDetectorRef) {
         this._template = _template;
         this._componentFactoryResolver = _componentFactoryResolver;
         this._appRef = _appRef;
         this._injector = _injector;
         this._viewContainerRef = _viewContainerRef;
         this._document = _document;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Emits when the menu content has been attached.
          */
@@ -129,6 +131,15 @@ class MatMenuContent {
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
         // risk it staying attached to a pane that's no longer in the DOM.
         (/** @type {?} */ (element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        // When `MatMenuContent` is used in an `OnPush` component, the insertion of the menu
+        // content via `createEmbeddedView` does not cause the content to be seen as "dirty"
+        // by Angular. This causes the `@ContentChildren` for menu items within the menu to
+        // not be updated by Angular. By explicitly marking for check here, we tell Angular that
+        // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
+        // @breaking-change 9.0.0 Make change detector ref required
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
         this._portal.attach(this._outlet, context);
         this._attached.next();
     }
@@ -163,7 +174,8 @@ MatMenuContent.ctorParameters = () => [
     { type: ApplicationRef },
     { type: Injector },
     { type: ViewContainerRef },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: ChangeDetectorRef }
 ];
 
 /**
@@ -318,7 +330,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     _checkDisabled(event) {
@@ -333,7 +345,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      */
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
     // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritte.
+    // ViewEngine they're overwritten.
     // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     // tslint:disable-next-line:no-host-decorator-in-concrete
     _handleMouseEnter() {
@@ -869,7 +881,7 @@ class _MatMenu extends MatMenu {
 _MatMenu.decorators = [
     { type: Component, args: [{selector: 'mat-menu',
                 template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.start)=\"_onAnimationStart($event)\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}@media (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}@media (-ms-high-contrast:active){.mat-menu-item-highlighted,.mat-menu-item.cdk-keyboard-focused,.mat-menu-item.cdk-program-focused{outline:dotted 1px}}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}@media (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}@media (-ms-high-contrast:active){.mat-menu-item-highlighted,.mat-menu-item.cdk-keyboard-focused,.mat-menu-item.cdk-program-focused{outline:dotted 1px}}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matMenu',
@@ -1501,6 +1513,7 @@ MatMenuTrigger.decorators = [
     { type: Directive, args: [{
                 selector: `[mat-menu-trigger-for], [matMenuTriggerFor]`,
                 host: {
+                    'class': 'mat-menu-trigger',
                     'aria-haspopup': 'true',
                     '[attr.aria-expanded]': 'menuOpen || null',
                     '(mousedown)': '_handleMousedown($event)',
