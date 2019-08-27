@@ -7,10 +7,10 @@
  */
 import { InjectionToken } from '@angular/core';
 import { HammerLoader } from '@angular/platform-browser';
-/** Injection token that configures whether the Material sanity checks are enabled. */
-export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
 /** @docs-private */
 export declare function MATERIAL_SANITY_CHECKS_FACTORY(): boolean;
+/** Injection token that configures whether the Material sanity checks are enabled. */
+export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.

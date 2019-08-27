@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION$1 = new Version('8.1.4-62cd6f1f3');
+const VERSION$1 = new Version('8.1.4-abde8f2da');
 
 /**
  * @fileoverview added by tsickle
@@ -60,7 +60,14 @@ AnimationDurations.EXITING = '195ms';
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$2 = new Version('8.1.4-62cd6f1f3');
+const VERSION$2 = new Version('8.1.4-abde8f2da');
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MATERIAL_SANITY_CHECKS_FACTORY() {
+    return true;
+}
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -69,13 +76,6 @@ const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
     factory: MATERIAL_SANITY_CHECKS_FACTORY,
 });
-/**
- * \@docs-private
- * @return {?}
- */
-function MATERIAL_SANITY_CHECKS_FACTORY() {
-    return true;
-}
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.

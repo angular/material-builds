@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-62cd6f1f3');
+var VERSION$1 = new core.Version('8.1.4-abde8f2da');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,14 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-62cd6f1f3');
+var VERSION$2 = new core.Version('8.1.4-abde8f2da');
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MATERIAL_SANITY_CHECKS_FACTORY() {
+    return true;
+}
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  * @type {?}
@@ -108,13 +115,6 @@ var MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
     factory: MATERIAL_SANITY_CHECKS_FACTORY,
 });
-/**
- * \@docs-private
- * @return {?}
- */
-function MATERIAL_SANITY_CHECKS_FACTORY() {
-    return true;
-}
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
