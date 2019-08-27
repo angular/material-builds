@@ -2268,7 +2268,15 @@ var MatTabNav = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.updateActiveLink();
+        var _this = this;
+        // We need this to run before the `changes` subscription in parent to ensure that the
+        // selectedIndex is up-to-date by the time the super class starts looking for it.
+        this._items.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.updateActiveLink();
+        }));
         _super.prototype.ngAfterContentInit.call(this);
     };
     /**

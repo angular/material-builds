@@ -9,6 +9,7 @@ import { ChangeDetectorRef, ElementRef, NgZone, QueryList, EventEmitter, AfterCo
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusableOption } from '@angular/cdk/a11y';
+import { Subject } from 'rxjs';
 import { MatInkBar } from './ink-bar';
 import { Platform } from '@angular/cdk/platform';
 /**
@@ -47,7 +48,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     /** Whether the header should scroll to the selected index after the view has been checked. */
     private _selectedIndexChanged;
     /** Emits when the component is destroyed. */
-    private readonly _destroyed;
+    protected readonly _destroyed: Subject<void>;
     /** Whether the controls for pagination should be displayed */
     _showPaginationControls: boolean;
     /** Whether the tab list can be scrolled more towards the end of the tab label list. */

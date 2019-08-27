@@ -1779,7 +1779,14 @@ class MatTabNav extends MatPaginatedTabHeader {
      * @return {?}
      */
     ngAfterContentInit() {
-        this.updateActiveLink();
+        // We need this to run before the `changes` subscription in parent to ensure that the
+        // selectedIndex is up-to-date by the time the super class starts looking for it.
+        this._items.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this.updateActiveLink();
+        }));
         super.ngAfterContentInit();
     }
     /**
