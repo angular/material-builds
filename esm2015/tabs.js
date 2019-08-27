@@ -1779,7 +1779,14 @@ class MatTabNav extends MatPaginatedTabHeader {
      * @return {?}
      */
     ngAfterContentInit() {
-        this.updateActiveLink();
+        // We need this to run before the `changes` subscription in parent to ensure that the
+        // selectedIndex is up-to-date by the time the super class starts looking for it.
+        this._items.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this.updateActiveLink();
+        }));
         super.ngAfterContentInit();
     }
     /**
@@ -2010,5 +2017,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatPaginatedTabHeader as ɵb22 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatPaginatedTabHeader as ɵb23 };
 //# sourceMappingURL=tabs.js.map

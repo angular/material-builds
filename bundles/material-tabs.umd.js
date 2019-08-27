@@ -2268,7 +2268,15 @@ var MatTabNav = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.updateActiveLink();
+        var _this = this;
+        // We need this to run before the `changes` subscription in parent to ensure that the
+        // selectedIndex is up-to-date by the time the super class starts looking for it.
+        this._items.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.updateActiveLink();
+        }));
         _super.prototype.ngAfterContentInit.call(this);
     };
     /**
@@ -2531,8 +2539,8 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb22 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

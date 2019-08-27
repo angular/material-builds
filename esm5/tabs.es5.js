@@ -2250,7 +2250,15 @@ var MatTabNav = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.updateActiveLink();
+        var _this = this;
+        // We need this to run before the `changes` subscription in parent to ensure that the
+        // selectedIndex is up-to-date by the time the super class starts looking for it.
+        this._items.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.updateActiveLink();
+        }));
         _super.prototype.ngAfterContentInit.call(this);
     };
     /**
@@ -2512,5 +2520,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatPaginatedTabHeader as ɵb22 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatPaginatedTabHeader as ɵb23 };
 //# sourceMappingURL=tabs.es5.js.map

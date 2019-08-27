@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-e9baa09be');
+var VERSION$1 = new core.Version('8.1.4-93e941521');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-e9baa09be');
+var VERSION$2 = new core.Version('8.1.4-93e941521');
 /**
  * \@docs-private
  * @return {?}
@@ -38397,7 +38397,15 @@ var MatTabNav = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.updateActiveLink();
+        var _this = this;
+        // We need this to run before the `changes` subscription in parent to ensure that the
+        // selectedIndex is up-to-date by the time the super class starts looking for it.
+        this._items.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.updateActiveLink();
+        }));
         _super.prototype.ngAfterContentInit.call(this);
     };
     /**
@@ -39859,8 +39867,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb22 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
