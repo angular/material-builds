@@ -892,8 +892,9 @@ var _MatMenuBase = /** @class */ (function () {
      * @return {?}
      */
     function (origin) {
-        var _this = this;
         if (origin === void 0) { origin = 'program'; }
+        /** @type {?} */
+        var manager = this._keyManager;
         // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
@@ -901,10 +902,30 @@ var _MatMenuBase = /** @class */ (function () {
                 .subscribe((/**
              * @return {?}
              */
-            function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); }));
+            function () { return manager.setFocusOrigin(origin).setFirstItemActive(); }));
         }
         else {
-            this._keyManager.setFocusOrigin(origin).setFirstItemActive();
+            manager.setFocusOrigin(origin).setFirstItemActive();
+        }
+        // If there's no active item at this point, it means that all the items are disabled.
+        // Move focus to the menu panel so keyboard events like Escape still work. Also this will
+        // give _some_ feedback to screen readers.
+        if (!manager.activeItem && this._directDescendantItems.length) {
+            /** @type {?} */
+            var element = this._directDescendantItems.first._getHostElement().parentElement;
+            // Because the `mat-menu` is at the DOM insertion point, not inside the overlay, we don't
+            // have a nice way of getting a hold of the menu panel. We can't use a `ViewChild` either
+            // because the panel is inside an `ng-template`. We work around it by starting from one of
+            // the items and walking up the DOM.
+            while (element) {
+                if (element.getAttribute('role') === 'menu') {
+                    element.focus();
+                    break;
+                }
+                else {
+                    element = element.parentElement;
+                }
+            }
         }
     };
     /**
@@ -2054,9 +2075,9 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

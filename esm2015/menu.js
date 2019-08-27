@@ -702,6 +702,8 @@ class _MatMenuBase {
      * @return {?}
      */
     focusFirstItem(origin = 'program') {
+        /** @type {?} */
+        const manager = this._keyManager;
         // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
@@ -709,10 +711,30 @@ class _MatMenuBase {
                 .subscribe((/**
              * @return {?}
              */
-            () => this._keyManager.setFocusOrigin(origin).setFirstItemActive()));
+            () => manager.setFocusOrigin(origin).setFirstItemActive()));
         }
         else {
-            this._keyManager.setFocusOrigin(origin).setFirstItemActive();
+            manager.setFocusOrigin(origin).setFirstItemActive();
+        }
+        // If there's no active item at this point, it means that all the items are disabled.
+        // Move focus to the menu panel so keyboard events like Escape still work. Also this will
+        // give _some_ feedback to screen readers.
+        if (!manager.activeItem && this._directDescendantItems.length) {
+            /** @type {?} */
+            let element = this._directDescendantItems.first._getHostElement().parentElement;
+            // Because the `mat-menu` is at the DOM insertion point, not inside the overlay, we don't
+            // have a nice way of getting a hold of the menu panel. We can't use a `ViewChild` either
+            // because the panel is inside an `ng-template`. We work around it by starting from one of
+            // the items and walking up the DOM.
+            while (element) {
+                if (element.getAttribute('role') === 'menu') {
+                    element.focus();
+                    break;
+                }
+                else {
+                    element = element.parentElement;
+                }
+            }
         }
     }
     /**
@@ -1595,5 +1617,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc24 };
+export { MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵb23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵc23 };
 //# sourceMappingURL=menu.js.map
