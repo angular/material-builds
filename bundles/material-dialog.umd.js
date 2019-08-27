@@ -464,6 +464,10 @@ MatDialogRef = /** @class */ (function () {
          * Subject for notifying the user that the dialog has started closing.
          */
         this._beforeClosed = new rxjs.Subject();
+        /**
+         * Current state of the dialog.
+         */
+        this._state = 0 /* OPEN */;
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
@@ -549,6 +553,7 @@ MatDialogRef = /** @class */ (function () {
         function (event) {
             _this._beforeClosed.next(dialogResult);
             _this._beforeClosed.complete();
+            _this._state = 2 /* CLOSED */;
             _this._overlayRef.detachBackdrop();
             // The logic that disposes of the overlay depends on the exit animation completing, however
             // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
@@ -563,6 +568,7 @@ MatDialogRef = /** @class */ (function () {
             }), event.totalTime + 100);
         }));
         this._containerInstance._startExitAnimation();
+        this._state = 1 /* CLOSING */;
     };
     /**
      * Gets an observable that is notified when the dialog is finished opening.
@@ -775,6 +781,18 @@ MatDialogRef = /** @class */ (function () {
      */
     function () {
         return this.beforeClosed();
+    };
+    /** Gets the current state of the dialog's lifecycle. */
+    /**
+     * Gets the current state of the dialog's lifecycle.
+     * @return {?}
+     */
+    MatDialogRef.prototype.getState = /**
+     * Gets the current state of the dialog's lifecycle.
+     * @return {?}
+     */
+    function () {
+        return this._state;
     };
     /** Fetches the position strategy object from the overlay ref. */
     /**

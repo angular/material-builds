@@ -10,6 +10,12 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { DialogPosition } from './dialog-config';
 import { MatDialogContainer } from './dialog-container';
+/** Possible states of the lifecycle of a dialog. */
+export declare const enum MatDialogState {
+    OPEN = 0,
+    CLOSING = 1,
+    CLOSED = 2
+}
 /**
  * Reference to a dialog opened via the MatDialog service.
  */
@@ -31,6 +37,8 @@ export declare class MatDialogRef<T, R = any> {
     private _result;
     /** Handle to the timeout that's running as a fallback in case the exit animation doesn't fire. */
     private _closeFallbackTimeout;
+    /** Current state of the dialog. */
+    private _state;
     constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, _location?: Location, id?: string);
     /**
      * Close the dialog.
@@ -84,6 +92,8 @@ export declare class MatDialogRef<T, R = any> {
      * @breaking-change 8.0.0
      */
     beforeClose(): Observable<R | undefined>;
+    /** Gets the current state of the dialog's lifecycle. */
+    getState(): MatDialogState;
     /** Fetches the position strategy object from the overlay ref. */
     private _getPositionStrategy;
 }

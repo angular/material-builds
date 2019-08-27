@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-17c89830d');
+var VERSION$1 = new core.Version('8.1.4-3059e654f');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-17c89830d');
+var VERSION$2 = new core.Version('8.1.4-3059e654f');
 /**
  * \@docs-private
  * @return {?}
@@ -11510,6 +11510,10 @@ MatDialogRef = /** @class */ (function () {
          * Subject for notifying the user that the dialog has started closing.
          */
         this._beforeClosed = new rxjs.Subject();
+        /**
+         * Current state of the dialog.
+         */
+        this._state = 0 /* OPEN */;
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
@@ -11595,6 +11599,7 @@ MatDialogRef = /** @class */ (function () {
         function (event) {
             _this._beforeClosed.next(dialogResult);
             _this._beforeClosed.complete();
+            _this._state = 2 /* CLOSED */;
             _this._overlayRef.detachBackdrop();
             // The logic that disposes of the overlay depends on the exit animation completing, however
             // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
@@ -11609,6 +11614,7 @@ MatDialogRef = /** @class */ (function () {
             }), event.totalTime + 100);
         }));
         this._containerInstance._startExitAnimation();
+        this._state = 1 /* CLOSING */;
     };
     /**
      * Gets an observable that is notified when the dialog is finished opening.
@@ -11821,6 +11827,18 @@ MatDialogRef = /** @class */ (function () {
      */
     function () {
         return this.beforeClosed();
+    };
+    /** Gets the current state of the dialog's lifecycle. */
+    /**
+     * Gets the current state of the dialog's lifecycle.
+     * @return {?}
+     */
+    MatDialogRef.prototype.getState = /**
+     * Gets the current state of the dialog's lifecycle.
+     * @return {?}
+     */
+    function () {
+        return this._state;
     };
     /** Fetches the position strategy object from the overlay ref. */
     /**
@@ -39680,7 +39698,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39841,8 +39859,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb21 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
