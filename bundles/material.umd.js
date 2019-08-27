@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-eedf314ad');
+var VERSION$1 = new core.Version('8.1.4-17c89830d');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-eedf314ad');
+var VERSION$2 = new core.Version('8.1.4-17c89830d');
 /**
  * \@docs-private
  * @return {?}
@@ -31938,7 +31938,9 @@ var MatSlider = /** @class */ (function (_super) {
          */
         function () {
             if (this.displayWith) {
-                return this.displayWith(this.value);
+                // Value is never null but since setters and getters cannot have
+                // different types, the value getter is also typed to return null.
+                return this.displayWith((/** @type {?} */ (this.value)));
             }
             // Note that this could be improved further by rounding something like 0.999 to 1 or
             // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
@@ -39678,7 +39680,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

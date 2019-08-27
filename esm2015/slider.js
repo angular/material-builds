@@ -294,7 +294,9 @@ class MatSlider extends _MatSliderMixinBase {
      */
     get displayValue() {
         if (this.displayWith) {
-            return this.displayWith(this.value);
+            // Value is never null but since setters and getters cannot have
+            // different types, the value getter is also typed to return null.
+            return this.displayWith((/** @type {?} */ (this.value)));
         }
         // Note that this could be improved further by rounding something like 0.999 to 1 or
         // 0.899 to 0.9, however it is very performance sensitive, because it gets called on

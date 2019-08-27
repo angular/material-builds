@@ -67,7 +67,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * in the thumb label. Can be used to format very large number in order
      * for them to fit into the slider thumb.
      */
-    displayWith: (value: number | null) => string | number;
+    displayWith: (value: number) => string | number;
     /** Whether the slider is vertical. */
     vertical: boolean;
     private _vertical;
