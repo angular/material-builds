@@ -2539,8 +2539,8 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb20 = MatPaginatedTabHeader;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb24 = MatPaginatedTabHeader;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
