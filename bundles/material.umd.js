@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-77b0e0ea8');
+var VERSION$1 = new core.Version('8.1.4-57e31da9c');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-77b0e0ea8');
+var VERSION$2 = new core.Version('8.1.4-57e31da9c');
 /**
  * \@docs-private
  * @return {?}
@@ -39727,7 +39727,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa7 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39888,8 +39888,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb23 = MatPaginatedTabHeader;
+exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb20 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
