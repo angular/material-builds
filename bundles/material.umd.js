@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-62e147609');
+var VERSION$1 = new core.Version('8.1.4-dccddd951');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-62e147609');
+var VERSION$2 = new core.Version('8.1.4-dccddd951');
 /**
  * \@docs-private
  * @return {?}
@@ -20393,10 +20393,11 @@ var funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  */
 var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
-    function MatIcon(elementRef, _iconRegistry, ariaHidden, _location) {
+    function MatIcon(elementRef, _iconRegistry, ariaHidden, _location, _errorHandler) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
         _this._location = _location;
+        _this._errorHandler = _errorHandler;
         _this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
@@ -20534,8 +20535,10 @@ var MatIcon = /** @class */ (function (_super) {
         var svgIconChanges = changes['svgIcon'];
         if (svgIconChanges) {
             if (this.svgIcon) {
-                var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(operators.take(1)).subscribe((/**
+                var _a = this._splitIconName(this.svgIcon), namespace_1 = _a[0], iconName_1 = _a[1];
+                this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
+                    .pipe(operators.take(1))
+                    .subscribe((/**
                  * @param {?} svg
                  * @return {?}
                  */
@@ -20543,7 +20546,17 @@ var MatIcon = /** @class */ (function (_super) {
                  * @param {?} err
                  * @return {?}
                  */
-                function (err) { return console.log("Error retrieving icon: " + err.message); }));
+                function (err) {
+                    /** @type {?} */
+                    var errorMessage = "Error retrieving icon " + namespace_1 + ":" + iconName_1 + "! " + err.message;
+                    // @breaking-change 9.0.0 _errorHandler parameter to be made required.
+                    if (_this._errorHandler) {
+                        _this._errorHandler.handleError(new Error(errorMessage));
+                    }
+                    else {
+                        console.error(errorMessage);
+                    }
+                }));
             }
             else if (svgIconChanges.previousValue) {
                 this._clearSvgElement();
@@ -20845,7 +20858,8 @@ var MatIcon = /** @class */ (function (_super) {
         { type: core.ElementRef },
         { type: MatIconRegistry },
         { type: String, decorators: [{ type: core.Attribute, args: ['aria-hidden',] }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_ICON_LOCATION,] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_ICON_LOCATION,] }] },
+        { type: core.ErrorHandler, decorators: [{ type: core.Optional }] }
     ]; };
     MatIcon.propDecorators = {
         inline: [{ type: core.Input }],
@@ -39773,9 +39787,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39899,8 +39913,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb23 = MatPaginatedTabHeader;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb24 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
