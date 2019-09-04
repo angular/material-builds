@@ -71,7 +71,7 @@ var MatPaginatorIntl = /** @class */ (function () {
             var endIndex = startIndex < length ?
                 Math.min(startIndex + pageSize, length) :
                 startIndex + pageSize;
-            return startIndex + 1 + " - " + endIndex + " of " + length;
+            return startIndex + 1 + " \u2013 " + endIndex + " of " + length;
         });
     }
     MatPaginatorIntl.decorators = [
