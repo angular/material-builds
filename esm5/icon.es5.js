@@ -7,13 +7,13 @@
  */
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ErrorHandler, Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, inject, InjectionToken, Input, ViewEncapsulation, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
+import { ErrorHandler, Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, InjectionToken, inject, ɵɵdefineInjectable, ɵɵinject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, of, throwError } from 'rxjs';
 import { catchError, finalize, map, share, tap, take } from 'rxjs/operators';
 import { __extends } from 'tslib';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * @fileoverview added by tsickle
@@ -1220,11 +1220,10 @@ var funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  */
 var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
-    function MatIcon(elementRef, _iconRegistry, ariaHidden, _location, _errorHandler) {
+    function MatIcon(elementRef, _iconRegistry, ariaHidden, _location) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
         _this._location = _location;
-        _this._errorHandler = _errorHandler;
         _this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
@@ -1362,10 +1361,8 @@ var MatIcon = /** @class */ (function (_super) {
         var svgIconChanges = changes['svgIcon'];
         if (svgIconChanges) {
             if (this.svgIcon) {
-                var _a = this._splitIconName(this.svgIcon), namespace_1 = _a[0], iconName_1 = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
-                    .pipe(take(1))
-                    .subscribe((/**
+                var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(take(1)).subscribe((/**
                  * @param {?} svg
                  * @return {?}
                  */
@@ -1373,17 +1370,7 @@ var MatIcon = /** @class */ (function (_super) {
                  * @param {?} err
                  * @return {?}
                  */
-                function (err) {
-                    /** @type {?} */
-                    var errorMessage = "Error retrieving icon " + namespace_1 + ":" + iconName_1 + "! " + err.message;
-                    // @breaking-change 9.0.0 _errorHandler parameter to be made required.
-                    if (_this._errorHandler) {
-                        _this._errorHandler.handleError(new Error(errorMessage));
-                    }
-                    else {
-                        console.error(errorMessage);
-                    }
-                }));
+                function (err) { return console.log("Error retrieving icon: " + err.message); }));
             }
             else if (svgIconChanges.previousValue) {
                 this._clearSvgElement();
@@ -1685,8 +1672,7 @@ var MatIcon = /** @class */ (function (_super) {
         { type: ElementRef },
         { type: MatIconRegistry },
         { type: String, decorators: [{ type: Attribute, args: ['aria-hidden',] }] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_ICON_LOCATION,] }] },
-        { type: ErrorHandler, decorators: [{ type: Optional }] }
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_ICON_LOCATION,] }] }
     ]; };
     MatIcon.propDecorators = {
         inline: [{ type: Input }],
