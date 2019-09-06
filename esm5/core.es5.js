@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new Version('8.1.4-6799c113b');
+var VERSION$1 = new Version('8.1.4-87992c88b');
 
 /**
  * @fileoverview added by tsickle
@@ -67,7 +67,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new Version('8.1.4-6799c113b');
+var VERSION$2 = new Version('8.1.4-87992c88b');
 /**
  * \@docs-private
  * @return {?}
@@ -629,7 +629,7 @@ DateAdapter = /** @class */ (function () {
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
      * string). The default implementation does not allow any deserialization, it simply checks that
      * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-     * method on all of it's `@Input()` properties that accept dates. It is therefore possible to
+     * method on all of its `@Input()` properties that accept dates. It is therefore possible to
      * support passing values from your backend directly to these properties by overriding this method
      * to also deserialize the format used by your backend.
      * @param value The value to be deserialized into a date object.
@@ -641,7 +641,7 @@ DateAdapter = /** @class */ (function () {
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
      * string). The default implementation does not allow any deserialization, it simply checks that
      * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-     * method on all of it's `\@Input()` properties that accept dates. It is therefore possible to
+     * method on all of its `\@Input()` properties that accept dates. It is therefore possible to
      * support passing values from your backend directly to these properties by overriding this method
      * to also deserialize the format used by your backend.
      * @param {?} value The value to be deserialized into a date object.
@@ -653,7 +653,7 @@ DateAdapter = /** @class */ (function () {
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
      * string). The default implementation does not allow any deserialization, it simply checks that
      * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-     * method on all of it's `\@Input()` properties that accept dates. It is therefore possible to
+     * method on all of its `\@Input()` properties that accept dates. It is therefore possible to
      * support passing values from your backend directly to these properties by overriding this method
      * to also deserialize the format used by your backend.
      * @param {?} value The value to be deserialized into a date object.
@@ -875,7 +875,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
          * will produce `'8/13/1800'`.
          *
          * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
-         * getting the string representation of a Date object from it's utc representation. We're keeping
+         * getting the string representation of a Date object from its utc representation. We're keeping
          * it here for sometime, just for precaution, in case we decide to revert some of these changes
          * though.
          */

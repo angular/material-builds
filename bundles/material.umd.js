@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-6799c113b');
+var VERSION$1 = new core.Version('8.1.4-87992c88b');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-6799c113b');
+var VERSION$2 = new core.Version('8.1.4-87992c88b');
 /**
  * \@docs-private
  * @return {?}
@@ -661,7 +661,7 @@ DateAdapter = /** @class */ (function () {
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
      * string). The default implementation does not allow any deserialization, it simply checks that
      * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-     * method on all of it's `@Input()` properties that accept dates. It is therefore possible to
+     * method on all of its `@Input()` properties that accept dates. It is therefore possible to
      * support passing values from your backend directly to these properties by overriding this method
      * to also deserialize the format used by your backend.
      * @param value The value to be deserialized into a date object.
@@ -673,7 +673,7 @@ DateAdapter = /** @class */ (function () {
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
      * string). The default implementation does not allow any deserialization, it simply checks that
      * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-     * method on all of it's `\@Input()` properties that accept dates. It is therefore possible to
+     * method on all of its `\@Input()` properties that accept dates. It is therefore possible to
      * support passing values from your backend directly to these properties by overriding this method
      * to also deserialize the format used by your backend.
      * @param {?} value The value to be deserialized into a date object.
@@ -685,7 +685,7 @@ DateAdapter = /** @class */ (function () {
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
      * string). The default implementation does not allow any deserialization, it simply checks that
      * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-     * method on all of it's `\@Input()` properties that accept dates. It is therefore possible to
+     * method on all of its `\@Input()` properties that accept dates. It is therefore possible to
      * support passing values from your backend directly to these properties by overriding this method
      * to also deserialize the format used by your backend.
      * @param {?} value The value to be deserialized into a date object.
@@ -907,7 +907,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
          * will produce `'8/13/1800'`.
          *
          * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
-         * getting the string representation of a Date object from it's utc representation. We're keeping
+         * getting the string representation of a Date object from its utc representation. We're keeping
          * it here for sometime, just for precaution, in case we decide to revert some of these changes
          * though.
          */
@@ -8475,7 +8475,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         // component will be only marked for check, but no actual change detection runs automatically.
         // Instead of going back into the zone in order to trigger a change detection which causes
         // *all* components to be checked (if explicitly marked or not using OnPush), we only trigger
-        // an explicit change detection for the checkbox view and it's children.
+        // an explicit change detection for the checkbox view and its children.
         this._changeDetectorRef.detectChanges();
     };
     // Implemented as part of ControlValueAccessor.
@@ -31521,7 +31521,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         // slide-toggle component will be only marked for check, but no actual change detection runs
         // automatically. Instead of going back into the zone in order to trigger a change detection
         // which causes *all* components to be checked (if explicitly marked or not using OnPush),
-        // we only trigger an explicit change detection for the slide-toggle view and it's children.
+        // we only trigger an explicit change detection for the slide-toggle view and its children.
         this._changeDetectorRef.detectChanges();
     };
     MatSlideToggle.decorators = [
@@ -39738,7 +39738,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa6 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39899,8 +39899,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb23 = MatPaginatedTabHeader;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb22 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

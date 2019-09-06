@@ -495,7 +495,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         // slide-toggle component will be only marked for check, but no actual change detection runs
         // automatically. Instead of going back into the zone in order to trigger a change detection
         // which causes *all* components to be checked (if explicitly marked or not using OnPush),
-        // we only trigger an explicit change detection for the slide-toggle view and it's children.
+        // we only trigger an explicit change detection for the slide-toggle view and its children.
         this._changeDetectorRef.detectChanges();
     };
     MatSlideToggle.decorators = [
