@@ -9,7 +9,7 @@ import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, SPACE, END, HOME, hasModifierKey, TAB, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
-import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
+import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ChangeDetectorRef, InjectionToken, ChangeDetectionStrategy, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { take, startWith, takeUntil } from 'rxjs/operators';
@@ -93,10 +93,11 @@ var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
     function MatChip(_elementRef, _ngZone, platform, globalRippleOptions, 
     // @breaking-change 8.0.0 `animationMode` parameter to become required.
-    animationMode) {
+    animationMode, _changeDetectorRef) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._ngZone = _ngZone;
+        _this._changeDetectorRef = _changeDetectorRef;
         /**
          * Whether the chip has focus.
          */
@@ -298,6 +299,7 @@ var MatChip = /** @class */ (function (_super) {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange();
+            this._markForCheck();
         }
     };
     /** Deselects the chip. */
@@ -313,6 +315,7 @@ var MatChip = /** @class */ (function (_super) {
         if (this._selected) {
             this._selected = false;
             this._dispatchSelectionChange();
+            this._markForCheck();
         }
     };
     /** Select this chip and emit selected event */
@@ -328,6 +331,7 @@ var MatChip = /** @class */ (function (_super) {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange(true);
+            this._markForCheck();
         }
     };
     /** Toggles the current selected state of this chip. */
@@ -345,6 +349,7 @@ var MatChip = /** @class */ (function (_super) {
         if (isUserInput === void 0) { isUserInput = false; }
         this._selected = !this.selected;
         this._dispatchSelectionChange(isUserInput);
+        this._markForCheck();
         return this.selected;
     };
     /** Allows for programmatic focusing of the chip. */
@@ -486,6 +491,20 @@ var MatChip = /** @class */ (function (_super) {
             selected: this._selected
         });
     };
+    /**
+     * @private
+     * @return {?}
+     */
+    MatChip.prototype._markForCheck = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        // @breaking-change 9.0.0 Remove this method once the _changeDetectorRef is a required param.
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
+    };
     MatChip.decorators = [
         { type: Directive, args: [{
                     selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
@@ -516,7 +535,8 @@ var MatChip = /** @class */ (function (_super) {
         { type: NgZone },
         { type: Platform },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: ChangeDetectorRef }
     ]; };
     MatChip.propDecorators = {
         avatar: [{ type: ContentChild, args: [MatChipAvatar, { static: false },] }],

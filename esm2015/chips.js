@@ -8,7 +8,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, SPACE, END, HOME, hasModifierKey, TAB, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
-import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
+import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ChangeDetectorRef, InjectionToken, ChangeDetectionStrategy, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { take, startWith, takeUntil } from 'rxjs/operators';
@@ -86,13 +86,15 @@ class MatChip extends _MatChipMixinBase {
      * @param {?} platform
      * @param {?} globalRippleOptions
      * @param {?=} animationMode
+     * @param {?=} _changeDetectorRef
      */
     constructor(_elementRef, _ngZone, platform, globalRippleOptions, 
     // @breaking-change 8.0.0 `animationMode` parameter to become required.
-    animationMode) {
+    animationMode, _changeDetectorRef) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Whether the chip has focus.
          */
@@ -242,6 +244,7 @@ class MatChip extends _MatChipMixinBase {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange();
+            this._markForCheck();
         }
     }
     /**
@@ -252,6 +255,7 @@ class MatChip extends _MatChipMixinBase {
         if (this._selected) {
             this._selected = false;
             this._dispatchSelectionChange();
+            this._markForCheck();
         }
     }
     /**
@@ -262,6 +266,7 @@ class MatChip extends _MatChipMixinBase {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange(true);
+            this._markForCheck();
         }
     }
     /**
@@ -272,6 +277,7 @@ class MatChip extends _MatChipMixinBase {
     toggleSelected(isUserInput = false) {
         this._selected = !this.selected;
         this._dispatchSelectionChange(isUserInput);
+        this._markForCheck();
         return this.selected;
     }
     /**
@@ -373,6 +379,16 @@ class MatChip extends _MatChipMixinBase {
             selected: this._selected
         });
     }
+    /**
+     * @private
+     * @return {?}
+     */
+    _markForCheck() {
+        // @breaking-change 9.0.0 Remove this method once the _changeDetectorRef is a required param.
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
+    }
 }
 MatChip.decorators = [
     { type: Directive, args: [{
@@ -404,7 +420,8 @@ MatChip.ctorParameters = () => [
     { type: NgZone },
     { type: Platform },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: ChangeDetectorRef }
 ];
 MatChip.propDecorators = {
     avatar: [{ type: ContentChild, args: [MatChipAvatar, { static: false },] }],

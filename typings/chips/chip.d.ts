@@ -7,7 +7,7 @@
  */
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
+import { ElementRef, EventEmitter, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** Represents an event fired on an individual `mat-chip`. */
@@ -55,6 +55,7 @@ export declare class MatChipTrailingIcon {
 export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable, CanDisableRipple, RippleTarget {
     _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
+    private _changeDetectorRef?;
     /** Reference to the RippleRenderer for the chip. */
     private _chipRipple;
     /**
@@ -114,7 +115,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     readonly removed: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
     readonly ariaSelected: string | null;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, animationMode?: string);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, animationMode?: string, _changeDetectorRef?: ChangeDetectorRef | undefined);
     _addHostClassName(): void;
     ngOnDestroy(): void;
     /** Selects the chip. */
@@ -140,6 +141,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _handleKeydown(event: KeyboardEvent): void;
     _blur(): void;
     private _dispatchSelectionChange;
+    private _markForCheck;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon

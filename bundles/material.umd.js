@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-cad0102b3');
+var VERSION$1 = new core.Version('8.1.4-aad7ff738');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-cad0102b3');
+var VERSION$2 = new core.Version('8.1.4-aad7ff738');
 /**
  * \@docs-private
  * @return {?}
@@ -8943,10 +8943,11 @@ var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
     function MatChip(_elementRef, _ngZone, platform$$1, globalRippleOptions, 
     // @breaking-change 8.0.0 `animationMode` parameter to become required.
-    animationMode) {
+    animationMode, _changeDetectorRef) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._ngZone = _ngZone;
+        _this._changeDetectorRef = _changeDetectorRef;
         /**
          * Whether the chip has focus.
          */
@@ -9148,6 +9149,7 @@ var MatChip = /** @class */ (function (_super) {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange();
+            this._markForCheck();
         }
     };
     /** Deselects the chip. */
@@ -9163,6 +9165,7 @@ var MatChip = /** @class */ (function (_super) {
         if (this._selected) {
             this._selected = false;
             this._dispatchSelectionChange();
+            this._markForCheck();
         }
     };
     /** Select this chip and emit selected event */
@@ -9178,6 +9181,7 @@ var MatChip = /** @class */ (function (_super) {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange(true);
+            this._markForCheck();
         }
     };
     /** Toggles the current selected state of this chip. */
@@ -9195,6 +9199,7 @@ var MatChip = /** @class */ (function (_super) {
         if (isUserInput === void 0) { isUserInput = false; }
         this._selected = !this.selected;
         this._dispatchSelectionChange(isUserInput);
+        this._markForCheck();
         return this.selected;
     };
     /** Allows for programmatic focusing of the chip. */
@@ -9336,6 +9341,20 @@ var MatChip = /** @class */ (function (_super) {
             selected: this._selected
         });
     };
+    /**
+     * @private
+     * @return {?}
+     */
+    MatChip.prototype._markForCheck = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        // @breaking-change 9.0.0 Remove this method once the _changeDetectorRef is a required param.
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
+    };
     MatChip.decorators = [
         { type: core.Directive, args: [{
                     selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
@@ -9366,7 +9385,8 @@ var MatChip = /** @class */ (function (_super) {
         { type: core.NgZone },
         { type: platform.Platform },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatChip.propDecorators = {
         avatar: [{ type: core.ContentChild, args: [MatChipAvatar, { static: false },] }],
@@ -39738,7 +39758,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39773,9 +39793,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39899,8 +39919,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb23 = MatPaginatedTabHeader;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb24 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
