@@ -916,17 +916,16 @@ var MatSnackBar = /** @class */ (function () {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(operators.takeUntil(overlayRef.detachments().pipe(operators.take(1)))).subscribe((/**
+        this._breakpointObserver.observe(layout.Breakpoints.HandsetPortrait).pipe(operators.takeUntil(overlayRef.detachments())).subscribe((/**
          * @param {?} state
          * @return {?}
          */
         function (state$$1) {
-            if (state$$1.matches) {
-                overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
-            }
-            else {
-                overlayRef.overlayElement.classList.remove('mat-snack-bar-handset');
-            }
+            /** @type {?} */
+            var classList = overlayRef.overlayElement.classList;
+            /** @type {?} */
+            var className = 'mat-snack-bar-handset';
+            state$$1.matches ? classList.add(className) : classList.remove(className);
         }));
         this._animateSnackBar(snackBarRef, config);
         this._openedSnackBarRef = snackBarRef;
