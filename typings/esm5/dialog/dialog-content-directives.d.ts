@@ -17,6 +17,8 @@ export declare class MatDialogClose implements OnInit, OnChanges {
     private _dialog;
     /** Screenreader label for the button. */
     ariaLabel: string;
+    /** Default to "button" to prevents accidental form submits. */
+    type: 'submit' | 'button' | 'reset';
     /** Dialog close input. */
     dialogResult: any;
     _matDialogClose: any;

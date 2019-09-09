@@ -1350,6 +1350,10 @@ var MatDialogClose = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this._elementRef = _elementRef;
         this._dialog = _dialog;
+        /**
+         * Default to "button" to prevents accidental form submits.
+         */
+        this.type = 'button';
     }
     /**
      * @return {?}
@@ -1389,7 +1393,7 @@ var MatDialogClose = /** @class */ (function () {
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',
                         '[attr.aria-label]': 'ariaLabel || null',
-                        'type': 'button',
+                        '[attr.type]': 'type',
                     }
                 },] },
     ];
@@ -1401,6 +1405,7 @@ var MatDialogClose = /** @class */ (function () {
     ]; };
     MatDialogClose.propDecorators = {
         ariaLabel: [{ type: Input, args: ['aria-label',] }],
+        type: [{ type: Input }],
         dialogResult: [{ type: Input, args: ['mat-dialog-close',] }],
         _matDialogClose: [{ type: Input, args: ['matDialogClose',] }]
     };

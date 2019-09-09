@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-237e030c8');
+var VERSION$1 = new core.Version('8.1.4-3ee3ecb26');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-237e030c8');
+var VERSION$2 = new core.Version('8.1.4-3ee3ecb26');
 /**
  * \@docs-private
  * @return {?}
@@ -12452,6 +12452,10 @@ var MatDialogClose = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this._elementRef = _elementRef;
         this._dialog = _dialog;
+        /**
+         * Default to "button" to prevents accidental form submits.
+         */
+        this.type = 'button';
     }
     /**
      * @return {?}
@@ -12491,7 +12495,7 @@ var MatDialogClose = /** @class */ (function () {
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',
                         '[attr.aria-label]': 'ariaLabel || null',
-                        'type': 'button',
+                        '[attr.type]': 'type',
                     }
                 },] },
     ];
@@ -12503,6 +12507,7 @@ var MatDialogClose = /** @class */ (function () {
     ]; };
     MatDialogClose.propDecorators = {
         ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        type: [{ type: core.Input }],
         dialogResult: [{ type: core.Input, args: ['mat-dialog-close',] }],
         _matDialogClose: [{ type: core.Input, args: ['matDialogClose',] }]
     };
@@ -39767,7 +39772,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa7 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
