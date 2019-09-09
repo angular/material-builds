@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION$1 = new Version('8.1.4-1006cc2d0');
+const VERSION$1 = new Version('8.1.4-7bf5e4e0a');
 
 /**
  * @fileoverview added by tsickle
@@ -60,7 +60,7 @@ AnimationDurations.EXITING = '195ms';
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$2 = new Version('8.1.4-1006cc2d0');
+const VERSION$2 = new Version('8.1.4-7bf5e4e0a');
 /**
  * \@docs-private
  * @return {?}
