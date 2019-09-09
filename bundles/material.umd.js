@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-3ee3ecb26');
+var VERSION$1 = new core.Version('8.1.4-425eb7e3b');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-3ee3ecb26');
+var VERSION$2 = new core.Version('8.1.4-425eb7e3b');
 /**
  * \@docs-private
  * @return {?}
@@ -20102,6 +20102,15 @@ var MatIconRegistry = /** @class */ (function () {
     function (element) {
         /** @type {?} */
         var svg = this._svgElementFromString('<svg></svg>');
+        /** @type {?} */
+        var attributes = element.attributes;
+        // Copy over all the attributes from the `symbol` to the new SVG, except the id.
+        for (var i = 0; i < attributes.length; i++) {
+            var _a = attributes[i], name_1 = _a.name, value = _a.value;
+            if (name_1 !== 'id') {
+                svg.setAttribute(name_1, value);
+            }
+        }
         for (var i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
@@ -39772,7 +39781,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa7 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;

@@ -902,6 +902,15 @@ var MatIconRegistry = /** @class */ (function () {
     function (element) {
         /** @type {?} */
         var svg = this._svgElementFromString('<svg></svg>');
+        /** @type {?} */
+        var attributes = element.attributes;
+        // Copy over all the attributes from the `symbol` to the new SVG, except the id.
+        for (var i = 0; i < attributes.length; i++) {
+            var _a = attributes[i], name_1 = _a.name, value = _a.value;
+            if (name_1 !== 'id') {
+                svg.setAttribute(name_1, value);
+            }
+        }
         for (var i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
