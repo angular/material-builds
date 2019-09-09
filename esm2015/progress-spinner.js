@@ -114,7 +114,6 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         if (!trackedDiameters.has(_document.head)) {
             trackedDiameters.set(_document.head, new Set([BASE_SIZE]));
         }
-        this._styleRoot = _getShadowRoot(_elementRef.nativeElement, _document) || _document.head;
         this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
         this._noopAnimations = animationMode === 'NoopAnimations' &&
             (!!defaults && !defaults._forceAnimations);
@@ -126,11 +125,6 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
                 this.strokeWidth = defaults.strokeWidth;
             }
         }
-        // On IE and Edge, we can't animate the `stroke-dashoffset`
-        // reliably so we fall back to a non-spec animation.
-        /** @type {?} */
-        const animationClass = `mat-progress-spinner-indeterminate${this._fallbackAnimation ? '-fallback' : ''}-animation`;
-        _elementRef.nativeElement.classList.add(animationClass);
     }
     /**
      * The diameter of the progress spinner (will set width and height of svg).
@@ -143,14 +137,9 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     set diameter(size) {
         this._diameter = coerceNumberProperty(size);
-        if (!this._fallbackAnimation) {
-            /** @type {?} */
-            const trackedDiameters = MatProgressSpinner._diameters;
-            /** @type {?} */
-            const diametersForElement = trackedDiameters.get(this._styleRoot);
-            if (!diametersForElement || !diametersForElement.has(this._diameter)) {
-                this._attachStyleNode();
-            }
+        // If this is set before `ngOnInit`, the style root may not have been resolved yet.
+        if (!this._fallbackAnimation && this._styleRoot) {
+            this._attachStyleNode();
         }
     }
     /**
@@ -180,6 +169,23 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     set value(newValue) {
         this._value = Math.max(0, Math.min(100, coerceNumberProperty(newValue)));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        /** @type {?} */
+        const element = this._elementRef.nativeElement;
+        // Note that we need to look up the root node in ngOnInit, rather than the constructor, because
+        // Angular seems to create the element outside the shadow root and then moves it inside, if the
+        // node is inside an `ngIf` and a ShadowDom-encapsulated component.
+        this._styleRoot = _getShadowRoot(element, this._document) || this._document.head;
+        this._attachStyleNode();
+        // On IE and Edge, we can't animate the `stroke-dashoffset`
+        // reliably so we fall back to a non-spec animation.
+        /** @type {?} */
+        const animationClass = `mat-progress-spinner-indeterminate${this._fallbackAnimation ? '-fallback' : ''}-animation`;
+        element.classList.add(animationClass);
     }
     /**
      * The radius of the spinner, adjusted for stroke width.
@@ -232,8 +238,6 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     _attachStyleNode() {
         /** @type {?} */
-        const styleTag = this._document.createElement('style');
-        /** @type {?} */
         const styleRoot = this._styleRoot;
         /** @type {?} */
         const currentDiameter = this._diameter;
@@ -241,14 +245,18 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         const diameters = MatProgressSpinner._diameters;
         /** @type {?} */
         let diametersForElement = diameters.get(styleRoot);
-        styleTag.setAttribute('mat-spinner-animation', currentDiameter + '');
-        styleTag.textContent = this._getAnimationText();
-        styleRoot.appendChild(styleTag);
-        if (!diametersForElement) {
-            diametersForElement = new Set();
-            diameters.set(styleRoot, diametersForElement);
+        if (!diametersForElement || !diametersForElement.has(currentDiameter)) {
+            /** @type {?} */
+            const styleTag = this._document.createElement('style');
+            styleTag.setAttribute('mat-spinner-animation', currentDiameter + '');
+            styleTag.textContent = this._getAnimationText();
+            styleRoot.appendChild(styleTag);
+            if (!diametersForElement) {
+                diametersForElement = new Set();
+                diameters.set(styleRoot, diametersForElement);
+            }
+            diametersForElement.add(currentDiameter);
         }
-        diametersForElement.add(currentDiameter);
     }
     /**
      * Generates animation styles adjusted for the spinner's diameter.

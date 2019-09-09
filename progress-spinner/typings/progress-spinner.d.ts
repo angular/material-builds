@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Platform } from '@angular/cdk/platform';
-import { ElementRef, InjectionToken } from '@angular/core';
+import { ElementRef, InjectionToken, OnInit } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
 /** Possible mode for a progress spinner. */
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
@@ -35,7 +35,7 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
 /**
  * `<mat-progress-spinner>` component.
  */
-export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor {
+export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements OnInit, CanColor {
     _elementRef: ElementRef<HTMLElement>;
     private _document;
     private _diameter;
@@ -66,6 +66,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     /** Value of the progress circle. */
     value: number;
     constructor(_elementRef: ElementRef<HTMLElement>, platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    ngOnInit(): void;
     /** The radius of the spinner, adjusted for stroke width. */
     readonly _circleRadius: number;
     /** The view box of the spinner's svg element. */

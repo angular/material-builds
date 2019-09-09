@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-c8ceae5b2');
+var VERSION$1 = new core.Version('8.1.4-306e07cba');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-c8ceae5b2');
+var VERSION$2 = new core.Version('8.1.4-306e07cba');
 /**
  * \@docs-private
  * @return {?}
@@ -28306,7 +28306,6 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         if (!trackedDiameters.has(_document.head)) {
             trackedDiameters.set(_document.head, new Set([BASE_SIZE]));
         }
-        _this._styleRoot = _getShadowRoot(_elementRef.nativeElement, _document) || _document.head;
         _this._fallbackAnimation = platform$$1.EDGE || platform$$1.TRIDENT;
         _this._noopAnimations = animationMode === 'NoopAnimations' &&
             (!!defaults && !defaults._forceAnimations);
@@ -28318,11 +28317,6 @@ var MatProgressSpinner = /** @class */ (function (_super) {
                 _this.strokeWidth = defaults.strokeWidth;
             }
         }
-        // On IE and Edge, we can't animate the `stroke-dashoffset`
-        // reliably so we fall back to a non-spec animation.
-        /** @type {?} */
-        var animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
-        _elementRef.nativeElement.classList.add(animationClass);
         return _this;
     }
     Object.defineProperty(MatProgressSpinner.prototype, "diameter", {
@@ -28338,14 +28332,9 @@ var MatProgressSpinner = /** @class */ (function (_super) {
          */
         function (size) {
             this._diameter = coercion.coerceNumberProperty(size);
-            if (!this._fallbackAnimation) {
-                /** @type {?} */
-                var trackedDiameters = MatProgressSpinner._diameters;
-                /** @type {?} */
-                var diametersForElement = trackedDiameters.get(this._styleRoot);
-                if (!diametersForElement || !diametersForElement.has(this._diameter)) {
-                    this._attachStyleNode();
-                }
+            // If this is set before `ngOnInit`, the style root may not have been resolved yet.
+            if (!this._fallbackAnimation && this._styleRoot) {
+                this._attachStyleNode();
             }
         },
         enumerable: true,
@@ -28389,6 +28378,26 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    MatProgressSpinner.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        // Note that we need to look up the root node in ngOnInit, rather than the constructor, because
+        // Angular seems to create the element outside the shadow root and then moves it inside, if the
+        // node is inside an `ngIf` and a ShadowDom-encapsulated component.
+        this._styleRoot = _getShadowRoot(element, this._document) || this._document.head;
+        this._attachStyleNode();
+        // On IE and Edge, we can't animate the `stroke-dashoffset`
+        // reliably so we fall back to a non-spec animation.
+        /** @type {?} */
+        var animationClass = "mat-progress-spinner-indeterminate" + (this._fallbackAnimation ? '-fallback' : '') + "-animation";
+        element.classList.add(animationClass);
+    };
     Object.defineProperty(MatProgressSpinner.prototype, "_circleRadius", {
         /** The radius of the spinner, adjusted for stroke width. */
         get: /**
@@ -28471,8 +28480,6 @@ var MatProgressSpinner = /** @class */ (function (_super) {
      */
     function () {
         /** @type {?} */
-        var styleTag = this._document.createElement('style');
-        /** @type {?} */
         var styleRoot = this._styleRoot;
         /** @type {?} */
         var currentDiameter = this._diameter;
@@ -28480,14 +28487,18 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         var diameters = MatProgressSpinner._diameters;
         /** @type {?} */
         var diametersForElement = diameters.get(styleRoot);
-        styleTag.setAttribute('mat-spinner-animation', currentDiameter + '');
-        styleTag.textContent = this._getAnimationText();
-        styleRoot.appendChild(styleTag);
-        if (!diametersForElement) {
-            diametersForElement = new Set();
-            diameters.set(styleRoot, diametersForElement);
+        if (!diametersForElement || !diametersForElement.has(currentDiameter)) {
+            /** @type {?} */
+            var styleTag = this._document.createElement('style');
+            styleTag.setAttribute('mat-spinner-animation', currentDiameter + '');
+            styleTag.textContent = this._getAnimationText();
+            styleRoot.appendChild(styleTag);
+            if (!diametersForElement) {
+                diametersForElement = new Set();
+                diameters.set(styleRoot, diametersForElement);
+            }
+            diametersForElement.add(currentDiameter);
         }
-        diametersForElement.add(currentDiameter);
     };
     /** Generates animation styles adjusted for the spinner's diameter. */
     /**
@@ -39758,7 +39769,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa7 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
