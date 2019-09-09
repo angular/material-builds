@@ -110,11 +110,8 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _initMenu;
     /** Updates the menu elevation based on the amount of parent menus that it has. */
     private _setMenuElevation;
-    /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
-     */
-    private _resetMenu;
+    /** Restores focus to the element that was focused before the menu was open. */
+    private _restoreFocus;
     private _setIsMenuOpen;
     /**
      * This method checks that a valid instance of MatMenu has been passed into

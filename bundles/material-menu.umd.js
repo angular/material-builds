@@ -1537,19 +1537,20 @@ var MatMenuTrigger = /** @class */ (function () {
                     complete: (/**
                      * @return {?}
                      */
-                    function () { return _this._resetMenu(); })
+                    function () { return _this._setIsMenuOpen(false); })
                 });
             }
             else {
-                this._resetMenu();
+                this._setIsMenuOpen(false);
             }
         }
         else {
-            this._resetMenu();
+            this._setIsMenuOpen(false);
             if (menu.lazyContent) {
                 menu.lazyContent.detach();
             }
         }
+        this._restoreFocus();
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -1598,24 +1599,18 @@ var MatMenuTrigger = /** @class */ (function () {
             this.menu.setElevation(depth);
         }
     };
+    /** Restores focus to the element that was focused before the menu was open. */
     /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
-     */
-    /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
+     * Restores focus to the element that was focused before the menu was open.
      * @private
      * @return {?}
      */
-    MatMenuTrigger.prototype._resetMenu = /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
+    MatMenuTrigger.prototype._restoreFocus = /**
+     * Restores focus to the element that was focused before the menu was open.
      * @private
      * @return {?}
      */
     function () {
-        this._setIsMenuOpen(false);
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.

@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-dadb3e1c8');
+var VERSION$1 = new core.Version('8.1.4-bfa185305');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-dadb3e1c8');
+var VERSION$2 = new core.Version('8.1.4-bfa185305');
 /**
  * \@docs-private
  * @return {?}
@@ -23734,19 +23734,20 @@ var MatMenuTrigger = /** @class */ (function () {
                     complete: (/**
                      * @return {?}
                      */
-                    function () { return _this._resetMenu(); })
+                    function () { return _this._setIsMenuOpen(false); })
                 });
             }
             else {
-                this._resetMenu();
+                this._setIsMenuOpen(false);
             }
         }
         else {
-            this._resetMenu();
+            this._setIsMenuOpen(false);
             if (menu.lazyContent) {
                 menu.lazyContent.detach();
             }
         }
+        this._restoreFocus();
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -23795,24 +23796,18 @@ var MatMenuTrigger = /** @class */ (function () {
             this.menu.setElevation(depth);
         }
     };
+    /** Restores focus to the element that was focused before the menu was open. */
     /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
-     */
-    /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
+     * Restores focus to the element that was focused before the menu was open.
      * @private
      * @return {?}
      */
-    MatMenuTrigger.prototype._resetMenu = /**
-     * This method resets the menu when it's closed, most importantly restoring
-     * focus to the menu trigger if the menu was opened via the keyboard.
+    MatMenuTrigger.prototype._restoreFocus = /**
+     * Restores focus to the element that was focused before the menu was open.
      * @private
      * @return {?}
      */
     function () {
-        this._setIsMenuOpen(false);
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
@@ -39769,7 +39764,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa3 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
