@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-8d1290238');
+var VERSION$1 = new core.Version('8.1.4-237e030c8');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-8d1290238');
+var VERSION$2 = new core.Version('8.1.4-237e030c8');
 /**
  * \@docs-private
  * @return {?}
@@ -29513,6 +29513,9 @@ var MatRadioButton = /** @class */ (function (_super) {
                         // Needs to be -1 so the `focus` event still fires.
                         '[attr.tabindex]': '-1',
                         '[attr.id]': 'id',
+                        '[attr.aria-label]': 'null',
+                        '[attr.aria-labelledby]': 'null',
+                        '[attr.aria-describedby]': 'null',
                         // Note: under normal conditions focus shouldn't land on this element, however it may be
                         // programmatically set, for example inside of a focus trap, in this case we want to forward
                         // the focus to the native element.
@@ -39764,7 +39767,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa5 = MAT_GRID_LIST;
+exports.ɵa4 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39925,8 +39928,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb22 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
