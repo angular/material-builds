@@ -185,7 +185,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._value !== undefined
+            return this._value != undefined
                 ? this._value
                 : this._elementRef.nativeElement.textContent;
         },
