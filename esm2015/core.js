@@ -9,7 +9,7 @@ import { Version, NgModule, InjectionToken, Optional, Inject, isDevMode, inject,
 import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION } from '@angular/cdk';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { startWith } from 'rxjs/operators';
@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION$1 = new Version('8.1.4-bfa185305');
+const VERSION$1 = new Version('8.1.4-c841289a9');
 
 /**
  * @fileoverview added by tsickle
@@ -60,7 +60,7 @@ AnimationDurations.EXITING = '195ms';
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$2 = new Version('8.1.4-bfa185305');
+const VERSION$2 = new Version('8.1.4-c841289a9');
 /**
  * \@docs-private
  * @return {?}
@@ -1406,10 +1406,10 @@ class RippleRenderer {
     /**
      * @param {?} _target
      * @param {?} _ngZone
-     * @param {?} elementRef
+     * @param {?} elementOrElementRef
      * @param {?} platform
      */
-    constructor(_target, _ngZone, elementRef, platform) {
+    constructor(_target, _ngZone, elementOrElementRef, platform) {
         this._target = _target;
         this._ngZone = _ngZone;
         /**
@@ -1496,7 +1496,7 @@ class RippleRenderer {
         });
         // Only do anything if we're on the browser.
         if (platform.isBrowser) {
-            this._containerElement = elementRef.nativeElement;
+            this._containerElement = coerceElement(elementOrElementRef);
             // Specify events which need to be registered on the trigger.
             this._triggerEvents
                 .set('mousedown', this._onMousedown)
@@ -1623,10 +1623,12 @@ class RippleRenderer {
     }
     /**
      * Sets up the trigger event listeners
-     * @param {?} element
+     * @param {?} elementOrElementRef
      * @return {?}
      */
-    setupTriggerEvents(element) {
+    setupTriggerEvents(elementOrElementRef) {
+        /** @type {?} */
+        const element = coerceElement(elementOrElementRef);
         if (!element || element === this._triggerElement) {
             return;
         }

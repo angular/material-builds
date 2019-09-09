@@ -74,7 +74,7 @@ export declare class RippleRenderer {
      * ripple is shown and cleared once no more ripples are visible.
      */
     private _containerRect;
-    constructor(_target: RippleTarget, _ngZone: NgZone, elementRef: ElementRef<HTMLElement>, platform: Platform);
+    constructor(_target: RippleTarget, _ngZone: NgZone, elementOrElementRef: HTMLElement | ElementRef<HTMLElement>, platform: Platform);
     /**
      * Fades in a ripple at the given coordinates.
      * @param x Coordinate within the element, along the X axis at which to start the ripple.
@@ -87,7 +87,7 @@ export declare class RippleRenderer {
     /** Fades out all currently active ripples. */
     fadeOutAll(): void;
     /** Sets up the trigger event listeners */
-    setupTriggerEvents(element: HTMLElement): void;
+    setupTriggerEvents(elementOrElementRef: HTMLElement | ElementRef<HTMLElement>): void;
     /** Function being called whenever the trigger is being pressed using mouse. */
     private _onMousedown;
     /** Function being called whenever the trigger is being pressed using touch. */

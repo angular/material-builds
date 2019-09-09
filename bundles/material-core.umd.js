@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-bfa185305');
+var VERSION$1 = new core.Version('8.1.4-c841289a9');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-bfa185305');
+var VERSION$2 = new core.Version('8.1.4-c841289a9');
 /**
  * \@docs-private
  * @return {?}
@@ -1865,7 +1865,7 @@ var   /**
  * \@docs-private
  */
 RippleRenderer = /** @class */ (function () {
-    function RippleRenderer(_target, _ngZone, elementRef, platform$$1) {
+    function RippleRenderer(_target, _ngZone, elementOrElementRef, platform$$1) {
         var _this = this;
         this._target = _target;
         this._ngZone = _ngZone;
@@ -1953,7 +1953,7 @@ RippleRenderer = /** @class */ (function () {
         });
         // Only do anything if we're on the browser.
         if (platform$$1.isBrowser) {
-            this._containerElement = elementRef.nativeElement;
+            this._containerElement = coercion.coerceElement(elementOrElementRef);
             // Specify events which need to be registered on the trigger.
             this._triggerEvents
                 .set('mousedown', this._onMousedown)
@@ -2107,16 +2107,18 @@ RippleRenderer = /** @class */ (function () {
     /** Sets up the trigger event listeners */
     /**
      * Sets up the trigger event listeners
-     * @param {?} element
+     * @param {?} elementOrElementRef
      * @return {?}
      */
     RippleRenderer.prototype.setupTriggerEvents = /**
      * Sets up the trigger event listeners
-     * @param {?} element
+     * @param {?} elementOrElementRef
      * @return {?}
      */
-    function (element) {
+    function (elementOrElementRef) {
         var _this = this;
+        /** @type {?} */
+        var element = coercion.coerceElement(elementOrElementRef);
         if (!element || element === this._triggerElement) {
             return;
         }

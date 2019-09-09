@@ -2381,7 +2381,7 @@ var MatTabLink = /** @class */ (function (_super) {
          */
         _this._isActive = false;
         _this._tabLinkRipple = new core$1.RippleRenderer(_this, ngZone, elementRef, platform$$1);
-        _this._tabLinkRipple.setupTriggerEvents(elementRef.nativeElement);
+        _this._tabLinkRipple.setupTriggerEvents(elementRef);
         _this.rippleConfig = globalRippleOptions || {};
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (animationMode === 'NoopAnimations') {

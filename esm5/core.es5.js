@@ -10,7 +10,7 @@ import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION } from '@angular/cdk';
 import { __extends, __assign } from 'tslib';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { startWith } from 'rxjs/operators';
@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new Version('8.1.4-bfa185305');
+var VERSION$1 = new Version('8.1.4-c841289a9');
 
 /**
  * @fileoverview added by tsickle
@@ -67,7 +67,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new Version('8.1.4-bfa185305');
+var VERSION$2 = new Version('8.1.4-c841289a9');
 /**
  * \@docs-private
  * @return {?}
@@ -1833,7 +1833,7 @@ var  /**
  * \@docs-private
  */
 RippleRenderer = /** @class */ (function () {
-    function RippleRenderer(_target, _ngZone, elementRef, platform) {
+    function RippleRenderer(_target, _ngZone, elementOrElementRef, platform) {
         var _this = this;
         this._target = _target;
         this._ngZone = _ngZone;
@@ -1921,7 +1921,7 @@ RippleRenderer = /** @class */ (function () {
         });
         // Only do anything if we're on the browser.
         if (platform.isBrowser) {
-            this._containerElement = elementRef.nativeElement;
+            this._containerElement = coerceElement(elementOrElementRef);
             // Specify events which need to be registered on the trigger.
             this._triggerEvents
                 .set('mousedown', this._onMousedown)
@@ -2075,16 +2075,18 @@ RippleRenderer = /** @class */ (function () {
     /** Sets up the trigger event listeners */
     /**
      * Sets up the trigger event listeners
-     * @param {?} element
+     * @param {?} elementOrElementRef
      * @return {?}
      */
     RippleRenderer.prototype.setupTriggerEvents = /**
      * Sets up the trigger event listeners
-     * @param {?} element
+     * @param {?} elementOrElementRef
      * @return {?}
      */
-    function (element) {
+    function (elementOrElementRef) {
         var _this = this;
+        /** @type {?} */
+        var element = coerceElement(elementOrElementRef);
         if (!element || element === this._triggerElement) {
             return;
         }

@@ -155,7 +155,7 @@ var MatChip = /** @class */ (function (_super) {
         _this.removed = new core.EventEmitter();
         _this._addHostClassName();
         _this._chipRipple = new core$1.RippleRenderer(_this, _ngZone, _elementRef, platform$$1);
-        _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
+        _this._chipRipple.setupTriggerEvents(_elementRef);
         _this.rippleConfig = globalRippleOptions || {};
         _this._animationsDisabled = animationMode === 'NoopAnimations';
         return _this;
