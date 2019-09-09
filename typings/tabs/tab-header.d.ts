@@ -12,6 +12,14 @@ import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
 import { Platform } from '@angular/cdk/platform';
 import { MatPaginatedTabHeader } from './paginated-tab-header';
+/** Base class with all of the `MatTabHeader` functionality. */
+export declare abstract class _MatTabHeaderBase extends MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy {
+    /** Whether the ripple effect is disabled or not. */
+    disableRipple: any;
+    private _disableRipple;
+    constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
+    protected _itemSelected(event: KeyboardEvent): void;
+}
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -19,16 +27,12 @@ import { MatPaginatedTabHeader } from './paginated-tab-header';
  * left and right across the header.
  * @docs-private
  */
-export declare class MatTabHeader extends MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy {
+export declare class MatTabHeader extends _MatTabHeaderBase {
     _items: QueryList<MatTabLabelWrapper>;
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
-    /** Whether the ripple effect is disabled or not. */
-    disableRipple: any;
-    private _disableRipple;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
-    protected _itemSelected(event: KeyboardEvent): void;
 }

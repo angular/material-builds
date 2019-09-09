@@ -8,7 +8,6 @@
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, InjectionToken } from '@angular/core';
 import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
-import { MatTabHeader } from './tab-header';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MatTabChangeEvent {
     /** Index of the currently-selected tab. */
@@ -26,22 +25,22 @@ export interface MatTabsConfig {
 /** Injection token that can be used to provide the default options the tabs module. */
 export declare const MAT_TABS_CONFIG: InjectionToken<MatTabsConfig>;
 /** @docs-private */
-declare class MatTabGroupBase {
+declare class MatTabGroupMixinBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-declare const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeof MatTabGroupBase;
-/**
- * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
- * animated ink-bar, keyboard navigation, and screen reader.
- * See: https://material.io/design/components/tabs.html
- */
-export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
+declare const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeof MatTabGroupMixinBase;
+interface MatTabGroupBaseHeader {
+    _alignInkBarToSelectedTab: () => void;
+    focusIndex: number;
+}
+/** Base class with all of the `MatTabGroupBase` functionality. */
+export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetectorRef;
     _animationMode?: string | undefined;
-    _tabs: QueryList<MatTab>;
-    _tabBodyWrapper: ElementRef;
-    _tabHeader: MatTabHeader;
+    abstract _tabs: QueryList<MatTab>;
+    abstract _tabBodyWrapper: ElementRef;
+    abstract _tabHeader: MatTabGroupBaseHeader;
     /** The tab index that should be selected after the content has been checked. */
     private _indexToSelect;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
@@ -108,8 +107,19 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Removes the height of the tab body wrapper. */
     _removeTabBodyWrapperHeight(): void;
     /** Handle click events, setting new selected index if appropriate. */
-    _handleClick(tab: MatTab, tabHeader: MatTabHeader, index: number): void;
+    _handleClick(tab: MatTab, tabHeader: MatTabGroupBaseHeader, index: number): void;
     /** Retrieves the tabindex for the tab. */
     _getTabIndex(tab: MatTab, idx: number): number | null;
+}
+/**
+ * Material design tab-group component. Supports basic tab pairs (label + content) and includes
+ * animated ink-bar, keyboard navigation, and screen reader.
+ * See: https://material.io/design/components/tabs.html
+ */
+export declare class MatTabGroup extends _MatTabGroupBase {
+    _tabs: QueryList<MatTab>;
+    _tabBodyWrapper: ElementRef;
+    _tabHeader: MatTabGroupBaseHeader;
+    constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
 }
 export {};

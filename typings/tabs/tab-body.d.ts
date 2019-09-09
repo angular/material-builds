@@ -44,11 +44,8 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     /** Clean up centering subscription. */
     ngOnDestroy(): void;
 }
-/**
- * Wrapper for the contents of a tab.
- * @docs-private
- */
-export declare class MatTabBody implements OnInit, OnDestroy {
+/** Base class with all of the `MatTabBody` functionality. */
+export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     private _elementRef;
     private _dir;
     /** Current position of the tab-body in the tab-group. Zero means that the tab is visible. */
@@ -68,7 +65,7 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     /** Event emitted when the tab completes its animation towards the center. */
     readonly _onCentered: EventEmitter<void>;
     /** The portal host inside of this container into which the tab body content will be loaded. */
-    _portalHost: PortalHostDirective;
+    abstract _portalHost: PortalHostDirective;
     /** The tab body content to display. */
     _content: TemplatePortal;
     /** Position that will be used when the tab is immediately becoming visible after creation. */
@@ -96,4 +93,12 @@ export declare class MatTabBody implements OnInit, OnDestroy {
      * tab is becoming visible immediately after creation.
      */
     private _computePositionFromOrigin;
+}
+/**
+ * Wrapper for the contents of a tab.
+ * @docs-private
+ */
+export declare class MatTabBody extends _MatTabBodyBase {
+    _portalHost: PortalHostDirective;
+    constructor(elementRef: ElementRef<HTMLElement>, dir: Directionality, changeDetectorRef: ChangeDetectorRef);
 }

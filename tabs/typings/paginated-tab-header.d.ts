@@ -10,7 +10,6 @@ import { Direction, Directionality } from '@angular/cdk/bidi';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
-import { MatInkBar } from './ink-bar';
 import { Platform } from '@angular/cdk/platform';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
@@ -19,7 +18,7 @@ import { Platform } from '@angular/cdk/platform';
  */
 export declare type ScrollDirection = 'after' | 'before';
 /** Item inside a paginated tab header. */
-declare type MatPaginatedTabHeaderItem = FocusableOption & {
+export declare type MatPaginatedTabHeaderItem = FocusableOption & {
     elementRef: ElementRef;
 };
 /**
@@ -38,7 +37,10 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     private _platform?;
     _animationMode?: string | undefined;
     abstract _items: QueryList<MatPaginatedTabHeaderItem>;
-    abstract _inkBar: MatInkBar;
+    abstract _inkBar: {
+        hide: () => void;
+        alignToElement: (element: HTMLElement) => void;
+    };
     abstract _tabListContainer: ElementRef<HTMLElement>;
     abstract _tabList: ElementRef<HTMLElement>;
     abstract _nextPaginator: ElementRef<HTMLElement>;
@@ -185,4 +187,3 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     private _scrollTo;
 }
-export {};
