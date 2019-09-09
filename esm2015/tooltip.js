@@ -271,7 +271,21 @@ class MatTooltip {
         }
         else {
             this._updateTooltipMessage();
-            this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            () => {
+                // The `AriaDescriber` has some functionality that avoids adding a description if it's the
+                // same as the `aria-label` of an element, however we can't know whether the tooltip trigger
+                // has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
+                // issue by deferring the description by a tick so Angular has time to set the `aria-label`.
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                () => {
+                    this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
+                }));
+            }));
         }
     }
     /**

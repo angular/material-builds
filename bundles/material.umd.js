@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-425eb7e3b');
+var VERSION$1 = new core.Version('8.1.4-1006cc2d0');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-425eb7e3b');
+var VERSION$2 = new core.Version('8.1.4-1006cc2d0');
 /**
  * \@docs-private
  * @return {?}
@@ -26625,6 +26625,7 @@ var MatTooltip = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
+            var _this = this;
             this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
             // If the message is not a string (e.g. number), convert it to a string and trim it.
             this._message = value != null ? ("" + value).trim() : '';
@@ -26633,7 +26634,21 @@ var MatTooltip = /** @class */ (function () {
             }
             else {
                 this._updateTooltipMessage();
-                this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
+                this._ngZone.runOutsideAngular((/**
+                 * @return {?}
+                 */
+                function () {
+                    // The `AriaDescriber` has some functionality that avoids adding a description if it's the
+                    // same as the `aria-label` of an element, however we can't know whether the tooltip trigger
+                    // has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
+                    // issue by deferring the description by a tick so Angular has time to set the `aria-label`.
+                    Promise.resolve().then((/**
+                     * @return {?}
+                     */
+                    function () {
+                        _this._ariaDescriber.describe(_this._elementRef.nativeElement, _this.message);
+                    }));
+                }));
             }
         },
         enumerable: true,
@@ -39781,7 +39796,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa4 = MAT_GRID_LIST;
+exports.ɵa5 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39816,9 +39831,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -39942,8 +39957,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb23 = MatPaginatedTabHeader;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb24 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
