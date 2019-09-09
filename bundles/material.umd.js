@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.1.4-c841289a9');
+var VERSION$1 = new core.Version('8.1.4-57998a2e5');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.1.4-c841289a9');
+var VERSION$2 = new core.Version('8.1.4-57998a2e5');
 /**
  * \@docs-private
  * @return {?}
@@ -9037,7 +9037,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._value != undefined
+            return this._value !== undefined
                 ? this._value
                 : this._elementRef.nativeElement.textContent;
         },
@@ -34701,7 +34701,6 @@ var MatSortHeader = /** @class */ (function (_super) {
                     host: {
                         '(click)': '_handleClick()',
                         '(mouseenter)': '_setIndicatorHintVisible(true)',
-                        '(longpress)': '_setIndicatorHintVisible(true)',
                         '(mouseleave)': '_setIndicatorHintVisible(false)',
                         '[attr.aria-sort]': '_getAriaSortAttribute()',
                         '[class.mat-sort-header-disabled]': '_isDisabled()',
@@ -39766,7 +39765,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
