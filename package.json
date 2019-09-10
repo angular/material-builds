@@ -42,6 +42,6 @@
   },
   "sideEffects": false,
   "releaseGitCommitSha": "f6564cd3ce44372c5613644ee589544a28dfa229",
-  "releaseGitBranch": "master",
+  "releaseGitBranch": "8.2.x",
   "releaseGitUser": " <>"
 }
