@@ -8,9 +8,21 @@
 import { InjectionToken } from '@angular/core';
 import { HammerLoader } from '@angular/platform-browser';
 /** @docs-private */
-export declare function MATERIAL_SANITY_CHECKS_FACTORY(): boolean;
+export declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
 /** Injection token that configures whether the Material sanity checks are enabled. */
-export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
+export declare const MATERIAL_SANITY_CHECKS: InjectionToken<SanityChecks>;
+/**
+ * Possible sanity checks that can be enabled. If set to
+ * true/false, all checks will be enabled/disabled.
+ */
+export declare type SanityChecks = boolean | GranularSanityChecks;
+/** Object that can be used to configure the sanity checks granularly. */
+export interface GranularSanityChecks {
+    doctype: boolean;
+    theme: boolean;
+    version: boolean;
+    hammer: boolean;
+}
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
@@ -18,7 +30,6 @@ export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 export declare class MatCommonModule {
-    private _sanityChecksEnabled;
     private _hammerLoader?;
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;
@@ -28,9 +39,11 @@ export declare class MatCommonModule {
     private _document;
     /** Reference to the global 'window' object. */
     private _window;
-    constructor(_sanityChecksEnabled: boolean, _hammerLoader?: HammerLoader | undefined);
-    /** Whether any sanity checks are enabled */
-    private _areChecksEnabled;
+    /** Configured sanity checks. */
+    private _sanityChecks;
+    constructor(sanityChecks: any, _hammerLoader?: HammerLoader | undefined);
+    /** Whether any sanity checks are enabled. */
+    private _checksAreEnabled;
     /** Whether the code is running in tests. */
     private _isTestEnv;
     private _checkDoctypeIsDefined;

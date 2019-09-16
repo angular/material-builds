@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new Version('8.2.0-28b645d9e');
+var VERSION$1 = new Version('8.2.0-77994e9de');
 
 /**
  * @fileoverview added by tsickle
@@ -67,7 +67,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new Version('8.2.0-28b645d9e');
+var VERSION$2 = new Version('8.2.0-77994e9de');
 /**
  * \@docs-private
  * @return {?}
@@ -90,8 +90,7 @@ var MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = /** @class */ (function () {
-    function MatCommonModule(_sanityChecksEnabled, _hammerLoader) {
-        this._sanityChecksEnabled = _sanityChecksEnabled;
+    function MatCommonModule(sanityChecks, _hammerLoader) {
         this._hammerLoader = _hammerLoader;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -109,26 +108,29 @@ var MatCommonModule = /** @class */ (function () {
          * Reference to the global 'window' object.
          */
         this._window = typeof window === 'object' && window ? window : null;
-        if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
+        // Note that `_sanityChecks` is typed to `any`, because AoT
+        // throws an error if we use the `SanityChecks` type directly.
+        this._sanityChecks = sanityChecks;
+        if (!this._hasDoneGlobalChecks) {
             this._checkDoctypeIsDefined();
             this._checkThemeIsPresent();
             this._checkCdkVersionMatch();
             this._hasDoneGlobalChecks = true;
         }
     }
-    /** Whether any sanity checks are enabled */
+    /** Whether any sanity checks are enabled. */
     /**
-     * Whether any sanity checks are enabled
+     * Whether any sanity checks are enabled.
      * @private
      * @return {?}
      */
-    MatCommonModule.prototype._areChecksEnabled = /**
-     * Whether any sanity checks are enabled
+    MatCommonModule.prototype._checksAreEnabled = /**
+     * Whether any sanity checks are enabled.
      * @private
      * @return {?}
      */
     function () {
-        return this._sanityChecksEnabled && isDevMode() && !this._isTestEnv();
+        return isDevMode() && !this._isTestEnv();
     };
     /** Whether the code is running in tests. */
     /**
@@ -155,7 +157,10 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this._document && !this._document.doctype) {
+        /** @type {?} */
+        var isEnabled = this._checksAreEnabled() &&
+            (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).doctype);
+        if (isEnabled && this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -171,7 +176,11 @@ var MatCommonModule = /** @class */ (function () {
     function () {
         // We need to assert that the `body` is defined, because these checks run very early
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
-        if (!this._document || !this._document.body || typeof getComputedStyle !== 'function') {
+        /** @type {?} */
+        var isDisabled = !this._checksAreEnabled() ||
+            (this._sanityChecks === false || !((/** @type {?} */ (this._sanityChecks))).theme);
+        if (isDisabled || !this._document || !this._document.body ||
+            typeof getComputedStyle !== 'function') {
             return;
         }
         /** @type {?} */
@@ -202,7 +211,10 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (VERSION$2.full !== VERSION.full) {
+        /** @type {?} */
+        var isEnabled = this._checksAreEnabled() &&
+            (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).version);
+        if (isEnabled && VERSION$2.full !== VERSION.full) {
             console.warn('The Angular Material version (' + VERSION$2.full + ') does not match ' +
                 'the Angular CDK version (' + VERSION.full + ').\n' +
                 'Please ensure the versions of these two packages exactly match.');
@@ -221,7 +233,10 @@ var MatCommonModule = /** @class */ (function () {
         if (this._hasCheckedHammer || !this._window) {
             return;
         }
-        if (this._areChecksEnabled() && !((/** @type {?} */ (this._window)))['Hammer'] && !this._hammerLoader) {
+        /** @type {?} */
+        var isEnabled = this._checksAreEnabled() &&
+            (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).hammer);
+        if (isEnabled && !((/** @type {?} */ (this._window)))['Hammer'] && !this._hammerLoader) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -234,7 +249,7 @@ var MatCommonModule = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
-        { type: Boolean, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
     ]; };
     return MatCommonModule;
