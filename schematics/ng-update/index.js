@@ -41,6 +41,11 @@ function updateToV8() {
     return schematics_1.createUpgradeRule(schematics_1.TargetVersion.V8, materialMigrationRules, upgrade_data_1.materialUpgradeData, onMigrationComplete);
 }
 exports.updateToV8 = updateToV8;
+/** Entry point for the migration schematics with target of Angular Material v9 */
+function updateToV9() {
+    return schematics_1.createUpgradeRule(schematics_1.TargetVersion.V9, materialMigrationRules, upgrade_data_1.materialUpgradeData, onMigrationComplete);
+}
+exports.updateToV9 = updateToV9;
 /** Function that will be called when the migration completed. */
 function onMigrationComplete(targetVersion, hasFailures) {
     console.log();
