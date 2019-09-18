@@ -1366,7 +1366,10 @@ var MatSelect = /** @class */ (function (_super) {
             this._propagateChanges(option.value);
         }
         else {
-            option.selected ? this._selectionModel.select(option) : this._selectionModel.deselect(option);
+            if (wasSelected !== option.selected) {
+                option.selected ? this._selectionModel.select(option) :
+                    this._selectionModel.deselect(option);
+            }
             if (isUserInput) {
                 this._keyManager.setActiveItem(option);
             }
