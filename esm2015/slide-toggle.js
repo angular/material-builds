@@ -10,10 +10,9 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR, CheckboxRequiredValidator, NG_VALIDATORS } from '@angular/forms';
-import { mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, GestureConfig, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ObserversModule } from '@angular/cdk/observers';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
@@ -28,7 +27,7 @@ const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-de
     factory: (/**
      * @return {?}
      */
-    () => ({ disableToggleValue: false, disableDragValue: false }))
+    () => ({ disableToggleValue: false }))
 });
 
 /**
@@ -91,14 +90,17 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @param {?=} _animationMode
      * @param {?=} _dir
      */
-    constructor(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
+    constructor(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, 
+    /**
+     * @deprecated `_ngZone` and `_dir` parameters to be removed.
+     * @breaking-change 10.0.0
+     */
+    _ngZone, defaults, _animationMode, _dir) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
-        this._ngZone = _ngZone;
         this.defaults = defaults;
         this._animationMode = _animationMode;
-        this._dir = _dir;
         this._onChange = (/**
          * @param {?} _
          * @return {?}
@@ -111,10 +113,6 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this._uniqueId = `mat-slide-toggle-${++nextUniqueId}`;
         this._required = false;
         this._checked = false;
-        /**
-         * Whether the thumb is currently being dragged.
-         */
-        this._dragging = false;
         /**
          * Name value will be applied to the input element if present.
          */
@@ -142,8 +140,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         /**
          * An event will be dispatched each time the slide-toggle input is toggled.
          * This event is always emitted when the user toggles the slide toggle, but this does not mean
-         * the slide toggle's value has changed. The event does not fire when the user drags to change
-         * the slide toggle value.
+         * the slide toggle's value has changed.
          */
         this.toggleChange = new EventEmitter();
         /**
@@ -151,6 +148,8 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
          * This event is always emitted when the user drags the slide toggle to make a change greater
          * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
          * the user toggles the slide toggle to change its value.
+         * @deprecated No longer being used. To be removed.
+         * \@breaking-change 10.0.0
          */
         this.dragChange = new EventEmitter();
         this.tabIndex = parseInt(tabIndex) || 0;
@@ -223,15 +222,11 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the component's `change` output.
         event.stopPropagation();
-        if (!this._dragging) {
-            this.toggleChange.emit();
-        }
-        // Releasing the pointer over the `<label>` element while dragging triggers another
-        // click event on the `<label>` element. This means that the checked state of the underlying
-        // input changed unintentionally and needs to be changed back. Or when the slide toggle's config
-        // disabled toggle change event by setting `disableToggleValue: true`, the slide toggle's value
-        // does not change, and the checked state of the underlying input needs to be changed back.
-        if (this._dragging || this.defaults.disableToggleValue) {
+        this.toggleChange.emit();
+        // When the slide toggle's config disables toggle change event by setting
+        // `disableToggleValue: true`, the slide toggle's value does not change, and the
+        // checked state of the underlying input needs to be changed back.
+        if (this.defaults.disableToggleValue) {
             this._inputElement.nativeElement.checked = this.checked;
             return;
         }
@@ -315,82 +310,6 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     }
     /**
-     * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
-     * @private
-     * @param {?} distance
-     * @return {?}
-     */
-    _getDragPercentage(distance) {
-        /** @type {?} */
-        let percentage = (distance / this._thumbBarWidth) * 100;
-        // When the toggle was initially checked, then we have to start the drag at the end.
-        if (this._previousChecked) {
-            percentage += 100;
-        }
-        return Math.max(0, Math.min(percentage, 100));
-    }
-    /**
-     * @return {?}
-     */
-    _onDragStart() {
-        if (!this.disabled && !this._dragging) {
-            /** @type {?} */
-            const thumbEl = this._thumbEl.nativeElement;
-            this._thumbBarWidth = this._thumbBarEl.nativeElement.clientWidth - thumbEl.clientWidth;
-            thumbEl.classList.add('mat-dragging');
-            this._previousChecked = this.checked;
-            this._dragging = true;
-        }
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onDrag(event) {
-        if (this._dragging) {
-            /** @type {?} */
-            const direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
-            this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
-            // Calculate the moved distance based on the thumb bar width.
-            /** @type {?} */
-            const dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
-            this._thumbEl.nativeElement.style.transform = `translate3d(${dragX}px, 0, 0)`;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    _onDragEnd() {
-        if (this._dragging) {
-            /** @type {?} */
-            const newCheckedValue = this._dragPercentage > 50;
-            if (newCheckedValue !== this.checked) {
-                this.dragChange.emit();
-                if (!this.defaults.disableDragValue) {
-                    this.checked = newCheckedValue;
-                    this._emitChangeEvent();
-                }
-            }
-            // The drag should be stopped outside of the current event handler, otherwise the
-            // click event will be fired before it and will revert the drag change.
-            this._ngZone.runOutsideAngular((/**
-             * @return {?}
-             */
-            () => setTimeout((/**
-             * @return {?}
-             */
-            () => {
-                if (this._dragging) {
-                    this._dragging = false;
-                    this._thumbEl.nativeElement.classList.remove('mat-dragging');
-                    // Reset the transform because the component will take care
-                    // of the thumb position after drag.
-                    this._thumbEl.nativeElement.style.transform = '';
-                }
-            }))));
-        }
-    }
-    /**
      * Method being called whenever the label text changes.
      * @return {?}
      */
@@ -417,8 +336,8 @@ MatSlideToggle.decorators = [
                     '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                     '(focus)': '_inputElement.nativeElement.focus()',
                 },
-                template: "<label [attr.for]=\"inputId\" class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" role=\"switch\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-checked]=\"checked.toString()\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
-                styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;outline:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}[dir=rtl] .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(-16px,0,0)}.mat-slide-toggle.mat-disabled{opacity:.38}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging{transition-duration:0s}.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing}._mat-animation-noopable .mat-slide-toggle-thumb-container{transition:none}[dir=rtl] .mat-slide-toggle-thumb-container{left:auto;right:0}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}.mat-slide-toggle-input{bottom:0;left:10px}[dir=rtl] .mat-slide-toggle-input{left:auto;right:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}._mat-animation-noopable .mat-slide-toggle-bar,._mat-animation-noopable .mat-slide-toggle-thumb{transition:none}.mat-slide-toggle .mat-slide-toggle-ripple{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-slide-toggle .mat-slide-toggle-ripple .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple){opacity:.12}.mat-slide-toggle-persistent-ripple{width:100%;height:100%;transform:none}.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:.04}.mat-slide-toggle:not(.mat-disabled).cdk-keyboard-focused .mat-slide-toggle-persistent-ripple{opacity:.12}.mat-slide-toggle-persistent-ripple,.mat-slide-toggle.mat-disabled .mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:0}@media (hover:none){.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{display:none}}@media (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:1px solid #000}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background:#000;border:1px solid #fff}.mat-slide-toggle-bar{background:#fff}.mat-slide-toggle.cdk-keyboard-focused .mat-slide-toggle-bar{outline:1px dotted;outline-offset:5px}}@media (-ms-high-contrast:black-on-white){.mat-slide-toggle-bar{border:1px solid #000}}"],
+                template: "<label [attr.for]=\"inputId\" class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" role=\"switch\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-checked]=\"checked.toString()\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
+                styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;outline:0;-webkit-tap-highlight-color:transparent}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}[dir=rtl] .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(-16px,0,0)}.mat-slide-toggle.mat-disabled{opacity:.38}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform}._mat-animation-noopable .mat-slide-toggle-thumb-container{transition:none}[dir=rtl] .mat-slide-toggle-thumb-container{left:auto;right:0}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}.mat-slide-toggle-input{bottom:0;left:10px}[dir=rtl] .mat-slide-toggle-input{left:auto;right:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}._mat-animation-noopable .mat-slide-toggle-bar,._mat-animation-noopable .mat-slide-toggle-thumb{transition:none}.mat-slide-toggle .mat-slide-toggle-ripple{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-slide-toggle .mat-slide-toggle-ripple .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple){opacity:.12}.mat-slide-toggle-persistent-ripple{width:100%;height:100%;transform:none}.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:.04}.mat-slide-toggle:not(.mat-disabled).cdk-keyboard-focused .mat-slide-toggle-persistent-ripple{opacity:.12}.mat-slide-toggle-persistent-ripple,.mat-slide-toggle.mat-disabled .mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:0}@media (hover:none){.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{display:none}}@media (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:1px solid #000}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background:#000;border:1px solid #fff}.mat-slide-toggle-bar{background:#fff}.mat-slide-toggle.cdk-keyboard-focused .mat-slide-toggle-bar{outline:1px dotted;outline-offset:5px}}@media (-ms-high-contrast:black-on-white){.mat-slide-toggle-bar{border:1px solid #000}}"],
                 providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                 inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                 encapsulation: ViewEncapsulation.None,
@@ -515,9 +434,6 @@ MatSlideToggleModule.decorators = [
                     MatCommonModule
                 ],
                 declarations: [MatSlideToggle],
-                providers: [
-                    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
-                ],
             },] },
 ];
 

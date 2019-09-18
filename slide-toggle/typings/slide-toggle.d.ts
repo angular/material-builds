@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HammerInput, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 import { MatSlideToggleDefaultOptions } from './slide-toggle-config';
 /** @docs-private */
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
@@ -35,23 +35,13 @@ declare const _MatSlideToggleMixinBase: HasTabIndexCtor & CanColorCtor & CanDisa
 export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
     private _focusMonitor;
     private _changeDetectorRef;
-    private _ngZone;
     defaults: MatSlideToggleDefaultOptions;
     _animationMode?: string | undefined;
-    private _dir?;
     private _onChange;
     private _onTouched;
     private _uniqueId;
     private _required;
     private _checked;
-    /** Whether the thumb is currently being dragged. */
-    private _dragging;
-    /** Previous checked state before drag started. */
-    private _previousChecked;
-    /** Width of the thumb bar of the slide-toggle. */
-    private _thumbBarWidth;
-    /** Percentage of the thumb while dragging. Percentage as fraction of 100. */
-    private _dragPercentage;
     /** Reference to the thumb HTMLElement. */
     _thumbEl: ElementRef;
     /** Reference to the thumb bar HTMLElement. */
@@ -75,8 +65,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /**
      * An event will be dispatched each time the slide-toggle input is toggled.
      * This event is always emitted when the user toggles the slide toggle, but this does not mean
-     * the slide toggle's value has changed. The event does not fire when the user drags to change
-     * the slide toggle value.
+     * the slide toggle's value has changed.
      */
     readonly toggleChange: EventEmitter<void>;
     /**
@@ -84,13 +73,20 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
      * This event is always emitted when the user drags the slide toggle to make a change greater
      * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
      * the user toggles the slide toggle to change its value.
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 10.0.0
      */
     readonly dragChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
     /** Reference to the underlying input element. */
     _inputElement: ElementRef<HTMLInputElement>;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality | undefined);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, 
+    /**
+     * @deprecated `_ngZone` and `_dir` parameters to be removed.
+     * @breaking-change 10.0.0
+     */
+    _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */
@@ -113,11 +109,6 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      */
     private _emitChangeEvent;
-    /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
-    private _getDragPercentage;
-    _onDragStart(): void;
-    _onDrag(event: HammerInput): void;
-    _onDragEnd(): void;
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
 }
