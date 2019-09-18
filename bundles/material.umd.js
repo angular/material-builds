@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.2.0-534b9c24c');
+var VERSION$1 = new core.Version('8.2.0-fb390fbc8');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.2.0-534b9c24c');
+var VERSION$2 = new core.Version('8.2.0-fb390fbc8');
 /**
  * \@docs-private
  * @return {?}
@@ -31523,6 +31523,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[id]': 'id',
                         // Needs to be `-1` so it can still receive programmatic focus.
                         '[attr.tabindex]': 'disabled ? null : -1',
+                        '[attr.aria-label]': 'null',
+                        '[attr.aria-labelledby]': 'null',
                         '[class.mat-checked]': 'checked',
                         '[class.mat-disabled]': 'disabled',
                         '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
@@ -39849,7 +39851,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa2 = MAT_GRID_LIST;
+exports.ɵa3 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
