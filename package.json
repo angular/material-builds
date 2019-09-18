@@ -1,11 +1,15 @@
 {
   "name": "@angular/material",
-  "version": "8.2.0-15ba87167",
+  "version": "8.2.0-9d6f4c2c0-9d6f4c2",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
-  "module": "./esm5/material.es5.js",
-  "es2015": "./esm2015/material.js",
-  "typings": "./material.d.ts",
+  "fesm5": "./fesm5/material.js",
+  "fesm2015": "./fesm2015/material.js",
+  "esm5": "./esm5/index.js",
+  "esm2015": "./esm2015/index.js",
+  "typings": "./index.d.ts",
+  "module": "./fesm5/material.js",
+  "es2015": "./fesm2015/material.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/angular/components.git"
@@ -23,7 +27,7 @@
   "homepage": "https://github.com/angular/components#readme",
   "peerDependencies": {
     "@angular/animations": "^8.0.0 || ^9.0.0-0",
-    "@angular/cdk": "8.2.0-15ba87167",
+    "@angular/cdk": "8.2.0-9d6f4c2c0-9d6f4c2",
     "@angular/core": "^8.0.0 || ^9.0.0-0",
     "@angular/common": "^8.0.0 || ^9.0.0-0",
     "@angular/forms": "^8.0.0 || ^9.0.0-0"
@@ -40,8 +44,5 @@
       "@angular/material-moment-adapter"
     ]
   },
-  "sideEffects": false,
-  "releaseGitCommitSha": "15ba87167d20f1b7daf35c0c66b0668ec17cbb6b",
-  "releaseGitBranch": "master",
-  "releaseGitUser": " <>"
+  "sideEffects": false
 }

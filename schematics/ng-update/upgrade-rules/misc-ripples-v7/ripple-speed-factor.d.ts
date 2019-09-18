@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/// <amd-module name="@angular/material/schematics/ng-update/upgrade-rules/misc-ripples-v7/ripple-speed-factor" />
 /** Converts the specified speed factor into the exact static enter duration. */
 export declare function convertSpeedFactorToDuration(factor: number): number;
 /**

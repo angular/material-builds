@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/datepicker",
-  "typings": "../datepicker.d.ts",
   "main": "../bundles/material-datepicker.umd.js",
-  "module": "../esm5/datepicker.es5.js",
-  "es2015": "../esm2015/datepicker.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/datepicker.js",
+  "fesm2015": "../fesm2015/datepicker.js",
+  "esm5": "../esm5/datepicker/index.js",
+  "esm2015": "../esm2015/datepicker/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/datepicker.js",
+  "es2015": "../fesm2015/datepicker.js"
 }

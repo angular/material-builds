@@ -1,0 +1,73 @@
+@import '../core/theming/palette';
+@import '../core/theming/theming';
+@import '../core/typography/typography-utils';
+
+@mixin _mat-radio-color($palette) {
+  &.mat-radio-checked .mat-radio-outer-circle {
+    border-color: mat-color($palette);
+  }
+
+  .mat-radio-inner-circle,
+  .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+  &.mat-radio-checked .mat-radio-persistent-ripple,
+  &:active .mat-radio-persistent-ripple {
+    background-color: mat-color($palette);
+  }
+}
+
+@mixin mat-radio-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-radio-outer-circle {
+    border-color: mat-color($foreground, secondary-text);
+  }
+
+  .mat-radio-button {
+    &.mat-primary {
+      @include _mat-radio-color($primary);
+    }
+
+    &.mat-accent {
+      @include _mat-radio-color($accent);
+    }
+
+    &.mat-warn {
+      @include _mat-radio-color($warn);
+    }
+
+    // This needs extra specificity, because the classes above are combined
+    // (e.g. `.mat-radio-button.mat-accent`) which increases their specificity a lot.
+    // TODO: consider making the selectors into descendants (`.mat-primary .mat-radio-button`).
+    &.mat-radio-disabled {
+      &.mat-radio-checked .mat-radio-outer-circle,
+      .mat-radio-outer-circle {
+        border-color: mat-color($foreground, disabled);
+      }
+
+      .mat-radio-ripple .mat-ripple-element,
+      .mat-radio-inner-circle {
+        background-color: mat-color($foreground, disabled);
+      }
+
+      .mat-radio-label-content {
+        color: mat-color($foreground, disabled);
+      }
+    }
+
+    // Switch this to a solid color since we're using `opacity`
+    // to control how opaque the ripple should be.
+    .mat-ripple-element {
+      background-color: map_get($foreground, base);
+    }
+  }
+}
+
+@mixin mat-radio-typography($config) {
+  .mat-radio-button {
+    font-family: mat-font-family($config);
+  }
+}

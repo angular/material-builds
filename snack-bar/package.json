@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/snack-bar",
-  "typings": "../snack-bar.d.ts",
   "main": "../bundles/material-snack-bar.umd.js",
-  "module": "../esm5/snack-bar.es5.js",
-  "es2015": "../esm2015/snack-bar.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/snack-bar.js",
+  "fesm2015": "../fesm2015/snack-bar.js",
+  "esm5": "../esm5/snack-bar/index.js",
+  "esm2015": "../esm2015/snack-bar/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/snack-bar.js",
+  "es2015": "../fesm2015/snack-bar.js"
 }

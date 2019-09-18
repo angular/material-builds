@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/button",
-  "typings": "../button.d.ts",
   "main": "../bundles/material-button.umd.js",
-  "module": "../esm5/button.es5.js",
-  "es2015": "../esm2015/button.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/button.js",
+  "fesm2015": "../fesm2015/button.js",
+  "esm5": "../esm5/button/index.js",
+  "esm2015": "../esm2015/button/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/button.js",
+  "es2015": "../fesm2015/button.js"
 }

@@ -1,0 +1,69 @@
+@import '../core/theming/palette';
+@import '../core/theming/theming';
+@import '../core/typography/typography-utils';
+
+
+@mixin _mat-toolbar-color($palette) {
+  background: mat-color($palette);
+  color: mat-color($palette, default-contrast);
+}
+
+@mixin _mat-toolbar-form-field-overrides {
+  .mat-form-field-underline,
+  .mat-form-field-ripple,
+  .mat-focused .mat-form-field-ripple {
+    background-color: currentColor;
+  }
+
+  .mat-form-field-label,
+  .mat-focused .mat-form-field-label,
+  .mat-select-value,
+  .mat-select-arrow,
+  .mat-form-field.mat-focused .mat-select-arrow {
+    color: inherit;
+  }
+
+  .mat-input-element {
+    caret-color: currentColor;
+  }
+}
+
+@mixin mat-toolbar-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-toolbar {
+    background: mat-color($background, app-bar);
+    color: mat-color($foreground, text);
+
+    &.mat-primary {
+      @include _mat-toolbar-color($primary);
+    }
+
+    &.mat-accent {
+      @include _mat-toolbar-color($accent);
+    }
+
+    &.mat-warn {
+      @include _mat-toolbar-color($warn);
+    }
+
+    @include _mat-toolbar-form-field-overrides;
+  }
+}
+
+@mixin mat-toolbar-typography($config) {
+  .mat-toolbar,
+  .mat-toolbar h1,
+  .mat-toolbar h2,
+  .mat-toolbar h3,
+  .mat-toolbar h4,
+  .mat-toolbar h5,
+  .mat-toolbar h6 {
+    @include mat-typography-level-to-styles($config, title);
+    margin: 0;
+  }
+}

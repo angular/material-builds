@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/card",
-  "typings": "../card.d.ts",
   "main": "../bundles/material-card.umd.js",
-  "module": "../esm5/card.es5.js",
-  "es2015": "../esm2015/card.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/card.js",
+  "fesm2015": "../fesm2015/card.js",
+  "esm5": "../esm5/card/index.js",
+  "esm2015": "../esm2015/card/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/card.js",
+  "es2015": "../fesm2015/card.js"
 }

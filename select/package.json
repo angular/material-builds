@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/select",
-  "typings": "../select.d.ts",
   "main": "../bundles/material-select.umd.js",
-  "module": "../esm5/select.es5.js",
-  "es2015": "../esm2015/select.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/select.js",
+  "fesm2015": "../fesm2015/select.js",
+  "esm5": "../esm5/select/index.js",
+  "esm2015": "../esm2015/select/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/select.js",
+  "es2015": "../fesm2015/select.js"
 }

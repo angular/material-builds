@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/progress-bar",
-  "typings": "../progress-bar.d.ts",
   "main": "../bundles/material-progress-bar.umd.js",
-  "module": "../esm5/progress-bar.es5.js",
-  "es2015": "../esm2015/progress-bar.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/progress-bar.js",
+  "fesm2015": "../fesm2015/progress-bar.js",
+  "esm5": "../esm5/progress-bar/index.js",
+  "esm2015": "../esm2015/progress-bar/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/progress-bar.js",
+  "es2015": "../fesm2015/progress-bar.js"
 }

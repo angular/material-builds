@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/slider",
-  "typings": "../slider.d.ts",
   "main": "../bundles/material-slider.umd.js",
-  "module": "../esm5/slider.es5.js",
-  "es2015": "../esm2015/slider.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/slider.js",
+  "fesm2015": "../fesm2015/slider.js",
+  "esm5": "../esm5/slider/index.js",
+  "esm2015": "../esm2015/slider/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/slider.js",
+  "es2015": "../fesm2015/slider.js"
 }

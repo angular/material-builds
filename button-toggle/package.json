@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/button-toggle",
-  "typings": "../button-toggle.d.ts",
   "main": "../bundles/material-button-toggle.umd.js",
-  "module": "../esm5/button-toggle.es5.js",
-  "es2015": "../esm2015/button-toggle.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/button-toggle.js",
+  "fesm2015": "../fesm2015/button-toggle.js",
+  "esm5": "../esm5/button-toggle/index.js",
+  "esm2015": "../esm2015/button-toggle/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/button-toggle.js",
+  "es2015": "../fesm2015/button-toggle.js"
 }

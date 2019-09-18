@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/tabs",
-  "typings": "../tabs.d.ts",
   "main": "../bundles/material-tabs.umd.js",
-  "module": "../esm5/tabs.es5.js",
-  "es2015": "../esm2015/tabs.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/tabs.js",
+  "fesm2015": "../fesm2015/tabs.js",
+  "esm5": "../esm5/tabs/index.js",
+  "esm2015": "../esm2015/tabs/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/tabs.js",
+  "es2015": "../fesm2015/tabs.js"
 }

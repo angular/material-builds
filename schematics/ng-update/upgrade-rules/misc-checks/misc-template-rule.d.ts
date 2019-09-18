@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/// <amd-module name="@angular/material/schematics/ng-update/upgrade-rules/misc-checks/misc-template-rule" />
 import { MigrationRule, ResolvedResource } from '@angular/cdk/schematics';
 /**
  * Rule that walks through every inline or external template and reports if there

@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/// <amd-module name="@angular/material/schematics/ng-update/data/constructor-checks" />
 import { ConstructorChecksUpgradeData, VersionChanges } from '@angular/cdk/schematics';
 /**
  * List of class names for which the constructor signature has been changed. The new constructor

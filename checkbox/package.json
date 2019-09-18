@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/checkbox",
-  "typings": "../checkbox.d.ts",
   "main": "../bundles/material-checkbox.umd.js",
-  "module": "../esm5/checkbox.es5.js",
-  "es2015": "../esm2015/checkbox.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/checkbox.js",
+  "fesm2015": "../fesm2015/checkbox.js",
+  "esm5": "../esm5/checkbox/index.js",
+  "esm2015": "../esm2015/checkbox/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/checkbox.js",
+  "es2015": "../fesm2015/checkbox.js"
 }

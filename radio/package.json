@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/radio",
-  "typings": "../radio.d.ts",
   "main": "../bundles/material-radio.umd.js",
-  "module": "../esm5/radio.es5.js",
-  "es2015": "../esm2015/radio.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/radio.js",
+  "fesm2015": "../fesm2015/radio.js",
+  "esm5": "../esm5/radio/index.js",
+  "esm2015": "../esm2015/radio/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/radio.js",
+  "es2015": "../fesm2015/radio.js"
 }

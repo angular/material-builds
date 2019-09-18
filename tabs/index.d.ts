@@ -1,8 +1,6 @@
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Generated bundle index. Do not edit.
  */
-export * from './typings/index';
+export * from './public-api';
+export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a } from './ink-bar';
+export { MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b } from './paginated-tab-header';

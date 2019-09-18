@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/sort",
-  "typings": "../sort.d.ts",
   "main": "../bundles/material-sort.umd.js",
-  "module": "../esm5/sort.es5.js",
-  "es2015": "../esm2015/sort.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/sort.js",
+  "fesm2015": "../fesm2015/sort.js",
+  "esm5": "../esm5/sort/index.js",
+  "esm2015": "../esm2015/sort/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/sort.js",
+  "es2015": "../fesm2015/sort.js"
 }

@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/autocomplete",
-  "typings": "../autocomplete.d.ts",
   "main": "../bundles/material-autocomplete.umd.js",
-  "module": "../esm5/autocomplete.es5.js",
-  "es2015": "../esm2015/autocomplete.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/autocomplete.js",
+  "fesm2015": "../fesm2015/autocomplete.js",
+  "esm5": "../esm5/autocomplete/index.js",
+  "esm2015": "../esm2015/autocomplete/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/autocomplete.js",
+  "es2015": "../fesm2015/autocomplete.js"
 }

@@ -1,0 +1,20 @@
+@import '../core/style/elevation';
+@import '../core/typography/typography-utils';
+@import '../core/theming/palette';
+
+@mixin mat-bottom-sheet-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-bottom-sheet-container {
+    @include _mat-theme-elevation(16, $theme);
+    background: mat-color($background, dialog);
+    color: mat-color($foreground, text);
+  }
+}
+
+@mixin mat-bottom-sheet-typography($config) {
+  .mat-bottom-sheet-container {
+    @include mat-typography-level-to-styles($config, body-1);
+  }
+}

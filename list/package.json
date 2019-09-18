@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/list",
-  "typings": "../list.d.ts",
   "main": "../bundles/material-list.umd.js",
-  "module": "../esm5/list.es5.js",
-  "es2015": "../esm2015/list.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/list.js",
+  "fesm2015": "../fesm2015/list.js",
+  "esm5": "../esm5/list/index.js",
+  "esm2015": "../esm2015/list/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/list.js",
+  "es2015": "../fesm2015/list.js"
 }

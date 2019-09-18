@@ -1,0 +1,19 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+export * from './form-field-module';
+export * from './error';
+export * from './form-field';
+export * from './form-field-control';
+export * from './form-field-errors';
+export * from './hint';
+export * from './placeholder';
+export * from './prefix';
+export * from './suffix';
+export * from './label';
+export * from './form-field-animations';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9mb3JtLWZpZWxkL3B1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsY0FBYyxxQkFBcUIsQ0FBQztBQUNwQyxjQUFjLFNBQVMsQ0FBQztBQUN4QixjQUFjLGNBQWMsQ0FBQztBQUM3QixjQUFjLHNCQUFzQixDQUFDO0FBQ3JDLGNBQWMscUJBQXFCLENBQUM7QUFDcEMsY0FBYyxRQUFRLENBQUM7QUFDdkIsY0FBYyxlQUFlLENBQUM7QUFDOUIsY0FBYyxVQUFVLENBQUM7QUFDekIsY0FBYyxVQUFVLENBQUM7QUFDekIsY0FBYyxTQUFTLENBQUM7QUFDeEIsY0FBYyx5QkFBeUIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2Zvcm0tZmllbGQtbW9kdWxlJztcbmV4cG9ydCAqIGZyb20gJy4vZXJyb3InO1xuZXhwb3J0ICogZnJvbSAnLi9mb3JtLWZpZWxkJztcbmV4cG9ydCAqIGZyb20gJy4vZm9ybS1maWVsZC1jb250cm9sJztcbmV4cG9ydCAqIGZyb20gJy4vZm9ybS1maWVsZC1lcnJvcnMnO1xuZXhwb3J0ICogZnJvbSAnLi9oaW50JztcbmV4cG9ydCAqIGZyb20gJy4vcGxhY2Vob2xkZXInO1xuZXhwb3J0ICogZnJvbSAnLi9wcmVmaXgnO1xuZXhwb3J0ICogZnJvbSAnLi9zdWZmaXgnO1xuZXhwb3J0ICogZnJvbSAnLi9sYWJlbCc7XG5leHBvcnQgKiBmcm9tICcuL2Zvcm0tZmllbGQtYW5pbWF0aW9ucyc7XG4iXX0=

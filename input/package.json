@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/input",
-  "typings": "../input.d.ts",
   "main": "../bundles/material-input.umd.js",
-  "module": "../esm5/input.es5.js",
-  "es2015": "../esm2015/input.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/input.js",
+  "fesm2015": "../fesm2015/input.js",
+  "esm5": "../esm5/input/index.js",
+  "esm2015": "../esm2015/input/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/input.js",
+  "es2015": "../fesm2015/input.js"
 }

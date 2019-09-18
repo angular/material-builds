@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/tree",
-  "typings": "../tree.d.ts",
   "main": "../bundles/material-tree.umd.js",
-  "module": "../esm5/tree.es5.js",
-  "es2015": "../esm2015/tree.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/tree.js",
+  "fesm2015": "../fesm2015/tree.js",
+  "esm5": "../esm5/tree/index.js",
+  "esm2015": "../esm2015/tree/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/tree.js",
+  "es2015": "../fesm2015/tree.js"
 }

@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/grid-list",
-  "typings": "../grid-list.d.ts",
   "main": "../bundles/material-grid-list.umd.js",
-  "module": "../esm5/grid-list.es5.js",
-  "es2015": "../esm2015/grid-list.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/grid-list.js",
+  "fesm2015": "../fesm2015/grid-list.js",
+  "esm5": "../esm5/grid-list/index.js",
+  "esm2015": "../esm2015/grid-list/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/grid-list.js",
+  "es2015": "../fesm2015/grid-list.js"
 }

@@ -1,8 +1,11 @@
 {
   "name": "@angular/material/divider",
-  "typings": "../divider.d.ts",
   "main": "../bundles/material-divider.umd.js",
-  "module": "../esm5/divider.es5.js",
-  "es2015": "../esm2015/divider.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/divider.js",
+  "fesm2015": "../fesm2015/divider.js",
+  "esm5": "../esm5/divider/index.js",
+  "esm2015": "../esm2015/divider/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/divider.js",
+  "es2015": "../fesm2015/divider.js"
 }
