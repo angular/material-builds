@@ -13,7 +13,7 @@ import { VERSION as CDK_VERSION } from '@angular/cdk';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION = new Version('8.2.0-f32fb68b7-f32fb68');
+var VERSION = new Version('8.2.0-baec85e4e-baec85e');
 /** @docs-private */
 export function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
