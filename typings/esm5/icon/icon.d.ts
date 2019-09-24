@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, OnChanges, OnInit, SimpleChanges, InjectionToken, OnDestroy, AfterViewChecked } from '@angular/core';
+import { AfterViewChecked, ElementRef, ErrorHandler, InjectionToken, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
@@ -63,6 +63,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * @breaking-change 8.0.0
      */
     private _location?;
+    private readonly _errorHandler?;
     /**
      * Whether the icon should be inlined, automatically sizing the icon to match the font size of
      * the element the icon is contained in.
@@ -88,7 +89,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * @deprecated `location` parameter to be made required.
      * @breaking-change 8.0.0
      */
-    _location?: MatIconLocation | undefined);
+    _location?: MatIconLocation | undefined, _errorHandler?: ErrorHandler | undefined);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
