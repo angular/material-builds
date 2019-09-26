@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Attribute, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
-import { mixinTabIndex, mixinColor, mixinDisabled, MatCommonModule, GestureConfig } from '@angular/material/core';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Attribute, Inject, NgZone, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { mixinTabIndex, mixinColor, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { __extends } from 'tslib';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -9,6 +8,7 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { hasModifierKey, PAGE_UP, PAGE_DOWN, END, HOME, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { Subscription } from 'rxjs';
 
 /**
@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var activeEventOptions = normalizePassiveListenerOptions({ passive: false });
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
@@ -62,12 +63,15 @@ var MatSlider = /** @class */ (function (_super) {
     __extends(MatSlider, _super);
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
     // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
-    _animationMode) {
+    _animationMode, 
+    // @breaking-change 9.0.0 `_ngZone` parameter to be made required.
+    _ngZone) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._animationMode = _animationMode;
+        _this._ngZone = _ngZone;
         _this._invert = false;
         _this._max = 100;
         _this._min = 0;
@@ -106,7 +110,70 @@ var MatSlider = /** @class */ (function (_super) {
         _this._controlValueAccessorChangeFn = function () { };
         /** Subscription to the Directionality change EventEmitter. */
         _this._dirChangeSubscription = Subscription.EMPTY;
+        /** Called when the user has put their pointer down on the slider. */
+        _this._pointerDown = function (event) {
+            // Don't do anything if the slider is disabled or the
+            // user is using anything other than the main mouse button.
+            if (_this.disabled || _this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
+                return;
+            }
+            _this._runInsideZone(function () {
+                var oldValue = _this.value;
+                var pointerPosition = getPointerPositionOnPage(event);
+                _this._isSliding = true;
+                event.preventDefault();
+                _this._focusHostElement();
+                _this._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
+                _this._bindGlobalEvents(event);
+                _this._focusHostElement();
+                _this._updateValueFromPosition(pointerPosition);
+                _this._valueOnSlideStart = _this.value;
+                _this._pointerPositionOnStart = pointerPosition;
+                // Emit a change and input event if the value changed.
+                if (oldValue != _this.value) {
+                    _this._emitInputEvent();
+                    _this._emitChangeEvent();
+                }
+            });
+        };
+        /**
+         * Called when the user has moved their pointer after
+         * starting to drag. Bound on the document level.
+         */
+        _this._pointerMove = function (event) {
+            if (_this._isSliding) {
+                // Prevent the slide from selecting anything else.
+                event.preventDefault();
+                var oldValue = _this.value;
+                _this._updateValueFromPosition(getPointerPositionOnPage(event));
+                // Native range elements always emit `input` events when the value changed while sliding.
+                if (oldValue != _this.value) {
+                    _this._emitInputEvent();
+                }
+            }
+        };
+        /** Called when the user has lifted their pointer. Bound on the document level. */
+        _this._pointerUp = function (event) {
+            if (_this._isSliding) {
+                var pointerPositionOnStart = _this._pointerPositionOnStart;
+                var currentPointerPosition = getPointerPositionOnPage(event);
+                event.preventDefault();
+                _this._removeGlobalEvents();
+                _this._valueOnSlideStart = _this._pointerPositionOnStart = null;
+                _this._isSliding = false;
+                if (_this._valueOnSlideStart != _this.value && !_this.disabled &&
+                    pointerPositionOnStart && (pointerPositionOnStart.x !== currentPointerPosition.x ||
+                    pointerPositionOnStart.y !== currentPointerPosition.y)) {
+                    _this._emitChangeEvent();
+                }
+            }
+        };
         _this.tabIndex = parseInt(tabIndex) || 0;
+        _this._runOutsizeZone(function () {
+            var element = elementRef.nativeElement;
+            element.addEventListener('mousedown', _this._pointerDown, activeEventOptions);
+            element.addEventListener('touchstart', _this._pointerDown, activeEventOptions);
+        });
         return _this;
     }
     Object.defineProperty(MatSlider.prototype, "invert", {
@@ -403,6 +470,10 @@ var MatSlider = /** @class */ (function (_super) {
         }
     };
     MatSlider.prototype.ngOnDestroy = function () {
+        var element = this._elementRef.nativeElement;
+        element.removeEventListener('mousedown', this._pointerDown, activeEventOptions);
+        element.removeEventListener('touchstart', this._pointerDown, activeEventOptions);
+        this._removeGlobalEvents();
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._dirChangeSubscription.unsubscribe();
     };
@@ -414,61 +485,6 @@ var MatSlider = /** @class */ (function (_super) {
         // ticks and determine where on the slider click and slide events happen.
         this._sliderDimensions = this._getSliderDimensions();
         this._updateTickIntervalPercent();
-    };
-    MatSlider.prototype._onMousedown = function (event) {
-        // Don't do anything if the slider is disabled or the
-        // user is using anything other than the main mouse button.
-        if (this.disabled || event.button !== 0) {
-            return;
-        }
-        var oldValue = this.value;
-        this._isSliding = false;
-        this._focusHostElement();
-        this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
-        // Emit a change and input event if the value changed.
-        if (oldValue != this.value) {
-            this._emitInputEvent();
-            this._emitChangeEvent();
-        }
-    };
-    MatSlider.prototype._onSlide = function (event) {
-        if (this.disabled) {
-            return;
-        }
-        // The slide start event sometimes fails to fire on iOS, so if we're not already in the sliding
-        // state, call the slide start handler manually.
-        if (!this._isSliding) {
-            this._onSlideStart(null);
-        }
-        // Prevent the slide from selecting anything else.
-        event.preventDefault();
-        var oldValue = this.value;
-        this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
-        // Native range elements always emit `input` events when the value changed while sliding.
-        if (oldValue != this.value) {
-            this._emitInputEvent();
-        }
-    };
-    MatSlider.prototype._onSlideStart = function (event) {
-        if (this.disabled || this._isSliding) {
-            return;
-        }
-        // Simulate mouseenter in case this is a mobile device.
-        this._onMouseenter();
-        this._isSliding = true;
-        this._focusHostElement();
-        this._valueOnSlideStart = this.value;
-        if (event) {
-            this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
-            event.preventDefault();
-        }
-    };
-    MatSlider.prototype._onSlideEnd = function () {
-        this._isSliding = false;
-        if (this._valueOnSlideStart != this.value && !this.disabled) {
-            this._emitChangeEvent();
-        }
-        this._valueOnSlideStart = null;
     };
     MatSlider.prototype._onFocus = function () {
         // We save the dimensions of the slider here so we can use them to update the spacing of the
@@ -531,6 +547,29 @@ var MatSlider = /** @class */ (function (_super) {
     };
     MatSlider.prototype._onKeyup = function () {
         this._isSliding = false;
+    };
+    /**
+     * Binds our global move and end events. They're bound at the document level and only while
+     * dragging so that the user doesn't have to keep their pointer exactly over the slider
+     * as they're swiping across the screen.
+     */
+    MatSlider.prototype._bindGlobalEvents = function (triggerEvent) {
+        if (typeof document !== 'undefined' && document) {
+            var isTouch = isTouchEvent(triggerEvent);
+            var moveEventName = isTouch ? 'touchmove' : 'mousemove';
+            var endEventName = isTouch ? 'touchend' : 'mouseup';
+            document.body.addEventListener(moveEventName, this._pointerMove, activeEventOptions);
+            document.body.addEventListener(endEventName, this._pointerUp, activeEventOptions);
+        }
+    };
+    /** Removes any global event listeners that we may have added. */
+    MatSlider.prototype._removeGlobalEvents = function () {
+        if (typeof document !== 'undefined' && document) {
+            document.body.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
+            document.body.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
+            document.body.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
+            document.body.removeEventListener('touchend', this._pointerUp, activeEventOptions);
+        }
     };
     /** Increments the slider by the given number of steps (negative number decrements). */
     MatSlider.prototype._increment = function (numSteps) {
@@ -635,6 +674,16 @@ var MatSlider = /** @class */ (function (_super) {
     MatSlider.prototype._blurHostElement = function () {
         this._elementRef.nativeElement.blur();
     };
+    /** Runs a callback inside of the NgZone, if possible. */
+    MatSlider.prototype._runInsideZone = function (fn) {
+        // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
+        this._ngZone ? this._ngZone.run(fn) : fn();
+    };
+    /** Runs a callback outside of the NgZone, if possible. */
+    MatSlider.prototype._runOutsizeZone = function (fn) {
+        // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
+        this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
+    };
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param value
@@ -675,13 +724,9 @@ var MatSlider = /** @class */ (function (_super) {
                     host: {
                         '(focus)': '_onFocus()',
                         '(blur)': '_onBlur()',
-                        '(mousedown)': '_onMousedown($event)',
                         '(keydown)': '_onKeydown($event)',
                         '(keyup)': '_onKeyup()',
                         '(mouseenter)': '_onMouseenter()',
-                        '(slide)': '_onSlide($event)',
-                        '(slideend)': '_onSlideEnd()',
-                        '(slidestart)': '_onSlideStart($event)',
                         // On Safari starting to slide temporarily triggers text selection mode which
                         // show the wrong cursor. We prevent it by stopping the `selectstart` event.
                         '(selectstart)': '$event.preventDefault()',
@@ -721,7 +766,8 @@ var MatSlider = /** @class */ (function (_super) {
         { type: ChangeDetectorRef },
         { type: Directionality, decorators: [{ type: Optional }] },
         { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: NgZone }
     ]; };
     MatSlider.propDecorators = {
         invert: [{ type: Input }],
@@ -740,6 +786,19 @@ var MatSlider = /** @class */ (function (_super) {
     };
     return MatSlider;
 }(_MatSliderMixinBase));
+/** Returns whether an event is a touch event. */
+function isTouchEvent(event) {
+    // This function is called for every pixel that the user has dragged so we need it to be
+    // as fast as possible. Since we only bind mouse events and touch events, we can assume
+    // that if the event's name starts with `t`, it's a touch event.
+    return event.type[0] === 't';
+}
+/** Gets the coordinates of a touch or mouse event relative to the viewport. */
+function getPointerPositionOnPage(event) {
+    // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
+    var point = isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
+    return { x: point.clientX, y: point.clientY };
+}
 
 /**
  * @license
@@ -756,7 +815,6 @@ var MatSliderModule = /** @class */ (function () {
                     imports: [CommonModule, MatCommonModule],
                     exports: [MatSlider, MatCommonModule],
                     declarations: [MatSlider],
-                    providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
                 },] }
     ];
     return MatSliderModule;

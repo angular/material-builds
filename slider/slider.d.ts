@@ -7,9 +7,9 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, HammerInput, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 /**
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
@@ -38,6 +38,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _changeDetectorRef;
     private _dir;
     _animationMode?: string | undefined;
+    private _ngZone?;
     /** Whether the slider is inverted. */
     invert: boolean;
     private _invert;
@@ -144,6 +145,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _dirChangeSubscription;
     /** The value of the slider when the slide start event fires. */
     private _valueOnSlideStart;
+    /** Position of the pointer when the dragging started. */
+    private _pointerPositionOnStart;
     /** Reference to the inner slider wrapper element. */
     private _sliderWrapper;
     /**
@@ -153,18 +156,31 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     _shouldInvertMouseCoords(): boolean;
     /** The language direction for this slider element. */
     private _getDirection;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined, _ngZone?: NgZone | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;
-    _onMousedown(event: MouseEvent): void;
-    _onSlide(event: HammerInput): void;
-    _onSlideStart(event: HammerInput | null): void;
-    _onSlideEnd(): void;
     _onFocus(): void;
     _onBlur(): void;
     _onKeydown(event: KeyboardEvent): void;
     _onKeyup(): void;
+    /** Called when the user has put their pointer down on the slider. */
+    private _pointerDown;
+    /**
+     * Called when the user has moved their pointer after
+     * starting to drag. Bound on the document level.
+     */
+    private _pointerMove;
+    /** Called when the user has lifted their pointer. Bound on the document level. */
+    private _pointerUp;
+    /**
+     * Binds our global move and end events. They're bound at the document level and only while
+     * dragging so that the user doesn't have to keep their pointer exactly over the slider
+     * as they're swiping across the screen.
+     */
+    private _bindGlobalEvents;
+    /** Removes any global event listeners that we may have added. */
+    private _removeGlobalEvents;
     /** Increments the slider by the given number of steps (negative number decrements). */
     private _increment;
     /** Calculate the new value from the new physical location. The value will always be snapped. */
@@ -196,6 +212,10 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _focusHostElement;
     /** Blurs the native element. */
     private _blurHostElement;
+    /** Runs a callback inside of the NgZone, if possible. */
+    private _runInsideZone;
+    /** Runs a callback outside of the NgZone, if possible. */
+    private _runOutsizeZone;
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param value
