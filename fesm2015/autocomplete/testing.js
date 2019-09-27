@@ -549,6 +549,58 @@ function clearElement(element) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests.
+ * @dynamic
+ */
+class MatAutocompleteOptionHarness extends ComponentHarness {
+    static with(options = {}) {
+        return new HarnessPredicate(MatAutocompleteOptionHarness, options)
+            .addOption('text', options.text, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getText(), title); }));
+    }
+    /** Clicks the option. */
+    click() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).click();
+        });
+    }
+    /** Gets a promise for the option's label text. */
+    getText() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).text();
+        });
+    }
+}
+MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
+/**
+ * Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests.
+ * @dynamic
+ */
+class MatAutocompleteOptionGroupHarness extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._label = this.locatorFor('.mat-optgroup-label');
+    }
+    static with(options = {}) {
+        return new HarnessPredicate(MatAutocompleteOptionGroupHarness, options)
+            .addOption('labelText', options.labelText, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getLabelText(), title); }));
+    }
+    /** Gets a promise for the option group's label text. */
+    getLabelText() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this._label()).text();
+        });
+    }
+}
+MatAutocompleteOptionGroupHarness.hostSelector = '.mat-autocomplete-panel .mat-optgroup';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** Selector for the autocomplete panel. */
 const PANEL_SELECTOR = '.mat-autocomplete-panel';
 /**
@@ -561,8 +613,8 @@ class MatAutocompleteHarness extends ComponentHarness {
         this._documentRootLocator = this.documentRootLocatorFactory();
         this._panel = this._documentRootLocator.locatorFor(PANEL_SELECTOR);
         this._optionalPanel = this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
-        this._options = this._documentRootLocator.locatorForAll(`${PANEL_SELECTOR} .mat-option`);
-        this._groups = this._documentRootLocator.locatorForAll(`${PANEL_SELECTOR} .mat-optgroup`);
+        this._options = this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness);
+        this._groups = this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness);
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for an autocomplete with

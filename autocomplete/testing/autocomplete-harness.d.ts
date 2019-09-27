@@ -7,6 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate, TestElement } from '@angular/cdk/testing';
 import { AutocompleteHarnessFilters } from './autocomplete-harness-filters';
+import { MatAutocompleteOptionHarness, MatAutocompleteOptionGroupHarness } from './option-harness';
 /**
  * Harness for interacting with a standard mat-autocomplete in tests.
  * @dynamic
@@ -40,9 +41,9 @@ export declare class MatAutocompleteHarness extends ComponentHarness {
     /** Gets the autocomplete panel. */
     getPanel(): Promise<TestElement>;
     /** Gets the options inside the autocomplete panel. */
-    getOptions(): Promise<TestElement[]>;
+    getOptions(): Promise<MatAutocompleteOptionHarness[]>;
     /** Gets the groups of options inside the panel. */
-    getOptionGroups(): Promise<TestElement[]>;
+    getOptionGroups(): Promise<MatAutocompleteOptionGroupHarness[]>;
     /** Gets whether the autocomplete panel is visible. */
     isPanelVisible(): Promise<boolean>;
     /** Gets whether the autocomplete is open. */
