@@ -80,10 +80,9 @@
             this._focusMonitor.stopMonitoring(this._elementRef);
         };
         /** Focuses the button. */
-        MatButton.prototype.focus = function (_origin, options) {
-            // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
-            // use `MatButton` in a `FocusKeyManager` and we need it to match `FocusableOption`.
-            this._getHostElement().focus(options);
+        MatButton.prototype.focus = function (origin, options) {
+            if (origin === void 0) { origin = 'program'; }
+            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
         };
         MatButton.prototype._getHostElement = function () {
             return this._elementRef.nativeElement;
