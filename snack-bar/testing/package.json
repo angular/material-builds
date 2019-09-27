@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/snack-bar/testing",
+  "main": "../../bundles/material-snack-bar-testing.umd.js",
+  "fesm5": "../../fesm5/snack-bar/testing.js",
+  "fesm2015": "../../fesm2015/snack-bar/testing.js",
+  "esm5": "../../esm5/snack-bar/testing/index.js",
+  "esm2015": "../../esm2015/snack-bar/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/snack-bar/testing.js",
+  "es2015": "../../fesm2015/snack-bar/testing.js"
+}

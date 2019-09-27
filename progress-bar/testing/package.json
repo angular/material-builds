@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/progress-bar/testing",
+  "main": "../../bundles/material-progress-bar-testing.umd.js",
+  "fesm5": "../../fesm5/progress-bar/testing.js",
+  "fesm2015": "../../fesm2015/progress-bar/testing.js",
+  "esm5": "../../esm5/progress-bar/testing/index.js",
+  "esm2015": "../../esm2015/progress-bar/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/progress-bar/testing.js",
+  "es2015": "../../fesm2015/progress-bar/testing.js"
+}

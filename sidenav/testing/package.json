@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/sidenav/testing",
+  "main": "../../bundles/material-sidenav-testing.umd.js",
+  "fesm5": "../../fesm5/sidenav/testing.js",
+  "fesm2015": "../../fesm2015/sidenav/testing.js",
+  "esm5": "../../esm5/sidenav/testing/index.js",
+  "esm2015": "../../esm2015/sidenav/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/sidenav/testing.js",
+  "es2015": "../../fesm2015/sidenav/testing.js"
+}

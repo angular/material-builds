@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/tabs/testing",
+  "main": "../../bundles/material-tabs-testing.umd.js",
+  "fesm5": "../../fesm5/tabs/testing.js",
+  "fesm2015": "../../fesm2015/tabs/testing.js",
+  "esm5": "../../esm5/tabs/testing/index.js",
+  "esm2015": "../../esm2015/tabs/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/tabs/testing.js",
+  "es2015": "../../fesm2015/tabs/testing.js"
+}

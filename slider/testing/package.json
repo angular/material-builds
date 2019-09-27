@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/slider/testing",
+  "main": "../../bundles/material-slider-testing.umd.js",
+  "fesm5": "../../fesm5/slider/testing.js",
+  "fesm2015": "../../fesm2015/slider/testing.js",
+  "esm5": "../../esm5/slider/testing/index.js",
+  "esm2015": "../../esm2015/slider/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/slider/testing.js",
+  "es2015": "../../fesm2015/slider/testing.js"
+}

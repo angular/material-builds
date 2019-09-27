@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/dialog/testing",
+  "main": "../../bundles/material-dialog-testing.umd.js",
+  "fesm5": "../../fesm5/dialog/testing.js",
+  "fesm2015": "../../fesm2015/dialog/testing.js",
+  "esm5": "../../esm5/dialog/testing/index.js",
+  "esm2015": "../../esm2015/dialog/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/dialog/testing.js",
+  "es2015": "../../fesm2015/dialog/testing.js"
+}

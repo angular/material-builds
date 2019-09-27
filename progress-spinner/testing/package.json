@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/progress-spinner/testing",
+  "main": "../../bundles/material-progress-spinner-testing.umd.js",
+  "fesm5": "../../fesm5/progress-spinner/testing.js",
+  "fesm2015": "../../fesm2015/progress-spinner/testing.js",
+  "esm5": "../../esm5/progress-spinner/testing/index.js",
+  "esm2015": "../../esm2015/progress-spinner/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/progress-spinner/testing.js",
+  "es2015": "../../fesm2015/progress-spinner/testing.js"
+}

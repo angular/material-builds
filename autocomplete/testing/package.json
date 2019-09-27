@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/autocomplete/testing",
+  "main": "../../bundles/material-autocomplete-testing.umd.js",
+  "fesm5": "../../fesm5/autocomplete/testing.js",
+  "fesm2015": "../../fesm2015/autocomplete/testing.js",
+  "esm5": "../../esm5/autocomplete/testing/index.js",
+  "esm2015": "../../esm2015/autocomplete/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/autocomplete/testing.js",
+  "es2015": "../../fesm2015/autocomplete/testing.js"
+}
