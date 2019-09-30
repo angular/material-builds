@@ -93,6 +93,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _floatLabel;
     /** Whether the Angular animations are enabled. */
     _animationsEnabled: boolean;
+    private _previousDirection;
     /**
      * @deprecated
      * @breaking-change 8.0.0

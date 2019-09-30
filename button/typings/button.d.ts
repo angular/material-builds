@@ -29,7 +29,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _animationMode: string);
     ngOnDestroy(): void;
     /** Focuses the button. */
-    focus(_origin?: FocusOrigin, options?: FocusOptions): void;
+    focus(origin?: FocusOrigin, options?: FocusOptions): void;
     _getHostElement(): any;
     _isRippleDisabled(): boolean;
     /** Gets whether the button has one of the given attributes. */

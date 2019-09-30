@@ -289,6 +289,14 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._hintLabelId = `mat-hint-${nextUniqueId$2++}`;
         // Unique id for the internal form field label.
         this._labelId = `mat-form-field-label-${nextUniqueId$2++}`;
+        /* Holds the previous direction emitted by directionality service change emitter.
+             This is used in updateOutlineGap() method to update the width and position of the gap in the
+             outline. Only relevant for the outline appearance. The direction is getting updated in the
+             UI after directionality service change emission. So the outlines gaps are getting
+             updated in updateOutlineGap() method before connectionContainer child direction change
+             in UI. We may get wrong calculations. So we are storing the previous direction to get the
+             correct outline calculations*/
+        this._previousDirection = 'ltr';
         this._labelOptions = labelOptions ? labelOptions : {};
         this.floatLabel = this._labelOptions.float || 'auto';
         this._animationsEnabled = _animationMode !== 'NoopAnimations';
@@ -474,7 +482,10 @@ class MatFormField extends _MatFormFieldMixinBase {
             this._dir.change.pipe(takeUntil(this._destroyed)).subscribe((/**
              * @return {?}
              */
-            () => this.updateOutlineGap()));
+            () => {
+                this.updateOutlineGap();
+                this._previousDirection = this._dir.value;
+            }));
         }
     }
     /**
@@ -754,7 +765,7 @@ class MatFormField extends _MatFormFieldMixinBase {
      * @return {?}
      */
     _getStartEnd(rect) {
-        return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
+        return this._previousDirection === 'rtl' ? rect.right : rect.left;
     }
 }
 MatFormField.decorators = [

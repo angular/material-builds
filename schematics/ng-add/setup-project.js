@@ -51,9 +51,9 @@ function addAnimationsModule(options) {
             // animations. If we would add the BrowserAnimationsModule while the NoopAnimationsModule
             // is already configured, we would cause unexpected behavior and runtime exceptions.
             if (schematics_2.hasNgModuleImport(host, appModulePath, noopAnimationsModuleName)) {
-                return console.warn(chalk_1.red(`Could not set up "${chalk_1.bold(browserAnimationsModuleName)}" ` +
-                    `because "${chalk_1.bold(noopAnimationsModuleName)}" is already imported. Please manually ` +
-                    `set up browser animations.`));
+                return console.warn(chalk_1.default.red(`Could not set up "${chalk_1.default.bold(browserAnimationsModuleName)}" ` +
+                    `because "${chalk_1.default.bold(noopAnimationsModuleName)}" is already imported. Please ` +
+                    `manually set up browser animations.`));
             }
             schematics_2.addModuleImportToRootModule(host, browserAnimationsModuleName, '@angular/platform-browser/animations', project);
         }
@@ -75,15 +75,15 @@ function addMaterialAppStyles(options) {
         const project = schematics_2.getProjectFromWorkspace(workspace, options.project);
         const styleFilePath = schematics_2.getProjectStyleFile(project);
         if (!styleFilePath) {
-            console.warn(chalk_1.red(`Could not find the default style file for this project.`));
-            console.warn(chalk_1.red(`Please consider manually setting up the Roboto font in your CSS.`));
+            console.warn(chalk_1.default.red(`Could not find the default style file for this project.`));
+            console.warn(chalk_1.default.red(`Please consider manually setting up the Roboto font in your CSS.`));
             return;
         }
         const buffer = host.read(styleFilePath);
         if (!buffer) {
-            console.warn(chalk_1.red(`Could not read the default style file within the project ` +
-                `(${chalk_1.italic(styleFilePath)})`));
-            console.warn(chalk_1.red(`Please consider manually setting up the Robot font.`));
+            console.warn(chalk_1.default.red(`Could not read the default style file within the project ` +
+                `(${chalk_1.default.italic(styleFilePath)})`));
+            console.warn(chalk_1.default.red(`Please consider manually setting up the Robot font.`));
             return;
         }
         const htmlContent = buffer.toString();

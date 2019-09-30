@@ -761,9 +761,17 @@ class MatAutocompleteTrigger {
         const index = this.autocomplete._keyManager.activeItemIndex || 0;
         /** @type {?} */
         const labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-        /** @type {?} */
-        const newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
-        this.autocomplete._setScrollTop(newScrollPosition);
+        if (index === 0 && labelCount === 1) {
+            // If we've got one group label before the option and we're at the top option,
+            // scroll the list to the top. This is better UX than scrolling the list to the
+            // top of the option, because it allows the user to read the top group's label.
+            this.autocomplete._setScrollTop(0);
+        }
+        else {
+            /** @type {?} */
+            const newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
+            this.autocomplete._setScrollTop(newScrollPosition);
+        }
     }
     /**
      * This method listens to a stream of panel closing actions and resets the

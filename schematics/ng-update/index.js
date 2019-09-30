@@ -44,10 +44,10 @@ exports.updateToV8 = updateToV8;
 /** Function that will be called when the migration completed. */
 function onMigrationComplete(targetVersion, hasFailures) {
     console.log();
-    console.log(chalk_1.green(`  ✓  Updated Angular Material to ${targetVersion}`));
+    console.log(chalk_1.default.green(`  ✓  Updated Angular Material to ${targetVersion}`));
     console.log();
     if (hasFailures) {
-        console.log(chalk_1.yellow('  ⚠  Some issues were detected but could not be fixed automatically. Please check the ' +
+        console.log(chalk_1.default.yellow('  ⚠  Some issues were detected but could not be fixed automatically. Please check the ' +
             'output above and fix these issues manually.'));
     }
 }

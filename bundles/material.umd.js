@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.2.1-a5d2ed88d');
+var VERSION$1 = new core.Version('8.2.1-d4d958e47');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.2.1-a5d2ed88d');
+var VERSION$2 = new core.Version('8.2.1-d4d958e47');
 /**
  * \@docs-private
  * @return {?}
@@ -3387,6 +3387,14 @@ var MatFormField = /** @class */ (function (_super) {
         _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
         // Unique id for the internal form field label.
         _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
+        /* Holds the previous direction emitted by directionality service change emitter.
+             This is used in updateOutlineGap() method to update the width and position of the gap in the
+             outline. Only relevant for the outline appearance. The direction is getting updated in the
+             UI after directionality service change emission. So the outlines gaps are getting
+             updated in updateOutlineGap() method before connectionContainer child direction change
+             in UI. We may get wrong calculations. So we are storing the previous direction to get the
+             correct outline calculations*/
+        _this._previousDirection = 'ltr';
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
@@ -3631,7 +3639,10 @@ var MatFormField = /** @class */ (function (_super) {
             this._dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe((/**
              * @return {?}
              */
-            function () { return _this.updateOutlineGap(); }));
+            function () {
+                _this.updateOutlineGap();
+                _this._previousDirection = _this._dir.value;
+            }));
         }
     };
     /**
@@ -4012,7 +4023,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function (rect) {
-        return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
+        return this._previousDirection === 'rtl' ? rect.right : rect.left;
     };
     MatFormField.decorators = [
         { type: core.Component, args: [{selector: 'mat-form-field',
@@ -5057,9 +5068,17 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         var index = this.autocomplete._keyManager.activeItemIndex || 0;
         /** @type {?} */
         var labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-        /** @type {?} */
-        var newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
-        this.autocomplete._setScrollTop(newScrollPosition);
+        if (index === 0 && labelCount === 1) {
+            // If we've got one group label before the option and we're at the top option,
+            // scroll the list to the top. This is better UX than scrolling the list to the
+            // top of the option, because it allows the user to read the top group's label.
+            this.autocomplete._setScrollTop(0);
+        }
+        else {
+            /** @type {?} */
+            var newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
+            this.autocomplete._setScrollTop(newScrollPosition);
+        }
     };
     /**
      * This method listens to a stream of panel closing actions and resets the
@@ -6876,20 +6895,19 @@ var MatButton = /** @class */ (function (_super) {
     /** Focuses the button. */
     /**
      * Focuses the button.
-     * @param {?=} _origin
+     * @param {?=} origin
      * @param {?=} options
      * @return {?}
      */
     MatButton.prototype.focus = /**
      * Focuses the button.
-     * @param {?=} _origin
+     * @param {?=} origin
      * @param {?=} options
      * @return {?}
      */
-    function (_origin, options) {
-        // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
-        // use `MatButton` in a `FocusKeyManager` and we need it to match `FocusableOption`.
-        this._getHostElement().focus(options);
+    function (origin, options) {
+        if (origin === void 0) { origin = 'program'; }
+        this._focusMonitor.focusVia(this._getHostElement(), origin, options);
     };
     /**
      * @return {?}
@@ -14048,7 +14066,7 @@ var MatMonthView = /** @class */ (function () {
     };
     MatMonthView.decorators = [
         { type: core.Component, args: [{selector: 'mat-month-view',
-                    template: "<table class=\"mat-calendar-table\" role=\"presentation\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\" role=\"presentation\"><thead class=\"mat-calendar-table-header\"><tr><th scope=\"col\" *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMonthView',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
@@ -21604,8 +21622,11 @@ var MatListOption = /** @class */ (function (_super) {
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                         // Manually set the "primary" or "warn" class if the color has been explicitly
                         // set to "primary" or "warn". The pseudo checkbox picks up these classes for
-                        // its theme. The accent theme palette is the default and doesn't need to be set.
+                        // its theme.
                         '[class.mat-primary]': 'color === "primary"',
+                        // Even though accent is the default, we need to set this class anyway, because the  list might
+                        // be placed inside a parent that has one of the other colors with a higher specificity.
+                        '[class.mat-accent]': 'color !== "primary" && color !== "warn"',
                         '[class.mat-warn]': 'color === "warn"',
                         '[attr.aria-selected]': 'selected',
                         '[attr.aria-disabled]': 'disabled',
@@ -35884,7 +35905,7 @@ MatTableDataSource = /** @class */ (function (_super) {
                 /** @type {?} */
                 var valueB = _this.sortingDataAccessor(b, active);
                 // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
-                // one value exists while the other doesn't. In this case, existing value should come first.
+                // one value exists while the other doesn't. In this case, existing value should come last.
                 // This avoids inconsistent results when comparing values to undefined/null.
                 // If neither value exists, return 0 (equal).
                 /** @type {?} */
@@ -39975,9 +39996,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -40101,8 +40122,8 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb21 = MatPaginatedTabHeader;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb24 = MatPaginatedTabHeader;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

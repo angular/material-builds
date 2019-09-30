@@ -93,14 +93,12 @@ class MatButton extends _MatButtonMixinBase {
     }
     /**
      * Focuses the button.
-     * @param {?=} _origin
+     * @param {?=} origin
      * @param {?=} options
      * @return {?}
      */
-    focus(_origin, options) {
-        // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
-        // use `MatButton` in a `FocusKeyManager` and we need it to match `FocusableOption`.
-        this._getHostElement().focus(options);
+    focus(origin = 'program', options) {
+        this._focusMonitor.focusVia(this._getHostElement(), origin, options);
     }
     /**
      * @return {?}
