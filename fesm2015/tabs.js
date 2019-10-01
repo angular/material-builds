@@ -2,6 +2,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, ContentChildren, Attribute, NgModule } from '@angular/core';
+import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, Subscription, merge, fromEvent, of, timer } from 'rxjs';
@@ -11,7 +12,6 @@ import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
-import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { hasModifierKey, HOME, END, ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
@@ -490,6 +490,7 @@ if (false) {
 }
 /**
  * Base class with all of the `MatTabBody` functionality.
+ * \@docs-private
  * @abstract
  */
 // tslint:disable-next-line:class-name
@@ -652,6 +653,12 @@ class _MatTabBodyBase {
         return 'right-origin-center';
     }
 }
+_MatTabBodyBase.decorators = [
+    { type: Directive, args: [{
+                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-tab-body-base'
+            },] }
+];
 /** @nocollapse */
 _MatTabBodyBase.ctorParameters = () => [
     { type: ElementRef },
@@ -857,6 +864,7 @@ if (false) {
 }
 /**
  * Base class with all of the `MatTabGroupBase` functionality.
+ * \@docs-private
  * @abstract
  */
 // tslint:disable-next-line:class-name
@@ -1195,6 +1203,12 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         return this.selectedIndex === idx ? 0 : -1;
     }
 }
+_MatTabGroupBase.decorators = [
+    { type: Directive, args: [{
+                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-tab-group-base'
+            },] }
+];
 /** @nocollapse */
 _MatTabGroupBase.ctorParameters = () => [
     { type: ElementRef },
@@ -1448,6 +1462,7 @@ const HEADER_SCROLL_DELAY = 650;
 const HEADER_SCROLL_INTERVAL = 100;
 /**
  * Base class for a tab header that supported pagination.
+ * \@docs-private
  * @abstract
  */
 class MatPaginatedTabHeader {
@@ -1996,6 +2011,12 @@ class MatPaginatedTabHeader {
         return { maxScrollDistance, distance: this._scrollDistance };
     }
 }
+MatPaginatedTabHeader.decorators = [
+    { type: Directive, args: [{
+                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-paginated-tab-header'
+            },] }
+];
 /** @nocollapse */
 MatPaginatedTabHeader.ctorParameters = () => [
     { type: ElementRef },
@@ -2004,7 +2025,7 @@ MatPaginatedTabHeader.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional }] },
     { type: NgZone },
     { type: Platform },
-    { type: String }
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 if (false) {
     /** @type {?} */
@@ -2148,6 +2169,7 @@ if (false) {
  */
 /**
  * Base class with all of the `MatTabHeader` functionality.
+ * \@docs-private
  * @abstract
  */
 // tslint:disable-next-line:class-name
@@ -2186,6 +2208,12 @@ class _MatTabHeaderBase extends MatPaginatedTabHeader {
         event.preventDefault();
     }
 }
+_MatTabHeaderBase.decorators = [
+    { type: Directive, args: [{
+                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-tab-header-base'
+            },] }
+];
 /** @nocollapse */
 _MatTabHeaderBase.ctorParameters = () => [
     { type: ElementRef },
@@ -2285,6 +2313,7 @@ if (false) {
  */
 /**
  * Base class with all of the `MatTabNav` functionality.
+ * \@docs-private
  * @abstract
  */
 // tslint:disable-next-line:class-name
@@ -2383,6 +2412,12 @@ class _MatTabNavBase extends MatPaginatedTabHeader {
         this._inkBar.hide();
     }
 }
+_MatTabNavBase.decorators = [
+    { type: Directive, args: [{
+                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-tab-nav-base'
+            },] }
+];
 /** @nocollapse */
 _MatTabNavBase.ctorParameters = () => [
     { type: ElementRef },
@@ -2708,6 +2743,13 @@ MatTabsModule.decorators = [
                     MatTabBodyPortal,
                     MatTabHeader,
                     MatTabContent,
+                    (/** @type {?} */ (
+                    // TODO(crisbeto): these can be removed once they're turned into selector-less directives.
+                    MatPaginatedTabHeader)),
+                    (/** @type {?} */ (_MatTabGroupBase)),
+                    (/** @type {?} */ (_MatTabNavBase)),
+                    (/** @type {?} */ (_MatTabBodyBase)),
+                    (/** @type {?} */ (_MatTabHeaderBase)),
                 ],
             },] }
 ];
