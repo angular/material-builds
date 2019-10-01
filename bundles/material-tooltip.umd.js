@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser'), require('tslib'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser', 'tslib', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}), global.ng.cdk.overlay, global.ng.cdk.a11y, global.ng.common, global.ng.core, global.ng.material.core, global.ng.platformBrowser, global.tslib, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.cdk.layout, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.rxjs, global.rxjs.operators, global.ng.animations));
-}(this, function (exports, overlay, a11y, common, core, core$1, platformBrowser, tslib_1, bidi, coercion, keycodes, layout, platform, portal, scrolling, rxjs, operators, animations) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}), global.ng.cdk.overlay, global.ng.cdk.a11y, global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.cdk.layout, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.rxjs, global.rxjs.operators, global.ng.animations));
+}(this, function (exports, overlay, a11y, common, core, core$1, tslib_1, bidi, coercion, keycodes, layout, platform, portal, scrolling, rxjs, operators, animations) { 'use strict';
 
     /**
      * @license
@@ -33,6 +33,13 @@
     var SCROLL_THROTTLE_MS = 20;
     /** CSS class that will be attached to the overlay panel. */
     var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+    /** Options used to bind passive event listeners. */
+    var passiveListenerOptions = platform.normalizePassiveListenerOptions({ passive: true });
+    /**
+     * Time between the user putting the pointer on a tooltip
+     * trigger and the long press event being fired.
+     */
+    var LONGPRESS_DELAY = 500;
     /**
      * Creates an error to be thrown if the user supplied an invalid tooltip position.
      * @docs-private
@@ -72,13 +79,20 @@
      * https://material.io/design/components/tooltips.html
      */
     var MatTooltip = /** @class */ (function () {
-        function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, hammerLoader) {
+        function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
+        /**
+         * @deprecated _hammerLoader parameter to be removed.
+         * @breaking-change 9.0.0
+         */
+        // Note that we need to give Angular something to inject here so it doesn't throw.
+        _hammerLoader) {
             var _this = this;
             this._overlay = _overlay;
             this._elementRef = _elementRef;
             this._scrollDispatcher = _scrollDispatcher;
             this._viewContainerRef = _viewContainerRef;
             this._ngZone = _ngZone;
+            this._platform = _platform;
             this._ariaDescriber = _ariaDescriber;
             this._focusMonitor = _focusMonitor;
             this._dir = _dir;
@@ -89,27 +103,38 @@
             this.showDelay = this._defaultOptions.showDelay;
             /** The default delay in ms before hiding the tooltip after hide is called */
             this.hideDelay = this._defaultOptions.hideDelay;
+            /**
+             * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
+             * uses a long press gesture to show and hide, however it can conflict with the native browser
+             * gestures. To work around the conflict, Angular Material disables native gestures on the
+             * trigger, but that might not be desirable on particular elements (e.g. inputs and draggable
+             * elements). The different values for this option configure the touch event handling as follows:
+             * - `auto` - Enables touch gestures for all elements, but tries to avoid conflicts with native
+             *   browser gestures on particular elements. In particular, it allows text selection on inputs
+             *   and textareas, and preserves the native browser dragging on elements marked as `draggable`.
+             * - `on` - Enables touch gestures for all elements and disables native
+             *   browser gestures with no exceptions.
+             * - `off` - Disables touch gestures. Note that this will prevent the tooltip from
+             *   showing on touch devices.
+             */
+            this.touchGestures = 'auto';
             this._message = '';
-            this._manualListeners = new Map();
+            /** Manually-bound passive event listeners. */
+            this._passiveListeners = new Map();
             /** Emits when the component is destroyed. */
             this._destroyed = new rxjs.Subject();
             this._scrollStrategy = scrollStrategy;
-            var element = _elementRef.nativeElement;
-            var hasGestures = typeof window === 'undefined' || window.Hammer || hammerLoader;
-            // The mouse events shouldn't be bound on mobile devices, because they can prevent the
-            // first tap from firing its click event or can cause the tooltip to open for clicks.
-            if (!platform.IOS && !platform.ANDROID) {
-                this._manualListeners
-                    .set('mouseenter', function () { return _this.show(); })
-                    .set('mouseleave', function () { return _this.hide(); });
+            if (_defaultOptions) {
+                if (_defaultOptions.position) {
+                    this.position = _defaultOptions.position;
+                }
+                if (_defaultOptions.touchGestures) {
+                    this.touchGestures = _defaultOptions.touchGestures;
+                }
             }
-            else if (!hasGestures) {
-                // If Hammerjs isn't loaded, fall back to showing on `touchstart`, otherwise
-                // there's no way for the user to trigger the tooltip on a touch device.
-                this._manualListeners.set('touchstart', function () { return _this.show(); });
-            }
-            this._manualListeners.forEach(function (listener, event) { return element.addEventListener(event, listener); });
-            _focusMonitor.monitor(_elementRef).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
+            _focusMonitor.monitor(_elementRef)
+                .pipe(operators.takeUntil(this._destroyed))
+                .subscribe(function (origin) {
                 // Note that the focus monitor runs outside the Angular zone.
                 if (!origin) {
                     _ngZone.run(function () { return _this.hide(0); });
@@ -118,9 +143,6 @@
                     _ngZone.run(function () { return _this.show(); });
                 }
             });
-            if (_defaultOptions && _defaultOptions.position) {
-                this.position = _defaultOptions.position;
-            }
         }
         Object.defineProperty(MatTooltip.prototype, "position", {
             /** Allows the user to define the position of the tooltip relative to the parent element */
@@ -196,37 +218,24 @@
          * Setup styling-specific things
          */
         MatTooltip.prototype.ngOnInit = function () {
-            var element = this._elementRef.nativeElement;
-            var elementStyle = element.style;
-            if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-                // When we bind a gesture event on an element (in this case `longpress`), HammerJS
-                // will add some inline styles by default, including `user-select: none`. This is
-                // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
-                // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
-                // behavior for text fields, we always clear the `user-select` to avoid such issues.
-                elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect = '';
-            }
-            // Hammer applies `-webkit-user-drag: none` on all elements by default,
-            // which breaks the native drag&drop. If the consumer explicitly made
-            // the element draggable, clear the `-webkit-user-drag`.
-            if (element.draggable && elementStyle.webkitUserDrag === 'none') {
-                elementStyle.webkitUserDrag = '';
-            }
+            // This needs to happen in `ngOnInit` so the initial values for all inputs have been set.
+            this._setupPointerEvents();
         };
         /**
          * Dispose the tooltip when destroyed.
          */
         MatTooltip.prototype.ngOnDestroy = function () {
             var _this = this;
+            clearTimeout(this._touchstartTimeout);
             if (this._overlayRef) {
                 this._overlayRef.dispose();
                 this._tooltipInstance = null;
             }
             // Clean up the event listeners set in the constructor
-            this._manualListeners.forEach(function (listener, event) {
-                _this._elementRef.nativeElement.removeEventListener(event, listener);
+            this._passiveListeners.forEach(function (listener, event) {
+                _this._elementRef.nativeElement.removeEventListener(event, listener, passiveListenerOptions);
             });
-            this._manualListeners.clear();
+            this._passiveListeners.clear();
             this._destroyed.next();
             this._destroyed.complete();
             this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
@@ -273,10 +282,6 @@
                 e.stopPropagation();
                 this.hide(0);
             }
-        };
-        /** Handles the touchend events on the host element. */
-        MatTooltip.prototype._handleTouchend = function () {
-            this.hide(this._defaultOptions.touchendHideDelay);
         };
         /** Create the overlay config and position strategy */
         MatTooltip.prototype._createOverlay = function () {
@@ -432,14 +437,63 @@
             }
             return { x: x, y: y };
         };
+        /** Binds the pointer events to the tooltip trigger. */
+        MatTooltip.prototype._setupPointerEvents = function () {
+            var _this = this;
+            // The mouse events shouldn't be bound on mobile devices, because they can prevent the
+            // first tap from firing its click event or can cause the tooltip to open for clicks.
+            if (!this._platform.IOS && !this._platform.ANDROID) {
+                this._passiveListeners
+                    .set('mouseenter', function () { return _this.show(); })
+                    .set('mouseleave', function () { return _this.hide(); });
+            }
+            else if (this.touchGestures !== 'off') {
+                this._disableNativeGesturesIfNecessary();
+                var touchendListener = function () {
+                    clearTimeout(_this._touchstartTimeout);
+                    _this.hide(_this._defaultOptions.touchendHideDelay);
+                };
+                this._passiveListeners
+                    .set('touchend', touchendListener)
+                    .set('touchcancel', touchendListener)
+                    .set('touchstart', function () {
+                    // Note that it's important that we don't `preventDefault` here,
+                    // because it can prevent click events from firing on the element.
+                    clearTimeout(_this._touchstartTimeout);
+                    _this._touchstartTimeout = setTimeout(function () { return _this.show(); }, LONGPRESS_DELAY);
+                });
+            }
+            this._passiveListeners.forEach(function (listener, event) {
+                _this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
+            });
+        };
+        /** Disables the native browser gestures, based on how the tooltip has been configured. */
+        MatTooltip.prototype._disableNativeGesturesIfNecessary = function () {
+            var element = this._elementRef.nativeElement;
+            var style = element.style;
+            var gestures = this.touchGestures;
+            if (gestures !== 'off') {
+                // If gestures are set to `auto`, we don't disable text selection on inputs and
+                // textareas, because it prevents the user from typing into them on iOS Safari.
+                if (gestures === 'on' || (element.nodeName !== 'INPUT' && element.nodeName !== 'TEXTAREA')) {
+                    style.userSelect = style.msUserSelect = style.webkitUserSelect =
+                        style.MozUserSelect = 'none';
+                }
+                // If we have `auto` gestures and the element uses native HTML dragging,
+                // we don't set `-webkit-user-drag` because it prevents the native behavior.
+                if (gestures === 'on' || !element.draggable) {
+                    style.webkitUserDrag = 'none';
+                }
+                style.touchAction = 'none';
+                style.webkitTapHighlightColor = 'transparent';
+            }
+        };
         MatTooltip.decorators = [
             { type: core.Directive, args: [{
                         selector: '[matTooltip]',
                         exportAs: 'matTooltip',
                         host: {
-                            '(longpress)': 'show()',
                             '(keydown)': '_handleKeydown($event)',
-                            '(touchend)': '_handleTouchend()',
                         },
                     },] }
         ];
@@ -456,13 +510,14 @@
             { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.HAMMER_LOADER,] }] }
+            { type: undefined, decorators: [{ type: core.Inject, args: [core.ElementRef,] }] }
         ]; };
         MatTooltip.propDecorators = {
             position: [{ type: core.Input, args: ['matTooltipPosition',] }],
             disabled: [{ type: core.Input, args: ['matTooltipDisabled',] }],
             showDelay: [{ type: core.Input, args: ['matTooltipShowDelay',] }],
             hideDelay: [{ type: core.Input, args: ['matTooltipHideDelay',] }],
+            touchGestures: [{ type: core.Input, args: ['matTooltipTouchGestures',] }],
             message: [{ type: core.Input, args: ['matTooltip',] }],
             tooltipClass: [{ type: core.Input, args: ['matTooltipClass',] }]
         };
@@ -613,10 +668,7 @@
                         exports: [MatTooltip, TooltipComponent, core$1.MatCommonModule],
                         declarations: [MatTooltip, TooltipComponent],
                         entryComponents: [TooltipComponent],
-                        providers: [
-                            MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER,
-                            { provide: platformBrowser.HAMMER_GESTURE_CONFIG, useClass: core$1.GestureConfig },
-                        ]
+                        providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]
                     },] }
         ];
         return MatTooltipModule;

@@ -13,9 +13,16 @@ import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRe
 import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { HammerLoader } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+/** Possible positions for a tooltip. */
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
+/**
+ * Options for how the tooltip trigger should handle touch gestures.
+ * See `MatTooltip.touchGestures` for more information.
+ */
+export declare type TooltipTouchGestures = 'auto' | 'on' | 'off';
+/** Possible visibility states of a tooltip. */
+export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
 /** CSS class that will be attached to the overlay panel. */
@@ -40,6 +47,7 @@ export interface MatTooltipDefaultOptions {
     showDelay: number;
     hideDelay: number;
     touchendHideDelay: number;
+    touchGestures?: TooltipTouchGestures;
     position?: TooltipPosition;
 }
 /** Injection token to be used to override the default options for `matTooltip`. */
@@ -58,6 +66,7 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     private _scrollDispatcher;
     private _viewContainerRef;
     private _ngZone;
+    private _platform;
     private _ariaDescriber;
     private _focusMonitor;
     private _dir;
@@ -77,17 +86,40 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     showDelay: number;
     /** The default delay in ms before hiding the tooltip after hide is called */
     hideDelay: number;
-    private _message;
+    /**
+     * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
+     * uses a long press gesture to show and hide, however it can conflict with the native browser
+     * gestures. To work around the conflict, Angular Material disables native gestures on the
+     * trigger, but that might not be desirable on particular elements (e.g. inputs and draggable
+     * elements). The different values for this option configure the touch event handling as follows:
+     * - `auto` - Enables touch gestures for all elements, but tries to avoid conflicts with native
+     *   browser gestures on particular elements. In particular, it allows text selection on inputs
+     *   and textareas, and preserves the native browser dragging on elements marked as `draggable`.
+     * - `on` - Enables touch gestures for all elements and disables native
+     *   browser gestures with no exceptions.
+     * - `off` - Disables touch gestures. Note that this will prevent the tooltip from
+     *   showing on touch devices.
+     */
+    touchGestures: TooltipTouchGestures;
     /** The message to be displayed in the tooltip */
     message: string;
+    private _message;
     /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
     tooltipClass: string | string[] | Set<string> | {
         [key: string]: any;
     };
-    private _manualListeners;
+    /** Manually-bound passive event listeners. */
+    private _passiveListeners;
+    /** Timer started at the last `touchstart` event. */
+    private _touchstartTimeout;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, hammerLoader?: HammerLoader);
+    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, 
+    /**
+     * @deprecated _hammerLoader parameter to be removed.
+     * @breaking-change 9.0.0
+     */
+    _hammerLoader?: any);
     /**
      * Setup styling-specific things
      */
@@ -106,8 +138,6 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     _isTooltipVisible(): boolean;
     /** Handles the keydown events on the host element. */
     _handleKeydown(e: KeyboardEvent): void;
-    /** Handles the touchend events on the host element. */
-    _handleTouchend(): void;
     /** Create the overlay config and position strategy */
     private _createOverlay;
     /** Detaches the currently-attached tooltip. */
@@ -133,8 +163,11 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     private _setTooltipClass;
     /** Inverts an overlay position. */
     private _invertPosition;
+    /** Binds the pointer events to the tooltip trigger. */
+    private _setupPointerEvents;
+    /** Disables the native browser gestures, based on how the tooltip has been configured. */
+    private _disableNativeGesturesIfNecessary;
 }
-export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
 /**
  * Internal component that wraps the tooltip's content.
  * @docs-private
