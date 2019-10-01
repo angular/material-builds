@@ -45,6 +45,18 @@
         ComponentHarness.prototype.locatorForAll = function (arg) {
             return this.locatorFactory.locatorForAll(arg);
         };
+        /**
+         * Flushes change detection and async tasks.
+         * In most cases it should not be necessary to call this manually. However, there may be some edge
+         * cases where it is needed to fully flush animation events.
+         */
+        ComponentHarness.prototype.forceStabilize = function () {
+            return tslib_1.__awaiter(this, void 0, void 0, function () {
+                return tslib_1.__generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorFactory.forceStabilize()];
+                });
+            });
+        };
         return ComponentHarness;
     }());
     /**
