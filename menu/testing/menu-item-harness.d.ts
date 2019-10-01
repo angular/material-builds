@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MenuItemHarnessFilters } from '@angular/material/menu/testing/menu-harness-filters';
+import { MenuItemHarnessFilters } from './menu-harness-filters';
 /**
  * Harness for interacting with a standard mat-menu in tests.
  * @dynamic
