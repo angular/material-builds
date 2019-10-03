@@ -736,6 +736,11 @@
                 if (correspondingOption) {
                     this._keyManager.setActiveItem(correspondingOption);
                 }
+                else if (!this.panelOpen) {
+                    // Otherwise reset the highlighted option. Note that we only want to do this while
+                    // closed, because doing it while open can shift the user's focus unnecessarily.
+                    this._keyManager.setActiveItem(-1);
+                }
             }
             this._changeDetectorRef.markForCheck();
         };
