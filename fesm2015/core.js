@@ -1,10 +1,10 @@
 import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, ɵɵdefineInjectable, Directive, ElementRef, NgZone, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, ChangeDetectorRef, Output } from '@angular/core';
-import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import { HammerGestureConfig } from '@angular/platform-browser';
 import { startWith } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
@@ -19,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('8.2.2-sha-361d1cf80');
+const VERSION = new Version('8.2.2-sha-c4f2174e2');
 
 /**
  * @fileoverview added by tsickle
@@ -77,7 +77,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('8.2.2-sha-361d1cf80');
+const VERSION$1 = new Version('8.2.2-sha-c4f2174e2');
 /**
  * \@docs-private
  * @return {?}
@@ -105,7 +105,11 @@ if (false) {
     GranularSanityChecks.prototype.theme;
     /** @type {?} */
     GranularSanityChecks.prototype.version;
-    /** @type {?} */
+    /**
+     * @deprecated No longer being used.
+     * \@breaking-change 10.0.0
+     * @type {?}
+     */
     GranularSanityChecks.prototype.hammer;
 }
 /**
@@ -117,18 +121,12 @@ if (false) {
 class MatCommonModule {
     /**
      * @param {?} sanityChecks
-     * @param {?=} _hammerLoader
      */
-    constructor(sanityChecks, _hammerLoader) {
-        this._hammerLoader = _hammerLoader;
+    constructor(sanityChecks) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        /**
-         * Whether we've already checked for HammerJs availability.
-         */
-        this._hasCheckedHammer = false;
         /**
          * Reference to the global `document` object.
          */
@@ -223,22 +221,6 @@ class MatCommonModule {
                 'Please ensure the versions of these two packages exactly match.');
         }
     }
-    /**
-     * Checks whether HammerJS is available.
-     * @return {?}
-     */
-    _checkHammerIsAvailable() {
-        if (this._hasCheckedHammer || !this._window) {
-            return;
-        }
-        /** @type {?} */
-        const isEnabled = this._checksAreEnabled() &&
-            (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).hammer);
-        if (isEnabled && !((/** @type {?} */ (this._window)))['Hammer'] && !this._hammerLoader) {
-            console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
-        }
-        this._hasCheckedHammer = true;
-    }
 }
 MatCommonModule.decorators = [
     { type: NgModule, args: [{
@@ -248,8 +230,7 @@ MatCommonModule.decorators = [
 ];
 /** @nocollapse */
 MatCommonModule.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
 ];
 if (false) {
     /**
@@ -258,12 +239,6 @@ if (false) {
      * @private
      */
     MatCommonModule.prototype._hasDoneGlobalChecks;
-    /**
-     * Whether we've already checked for HammerJs availability.
-     * @type {?}
-     * @private
-     */
-    MatCommonModule.prototype._hasCheckedHammer;
     /**
      * Reference to the global `document` object.
      * @type {?}
@@ -282,11 +257,6 @@ if (false) {
      * @private
      */
     MatCommonModule.prototype._sanityChecks;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatCommonModule.prototype._hammerLoader;
 }
 
 /**
@@ -1541,6 +1511,8 @@ ErrorStateMatcher.decorators = [
  * https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/hammerjs/index.d.ts
  */
 /**
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * \@docs-private
  * @record
  */
@@ -1556,6 +1528,8 @@ if (false) {
     HammerInput.prototype.center;
 }
 /**
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * \@docs-private
  * @record
  */
@@ -1570,6 +1544,8 @@ if (false) {
     /* Skipping unhandled member: new(element: HTMLElement | SVGElement, options?: any): HammerManager;*/
 }
 /**
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * \@docs-private
  * @record
  */
@@ -1583,11 +1559,15 @@ if (false) {
     Recognizer.prototype.recognizeWith = function (otherRecognizer) { };
 }
 /**
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * \@docs-private
  * @record
  */
 function RecognizerStatic() { }
 /**
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * \@docs-private
  * @record
  */
@@ -1607,6 +1587,8 @@ if (false) {
     HammerInstance.prototype.off = function (eventName, callback) { };
 }
 /**
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * \@docs-private
  * @record
  */
@@ -1642,6 +1624,8 @@ if (false) {
     HammerManager.prototype.on = function (events, handler) { };
 }
 /**
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * \@docs-private
  * @record
  */
@@ -1672,6 +1656,8 @@ if (false) {
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  * @type {?}
  */
 const MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
@@ -1702,22 +1688,21 @@ const noopHammerInstance = {
 };
 /**
  * Adjusts configuration of our gesture library, Hammer.
+ * @deprecated No longer being used. To be removed.
+ * \@breaking-change 10.0.0
  */
 class GestureConfig extends HammerGestureConfig {
     /**
      * @param {?=} _hammerOptions
-     * @param {?=} commonModule
+     * @param {?=} _commonModule
      */
-    constructor(_hammerOptions, commonModule) {
+    constructor(_hammerOptions, _commonModule) {
         super();
         this._hammerOptions = _hammerOptions;
         /**
          * List of new event names to add to the gesture support list
          */
         this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
-        if (commonModule) {
-            commonModule._checkHammerIsAvailable();
-        }
     }
     /**
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.

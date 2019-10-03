@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/common', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.platformBrowser, global.ng.cdk.bidi, global.ng.cdk, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.rxjs.operators, global.ng.common, global.ng.cdk.a11y, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
-}(this, function (exports, i0, platformBrowser, bidi, cdk, tslib_1, coercion, rxjs, platform, operators, common, a11y, animations, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/common', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.bidi, global.ng.cdk, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.common, global.ng.cdk.a11y, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
+}(this, function (exports, i0, bidi, cdk, tslib_1, coercion, rxjs, platform, platformBrowser, operators, common, a11y, animations, keycodes) { 'use strict';
 
     /**
      * @license
@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('8.2.2-sha-361d1cf80');
+    var VERSION = new i0.Version('8.2.2-sha-c4f2174e2');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('8.2.2-sha-361d1cf80');
+    var VERSION$1 = new i0.Version('8.2.2-sha-c4f2174e2');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -69,12 +69,9 @@
      * This module should be imported to each top-level component module (e.g., MatTabsModule).
      */
     var MatCommonModule = /** @class */ (function () {
-        function MatCommonModule(sanityChecks, _hammerLoader) {
-            this._hammerLoader = _hammerLoader;
+        function MatCommonModule(sanityChecks) {
             /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
             this._hasDoneGlobalChecks = false;
-            /** Whether we've already checked for HammerJs availability. */
-            this._hasCheckedHammer = false;
             /** Reference to the global `document` object. */
             this._document = typeof document === 'object' && document ? document : null;
             /** Reference to the global 'window' object. */
@@ -139,18 +136,6 @@
                     'Please ensure the versions of these two packages exactly match.');
             }
         };
-        /** Checks whether HammerJS is available. */
-        MatCommonModule.prototype._checkHammerIsAvailable = function () {
-            if (this._hasCheckedHammer || !this._window) {
-                return;
-            }
-            var isEnabled = this._checksAreEnabled() &&
-                (this._sanityChecks === true || this._sanityChecks.hammer);
-            if (isEnabled && !this._window['Hammer'] && !this._hammerLoader) {
-                console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
-            }
-            this._hasCheckedHammer = true;
-        };
         MatCommonModule.decorators = [
             { type: i0.NgModule, args: [{
                         imports: [bidi.BidiModule],
@@ -159,8 +144,7 @@
         ];
         /** @nocollapse */
         MatCommonModule.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [platformBrowser.HAMMER_LOADER,] }] }
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
         ]; };
         return MatCommonModule;
     }());
@@ -915,6 +899,8 @@
     /**
      * Injection token that can be used to provide options to the Hammerjs instance.
      * More info at http://hammerjs.github.io/api/.
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 10.0.0
      */
     var MAT_HAMMER_OPTIONS = new i0.InjectionToken('MAT_HAMMER_OPTIONS');
     var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
@@ -934,17 +920,18 @@
         on: ɵ0$2,
         off: ɵ1,
     };
-    /** Adjusts configuration of our gesture library, Hammer. */
+    /**
+     * Adjusts configuration of our gesture library, Hammer.
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 10.0.0
+     */
     var GestureConfig = /** @class */ (function (_super) {
         tslib_1.__extends(GestureConfig, _super);
-        function GestureConfig(_hammerOptions, commonModule) {
+        function GestureConfig(_hammerOptions, _commonModule) {
             var _this = _super.call(this) || this;
             _this._hammerOptions = _hammerOptions;
             /** List of new event names to add to the gesture support list */
             _this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
-            if (commonModule) {
-                commonModule._checkHammerIsAvailable();
-            }
             return _this;
         }
         /**

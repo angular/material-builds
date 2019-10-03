@@ -13,5 +13,3 @@ export declare const materialVersion: string | null;
  * that provides these schematics.
  */
 export declare const requiredAngularVersionRange = "^8.0.0 || ^9.0.0-0";
-/** HammerJS version that should be installed if gestures will be set up. */
-export declare const hammerjsVersion = "^2.0.8";

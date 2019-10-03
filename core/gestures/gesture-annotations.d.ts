@@ -10,7 +10,11 @@
  * because HammerJS is an optional dependency. For the full annotations see:
  * https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/hammerjs/index.d.ts
  */
-/** @docs-private */
+/**
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ * @docs-private
+ */
 export interface HammerInput {
     preventDefault: () => {};
     deltaX: number;
@@ -20,28 +24,48 @@ export interface HammerInput {
         y: number;
     };
 }
-/** @docs-private */
+/**
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ * @docs-private
+ */
 export interface HammerStatic {
     new (element: HTMLElement | SVGElement, options?: any): HammerManager;
     Pan: Recognizer;
     Swipe: Recognizer;
     Press: Recognizer;
 }
-/** @docs-private */
+/**
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ * @docs-private
+ */
 export interface Recognizer {
     new (options?: any): Recognizer;
     recognizeWith(otherRecognizer: Recognizer | string): Recognizer;
 }
-/** @docs-private */
+/**
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ * @docs-private
+ */
 export interface RecognizerStatic {
     new (options?: any): Recognizer;
 }
-/** @docs-private */
+/**
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ * @docs-private
+ */
 export interface HammerInstance {
     on(eventName: string, callback: Function): void;
     off(eventName: string, callback: Function): void;
 }
-/** @docs-private */
+/**
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ * @docs-private
+ */
 export interface HammerManager {
     add(recogniser: Recognizer | Recognizer[]): Recognizer;
     set(options: any): HammerManager;
@@ -49,7 +73,11 @@ export interface HammerManager {
     off(events: string, handler?: Function): void;
     on(events: string, handler: Function): void;
 }
-/** @docs-private */
+/**
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ * @docs-private
+ */
 export interface HammerOptions {
     cssProps?: {
         [key: string]: string;

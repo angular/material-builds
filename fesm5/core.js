@@ -1,11 +1,11 @@
 import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, ɵɵdefineInjectable, Directive, ElementRef, NgZone, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, ChangeDetectorRef, Output } from '@angular/core';
-import { HAMMER_LOADER, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
 import { __extends, __spread, __assign } from 'tslib';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import { HammerGestureConfig } from '@angular/platform-browser';
 import { startWith } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('8.2.2-sha-361d1cf80');
+var VERSION = new Version('8.2.2-sha-c4f2174e2');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('8.2.2-sha-361d1cf80');
+var VERSION$1 = new Version('8.2.2-sha-c4f2174e2');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -77,12 +77,9 @@ var MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = /** @class */ (function () {
-    function MatCommonModule(sanityChecks, _hammerLoader) {
-        this._hammerLoader = _hammerLoader;
+    function MatCommonModule(sanityChecks) {
         /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
         this._hasDoneGlobalChecks = false;
-        /** Whether we've already checked for HammerJs availability. */
-        this._hasCheckedHammer = false;
         /** Reference to the global `document` object. */
         this._document = typeof document === 'object' && document ? document : null;
         /** Reference to the global 'window' object. */
@@ -147,18 +144,6 @@ var MatCommonModule = /** @class */ (function () {
                 'Please ensure the versions of these two packages exactly match.');
         }
     };
-    /** Checks whether HammerJS is available. */
-    MatCommonModule.prototype._checkHammerIsAvailable = function () {
-        if (this._hasCheckedHammer || !this._window) {
-            return;
-        }
-        var isEnabled = this._checksAreEnabled() &&
-            (this._sanityChecks === true || this._sanityChecks.hammer);
-        if (isEnabled && !this._window['Hammer'] && !this._hammerLoader) {
-            console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
-        }
-        this._hasCheckedHammer = true;
-    };
     MatCommonModule.decorators = [
         { type: NgModule, args: [{
                     imports: [BidiModule],
@@ -167,8 +152,7 @@ var MatCommonModule = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [HAMMER_LOADER,] }] }
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
     ]; };
     return MatCommonModule;
 }());
@@ -923,6 +907,8 @@ var ErrorStateMatcher = /** @class */ (function () {
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
  */
 var MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
 var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
@@ -942,17 +928,18 @@ var noopHammerInstance = {
     on: ɵ0$2,
     off: ɵ1,
 };
-/** Adjusts configuration of our gesture library, Hammer. */
+/**
+ * Adjusts configuration of our gesture library, Hammer.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 10.0.0
+ */
 var GestureConfig = /** @class */ (function (_super) {
     __extends(GestureConfig, _super);
-    function GestureConfig(_hammerOptions, commonModule) {
+    function GestureConfig(_hammerOptions, _commonModule) {
         var _this = _super.call(this) || this;
         _this._hammerOptions = _hammerOptions;
         /** List of new event names to add to the gesture support list */
         _this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
-        if (commonModule) {
-            commonModule._checkHammerIsAvailable();
-        }
         return _this;
     }
     /**

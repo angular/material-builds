@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken } from '@angular/core';
-import { HammerLoader } from '@angular/platform-browser';
 /** @docs-private */
 export declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
 /** Injection token that configures whether the Material sanity checks are enabled. */
@@ -21,6 +20,10 @@ export interface GranularSanityChecks {
     doctype: boolean;
     theme: boolean;
     version: boolean;
+    /**
+     * @deprecated No longer being used.
+     * @breaking-change 10.0.0
+     */
     hammer: boolean;
 }
 /**
@@ -30,18 +33,15 @@ export interface GranularSanityChecks {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 export declare class MatCommonModule {
-    private _hammerLoader?;
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;
-    /** Whether we've already checked for HammerJs availability. */
-    private _hasCheckedHammer;
     /** Reference to the global `document` object. */
     private _document;
     /** Reference to the global 'window' object. */
     private _window;
     /** Configured sanity checks. */
     private _sanityChecks;
-    constructor(sanityChecks: any, _hammerLoader?: HammerLoader | undefined);
+    constructor(sanityChecks: any);
     /** Whether any sanity checks are enabled. */
     private _checksAreEnabled;
     /** Whether the code is running in tests. */
@@ -50,6 +50,4 @@ export declare class MatCommonModule {
     private _checkThemeIsPresent;
     /** Checks whether the material version matches the cdk version */
     private _checkCdkVersionMatch;
-    /** Checks whether HammerJS is available. */
-    _checkHammerIsAvailable(): void;
 }
