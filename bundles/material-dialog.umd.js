@@ -22,7 +22,7 @@
             this.panelClass = '';
             /** Whether the dialog has a backdrop. */
             this.hasBackdrop = true;
-            /** Custom class for the backdrop, */
+            /** Custom class for the backdrop. */
             this.backdropClass = '';
             /** Whether the user can use escape or clicking on the backdrop to close the modal. */
             this.disableClose = false;
@@ -30,7 +30,7 @@
             this.width = '';
             /** Height of the dialog. */
             this.height = '';
-            /** Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw */
+            /** Max-width of the dialog. If a number is provided, assumes pixel units. Defaults to 80vw. */
             this.maxWidth = '80vw';
             /** Data being injected into the child component. */
             this.data = null;
@@ -38,7 +38,7 @@
             this.ariaDescribedBy = null;
             /** ID of the element that labels the dialog. */
             this.ariaLabelledBy = null;
-            /** Aria label to assign to the dialog element */
+            /** Aria label to assign to the dialog element. */
             this.ariaLabel = null;
             /** Whether the dialog should focus the first focusable element on open. */
             this.autoFocus = true;
