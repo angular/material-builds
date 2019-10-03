@@ -1574,7 +1574,6 @@
     }());
     var _MatTabLinkMixinBase = core$1.mixinTabIndex(core$1.mixinDisableRipple(core$1.mixinDisabled(MatTabLinkMixinBase)));
     /** Base class with all of the `MatTabLink` functionality. */
-    // tslint:disable-next-line:class-name
     var _MatTabLinkBase = /** @class */ (function (_super) {
         tslib_1.__extends(_MatTabLinkBase, _super);
         function _MatTabLinkBase(_tabNavBar, elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
@@ -1622,6 +1621,12 @@
         _MatTabLinkBase.prototype.ngOnDestroy = function () {
             this._focusMonitor.stopMonitoring(this.elementRef);
         };
+        _MatTabLinkBase.decorators = [
+            { type: core.Directive, args: [{
+                        // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                        selector: 'do-not-use-abstract-mat-tab-link-base'
+                    },] }
+        ];
         /** @nocollapse */
         _MatTabLinkBase.ctorParameters = function () { return [
             { type: _MatTabNavBase },
@@ -1728,6 +1733,7 @@
                             _MatTabNavBase,
                             _MatTabBodyBase,
                             _MatTabHeaderBase,
+                            _MatTabLinkBase,
                         ],
                     },] }
         ];

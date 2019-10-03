@@ -2603,6 +2603,12 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
         this._focusMonitor.stopMonitoring(this.elementRef);
     }
 }
+_MatTabLinkBase.decorators = [
+    { type: Directive, args: [{
+                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-tab-link-base'
+            },] }
+];
 /** @nocollapse */
 _MatTabLinkBase.ctorParameters = () => [
     { type: _MatTabNavBase },
@@ -2750,6 +2756,7 @@ MatTabsModule.decorators = [
                     (/** @type {?} */ (_MatTabNavBase)),
                     (/** @type {?} */ (_MatTabBodyBase)),
                     (/** @type {?} */ (_MatTabHeaderBase)),
+                    (/** @type {?} */ (_MatTabLinkBase)),
                 ],
             },] }
 ];
