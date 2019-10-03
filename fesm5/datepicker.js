@@ -67,6 +67,10 @@ var MatDatepickerIntl = /** @class */ (function () {
         /** A label for the 'switch to year view' button (used by screen readers). */
         this.switchToMultiYearViewLabel = 'Choose month and year';
     }
+    /** Formats a range of years. */
+    MatDatepickerIntl.prototype.formatYearRange = function (start, end) {
+        return start + " \u2013 " + end;
+    };
     MatDatepickerIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
@@ -981,7 +985,9 @@ var MatCalendarHeader = /** @class */ (function () {
             var activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
             var minYearOfPage = activeYear - getActiveOffset(this._dateAdapter, this.calendar.activeDate, this.calendar.minDate, this.calendar.maxDate);
             var maxYearOfPage = minYearOfPage + yearsPerPage - 1;
-            return minYearOfPage + " \u2013 " + maxYearOfPage;
+            var minYearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(minYearOfPage, 0, 1));
+            var maxYearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(maxYearOfPage, 0, 1));
+            return this._intl.formatYearRange(minYearName, maxYearName);
         },
         enumerable: true,
         configurable: true
