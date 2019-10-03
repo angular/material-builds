@@ -650,7 +650,7 @@ class MatTableDataSource extends DataSource {
         const dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
-        const filteredData = combineLatest(dataStream, this._filter)
+        const filteredData = combineLatest([dataStream, this._filter])
             .pipe(map((/**
          * @param {?} __0
          * @return {?}
@@ -658,7 +658,7 @@ class MatTableDataSource extends DataSource {
         ([data]) => this._filterData(data))));
         // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
-        const orderedData = combineLatest(filteredData, sortChange)
+        const orderedData = combineLatest([filteredData, sortChange])
             .pipe(map((/**
          * @param {?} __0
          * @return {?}
@@ -666,7 +666,7 @@ class MatTableDataSource extends DataSource {
         ([data]) => this._orderData(data))));
         // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
-        const paginatedData = combineLatest(orderedData, pageChange)
+        const paginatedData = combineLatest([orderedData, pageChange])
             .pipe(map((/**
          * @param {?} __0
          * @return {?}

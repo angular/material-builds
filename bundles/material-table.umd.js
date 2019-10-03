@@ -620,19 +620,19 @@
                 rxjs.of(null);
             var dataStream = this._data;
             // Watch for base data or filter changes to provide a filtered set of data.
-            var filteredData = rxjs.combineLatest(dataStream, this._filter)
+            var filteredData = rxjs.combineLatest([dataStream, this._filter])
                 .pipe(operators.map(function (_a) {
                 var _b = tslib_1.__read(_a, 1), data = _b[0];
                 return _this._filterData(data);
             }));
             // Watch for filtered data or sort changes to provide an ordered set of data.
-            var orderedData = rxjs.combineLatest(filteredData, sortChange)
+            var orderedData = rxjs.combineLatest([filteredData, sortChange])
                 .pipe(operators.map(function (_a) {
                 var _b = tslib_1.__read(_a, 1), data = _b[0];
                 return _this._orderData(data);
             }));
             // Watch for ordered data or page changes to provide a paged set of data.
-            var paginatedData = rxjs.combineLatest(orderedData, pageChange)
+            var paginatedData = rxjs.combineLatest([orderedData, pageChange])
                 .pipe(operators.map(function (_a) {
                 var _b = tslib_1.__read(_a, 1), data = _b[0];
                 return _this._pageData(data);
