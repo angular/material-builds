@@ -379,7 +379,6 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
  */
 var MAT_MENU_BASE_ELEVATION = 4;
 /** Base class with all of the `MatMenu` functionality. */
-// tslint:disable-next-line:class-name
 var _MatMenuBase = /** @class */ (function () {
     function _MatMenuBase(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
@@ -679,6 +678,12 @@ var _MatMenuBase = /** @class */ (function () {
             _this._directDescendantItems.notifyOnChanges();
         });
     };
+    _MatMenuBase.decorators = [
+        { type: Directive, args: [{
+                    // TODO(devversion): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-menu-base'
+                },] }
+    ];
     /** @nocollapse */
     _MatMenuBase.ctorParameters = function () { return [
         { type: ElementRef },
@@ -708,6 +713,12 @@ var MatMenu = /** @class */ (function (_super) {
     function MatMenu() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    MatMenu.decorators = [
+        { type: Directive, args: [{
+                    // TODO(devversion): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-menu'
+                },] }
+    ];
     return MatMenu;
 }(_MatMenuBase));
 // Note on the weird inheritance setup: we need three classes, because the MDC-based menu has to
@@ -1265,7 +1276,14 @@ var _MatMenuDirectivesModule = /** @class */ (function () {
     _MatMenuDirectivesModule.decorators = [
         { type: NgModule, args: [{
                     exports: [MatMenuTrigger, MatMenuContent, MatCommonModule],
-                    declarations: [MatMenuTrigger, MatMenuContent],
+                    declarations: [
+                        MatMenuTrigger,
+                        MatMenuContent,
+                        // TODO(devversion): remove when `MatMenu` becomes a selectorless Directive.
+                        MatMenu,
+                        // TODO(devversion): remove when `_MatMenuBase` becomes a selectorless Directive.
+                        _MatMenuBase
+                    ],
                     providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                 },] }
     ];

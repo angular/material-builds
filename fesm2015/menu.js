@@ -1026,6 +1026,12 @@ class _MatMenuBase {
         }));
     }
 }
+_MatMenuBase.decorators = [
+    { type: Directive, args: [{
+                // TODO(devversion): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-menu-base'
+            },] }
+];
 /** @nocollapse */
 _MatMenuBase.ctorParameters = () => [
     { type: ElementRef },
@@ -1186,6 +1192,12 @@ if (false) {
  */
 class MatMenu extends _MatMenuBase {
 }
+MatMenu.decorators = [
+    { type: Directive, args: [{
+                // TODO(devversion): this selector can be removed when we update to Angular 9.0.
+                selector: 'do-not-use-abstract-mat-menu'
+            },] }
+];
 // Note on the weird inheritance setup: we need three classes, because the MDC-based menu has to
 // extend `MatMenu`, however keeping a reference to it will cause the inlined template and styles
 // to be retained as well. The MDC menu also has to provide itself as a `MatMenu` in order for
@@ -2014,7 +2026,14 @@ class _MatMenuDirectivesModule {
 _MatMenuDirectivesModule.decorators = [
     { type: NgModule, args: [{
                 exports: [MatMenuTrigger, MatMenuContent, MatCommonModule],
-                declarations: [MatMenuTrigger, MatMenuContent],
+                declarations: [
+                    MatMenuTrigger,
+                    MatMenuContent,
+                    // TODO(devversion): remove when `MatMenu` becomes a selectorless Directive.
+                    MatMenu,
+                    // TODO(devversion): remove when `_MatMenuBase` becomes a selectorless Directive.
+                    _MatMenuBase
+                ],
                 providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
             },] }
 ];
