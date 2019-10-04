@@ -636,7 +636,7 @@
                             '(body:click)': 'this._handleBodyInteraction()',
                             'aria-hidden': 'true',
                         },
-                        styles: [".mat-tooltip-panel{pointer-events:none !important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}@media(-ms-high-contrast: active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}/*# sourceMappingURL=tooltip.css.map */\n"]
+                        styles: [".mat-tooltip-panel{pointer-events:none !important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}@media(-ms-high-contrast: active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}\n"]
                     }] }
         ];
         /** @nocollapse */

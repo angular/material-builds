@@ -215,7 +215,7 @@ var MatTabBody = /** @class */ (function (_super) {
                     host: {
                         'class': 'mat-tab-body',
                     },
-                    styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}/*# sourceMappingURL=tab-body.css.map */\n"]
+                    styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}\n"]
                 }] }
     ];
     /** @nocollapse */
