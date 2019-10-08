@@ -12,7 +12,10 @@ import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
 import { Platform } from '@angular/cdk/platform';
 import { MatPaginatedTabHeader } from './paginated-tab-header';
-/** Base class with all of the `MatTabHeader` functionality. */
+/**
+ * Base class with all of the `MatTabHeader` functionality.
+ * @docs-private
+ */
 export declare abstract class _MatTabHeaderBase extends MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy {
     /** Whether the ripple effect is disabled or not. */
     disableRipple: any;

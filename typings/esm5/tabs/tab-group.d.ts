@@ -34,7 +34,10 @@ interface MatTabGroupBaseHeader {
     _alignInkBarToSelectedTab: () => void;
     focusIndex: number;
 }
-/** Base class with all of the `MatTabGroupBase` functionality. */
+/**
+ * Base class with all of the `MatTabGroupBase` functionality.
+ * @docs-private
+ */
 export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetectorRef;
     _animationMode?: string | undefined;

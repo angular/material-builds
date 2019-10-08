@@ -759,7 +759,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         var dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
-        var filteredData = rxjs.combineLatest(dataStream, this._filter)
+        var filteredData = rxjs.combineLatest([dataStream, this._filter])
             .pipe(operators.map((/**
          * @param {?} __0
          * @return {?}
@@ -770,7 +770,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         })));
         // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
-        var orderedData = rxjs.combineLatest(filteredData, sortChange)
+        var orderedData = rxjs.combineLatest([filteredData, sortChange])
             .pipe(operators.map((/**
          * @param {?} __0
          * @return {?}
@@ -781,7 +781,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         })));
         // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
-        var paginatedData = rxjs.combineLatest(orderedData, pageChange)
+        var paginatedData = rxjs.combineLatest([orderedData, pageChange])
             .pipe(operators.map((/**
          * @param {?} __0
          * @return {?}

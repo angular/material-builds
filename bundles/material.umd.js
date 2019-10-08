@@ -59,7 +59,7 @@ var __assign = function() {
  * Current version of Angular Material.
  * @type {?}
  */
-var VERSION$1 = new core.Version('8.2.2-04625994e');
+var VERSION$1 = new core.Version('8.2.2-sha-cf48568d9');
 
 /**
  * @fileoverview added by tsickle
@@ -99,7 +99,7 @@ var AnimationDurations = /** @class */ (function () {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-var VERSION$2 = new core.Version('8.2.2-04625994e');
+var VERSION$2 = new core.Version('8.2.2-sha-cf48568d9');
 /**
  * \@docs-private
  * @return {?}
@@ -11165,7 +11165,7 @@ MatDialogConfig = /** @class */ (function () {
          */
         this.hasBackdrop = true;
         /**
-         * Custom class for the backdrop,
+         * Custom class for the backdrop.
          */
         this.backdropClass = '';
         /**
@@ -11181,7 +11181,7 @@ MatDialogConfig = /** @class */ (function () {
          */
         this.height = '';
         /**
-         * Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw
+         * Max-width of the dialog. If a number is provided, assumes pixel units. Defaults to 80vw.
          */
         this.maxWidth = '80vw';
         /**
@@ -11197,7 +11197,7 @@ MatDialogConfig = /** @class */ (function () {
          */
         this.ariaLabelledBy = null;
         /**
-         * Aria label to assign to the dialog element
+         * Aria label to assign to the dialog element.
          */
         this.ariaLabel = null;
         /**
@@ -13485,6 +13485,22 @@ var MatDatepickerIntl = /** @class */ (function () {
          */
         this.switchToMultiYearViewLabel = 'Choose month and year';
     }
+    /** Formats a range of years. */
+    /**
+     * Formats a range of years.
+     * @param {?} start
+     * @param {?} end
+     * @return {?}
+     */
+    MatDatepickerIntl.prototype.formatYearRange = /**
+     * Formats a range of years.
+     * @param {?} start
+     * @param {?} end
+     * @return {?}
+     */
+    function (start, end) {
+        return start + " \u2013 " + end;
+    };
     MatDatepickerIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
@@ -15006,7 +15022,11 @@ var MatCalendarHeader = /** @class */ (function () {
             var minYearOfPage = activeYear - getActiveOffset(this._dateAdapter, this.calendar.activeDate, this.calendar.minDate, this.calendar.maxDate);
             /** @type {?} */
             var maxYearOfPage = minYearOfPage + yearsPerPage - 1;
-            return minYearOfPage + " \u2013 " + maxYearOfPage;
+            /** @type {?} */
+            var minYearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(minYearOfPage, 0, 1));
+            /** @type {?} */
+            var maxYearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(maxYearOfPage, 0, 1));
+            return this._intl.formatYearRange(minYearName, maxYearName);
         },
         enumerable: true,
         configurable: true
@@ -25498,6 +25518,11 @@ var MatSelect = /** @class */ (function (_super) {
             // mode, because we don't know what option the user interacted with last.
             if (correspondingOption) {
                 this._keyManager.setActiveItem(correspondingOption);
+            }
+            else if (!this.panelOpen) {
+                // Otherwise reset the highlighted option. Note that we only want to do this while
+                // closed, because doing it while open can shift the user's focus unnecessarily.
+                this._keyManager.setActiveItem(-1);
             }
         }
         this._changeDetectorRef.markForCheck();
@@ -36096,7 +36121,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         var dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
-        var filteredData = rxjs.combineLatest(dataStream, this._filter)
+        var filteredData = rxjs.combineLatest([dataStream, this._filter])
             .pipe(operators.map((/**
          * @param {?} __0
          * @return {?}
@@ -36107,7 +36132,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         })));
         // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
-        var orderedData = rxjs.combineLatest(filteredData, sortChange)
+        var orderedData = rxjs.combineLatest([filteredData, sortChange])
             .pipe(operators.map((/**
          * @param {?} __0
          * @return {?}
@@ -36118,7 +36143,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         })));
         // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
-        var paginatedData = rxjs.combineLatest(orderedData, pageChange)
+        var paginatedData = rxjs.combineLatest([orderedData, pageChange])
             .pipe(operators.map((/**
          * @param {?} __0
          * @return {?}
@@ -36721,9 +36746,9 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
 }(portal.CdkPortalOutlet));
 /**
  * Base class with all of the `MatTabBody` functionality.
+ * \@docs-private
  * @abstract
  */
-// tslint:disable-next-line:class-name
 var _MatTabBodyBase = /** @class */ (function () {
     function _MatTabBodyBase(_elementRef, _dir, changeDetectorRef) {
         var _this = this;
@@ -36928,6 +36953,12 @@ var _MatTabBodyBase = /** @class */ (function () {
         }
         return 'right-origin-center';
     };
+    _MatTabBodyBase.decorators = [
+        { type: core.Directive, args: [{
+                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-tab-body-base'
+                },] },
+    ];
     /** @nocollapse */
     _MatTabBodyBase.ctorParameters = function () { return [
         { type: core.ElementRef },
@@ -37023,9 +37054,9 @@ MatTabGroupMixinBase = /** @class */ (function () {
 var _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupMixinBase), 'primary');
 /**
  * Base class with all of the `MatTabGroupBase` functionality.
+ * \@docs-private
  * @abstract
  */
-// tslint:disable-next-line:class-name
 var _MatTabGroupBase = /** @class */ (function (_super) {
     __extends(_MatTabGroupBase, _super);
     function _MatTabGroupBase(elementRef, _changeDetectorRef, defaultConfig, _animationMode) {
@@ -37474,6 +37505,12 @@ var _MatTabGroupBase = /** @class */ (function (_super) {
         }
         return this.selectedIndex === idx ? 0 : -1;
     };
+    _MatTabGroupBase.decorators = [
+        { type: core.Directive, args: [{
+                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-tab-group-base'
+                },] },
+    ];
     /** @nocollapse */
     _MatTabGroupBase.ctorParameters = function () { return [
         { type: core.ElementRef },
@@ -37641,6 +37678,7 @@ var HEADER_SCROLL_DELAY = 650;
 var HEADER_SCROLL_INTERVAL = 100;
 /**
  * Base class for a tab header that supported pagination.
+ * \@docs-private
  * @abstract
  */
 var MatPaginatedTabHeader = /** @class */ (function () {
@@ -38391,6 +38429,12 @@ var MatPaginatedTabHeader = /** @class */ (function () {
         this._checkScrollingControls();
         return { maxScrollDistance: maxScrollDistance, distance: this._scrollDistance };
     };
+    MatPaginatedTabHeader.decorators = [
+        { type: core.Directive, args: [{
+                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-paginated-tab-header'
+                },] },
+    ];
     /** @nocollapse */
     MatPaginatedTabHeader.ctorParameters = function () { return [
         { type: core.ElementRef },
@@ -38399,7 +38443,7 @@ var MatPaginatedTabHeader = /** @class */ (function () {
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
         { type: core.NgZone },
         { type: platform.Platform },
-        { type: String }
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     return MatPaginatedTabHeader;
 }());
@@ -38410,9 +38454,9 @@ var MatPaginatedTabHeader = /** @class */ (function () {
  */
 /**
  * Base class with all of the `MatTabHeader` functionality.
+ * \@docs-private
  * @abstract
  */
-// tslint:disable-next-line:class-name
 var _MatTabHeaderBase = /** @class */ (function (_super) {
     __extends(_MatTabHeaderBase, _super);
     function _MatTabHeaderBase(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform$$1, 
@@ -38450,6 +38494,12 @@ var _MatTabHeaderBase = /** @class */ (function (_super) {
     function (event) {
         event.preventDefault();
     };
+    _MatTabHeaderBase.decorators = [
+        { type: core.Directive, args: [{
+                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-tab-header-base'
+                },] },
+    ];
     /** @nocollapse */
     _MatTabHeaderBase.ctorParameters = function () { return [
         { type: core.ElementRef },
@@ -38521,9 +38571,9 @@ var MatTabHeader = /** @class */ (function (_super) {
  */
 /**
  * Base class with all of the `MatTabNav` functionality.
+ * \@docs-private
  * @abstract
  */
-// tslint:disable-next-line:class-name
 var _MatTabNavBase = /** @class */ (function (_super) {
     __extends(_MatTabNavBase, _super);
     function _MatTabNavBase(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
@@ -38639,6 +38689,12 @@ var _MatTabNavBase = /** @class */ (function (_super) {
         this.selectedIndex = -1;
         this._inkBar.hide();
     };
+    _MatTabNavBase.decorators = [
+        { type: core.Directive, args: [{
+                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-tab-nav-base'
+                },] },
+    ];
     /** @nocollapse */
     _MatTabNavBase.ctorParameters = function () { return [
         { type: core.ElementRef },
@@ -38723,7 +38779,6 @@ var _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTab
 /**
  * Base class with all of the `MatTabLink` functionality.
  */
-// tslint:disable-next-line:class-name
 var _MatTabLinkBase = /** @class */ (function (_super) {
     __extends(_MatTabLinkBase, _super);
     function _MatTabLinkBase(_tabNavBar, elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
@@ -38798,6 +38853,12 @@ var _MatTabLinkBase = /** @class */ (function (_super) {
     function () {
         this._focusMonitor.stopMonitoring(this.elementRef);
     };
+    _MatTabLinkBase.decorators = [
+        { type: core.Directive, args: [{
+                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
+                    selector: 'do-not-use-abstract-mat-tab-link-base'
+                },] },
+    ];
     /** @nocollapse */
     _MatTabLinkBase.ctorParameters = function () { return [
         { type: _MatTabNavBase },
@@ -38901,6 +38962,14 @@ var MatTabsModule = /** @class */ (function () {
                         MatTabBodyPortal,
                         MatTabHeader,
                         MatTabContent,
+                        (/** @type {?} */ (
+                        // TODO(crisbeto): these can be removed once they're turned into selector-less directives.
+                        MatPaginatedTabHeader)),
+                        (/** @type {?} */ (_MatTabGroupBase)),
+                        (/** @type {?} */ (_MatTabNavBase)),
+                        (/** @type {?} */ (_MatTabBodyBase)),
+                        (/** @type {?} */ (_MatTabHeaderBase)),
+                        (/** @type {?} */ (_MatTabLinkBase)),
                     ],
                 },] },
     ];
@@ -39961,7 +40030,7 @@ exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
 exports.matFormFieldAnimations = matFormFieldAnimations;
-exports.ɵa6 = MAT_GRID_LIST;
+exports.ɵa2 = MAT_GRID_LIST;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -39996,9 +40065,9 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports._MatMenu = _MatMenu;
@@ -40122,8 +40191,9 @@ exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
 exports.MatTextColumn = MatTextColumn;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵb24 = MatPaginatedTabHeader;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵb23 = MatPaginatedTabHeader;
+exports.MatTabsModule = MatTabsModule;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
@@ -40139,7 +40209,6 @@ exports.MatTabLink = MatTabLink;
 exports._MatTabNavBase = _MatTabNavBase;
 exports._MatTabLinkBase = _MatTabLinkBase;
 exports.MatTabContent = MatTabContent;
-exports.MatTabsModule = MatTabsModule;
 exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
 exports._MatTabGroupBase = _MatTabGroupBase;

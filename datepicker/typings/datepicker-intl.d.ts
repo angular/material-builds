@@ -33,4 +33,6 @@ export declare class MatDatepickerIntl {
     switchToMonthViewLabel: string;
     /** A label for the 'switch to year view' button (used by screen readers). */
     switchToMultiYearViewLabel: string;
+    /** Formats a range of years. */
+    formatYearRange(start: string, end: string): string;
 }

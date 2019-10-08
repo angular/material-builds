@@ -40,7 +40,7 @@ class MatDialogConfig {
          */
         this.hasBackdrop = true;
         /**
-         * Custom class for the backdrop,
+         * Custom class for the backdrop.
          */
         this.backdropClass = '';
         /**
@@ -56,7 +56,7 @@ class MatDialogConfig {
          */
         this.height = '';
         /**
-         * Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw
+         * Max-width of the dialog. If a number is provided, assumes pixel units. Defaults to 80vw.
          */
         this.maxWidth = '80vw';
         /**
@@ -72,7 +72,7 @@ class MatDialogConfig {
          */
         this.ariaLabelledBy = null;
         /**
-         * Aria label to assign to the dialog element
+         * Aria label to assign to the dialog element.
          */
         this.ariaLabel = null;
         /**

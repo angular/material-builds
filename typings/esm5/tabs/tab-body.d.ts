@@ -44,7 +44,10 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     /** Clean up centering subscription. */
     ngOnDestroy(): void;
 }
-/** Base class with all of the `MatTabBody` functionality. */
+/**
+ * Base class with all of the `MatTabBody` functionality.
+ * @docs-private
+ */
 export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     private _elementRef;
     private _dir;

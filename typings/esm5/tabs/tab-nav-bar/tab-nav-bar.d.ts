@@ -13,7 +13,10 @@ import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, Has
 import { FocusMonitor, FocusableOption } from '@angular/cdk/a11y';
 import { MatInkBar } from '../ink-bar';
 import { MatPaginatedTabHeader, MatPaginatedTabHeaderItem } from '../paginated-tab-header';
-/** Base class with all of the `MatTabNav` functionality. */
+/**
+ * Base class with all of the `MatTabNav` functionality.
+ * @docs-private
+ */
 export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, OnDestroy {
     /** Query list of all tab links of the tab navigation. */
     abstract _items: QueryList<MatPaginatedTabHeaderItem & {

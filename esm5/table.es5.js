@@ -733,7 +733,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         var dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
         /** @type {?} */
-        var filteredData = combineLatest(dataStream, this._filter)
+        var filteredData = combineLatest([dataStream, this._filter])
             .pipe(map((/**
          * @param {?} __0
          * @return {?}
@@ -744,7 +744,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         })));
         // Watch for filtered data or sort changes to provide an ordered set of data.
         /** @type {?} */
-        var orderedData = combineLatest(filteredData, sortChange)
+        var orderedData = combineLatest([filteredData, sortChange])
             .pipe(map((/**
          * @param {?} __0
          * @return {?}
@@ -755,7 +755,7 @@ MatTableDataSource = /** @class */ (function (_super) {
         })));
         // Watch for ordered data or page changes to provide a paged set of data.
         /** @type {?} */
-        var paginatedData = combineLatest(orderedData, pageChange)
+        var paginatedData = combineLatest([orderedData, pageChange])
             .pipe(map((/**
          * @param {?} __0
          * @return {?}
