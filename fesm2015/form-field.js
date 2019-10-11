@@ -831,7 +831,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
         // the next time it is checked and in the DOM.
-        if (!(/** @type {?} */ (document.documentElement)).contains(this._elementRef.nativeElement)) {
+        if (!this._isAttachedToDOM()) {
             this._outlineGapCalculationNeededImmediately = true;
             return;
         }
@@ -888,6 +888,25 @@ class MatFormField extends _MatFormFieldMixinBase {
      */
     _getStartEnd(rect) {
         return this._previousDirection === 'rtl' ? rect.right : rect.left;
+    }
+    /**
+     * Checks whether the form field is attached to the DOM.
+     * @private
+     * @return {?}
+     */
+    _isAttachedToDOM() {
+        /** @type {?} */
+        const element = this._elementRef.nativeElement;
+        if (element.getRootNode) {
+            /** @type {?} */
+            const rootNode = element.getRootNode();
+            // If the element is inside the DOM the root node will be either the document
+            // or the closest shadow root, otherwise it'll be the element itself.
+            return rootNode && rootNode !== element;
+        }
+        // Otherwise fall back to checking if it's in the document. This doesn't account for
+        // shadow DOM, however browser that support shadow DOM should support `getRootNode` as well.
+        return (/** @type {?} */ (document.documentElement)).contains(element);
     }
 }
 MatFormField.decorators = [
