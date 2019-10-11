@@ -206,6 +206,24 @@ class MatTooltip {
          * Emits when the component is destroyed.
          */
         this._destroyed = new Subject();
+        /**
+         * Handles the keydown events on the host element.
+         * Needs to be an arrow function so that we can use it in addEventListener.
+         */
+        this._handleKeydown = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
+            if (this._isTooltipVisible() && event.keyCode === ESCAPE && !hasModifierKey(event)) {
+                event.preventDefault();
+                event.stopPropagation();
+                this._ngZone.run((/**
+                 * @return {?}
+                 */
+                () => this.hide(0)));
+            }
+        });
         this._scrollStrategy = scrollStrategy;
         if (_defaultOptions) {
             if (_defaultOptions.position) {
@@ -235,6 +253,12 @@ class MatTooltip {
                  */
                 () => this.show()));
             }
+        }));
+        _ngZone.runOutsideAngular((/**
+         * @return {?}
+         */
+        () => {
+            _elementRef.nativeElement.addEventListener('keydown', this._handleKeydown);
         }));
     }
     /**
@@ -337,25 +361,28 @@ class MatTooltip {
      * @return {?}
      */
     ngOnDestroy() {
+        /** @type {?} */
+        const nativeElement = this._elementRef.nativeElement;
         clearTimeout(this._touchstartTimeout);
         if (this._overlayRef) {
             this._overlayRef.dispose();
             this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
+        nativeElement.removeEventListener('keydown', this._handleKeydown);
         this._passiveListeners.forEach((/**
          * @param {?} listener
          * @param {?} event
          * @return {?}
          */
         (listener, event) => {
-            this._elementRef.nativeElement.removeEventListener(event, listener, passiveListenerOptions);
+            nativeElement.removeEventListener(event, listener, passiveListenerOptions);
         }));
         this._passiveListeners.clear();
         this._destroyed.next();
         this._destroyed.complete();
-        this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
-        this._focusMonitor.stopMonitoring(this._elementRef);
+        this._ariaDescriber.removeDescription(nativeElement, this.message);
+        this._focusMonitor.stopMonitoring(nativeElement);
     }
     /**
      * Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input
@@ -405,18 +432,6 @@ class MatTooltip {
      */
     _isTooltipVisible() {
         return !!this._tooltipInstance && this._tooltipInstance.isVisible();
-    }
-    /**
-     * Handles the keydown events on the host element.
-     * @param {?} e
-     * @return {?}
-     */
-    _handleKeydown(e) {
-        if (this._isTooltipVisible() && e.keyCode === ESCAPE && !hasModifierKey(e)) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.hide(0);
-        }
     }
     /**
      * Create the overlay config and position strategy
@@ -712,9 +727,6 @@ MatTooltip.decorators = [
     { type: Directive, args: [{
                 selector: '[matTooltip]',
                 exportAs: 'matTooltip',
-                host: {
-                    '(keydown)': '_handleKeydown($event)',
-                },
             },] }
 ];
 /** @nocollapse */
@@ -820,6 +832,13 @@ if (false) {
      * @private
      */
     MatTooltip.prototype._destroyed;
+    /**
+     * Handles the keydown events on the host element.
+     * Needs to be an arrow function so that we can use it in addEventListener.
+     * @type {?}
+     * @private
+     */
+    MatTooltip.prototype._handleKeydown;
     /**
      * @type {?}
      * @private
