@@ -18,6 +18,7 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     private _viewContainerRef;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     templateLabel: MatTabLabel;
+    private _templateLabel;
     /**
      * Template provided in the tab content that will be used if present, used to enable lazy-loading
      */
