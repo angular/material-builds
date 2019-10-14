@@ -1529,7 +1529,7 @@ class MatChipList extends _MatChipListMixinBase {
             /** @type {?} */
             let chipIndex = this.chips.toArray().indexOf(event.chip);
             if (this._isValidIndex(chipIndex)) {
-                this._keyManager.updateActiveItemIndex(chipIndex);
+                this._keyManager.updateActiveItem(chipIndex);
             }
             this.stateChanges.next();
         }));

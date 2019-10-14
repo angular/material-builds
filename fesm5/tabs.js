@@ -960,7 +960,7 @@ var MatPaginatedTabHeader = /** @class */ (function () {
                 this._selectedIndexChanged = true;
                 this._selectedIndex = value;
                 if (this._keyManager) {
-                    this._keyManager.updateActiveItemIndex(value);
+                    this._keyManager.updateActiveItem(value);
                 }
             }
         },

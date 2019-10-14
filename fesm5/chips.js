@@ -1069,7 +1069,7 @@ var MatChipList = /** @class */ (function (_super) {
         this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
             var chipIndex = _this.chips.toArray().indexOf(event.chip);
             if (_this._isValidIndex(chipIndex)) {
-                _this._keyManager.updateActiveItemIndex(chipIndex);
+                _this._keyManager.updateActiveItem(chipIndex);
             }
             _this.stateChanges.next();
         });
