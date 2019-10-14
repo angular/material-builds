@@ -7,4 +7,5 @@
  */
 import { BaseHarnessFilters } from '@angular/cdk/testing';
 export interface AutocompleteHarnessFilters extends BaseHarnessFilters {
+    value?: string | RegExp;
 }

@@ -1,6 +1,6 @@
 import { __extends, __awaiter, __generator } from 'tslib';
-import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -19,20 +19,12 @@ var MatAutocompleteOptionHarness = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatAutocompleteOptionHarness.with = function (options) {
-        var _this = this;
         if (options === void 0) { options = {}; }
         return new HarnessPredicate(MatAutocompleteOptionHarness, options)
-            .addOption('text', options.text, function (harness, title) { return __awaiter(_this, void 0, void 0, function () { var _a, _b; return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _b = (_a = HarnessPredicate).stringMatches;
-                    return [4 /*yield*/, harness.getText()];
-                case 1: return [2 /*return*/, _b.apply(_a, [_c.sent(), title])];
-            }
-        }); }); });
+            .addOption('text', options.text, function (harness, text) { return HarnessPredicate.stringMatches(harness.getText(), text); });
     };
     /** Clicks the option. */
-    MatAutocompleteOptionHarness.prototype.click = function () {
+    MatAutocompleteOptionHarness.prototype.select = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -68,17 +60,9 @@ var MatAutocompleteOptionGroupHarness = /** @class */ (function (_super) {
         return _this;
     }
     MatAutocompleteOptionGroupHarness.with = function (options) {
-        var _this = this;
         if (options === void 0) { options = {}; }
         return new HarnessPredicate(MatAutocompleteOptionGroupHarness, options)
-            .addOption('labelText', options.labelText, function (harness, title) { return __awaiter(_this, void 0, void 0, function () { var _a, _b; return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _b = (_a = HarnessPredicate).stringMatches;
-                    return [4 /*yield*/, harness.getLabelText()];
-                case 1: return [2 /*return*/, _b.apply(_a, [_c.sent(), title])];
-            }
-        }); }); });
+            .addOption('labelText', options.labelText, function (harness, label) { return HarnessPredicate.stringMatches(harness.getLabelText(), label); });
     };
     /** Gets a promise for the option group's label text. */
     MatAutocompleteOptionGroupHarness.prototype.getLabelText = function () {
@@ -113,10 +97,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
     function MatAutocompleteHarness() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._documentRootLocator = _this.documentRootLocatorFactory();
-        _this._panel = _this._documentRootLocator.locatorFor(PANEL_SELECTOR);
         _this._optionalPanel = _this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
-        _this._options = _this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness);
-        _this._groups = _this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness);
         return _this;
     }
     /**
@@ -128,14 +109,16 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
      */
     MatAutocompleteHarness.with = function (options) {
         if (options === void 0) { options = {}; }
-        return new HarnessPredicate(MatAutocompleteHarness, options);
+        return new HarnessPredicate(MatAutocompleteHarness, options)
+            .addOption('value', options.value, function (harness, value) { return HarnessPredicate.stringMatches(harness.getValue(), value); });
     };
-    MatAutocompleteHarness.prototype.getAttribute = function (attributeName) {
+    /** Gets the value of the autocomplete input. */
+    MatAutocompleteHarness.prototype.getValue = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.host()];
-                    case 1: return [2 /*return*/, (_a.sent()).getAttribute(attributeName)];
+                    case 1: return [2 /*return*/, (_a.sent()).getProperty('value')];
                 }
             });
         });
@@ -152,17 +135,6 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
                         _a = coerceBooleanProperty;
                         return [4 /*yield*/, disabled];
                     case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
-                }
-            });
-        });
-    };
-    /** Gets a promise for the autocomplete's text. */
-    MatAutocompleteHarness.prototype.getText = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.host()];
-                    case 1: return [2 /*return*/, (_a.sent()).getProperty('value')];
                 }
             });
         });
@@ -200,37 +172,43 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets the autocomplete panel. */
-    MatAutocompleteHarness.prototype.getPanel = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this._panel()];
-            });
-        });
-    };
     /** Gets the options inside the autocomplete panel. */
-    MatAutocompleteHarness.prototype.getOptions = function () {
+    MatAutocompleteHarness.prototype.getOptions = function (filters) {
+        if (filters === void 0) { filters = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this._options()];
+                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness.with(filters))()];
             });
         });
     };
     /** Gets the groups of options inside the panel. */
-    MatAutocompleteHarness.prototype.getOptionGroups = function () {
+    MatAutocompleteHarness.prototype.getOptionGroups = function (filters) {
+        if (filters === void 0) { filters = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this._groups()];
+                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness.with(filters))()];
             });
         });
     };
-    /** Gets whether the autocomplete panel is visible. */
-    MatAutocompleteHarness.prototype.isPanelVisible = function () {
+    /** Selects the first option matching the given filters. */
+    MatAutocompleteHarness.prototype.selectOption = function (filters) {
         return __awaiter(this, void 0, void 0, function () {
+            var options;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._panel()];
-                    case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-autocomplete-visible')];
+                    case 0: return [4 /*yield*/, this.focus()];
+                    case 1:
+                        _a.sent(); // Focus the input to make sure the autocomplete panel is shown.
+                        return [4 /*yield*/, this.getOptions(filters)];
+                    case 2:
+                        options = _a.sent();
+                        if (!options.length) {
+                            throw Error("Could not find a mat-option matching " + JSON.stringify(filters));
+                        }
+                        return [4 /*yield*/, options[0].select()];
+                    case 3:
+                        _a.sent();
+                        return [2 /*return*/];
                 }
             });
         });
@@ -238,10 +216,19 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
     /** Gets whether the autocomplete is open. */
     MatAutocompleteHarness.prototype.isOpen = function () {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var panel, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, this._optionalPanel()];
-                    case 1: return [2 /*return*/, !!(_a.sent())];
+                    case 1:
+                        panel = _b.sent();
+                        _a = !!panel;
+                        if (!_a) return [3 /*break*/, 3];
+                        return [4 /*yield*/, panel.hasClass('mat-autocomplete-visible')];
+                    case 2:
+                        _a = (_b.sent());
+                        _b.label = 3;
+                    case 3: return [2 /*return*/, _a];
                 }
             });
         });

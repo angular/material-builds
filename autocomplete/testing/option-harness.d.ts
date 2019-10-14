@@ -7,10 +7,10 @@
  */
 import { ComponentHarness, HarnessPredicate, BaseHarnessFilters } from '@angular/cdk/testing';
 export interface OptionHarnessFilters extends BaseHarnessFilters {
-    text?: string;
+    text?: string | RegExp;
 }
 export interface OptionGroupHarnessFilters extends BaseHarnessFilters {
-    labelText?: string;
+    labelText?: string | RegExp;
 }
 /**
  * Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests.
@@ -20,7 +20,7 @@ export declare class MatAutocompleteOptionHarness extends ComponentHarness {
     static hostSelector: string;
     static with(options?: OptionHarnessFilters): HarnessPredicate<MatAutocompleteOptionHarness>;
     /** Clicks the option. */
-    click(): Promise<void>;
+    select(): Promise<void>;
     /** Gets a promise for the option's label text. */
     getText(): Promise<string>;
 }
