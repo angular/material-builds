@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "9.0.0-next.0-sha-f06597715",
+  "version": "9.0.0-next.0-sha-41166b7d2",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "fesm5": "./fesm5/material.js",
@@ -27,13 +27,11 @@
   "homepage": "https://github.com/angular/components#readme",
   "peerDependencies": {
     "@angular/animations": "^8.0.0 || ^9.0.0-0",
-    "@angular/cdk": "9.0.0-next.0-sha-f06597715",
+    "@angular/cdk": "9.0.0-next.0-sha-41166b7d2",
     "@angular/core": "^8.0.0 || ^9.0.0-0",
     "@angular/common": "^8.0.0 || ^9.0.0-0",
-    "@angular/forms": "^8.0.0 || ^9.0.0-0"
-  },
-  "dependencies": {
-    "tslib": "^1.7.1"
+    "@angular/forms": "^8.0.0 || ^9.0.0-0",
+    "tslib": "^1.9.0"
   },
   "schematics": "./schematics/collection.json",
   "ng-update": {
