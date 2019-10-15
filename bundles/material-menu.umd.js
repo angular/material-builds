@@ -369,6 +369,7 @@
      * @docs-private
      */
     var MAT_MENU_BASE_ELEVATION = 4;
+    var menuPanelUid = 0;
     /** Base class with all of the `MatMenu` functionality. */
     var _MatMenuBase = /** @class */ (function () {
         function _MatMenuBase(_elementRef, _ngZone, _defaultOptions) {
@@ -399,6 +400,7 @@
              * @breaking-change 8.0.0
              */
             this.close = this.closed;
+            this.panelId = "mat-menu-panel-" + menuPanelUid++;
         }
         Object.defineProperty(_MatMenuBase.prototype, "xPosition", {
             /** Position of the menu in the X axis. */
@@ -732,7 +734,7 @@
             { type: core.Component, args: [{
                         moduleId: module.id,
                         selector: 'mat-menu',
-                        template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
+                        template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         exportAs: 'matMenu',
@@ -1219,6 +1221,7 @@
                             'class': 'mat-menu-trigger',
                             'aria-haspopup': 'true',
                             '[attr.aria-expanded]': 'menuOpen || null',
+                            '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
                             '(mousedown)': '_handleMousedown($event)',
                             '(keydown)': '_handleKeydown($event)',
                             '(click)': '_handleClick($event)',

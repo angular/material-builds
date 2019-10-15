@@ -34,6 +34,7 @@ export interface MatMenuPanel<T = any> {
     lazyContent?: MatMenuContent;
     backdropClass?: string;
     hasBackdrop?: boolean;
+    readonly panelId?: string;
     /**
      * @deprecated To be removed.
      * @breaking-change 8.0.0
