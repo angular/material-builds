@@ -150,11 +150,22 @@
         return MatTabBase;
     }());
     var _MatTabMixinBase = core$1.mixinDisabled(MatTabBase);
+    /**
+     * Used to provide a tab group to a tab without causing a circular dependency.
+     * @docs-private
+     */
+    var MAT_TAB_GROUP = new core.InjectionToken('MAT_TAB_GROUP');
     var MatTab = /** @class */ (function (_super) {
         tslib_1.__extends(MatTab, _super);
-        function MatTab(_viewContainerRef) {
+        function MatTab(_viewContainerRef, 
+        /**
+         * @deprecated `_closestTabGroup` parameter to become required.
+         * @breaking-change 10.0.0
+         */
+        _closestTabGroup) {
             var _this = _super.call(this) || this;
             _this._viewContainerRef = _viewContainerRef;
+            _this._closestTabGroup = _closestTabGroup;
             /** Plain text label for the tab, used when there is no template label. */
             _this.textLabel = '';
             /** Portal that will be the hosted content of the tab */
@@ -225,7 +236,8 @@
         ];
         /** @nocollapse */
         MatTab.ctorParameters = function () { return [
-            { type: core.ViewContainerRef }
+            { type: core.ViewContainerRef },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TAB_GROUP,] }] }
         ]; };
         MatTab.propDecorators = {
             templateLabel: [{ type: core.ContentChild, args: [MatTabLabel, { static: false },] }],
@@ -532,6 +544,8 @@
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._animationMode = _animationMode;
+            /** All of the tabs that belong to the group. */
+            _this._tabs = new core.QueryList();
             /** The tab index that should be selected after the content has been checked. */
             _this._indexToSelect = 0;
             /** Snapshot of the height of the tab body wrapper before another tab is activated. */
@@ -639,6 +653,7 @@
         };
         _MatTabGroupBase.prototype.ngAfterContentInit = function () {
             var _this = this;
+            this._subscribeToAllTabChanges();
             this._subscribeToTabLabels();
             // Subscribe to changes in the amount of tabs, in order to be
             // able to re-render the content as new tabs are added or removed.
@@ -658,8 +673,24 @@
                         }
                     }
                 }
-                _this._subscribeToTabLabels();
                 _this._changeDetectorRef.markForCheck();
+            });
+        };
+        /** Listens to changes in all of the tabs. */
+        _MatTabGroupBase.prototype._subscribeToAllTabChanges = function () {
+            var _this = this;
+            // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
+            // some that are inside of nested tab groups. We filter them out manually by checking that
+            // the closest group to the tab is the current one.
+            this._allTabs.changes
+                .pipe(operators.startWith(this._allTabs))
+                .subscribe(function (tabs) {
+                _this._tabs.reset(tabs.filter(function (tab) {
+                    // @breaking-change 10.0.0 Remove null check for `_closestTabGroup`
+                    // once it becomes a required parameter in MatTab.
+                    return !tab._closestTabGroup || tab._closestTabGroup === _this;
+                }));
+                _this._tabs.notifyOnChanges();
             });
         };
         _MatTabGroupBase.prototype.ngOnDestroy = function () {
@@ -793,6 +824,10 @@
                         // tslint:disable-next-line:validate-decorators
                         changeDetection: core.ChangeDetectionStrategy.Default,
                         inputs: ['color', 'disableRipple'],
+                        providers: [{
+                                provide: MAT_TAB_GROUP,
+                                useExisting: MatTabGroup
+                            }],
                         host: {
                             'class': 'mat-tab-group',
                             '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
@@ -809,7 +844,7 @@
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
         ]; };
         MatTabGroup.propDecorators = {
-            _tabs: [{ type: core.ContentChildren, args: [MatTab,] }],
+            _allTabs: [{ type: core.ContentChildren, args: [MatTab, { descendants: true },] }],
             _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper', { static: false },] }],
             _tabHeader: [{ type: core.ViewChild, args: ['tabHeader', { static: false },] }]
         };
@@ -1792,6 +1827,7 @@
     exports._MatTabHeaderBase = _MatTabHeaderBase;
     exports.MatTabLabelWrapper = MatTabLabelWrapper;
     exports.MatTab = MatTab;
+    exports.MAT_TAB_GROUP = MAT_TAB_GROUP;
     exports.MatTabLabel = MatTabLabel;
     exports.MatTabNav = MatTabNav;
     exports.MatTabLink = MatTabLink;

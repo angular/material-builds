@@ -1,7 +1,7 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, ContentChildren, Attribute, NgModule } from '@angular/core';
+import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -208,13 +208,21 @@ class MatTabBase {
 }
 /** @type {?} */
 const _MatTabMixinBase = mixinDisabled(MatTabBase);
+/**
+ * Used to provide a tab group to a tab without causing a circular dependency.
+ * \@docs-private
+ * @type {?}
+ */
+const MAT_TAB_GROUP = new InjectionToken('MAT_TAB_GROUP');
 class MatTab extends _MatTabMixinBase {
     /**
      * @param {?} _viewContainerRef
+     * @param {?=} _closestTabGroup
      */
-    constructor(_viewContainerRef) {
+    constructor(_viewContainerRef, _closestTabGroup) {
         super();
         this._viewContainerRef = _viewContainerRef;
+        this._closestTabGroup = _closestTabGroup;
         /**
          * Plain text label for the tab, used when there is no template label.
          */
@@ -303,7 +311,8 @@ MatTab.decorators = [
 ];
 /** @nocollapse */
 MatTab.ctorParameters = () => [
-    { type: ViewContainerRef }
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TAB_GROUP,] }] }
 ];
 MatTab.propDecorators = {
     templateLabel: [{ type: ContentChild, args: [MatTabLabel, { static: false },] }],
@@ -378,6 +387,12 @@ if (false) {
      * @private
      */
     MatTab.prototype._viewContainerRef;
+    /**
+     * @deprecated `_closestTabGroup` parameter to become required.
+     * \@breaking-change 10.0.0
+     * @type {?}
+     */
+    MatTab.prototype._closestTabGroup;
 }
 
 /**
@@ -900,6 +915,10 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         this._changeDetectorRef = _changeDetectorRef;
         this._animationMode = _animationMode;
         /**
+         * All of the tabs that belong to the group.
+         */
+        this._tabs = new QueryList();
+        /**
          * The tab index that should be selected after the content has been checked.
          */
         this._indexToSelect = 0;
@@ -1053,6 +1072,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
+        this._subscribeToAllTabChanges();
         this._subscribeToTabLabels();
         // Subscribe to changes in the amount of tabs, in order to be
         // able to re-render the content as new tabs are added or removed.
@@ -1077,8 +1097,35 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
                     }
                 }
             }
-            this._subscribeToTabLabels();
             this._changeDetectorRef.markForCheck();
+        }));
+    }
+    /**
+     * Listens to changes in all of the tabs.
+     * @private
+     * @return {?}
+     */
+    _subscribeToAllTabChanges() {
+        // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
+        // some that are inside of nested tab groups. We filter them out manually by checking that
+        // the closest group to the tab is the current one.
+        this._allTabs.changes
+            .pipe(startWith(this._allTabs))
+            .subscribe((/**
+         * @param {?} tabs
+         * @return {?}
+         */
+        (tabs) => {
+            this._tabs.reset(tabs.filter((/**
+             * @param {?} tab
+             * @return {?}
+             */
+            tab => {
+                // @breaking-change 10.0.0 Remove null check for `_closestTabGroup`
+                // once it becomes a required parameter in MatTab.
+                return !tab._closestTabGroup || tab._closestTabGroup === this;
+            })));
+            this._tabs.notifyOnChanges();
         }));
     }
     /**
@@ -1248,12 +1295,21 @@ _MatTabGroupBase.propDecorators = {
     selectedTabChange: [{ type: Output }]
 };
 if (false) {
-    /** @type {?} */
-    _MatTabGroupBase.prototype._tabs;
+    /**
+     * All tabs inside the tab group. This includes tabs that belong to groups that are nested
+     * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
+     * @type {?}
+     */
+    _MatTabGroupBase.prototype._allTabs;
     /** @type {?} */
     _MatTabGroupBase.prototype._tabBodyWrapper;
     /** @type {?} */
     _MatTabGroupBase.prototype._tabHeader;
+    /**
+     * All of the tabs that belong to the group.
+     * @type {?}
+     */
+    _MatTabGroupBase.prototype._tabs;
     /**
      * The tab index that should be selected after the content has been checked.
      * @type {?}
@@ -1362,6 +1418,10 @@ MatTabGroup.decorators = [
                 // tslint:disable-next-line:validate-decorators
                 changeDetection: ChangeDetectionStrategy.Default,
                 inputs: ['color', 'disableRipple'],
+                providers: [{
+                        provide: MAT_TAB_GROUP,
+                        useExisting: MatTabGroup
+                    }],
                 host: {
                     'class': 'mat-tab-group',
                     '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
@@ -1378,13 +1438,13 @@ MatTabGroup.ctorParameters = () => [
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatTabGroup.propDecorators = {
-    _tabs: [{ type: ContentChildren, args: [MatTab,] }],
+    _allTabs: [{ type: ContentChildren, args: [MatTab, { descendants: true },] }],
     _tabBodyWrapper: [{ type: ViewChild, args: ['tabBodyWrapper', { static: false },] }],
     _tabHeader: [{ type: ViewChild, args: ['tabHeader', { static: false },] }]
 };
 if (false) {
     /** @type {?} */
-    MatTabGroup.prototype._tabs;
+    MatTabGroup.prototype._allTabs;
     /** @type {?} */
     MatTabGroup.prototype._tabBodyWrapper;
     /** @type {?} */
@@ -2798,5 +2858,5 @@ MatTabsModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, _MatTabGroupBase, MatTabGroup, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, _MatTabBodyBase, MatTabBodyPortal, MatTabHeader, _MatTabHeaderBase, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, _MatTabNavBase, _MatTabLinkBase, MatTabContent, matTabsAnimations };
+export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, _MatTabGroupBase, MatTabGroup, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, _MatTabBodyBase, MatTabBodyPortal, MatTabHeader, _MatTabHeaderBase, MatTabLabelWrapper, MatTab, MAT_TAB_GROUP, MatTabLabel, MatTabNav, MatTabLink, _MatTabNavBase, _MatTabLinkBase, MatTabContent, matTabsAnimations };
 //# sourceMappingURL=tabs.js.map

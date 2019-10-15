@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { TemplatePortal } from '@angular/cdk/portal';
-import { OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef, InjectionToken } from '@angular/core';
 import { CanDisable, CanDisableCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatTabLabel } from './tab-label';
@@ -14,8 +14,18 @@ import { MatTabLabel } from './tab-label';
 declare class MatTabBase {
 }
 declare const _MatTabMixinBase: CanDisableCtor & typeof MatTabBase;
+/**
+ * Used to provide a tab group to a tab without causing a circular dependency.
+ * @docs-private
+ */
+export declare const MAT_TAB_GROUP: InjectionToken<any>;
 export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
+    /**
+     * @deprecated `_closestTabGroup` parameter to become required.
+     * @breaking-change 10.0.0
+     */
+    _closestTabGroup?: any;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     templateLabel: MatTabLabel;
     private _templateLabel;
@@ -54,7 +64,12 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
      * Whether the tab is currently active.
      */
     isActive: boolean;
-    constructor(_viewContainerRef: ViewContainerRef);
+    constructor(_viewContainerRef: ViewContainerRef, 
+    /**
+     * @deprecated `_closestTabGroup` parameter to become required.
+     * @breaking-change 10.0.0
+     */
+    _closestTabGroup?: any);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     ngOnInit(): void;

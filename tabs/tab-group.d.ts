@@ -41,9 +41,15 @@ interface MatTabGroupBaseHeader {
 export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetectorRef;
     _animationMode?: string | undefined;
-    abstract _tabs: QueryList<MatTab>;
+    /**
+     * All tabs inside the tab group. This includes tabs that belong to groups that are nested
+     * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
+     */
+    abstract _allTabs: QueryList<MatTab>;
     abstract _tabBodyWrapper: ElementRef;
     abstract _tabHeader: MatTabGroupBaseHeader;
+    /** All of the tabs that belong to the group. */
+    _tabs: QueryList<MatTab>;
     /** The tab index that should be selected after the content has been checked. */
     private _indexToSelect;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
@@ -84,6 +90,8 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
      */
     ngAfterContentChecked(): void;
     ngAfterContentInit(): void;
+    /** Listens to changes in all of the tabs. */
+    private _subscribeToAllTabChanges;
     ngOnDestroy(): void;
     /** Re-aligns the ink bar to the selected tab element. */
     realignInkBar(): void;
@@ -120,7 +128,7 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
  * See: https://material.io/design/components/tabs.html
  */
 export declare class MatTabGroup extends _MatTabGroupBase {
-    _tabs: QueryList<MatTab>;
+    _allTabs: QueryList<MatTab>;
     _tabBodyWrapper: ElementRef;
     _tabHeader: MatTabGroupBaseHeader;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
