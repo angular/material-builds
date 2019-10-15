@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
@@ -14,6 +14,10 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
  * @dynamic
  */
 class MatMenuHarness extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._documentRootLocator = this.documentRootLocatorFactory();
+    }
     // TODO: potentially extend MatButtonHarness
     /**
      * Gets a `HarnessPredicate` that can be used to search for a menu with specific attributes.
@@ -24,7 +28,7 @@ class MatMenuHarness extends ComponentHarness {
      */
     static with(options = {}) {
         return new HarnessPredicate(MatMenuHarness, options)
-            .addOption('text', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text));
+            .addOption('triggerText', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text));
     }
     /** Gets a boolean promise indicating if the menu is disabled. */
     isDisabled() {
@@ -33,9 +37,10 @@ class MatMenuHarness extends ComponentHarness {
             return coerceBooleanProperty(yield disabled);
         });
     }
+    /** Whether the menu is open. */
     isOpen() {
         return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
+            return !!(yield this._getMenuPanel());
         });
     }
     getTriggerText() {
@@ -57,51 +62,61 @@ class MatMenuHarness extends ComponentHarness {
     }
     open() {
         return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
+            if (!(yield this.isOpen())) {
+                return (yield this.host()).click();
+            }
         });
     }
     close() {
         return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
+            const panel = yield this._getMenuPanel();
+            if (panel) {
+                return panel.sendKeys(TestKey.ESCAPE);
+            }
         });
     }
-    getItems() {
+    getItems(filters = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
+            const panelId = yield this._getPanelId();
+            if (panelId) {
+                return this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(Object.assign({}, filters, { ancestor: `#${panelId}` })))();
+            }
+            return [];
         });
     }
-    getItemLabels() {
+    clickItem(filter, ...filters) {
         return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
+            yield this.open();
+            const items = yield this.getItems(filter);
+            if (!items.length) {
+                throw Error(`Could not find item matching ${JSON.stringify(filter)}`);
+            }
+            if (!filters.length) {
+                return yield items[0].click();
+            }
+            const menu = yield items[0].getSubmenu();
+            if (!menu) {
+                throw Error(`Item matching ${JSON.stringify(filter)} does not have a submenu`);
+            }
+            return menu.clickItem(...filters);
         });
     }
-    getItemByLabel() {
+    _getMenuPanel() {
         return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
+            const panelId = yield this._getPanelId();
+            return panelId ? this._documentRootLocator.locatorForOptional(`#${panelId}`)() : null;
         });
     }
-    getItemByIndex() {
+    _getPanelId() {
         return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
-        });
-    }
-    getFocusedItem() {
-        return __awaiter(this, void 0, void 0, function* () {
-            throw Error('not implemented');
+            const panelId = yield (yield this.host()).getAttribute('aria-controls');
+            return panelId || null;
         });
     }
 }
 MatMenuHarness.hostSelector = '.mat-menu-trigger';
-
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Harness for interacting with a standard mat-menu in tests.
+ * Harness for interacting with a standard mat-menu-item in tests.
  * @dynamic
  */
 class MatMenuItemHarness extends ComponentHarness {
@@ -113,7 +128,9 @@ class MatMenuItemHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatMenuItemHarness, options); // TODO: add options here
+        return new HarnessPredicate(MatMenuItemHarness, options)
+            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
+            .addOption('hasSubmenu', options.hasSubmenu, (harness, hasSubmenu) => __awaiter(this, void 0, void 0, function* () { return (yield harness.hasSubmenu()) === hasSubmenu; }));
     }
     /** Gets a boolean promise indicating if the menu is disabled. */
     isDisabled() {
@@ -137,6 +154,27 @@ class MatMenuItemHarness extends ComponentHarness {
     blur() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).blur();
+        });
+    }
+    /** Clicks the menu item. */
+    click() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).click();
+        });
+    }
+    /** Whether this item has a submenu. */
+    hasSubmenu() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).matchesSelector(MatMenuHarness.hostSelector);
+        });
+    }
+    /** Gets the submenu associated with this menu item, or null if none. */
+    getSubmenu() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (yield this.hasSubmenu()) {
+                return new MatMenuHarness(this.locatorFactory);
+            }
+            return null;
         });
     }
 }
