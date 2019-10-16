@@ -32,9 +32,19 @@
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatSlideToggleHarness.with = function (options) {
+            var _this = this;
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatSlideToggleHarness, options)
-                .addOption('label', options.label, function (harness, label) { return testing.HarnessPredicate.stringMatches(harness.getLabelText(), label); });
+                .addOption('label', options.label, function (harness, label) { return testing.HarnessPredicate.stringMatches(harness.getLabelText(), label); })
+                // We want to provide a filter option for "name" because the name of the slide-toggle is
+                // only set on the underlying input. This means that it's not possible for developers
+                // to retrieve the harness of a specific checkbox with name through a CSS selector.
+                .addOption('name', options.name, function (harness, name) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, harness.getName()];
+                    case 1: return [2 /*return*/, (_a.sent()) === name];
+                }
+            }); }); });
         };
         /** Gets a boolean promise indicating if the slide-toggle is checked. */
         MatSlideToggleHarness.prototype.isChecked = function () {
