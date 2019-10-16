@@ -22,17 +22,18 @@ export declare class MatRadioGroupHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: RadioGroupHarnessFilters): HarnessPredicate<MatRadioGroupHarness>;
-    private _radioButtons;
     /** Gets the name of the radio-group. */
     getName(): Promise<string | null>;
     /** Gets the id of the radio-group. */
     getId(): Promise<string | null>;
-    /** Gets the selected radio-button in a radio-group. */
-    getSelectedRadioButton(): Promise<MatRadioButtonHarness | null>;
-    /** Gets the selected value of the radio-group. */
-    getSelectedValue(): Promise<string | null>;
+    /** Gets the checked radio-button in a radio-group. */
+    getCheckedRadioButton(): Promise<MatRadioButtonHarness | null>;
+    /** Gets the checked value of the radio-group. */
+    getCheckedValue(): Promise<string | null>;
     /** Gets all radio buttons which are part of the radio-group. */
-    getRadioButtons(): Promise<MatRadioButtonHarness[]>;
+    getRadioButtons(filter?: RadioButtonHarnessFilters): Promise<MatRadioButtonHarness[]>;
+    /** Checks a radio button in this group. */
+    checkRadioButton(filter?: RadioButtonHarnessFilters): Promise<void>;
     private _getGroupNameFromHost;
     private _getNamesFromRadioButtons;
     /** Checks if the specified radio names are all equal. */

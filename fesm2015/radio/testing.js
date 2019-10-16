@@ -14,10 +14,6 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * @dynamic
  */
 class MatRadioGroupHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._radioButtons = this.locatorForAll(MatRadioButtonHarness);
-    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a radio-group with
      * specific attributes.
@@ -59,8 +55,8 @@ class MatRadioGroupHarness extends ComponentHarness {
             return (yield this.host()).getProperty('id');
         });
     }
-    /** Gets the selected radio-button in a radio-group. */
-    getSelectedRadioButton() {
+    /** Gets the checked radio-button in a radio-group. */
+    getCheckedRadioButton() {
         return __awaiter(this, void 0, void 0, function* () {
             for (let radioButton of yield this.getRadioButtons()) {
                 if (yield radioButton.isChecked()) {
@@ -70,20 +66,30 @@ class MatRadioGroupHarness extends ComponentHarness {
             return null;
         });
     }
-    /** Gets the selected value of the radio-group. */
-    getSelectedValue() {
+    /** Gets the checked value of the radio-group. */
+    getCheckedValue() {
         return __awaiter(this, void 0, void 0, function* () {
-            const selectedRadio = yield this.getSelectedRadioButton();
-            if (!selectedRadio) {
+            const checkedRadio = yield this.getCheckedRadioButton();
+            if (!checkedRadio) {
                 return null;
             }
-            return selectedRadio.getValue();
+            return checkedRadio.getValue();
         });
     }
     /** Gets all radio buttons which are part of the radio-group. */
-    getRadioButtons() {
+    getRadioButtons(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._radioButtons());
+            return this.locatorForAll(MatRadioButtonHarness.with(filter))();
+        });
+    }
+    /** Checks a radio button in this group. */
+    checkRadioButton(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const radioButtons = yield this.getRadioButtons(filter);
+            if (!radioButtons.length) {
+                throw Error(`Could not find radio button matching ${JSON.stringify(filter)}`);
+            }
+            return radioButtons[0].check();
         });
     }
     _getGroupNameFromHost() {

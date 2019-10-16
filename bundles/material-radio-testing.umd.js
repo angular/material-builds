@@ -18,9 +18,7 @@
     var MatRadioGroupHarness = /** @class */ (function (_super) {
         tslib_1.__extends(MatRadioGroupHarness, _super);
         function MatRadioGroupHarness() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this._radioButtons = _this.locatorForAll(MatRadioButtonHarness);
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * Gets a `HarnessPredicate` that can be used to search for a radio-group with
@@ -75,8 +73,8 @@
                 });
             });
         };
-        /** Gets the selected radio-button in a radio-group. */
-        MatRadioGroupHarness.prototype.getSelectedRadioButton = function () {
+        /** Gets the checked radio-button in a radio-group. */
+        MatRadioGroupHarness.prototype.getCheckedRadioButton = function () {
             return tslib_1.__awaiter(this, void 0, void 0, function () {
                 var _a, _b, radioButton, e_1_1;
                 var e_1, _c;
@@ -116,30 +114,46 @@
                 });
             });
         };
-        /** Gets the selected value of the radio-group. */
-        MatRadioGroupHarness.prototype.getSelectedValue = function () {
+        /** Gets the checked value of the radio-group. */
+        MatRadioGroupHarness.prototype.getCheckedValue = function () {
             return tslib_1.__awaiter(this, void 0, void 0, function () {
-                var selectedRadio;
+                var checkedRadio;
                 return tslib_1.__generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.getSelectedRadioButton()];
+                        case 0: return [4 /*yield*/, this.getCheckedRadioButton()];
                         case 1:
-                            selectedRadio = _a.sent();
-                            if (!selectedRadio) {
+                            checkedRadio = _a.sent();
+                            if (!checkedRadio) {
                                 return [2 /*return*/, null];
                             }
-                            return [2 /*return*/, selectedRadio.getValue()];
+                            return [2 /*return*/, checkedRadio.getValue()];
                     }
                 });
             });
         };
         /** Gets all radio buttons which are part of the radio-group. */
-        MatRadioGroupHarness.prototype.getRadioButtons = function () {
+        MatRadioGroupHarness.prototype.getRadioButtons = function (filter) {
+            if (filter === void 0) { filter = {}; }
             return tslib_1.__awaiter(this, void 0, void 0, function () {
                 return tslib_1.__generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForAll(MatRadioButtonHarness.with(filter))()];
+                });
+            });
+        };
+        /** Checks a radio button in this group. */
+        MatRadioGroupHarness.prototype.checkRadioButton = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return tslib_1.__awaiter(this, void 0, void 0, function () {
+                var radioButtons;
+                return tslib_1.__generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._radioButtons()];
-                        case 1: return [2 /*return*/, (_a.sent())];
+                        case 0: return [4 /*yield*/, this.getRadioButtons(filter)];
+                        case 1:
+                            radioButtons = _a.sent();
+                            if (!radioButtons.length) {
+                                throw Error("Could not find radio button matching " + JSON.stringify(filter));
+                            }
+                            return [2 /*return*/, radioButtons[0].check()];
                     }
                 });
             });
