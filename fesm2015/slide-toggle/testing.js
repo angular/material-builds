@@ -29,7 +29,11 @@ class MatSlideToggleHarness extends ComponentHarness {
      */
     static with(options = {}) {
         return new HarnessPredicate(MatSlideToggleHarness, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label));
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            // We want to provide a filter option for "name" because the name of the slide-toggle is
+            // only set on the underlying input. This means that it's not possible for developers
+            // to retrieve the harness of a specific checkbox with name through a CSS selector.
+            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
     }
     /** Gets a boolean promise indicating if the slide-toggle is checked. */
     isChecked() {
