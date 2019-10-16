@@ -27,8 +27,15 @@
          * @return `HarnessPredicate` configured with the given options.
          */
         MatDrawerHarness.with = function (options) {
+            var _this = this;
             if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatDrawerHarness, options);
+            return new testing.HarnessPredicate(MatDrawerHarness, options)
+                .addOption('position', options.position, function (harness, position) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, harness.getPosition()];
+                    case 1: return [2 /*return*/, (_a.sent()) === position];
+                }
+            }); }); });
         };
         /** Gets whether the drawer is open. */
         MatDrawerHarness.prototype.isOpen = function () {
@@ -107,8 +114,15 @@
          * @return `HarnessPredicate` configured with the given options.
          */
         MatSidenavHarness.with = function (options) {
+            var _this = this;
             if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatDrawerHarness, options);
+            return new testing.HarnessPredicate(MatDrawerHarness, options)
+                .addOption('position', options.position, function (harness, position) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, harness.getPosition()];
+                    case 1: return [2 /*return*/, (_a.sent()) === position];
+                }
+            }); }); });
         };
         /** Gets whether the sidenav is fixed in the viewport. */
         MatSidenavHarness.prototype.isFixedInViewport = function () {
