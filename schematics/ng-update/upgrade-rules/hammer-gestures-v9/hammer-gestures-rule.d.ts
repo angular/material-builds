@@ -110,11 +110,8 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
     private _removeHammerConfigTokenImportIfUnused;
     /** Removes Hammer from all index HTML files of the given project. */
     private _removeHammerFromIndexFile;
-    /**
-     * Sets up the Hammer gesture config provider in the given app module
-     * if needed.
-     */
-    private _setupGestureConfigProviderIfNeeded;
+    /** Sets up the Hammer gesture config provider in the app module if needed. */
+    private _setupGestureConfigInAppModule;
     /** Prints a given node within the specified source file. */
     private _printNode;
     /** Gets the symbol that contains the value declaration of the specified node. */
