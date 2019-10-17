@@ -13,15 +13,12 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * @dynamic
  */
 class MatTabHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._rootLocatorFactory = this.documentRootLocatorFactory();
-    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabHarness, options);
+        return new HarnessPredicate(MatTabHarness, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
     }
     /** Gets the label of the tab. */
     getLabel() {
@@ -39,16 +36,6 @@ class MatTabHarness extends ComponentHarness {
     getAriaLabelledby() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('aria-labelledby');
-        });
-    }
-    /**
-     * Gets the content element of the given tab. Note that the element will be empty
-     * until the tab is selected. This is an implementation detail of the tab-group
-     * in order to avoid rendering of non-active tabs.
-     */
-    getContentElement() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this._rootLocatorFactory.locatorFor(`#${yield this._getContentId()}`)();
         });
     }
     /** Whether the tab is selected. */
@@ -74,6 +61,24 @@ class MatTabHarness extends ComponentHarness {
             yield (yield this.host()).click();
         });
     }
+    /** Gets the text content of the tab. */
+    getTextContent() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const contentId = yield this._getContentId();
+            const contentEl = yield this.documentRootLocatorFactory().locatorFor(`#${contentId}`)();
+            return contentEl.text();
+        });
+    }
+    /**
+     * Gets a `HarnessLoader` that can be used to load harnesses for components within the tab's
+     * content area.
+     */
+    getHarnessLoaderForContent() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const contentId = yield this._getContentId();
+            return this.documentRootLocatorFactory().harnessLoaderFor(`#${contentId}`);
+        });
+    }
     /** Gets the element id for the content of the current tab. */
     _getContentId() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -97,10 +102,6 @@ MatTabHarness.hostSelector = '.mat-tab-label';
  * @dynamic
  */
 class MatTabGroupHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._tabs = this.locatorForAll(MatTabHarness);
-    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a radio-button with
      * specific attributes.
@@ -118,9 +119,9 @@ class MatTabGroupHarness extends ComponentHarness {
         }));
     }
     /** Gets all tabs of the tab group. */
-    getTabs() {
+    getTabs(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._tabs();
+            return this.locatorForAll(MatTabHarness.with(filter))();
         });
     }
     /** Gets the selected tab of the tab group. */
@@ -134,6 +135,16 @@ class MatTabGroupHarness extends ComponentHarness {
                 }
             }
             throw new Error('No selected tab could be found.');
+        });
+    }
+    /** Selects a tab in this tab group. */
+    selectTab(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tabs = yield this.getTabs(filter);
+            if (!tabs.length) {
+                throw Error(`Cannot find mat-tab matching filter ${JSON.stringify(filter)}`);
+            }
+            yield tabs[0].select();
         });
     }
 }

@@ -15,16 +15,15 @@ import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 var MatTabHarness = /** @class */ (function (_super) {
     __extends(MatTabHarness, _super);
     function MatTabHarness() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._rootLocatorFactory = _this.documentRootLocatorFactory();
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
      */
     MatTabHarness.with = function (options) {
         if (options === void 0) { options = {}; }
-        return new HarnessPredicate(MatTabHarness, options);
+        return new HarnessPredicate(MatTabHarness, options)
+            .addOption('label', options.label, function (harness, label) { return HarnessPredicate.stringMatches(harness.getLabel(), label); });
     };
     /** Gets the label of the tab. */
     MatTabHarness.prototype.getLabel = function () {
@@ -55,25 +54,6 @@ var MatTabHarness = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.host()];
                     case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-labelledby')];
-                }
-            });
-        });
-    };
-    /**
-     * Gets the content element of the given tab. Note that the element will be empty
-     * until the tab is selected. This is an implementation detail of the tab-group
-     * in order to avoid rendering of non-active tabs.
-     */
-    MatTabHarness.prototype.getContentElement = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, _b, _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
-                    case 0:
-                        _b = (_a = this._rootLocatorFactory).locatorFor;
-                        _c = "#";
-                        return [4 /*yield*/, this._getContentId()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c + (_d.sent())])()];
                 }
             });
         });
@@ -125,6 +105,40 @@ var MatTabHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** Gets the text content of the tab. */
+    MatTabHarness.prototype.getTextContent = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var contentId, contentEl;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._getContentId()];
+                    case 1:
+                        contentId = _a.sent();
+                        return [4 /*yield*/, this.documentRootLocatorFactory().locatorFor("#" + contentId)()];
+                    case 2:
+                        contentEl = _a.sent();
+                        return [2 /*return*/, contentEl.text()];
+                }
+            });
+        });
+    };
+    /**
+     * Gets a `HarnessLoader` that can be used to load harnesses for components within the tab's
+     * content area.
+     */
+    MatTabHarness.prototype.getHarnessLoaderForContent = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var contentId;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._getContentId()];
+                    case 1:
+                        contentId = _a.sent();
+                        return [2 /*return*/, this.documentRootLocatorFactory().harnessLoaderFor("#" + contentId)];
+                }
+            });
+        });
+    };
     /** Gets the element id for the content of the current tab. */
     MatTabHarness.prototype._getContentId = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -160,9 +174,7 @@ var MatTabHarness = /** @class */ (function (_super) {
 var MatTabGroupHarness = /** @class */ (function (_super) {
     __extends(MatTabGroupHarness, _super);
     function MatTabGroupHarness() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._tabs = _this.locatorForAll(MatTabHarness);
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a radio-button with
@@ -192,10 +204,11 @@ var MatTabGroupHarness = /** @class */ (function (_super) {
         }); });
     };
     /** Gets all tabs of the tab group. */
-    MatTabGroupHarness.prototype.getTabs = function () {
+    MatTabGroupHarness.prototype.getTabs = function (filter) {
+        if (filter === void 0) { filter = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this._tabs()];
+                return [2 /*return*/, this.locatorForAll(MatTabHarness.with(filter))()];
             });
         });
     };
@@ -217,6 +230,27 @@ var MatTabGroupHarness = /** @class */ (function (_super) {
                             }
                         }
                         throw new Error('No selected tab could be found.');
+                }
+            });
+        });
+    };
+    /** Selects a tab in this tab group. */
+    MatTabGroupHarness.prototype.selectTab = function (filter) {
+        if (filter === void 0) { filter = {}; }
+        return __awaiter(this, void 0, void 0, function () {
+            var tabs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getTabs(filter)];
+                    case 1:
+                        tabs = _a.sent();
+                        if (!tabs.length) {
+                            throw Error("Cannot find mat-tab matching filter " + JSON.stringify(filter));
+                        }
+                        return [4 /*yield*/, tabs[0].select()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
                 }
             });
         });

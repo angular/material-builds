@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { TabGroupHarnessFilters } from './tab-harness-filters';
+import { TabGroupHarnessFilters, TabHarnessFilters } from './tab-harness-filters';
 import { MatTabHarness } from './tab-harness';
 /**
  * Harness for interacting with a standard mat-tab-group in tests.
@@ -24,9 +24,10 @@ export declare class MatTabGroupHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: TabGroupHarnessFilters): HarnessPredicate<MatTabGroupHarness>;
-    private _tabs;
     /** Gets all tabs of the tab group. */
-    getTabs(): Promise<MatTabHarness[]>;
+    getTabs(filter?: TabHarnessFilters): Promise<MatTabHarness[]>;
     /** Gets the selected tab of the tab group. */
     getSelectedTab(): Promise<MatTabHarness>;
+    /** Selects a tab in this tab group. */
+    selectTab(filter?: TabHarnessFilters): Promise<void>;
 }
