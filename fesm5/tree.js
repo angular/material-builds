@@ -442,7 +442,7 @@ var MatTreeFlatDataSource = /** @class */ (function (_super) {
         var _this = this;
         var changes = [
             collectionViewer.viewChange,
-            this._treeControl.expansionModel.onChange,
+            this._treeControl.expansionModel.changed,
             this._flattenedData
         ];
         return merge.apply(void 0, __spread(changes)).pipe(map(function () {

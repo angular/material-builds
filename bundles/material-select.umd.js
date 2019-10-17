@@ -406,7 +406,7 @@
         MatSelect.prototype.ngAfterContentInit = function () {
             var _this = this;
             this._initKeyManager();
-            this._selectionModel.onChange.pipe(operators.takeUntil(this._destroy)).subscribe(function (event) {
+            this._selectionModel.changed.pipe(operators.takeUntil(this._destroy)).subscribe(function (event) {
                 event.added.forEach(function (option) { return option.select(); });
                 event.removed.forEach(function (option) { return option.deselect(); });
             });

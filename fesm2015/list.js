@@ -795,7 +795,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
             this._setOptionsFromValues(this._value);
         }
         // Sync external changes to the model back to the options.
-        this.selectedOptions.onChange.pipe(takeUntil(this._destroyed)).subscribe((/**
+        this.selectedOptions.changed.pipe(takeUntil(this._destroyed)).subscribe((/**
          * @param {?} event
          * @return {?}
          */

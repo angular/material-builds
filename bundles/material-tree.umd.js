@@ -438,7 +438,7 @@
             var _this = this;
             var changes = [
                 collectionViewer.viewChange,
-                this._treeControl.expansionModel.onChange,
+                this._treeControl.expansionModel.changed,
                 this._flattenedData
             ];
             return rxjs.merge.apply(void 0, tslib_1.__spread(changes)).pipe(operators.map(function () {

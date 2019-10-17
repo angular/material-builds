@@ -596,7 +596,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     ngAfterContentInit() {
         this._initKeyManager();
-        this._selectionModel.onChange.pipe(takeUntil(this._destroy)).subscribe((/**
+        this._selectionModel.changed.pipe(takeUntil(this._destroy)).subscribe((/**
          * @param {?} event
          * @return {?}
          */
