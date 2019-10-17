@@ -23,7 +23,7 @@
      * Range of Angular versions that can be used together with the Angular Material version
      * that provides these schematics.
      */
-    exports.requiredAngularVersionRange = '^8.0.0 || ^9.0.0-0';
+    exports.requiredAngularVersionRange = '^9.0.0-0 || ^10.0.0-0';
     /** Loads the full version from the given Angular package gracefully. */
     function loadPackageVersionGracefully(packageName) {
         try {
