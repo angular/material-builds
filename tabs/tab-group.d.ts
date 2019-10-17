@@ -21,6 +21,11 @@ export declare type MatTabHeaderPosition = 'above' | 'below';
 export interface MatTabsConfig {
     /** Duration for the tab animation. Must be a valid CSS value (e.g. 600ms). */
     animationDuration?: string;
+    /**
+     * Whether pagination should be disabled. This can be used to avoid unnecessary
+     * layout recalculations if it's known that pagination won't be required.
+     */
+    disablePagination?: boolean;
 }
 /** Injection token that can be used to provide the default options the tabs module. */
 export declare const MAT_TABS_CONFIG: InjectionToken<MatTabsConfig>;
@@ -69,6 +74,11 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
     animationDuration: string;
     private _animationDuration;
+    /**
+     * Whether pagination should be disabled. This can be used to avoid unnecessary
+     * layout recalculations if it's known that pagination won't be required.
+     */
+    disablePagination: boolean;
     /** Background color of the tab group. */
     backgroundColor: ThemePalette;
     private _backgroundColor;

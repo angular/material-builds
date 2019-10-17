@@ -569,6 +569,8 @@
             _this._groupId = nextId++;
             _this.animationDuration = defaultConfig && defaultConfig.animationDuration ?
                 defaultConfig.animationDuration : '500ms';
+            _this.disablePagination = defaultConfig && defaultConfig.disablePagination != null ?
+                defaultConfig.disablePagination : false;
             return _this;
         }
         Object.defineProperty(_MatTabGroupBase.prototype, "dynamicHeight", {
@@ -796,6 +798,7 @@
             selectedIndex: [{ type: core.Input }],
             headerPosition: [{ type: core.Input }],
             animationDuration: [{ type: core.Input }],
+            disablePagination: [{ type: core.Input }],
             backgroundColor: [{ type: core.Input }],
             selectedIndexChange: [{ type: core.Output }],
             focusChange: [{ type: core.Output }],
@@ -819,7 +822,7 @@
                         moduleId: module.id,
                         selector: 'mat-tab-group',
                         exportAs: 'matTabGroup',
-                        template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex\"\n               [disableRipple]=\"disableRipple\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex == i\"\n               [content]=\"tab.content\"\n               [position]=\"tab.position\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n",
+                        template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex\"\n               [disableRipple]=\"disableRipple\"\n               [disablePagination]=\"disablePagination\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex == i\"\n               [content]=\"tab.content\"\n               [position]=\"tab.position\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n",
                         encapsulation: core.ViewEncapsulation.None,
                         // tslint:disable-next-line:validate-decorators
                         changeDetection: core.ChangeDetectionStrategy.Default,
@@ -961,6 +964,11 @@
             this._disableScrollBefore = true;
             /** Stream that will stop the automated scrolling. */
             this._stopScrolling = new rxjs.Subject();
+            /**
+             * Whether pagination should be disabled. This can be used to avoid unnecessary
+             * layout recalculations if it's known that pagination won't be required.
+             */
+            this.disablePagination = false;
             this._selectedIndex = 0;
             /** Event emitted when the option is selected. */
             this.selectFocusedIndex = new core.EventEmitter();
@@ -1174,6 +1182,9 @@
         };
         /** Performs the CSS transformation on the tab list that will cause the list to scroll. */
         MatPaginatedTabHeader.prototype._updateTabScrollPosition = function () {
+            if (this.disablePagination) {
+                return;
+            }
             var scrollDistance = this.scrollDistance;
             var platform = this._platform;
             var translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
@@ -1228,6 +1239,9 @@
          * should be called sparingly.
          */
         MatPaginatedTabHeader.prototype._scrollToLabel = function (labelIndex) {
+            if (this.disablePagination) {
+                return;
+            }
             var selectedLabel = this._items ? this._items.toArray()[labelIndex] : null;
             if (!selectedLabel) {
                 return;
@@ -1264,14 +1278,19 @@
          * should be called sparingly.
          */
         MatPaginatedTabHeader.prototype._checkPaginationEnabled = function () {
-            var isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
-            if (!isEnabled) {
-                this.scrollDistance = 0;
+            if (this.disablePagination) {
+                this._showPaginationControls = false;
             }
-            if (isEnabled !== this._showPaginationControls) {
-                this._changeDetectorRef.markForCheck();
+            else {
+                var isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
+                if (!isEnabled) {
+                    this.scrollDistance = 0;
+                }
+                if (isEnabled !== this._showPaginationControls) {
+                    this._changeDetectorRef.markForCheck();
+                }
+                this._showPaginationControls = isEnabled;
             }
-            this._showPaginationControls = isEnabled;
         };
         /**
          * Evaluate whether the before and after controls should be enabled or disabled.
@@ -1283,10 +1302,15 @@
          * should be called sparingly.
          */
         MatPaginatedTabHeader.prototype._checkScrollingControls = function () {
-            // Check if the pagination arrows should be activated.
-            this._disableScrollBefore = this.scrollDistance == 0;
-            this._disableScrollAfter = this.scrollDistance == this._getMaxScrollDistance();
-            this._changeDetectorRef.markForCheck();
+            if (this.disablePagination) {
+                this._disableScrollAfter = this._disableScrollBefore = true;
+            }
+            else {
+                // Check if the pagination arrows should be activated.
+                this._disableScrollBefore = this.scrollDistance == 0;
+                this._disableScrollAfter = this.scrollDistance == this._getMaxScrollDistance();
+                this._changeDetectorRef.markForCheck();
+            }
         };
         /**
          * Determines what is the maximum length in pixels that can be set for the scroll distance. This
@@ -1343,6 +1367,9 @@
          * @returns Information on the current scroll distance and the maximum.
          */
         MatPaginatedTabHeader.prototype._scrollTo = function (position) {
+            if (this.disablePagination) {
+                return { maxScrollDistance: 0, distance: 0 };
+            }
             var maxScrollDistance = this._getMaxScrollDistance();
             this._scrollDistance = Math.max(0, Math.min(maxScrollDistance, position));
             // Mark that the scroll distance has changed so that after the view is checked, the CSS
@@ -1367,6 +1394,9 @@
             { type: platform.Platform },
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
         ]; };
+        MatPaginatedTabHeader.propDecorators = {
+            disablePagination: [{ type: core.Input }]
+        };
         return MatPaginatedTabHeader;
     }());
 

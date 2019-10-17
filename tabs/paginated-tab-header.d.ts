@@ -71,6 +71,11 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     private _currentTextContent;
     /** Stream that will stop the automated scrolling. */
     private _stopScrolling;
+    /**
+     * Whether pagination should be disabled. This can be used to avoid unnecessary
+     * layout recalculations if it's known that pagination won't be required.
+     */
+    disablePagination: boolean;
     /** The index of the active tab. */
     selectedIndex: number;
     private _selectedIndex;
