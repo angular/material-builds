@@ -16,17 +16,4 @@ import { AnimationTriggerMetadata } from '@angular/animations';
 export declare const matSelectAnimations: {
     readonly transformPanelWrap: AnimationTriggerMetadata;
     readonly transformPanel: AnimationTriggerMetadata;
-    readonly fadeInContent: AnimationTriggerMetadata;
 };
-/**
- * @deprecated
- * @breaking-change 8.0.0
- * @docs-private
- */
-export declare const transformPanel: AnimationTriggerMetadata;
-/**
- * @deprecated
- * @breaking-change 8.0.0
- * @docs-private
- */
-export declare const fadeInContent: AnimationTriggerMetadata;

@@ -54,34 +54,8 @@
             })),
             animations.transition('void => *', animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)')),
             animations.transition('* => void', animations.animate('100ms 25ms linear', animations.style({ opacity: 0 })))
-        ]),
-        /**
-         * This animation fades in the background color and text content of the
-         * select's options. It is time delayed to occur 100ms after the overlay
-         * panel has transformed in.
-         * @deprecated Not used anymore. To be removed.
-         * @breaking-change 8.0.0
-         */
-        fadeInContent: animations.trigger('fadeInContent', [
-            animations.state('showing', animations.style({ opacity: 1 })),
-            animations.transition('void => showing', [
-                animations.style({ opacity: 0 }),
-                animations.animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-            ])
         ])
     };
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0
-     * @docs-private
-     */
-    var transformPanel = matSelectAnimations.transformPanel;
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0
-     * @docs-private
-     */
-    var fadeInContent = matSelectAnimations.fadeInContent;
 
     /**
      * @license
@@ -205,12 +179,7 @@
     }());
     var MatSelect = /** @class */ (function (_super) {
         tslib_1.__extends(MatSelect, _super);
-        function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, 
-        /**
-         * @deprecated _liveAnnouncer to be turned into a required parameter.
-         * @breaking-change 8.0.0
-         */
-        _liveAnnouncer) {
+        function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer) {
             var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._viewportRuler = _viewportRuler;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -318,13 +287,6 @@
             /** Whether the select is focused. */
             get: function () {
                 return this._focused || this._panelOpen;
-            },
-            /**
-             * @deprecated Setter to be removed as this property is intended to be readonly.
-             * @breaking-change 8.0.0
-             */
-            set: function (value) {
-                this._focused = value;
             },
             enumerable: true,
             configurable: true
@@ -619,8 +581,7 @@
                 }
                 var selectedOption = this.selected;
                 // Since the value has changed, we need to announce it ourselves.
-                // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-                if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
+                if (selectedOption && previouslySelectedOption !== selectedOption) {
                     // We set a duration on the live announcement, because we want the live element to be
                     // cleared after a while so that users can't navigate to it using the arrow keys.
                     this._liveAnnouncer.announce(selectedOption.viewValue, 10000);
@@ -1290,8 +1251,6 @@
     exports.MatSelectTrigger = MatSelectTrigger;
     exports.MatSelect = MatSelect;
     exports.matSelectAnimations = matSelectAnimations;
-    exports.transformPanel = transformPanel;
-    exports.fadeInContent = fadeInContent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

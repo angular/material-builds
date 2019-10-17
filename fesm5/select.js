@@ -65,34 +65,8 @@ var matSelectAnimations = {
         })),
         transition('void => *', animate('120ms cubic-bezier(0, 0, 0.2, 1)')),
         transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 })))
-    ]),
-    /**
-     * This animation fades in the background color and text content of the
-     * select's options. It is time delayed to occur 100ms after the overlay
-     * panel has transformed in.
-     * @deprecated Not used anymore. To be removed.
-     * @breaking-change 8.0.0
-     */
-    fadeInContent: trigger('fadeInContent', [
-        state('showing', style({ opacity: 1 })),
-        transition('void => showing', [
-            style({ opacity: 0 }),
-            animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-        ])
     ])
 };
-/**
- * @deprecated
- * @breaking-change 8.0.0
- * @docs-private
- */
-var transformPanel = matSelectAnimations.transformPanel;
-/**
- * @deprecated
- * @breaking-change 8.0.0
- * @docs-private
- */
-var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @license
@@ -216,12 +190,7 @@ var MatSelectTrigger = /** @class */ (function () {
 }());
 var MatSelect = /** @class */ (function (_super) {
     __extends(MatSelect, _super);
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, 
-    /**
-     * @deprecated _liveAnnouncer to be turned into a required parameter.
-     * @breaking-change 8.0.0
-     */
-    _liveAnnouncer) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer) {
         var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -329,13 +298,6 @@ var MatSelect = /** @class */ (function (_super) {
         /** Whether the select is focused. */
         get: function () {
             return this._focused || this._panelOpen;
-        },
-        /**
-         * @deprecated Setter to be removed as this property is intended to be readonly.
-         * @breaking-change 8.0.0
-         */
-        set: function (value) {
-            this._focused = value;
         },
         enumerable: true,
         configurable: true
@@ -630,8 +592,7 @@ var MatSelect = /** @class */ (function (_super) {
             }
             var selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
-            // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-            if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
+            if (selectedOption && previouslySelectedOption !== selectedOption) {
                 // We set a duration on the live announcement, because we want the live element to be
                 // cleared after a while so that users can't navigate to it using the arrow keys.
                 this._liveAnnouncer.announce(selectedOption.viewValue, 10000);
@@ -1287,5 +1248,5 @@ var MatSelectModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSelectModule, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectTrigger, MatSelect, matSelectAnimations, transformPanel, fadeInContent };
+export { MatSelectModule, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectTrigger, MatSelect, matSelectAnimations };
 //# sourceMappingURL=select.js.map

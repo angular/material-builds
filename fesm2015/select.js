@@ -64,36 +64,8 @@ const matSelectAnimations = {
         })),
         transition('void => *', animate('120ms cubic-bezier(0, 0, 0.2, 1)')),
         transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 })))
-    ]),
-    /**
-     * This animation fades in the background color and text content of the
-     * select's options. It is time delayed to occur 100ms after the overlay
-     * panel has transformed in.
-     * @deprecated Not used anymore. To be removed.
-     * \@breaking-change 8.0.0
-     */
-    fadeInContent: trigger('fadeInContent', [
-        state('showing', style({ opacity: 1 })),
-        transition('void => showing', [
-            style({ opacity: 0 }),
-            animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-        ])
     ])
 };
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-const transformPanel = matSelectAnimations.transformPanel;
-/**
- * @deprecated
- * \@breaking-change 8.0.0
- * \@docs-private
- * @type {?}
- */
-const fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
@@ -287,7 +259,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} ngControl
      * @param {?} tabIndex
      * @param {?} scrollStrategyFactory
-     * @param {?=} _liveAnnouncer
+     * @param {?} _liveAnnouncer
      */
     constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer) {
         super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
@@ -479,15 +451,6 @@ class MatSelect extends _MatSelectMixinBase {
      */
     get focused() {
         return this._focused || this._panelOpen;
-    }
-    /**
-     * @deprecated Setter to be removed as this property is intended to be readonly.
-     * \@breaking-change 8.0.0
-     * @param {?} value
-     * @return {?}
-     */
-    set focused(value) {
-        this._focused = value;
     }
     /**
      * Placeholder to be shown if no value has been selected.
@@ -868,8 +831,7 @@ class MatSelect extends _MatSelectMixinBase {
             /** @type {?} */
             const selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
-            // @breaking-change 8.0.0 remove null check for _liveAnnouncer.
-            if (this._liveAnnouncer && selectedOption && previouslySelectedOption !== selectedOption) {
+            if (selectedOption && previouslySelectedOption !== selectedOption) {
                 // We set a duration on the live announcement, because we want the live element to be
                 // cleared after a while so that users can't navigate to it using the arrow keys.
                 this._liveAnnouncer.announce(((/** @type {?} */ (selectedOption))).viewValue, 10000);
@@ -1974,8 +1936,6 @@ if (false) {
     /** @type {?} */
     MatSelect.prototype.ngControl;
     /**
-     * @deprecated _liveAnnouncer to be turned into a required parameter.
-     * \@breaking-change 8.0.0
      * @type {?}
      * @private
      */
@@ -2011,5 +1971,5 @@ MatSelectModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatSelectModule, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectTrigger, MatSelect, matSelectAnimations, transformPanel, fadeInContent };
+export { MatSelectModule, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectTrigger, MatSelect, matSelectAnimations };
 //# sourceMappingURL=select.js.map

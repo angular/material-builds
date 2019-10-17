@@ -87,11 +87,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _dir;
     private _parentFormField;
     ngControl: NgControl;
-    /**
-     * @deprecated _liveAnnouncer to be turned into a required parameter.
-     * @breaking-change 8.0.0
-     */
-    private _liveAnnouncer?;
+    private _liveAnnouncer;
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
     private _panelOpen;
@@ -152,11 +148,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Whether the component is disabling centering of the active option over the trigger. */
     private _disableOptionCentering;
     /** Whether the select is focused. */
-    /**
-    * @deprecated Setter to be removed as this property is intended to be readonly.
-    * @breaking-change 8.0.0
-    */
-    focused: boolean;
+    readonly focused: boolean;
     private _focused;
     /** A name for this control that can be used by `mat-form-field`. */
     controlType: string;
@@ -225,12 +217,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, 
-    /**
-     * @deprecated _liveAnnouncer to be turned into a required parameter.
-     * @breaking-change 8.0.0
-     */
-    _liveAnnouncer?: LiveAnnouncer | undefined);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
