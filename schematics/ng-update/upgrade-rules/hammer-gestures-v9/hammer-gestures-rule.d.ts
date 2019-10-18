@@ -28,10 +28,15 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
      */
     private _gestureConfigReferences;
     /**
-     * List of identifiers which resolve to "HAMMER_GESTURE_CONFIG" token from
+     * List of identifiers which resolve to the "HAMMER_GESTURE_CONFIG" token from
      * "@angular/platform-browser".
      */
     private _hammerConfigTokenReferences;
+    /**
+     * List of identifiers which resolve to the "HammerModule" from
+     * "@angular/platform-browser".
+     */
+    private _hammerModuleReferences;
     /**
      * List of identifiers that have been deleted from source files. This can be
      * used to determine if certain imports are still used or not.
@@ -58,16 +63,23 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
      */
     private _removeHammerSetup;
     /**
-     * Removes the gesture config setup by deleting all found references
-     * to a gesture config. Additionally, unused imports to the hammer gesture
-     * config token from platform-browser are removed as well.
+     * Removes the gesture config setup by deleting all found references to the Angular
+     * Material gesture config. Additionally, unused imports to the hammer gesture config
+     * token from "@angular/platform-browser" will be removed as well.
      */
-    private _removeGestureConfigSetup;
+    private _removeMaterialGestureConfigSetup;
+    /** Removes all references to the "HammerModule" from "@angular/platform-browser". */
+    private _removeHammerModuleReferences;
     /**
      * Checks if the given node is a reference to the hammer gesture config
      * token from platform-browser. If so, keeps track of the reference.
      */
     private _checkForHammerGestureConfigToken;
+    /**
+     * Checks if the given node is a reference to the HammerModule from
+     * "@angular/platform-browser". If so, keeps track of the reference.
+     */
+    private _checkForHammerModuleReference;
     /**
      * Checks if the given node is an import to the HammerJS package. Imports to
      * HammerJS which load specific symbols from the package are considered as
@@ -111,9 +123,11 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
     /** Removes Hammer from all index HTML files of the given project. */
     private _removeHammerFromIndexFile;
     /** Sets up the Hammer gesture config provider in the app module if needed. */
-    private _setupGestureConfigInAppModule;
+    private _setupHammerGesturesInAppModule;
     /** Prints a given node within the specified source file. */
     private _printNode;
+    /** Gets all referenced gesture config identifiers of a given source file */
+    private _getGestureConfigIdentifiersOfFile;
     /** Gets the symbol that contains the value declaration of the specified node. */
     private _getDeclarationSymbolOfNode;
     /**

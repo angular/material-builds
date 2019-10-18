@@ -27,6 +27,11 @@ if (false) {
     MatSnackBarDismiss.prototype.dismissedByAction;
 }
 /**
+ * Maximum amount of milliseconds that can be passed into setTimeout.
+ * @type {?}
+ */
+const MAX_TIMEOUT = Math.pow(2, 31) - 1;
+/**
  * Reference to a snack bar dispatched from the snack bar service.
  * @template T
  */
@@ -100,10 +105,12 @@ class MatSnackBarRef {
      * @return {?}
      */
     _dismissAfter(duration) {
+        // Note that we need to cap the duration to the maximum value for setTimeout, because
+        // it'll revert to 1 if somebody passes in something greater (e.g. `Infinity`). See #17234.
         this._durationTimeoutId = setTimeout((/**
          * @return {?}
          */
-        () => this.dismiss()), duration);
+        () => this.dismiss()), Math.min(duration, MAX_TIMEOUT));
     }
     /**
      * Marks the snackbar as opened
