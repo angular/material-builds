@@ -11,8 +11,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /** Maximum amount of milliseconds that can be passed into setTimeout. */
-    var MAX_TIMEOUT = Math.pow(2, 31) - 1;
     /**
      * Reference to a snack bar dispatched from the snack bar service.
      */
@@ -59,9 +57,7 @@
         /** Dismisses the snack bar after some duration */
         MatSnackBarRef.prototype._dismissAfter = function (duration) {
             var _this = this;
-            // Note that we need to cap the duration to the maximum value for setTimeout, because
-            // it'll revert to 1 if somebody passes in something greater (e.g. `Infinity`). See #17234.
-            this._durationTimeoutId = setTimeout(function () { return _this.dismiss(); }, Math.min(duration, MAX_TIMEOUT));
+            this._durationTimeoutId = setTimeout(function () { return _this.dismiss(); }, duration);
         };
         /** Marks the snackbar as opened */
         MatSnackBarRef.prototype._open = function () {
