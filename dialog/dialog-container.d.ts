@@ -25,9 +25,9 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     private _elementRef;
     private _focusTrapFactory;
     private _changeDetectorRef;
-    private _document;
     /** The dialog configuration. */
     _config: MatDialogConfig;
+    private _document;
     /** The portal outlet inside of this container into which the dialog content will be loaded. */
     _portalOutlet: CdkPortalOutlet;
     /** The class that traps and manages focus within the dialog. */

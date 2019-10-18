@@ -114,7 +114,6 @@
             _this._elementRef = _elementRef;
             _this._focusTrapFactory = _focusTrapFactory;
             _this._changeDetectorRef = _changeDetectorRef;
-            _this._document = _document;
             _this._config = _config;
             /** Element that was focused before the dialog was opened. Save this to restore upon close. */
             _this._elementFocusedBeforeDialogWasOpened = null;
@@ -123,6 +122,7 @@
             /** Emits when an animation state changes. */
             _this._animationStateChanged = new core.EventEmitter();
             _this._ariaLabelledBy = _config.ariaLabelledBy || null;
+            _this._document = _document;
             return _this;
         }
         /**
@@ -176,7 +176,16 @@
             var toFocus = this._elementFocusedBeforeDialogWasOpened;
             // We need the extra check, because IE can set the `activeElement` to null in some cases.
             if (this._config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
-                toFocus.focus();
+                var activeElement = this._document.activeElement;
+                var element = this._elementRef.nativeElement;
+                // Make sure that focus is still inside the dialog or is on the body (usually because a
+                // non-focusable element like the backdrop was clicked) before moving it. It's possible that
+                // the consumer moved it themselves before the animation was done, in which case we shouldn't
+                // do anything.
+                if (!activeElement || activeElement === this._document.body || activeElement === element ||
+                    element.contains(activeElement)) {
+                    toFocus.focus();
+                }
             }
             if (this._focusTrap) {
                 this._focusTrap.destroy();

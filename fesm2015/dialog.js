@@ -310,7 +310,6 @@ class MatDialogContainer extends BasePortalOutlet {
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._changeDetectorRef = _changeDetectorRef;
-        this._document = _document;
         this._config = _config;
         /**
          * Element that was focused before the dialog was opened. Save this to restore upon close.
@@ -325,6 +324,7 @@ class MatDialogContainer extends BasePortalOutlet {
          */
         this._animationStateChanged = new EventEmitter();
         this._ariaLabelledBy = _config.ariaLabelledBy || null;
+        this._document = _document;
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -392,7 +392,18 @@ class MatDialogContainer extends BasePortalOutlet {
         const toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (this._config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
-            toFocus.focus();
+            /** @type {?} */
+            const activeElement = this._document.activeElement;
+            /** @type {?} */
+            const element = this._elementRef.nativeElement;
+            // Make sure that focus is still inside the dialog or is on the body (usually because a
+            // non-focusable element like the backdrop was clicked) before moving it. It's possible that
+            // the consumer moved it themselves before the animation was done, in which case we shouldn't
+            // do anything.
+            if (!activeElement || activeElement === this._document.body || activeElement === element ||
+                element.contains(activeElement)) {
+                toFocus.focus();
+            }
         }
         if (this._focusTrap) {
             this._focusTrap.destroy();
@@ -490,6 +501,11 @@ MatDialogContainer.propDecorators = {
 };
 if (false) {
     /**
+     * @type {?}
+     * @private
+     */
+    MatDialogContainer.prototype._document;
+    /**
      * The portal outlet inside of this container into which the dialog content will be loaded.
      * @type {?}
      */
@@ -541,11 +557,6 @@ if (false) {
      * @private
      */
     MatDialogContainer.prototype._changeDetectorRef;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatDialogContainer.prototype._document;
     /**
      * The dialog configuration.
      * @type {?}
