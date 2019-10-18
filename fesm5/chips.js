@@ -1125,7 +1125,7 @@ var MatChipList = /** @class */ (function (_super) {
                     host: {
                         '[attr.tabindex]': 'disabled ? null : _tabIndex',
                         '[attr.aria-describedby]': '_ariaDescribedby || null',
-                        '[attr.aria-required]': 'required.toString()',
+                        '[attr.aria-required]': 'role ? required : null',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.aria-invalid]': 'errorState',
                         '[attr.aria-multiselectable]': 'multiple',
