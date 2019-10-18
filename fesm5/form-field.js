@@ -711,10 +711,10 @@ var MatFormField = /** @class */ (function (_super) {
         _labelChildNonStatic: [{ type: ContentChild, args: [MatLabel, { static: false },] }],
         _labelChildStatic: [{ type: ContentChild, args: [MatLabel, { static: true },] }],
         _placeholderChild: [{ type: ContentChild, args: [MatPlaceholder, { static: false },] }],
-        _errorChildren: [{ type: ContentChildren, args: [MatError,] }],
-        _hintChildren: [{ type: ContentChildren, args: [MatHint,] }],
-        _prefixChildren: [{ type: ContentChildren, args: [MatPrefix,] }],
-        _suffixChildren: [{ type: ContentChildren, args: [MatSuffix,] }]
+        _errorChildren: [{ type: ContentChildren, args: [MatError, { descendants: true },] }],
+        _hintChildren: [{ type: ContentChildren, args: [MatHint, { descendants: true },] }],
+        _prefixChildren: [{ type: ContentChildren, args: [MatPrefix, { descendants: true },] }],
+        _suffixChildren: [{ type: ContentChildren, args: [MatSuffix, { descendants: true },] }]
     };
     return MatFormField;
 }(_MatFormFieldMixinBase));

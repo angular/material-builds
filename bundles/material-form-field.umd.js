@@ -704,10 +704,10 @@
             _labelChildNonStatic: [{ type: core.ContentChild, args: [MatLabel, { static: false },] }],
             _labelChildStatic: [{ type: core.ContentChild, args: [MatLabel, { static: true },] }],
             _placeholderChild: [{ type: core.ContentChild, args: [MatPlaceholder, { static: false },] }],
-            _errorChildren: [{ type: core.ContentChildren, args: [MatError,] }],
-            _hintChildren: [{ type: core.ContentChildren, args: [MatHint,] }],
-            _prefixChildren: [{ type: core.ContentChildren, args: [MatPrefix,] }],
-            _suffixChildren: [{ type: core.ContentChildren, args: [MatSuffix,] }]
+            _errorChildren: [{ type: core.ContentChildren, args: [MatError, { descendants: true },] }],
+            _hintChildren: [{ type: core.ContentChildren, args: [MatHint, { descendants: true },] }],
+            _prefixChildren: [{ type: core.ContentChildren, args: [MatPrefix, { descendants: true },] }],
+            _suffixChildren: [{ type: core.ContentChildren, args: [MatSuffix, { descendants: true },] }]
         };
         return MatFormField;
     }(_MatFormFieldMixinBase));
