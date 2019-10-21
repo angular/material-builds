@@ -441,7 +441,11 @@ MatButtonToggleGroup.propDecorators = {
     _buttonToggles: [{ type: ContentChildren, args: [forwardRef((/**
                  * @return {?}
                  */
-                () => MatButtonToggle)),] }],
+                () => MatButtonToggle)), {
+                    // Note that this would technically pick up toggles
+                    // from nested groups, but that's not a case that we support.
+                    descendants: true
+                },] }],
     appearance: [{ type: Input }],
     name: [{ type: Input }],
     vertical: [{ type: Input }],

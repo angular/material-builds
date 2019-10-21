@@ -298,7 +298,11 @@
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS,] }] }
         ]; };
         MatButtonToggleGroup.propDecorators = {
-            _buttonToggles: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatButtonToggle; }),] }],
+            _buttonToggles: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatButtonToggle; }), {
+                            // Note that this would technically pick up toggles
+                            // from nested groups, but that's not a case that we support.
+                            descendants: true
+                        },] }],
             appearance: [{ type: core.Input }],
             name: [{ type: core.Input }],
             vertical: [{ type: core.Input }],
