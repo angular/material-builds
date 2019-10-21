@@ -1644,7 +1644,7 @@ MatSelect.propDecorators = {
     panel: [{ type: ViewChild, args: ['panel', { static: false },] }],
     overlayDir: [{ type: ViewChild, args: [CdkConnectedOverlay, { static: false },] }],
     options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
-    optionGroups: [{ type: ContentChildren, args: [MatOptgroup,] }],
+    optionGroups: [{ type: ContentChildren, args: [MatOptgroup, { descendants: true },] }],
     panelClass: [{ type: Input }],
     customTrigger: [{ type: ContentChild, args: [MatSelectTrigger, { static: false },] }],
     placeholder: [{ type: Input }],

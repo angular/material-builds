@@ -21,6 +21,11 @@ export declare function throwMatDuplicatedDrawerError(position: string): void;
 export declare type MatDrawerToggleResult = 'open' | 'close';
 /** Configures whether drawers should use auto sizing by default. */
 export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
+/**
+ * Used to provide a drawer container to a drawer while avoiding circular references.
+ * @docs-private
+ */
+export declare const MAT_DRAWER_CONTAINER: InjectionToken<unknown>;
 /** @docs-private */
 export declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
 export declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
@@ -39,6 +44,11 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _platform;
     private _ngZone;
     private _doc;
+    /**
+     * @deprecated `_container` parameter to be made required.
+     * @breaking-change 10.0.0
+     */
+    _container?: MatDrawerContainer | undefined;
     private _focusTrap;
     private _elementFocusedBeforeDrawerWasOpened;
     /** Whether the drawer is initialized. Used for disabling the initial animation. */
@@ -83,7 +93,12 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      */
     readonly _modeChanged: Subject<void>;
     readonly _isFocusTrapEnabled: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any);
+    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any, 
+    /**
+     * @deprecated `_container` parameter to be made required.
+     * @breaking-change 10.0.0
+     */
+    _container?: MatDrawerContainer | undefined);
     /** Traps focus inside the drawer. */
     private _trapFocus;
     /**
@@ -133,6 +148,9 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     private _ngZone;
     private _changeDetectorRef;
     private _animationMode?;
+    /** All drawers in the container. Includes drawers from inside nested containers. */
+    _allDrawers: QueryList<MatDrawer>;
+    /** Drawers that belong to this container. */
     _drawers: QueryList<MatDrawer>;
     _content: MatDrawerContent;
     _userContent: MatDrawerContent;

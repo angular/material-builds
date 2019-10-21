@@ -1175,7 +1175,7 @@
             panel: [{ type: core.ViewChild, args: ['panel', { static: false },] }],
             overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay, { static: false },] }],
             options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }],
-            optionGroups: [{ type: core.ContentChildren, args: [core$1.MatOptgroup,] }],
+            optionGroups: [{ type: core.ContentChildren, args: [core$1.MatOptgroup, { descendants: true },] }],
             panelClass: [{ type: core.Input }],
             customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger, { static: false },] }],
             placeholder: [{ type: core.Input }],

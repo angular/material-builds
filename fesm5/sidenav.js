@@ -1,7 +1,7 @@
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ScrollDispatcher, CdkScrollable, ViewportRuler, ScrollingModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, forwardRef, ElementRef, NgZone, EventEmitter, Optional, Input, HostBinding, Output, HostListener, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, forwardRef, ElementRef, NgZone, EventEmitter, Optional, Input, HostBinding, Output, HostListener, QueryList, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { __extends } from 'tslib';
 import { FocusTrapFactory, FocusMonitor } from '@angular/cdk/a11y';
@@ -57,6 +57,11 @@ var MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZ
     providedIn: 'root',
     factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
+/**
+ * Used to provide a drawer container to a drawer while avoiding circular references.
+ * @docs-private
+ */
+var MAT_DRAWER_CONTAINER = new InjectionToken('MAT_DRAWER_CONTAINER');
 /** @docs-private */
 function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
     return false;
@@ -103,7 +108,12 @@ var MatDrawerContent = /** @class */ (function (_super) {
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
 var MatDrawer = /** @class */ (function () {
-    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc) {
+    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc, 
+    /**
+     * @deprecated `_container` parameter to be made required.
+     * @breaking-change 10.0.0
+     */
+    _container) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
@@ -111,6 +121,7 @@ var MatDrawer = /** @class */ (function () {
         this._platform = _platform;
         this._ngZone = _ngZone;
         this._doc = _doc;
+        this._container = _container;
         this._elementFocusedBeforeDrawerWasOpened = null;
         /** Whether the drawer is initialized. Used for disabling the initial animation. */
         this._enableAnimations = false;
@@ -422,7 +433,8 @@ var MatDrawer = /** @class */ (function () {
         { type: FocusMonitor },
         { type: Platform },
         { type: NgZone },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: MatDrawerContainer, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DRAWER_CONTAINER,] }] }
     ]; };
     MatDrawer.propDecorators = {
         position: [{ type: Input }],
@@ -457,6 +469,8 @@ var MatDrawerContainer = /** @class */ (function () {
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         this._animationMode = _animationMode;
+        /** Drawers that belong to this container. */
+        this._drawers = new QueryList();
         /** Event emitted when the drawer backdrop is clicked. */
         this.backdropClick = new EventEmitter();
         /** Emits when the component is destroyed. */
@@ -539,6 +553,13 @@ var MatDrawerContainer = /** @class */ (function () {
     });
     MatDrawerContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
+        this._allDrawers.changes
+            .pipe(startWith(this._allDrawers), takeUntil(this._destroyed))
+            .subscribe(function (drawer) {
+            // @breaking-change 10.0.0 Remove `_container` check once container parameter is required.
+            _this._drawers.reset(drawer.filter(function (item) { return !item._container || item._container === _this; }));
+            _this._drawers.notifyOnChanges();
+        });
         this._drawers.changes.pipe(startWith(null)).subscribe(function () {
             _this._validateDrawers();
             _this._drawers.forEach(function (drawer) {
@@ -755,6 +776,10 @@ var MatDrawerContainer = /** @class */ (function () {
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
+                    providers: [{
+                            provide: MAT_DRAWER_CONTAINER,
+                            useExisting: MatDrawerContainer
+                        }],
                     styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-container-has-open{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-container.ng-animate-disabled .mat-drawer-backdrop,.mat-drawer-container.ng-animate-disabled .mat-drawer-content,.ng-animate-disabled .mat-drawer-container .mat-drawer-backdrop,.ng-animate-disabled .mat-drawer-container .mat-drawer-content{transition:none}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:background-color,visibility}@media(-ms-high-contrast: active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%, 0, 0)}@media(-ms-high-contrast: active){.mat-drawer,[dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}}@media(-ms-high-contrast: active){[dir=rtl] .mat-drawer,.mat-drawer.mat-drawer-end{border-left:solid 1px currentColor;border-right:none}}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer{transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%, 0, 0)}.mat-drawer-inner-container{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch}.mat-sidenav-fixed{position:fixed}\n"]
                 }] }
     ];
@@ -769,7 +794,11 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatDrawerContainer.propDecorators = {
-        _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],
+        _allDrawers: [{ type: ContentChildren, args: [MatDrawer, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }],
         _content: [{ type: ContentChild, args: [MatDrawerContent, { static: false },] }],
         _userContent: [{ type: ViewChild, args: [MatDrawerContent, { static: false },] }],
         autosize: [{ type: Input }],
@@ -900,11 +929,19 @@ var MatSidenavContainer = /** @class */ (function (_super) {
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
+                    providers: [{
+                            provide: MAT_DRAWER_CONTAINER,
+                            useExisting: MatSidenavContainer
+                        }],
                     styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-container-has-open{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-container.ng-animate-disabled .mat-drawer-backdrop,.mat-drawer-container.ng-animate-disabled .mat-drawer-content,.ng-animate-disabled .mat-drawer-container .mat-drawer-backdrop,.ng-animate-disabled .mat-drawer-container .mat-drawer-content{transition:none}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:background-color,visibility}@media(-ms-high-contrast: active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%, 0, 0)}@media(-ms-high-contrast: active){.mat-drawer,[dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}}@media(-ms-high-contrast: active){[dir=rtl] .mat-drawer,.mat-drawer.mat-drawer-end{border-left:solid 1px currentColor;border-right:none}}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer{transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%, 0, 0)}.mat-drawer-inner-container{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch}.mat-sidenav-fixed{position:fixed}\n"]
                 }] }
     ];
     MatSidenavContainer.propDecorators = {
-        _drawers: [{ type: ContentChildren, args: [MatSidenav,] }],
+        _allDrawers: [{ type: ContentChildren, args: [MatSidenav, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }],
         _content: [{ type: ContentChild, args: [MatSidenavContent, { static: false },] }]
     };
     return MatSidenavContainer;
@@ -962,5 +999,5 @@ var MatSidenavModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MAT_DRAWER_CONTAINER as ɵangular_material_src_material_sidenav_sidenav_a, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavModule, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.js.map
