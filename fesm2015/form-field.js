@@ -70,19 +70,20 @@ const matFormFieldAnimations = {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
  * @template T
  */
 class MatFormFieldControl {
 }
+MatFormFieldControl.decorators = [
+    { type: Directive, args: [{
+                // The @Directive with selector is required here because we're still running a lot of things
+                // against ViewEngine where directives without selectors are not allowed.
+                // TODO(crisbeto): convert to a selectorless Directive after we switch to Ivy.
+                selector: 'do-not-use-abstract-mat-form-field-control',
+            },] }
+];
 if (false) {
     /**
      * The value of the control.
@@ -1126,6 +1127,10 @@ MatFormFieldModule.decorators = [
                     MatPlaceholder,
                     MatPrefix,
                     MatSuffix,
+                    (/** @type {?} */ (
+                    // TODO(crisbeto): can be removed once `MatFormFieldControl`
+                    // is turned into a selector-less directive.
+                    MatFormFieldControl)),
                 ],
                 imports: [
                     CommonModule,

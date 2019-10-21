@@ -74,6 +74,14 @@ var matFormFieldAnimations = {
 var MatFormFieldControl = /** @class */ (function () {
     function MatFormFieldControl() {
     }
+    MatFormFieldControl.decorators = [
+        { type: Directive, args: [{
+                    // The @Directive with selector is required here because we're still running a lot of things
+                    // against ViewEngine where directives without selectors are not allowed.
+                    // TODO(crisbeto): convert to a selectorless Directive after we switch to Ivy.
+                    selector: 'do-not-use-abstract-mat-form-field-control',
+                },] }
+    ];
     return MatFormFieldControl;
 }());
 
@@ -739,6 +747,9 @@ var MatFormFieldModule = /** @class */ (function () {
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
+                        // TODO(crisbeto): can be removed once `MatFormFieldControl`
+                        // is turned into a selector-less directive.
+                        MatFormFieldControl,
                     ],
                     imports: [
                         CommonModule,
@@ -770,5 +781,5 @@ var MatFormFieldModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatFormFieldModule, MatError, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
+export { MatFormFieldControl, MatFormFieldModule, MatError, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
 //# sourceMappingURL=form-field.js.map
