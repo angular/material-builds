@@ -8,7 +8,7 @@
 import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, Overlay, ScrollStrategy, ConnectedPosition } from '@angular/cdk/overlay';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -139,12 +139,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * the trigger completely). If the panel cannot fit below the trigger, it
      * will fall back to a position above the trigger.
      */
-    _positions: {
-        originX: string;
-        originY: string;
-        overlayX: string;
-        overlayY: string;
-    }[];
+    _positions: ConnectedPosition[];
     /** Whether the component is disabling centering of the active option over the trigger. */
     private _disableOptionCentering;
     /** Whether the select is focused. */

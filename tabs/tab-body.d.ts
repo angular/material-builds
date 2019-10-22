@@ -72,7 +72,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     /** The tab body content to display. */
     _content: TemplatePortal;
     /** Position that will be used when the tab is immediately becoming visible after creation. */
-    origin: number;
+    origin: number | null;
     /** Duration for the tab's animation. */
     animationDuration: string;
     /** The shifted index position of the tab body, where zero represents the active center tab. */

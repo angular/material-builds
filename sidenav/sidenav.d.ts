@@ -29,6 +29,6 @@ export declare class MatSidenav extends MatDrawer {
     private _fixedBottomGap;
 }
 export declare class MatSidenavContainer extends MatDrawerContainer {
-    _drawers: QueryList<MatSidenav>;
+    _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
 }

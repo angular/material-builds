@@ -181,7 +181,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
             const scale = this.bufferValue / 100;
             return { transform: `scaleX(${scale})` };
         }
-        return undefined;
+        return null;
     }
     /**
      * @return {?}

@@ -32,6 +32,7 @@ export interface MatProgressBarLocation {
 }
 /** @docs-private */
 export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
+export declare type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
 /**
  * `<mat-progress-bar>` component.
  */
@@ -69,7 +70,7 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
      * 'determinate'.
      * Mirrored to mode attribute.
      */
-    mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';
+    mode: ProgressBarMode;
     /** ID of the progress bar. */
     progressbarId: string;
     /** Attribute to be used for the `fill` attribute on the internal `rect` element. */
@@ -84,7 +85,7 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
      */
     _bufferTransform(): {
         transform: string;
-    } | undefined;
+    } | null;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Emit an animationEnd event if in determinate or buffer mode. */

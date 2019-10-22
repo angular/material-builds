@@ -113,7 +113,7 @@
                 var scale = this.bufferValue / 100;
                 return { transform: "scaleX(" + scale + ")" };
             }
-            return undefined;
+            return null;
         };
         MatProgressBar.prototype.ngAfterViewInit = function () {
             var _this = this;
