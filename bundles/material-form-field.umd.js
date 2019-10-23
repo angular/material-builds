@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/observers'), require('tslib'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/form-field', ['exports', '@angular/common', '@angular/core', '@angular/cdk/observers', 'tslib', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/platform', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}), global.ng.common, global.ng.core, global.ng.cdk.observers, global.tslib, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.material.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.platform, global.ng.platformBrowser.animations));
-}(this, function (exports, common, core, observers, tslib_1, bidi, coercion, core$1, rxjs, operators, animations, platform, animations$1) { 'use strict';
+}(this, function (exports, common, core, observers, tslib, bidi, coercion, core$1, rxjs, operators, animations, platform, animations$1) { 'use strict';
 
     /**
      * @license
@@ -246,7 +246,7 @@
     var MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
     /** Container for form controls that applies Material Design styling and behavior. */
     var MatFormField = /** @class */ (function (_super) {
-        tslib_1.__extends(MatFormField, _super);
+        tslib.__extends(MatFormField, _super);
         function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
             var _this = _super.call(this, _elementRef) || this;
             _this._elementRef = _elementRef;
@@ -608,7 +608,7 @@
                 var labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
                 var labelWidth = 0;
                 try {
-                    for (var _b = tslib_1.__values(labelEl.children), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    for (var _b = tslib.__values(labelEl.children), _c = _b.next(); !_c.done; _c = _b.next()) {
                         var child = _c.value;
                         labelWidth += child.offsetWidth;
                     }

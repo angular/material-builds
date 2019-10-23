@@ -528,7 +528,7 @@ var MatIconRegistry = /** @class */ (function () {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
         { type: ErrorHandler, decorators: [{ type: Optional }] }
     ]; };
-    MatIconRegistry.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
+    MatIconRegistry.ɵprov = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 /** @docs-private */

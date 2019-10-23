@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
     typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/keycodes', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/platform', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.platform, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
-}(this, function (exports, keycodes, core, core$1, tslib_1, coercion, platform, rxjs, operators, animations, a11y, bidi, collections, forms, formField) { 'use strict';
+}(this, function (exports, keycodes, core, core$1, tslib, coercion, platform, rxjs, operators, animations, a11y, bidi, collections, forms, formField) { 'use strict';
 
     /**
      * @license
@@ -70,7 +70,7 @@
      * Material design styled Chip component. Used inside the MatChipList component.
      */
     var MatChip = /** @class */ (function (_super) {
-        tslib_1.__extends(MatChip, _super);
+        tslib.__extends(MatChip, _super);
         function MatChip(_elementRef, _ngZone, platform, globalRippleOptions, 
         // @breaking-change 8.0.0 `animationMode` parameter to become required.
         animationMode, 
@@ -448,7 +448,7 @@
      * A material design chips component (named ChipList for its similarity to the List component).
      */
     var MatChipList = /** @class */ (function (_super) {
-        tslib_1.__extends(MatChipList, _super);
+        tslib.__extends(MatChipList, _super);
         function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, 
         /** @docs-private */
         ngControl) {
@@ -664,7 +664,7 @@
         Object.defineProperty(MatChipList.prototype, "chipSelectionChanges", {
             /** Combined stream of all of the child chips' selection change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, tslib_1.__spread(this.chips.map(function (chip) { return chip.selectionChange; })));
+                return rxjs.merge.apply(void 0, tslib.__spread(this.chips.map(function (chip) { return chip.selectionChange; })));
             },
             enumerable: true,
             configurable: true
@@ -672,7 +672,7 @@
         Object.defineProperty(MatChipList.prototype, "chipFocusChanges", {
             /** Combined stream of all of the child chips' focus change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, tslib_1.__spread(this.chips.map(function (chip) { return chip._onFocus; })));
+                return rxjs.merge.apply(void 0, tslib.__spread(this.chips.map(function (chip) { return chip._onFocus; })));
             },
             enumerable: true,
             configurable: true
@@ -680,7 +680,7 @@
         Object.defineProperty(MatChipList.prototype, "chipBlurChanges", {
             /** Combined stream of all of the child chips' blur change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, tslib_1.__spread(this.chips.map(function (chip) { return chip._onBlur; })));
+                return rxjs.merge.apply(void 0, tslib.__spread(this.chips.map(function (chip) { return chip._onBlur; })));
             },
             enumerable: true,
             configurable: true
@@ -688,7 +688,7 @@
         Object.defineProperty(MatChipList.prototype, "chipRemoveChanges", {
             /** Combined stream of all of the child chips' remove change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, tslib_1.__spread(this.chips.map(function (chip) { return chip.destroyed; })));
+                return rxjs.merge.apply(void 0, tslib.__spread(this.chips.map(function (chip) { return chip.destroyed; })));
             },
             enumerable: true,
             configurable: true

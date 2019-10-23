@@ -108,7 +108,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * @deprecated Switch to `closed` instead
      * @breaking-change 8.0.0
      */
-    close: EventEmitter<void | "click" | "keydown" | "tab">;
+    close: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
     readonly panelId: string;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
     ngOnInit(): void;

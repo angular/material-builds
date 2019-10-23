@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/tree'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', 'tslib', '@angular/cdk/tree', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}), global.tslib, global.ng.cdk.tree, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.common, global.ng.cdk.collections, global.rxjs, global.rxjs.operators));
-}(this, function (exports, tslib_1, tree, core, core$1, coercion, common, collections, rxjs, operators) { 'use strict';
+}(this, function (exports, tslib, tree, core, core$1, coercion, common, collections, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * Wrapper for the CdkTree node with Material design styles.
      */
     var MatTreeNode = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTreeNode, _super);
+        tslib.__extends(MatTreeNode, _super);
         function MatTreeNode(_elementRef, _tree, tabIndex) {
             var _this = _super.call(this, _elementRef, _tree) || this;
             _this._elementRef = _elementRef;
@@ -54,7 +54,7 @@
      * Wrapper for the CdkTree node definition with Material design styles.
      */
     var MatTreeNodeDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTreeNodeDef, _super);
+        tslib.__extends(MatTreeNodeDef, _super);
         function MatTreeNodeDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -76,7 +76,7 @@
      * Wrapper for the CdkTree nested node with Material design styles.
      */
     var MatNestedTreeNode = /** @class */ (function (_super) {
-        tslib_1.__extends(MatNestedTreeNode, _super);
+        tslib.__extends(MatNestedTreeNode, _super);
         function MatNestedTreeNode(_elementRef, _tree, _differs, tabIndex) {
             var _this = _super.call(this, _elementRef, _tree, _differs) || this;
             _this._elementRef = _elementRef;
@@ -147,7 +147,7 @@
      * Wrapper for the CdkTree padding with Material design styles.
      */
     var MatTreeNodePadding = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTreeNodePadding, _super);
+        tslib.__extends(MatTreeNodePadding, _super);
         function MatTreeNodePadding() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -208,7 +208,7 @@
      * Wrapper for the CdkTable with Material design styles.
      */
     var MatTree = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTree, _super);
+        tslib.__extends(MatTree, _super);
         function MatTree() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -247,7 +247,7 @@
      * Wrapper for the CdkTree's toggle with Material design styles.
      */
     var MatTreeNodeToggle = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTreeNodeToggle, _super);
+        tslib.__extends(MatTreeNodeToggle, _super);
         function MatTreeNodeToggle() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.recursive = false;
@@ -413,7 +413,7 @@
      * to type `F` for `MatTree` to consume.
      */
     var MatTreeFlatDataSource = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTreeFlatDataSource, _super);
+        tslib.__extends(MatTreeFlatDataSource, _super);
         function MatTreeFlatDataSource(_treeControl, _treeFlattener, initialData) {
             if (initialData === void 0) { initialData = []; }
             var _this = _super.call(this) || this;
@@ -441,7 +441,7 @@
                 this._treeControl.expansionModel.changed,
                 this._flattenedData
             ];
-            return rxjs.merge.apply(void 0, tslib_1.__spread(changes)).pipe(operators.map(function () {
+            return rxjs.merge.apply(void 0, tslib.__spread(changes)).pipe(operators.map(function () {
                 _this._expandedData.next(_this._treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this._treeControl));
                 return _this._expandedData.value;
             }));
@@ -466,7 +466,7 @@
      * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
      */
     var MatTreeNestedDataSource = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTreeNestedDataSource, _super);
+        tslib.__extends(MatTreeNestedDataSource, _super);
         function MatTreeNestedDataSource() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._data = new rxjs.BehaviorSubject([]);
@@ -483,7 +483,7 @@
         });
         MatTreeNestedDataSource.prototype.connect = function (collectionViewer) {
             var _this = this;
-            return rxjs.merge.apply(void 0, tslib_1.__spread([collectionViewer.viewChange, this._data])).pipe(operators.map(function () {
+            return rxjs.merge.apply(void 0, tslib.__spread([collectionViewer.viewChange, this._data])).pipe(operators.map(function () {
                 return _this.data;
             }));
         };

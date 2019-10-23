@@ -13,17 +13,17 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.0-sha-59154b1ef');
+const VERSION = new Version('9.0.0-next.0-sha-1ad9ef07d');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -70,14 +70,14 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Private version constant to circumvent test/build issues,
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.0.0-next.0-sha-59154b1ef');
+const VERSION$1 = new Version('9.0.0-next.0-sha-1ad9ef07d');
 /**
  * \@docs-private
  * @return {?}
@@ -261,7 +261,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -304,7 +304,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -344,6 +344,14 @@ if (false) {
 function mixinColor(base, defaultColor) {
     return class extends base {
         /**
+         * @param {...?} args
+         */
+        constructor(...args) {
+            super(...args);
+            // Set the default color that can be specified from the mixin.
+            this.color = defaultColor;
+        }
+        /**
          * @return {?}
          */
         get color() { return this._color; }
@@ -364,20 +372,12 @@ function mixinColor(base, defaultColor) {
                 this._color = colorPalette;
             }
         }
-        /**
-         * @param {...?} args
-         */
-        constructor(...args) {
-            super(...args);
-            // Set the default color that can be specified from the mixin.
-            this.color = defaultColor;
-        }
     };
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -421,7 +421,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -475,7 +475,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -557,7 +557,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Mixin that adds an initialized property to a directive which, when subscribed to, will emit a
@@ -653,12 +653,12 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -956,14 +956,14 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(mmalerba): Remove when we no longer support safari 9.
 /**
@@ -1227,7 +1227,7 @@ class NativeDateAdapter extends DateAdapter {
                 date = this.clone(date);
                 date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
             }
-            displayFormat = Object.assign({}, displayFormat, { timeZone: 'utc' });
+            displayFormat = Object.assign(Object.assign({}, displayFormat), { timeZone: 'utc' });
             /** @type {?} */
             const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
             return this._stripDirectionalityCharacters(this._format(dtf, date));
@@ -1410,7 +1410,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1434,7 +1434,7 @@ const MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NativeDateModule {
 }
@@ -1458,7 +1458,7 @@ MatNativeDateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1492,11 +1492,11 @@ class ErrorStateMatcher {
 ErrorStateMatcher.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];
-/** @nocollapse */ ErrorStateMatcher.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+/** @nocollapse */ ErrorStateMatcher.ɵprov = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1651,7 +1651,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
@@ -1802,7 +1802,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1882,7 +1882,7 @@ MatLineModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1950,7 +1950,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Interface that describes the configuration for the animation of a ripple.
@@ -2133,7 +2133,7 @@ class RippleRenderer {
         const containerRect = this._containerRect =
             this._containerRect || this._containerElement.getBoundingClientRect();
         /** @type {?} */
-        const animationConfig = Object.assign({}, defaultRippleAnimationConfig, config.animation);
+        const animationConfig = Object.assign(Object.assign({}, defaultRippleAnimationConfig), config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
             y = containerRect.top + containerRect.height / 2;
@@ -2211,7 +2211,7 @@ class RippleRenderer {
         /** @type {?} */
         const rippleEl = rippleRef.element;
         /** @type {?} */
-        const animationConfig = Object.assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+        const animationConfig = Object.assign(Object.assign({}, defaultRippleAnimationConfig), rippleRef.config.animation);
         rippleEl.style.transitionDuration = `${animationConfig.exitDuration}ms`;
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
@@ -2400,7 +2400,7 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Configurable options for `matRipple`.
@@ -2518,7 +2518,7 @@ class MatRipple {
             centered: this.centered,
             radius: this.radius,
             color: this.color,
-            animation: Object.assign({}, this._globalOptions.animation, this.animation),
+            animation: Object.assign(Object.assign({}, this._globalOptions.animation), this.animation),
             terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
         };
     }
@@ -2549,10 +2549,10 @@ class MatRipple {
      */
     launch(configOrX, y = 0, config) {
         if (typeof configOrX === 'number') {
-            return this._rippleRenderer.fadeInRipple(configOrX, y, Object.assign({}, this.rippleConfig, config));
+            return this._rippleRenderer.fadeInRipple(configOrX, y, Object.assign(Object.assign({}, this.rippleConfig), config));
         }
         else {
-            return this._rippleRenderer.fadeInRipple(0, 0, Object.assign({}, this.rippleConfig, configOrX));
+            return this._rippleRenderer.fadeInRipple(0, 0, Object.assign(Object.assign({}, this.rippleConfig), configOrX));
         }
     }
 }
@@ -2651,7 +2651,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatRippleModule {
 }
@@ -2665,7 +2665,7 @@ MatRippleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -2738,7 +2738,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatPseudoCheckboxModule {
 }
@@ -2751,7 +2751,7 @@ MatPseudoCheckboxModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatOptgroup.
 /**
@@ -2813,7 +2813,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
@@ -3236,7 +3236,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatOptionModule {
 }
@@ -3250,7 +3250,7 @@ MatOptionModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * InjectionToken that can be used to specify the global label options.
@@ -3273,7 +3273,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -3315,7 +3315,7 @@ const DEC = 11;
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**

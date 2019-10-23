@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/observers'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/checkbox', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.forms, global.ng.material.core, global.ng.platformBrowser.animations, global.ng.cdk.observers, global.ng.common));
-}(this, function (exports, tslib_1, a11y, coercion, core, forms, core$1, animations, observers, common) { 'use strict';
+}(this, function (exports, tslib, a11y, coercion, core, forms, core$1, animations, observers, common) { 'use strict';
 
     /**
      * @license
@@ -69,7 +69,7 @@
      * See: https://material.io/design/components/selection-controls.html
      */
     var MatCheckbox = /** @class */ (function (_super) {
-        tslib_1.__extends(MatCheckbox, _super);
+        tslib.__extends(MatCheckbox, _super);
         function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _clickAction, _animationMode) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -416,7 +416,7 @@
      * work with `mat-checkbox`.
      */
     var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
-        tslib_1.__extends(MatCheckboxRequiredValidator, _super);
+        tslib.__extends(MatCheckboxRequiredValidator, _super);
         function MatCheckboxRequiredValidator() {
             return _super !== null && _super.apply(this, arguments) || this;
         }

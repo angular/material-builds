@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing'), require('@angular/cdk/coercion')) :
     typeof define === 'function' && define.amd ? define('@angular/material/slide-toggle/testing', ['exports', 'tslib', '@angular/cdk/testing', '@angular/cdk/coercion'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = global.ng.material.slideToggle || {}, global.ng.material.slideToggle.testing = {}), global.tslib, global.ng.cdk.testing, global.ng.cdk.coercion));
-}(this, function (exports, tslib_1, testing, coercion) { 'use strict';
+}(this, function (exports, tslib, testing, coercion) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatSlideToggleHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSlideToggleHarness, _super);
+        tslib.__extends(MatSlideToggleHarness, _super);
         function MatSlideToggleHarness() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._label = _this.locatorFor('label');
@@ -39,7 +39,7 @@
                 // We want to provide a filter option for "name" because the name of the slide-toggle is
                 // only set on the underlying input. This means that it's not possible for developers
                 // to retrieve the harness of a specific checkbox with name through a CSS selector.
-                .addOption('name', options.name, function (harness, name) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                .addOption('name', options.name, function (harness, name) { return tslib.__awaiter(_this, void 0, void 0, function () { return tslib.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, harness.getName()];
                     case 1: return [2 /*return*/, (_a.sent()) === name];
@@ -48,9 +48,9 @@
         };
         /** Gets a boolean promise indicating if the slide-toggle is checked. */
         MatSlideToggleHarness.prototype.isChecked = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var checked, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -64,9 +64,9 @@
         };
         /** Gets a boolean promise indicating if the slide-toggle is disabled. */
         MatSlideToggleHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -80,9 +80,9 @@
         };
         /** Gets a boolean promise indicating if the slide-toggle is required. */
         MatSlideToggleHarness.prototype.isRequired = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var required, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -96,9 +96,9 @@
         };
         /** Gets a boolean promise indicating if the slide-toggle is valid. */
         MatSlideToggleHarness.prototype.isValid = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var invalid;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -111,8 +111,8 @@
         };
         /** Gets a promise for the slide-toggle's name. */
         MatSlideToggleHarness.prototype.getName = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('name')];
@@ -122,8 +122,8 @@
         };
         /** Gets a promise for the slide-toggle's aria-label. */
         MatSlideToggleHarness.prototype.getAriaLabel = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
@@ -133,8 +133,8 @@
         };
         /** Gets a promise for the slide-toggle's aria-labelledby. */
         MatSlideToggleHarness.prototype.getAriaLabelledby = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-labelledby')];
@@ -144,8 +144,8 @@
         };
         /** Gets a promise for the slide-toggle's label text. */
         MatSlideToggleHarness.prototype.getLabelText = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._label()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -155,8 +155,8 @@
         };
         /** Focuses the slide-toggle and returns a void promise that indicates action completion. */
         MatSlideToggleHarness.prototype.focus = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
@@ -166,8 +166,8 @@
         };
         /** Blurs the slide-toggle and returns a void promise that indicates action completion. */
         MatSlideToggleHarness.prototype.blur = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];
@@ -182,8 +182,8 @@
          * Note: This toggles the slide-toggle as a user would, by clicking it.
          */
         MatSlideToggleHarness.prototype.toggle = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._inputContainer()];
                         case 1: return [2 /*return*/, (_a.sent()).click()];
@@ -199,8 +199,8 @@
          * Note: This attempts to check the slide-toggle as a user would, by clicking it.
          */
         MatSlideToggleHarness.prototype.check = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.isChecked()];
                         case 1:
@@ -222,8 +222,8 @@
          * Note: This toggles the slide-toggle as a user would, by clicking it.
          */
         MatSlideToggleHarness.prototype.uncheck = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.isChecked()];
                         case 1:

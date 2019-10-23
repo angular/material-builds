@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/sidenav/testing', ['exports', 'tslib', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}, global.ng.material.sidenav.testing = {}), global.tslib, global.ng.cdk.testing));
-}(this, function (exports, tslib_1, testing) { 'use strict';
+}(this, function (exports, tslib, testing) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatDrawerHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatDrawerHarness, _super);
+        tslib.__extends(MatDrawerHarness, _super);
         function MatDrawerHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -30,7 +30,7 @@
             var _this = this;
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatDrawerHarness, options)
-                .addOption('position', options.position, function (harness, position) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                .addOption('position', options.position, function (harness, position) { return tslib.__awaiter(_this, void 0, void 0, function () { return tslib.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, harness.getPosition()];
                     case 1: return [2 /*return*/, (_a.sent()) === position];
@@ -39,8 +39,8 @@
         };
         /** Gets whether the drawer is open. */
         MatDrawerHarness.prototype.isOpen = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-drawer-opened')];
@@ -50,9 +50,9 @@
         };
         /** Gets the position of the drawer inside its container. */
         MatDrawerHarness.prototype.getPosition = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var host;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -65,9 +65,9 @@
         };
         /** Gets the mode that the drawer is in. */
         MatDrawerHarness.prototype.getMode = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var host;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -103,7 +103,7 @@
      * @dynamic
      */
     var MatSidenavHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSidenavHarness, _super);
+        tslib.__extends(MatSidenavHarness, _super);
         function MatSidenavHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -117,7 +117,7 @@
             var _this = this;
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatDrawerHarness, options)
-                .addOption('position', options.position, function (harness, position) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                .addOption('position', options.position, function (harness, position) { return tslib.__awaiter(_this, void 0, void 0, function () { return tslib.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, harness.getPosition()];
                     case 1: return [2 /*return*/, (_a.sent()) === position];
@@ -126,8 +126,8 @@
         };
         /** Gets whether the sidenav is fixed in the viewport. */
         MatSidenavHarness.prototype.isFixedInViewport = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-sidenav-fixed')];

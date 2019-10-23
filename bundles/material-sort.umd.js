@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.material.core, global.rxjs, global.ng.animations, global.ng.common));
-}(this, function (exports, i0, tslib_1, coercion, core, rxjs, animations, common) { 'use strict';
+}(this, function (exports, i0, tslib, coercion, core, rxjs, animations, common) { 'use strict';
 
     /**
      * @license
@@ -45,7 +45,7 @@
     var _MatSortMixinBase = core.mixinInitialized(core.mixinDisabled(MatSortBase));
     /** Container for MatSortables to manage the sort state and provide default sort parameters. */
     var MatSort = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSort, _super);
+        tslib.__extends(MatSort, _super);
         function MatSort() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             /** Collection of all registered sortables that this directive manages. */
@@ -275,7 +275,7 @@
         MatSortHeaderIntl.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        MatSortHeaderIntl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+        MatSortHeaderIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
         return MatSortHeaderIntl;
     }());
     /** @docs-private */
@@ -315,7 +315,7 @@
      * column definition.
      */
     var MatSortHeader = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSortHeader, _super);
+        tslib.__extends(MatSortHeader, _super);
         function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef) {
             var _this = 
             // Note that we use a string token for the `_columnDef`, because the value is provided both by

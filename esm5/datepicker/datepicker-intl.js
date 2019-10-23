@@ -44,7 +44,7 @@ var MatDatepickerIntl = /** @class */ (function () {
     MatDatepickerIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    MatDatepickerIntl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+    MatDatepickerIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
 export { MatDatepickerIntl };

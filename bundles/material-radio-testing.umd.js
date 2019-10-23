@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/radio/testing', ['exports', 'tslib', '@angular/cdk/coercion', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.radio = global.ng.material.radio || {}, global.ng.material.radio.testing = {}), global.tslib, global.ng.cdk.coercion, global.ng.cdk.testing));
-}(this, function (exports, tslib_1, coercion, testing) { 'use strict';
+}(this, function (exports, tslib, coercion, testing) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatRadioGroupHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatRadioGroupHarness, _super);
+        tslib.__extends(MatRadioGroupHarness, _super);
         function MatRadioGroupHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -35,9 +35,9 @@
         };
         /** Gets the name of the radio-group. */
         MatRadioGroupHarness.prototype.getName = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var hostName, radioNames;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getGroupNameFromHost()];
                         case 1:
@@ -64,8 +64,8 @@
         };
         /** Gets the id of the radio-group. */
         MatRadioGroupHarness.prototype.getId = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getProperty('id')];
@@ -75,16 +75,16 @@
         };
         /** Gets the checked radio-button in a radio-group. */
         MatRadioGroupHarness.prototype.getCheckedRadioButton = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var _a, _b, radioButton, e_1_1;
                 var e_1, _c;
-                return tslib_1.__generator(this, function (_d) {
+                return tslib.__generator(this, function (_d) {
                     switch (_d.label) {
                         case 0:
                             _d.trys.push([0, 6, 7, 8]);
                             return [4 /*yield*/, this.getRadioButtons()];
                         case 1:
-                            _a = tslib_1.__values.apply(void 0, [_d.sent()]), _b = _a.next();
+                            _a = tslib.__values.apply(void 0, [_d.sent()]), _b = _a.next();
                             _d.label = 2;
                         case 2:
                             if (!!_b.done) return [3 /*break*/, 5];
@@ -116,9 +116,9 @@
         };
         /** Gets the checked value of the radio-group. */
         MatRadioGroupHarness.prototype.getCheckedValue = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var checkedRadio;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.getCheckedRadioButton()];
                         case 1:
@@ -134,8 +134,8 @@
         /** Gets all radio buttons which are part of the radio-group. */
         MatRadioGroupHarness.prototype.getRadioButtons = function (filter) {
             if (filter === void 0) { filter = {}; }
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     return [2 /*return*/, this.locatorForAll(MatRadioButtonHarness.with(filter))()];
                 });
             });
@@ -143,9 +143,9 @@
         /** Checks a radio button in this group. */
         MatRadioGroupHarness.prototype.checkRadioButton = function (filter) {
             if (filter === void 0) { filter = {}; }
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var radioButtons;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.getRadioButtons(filter)];
                         case 1:
@@ -159,8 +159,8 @@
             });
         };
         MatRadioGroupHarness.prototype._getGroupNameFromHost = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('name')];
@@ -169,10 +169,10 @@
             });
         };
         MatRadioGroupHarness.prototype._getNamesFromRadioButtons = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var groupNames, _a, _b, radio, radioName, e_2_1;
                 var e_2, _c;
-                return tslib_1.__generator(this, function (_d) {
+                return tslib.__generator(this, function (_d) {
                     switch (_d.label) {
                         case 0:
                             groupNames = [];
@@ -181,7 +181,7 @@
                             _d.trys.push([1, 7, 8, 9]);
                             return [4 /*yield*/, this.getRadioButtons()];
                         case 2:
-                            _a = tslib_1.__values.apply(void 0, [_d.sent()]), _b = _a.next();
+                            _a = tslib.__values.apply(void 0, [_d.sent()]), _b = _a.next();
                             _d.label = 3;
                         case 3:
                             if (!!_b.done) return [3 /*break*/, 6];
@@ -217,7 +217,7 @@
             var e_3, _a;
             var groupName = null;
             try {
-                for (var radioNames_1 = tslib_1.__values(radioNames), radioNames_1_1 = radioNames_1.next(); !radioNames_1_1.done; radioNames_1_1 = radioNames_1.next()) {
+                for (var radioNames_1 = tslib.__values(radioNames), radioNames_1_1 = radioNames_1.next(); !radioNames_1_1.done; radioNames_1_1 = radioNames_1.next()) {
                     var radioName = radioNames_1_1.value;
                     if (groupName === null) {
                         groupName = radioName;
@@ -241,9 +241,9 @@
          * matching name could be found but has mismatching radio-button names.
          */
         MatRadioGroupHarness._checkRadioGroupName = function (harness, name) {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var radioNames;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, harness._getGroupNameFromHost()];
                         case 1:
@@ -278,7 +278,7 @@
      * @dynamic
      */
     var MatRadioButtonHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatRadioButtonHarness, _super);
+        tslib.__extends(MatRadioButtonHarness, _super);
         function MatRadioButtonHarness() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._textLabel = _this.locatorFor('.mat-radio-label-content');
@@ -300,7 +300,7 @@
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatRadioButtonHarness, options)
                 .addOption('label', options.label, function (harness, label) { return testing.HarnessPredicate.stringMatches(harness.getLabelText(), label); })
-                .addOption('name', options.name, function (harness, name) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                .addOption('name', options.name, function (harness, name) { return tslib.__awaiter(_this, void 0, void 0, function () { return tslib.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, harness.getName()];
                     case 1: return [2 /*return*/, (_a.sent()) === name];
@@ -309,9 +309,9 @@
         };
         /** Whether the radio-button is checked. */
         MatRadioButtonHarness.prototype.isChecked = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var checked, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -325,9 +325,9 @@
         };
         /** Whether the radio-button is disabled. */
         MatRadioButtonHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -341,9 +341,9 @@
         };
         /** Whether the radio-button is required. */
         MatRadioButtonHarness.prototype.isRequired = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var required, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -357,8 +357,8 @@
         };
         /** Gets a promise for the radio-button's name. */
         MatRadioButtonHarness.prototype.getName = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('name')];
@@ -368,8 +368,8 @@
         };
         /** Gets a promise for the radio-button's id. */
         MatRadioButtonHarness.prototype.getId = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getProperty('id')];
@@ -385,8 +385,8 @@
          * intentionally have the `[object Object]` as return value.
          */
         MatRadioButtonHarness.prototype.getValue = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getProperty('value')];
@@ -396,8 +396,8 @@
         };
         /** Gets a promise for the radio-button's label text. */
         MatRadioButtonHarness.prototype.getLabelText = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._textLabel()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -410,8 +410,8 @@
          * action is complete.
          */
         MatRadioButtonHarness.prototype.focus = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
@@ -424,8 +424,8 @@
          * action is complete.
          */
         MatRadioButtonHarness.prototype.blur = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];
@@ -439,8 +439,8 @@
          * the action is complete.
          */
         MatRadioButtonHarness.prototype.check = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.isChecked()];
                         case 1:

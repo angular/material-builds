@@ -528,7 +528,7 @@ var MatIconRegistry = /** @class */ (function () {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
         { type: ErrorHandler, decorators: [{ type: Optional }] }
     ]; };
-    MatIconRegistry.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
+    MatIconRegistry.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 export { MatIconRegistry };

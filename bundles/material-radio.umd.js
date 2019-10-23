@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/radio', ['exports', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/forms', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.radio = {}), global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.forms, global.ng.platformBrowser.animations));
-}(this, function (exports, common, core, core$1, tslib_1, a11y, coercion, collections, forms, animations) { 'use strict';
+}(this, function (exports, common, core, core$1, tslib, a11y, coercion, collections, forms, animations) { 'use strict';
 
     /**
      * @license
@@ -287,7 +287,7 @@
      * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
      */
     var MatRadioButton = /** @class */ (function (_super) {
-        tslib_1.__extends(MatRadioButton, _super);
+        tslib.__extends(MatRadioButton, _super);
         function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetector = _changeDetector;

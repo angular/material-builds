@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/material/button'), require('rxjs'), require('tslib'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/layout')) :
     typeof define === 'function' && define.amd ? define('@angular/material/snack-bar', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', '@angular/material/button', 'rxjs', 'tslib', 'rxjs/operators', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/layout'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.ng.material.button, global.rxjs, global.tslib, global.rxjs.operators, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.layout));
-}(this, function (exports, i1, portal, common, i0, core, button, rxjs, tslib_1, operators, animations, i2, i3) { 'use strict';
+}(this, function (exports, i1, portal, common, i0, core, button, rxjs, tslib, operators, animations, i2, i3) { 'use strict';
 
     /**
      * @license
@@ -218,7 +218,7 @@
      * @docs-private
      */
     var MatSnackBarContainer = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSnackBarContainer, _super);
+        tslib.__extends(MatSnackBarContainer, _super);
         function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef, 
         /** The snack bar configuration. */
         snackBarConfig) {
@@ -466,7 +466,7 @@
          */
         MatSnackBar.prototype.open = function (message, action, config) {
             if (action === void 0) { action = ''; }
-            var _config = tslib_1.__assign({}, this._defaultConfig, config);
+            var _config = tslib.__assign(tslib.__assign({}, this._defaultConfig), config);
             // Since the user doesn't have access to the component, we can
             // override the data to pass in our own message and action.
             _config.data = { message: message, action: action };
@@ -506,7 +506,7 @@
          * Places a new component or a template as the content of the snack bar container.
          */
         MatSnackBar.prototype._attach = function (content, userConfig) {
-            var config = tslib_1.__assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
+            var config = tslib.__assign(tslib.__assign(tslib.__assign({}, new MatSnackBarConfig()), this._defaultConfig), userConfig);
             var overlayRef = this._createOverlay(config);
             var container = this._attachSnackBarContainer(overlayRef, config);
             var snackBarRef = new MatSnackBarRef(container, overlayRef);
@@ -626,7 +626,7 @@
             { type: MatSnackBar, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] },
             { type: MatSnackBarConfig, decorators: [{ type: i0.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
         ]; };
-        MatSnackBar.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i2.LiveAnnouncer), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(i3.BreakpointObserver), i0.ɵɵinject(MatSnackBar, 12), i0.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+        MatSnackBar.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i2.LiveAnnouncer), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(i3.BreakpointObserver), i0.ɵɵinject(MatSnackBar, 12), i0.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
         return MatSnackBar;
     }());
 

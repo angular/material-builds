@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/portal'), require('@angular/cdk/stepper'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/core'), require('@angular/material/icon'), require('tslib'), require('@angular/cdk/a11y'), require('rxjs'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/cdk/portal', '@angular/cdk/stepper', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/core', '@angular/material/icon', 'tslib', '@angular/cdk/a11y', 'rxjs', '@angular/cdk/bidi', 'rxjs/operators', '@angular/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}), global.ng.cdk.portal, global.ng.cdk.stepper, global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.core, global.ng.material.icon, global.tslib, global.ng.cdk.a11y, global.rxjs, global.ng.cdk.bidi, global.rxjs.operators, global.ng.animations));
-}(this, function (exports, portal, stepper, common, i0, button, core, icon, tslib_1, a11y, rxjs, bidi, operators, animations) { 'use strict';
+}(this, function (exports, portal, stepper, common, i0, button, core, icon, tslib, a11y, rxjs, bidi, operators, animations) { 'use strict';
 
     /**
      * @license
@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var MatStepLabel = /** @class */ (function (_super) {
-        tslib_1.__extends(MatStepLabel, _super);
+        tslib.__extends(MatStepLabel, _super);
         function MatStepLabel() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -45,7 +45,7 @@
         MatStepperIntl.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        MatStepperIntl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+        MatStepperIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
         return MatStepperIntl;
     }());
     /** @docs-private */
@@ -67,7 +67,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var MatStepHeader = /** @class */ (function (_super) {
-        tslib_1.__extends(MatStepHeader, _super);
+        tslib.__extends(MatStepHeader, _super);
         function MatStepHeader(_intl, _focusMonitor, _elementRef, changeDetectorRef) {
             var _this = _super.call(this, _elementRef) || this;
             _this._intl = _intl;
@@ -216,7 +216,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var MatStep = /** @class */ (function (_super) {
-        tslib_1.__extends(MatStep, _super);
+        tslib.__extends(MatStep, _super);
         /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
         function MatStep(stepper, _errorStateMatcher, stepperOptions) {
             var _this = _super.call(this, stepper, stepperOptions) || this;
@@ -255,7 +255,7 @@
         return MatStep;
     }(stepper.CdkStep));
     var MatStepper = /** @class */ (function (_super) {
-        tslib_1.__extends(MatStepper, _super);
+        tslib.__extends(MatStepper, _super);
         function MatStepper() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             /** Event emitted when the current step is done transitioning in. */
@@ -301,7 +301,7 @@
         return MatStepper;
     }(stepper.CdkStepper));
     var MatHorizontalStepper = /** @class */ (function (_super) {
-        tslib_1.__extends(MatHorizontalStepper, _super);
+        tslib.__extends(MatHorizontalStepper, _super);
         function MatHorizontalStepper() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             /** Whether the label should display in bottom or end position. */
@@ -338,7 +338,7 @@
         return MatHorizontalStepper;
     }(MatStepper));
     var MatVerticalStepper = /** @class */ (function (_super) {
-        tslib_1.__extends(MatVerticalStepper, _super);
+        tslib.__extends(MatVerticalStepper, _super);
         function MatVerticalStepper(dir, changeDetectorRef, 
         // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
         elementRef, _document) {
@@ -387,7 +387,7 @@
      */
     /** Button that moves to the next step in a stepper workflow. */
     var MatStepperNext = /** @class */ (function (_super) {
-        tslib_1.__extends(MatStepperNext, _super);
+        tslib.__extends(MatStepperNext, _super);
         function MatStepperNext() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -404,7 +404,7 @@
     }(stepper.CdkStepperNext));
     /** Button that moves to the previous step in a stepper workflow. */
     var MatStepperPrevious = /** @class */ (function (_super) {
-        tslib_1.__extends(MatStepperPrevious, _super);
+        tslib.__extends(MatStepperPrevious, _super);
         function MatStepperPrevious() {
             return _super !== null && _super.apply(this, arguments) || this;
         }

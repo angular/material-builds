@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 /**
@@ -31,7 +31,7 @@ export class MatSliderHarness extends ComponentHarness {
     }
     /** Gets the slider's id. */
     getId() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const id = yield (yield this.host()).getAttribute('id');
             // In case no id has been specified, the "id" property always returns
             // an empty string. To make this method more explicit, we return null.
@@ -40,44 +40,44 @@ export class MatSliderHarness extends ComponentHarness {
     }
     /** Gets the current display value of the slider. */
     getDisplayValue() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this._textLabel()).text();
         });
     }
     /** Gets the current percentage value of the slider. */
     getPercentage() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return this._calculatePercentage(yield this.getValue());
         });
     }
     /** Gets the current value of the slider. */
     getValue() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return coerceNumberProperty(yield (yield this.host()).getAttribute('aria-valuenow'));
         });
     }
     /** Gets the maximum value of the slider. */
     getMaxValue() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return coerceNumberProperty(yield (yield this.host()).getAttribute('aria-valuemax'));
         });
     }
     /** Gets the minimum value of the slider. */
     getMinValue() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return coerceNumberProperty(yield (yield this.host()).getAttribute('aria-valuemin'));
         });
     }
     /** Whether the slider is disabled. */
     isDisabled() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const disabled = (yield this.host()).getAttribute('aria-disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
     /** Gets the orientation of the slider. */
     getOrientation() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             // "aria-orientation" will always be set to either "horizontal" or "vertical".
             return (yield this.host()).getAttribute('aria-orientation');
         });
@@ -91,7 +91,7 @@ export class MatSliderHarness extends ComponentHarness {
      * select the given value or expand the slider's size for a better user experience.
      */
     setValue(value) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const [sliderEl, wrapperEl, orientation] = yield Promise.all([this.host(), this._wrapper(), this.getOrientation()]);
             let percentage = yield this._calculatePercentage(value);
             const { height, width } = yield wrapperEl.getDimensions();
@@ -113,7 +113,7 @@ export class MatSliderHarness extends ComponentHarness {
      * action is complete.
      */
     focus() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).focus();
         });
     }
@@ -122,13 +122,13 @@ export class MatSliderHarness extends ComponentHarness {
      * action is complete.
      */
     blur() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).blur();
         });
     }
     /** Calculates the percentage of the given value. */
     _calculatePercentage(value) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const [min, max] = yield Promise.all([this.getMinValue(), this.getMaxValue()]);
             return (value - min) / (max - min);
         });

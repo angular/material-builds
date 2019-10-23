@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 /**
  * Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests.
@@ -18,13 +18,13 @@ export class MatAutocompleteOptionHarness extends ComponentHarness {
     }
     /** Clicks the option. */
     select() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).click();
         });
     }
     /** Gets a promise for the option's label text. */
     getText() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).text();
         });
     }
@@ -45,7 +45,7 @@ export class MatAutocompleteOptionGroupHarness extends ComponentHarness {
     }
     /** Gets a promise for the option group's label text. */
     getLabelText() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this._label()).text();
         });
     }

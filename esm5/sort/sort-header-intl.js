@@ -27,7 +27,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
     MatSortHeaderIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    MatSortHeaderIntl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    MatSortHeaderIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
 export { MatSortHeaderIntl };

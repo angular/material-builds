@@ -132,7 +132,7 @@ var MatMenuHarness = /** @class */ (function (_super) {
                     case 1:
                         panelId = _a.sent();
                         if (panelId) {
-                            return [2 /*return*/, this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(__assign({}, filters, { ancestor: "#" + panelId })))()];
+                            return [2 /*return*/, this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(__assign(__assign({}, filters), { ancestor: "#" + panelId })))()];
                         }
                         return [2 /*return*/, []];
                 }

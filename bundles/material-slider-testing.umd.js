@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing'), require('@angular/cdk/coercion')) :
     typeof define === 'function' && define.amd ? define('@angular/material/slider/testing', ['exports', 'tslib', '@angular/cdk/testing', '@angular/cdk/coercion'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = global.ng.material.slider || {}, global.ng.material.slider.testing = {}), global.tslib, global.ng.cdk.testing, global.ng.cdk.coercion));
-}(this, function (exports, tslib_1, testing, coercion) { 'use strict';
+}(this, function (exports, tslib, testing, coercion) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatSliderHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSliderHarness, _super);
+        tslib.__extends(MatSliderHarness, _super);
         function MatSliderHarness() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._textLabel = _this.locatorFor('.mat-slider-thumb-label-text');
@@ -37,9 +37,9 @@
         };
         /** Gets the slider's id. */
         MatSliderHarness.prototype.getId = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var id;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [4 /*yield*/, (_a.sent()).getAttribute('id')];
@@ -54,8 +54,8 @@
         };
         /** Gets the current display value of the slider. */
         MatSliderHarness.prototype.getDisplayValue = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._textLabel()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -65,9 +65,9 @@
         };
         /** Gets the current percentage value of the slider. */
         MatSliderHarness.prototype.getPercentage = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
                             _a = this._calculatePercentage;
@@ -79,9 +79,9 @@
         };
         /** Gets the current value of the slider. */
         MatSliderHarness.prototype.getValue = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
                             _a = coercion.coerceNumberProperty;
@@ -94,9 +94,9 @@
         };
         /** Gets the maximum value of the slider. */
         MatSliderHarness.prototype.getMaxValue = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
                             _a = coercion.coerceNumberProperty;
@@ -109,9 +109,9 @@
         };
         /** Gets the minimum value of the slider. */
         MatSliderHarness.prototype.getMinValue = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
                             _a = coercion.coerceNumberProperty;
@@ -124,9 +124,9 @@
         };
         /** Whether the slider is disabled. */
         MatSliderHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -140,8 +140,8 @@
         };
         /** Gets the orientation of the slider. */
         MatSliderHarness.prototype.getOrientation = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: 
@@ -160,13 +160,13 @@
          * select the given value or expand the slider's size for a better user experience.
          */
         MatSliderHarness.prototype.setValue = function (value) {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var _a, sliderEl, wrapperEl, orientation, percentage, _b, height, width, isVertical, relativeX, relativeY;
-                return tslib_1.__generator(this, function (_c) {
+                return tslib.__generator(this, function (_c) {
                     switch (_c.label) {
                         case 0: return [4 /*yield*/, Promise.all([this.host(), this._wrapper(), this.getOrientation()])];
                         case 1:
-                            _a = tslib_1.__read.apply(void 0, [_c.sent(), 3]), sliderEl = _a[0], wrapperEl = _a[1], orientation = _a[2];
+                            _a = tslib.__read.apply(void 0, [_c.sent(), 3]), sliderEl = _a[0], wrapperEl = _a[1], orientation = _a[2];
                             return [4 /*yield*/, this._calculatePercentage(value)];
                         case 2:
                             percentage = _c.sent();
@@ -196,8 +196,8 @@
          * action is complete.
          */
         MatSliderHarness.prototype.focus = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
@@ -210,8 +210,8 @@
          * action is complete.
          */
         MatSliderHarness.prototype.blur = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];
@@ -221,13 +221,13 @@
         };
         /** Calculates the percentage of the given value. */
         MatSliderHarness.prototype._calculatePercentage = function (value) {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var _a, min, max;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, Promise.all([this.getMinValue(), this.getMaxValue()])];
                         case 1:
-                            _a = tslib_1.__read.apply(void 0, [_b.sent(), 2]), min = _a[0], max = _a[1];
+                            _a = tslib.__read.apply(void 0, [_b.sent(), 2]), min = _a[0], max = _a[1];
                             return [2 /*return*/, (value - min) / (max - min)];
                     }
                 });

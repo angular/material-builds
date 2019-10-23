@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MatAutocompleteOptionGroupHarness, MatAutocompleteOptionHarness } from './option-harness';
@@ -34,50 +34,50 @@ export class MatAutocompleteHarness extends ComponentHarness {
     }
     /** Gets the value of the autocomplete input. */
     getValue() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getProperty('value');
         });
     }
     /** Gets a boolean promise indicating if the autocomplete input is disabled. */
     isDisabled() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const disabled = (yield this.host()).getAttribute('disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
     /** Focuses the input and returns a void promise that indicates when the action is complete. */
     focus() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).focus();
         });
     }
     /** Blurs the input and returns a void promise that indicates when the action is complete. */
     blur() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).blur();
         });
     }
     /** Enters text into the autocomplete. */
     enterText(value) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).sendKeys(value);
         });
     }
     /** Gets the options inside the autocomplete panel. */
     getOptions(filters = {}) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness.with(filters))();
         });
     }
     /** Gets the groups of options inside the panel. */
     getOptionGroups(filters = {}) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness.with(filters))();
         });
     }
     /** Selects the first option matching the given filters. */
     selectOption(filters) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield this.focus(); // Focus the input to make sure the autocomplete panel is shown.
             const options = yield this.getOptions(filters);
             if (!options.length) {
@@ -88,7 +88,7 @@ export class MatAutocompleteHarness extends ComponentHarness {
     }
     /** Gets whether the autocomplete is open. */
     isOpen() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const panel = yield this._optionalPanel();
             return !!panel && (yield panel.hasClass('mat-autocomplete-visible'));
         });

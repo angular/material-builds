@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/checkbox/testing', ['exports', 'tslib', '@angular/cdk/coercion', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}, global.ng.material.checkbox.testing = {}), global.tslib, global.ng.cdk.coercion, global.ng.cdk.testing));
-}(this, function (exports, tslib_1, coercion, testing) { 'use strict';
+}(this, function (exports, tslib, coercion, testing) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatCheckboxHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatCheckboxHarness, _super);
+        tslib.__extends(MatCheckboxHarness, _super);
         function MatCheckboxHarness() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._label = _this.locatorFor('.mat-checkbox-label');
@@ -40,7 +40,7 @@
                 // We want to provide a filter option for "name" because the name of the checkbox is
                 // only set on the underlying input. This means that it's not possible for developers
                 // to retrieve the harness of a specific checkbox with name through a CSS selector.
-                .addOption('name', options.name, function (harness, name) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                .addOption('name', options.name, function (harness, name) { return tslib.__awaiter(_this, void 0, void 0, function () { return tslib.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, harness.getName()];
                     case 1: return [2 /*return*/, (_a.sent()) === name];
@@ -49,9 +49,9 @@
         };
         /** Gets a boolean promise indicating if the checkbox is checked. */
         MatCheckboxHarness.prototype.isChecked = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var checked, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -65,9 +65,9 @@
         };
         /** Gets a boolean promise indicating if the checkbox is in an indeterminate state. */
         MatCheckboxHarness.prototype.isIndeterminate = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var indeterminate, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -81,9 +81,9 @@
         };
         /** Gets a boolean promise indicating if the checkbox is disabled. */
         MatCheckboxHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -97,9 +97,9 @@
         };
         /** Gets a boolean promise indicating if the checkbox is required. */
         MatCheckboxHarness.prototype.isRequired = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var required, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1:
@@ -113,9 +113,9 @@
         };
         /** Gets a boolean promise indicating if the checkbox is valid. */
         MatCheckboxHarness.prototype.isValid = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var invalid;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -128,8 +128,8 @@
         };
         /** Gets a promise for the checkbox's name. */
         MatCheckboxHarness.prototype.getName = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('name')];
@@ -139,8 +139,8 @@
         };
         /** Gets a promise for the checkbox's value. */
         MatCheckboxHarness.prototype.getValue = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getProperty('value')];
@@ -150,8 +150,8 @@
         };
         /** Gets a promise for the checkbox's aria-label. */
         MatCheckboxHarness.prototype.getAriaLabel = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
@@ -161,8 +161,8 @@
         };
         /** Gets a promise for the checkbox's aria-labelledby. */
         MatCheckboxHarness.prototype.getAriaLabelledby = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-labelledby')];
@@ -172,8 +172,8 @@
         };
         /** Gets a promise for the checkbox's label text. */
         MatCheckboxHarness.prototype.getLabelText = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._label()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -183,8 +183,8 @@
         };
         /** Focuses the checkbox and returns a void promise that indicates when the action is complete. */
         MatCheckboxHarness.prototype.focus = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
@@ -194,8 +194,8 @@
         };
         /** Blurs the checkbox and returns a void promise that indicates when the action is complete. */
         MatCheckboxHarness.prototype.blur = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._input()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];
@@ -212,8 +212,8 @@
          * might not have the expected result.
          */
         MatCheckboxHarness.prototype.toggle = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._inputContainer()];
                         case 1: return [2 /*return*/, (_a.sent()).click()];
@@ -231,8 +231,8 @@
          * might not have the expected result.
          */
         MatCheckboxHarness.prototype.check = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.isChecked()];
                         case 1:
@@ -256,8 +256,8 @@
          * might not have the expected result.
          */
         MatCheckboxHarness.prototype.uncheck = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.isChecked()];
                         case 1:

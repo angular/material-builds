@@ -79,7 +79,7 @@ class MatMenuHarness extends ComponentHarness {
         return __awaiter(this, void 0, void 0, function* () {
             const panelId = yield this._getPanelId();
             if (panelId) {
-                return this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(Object.assign({}, filters, { ancestor: `#${panelId}` })))();
+                return this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(Object.assign(Object.assign({}, filters), { ancestor: `#${panelId}` })))();
             }
             return [];
         });

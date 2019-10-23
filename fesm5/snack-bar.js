@@ -473,7 +473,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     MatSnackBar.prototype.open = function (message, action, config) {
         if (action === void 0) { action = ''; }
-        var _config = __assign({}, this._defaultConfig, config);
+        var _config = __assign(__assign({}, this._defaultConfig), config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
@@ -513,7 +513,7 @@ var MatSnackBar = /** @class */ (function () {
      * Places a new component or a template as the content of the snack bar container.
      */
     MatSnackBar.prototype._attach = function (content, userConfig) {
-        var config = __assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
+        var config = __assign(__assign(__assign({}, new MatSnackBarConfig()), this._defaultConfig), userConfig);
         var overlayRef = this._createOverlay(config);
         var container = this._attachSnackBarContainer(overlayRef, config);
         var snackBarRef = new MatSnackBarRef(container, overlayRef);
@@ -633,7 +633,7 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf }] },
         { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
-    MatSnackBar.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+    MatSnackBar.ɵprov = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
 }());
 

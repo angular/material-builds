@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing'), require('@angular/cdk/coercion')) :
     typeof define === 'function' && define.amd ? define('@angular/material/button/testing', ['exports', 'tslib', '@angular/cdk/testing', '@angular/cdk/coercion'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.button = global.ng.material.button || {}, global.ng.material.button.testing = {}), global.tslib, global.ng.cdk.testing, global.ng.cdk.coercion));
-}(this, function (exports, tslib_1, testing, coercion) { 'use strict';
+}(this, function (exports, tslib, testing, coercion) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatButtonHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatButtonHarness, _super);
+        tslib.__extends(MatButtonHarness, _super);
         function MatButtonHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -34,8 +34,8 @@
         };
         /** Clicks the button. */
         MatButtonHarness.prototype.click = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).click()];
@@ -45,9 +45,9 @@
         };
         /** Gets a boolean promise indicating if the button is disabled. */
         MatButtonHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -61,8 +61,8 @@
         };
         /** Gets a promise for the button's label text. */
         MatButtonHarness.prototype.getText = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -72,8 +72,8 @@
         };
         /** Focuses the button and returns a void promise that indicates when the action is complete. */
         MatButtonHarness.prototype.focus = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
@@ -83,8 +83,8 @@
         };
         /** Blurs the button and returns a void promise that indicates when the action is complete. */
         MatButtonHarness.prototype.blur = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];

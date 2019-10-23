@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}), global.ng.cdk.overlay, global.ng.cdk.a11y, global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.cdk.layout, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.rxjs, global.rxjs.operators, global.ng.animations));
-}(this, function (exports, overlay, a11y, common, core, core$1, tslib_1, bidi, coercion, keycodes, layout, platform, portal, scrolling, rxjs, operators, animations) { 'use strict';
+}(this, function (exports, overlay, a11y, common, core, core$1, tslib, bidi, coercion, keycodes, layout, platform, portal, scrolling, rxjs, operators, animations) { 'use strict';
 
     /**
      * @license
@@ -338,8 +338,8 @@
             var origin = this._getOrigin();
             var overlay = this._getOverlayPosition();
             position.withPositions([
-                tslib_1.__assign({}, origin.main, overlay.main),
-                tslib_1.__assign({}, origin.fallback, overlay.fallback)
+                tslib.__assign(tslib.__assign({}, origin.main), overlay.main),
+                tslib.__assign(tslib.__assign({}, origin.fallback), overlay.fallback)
             ]);
         };
         /**

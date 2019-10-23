@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core')) :
     typeof define === 'function' && define.amd ? define('@angular/material/button-toggle', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/core', '@angular/forms', '@angular/material/core'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.buttonToggle = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.core, global.ng.forms, global.ng.material.core));
-}(this, function (exports, tslib_1, a11y, coercion, collections, core, forms, core$1) { 'use strict';
+}(this, function (exports, tslib, a11y, coercion, collections, core, forms, core$1) { 'use strict';
 
     /**
      * @license
@@ -150,7 +150,7 @@
         };
         MatButtonToggleGroup.prototype.ngAfterContentInit = function () {
             var _a;
-            (_a = this._selectionModel).select.apply(_a, tslib_1.__spread(this._buttonToggles.filter(function (toggle) { return toggle.checked; })));
+            (_a = this._selectionModel).select.apply(_a, tslib.__spread(this._buttonToggles.filter(function (toggle) { return toggle.checked; })));
         };
         /**
          * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -324,7 +324,7 @@
     var _MatButtonToggleMixinBase = core$1.mixinDisableRipple(MatButtonToggleBase);
     /** Single button inside of a toggle group. */
     var MatButtonToggle = /** @class */ (function (_super) {
-        tslib_1.__extends(MatButtonToggle, _super);
+        tslib.__extends(MatButtonToggle, _super);
         function MatButtonToggle(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, 
         // @breaking-change 8.0.0 `defaultTabIndex` to be made a required parameter.
         defaultTabIndex, defaultOptions) {

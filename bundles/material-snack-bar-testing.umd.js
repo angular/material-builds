@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/snack-bar/testing', ['exports', 'tslib', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = global.ng.material.snackBar || {}, global.ng.material.snackBar.testing = {}), global.tslib, global.ng.cdk.testing));
-}(this, function (exports, tslib_1, testing) { 'use strict';
+}(this, function (exports, tslib, testing) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatSnackBarHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSnackBarHarness, _super);
+        tslib.__extends(MatSnackBarHarness, _super);
         function MatSnackBarHarness() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._simpleSnackBar = _this.locatorForOptional('.mat-simple-snackbar');
@@ -41,8 +41,8 @@
          * on the ARIA politeness specified in the snack-bar config.
          */
         MatSnackBarHarness.prototype.getRole = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('role')];
@@ -55,8 +55,8 @@
          * used for snack-bar's with custom content.
          */
         MatSnackBarHarness.prototype.hasAction = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
                         case 1:
@@ -72,8 +72,8 @@
          * used for snack-bar's without action or with custom content.
          */
         MatSnackBarHarness.prototype.getActionDescription = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBarWithAction()];
                         case 1:
@@ -89,8 +89,8 @@
          * be used for snack-bar's without action or with custom content.
          */
         MatSnackBarHarness.prototype.dismissWithAction = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBarWithAction()];
                         case 1:
@@ -109,8 +109,8 @@
          * snack-bar's with custom content.
          */
         MatSnackBarHarness.prototype.getMessage = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
                         case 1:
@@ -126,8 +126,8 @@
          * custom content is used.
          */
         MatSnackBarHarness.prototype._assertSimpleSnackBar = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._isSimpleSnackBar()];
                         case 1:
@@ -144,8 +144,8 @@
          * an action defined. Otherwise an error will be thrown.
          */
         MatSnackBarHarness.prototype._assertSimpleSnackBarWithAction = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
                         case 1:
@@ -162,8 +162,8 @@
         };
         /** Gets whether the snack-bar is using the default content template. */
         MatSnackBarHarness.prototype._isSimpleSnackBar = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._simpleSnackBar()];
                         case 1: return [2 /*return*/, (_a.sent()) !== null];

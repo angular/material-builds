@@ -512,7 +512,7 @@ var MatBottomSheet = /** @class */ (function () {
         { type: Location, decorators: [{ type: Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ]; };
-    MatBottomSheet.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**
@@ -522,7 +522,7 @@ var MatBottomSheet = /** @class */ (function () {
  * @returns The new configuration object with defaults applied.
  */
 function _applyConfigDefaults(defaults, config) {
-    return __assign({}, defaults, config);
+    return __assign(__assign({}, defaults), config);
 }
 
 /**

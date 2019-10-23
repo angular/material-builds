@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/layout', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.layout, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.bidi, global.rxjs, global.ng.cdk.keycodes, global.rxjs.operators));
-}(this, function (exports, i1, portal, i2, i0, core, tslib_1, layout, animations, a11y, bidi, rxjs, keycodes, operators) { 'use strict';
+}(this, function (exports, i1, portal, i2, i0, core, tslib, layout, animations, a11y, bidi, rxjs, keycodes, operators) { 'use strict';
 
     /**
      * @license
@@ -77,7 +77,7 @@
      * @docs-private
      */
     var MatBottomSheetContainer = /** @class */ (function (_super) {
-        tslib_1.__extends(MatBottomSheetContainer, _super);
+        tslib.__extends(MatBottomSheetContainer, _super);
         function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document, 
         /** The bottom sheet configuration. */
         bottomSheetConfig) {
@@ -504,7 +504,7 @@
             { type: i2.Location, decorators: [{ type: i0.Optional }] },
             { type: MatBottomSheetConfig, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
         ]; };
-        MatBottomSheet.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(i2.Location, 8), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+        MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(i2.Location, 8), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
         return MatBottomSheet;
     }());
     /**
@@ -514,7 +514,7 @@
      * @returns The new configuration object with defaults applied.
      */
     function _applyConfigDefaults(defaults, config) {
-        return tslib_1.__assign({}, defaults, config);
+        return tslib.__assign(tslib.__assign({}, defaults), config);
     }
 
     /**

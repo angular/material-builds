@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing'), require('@angular/cdk/coercion')) :
     typeof define === 'function' && define.amd ? define('@angular/material/menu/testing', ['exports', 'tslib', '@angular/cdk/testing', '@angular/cdk/coercion'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}, global.ng.material.menu.testing = {}), global.tslib, global.ng.cdk.testing, global.ng.cdk.coercion));
-}(this, function (exports, tslib_1, testing, coercion) { 'use strict';
+}(this, function (exports, tslib, testing, coercion) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatMenuHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatMenuHarness, _super);
+        tslib.__extends(MatMenuHarness, _super);
         function MatMenuHarness() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._documentRootLocator = _this.documentRootLocatorFactory();
@@ -37,9 +37,9 @@
         };
         /** Gets a boolean promise indicating if the menu is disabled. */
         MatMenuHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -53,8 +53,8 @@
         };
         /** Whether the menu is open. */
         MatMenuHarness.prototype.isOpen = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getMenuPanel()];
                         case 1: return [2 /*return*/, !!(_a.sent())];
@@ -63,8 +63,8 @@
             });
         };
         MatMenuHarness.prototype.getTriggerText = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -74,8 +74,8 @@
         };
         /** Focuses the menu and returns a void promise that indicates when the action is complete. */
         MatMenuHarness.prototype.focus = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
@@ -85,8 +85,8 @@
         };
         /** Blurs the menu and returns a void promise that indicates when the action is complete. */
         MatMenuHarness.prototype.blur = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];
@@ -95,8 +95,8 @@
             });
         };
         MatMenuHarness.prototype.open = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.isOpen()];
                         case 1:
@@ -109,9 +109,9 @@
             });
         };
         MatMenuHarness.prototype.close = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var panel;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getMenuPanel()];
                         case 1:
@@ -126,15 +126,15 @@
         };
         MatMenuHarness.prototype.getItems = function (filters) {
             if (filters === void 0) { filters = {}; }
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var panelId;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getPanelId()];
                         case 1:
                             panelId = _a.sent();
                             if (panelId) {
-                                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(tslib_1.__assign({}, filters, { ancestor: "#" + panelId })))()];
+                                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(tslib.__assign(tslib.__assign({}, filters), { ancestor: "#" + panelId })))()];
                             }
                             return [2 /*return*/, []];
                     }
@@ -146,9 +146,9 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 filters[_i - 1] = arguments[_i];
             }
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var items, menu;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.open()];
                         case 1:
@@ -168,15 +168,15 @@
                             if (!menu) {
                                 throw Error("Item matching " + JSON.stringify(filter) + " does not have a submenu");
                             }
-                            return [2 /*return*/, menu.clickItem.apply(menu, tslib_1.__spread(filters))];
+                            return [2 /*return*/, menu.clickItem.apply(menu, tslib.__spread(filters))];
                     }
                 });
             });
         };
         MatMenuHarness.prototype._getMenuPanel = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var panelId;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getPanelId()];
                         case 1:
@@ -187,9 +187,9 @@
             });
         };
         MatMenuHarness.prototype._getPanelId = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var panelId;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-controls')];
@@ -208,7 +208,7 @@
      * @dynamic
      */
     var MatMenuItemHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatMenuItemHarness, _super);
+        tslib.__extends(MatMenuItemHarness, _super);
         function MatMenuItemHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -224,7 +224,7 @@
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatMenuItemHarness, options)
                 .addOption('text', options.text, function (harness, text) { return testing.HarnessPredicate.stringMatches(harness.getText(), text); })
-                .addOption('hasSubmenu', options.hasSubmenu, function (harness, hasSubmenu) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                .addOption('hasSubmenu', options.hasSubmenu, function (harness, hasSubmenu) { return tslib.__awaiter(_this, void 0, void 0, function () { return tslib.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, harness.hasSubmenu()];
                     case 1: return [2 /*return*/, (_a.sent()) === hasSubmenu];
@@ -233,9 +233,9 @@
         };
         /** Gets a boolean promise indicating if the menu is disabled. */
         MatMenuItemHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
-                return tslib_1.__generator(this, function (_b) {
+                return tslib.__generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -248,8 +248,8 @@
             });
         };
         MatMenuItemHarness.prototype.getText = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -259,8 +259,8 @@
         };
         /** Focuses the menu and returns a void promise that indicates when the action is complete. */
         MatMenuItemHarness.prototype.focus = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
@@ -270,8 +270,8 @@
         };
         /** Blurs the menu and returns a void promise that indicates when the action is complete. */
         MatMenuItemHarness.prototype.blur = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];
@@ -281,8 +281,8 @@
         };
         /** Clicks the menu item. */
         MatMenuItemHarness.prototype.click = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).click()];
@@ -292,8 +292,8 @@
         };
         /** Whether this item has a submenu. */
         MatMenuItemHarness.prototype.hasSubmenu = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).matchesSelector(MatMenuHarness.hostSelector)];
@@ -303,8 +303,8 @@
         };
         /** Gets the submenu associated with this menu item, or null if none. */
         MatMenuItemHarness.prototype.getSubmenu = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.hasSubmenu()];
                         case 1:

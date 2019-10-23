@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/cdk/platform', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}), global.ng.cdk.platform, global.ng.cdk.scrolling, global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.platformBrowser.animations));
-}(this, function (exports, platform, scrolling, common, core, core$1, tslib_1, a11y, bidi, coercion, keycodes, rxjs, operators, animations, animations$1) { 'use strict';
+}(this, function (exports, platform, scrolling, common, core, core$1, tslib, a11y, bidi, coercion, keycodes, rxjs, operators, animations, animations$1) { 'use strict';
 
     /**
      * @license
@@ -58,7 +58,7 @@
         return false;
     }
     var MatDrawerContent = /** @class */ (function (_super) {
-        tslib_1.__extends(MatDrawerContent, _super);
+        tslib.__extends(MatDrawerContent, _super);
         function MatDrawerContent(_changeDetectorRef, _container, elementRef, scrollDispatcher, ngZone) {
             var _this = _super.call(this, elementRef, scrollDispatcher, ngZone) || this;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -807,7 +807,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var MatSidenavContent = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSidenavContent, _super);
+        tslib.__extends(MatSidenavContent, _super);
         function MatSidenavContent(changeDetectorRef, container, elementRef, scrollDispatcher, ngZone) {
             return _super.call(this, changeDetectorRef, container, elementRef, scrollDispatcher, ngZone) || this;
         }
@@ -836,7 +836,7 @@
         return MatSidenavContent;
     }(MatDrawerContent));
     var MatSidenav = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSidenav, _super);
+        tslib.__extends(MatSidenav, _super);
         function MatSidenav() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._fixedInViewport = false;
@@ -904,7 +904,7 @@
         return MatSidenav;
     }(MatDrawer));
     var MatSidenavContainer = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSidenavContainer, _super);
+        tslib.__extends(MatSidenavContainer, _super);
         function MatSidenavContainer() {
             return _super !== null && _super.apply(this, arguments) || this;
         }

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/progress-spinner', ['exports', '@angular/core', '@angular/common', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressSpinner = {}), global.ng.core, global.ng.common, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.platformBrowser.animations));
-}(this, function (exports, core, common, core$1, tslib_1, coercion, platform, animations) { 'use strict';
+}(this, function (exports, core, common, core$1, tslib, coercion, platform, animations) { 'use strict';
 
     /**
      * @license
@@ -48,7 +48,7 @@
      * `<mat-progress-spinner>` component.
      */
     var MatProgressSpinner = /** @class */ (function (_super) {
-        tslib_1.__extends(MatProgressSpinner, _super);
+        tslib.__extends(MatProgressSpinner, _super);
         function MatProgressSpinner(_elementRef, platform, _document, animationMode, defaults) {
             var _this = _super.call(this, _elementRef) || this;
             _this._elementRef = _elementRef;
@@ -251,7 +251,7 @@
      * indeterminate `<mat-progress-spinner>` instance.
      */
     var MatSpinner = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSpinner, _super);
+        tslib.__extends(MatSpinner, _super);
         function MatSpinner(elementRef, platform, document, animationMode, defaults) {
             var _this = _super.call(this, elementRef, platform, document, animationMode, defaults) || this;
             _this.mode = 'indeterminate';

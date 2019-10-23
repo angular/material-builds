@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/text-field'), require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', 'tslib', '@angular/cdk/text-field', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}), global.tslib, global.ng.cdk.textField, global.ng.core, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.forms, global.ng.material.core, global.ng.material.formField, global.rxjs, global.ng.common));
-}(this, function (exports, tslib_1, textField, core, coercion, platform, forms, core$1, formField, rxjs, common) { 'use strict';
+}(this, function (exports, tslib, textField, core, coercion, platform, forms, core$1, formField, rxjs, common) { 'use strict';
 
     /**
      * @license
@@ -17,7 +17,7 @@
      * @breaking-change 8.0.0
      */
     var MatTextareaAutosize = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTextareaAutosize, _super);
+        tslib.__extends(MatTextareaAutosize, _super);
         function MatTextareaAutosize() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -131,7 +131,7 @@
     var _MatInputMixinBase = core$1.mixinErrorState(MatInputBase);
     /** Directive that allows a native input to work inside a `MatFormField`. */
     var MatInput = /** @class */ (function (_super) {
-        tslib_1.__extends(MatInput, _super);
+        tslib.__extends(MatInput, _super);
         function MatInput(_elementRef, _platform, 
         /** @docs-private */
         ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {

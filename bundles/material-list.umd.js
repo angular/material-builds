@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('@angular/material/divider')) :
     typeof define === 'function' && define.amd ? define('@angular/material/list', ['exports', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', '@angular/material/divider'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = {}), global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.cdk.keycodes, global.ng.forms, global.ng.material.divider));
-}(this, function (exports, common, core, core$1, tslib_1, rxjs, operators, a11y, coercion, collections, keycodes, forms, divider) { 'use strict';
+}(this, function (exports, common, core, core$1, tslib, rxjs, operators, a11y, coercion, collections, keycodes, forms, divider) { 'use strict';
 
     /**
      * @license
@@ -28,7 +28,7 @@
     }());
     var _MatListItemMixinBase = core$1.mixinDisableRipple(MatListItemBase);
     var MatNavList = /** @class */ (function (_super) {
-        tslib_1.__extends(MatNavList, _super);
+        tslib.__extends(MatNavList, _super);
         function MatNavList() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             /** Emits when the state of the list changes. */
@@ -60,7 +60,7 @@
         return MatNavList;
     }(_MatListMixinBase));
     var MatList = /** @class */ (function (_super) {
-        tslib_1.__extends(MatList, _super);
+        tslib.__extends(MatList, _super);
         function MatList(_elementRef) {
             var _this = _super.call(this) || this;
             _this._elementRef = _elementRef;
@@ -155,7 +155,7 @@
     }());
     /** An item within a Material Design list. */
     var MatListItem = /** @class */ (function (_super) {
-        tslib_1.__extends(MatListItem, _super);
+        tslib.__extends(MatListItem, _super);
         function MatListItem(_element, _changeDetectorRef, navList, list) {
             var _this = _super.call(this) || this;
             _this._element = _element;
@@ -271,7 +271,7 @@
      * if the current item is selected.
      */
     var MatListOption = /** @class */ (function (_super) {
-        tslib_1.__extends(MatListOption, _super);
+        tslib.__extends(MatListOption, _super);
         function MatListOption(_element, _changeDetector, 
         /** @docs-private */
         selectionList) {
@@ -484,7 +484,7 @@
      * Material Design list component where each item is a selectable option. Behaves as a listbox.
      */
     var MatSelectionList = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSelectionList, _super);
+        tslib.__extends(MatSelectionList, _super);
         function MatSelectionList(_element, tabIndex) {
             var _this = _super.call(this) || this;
             _this._element = _element;
@@ -542,7 +542,7 @@
                 var e_1, _a, e_2, _b;
                 if (event.added) {
                     try {
-                        for (var _c = tslib_1.__values(event.added), _d = _c.next(); !_d.done; _d = _c.next()) {
+                        for (var _c = tslib.__values(event.added), _d = _c.next(); !_d.done; _d = _c.next()) {
                             var item = _d.value;
                             item.selected = true;
                         }
@@ -557,7 +557,7 @@
                 }
                 if (event.removed) {
                     try {
-                        for (var _e = tslib_1.__values(event.removed), _f = _e.next(); !_f.done; _f = _e.next()) {
+                        for (var _e = tslib.__values(event.removed), _f = _e.next(); !_f.done; _f = _e.next()) {
                             var item = _f.value;
                             item.selected = false;
                         }

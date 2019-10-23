@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tabs/testing', ['exports', 'tslib', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}, global.ng.material.tabs.testing = {}), global.tslib, global.ng.cdk.testing));
-}(this, function (exports, tslib_1, testing) { 'use strict';
+}(this, function (exports, tslib, testing) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatTabHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabHarness, _super);
+        tslib.__extends(MatTabHarness, _super);
         function MatTabHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -30,8 +30,8 @@
         };
         /** Gets the label of the tab. */
         MatTabHarness.prototype.getLabel = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
@@ -41,8 +41,8 @@
         };
         /** Gets the aria label of the tab. */
         MatTabHarness.prototype.getAriaLabel = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
@@ -52,8 +52,8 @@
         };
         /** Gets the value of the "aria-labelledby" attribute. */
         MatTabHarness.prototype.getAriaLabelledby = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-labelledby')];
@@ -63,9 +63,9 @@
         };
         /** Whether the tab is selected. */
         MatTabHarness.prototype.isSelected = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var hostEl;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -78,9 +78,9 @@
         };
         /** Whether the tab is disabled. */
         MatTabHarness.prototype.isDisabled = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var hostEl;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -96,8 +96,8 @@
          * selected if disabled.
          */
         MatTabHarness.prototype.select = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [4 /*yield*/, (_a.sent()).click()];
@@ -110,9 +110,9 @@
         };
         /** Gets the text content of the tab. */
         MatTabHarness.prototype.getTextContent = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var contentId, contentEl;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getContentId()];
                         case 1:
@@ -130,9 +130,9 @@
          * content area.
          */
         MatTabHarness.prototype.getHarnessLoaderForContent = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var contentId;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getContentId()];
                         case 1:
@@ -144,9 +144,9 @@
         };
         /** Gets the element id for the content of the current tab. */
         MatTabHarness.prototype._getContentId = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var hostEl;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
@@ -175,7 +175,7 @@
      * @dynamic
      */
     var MatTabGroupHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabGroupHarness, _super);
+        tslib.__extends(MatTabGroupHarness, _super);
         function MatTabGroupHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -192,9 +192,9 @@
             var _this = this;
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatTabGroupHarness, options)
-                .addOption('selectedTabLabel', options.selectedTabLabel, function (harness, label) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+                .addOption('selectedTabLabel', options.selectedTabLabel, function (harness, label) { return tslib.__awaiter(_this, void 0, void 0, function () {
                 var selectedTab, _a, _b;
-                return tslib_1.__generator(this, function (_c) {
+                return tslib.__generator(this, function (_c) {
                     switch (_c.label) {
                         case 0: return [4 /*yield*/, harness.getSelectedTab()];
                         case 1:
@@ -209,17 +209,17 @@
         /** Gets all tabs of the tab group. */
         MatTabGroupHarness.prototype.getTabs = function (filter) {
             if (filter === void 0) { filter = {}; }
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     return [2 /*return*/, this.locatorForAll(MatTabHarness.with(filter))()];
                 });
             });
         };
         /** Gets the selected tab of the tab group. */
         MatTabGroupHarness.prototype.getSelectedTab = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var tabs, isSelected, i;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.getTabs()];
                         case 1:
@@ -240,9 +240,9 @@
         /** Selects a tab in this tab group. */
         MatTabGroupHarness.prototype.selectTab = function (filter) {
             if (filter === void 0) { filter = {}; }
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var tabs;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.getTabs(filter)];
                         case 1:

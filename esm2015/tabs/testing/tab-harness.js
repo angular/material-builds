@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 /**
  * Harness for interacting with a standard Angular Material tab-label in tests.
@@ -21,32 +21,32 @@ export class MatTabHarness extends ComponentHarness {
     }
     /** Gets the label of the tab. */
     getLabel() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).text();
         });
     }
     /** Gets the aria label of the tab. */
     getAriaLabel() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('aria-label');
         });
     }
     /** Gets the value of the "aria-labelledby" attribute. */
     getAriaLabelledby() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('aria-labelledby');
         });
     }
     /** Whether the tab is selected. */
     isSelected() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const hostEl = yield this.host();
             return (yield hostEl.getAttribute('aria-selected')) === 'true';
         });
     }
     /** Whether the tab is disabled. */
     isDisabled() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const hostEl = yield this.host();
             return (yield hostEl.getAttribute('aria-disabled')) === 'true';
         });
@@ -56,13 +56,13 @@ export class MatTabHarness extends ComponentHarness {
      * selected if disabled.
      */
     select() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield (yield this.host()).click();
         });
     }
     /** Gets the text content of the tab. */
     getTextContent() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const contentId = yield this._getContentId();
             const contentEl = yield this.documentRootLocatorFactory().locatorFor(`#${contentId}`)();
             return contentEl.text();
@@ -73,14 +73,14 @@ export class MatTabHarness extends ComponentHarness {
      * content area.
      */
     getHarnessLoaderForContent() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const contentId = yield this._getContentId();
             return this.documentRootLocatorFactory().harnessLoaderFor(`#${contentId}`);
         });
     }
     /** Gets the element id for the content of the current tab. */
     _getContentId() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const hostEl = yield this.host();
             // Tabs never have an empty "aria-controls" attribute.
             return (yield hostEl.getAttribute('aria-controls'));

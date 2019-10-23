@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('tslib'), require('@angular/cdk/bidi')) :
     typeof define === 'function' && define.amd ? define('@angular/material/grid-list', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', 'tslib', '@angular/cdk/bidi'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = {}), global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.tslib, global.ng.cdk.bidi));
-}(this, function (exports, core, core$1, coercion, tslib_1, bidi) { 'use strict';
+}(this, function (exports, core, core$1, coercion, tslib, bidi) { 'use strict';
 
     /**
      * @license
@@ -191,7 +191,7 @@
              * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2.
              */
             get: function () {
-                var lastRowMax = Math.max.apply(Math, tslib_1.__spread(this.tracker));
+                var lastRowMax = Math.max.apply(Math, tslib.__spread(this.tracker));
                 // if any of the tiles has a rowspan that pushes it beyond the total row count,
                 // add the difference to the rowcount
                 return lastRowMax > 1 ? this.rowCount + lastRowMax - 1 : this.rowCount;
@@ -426,7 +426,7 @@
      * @docs-private
      */
     var FixedTileStyler = /** @class */ (function (_super) {
-        tslib_1.__extends(FixedTileStyler, _super);
+        tslib.__extends(FixedTileStyler, _super);
         function FixedTileStyler(fixedRowHeight) {
             var _this = _super.call(this) || this;
             _this.fixedRowHeight = fixedRowHeight;
@@ -465,7 +465,7 @@
      * @docs-private
      */
     var RatioTileStyler = /** @class */ (function (_super) {
-        tslib_1.__extends(RatioTileStyler, _super);
+        tslib.__extends(RatioTileStyler, _super);
         function RatioTileStyler(value) {
             var _this = _super.call(this) || this;
             _this._parseRatio(value);
@@ -509,7 +509,7 @@
      * @docs-private
      */
     var FitTileStyler = /** @class */ (function (_super) {
-        tslib_1.__extends(FitTileStyler, _super);
+        tslib.__extends(FitTileStyler, _super);
         function FitTileStyler() {
             return _super !== null && _super.apply(this, arguments) || this;
         }

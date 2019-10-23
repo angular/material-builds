@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/accordion'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/cdk/accordion', '@angular/cdk/portal', '@angular/common', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/collections', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.collections, global.ng.platformBrowser.animations));
-}(this, function (exports, accordion, portal, common, core, tslib_1, coercion, a11y, keycodes, rxjs, operators, animations, collections, animations$1) { 'use strict';
+}(this, function (exports, accordion, portal, common, core, tslib, coercion, a11y, keycodes, rxjs, operators, animations, collections, animations$1) { 'use strict';
 
     /**
      * @license
@@ -129,7 +129,7 @@
      * multiple children of an element with the MatAccordion directive attached.
      */
     var MatExpansionPanel = /** @class */ (function (_super) {
-        tslib_1.__extends(MatExpansionPanel, _super);
+        tslib.__extends(MatExpansionPanel, _super);
         function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, _document, _animationMode, defaultOptions) {
             var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
             _this._viewContainerRef = _viewContainerRef;
@@ -505,7 +505,7 @@
      * Directive for a Material Design Accordion.
      */
     var MatAccordion = /** @class */ (function (_super) {
-        tslib_1.__extends(MatAccordion, _super);
+        tslib.__extends(MatAccordion, _super);
         function MatAccordion() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._hideToggle = false;

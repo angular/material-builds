@@ -13,7 +13,7 @@ import { filter, take } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
@@ -130,7 +130,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material bottom sheet.
@@ -150,7 +150,7 @@ const matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
 /**
@@ -469,7 +469,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatBottomSheetModule {
 }
@@ -489,7 +489,7 @@ MatBottomSheetModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
@@ -678,7 +678,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify default bottom sheet options.
@@ -874,7 +874,7 @@ MatBottomSheet.ctorParameters = () => [
     { type: Location, decorators: [{ type: Optional }] },
     { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
 ];
-/** @nocollapse */ MatBottomSheet.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+/** @nocollapse */ MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
 if (false) {
     /**
      * @type {?}
@@ -914,12 +914,12 @@ if (false) {
  * @return {?} The new configuration object with defaults applied.
  */
 function _applyConfigDefaults(defaults, config) {
-    return Object.assign({}, defaults, config);
+    return Object.assign(Object.assign({}, defaults), config);
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**

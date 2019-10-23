@@ -46,7 +46,7 @@ var MatPaginatorIntl = /** @class */ (function () {
     MatPaginatorIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    MatPaginatorIntl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+    MatPaginatorIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 }());
 export { MatPaginatorIntl };

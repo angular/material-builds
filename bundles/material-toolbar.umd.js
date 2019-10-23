@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/platform'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/toolbar', ['exports', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/platform', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = {}), global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.platform, global.ng.common));
-}(this, function (exports, core, core$1, tslib_1, platform, common) { 'use strict';
+}(this, function (exports, core, core$1, tslib, platform, common) { 'use strict';
 
     /**
      * @license
@@ -33,7 +33,7 @@
         return MatToolbarRow;
     }());
     var MatToolbar = /** @class */ (function (_super) {
-        tslib_1.__extends(MatToolbar, _super);
+        tslib.__extends(MatToolbar, _super);
         function MatToolbar(elementRef, _platform, document) {
             var _this = _super.call(this, elementRef) || this;
             _this._platform = _platform;

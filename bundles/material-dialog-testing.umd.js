@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/dialog/testing', ['exports', 'tslib', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}, global.ng.material.dialog.testing = {}), global.tslib, global.ng.cdk.testing));
-}(this, function (exports, tslib_1, testing) { 'use strict';
+}(this, function (exports, tslib, testing) { 'use strict';
 
     /**
      * @license
@@ -16,7 +16,7 @@
      * @dynamic
      */
     var MatDialogHarness = /** @class */ (function (_super) {
-        tslib_1.__extends(MatDialogHarness, _super);
+        tslib.__extends(MatDialogHarness, _super);
         function MatDialogHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -33,9 +33,9 @@
         };
         /** Gets the id of the dialog. */
         MatDialogHarness.prototype.getId = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
                 var id;
-                return tslib_1.__generator(this, function (_a) {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [4 /*yield*/, (_a.sent()).getAttribute('id')];
@@ -50,8 +50,8 @@
         };
         /** Gets the role of the dialog. */
         MatDialogHarness.prototype.getRole = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('role')];
@@ -61,8 +61,8 @@
         };
         /** Gets the value of the dialog's "aria-label" attribute. */
         MatDialogHarness.prototype.getAriaLabel = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
@@ -72,8 +72,8 @@
         };
         /** Gets the value of the dialog's "aria-labelledby" attribute. */
         MatDialogHarness.prototype.getAriaLabelledby = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-labelledby')];
@@ -83,8 +83,8 @@
         };
         /** Gets the value of the dialog's "aria-describedby" attribute. */
         MatDialogHarness.prototype.getAriaDescribedby = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-describedby')];
@@ -97,8 +97,8 @@
          * be used if "disableClose" has been set to true for the dialog.
          */
         MatDialogHarness.prototype.close = function () {
-            return tslib_1.__awaiter(this, void 0, void 0, function () {
-                return tslib_1.__generator(this, function (_a) {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [4 /*yield*/, (_a.sent()).sendKeys(testing.TestKey.ESCAPE)];

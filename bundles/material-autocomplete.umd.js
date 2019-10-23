@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/material/form-field', 'rxjs', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.material.core, global.ng.common, global.ng.cdk.overlay, global.ng.cdk.bidi, global.ng.cdk.keycodes, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.ng.forms, global.ng.material.formField, global.rxjs, global.rxjs.operators));
-}(this, function (exports, tslib_1, a11y, coercion, core, core$1, common, overlay, bidi, keycodes, platform, portal, scrolling, forms, formField, rxjs, operators) { 'use strict';
+}(this, function (exports, tslib, a11y, coercion, core, core$1, common, overlay, bidi, keycodes, platform, portal, scrolling, forms, formField, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -46,7 +46,7 @@
         return { autoActiveFirstOption: false };
     }
     var MatAutocomplete = /** @class */ (function (_super) {
-        tslib_1.__extends(MatAutocomplete, _super);
+        tslib.__extends(MatAutocomplete, _super);
         function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
             var _this = _super.call(this) || this;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -310,7 +310,7 @@
             /** Stream of autocomplete option selections. */
             this.optionSelections = rxjs.defer(function () {
                 if (_this.autocomplete && _this.autocomplete.options) {
-                    return rxjs.merge.apply(void 0, tslib_1.__spread(_this.autocomplete.options.map(function (option) { return option.onSelectionChange; })));
+                    return rxjs.merge.apply(void 0, tslib.__spread(_this.autocomplete.options.map(function (option) { return option.onSelectionChange; })));
                 }
                 // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
                 // Return a stream that we'll replace with the real one once everything is in place.

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('tslib'), require('rxjs'), require('@angular/cdk/bidi'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/cdk/a11y', '@angular/material/core', '@angular/platform-browser/animations', 'tslib', 'rxjs', '@angular/cdk/bidi', '@angular/animations', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}), global.ng.cdk.observers, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.cdk.a11y, global.ng.material.core, global.ng.platformBrowser.animations, global.tslib, global.rxjs, global.ng.cdk.bidi, global.ng.animations, global.rxjs.operators, global.ng.cdk.coercion, global.ng.cdk.scrolling, global.ng.cdk.platform, global.ng.cdk.keycodes));
-}(this, function (exports, observers, portal, common, core, a11y, core$1, animations, tslib_1, rxjs, bidi, animations$1, operators, coercion, scrolling, platform, keycodes) { 'use strict';
+}(this, function (exports, observers, portal, common, core, a11y, core$1, animations, tslib, rxjs, bidi, animations$1, operators, coercion, scrolling, platform, keycodes) { 'use strict';
 
     /**
      * @license
@@ -123,7 +123,7 @@
      */
     /** Used to flag tab labels for use with the portal directive */
     var MatTabLabel = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabLabel, _super);
+        tslib.__extends(MatTabLabel, _super);
         function MatTabLabel() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -156,7 +156,7 @@
      */
     var MAT_TAB_GROUP = new core.InjectionToken('MAT_TAB_GROUP');
     var MatTab = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTab, _super);
+        tslib.__extends(MatTab, _super);
         function MatTab(_viewContainerRef, 
         /**
          * @deprecated `_closestTabGroup` parameter to become required.
@@ -296,7 +296,7 @@
      * @docs-private
      */
     var MatTabBodyPortal = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabBodyPortal, _super);
+        tslib.__extends(MatTabBodyPortal, _super);
         function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host) {
             var _this = _super.call(this, componentFactoryResolver, viewContainerRef) || this;
             _this._host = _host;
@@ -477,7 +477,7 @@
      * @docs-private
      */
     var MatTabBody = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabBody, _super);
+        tslib.__extends(MatTabBody, _super);
         function MatTabBody(elementRef, dir, changeDetectorRef) {
             return _super.call(this, elementRef, dir, changeDetectorRef) || this;
         }
@@ -539,7 +539,7 @@
      * @docs-private
      */
     var _MatTabGroupBase = /** @class */ (function (_super) {
-        tslib_1.__extends(_MatTabGroupBase, _super);
+        tslib.__extends(_MatTabGroupBase, _super);
         function _MatTabGroupBase(elementRef, _changeDetectorRef, defaultConfig, _animationMode) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -733,7 +733,7 @@
             if (this._tabLabelSubscription) {
                 this._tabLabelSubscription.unsubscribe();
             }
-            this._tabLabelSubscription = rxjs.merge.apply(void 0, tslib_1.__spread(this._tabs.map(function (tab) { return tab._stateChanges; }))).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            this._tabLabelSubscription = rxjs.merge.apply(void 0, tslib.__spread(this._tabs.map(function (tab) { return tab._stateChanges; }))).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         };
         /** Clamps the given index to the bounds of 0 and the tabs length. */
         _MatTabGroupBase.prototype._clampTabIndex = function (index) {
@@ -819,7 +819,7 @@
      * See: https://material.io/design/components/tabs.html
      */
     var MatTabGroup = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabGroup, _super);
+        tslib.__extends(MatTabGroup, _super);
         function MatTabGroup(elementRef, changeDetectorRef, defaultConfig, animationMode) {
             return _super.call(this, elementRef, changeDetectorRef, defaultConfig, animationMode) || this;
         }
@@ -880,7 +880,7 @@
      * @docs-private
      */
     var MatTabLabelWrapper = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabLabelWrapper, _super);
+        tslib.__extends(MatTabLabelWrapper, _super);
         function MatTabLabelWrapper(elementRef) {
             var _this = _super.call(this) || this;
             _this.elementRef = elementRef;
@@ -1418,7 +1418,7 @@
      * @docs-private
      */
     var _MatTabHeaderBase = /** @class */ (function (_super) {
-        tslib_1.__extends(_MatTabHeaderBase, _super);
+        tslib.__extends(_MatTabHeaderBase, _super);
         function _MatTabHeaderBase(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
         // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
         animationMode) {
@@ -1465,7 +1465,7 @@
      * @docs-private
      */
     var MatTabHeader = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabHeader, _super);
+        tslib.__extends(MatTabHeader, _super);
         function MatTabHeader(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
         // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
         animationMode) {
@@ -1515,7 +1515,7 @@
      * @docs-private
      */
     var _MatTabNavBase = /** @class */ (function (_super) {
-        tslib_1.__extends(_MatTabNavBase, _super);
+        tslib.__extends(_MatTabNavBase, _super);
         function _MatTabNavBase(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
         /**
          * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
@@ -1608,7 +1608,7 @@
      * Provides anchored navigation with animated ink bar.
      */
     var MatTabNav = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabNav, _super);
+        tslib.__extends(MatTabNav, _super);
         function MatTabNav(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
         /**
          * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
@@ -1666,7 +1666,7 @@
     var _MatTabLinkMixinBase = core$1.mixinTabIndex(core$1.mixinDisableRipple(core$1.mixinDisabled(MatTabLinkMixinBase)));
     /** Base class with all of the `MatTabLink` functionality. */
     var _MatTabLinkBase = /** @class */ (function (_super) {
-        tslib_1.__extends(_MatTabLinkBase, _super);
+        tslib.__extends(_MatTabLinkBase, _super);
         function _MatTabLinkBase(_tabNavBar, elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
             var _this = _super.call(this) || this;
             _this._tabNavBar = _tabNavBar;
@@ -1736,7 +1736,7 @@
      * Link inside of a `mat-tab-nav-bar`.
      */
     var MatTabLink = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTabLink, _super);
+        tslib.__extends(MatTabLink, _super);
         function MatTabLink(tabNavBar, elementRef, ngZone, platform, globalRippleOptions, tabIndex, focusMonitor, animationMode) {
             var _this = _super.call(this, tabNavBar, elementRef, globalRippleOptions, tabIndex, focusMonitor, animationMode) || this;
             _this._tabLinkRipple = new core$1.RippleRenderer(_this, ngZone, elementRef, platform);

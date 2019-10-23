@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MatTabHarness } from './tab-harness';
 /**
@@ -24,20 +24,20 @@ export class MatTabGroupHarness extends ComponentHarness {
      */
     static with(options = {}) {
         return new HarnessPredicate(MatTabGroupHarness, options)
-            .addOption('selectedTabLabel', options.selectedTabLabel, (harness, label) => tslib_1.__awaiter(this, void 0, void 0, function* () {
+            .addOption('selectedTabLabel', options.selectedTabLabel, (harness, label) => __awaiter(this, void 0, void 0, function* () {
             const selectedTab = yield harness.getSelectedTab();
             return HarnessPredicate.stringMatches(yield selectedTab.getLabel(), label);
         }));
     }
     /** Gets all tabs of the tab group. */
     getTabs(filter = {}) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return this.locatorForAll(MatTabHarness.with(filter))();
         });
     }
     /** Gets the selected tab of the tab group. */
     getSelectedTab() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const tabs = yield this.getTabs();
             const isSelected = yield Promise.all(tabs.map(t => t.isSelected()));
             for (let i = 0; i < tabs.length; i++) {
@@ -50,7 +50,7 @@ export class MatTabGroupHarness extends ComponentHarness {
     }
     /** Selects a tab in this tab group. */
     selectTab(filter = {}) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const tabs = yield this.getTabs(filter);
             if (!tabs.length) {
                 throw Error(`Cannot find mat-tab matching filter ${JSON.stringify(filter)}`);

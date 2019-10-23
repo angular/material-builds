@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
     typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/portal', '@angular/common', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.portal, global.ng.common, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.overlay, global.ng.cdk.platform));
-}(this, function (exports, tslib_1, a11y, coercion, keycodes, core, rxjs, operators, animations, portal, common, core$1, bidi, overlay, platform) { 'use strict';
+}(this, function (exports, tslib, a11y, coercion, keycodes, core, rxjs, operators, animations, portal, common, core$1, bidi, overlay, platform) { 'use strict';
 
     /**
      * @license
@@ -214,7 +214,7 @@
      * It exists mostly to set the role attribute.
      */
     var MatMenuItem = /** @class */ (function (_super) {
-        tslib_1.__extends(MatMenuItem, _super);
+        tslib.__extends(MatMenuItem, _super);
         function MatMenuItem(_elementRef, document, _focusMonitor, _parentMenu) {
             var _this = 
             // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
@@ -503,7 +503,7 @@
         _MatMenuBase.prototype._hovered = function () {
             // Coerce the `changes` property because Angular types it as `Observable<any>`
             var itemChanges = this._directDescendantItems.changes;
-            return itemChanges.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, tslib_1.__spread(items.map(function (item) { return item._hovered; }))); }));
+            return itemChanges.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, tslib.__spread(items.map(function (item) { return item._hovered; }))); }));
         };
         /*
          * Registers a menu item with the menu.
@@ -702,7 +702,7 @@
     }());
     /** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
     var MatMenu = /** @class */ (function (_super) {
-        tslib_1.__extends(MatMenu, _super);
+        tslib.__extends(MatMenu, _super);
         function MatMenu() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -726,7 +726,7 @@
     // be tree shaken away for MDC.
     /** @docs-public MatMenu */
     var _MatMenu = /** @class */ (function (_super) {
-        tslib_1.__extends(_MatMenu, _super);
+        tslib.__extends(_MatMenu, _super);
         function _MatMenu(elementRef, ngZone, defaultOptions) {
             return _super.call(this, elementRef, ngZone, defaultOptions) || this;
         }
@@ -1098,10 +1098,10 @@
          * @param positionStrategy Strategy whose position to update.
          */
         MatMenuTrigger.prototype._setPosition = function (positionStrategy) {
-            var _a = tslib_1.__read(this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'], 2), originX = _a[0], originFallbackX = _a[1];
-            var _b = tslib_1.__read(this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], 2), overlayY = _b[0], overlayFallbackY = _b[1];
-            var _c = tslib_1.__read([overlayY, overlayFallbackY], 2), originY = _c[0], originFallbackY = _c[1];
-            var _d = tslib_1.__read([originX, originFallbackX], 2), overlayX = _d[0], overlayFallbackX = _d[1];
+            var _a = tslib.__read(this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'], 2), originX = _a[0], originFallbackX = _a[1];
+            var _b = tslib.__read(this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], 2), overlayY = _b[0], overlayFallbackY = _b[1];
+            var _c = tslib.__read([overlayY, overlayFallbackY], 2), originY = _c[0], originFallbackY = _c[1];
+            var _d = tslib.__read([originX, originFallbackX], 2), overlayX = _d[0], overlayFallbackX = _d[1];
             var offsetY = 0;
             if (this.triggersSubmenu()) {
                 // When the menu is a sub-menu, it should always align itself

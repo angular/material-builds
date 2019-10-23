@@ -16,7 +16,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by MatTooltip.
@@ -41,7 +41,7 @@ const matTooltipAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Time in ms to throttle repositioning after scroll events.
@@ -507,8 +507,8 @@ class MatTooltip {
         /** @type {?} */
         const overlay = this._getOverlayPosition();
         position.withPositions([
-            Object.assign({}, origin.main, overlay.main),
-            Object.assign({}, origin.fallback, overlay.fallback)
+            Object.assign(Object.assign({}, origin.main), overlay.main),
+            Object.assign(Object.assign({}, origin.fallback), overlay.fallback)
         ]);
     }
     /**
@@ -1106,7 +1106,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatTooltipModule {
 }
@@ -1127,7 +1127,7 @@ MatTooltipModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**

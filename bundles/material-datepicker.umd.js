@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input')) :
     typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', '@angular/cdk/bidi', 'rxjs/operators', 'tslib', '@angular/cdk/coercion', '@angular/animations', '@angular/forms', '@angular/material/form-field', '@angular/material/input'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}), global.ng.cdk.a11y, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.dialog, global.ng.material.core, global.rxjs, global.ng.cdk.keycodes, global.ng.cdk.bidi, global.rxjs.operators, global.tslib, global.ng.cdk.coercion, global.ng.animations, global.ng.forms, global.ng.material.formField, global.ng.material.input));
-}(this, function (exports, a11y, overlay, portal, common, i0, button, dialog, core, rxjs, keycodes, bidi, operators, tslib_1, coercion, animations, forms, formField, input) { 'use strict';
+}(this, function (exports, a11y, overlay, portal, common, i0, button, dialog, core, rxjs, keycodes, bidi, operators, tslib, coercion, animations, forms, formField, input) { 'use strict';
 
     /**
      * @license
@@ -61,7 +61,7 @@
         MatDatepickerIntl.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        MatDatepickerIntl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+        MatDatepickerIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
         return MatDatepickerIntl;
     }());
 
@@ -1364,7 +1364,7 @@
      * @docs-private
      */
     var MatDatepickerContent = /** @class */ (function (_super) {
-        tslib_1.__extends(MatDatepickerContent, _super);
+        tslib.__extends(MatDatepickerContent, _super);
         function MatDatepickerContent(elementRef) {
             return _super.call(this, elementRef) || this;
         }

@@ -781,7 +781,7 @@ var MatDialog = /** @class */ (function () {
  * @returns The new configuration object.
  */
 function _applyConfigDefaults(config, defaultOptions) {
-    return __assign({}, defaultOptions, config);
+    return __assign(__assign({}, defaultOptions), config);
 }
 
 /**

@@ -349,8 +349,8 @@ var MatTooltip = /** @class */ (function () {
         var origin = this._getOrigin();
         var overlay = this._getOverlayPosition();
         position.withPositions([
-            __assign({}, origin.main, overlay.main),
-            __assign({}, origin.fallback, overlay.fallback)
+            __assign(__assign({}, origin.main), overlay.main),
+            __assign(__assign({}, origin.fallback), overlay.fallback)
         ]);
     };
     /**

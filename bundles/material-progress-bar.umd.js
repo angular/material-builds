@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('tslib'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/progress-bar', ['exports', '@angular/core', '@angular/common', '@angular/material/core', 'tslib', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}), global.ng.core, global.ng.common, global.ng.material.core, global.tslib, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations));
-}(this, function (exports, core, common, core$1, tslib_1, rxjs, operators, animations) { 'use strict';
+}(this, function (exports, core, common, core$1, tslib, rxjs, operators, animations) { 'use strict';
 
     // Boilerplate for applying mixins to MatProgressBar.
     /** @docs-private */
@@ -35,7 +35,7 @@
      * `<mat-progress-bar>` component.
      */
     var MatProgressBar = /** @class */ (function (_super) {
-        tslib_1.__extends(MatProgressBar, _super);
+        tslib.__extends(MatProgressBar, _super);
         function MatProgressBar(_elementRef, _ngZone, _animationMode, 
         /**
          * @deprecated `location` parameter to be made required.

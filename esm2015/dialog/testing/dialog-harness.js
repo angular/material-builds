@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { ComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
 /**
  * Harness for interacting with a standard MatDialog in tests.
@@ -24,7 +24,7 @@ export class MatDialogHarness extends ComponentHarness {
     }
     /** Gets the id of the dialog. */
     getId() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const id = yield (yield this.host()).getAttribute('id');
             // In case no id has been specified, the "id" property always returns
             // an empty string. To make this method more explicit, we return null.
@@ -33,25 +33,25 @@ export class MatDialogHarness extends ComponentHarness {
     }
     /** Gets the role of the dialog. */
     getRole() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('role');
         });
     }
     /** Gets the value of the dialog's "aria-label" attribute. */
     getAriaLabel() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('aria-label');
         });
     }
     /** Gets the value of the dialog's "aria-labelledby" attribute. */
     getAriaLabelledby() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('aria-labelledby');
         });
     }
     /** Gets the value of the dialog's "aria-describedby" attribute. */
     getAriaDescribedby() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('aria-describedby');
         });
     }
@@ -60,7 +60,7 @@ export class MatDialogHarness extends ComponentHarness {
      * be used if "disableClose" has been set to true for the dialog.
      */
     close() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield (yield this.host()).sendKeys(TestKey.ESCAPE);
         });
     }

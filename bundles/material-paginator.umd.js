@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/material/core')) :
     typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/material/core'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}), global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.select, global.ng.material.tooltip, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.material.core));
-}(this, function (exports, common, i0, button, select, tooltip, tslib_1, coercion, rxjs, core) { 'use strict';
+}(this, function (exports, common, i0, button, select, tooltip, tslib, coercion, rxjs, core) { 'use strict';
 
     /**
      * @license
@@ -49,7 +49,7 @@
         MatPaginatorIntl.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        MatPaginatorIntl.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+        MatPaginatorIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
         return MatPaginatorIntl;
     }());
     /** @docs-private */
@@ -96,7 +96,7 @@
      * navigational button to go to the previous or next page.
      */
     var MatPaginator = /** @class */ (function (_super) {
-        tslib_1.__extends(MatPaginator, _super);
+        tslib.__extends(MatPaginator, _super);
         function MatPaginator(_intl, _changeDetectorRef) {
             var _this = _super.call(this) || this;
             _this._intl = _intl;

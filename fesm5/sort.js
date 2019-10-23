@@ -277,7 +277,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
     MatSortHeaderIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    MatSortHeaderIntl.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    MatSortHeaderIntl.ɵprov = ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
 /** @docs-private */

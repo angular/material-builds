@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
     typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/common', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.bidi, global.ng.cdk, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.common, global.ng.cdk.a11y, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
-}(this, function (exports, i0, bidi, cdk, tslib_1, coercion, rxjs, platform, platformBrowser, operators, common, a11y, animations, keycodes) { 'use strict';
+}(this, function (exports, i0, bidi, cdk, tslib, coercion, rxjs, platform, platformBrowser, operators, common, a11y, animations, keycodes) { 'use strict';
 
     /**
      * @license
@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.0.0-next.0-sha-59154b1ef');
+    var VERSION = new i0.Version('9.0.0-next.0-sha-1ad9ef07d');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.0.0-next.0-sha-59154b1ef');
+    var VERSION$1 = new i0.Version('9.0.0-next.0-sha-1ad9ef07d');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -159,13 +159,13 @@
     /** Mixin to augment a directive with a `disabled` property. */
     function mixinDisabled(base) {
         return /** @class */ (function (_super) {
-            tslib_1.__extends(class_1, _super);
+            tslib.__extends(class_1, _super);
             function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, tslib_1.__spread(args)) || this;
+                var _this = _super.apply(this, tslib.__spread(args)) || this;
                 _this._disabled = false;
                 return _this;
             }
@@ -189,13 +189,13 @@
     /** Mixin to augment a directive with a `color` property. */
     function mixinColor(base, defaultColor) {
         return /** @class */ (function (_super) {
-            tslib_1.__extends(class_1, _super);
+            tslib.__extends(class_1, _super);
             function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, tslib_1.__spread(args)) || this;
+                var _this = _super.apply(this, tslib.__spread(args)) || this;
                 // Set the default color that can be specified from the mixin.
                 _this.color = defaultColor;
                 return _this;
@@ -231,13 +231,13 @@
     /** Mixin to augment a directive with a `disableRipple` property. */
     function mixinDisableRipple(base) {
         return /** @class */ (function (_super) {
-            tslib_1.__extends(class_1, _super);
+            tslib.__extends(class_1, _super);
             function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, tslib_1.__spread(args)) || this;
+                var _this = _super.apply(this, tslib.__spread(args)) || this;
                 _this._disableRipple = false;
                 return _this;
             }
@@ -263,13 +263,13 @@
     function mixinTabIndex(base, defaultTabIndex) {
         if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
         return /** @class */ (function (_super) {
-            tslib_1.__extends(class_1, _super);
+            tslib.__extends(class_1, _super);
             function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, tslib_1.__spread(args)) || this;
+                var _this = _super.apply(this, tslib.__spread(args)) || this;
                 _this._tabIndex = defaultTabIndex;
                 return _this;
             }
@@ -299,13 +299,13 @@
      */
     function mixinErrorState(base) {
         return /** @class */ (function (_super) {
-            tslib_1.__extends(class_1, _super);
+            tslib.__extends(class_1, _super);
             function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, tslib_1.__spread(args)) || this;
+                var _this = _super.apply(this, tslib.__spread(args)) || this;
                 /** Whether the component is in an error state. */
                 _this.errorState = false;
                 /**
@@ -340,13 +340,13 @@
     /** Mixin to augment a directive with an initialized property that will emits when ngOnInit ends. */
     function mixinInitialized(base) {
         return /** @class */ (function (_super) {
-            tslib_1.__extends(class_1, _super);
+            tslib.__extends(class_1, _super);
             function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, tslib_1.__spread(args)) || this;
+                var _this = _super.apply(this, tslib.__spread(args)) || this;
                 /** Whether this directive has been marked as initialized. */
                 _this._isInitialized = false;
                 /**
@@ -576,7 +576,7 @@
     }
     /** Adapts the native JS Date for use with cdk-based components that work with dates. */
     var NativeDateAdapter = /** @class */ (function (_super) {
-        tslib_1.__extends(NativeDateAdapter, _super);
+        tslib.__extends(NativeDateAdapter, _super);
         function NativeDateAdapter(matDateLocale, platform) {
             var _this = _super.call(this) || this;
             /**
@@ -690,7 +690,7 @@
                     date = this.clone(date);
                     date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
                 }
-                displayFormat = tslib_1.__assign({}, displayFormat, { timeZone: 'utc' });
+                displayFormat = tslib.__assign(tslib.__assign({}, displayFormat), { timeZone: 'utc' });
                 var dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
                 return this._stripDirectionalityCharacters(this._format(dtf, date));
             }
@@ -885,7 +885,7 @@
         ErrorStateMatcher.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        ErrorStateMatcher.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+        ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
         return ErrorStateMatcher;
     }());
 
@@ -926,7 +926,7 @@
      * @breaking-change 10.0.0
      */
     var GestureConfig = /** @class */ (function (_super) {
-        tslib_1.__extends(GestureConfig, _super);
+        tslib.__extends(GestureConfig, _super);
         function GestureConfig(_hammerOptions, _commonModule) {
             var _this = _super.call(this) || this;
             _this._hammerOptions = _hammerOptions;
@@ -1214,7 +1214,7 @@
             if (config === void 0) { config = {}; }
             var containerRect = this._containerRect =
                 this._containerRect || this._containerElement.getBoundingClientRect();
-            var animationConfig = tslib_1.__assign({}, defaultRippleAnimationConfig, config.animation);
+            var animationConfig = tslib.__assign(tslib.__assign({}, defaultRippleAnimationConfig), config.animation);
             if (config.centered) {
                 x = containerRect.left + containerRect.width / 2;
                 y = containerRect.top + containerRect.height / 2;
@@ -1275,7 +1275,7 @@
                 return;
             }
             var rippleEl = rippleRef.element;
-            var animationConfig = tslib_1.__assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+            var animationConfig = tslib.__assign(tslib.__assign({}, defaultRippleAnimationConfig), rippleRef.config.animation);
             rippleEl.style.transitionDuration = animationConfig.exitDuration + "ms";
             rippleEl.style.opacity = '0';
             rippleRef.state = exports.RippleState.FADING_OUT;
@@ -1411,7 +1411,7 @@
                     centered: this.centered,
                     radius: this.radius,
                     color: this.color,
-                    animation: tslib_1.__assign({}, this._globalOptions.animation, this.animation),
+                    animation: tslib.__assign(tslib.__assign({}, this._globalOptions.animation), this.animation),
                     terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
                 };
             },
@@ -1439,10 +1439,10 @@
         MatRipple.prototype.launch = function (configOrX, y, config) {
             if (y === void 0) { y = 0; }
             if (typeof configOrX === 'number') {
-                return this._rippleRenderer.fadeInRipple(configOrX, y, tslib_1.__assign({}, this.rippleConfig, config));
+                return this._rippleRenderer.fadeInRipple(configOrX, y, tslib.__assign(tslib.__assign({}, this.rippleConfig), config));
             }
             else {
-                return this._rippleRenderer.fadeInRipple(0, 0, tslib_1.__assign({}, this.rippleConfig, configOrX));
+                return this._rippleRenderer.fadeInRipple(0, 0, tslib.__assign(tslib.__assign({}, this.rippleConfig), configOrX));
             }
         };
         MatRipple.decorators = [
@@ -1591,7 +1591,7 @@
      * Component that is used to group instances of `mat-option`.
      */
     var MatOptgroup = /** @class */ (function (_super) {
-        tslib_1.__extends(MatOptgroup, _super);
+        tslib.__extends(MatOptgroup, _super);
         function MatOptgroup() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             /** Unique id for the underlying label. */

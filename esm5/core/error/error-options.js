@@ -30,7 +30,7 @@ var ErrorStateMatcher = /** @class */ (function () {
     ErrorStateMatcher.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    ErrorStateMatcher.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 export { ErrorStateMatcher };

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 /**
  * Harness for interacting with a standard mat-snack-bar in tests.
@@ -34,7 +34,7 @@ export class MatSnackBarHarness extends ComponentHarness {
      * on the ARIA politeness specified in the snack-bar config.
      */
     getRole() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('role');
         });
     }
@@ -43,7 +43,7 @@ export class MatSnackBarHarness extends ComponentHarness {
      * used for snack-bar's with custom content.
      */
     hasAction() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBar();
             return (yield this._simpleSnackBarActionButton()) !== null;
         });
@@ -53,7 +53,7 @@ export class MatSnackBarHarness extends ComponentHarness {
      * used for snack-bar's without action or with custom content.
      */
     getActionDescription() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBarWithAction();
             return (yield this._simpleSnackBarActionButton()).text();
         });
@@ -63,7 +63,7 @@ export class MatSnackBarHarness extends ComponentHarness {
      * be used for snack-bar's without action or with custom content.
      */
     dismissWithAction() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBarWithAction();
             yield (yield this._simpleSnackBarActionButton()).click();
         });
@@ -73,7 +73,7 @@ export class MatSnackBarHarness extends ComponentHarness {
      * snack-bar's with custom content.
      */
     getMessage() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBar();
             return (yield this._simpleSnackBarMessage()).text();
         });
@@ -83,7 +83,7 @@ export class MatSnackBarHarness extends ComponentHarness {
      * custom content is used.
      */
     _assertSimpleSnackBar() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             if (!(yield this._isSimpleSnackBar())) {
                 throw new Error('Method cannot be used for snack-bar with custom content.');
             }
@@ -94,7 +94,7 @@ export class MatSnackBarHarness extends ComponentHarness {
      * an action defined. Otherwise an error will be thrown.
      */
     _assertSimpleSnackBarWithAction() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBar();
             if (!(yield this.hasAction())) {
                 throw new Error('Method cannot be used for standard snack-bar without action.');
@@ -103,7 +103,7 @@ export class MatSnackBarHarness extends ComponentHarness {
     }
     /** Gets whether the snack-bar is using the default content template. */
     _isSimpleSnackBar() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this._simpleSnackBar()) !== null;
         });
     }

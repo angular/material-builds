@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/common'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/common', 'rxjs/operators', '@angular/common/http', '@angular/platform-browser', 'rxjs'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}), global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.common, global.rxjs.operators, global.ng.common.http, global.ng.platformBrowser, global.rxjs));
-}(this, function (exports, i0, core, tslib_1, coercion, i3, operators, i1, i2, rxjs) { 'use strict';
+}(this, function (exports, i0, core, tslib, coercion, i3, operators, i1, i2, rxjs) { 'use strict';
 
     /**
      * @license
@@ -524,7 +524,7 @@
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [i3.DOCUMENT,] }] },
             { type: i0.ErrorHandler, decorators: [{ type: i0.Optional }] }
         ]; };
-        MatIconRegistry.ngInjectableDef = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
+        MatIconRegistry.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
         return MatIconRegistry;
     }());
     /** @docs-private */
@@ -636,7 +636,7 @@
      *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
      */
     var MatIcon = /** @class */ (function (_super) {
-        tslib_1.__extends(MatIcon, _super);
+        tslib.__extends(MatIcon, _super);
         function MatIcon(elementRef, _iconRegistry, ariaHidden, 
         /**
          * @deprecated `location` parameter to be made required.
@@ -719,7 +719,7 @@
             var svgIconChanges = changes['svgIcon'];
             if (svgIconChanges) {
                 if (this.svgIcon) {
-                    var _a = tslib_1.__read(this._splitIconName(this.svgIcon), 2), namespace_1 = _a[0], iconName_1 = _a[1];
+                    var _a = tslib.__read(this._splitIconName(this.svgIcon), 2), namespace_1 = _a[0], iconName_1 = _a[1];
                     this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
                         .pipe(operators.take(1))
                         .subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) {

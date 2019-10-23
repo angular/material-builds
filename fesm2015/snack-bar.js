@@ -12,7 +12,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Event that is emitted when a snack bar is dismissed.
@@ -210,7 +210,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to access the data that was passed in to a snack bar.
@@ -301,7 +301,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -361,7 +361,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Animations used by the Material snack bar.
@@ -390,7 +390,7 @@ const matSnackBarAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Internal component that wraps user-provided snack bar content.
@@ -655,7 +655,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSnackBarModule {
 }
@@ -676,7 +676,7 @@ MatSnackBarModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Injection token that can be used to specify default snack bar.
@@ -772,7 +772,7 @@ class MatSnackBar {
      */
     open(message, action = '', config) {
         /** @type {?} */
-        const _config = Object.assign({}, this._defaultConfig, config);
+        const _config = Object.assign(Object.assign({}, this._defaultConfig), config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message, action };
@@ -830,7 +830,7 @@ class MatSnackBar {
      */
     _attach(content, userConfig) {
         /** @type {?} */
-        const config = Object.assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
+        const config = Object.assign(Object.assign(Object.assign({}, new MatSnackBarConfig()), this._defaultConfig), userConfig);
         /** @type {?} */
         const overlayRef = this._createOverlay(config);
         /** @type {?} */
@@ -989,7 +989,7 @@ MatSnackBar.ctorParameters = () => [
     { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf }] },
     { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
 ];
-/** @nocollapse */ MatSnackBar.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+/** @nocollapse */ MatSnackBar.ɵprov = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
 if (false) {
     /**
      * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
@@ -1033,7 +1033,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**

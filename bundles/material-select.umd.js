@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/material/form-field'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/material/form-field', 'tslib', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}), global.ng.cdk.overlay, global.ng.common, global.ng.core, global.ng.material.core, global.ng.material.formField, global.tslib, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.cdk.keycodes, global.ng.cdk.scrolling, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.animations));
-}(this, function (exports, overlay, common, core, core$1, formField, tslib_1, a11y, bidi, coercion, collections, keycodes, scrolling, forms, rxjs, operators, animations) { 'use strict';
+}(this, function (exports, overlay, common, core, core$1, formField, tslib, a11y, bidi, coercion, collections, keycodes, scrolling, forms, rxjs, operators, animations) { 'use strict';
 
     /**
      * @license
@@ -178,7 +178,7 @@
         return MatSelectTrigger;
     }());
     var MatSelect = /** @class */ (function (_super) {
-        tslib_1.__extends(MatSelect, _super);
+        tslib.__extends(MatSelect, _super);
         function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer) {
             var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._viewportRuler = _viewportRuler;
@@ -251,7 +251,7 @@
             _this.optionSelectionChanges = rxjs.defer(function () {
                 var options = _this.options;
                 if (options) {
-                    return options.changes.pipe(operators.startWith(options), operators.switchMap(function () { return rxjs.merge.apply(void 0, tslib_1.__spread(options.map(function (option) { return option.onSelectionChange; }))); }));
+                    return options.changes.pipe(operators.startWith(options), operators.switchMap(function () { return rxjs.merge.apply(void 0, tslib.__spread(options.map(function (option) { return option.onSelectionChange; }))); }));
                 }
                 return _this._ngZone.onStable
                     .asObservable()
@@ -765,7 +765,7 @@
             });
             // Listen to changes in the internal state of the options and react accordingly.
             // Handles cases like the labels of the selected options changing.
-            rxjs.merge.apply(void 0, tslib_1.__spread(this.options.map(function (option) { return option._stateChanges; }))).pipe(operators.takeUntil(changedOrDestroyed))
+            rxjs.merge.apply(void 0, tslib.__spread(this.options.map(function (option) { return option._stateChanges; }))).pipe(operators.takeUntil(changedOrDestroyed))
                 .subscribe(function () {
                 _this._changeDetectorRef.markForCheck();
                 _this.stateChanges.next();

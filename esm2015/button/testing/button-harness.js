@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __awaiter } from "tslib";
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 /**
@@ -26,32 +26,32 @@ export class MatButtonHarness extends ComponentHarness {
     }
     /** Clicks the button. */
     click() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).click();
         });
     }
     /** Gets a boolean promise indicating if the button is disabled. */
     isDisabled() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             const disabled = (yield this.host()).getAttribute('disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
     /** Gets a promise for the button's label text. */
     getText() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).text();
         });
     }
     /** Focuses the button and returns a void promise that indicates when the action is complete. */
     focus() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).focus();
         });
     }
     /** Blurs the button and returns a void promise that indicates when the action is complete. */
     blur() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+        return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).blur();
         });
     }

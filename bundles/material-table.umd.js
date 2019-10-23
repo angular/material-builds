@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', 'tslib', '@angular/cdk/table', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}), global.ng.core, global.tslib, global.ng.cdk.table, global.ng.common, global.ng.material.core, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators));
-}(this, function (exports, core, tslib_1, table, common, core$1, coercion, rxjs, operators) { 'use strict';
+}(this, function (exports, core, tslib, table, common, core$1, coercion, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -15,7 +15,7 @@
      * Wrapper for the CdkTable with Material design styles.
      */
     var MatTable = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTable, _super);
+        tslib.__extends(MatTable, _super);
         function MatTable() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             /** Overrides the sticky CSS class set by the `CdkTable`. */
@@ -54,7 +54,7 @@
      * Captures the template of a column's data row cell as well as cell-specific properties.
      */
     var MatCellDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatCellDef, _super);
+        tslib.__extends(MatCellDef, _super);
         function MatCellDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -71,7 +71,7 @@
      * Captures the template of a column's header cell and as well as cell-specific properties.
      */
     var MatHeaderCellDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatHeaderCellDef, _super);
+        tslib.__extends(MatHeaderCellDef, _super);
         function MatHeaderCellDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -88,7 +88,7 @@
      * Captures the template of a column's footer cell and as well as cell-specific properties.
      */
     var MatFooterCellDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatFooterCellDef, _super);
+        tslib.__extends(MatFooterCellDef, _super);
         function MatFooterCellDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -105,7 +105,7 @@
      * Defines a set of cells available for a table column.
      */
     var MatColumnDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatColumnDef, _super);
+        tslib.__extends(MatColumnDef, _super);
         function MatColumnDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -127,7 +127,7 @@
     }(table.CdkColumnDef));
     /** Header cell template container that adds the right classes and role. */
     var MatHeaderCell = /** @class */ (function (_super) {
-        tslib_1.__extends(MatHeaderCell, _super);
+        tslib.__extends(MatHeaderCell, _super);
         function MatHeaderCell(columnDef, elementRef) {
             var _this = _super.call(this, columnDef, elementRef) || this;
             elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
@@ -151,7 +151,7 @@
     }(table.CdkHeaderCell));
     /** Footer cell template container that adds the right classes and role. */
     var MatFooterCell = /** @class */ (function (_super) {
-        tslib_1.__extends(MatFooterCell, _super);
+        tslib.__extends(MatFooterCell, _super);
         function MatFooterCell(columnDef, elementRef) {
             var _this = _super.call(this, columnDef, elementRef) || this;
             elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
@@ -175,7 +175,7 @@
     }(table.CdkFooterCell));
     /** Cell template container that adds the right classes and role. */
     var MatCell = /** @class */ (function (_super) {
-        tslib_1.__extends(MatCell, _super);
+        tslib.__extends(MatCell, _super);
         function MatCell(columnDef, elementRef) {
             var _this = _super.call(this, columnDef, elementRef) || this;
             elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
@@ -210,7 +210,7 @@
      * Captures the header row's template and other header properties such as the columns to display.
      */
     var MatHeaderRowDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatHeaderRowDef, _super);
+        tslib.__extends(MatHeaderRowDef, _super);
         function MatHeaderRowDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -228,7 +228,7 @@
      * Captures the footer row's template and other footer properties such as the columns to display.
      */
     var MatFooterRowDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatFooterRowDef, _super);
+        tslib.__extends(MatFooterRowDef, _super);
         function MatFooterRowDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -247,7 +247,7 @@
      * a when predicate that describes when this row should be used.
      */
     var MatRowDef = /** @class */ (function (_super) {
-        tslib_1.__extends(MatRowDef, _super);
+        tslib.__extends(MatRowDef, _super);
         function MatRowDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -262,7 +262,7 @@
     }(table.CdkRowDef));
     /** Footer template container that contains the cell outlet. Adds the right class and role. */
     var MatHeaderRow = /** @class */ (function (_super) {
-        tslib_1.__extends(MatHeaderRow, _super);
+        tslib.__extends(MatHeaderRow, _super);
         function MatHeaderRow() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -287,7 +287,7 @@
     }(table.CdkHeaderRow));
     /** Footer template container that contains the cell outlet. Adds the right class and role. */
     var MatFooterRow = /** @class */ (function (_super) {
-        tslib_1.__extends(MatFooterRow, _super);
+        tslib.__extends(MatFooterRow, _super);
         function MatFooterRow() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -312,7 +312,7 @@
     }(table.CdkFooterRow));
     /** Data row template container that contains the cell outlet. Adds the right class and role. */
     var MatRow = /** @class */ (function (_super) {
-        tslib_1.__extends(MatRow, _super);
+        tslib.__extends(MatRow, _super);
         function MatRow() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -353,7 +353,7 @@
      * input.
      */
     var MatTextColumn = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTextColumn, _super);
+        tslib.__extends(MatTextColumn, _super);
         function MatTextColumn() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -446,7 +446,7 @@
      * own `DataSource`.
      */
     var MatTableDataSource = /** @class */ (function (_super) {
-        tslib_1.__extends(MatTableDataSource, _super);
+        tslib.__extends(MatTableDataSource, _super);
         function MatTableDataSource(initialData) {
             if (initialData === void 0) { initialData = []; }
             var _this = _super.call(this) || this;
@@ -622,19 +622,19 @@
             // Watch for base data or filter changes to provide a filtered set of data.
             var filteredData = rxjs.combineLatest([dataStream, this._filter])
                 .pipe(operators.map(function (_a) {
-                var _b = tslib_1.__read(_a, 1), data = _b[0];
+                var _b = tslib.__read(_a, 1), data = _b[0];
                 return _this._filterData(data);
             }));
             // Watch for filtered data or sort changes to provide an ordered set of data.
             var orderedData = rxjs.combineLatest([filteredData, sortChange])
                 .pipe(operators.map(function (_a) {
-                var _b = tslib_1.__read(_a, 1), data = _b[0];
+                var _b = tslib.__read(_a, 1), data = _b[0];
                 return _this._orderData(data);
             }));
             // Watch for ordered data or page changes to provide a paged set of data.
             var paginatedData = rxjs.combineLatest([orderedData, pageChange])
                 .pipe(operators.map(function (_a) {
-                var _b = tslib_1.__read(_a, 1), data = _b[0];
+                var _b = tslib.__read(_a, 1), data = _b[0];
                 return _this._pageData(data);
             }));
             // Watched for paged data changes and send the result to the table to render.

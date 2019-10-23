@@ -9,7 +9,7 @@ import { of, throwError, forkJoin } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Returns an exception to be thrown in the case when attempting to
@@ -719,7 +719,7 @@ MatIconRegistry.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
     { type: ErrorHandler, decorators: [{ type: Optional }] }
 ];
-/** @nocollapse */ MatIconRegistry.ngInjectableDef = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
+/** @nocollapse */ MatIconRegistry.ɵprov = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
@@ -829,7 +829,7 @@ function iconKey(namespace, name) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatIcon.
 /**
@@ -1377,7 +1377,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatIconModule {
 }
@@ -1391,7 +1391,7 @@ MatIconModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**

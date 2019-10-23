@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('9.0.0-next.0-sha-59154b1ef');
+var VERSION = new Version('9.0.0-next.0-sha-1ad9ef07d');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('9.0.0-next.0-sha-59154b1ef');
+var VERSION$1 = new Version('9.0.0-next.0-sha-1ad9ef07d');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -698,7 +698,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
                 date = this.clone(date);
                 date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
             }
-            displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
+            displayFormat = __assign(__assign({}, displayFormat), { timeZone: 'utc' });
             var dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
             return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
@@ -893,7 +893,7 @@ var ErrorStateMatcher = /** @class */ (function () {
     ErrorStateMatcher.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    ErrorStateMatcher.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    ErrorStateMatcher.ɵprov = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 
@@ -1224,7 +1224,7 @@ var RippleRenderer = /** @class */ (function () {
         if (config === void 0) { config = {}; }
         var containerRect = this._containerRect =
             this._containerRect || this._containerElement.getBoundingClientRect();
-        var animationConfig = __assign({}, defaultRippleAnimationConfig, config.animation);
+        var animationConfig = __assign(__assign({}, defaultRippleAnimationConfig), config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
             y = containerRect.top + containerRect.height / 2;
@@ -1285,7 +1285,7 @@ var RippleRenderer = /** @class */ (function () {
             return;
         }
         var rippleEl = rippleRef.element;
-        var animationConfig = __assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+        var animationConfig = __assign(__assign({}, defaultRippleAnimationConfig), rippleRef.config.animation);
         rippleEl.style.transitionDuration = animationConfig.exitDuration + "ms";
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
@@ -1421,7 +1421,7 @@ var MatRipple = /** @class */ (function () {
                 centered: this.centered,
                 radius: this.radius,
                 color: this.color,
-                animation: __assign({}, this._globalOptions.animation, this.animation),
+                animation: __assign(__assign({}, this._globalOptions.animation), this.animation),
                 terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
             };
         },
@@ -1449,10 +1449,10 @@ var MatRipple = /** @class */ (function () {
     MatRipple.prototype.launch = function (configOrX, y, config) {
         if (y === void 0) { y = 0; }
         if (typeof configOrX === 'number') {
-            return this._rippleRenderer.fadeInRipple(configOrX, y, __assign({}, this.rippleConfig, config));
+            return this._rippleRenderer.fadeInRipple(configOrX, y, __assign(__assign({}, this.rippleConfig), config));
         }
         else {
-            return this._rippleRenderer.fadeInRipple(0, 0, __assign({}, this.rippleConfig, configOrX));
+            return this._rippleRenderer.fadeInRipple(0, 0, __assign(__assign({}, this.rippleConfig), configOrX));
         }
     };
     MatRipple.decorators = [
