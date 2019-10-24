@@ -1171,13 +1171,13 @@
             { type: a11y.LiveAnnouncer }
         ]; };
         MatSelect.propDecorators = {
-            trigger: [{ type: core.ViewChild, args: ['trigger', { static: false },] }],
-            panel: [{ type: core.ViewChild, args: ['panel', { static: false },] }],
-            overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay, { static: false },] }],
+            trigger: [{ type: core.ViewChild, args: ['trigger',] }],
+            panel: [{ type: core.ViewChild, args: ['panel',] }],
+            overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] }],
             options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }],
             optionGroups: [{ type: core.ContentChildren, args: [core$1.MatOptgroup, { descendants: true },] }],
             panelClass: [{ type: core.Input }],
-            customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger, { static: false },] }],
+            customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger,] }],
             placeholder: [{ type: core.Input }],
             required: [{ type: core.Input }],
             multiple: [{ type: core.Input }],

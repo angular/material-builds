@@ -167,7 +167,7 @@
         ]; };
         MatAutocomplete.propDecorators = {
             template: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
-            panel: [{ type: core.ViewChild, args: ['panel', { static: false },] }],
+            panel: [{ type: core.ViewChild, args: ['panel',] }],
             options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }],
             optionGroups: [{ type: core.ContentChildren, args: [core$1.MatOptgroup,] }],
             displayWith: [{ type: core.Input }],

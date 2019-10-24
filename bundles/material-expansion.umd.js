@@ -268,8 +268,8 @@
             togglePosition: [{ type: core.Input }],
             afterExpand: [{ type: core.Output }],
             afterCollapse: [{ type: core.Output }],
-            _lazyContent: [{ type: core.ContentChild, args: [MatExpansionPanelContent, { static: false },] }],
-            _body: [{ type: core.ViewChild, args: ['body', { static: false },] }]
+            _lazyContent: [{ type: core.ContentChild, args: [MatExpansionPanelContent,] }],
+            _body: [{ type: core.ViewChild, args: ['body',] }]
         };
         return MatExpansionPanel;
     }(accordion.CdkAccordionItem));

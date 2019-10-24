@@ -389,8 +389,8 @@
             change: [{ type: core.Output }],
             indeterminateChange: [{ type: core.Output }],
             value: [{ type: core.Input }],
-            _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }],
-            ripple: [{ type: core.ViewChild, args: [core$1.MatRipple, { static: false },] }],
+            _inputElement: [{ type: core.ViewChild, args: ['input',] }],
+            ripple: [{ type: core.ViewChild, args: [core$1.MatRipple,] }],
             checked: [{ type: core.Input }],
             disabled: [{ type: core.Input }],
             indeterminate: [{ type: core.Input }]

@@ -123,7 +123,7 @@ var MatButton = /** @class */ (function (_super) {
         { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatButton.propDecorators = {
-        ripple: [{ type: ViewChild, args: [MatRipple, { static: false },] }]
+        ripple: [{ type: ViewChild, args: [MatRipple,] }]
     };
     return MatButton;
 }(_MatButtonMixinBase));

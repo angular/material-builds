@@ -220,8 +220,8 @@
         ]; };
         MatListItem.propDecorators = {
             _lines: [{ type: core.ContentChildren, args: [core$1.MatLine, { descendants: true },] }],
-            _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
-            _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler, { static: false },] }]
+            _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
+            _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] }]
         };
         return MatListItem;
     }(_MatListItemMixinBase));
@@ -468,10 +468,10 @@
             { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSelectionList; }),] }] }
         ]; };
         MatListOption.propDecorators = {
-            _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler, { static: false },] }],
-            _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler, { static: false },] }],
+            _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
+            _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] }],
             _lines: [{ type: core.ContentChildren, args: [core$1.MatLine,] }],
-            _text: [{ type: core.ViewChild, args: ['text', { static: false },] }],
+            _text: [{ type: core.ViewChild, args: ['text',] }],
             checkboxPosition: [{ type: core.Input }],
             color: [{ type: core.Input }],
             value: [{ type: core.Input }],

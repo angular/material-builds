@@ -246,7 +246,7 @@ MatAutocomplete.ctorParameters = () => [
 ];
 MatAutocomplete.propDecorators = {
     template: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
-    panel: [{ type: ViewChild, args: ['panel', { static: false },] }],
+    panel: [{ type: ViewChild, args: ['panel',] }],
     options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
     optionGroups: [{ type: ContentChildren, args: [MatOptgroup,] }],
     displayWith: [{ type: Input }],

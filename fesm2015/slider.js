@@ -1018,7 +1018,7 @@ MatSlider.propDecorators = {
     change: [{ type: Output }],
     input: [{ type: Output }],
     valueChange: [{ type: Output }],
-    _sliderWrapper: [{ type: ViewChild, args: ['sliderWrapper', { static: false },] }]
+    _sliderWrapper: [{ type: ViewChild, args: ['sliderWrapper',] }]
 };
 if (false) {
     /**

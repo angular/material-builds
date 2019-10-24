@@ -276,8 +276,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         togglePosition: [{ type: Input }],
         afterExpand: [{ type: Output }],
         afterCollapse: [{ type: Output }],
-        _lazyContent: [{ type: ContentChild, args: [MatExpansionPanelContent, { static: false },] }],
-        _body: [{ type: ViewChild, args: ['body', { static: false },] }]
+        _lazyContent: [{ type: ContentChild, args: [MatExpansionPanelContent,] }],
+        _body: [{ type: ViewChild, args: ['body',] }]
     };
     return MatExpansionPanel;
 }(CdkAccordionItem));

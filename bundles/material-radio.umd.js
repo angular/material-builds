@@ -546,7 +546,7 @@
             required: [{ type: core.Input }],
             color: [{ type: core.Input }],
             change: [{ type: core.Output }],
-            _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }]
+            _inputElement: [{ type: core.ViewChild, args: ['input',] }]
         };
         return MatRadioButton;
     }(_MatRadioButtonMixinBase));

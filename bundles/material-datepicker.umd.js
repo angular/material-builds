@@ -431,7 +431,7 @@
             selectedChange: [{ type: i0.Output }],
             _userSelection: [{ type: i0.Output }],
             activeDateChange: [{ type: i0.Output }],
-            _matCalendarBody: [{ type: i0.ViewChild, args: [MatCalendarBody, { static: false },] }]
+            _matCalendarBody: [{ type: i0.ViewChild, args: [MatCalendarBody,] }]
         };
         return MatMonthView;
     }());
@@ -653,7 +653,7 @@
             selectedChange: [{ type: i0.Output }],
             yearSelected: [{ type: i0.Output }],
             activeDateChange: [{ type: i0.Output }],
-            _matCalendarBody: [{ type: i0.ViewChild, args: [MatCalendarBody, { static: false },] }]
+            _matCalendarBody: [{ type: i0.ViewChild, args: [MatCalendarBody,] }]
         };
         return MatMultiYearView;
     }());
@@ -934,7 +934,7 @@
             selectedChange: [{ type: i0.Output }],
             monthSelected: [{ type: i0.Output }],
             activeDateChange: [{ type: i0.Output }],
-            _matCalendarBody: [{ type: i0.ViewChild, args: [MatCalendarBody, { static: false },] }]
+            _matCalendarBody: [{ type: i0.ViewChild, args: [MatCalendarBody,] }]
         };
         return MatYearView;
     }());
@@ -1285,9 +1285,9 @@
             yearSelected: [{ type: i0.Output }],
             monthSelected: [{ type: i0.Output }],
             _userSelection: [{ type: i0.Output }],
-            monthView: [{ type: i0.ViewChild, args: [MatMonthView, { static: false },] }],
-            yearView: [{ type: i0.ViewChild, args: [MatYearView, { static: false },] }],
-            multiYearView: [{ type: i0.ViewChild, args: [MatMultiYearView, { static: false },] }]
+            monthView: [{ type: i0.ViewChild, args: [MatMonthView,] }],
+            yearView: [{ type: i0.ViewChild, args: [MatYearView,] }],
+            multiYearView: [{ type: i0.ViewChild, args: [MatMultiYearView,] }]
         };
         return MatCalendar;
     }());
@@ -1397,7 +1397,7 @@
             { type: i0.ElementRef }
         ]; };
         MatDatepickerContent.propDecorators = {
-            _calendar: [{ type: i0.ViewChild, args: [MatCalendar, { static: false },] }]
+            _calendar: [{ type: i0.ViewChild, args: [MatCalendar,] }]
         };
         return MatDatepickerContent;
     }(_MatDatepickerContentMixinBase));
@@ -2202,8 +2202,8 @@
             tabIndex: [{ type: i0.Input }],
             disabled: [{ type: i0.Input }],
             disableRipple: [{ type: i0.Input }],
-            _customIcon: [{ type: i0.ContentChild, args: [MatDatepickerToggleIcon, { static: false },] }],
-            _button: [{ type: i0.ViewChild, args: ['button', { static: false },] }]
+            _customIcon: [{ type: i0.ContentChild, args: [MatDatepickerToggleIcon,] }],
+            _button: [{ type: i0.ViewChild, args: ['button',] }]
         };
         return MatDatepickerToggle;
     }());

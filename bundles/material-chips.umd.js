@@ -340,9 +340,9 @@
             { type: core.ChangeDetectorRef }
         ]; };
         MatChip.propDecorators = {
-            avatar: [{ type: core.ContentChild, args: [MatChipAvatar, { static: false },] }],
-            trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
-            removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }), { static: false },] }],
+            avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],
+            trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon,] }],
+            removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] }],
             selected: [{ type: core.Input }],
             value: [{ type: core.Input }],
             selectable: [{ type: core.Input }],

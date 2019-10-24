@@ -775,7 +775,7 @@
             change: [{ type: core.Output }],
             input: [{ type: core.Output }],
             valueChange: [{ type: core.Output }],
-            _sliderWrapper: [{ type: core.ViewChild, args: ['sliderWrapper', { static: false },] }]
+            _sliderWrapper: [{ type: core.ViewChild, args: ['sliderWrapper',] }]
         };
         return MatSlider;
     }(_MatSliderMixinBase));

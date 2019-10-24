@@ -799,8 +799,8 @@ var MatDrawerContainer = /** @class */ (function () {
                         // indirect descendants if it's left as false.
                         descendants: true
                     },] }],
-        _content: [{ type: ContentChild, args: [MatDrawerContent, { static: false },] }],
-        _userContent: [{ type: ViewChild, args: [MatDrawerContent, { static: false },] }],
+        _content: [{ type: ContentChild, args: [MatDrawerContent,] }],
+        _userContent: [{ type: ViewChild, args: [MatDrawerContent,] }],
         autosize: [{ type: Input }],
         hasBackdrop: [{ type: Input }],
         backdropClick: [{ type: Output }]
@@ -942,7 +942,7 @@ var MatSidenavContainer = /** @class */ (function (_super) {
                         // indirect descendants if it's left as false.
                         descendants: true
                     },] }],
-        _content: [{ type: ContentChild, args: [MatSidenavContent, { static: false },] }]
+        _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
     };
     return MatSidenavContainer;
 }(MatDrawerContainer));

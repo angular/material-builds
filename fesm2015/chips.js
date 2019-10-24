@@ -450,12 +450,12 @@ MatChip.ctorParameters = () => [
     { type: ChangeDetectorRef }
 ];
 MatChip.propDecorators = {
-    avatar: [{ type: ContentChild, args: [MatChipAvatar, { static: false },] }],
-    trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon, { static: false },] }],
+    avatar: [{ type: ContentChild, args: [MatChipAvatar,] }],
+    trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon,] }],
     removeIcon: [{ type: ContentChild, args: [forwardRef((/**
                  * @return {?}
                  */
-                () => MatChipRemove)), { static: false },] }],
+                () => MatChipRemove)),] }],
     selected: [{ type: Input }],
     value: [{ type: Input }],
     selectable: [{ type: Input }],

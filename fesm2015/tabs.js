@@ -315,7 +315,7 @@ MatTab.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TAB_GROUP,] }] }
 ];
 MatTab.propDecorators = {
-    templateLabel: [{ type: ContentChild, args: [MatTabLabel, { static: false },] }],
+    templateLabel: [{ type: ContentChild, args: [MatTabLabel,] }],
     _explicitContent: [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef, static: true },] }],
     _implicitContent: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
     textLabel: [{ type: Input, args: ['label',] }],
@@ -820,7 +820,7 @@ MatTabBody.ctorParameters = () => [
     { type: ChangeDetectorRef }
 ];
 MatTabBody.propDecorators = {
-    _portalHost: [{ type: ViewChild, args: [PortalHostDirective, { static: false },] }]
+    _portalHost: [{ type: ViewChild, args: [PortalHostDirective,] }]
 };
 if (false) {
     /** @type {?} */
@@ -1466,8 +1466,8 @@ MatTabGroup.ctorParameters = () => [
 ];
 MatTabGroup.propDecorators = {
     _allTabs: [{ type: ContentChildren, args: [MatTab, { descendants: true },] }],
-    _tabBodyWrapper: [{ type: ViewChild, args: ['tabBodyWrapper', { static: false },] }],
-    _tabHeader: [{ type: ViewChild, args: ['tabHeader', { static: false },] }]
+    _tabBodyWrapper: [{ type: ViewChild, args: ['tabBodyWrapper',] }],
+    _tabHeader: [{ type: ViewChild, args: ['tabHeader',] }]
 };
 if (false) {
     /** @type {?} */
@@ -2431,8 +2431,8 @@ MatTabHeader.propDecorators = {
     _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
     _tabListContainer: [{ type: ViewChild, args: ['tabListContainer', { static: true },] }],
     _tabList: [{ type: ViewChild, args: ['tabList', { static: true },] }],
-    _nextPaginator: [{ type: ViewChild, args: ['nextPaginator', { static: false },] }],
-    _previousPaginator: [{ type: ViewChild, args: ['previousPaginator', { static: false },] }]
+    _nextPaginator: [{ type: ViewChild, args: ['nextPaginator',] }],
+    _previousPaginator: [{ type: ViewChild, args: ['previousPaginator',] }]
 };
 if (false) {
     /** @type {?} */
@@ -2658,8 +2658,8 @@ MatTabNav.propDecorators = {
     _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
     _tabListContainer: [{ type: ViewChild, args: ['tabListContainer', { static: true },] }],
     _tabList: [{ type: ViewChild, args: ['tabList', { static: true },] }],
-    _nextPaginator: [{ type: ViewChild, args: ['nextPaginator', { static: false },] }],
-    _previousPaginator: [{ type: ViewChild, args: ['previousPaginator', { static: false },] }]
+    _nextPaginator: [{ type: ViewChild, args: ['nextPaginator',] }],
+    _previousPaginator: [{ type: ViewChild, args: ['previousPaginator',] }]
 };
 if (false) {
     /** @type {?} */

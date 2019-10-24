@@ -261,7 +261,7 @@ MatProgressBar.ctorParameters = () => [
 MatProgressBar.propDecorators = {
     value: [{ type: Input }],
     bufferValue: [{ type: Input }],
-    _primaryValueBar: [{ type: ViewChild, args: ['primaryValueBar', { static: false },] }],
+    _primaryValueBar: [{ type: ViewChild, args: ['primaryValueBar',] }],
     animationEnd: [{ type: Output }],
     mode: [{ type: Input }]
 };

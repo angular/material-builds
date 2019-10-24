@@ -444,7 +444,7 @@ var MatMonthView = /** @class */ (function () {
         selectedChange: [{ type: Output }],
         _userSelection: [{ type: Output }],
         activeDateChange: [{ type: Output }],
-        _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody, { static: false },] }]
+        _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
     };
     return MatMonthView;
 }());
@@ -666,7 +666,7 @@ var MatMultiYearView = /** @class */ (function () {
         selectedChange: [{ type: Output }],
         yearSelected: [{ type: Output }],
         activeDateChange: [{ type: Output }],
-        _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody, { static: false },] }]
+        _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
     };
     return MatMultiYearView;
 }());
@@ -947,7 +947,7 @@ var MatYearView = /** @class */ (function () {
         selectedChange: [{ type: Output }],
         monthSelected: [{ type: Output }],
         activeDateChange: [{ type: Output }],
-        _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody, { static: false },] }]
+        _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
     };
     return MatYearView;
 }());
@@ -1298,9 +1298,9 @@ var MatCalendar = /** @class */ (function () {
         yearSelected: [{ type: Output }],
         monthSelected: [{ type: Output }],
         _userSelection: [{ type: Output }],
-        monthView: [{ type: ViewChild, args: [MatMonthView, { static: false },] }],
-        yearView: [{ type: ViewChild, args: [MatYearView, { static: false },] }],
-        multiYearView: [{ type: ViewChild, args: [MatMultiYearView, { static: false },] }]
+        monthView: [{ type: ViewChild, args: [MatMonthView,] }],
+        yearView: [{ type: ViewChild, args: [MatYearView,] }],
+        multiYearView: [{ type: ViewChild, args: [MatMultiYearView,] }]
     };
     return MatCalendar;
 }());
@@ -1410,7 +1410,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
         { type: ElementRef }
     ]; };
     MatDatepickerContent.propDecorators = {
-        _calendar: [{ type: ViewChild, args: [MatCalendar, { static: false },] }]
+        _calendar: [{ type: ViewChild, args: [MatCalendar,] }]
     };
     return MatDatepickerContent;
 }(_MatDatepickerContentMixinBase));
@@ -2215,8 +2215,8 @@ var MatDatepickerToggle = /** @class */ (function () {
         tabIndex: [{ type: Input }],
         disabled: [{ type: Input }],
         disableRipple: [{ type: Input }],
-        _customIcon: [{ type: ContentChild, args: [MatDatepickerToggleIcon, { static: false },] }],
-        _button: [{ type: ViewChild, args: ['button', { static: false },] }]
+        _customIcon: [{ type: ContentChild, args: [MatDatepickerToggleIcon,] }],
+        _button: [{ type: ViewChild, args: ['button',] }]
     };
     return MatDatepickerToggle;
 }());

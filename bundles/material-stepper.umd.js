@@ -250,7 +250,7 @@
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
         ]; };
         MatStep.propDecorators = {
-            stepLabel: [{ type: i0.ContentChild, args: [MatStepLabel, { static: false },] }]
+            stepLabel: [{ type: i0.ContentChild, args: [MatStepLabel,] }]
         };
         return MatStep;
     }(stepper.CdkStep));

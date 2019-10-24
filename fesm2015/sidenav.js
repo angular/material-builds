@@ -1213,8 +1213,8 @@ MatDrawerContainer.propDecorators = {
                     // indirect descendants if it's left as false.
                     descendants: true
                 },] }],
-    _content: [{ type: ContentChild, args: [MatDrawerContent, { static: false },] }],
-    _userContent: [{ type: ViewChild, args: [MatDrawerContent, { static: false },] }],
+    _content: [{ type: ContentChild, args: [MatDrawerContent,] }],
+    _userContent: [{ type: ViewChild, args: [MatDrawerContent,] }],
     autosize: [{ type: Input }],
     hasBackdrop: [{ type: Input }],
     backdropClick: [{ type: Output }]
@@ -1474,7 +1474,7 @@ MatSidenavContainer.propDecorators = {
                     // indirect descendants if it's left as false.
                     descendants: true
                 },] }],
-    _content: [{ type: ContentChild, args: [MatSidenavContent, { static: false },] }]
+    _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
 };
 if (false) {
     /** @type {?} */

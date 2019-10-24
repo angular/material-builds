@@ -790,8 +790,8 @@
                             // indirect descendants if it's left as false.
                             descendants: true
                         },] }],
-            _content: [{ type: core.ContentChild, args: [MatDrawerContent, { static: false },] }],
-            _userContent: [{ type: core.ViewChild, args: [MatDrawerContent, { static: false },] }],
+            _content: [{ type: core.ContentChild, args: [MatDrawerContent,] }],
+            _userContent: [{ type: core.ViewChild, args: [MatDrawerContent,] }],
             autosize: [{ type: core.Input }],
             hasBackdrop: [{ type: core.Input }],
             backdropClick: [{ type: core.Output }]
@@ -933,7 +933,7 @@
                             // indirect descendants if it's left as false.
                             descendants: true
                         },] }],
-            _content: [{ type: core.ContentChild, args: [MatSidenavContent, { static: false },] }]
+            _content: [{ type: core.ContentChild, args: [MatSidenavContent,] }]
         };
         return MatSidenavContainer;
     }(MatDrawerContainer));

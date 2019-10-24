@@ -782,7 +782,7 @@ var MatSlider = /** @class */ (function (_super) {
         change: [{ type: Output }],
         input: [{ type: Output }],
         valueChange: [{ type: Output }],
-        _sliderWrapper: [{ type: ViewChild, args: ['sliderWrapper', { static: false },] }]
+        _sliderWrapper: [{ type: ViewChild, args: ['sliderWrapper',] }]
     };
     return MatSlider;
 }(_MatSliderMixinBase));

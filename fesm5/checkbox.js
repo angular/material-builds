@@ -398,8 +398,8 @@ var MatCheckbox = /** @class */ (function (_super) {
         change: [{ type: Output }],
         indeterminateChange: [{ type: Output }],
         value: [{ type: Input }],
-        _inputElement: [{ type: ViewChild, args: ['input', { static: false },] }],
-        ripple: [{ type: ViewChild, args: [MatRipple, { static: false },] }],
+        _inputElement: [{ type: ViewChild, args: ['input',] }],
+        ripple: [{ type: ViewChild, args: [MatRipple,] }],
         checked: [{ type: Input }],
         disabled: [{ type: Input }],
         indeterminate: [{ type: Input }]

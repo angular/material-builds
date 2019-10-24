@@ -479,7 +479,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
     MatButtonToggle.propDecorators = {
         ariaLabel: [{ type: Input, args: ['aria-label',] }],
         ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
-        _buttonElement: [{ type: ViewChild, args: ['button', { static: false },] }],
+        _buttonElement: [{ type: ViewChild, args: ['button',] }],
         id: [{ type: Input }],
         name: [{ type: Input }],
         value: [{ type: Input }],

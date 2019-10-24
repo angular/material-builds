@@ -240,7 +240,7 @@
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TAB_GROUP,] }] }
         ]; };
         MatTab.propDecorators = {
-            templateLabel: [{ type: core.ContentChild, args: [MatTabLabel, { static: false },] }],
+            templateLabel: [{ type: core.ContentChild, args: [MatTabLabel,] }],
             _explicitContent: [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef, static: true },] }],
             _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
             textLabel: [{ type: core.Input, args: ['label',] }],
@@ -503,7 +503,7 @@
             { type: core.ChangeDetectorRef }
         ]; };
         MatTabBody.propDecorators = {
-            _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective, { static: false },] }]
+            _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }]
         };
         return MatTabBody;
     }(_MatTabBodyBase));
@@ -854,8 +854,8 @@
         ]; };
         MatTabGroup.propDecorators = {
             _allTabs: [{ type: core.ContentChildren, args: [MatTab, { descendants: true },] }],
-            _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper', { static: false },] }],
-            _tabHeader: [{ type: core.ViewChild, args: ['tabHeader', { static: false },] }]
+            _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper',] }],
+            _tabHeader: [{ type: core.ViewChild, args: ['tabHeader',] }]
         };
         return MatTabGroup;
     }(_MatTabGroupBase));
@@ -1504,8 +1504,8 @@
             _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
             _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
             _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
-            _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator', { static: false },] }],
-            _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator', { static: false },] }]
+            _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
+            _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }]
         };
         return MatTabHeader;
     }(_MatTabHeaderBase));
@@ -1652,8 +1652,8 @@
             _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
             _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
             _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
-            _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator', { static: false },] }],
-            _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator', { static: false },] }]
+            _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
+            _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }]
         };
         return MatTabNav;
     }(_MatTabNavBase));

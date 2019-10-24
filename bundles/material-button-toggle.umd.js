@@ -477,7 +477,7 @@
         MatButtonToggle.propDecorators = {
             ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
             ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
-            _buttonElement: [{ type: core.ViewChild, args: ['button', { static: false },] }],
+            _buttonElement: [{ type: core.ViewChild, args: ['button',] }],
             id: [{ type: core.Input }],
             name: [{ type: core.Input }],
             value: [{ type: core.Input }],

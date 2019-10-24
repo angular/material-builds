@@ -254,8 +254,8 @@
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
         ]; };
         MatSlideToggle.propDecorators = {
-            _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer', { static: false },] }],
-            _thumbBarEl: [{ type: core.ViewChild, args: ['toggleBar', { static: false },] }],
+            _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer',] }],
+            _thumbBarEl: [{ type: core.ViewChild, args: ['toggleBar',] }],
             name: [{ type: core.Input }],
             id: [{ type: core.Input }],
             labelPosition: [{ type: core.Input }],
@@ -266,7 +266,7 @@
             change: [{ type: core.Output }],
             toggleChange: [{ type: core.Output }],
             dragChange: [{ type: core.Output }],
-            _inputElement: [{ type: core.ViewChild, args: ['input', { static: false },] }]
+            _inputElement: [{ type: core.ViewChild, args: ['input',] }]
         };
         return MatSlideToggle;
     }(_MatSlideToggleMixinBase));
