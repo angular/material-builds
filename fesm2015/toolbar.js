@@ -116,7 +116,7 @@ MatToolbar.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 MatToolbar.propDecorators = {
-    _toolbarRows: [{ type: ContentChildren, args: [MatToolbarRow,] }]
+    _toolbarRows: [{ type: ContentChildren, args: [MatToolbarRow, { descendants: true },] }]
 };
 if (false) {
     /**

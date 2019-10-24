@@ -91,7 +91,7 @@
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
         MatToolbar.propDecorators = {
-            _toolbarRows: [{ type: core.ContentChildren, args: [MatToolbarRow,] }]
+            _toolbarRows: [{ type: core.ContentChildren, args: [MatToolbarRow, { descendants: true },] }]
         };
         return MatToolbar;
     }(_MatToolbarMixinBase));

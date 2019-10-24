@@ -91,7 +91,7 @@ var MatToolbar = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ]; };
     MatToolbar.propDecorators = {
-        _toolbarRows: [{ type: ContentChildren, args: [MatToolbarRow,] }]
+        _toolbarRows: [{ type: ContentChildren, args: [MatToolbarRow, { descendants: true },] }]
     };
     return MatToolbar;
 }(_MatToolbarMixinBase));
