@@ -7,7 +7,7 @@ import { __extends, __assign } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
-import { state, style, transition, animate, trigger } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 
@@ -72,24 +72,21 @@ var MatDialogConfig = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var animationBody = [
-    // Note: The `enter` animation transitions to `transform: none`, because for some reason
-    // specifying the transform explicitly, causes IE both to blur the dialog content and
-    // decimate the animation performance. Leaving it as `none` solves both issues.
-    state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
-    state('enter', style({ transform: 'none' })),
-    transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
-    transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
-];
 /**
  * Animations used by MatDialog.
  * @docs-private
  */
 var matDialogAnimations = {
     /** Animation that is applied on the dialog container by defalt. */
-    dialogContainer: trigger('dialogContainer', animationBody),
-    /** @deprecated @breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead. */
-    slideDialog: trigger('slideDialog', animationBody)
+    dialogContainer: trigger('dialogContainer', [
+        // Note: The `enter` animation transitions to `transform: none`, because for some reason
+        // specifying the transform explicitly, causes IE both to blur the dialog content and
+        // decimate the animation performance. Leaving it as `none` solves both issues.
+        state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
+        state('enter', style({ transform: 'none' })),
+        transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
+        transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
+    ])
 };
 
 /**
@@ -287,9 +284,7 @@ var uniqueId = 0;
  * Reference to a dialog opened via the MatDialog service.
  */
 var MatDialogRef = /** @class */ (function () {
-    function MatDialogRef(_overlayRef, _containerInstance, 
-    // @breaking-change 8.0.0 `_location` parameter to be removed.
-    _location, id) {
+    function MatDialogRef(_overlayRef, _containerInstance, id) {
         var _this = this;
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         this._overlayRef = _overlayRef;
@@ -434,22 +429,6 @@ var MatDialogRef = /** @class */ (function () {
         this._overlayRef.removePanelClass(classes);
         return this;
     };
-    /**
-     * Gets an observable that is notified when the dialog is finished opening.
-     * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0
-     */
-    MatDialogRef.prototype.afterOpen = function () {
-        return this.afterOpened();
-    };
-    /**
-     * Gets an observable that is notified when the dialog has started closing.
-     * @deprecated Use `beforeClosed` instead.
-     * @breaking-change 8.0.0
-     */
-    MatDialogRef.prototype.beforeClose = function () {
-        return this.beforeClosed();
-    };
     /** Gets the current state of the dialog's lifecycle. */
     MatDialogRef.prototype.getState = function () {
         return this._state;
@@ -492,11 +471,15 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 var MatDialog = /** @class */ (function () {
-    function MatDialog(_overlay, _injector, _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
+    function MatDialog(_overlay, _injector, 
+    /**
+     * @deprecated `_location` parameter to be removed.
+     * @breaking-change 10.0.0
+     */
+    _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
-        this._location = _location;
         this._defaultOptions = _defaultOptions;
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
@@ -526,18 +509,6 @@ var MatDialog = /** @class */ (function () {
         /** Stream that emits when a dialog has been opened. */
         get: function () {
             return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatDialog.prototype, "afterOpen", {
-        /**
-         * Stream that emits when a dialog has been opened.
-         * @deprecated Use `afterOpened` instead.
-         * @breaking-change 8.0.0
-         */
-        get: function () {
-            return this.afterOpened;
         },
         enumerable: true,
         configurable: true
@@ -654,7 +625,7 @@ var MatDialog = /** @class */ (function () {
     MatDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
+        var dialogRef = new MatDialogRef(overlayRef, dialogContainer, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {

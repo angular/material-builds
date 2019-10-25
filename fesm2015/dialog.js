@@ -6,7 +6,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
-import { state, style, transition, animate, trigger } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 
@@ -253,16 +253,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const animationBody = [
-    // Note: The `enter` animation transitions to `transform: none`, because for some reason
-    // specifying the transform explicitly, causes IE both to blur the dialog content and
-    // decimate the animation performance. Leaving it as `none` solves both issues.
-    state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
-    state('enter', style({ transform: 'none' })),
-    transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
-    transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
-];
 /**
  * Animations used by MatDialog.
  * \@docs-private
@@ -272,11 +262,15 @@ const matDialogAnimations = {
     /**
      * Animation that is applied on the dialog container by defalt.
      */
-    dialogContainer: trigger('dialogContainer', animationBody),
-    /**
-     * @deprecated \@breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead.
-     */
-    slideDialog: trigger('slideDialog', animationBody)
+    dialogContainer: trigger('dialogContainer', [
+        // Note: The `enter` animation transitions to `transform: none`, because for some reason
+        // specifying the transform explicitly, causes IE both to blur the dialog content and
+        // decimate the animation performance. Leaving it as `none` solves both issues.
+        state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
+        state('enter', style({ transform: 'none' })),
+        transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
+        transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
+    ])
 };
 
 /**
@@ -584,12 +578,9 @@ class MatDialogRef {
     /**
      * @param {?} _overlayRef
      * @param {?} _containerInstance
-     * @param {?=} _location
      * @param {?=} id
      */
-    constructor(_overlayRef, _containerInstance, 
-    // @breaking-change 8.0.0 `_location` parameter to be removed.
-    _location, id = `mat-dialog-${uniqueId++}`) {
+    constructor(_overlayRef, _containerInstance, id = `mat-dialog-${uniqueId++}`) {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
         this.id = id;
@@ -801,24 +792,6 @@ class MatDialogRef {
         return (/** @type {?} */ (this));
     }
     /**
-     * Gets an observable that is notified when the dialog is finished opening.
-     * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0
-     * @return {?}
-     */
-    afterOpen() {
-        return this.afterOpened();
-    }
-    /**
-     * Gets an observable that is notified when the dialog has started closing.
-     * @deprecated Use `beforeClosed` instead.
-     * \@breaking-change 8.0.0
-     * @return {?}
-     */
-    beforeClose() {
-        return this.beforeClosed();
-    }
-    /**
      * Gets the current state of the dialog's lifecycle.
      * @return {?}
      */
@@ -955,10 +928,14 @@ class MatDialog {
      * @param {?} _parentDialog
      * @param {?} _overlayContainer
      */
-    constructor(_overlay, _injector, _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
+    constructor(_overlay, _injector, 
+    /**
+     * @deprecated `_location` parameter to be removed.
+     * @breaking-change 10.0.0
+     */
+    _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
         this._overlay = _overlay;
         this._injector = _injector;
-        this._location = _location;
         this._defaultOptions = _defaultOptions;
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
@@ -992,15 +969,6 @@ class MatDialog {
      */
     get afterOpened() {
         return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
-    }
-    /**
-     * Stream that emits when a dialog has been opened.
-     * @deprecated Use `afterOpened` instead.
-     * \@breaking-change 8.0.0
-     * @return {?}
-     */
-    get afterOpen() {
-        return this.afterOpened;
     }
     /**
      * @return {?}
@@ -1141,7 +1109,7 @@ class MatDialog {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         /** @type {?} */
-        const dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
+        const dialogRef = new MatDialogRef(overlayRef, dialogContainer, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe((/**
@@ -1330,11 +1298,6 @@ if (false) {
      * @private
      */
     MatDialog.prototype._injector;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatDialog.prototype._location;
     /**
      * @type {?}
      * @private

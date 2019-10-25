@@ -12,5 +12,4 @@ import { AnimationTriggerMetadata } from '@angular/animations';
  */
 export declare const matDialogAnimations: {
     readonly dialogContainer: AnimationTriggerMetadata;
-    readonly slideDialog: AnimationTriggerMetadata;
 };

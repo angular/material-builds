@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { DialogPosition } from './dialog-config';
 import { MatDialogContainer } from './dialog-container';
@@ -39,7 +38,7 @@ export declare class MatDialogRef<T, R = any> {
     private _closeFallbackTimeout;
     /** Current state of the dialog. */
     private _state;
-    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, _location?: Location, id?: string);
+    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, id?: string);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.
@@ -80,18 +79,6 @@ export declare class MatDialogRef<T, R = any> {
     addPanelClass(classes: string | string[]): this;
     /** Remove a CSS class or an array of classes from the overlay pane. */
     removePanelClass(classes: string | string[]): this;
-    /**
-     * Gets an observable that is notified when the dialog is finished opening.
-     * @deprecated Use `afterOpened` instead.
-     * @breaking-change 8.0.0
-     */
-    afterOpen(): Observable<void>;
-    /**
-     * Gets an observable that is notified when the dialog has started closing.
-     * @deprecated Use `beforeClosed` instead.
-     * @breaking-change 8.0.0
-     */
-    beforeClose(): Observable<R | undefined>;
     /** Gets the current state of the dialog's lifecycle. */
     getState(): MatDialogState;
     /** Fetches the position strategy object from the overlay ref. */
