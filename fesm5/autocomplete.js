@@ -180,7 +180,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
         template: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
         panel: [{ type: ViewChild, args: ['panel',] }],
         options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
-        optionGroups: [{ type: ContentChildren, args: [MatOptgroup,] }],
+        optionGroups: [{ type: ContentChildren, args: [MatOptgroup, { descendants: true },] }],
         displayWith: [{ type: Input }],
         autoActiveFirstOption: [{ type: Input }],
         panelWidth: [{ type: Input }],
