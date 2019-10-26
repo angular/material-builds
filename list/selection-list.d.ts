@@ -7,9 +7,9 @@
  */
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, SimpleChanges, OnChanges } from '@angular/core';
-import { CanDisableRipple, CanDisableRippleCtor, MatLine, ThemePalette } from '@angular/material/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { CanDisableRipple, CanDisableRippleCtor, MatLine, ThemePalette } from '@angular/material/core';
 import { MatListAvatarCssMatStyler, MatListIconCssMatStyler } from './list';
 /** @docs-private */
 declare class MatSelectionListBase {
@@ -56,6 +56,11 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     /** Theme color of the list option. This sets the color of the checkbox. */
     color: ThemePalette;
     private _color;
+    /**
+     * This is set to true after the first OnChanges cycle so we don't clear the value of `selected`
+     * in the first cycle.
+     */
+    private _inputsInitialized;
     /** Value of the option */
     value: any;
     private _value;

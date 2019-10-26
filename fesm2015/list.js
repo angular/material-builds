@@ -383,6 +383,11 @@ class MatListOption extends _MatListOptionMixinBase {
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
         this.checkboxPosition = 'after';
+        /**
+         * This is set to true after the first OnChanges cycle so we don't clear the value of `selected`
+         * in the first cycle.
+         */
+        this._inputsInitialized = false;
     }
     /**
      * Theme color of the list option. This sets the color of the checkbox.
@@ -404,7 +409,7 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     set value(newValue) {
-        if (this.selected && newValue !== this.value) {
+        if (this.selected && newValue !== this.value && this._inputsInitialized) {
             this.selected = false;
         }
         this._value = newValue;
@@ -472,6 +477,7 @@ class MatListOption extends _MatListOptionMixinBase {
                 this._changeDetector.markForCheck();
             }
         }));
+        this._inputsInitialized = true;
     }
     /**
      * @return {?}
@@ -679,6 +685,13 @@ if (false) {
      * @private
      */
     MatListOption.prototype._color;
+    /**
+     * This is set to true after the first OnChanges cycle so we don't clear the value of `selected`
+     * in the first cycle.
+     * @type {?}
+     * @private
+     */
+    MatListOption.prototype._inputsInitialized;
     /**
      * @type {?}
      * @private

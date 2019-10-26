@@ -284,6 +284,11 @@
             _this._hasFocus = false;
             /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
             _this.checkboxPosition = 'after';
+            /**
+             * This is set to true after the first OnChanges cycle so we don't clear the value of `selected`
+             * in the first cycle.
+             */
+            _this._inputsInitialized = false;
             return _this;
         }
         Object.defineProperty(MatListOption.prototype, "color", {
@@ -297,7 +302,7 @@
             /** Value of the option */
             get: function () { return this._value; },
             set: function (newValue) {
-                if (this.selected && newValue !== this.value) {
+                if (this.selected && newValue !== this.value && this._inputsInitialized) {
                     this.selected = false;
                 }
                 this._value = newValue;
@@ -349,6 +354,7 @@
                     _this._changeDetector.markForCheck();
                 }
             });
+            this._inputsInitialized = true;
         };
         MatListOption.prototype.ngAfterContentInit = function () {
             core$1.setLines(this._lines, this._element);
