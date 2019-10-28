@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, AfterViewChecked } from '@angular/core';
+import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
-import { MatCheckboxClickAction } from './checkbox-config';
+import { MatCheckboxClickAction, MatCheckboxDefaultOptions } from './checkbox-config';
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -55,8 +55,14 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _changeDetectorRef;
     private _focusMonitor;
     private _ngZone;
+    /**
+     * @deprecated `_clickAction` parameter to be removed, use
+     * `MAT_CHECKBOX_DEFAULT_OPTIONS`
+     * @breaking-change 10.0.0
+     */
     private _clickAction;
     _animationMode?: string | undefined;
+    private _options?;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
      * take precedence so this may be omitted.
@@ -96,7 +102,13 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _currentAnimationClass;
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
-    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
+    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, 
+    /**
+     * @deprecated `_clickAction` parameter to be removed, use
+     * `MAT_CHECKBOX_DEFAULT_OPTIONS`
+     * @breaking-change 10.0.0
+     */
+    _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     /**

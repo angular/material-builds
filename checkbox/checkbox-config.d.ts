@@ -6,6 +6,16 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+/** Default `mat-checkbox` options that can be overridden. */
+export interface MatCheckboxDefaultOptions {
+    color?: ThemePalette;
+    clickAction?: MatCheckboxClickAction;
+}
+/** Injection token to be used to override the default options for `mat-checkbox`. */
+export declare const MAT_CHECKBOX_DEFAULT_OPTIONS: InjectionToken<MatCheckboxDefaultOptions>;
+/** @docs-private */
+export declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefaultOptions;
 /**
  * Checkbox click action when user click on input element.
  * noop: Do not toggle checked or indeterminate.
@@ -16,5 +26,7 @@ import { InjectionToken } from '@angular/core';
 export declare type MatCheckboxClickAction = 'noop' | 'check' | 'check-indeterminate' | undefined;
 /**
  * Injection token that can be used to specify the checkbox click behavior.
+ * @deprecated Injection token will be removed, use `MAT_CHECKBOX_DEFAULT_OPTIONS` instead.
+ * @breaking-change 10.0.0
  */
 export declare const MAT_CHECKBOX_CLICK_ACTION: InjectionToken<MatCheckboxClickAction>;

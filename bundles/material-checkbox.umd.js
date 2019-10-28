@@ -11,8 +11,22 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /** Injection token to be used to override the default options for `mat-checkbox`. */
+    var MAT_CHECKBOX_DEFAULT_OPTIONS = new core.InjectionToken('mat-checkbox-default-options', {
+        providedIn: 'root',
+        factory: MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY
+    });
+    /** @docs-private */
+    function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY() {
+        return {
+            color: 'accent',
+            clickAction: 'check-indeterminate',
+        };
+    }
     /**
      * Injection token that can be used to specify the checkbox click behavior.
+     * @deprecated Injection token will be removed, use `MAT_CHECKBOX_DEFAULT_OPTIONS` instead.
+     * @breaking-change 10.0.0
      */
     var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
 
@@ -59,7 +73,7 @@
         }
         return MatCheckboxBase;
     }());
-    var _MatCheckboxMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatCheckboxBase)), 'accent'));
+    var _MatCheckboxMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatCheckboxBase))));
     /**
      * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
      * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -70,13 +84,20 @@
      */
     var MatCheckbox = /** @class */ (function (_super) {
         tslib.__extends(MatCheckbox, _super);
-        function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _clickAction, _animationMode) {
+        function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, 
+        /**
+         * @deprecated `_clickAction` parameter to be removed, use
+         * `MAT_CHECKBOX_DEFAULT_OPTIONS`
+         * @breaking-change 10.0.0
+         */
+        _clickAction, _animationMode, _options) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._focusMonitor = _focusMonitor;
             _this._ngZone = _ngZone;
             _this._clickAction = _clickAction;
             _this._animationMode = _animationMode;
+            _this._options = _options;
             /**
              * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
              * take precedence so this may be omitted.
@@ -108,6 +129,10 @@
             _this._checked = false;
             _this._disabled = false;
             _this._indeterminate = false;
+            _this._options = _this._options || {};
+            if (_this._options.color) {
+                _this.color = _this._options.color;
+            }
             _this.tabIndex = parseInt(tabIndex) || 0;
             _this._focusMonitor.monitor(elementRef, true).subscribe(function (focusOrigin) {
                 if (!focusOrigin) {
@@ -122,6 +147,8 @@
                     });
                 }
             });
+            // TODO: Remove this after the `_clickAction` parameter is removed as an injection parameter.
+            _this._clickAction = _this._clickAction || _this._options.clickAction;
             return _this;
         }
         Object.defineProperty(MatCheckbox.prototype, "inputId", {
@@ -377,7 +404,8 @@
             { type: core.NgZone },
             { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_DEFAULT_OPTIONS,] }] }
         ]; };
         MatCheckbox.propDecorators = {
             ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
@@ -479,6 +507,8 @@
     exports.MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR;
     exports.MatCheckboxChange = MatCheckboxChange;
     exports.MatCheckbox = MatCheckbox;
+    exports.MAT_CHECKBOX_DEFAULT_OPTIONS = MAT_CHECKBOX_DEFAULT_OPTIONS;
+    exports.MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY;
     exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
     exports._MatCheckboxRequiredValidatorModule = _MatCheckboxRequiredValidatorModule;
     exports.MatCheckboxModule = MatCheckboxModule;
