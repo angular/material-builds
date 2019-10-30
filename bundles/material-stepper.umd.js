@@ -293,8 +293,8 @@
         ];
         MatStepper.propDecorators = {
             _stepHeader: [{ type: i0.ViewChildren, args: [MatStepHeader,] }],
-            _steps: [{ type: i0.ContentChildren, args: [MatStep,] }],
-            _icons: [{ type: i0.ContentChildren, args: [MatStepperIcon,] }],
+            _steps: [{ type: i0.ContentChildren, args: [MatStep, { descendants: true },] }],
+            _icons: [{ type: i0.ContentChildren, args: [MatStepperIcon, { descendants: true },] }],
             animationDone: [{ type: i0.Output }],
             disableRipple: [{ type: i0.Input }]
         };
