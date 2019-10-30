@@ -640,7 +640,7 @@ MatListOption.ctorParameters = () => [
 MatListOption.propDecorators = {
     _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
     _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }],
-    _lines: [{ type: ContentChildren, args: [MatLine,] }],
+    _lines: [{ type: ContentChildren, args: [MatLine, { descendants: true },] }],
     _text: [{ type: ViewChild, args: ['text',] }],
     checkboxPosition: [{ type: Input }],
     color: [{ type: Input }],

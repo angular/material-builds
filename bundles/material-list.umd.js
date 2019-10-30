@@ -476,7 +476,7 @@
         MatListOption.propDecorators = {
             _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
             _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] }],
-            _lines: [{ type: core.ContentChildren, args: [core$1.MatLine,] }],
+            _lines: [{ type: core.ContentChildren, args: [core$1.MatLine, { descendants: true },] }],
             _text: [{ type: core.ViewChild, args: ['text',] }],
             checkboxPosition: [{ type: core.Input }],
             color: [{ type: core.Input }],
