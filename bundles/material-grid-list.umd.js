@@ -98,7 +98,7 @@
             { type: core.ElementRef }
         ]; };
         MatGridTileText.propDecorators = {
-            _lines: [{ type: core.ContentChildren, args: [core$1.MatLine,] }]
+            _lines: [{ type: core.ContentChildren, args: [core$1.MatLine, { descendants: true },] }]
         };
         return MatGridTileText;
     }());

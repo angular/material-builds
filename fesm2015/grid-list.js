@@ -138,7 +138,7 @@ MatGridTileText.ctorParameters = () => [
     { type: ElementRef }
 ];
 MatGridTileText.propDecorators = {
-    _lines: [{ type: ContentChildren, args: [MatLine,] }]
+    _lines: [{ type: ContentChildren, args: [MatLine, { descendants: true },] }]
 };
 if (false) {
     /** @type {?} */

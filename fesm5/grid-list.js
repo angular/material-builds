@@ -98,7 +98,7 @@ var MatGridTileText = /** @class */ (function () {
         { type: ElementRef }
     ]; };
     MatGridTileText.propDecorators = {
-        _lines: [{ type: ContentChildren, args: [MatLine,] }]
+        _lines: [{ type: ContentChildren, args: [MatLine, { descendants: true },] }]
     };
     return MatGridTileText;
 }());
