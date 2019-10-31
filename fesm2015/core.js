@@ -19,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.2-sha-ed6f13351');
+const VERSION = new Version('9.0.0-next.2-sha-8da64f4db');
 
 /**
  * @fileoverview added by tsickle
@@ -77,7 +77,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.0.0-next.2-sha-ed6f13351');
+const VERSION$1 = new Version('9.0.0-next.2-sha-8da64f4db');
 /**
  * \@docs-private
  * @return {?}
@@ -2799,6 +2799,8 @@ MatOptgroup.propDecorators = {
     label: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatOptgroup.ngAcceptInputType_disabled;
     /**
      * Label for the option group.
      * @type {?}
@@ -3130,6 +3132,8 @@ MatOption.propDecorators = {
     onSelectionChange: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    MatOption.ngAcceptInputType_disabled;
     /**
      * @type {?}
      * @private

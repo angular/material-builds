@@ -115,6 +115,7 @@ var MatColumnDef = /** @class */ (function (_super) {
     MatColumnDef.decorators = [
         { type: Directive, args: [{
                     selector: '[matColumnDef]',
+                    inputs: ['sticky'],
                     providers: [
                         { provide: CdkColumnDef, useExisting: MatColumnDef },
                         { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
@@ -122,9 +123,7 @@ var MatColumnDef = /** @class */ (function (_super) {
                 },] }
     ];
     MatColumnDef.propDecorators = {
-        name: [{ type: Input, args: ['matColumnDef',] }],
-        sticky: [{ type: Input }],
-        stickyEnd: [{ type: Input }]
+        name: [{ type: Input, args: ['matColumnDef',] }]
     };
     return MatColumnDef;
 }(CdkColumnDef));

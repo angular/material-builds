@@ -323,6 +323,12 @@ MatBadge.propDecorators = {
     hidden: [{ type: Input, args: ['matBadgeHidden',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatBadge.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatBadge.ngAcceptInputType_hidden;
+    /** @type {?} */
+    MatBadge.ngAcceptInputType_overlap;
     /**
      * Whether the badge has any content.
      * @type {?}

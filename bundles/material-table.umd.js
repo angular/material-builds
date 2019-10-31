@@ -112,6 +112,7 @@
         MatColumnDef.decorators = [
             { type: core.Directive, args: [{
                         selector: '[matColumnDef]',
+                        inputs: ['sticky'],
                         providers: [
                             { provide: table.CdkColumnDef, useExisting: MatColumnDef },
                             { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
@@ -119,9 +120,7 @@
                     },] }
         ];
         MatColumnDef.propDecorators = {
-            name: [{ type: core.Input, args: ['matColumnDef',] }],
-            sticky: [{ type: core.Input }],
-            stickyEnd: [{ type: core.Input }]
+            name: [{ type: core.Input, args: ['matColumnDef',] }]
         };
         return MatColumnDef;
     }(table.CdkColumnDef));

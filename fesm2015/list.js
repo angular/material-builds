@@ -68,6 +68,8 @@ MatNavList.decorators = [
             }] }
 ];
 if (false) {
+    /** @type {?} */
+    MatNavList.ngAcceptInputType_disableRipple;
     /**
      * Emits when the state of the list changes.
      * @type {?}
@@ -136,6 +138,8 @@ MatList.ctorParameters = () => [
     { type: ElementRef }
 ];
 if (false) {
+    /** @type {?} */
+    MatList.ngAcceptInputType_disableRipple;
     /**
      * Emits when the state of the list changes.
      * @type {?}
@@ -277,6 +281,8 @@ MatListItem.propDecorators = {
     _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }]
 };
 if (false) {
+    /** @type {?} */
+    MatListItem.ngAcceptInputType_disableRipple;
     /**
      * @type {?}
      * @private
@@ -649,6 +655,12 @@ MatListOption.propDecorators = {
     selected: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatListOption.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatListOption.ngAcceptInputType_selected;
+    /** @type {?} */
+    MatListOption.ngAcceptInputType_disableRipple;
     /**
      * @type {?}
      * @private
@@ -1163,6 +1175,10 @@ MatSelectionList.propDecorators = {
     disabled: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatSelectionList.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatSelectionList.ngAcceptInputType_disableRipple;
     /**
      * The FocusKeyManager which handles focus.
      * @type {?}

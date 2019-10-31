@@ -12,7 +12,9 @@ import { CanDisable, CanDisableCtor, ThemePalette } from '@angular/material/core
 declare class MatBadgeBase {
 }
 declare const _MatBadgeMixinBase: CanDisableCtor & typeof MatBadgeBase;
-export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after';
+/** Allowed position options for matBadgePosition */
+export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after' | 'before' | 'after' | 'above' | 'below';
+/** Allowed size options for matBadgeSize */
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
 /** Directive to display a text badge. */
 export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, OnChanges, CanDisable {
@@ -69,5 +71,8 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     private _setColor;
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_hidden: boolean | string;
+    static ngAcceptInputType_overlap: boolean | string;
 }
 export {};

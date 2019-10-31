@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('tslib'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/progress-bar', ['exports', '@angular/core', '@angular/common', '@angular/material/core', 'tslib', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}), global.ng.core, global.ng.common, global.ng.material.core, global.tslib, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations));
-}(this, function (exports, core, common, core$1, tslib, rxjs, operators, animations) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/platform-browser/animations'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/progress-bar', ['exports', '@angular/core', '@angular/common', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/platform-browser/animations', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}), global.ng.core, global.ng.common, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.platformBrowser.animations, global.rxjs, global.rxjs.operators));
+}(this, function (exports, core, common, core$1, tslib, coercion, animations, rxjs, operators) { 'use strict';
 
     // Boilerplate for applying mixins to MatProgressBar.
     /** @docs-private */
@@ -83,7 +83,7 @@
             /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
             get: function () { return this._value; },
             set: function (v) {
-                this._value = clamp(v || 0);
+                this._value = clamp(coercion.coerceNumberProperty(v) || 0);
                 // When noop animation is set to true, trigger animationEnd directly.
                 if (this._isNoopAnimation) {
                     this._emitAnimationEnd();

@@ -403,6 +403,12 @@ MatExpansionPanel.propDecorators = {
     _body: [{ type: ViewChild, args: ['body',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatExpansionPanel.ngAcceptInputType_hideToggle;
+    /** @type {?} */
+    MatExpansionPanel.ngAcceptInputType_expanded;
+    /** @type {?} */
+    MatExpansionPanel.ngAcceptInputType_disabled;
     /**
      * @type {?}
      * @private
@@ -875,6 +881,10 @@ MatAccordion.propDecorators = {
     togglePosition: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatAccordion.ngAcceptInputType_hideToggle;
+    /** @type {?} */
+    MatAccordion.ngAcceptInputType_multi;
     /**
      * @type {?}
      * @private

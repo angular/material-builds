@@ -1314,6 +1314,8 @@ MatIcon.propDecorators = {
     fontIcon: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatIcon.ngAcceptInputType_inline;
     /**
      * @type {?}
      * @private

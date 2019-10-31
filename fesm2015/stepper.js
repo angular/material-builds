@@ -399,6 +399,14 @@ MatStep.propDecorators = {
     stepLabel: [{ type: ContentChild, args: [MatStepLabel,] }]
 };
 if (false) {
+    /** @type {?} */
+    MatStep.ngAcceptInputType_editable;
+    /** @type {?} */
+    MatStep.ngAcceptInputType_hasError;
+    /** @type {?} */
+    MatStep.ngAcceptInputType_optional;
+    /** @type {?} */
+    MatStep.ngAcceptInputType_completed;
     /**
      * Content for step label given by `<ng-template matStepLabel>`.
      * @type {?}
@@ -475,6 +483,18 @@ MatStepper.propDecorators = {
     disableRipple: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatStepper.ngAcceptInputType_editable;
+    /** @type {?} */
+    MatStepper.ngAcceptInputType_optional;
+    /** @type {?} */
+    MatStepper.ngAcceptInputType_completed;
+    /** @type {?} */
+    MatStepper.ngAcceptInputType_hasError;
+    /** @type {?} */
+    MatStepper.ngAcceptInputType_linear;
+    /** @type {?} */
+    MatStepper.ngAcceptInputType_selectedIndex;
     /**
      * The list of step headers of the steps in the stepper.
      * @type {?}
@@ -548,6 +568,18 @@ MatHorizontalStepper.propDecorators = {
     labelPosition: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatHorizontalStepper.ngAcceptInputType_editable;
+    /** @type {?} */
+    MatHorizontalStepper.ngAcceptInputType_optional;
+    /** @type {?} */
+    MatHorizontalStepper.ngAcceptInputType_completed;
+    /** @type {?} */
+    MatHorizontalStepper.ngAcceptInputType_hasError;
+    /** @type {?} */
+    MatHorizontalStepper.ngAcceptInputType_linear;
+    /** @type {?} */
+    MatHorizontalStepper.ngAcceptInputType_selectedIndex;
     /**
      * Whether the label should display in bottom or end position.
      * @type {?}
@@ -597,6 +629,20 @@ MatVerticalStepper.ctorParameters = () => [
     { type: ElementRef },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+if (false) {
+    /** @type {?} */
+    MatVerticalStepper.ngAcceptInputType_editable;
+    /** @type {?} */
+    MatVerticalStepper.ngAcceptInputType_optional;
+    /** @type {?} */
+    MatVerticalStepper.ngAcceptInputType_completed;
+    /** @type {?} */
+    MatVerticalStepper.ngAcceptInputType_hasError;
+    /** @type {?} */
+    MatVerticalStepper.ngAcceptInputType_linear;
+    /** @type {?} */
+    MatVerticalStepper.ngAcceptInputType_selectedIndex;
+}
 
 /**
  * @fileoverview added by tsickle

@@ -129,6 +129,7 @@ var MatDrawer = /** @class */ (function () {
         this._mode = 'over';
         this._disableClose = false;
         this._autoFocus = true;
+        this._opened = false;
         /** Emits whenever the drawer has started animating. */
         this._animationStarted = new Subject();
         /** Emits whenever the drawer is done animating. */
@@ -153,7 +154,6 @@ var MatDrawer = /** @class */ (function () {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new Subject();
-        this._opened = false;
         this.openedChange.subscribe(function (opened) {
             if (opened) {
                 if (_this._doc) {
@@ -229,6 +229,16 @@ var MatDrawer = /** @class */ (function () {
         /** Whether the drawer should focus the first focusable element automatically when opened. */
         get: function () { return this._autoFocus; },
         set: function (value) { this._autoFocus = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawer.prototype, "opened", {
+        /**
+         * Whether the drawer is opened. We overload this because we trigger an event when it
+         * starts or end.
+         */
+        get: function () { return this._opened; },
+        set: function (value) { this.toggle(coerceBooleanProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -329,16 +339,6 @@ var MatDrawer = /** @class */ (function () {
         this._destroyed.next();
         this._destroyed.complete();
     };
-    Object.defineProperty(MatDrawer.prototype, "opened", {
-        /**
-         * Whether the drawer is opened. We overload this because we trigger an event when it
-         * starts or end.
-         */
-        get: function () { return this._opened; },
-        set: function (value) { this.toggle(coerceBooleanProperty(value)); },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Open the drawer.
      * @param openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
@@ -441,6 +441,7 @@ var MatDrawer = /** @class */ (function () {
         mode: [{ type: Input }],
         disableClose: [{ type: Input }],
         autoFocus: [{ type: Input }],
+        opened: [{ type: Input }],
         _animationState: [{ type: HostBinding, args: ['@transform',] }],
         openedChange: [{ type: Output }],
         _openedStream: [{ type: Output, args: ['opened',] }],
@@ -448,7 +449,6 @@ var MatDrawer = /** @class */ (function () {
         _closedStream: [{ type: Output, args: ['closed',] }],
         closedStart: [{ type: Output }],
         onPositionChanged: [{ type: Output, args: ['positionChanged',] }],
-        opened: [{ type: Input }],
         _animationStartListener: [{ type: HostListener, args: ['@transform.start', ['$event'],] }],
         _animationDoneListener: [{ type: HostListener, args: ['@transform.done', ['$event'],] }]
     };

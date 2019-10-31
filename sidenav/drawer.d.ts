@@ -67,6 +67,12 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Whether the drawer should focus the first focusable element automatically when opened. */
     autoFocus: boolean;
     private _autoFocus;
+    /**
+     * Whether the drawer is opened. We overload this because we trigger an event when it
+     * starts or end.
+     */
+    opened: boolean;
+    private _opened;
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
     /** Emits whenever the drawer has started animating. */
@@ -112,12 +118,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     ngAfterContentChecked(): void;
     ngOnDestroy(): void;
     /**
-     * Whether the drawer is opened. We overload this because we trigger an event when it
-     * starts or end.
-     */
-    opened: boolean;
-    private _opened;
-    /**
      * Open the drawer.
      * @param openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
      * Used for focus management after the sidenav is closed.
@@ -137,6 +137,9 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _updateFocusTrapState;
     _animationStartListener(event: AnimationEvent): void;
     _animationDoneListener(event: AnimationEvent): void;
+    static ngAcceptInputType_disableClose: boolean | string;
+    static ngAcceptInputType_autoFocus: boolean | string;
+    static ngAcceptInputType_opened: boolean | string;
 }
 /**
  * `<mat-drawer-container>` component.
@@ -246,4 +249,6 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     _isShowingBackdrop(): boolean;
     private _canHaveBackdrop;
     private _isDrawerOpen;
+    static ngAcceptInputType_autosize: boolean | string;
+    static ngAcceptInputType_hasBackdrop: boolean | string;
 }

@@ -158,5 +158,7 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     private _getValidDateOrNull;
     /** Passes the current theme color along to the calendar overlay. */
     private _setColor;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_touchUi: boolean | string;
 }
 export {};

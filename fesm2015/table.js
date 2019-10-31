@@ -41,6 +41,8 @@ MatTable.decorators = [
             }] }
 ];
 if (false) {
+    /** @type {?} */
+    MatTable.ngAcceptInputType_multiTemplateDataRows;
     /**
      * Overrides the sticky CSS class set by the `CdkTable`.
      * @type {?}
@@ -98,6 +100,7 @@ class MatColumnDef extends CdkColumnDef {
 MatColumnDef.decorators = [
     { type: Directive, args: [{
                 selector: '[matColumnDef]',
+                inputs: ['sticky'],
                 providers: [
                     { provide: CdkColumnDef, useExisting: MatColumnDef },
                     { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
@@ -105,26 +108,18 @@ MatColumnDef.decorators = [
             },] }
 ];
 MatColumnDef.propDecorators = {
-    name: [{ type: Input, args: ['matColumnDef',] }],
-    sticky: [{ type: Input }],
-    stickyEnd: [{ type: Input }]
+    name: [{ type: Input, args: ['matColumnDef',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatColumnDef.ngAcceptInputType_sticky;
+    /** @type {?} */
+    MatColumnDef.ngAcceptInputType_stickyEnd;
     /**
      * Unique name for this column.
      * @type {?}
      */
     MatColumnDef.prototype.name;
-    /**
-     * Whether this column should be sticky positioned at the start of the row
-     * @type {?}
-     */
-    MatColumnDef.prototype.sticky;
-    /**
-     * Whether this column should be sticky positioned on the end of the row
-     * @type {?}
-     */
-    MatColumnDef.prototype.stickyEnd;
 }
 /**
  * Header cell template container that adds the right classes and role.
@@ -225,6 +220,10 @@ MatHeaderRowDef.decorators = [
                 inputs: ['columns: matHeaderRowDef', 'sticky: matHeaderRowDefSticky'],
             },] }
 ];
+if (false) {
+    /** @type {?} */
+    MatHeaderRowDef.ngAcceptInputType_sticky;
+}
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
@@ -238,6 +237,10 @@ MatFooterRowDef.decorators = [
                 inputs: ['columns: matFooterRowDef', 'sticky: matFooterRowDefSticky'],
             },] }
 ];
+if (false) {
+    /** @type {?} */
+    MatFooterRowDef.ngAcceptInputType_sticky;
+}
 /**
  * Data row definition for the mat-table.
  * Captures the data row's template and other properties such as the columns to display and

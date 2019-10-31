@@ -573,6 +573,12 @@ MatCheckbox.propDecorators = {
     indeterminate: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatCheckbox.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatCheckbox.ngAcceptInputType_required;
+    /** @type {?} */
+    MatCheckbox.ngAcceptInputType_disableRipple;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
      * take precedence so this may be omitted.

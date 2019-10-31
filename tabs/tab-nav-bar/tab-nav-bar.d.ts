@@ -59,6 +59,8 @@ export declare class MatTabNav extends _MatTabNavBase {
      * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
      */
     platform?: Platform, animationMode?: string);
+    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_selectedIndex: number | string;
 }
 declare class MatTabLinkMixinBase {
 }
@@ -96,5 +98,7 @@ export declare class MatTabLink extends _MatTabLinkBase implements OnDestroy {
     private _tabLinkRipple;
     constructor(tabNavBar: MatTabNav, elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, focusMonitor: FocusMonitor, animationMode?: string);
     ngOnDestroy(): void;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string;
 }
 export {};

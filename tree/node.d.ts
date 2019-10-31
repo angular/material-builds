@@ -17,6 +17,7 @@ export declare class MatTreeNode<T> extends _MatTreeNodeMixinBase<T> implements 
     protected _tree: CdkTree<T>;
     role: 'treeitem' | 'group';
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, tabIndex: string);
+    static ngAcceptInputType_disabled: boolean | string;
 }
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
@@ -41,5 +42,6 @@ export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implement
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
+    static ngAcceptInputType_disabled: boolean | string;
 }
 export {};

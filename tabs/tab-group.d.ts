@@ -147,5 +147,9 @@ export declare class MatTabGroup extends _MatTabGroupBase {
     _tabBodyWrapper: ElementRef;
     _tabHeader: MatTabGroupBaseHeader;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
+    static ngAcceptInputType_dynamicHeight: boolean | string;
+    static ngAcceptInputType_animationDuration: number | string;
+    static ngAcceptInputType_selectedIndex: number | string;
+    static ngAcceptInputType_disableRipple: boolean | string;
 }
 export {};

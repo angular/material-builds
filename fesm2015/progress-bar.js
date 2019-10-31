@@ -1,9 +1,10 @@
 import { InjectionToken, inject, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, NgZone, Optional, Inject, Input, ViewChild, Output, NgModule } from '@angular/core';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subscription, fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
@@ -145,7 +146,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
      * @return {?}
      */
     set value(v) {
-        this._value = clamp(v || 0);
+        this._value = clamp(coerceNumberProperty(v) || 0);
         // When noop animation is set to true, trigger animationEnd directly.
         if (this._isNoopAnimation) {
             this._emitAnimationEnd();
@@ -266,6 +267,8 @@ MatProgressBar.propDecorators = {
     mode: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatProgressBar.ngAcceptInputType_value;
     /**
      * Flag that indicates whether NoopAnimations mode is set to true.
      * @type {?}

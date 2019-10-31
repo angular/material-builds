@@ -170,6 +170,9 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     private _setupPointerEvents;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_hideDelay: number | string;
+    static ngAcceptInputType_showDelay: number | string;
 }
 /**
  * Internal component that wraps the tooltip's content.

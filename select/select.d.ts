@@ -8,7 +8,7 @@
 import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, Overlay, ScrollStrategy, ConnectedPosition } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectedPosition, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -188,6 +188,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     errorStateMatcher: ErrorStateMatcher;
     /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
     typeaheadDebounceInterval: number;
+    private _typeaheadDebounceInterval;
     /**
      * Function used to sort the values in a select in multiple mode.
      * Follows the same logic as `Array.prototype.sort`.
@@ -378,5 +379,11 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     readonly shouldLabelFloat: boolean;
+    static ngAcceptInputType_required: boolean | string;
+    static ngAcceptInputType_multiple: boolean | string;
+    static ngAcceptInputType_disableOptionCentering: boolean | string;
+    static ngAcceptInputType_typeaheadDebounceInterval: number | string;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string;
 }
 export {};

@@ -465,6 +465,16 @@ MatChip.propDecorators = {
     removed: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    MatChip.ngAcceptInputType_selected;
+    /** @type {?} */
+    MatChip.ngAcceptInputType_selectable;
+    /** @type {?} */
+    MatChip.ngAcceptInputType_removable;
+    /** @type {?} */
+    MatChip.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatChip.ngAcceptInputType_disableRipple;
     /**
      * Reference to the RippleRenderer for the chip.
      * @type {?}
@@ -1670,6 +1680,14 @@ MatChipList.propDecorators = {
                 },] }]
 };
 if (false) {
+    /** @type {?} */
+    MatChipList.ngAcceptInputType_multiple;
+    /** @type {?} */
+    MatChipList.ngAcceptInputType_required;
+    /** @type {?} */
+    MatChipList.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatChipList.ngAcceptInputType_selectable;
     /**
      * Implemented as part of MatFormFieldControl.
      * \@docs-private
@@ -2061,6 +2079,10 @@ MatChipInput.propDecorators = {
     disabled: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatChipInput.ngAcceptInputType_addOnBlur;
+    /** @type {?} */
+    MatChipInput.ngAcceptInputType_disabled;
     /**
      * Whether the control is focused.
      * @type {?}

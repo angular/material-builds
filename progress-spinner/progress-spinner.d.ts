@@ -81,6 +81,9 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _attachStyleNode;
     /** Generates animation styles adjusted for the spinner's diameter. */
     private _getAnimationText;
+    static ngAcceptInputType_diameter: number | string;
+    static ngAcceptInputType_strokeWidth: number | string;
+    static ngAcceptInputType_value: number | string;
 }
 /**
  * `<mat-spinner>` component.
@@ -90,6 +93,9 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
  */
 export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    static ngAcceptInputType_diameter: number | string;
+    static ngAcceptInputType_strokeWidth: number | string;
+    static ngAcceptInputType_value: number | string;
 }
 /** Gets the shadow root of an element, if supported and the element is inside the Shadow DOM. */
 export declare function _getShadowRoot(element: HTMLElement, _document: Document): Node | null;

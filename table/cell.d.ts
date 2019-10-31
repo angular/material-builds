@@ -32,10 +32,8 @@ export declare class MatFooterCellDef extends CdkFooterCellDef {
 export declare class MatColumnDef extends CdkColumnDef {
     /** Unique name for this column. */
     name: string;
-    /** Whether this column should be sticky positioned at the start of the row */
-    sticky: boolean;
-    /** Whether this column should be sticky positioned on the end of the row */
-    stickyEnd: boolean;
+    static ngAcceptInputType_sticky: boolean | string;
+    static ngAcceptInputType_stickyEnd: boolean | string;
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {

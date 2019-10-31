@@ -364,6 +364,15 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(MatSelect.prototype, "typeaheadDebounceInterval", {
+            /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
+            get: function () { return this._typeaheadDebounceInterval; },
+            set: function (value) {
+                this._typeaheadDebounceInterval = coercion.coerceNumberProperty(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(MatSelect.prototype, "id", {
             /** Unique id of the element. */
             get: function () { return this._id; },
@@ -427,7 +436,7 @@
                 this.stateChanges.next();
             }
             if (changes['typeaheadDebounceInterval'] && this._keyManager) {
-                this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
+                this._keyManager.withTypeAhead(this._typeaheadDebounceInterval);
             }
         };
         MatSelect.prototype.ngOnDestroy = function () {
@@ -733,7 +742,7 @@
         MatSelect.prototype._initKeyManager = function () {
             var _this = this;
             this._keyManager = new a11y.ActiveDescendantKeyManager(this.options)
-                .withTypeAhead(this.typeaheadDebounceInterval)
+                .withTypeAhead(this._typeaheadDebounceInterval)
                 .withVerticalOrientation()
                 .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
                 .withAllowedModifierKeys(['shiftKey']);

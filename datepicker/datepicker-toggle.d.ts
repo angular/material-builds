@@ -35,4 +35,5 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     ngAfterContentInit(): void;
     _open(event: Event): void;
     private _watchStateChanges;
+    static ngAcceptInputType_disabled: boolean | string;
 }

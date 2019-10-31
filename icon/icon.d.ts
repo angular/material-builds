@@ -129,5 +129,6 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * references that we need to prefix with the current path.
      */
     private _cacheChildrenWithExternalReferences;
+    static ngAcceptInputType_inline: boolean | string;
 }
 export {};

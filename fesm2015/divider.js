@@ -56,6 +56,10 @@ MatDivider.propDecorators = {
     inset: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatDivider.ngAcceptInputType_vertical;
+    /** @type {?} */
+    MatDivider.ngAcceptInputType_inset;
     /**
      * @type {?}
      * @private

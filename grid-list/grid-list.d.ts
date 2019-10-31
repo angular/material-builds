@@ -52,4 +52,5 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     private _layoutTiles;
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string | null] | null): void;
+    static ngAcceptInputType_cols: number | string;
 }

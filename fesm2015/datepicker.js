@@ -182,7 +182,7 @@ class MatCalendarCell {
      * @param {?} enabled
      * @param {?=} cssClasses
      */
-    constructor(value, displayValue, ariaLabel, enabled, cssClasses) {
+    constructor(value, displayValue, ariaLabel, enabled, cssClasses = {}) {
         this.value = value;
         this.displayValue = displayValue;
         this.ariaLabel = ariaLabel;
@@ -2091,7 +2091,7 @@ class MatCalendar {
      * @return {?}
      */
     _dateSelected(date) {
-        if (!this._dateAdapter.sameDate(date, this.selected)) {
+        if (date && !this._dateAdapter.sameDate(date, this.selected)) {
             this.selectedChange.emit(date);
         }
     }
@@ -2952,6 +2952,10 @@ MatDatepicker.propDecorators = {
     opened: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatDatepicker.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatDatepicker.ngAcceptInputType_touchUi;
     /**
      * @type {?}
      * @private
@@ -3592,6 +3596,10 @@ MatDatepickerInput.propDecorators = {
 };
 if (false) {
     /** @type {?} */
+    MatDatepickerInput.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatDatepickerInput.ngAcceptInputType_value;
+    /** @type {?} */
     MatDatepickerInput.prototype._datepicker;
     /** @type {?} */
     MatDatepickerInput.prototype._dateFilter;
@@ -3848,6 +3856,8 @@ MatDatepickerToggle.propDecorators = {
     _button: [{ type: ViewChild, args: ['button',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatDatepickerToggle.ngAcceptInputType_disabled;
     /**
      * @type {?}
      * @private

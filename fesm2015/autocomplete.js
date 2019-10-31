@@ -258,6 +258,10 @@ MatAutocomplete.propDecorators = {
     classList: [{ type: Input, args: ['class',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatAutocomplete.ngAcceptInputType_autoActiveFirstOption;
+    /** @type {?} */
+    MatAutocomplete.ngAcceptInputType_disableRipple;
     /**
      * Manages active item in option list based on key events.
      * @type {?}
@@ -1218,6 +1222,8 @@ MatAutocompleteTrigger.propDecorators = {
     autocompleteDisabled: [{ type: Input, args: ['matAutocompleteDisabled',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatAutocompleteTrigger.ngAcceptInputType_autocompleteDisabled;
     /**
      * @type {?}
      * @private

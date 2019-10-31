@@ -150,6 +150,10 @@ MatButton.propDecorators = {
     ripple: [{ type: ViewChild, args: [MatRipple,] }]
 };
 if (false) {
+    /** @type {?} */
+    MatButton.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatButton.ngAcceptInputType_disableRipple;
     /**
      * Whether the button is round.
      * @type {?}
@@ -230,6 +234,10 @@ MatAnchor.propDecorators = {
     tabIndex: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatAnchor.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatAnchor.ngAcceptInputType_disableRipple;
     /**
      * Tabindex of the button.
      * @type {?}

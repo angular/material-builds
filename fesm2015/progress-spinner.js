@@ -345,6 +345,12 @@ if (false) {
      * @private
      */
     MatProgressSpinner._diameters;
+    /** @type {?} */
+    MatProgressSpinner.ngAcceptInputType_diameter;
+    /** @type {?} */
+    MatProgressSpinner.ngAcceptInputType_strokeWidth;
+    /** @type {?} */
+    MatProgressSpinner.ngAcceptInputType_value;
     /**
      * @type {?}
      * @private
@@ -437,6 +443,14 @@ MatSpinner.ctorParameters = () => [
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] }] }
 ];
+if (false) {
+    /** @type {?} */
+    MatSpinner.ngAcceptInputType_diameter;
+    /** @type {?} */
+    MatSpinner.ngAcceptInputType_strokeWidth;
+    /** @type {?} */
+    MatSpinner.ngAcceptInputType_value;
+}
 /**
  * Gets the shadow root of an element, if supported and the element is inside the Shadow DOM.
  * @param {?} element

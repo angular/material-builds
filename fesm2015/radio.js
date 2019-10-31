@@ -378,6 +378,10 @@ MatRadioGroup.propDecorators = {
     required: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatRadioGroup.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatRadioGroup.ngAcceptInputType_required;
     /**
      * Selected value for the radio group.
      * @type {?}
@@ -816,6 +820,14 @@ MatRadioButton.propDecorators = {
     _inputElement: [{ type: ViewChild, args: ['input',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatRadioButton.ngAcceptInputType_checked;
+    /** @type {?} */
+    MatRadioButton.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatRadioButton.ngAcceptInputType_required;
+    /** @type {?} */
+    MatRadioButton.ngAcceptInputType_disableRipple;
     /**
      * @type {?}
      * @private

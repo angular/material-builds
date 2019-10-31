@@ -5,7 +5,7 @@ import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _cou
 import { MatFormFieldControl, MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
@@ -542,6 +542,18 @@ class MatSelect extends _MatSelectMixinBase {
         }
     }
     /**
+     * Time to wait in milliseconds after the last keystroke before moving focus to an item.
+     * @return {?}
+     */
+    get typeaheadDebounceInterval() { return this._typeaheadDebounceInterval; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set typeaheadDebounceInterval(value) {
+        this._typeaheadDebounceInterval = coerceNumberProperty(value);
+    }
+    /**
      * Unique id of the element.
      * @return {?}
      */
@@ -639,7 +651,7 @@ class MatSelect extends _MatSelectMixinBase {
             this.stateChanges.next();
         }
         if (changes['typeaheadDebounceInterval'] && this._keyManager) {
-            this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
+            this._keyManager.withTypeAhead(this._typeaheadDebounceInterval);
         }
     }
     /**
@@ -1032,7 +1044,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _initKeyManager() {
         this._keyManager = new ActiveDescendantKeyManager(this.options)
-            .withTypeAhead(this.typeaheadDebounceInterval)
+            .withTypeAhead(this._typeaheadDebounceInterval)
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);
@@ -1666,6 +1678,18 @@ MatSelect.propDecorators = {
     valueChange: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    MatSelect.ngAcceptInputType_required;
+    /** @type {?} */
+    MatSelect.ngAcceptInputType_multiple;
+    /** @type {?} */
+    MatSelect.ngAcceptInputType_disableOptionCentering;
+    /** @type {?} */
+    MatSelect.ngAcceptInputType_typeaheadDebounceInterval;
+    /** @type {?} */
+    MatSelect.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatSelect.ngAcceptInputType_disableRipple;
     /**
      * @type {?}
      * @private
@@ -1861,10 +1885,10 @@ if (false) {
      */
     MatSelect.prototype.errorStateMatcher;
     /**
-     * Time to wait in milliseconds after the last keystroke before moving focus to an item.
      * @type {?}
+     * @private
      */
-    MatSelect.prototype.typeaheadDebounceInterval;
+    MatSelect.prototype._typeaheadDebounceInterval;
     /**
      * Function used to sort the values in a select in multiple mode.
      * Follows the same logic as `Array.prototype.sort`.

@@ -755,6 +755,12 @@ MatTooltip.propDecorators = {
 };
 if (false) {
     /** @type {?} */
+    MatTooltip.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatTooltip.ngAcceptInputType_hideDelay;
+    /** @type {?} */
+    MatTooltip.ngAcceptInputType_showDelay;
+    /** @type {?} */
     MatTooltip.prototype._overlayRef;
     /** @type {?} */
     MatTooltip.prototype._tooltipInstance;

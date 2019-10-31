@@ -163,5 +163,6 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _getStartEnd;
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDOM;
+    static ngAcceptInputType_hideRequiredMarker: boolean | string;
 }
 export {};

@@ -486,6 +486,18 @@ MatPaginator.propDecorators = {
     page: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    MatPaginator.ngAcceptInputType_pageIndex;
+    /** @type {?} */
+    MatPaginator.ngAcceptInputType_length;
+    /** @type {?} */
+    MatPaginator.ngAcceptInputType_pageSize;
+    /** @type {?} */
+    MatPaginator.ngAcceptInputType_hidePageSize;
+    /** @type {?} */
+    MatPaginator.ngAcceptInputType_showFirstLastButtons;
+    /** @type {?} */
+    MatPaginator.ngAcceptInputType_disabled;
     /**
      * @type {?}
      * @private

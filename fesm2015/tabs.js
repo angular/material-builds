@@ -323,6 +323,8 @@ MatTab.propDecorators = {
     ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatTab.ngAcceptInputType_disabled;
     /**
      * @type {?}
      * @private
@@ -1471,6 +1473,14 @@ MatTabGroup.propDecorators = {
 };
 if (false) {
     /** @type {?} */
+    MatTabGroup.ngAcceptInputType_dynamicHeight;
+    /** @type {?} */
+    MatTabGroup.ngAcceptInputType_animationDuration;
+    /** @type {?} */
+    MatTabGroup.ngAcceptInputType_selectedIndex;
+    /** @type {?} */
+    MatTabGroup.ngAcceptInputType_disableRipple;
+    /** @type {?} */
     MatTabGroup.prototype._allTabs;
     /** @type {?} */
     MatTabGroup.prototype._tabBodyWrapper;
@@ -1537,6 +1547,8 @@ MatTabLabelWrapper.ctorParameters = () => [
     { type: ElementRef }
 ];
 if (false) {
+    /** @type {?} */
+    MatTabLabelWrapper.ngAcceptInputType_disabled;
     /** @type {?} */
     MatTabLabelWrapper.prototype.elementRef;
 }
@@ -2436,6 +2448,10 @@ MatTabHeader.propDecorators = {
 };
 if (false) {
     /** @type {?} */
+    MatTabHeader.ngAcceptInputType_disableRipple;
+    /** @type {?} */
+    MatTabHeader.ngAcceptInputType_selectedIndex;
+    /** @type {?} */
     MatTabHeader.prototype._items;
     /** @type {?} */
     MatTabHeader.prototype._inkBar;
@@ -2663,6 +2679,10 @@ MatTabNav.propDecorators = {
 };
 if (false) {
     /** @type {?} */
+    MatTabNav.ngAcceptInputType_disableRipple;
+    /** @type {?} */
+    MatTabNav.ngAcceptInputType_selectedIndex;
+    /** @type {?} */
     MatTabNav.prototype._items;
     /** @type {?} */
     MatTabNav.prototype._inkBar;
@@ -2846,6 +2866,10 @@ MatTabLink.ctorParameters = () => [
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 if (false) {
+    /** @type {?} */
+    MatTabLink.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatTabLink.ngAcceptInputType_disableRipple;
     /**
      * Reference to the RippleRenderer for the tab-link.
      * @type {?}

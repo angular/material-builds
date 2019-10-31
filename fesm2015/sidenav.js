@@ -167,6 +167,7 @@ class MatDrawer {
         this._mode = 'over';
         this._disableClose = false;
         this._autoFocus = true;
+        this._opened = false;
         /**
          * Emits whenever the drawer has started animating.
          */
@@ -203,7 +204,6 @@ class MatDrawer {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new Subject();
-        this._opened = false;
         this.openedChange.subscribe((/**
          * @param {?} opened
          * @return {?}
@@ -321,6 +321,17 @@ class MatDrawer {
      * @return {?}
      */
     set autoFocus(value) { this._autoFocus = coerceBooleanProperty(value); }
+    /**
+     * Whether the drawer is opened. We overload this because we trigger an event when it
+     * starts or end.
+     * @return {?}
+     */
+    get opened() { return this._opened; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set opened(value) { this.toggle(coerceBooleanProperty(value)); }
     /**
      * Event emitted when the drawer has been opened.
      * @return {?}
@@ -461,17 +472,6 @@ class MatDrawer {
         this._destroyed.complete();
     }
     /**
-     * Whether the drawer is opened. We overload this because we trigger an event when it
-     * starts or end.
-     * @return {?}
-     */
-    get opened() { return this._opened; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set opened(value) { this.toggle(coerceBooleanProperty(value)); }
-    /**
      * Open the drawer.
      * @param {?=} openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
      * Used for focus management after the sidenav is closed.
@@ -595,6 +595,7 @@ MatDrawer.propDecorators = {
     mode: [{ type: Input }],
     disableClose: [{ type: Input }],
     autoFocus: [{ type: Input }],
+    opened: [{ type: Input }],
     _animationState: [{ type: HostBinding, args: ['@transform',] }],
     openedChange: [{ type: Output }],
     _openedStream: [{ type: Output, args: ['opened',] }],
@@ -602,11 +603,16 @@ MatDrawer.propDecorators = {
     _closedStream: [{ type: Output, args: ['closed',] }],
     closedStart: [{ type: Output }],
     onPositionChanged: [{ type: Output, args: ['positionChanged',] }],
-    opened: [{ type: Input }],
     _animationStartListener: [{ type: HostListener, args: ['@transform.start', ['$event'],] }],
     _animationDoneListener: [{ type: HostListener, args: ['@transform.done', ['$event'],] }]
 };
 if (false) {
+    /** @type {?} */
+    MatDrawer.ngAcceptInputType_disableClose;
+    /** @type {?} */
+    MatDrawer.ngAcceptInputType_autoFocus;
+    /** @type {?} */
+    MatDrawer.ngAcceptInputType_opened;
     /**
      * @type {?}
      * @private
@@ -643,6 +649,11 @@ if (false) {
      * @private
      */
     MatDrawer.prototype._autoFocus;
+    /**
+     * @type {?}
+     * @private
+     */
+    MatDrawer.prototype._opened;
     /**
      * How the sidenav was opened (keypress, mouse click etc.)
      * @type {?}
@@ -686,11 +697,6 @@ if (false) {
      * @type {?}
      */
     MatDrawer.prototype._modeChanged;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatDrawer.prototype._opened;
     /**
      * @type {?}
      * @private
@@ -1220,6 +1226,10 @@ MatDrawerContainer.propDecorators = {
     backdropClick: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    MatDrawerContainer.ngAcceptInputType_autosize;
+    /** @type {?} */
+    MatDrawerContainer.ngAcceptInputType_hasBackdrop;
     /**
      * All drawers in the container. Includes drawers from inside nested containers.
      * @type {?}
@@ -1431,6 +1441,18 @@ MatSidenav.propDecorators = {
     fixedBottomGap: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatSidenav.ngAcceptInputType_fixedInViewport;
+    /** @type {?} */
+    MatSidenav.ngAcceptInputType_fixedTopGap;
+    /** @type {?} */
+    MatSidenav.ngAcceptInputType_fixedBottomGap;
+    /** @type {?} */
+    MatSidenav.ngAcceptInputType_disableClose;
+    /** @type {?} */
+    MatSidenav.ngAcceptInputType_autoFocus;
+    /** @type {?} */
+    MatSidenav.ngAcceptInputType_opened;
     /**
      * @type {?}
      * @private
@@ -1477,6 +1499,10 @@ MatSidenavContainer.propDecorators = {
     _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
 };
 if (false) {
+    /** @type {?} */
+    MatSidenavContainer.ngAcceptInputType_autosize;
+    /** @type {?} */
+    MatSidenavContainer.ngAcceptInputType_hasBackdrop;
     /** @type {?} */
     MatSidenavContainer.prototype._allDrawers;
     /** @type {?} */

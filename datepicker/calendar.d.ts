@@ -125,7 +125,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     /** Updates today's date after an update of the active date */
     updateTodaysDate(): void;
     /** Handles date selection in the month view. */
-    _dateSelected(date: D): void;
+    _dateSelected(date: D | null): void;
     /** Handles year selection in the multiyear view. */
     _yearSelectedInMultiYearView(normalizedYear: D): void;
     /** Handles month selection in the year view. */

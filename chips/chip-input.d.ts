@@ -66,4 +66,6 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
     focus(options?: FocusOptions): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
+    static ngAcceptInputType_addOnBlur: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string;
 }

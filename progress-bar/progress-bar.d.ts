@@ -1,11 +1,4 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { ElementRef, EventEmitter, NgZone, AfterViewInit, OnDestroy, InjectionToken } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
 /** Last animation end data. */
 export interface ProgressAnimationEnd {
@@ -90,5 +83,6 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
     ngOnDestroy(): void;
     /** Emit an animationEnd event if in determinate or buffer mode. */
     private _emitAnimationEnd;
+    static ngAcceptInputType_value: number | string;
 }
 export {};

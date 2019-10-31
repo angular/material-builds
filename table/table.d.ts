@@ -12,4 +12,5 @@ import { CdkTable } from '@angular/cdk/table';
 export declare class MatTable<T> extends CdkTable<T> {
     /** Overrides the sticky CSS class set by the `CdkTable`. */
     protected stickyCssClass: string;
+    static ngAcceptInputType_multiTemplateDataRows: boolean | string;
 }

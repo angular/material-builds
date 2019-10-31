@@ -403,6 +403,14 @@ MatSlideToggle.propDecorators = {
     _inputElement: [{ type: ViewChild, args: ['input',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatSlideToggle.ngAcceptInputType_required;
+    /** @type {?} */
+    MatSlideToggle.ngAcceptInputType_checked;
+    /** @type {?} */
+    MatSlideToggle.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatSlideToggle.ngAcceptInputType_disableRipple;
     /**
      * @type {?}
      * @private

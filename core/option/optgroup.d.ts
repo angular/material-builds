@@ -18,5 +18,6 @@ export declare class MatOptgroup extends _MatOptgroupMixinBase implements CanDis
     label: string;
     /** Unique id for the underlying label. */
     _labelId: string;
+    static ngAcceptInputType_disabled: boolean | string;
 }
 export {};

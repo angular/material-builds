@@ -78,6 +78,7 @@
      */
     var MatCalendarCell = /** @class */ (function () {
         function MatCalendarCell(value, displayValue, ariaLabel, enabled, cssClasses) {
+            if (cssClasses === void 0) { cssClasses = {}; }
             this.value = value;
             this.displayValue = displayValue;
             this.ariaLabel = ariaLabel;
@@ -1220,7 +1221,7 @@
         };
         /** Handles date selection in the month view. */
         MatCalendar.prototype._dateSelected = function (date) {
-            if (!this._dateAdapter.sameDate(date, this.selected)) {
+            if (date && !this._dateAdapter.sameDate(date, this.selected)) {
                 this.selectedChange.emit(date);
             }
         };

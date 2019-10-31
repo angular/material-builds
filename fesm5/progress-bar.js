@@ -2,9 +2,10 @@ import { InjectionToken, inject, EventEmitter, Component, ChangeDetectionStrateg
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { __extends } from 'tslib';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subscription, fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 // Boilerplate for applying mixins to MatProgressBar.
 /** @docs-private */
@@ -85,7 +86,7 @@ var MatProgressBar = /** @class */ (function (_super) {
         /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
         get: function () { return this._value; },
         set: function (v) {
-            this._value = clamp(v || 0);
+            this._value = clamp(coerceNumberProperty(v) || 0);
             // When noop animation is set to true, trigger animationEnd directly.
             if (this._isNoopAnimation) {
                 this._emitAnimationEnd();

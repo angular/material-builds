@@ -6,7 +6,7 @@ import { MatFormFieldControl, MatFormField, MatFormFieldModule } from '@angular/
 import { __extends, __spread } from 'tslib';
 import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
@@ -375,6 +375,15 @@ var MatSelect = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatSelect.prototype, "typeaheadDebounceInterval", {
+        /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
+        get: function () { return this._typeaheadDebounceInterval; },
+        set: function (value) {
+            this._typeaheadDebounceInterval = coerceNumberProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatSelect.prototype, "id", {
         /** Unique id of the element. */
         get: function () { return this._id; },
@@ -438,7 +447,7 @@ var MatSelect = /** @class */ (function (_super) {
             this.stateChanges.next();
         }
         if (changes['typeaheadDebounceInterval'] && this._keyManager) {
-            this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
+            this._keyManager.withTypeAhead(this._typeaheadDebounceInterval);
         }
     };
     MatSelect.prototype.ngOnDestroy = function () {
@@ -744,7 +753,7 @@ var MatSelect = /** @class */ (function (_super) {
     MatSelect.prototype._initKeyManager = function () {
         var _this = this;
         this._keyManager = new ActiveDescendantKeyManager(this.options)
-            .withTypeAhead(this.typeaheadDebounceInterval)
+            .withTypeAhead(this._typeaheadDebounceInterval)
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withAllowedModifierKeys(['shiftKey']);

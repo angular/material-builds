@@ -99,6 +99,10 @@ MatGridTile.propDecorators = {
 };
 if (false) {
     /** @type {?} */
+    MatGridTile.ngAcceptInputType_rowspan;
+    /** @type {?} */
+    MatGridTile.ngAcceptInputType_colspan;
+    /** @type {?} */
     MatGridTile.prototype._rowspan;
     /** @type {?} */
     MatGridTile.prototype._colspan;
@@ -970,6 +974,8 @@ MatGridList.propDecorators = {
     rowHeight: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatGridList.ngAcceptInputType_cols;
     /**
      * Number of columns being rendered.
      * @type {?}

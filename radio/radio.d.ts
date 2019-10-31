@@ -129,6 +129,8 @@ export declare class MatRadioGroup implements AfterContentInit, ControlValueAcce
      * @param isDisabled Whether the control should be disabled.
      */
     setDisabledState(isDisabled: boolean): void;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_required: boolean | string;
 }
 /** @docs-private */
 declare class MatRadioButtonBase {
@@ -214,5 +216,9 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
      * Clicking on a label element, will trigger a change event on the associated input.
      */
     _onInputChange(event: Event): void;
+    static ngAcceptInputType_checked: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_required: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string;
 }
 export {};

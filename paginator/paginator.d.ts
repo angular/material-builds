@@ -100,5 +100,11 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
     private _updateDisplayedPageSizeOptions;
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     private _emitPageEvent;
+    static ngAcceptInputType_pageIndex: number | string;
+    static ngAcceptInputType_length: number | string;
+    static ngAcceptInputType_pageSize: number | string;
+    static ngAcceptInputType_hidePageSize: boolean | string;
+    static ngAcceptInputType_showFirstLastButtons: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string;
 }
 export {};

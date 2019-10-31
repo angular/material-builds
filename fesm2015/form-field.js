@@ -979,6 +979,8 @@ MatFormField.propDecorators = {
     _suffixChildren: [{ type: ContentChildren, args: [MatSuffix, { descendants: true },] }]
 };
 if (false) {
+    /** @type {?} */
+    MatFormField.ngAcceptInputType_hideRequiredMarker;
     /**
      * @type {?}
      * @private

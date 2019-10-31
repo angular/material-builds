@@ -98,6 +98,9 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
      * changed.
      */
     _markForCheck(): void;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_selected: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string;
 }
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -187,5 +190,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _getOptionIndex;
     /** Marks all the options to be checked in the next change detection run. */
     private _markOptionsForCheck;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string;
 }
 export {};

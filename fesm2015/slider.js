@@ -1021,6 +1021,24 @@ MatSlider.propDecorators = {
     _sliderWrapper: [{ type: ViewChild, args: ['sliderWrapper',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_invert;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_max;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_min;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_step;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_thumbLabel;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_tickInterval;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_value;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_vertical;
+    /** @type {?} */
+    MatSlider.ngAcceptInputType_disabled;
     /**
      * @type {?}
      * @private

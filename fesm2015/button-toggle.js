@@ -456,6 +456,12 @@ MatButtonToggleGroup.propDecorators = {
     change: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    MatButtonToggleGroup.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatButtonToggleGroup.ngAcceptInputType_multiple;
+    /** @type {?} */
+    MatButtonToggleGroup.ngAcceptInputType_vertical;
     /**
      * @type {?}
      * @private
@@ -740,6 +746,16 @@ MatButtonToggle.propDecorators = {
     change: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    MatButtonToggle.ngAcceptInputType_checked;
+    /** @type {?} */
+    MatButtonToggle.ngAcceptInputType_disabled;
+    /** @type {?} */
+    MatButtonToggle.ngAcceptInputType_vertical;
+    /** @type {?} */
+    MatButtonToggle.ngAcceptInputType_multiple;
+    /** @type {?} */
+    MatButtonToggle.ngAcceptInputType_disableRipple;
     /**
      * @type {?}
      * @private

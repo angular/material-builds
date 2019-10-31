@@ -244,6 +244,10 @@ MatSort.propDecorators = {
     sortChange: [{ type: Output, args: ['matSortChange',] }]
 };
 if (false) {
+    /** @type {?} */
+    MatSort.ngAcceptInputType_disableClear;
+    /** @type {?} */
+    MatSort.ngAcceptInputType_disabled;
     /**
      * Collection of all registered sortables that this directive manages.
      * @type {?}
@@ -744,6 +748,10 @@ MatSortHeader.propDecorators = {
     disableClear: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    MatSortHeader.ngAcceptInputType_disableClear;
+    /** @type {?} */
+    MatSortHeader.ngAcceptInputType_disabled;
     /**
      * @type {?}
      * @private

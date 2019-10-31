@@ -154,5 +154,8 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_required: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string;
 }
 export {};

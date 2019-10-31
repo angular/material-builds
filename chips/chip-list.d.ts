@@ -266,5 +266,9 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     private _hasFocusedChip;
     /** Syncs the list's state with the individual chips. */
     private _syncChipsState;
+    static ngAcceptInputType_multiple: boolean | string;
+    static ngAcceptInputType_required: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_selectable: boolean | string;
 }
 export {};
