@@ -834,6 +834,40 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * Object that can be used to configure the default options for the tabs module.
+ * @record
+ */
+function MatTabsConfig() { }
+if (false) {
+    /**
+     * Duration for the tab animation. Must be a valid CSS value (e.g. 600ms).
+     * @type {?|undefined}
+     */
+    MatTabsConfig.prototype.animationDuration;
+    /**
+     * Whether pagination should be disabled. This can be used to avoid unnecessary
+     * layout recalculations if it's known that pagination won't be required.
+     * @type {?|undefined}
+     */
+    MatTabsConfig.prototype.disablePagination;
+    /**
+     * Whether the ink bar should fit its width to the size of the tab label content.
+     * This only applies to the MDC-based tabs.
+     * @type {?|undefined}
+     */
+    MatTabsConfig.prototype.fitInkBarToContent;
+}
+/**
+ * Injection token that can be used to provide the default options the tabs module.
+ * @type {?}
+ */
+const MAT_TABS_CONFIG = new InjectionToken('MAT_TABS_CONFIG');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
  * Used to generate unique ID's for each tab component
  * @type {?}
  */
@@ -855,29 +889,6 @@ if (false) {
      */
     MatTabChangeEvent.prototype.tab;
 }
-/**
- * Object that can be used to configure the default options for the tabs module.
- * @record
- */
-function MatTabsConfig() { }
-if (false) {
-    /**
-     * Duration for the tab animation. Must be a valid CSS value (e.g. 600ms).
-     * @type {?|undefined}
-     */
-    MatTabsConfig.prototype.animationDuration;
-    /**
-     * Whether pagination should be disabled. This can be used to avoid unnecessary
-     * layout recalculations if it's known that pagination won't be required.
-     * @type {?|undefined}
-     */
-    MatTabsConfig.prototype.disablePagination;
-}
-/**
- * Injection token that can be used to provide the default options the tabs module.
- * @type {?}
- */
-const MAT_TABS_CONFIG = new InjectionToken('MAT_TABS_CONFIG');
 // Boilerplate for applying mixins to MatTabGroup.
 /**
  * \@docs-private
@@ -2942,5 +2953,5 @@ MatTabsModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b, MatTabsModule, MatTabChangeEvent, MAT_TABS_CONFIG, _MatTabGroupBase, MatTabGroup, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, _MatTabBodyBase, MatTabBodyPortal, MatTabHeader, _MatTabHeaderBase, MatTabLabelWrapper, MatTab, MAT_TAB_GROUP, MatTabLabel, MatTabNav, MatTabLink, _MatTabNavBase, _MatTabLinkBase, MatTabContent, matTabsAnimations };
+export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b, MatTabsModule, MatTabChangeEvent, _MatTabGroupBase, MatTabGroup, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, _MatTabBodyBase, MatTabBodyPortal, MatTabHeader, _MatTabHeaderBase, MatTabLabelWrapper, MatTab, MAT_TAB_GROUP, MatTabLabel, MatTabNav, MatTabLink, _MatTabNavBase, _MatTabLinkBase, MatTabContent, matTabsAnimations, MAT_TABS_CONFIG };
 //# sourceMappingURL=tabs.js.map

@@ -515,6 +515,16 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /** Injection token that can be used to provide the default options the tabs module. */
+    var MAT_TABS_CONFIG = new core.InjectionToken('MAT_TABS_CONFIG');
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /** Used to generate unique ID's for each tab component */
     var nextId = 0;
     /** A simple change event emitted on focus or selection changes. */
@@ -523,8 +533,6 @@
         }
         return MatTabChangeEvent;
     }());
-    /** Injection token that can be used to provide the default options the tabs module. */
-    var MAT_TABS_CONFIG = new core.InjectionToken('MAT_TABS_CONFIG');
     // Boilerplate for applying mixins to MatTabGroup.
     /** @docs-private */
     var MatTabGroupMixinBase = /** @class */ (function () {
@@ -1870,8 +1878,8 @@
     exports._MatTabNavBase = _MatTabNavBase;
     exports._MatTabLinkBase = _MatTabLinkBase;
     exports.MatTabContent = MatTabContent;
-    exports.MatTabChangeEvent = MatTabChangeEvent;
     exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
+    exports.MatTabChangeEvent = MatTabChangeEvent;
     exports._MatTabGroupBase = _MatTabGroupBase;
     exports.MatTabGroup = MatTabGroup;
     exports.matTabsAnimations = matTabsAnimations;

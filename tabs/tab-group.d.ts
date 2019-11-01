@@ -5,9 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, InjectionToken } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
+import { MatTabsConfig } from './tab-config';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MatTabChangeEvent {
     /** Index of the currently-selected tab. */
@@ -17,18 +18,6 @@ export declare class MatTabChangeEvent {
 }
 /** Possible positions for the tab header. */
 export declare type MatTabHeaderPosition = 'above' | 'below';
-/** Object that can be used to configure the default options for the tabs module. */
-export interface MatTabsConfig {
-    /** Duration for the tab animation. Must be a valid CSS value (e.g. 600ms). */
-    animationDuration?: string;
-    /**
-     * Whether pagination should be disabled. This can be used to avoid unnecessary
-     * layout recalculations if it's known that pagination won't be required.
-     */
-    disablePagination?: boolean;
-}
-/** Injection token that can be used to provide the default options the tabs module. */
-export declare const MAT_TABS_CONFIG: InjectionToken<MatTabsConfig>;
 /** @docs-private */
 declare class MatTabGroupMixinBase {
     _elementRef: ElementRef;

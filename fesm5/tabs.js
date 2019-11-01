@@ -526,6 +526,16 @@ var MatTabBody = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Injection token that can be used to provide the default options the tabs module. */
+var MAT_TABS_CONFIG = new InjectionToken('MAT_TABS_CONFIG');
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** Used to generate unique ID's for each tab component */
 var nextId = 0;
 /** A simple change event emitted on focus or selection changes. */
@@ -534,8 +544,6 @@ var MatTabChangeEvent = /** @class */ (function () {
     }
     return MatTabChangeEvent;
 }());
-/** Injection token that can be used to provide the default options the tabs module. */
-var MAT_TABS_CONFIG = new InjectionToken('MAT_TABS_CONFIG');
 // Boilerplate for applying mixins to MatTabGroup.
 /** @docs-private */
 var MatTabGroupMixinBase = /** @class */ (function () {
@@ -1862,5 +1870,5 @@ var MatTabsModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b, MatTabsModule, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, _MatTabBodyBase, MatTabBodyPortal, MatTabHeader, _MatTabHeaderBase, MatTabLabelWrapper, MatTab, MAT_TAB_GROUP, MatTabLabel, MatTabNav, MatTabLink, _MatTabNavBase, _MatTabLinkBase, MatTabContent, MatTabChangeEvent, MAT_TABS_CONFIG, _MatTabGroupBase, MatTabGroup, matTabsAnimations };
+export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b, MatTabsModule, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, _MatTabBodyBase, MatTabBodyPortal, MatTabHeader, _MatTabHeaderBase, MatTabLabelWrapper, MatTab, MAT_TAB_GROUP, MatTabLabel, MatTabNav, MatTabLink, _MatTabNavBase, _MatTabLinkBase, MatTabContent, MAT_TABS_CONFIG, MatTabChangeEvent, _MatTabGroupBase, MatTabGroup, matTabsAnimations };
 //# sourceMappingURL=tabs.js.map
