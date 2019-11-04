@@ -1,5 +1,5 @@
 import { PortalModule } from '@angular/cdk/portal';
-import { CdkStepLabel, CdkStepHeader, STEPPER_GLOBAL_OPTIONS, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
+import { CdkStepLabel, CdkStepHeader, CdkStep, STEPPER_GLOBAL_OPTIONS, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Directive, Injectable, ɵɵdefineInjectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Input, TemplateRef, Inject, forwardRef, ContentChild, EventEmitter, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -245,7 +245,10 @@ var MatStep = /** @class */ (function (_super) {
                     moduleId: module.id,
                     selector: 'mat-step',
                     template: "<ng-template><ng-content></ng-content></ng-template>\n",
-                    providers: [{ provide: ErrorStateMatcher, useExisting: MatStep }],
+                    providers: [
+                        { provide: ErrorStateMatcher, useExisting: MatStep },
+                        { provide: CdkStep, useExisting: MatStep },
+                    ],
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matStep',
                     changeDetection: ChangeDetectionStrategy.OnPush

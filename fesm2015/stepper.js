@@ -380,7 +380,10 @@ MatStep.decorators = [
                 moduleId: module.id,
                 selector: 'mat-step',
                 template: "<ng-template><ng-content></ng-content></ng-template>\n",
-                providers: [{ provide: ErrorStateMatcher, useExisting: MatStep }],
+                providers: [
+                    { provide: ErrorStateMatcher, useExisting: MatStep },
+                    { provide: CdkStep, useExisting: MatStep },
+                ],
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matStep',
                 changeDetection: ChangeDetectionStrategy.OnPush

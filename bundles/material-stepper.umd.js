@@ -237,7 +237,10 @@
                         moduleId: module.id,
                         selector: 'mat-step',
                         template: "<ng-template><ng-content></ng-content></ng-template>\n",
-                        providers: [{ provide: core.ErrorStateMatcher, useExisting: MatStep }],
+                        providers: [
+                            { provide: core.ErrorStateMatcher, useExisting: MatStep },
+                            { provide: stepper.CdkStep, useExisting: MatStep },
+                        ],
                         encapsulation: i0.ViewEncapsulation.None,
                         exportAs: 'matStep',
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
