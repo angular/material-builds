@@ -39,10 +39,17 @@ class MatSliderHarness extends ComponentHarness {
             return id !== '' ? id : null;
         });
     }
-    /** Gets the current display value of the slider. */
+    /**
+     * Gets the current display value of the slider. Returns null if the thumb
+     * label is disabled.
+     */
     getDisplayValue() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._textLabel()).text();
+            const [host, textLabel] = yield Promise.all([this.host(), this._textLabel()]);
+            if (yield host.hasClass('mat-slider-thumb-label-showing')) {
+                return textLabel.text();
+            }
+            return null;
         });
     }
     /** Gets the current percentage value of the slider. */

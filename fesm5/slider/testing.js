@@ -50,13 +50,24 @@ var MatSliderHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets the current display value of the slider. */
+    /**
+     * Gets the current display value of the slider. Returns null if the thumb
+     * label is disabled.
+     */
     MatSliderHarness.prototype.getDisplayValue = function () {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._textLabel()];
-                    case 1: return [2 /*return*/, (_a.sent()).text()];
+            var _a, host, textLabel;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, Promise.all([this.host(), this._textLabel()])];
+                    case 1:
+                        _a = __read.apply(void 0, [_b.sent(), 2]), host = _a[0], textLabel = _a[1];
+                        return [4 /*yield*/, host.hasClass('mat-slider-thumb-label-showing')];
+                    case 2:
+                        if (_b.sent()) {
+                            return [2 /*return*/, textLabel.text()];
+                        }
+                        return [2 /*return*/, null];
                 }
             });
         });

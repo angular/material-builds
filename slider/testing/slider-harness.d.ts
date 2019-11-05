@@ -26,8 +26,11 @@ export declare class MatSliderHarness extends ComponentHarness {
     private _wrapper;
     /** Gets the slider's id. */
     getId(): Promise<string | null>;
-    /** Gets the current display value of the slider. */
-    getDisplayValue(): Promise<string>;
+    /**
+     * Gets the current display value of the slider. Returns null if the thumb
+     * label is disabled.
+     */
+    getDisplayValue(): Promise<string | null>;
     /** Gets the current percentage value of the slider. */
     getPercentage(): Promise<number>;
     /** Gets the current value of the slider. */
