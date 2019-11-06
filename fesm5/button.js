@@ -102,7 +102,6 @@ var MatButton = /** @class */ (function (_super) {
     };
     MatButton.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],\n             button[mat-flat-button]",
                     exportAs: 'matButton',
                     host: {
@@ -144,7 +143,6 @@ var MatAnchor = /** @class */ (function (_super) {
     };
     MatAnchor.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab],\n             a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]",
                     exportAs: 'matButton, matAnchor',
                     host: {

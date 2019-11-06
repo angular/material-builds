@@ -76,7 +76,6 @@ class MatGridTile {
 }
 MatGridTile.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-grid-tile',
                 exportAs: 'matGridTile',
                 host: {
@@ -130,7 +129,6 @@ class MatGridTileText {
 }
 MatGridTileText.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-grid-tile-header, mat-grid-tile-footer',
                 template: "<ng-content select=\"[mat-grid-avatar], [matGridAvatar]\"></ng-content>\n<div class=\"mat-grid-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div>\n<ng-content></ng-content>\n",
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -946,7 +944,6 @@ class MatGridList {
 }
 MatGridList.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-grid-list',
                 exportAs: 'matGridList',
                 template: "<div>\n  <ng-content></ng-content>\n</div>",

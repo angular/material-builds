@@ -24,7 +24,6 @@
         }
         MatTable.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-table, table[mat-table]',
                         exportAs: 'matTable',
                         template: table.CDK_TABLE_TEMPLATE,
@@ -267,7 +266,6 @@
         }
         MatHeaderRow.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-header-row, tr[mat-header-row]',
                         template: table.CDK_ROW_TEMPLATE,
                         host: {
@@ -292,7 +290,6 @@
         }
         MatFooterRow.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-footer-row, tr[mat-footer-row]',
                         template: table.CDK_ROW_TEMPLATE,
                         host: {
@@ -317,7 +314,6 @@
         }
         MatRow.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-row, tr[mat-row]',
                         template: table.CDK_ROW_TEMPLATE,
                         host: {
@@ -358,7 +354,6 @@
         }
         MatTextColumn.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-text-column',
                         template: "\n    <ng-container matColumnDef>\n      <th mat-header-cell *matHeaderCellDef [style.text-align]=\"justify\">\n        {{headerText}}\n      </th>\n      <td mat-cell *matCellDef=\"let data\" [style.text-align]=\"justify\">\n        {{dataAccessor(data, name)}}\n      </td>\n    </ng-container>\n  ",
                         encapsulation: core.ViewEncapsulation.None,

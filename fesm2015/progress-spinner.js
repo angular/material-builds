@@ -300,7 +300,6 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
 MatProgressSpinner._diameters = new WeakMap();
 MatProgressSpinner.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-progress-spinner',
                 exportAs: 'matProgressSpinner',
                 host: {
@@ -418,7 +417,6 @@ class MatSpinner extends MatProgressSpinner {
 }
 MatSpinner.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-spinner',
                 host: {
                     'role': 'progressbar',

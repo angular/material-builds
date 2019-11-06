@@ -140,7 +140,6 @@
         };
         MatProgressBar.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-progress-bar',
                         exportAs: 'matProgressBar',
                         host: {

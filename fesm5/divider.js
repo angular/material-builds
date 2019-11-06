@@ -31,7 +31,6 @@ var MatDivider = /** @class */ (function () {
     });
     MatDivider.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-divider',
                     host: {
                         'role': 'separator',

@@ -50,7 +50,6 @@ var MatNavList = /** @class */ (function (_super) {
     };
     MatNavList.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-nav-list',
                     exportAs: 'matNavList',
                     host: {
@@ -96,7 +95,6 @@ var MatList = /** @class */ (function (_super) {
     };
     MatList.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-list, mat-action-list',
                     exportAs: 'matList',
                     template: "<ng-content></ng-content>\n\n",
@@ -203,7 +201,6 @@ var MatListItem = /** @class */ (function (_super) {
     };
     MatListItem.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-list-item, a[mat-list-item], button[mat-list-item]',
                     exportAs: 'matListItem',
                     host: {
@@ -445,7 +442,6 @@ var MatListOption = /** @class */ (function (_super) {
     };
     MatListOption.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-list-option',
                     exportAs: 'matListOption',
                     inputs: ['disableRipple'],
@@ -770,7 +766,6 @@ var MatSelectionList = /** @class */ (function (_super) {
     };
     MatSelectionList.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-selection-list',
                     exportAs: 'matSelectionList',
                     inputs: ['disableRipple'],

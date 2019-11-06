@@ -233,7 +233,6 @@ class MatProgressBar extends _MatProgressBarMixinBase {
 }
 MatProgressBar.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-progress-bar',
                 exportAs: 'matProgressBar',
                 host: {

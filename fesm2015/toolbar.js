@@ -94,7 +94,6 @@ class MatToolbar extends _MatToolbarMixinBase {
 }
 MatToolbar.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-toolbar',
                 exportAs: 'matToolbar',
                 template: "<ng-content></ng-content>\n<ng-content select=\"mat-toolbar-row\"></ng-content>\n",

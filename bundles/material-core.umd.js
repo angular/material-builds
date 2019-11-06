@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.0.0-rc.0-sha-e7aeee417');
+    var VERSION = new i0.Version('9.0.0-rc.0-sha-049da9541');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.0.0-rc.0-sha-e7aeee417');
+    var VERSION$1 = new i0.Version('9.0.0-rc.0-sha-049da9541');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1525,7 +1525,6 @@
         }
         MatPseudoCheckbox.decorators = [
             { type: i0.Component, args: [{
-                        moduleId: module.id,
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         selector: 'mat-pseudo-checkbox',
@@ -1600,7 +1599,6 @@
         }
         MatOptgroup.decorators = [
             { type: i0.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-optgroup',
                         exportAs: 'matOptgroup',
                         template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
@@ -1834,7 +1832,6 @@
         };
         MatOption.decorators = [
             { type: i0.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-option',
                         exportAs: 'matOption',
                         host: {

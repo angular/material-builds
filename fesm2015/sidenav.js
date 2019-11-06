@@ -105,7 +105,6 @@ class MatDrawerContent extends CdkScrollable {
 }
 MatDrawerContent.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-drawer-content',
                 template: '<ng-content></ng-content>',
                 host: {
@@ -560,7 +559,6 @@ class MatDrawer {
 }
 MatDrawer.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-drawer',
                 exportAs: 'matDrawer',
                 template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
@@ -1186,7 +1184,6 @@ class MatDrawerContainer {
 }
 MatDrawerContainer.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-drawer-container',
                 exportAs: 'matDrawerContainer',
                 template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-drawer\"></ng-content>\n\n<ng-content select=\"mat-drawer-content\">\n</ng-content>\n<mat-drawer-content *ngIf=\"!_content\">\n  <ng-content></ng-content>\n</mat-drawer-content>\n",
@@ -1347,7 +1344,6 @@ class MatSidenavContent extends MatDrawerContent {
 }
 MatSidenavContent.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-sidenav-content',
                 template: '<ng-content></ng-content>',
                 host: {
@@ -1412,7 +1408,6 @@ class MatSidenav extends MatDrawer {
 }
 MatSidenav.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-sidenav',
                 exportAs: 'matSidenav',
                 template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
@@ -1473,7 +1468,6 @@ class MatSidenavContainer extends MatDrawerContainer {
 }
 MatSidenavContainer.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-sidenav-container',
                 exportAs: 'matSidenavContainer',
                 template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-sidenav\"></ng-content>\n\n<ng-content select=\"mat-sidenav-content\">\n</ng-content>\n<mat-sidenav-content *ngIf=\"!_content\" cdkScrollable>\n  <ng-content></ng-content>\n</mat-sidenav-content>\n",

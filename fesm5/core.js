@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('9.0.0-rc.0-sha-e7aeee417');
+var VERSION = new Version('9.0.0-rc.0-sha-049da9541');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('9.0.0-rc.0-sha-e7aeee417');
+var VERSION$1 = new Version('9.0.0-rc.0-sha-049da9541');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1535,7 +1535,6 @@ var MatPseudoCheckbox = /** @class */ (function () {
     }
     MatPseudoCheckbox.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     selector: 'mat-pseudo-checkbox',
@@ -1610,7 +1609,6 @@ var MatOptgroup = /** @class */ (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-optgroup',
                     exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
@@ -1844,7 +1842,6 @@ var MatOption = /** @class */ (function () {
     };
     MatOption.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-option',
                     exportAs: 'matOption',
                     host: {

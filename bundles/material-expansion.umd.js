@@ -230,7 +230,6 @@
         };
         MatExpansionPanel.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-expansion-panel',
                         exportAs: 'matExpansionPanel',
                         template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content>\n<div class=\"mat-expansion-panel-content\"\n     role=\"region\"\n     [@bodyExpansion]=\"_getExpandedState()\"\n     (@bodyExpansion.done)=\"_bodyAnimationDone.next($event)\"\n     [attr.aria-labelledby]=\"_headerId\"\n     [id]=\"id\"\n     #body>\n  <div class=\"mat-expansion-panel-body\">\n    <ng-content></ng-content>\n    <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n  </div>\n  <ng-content select=\"mat-action-row\"></ng-content>\n</div>\n",
@@ -414,7 +413,6 @@
         };
         MatExpansionPanelHeader.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-expansion-panel-header',
                         template: "<span class=\"mat-content\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n<span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\"\n      class=\"mat-expansion-indicator\"></span>\n",
                         encapsulation: core.ViewEncapsulation.None,

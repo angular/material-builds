@@ -19,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.0-sha-e7aeee417');
+const VERSION = new Version('9.0.0-rc.0-sha-049da9541');
 
 /**
  * @fileoverview added by tsickle
@@ -77,7 +77,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.0.0-rc.0-sha-e7aeee417');
+const VERSION$1 = new Version('9.0.0-rc.0-sha-049da9541');
 /**
  * \@docs-private
  * @return {?}
@@ -2698,7 +2698,6 @@ class MatPseudoCheckbox {
 }
 MatPseudoCheckbox.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 selector: 'mat-pseudo-checkbox',
@@ -2778,7 +2777,6 @@ class MatOptgroup extends _MatOptgroupMixinBase {
 }
 MatOptgroup.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-optgroup',
                 exportAs: 'matOptgroup',
                 template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
@@ -3095,7 +3093,6 @@ class MatOption {
 }
 MatOption.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-option',
                 exportAs: 'matOption',
                 host: {

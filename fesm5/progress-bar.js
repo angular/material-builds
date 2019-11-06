@@ -143,7 +143,6 @@ var MatProgressBar = /** @class */ (function (_super) {
     };
     MatProgressBar.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-progress-bar',
                     exportAs: 'matProgressBar',
                     host: {

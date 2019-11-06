@@ -25,7 +25,6 @@ class MatTable extends CdkTable {
 }
 MatTable.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-table, table[mat-table]',
                 exportAs: 'matTable',
                 template: CDK_TABLE_TEMPLATE,
@@ -263,7 +262,6 @@ class MatHeaderRow extends CdkHeaderRow {
 }
 MatHeaderRow.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-header-row, tr[mat-header-row]',
                 template: CDK_ROW_TEMPLATE,
                 host: {
@@ -285,7 +283,6 @@ class MatFooterRow extends CdkFooterRow {
 }
 MatFooterRow.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-footer-row, tr[mat-footer-row]',
                 template: CDK_ROW_TEMPLATE,
                 host: {
@@ -307,7 +304,6 @@ class MatRow extends CdkRow {
 }
 MatRow.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-row, tr[mat-row]',
                 template: CDK_ROW_TEMPLATE,
                 host: {
@@ -341,7 +337,6 @@ class MatTextColumn extends CdkTextColumn {
 }
 MatTextColumn.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-text-column',
                 template: `
     <ng-container matColumnDef>

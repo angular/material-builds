@@ -638,7 +638,6 @@ var TooltipComponent = /** @class */ (function () {
     };
     TooltipComponent.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-tooltip-component',
                     template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n",
                     encapsulation: ViewEncapsulation.None,

@@ -218,7 +218,6 @@ var MatTree = /** @class */ (function (_super) {
     }
     MatTree.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-tree',
                     exportAs: 'matTree',
                     template: "<ng-container matTreeNodeOutlet></ng-container>",

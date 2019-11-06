@@ -369,7 +369,6 @@ class MatBottomSheetContainer extends BasePortalOutlet {
 }
 MatBottomSheetContainer.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-bottom-sheet-container',
                 template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
                 changeDetection: ChangeDetectionStrategy.OnPush,

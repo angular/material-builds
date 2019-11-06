@@ -1109,7 +1109,6 @@
         };
         MatChipList.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-chip-list',
                         template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
                         exportAs: 'matChipList',

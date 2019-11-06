@@ -310,7 +310,6 @@
         };
         MatMenuItem.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: '[mat-menu-item]',
                         exportAs: 'matMenuItem',
                         inputs: ['disabled', 'disableRipple'],
@@ -732,7 +731,6 @@
         }
         _MatMenu.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-menu',
                         template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,

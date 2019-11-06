@@ -222,7 +222,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
     };
     MatSlideToggle.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-slide-toggle',
                     exportAs: 'matSlideToggle',
                     host: {

@@ -82,7 +82,6 @@ var MatDrawerContent = /** @class */ (function (_super) {
     };
     MatDrawerContent.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-drawer-content',
                     template: '<ng-content></ng-content>',
                     host: {
@@ -406,7 +405,6 @@ var MatDrawer = /** @class */ (function () {
     };
     MatDrawer.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-drawer',
                     exportAs: 'matDrawer',
                     template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
@@ -766,7 +764,6 @@ var MatDrawerContainer = /** @class */ (function () {
     };
     MatDrawerContainer.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-drawer-container',
                     exportAs: 'matDrawerContainer',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-drawer\"></ng-content>\n\n<ng-content select=\"mat-drawer-content\">\n</ng-content>\n<mat-drawer-content *ngIf=\"!_content\">\n  <ng-content></ng-content>\n</mat-drawer-content>\n",
@@ -822,7 +819,6 @@ var MatSidenavContent = /** @class */ (function (_super) {
     }
     MatSidenavContent.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-sidenav-content',
                     template: '<ng-content></ng-content>',
                     host: {
@@ -882,7 +878,6 @@ var MatSidenav = /** @class */ (function (_super) {
     });
     MatSidenav.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-sidenav',
                     exportAs: 'matSidenav',
                     template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
@@ -919,7 +914,6 @@ var MatSidenavContainer = /** @class */ (function (_super) {
     }
     MatSidenavContainer.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-sidenav-container',
                     exportAs: 'matSidenavContainer',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-sidenav\"></ng-content>\n\n<ng-content select=\"mat-sidenav-content\">\n</ng-content>\n<mat-sidenav-content *ngIf=\"!_content\" cdkScrollable>\n  <ng-content></ng-content>\n</mat-sidenav-content>\n",

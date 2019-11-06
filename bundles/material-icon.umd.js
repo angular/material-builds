@@ -887,7 +887,6 @@
         };
         MatIcon.decorators = [
             { type: i0.Component, args: [{
-                        moduleId: module.id,
                         template: '<ng-content></ng-content>',
                         selector: 'mat-icon',
                         exportAs: 'matIcon',

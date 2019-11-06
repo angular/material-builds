@@ -717,7 +717,6 @@ var MatSlider = /** @class */ (function (_super) {
     };
     MatSlider.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-slider',
                     exportAs: 'matSlider',
                     providers: [MAT_SLIDER_VALUE_ACCESSOR],

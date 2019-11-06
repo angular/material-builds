@@ -352,7 +352,6 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
 }
 MatSlideToggle.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-slide-toggle',
                 exportAs: 'matSlideToggle',
                 host: {

@@ -218,7 +218,6 @@
         };
         MatSlideToggle.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-slide-toggle',
                         exportAs: 'matSlideToggle',
                         host: {

@@ -209,7 +209,6 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     MatProgressSpinner._diameters = new WeakMap();
     MatProgressSpinner.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-progress-spinner',
                     exportAs: 'matProgressSpinner',
                     host: {
@@ -261,7 +260,6 @@ var MatSpinner = /** @class */ (function (_super) {
     }
     MatSpinner.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-spinner',
                     host: {
                         'role': 'progressbar',

@@ -1283,7 +1283,6 @@ class MatIcon extends _MatIconMixinBase {
 }
 MatIcon.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 template: '<ng-content></ng-content>',
                 selector: 'mat-icon',
                 exportAs: 'matIcon',

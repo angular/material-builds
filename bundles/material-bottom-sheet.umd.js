@@ -209,7 +209,6 @@
         };
         MatBottomSheetContainer.decorators = [
             { type: i0.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-bottom-sheet-container',
                         template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,

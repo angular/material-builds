@@ -27,7 +27,6 @@ var MatTable = /** @class */ (function (_super) {
     }
     MatTable.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-table, table[mat-table]',
                     exportAs: 'matTable',
                     template: CDK_TABLE_TEMPLATE,
@@ -270,7 +269,6 @@ var MatHeaderRow = /** @class */ (function (_super) {
     }
     MatHeaderRow.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-header-row, tr[mat-header-row]',
                     template: CDK_ROW_TEMPLATE,
                     host: {
@@ -295,7 +293,6 @@ var MatFooterRow = /** @class */ (function (_super) {
     }
     MatFooterRow.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-footer-row, tr[mat-footer-row]',
                     template: CDK_ROW_TEMPLATE,
                     host: {
@@ -320,7 +317,6 @@ var MatRow = /** @class */ (function (_super) {
     }
     MatRow.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-row, tr[mat-row]',
                     template: CDK_ROW_TEMPLATE,
                     host: {
@@ -361,7 +357,6 @@ var MatTextColumn = /** @class */ (function (_super) {
     }
     MatTextColumn.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-text-column',
                     template: "\n    <ng-container matColumnDef>\n      <th mat-header-cell *matHeaderCellDef [style.text-align]=\"justify\">\n        {{headerText}}\n      </th>\n      <td mat-cell *matCellDef=\"let data\" [style.text-align]=\"justify\">\n        {{dataAccessor(data, name)}}\n      </td>\n    </ng-container>\n  ",
                     encapsulation: ViewEncapsulation.None,

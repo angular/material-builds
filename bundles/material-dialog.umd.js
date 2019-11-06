@@ -225,7 +225,6 @@
         };
         MatDialogContainer.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-dialog-container',
                         template: "<ng-template cdkPortalOutlet></ng-template>\n",
                         encapsulation: core.ViewEncapsulation.None,

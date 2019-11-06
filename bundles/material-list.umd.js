@@ -43,7 +43,6 @@
         };
         MatNavList.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-nav-list',
                         exportAs: 'matNavList',
                         host: {
@@ -89,7 +88,6 @@
         };
         MatList.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-list, mat-action-list',
                         exportAs: 'matList',
                         template: "<ng-content></ng-content>\n\n",
@@ -196,7 +194,6 @@
         };
         MatListItem.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-list-item, a[mat-list-item], button[mat-list-item]',
                         exportAs: 'matListItem',
                         host: {
@@ -438,7 +435,6 @@
         };
         MatListOption.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-list-option',
                         exportAs: 'matListOption',
                         inputs: ['disableRipple'],
@@ -763,7 +759,6 @@
         };
         MatSelectionList.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-selection-list',
                         exportAs: 'matSelectionList',
                         inputs: ['disableRipple'],

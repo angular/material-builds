@@ -710,7 +710,6 @@
         };
         MatSlider.decorators = [
             { type: core.Component, args: [{
-                        moduleId: module.id,
                         selector: 'mat-slider',
                         exportAs: 'matSlider',
                         providers: [MAT_SLIDER_VALUE_ACCESSOR],

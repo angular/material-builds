@@ -458,7 +458,6 @@ class MatDialogContainer extends BasePortalOutlet {
 }
 MatDialogContainer.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-dialog-container',
                 template: "<ng-template cdkPortalOutlet></ng-template>\n",
                 encapsulation: ViewEncapsulation.None,

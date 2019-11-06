@@ -158,7 +158,6 @@
         });
         SimpleSnackBar.decorators = [
             { type: i0.Component, args: [{
-                        moduleId: module.id,
                         selector: 'simple-snack-bar',
                         template: "<span>{{data.message}}</span>\n<div class=\"mat-simple-snackbar-action\"  *ngIf=\"hasAction\">\n  <button mat-button (click)=\"action()\">{{data.action}}</button>\n</div>\n",
                         encapsulation: i0.ViewEncapsulation.None,
@@ -335,7 +334,6 @@
         };
         MatSnackBarContainer.decorators = [
             { type: i0.Component, args: [{
-                        moduleId: module.id,
                         selector: 'snack-bar-container',
                         template: "<ng-template cdkPortalOutlet></ng-template>\n",
                         // In Ivy embedded views will be change detected from their declaration place, rather than

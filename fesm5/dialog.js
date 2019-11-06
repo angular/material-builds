@@ -232,7 +232,6 @@ var MatDialogContainer = /** @class */ (function (_super) {
     };
     MatDialogContainer.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-dialog-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>\n",
                     encapsulation: ViewEncapsulation.None,

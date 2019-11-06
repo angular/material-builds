@@ -222,7 +222,6 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
 }
 MatAutocomplete.decorators = [
     { type: Component, args: [{
-                moduleId: module.id,
                 selector: 'mat-autocomplete',
                 template: "<ng-template>\n  <div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n",
                 encapsulation: ViewEncapsulation.None,

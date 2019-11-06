@@ -205,7 +205,6 @@ var MatCard = /** @class */ (function () {
     }
     MatCard.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-card',
                     exportAs: 'matCard',
                     template: "<ng-content></ng-content>\n<ng-content select=\"mat-card-footer\"></ng-content>\n",
@@ -234,7 +233,6 @@ var MatCardHeader = /** @class */ (function () {
     }
     MatCardHeader.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-card-header',
                     template: "<ng-content select=\"[mat-card-avatar], [matCardAvatar]\"></ng-content>\n<div class=\"mat-card-header-text\">\n  <ng-content\n      select=\"mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]\"></ng-content>\n</div>\n<ng-content></ng-content>\n",
                     encapsulation: ViewEncapsulation.None,
@@ -254,7 +252,6 @@ var MatCardTitleGroup = /** @class */ (function () {
     }
     MatCardTitleGroup.decorators = [
         { type: Component, args: [{
-                    moduleId: module.id,
                     selector: 'mat-card-title-group',
                     template: "<div>\n  <ng-content\n      select=\"mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]\"></ng-content>\n</div>\n<ng-content select=\"img\"></ng-content>\n<ng-content></ng-content>\n",
                     encapsulation: ViewEncapsulation.None,
