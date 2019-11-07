@@ -7,7 +7,7 @@
  */
 import { ComponentRef, EmbeddedViewRef, OnDestroy, ElementRef, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalOutlet, ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, TemplatePortal, CdkPortalOutlet, DomPortal } from '@angular/cdk/portal';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatBottomSheetConfig } from './bottom-sheet-config';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
@@ -43,6 +43,12 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this bottom sheet container. */
     attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
+    /**
+     * Attaches a DOM portal to the bottom sheet container.
+     * @deprecated To be turned into a method.
+     * @breaking-change 10.0.0
+     */
+    attachDomPortal: (portal: DomPortal<HTMLElement>) => void;
     /** Begin animation of bottom sheet entrance into view. */
     enter(): void;
     /** Begin animation of the bottom sheet exiting from view. */

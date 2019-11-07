@@ -125,6 +125,19 @@ var MatDialogContainer = /** @class */ (function (_super) {
         _this._state = 'enter';
         /** Emits when an animation state changes. */
         _this._animationStateChanged = new EventEmitter();
+        /**
+         * Attaches a DOM portal to the dialog container.
+         * @param portal Portal to be attached.
+         * @deprecated To be turned into a method.
+         * @breaking-change 10.0.0
+         */
+        _this.attachDomPortal = function (portal) {
+            if (_this._portalOutlet.hasAttached()) {
+                throwMatDialogContentAlreadyAttachedError();
+            }
+            _this._savePreviouslyFocusedElement();
+            return _this._portalOutlet.attachDomPortal(portal);
+        };
         _this._ariaLabelledBy = _config.ariaLabelledBy || null;
         _this._document = _document;
         return _this;

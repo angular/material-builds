@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, NgZone, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatSnackBarConfig } from './snack-bar-config';
@@ -39,6 +39,12 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */
     attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
+    /**
+     * Attaches a DOM portal to the snack bar container.
+     * @deprecated To be turned into a method.
+     * @breaking-change 10.0.0
+     */
+    attachDomPortal: (portal: DomPortal<HTMLElement>) => void;
     /** Handle end of animations, updating the state of the snackbar. */
     onAnimationEnd(event: AnimationEvent): void;
     /** Begin animation of snack bar entrance into view. */

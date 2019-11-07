@@ -184,6 +184,21 @@ class MatBottomSheetContainer extends BasePortalOutlet {
          * Element that was focused before the bottom sheet was opened.
          */
         this._elementFocusedBeforeOpened = null;
+        /**
+         * Attaches a DOM portal to the bottom sheet container.
+         * @deprecated To be turned into a method.
+         * \@breaking-change 10.0.0
+         */
+        this.attachDomPortal = (/**
+         * @param {?} portal
+         * @return {?}
+         */
+        (portal) => {
+            this._validatePortalAttached();
+            this._setPanelClass();
+            this._savePreviouslyFocusedElement();
+            return this._portalOutlet.attachDomPortal(portal);
+        });
         this._document = document;
         this._breakpointSubscription = breakpointObserver
             .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
@@ -444,6 +459,13 @@ if (false) {
      * @private
      */
     MatBottomSheetContainer.prototype._destroyed;
+    /**
+     * Attaches a DOM portal to the bottom sheet container.
+     * @deprecated To be turned into a method.
+     * \@breaking-change 10.0.0
+     * @type {?}
+     */
+    MatBottomSheetContainer.prototype.attachDomPortal;
     /**
      * @type {?}
      * @private

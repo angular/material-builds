@@ -317,6 +317,23 @@ class MatDialogContainer extends BasePortalOutlet {
          * Emits when an animation state changes.
          */
         this._animationStateChanged = new EventEmitter();
+        /**
+         * Attaches a DOM portal to the dialog container.
+         * @param portal Portal to be attached.
+         * @deprecated To be turned into a method.
+         * \@breaking-change 10.0.0
+         */
+        this.attachDomPortal = (/**
+         * @param {?} portal
+         * @return {?}
+         */
+        (portal) => {
+            if (this._portalOutlet.hasAttached()) {
+                throwMatDialogContentAlreadyAttachedError();
+            }
+            this._savePreviouslyFocusedElement();
+            return this._portalOutlet.attachDomPortal(portal);
+        });
         this._ariaLabelledBy = _config.ariaLabelledBy || null;
         this._document = _document;
     }
@@ -535,6 +552,14 @@ if (false) {
      * @type {?}
      */
     MatDialogContainer.prototype._id;
+    /**
+     * Attaches a DOM portal to the dialog container.
+     * \@param portal Portal to be attached.
+     * @deprecated To be turned into a method.
+     * \@breaking-change 10.0.0
+     * @type {?}
+     */
+    MatDialogContainer.prototype.attachDomPortal;
     /**
      * @type {?}
      * @private

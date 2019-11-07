@@ -38,7 +38,12 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     private _centeringSub;
     /** Subscription to events for when the tab body finishes leaving from center position. */
     private _leavingSub;
-    constructor(componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef, _host: MatTabBody);
+    constructor(componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef, _host: MatTabBody, 
+    /**
+     * @deprecated `_document` parameter to be made required.
+     * @breaking-change 9.0.0
+     */
+    _document?: any);
     /** Set initial visibility or set up subscription for changing visibility. */
     ngOnInit(): void;
     /** Clean up centering subscription. */

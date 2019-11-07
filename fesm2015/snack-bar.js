@@ -424,6 +424,20 @@ class MatSnackBarContainer extends BasePortalOutlet {
          * The state of the snack bar animations.
          */
         this._animationState = 'void';
+        /**
+         * Attaches a DOM portal to the snack bar container.
+         * @deprecated To be turned into a method.
+         * \@breaking-change 10.0.0
+         */
+        this.attachDomPortal = (/**
+         * @param {?} portal
+         * @return {?}
+         */
+        (portal) => {
+            this._assertNotAttached();
+            this._applySnackBarClasses();
+            return this._portalOutlet.attachDomPortal(portal);
+        });
         // Based on the ARIA spec, `alert` and `status` roles have an
         // implicit `assertive` and `polite` politeness respectively.
         if (snackBarConfig.politeness === 'assertive' && !snackBarConfig.announcementMessage) {
@@ -629,6 +643,13 @@ if (false) {
      * @type {?}
      */
     MatSnackBarContainer.prototype._role;
+    /**
+     * Attaches a DOM portal to the snack bar container.
+     * @deprecated To be turned into a method.
+     * \@breaking-change 10.0.0
+     * @type {?}
+     */
+    MatSnackBarContainer.prototype.attachDomPortal;
     /**
      * @type {?}
      * @private

@@ -1,6 +1,6 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
-import { CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -443,9 +443,15 @@ class MatTabBodyPortal extends CdkPortalOutlet {
      * @param {?} componentFactoryResolver
      * @param {?} viewContainerRef
      * @param {?} _host
+     * @param {?=} _document
      */
-    constructor(componentFactoryResolver, viewContainerRef, _host) {
-        super(componentFactoryResolver, viewContainerRef);
+    constructor(componentFactoryResolver, viewContainerRef, _host, 
+    /**
+     * @deprecated `_document` parameter to be made required.
+     * @breaking-change 9.0.0
+     */
+    _document) {
+        super(componentFactoryResolver, viewContainerRef, _document);
         this._host = _host;
         /**
          * Subscription to events for when the tab body begins centering.
@@ -502,7 +508,8 @@ MatTabBodyPortal.ctorParameters = () => [
     { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef((/**
                      * @return {?}
                      */
-                    () => MatTabBody)),] }] }
+                    () => MatTabBody)),] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 if (false) {
     /**

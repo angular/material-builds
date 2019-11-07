@@ -296,8 +296,13 @@
      */
     var MatTabBodyPortal = /** @class */ (function (_super) {
         tslib.__extends(MatTabBodyPortal, _super);
-        function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host) {
-            var _this = _super.call(this, componentFactoryResolver, viewContainerRef) || this;
+        function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host, 
+        /**
+         * @deprecated `_document` parameter to be made required.
+         * @breaking-change 9.0.0
+         */
+        _document) {
+            var _this = _super.call(this, componentFactoryResolver, viewContainerRef, _document) || this;
             _this._host = _host;
             /** Subscription to events for when the tab body begins centering. */
             _this._centeringSub = rxjs.Subscription.EMPTY;
@@ -335,7 +340,8 @@
         MatTabBodyPortal.ctorParameters = function () { return [
             { type: core.ComponentFactoryResolver },
             { type: core.ViewContainerRef },
-            { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatTabBody; }),] }] }
+            { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatTabBody; }),] }] },
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
         return MatTabBodyPortal;
     }(portal.CdkPortalOutlet));

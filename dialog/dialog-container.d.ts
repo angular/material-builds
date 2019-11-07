@@ -7,7 +7,7 @@
  */
 import { ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatDialogConfig } from './dialog-config';
 /**
@@ -55,6 +55,13 @@ export declare class MatDialogContainer extends BasePortalOutlet {
      * @param portal Portal to be attached as the dialog content.
      */
     attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
+    /**
+     * Attaches a DOM portal to the dialog container.
+     * @param portal Portal to be attached.
+     * @deprecated To be turned into a method.
+     * @breaking-change 10.0.0
+     */
+    attachDomPortal: (portal: DomPortal<HTMLElement>) => void;
     /** Moves the focus inside the focus trap. */
     private _trapFocus;
     /** Restores focus to the element that was focused before the dialog opened. */

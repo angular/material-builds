@@ -1,6 +1,6 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
-import { CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -307,8 +307,13 @@ var matTabsAnimations = {
  */
 var MatTabBodyPortal = /** @class */ (function (_super) {
     __extends(MatTabBodyPortal, _super);
-    function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host) {
-        var _this = _super.call(this, componentFactoryResolver, viewContainerRef) || this;
+    function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host, 
+    /**
+     * @deprecated `_document` parameter to be made required.
+     * @breaking-change 9.0.0
+     */
+    _document) {
+        var _this = _super.call(this, componentFactoryResolver, viewContainerRef, _document) || this;
         _this._host = _host;
         /** Subscription to events for when the tab body begins centering. */
         _this._centeringSub = Subscription.EMPTY;
@@ -346,7 +351,8 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
     MatTabBodyPortal.ctorParameters = function () { return [
         { type: ComponentFactoryResolver },
         { type: ViewContainerRef },
-        { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef(function () { return MatTabBody; }),] }] }
+        { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef(function () { return MatTabBody; }),] }] },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ]; };
     return MatTabBodyPortal;
 }(CdkPortalOutlet));

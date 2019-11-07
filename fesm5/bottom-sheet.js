@@ -100,6 +100,17 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         _this._animationStateChanged = new EventEmitter();
         /** Element that was focused before the bottom sheet was opened. */
         _this._elementFocusedBeforeOpened = null;
+        /**
+         * Attaches a DOM portal to the bottom sheet container.
+         * @deprecated To be turned into a method.
+         * @breaking-change 10.0.0
+         */
+        _this.attachDomPortal = function (portal) {
+            _this._validatePortalAttached();
+            _this._setPanelClass();
+            _this._savePreviouslyFocusedElement();
+            return _this._portalOutlet.attachDomPortal(portal);
+        };
         _this._document = document;
         _this._breakpointSubscription = breakpointObserver
             .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])

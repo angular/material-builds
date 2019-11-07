@@ -234,6 +234,16 @@
             _this._onEnter = new rxjs.Subject();
             /** The state of the snack bar animations. */
             _this._animationState = 'void';
+            /**
+             * Attaches a DOM portal to the snack bar container.
+             * @deprecated To be turned into a method.
+             * @breaking-change 10.0.0
+             */
+            _this.attachDomPortal = function (portal) {
+                _this._assertNotAttached();
+                _this._applySnackBarClasses();
+                return _this._portalOutlet.attachDomPortal(portal);
+            };
             // Based on the ARIA spec, `alert` and `status` roles have an
             // implicit `assertive` and `polite` politeness respectively.
             if (snackBarConfig.politeness === 'assertive' && !snackBarConfig.announcementMessage) {
