@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/tree'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', 'tslib', '@angular/cdk/tree', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}), global.tslib, global.ng.cdk.tree, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.common, global.ng.cdk.collections, global.rxjs, global.rxjs.operators));
-}(this, function (exports, tslib, tree, core, core$1, coercion, common, collections, rxjs, operators) { 'use strict';
+}(this, (function (exports, tslib, tree, core, core$1, coercion, common, collections, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -504,19 +504,19 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MatNestedTreeNode = MatNestedTreeNode;
+    exports.MatTree = MatTree;
+    exports.MatTreeFlatDataSource = MatTreeFlatDataSource;
+    exports.MatTreeFlattener = MatTreeFlattener;
+    exports.MatTreeModule = MatTreeModule;
+    exports.MatTreeNestedDataSource = MatTreeNestedDataSource;
     exports.MatTreeNode = MatTreeNode;
     exports.MatTreeNodeDef = MatTreeNodeDef;
-    exports.MatNestedTreeNode = MatNestedTreeNode;
-    exports.MatTreeNodePadding = MatTreeNodePadding;
-    exports.MatTree = MatTree;
-    exports.MatTreeModule = MatTreeModule;
-    exports.MatTreeNodeToggle = MatTreeNodeToggle;
     exports.MatTreeNodeOutlet = MatTreeNodeOutlet;
-    exports.MatTreeFlattener = MatTreeFlattener;
-    exports.MatTreeFlatDataSource = MatTreeFlatDataSource;
-    exports.MatTreeNestedDataSource = MatTreeNestedDataSource;
+    exports.MatTreeNodePadding = MatTreeNodePadding;
+    exports.MatTreeNodeToggle = MatTreeNodeToggle;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-tree.umd.js.map

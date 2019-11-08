@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
     typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/common', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.bidi, global.ng.cdk, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.common, global.ng.cdk.a11y, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
-}(this, function (exports, i0, bidi, cdk, tslib, coercion, rxjs, platform, platformBrowser, operators, common, a11y, animations, keycodes) { 'use strict';
+}(this, (function (exports, i0, bidi, cdk, tslib, coercion, rxjs, platform, platformBrowser, operators, common, a11y, animations, keycodes) { 'use strict';
 
     /**
      * @license
@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.0.0-rc.0-sha-b5146bfd5');
+    var VERSION = new i0.Version('9.0.0-rc.1-sha-50ab23d74');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.0.0-rc.0-sha-b5146bfd5');
+    var VERSION$1 = new i0.Version('9.0.0-rc.1-sha-50ab23d74');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1966,67 +1966,67 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.ɵangular_material_src_material_core_core_a = MATERIAL_SANITY_CHECKS_FACTORY;
-    exports.VERSION = VERSION;
+    exports.APR = APR;
+    exports.AUG = AUG;
     exports.AnimationCurves = AnimationCurves;
     exports.AnimationDurations = AnimationDurations;
-    exports.MatCommonModule = MatCommonModule;
+    exports.DEC = DEC;
+    exports.DateAdapter = DateAdapter;
+    exports.ErrorStateMatcher = ErrorStateMatcher;
+    exports.FEB = FEB;
+    exports.GestureConfig = GestureConfig;
+    exports.JAN = JAN;
+    exports.JUL = JUL;
+    exports.JUN = JUN;
+    exports.MAR = MAR;
     exports.MATERIAL_SANITY_CHECKS = MATERIAL_SANITY_CHECKS;
-    exports.mixinDisabled = mixinDisabled;
-    exports.mixinColor = mixinColor;
-    exports.mixinDisableRipple = mixinDisableRipple;
-    exports.mixinTabIndex = mixinTabIndex;
-    exports.mixinErrorState = mixinErrorState;
-    exports.mixinInitialized = mixinInitialized;
-    exports.NativeDateModule = NativeDateModule;
-    exports.MatNativeDateModule = MatNativeDateModule;
-    exports.ɵ0 = ɵ0$1;
+    exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
     exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
     exports.MAT_DATE_LOCALE_FACTORY = MAT_DATE_LOCALE_FACTORY;
     exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
-    exports.DateAdapter = DateAdapter;
-    exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
-    exports.NativeDateAdapter = NativeDateAdapter;
-    exports.MAT_NATIVE_DATE_FORMATS = MAT_NATIVE_DATE_FORMATS;
-    exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
-    exports.ErrorStateMatcher = ErrorStateMatcher;
     exports.MAT_HAMMER_OPTIONS = MAT_HAMMER_OPTIONS;
-    exports.GestureConfig = GestureConfig;
-    exports.ɵ1 = ɵ1;
+    exports.MAT_LABEL_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
+    exports.MAT_NATIVE_DATE_FORMATS = MAT_NATIVE_DATE_FORMATS;
+    exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
+    exports.MAT_RIPPLE_GLOBAL_OPTIONS = MAT_RIPPLE_GLOBAL_OPTIONS;
+    exports.MAY = MAY;
+    exports.MatCommonModule = MatCommonModule;
     exports.MatLine = MatLine;
-    exports.setLines = setLines;
-    exports.MatLineSetter = MatLineSetter;
     exports.MatLineModule = MatLineModule;
+    exports.MatLineSetter = MatLineSetter;
+    exports.MatNativeDateModule = MatNativeDateModule;
+    exports.MatOptgroup = MatOptgroup;
+    exports.MatOption = MatOption;
     exports.MatOptionModule = MatOptionModule;
     exports.MatOptionSelectionChange = MatOptionSelectionChange;
-    exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
-    exports.MatOption = MatOption;
+    exports.MatPseudoCheckbox = MatPseudoCheckbox;
+    exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
+    exports.MatRipple = MatRipple;
+    exports.MatRippleModule = MatRippleModule;
+    exports.NOV = NOV;
+    exports.NativeDateAdapter = NativeDateAdapter;
+    exports.NativeDateModule = NativeDateModule;
+    exports.OCT = OCT;
+    exports.RippleRef = RippleRef;
+    exports.RippleRenderer = RippleRenderer;
+    exports.SEP = SEP;
+    exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
+    exports.VERSION = VERSION;
     exports._countGroupLabelsBeforeOption = _countGroupLabelsBeforeOption;
     exports._getOptionScrollPosition = _getOptionScrollPosition;
-    exports.MatOptgroup = MatOptgroup;
-    exports.MAT_LABEL_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
-    exports.MatRippleModule = MatRippleModule;
-    exports.MAT_RIPPLE_GLOBAL_OPTIONS = MAT_RIPPLE_GLOBAL_OPTIONS;
-    exports.MatRipple = MatRipple;
-    exports.RippleRef = RippleRef;
     exports.defaultRippleAnimationConfig = defaultRippleAnimationConfig;
-    exports.RippleRenderer = RippleRenderer;
-    exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
-    exports.MatPseudoCheckbox = MatPseudoCheckbox;
-    exports.JAN = JAN;
-    exports.FEB = FEB;
-    exports.MAR = MAR;
-    exports.APR = APR;
-    exports.MAY = MAY;
-    exports.JUN = JUN;
-    exports.JUL = JUL;
-    exports.AUG = AUG;
-    exports.SEP = SEP;
-    exports.OCT = OCT;
-    exports.NOV = NOV;
-    exports.DEC = DEC;
+    exports.mixinColor = mixinColor;
+    exports.mixinDisableRipple = mixinDisableRipple;
+    exports.mixinDisabled = mixinDisabled;
+    exports.mixinErrorState = mixinErrorState;
+    exports.mixinInitialized = mixinInitialized;
+    exports.mixinTabIndex = mixinTabIndex;
+    exports.setLines = setLines;
+    exports.ɵ0 = ɵ0$1;
+    exports.ɵ1 = ɵ1;
+    exports.ɵangular_material_src_material_core_core_a = MATERIAL_SANITY_CHECKS_FACTORY;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-core.umd.js.map

@@ -1,4 +1,4 @@
-import { DELETE, BACKSPACE, SPACE, HOME, END, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
+import { SPACE, BACKSPACE, DELETE, HOME, END, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
 import { Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, ContentChild, forwardRef, Input, Output, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
 import { mixinColor, mixinDisableRipple, mixinDisabled, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -2177,5 +2177,5 @@ MatChipsModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatChipsModule, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput, MAT_CHIPS_DEFAULT_OPTIONS };
+export { MAT_CHIPS_DEFAULT_OPTIONS, MatChip, MatChipAvatar, MatChipInput, MatChipList, MatChipListChange, MatChipRemove, MatChipSelectionChange, MatChipTrailingIcon, MatChipsModule };
 //# sourceMappingURL=chips.js.map

@@ -5,7 +5,7 @@ import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEn
 import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
-import { SPACE, ENTER, hasModifierKey, HOME, END } from '@angular/cdk/keycodes';
+import { ENTER, hasModifierKey, SPACE, HOME, END } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
 import { trigger, state, style, transition, animate, group, query, animateChild } from '@angular/animations';
@@ -632,5 +632,5 @@ var MatExpansionModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatExpansionPanel, MatExpansionPanelActionRow, ɵ0, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle, matExpansionAnimations, ɵ0 };
 //# sourceMappingURL=expansion.js.map

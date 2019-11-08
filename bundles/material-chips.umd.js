@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
     typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/keycodes', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/platform', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.platform, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
-}(this, function (exports, keycodes, core, core$1, tslib, coercion, platform, rxjs, operators, animations, a11y, bidi, collections, forms, formField) { 'use strict';
+}(this, (function (exports, keycodes, core, core$1, tslib, coercion, platform, rxjs, operators, animations, a11y, bidi, collections, forms, formField) { 'use strict';
 
     /**
      * @license
@@ -1376,19 +1376,19 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
+    exports.MatChip = MatChip;
+    exports.MatChipAvatar = MatChipAvatar;
+    exports.MatChipInput = MatChipInput;
+    exports.MatChipList = MatChipList;
+    exports.MatChipListChange = MatChipListChange;
+    exports.MatChipRemove = MatChipRemove;
+    exports.MatChipSelectionChange = MatChipSelectionChange;
+    exports.MatChipTrailingIcon = MatChipTrailingIcon;
     exports.MatChipsModule = MatChipsModule;
     exports.ɵ0 = ɵ0;
-    exports.MatChipListChange = MatChipListChange;
-    exports.MatChipList = MatChipList;
-    exports.MatChipSelectionChange = MatChipSelectionChange;
-    exports.MatChipAvatar = MatChipAvatar;
-    exports.MatChipTrailingIcon = MatChipTrailingIcon;
-    exports.MatChip = MatChip;
-    exports.MatChipRemove = MatChipRemove;
-    exports.MatChipInput = MatChipInput;
-    exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-chips.umd.js.map

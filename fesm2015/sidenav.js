@@ -1546,5 +1546,5 @@ MatSidenavModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_DRAWER_CONTAINER as ɵangular_material_src_material_sidenav_sidenav_a, MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, matDrawerAnimations, throwMatDuplicatedDrawerError, MAT_DRAWER_CONTAINER as ɵangular_material_src_material_sidenav_sidenav_a };
 //# sourceMappingURL=sidenav.js.map

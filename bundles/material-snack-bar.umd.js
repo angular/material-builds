@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/material/button'), require('rxjs'), require('tslib'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/layout')) :
     typeof define === 'function' && define.amd ? define('@angular/material/snack-bar', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', '@angular/material/button', 'rxjs', 'tslib', 'rxjs/operators', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/layout'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.ng.material.button, global.rxjs, global.tslib, global.rxjs.operators, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.layout));
-}(this, function (exports, i1, portal, common, i0, core, button, rxjs, tslib, operators, animations, i2, i3) { 'use strict';
+}(this, (function (exports, i1, portal, common, i0, core, button, rxjs, tslib, operators, animations, i2, i3) { 'use strict';
 
     /**
      * @license
@@ -650,18 +650,18 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatSnackBarModule = MatSnackBarModule;
+    exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
     exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
     exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY;
     exports.MatSnackBar = MatSnackBar;
-    exports.MatSnackBarContainer = MatSnackBarContainer;
-    exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
     exports.MatSnackBarConfig = MatSnackBarConfig;
+    exports.MatSnackBarContainer = MatSnackBarContainer;
+    exports.MatSnackBarModule = MatSnackBarModule;
     exports.MatSnackBarRef = MatSnackBarRef;
     exports.SimpleSnackBar = SimpleSnackBar;
     exports.matSnackBarAnimations = matSnackBarAnimations;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-snack-bar.umd.js.map

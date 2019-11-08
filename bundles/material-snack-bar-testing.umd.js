@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/snack-bar/testing', ['exports', 'tslib', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = global.ng.material.snackBar || {}, global.ng.material.snackBar.testing = {}), global.tslib, global.ng.cdk.testing));
-}(this, function (exports, tslib, testing) { 'use strict';
+}(this, (function (exports, tslib, testing) { 'use strict';
 
     /**
      * @license
@@ -197,5 +197,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-snack-bar-testing.umd.js.map

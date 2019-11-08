@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.material.core, global.rxjs, global.ng.animations, global.ng.common));
-}(this, function (exports, i0, tslib, coercion, core, rxjs, animations, common) { 'use strict';
+}(this, (function (exports, i0, tslib, coercion, core, rxjs, animations, common) { 'use strict';
 
     /**
      * @license
@@ -550,15 +550,15 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatSortModule = MatSortModule;
+    exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
+    exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
+    exports.MatSort = MatSort;
     exports.MatSortHeader = MatSortHeader;
     exports.MatSortHeaderIntl = MatSortHeaderIntl;
-    exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
-    exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
-    exports.MatSort = MatSort;
+    exports.MatSortModule = MatSortModule;
     exports.matSortAnimations = matSortAnimations;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-sort.umd.js.map

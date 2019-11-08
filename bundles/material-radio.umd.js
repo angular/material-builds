@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/radio', ['exports', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/forms', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.radio = {}), global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.forms, global.ng.platformBrowser.animations));
-}(this, function (exports, common, core, core$1, tslib, a11y, coercion, collections, forms, animations) { 'use strict';
+}(this, (function (exports, common, core, core$1, tslib, a11y, coercion, collections, forms, animations) { 'use strict';
 
     /**
      * @license
@@ -582,15 +582,15 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatRadioModule = MatRadioModule;
     exports.MAT_RADIO_DEFAULT_OPTIONS = MAT_RADIO_DEFAULT_OPTIONS;
     exports.MAT_RADIO_DEFAULT_OPTIONS_FACTORY = MAT_RADIO_DEFAULT_OPTIONS_FACTORY;
     exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
+    exports.MatRadioButton = MatRadioButton;
     exports.MatRadioChange = MatRadioChange;
     exports.MatRadioGroup = MatRadioGroup;
-    exports.MatRadioButton = MatRadioButton;
+    exports.MatRadioModule = MatRadioModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-radio.umd.js.map

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/progress-spinner', ['exports', '@angular/core', '@angular/common', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressSpinner = {}), global.ng.core, global.ng.common, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.platformBrowser.animations));
-}(this, function (exports, core, common, core$1, tslib, coercion, platform, animations) { 'use strict';
+}(this, (function (exports, core, common, core$1, tslib, coercion, platform, animations) { 'use strict';
 
     /**
      * @license
@@ -342,13 +342,13 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatProgressSpinner = MatProgressSpinner;
-    exports.MatSpinner = MatSpinner;
     exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS;
     exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
+    exports.MatProgressSpinner = MatProgressSpinner;
     exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
+    exports.MatSpinner = MatSpinner;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-progress-spinner.umd.js.map

@@ -1,7 +1,7 @@
 import { __extends, __spread, __read } from 'tslib';
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ESCAPE, hasModifierKey, LEFT_ARROW, RIGHT_ARROW, HOME, END, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
+import { UP_ARROW, DOWN_ARROW, END, hasModifierKey, HOME, RIGHT_ARROW, LEFT_ARROW, ESCAPE } from '@angular/cdk/keycodes';
 import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
@@ -1322,5 +1322,5 @@ var MatMenuModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵangular_material_src_material_menu_menu_a, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵangular_material_src_material_menu_menu_b, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵangular_material_src_material_menu_menu_c, MatMenu, MAT_MENU_DEFAULT_OPTIONS, _MatMenu, _MatMenuBase, MatMenuItem, MatMenuTrigger, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_PANEL, _MatMenuDirectivesModule, MatMenuModule, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent };
+export { MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, _MatMenu, _MatMenuBase, _MatMenuDirectivesModule, fadeInItems, matMenuAnimations, transformMenu, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵangular_material_src_material_menu_menu_a, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵangular_material_src_material_menu_menu_b, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵangular_material_src_material_menu_menu_c };
 //# sourceMappingURL=menu.js.map

@@ -728,5 +728,5 @@ var MatGridListModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_GRID_LIST as ɵangular_material_src_material_grid_list_grid_list_a, MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler };
+export { MatGridAvatarCssMatStyler, MatGridList, MatGridListModule, MatGridTile, MatGridTileFooterCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileText, MAT_GRID_LIST as ɵangular_material_src_material_grid_list_grid_list_a };
 //# sourceMappingURL=grid-list.js.map

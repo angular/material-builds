@@ -552,5 +552,5 @@ var MatSortModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSortModule, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSort, matSortAnimations };
+export { MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, matSortAnimations };
 //# sourceMappingURL=sort.js.map

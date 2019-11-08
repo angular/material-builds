@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/checkbox/testing', ['exports', 'tslib', '@angular/cdk/coercion', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}, global.ng.material.checkbox.testing = {}), global.tslib, global.ng.cdk.coercion, global.ng.cdk.testing));
-}(this, function (exports, tslib, coercion, testing) { 'use strict';
+}(this, (function (exports, tslib, coercion, testing) { 'use strict';
 
     /**
      * @license
@@ -295,5 +295,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-checkbox-testing.umd.js.map

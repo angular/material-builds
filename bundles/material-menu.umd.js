@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
     typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/portal', '@angular/common', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.portal, global.ng.common, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.overlay, global.ng.cdk.platform));
-}(this, function (exports, tslib, a11y, coercion, keycodes, core, rxjs, operators, animations, portal, common, core$1, bidi, overlay, platform) { 'use strict';
+}(this, (function (exports, tslib, a11y, coercion, keycodes, core, rxjs, operators, animations, portal, common, core$1, bidi, overlay, platform) { 'use strict';
 
     /**
      * @license
@@ -1313,25 +1313,25 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
+    exports.MAT_MENU_PANEL = MAT_MENU_PANEL;
+    exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
+    exports.MatMenu = MatMenu;
+    exports.MatMenuContent = MatMenuContent;
+    exports.MatMenuItem = MatMenuItem;
+    exports.MatMenuModule = MatMenuModule;
+    exports.MatMenuTrigger = MatMenuTrigger;
+    exports._MatMenu = _MatMenu;
+    exports._MatMenuBase = _MatMenuBase;
+    exports._MatMenuDirectivesModule = _MatMenuDirectivesModule;
+    exports.fadeInItems = fadeInItems;
+    exports.matMenuAnimations = matMenuAnimations;
+    exports.transformMenu = transformMenu;
     exports.ɵangular_material_src_material_menu_menu_a = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
     exports.ɵangular_material_src_material_menu_menu_b = MAT_MENU_SCROLL_STRATEGY_FACTORY;
     exports.ɵangular_material_src_material_menu_menu_c = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
-    exports.MatMenu = MatMenu;
-    exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
-    exports._MatMenu = _MatMenu;
-    exports._MatMenuBase = _MatMenuBase;
-    exports.MatMenuItem = MatMenuItem;
-    exports.MatMenuTrigger = MatMenuTrigger;
-    exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
-    exports.MAT_MENU_PANEL = MAT_MENU_PANEL;
-    exports._MatMenuDirectivesModule = _MatMenuDirectivesModule;
-    exports.MatMenuModule = MatMenuModule;
-    exports.matMenuAnimations = matMenuAnimations;
-    exports.fadeInItems = fadeInItems;
-    exports.transformMenu = transformMenu;
-    exports.MatMenuContent = MatMenuContent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-menu.umd.js.map

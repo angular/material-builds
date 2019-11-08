@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing'), require('@angular/cdk/coercion')) :
     typeof define === 'function' && define.amd ? define('@angular/material/slide-toggle/testing', ['exports', 'tslib', '@angular/cdk/testing', '@angular/cdk/coercion'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = global.ng.material.slideToggle || {}, global.ng.material.slideToggle.testing = {}), global.tslib, global.ng.cdk.testing, global.ng.cdk.coercion));
-}(this, function (exports, tslib, testing, coercion) { 'use strict';
+}(this, (function (exports, tslib, testing, coercion) { 'use strict';
 
     /**
      * @license
@@ -261,5 +261,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-slide-toggle-testing.umd.js.map

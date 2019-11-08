@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/layout', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.layout, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.bidi, global.rxjs, global.ng.cdk.keycodes, global.rxjs.operators));
-}(this, function (exports, i1, portal, i2, i0, core, tslib, layout, animations, a11y, bidi, rxjs, keycodes, operators) { 'use strict';
+}(this, (function (exports, i1, portal, i2, i0, core, tslib, layout, animations, a11y, bidi, rxjs, keycodes, operators) { 'use strict';
 
     /**
      * @license
@@ -539,16 +539,16 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatBottomSheetModule = MatBottomSheetModule;
+    exports.MAT_BOTTOM_SHEET_DATA = MAT_BOTTOM_SHEET_DATA;
     exports.MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = MAT_BOTTOM_SHEET_DEFAULT_OPTIONS;
     exports.MatBottomSheet = MatBottomSheet;
-    exports.MAT_BOTTOM_SHEET_DATA = MAT_BOTTOM_SHEET_DATA;
     exports.MatBottomSheetConfig = MatBottomSheetConfig;
     exports.MatBottomSheetContainer = MatBottomSheetContainer;
-    exports.matBottomSheetAnimations = matBottomSheetAnimations;
+    exports.MatBottomSheetModule = MatBottomSheetModule;
     exports.MatBottomSheetRef = MatBottomSheetRef;
+    exports.matBottomSheetAnimations = matBottomSheetAnimations;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-bottom-sheet.umd.js.map

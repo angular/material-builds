@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/observers'), require('tslib'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/form-field', ['exports', '@angular/common', '@angular/core', '@angular/cdk/observers', 'tslib', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/platform', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}), global.ng.common, global.ng.core, global.ng.cdk.observers, global.tslib, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.material.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.platform, global.ng.platformBrowser.animations));
-}(this, function (exports, common, core, observers, tslib, bidi, coercion, core$1, rxjs, operators, animations, platform, animations$1) { 'use strict';
+}(this, (function (exports, common, core, observers, tslib, bidi, coercion, core$1, rxjs, operators, animations, platform, animations$1) { 'use strict';
 
     /**
      * @license
@@ -773,22 +773,22 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_FORM_FIELD_DEFAULT_OPTIONS = MAT_FORM_FIELD_DEFAULT_OPTIONS;
+    exports.MatError = MatError;
+    exports.MatFormField = MatFormField;
     exports.MatFormFieldControl = MatFormFieldControl;
     exports.MatFormFieldModule = MatFormFieldModule;
-    exports.MatError = MatError;
-    exports.MAT_FORM_FIELD_DEFAULT_OPTIONS = MAT_FORM_FIELD_DEFAULT_OPTIONS;
-    exports.MatFormField = MatFormField;
-    exports.getMatFormFieldPlaceholderConflictError = getMatFormFieldPlaceholderConflictError;
-    exports.getMatFormFieldDuplicatedHintError = getMatFormFieldDuplicatedHintError;
-    exports.getMatFormFieldMissingControlError = getMatFormFieldMissingControlError;
     exports.MatHint = MatHint;
+    exports.MatLabel = MatLabel;
     exports.MatPlaceholder = MatPlaceholder;
     exports.MatPrefix = MatPrefix;
     exports.MatSuffix = MatSuffix;
-    exports.MatLabel = MatLabel;
+    exports.getMatFormFieldDuplicatedHintError = getMatFormFieldDuplicatedHintError;
+    exports.getMatFormFieldMissingControlError = getMatFormFieldMissingControlError;
+    exports.getMatFormFieldPlaceholderConflictError = getMatFormFieldPlaceholderConflictError;
     exports.matFormFieldAnimations = matFormFieldAnimations;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-form-field.umd.js.map

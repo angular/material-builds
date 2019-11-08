@@ -361,5 +361,5 @@ MatProgressBarModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatProgressBarModule, MAT_PROGRESS_BAR_LOCATION_FACTORY, MAT_PROGRESS_BAR_LOCATION, MatProgressBar };
+export { MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
 //# sourceMappingURL=progress-bar.js.map

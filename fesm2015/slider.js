@@ -4,7 +4,7 @@ import { mixinTabIndex, mixinColor, mixinDisabled, MatCommonModule } from '@angu
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { hasModifierKey, PAGE_UP, PAGE_DOWN, END, HOME, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
+import { hasModifierKey, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW, HOME, END, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -1259,5 +1259,5 @@ MatSliderModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSlider };
+export { MAT_SLIDER_VALUE_ACCESSOR, MatSlider, MatSliderChange, MatSliderModule };
 //# sourceMappingURL=slider.js.map

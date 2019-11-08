@@ -955,5 +955,5 @@ var MatIconModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatIconModule, MAT_ICON_LOCATION, MAT_ICON_LOCATION_FACTORY, MatIcon, ɵ0, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeUrlError, getMatIconFailedToSanitizeLiteralError, MatIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER };
+export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, MAT_ICON_LOCATION, MAT_ICON_LOCATION_FACTORY, MatIcon, MatIconModule, MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, ɵ0 };
 //# sourceMappingURL=icon.js.map

@@ -281,5 +281,5 @@ var MatBadgeModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatBadgeModule, MatBadge };
+export { MatBadge, MatBadgeModule };
 //# sourceMappingURL=badge.js.map

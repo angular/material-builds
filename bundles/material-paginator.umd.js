@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/material/core')) :
     typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/material/core'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}), global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.select, global.ng.material.tooltip, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.material.core));
-}(this, function (exports, common, i0, button, select, tooltip, tslib, coercion, rxjs, core) { 'use strict';
+}(this, (function (exports, common, i0, button, select, tooltip, tslib, coercion, rxjs, core) { 'use strict';
 
     /**
      * @license
@@ -357,14 +357,14 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatPaginatorModule = MatPaginatorModule;
-    exports.PageEvent = PageEvent;
+    exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
+    exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
     exports.MatPaginator = MatPaginator;
     exports.MatPaginatorIntl = MatPaginatorIntl;
-    exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
-    exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
+    exports.MatPaginatorModule = MatPaginatorModule;
+    exports.PageEvent = PageEvent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-paginator.umd.js.map

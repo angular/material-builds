@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/platform'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/toolbar', ['exports', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/platform', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = {}), global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.platform, global.ng.common));
-}(this, function (exports, core, core$1, tslib, platform, common) { 'use strict';
+}(this, (function (exports, core, core$1, tslib, platform, common) { 'use strict';
 
     /**
      * @license
@@ -136,12 +136,12 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MatToolbar = MatToolbar;
     exports.MatToolbarModule = MatToolbarModule;
     exports.MatToolbarRow = MatToolbarRow;
-    exports.MatToolbar = MatToolbar;
     exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-toolbar.umd.js.map

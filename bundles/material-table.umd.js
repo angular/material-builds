@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', 'tslib', '@angular/cdk/table', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}), global.ng.core, global.tslib, global.ng.cdk.table, global.ng.common, global.ng.material.core, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators));
-}(this, function (exports, core, tslib, table, common, core$1, coercion, rxjs, operators) { 'use strict';
+}(this, (function (exports, core, tslib, table, common, core$1, coercion, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -726,25 +726,25 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatTableModule = MatTableModule;
-    exports.MatCellDef = MatCellDef;
-    exports.MatHeaderCellDef = MatHeaderCellDef;
-    exports.MatFooterCellDef = MatFooterCellDef;
-    exports.MatColumnDef = MatColumnDef;
-    exports.MatHeaderCell = MatHeaderCell;
-    exports.MatFooterCell = MatFooterCell;
     exports.MatCell = MatCell;
-    exports.MatTable = MatTable;
-    exports.MatHeaderRowDef = MatHeaderRowDef;
-    exports.MatFooterRowDef = MatFooterRowDef;
-    exports.MatRowDef = MatRowDef;
-    exports.MatHeaderRow = MatHeaderRow;
+    exports.MatCellDef = MatCellDef;
+    exports.MatColumnDef = MatColumnDef;
+    exports.MatFooterCell = MatFooterCell;
+    exports.MatFooterCellDef = MatFooterCellDef;
     exports.MatFooterRow = MatFooterRow;
+    exports.MatFooterRowDef = MatFooterRowDef;
+    exports.MatHeaderCell = MatHeaderCell;
+    exports.MatHeaderCellDef = MatHeaderCellDef;
+    exports.MatHeaderRow = MatHeaderRow;
+    exports.MatHeaderRowDef = MatHeaderRowDef;
     exports.MatRow = MatRow;
+    exports.MatRowDef = MatRowDef;
+    exports.MatTable = MatTable;
     exports.MatTableDataSource = MatTableDataSource;
+    exports.MatTableModule = MatTableModule;
     exports.MatTextColumn = MatTextColumn;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-table.umd.js.map

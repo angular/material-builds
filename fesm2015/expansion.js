@@ -4,7 +4,7 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, ContentChildren, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
-import { SPACE, ENTER, hasModifierKey, HOME, END } from '@angular/cdk/keycodes';
+import { ENTER, hasModifierKey, SPACE, HOME, END } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
 import { trigger, state, style, transition, animate, group, query, animateChild } from '@angular/animations';
@@ -951,5 +951,5 @@ MatExpansionModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, MatAccordion, MAT_ACCORDION, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle, matExpansionAnimations };
 //# sourceMappingURL=expansion.js.map

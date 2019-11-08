@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/material/form-field', 'rxjs', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.material.core, global.ng.common, global.ng.cdk.overlay, global.ng.cdk.bidi, global.ng.cdk.keycodes, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.ng.forms, global.ng.material.formField, global.rxjs, global.rxjs.operators));
-}(this, function (exports, tslib, a11y, coercion, core, core$1, common, overlay, bidi, keycodes, platform, portal, scrolling, forms, formField, rxjs, operators) { 'use strict';
+}(this, (function (exports, tslib, a11y, coercion, core, core$1, common, overlay, bidi, keycodes, platform, portal, scrolling, forms, formField, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -869,22 +869,22 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
-    exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
-    exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
-    exports.MatAutocomplete = MatAutocomplete;
-    exports.MatAutocompleteModule = MatAutocompleteModule;
     exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
     exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
+    exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
+    exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
     exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
     exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
     exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
     exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
-    exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
-    exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
+    exports.MatAutocomplete = MatAutocomplete;
+    exports.MatAutocompleteModule = MatAutocompleteModule;
     exports.MatAutocompleteOrigin = MatAutocompleteOrigin;
+    exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
+    exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
+    exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-autocomplete.umd.js.map

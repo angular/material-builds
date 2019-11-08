@@ -277,5 +277,5 @@ MatButtonModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatButtonModule, MatButton, MatAnchor };
+export { MatAnchor, MatButton, MatButtonModule };
 //# sourceMappingURL=button.js.map

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/platform-browser/animations'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/progress-bar', ['exports', '@angular/core', '@angular/common', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/platform-browser/animations', 'rxjs', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}), global.ng.core, global.ng.common, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.platformBrowser.animations, global.rxjs, global.rxjs.operators));
-}(this, function (exports, core, common, core$1, tslib, coercion, animations, rxjs, operators) { 'use strict';
+}(this, (function (exports, core, common, core$1, tslib, coercion, animations, rxjs, operators) { 'use strict';
 
     // Boilerplate for applying mixins to MatProgressBar.
     /** @docs-private */
@@ -213,12 +213,12 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatProgressBarModule = MatProgressBarModule;
     exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
     exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
     exports.MatProgressBar = MatProgressBar;
+    exports.MatProgressBarModule = MatProgressBarModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-progress-bar.umd.js.map

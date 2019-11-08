@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tabs/testing', ['exports', 'tslib', '@angular/cdk/testing'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}, global.ng.material.tabs.testing = {}), global.tslib, global.ng.cdk.testing));
-}(this, function (exports, tslib, testing) { 'use strict';
+}(this, (function (exports, tslib, testing) { 'use strict';
 
     /**
      * @license
@@ -283,5 +283,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-tabs-testing.umd.js.map

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/observers'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/checkbox', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers', '@angular/common'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.forms, global.ng.material.core, global.ng.platformBrowser.animations, global.ng.cdk.observers, global.ng.common));
-}(this, function (exports, tslib, a11y, coercion, core, forms, core$1, animations, observers, common) { 'use strict';
+}(this, (function (exports, tslib, a11y, coercion, core, forms, core$1, animations, observers, common) { 'use strict';
 
     /**
      * @license
@@ -503,18 +503,18 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
     exports.MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR;
-    exports.MatCheckboxChange = MatCheckboxChange;
-    exports.MatCheckbox = MatCheckbox;
     exports.MAT_CHECKBOX_DEFAULT_OPTIONS = MAT_CHECKBOX_DEFAULT_OPTIONS;
     exports.MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY;
-    exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
-    exports._MatCheckboxRequiredValidatorModule = _MatCheckboxRequiredValidatorModule;
-    exports.MatCheckboxModule = MatCheckboxModule;
     exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
+    exports.MatCheckbox = MatCheckbox;
+    exports.MatCheckboxChange = MatCheckboxChange;
+    exports.MatCheckboxModule = MatCheckboxModule;
     exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;
+    exports._MatCheckboxRequiredValidatorModule = _MatCheckboxRequiredValidatorModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-checkbox.umd.js.map

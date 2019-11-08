@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser/animations'), require('@angular/material/core')) :
     typeof define === 'function' && define.amd ? define('@angular/material/card', ['exports', '@angular/core', '@angular/platform-browser/animations', '@angular/material/core'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.card = {}), global.ng.core, global.ng.platformBrowser.animations, global.ng.material.core));
-}(this, function (exports, core, animations, core$1) { 'use strict';
+}(this, (function (exports, core, animations, core$1) { 'use strict';
 
     /**
      * @license
@@ -316,23 +316,23 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatCardContent = MatCardContent;
-    exports.MatCardTitle = MatCardTitle;
-    exports.MatCardSubtitle = MatCardSubtitle;
-    exports.MatCardActions = MatCardActions;
-    exports.MatCardFooter = MatCardFooter;
-    exports.MatCardImage = MatCardImage;
-    exports.MatCardSmImage = MatCardSmImage;
-    exports.MatCardMdImage = MatCardMdImage;
-    exports.MatCardLgImage = MatCardLgImage;
-    exports.MatCardXlImage = MatCardXlImage;
-    exports.MatCardAvatar = MatCardAvatar;
     exports.MatCard = MatCard;
+    exports.MatCardActions = MatCardActions;
+    exports.MatCardAvatar = MatCardAvatar;
+    exports.MatCardContent = MatCardContent;
+    exports.MatCardFooter = MatCardFooter;
     exports.MatCardHeader = MatCardHeader;
-    exports.MatCardTitleGroup = MatCardTitleGroup;
+    exports.MatCardImage = MatCardImage;
+    exports.MatCardLgImage = MatCardLgImage;
+    exports.MatCardMdImage = MatCardMdImage;
     exports.MatCardModule = MatCardModule;
+    exports.MatCardSmImage = MatCardSmImage;
+    exports.MatCardSubtitle = MatCardSubtitle;
+    exports.MatCardTitle = MatCardTitle;
+    exports.MatCardTitleGroup = MatCardTitleGroup;
+    exports.MatCardXlImage = MatCardXlImage;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-card.umd.js.map

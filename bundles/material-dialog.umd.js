@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/bidi'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes')) :
     typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/bidi', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/keycodes'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.bidi, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.keycodes));
-}(this, function (exports, overlay, portal, common, core, core$1, tslib, bidi, rxjs, operators, animations, a11y, keycodes) { 'use strict';
+}(this, (function (exports, overlay, portal, common, core, core$1, tslib, bidi, rxjs, operators, animations, a11y, keycodes) { 'use strict';
 
     /**
      * @license
@@ -963,25 +963,25 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatDialogModule = MatDialogModule;
     exports.MAT_DIALOG_DATA = MAT_DIALOG_DATA;
     exports.MAT_DIALOG_DEFAULT_OPTIONS = MAT_DIALOG_DEFAULT_OPTIONS;
     exports.MAT_DIALOG_SCROLL_STRATEGY = MAT_DIALOG_SCROLL_STRATEGY;
     exports.MAT_DIALOG_SCROLL_STRATEGY_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_FACTORY;
-    exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
     exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER;
+    exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
     exports.MatDialog = MatDialog;
-    exports.throwMatDialogContentAlreadyAttachedError = throwMatDialogContentAlreadyAttachedError;
-    exports.MatDialogContainer = MatDialogContainer;
-    exports.MatDialogClose = MatDialogClose;
-    exports.MatDialogTitle = MatDialogTitle;
-    exports.MatDialogContent = MatDialogContent;
     exports.MatDialogActions = MatDialogActions;
+    exports.MatDialogClose = MatDialogClose;
     exports.MatDialogConfig = MatDialogConfig;
+    exports.MatDialogContainer = MatDialogContainer;
+    exports.MatDialogContent = MatDialogContent;
+    exports.MatDialogModule = MatDialogModule;
     exports.MatDialogRef = MatDialogRef;
+    exports.MatDialogTitle = MatDialogTitle;
     exports.matDialogAnimations = matDialogAnimations;
+    exports.throwMatDialogContentAlreadyAttachedError = throwMatDialogContentAlreadyAttachedError;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-dialog.umd.js.map

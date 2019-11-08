@@ -278,5 +278,5 @@ MatRadioButtonHarness.hostSelector = 'mat-radio-button';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatRadioGroupHarness, MatRadioButtonHarness };
+export { MatRadioButtonHarness, MatRadioGroupHarness };
 //# sourceMappingURL=testing.js.map

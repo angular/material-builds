@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/accordion'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/cdk/accordion', '@angular/cdk/portal', '@angular/common', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/collections', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.collections, global.ng.platformBrowser.animations));
-}(this, function (exports, accordion, portal, common, core, tslib, coercion, a11y, keycodes, rxjs, operators, animations, collections, animations$1) { 'use strict';
+}(this, (function (exports, accordion, portal, common, core, tslib, coercion, a11y, keycodes, rxjs, operators, animations, collections, animations$1) { 'use strict';
 
     /**
      * @license
@@ -624,21 +624,21 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatExpansionModule = MatExpansionModule;
-    exports.MatAccordion = MatAccordion;
+    exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
     exports.MAT_ACCORDION = MAT_ACCORDION;
     exports.MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = MAT_EXPANSION_PANEL_DEFAULT_OPTIONS;
+    exports.MatAccordion = MatAccordion;
+    exports.MatExpansionModule = MatExpansionModule;
     exports.MatExpansionPanel = MatExpansionPanel;
     exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
-    exports.ɵ0 = ɵ0;
-    exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
-    exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
-    exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
     exports.MatExpansionPanelContent = MatExpansionPanelContent;
-    exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
+    exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
+    exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
+    exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
     exports.matExpansionAnimations = matExpansionAnimations;
+    exports.ɵ0 = ɵ0;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-expansion.umd.js.map

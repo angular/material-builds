@@ -344,5 +344,5 @@ var MatProgressSpinnerModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatProgressSpinner, MatSpinner, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinnerModule };
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, MatProgressSpinnerModule, MatSpinner };
 //# sourceMappingURL=progress-spinner.js.map

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/slide-toggle', ['exports', '@angular/cdk/observers', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/forms', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = {}), global.ng.cdk.observers, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.forms, global.ng.platformBrowser.animations));
-}(this, function (exports, observers, core, core$1, tslib, a11y, bidi, coercion, forms, animations) { 'use strict';
+}(this, (function (exports, observers, core, core$1, tslib, a11y, bidi, coercion, forms, animations) { 'use strict';
 
     /**
      * @license
@@ -357,16 +357,16 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports._MatSlideToggleRequiredValidatorModule = _MatSlideToggleRequiredValidatorModule;
-    exports.MatSlideToggleModule = MatSlideToggleModule;
-    exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MAT_SLIDE_TOGGLE_VALUE_ACCESSOR;
-    exports.MatSlideToggleChange = MatSlideToggleChange;
-    exports.MatSlideToggle = MatSlideToggle;
     exports.MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS;
     exports.MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR = MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR;
+    exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MAT_SLIDE_TOGGLE_VALUE_ACCESSOR;
+    exports.MatSlideToggle = MatSlideToggle;
+    exports.MatSlideToggleChange = MatSlideToggleChange;
+    exports.MatSlideToggleModule = MatSlideToggleModule;
     exports.MatSlideToggleRequiredValidator = MatSlideToggleRequiredValidator;
+    exports._MatSlideToggleRequiredValidatorModule = _MatSlideToggleRequiredValidatorModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-slide-toggle.umd.js.map

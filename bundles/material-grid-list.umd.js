@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('tslib'), require('@angular/cdk/bidi')) :
     typeof define === 'function' && define.amd ? define('@angular/material/grid-list', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', 'tslib', '@angular/cdk/bidi'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = {}), global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.tslib, global.ng.cdk.bidi));
-}(this, function (exports, core, core$1, coercion, tslib, bidi) { 'use strict';
+}(this, (function (exports, core, core$1, coercion, tslib, bidi) { 'use strict';
 
     /**
      * @license
@@ -728,16 +728,16 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.ɵangular_material_src_material_grid_list_grid_list_a = MAT_GRID_LIST;
-    exports.MatGridListModule = MatGridListModule;
-    exports.MatGridList = MatGridList;
-    exports.MatGridTile = MatGridTile;
-    exports.MatGridTileText = MatGridTileText;
     exports.MatGridAvatarCssMatStyler = MatGridAvatarCssMatStyler;
-    exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
+    exports.MatGridList = MatGridList;
+    exports.MatGridListModule = MatGridListModule;
+    exports.MatGridTile = MatGridTile;
     exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
+    exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
+    exports.MatGridTileText = MatGridTileText;
+    exports.ɵangular_material_src_material_grid_list_grid_list_a = MAT_GRID_LIST;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-grid-list.umd.js.map

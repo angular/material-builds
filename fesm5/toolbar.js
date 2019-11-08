@@ -136,5 +136,5 @@ var MatToolbarModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatToolbarModule, MatToolbarRow, MatToolbar, throwToolbarMixedModesError };
+export { MatToolbar, MatToolbarModule, MatToolbarRow, throwToolbarMixedModesError };
 //# sourceMappingURL=toolbar.js.map

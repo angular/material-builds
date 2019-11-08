@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/portal'), require('@angular/cdk/stepper'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/core'), require('@angular/material/icon'), require('tslib'), require('@angular/cdk/a11y'), require('rxjs'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/cdk/portal', '@angular/cdk/stepper', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/core', '@angular/material/icon', 'tslib', '@angular/cdk/a11y', 'rxjs', '@angular/cdk/bidi', 'rxjs/operators', '@angular/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}), global.ng.cdk.portal, global.ng.cdk.stepper, global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.core, global.ng.material.icon, global.tslib, global.ng.cdk.a11y, global.rxjs, global.ng.cdk.bidi, global.rxjs.operators, global.ng.animations));
-}(this, function (exports, portal, stepper, common, i0, button, core, icon, tslib, a11y, rxjs, bidi, operators, animations) { 'use strict';
+}(this, (function (exports, portal, stepper, common, i0, button, core, icon, tslib, a11y, rxjs, bidi, operators, animations) { 'use strict';
 
     /**
      * @license
@@ -481,22 +481,22 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatStepperModule = MatStepperModule;
-    exports.MatStepLabel = MatStepLabel;
-    exports.MatStep = MatStep;
-    exports.MatStepper = MatStepper;
+    exports.MAT_STEPPER_INTL_PROVIDER = MAT_STEPPER_INTL_PROVIDER;
+    exports.MAT_STEPPER_INTL_PROVIDER_FACTORY = MAT_STEPPER_INTL_PROVIDER_FACTORY;
     exports.MatHorizontalStepper = MatHorizontalStepper;
-    exports.MatVerticalStepper = MatVerticalStepper;
+    exports.MatStep = MatStep;
+    exports.MatStepHeader = MatStepHeader;
+    exports.MatStepLabel = MatStepLabel;
+    exports.MatStepper = MatStepper;
+    exports.MatStepperIcon = MatStepperIcon;
+    exports.MatStepperIntl = MatStepperIntl;
+    exports.MatStepperModule = MatStepperModule;
     exports.MatStepperNext = MatStepperNext;
     exports.MatStepperPrevious = MatStepperPrevious;
-    exports.MatStepHeader = MatStepHeader;
-    exports.MatStepperIntl = MatStepperIntl;
-    exports.MAT_STEPPER_INTL_PROVIDER_FACTORY = MAT_STEPPER_INTL_PROVIDER_FACTORY;
-    exports.MAT_STEPPER_INTL_PROVIDER = MAT_STEPPER_INTL_PROVIDER;
+    exports.MatVerticalStepper = MatVerticalStepper;
     exports.matStepperAnimations = matStepperAnimations;
-    exports.MatStepperIcon = MatStepperIcon;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-stepper.umd.js.map

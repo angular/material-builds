@@ -168,5 +168,5 @@ MatToolbarModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarRow, MatToolbar };
+export { MatToolbar, MatToolbarModule, MatToolbarRow, throwToolbarMixedModesError };
 //# sourceMappingURL=toolbar.js.map

@@ -505,5 +505,5 @@ MatProgressSpinnerModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatProgressSpinnerModule, MatProgressSpinner, MatSpinner, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY };
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, MatProgressSpinnerModule, MatSpinner };
 //# sourceMappingURL=progress-spinner.js.map

@@ -361,5 +361,5 @@ var MatPaginatorModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };
+export { MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
 //# sourceMappingURL=paginator.js.map

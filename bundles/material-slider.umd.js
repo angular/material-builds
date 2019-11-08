@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('@angular/platform-browser/animations'), require('@angular/cdk/platform'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@angular/material/slider', ['exports', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/forms', '@angular/platform-browser/animations', '@angular/cdk/platform', 'rxjs'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = {}), global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.forms, global.ng.platformBrowser.animations, global.ng.cdk.platform, global.rxjs));
-}(this, function (exports, common, core, core$1, tslib, a11y, bidi, coercion, keycodes, forms, animations, platform, rxjs) { 'use strict';
+}(this, (function (exports, common, core, core$1, tslib, a11y, bidi, coercion, keycodes, forms, animations, platform, rxjs) { 'use strict';
 
     /**
      * @license
@@ -824,12 +824,12 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatSliderModule = MatSliderModule;
     exports.MAT_SLIDER_VALUE_ACCESSOR = MAT_SLIDER_VALUE_ACCESSOR;
-    exports.MatSliderChange = MatSliderChange;
     exports.MatSlider = MatSlider;
+    exports.MatSliderChange = MatSliderChange;
+    exports.MatSliderModule = MatSliderModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-slider.umd.js.map

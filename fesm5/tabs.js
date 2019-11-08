@@ -13,7 +13,7 @@ import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
-import { hasModifierKey, HOME, END, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { hasModifierKey, SPACE, ENTER, END, HOME } from '@angular/cdk/keycodes';
 
 /**
  * @license
@@ -1871,5 +1871,5 @@ var MatTabsModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b, MatTabsModule, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, _MatTabBodyBase, MatTabBodyPortal, MatTabHeader, _MatTabHeaderBase, MatTabLabelWrapper, MatTab, MAT_TAB_GROUP, MatTabLabel, MatTabNav, MatTabLink, _MatTabNavBase, _MatTabLinkBase, MatTabContent, MAT_TABS_CONFIG, MatTabChangeEvent, _MatTabGroupBase, MatTabGroup, matTabsAnimations };
+export { MAT_TABS_CONFIG, MAT_TAB_GROUP, MatInkBar, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MatTabBodyBase, _MatTabGroupBase, _MatTabHeaderBase, _MatTabLinkBase, _MatTabNavBase, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b };
 //# sourceMappingURL=tabs.js.map

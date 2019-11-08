@@ -470,5 +470,5 @@ var MatRadioButtonHarness = /** @class */ (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatRadioGroupHarness, MatRadioButtonHarness };
+export { MatRadioButtonHarness, MatRadioGroupHarness };
 //# sourceMappingURL=testing.js.map

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/button', ['exports', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/platform-browser/animations'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.button = {}), global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.platformBrowser.animations));
-}(this, function (exports, common, core, core$1, tslib, a11y, animations) { 'use strict';
+}(this, (function (exports, common, core, core$1, tslib, a11y, animations) { 'use strict';
 
     /**
      * @license
@@ -216,11 +216,11 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatButtonModule = MatButtonModule;
-    exports.MatButton = MatButton;
     exports.MatAnchor = MatAnchor;
+    exports.MatButton = MatButton;
+    exports.MatButtonModule = MatButtonModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-button.umd.js.map

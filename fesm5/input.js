@@ -525,5 +525,5 @@ var MatInputModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
+export { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, MatTextareaAutosize, getMatInputUnsupportedTypeError };
 //# sourceMappingURL=input.js.map

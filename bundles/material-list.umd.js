@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('@angular/material/divider')) :
     typeof define === 'function' && define.amd ? define('@angular/material/list', ['exports', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', '@angular/material/divider'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = {}), global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.cdk.keycodes, global.ng.forms, global.ng.material.divider));
-}(this, function (exports, common, core, core$1, tslib, rxjs, operators, a11y, coercion, collections, keycodes, forms, divider) { 'use strict';
+}(this, (function (exports, common, core, core$1, tslib, rxjs, operators, a11y, coercion, collections, keycodes, forms, divider) { 'use strict';
 
     /**
      * @license
@@ -848,19 +848,19 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatListModule = MatListModule;
-    exports.MatNavList = MatNavList;
+    exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
     exports.MatList = MatList;
     exports.MatListAvatarCssMatStyler = MatListAvatarCssMatStyler;
     exports.MatListIconCssMatStyler = MatListIconCssMatStyler;
-    exports.MatListSubheaderCssMatStyler = MatListSubheaderCssMatStyler;
     exports.MatListItem = MatListItem;
-    exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
-    exports.MatSelectionListChange = MatSelectionListChange;
+    exports.MatListModule = MatListModule;
     exports.MatListOption = MatListOption;
+    exports.MatListSubheaderCssMatStyler = MatListSubheaderCssMatStyler;
+    exports.MatNavList = MatNavList;
     exports.MatSelectionList = MatSelectionList;
+    exports.MatSelectionListChange = MatSelectionListChange;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-list.umd.js.map

@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('tslib'), require('rxjs'), require('@angular/cdk/bidi'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/cdk/a11y', '@angular/material/core', '@angular/platform-browser/animations', 'tslib', 'rxjs', '@angular/cdk/bidi', '@angular/animations', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}), global.ng.cdk.observers, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.cdk.a11y, global.ng.material.core, global.ng.platformBrowser.animations, global.tslib, global.rxjs, global.ng.cdk.bidi, global.ng.animations, global.rxjs.operators, global.ng.cdk.coercion, global.ng.cdk.scrolling, global.ng.cdk.platform, global.ng.cdk.keycodes));
-}(this, function (exports, observers, portal, common, core, a11y, core$1, animations, tslib, rxjs, bidi, animations$1, operators, coercion, scrolling, platform, keycodes) { 'use strict';
+}(this, (function (exports, observers, portal, common, core, a11y, core$1, animations, tslib, rxjs, bidi, animations$1, operators, coercion, scrolling, platform, keycodes) { 'use strict';
 
     /**
      * @license
@@ -1860,32 +1860,32 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
+    exports.MAT_TAB_GROUP = MAT_TAB_GROUP;
+    exports.MatInkBar = MatInkBar;
+    exports.MatTab = MatTab;
+    exports.MatTabBody = MatTabBody;
+    exports.MatTabBodyPortal = MatTabBodyPortal;
+    exports.MatTabChangeEvent = MatTabChangeEvent;
+    exports.MatTabContent = MatTabContent;
+    exports.MatTabGroup = MatTabGroup;
+    exports.MatTabHeader = MatTabHeader;
+    exports.MatTabLabel = MatTabLabel;
+    exports.MatTabLabelWrapper = MatTabLabelWrapper;
+    exports.MatTabLink = MatTabLink;
+    exports.MatTabNav = MatTabNav;
+    exports.MatTabsModule = MatTabsModule;
+    exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
+    exports._MatTabBodyBase = _MatTabBodyBase;
+    exports._MatTabGroupBase = _MatTabGroupBase;
+    exports._MatTabHeaderBase = _MatTabHeaderBase;
+    exports._MatTabLinkBase = _MatTabLinkBase;
+    exports._MatTabNavBase = _MatTabNavBase;
+    exports.matTabsAnimations = matTabsAnimations;
     exports.ɵangular_material_src_material_tabs_tabs_a = _MAT_INK_BAR_POSITIONER_FACTORY;
     exports.ɵangular_material_src_material_tabs_tabs_b = MatPaginatedTabHeader;
-    exports.MatTabsModule = MatTabsModule;
-    exports.MatInkBar = MatInkBar;
-    exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
-    exports.MatTabBody = MatTabBody;
-    exports._MatTabBodyBase = _MatTabBodyBase;
-    exports.MatTabBodyPortal = MatTabBodyPortal;
-    exports.MatTabHeader = MatTabHeader;
-    exports._MatTabHeaderBase = _MatTabHeaderBase;
-    exports.MatTabLabelWrapper = MatTabLabelWrapper;
-    exports.MatTab = MatTab;
-    exports.MAT_TAB_GROUP = MAT_TAB_GROUP;
-    exports.MatTabLabel = MatTabLabel;
-    exports.MatTabNav = MatTabNav;
-    exports.MatTabLink = MatTabLink;
-    exports._MatTabNavBase = _MatTabNavBase;
-    exports._MatTabLinkBase = _MatTabLinkBase;
-    exports.MatTabContent = MatTabContent;
-    exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
-    exports.MatTabChangeEvent = MatTabChangeEvent;
-    exports._MatTabGroupBase = _MatTabGroupBase;
-    exports.MatTabGroup = MatTabGroup;
-    exports.matTabsAnimations = matTabsAnimations;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-tabs.umd.js.map

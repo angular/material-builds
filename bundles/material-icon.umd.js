@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/common'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/common', 'rxjs/operators', '@angular/common/http', '@angular/platform-browser', 'rxjs'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}), global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.common, global.rxjs.operators, global.ng.common.http, global.ng.platformBrowser, global.rxjs));
-}(this, function (exports, i0, core, tslib, coercion, i3, operators, i1, i2, rxjs) { 'use strict';
+}(this, (function (exports, i0, core, tslib, coercion, i3, operators, i1, i2, rxjs) { 'use strict';
 
     /**
      * @license
@@ -951,20 +951,20 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MatIconModule = MatIconModule;
+    exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
+    exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
     exports.MAT_ICON_LOCATION = MAT_ICON_LOCATION;
     exports.MAT_ICON_LOCATION_FACTORY = MAT_ICON_LOCATION_FACTORY;
     exports.MatIcon = MatIcon;
-    exports.ɵ0 = ɵ0;
+    exports.MatIconModule = MatIconModule;
+    exports.MatIconRegistry = MatIconRegistry;
+    exports.getMatIconFailedToSanitizeLiteralError = getMatIconFailedToSanitizeLiteralError;
+    exports.getMatIconFailedToSanitizeUrlError = getMatIconFailedToSanitizeUrlError;
     exports.getMatIconNameNotFoundError = getMatIconNameNotFoundError;
     exports.getMatIconNoHttpProviderError = getMatIconNoHttpProviderError;
-    exports.getMatIconFailedToSanitizeUrlError = getMatIconFailedToSanitizeUrlError;
-    exports.getMatIconFailedToSanitizeLiteralError = getMatIconFailedToSanitizeLiteralError;
-    exports.MatIconRegistry = MatIconRegistry;
-    exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
-    exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
+    exports.ɵ0 = ɵ0;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=material-icon.umd.js.map

@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { hasModifierKey, SPACE, ENTER, HOME, END, A, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
+import { hasModifierKey, A, END, HOME, ENTER, SPACE, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -855,5 +855,5 @@ var MatListModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatListModule, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList };
+export { MAT_SELECTION_LIST_VALUE_ACCESSOR, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListItem, MatListModule, MatListOption, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange };
 //# sourceMappingURL=list.js.map
