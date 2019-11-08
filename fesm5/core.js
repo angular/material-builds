@@ -1,4 +1,5 @@
 import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, ɵɵdefineInjectable, Directive, ElementRef, NgZone, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, ChangeDetectorRef, Output } from '@angular/core';
+import { HighContrastModeDetector, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
 import { __extends, __spread, __assign } from 'tslib';
@@ -8,7 +9,6 @@ import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angu
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { startWith } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('9.0.0-rc.1-sha-50ab23d74');
+var VERSION = new Version('9.0.0-rc.1-sha-6b7f091eb');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('9.0.0-rc.1-sha-50ab23d74');
+var VERSION$1 = new Version('9.0.0-rc.1-sha-6b7f091eb');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -77,13 +77,16 @@ var MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = /** @class */ (function () {
-    function MatCommonModule(sanityChecks) {
+    function MatCommonModule(highContrastModeDetector, sanityChecks) {
         /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
         this._hasDoneGlobalChecks = false;
         /** Reference to the global `document` object. */
         this._document = typeof document === 'object' && document ? document : null;
         /** Reference to the global 'window' object. */
         this._window = typeof window === 'object' && window ? window : null;
+        // While A11yModule also does this, we repeat it here to avoid importing A11yModule
+        // in MatCommonModule.
+        highContrastModeDetector._applyBodyHighContrastModeCssClasses();
         // Note that `_sanityChecks` is typed to `any`, because AoT
         // throws an error if we use the `SanityChecks` type directly.
         this._sanityChecks = sanityChecks;
@@ -152,6 +155,7 @@ var MatCommonModule = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
+        { type: HighContrastModeDetector },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
     ]; };
     return MatCommonModule;
@@ -1861,7 +1865,7 @@ var MatOption = /** @class */ (function () {
                     template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}@media(-ms-high-contrast: active){.mat-option{margin:0 1px}.mat-option.mat-active{border:solid 1px currentColor;margin:0}}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}@media(-ms-high-contrast: active){.mat-option .mat-option-ripple{opacity:.5}}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
+                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
                 }] }
     ];
     /** @nocollapse */

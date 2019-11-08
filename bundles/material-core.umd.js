@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/common', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.bidi, global.ng.cdk, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.common, global.ng.cdk.a11y, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
-}(this, (function (exports, i0, bidi, cdk, tslib, coercion, rxjs, platform, platformBrowser, operators, common, a11y, animations, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('tslib'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/common'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', 'tslib', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/common', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.tslib, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.common, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
+}(this, (function (exports, i0, a11y, bidi, cdk, tslib, coercion, rxjs, platform, platformBrowser, operators, common, animations, keycodes) { 'use strict';
 
     /**
      * @license
@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.0.0-rc.1-sha-50ab23d74');
+    var VERSION = new i0.Version('9.0.0-rc.1-sha-6b7f091eb');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.0.0-rc.1-sha-50ab23d74');
+    var VERSION$1 = new i0.Version('9.0.0-rc.1-sha-6b7f091eb');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -69,13 +69,16 @@
      * This module should be imported to each top-level component module (e.g., MatTabsModule).
      */
     var MatCommonModule = /** @class */ (function () {
-        function MatCommonModule(sanityChecks) {
+        function MatCommonModule(highContrastModeDetector, sanityChecks) {
             /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
             this._hasDoneGlobalChecks = false;
             /** Reference to the global `document` object. */
             this._document = typeof document === 'object' && document ? document : null;
             /** Reference to the global 'window' object. */
             this._window = typeof window === 'object' && window ? window : null;
+            // While A11yModule also does this, we repeat it here to avoid importing A11yModule
+            // in MatCommonModule.
+            highContrastModeDetector._applyBodyHighContrastModeCssClasses();
             // Note that `_sanityChecks` is typed to `any`, because AoT
             // throws an error if we use the `SanityChecks` type directly.
             this._sanityChecks = sanityChecks;
@@ -144,6 +147,7 @@
         ];
         /** @nocollapse */
         MatCommonModule.ctorParameters = function () { return [
+            { type: a11y.HighContrastModeDetector },
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
         ]; };
         return MatCommonModule;
@@ -1851,7 +1855,7 @@
                         template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}@media(-ms-high-contrast: active){.mat-option{margin:0 1px}.mat-option.mat-active{border:solid 1px currentColor;margin:0}}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}@media(-ms-high-contrast: active){.mat-option .mat-option-ripple{opacity:.5}}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
+                        styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
                     }] }
         ];
         /** @nocollapse */

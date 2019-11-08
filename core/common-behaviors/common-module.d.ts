@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { HighContrastModeDetector } from '@angular/cdk/a11y';
 import { InjectionToken } from '@angular/core';
 /** @docs-private */
 export declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
@@ -41,7 +42,7 @@ export declare class MatCommonModule {
     private _window;
     /** Configured sanity checks. */
     private _sanityChecks;
-    constructor(sanityChecks: any);
+    constructor(highContrastModeDetector: HighContrastModeDetector, sanityChecks: any);
     /** Whether any sanity checks are enabled. */
     private _checksAreEnabled;
     /** Whether the code is running in tests. */
