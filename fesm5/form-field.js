@@ -75,12 +75,7 @@ var MatFormFieldControl = /** @class */ (function () {
     function MatFormFieldControl() {
     }
     MatFormFieldControl.decorators = [
-        { type: Directive, args: [{
-                    // The @Directive with selector is required here because we're still running a lot of things
-                    // against ViewEngine where directives without selectors are not allowed.
-                    // TODO(crisbeto): convert to a selectorless Directive after we switch to Ivy.
-                    selector: 'do-not-use-abstract-mat-form-field-control',
-                },] }
+        { type: Directive }
     ];
     return MatFormFieldControl;
 }());
@@ -746,9 +741,6 @@ var MatFormFieldModule = /** @class */ (function () {
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
-                        // TODO(crisbeto): can be removed once `MatFormFieldControl`
-                        // is turned into a selector-less directive.
-                        MatFormFieldControl,
                     ],
                     imports: [
                         CommonModule,

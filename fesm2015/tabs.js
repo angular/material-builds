@@ -1,8 +1,8 @@
+import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
-import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, Subscription, merge, fromEvent, of, timer } from 'rxjs';
@@ -697,10 +697,7 @@ class _MatTabBodyBase {
     }
 }
 _MatTabBodyBase.decorators = [
-    { type: Directive, args: [{
-                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                selector: 'do-not-use-abstract-mat-tab-body-base'
-            },] }
+    { type: Directive }
 ];
 /** @nocollapse */
 _MatTabBodyBase.ctorParameters = () => [
@@ -1303,10 +1300,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
     }
 }
 _MatTabGroupBase.decorators = [
-    { type: Directive, args: [{
-                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                selector: 'do-not-use-abstract-mat-tab-group-base'
-            },] }
+    { type: Directive }
 ];
 /** @nocollapse */
 _MatTabGroupBase.ctorParameters = () => [
@@ -2171,10 +2165,7 @@ class MatPaginatedTabHeader {
     }
 }
 MatPaginatedTabHeader.decorators = [
-    { type: Directive, args: [{
-                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                selector: 'do-not-use-abstract-mat-paginated-tab-header'
-            },] }
+    { type: Directive }
 ];
 /** @nocollapse */
 MatPaginatedTabHeader.ctorParameters = () => [
@@ -2377,10 +2368,7 @@ class _MatTabHeaderBase extends MatPaginatedTabHeader {
     }
 }
 _MatTabHeaderBase.decorators = [
-    { type: Directive, args: [{
-                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                selector: 'do-not-use-abstract-mat-tab-header-base'
-            },] }
+    { type: Directive }
 ];
 /** @nocollapse */
 _MatTabHeaderBase.ctorParameters = () => [
@@ -2585,10 +2573,7 @@ class _MatTabNavBase extends MatPaginatedTabHeader {
     }
 }
 _MatTabNavBase.decorators = [
-    { type: Directive, args: [{
-                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                selector: 'do-not-use-abstract-mat-tab-nav-base'
-            },] }
+    { type: Directive }
 ];
 /** @nocollapse */
 _MatTabNavBase.ctorParameters = () => [
@@ -2780,10 +2765,7 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
     }
 }
 _MatTabLinkBase.decorators = [
-    { type: Directive, args: [{
-                // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                selector: 'do-not-use-abstract-mat-tab-link-base'
-            },] }
+    { type: Directive }
 ];
 /** @nocollapse */
 _MatTabLinkBase.ctorParameters = () => [
@@ -2929,14 +2911,6 @@ MatTabsModule.decorators = [
                     MatTabBodyPortal,
                     MatTabHeader,
                     MatTabContent,
-                    (/** @type {?} */ (
-                    // TODO(crisbeto): these can be removed once they're turned into selector-less directives.
-                    MatPaginatedTabHeader)),
-                    (/** @type {?} */ (_MatTabGroupBase)),
-                    (/** @type {?} */ (_MatTabNavBase)),
-                    (/** @type {?} */ (_MatTabBodyBase)),
-                    (/** @type {?} */ (_MatTabHeaderBase)),
-                    (/** @type {?} */ (_MatTabLinkBase)),
                 ],
             },] }
 ];

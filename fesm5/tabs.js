@@ -1,8 +1,8 @@
+import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
-import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { __extends, __spread } from 'tslib';
@@ -465,10 +465,7 @@ var _MatTabBodyBase = /** @class */ (function () {
         return 'right-origin-center';
     };
     _MatTabBodyBase.decorators = [
-        { type: Directive, args: [{
-                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                    selector: 'do-not-use-abstract-mat-tab-body-base'
-                },] }
+        { type: Directive }
     ];
     /** @nocollapse */
     _MatTabBodyBase.ctorParameters = function () { return [
@@ -810,10 +807,7 @@ var _MatTabGroupBase = /** @class */ (function (_super) {
         return this.selectedIndex === idx ? 0 : -1;
     };
     _MatTabGroupBase.decorators = [
-        { type: Directive, args: [{
-                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                    selector: 'do-not-use-abstract-mat-tab-group-base'
-                },] }
+        { type: Directive }
     ];
     /** @nocollapse */
     _MatTabGroupBase.ctorParameters = function () { return [
@@ -1407,10 +1401,7 @@ var MatPaginatedTabHeader = /** @class */ (function () {
         return { maxScrollDistance: maxScrollDistance, distance: this._scrollDistance };
     };
     MatPaginatedTabHeader.decorators = [
-        { type: Directive, args: [{
-                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                    selector: 'do-not-use-abstract-mat-paginated-tab-header'
-                },] }
+        { type: Directive }
     ];
     /** @nocollapse */
     MatPaginatedTabHeader.ctorParameters = function () { return [
@@ -1459,10 +1450,7 @@ var _MatTabHeaderBase = /** @class */ (function (_super) {
         event.preventDefault();
     };
     _MatTabHeaderBase.decorators = [
-        { type: Directive, args: [{
-                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                    selector: 'do-not-use-abstract-mat-tab-header-base'
-                },] }
+        { type: Directive }
     ];
     /** @nocollapse */
     _MatTabHeaderBase.ctorParameters = function () { return [
@@ -1602,10 +1590,7 @@ var _MatTabNavBase = /** @class */ (function (_super) {
         this._inkBar.hide();
     };
     _MatTabNavBase.decorators = [
-        { type: Directive, args: [{
-                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                    selector: 'do-not-use-abstract-mat-tab-nav-base'
-                },] }
+        { type: Directive }
     ];
     /** @nocollapse */
     _MatTabNavBase.ctorParameters = function () { return [
@@ -1733,10 +1718,7 @@ var _MatTabLinkBase = /** @class */ (function (_super) {
         this._focusMonitor.stopMonitoring(this.elementRef);
     };
     _MatTabLinkBase.decorators = [
-        { type: Directive, args: [{
-                    // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                    selector: 'do-not-use-abstract-mat-tab-link-base'
-                },] }
+        { type: Directive }
     ];
     /** @nocollapse */
     _MatTabLinkBase.ctorParameters = function () { return [
@@ -1838,13 +1820,6 @@ var MatTabsModule = /** @class */ (function () {
                         MatTabBodyPortal,
                         MatTabHeader,
                         MatTabContent,
-                        // TODO(crisbeto): these can be removed once they're turned into selector-less directives.
-                        MatPaginatedTabHeader,
-                        _MatTabGroupBase,
-                        _MatTabNavBase,
-                        _MatTabBodyBase,
-                        _MatTabHeaderBase,
-                        _MatTabLinkBase,
                     ],
                 },] }
     ];

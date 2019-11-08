@@ -671,10 +671,7 @@
             });
         };
         _MatMenuBase.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(devversion): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-menu-base'
-                    },] }
+            { type: core.Directive }
         ];
         /** @nocollapse */
         _MatMenuBase.ctorParameters = function () { return [
@@ -706,10 +703,7 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         MatMenu.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(devversion): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-menu'
-                    },] }
+            { type: core.Directive }
         ];
         return MatMenu;
     }(_MatMenuBase));
@@ -1271,10 +1265,6 @@
                         declarations: [
                             MatMenuTrigger,
                             MatMenuContent,
-                            // TODO(devversion): remove when `MatMenu` becomes a selectorless Directive.
-                            MatMenu,
-                            // TODO(devversion): remove when `_MatMenuBase` becomes a selectorless Directive.
-                            _MatMenuBase
                         ],
                         providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                     },] }

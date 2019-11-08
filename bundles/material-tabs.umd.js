@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('tslib'), require('rxjs'), require('@angular/cdk/bidi'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/cdk/a11y', '@angular/material/core', '@angular/platform-browser/animations', 'tslib', 'rxjs', '@angular/cdk/bidi', '@angular/animations', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}), global.ng.cdk.observers, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.cdk.a11y, global.ng.material.core, global.ng.platformBrowser.animations, global.tslib, global.rxjs, global.ng.cdk.bidi, global.ng.animations, global.rxjs.operators, global.ng.cdk.coercion, global.ng.cdk.scrolling, global.ng.cdk.platform, global.ng.cdk.keycodes));
-}(this, (function (exports, observers, portal, common, core, a11y, core$1, animations, tslib, rxjs, bidi, animations$1, operators, coercion, scrolling, platform, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('tslib'), require('rxjs'), require('@angular/cdk/bidi'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/cdk/a11y', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations', 'tslib', 'rxjs', '@angular/cdk/bidi', '@angular/animations', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}), global.ng.cdk.a11y, global.ng.cdk.observers, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.ng.platformBrowser.animations, global.tslib, global.rxjs, global.ng.cdk.bidi, global.ng.animations, global.rxjs.operators, global.ng.cdk.coercion, global.ng.cdk.scrolling, global.ng.cdk.platform, global.ng.cdk.keycodes));
+}(this, (function (exports, a11y, observers, portal, common, core, core$1, animations, tslib, rxjs, bidi, animations$1, operators, coercion, scrolling, platform, keycodes) { 'use strict';
 
     /**
      * @license
@@ -454,10 +454,7 @@
             return 'right-origin-center';
         };
         _MatTabBodyBase.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-tab-body-base'
-                    },] }
+            { type: core.Directive }
         ];
         /** @nocollapse */
         _MatTabBodyBase.ctorParameters = function () { return [
@@ -799,10 +796,7 @@
             return this.selectedIndex === idx ? 0 : -1;
         };
         _MatTabGroupBase.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-tab-group-base'
-                    },] }
+            { type: core.Directive }
         ];
         /** @nocollapse */
         _MatTabGroupBase.ctorParameters = function () { return [
@@ -1396,10 +1390,7 @@
             return { maxScrollDistance: maxScrollDistance, distance: this._scrollDistance };
         };
         MatPaginatedTabHeader.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-paginated-tab-header'
-                    },] }
+            { type: core.Directive }
         ];
         /** @nocollapse */
         MatPaginatedTabHeader.ctorParameters = function () { return [
@@ -1448,10 +1439,7 @@
             event.preventDefault();
         };
         _MatTabHeaderBase.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-tab-header-base'
-                    },] }
+            { type: core.Directive }
         ];
         /** @nocollapse */
         _MatTabHeaderBase.ctorParameters = function () { return [
@@ -1591,10 +1579,7 @@
             this._inkBar.hide();
         };
         _MatTabNavBase.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-tab-nav-base'
-                    },] }
+            { type: core.Directive }
         ];
         /** @nocollapse */
         _MatTabNavBase.ctorParameters = function () { return [
@@ -1722,10 +1707,7 @@
             this._focusMonitor.stopMonitoring(this.elementRef);
         };
         _MatTabLinkBase.decorators = [
-            { type: core.Directive, args: [{
-                        // TODO(crisbeto): this selector can be removed when we update to Angular 9.0.
-                        selector: 'do-not-use-abstract-mat-tab-link-base'
-                    },] }
+            { type: core.Directive }
         ];
         /** @nocollapse */
         _MatTabLinkBase.ctorParameters = function () { return [
@@ -1827,13 +1809,6 @@
                             MatTabBodyPortal,
                             MatTabHeader,
                             MatTabContent,
-                            // TODO(crisbeto): these can be removed once they're turned into selector-less directives.
-                            MatPaginatedTabHeader,
-                            _MatTabGroupBase,
-                            _MatTabNavBase,
-                            _MatTabBodyBase,
-                            _MatTabHeaderBase,
-                            _MatTabLinkBase,
                         ],
                     },] }
         ];
