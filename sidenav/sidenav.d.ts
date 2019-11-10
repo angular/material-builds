@@ -27,16 +27,16 @@ export declare class MatSidenav extends MatDrawer {
      */
     fixedBottomGap: number;
     private _fixedBottomGap;
-    static ngAcceptInputType_fixedInViewport: boolean | string;
-    static ngAcceptInputType_fixedTopGap: number | string;
-    static ngAcceptInputType_fixedBottomGap: number | string;
-    static ngAcceptInputType_disableClose: boolean | string;
-    static ngAcceptInputType_autoFocus: boolean | string;
-    static ngAcceptInputType_opened: boolean | string;
+    static ngAcceptInputType_fixedInViewport: boolean | string | null | undefined;
+    static ngAcceptInputType_fixedTopGap: number | string | null | undefined;
+    static ngAcceptInputType_fixedBottomGap: number | string | null | undefined;
+    static ngAcceptInputType_disableClose: boolean | string | null | undefined;
+    static ngAcceptInputType_autoFocus: boolean | string | null | undefined;
+    static ngAcceptInputType_opened: boolean | string | null | undefined;
 }
 export declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
-    static ngAcceptInputType_autosize: boolean | string;
-    static ngAcceptInputType_hasBackdrop: boolean | string;
+    static ngAcceptInputType_autosize: boolean | string | null | undefined;
+    static ngAcceptInputType_hasBackdrop: boolean | string | null | undefined;
 }

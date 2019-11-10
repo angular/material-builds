@@ -122,7 +122,7 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     _getAriaSortAttribute(): "ascending" | "descending" | null;
     /** Whether the arrow inside the sort header should be rendered. */
     _renderArrow(): boolean;
-    static ngAcceptInputType_disableClear: boolean | string;
-    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disableClear: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
 }
 export {};

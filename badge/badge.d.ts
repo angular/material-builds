@@ -71,8 +71,8 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     private _setColor;
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_hidden: boolean | string;
-    static ngAcceptInputType_overlap: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_hidden: boolean | string | null | undefined;
+    static ngAcceptInputType_overlap: boolean | string | null | undefined;
 }
 export {};

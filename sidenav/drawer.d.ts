@@ -137,9 +137,9 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _updateFocusTrapState;
     _animationStartListener(event: AnimationEvent): void;
     _animationDoneListener(event: AnimationEvent): void;
-    static ngAcceptInputType_disableClose: boolean | string;
-    static ngAcceptInputType_autoFocus: boolean | string;
-    static ngAcceptInputType_opened: boolean | string;
+    static ngAcceptInputType_disableClose: boolean | string | null | undefined;
+    static ngAcceptInputType_autoFocus: boolean | string | null | undefined;
+    static ngAcceptInputType_opened: boolean | string | null | undefined;
 }
 /**
  * `<mat-drawer-container>` component.
@@ -249,6 +249,6 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     _isShowingBackdrop(): boolean;
     private _canHaveBackdrop;
     private _isDrawerOpen;
-    static ngAcceptInputType_autosize: boolean | string;
-    static ngAcceptInputType_hasBackdrop: boolean | string;
+    static ngAcceptInputType_autosize: boolean | string | null | undefined;
+    static ngAcceptInputType_hasBackdrop: boolean | string | null | undefined;
 }

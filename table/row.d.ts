@@ -11,14 +11,14 @@ import { CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, C
  * Captures the header row's template and other header properties such as the columns to display.
  */
 export declare class MatHeaderRowDef extends CdkHeaderRowDef {
-    static ngAcceptInputType_sticky: boolean | string;
+    static ngAcceptInputType_sticky: boolean | string | null | undefined;
 }
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
  */
 export declare class MatFooterRowDef extends CdkFooterRowDef {
-    static ngAcceptInputType_sticky: boolean | string;
+    static ngAcceptInputType_sticky: boolean | string | null | undefined;
 }
 /**
  * Data row definition for the mat-table.

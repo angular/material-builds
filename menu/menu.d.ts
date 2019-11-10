@@ -170,6 +170,6 @@ export declare class MatMenu extends _MatMenuBase {
 /** @docs-public MatMenu */
 export declare class _MatMenu extends MatMenu {
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
-    static ngAcceptInputType_overlapTrigger: boolean | string;
-    static ngAcceptInputType_hasBackdrop: boolean | string;
+    static ngAcceptInputType_overlapTrigger: boolean | string | null | undefined;
+    static ngAcceptInputType_hasBackdrop: boolean | string | null | undefined;
 }

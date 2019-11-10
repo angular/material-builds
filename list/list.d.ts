@@ -21,7 +21,7 @@ export declare class MatNavList extends _MatListMixinBase implements CanDisableR
     _stateChanges: Subject<void>;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export declare class MatList extends _MatListMixinBase implements CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
@@ -31,7 +31,7 @@ export declare class MatList extends _MatListMixinBase implements CanDisableRipp
     _getListType(): 'list' | 'action-list' | null;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -67,6 +67,6 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     _isRippleDisabled(): boolean;
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export {};

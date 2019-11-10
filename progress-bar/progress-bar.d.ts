@@ -83,6 +83,6 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
     ngOnDestroy(): void;
     /** Emit an animationEnd event if in determinate or buffer mode. */
     private _emitAnimationEnd;
-    static ngAcceptInputType_value: number | string;
+    static ngAcceptInputType_value: number | string | null | undefined;
 }
 export {};

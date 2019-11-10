@@ -73,6 +73,6 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     ngOnInit(): void;
-    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
 }
 export {};

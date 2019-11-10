@@ -95,7 +95,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     _emitSelectEvent(option: MatOption): void;
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
-    static ngAcceptInputType_autoActiveFirstOption: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_autoActiveFirstOption: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export {};

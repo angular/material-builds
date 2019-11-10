@@ -34,8 +34,8 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     _isRippleDisabled(): boolean;
     /** Gets whether the button has one of the given attributes. */
     _hasHostAttributes(...attributes: string[]): boolean;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 /**
  * Material design anchor button.
@@ -45,7 +45,7 @@ export declare class MatAnchor extends MatButton {
     tabIndex: number;
     constructor(focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode: string);
     _haltDisabledEvents(event: Event): void;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export {};

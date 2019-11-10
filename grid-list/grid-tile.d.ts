@@ -23,8 +23,8 @@ export declare class MatGridTile {
      * "Changed after checked" errors that would occur with HostBinding.
      */
     _setStyle(property: string, value: any): void;
-    static ngAcceptInputType_rowspan: number | string;
-    static ngAcceptInputType_colspan: number | string;
+    static ngAcceptInputType_rowspan: number | string | null | undefined;
+    static ngAcceptInputType_colspan: number | string | null | undefined;
 }
 export declare class MatGridTileText implements AfterContentInit {
     private _element;

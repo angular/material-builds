@@ -76,9 +76,9 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     ngOnDestroy(): void;
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     _containsFocus(): boolean;
-    static ngAcceptInputType_hideToggle: boolean | string;
-    static ngAcceptInputType_expanded: boolean | string;
-    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_hideToggle: boolean | string | null | undefined;
+    static ngAcceptInputType_expanded: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
 }
 export declare class MatExpansionPanelActionRow {
 }

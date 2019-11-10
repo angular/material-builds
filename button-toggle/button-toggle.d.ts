@@ -128,9 +128,9 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _selectValue;
     /** Syncs up the group's value with the model and emits the change event. */
     private _updateModelValue;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_multiple: boolean | string;
-    static ngAcceptInputType_vertical: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_multiple: boolean | string | null | undefined;
+    static ngAcceptInputType_vertical: boolean | string | null | undefined;
 }
 /** @docs-private */
 declare class MatButtonToggleBase {
@@ -190,10 +190,10 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
      * update bound properties of the radio button.
      */
     _markForCheck(): void;
-    static ngAcceptInputType_checked: boolean | string;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_vertical: boolean | string;
-    static ngAcceptInputType_multiple: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_checked: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_vertical: boolean | string | null | undefined;
+    static ngAcceptInputType_multiple: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export {};

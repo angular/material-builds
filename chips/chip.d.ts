@@ -142,11 +142,11 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _blur(): void;
     private _dispatchSelectionChange;
     private _markForCheck;
-    static ngAcceptInputType_selected: boolean | string;
-    static ngAcceptInputType_selectable: boolean | string;
-    static ngAcceptInputType_removable: boolean | string;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_selected: boolean | string | null | undefined;
+    static ngAcceptInputType_selectable: boolean | string | null | undefined;
+    static ngAcceptInputType_removable: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon

@@ -379,11 +379,11 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     readonly shouldLabelFloat: boolean;
-    static ngAcceptInputType_required: boolean | string;
-    static ngAcceptInputType_multiple: boolean | string;
-    static ngAcceptInputType_disableOptionCentering: boolean | string;
-    static ngAcceptInputType_typeaheadDebounceInterval: number | string;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_required: boolean | string | null | undefined;
+    static ngAcceptInputType_multiple: boolean | string | null | undefined;
+    static ngAcceptInputType_disableOptionCentering: boolean | string | null | undefined;
+    static ngAcceptInputType_typeaheadDebounceInterval: number | string | null | undefined;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export {};

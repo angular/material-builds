@@ -22,6 +22,6 @@ export declare class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase imp
     focus(): void;
     getOffsetLeft(): number;
     getOffsetWidth(): number;
-    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
 }
 export {};

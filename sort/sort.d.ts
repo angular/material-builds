@@ -70,7 +70,7 @@ export declare class MatSort extends _MatSortMixinBase implements CanDisable, Ha
     ngOnInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableClear: boolean | string;
-    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disableClear: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
 }
 export {};

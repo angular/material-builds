@@ -115,6 +115,6 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
     private _getValidDateOrNull;
-    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
     static ngAcceptInputType_value: any;
 }

@@ -200,5 +200,5 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _resetActiveItem;
     /** Determines whether the panel can be opened. */
     private _canOpen;
-    static ngAcceptInputType_autocompleteDisabled: boolean | string;
+    static ngAcceptInputType_autocompleteDisabled: boolean | string | null | undefined;
 }

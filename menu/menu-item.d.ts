@@ -45,7 +45,7 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     _handleMouseEnter(): void;
     /** Gets the label to be used when determining whether the option should be focused. */
     getLabel(): string;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export {};

@@ -139,9 +139,9 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      * @docs-private
      */
     onContainerClick(): void;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_readonly: boolean | string;
-    static ngAcceptInputType_required: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_readonly: boolean | string | null | undefined;
+    static ngAcceptInputType_required: boolean | string | null | undefined;
     static ngAcceptInputType_value: any;
 }
 export {};

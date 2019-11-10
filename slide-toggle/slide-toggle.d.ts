@@ -111,9 +111,9 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _emitChangeEvent;
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
-    static ngAcceptInputType_required: boolean | string;
-    static ngAcceptInputType_checked: boolean | string;
-    static ngAcceptInputType_disabled: boolean | string;
-    static ngAcceptInputType_disableRipple: boolean | string;
+    static ngAcceptInputType_required: boolean | string | null | undefined;
+    static ngAcceptInputType_checked: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
 }
 export {};

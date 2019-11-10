@@ -38,6 +38,6 @@ export declare class MatTabHeader extends _MatTabHeaderBase {
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
-    static ngAcceptInputType_disableRipple: boolean | string;
-    static ngAcceptInputType_selectedIndex: number | string;
+    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_selectedIndex: number | string | null | undefined;
 }

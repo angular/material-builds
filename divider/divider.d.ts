@@ -12,6 +12,6 @@ export declare class MatDivider {
     /** Whether the divider is an inset divider. */
     inset: boolean;
     private _inset;
-    static ngAcceptInputType_vertical: boolean | string;
-    static ngAcceptInputType_inset: boolean | string;
+    static ngAcceptInputType_vertical: boolean | string | null | undefined;
+    static ngAcceptInputType_inset: boolean | string | null | undefined;
 }

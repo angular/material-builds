@@ -117,7 +117,7 @@ export declare class MatOption implements FocusableOption, AfterViewChecked, OnD
     ngOnDestroy(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
-    static ngAcceptInputType_disabled: boolean | string;
+    static ngAcceptInputType_disabled: boolean | string | null | undefined;
 }
 /**
  * Counts the amount of option group labels that precede the specified option.
