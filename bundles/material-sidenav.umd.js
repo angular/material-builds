@@ -569,7 +569,6 @@
         MatDrawerContainer.prototype.ngOnDestroy = function () {
             this._contentMarginChanges.complete();
             this._doCheckSubject.complete();
-            this._drawers.destroy();
             this._destroyed.next();
             this._destroyed.complete();
         };
