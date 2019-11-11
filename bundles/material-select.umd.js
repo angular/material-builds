@@ -747,6 +747,11 @@
                 .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
                 .withAllowedModifierKeys(['shiftKey']);
             this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
+                // Select the active item when tabbing away. This is consistent with how the native
+                // select behaves. Note that we only want to do this in single selection mode.
+                if (!_this.multiple && _this._keyManager.activeItem) {
+                    _this._keyManager.activeItem._selectViaInteraction();
+                }
                 // Restore focus to the trigger before closing. Ensures that the focus
                 // position won't be lost if the user got focus into the overlay.
                 _this.focus();
