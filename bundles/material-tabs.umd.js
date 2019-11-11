@@ -711,6 +711,7 @@
             });
         };
         _MatTabGroupBase.prototype.ngOnDestroy = function () {
+            this._tabs.destroy();
             this._tabsSubscription.unsubscribe();
             this._tabLabelSubscription.unsubscribe();
         };

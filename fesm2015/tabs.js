@@ -1161,6 +1161,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
+        this._tabs.destroy();
         this._tabsSubscription.unsubscribe();
         this._tabLabelSubscription.unsubscribe();
     }

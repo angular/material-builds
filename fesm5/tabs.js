@@ -722,6 +722,7 @@ var _MatTabGroupBase = /** @class */ (function (_super) {
         });
     };
     _MatTabGroupBase.prototype.ngOnDestroy = function () {
+        this._tabs.destroy();
         this._tabsSubscription.unsubscribe();
         this._tabLabelSubscription.unsubscribe();
     };
