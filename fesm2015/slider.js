@@ -483,14 +483,21 @@ class MatSlider extends _MatSliderMixinBase {
      */
     get _trackFillStyles() {
         /** @type {?} */
+        const percent = this.percent;
+        /** @type {?} */
         const axis = this.vertical ? 'Y' : 'X';
         /** @type {?} */
-        const scale = this.vertical ? `1, ${this.percent}, 1` : `${this.percent}, 1, 1`;
+        const scale = this.vertical ? `1, ${percent}, 1` : `${percent}, 1, 1`;
         /** @type {?} */
         const sign = this._shouldInvertMouseCoords() ? '' : '-';
         return {
             // scale3d avoids some rendering issues in Chrome. See #12071.
-            transform: `translate${axis}(${sign}${this._thumbGap}px) scale3d(${scale})`
+            transform: `translate${axis}(${sign}${this._thumbGap}px) scale3d(${scale})`,
+            // iOS Safari has a bug where it won't re-render elements which start of as `scale(0)` until
+            // something forces a style recalculation on it. Since we'll end up with `scale(0)` when
+            // the value of the slider is 0, we can easily get into this situation. We force a
+            // recalculation by changing the element's `display` when it goes from 0 to any other value.
+            display: percent === 0 ? 'none' : ''
         };
     }
     /**
