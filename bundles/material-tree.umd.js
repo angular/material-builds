@@ -226,7 +226,7 @@
                         // tslint:disable-next-line:validate-decorators
                         changeDetection: core.ChangeDetectionStrategy.Default,
                         providers: [{ provide: tree.CdkTree, useExisting: MatTree }],
-                        styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}\n"]
+                        styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
                     }] }
         ];
         MatTree.propDecorators = {
