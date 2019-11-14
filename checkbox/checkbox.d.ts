@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
 import { MatCheckboxClickAction, MatCheckboxDefaultOptions } from './checkbox-config';
@@ -51,7 +51,7 @@ declare const _MatCheckboxMixinBase: HasTabIndexCtor & CanColorCtor & CanDisable
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
  */
-export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewChecked, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
+export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, AfterViewChecked, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
     private _changeDetectorRef;
     private _focusMonitor;
     private _ngZone;
@@ -109,6 +109,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * @breaking-change 10.0.0
      */
     _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
+    ngAfterViewInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     /**
@@ -154,8 +155,18 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition;
+    /**
+     * Syncs the indeterminate value with the checkbox DOM node.
+     *
+     * We sync `indeterminate` directly on the DOM node, because in Ivy the check for whether a
+     * property is supported on an element boils down to `if (propName in element)`. Domino's
+     * HTMLInputElement doesn't have an `indeterminate` property so Ivy will warn during
+     * server-side rendering.
+     */
+    private _syncIndeterminate;
     static ngAcceptInputType_disabled: boolean | string | null | undefined;
     static ngAcceptInputType_required: boolean | string | null | undefined;
     static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_indeterminate: boolean | string | null | undefined;
 }
 export {};

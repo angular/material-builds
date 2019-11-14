@@ -236,6 +236,12 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * @return {?}
      */
     set required(value) { this._required = coerceBooleanProperty(value); }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        this._syncIndeterminate(this._indeterminate);
+    }
     // TODO: Delete next major revision.
     /**
      * @return {?}
@@ -295,7 +301,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
     set indeterminate(value) {
         /** @type {?} */
         const changed = value != this._indeterminate;
-        this._indeterminate = value;
+        this._indeterminate = coerceBooleanProperty(value);
         if (changed) {
             if (this._indeterminate) {
                 this._transitionCheckState(TransitionCheckState.Indeterminate);
@@ -305,6 +311,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
             }
             this.indeterminateChange.emit(this._indeterminate);
         }
+        this._syncIndeterminate(this._indeterminate);
     }
     /**
      * @return {?}
@@ -521,11 +528,29 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         }
         return `mat-checkbox-anim-${animSuffix}`;
     }
+    /**
+     * Syncs the indeterminate value with the checkbox DOM node.
+     *
+     * We sync `indeterminate` directly on the DOM node, because in Ivy the check for whether a
+     * property is supported on an element boils down to `if (propName in element)`. Domino's
+     * HTMLInputElement doesn't have an `indeterminate` property so Ivy will warn during
+     * server-side rendering.
+     * @private
+     * @param {?} value
+     * @return {?}
+     */
+    _syncIndeterminate(value) {
+        /** @type {?} */
+        const nativeCheckbox = this._inputElement;
+        if (nativeCheckbox) {
+            nativeCheckbox.nativeElement.indeterminate = value;
+        }
+    }
 }
 MatCheckbox.decorators = [
     { type: Component, args: [{
                 selector: 'mat-checkbox',
-                template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label>\n  <div class=\"mat-checkbox-inner-container\"\n       [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\">\n    <input #input\n           class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\"\n           [id]=\"inputId\"\n           [required]=\"required\"\n           [checked]=\"checked\"\n           [attr.value]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabIndex]=\"tabIndex\"\n           [indeterminate]=\"indeterminate\"\n           [attr.aria-label]=\"ariaLabel || null\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"_getAriaChecked()\"\n           (change)=\"_onInteractionEvent($event)\"\n           (click)=\"_onInputClick($event)\">\n    <div matRipple class=\"mat-checkbox-ripple\"\n         [matRippleTrigger]=\"label\"\n         [matRippleDisabled]=\"_isRippleDisabled()\"\n         [matRippleRadius]=\"20\"\n         [matRippleCentered]=\"true\"\n         [matRippleAnimation]=\"{enterDuration: 150}\">\n      <div class=\"mat-ripple-element mat-checkbox-persistent-ripple\"></div>\n    </div>\n    <div class=\"mat-checkbox-frame\"></div>\n    <div class=\"mat-checkbox-background\">\n      <svg version=\"1.1\"\n           focusable=\"false\"\n           class=\"mat-checkbox-checkmark\"\n           viewBox=\"0 0 24 24\"\n           xml:space=\"preserve\">\n        <path class=\"mat-checkbox-checkmark-path\"\n              fill=\"none\"\n              stroke=\"white\"\n              d=\"M4.1,12.7 9,17.6 20.3,6.3\"/>\n      </svg>\n      <!-- Element for rendering the indeterminate state checkbox. -->\n      <div class=\"mat-checkbox-mixedmark\"></div>\n    </div>\n  </div>\n  <span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\">\n    <!-- Add an invisible span so JAWS can read the label -->\n    <span style=\"display:none\">&nbsp;</span>\n    <ng-content></ng-content>\n  </span>\n</label>\n",
+                template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label>\n  <div class=\"mat-checkbox-inner-container\"\n       [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\">\n    <input #input\n           class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\"\n           [id]=\"inputId\"\n           [required]=\"required\"\n           [checked]=\"checked\"\n           [attr.value]=\"value\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [tabIndex]=\"tabIndex\"\n           [attr.aria-label]=\"ariaLabel || null\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           [attr.aria-checked]=\"_getAriaChecked()\"\n           (change)=\"_onInteractionEvent($event)\"\n           (click)=\"_onInputClick($event)\">\n    <div matRipple class=\"mat-checkbox-ripple\"\n         [matRippleTrigger]=\"label\"\n         [matRippleDisabled]=\"_isRippleDisabled()\"\n         [matRippleRadius]=\"20\"\n         [matRippleCentered]=\"true\"\n         [matRippleAnimation]=\"{enterDuration: 150}\">\n      <div class=\"mat-ripple-element mat-checkbox-persistent-ripple\"></div>\n    </div>\n    <div class=\"mat-checkbox-frame\"></div>\n    <div class=\"mat-checkbox-background\">\n      <svg version=\"1.1\"\n           focusable=\"false\"\n           class=\"mat-checkbox-checkmark\"\n           viewBox=\"0 0 24 24\"\n           xml:space=\"preserve\">\n        <path class=\"mat-checkbox-checkmark-path\"\n              fill=\"none\"\n              stroke=\"white\"\n              d=\"M4.1,12.7 9,17.6 20.3,6.3\"/>\n      </svg>\n      <!-- Element for rendering the indeterminate state checkbox. -->\n      <div class=\"mat-checkbox-mixedmark\"></div>\n    </div>\n  </div>\n  <span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\">\n    <!-- Add an invisible span so JAWS can read the label -->\n    <span style=\"display:none\">&nbsp;</span>\n    <ng-content></ng-content>\n  </span>\n</label>\n",
                 exportAs: 'matCheckbox',
                 host: {
                     'class': 'mat-checkbox',
@@ -578,6 +603,8 @@ if (false) {
     MatCheckbox.ngAcceptInputType_required;
     /** @type {?} */
     MatCheckbox.ngAcceptInputType_disableRipple;
+    /** @type {?} */
+    MatCheckbox.ngAcceptInputType_indeterminate;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
      * take precedence so this may be omitted.
