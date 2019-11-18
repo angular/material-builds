@@ -7,10 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { RadioButtonHarnessFilters, RadioGroupHarnessFilters } from './radio-harness-filters';
-/**
- * Harness for interacting with a standard mat-radio-group in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-radio-group in tests. */
 export declare class MatRadioGroupHarness extends ComponentHarness {
     static hostSelector: string;
     /**
@@ -44,10 +41,7 @@ export declare class MatRadioGroupHarness extends ComponentHarness {
      */
     private static _checkRadioGroupName;
 }
-/**
- * Harness for interacting with a standard mat-radio-button in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-radio-button in tests. */
 export declare class MatRadioButtonHarness extends ComponentHarness {
     static hostSelector: string;
     /**

@@ -9,10 +9,7 @@ import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-radio-group in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-radio-group in tests. */
 var MatRadioGroupHarness = /** @class */ (function (_super) {
     __extends(MatRadioGroupHarness, _super);
     function MatRadioGroupHarness() {
@@ -271,10 +268,7 @@ var MatRadioGroupHarness = /** @class */ (function (_super) {
     MatRadioGroupHarness.hostSelector = 'mat-radio-group';
     return MatRadioGroupHarness;
 }(ComponentHarness));
-/**
- * Harness for interacting with a standard mat-radio-button in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-radio-button in tests. */
 var MatRadioButtonHarness = /** @class */ (function (_super) {
     __extends(MatRadioButtonHarness, _super);
     function MatRadioButtonHarness() {

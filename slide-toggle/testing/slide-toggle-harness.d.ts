@@ -7,10 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { SlideToggleHarnessFilters } from './slide-toggle-harness-filters';
-/**
- * Harness for interacting with a standard mat-slide-toggle in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-slide-toggle in tests. */
 export declare class MatSlideToggleHarness extends ComponentHarness {
     static hostSelector: string;
     /**

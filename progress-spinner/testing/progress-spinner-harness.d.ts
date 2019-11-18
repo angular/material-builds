@@ -8,10 +8,7 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ProgressSpinnerHarnessFilters } from './progress-spinner-harness-filters';
-/**
- * Harness for interacting with a standard mat-progress-spinner in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-progress-spinner in tests. */
 export declare class MatProgressSpinnerHarness extends ComponentHarness {
     static hostSelector: string;
     /**

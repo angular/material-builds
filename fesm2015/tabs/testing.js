@@ -8,10 +8,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard Angular Material tab-label in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard Angular Material tab-label in tests. */
 class MatTabHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
@@ -97,10 +94,7 @@ MatTabHarness.hostSelector = '.mat-tab-label';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-tab-group in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-tab-group in tests. */
 class MatTabGroupHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a radio-button with

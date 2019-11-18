@@ -9,10 +9,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-button in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-button in tests. */
 class MatButtonHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.

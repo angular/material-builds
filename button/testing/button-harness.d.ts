@@ -7,10 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { ButtonHarnessFilters } from './button-harness-filters';
-/**
- * Harness for interacting with a standard mat-button in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-button in tests. */
 export declare class MatButtonHarness extends ComponentHarness {
     static hostSelector: string;
     /**

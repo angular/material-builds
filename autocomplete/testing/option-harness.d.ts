@@ -12,10 +12,7 @@ export interface OptionHarnessFilters extends BaseHarnessFilters {
 export interface OptionGroupHarnessFilters extends BaseHarnessFilters {
     labelText?: string | RegExp;
 }
-/**
- * Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests.
- * @dynamic
- */
+/** Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests. */
 export declare class MatAutocompleteOptionHarness extends ComponentHarness {
     static hostSelector: string;
     static with(options?: OptionHarnessFilters): HarnessPredicate<MatAutocompleteOptionHarness>;
@@ -24,10 +21,7 @@ export declare class MatAutocompleteOptionHarness extends ComponentHarness {
     /** Gets a promise for the option's label text. */
     getText(): Promise<string>;
 }
-/**
- * Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests.
- * @dynamic
- */
+/** Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests. */
 export declare class MatAutocompleteOptionGroupHarness extends ComponentHarness {
     private _label;
     static hostSelector: string;

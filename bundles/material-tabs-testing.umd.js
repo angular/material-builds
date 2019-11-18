@@ -11,10 +11,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * Harness for interacting with a standard Angular Material tab-label in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard Angular Material tab-label in tests. */
     var MatTabHarness = /** @class */ (function (_super) {
         tslib.__extends(MatTabHarness, _super);
         function MatTabHarness() {
@@ -170,10 +167,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * Harness for interacting with a standard mat-tab-group in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard mat-tab-group in tests. */
     var MatTabGroupHarness = /** @class */ (function (_super) {
         tslib.__extends(MatTabGroupHarness, _super);
         function MatTabGroupHarness() {

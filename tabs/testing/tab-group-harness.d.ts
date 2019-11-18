@@ -8,10 +8,7 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { TabGroupHarnessFilters, TabHarnessFilters } from './tab-harness-filters';
 import { MatTabHarness } from './tab-harness';
-/**
- * Harness for interacting with a standard mat-tab-group in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-tab-group in tests. */
 export declare class MatTabGroupHarness extends ComponentHarness {
     static hostSelector: string;
     /**

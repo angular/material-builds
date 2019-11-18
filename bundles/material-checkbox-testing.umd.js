@@ -11,10 +11,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * Harness for interacting with a standard mat-checkbox in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard mat-checkbox in tests. */
     var MatCheckboxHarness = /** @class */ (function (_super) {
         tslib.__extends(MatCheckboxHarness, _super);
         function MatCheckboxHarness() {

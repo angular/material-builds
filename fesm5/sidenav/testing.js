@@ -8,10 +8,7 @@ import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-drawer in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-drawer in tests. */
 var MatDrawerHarness = /** @class */ (function (_super) {
     __extends(MatDrawerHarness, _super);
     function MatDrawerHarness() {
@@ -95,10 +92,7 @@ var MatDrawerHarness = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-sidenav in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-sidenav in tests. */
 var MatSidenavHarness = /** @class */ (function (_super) {
     __extends(MatSidenavHarness, _super);
     function MatSidenavHarness() {

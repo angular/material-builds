@@ -11,10 +11,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * Harness for interacting with a standard mat-menu in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard mat-menu in tests. */
     var MatMenuHarness = /** @class */ (function (_super) {
         tslib.__extends(MatMenuHarness, _super);
         function MatMenuHarness() {
@@ -203,10 +200,7 @@
         MatMenuHarness.hostSelector = '.mat-menu-trigger';
         return MatMenuHarness;
     }(testing.ComponentHarness));
-    /**
-     * Harness for interacting with a standard mat-menu-item in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard mat-menu-item in tests. */
     var MatMenuItemHarness = /** @class */ (function (_super) {
         tslib.__extends(MatMenuItemHarness, _super);
         function MatMenuItemHarness() {

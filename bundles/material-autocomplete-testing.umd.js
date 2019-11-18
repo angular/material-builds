@@ -11,10 +11,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests. */
     var MatAutocompleteOptionHarness = /** @class */ (function (_super) {
         tslib.__extends(MatAutocompleteOptionHarness, _super);
         function MatAutocompleteOptionHarness() {
@@ -50,10 +47,7 @@
         MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
         return MatAutocompleteOptionHarness;
     }(testing.ComponentHarness));
-    /**
-     * Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests. */
     var MatAutocompleteOptionGroupHarness = /** @class */ (function (_super) {
         tslib.__extends(MatAutocompleteOptionGroupHarness, _super);
         function MatAutocompleteOptionGroupHarness() {
@@ -90,10 +84,7 @@
      */
     /** Selector for the autocomplete panel. */
     var PANEL_SELECTOR = '.mat-autocomplete-panel';
-    /**
-     * Harness for interacting with a standard mat-autocomplete in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard mat-autocomplete in tests. */
     var MatAutocompleteHarness = /** @class */ (function (_super) {
         tslib.__extends(MatAutocompleteHarness, _super);
         function MatAutocompleteHarness() {

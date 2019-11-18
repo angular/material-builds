@@ -8,10 +8,7 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { AutocompleteHarnessFilters } from './autocomplete-harness-filters';
 import { MatAutocompleteOptionGroupHarness, MatAutocompleteOptionHarness, OptionGroupHarnessFilters, OptionHarnessFilters } from './option-harness';
-/**
- * Harness for interacting with a standard mat-autocomplete in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-autocomplete in tests. */
 export declare class MatAutocompleteHarness extends ComponentHarness {
     private _documentRootLocator;
     private _optionalPanel;

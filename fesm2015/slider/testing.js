@@ -9,10 +9,7 @@ import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coerci
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-slider in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-slider in tests. */
 class MatSliderHarness extends ComponentHarness {
     constructor() {
         super(...arguments);

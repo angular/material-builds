@@ -7,10 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MenuHarnessFilters, MenuItemHarnessFilters } from './menu-harness-filters';
-/**
- * Harness for interacting with a standard mat-menu in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-menu in tests. */
 export declare class MatMenuHarness extends ComponentHarness {
     static hostSelector: string;
     private _documentRootLocator;
@@ -38,10 +35,7 @@ export declare class MatMenuHarness extends ComponentHarness {
     private _getMenuPanel;
     private _getPanelId;
 }
-/**
- * Harness for interacting with a standard mat-menu-item in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-menu-item in tests. */
 export declare class MatMenuItemHarness extends ComponentHarness {
     static hostSelector: string;
     /**

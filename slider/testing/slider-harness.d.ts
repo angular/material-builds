@@ -7,10 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { SliderHarnessFilters } from './slider-harness-filters';
-/**
- * Harness for interacting with a standard mat-slider in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-slider in tests. */
 export declare class MatSliderHarness extends ComponentHarness {
     static hostSelector: string;
     /**

@@ -8,10 +8,7 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { DialogRole } from '@angular/material/dialog';
 import { DialogHarnessFilters } from './dialog-harness-filters';
-/**
- * Harness for interacting with a standard MatDialog in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard MatDialog in tests. */
 export declare class MatDialogHarness extends ComponentHarness {
     static hostSelector: string;
     /**

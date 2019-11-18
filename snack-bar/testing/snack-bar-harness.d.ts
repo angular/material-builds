@@ -7,10 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { SnackBarHarnessFilters } from './snack-bar-harness-filters';
-/**
- * Harness for interacting with a standard mat-snack-bar in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-snack-bar in tests. */
 export declare class MatSnackBarHarness extends ComponentHarness {
     static hostSelector: string;
     private _simpleSnackBar;

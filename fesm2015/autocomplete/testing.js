@@ -9,10 +9,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests.
- * @dynamic
- */
+/** Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests. */
 class MatAutocompleteOptionHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatAutocompleteOptionHarness, options)
@@ -32,10 +29,7 @@ class MatAutocompleteOptionHarness extends ComponentHarness {
     }
 }
 MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
-/**
- * Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests.
- * @dynamic
- */
+/** Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests. */
 class MatAutocompleteOptionGroupHarness extends ComponentHarness {
     constructor() {
         super(...arguments);
@@ -63,10 +57,7 @@ MatAutocompleteOptionGroupHarness.hostSelector = '.mat-autocomplete-panel .mat-o
  */
 /** Selector for the autocomplete panel. */
 const PANEL_SELECTOR = '.mat-autocomplete-panel';
-/**
- * Harness for interacting with a standard mat-autocomplete in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-autocomplete in tests. */
 class MatAutocompleteHarness extends ComponentHarness {
     constructor() {
         super(...arguments);

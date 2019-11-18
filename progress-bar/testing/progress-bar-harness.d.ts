@@ -7,10 +7,7 @@
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { ProgressBarHarnessFilters } from './progress-bar-harness-filters';
-/**
- * Harness for interacting with a standard mat-progress-bar in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-progress-bar in tests. */
 export declare class MatProgressBarHarness extends ComponentHarness {
     static hostSelector: string;
     /**

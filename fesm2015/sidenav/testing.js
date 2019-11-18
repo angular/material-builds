@@ -8,10 +8,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-drawer in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-drawer in tests. */
 class MatDrawerHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a drawer with
@@ -59,10 +56,7 @@ MatDrawerHarness.hostSelector = '.mat-drawer';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-sidenav in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-sidenav in tests. */
 class MatSidenavHarness extends MatDrawerHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a sidenav with

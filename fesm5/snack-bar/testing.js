@@ -8,10 +8,7 @@ import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Harness for interacting with a standard mat-snack-bar in tests.
- * @dynamic
- */
+/** Harness for interacting with a standard mat-snack-bar in tests. */
 var MatSnackBarHarness = /** @class */ (function (_super) {
     __extends(MatSnackBarHarness, _super);
     function MatSnackBarHarness() {
