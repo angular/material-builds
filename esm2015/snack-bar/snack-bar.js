@@ -21,9 +21,9 @@ import { MatSnackBarContainer } from './snack-bar-container';
 import { MatSnackBarModule } from './snack-bar-module';
 import { MatSnackBarRef } from './snack-bar-ref';
 import * as i0 from "@angular/core";
-import * as i1 from "@angular/cdk/overlay";
-import * as i2 from "@angular/cdk/a11y";
-import * as i3 from "@angular/cdk/layout";
+import * as i1 from "@angular/cdk/overlay/overlay";
+import * as i2 from "@angular/cdk/a11y/live-announcer/live-announcer";
+import * as i3 from "@angular/cdk/layout/breakpoints-observer";
 import * as i4 from "angular_material/src/material/snack-bar/snack-bar-module";
 /**
  * Injection token that can be used to specify default snack bar.
