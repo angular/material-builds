@@ -14,8 +14,13 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
     private _printer;
     private _importManager;
     private _nodeFailures;
-    /** Whether HammerJS is explicitly used in any component template. */
-    private _usedInTemplate;
+    /**
+     * Whether custom HammerJS events provided by the Material gesture
+     * config are used in a template.
+     */
+    private _customEventsUsedInTemplate;
+    /** Whether standard HammerJS events are used in a template. */
+    private _standardEventsUsedInTemplate;
     /** Whether HammerJS is accessed at runtime. */
     private _usedInRuntime;
     /**
@@ -50,11 +55,16 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
      * following steps are performed:
      *   1) Create copy of Angular Material gesture config.
      *   2) Rewrite all references to the Angular Material gesture config to the
-     *      newly copied gesture config.
-     *   3) Setup the HAMMER_GESTURE_CONFIG provider in the root app module
-     *      (if not done already).
+     *      new gesture config.
+     *   3) Setup the HAMMER_GESTURE_CONFIG in the root app module (if not done already).
+     *   4) Setup the "HammerModule" in the root app module (if not done already).
      */
-    private _setupHammerGestureConfig;
+    private _setupHammerWithCustomEvents;
+    /**
+     * Sets up the standard hammer module in the project and removes all
+     * references to the deprecated Angular Material gesture config.
+     */
+    private _setupHammerWithStandardEvents;
     /**
      * Removes Hammer from the current project. The following steps are performed:
      *   1) Delete all TypeScript imports to "hammerjs".
@@ -106,10 +116,7 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
      * be stored in the specified file path.
      */
     private _getAvailableGestureConfigFileName;
-    /**
-     * Replaces a given gesture config reference by ensuring that it is imported
-     * from the new specified path.
-     */
+    /** Replaces a given gesture config reference with a new import. */
     private _replaceGestureConfigReference;
     /**
      * Removes a given gesture config reference and its corresponding import from
@@ -122,8 +129,15 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
     private _removeHammerConfigTokenImportIfUnused;
     /** Removes Hammer from all index HTML files of the given project. */
     private _removeHammerFromIndexFile;
-    /** Sets up the Hammer gesture config provider in the app module if needed. */
-    private _setupHammerGesturesInAppModule;
+    /** Sets up the Hammer gesture config in the root module if needed. */
+    private _setupNewGestureConfigInRootModule;
+    /**
+     * Gets the TypeScript symbol of the root module by looking for the module
+     * bootstrap expression in the specified source file.
+     */
+    private _getRootModuleSymbol;
+    /** Sets up the "HammerModule" in the root module of the project. */
+    private _setupHammerModuleInRootModule;
     /** Prints a given node within the specified source file. */
     private _printNode;
     /** Gets all referenced gesture config identifiers of a given source file */

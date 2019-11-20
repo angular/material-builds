@@ -11,4 +11,7 @@
  * one of the known HammerJS events. This check naively assumes that the bindings never
  * match on a component output, but only on the Hammer plugin.
  */
-export declare function isHammerJsUsedInTemplate(html: string): boolean;
+export declare function isHammerJsUsedInTemplate(html: string): {
+    standardEvents: boolean;
+    customEvents: boolean;
+};
