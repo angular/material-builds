@@ -21,10 +21,9 @@
         }
         // TODO: potentially extend MatButtonHarness
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a menu with specific attributes.
-         * @param options Options for narrowing the search:
-         *   - `selector` finds a menu whose host element matches the given selector.
-         *   - `label` finds a menu with specific label text.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatMenuHarness` that meets certain
+         * criteria.
+         * @param options Options for filtering which menu instances are considered a match.
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatMenuHarness.with = function (options) {
@@ -32,7 +31,7 @@
             return new testing.HarnessPredicate(MatMenuHarness, options)
                 .addOption('triggerText', options.triggerText, function (harness, text) { return testing.HarnessPredicate.stringMatches(harness.getTriggerText(), text); });
         };
-        /** Gets a boolean promise indicating if the menu is disabled. */
+        /** Whether the menu is disabled. */
         MatMenuHarness.prototype.isDisabled = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
@@ -59,6 +58,7 @@
                 });
             });
         };
+        /** Gets the text of the menu's trigger element. */
         MatMenuHarness.prototype.getTriggerText = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -69,7 +69,7 @@
                 });
             });
         };
-        /** Focuses the menu and returns a void promise that indicates when the action is complete. */
+        /** Focuses the menu. */
         MatMenuHarness.prototype.focus = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -80,7 +80,7 @@
                 });
             });
         };
-        /** Blurs the menu and returns a void promise that indicates when the action is complete. */
+        /** Blurs the menu. */
         MatMenuHarness.prototype.blur = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -91,6 +91,7 @@
                 });
             });
         };
+        /** Opens the menu. */
         MatMenuHarness.prototype.open = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -105,6 +106,7 @@
                 });
             });
         };
+        /** Closes the menu. */
         MatMenuHarness.prototype.close = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var panel;
@@ -121,6 +123,10 @@
                 });
             });
         };
+        /**
+         * Gets a list of `MatMenuItemHarness` representing the items in the menu.
+         * @param filters Optionally filters which menu items are included.
+         */
         MatMenuHarness.prototype.getItems = function (filters) {
             if (filters === void 0) { filters = {}; }
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -138,10 +144,18 @@
                 });
             });
         };
-        MatMenuHarness.prototype.clickItem = function (filter) {
-            var filters = [];
+        /**
+         * Clicks an item in the menu, and optionally continues clicking items in subsequent sub-menus.
+         * @param itemFilter A filter used to represent which item in the menu should be clicked. The
+         *     first matching menu item will be clicked.
+         * @param subItemFilters A list of filters representing the items to click in any subsequent
+         *     sub-menus. The first item in the sub-menu matching the corresponding filter in
+         *     `subItemFilters` will be clicked.
+         */
+        MatMenuHarness.prototype.clickItem = function (itemFilter) {
+            var subItemFilters = [];
             for (var _i = 1; _i < arguments.length; _i++) {
-                filters[_i - 1] = arguments[_i];
+                subItemFilters[_i - 1] = arguments[_i];
             }
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var items, menu;
@@ -150,26 +164,27 @@
                         case 0: return [4 /*yield*/, this.open()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this.getItems(filter)];
+                            return [4 /*yield*/, this.getItems(itemFilter)];
                         case 2:
                             items = _a.sent();
                             if (!items.length) {
-                                throw Error("Could not find item matching " + JSON.stringify(filter));
+                                throw Error("Could not find item matching " + JSON.stringify(itemFilter));
                             }
-                            if (!!filters.length) return [3 /*break*/, 4];
+                            if (!!subItemFilters.length) return [3 /*break*/, 4];
                             return [4 /*yield*/, items[0].click()];
                         case 3: return [2 /*return*/, _a.sent()];
                         case 4: return [4 /*yield*/, items[0].getSubmenu()];
                         case 5:
                             menu = _a.sent();
                             if (!menu) {
-                                throw Error("Item matching " + JSON.stringify(filter) + " does not have a submenu");
+                                throw Error("Item matching " + JSON.stringify(itemFilter) + " does not have a submenu");
                             }
-                            return [2 /*return*/, menu.clickItem.apply(menu, tslib.__spread(filters))];
+                            return [2 /*return*/, menu.clickItem.apply(menu, tslib.__spread(subItemFilters))];
                     }
                 });
             });
         };
+        /** Gets the menu panel associated with this menu. */
         MatMenuHarness.prototype._getMenuPanel = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var panelId;
@@ -183,6 +198,7 @@
                 });
             });
         };
+        /** Gets the id of the menu panel associated with this menu. */
         MatMenuHarness.prototype._getPanelId = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var panelId;
@@ -197,6 +213,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatMenu` instance. */
         MatMenuHarness.hostSelector = '.mat-menu-trigger';
         return MatMenuHarness;
     }(testing.ComponentHarness));
@@ -207,10 +224,9 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a menu with specific attributes.
-         * @param options Options for narrowing the search:
-         *   - `selector` finds a menu item whose host element matches the given selector.
-         *   - `label` finds a menu item with specific label text.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatMenuItemHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which menu item instances are considered a match.
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatMenuItemHarness.with = function (options) {
@@ -225,7 +241,7 @@
                 }
             }); }); });
         };
-        /** Gets a boolean promise indicating if the menu is disabled. */
+        /** Whether the menu is disabled. */
         MatMenuItemHarness.prototype.isDisabled = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
@@ -241,6 +257,7 @@
                 });
             });
         };
+        /** Gets the text of the menu item. */
         MatMenuItemHarness.prototype.getText = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -251,7 +268,7 @@
                 });
             });
         };
-        /** Focuses the menu and returns a void promise that indicates when the action is complete. */
+        /** Focuses the menu item. */
         MatMenuItemHarness.prototype.focus = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -262,7 +279,7 @@
                 });
             });
         };
-        /** Blurs the menu and returns a void promise that indicates when the action is complete. */
+        /** Blurs the menu item. */
         MatMenuItemHarness.prototype.blur = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -310,6 +327,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatMenuItem` instance. */
         MatMenuItemHarness.hostSelector = '.mat-menu-item';
         return MatMenuItemHarness;
     }(testing.ComponentHarness));

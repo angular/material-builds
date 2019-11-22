@@ -16,14 +16,16 @@ var MatProgressBarHarness = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a progress bar with specific
-     * attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatProgressBarHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which progress bar instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     MatProgressBarHarness.with = function (options) {
         if (options === void 0) { options = {}; }
         return new HarnessPredicate(MatProgressBarHarness, options);
     };
-    /** Gets a promise for the progress bar's value. */
+    /** Gets the progress bar's value. */
     MatProgressBarHarness.prototype.getValue = function () {
         return __awaiter(this, void 0, void 0, function () {
             var host, ariaValue;
@@ -40,7 +42,7 @@ var MatProgressBarHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets a promise for the progress bar's mode. */
+    /** Gets the progress bar's mode. */
     MatProgressBarHarness.prototype.getMode = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -51,6 +53,7 @@ var MatProgressBarHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** The selector for the host element of a `MatProgressBar` instance. */
     MatProgressBarHarness.hostSelector = 'mat-progress-bar';
     return MatProgressBarHarness;
 }(ComponentHarness));

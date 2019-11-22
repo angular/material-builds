@@ -9,13 +9,12 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { SliderHarnessFilters } from './slider-harness-filters';
 /** Harness for interacting with a standard mat-slider in tests. */
 export declare class MatSliderHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatSlider` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a mat-slider with
-     * specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a slider whose host element matches the given selector.
-     *   - `id` finds a slider with specific id.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSliderHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which slider instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: SliderHarnessFilters): HarnessPredicate<MatSliderHarness>;
@@ -24,8 +23,8 @@ export declare class MatSliderHarness extends ComponentHarness {
     /** Gets the slider's id. */
     getId(): Promise<string | null>;
     /**
-     * Gets the current display value of the slider. Returns null if the thumb
-     * label is disabled.
+     * Gets the current display value of the slider. Returns a null promise if the thumb label is
+     * disabled.
      */
     getDisplayValue(): Promise<string | null>;
     /** Gets the current percentage value of the slider. */
@@ -49,15 +48,9 @@ export declare class MatSliderHarness extends ComponentHarness {
      * select the given value or expand the slider's size for a better user experience.
      */
     setValue(value: number): Promise<void>;
-    /**
-     * Focuses the slider and returns a void promise that indicates when the
-     * action is complete.
-     */
+    /** Focuses the slider. */
     focus(): Promise<void>;
-    /**
-     * Blurs the slider and returns a void promise that indicates when the
-     * action is complete.
-     */
+    /** Blurs the slider. */
     blur(): Promise<void>;
     /** Calculates the percentage of the given value. */
     private _calculatePercentage;

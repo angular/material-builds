@@ -9,13 +9,12 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { RadioButtonHarnessFilters, RadioGroupHarnessFilters } from './radio-harness-filters';
 /** Harness for interacting with a standard mat-radio-group in tests. */
 export declare class MatRadioGroupHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatRadioGroup` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio-group with
-     * specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a radio-group whose host element matches the given selector.
-     *   - `name` finds a radio-group with specific name.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which radio group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: RadioGroupHarnessFilters): HarnessPredicate<MatRadioGroupHarness>;
@@ -27,11 +26,20 @@ export declare class MatRadioGroupHarness extends ComponentHarness {
     getCheckedRadioButton(): Promise<MatRadioButtonHarness | null>;
     /** Gets the checked value of the radio-group. */
     getCheckedValue(): Promise<string | null>;
-    /** Gets all radio buttons which are part of the radio-group. */
+    /**
+     * Gets a list of radio buttons which are part of the radio-group.
+     * @param filter Optionally filters which radio buttons are included.
+     */
     getRadioButtons(filter?: RadioButtonHarnessFilters): Promise<MatRadioButtonHarness[]>;
-    /** Checks a radio button in this group. */
+    /**
+     * Checks a radio button in this group.
+     * @param filter An optional filter to apply to the child radio buttons. The first tab matching
+     *     the filter will be selected.
+     */
     checkRadioButton(filter?: RadioButtonHarnessFilters): Promise<void>;
+    /** Gets the name attribute of the host element. */
     private _getGroupNameFromHost;
+    /** Gets a list of the name attributes of all child radio buttons. */
     private _getNamesFromRadioButtons;
     /** Checks if the specified radio names are all equal. */
     private _checkRadioNamesInGroupEqual;
@@ -43,14 +51,12 @@ export declare class MatRadioGroupHarness extends ComponentHarness {
 }
 /** Harness for interacting with a standard mat-radio-button in tests. */
 export declare class MatRadioButtonHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatRadioButton` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio-button with
-     * specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a radio-button whose host element matches the given selector.
-     *   - `label` finds a radio-button with specific label text.
-     *   - `name` finds a radio-button with specific name.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioButtonHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which radio button instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: RadioButtonHarnessFilters): HarnessPredicate<MatRadioButtonHarness>;
@@ -63,34 +69,26 @@ export declare class MatRadioButtonHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
     /** Whether the radio-button is required. */
     isRequired(): Promise<boolean>;
-    /** Gets a promise for the radio-button's name. */
+    /** Gets the radio-button's name. */
     getName(): Promise<string | null>;
-    /** Gets a promise for the radio-button's id. */
+    /** Gets the radio-button's id. */
     getId(): Promise<string | null>;
     /**
-     * Gets the value of the radio-button. The radio-button value will be
-     * converted to a string.
+     * Gets the value of the radio-button. The radio-button value will be converted to a string.
      *
-     * Note that this means that radio-button's with objects as value will
-     * intentionally have the `[object Object]` as return value.
+     * Note: This means that for radio-button's with an object as a value `[object Object]` is
+     * intentionally returned.
      */
     getValue(): Promise<string | null>;
-    /** Gets a promise for the radio-button's label text. */
+    /** Gets the radio-button's label text. */
     getLabelText(): Promise<string>;
-    /**
-     * Focuses the radio-button and returns a void promise that indicates when the
-     * action is complete.
-     */
+    /** Focuses the radio-button. */
     focus(): Promise<void>;
-    /**
-     * Blurs the radio-button and returns a void promise that indicates when the
-     * action is complete.
-     */
+    /** Blurs the radio-button. */
     blur(): Promise<void>;
     /**
      * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
-     * or doing nothing if it is already checked. Returns a void promise that indicates when
-     * the action is complete.
+     * or doing nothing if it is already checked.
      */
     check(): Promise<void>;
 }

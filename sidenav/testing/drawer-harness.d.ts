@@ -9,15 +9,16 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { DrawerHarnessFilters } from './drawer-harness-filters';
 /** Harness for interacting with a standard mat-drawer in tests. */
 export declare class MatDrawerHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatDrawer` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a drawer with
-     * specific attributes.
-     * @param options Options for narrowing the search.
-     * @return `HarnessPredicate` configured with the given options.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which drawer instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: DrawerHarnessFilters): HarnessPredicate<MatDrawerHarness>;
-    /** Gets whether the drawer is open. */
+    /** Whether the drawer is open. */
     isOpen(): Promise<boolean>;
     /** Gets the position of the drawer inside its container. */
     getPosition(): Promise<'start' | 'end'>;

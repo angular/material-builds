@@ -22,11 +22,9 @@
             return _this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a checkbox with specific attributes.
-         * @param options Options for narrowing the search:
-         *   - `selector` finds a checkbox whose host element matches the given selector.
-         *   - `label` finds a checkbox with specific label text.
-         *   - `name` finds a checkbox with specific name.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatCheckboxHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which checkbox instances are considered a match.
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatCheckboxHarness.with = function (options) {
@@ -44,7 +42,7 @@
                 }
             }); }); });
         };
-        /** Gets a boolean promise indicating if the checkbox is checked. */
+        /** Whether the checkbox is checked. */
         MatCheckboxHarness.prototype.isChecked = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var checked, _a;
@@ -60,7 +58,7 @@
                 });
             });
         };
-        /** Gets a boolean promise indicating if the checkbox is in an indeterminate state. */
+        /** Whether the checkbox is in an indeterminate state. */
         MatCheckboxHarness.prototype.isIndeterminate = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var indeterminate, _a;
@@ -76,7 +74,7 @@
                 });
             });
         };
-        /** Gets a boolean promise indicating if the checkbox is disabled. */
+        /** Whether the checkbox is disabled. */
         MatCheckboxHarness.prototype.isDisabled = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
@@ -92,7 +90,7 @@
                 });
             });
         };
-        /** Gets a boolean promise indicating if the checkbox is required. */
+        /** Whether the checkbox is required. */
         MatCheckboxHarness.prototype.isRequired = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var required, _a;
@@ -108,7 +106,7 @@
                 });
             });
         };
-        /** Gets a boolean promise indicating if the checkbox is valid. */
+        /** Whether the checkbox is valid. */
         MatCheckboxHarness.prototype.isValid = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var invalid;
@@ -123,7 +121,7 @@
                 });
             });
         };
-        /** Gets a promise for the checkbox's name. */
+        /** Gets the checkbox's name. */
         MatCheckboxHarness.prototype.getName = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -134,7 +132,7 @@
                 });
             });
         };
-        /** Gets a promise for the checkbox's value. */
+        /** Gets the checkbox's value. */
         MatCheckboxHarness.prototype.getValue = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -145,7 +143,7 @@
                 });
             });
         };
-        /** Gets a promise for the checkbox's aria-label. */
+        /** Gets the checkbox's aria-label. */
         MatCheckboxHarness.prototype.getAriaLabel = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -156,7 +154,7 @@
                 });
             });
         };
-        /** Gets a promise for the checkbox's aria-labelledby. */
+        /** Gets the checkbox's aria-labelledby. */
         MatCheckboxHarness.prototype.getAriaLabelledby = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -167,7 +165,7 @@
                 });
             });
         };
-        /** Gets a promise for the checkbox's label text. */
+        /** Gets the checkbox's label text. */
         MatCheckboxHarness.prototype.getLabelText = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -178,7 +176,7 @@
                 });
             });
         };
-        /** Focuses the checkbox and returns a void promise that indicates when the action is complete. */
+        /** Focuses the checkbox. */
         MatCheckboxHarness.prototype.focus = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -189,7 +187,7 @@
                 });
             });
         };
-        /** Blurs the checkbox and returns a void promise that indicates when the action is complete. */
+        /** Blurs the checkbox. */
         MatCheckboxHarness.prototype.blur = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -201,8 +199,7 @@
             });
         };
         /**
-         * Toggle the checked state of the checkbox and returns a void promise that indicates when the
-         * action is complete.
+         * Toggles the checked state of the checkbox.
          *
          * Note: This attempts to toggle the checkbox as a user would, by clicking it. Therefore if you
          * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -220,8 +217,7 @@
         };
         /**
          * Puts the checkbox in a checked state by toggling it if it is currently unchecked, or doing
-         * nothing if it is already checked. Returns a void promise that indicates when the action is
-         * complete.
+         * nothing if it is already checked.
          *
          * Note: This attempts to check the checkbox as a user would, by clicking it. Therefore if you
          * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -245,8 +241,7 @@
         };
         /**
          * Puts the checkbox in an unchecked state by toggling it if it is currently checked, or doing
-         * nothing if it is already unchecked. Returns a void promise that indicates when the action is
-         * complete.
+         * nothing if it is already unchecked.
          *
          * Note: This attempts to uncheck the checkbox as a user would, by clicking it. Therefore if you
          * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -268,6 +263,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatCheckbox` instance. */
         MatCheckboxHarness.hostSelector = 'mat-checkbox';
         return MatCheckboxHarness;
     }(testing.ComponentHarness));

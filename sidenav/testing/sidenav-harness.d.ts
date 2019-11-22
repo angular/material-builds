@@ -10,14 +10,15 @@ import { MatDrawerHarness } from './drawer-harness';
 import { DrawerHarnessFilters } from './drawer-harness-filters';
 /** Harness for interacting with a standard mat-sidenav in tests. */
 export declare class MatSidenavHarness extends MatDrawerHarness {
+    /** The selector for the host element of a `MatSidenav` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a sidenav with
-     * specific attributes.
-     * @param options Options for narrowing the search.
-     * @return `HarnessPredicate` configured with the given options.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which sidenav instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: DrawerHarnessFilters): HarnessPredicate<MatDrawerHarness>;
-    /** Gets whether the sidenav is fixed in the viewport. */
+    /** Whether the sidenav is fixed in the viewport. */
     isFixedInViewport(): Promise<boolean>;
 }

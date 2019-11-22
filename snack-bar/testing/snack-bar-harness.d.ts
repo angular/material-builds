@@ -9,17 +9,16 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { SnackBarHarnessFilters } from './snack-bar-harness-filters';
 /** Harness for interacting with a standard mat-snack-bar in tests. */
 export declare class MatSnackBarHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;
     private _simpleSnackBar;
     private _simpleSnackBarMessage;
     private _simpleSnackBarActionButton;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a snack-bar with
-     * specific attributes.
-     * @param options Options for narrowing the search.
-     *   - `selector` finds a snack-bar that matches the given selector. Note that the
-     *                selector must match the snack-bar container element.
-     * @return `HarnessPredicate` configured with the given options.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which snack bar instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: SnackBarHarnessFilters): HarnessPredicate<MatSnackBarHarness>;
     /**
@@ -28,35 +27,33 @@ export declare class MatSnackBarHarness extends ComponentHarness {
      */
     getRole(): Promise<'alert' | 'status' | null>;
     /**
-     * Gets whether the snack-bar has an action. Method cannot be
-     * used for snack-bar's with custom content.
+     * Whether the snack-bar has an action. Method cannot be used for snack-bar's with custom content.
      */
     hasAction(): Promise<boolean>;
     /**
-     * Gets the description of the snack-bar. Method cannot be
-     * used for snack-bar's without action or with custom content.
+     * Gets the description of the snack-bar. Method cannot be used for snack-bar's without action or
+     * with custom content.
      */
     getActionDescription(): Promise<string>;
     /**
-     * Dismisses the snack-bar by clicking the action button. Method cannot
-     * be used for snack-bar's without action or with custom content.
+     * Dismisses the snack-bar by clicking the action button. Method cannot be used for snack-bar's
+     * without action or with custom content.
      */
     dismissWithAction(): Promise<void>;
     /**
-     * Gets the message of the snack-bar. Method cannot be used for
-     * snack-bar's with custom content.
+     * Gets the message of the snack-bar. Method cannot be used for snack-bar's with custom content.
      */
     getMessage(): Promise<string>;
     /**
-     * Asserts that the current snack-bar does not use custom content. Throws if
+     * Asserts that the current snack-bar does not use custom content. Promise rejects if
      * custom content is used.
      */
     private _assertSimpleSnackBar;
     /**
      * Asserts that the current snack-bar does not use custom content and has
-     * an action defined. Otherwise an error will be thrown.
+     * an action defined. Otherwise the promise will reject.
      */
     private _assertSimpleSnackBarWithAction;
-    /** Gets whether the snack-bar is using the default content template. */
+    /** Whether the snack-bar is using the default content template. */
     private _isSimpleSnackBar;
 }

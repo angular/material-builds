@@ -16,10 +16,9 @@ var MatButtonHarness = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a button whose host element matches the given selector.
-     *   - `text` finds a button with specific text content.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatButtonHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which button instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     MatButtonHarness.with = function (options) {
@@ -38,7 +37,7 @@ var MatButtonHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets a boolean promise indicating if the button is disabled. */
+    /** Whether the button is disabled. */
     MatButtonHarness.prototype.isDisabled = function () {
         return __awaiter(this, void 0, void 0, function () {
             var disabled, _a;
@@ -54,7 +53,7 @@ var MatButtonHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets a promise for the button's label text. */
+    /** Gets the button's label text. */
     MatButtonHarness.prototype.getText = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -65,7 +64,7 @@ var MatButtonHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Focuses the button and returns a void promise that indicates when the action is complete. */
+    /** Focuses the button. */
     MatButtonHarness.prototype.focus = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -76,7 +75,7 @@ var MatButtonHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Blurs the button and returns a void promise that indicates when the action is complete. */
+    /** Blurs the button. */
     MatButtonHarness.prototype.blur = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -88,6 +87,7 @@ var MatButtonHarness = /** @class */ (function (_super) {
         });
     };
     // TODO(jelbourn) use a single class, like `.mat-button-base`
+    /** The selector for the host element of a `MatButton` instance. */
     MatButtonHarness.hostSelector = [
         '[mat-button]',
         '[mat-raised-button]',

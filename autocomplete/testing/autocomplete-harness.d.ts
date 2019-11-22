@@ -12,31 +12,31 @@ import { MatAutocompleteOptionGroupHarness, MatAutocompleteOptionHarness, Option
 export declare class MatAutocompleteHarness extends ComponentHarness {
     private _documentRootLocator;
     private _optionalPanel;
+    /** The selector for the host element of a `MatAutocomplete` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for an autocomplete with
-     * specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `name` finds an autocomplete with a specific name.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which autocomplete instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: AutocompleteHarnessFilters): HarnessPredicate<MatAutocompleteHarness>;
     /** Gets the value of the autocomplete input. */
     getValue(): Promise<string>;
-    /** Gets a boolean promise indicating if the autocomplete input is disabled. */
+    /** Whether the autocomplete input is disabled. */
     isDisabled(): Promise<boolean>;
-    /** Focuses the input and returns a void promise that indicates when the action is complete. */
+    /** Focuses the autocomplete input. */
     focus(): Promise<void>;
-    /** Blurs the input and returns a void promise that indicates when the action is complete. */
+    /** Blurs the autocomplete input. */
     blur(): Promise<void>;
     /** Enters text into the autocomplete. */
     enterText(value: string): Promise<void>;
     /** Gets the options inside the autocomplete panel. */
     getOptions(filters?: OptionHarnessFilters): Promise<MatAutocompleteOptionHarness[]>;
-    /** Gets the groups of options inside the panel. */
+    /** Gets the option groups inside the autocomplete panel. */
     getOptionGroups(filters?: OptionGroupHarnessFilters): Promise<MatAutocompleteOptionGroupHarness[]>;
     /** Selects the first option matching the given filters. */
     selectOption(filters: OptionHarnessFilters): Promise<void>;
-    /** Gets whether the autocomplete is open. */
+    /** Whether the autocomplete is open. */
     isOpen(): Promise<boolean>;
 }

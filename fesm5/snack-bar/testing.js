@@ -19,12 +19,10 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
         return _this;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a snack-bar with
-     * specific attributes.
-     * @param options Options for narrowing the search.
-     *   - `selector` finds a snack-bar that matches the given selector. Note that the
-     *                selector must match the snack-bar container element.
-     * @return `HarnessPredicate` configured with the given options.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which snack bar instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     MatSnackBarHarness.with = function (options) {
         if (options === void 0) { options = {}; }
@@ -45,8 +43,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
         });
     };
     /**
-     * Gets whether the snack-bar has an action. Method cannot be
-     * used for snack-bar's with custom content.
+     * Whether the snack-bar has an action. Method cannot be used for snack-bar's with custom content.
      */
     MatSnackBarHarness.prototype.hasAction = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -62,8 +59,8 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
         });
     };
     /**
-     * Gets the description of the snack-bar. Method cannot be
-     * used for snack-bar's without action or with custom content.
+     * Gets the description of the snack-bar. Method cannot be used for snack-bar's without action or
+     * with custom content.
      */
     MatSnackBarHarness.prototype.getActionDescription = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -79,8 +76,8 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
         });
     };
     /**
-     * Dismisses the snack-bar by clicking the action button. Method cannot
-     * be used for snack-bar's without action or with custom content.
+     * Dismisses the snack-bar by clicking the action button. Method cannot be used for snack-bar's
+     * without action or with custom content.
      */
     MatSnackBarHarness.prototype.dismissWithAction = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -99,8 +96,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
         });
     };
     /**
-     * Gets the message of the snack-bar. Method cannot be used for
-     * snack-bar's with custom content.
+     * Gets the message of the snack-bar. Method cannot be used for snack-bar's with custom content.
      */
     MatSnackBarHarness.prototype.getMessage = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -116,7 +112,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
         });
     };
     /**
-     * Asserts that the current snack-bar does not use custom content. Throws if
+     * Asserts that the current snack-bar does not use custom content. Promise rejects if
      * custom content is used.
      */
     MatSnackBarHarness.prototype._assertSimpleSnackBar = function () {
@@ -135,7 +131,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
     };
     /**
      * Asserts that the current snack-bar does not use custom content and has
-     * an action defined. Otherwise an error will be thrown.
+     * an action defined. Otherwise the promise will reject.
      */
     MatSnackBarHarness.prototype._assertSimpleSnackBarWithAction = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -154,7 +150,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets whether the snack-bar is using the default content template. */
+    /** Whether the snack-bar is using the default content template. */
     MatSnackBarHarness.prototype._isSimpleSnackBar = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -167,6 +163,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
     };
     // Developers can provide a custom component or template for the
     // snackbar. The canonical snack-bar parent is the "MatSnackBarContainer".
+    /** The selector for the host element of a `MatSnackBar` instance. */
     MatSnackBarHarness.hostSelector = '.mat-snack-bar-container';
     return MatSnackBarHarness;
 }(ComponentHarness));

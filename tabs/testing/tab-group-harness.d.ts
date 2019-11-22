@@ -10,21 +10,26 @@ import { TabGroupHarnessFilters, TabHarnessFilters } from './tab-harness-filters
 import { MatTabHarness } from './tab-harness';
 /** Harness for interacting with a standard mat-tab-group in tests. */
 export declare class MatTabGroupHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatTabGroup` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio-button with
-     * specific attributes.
-     * @param options Options for narrowing the search
-     *   - `selector` finds a tab-group whose host element matches the given selector.
-     *   - `selectedTabLabel` finds a tab-group with a selected tab that matches the
-     *      specified tab label.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabGroupHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: TabGroupHarnessFilters): HarnessPredicate<MatTabGroupHarness>;
-    /** Gets all tabs of the tab group. */
+    /**
+     * Gets the list of tabs in the tab group.
+     * @param filter Optionally filters which tabs are included.
+     */
     getTabs(filter?: TabHarnessFilters): Promise<MatTabHarness[]>;
     /** Gets the selected tab of the tab group. */
     getSelectedTab(): Promise<MatTabHarness>;
-    /** Selects a tab in this tab group. */
+    /**
+     * Selects a tab in this tab group.
+     * @param filter An optional filter to apply to the child tabs. The first tab matching the filter
+     *     will be selected.
+     */
     selectTab(filter?: TabHarnessFilters): Promise<void>;
 }

@@ -15,7 +15,10 @@ var MatTabHarness = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     MatTabHarness.with = function (options) {
         if (options === void 0) { options = {}; }
@@ -33,7 +36,7 @@ var MatTabHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets the aria label of the tab. */
+    /** Gets the aria-label of the tab. */
     MatTabHarness.prototype.getAriaLabel = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -85,10 +88,7 @@ var MatTabHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /**
-     * Selects the given tab by clicking on the label. Tab cannot be
-     * selected if disabled.
-     */
+    /** Selects the given tab by clicking on the label. Tab cannot be selected if disabled. */
     MatTabHarness.prototype.select = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -153,6 +153,7 @@ var MatTabHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** The selector for the host element of a `MatTab` instance. */
     MatTabHarness.hostSelector = '.mat-tab-label';
     return MatTabHarness;
 }(ComponentHarness));
@@ -171,12 +172,9 @@ var MatTabGroupHarness = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio-button with
-     * specific attributes.
-     * @param options Options for narrowing the search
-     *   - `selector` finds a tab-group whose host element matches the given selector.
-     *   - `selectedTabLabel` finds a tab-group with a selected tab that matches the
-     *      specified tab label.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabGroupHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     MatTabGroupHarness.with = function (options) {
@@ -197,7 +195,10 @@ var MatTabGroupHarness = /** @class */ (function (_super) {
             });
         }); });
     };
-    /** Gets all tabs of the tab group. */
+    /**
+     * Gets the list of tabs in the tab group.
+     * @param filter Optionally filters which tabs are included.
+     */
     MatTabGroupHarness.prototype.getTabs = function (filter) {
         if (filter === void 0) { filter = {}; }
         return __awaiter(this, void 0, void 0, function () {
@@ -228,7 +229,11 @@ var MatTabGroupHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Selects a tab in this tab group. */
+    /**
+     * Selects a tab in this tab group.
+     * @param filter An optional filter to apply to the child tabs. The first tab matching the filter
+     *     will be selected.
+     */
     MatTabGroupHarness.prototype.selectTab = function (filter) {
         if (filter === void 0) { filter = {}; }
         return __awaiter(this, void 0, void 0, function () {
@@ -249,6 +254,7 @@ var MatTabGroupHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** The selector for the host element of a `MatTabGroup` instance. */
     MatTabGroupHarness.hostSelector = '.mat-tab-group';
     return MatTabGroupHarness;
 }(ComponentHarness));

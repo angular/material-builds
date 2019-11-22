@@ -11,7 +11,10 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 /** Harness for interacting with a standard Angular Material tab-label in tests. */
 class MatTabHarness extends ComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
         return new HarnessPredicate(MatTabHarness, options)
@@ -23,7 +26,7 @@ class MatTabHarness extends ComponentHarness {
             return (yield this.host()).text();
         });
     }
-    /** Gets the aria label of the tab. */
+    /** Gets the aria-label of the tab. */
     getAriaLabel() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('aria-label');
@@ -49,10 +52,7 @@ class MatTabHarness extends ComponentHarness {
             return (yield hostEl.getAttribute('aria-disabled')) === 'true';
         });
     }
-    /**
-     * Selects the given tab by clicking on the label. Tab cannot be
-     * selected if disabled.
-     */
+    /** Selects the given tab by clicking on the label. Tab cannot be selected if disabled. */
     select() {
         return __awaiter(this, void 0, void 0, function* () {
             yield (yield this.host()).click();
@@ -85,6 +85,7 @@ class MatTabHarness extends ComponentHarness {
         });
     }
 }
+/** The selector for the host element of a `MatTab` instance. */
 MatTabHarness.hostSelector = '.mat-tab-label';
 
 /**
@@ -97,12 +98,9 @@ MatTabHarness.hostSelector = '.mat-tab-label';
 /** Harness for interacting with a standard mat-tab-group in tests. */
 class MatTabGroupHarness extends ComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio-button with
-     * specific attributes.
-     * @param options Options for narrowing the search
-     *   - `selector` finds a tab-group whose host element matches the given selector.
-     *   - `selectedTabLabel` finds a tab-group with a selected tab that matches the
-     *      specified tab label.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabGroupHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
@@ -112,7 +110,10 @@ class MatTabGroupHarness extends ComponentHarness {
             return HarnessPredicate.stringMatches(yield selectedTab.getLabel(), label);
         }));
     }
-    /** Gets all tabs of the tab group. */
+    /**
+     * Gets the list of tabs in the tab group.
+     * @param filter Optionally filters which tabs are included.
+     */
     getTabs(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.locatorForAll(MatTabHarness.with(filter))();
@@ -131,7 +132,11 @@ class MatTabGroupHarness extends ComponentHarness {
             throw new Error('No selected tab could be found.');
         });
     }
-    /** Selects a tab in this tab group. */
+    /**
+     * Selects a tab in this tab group.
+     * @param filter An optional filter to apply to the child tabs. The first tab matching the filter
+     *     will be selected.
+     */
     selectTab(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             const tabs = yield this.getTabs(filter);
@@ -142,6 +147,7 @@ class MatTabGroupHarness extends ComponentHarness {
         });
     }
 }
+/** The selector for the host element of a `MatTabGroup` instance. */
 MatTabGroupHarness.hostSelector = '.mat-tab-group';
 
 /**

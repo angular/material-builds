@@ -6,5 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseHarnessFilters } from '@angular/cdk/testing';
+/** A set of criteria that can be used to filter a list of `MatProgressSpinnerHarness` instances. */
 export interface ProgressSpinnerHarnessFilters extends BaseHarnessFilters {
 }

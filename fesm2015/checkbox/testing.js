@@ -18,11 +18,9 @@ class MatCheckboxHarness extends ComponentHarness {
         this._inputContainer = this.locatorFor('.mat-checkbox-inner-container');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a checkbox with specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a checkbox whose host element matches the given selector.
-     *   - `label` finds a checkbox with specific label text.
-     *   - `name` finds a checkbox with specific name.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatCheckboxHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which checkbox instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
@@ -33,86 +31,85 @@ class MatCheckboxHarness extends ComponentHarness {
             // to retrieve the harness of a specific checkbox with name through a CSS selector.
             .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
     }
-    /** Gets a boolean promise indicating if the checkbox is checked. */
+    /** Whether the checkbox is checked. */
     isChecked() {
         return __awaiter(this, void 0, void 0, function* () {
             const checked = (yield this._input()).getProperty('checked');
             return coerceBooleanProperty(yield checked);
         });
     }
-    /** Gets a boolean promise indicating if the checkbox is in an indeterminate state. */
+    /** Whether the checkbox is in an indeterminate state. */
     isIndeterminate() {
         return __awaiter(this, void 0, void 0, function* () {
             const indeterminate = (yield this._input()).getProperty('indeterminate');
             return coerceBooleanProperty(yield indeterminate);
         });
     }
-    /** Gets a boolean promise indicating if the checkbox is disabled. */
+    /** Whether the checkbox is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
             const disabled = (yield this._input()).getAttribute('disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
-    /** Gets a boolean promise indicating if the checkbox is required. */
+    /** Whether the checkbox is required. */
     isRequired() {
         return __awaiter(this, void 0, void 0, function* () {
             const required = (yield this._input()).getProperty('required');
             return coerceBooleanProperty(yield required);
         });
     }
-    /** Gets a boolean promise indicating if the checkbox is valid. */
+    /** Whether the checkbox is valid. */
     isValid() {
         return __awaiter(this, void 0, void 0, function* () {
             const invalid = (yield this.host()).hasClass('ng-invalid');
             return !(yield invalid);
         });
     }
-    /** Gets a promise for the checkbox's name. */
+    /** Gets the checkbox's name. */
     getName() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).getAttribute('name');
         });
     }
-    /** Gets a promise for the checkbox's value. */
+    /** Gets the checkbox's value. */
     getValue() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).getProperty('value');
         });
     }
-    /** Gets a promise for the checkbox's aria-label. */
+    /** Gets the checkbox's aria-label. */
     getAriaLabel() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).getAttribute('aria-label');
         });
     }
-    /** Gets a promise for the checkbox's aria-labelledby. */
+    /** Gets the checkbox's aria-labelledby. */
     getAriaLabelledby() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).getAttribute('aria-labelledby');
         });
     }
-    /** Gets a promise for the checkbox's label text. */
+    /** Gets the checkbox's label text. */
     getLabelText() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._label()).text();
         });
     }
-    /** Focuses the checkbox and returns a void promise that indicates when the action is complete. */
+    /** Focuses the checkbox. */
     focus() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).focus();
         });
     }
-    /** Blurs the checkbox and returns a void promise that indicates when the action is complete. */
+    /** Blurs the checkbox. */
     blur() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).blur();
         });
     }
     /**
-     * Toggle the checked state of the checkbox and returns a void promise that indicates when the
-     * action is complete.
+     * Toggles the checked state of the checkbox.
      *
      * Note: This attempts to toggle the checkbox as a user would, by clicking it. Therefore if you
      * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -125,8 +122,7 @@ class MatCheckboxHarness extends ComponentHarness {
     }
     /**
      * Puts the checkbox in a checked state by toggling it if it is currently unchecked, or doing
-     * nothing if it is already checked. Returns a void promise that indicates when the action is
-     * complete.
+     * nothing if it is already checked.
      *
      * Note: This attempts to check the checkbox as a user would, by clicking it. Therefore if you
      * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -141,8 +137,7 @@ class MatCheckboxHarness extends ComponentHarness {
     }
     /**
      * Puts the checkbox in an unchecked state by toggling it if it is currently checked, or doing
-     * nothing if it is already unchecked. Returns a void promise that indicates when the action is
-     * complete.
+     * nothing if it is already unchecked.
      *
      * Note: This attempts to uncheck the checkbox as a user would, by clicking it. Therefore if you
      * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -156,6 +151,7 @@ class MatCheckboxHarness extends ComponentHarness {
         });
     }
 }
+/** The selector for the host element of a `MatCheckbox` instance. */
 MatCheckboxHarness.hostSelector = 'mat-checkbox';
 
 /**

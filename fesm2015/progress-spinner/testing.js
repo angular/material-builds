@@ -12,13 +12,15 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 /** Harness for interacting with a standard mat-progress-spinner in tests. */
 class MatProgressSpinnerHarness extends ComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a progress bar with specific
-     * attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatProgressSpinnerHarness` that
+     * meets certain criteria.
+     * @param options Options for filtering which progress spinner instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
         return new HarnessPredicate(MatProgressSpinnerHarness, options);
     }
-    /** Gets a promise for the progress spinner's value. */
+    /** Gets the progress spinner's value. */
     getValue() {
         return __awaiter(this, void 0, void 0, function* () {
             const host = yield this.host();
@@ -26,7 +28,7 @@ class MatProgressSpinnerHarness extends ComponentHarness {
             return ariaValue ? coerceNumberProperty(ariaValue) : null;
         });
     }
-    /** Gets a promise for the progress spinner's mode. */
+    /** Gets the progress spinner's mode. */
     getMode() {
         return __awaiter(this, void 0, void 0, function* () {
             const modeAttr = (yield this.host()).getAttribute('mode');
@@ -34,6 +36,7 @@ class MatProgressSpinnerHarness extends ComponentHarness {
         });
     }
 }
+/** The selector for the host element of a `MatProgressSpinner` instance. */
 MatProgressSpinnerHarness.hostSelector = 'mat-progress-spinner';
 
 /**

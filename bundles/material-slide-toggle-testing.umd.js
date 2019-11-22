@@ -22,10 +22,9 @@
             return _this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a slide-toggle w/ specific attributes.
-         * @param options Options for narrowing the search:
-         *   - `selector` finds a slide-toggle whose host element matches the given selector.
-         *   - `label` finds a slide-toggle with specific label text.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatSlideToggleHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which slide toggle instances are considered a match.
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatSlideToggleHarness.with = function (options) {
@@ -43,7 +42,7 @@
                 }
             }); }); });
         };
-        /** Gets a boolean promise indicating if the slide-toggle is checked. */
+        /** Whether the slide-toggle is checked. */
         MatSlideToggleHarness.prototype.isChecked = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var checked, _a;
@@ -59,7 +58,7 @@
                 });
             });
         };
-        /** Gets a boolean promise indicating if the slide-toggle is disabled. */
+        /** Whether the slide-toggle is disabled. */
         MatSlideToggleHarness.prototype.isDisabled = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
@@ -75,7 +74,7 @@
                 });
             });
         };
-        /** Gets a boolean promise indicating if the slide-toggle is required. */
+        /** Whether the slide-toggle is required. */
         MatSlideToggleHarness.prototype.isRequired = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var required, _a;
@@ -91,7 +90,7 @@
                 });
             });
         };
-        /** Gets a boolean promise indicating if the slide-toggle is valid. */
+        /** Whether the slide-toggle is valid. */
         MatSlideToggleHarness.prototype.isValid = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var invalid;
@@ -106,7 +105,7 @@
                 });
             });
         };
-        /** Gets a promise for the slide-toggle's name. */
+        /** Gets the slide-toggle's name. */
         MatSlideToggleHarness.prototype.getName = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -117,7 +116,7 @@
                 });
             });
         };
-        /** Gets a promise for the slide-toggle's aria-label. */
+        /** Gets the slide-toggle's aria-label. */
         MatSlideToggleHarness.prototype.getAriaLabel = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -128,7 +127,7 @@
                 });
             });
         };
-        /** Gets a promise for the slide-toggle's aria-labelledby. */
+        /** Gets the slide-toggle's aria-labelledby. */
         MatSlideToggleHarness.prototype.getAriaLabelledby = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -139,7 +138,7 @@
                 });
             });
         };
-        /** Gets a promise for the slide-toggle's label text. */
+        /** Gets the slide-toggle's label text. */
         MatSlideToggleHarness.prototype.getLabelText = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -150,7 +149,7 @@
                 });
             });
         };
-        /** Focuses the slide-toggle and returns a void promise that indicates action completion. */
+        /** Focuses the slide-toggle. */
         MatSlideToggleHarness.prototype.focus = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -161,7 +160,7 @@
                 });
             });
         };
-        /** Blurs the slide-toggle and returns a void promise that indicates action completion. */
+        /** Blurs the slide-toggle. */
         MatSlideToggleHarness.prototype.blur = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -172,12 +171,7 @@
                 });
             });
         };
-        /**
-         * Toggle the checked state of the slide-toggle and returns a void promise that indicates when the
-         * action is complete.
-         *
-         * Note: This toggles the slide-toggle as a user would, by clicking it.
-         */
+        /** Toggle the checked state of the slide-toggle. */
         MatSlideToggleHarness.prototype.toggle = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -190,10 +184,7 @@
         };
         /**
          * Puts the slide-toggle in a checked state by toggling it if it is currently unchecked, or doing
-         * nothing if it is already checked. Returns a void promise that indicates when the action is
-         * complete.
-         *
-         * Note: This attempts to check the slide-toggle as a user would, by clicking it.
+         * nothing if it is already checked.
          */
         MatSlideToggleHarness.prototype.check = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -213,10 +204,7 @@
         };
         /**
          * Puts the slide-toggle in an unchecked state by toggling it if it is currently checked, or doing
-         * nothing if it is already unchecked. Returns a void promise that indicates when the action is
-         * complete.
-         *
-         * Note: This toggles the slide-toggle as a user would, by clicking it.
+         * nothing if it is already unchecked.
          */
         MatSlideToggleHarness.prototype.uncheck = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -234,6 +222,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatSlideToggle` instance. */
         MatSlideToggleHarness.hostSelector = 'mat-slide-toggle';
         return MatSlideToggleHarness;
     }(testing.ComponentHarness));

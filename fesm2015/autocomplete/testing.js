@@ -11,6 +11,12 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  */
 /** Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests. */
 class MatAutocompleteOptionHarness extends ComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionHarness` that
+     * meets certain criteria.
+     * @param options Options for filtering which option instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
     static with(options = {}) {
         return new HarnessPredicate(MatAutocompleteOptionHarness, options)
             .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
@@ -21,13 +27,14 @@ class MatAutocompleteOptionHarness extends ComponentHarness {
             return (yield this.host()).click();
         });
     }
-    /** Gets a promise for the option's label text. */
+    /** Gets the option's label text. */
     getText() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).text();
         });
     }
 }
+/** The selector for the host element of an autocomplete `MatOption` instance. */
 MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
 /** Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests. */
 class MatAutocompleteOptionGroupHarness extends ComponentHarness {
@@ -35,17 +42,24 @@ class MatAutocompleteOptionGroupHarness extends ComponentHarness {
         super(...arguments);
         this._label = this.locatorFor('.mat-optgroup-label');
     }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionGroupHarness`
+     * that meets certain criteria.
+     * @param options Options for filtering which option group instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
     static with(options = {}) {
         return new HarnessPredicate(MatAutocompleteOptionGroupHarness, options)
             .addOption('labelText', options.labelText, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label));
     }
-    /** Gets a promise for the option group's label text. */
+    /** Gets the option group's label text. */
     getLabelText() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._label()).text();
         });
     }
 }
+/** The selector for the host element of an autocomplete `MatOptionGroup` instance. */
 MatAutocompleteOptionGroupHarness.hostSelector = '.mat-autocomplete-panel .mat-optgroup';
 
 /**
@@ -65,10 +79,9 @@ class MatAutocompleteHarness extends ComponentHarness {
         this._optionalPanel = this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for an autocomplete with
-     * specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `name` finds an autocomplete with a specific name.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which autocomplete instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
@@ -81,20 +94,20 @@ class MatAutocompleteHarness extends ComponentHarness {
             return (yield this.host()).getProperty('value');
         });
     }
-    /** Gets a boolean promise indicating if the autocomplete input is disabled. */
+    /** Whether the autocomplete input is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
             const disabled = (yield this.host()).getAttribute('disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
-    /** Focuses the input and returns a void promise that indicates when the action is complete. */
+    /** Focuses the autocomplete input. */
     focus() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).focus();
         });
     }
-    /** Blurs the input and returns a void promise that indicates when the action is complete. */
+    /** Blurs the autocomplete input. */
     blur() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).blur();
@@ -112,7 +125,7 @@ class MatAutocompleteHarness extends ComponentHarness {
             return this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness.with(filters))();
         });
     }
-    /** Gets the groups of options inside the panel. */
+    /** Gets the option groups inside the autocomplete panel. */
     getOptionGroups(filters = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             return this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness.with(filters))();
@@ -129,7 +142,7 @@ class MatAutocompleteHarness extends ComponentHarness {
             yield options[0].select();
         });
     }
-    /** Gets whether the autocomplete is open. */
+    /** Whether the autocomplete is open. */
     isOpen() {
         return __awaiter(this, void 0, void 0, function* () {
             const panel = yield this._optionalPanel();
@@ -137,6 +150,7 @@ class MatAutocompleteHarness extends ComponentHarness {
         });
     }
 }
+/** The selector for the host element of a `MatAutocomplete` instance. */
 MatAutocompleteHarness.hostSelector = '.mat-autocomplete-trigger';
 
 /**

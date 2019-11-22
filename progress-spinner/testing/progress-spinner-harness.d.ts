@@ -10,14 +10,17 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { ProgressSpinnerHarnessFilters } from './progress-spinner-harness-filters';
 /** Harness for interacting with a standard mat-progress-spinner in tests. */
 export declare class MatProgressSpinnerHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatProgressSpinner` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a progress bar with specific
-     * attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatProgressSpinnerHarness` that
+     * meets certain criteria.
+     * @param options Options for filtering which progress spinner instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: ProgressSpinnerHarnessFilters): HarnessPredicate<MatProgressSpinnerHarness>;
-    /** Gets a promise for the progress spinner's value. */
+    /** Gets the progress spinner's value. */
     getValue(): Promise<number | null>;
-    /** Gets a promise for the progress spinner's mode. */
+    /** Gets the progress spinner's mode. */
     getMode(): Promise<ProgressSpinnerMode>;
 }

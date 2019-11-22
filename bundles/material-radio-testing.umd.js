@@ -18,11 +18,9 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a radio-group with
-         * specific attributes.
-         * @param options Options for narrowing the search:
-         *   - `selector` finds a radio-group whose host element matches the given selector.
-         *   - `name` finds a radio-group with specific name.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which radio group instances are considered a match.
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatRadioGroupHarness.with = function (options) {
@@ -128,7 +126,10 @@
                 });
             });
         };
-        /** Gets all radio buttons which are part of the radio-group. */
+        /**
+         * Gets a list of radio buttons which are part of the radio-group.
+         * @param filter Optionally filters which radio buttons are included.
+         */
         MatRadioGroupHarness.prototype.getRadioButtons = function (filter) {
             if (filter === void 0) { filter = {}; }
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -137,7 +138,11 @@
                 });
             });
         };
-        /** Checks a radio button in this group. */
+        /**
+         * Checks a radio button in this group.
+         * @param filter An optional filter to apply to the child radio buttons. The first tab matching
+         *     the filter will be selected.
+         */
         MatRadioGroupHarness.prototype.checkRadioButton = function (filter) {
             if (filter === void 0) { filter = {}; }
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -155,6 +160,7 @@
                 });
             });
         };
+        /** Gets the name attribute of the host element. */
         MatRadioGroupHarness.prototype._getGroupNameFromHost = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -165,6 +171,7 @@
                 });
             });
         };
+        /** Gets a list of the name attributes of all child radio buttons. */
         MatRadioGroupHarness.prototype._getNamesFromRadioButtons = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var groupNames, _a, _b, radio, radioName, e_2_1;
@@ -267,6 +274,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatRadioGroup` instance. */
         MatRadioGroupHarness.hostSelector = 'mat-radio-group';
         return MatRadioGroupHarness;
     }(testing.ComponentHarness));
@@ -281,12 +289,9 @@
             return _this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a radio-button with
-         * specific attributes.
-         * @param options Options for narrowing the search:
-         *   - `selector` finds a radio-button whose host element matches the given selector.
-         *   - `label` finds a radio-button with specific label text.
-         *   - `name` finds a radio-button with specific name.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatRadioButtonHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which radio button instances are considered a match.
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatRadioButtonHarness.with = function (options) {
@@ -349,7 +354,7 @@
                 });
             });
         };
-        /** Gets a promise for the radio-button's name. */
+        /** Gets the radio-button's name. */
         MatRadioButtonHarness.prototype.getName = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -360,7 +365,7 @@
                 });
             });
         };
-        /** Gets a promise for the radio-button's id. */
+        /** Gets the radio-button's id. */
         MatRadioButtonHarness.prototype.getId = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -372,11 +377,10 @@
             });
         };
         /**
-         * Gets the value of the radio-button. The radio-button value will be
-         * converted to a string.
+         * Gets the value of the radio-button. The radio-button value will be converted to a string.
          *
-         * Note that this means that radio-button's with objects as value will
-         * intentionally have the `[object Object]` as return value.
+         * Note: This means that for radio-button's with an object as a value `[object Object]` is
+         * intentionally returned.
          */
         MatRadioButtonHarness.prototype.getValue = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -388,7 +392,7 @@
                 });
             });
         };
-        /** Gets a promise for the radio-button's label text. */
+        /** Gets the radio-button's label text. */
         MatRadioButtonHarness.prototype.getLabelText = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -399,10 +403,7 @@
                 });
             });
         };
-        /**
-         * Focuses the radio-button and returns a void promise that indicates when the
-         * action is complete.
-         */
+        /** Focuses the radio-button. */
         MatRadioButtonHarness.prototype.focus = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -413,10 +414,7 @@
                 });
             });
         };
-        /**
-         * Blurs the radio-button and returns a void promise that indicates when the
-         * action is complete.
-         */
+        /** Blurs the radio-button. */
         MatRadioButtonHarness.prototype.blur = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -429,8 +427,7 @@
         };
         /**
          * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
-         * or doing nothing if it is already checked. Returns a void promise that indicates when
-         * the action is complete.
+         * or doing nothing if it is already checked.
          */
         MatRadioButtonHarness.prototype.check = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -446,6 +443,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatRadioButton` instance. */
         MatRadioButtonHarness.hostSelector = 'mat-radio-button';
         return MatRadioButtonHarness;
     }(testing.ComponentHarness));

@@ -18,10 +18,10 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a drawer with
-         * specific attributes.
-         * @param options Options for narrowing the search.
-         * @return `HarnessPredicate` configured with the given options.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which drawer instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
          */
         MatDrawerHarness.with = function (options) {
             var _this = this;
@@ -34,7 +34,7 @@
                 }
             }); }); });
         };
-        /** Gets whether the drawer is open. */
+        /** Whether the drawer is open. */
         MatDrawerHarness.prototype.isOpen = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -84,6 +84,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatDrawer` instance. */
         MatDrawerHarness.hostSelector = '.mat-drawer';
         return MatDrawerHarness;
     }(testing.ComponentHarness));
@@ -102,10 +103,10 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a sidenav with
-         * specific attributes.
-         * @param options Options for narrowing the search.
-         * @return `HarnessPredicate` configured with the given options.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which sidenav instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
          */
         MatSidenavHarness.with = function (options) {
             var _this = this;
@@ -118,7 +119,7 @@
                 }
             }); }); });
         };
-        /** Gets whether the sidenav is fixed in the viewport. */
+        /** Whether the sidenav is fixed in the viewport. */
         MatSidenavHarness.prototype.isFixedInViewport = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
@@ -129,6 +130,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatSidenav` instance. */
         MatSidenavHarness.hostSelector = '.mat-sidenav';
         return MatSidenavHarness;
     }(MatDrawerHarness));

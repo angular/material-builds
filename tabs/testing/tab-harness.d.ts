@@ -9,14 +9,18 @@ import { ComponentHarness, HarnessLoader, HarnessPredicate } from '@angular/cdk/
 import { TabHarnessFilters } from './tab-harness-filters';
 /** Harness for interacting with a standard Angular Material tab-label in tests. */
 export declare class MatTabHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatTab` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: TabHarnessFilters): HarnessPredicate<MatTabHarness>;
     /** Gets the label of the tab. */
     getLabel(): Promise<string>;
-    /** Gets the aria label of the tab. */
+    /** Gets the aria-label of the tab. */
     getAriaLabel(): Promise<string | null>;
     /** Gets the value of the "aria-labelledby" attribute. */
     getAriaLabelledby(): Promise<string | null>;
@@ -24,10 +28,7 @@ export declare class MatTabHarness extends ComponentHarness {
     isSelected(): Promise<boolean>;
     /** Whether the tab is disabled. */
     isDisabled(): Promise<boolean>;
-    /**
-     * Selects the given tab by clicking on the label. Tab cannot be
-     * selected if disabled.
-     */
+    /** Selects the given tab by clicking on the label. Tab cannot be selected if disabled. */
     select(): Promise<void>;
     /** Gets the text content of the tab. */
     getTextContent(): Promise<string>;

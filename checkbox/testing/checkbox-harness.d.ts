@@ -9,46 +9,44 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { CheckboxHarnessFilters } from './checkbox-harness-filters';
 /** Harness for interacting with a standard mat-checkbox in tests. */
 export declare class MatCheckboxHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatCheckbox` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a checkbox with specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a checkbox whose host element matches the given selector.
-     *   - `label` finds a checkbox with specific label text.
-     *   - `name` finds a checkbox with specific name.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatCheckboxHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which checkbox instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: CheckboxHarnessFilters): HarnessPredicate<MatCheckboxHarness>;
     private _label;
     private _input;
     private _inputContainer;
-    /** Gets a boolean promise indicating if the checkbox is checked. */
+    /** Whether the checkbox is checked. */
     isChecked(): Promise<boolean>;
-    /** Gets a boolean promise indicating if the checkbox is in an indeterminate state. */
+    /** Whether the checkbox is in an indeterminate state. */
     isIndeterminate(): Promise<boolean>;
-    /** Gets a boolean promise indicating if the checkbox is disabled. */
+    /** Whether the checkbox is disabled. */
     isDisabled(): Promise<boolean>;
-    /** Gets a boolean promise indicating if the checkbox is required. */
+    /** Whether the checkbox is required. */
     isRequired(): Promise<boolean>;
-    /** Gets a boolean promise indicating if the checkbox is valid. */
+    /** Whether the checkbox is valid. */
     isValid(): Promise<boolean>;
-    /** Gets a promise for the checkbox's name. */
+    /** Gets the checkbox's name. */
     getName(): Promise<string | null>;
-    /** Gets a promise for the checkbox's value. */
+    /** Gets the checkbox's value. */
     getValue(): Promise<string | null>;
-    /** Gets a promise for the checkbox's aria-label. */
+    /** Gets the checkbox's aria-label. */
     getAriaLabel(): Promise<string | null>;
-    /** Gets a promise for the checkbox's aria-labelledby. */
+    /** Gets the checkbox's aria-labelledby. */
     getAriaLabelledby(): Promise<string | null>;
-    /** Gets a promise for the checkbox's label text. */
+    /** Gets the checkbox's label text. */
     getLabelText(): Promise<string>;
-    /** Focuses the checkbox and returns a void promise that indicates when the action is complete. */
+    /** Focuses the checkbox. */
     focus(): Promise<void>;
-    /** Blurs the checkbox and returns a void promise that indicates when the action is complete. */
+    /** Blurs the checkbox. */
     blur(): Promise<void>;
     /**
-     * Toggle the checked state of the checkbox and returns a void promise that indicates when the
-     * action is complete.
+     * Toggles the checked state of the checkbox.
      *
      * Note: This attempts to toggle the checkbox as a user would, by clicking it. Therefore if you
      * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -57,8 +55,7 @@ export declare class MatCheckboxHarness extends ComponentHarness {
     toggle(): Promise<void>;
     /**
      * Puts the checkbox in a checked state by toggling it if it is currently unchecked, or doing
-     * nothing if it is already checked. Returns a void promise that indicates when the action is
-     * complete.
+     * nothing if it is already checked.
      *
      * Note: This attempts to check the checkbox as a user would, by clicking it. Therefore if you
      * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method
@@ -67,8 +64,7 @@ export declare class MatCheckboxHarness extends ComponentHarness {
     check(): Promise<void>;
     /**
      * Puts the checkbox in an unchecked state by toggling it if it is currently checked, or doing
-     * nothing if it is already unchecked. Returns a void promise that indicates when the action is
-     * complete.
+     * nothing if it is already unchecked.
      *
      * Note: This attempts to uncheck the checkbox as a user would, by clicking it. Therefore if you
      * are using `MAT_CHECKBOX_CLICK_ACTION` to change the behavior on click, calling this method

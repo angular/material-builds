@@ -18,14 +18,16 @@
             return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a progress bar with specific
-         * attributes.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatProgressSpinnerHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which progress spinner instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
          */
         MatProgressSpinnerHarness.with = function (options) {
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatProgressSpinnerHarness, options);
         };
-        /** Gets a promise for the progress spinner's value. */
+        /** Gets the progress spinner's value. */
         MatProgressSpinnerHarness.prototype.getValue = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var host, ariaValue;
@@ -42,7 +44,7 @@
                 });
             });
         };
-        /** Gets a promise for the progress spinner's mode. */
+        /** Gets the progress spinner's mode. */
         MatProgressSpinnerHarness.prototype.getMode = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
                 var modeAttr;
@@ -57,6 +59,7 @@
                 });
             });
         };
+        /** The selector for the host element of a `MatProgressSpinner` instance. */
         MatProgressSpinnerHarness.hostSelector = 'mat-progress-spinner';
         return MatProgressSpinnerHarness;
     }(testing.ComponentHarness));

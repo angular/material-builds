@@ -9,49 +9,67 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MenuHarnessFilters, MenuItemHarnessFilters } from './menu-harness-filters';
 /** Harness for interacting with a standard mat-menu in tests. */
 export declare class MatMenuHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatMenu` instance. */
     static hostSelector: string;
     private _documentRootLocator;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a menu with specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a menu whose host element matches the given selector.
-     *   - `label` finds a menu with specific label text.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatMenuHarness` that meets certain
+     * criteria.
+     * @param options Options for filtering which menu instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: MenuHarnessFilters): HarnessPredicate<MatMenuHarness>;
-    /** Gets a boolean promise indicating if the menu is disabled. */
+    /** Whether the menu is disabled. */
     isDisabled(): Promise<boolean>;
     /** Whether the menu is open. */
     isOpen(): Promise<boolean>;
+    /** Gets the text of the menu's trigger element. */
     getTriggerText(): Promise<string>;
-    /** Focuses the menu and returns a void promise that indicates when the action is complete. */
+    /** Focuses the menu. */
     focus(): Promise<void>;
-    /** Blurs the menu and returns a void promise that indicates when the action is complete. */
+    /** Blurs the menu. */
     blur(): Promise<void>;
+    /** Opens the menu. */
     open(): Promise<void>;
+    /** Closes the menu. */
     close(): Promise<void>;
+    /**
+     * Gets a list of `MatMenuItemHarness` representing the items in the menu.
+     * @param filters Optionally filters which menu items are included.
+     */
     getItems(filters?: Omit<MenuItemHarnessFilters, 'ancestor'>): Promise<MatMenuItemHarness[]>;
-    clickItem(filter: Omit<MenuItemHarnessFilters, 'ancestor'>, ...filters: Omit<MenuItemHarnessFilters, 'ancestor'>[]): Promise<void>;
+    /**
+     * Clicks an item in the menu, and optionally continues clicking items in subsequent sub-menus.
+     * @param itemFilter A filter used to represent which item in the menu should be clicked. The
+     *     first matching menu item will be clicked.
+     * @param subItemFilters A list of filters representing the items to click in any subsequent
+     *     sub-menus. The first item in the sub-menu matching the corresponding filter in
+     *     `subItemFilters` will be clicked.
+     */
+    clickItem(itemFilter: Omit<MenuItemHarnessFilters, 'ancestor'>, ...subItemFilters: Omit<MenuItemHarnessFilters, 'ancestor'>[]): Promise<void>;
+    /** Gets the menu panel associated with this menu. */
     private _getMenuPanel;
+    /** Gets the id of the menu panel associated with this menu. */
     private _getPanelId;
 }
 /** Harness for interacting with a standard mat-menu-item in tests. */
 export declare class MatMenuItemHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatMenuItem` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a menu with specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a menu item whose host element matches the given selector.
-     *   - `label` finds a menu item with specific label text.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatMenuItemHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which menu item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: MenuItemHarnessFilters): HarnessPredicate<MatMenuItemHarness>;
-    /** Gets a boolean promise indicating if the menu is disabled. */
+    /** Whether the menu is disabled. */
     isDisabled(): Promise<boolean>;
+    /** Gets the text of the menu item. */
     getText(): Promise<string>;
-    /** Focuses the menu and returns a void promise that indicates when the action is complete. */
+    /** Focuses the menu item. */
     focus(): Promise<void>;
-    /** Blurs the menu and returns a void promise that indicates when the action is complete. */
+    /** Blurs the menu item. */
     blur(): Promise<void>;
     /** Clicks the menu item. */
     click(): Promise<void>;

@@ -19,11 +19,9 @@ var MatSliderHarness = /** @class */ (function (_super) {
         return _this;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a mat-slider with
-     * specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a slider whose host element matches the given selector.
-     *   - `id` finds a slider with specific id.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSliderHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which slider instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     MatSliderHarness.with = function (options) {
@@ -48,8 +46,8 @@ var MatSliderHarness = /** @class */ (function (_super) {
         });
     };
     /**
-     * Gets the current display value of the slider. Returns null if the thumb
-     * label is disabled.
+     * Gets the current display value of the slider. Returns a null promise if the thumb label is
+     * disabled.
      */
     MatSliderHarness.prototype.getDisplayValue = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -197,10 +195,7 @@ var MatSliderHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /**
-     * Focuses the slider and returns a void promise that indicates when the
-     * action is complete.
-     */
+    /** Focuses the slider. */
     MatSliderHarness.prototype.focus = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -211,10 +206,7 @@ var MatSliderHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /**
-     * Blurs the slider and returns a void promise that indicates when the
-     * action is complete.
-     */
+    /** Blurs the slider. */
     MatSliderHarness.prototype.blur = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -239,6 +231,7 @@ var MatSliderHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** The selector for the host element of a `MatSlider` instance. */
     MatSliderHarness.hostSelector = 'mat-slider';
     return MatSliderHarness;
 }(ComponentHarness));

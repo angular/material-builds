@@ -18,10 +18,9 @@ class MatSlideToggleHarness extends ComponentHarness {
         this._inputContainer = this.locatorFor('.mat-slide-toggle-bar');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a slide-toggle w/ specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a slide-toggle whose host element matches the given selector.
-     *   - `label` finds a slide-toggle with specific label text.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSlideToggleHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which slide toggle instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
@@ -32,76 +31,71 @@ class MatSlideToggleHarness extends ComponentHarness {
             // to retrieve the harness of a specific checkbox with name through a CSS selector.
             .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
     }
-    /** Gets a boolean promise indicating if the slide-toggle is checked. */
+    /** Whether the slide-toggle is checked. */
     isChecked() {
         return __awaiter(this, void 0, void 0, function* () {
             const checked = (yield this._input()).getProperty('checked');
             return coerceBooleanProperty(yield checked);
         });
     }
-    /** Gets a boolean promise indicating if the slide-toggle is disabled. */
+    /** Whether the slide-toggle is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
             const disabled = (yield this._input()).getAttribute('disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
-    /** Gets a boolean promise indicating if the slide-toggle is required. */
+    /** Whether the slide-toggle is required. */
     isRequired() {
         return __awaiter(this, void 0, void 0, function* () {
             const required = (yield this._input()).getAttribute('required');
             return coerceBooleanProperty(yield required);
         });
     }
-    /** Gets a boolean promise indicating if the slide-toggle is valid. */
+    /** Whether the slide-toggle is valid. */
     isValid() {
         return __awaiter(this, void 0, void 0, function* () {
             const invalid = (yield this.host()).hasClass('ng-invalid');
             return !(yield invalid);
         });
     }
-    /** Gets a promise for the slide-toggle's name. */
+    /** Gets the slide-toggle's name. */
     getName() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).getAttribute('name');
         });
     }
-    /** Gets a promise for the slide-toggle's aria-label. */
+    /** Gets the slide-toggle's aria-label. */
     getAriaLabel() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).getAttribute('aria-label');
         });
     }
-    /** Gets a promise for the slide-toggle's aria-labelledby. */
+    /** Gets the slide-toggle's aria-labelledby. */
     getAriaLabelledby() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).getAttribute('aria-labelledby');
         });
     }
-    /** Gets a promise for the slide-toggle's label text. */
+    /** Gets the slide-toggle's label text. */
     getLabelText() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._label()).text();
         });
     }
-    /** Focuses the slide-toggle and returns a void promise that indicates action completion. */
+    /** Focuses the slide-toggle. */
     focus() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).focus();
         });
     }
-    /** Blurs the slide-toggle and returns a void promise that indicates action completion. */
+    /** Blurs the slide-toggle. */
     blur() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._input()).blur();
         });
     }
-    /**
-     * Toggle the checked state of the slide-toggle and returns a void promise that indicates when the
-     * action is complete.
-     *
-     * Note: This toggles the slide-toggle as a user would, by clicking it.
-     */
+    /** Toggle the checked state of the slide-toggle. */
     toggle() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._inputContainer()).click();
@@ -109,10 +103,7 @@ class MatSlideToggleHarness extends ComponentHarness {
     }
     /**
      * Puts the slide-toggle in a checked state by toggling it if it is currently unchecked, or doing
-     * nothing if it is already checked. Returns a void promise that indicates when the action is
-     * complete.
-     *
-     * Note: This attempts to check the slide-toggle as a user would, by clicking it.
+     * nothing if it is already checked.
      */
     check() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -123,10 +114,7 @@ class MatSlideToggleHarness extends ComponentHarness {
     }
     /**
      * Puts the slide-toggle in an unchecked state by toggling it if it is currently checked, or doing
-     * nothing if it is already unchecked. Returns a void promise that indicates when the action is
-     * complete.
-     *
-     * Note: This toggles the slide-toggle as a user would, by clicking it.
+     * nothing if it is already unchecked.
      */
     uncheck() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -136,6 +124,7 @@ class MatSlideToggleHarness extends ComponentHarness {
         });
     }
 }
+/** The selector for the host element of a `MatSlideToggle` instance. */
 MatSlideToggleHarness.hostSelector = 'mat-slide-toggle';
 
 /**

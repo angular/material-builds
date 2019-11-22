@@ -15,6 +15,12 @@ var MatAutocompleteOptionHarness = /** @class */ (function (_super) {
     function MatAutocompleteOptionHarness() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionHarness` that
+     * meets certain criteria.
+     * @param options Options for filtering which option instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
     MatAutocompleteOptionHarness.with = function (options) {
         if (options === void 0) { options = {}; }
         return new HarnessPredicate(MatAutocompleteOptionHarness, options)
@@ -31,7 +37,7 @@ var MatAutocompleteOptionHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets a promise for the option's label text. */
+    /** Gets the option's label text. */
     MatAutocompleteOptionHarness.prototype.getText = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -42,6 +48,7 @@ var MatAutocompleteOptionHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** The selector for the host element of an autocomplete `MatOption` instance. */
     MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
     return MatAutocompleteOptionHarness;
 }(ComponentHarness));
@@ -53,12 +60,18 @@ var MatAutocompleteOptionGroupHarness = /** @class */ (function (_super) {
         _this._label = _this.locatorFor('.mat-optgroup-label');
         return _this;
     }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionGroupHarness`
+     * that meets certain criteria.
+     * @param options Options for filtering which option group instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
     MatAutocompleteOptionGroupHarness.with = function (options) {
         if (options === void 0) { options = {}; }
         return new HarnessPredicate(MatAutocompleteOptionGroupHarness, options)
             .addOption('labelText', options.labelText, function (harness, label) { return HarnessPredicate.stringMatches(harness.getLabelText(), label); });
     };
-    /** Gets a promise for the option group's label text. */
+    /** Gets the option group's label text. */
     MatAutocompleteOptionGroupHarness.prototype.getLabelText = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -69,6 +82,7 @@ var MatAutocompleteOptionGroupHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** The selector for the host element of an autocomplete `MatOptionGroup` instance. */
     MatAutocompleteOptionGroupHarness.hostSelector = '.mat-autocomplete-panel .mat-optgroup';
     return MatAutocompleteOptionGroupHarness;
 }(ComponentHarness));
@@ -92,10 +106,9 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
         return _this;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for an autocomplete with
-     * specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `name` finds an autocomplete with a specific name.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which autocomplete instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     MatAutocompleteHarness.with = function (options) {
@@ -114,7 +127,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets a boolean promise indicating if the autocomplete input is disabled. */
+    /** Whether the autocomplete input is disabled. */
     MatAutocompleteHarness.prototype.isDisabled = function () {
         return __awaiter(this, void 0, void 0, function () {
             var disabled, _a;
@@ -130,7 +143,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Focuses the input and returns a void promise that indicates when the action is complete. */
+    /** Focuses the autocomplete input. */
     MatAutocompleteHarness.prototype.focus = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -141,7 +154,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Blurs the input and returns a void promise that indicates when the action is complete. */
+    /** Blurs the autocomplete input. */
     MatAutocompleteHarness.prototype.blur = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -172,7 +185,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets the groups of options inside the panel. */
+    /** Gets the option groups inside the autocomplete panel. */
     MatAutocompleteHarness.prototype.getOptionGroups = function (filters) {
         if (filters === void 0) { filters = {}; }
         return __awaiter(this, void 0, void 0, function () {
@@ -204,7 +217,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Gets whether the autocomplete is open. */
+    /** Whether the autocomplete is open. */
     MatAutocompleteHarness.prototype.isOpen = function () {
         return __awaiter(this, void 0, void 0, function () {
             var panel, _a;
@@ -224,6 +237,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** The selector for the host element of a `MatAutocomplete` instance. */
     MatAutocompleteHarness.hostSelector = '.mat-autocomplete-trigger';
     return MatAutocompleteHarness;
 }(ComponentHarness));

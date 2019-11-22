@@ -11,17 +11,16 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /** Harness for interacting with a standard MatDialog in tests. */
+    /** Harness for interacting with a standard `MatDialog` in tests. */
     var MatDialogHarness = /** @class */ (function (_super) {
         tslib.__extends(MatDialogHarness, _super);
         function MatDialogHarness() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
-         * Gets a `HarnessPredicate` that can be used to search for a dialog with
-         * specific attributes.
-         * @param options Options for narrowing the search:
-         *   - `id` finds a dialog with specific id.
+         * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which dialog instances are considered a match.
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatDialogHarness.with = function (options) {
@@ -90,8 +89,9 @@
             });
         };
         /**
-         * Closes the dialog by pressing escape. Note that this method cannot
-         * be used if "disableClose" has been set to true for the dialog.
+         * Closes the dialog by pressing escape.
+         *
+         * Note: this method does nothing if `disableClose` has been set to `true` for the dialog.
          */
         MatDialogHarness.prototype.close = function () {
             return tslib.__awaiter(this, void 0, void 0, function () {
@@ -108,6 +108,7 @@
         };
         // Developers can provide a custom component or template for the
         // dialog. The canonical dialog parent is the "MatDialogContainer".
+        /** The selector for the host element of a `MatDialog` instance. */
         MatDialogHarness.hostSelector = '.mat-dialog-container';
         return MatDialogHarness;
     }(testing.ComponentHarness));
