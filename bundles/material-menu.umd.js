@@ -602,7 +602,9 @@
          */
         _MatMenuBase.prototype.setElevation = function (depth) {
             // The elevation starts at the base and increases by one for each level.
-            var newElevation = "mat-elevation-z" + (MAT_MENU_BASE_ELEVATION + depth);
+            // Capped at 24 because that's the maximum elevation defined in the Material design spec.
+            var elevation = Math.min(MAT_MENU_BASE_ELEVATION + depth, 24);
+            var newElevation = "mat-elevation-z" + elevation;
             var customElevation = Object.keys(this._classList).find(function (c) { return c.startsWith('mat-elevation-z'); });
             if (!customElevation || customElevation === this._previousElevation) {
                 if (this._previousElevation) {
