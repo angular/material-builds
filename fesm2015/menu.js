@@ -936,8 +936,11 @@ class _MatMenuBase {
      */
     setElevation(depth) {
         // The elevation starts at the base and increases by one for each level.
+        // Capped at 24 because that's the maximum elevation defined in the Material design spec.
         /** @type {?} */
-        const newElevation = `mat-elevation-z${MAT_MENU_BASE_ELEVATION + depth}`;
+        const elevation = Math.min(MAT_MENU_BASE_ELEVATION + depth, 24);
+        /** @type {?} */
+        const newElevation = `mat-elevation-z${elevation}`;
         /** @type {?} */
         const customElevation = Object.keys(this._classList).find((/**
          * @param {?} c

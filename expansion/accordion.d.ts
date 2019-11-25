@@ -14,6 +14,9 @@ import { MatExpansionPanelHeader } from './expansion-panel-header';
  */
 export declare class MatAccordion extends CdkAccordion implements MatAccordionBase, AfterContentInit {
     private _keyManager;
+    /** Headers belonging to this accordion. */
+    private _ownHeaders;
+    /** All headers inside the accordion. Includes headers inside nested accordions. */
     _headers: QueryList<MatExpansionPanelHeader>;
     /** Whether the expansion indicator should be hidden. */
     hideToggle: boolean;

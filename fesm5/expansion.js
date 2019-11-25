@@ -1,13 +1,13 @@
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { ENTER, hasModifierKey, SPACE, HOME, END } from '@angular/cdk/keycodes';
-import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
+import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { trigger, state, style, transition, animate, group, query, animateChild } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -514,6 +514,8 @@ var MatAccordion = /** @class */ (function (_super) {
     __extends(MatAccordion, _super);
     function MatAccordion() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        /** Headers belonging to this accordion. */
+        _this._ownHeaders = new QueryList();
         _this._hideToggle = false;
         /**
          * Display mode used for all expansion panels in the accordion. Currently two display
@@ -536,7 +538,14 @@ var MatAccordion = /** @class */ (function (_super) {
         configurable: true
     });
     MatAccordion.prototype.ngAfterContentInit = function () {
-        this._keyManager = new FocusKeyManager(this._headers).withWrap();
+        var _this = this;
+        this._headers.changes
+            .pipe(startWith(this._headers))
+            .subscribe(function (headers) {
+            _this._ownHeaders.reset(headers.filter(function (header) { return header.panel.accordion === _this; }));
+            _this._ownHeaders.notifyOnChanges();
+        });
+        this._keyManager = new FocusKeyManager(this._ownHeaders).withWrap();
     };
     /** Handles keyboard events coming in from the panel headers. */
     MatAccordion.prototype._handleHeaderKeydown = function (event) {

@@ -203,7 +203,16 @@
             var toFocus = this._elementFocusedBeforeOpened;
             // We need the extra check, because IE can set the `activeElement` to null in some cases.
             if (this.bottomSheetConfig.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
-                toFocus.focus();
+                var activeElement = this._document.activeElement;
+                var element = this._elementRef.nativeElement;
+                // Make sure that focus is still inside the bottom sheet or is on the body (usually because a
+                // non-focusable element like the backdrop was clicked) before moving it. It's possible that
+                // the consumer moved it themselves before the animation was done, in which case we shouldn't
+                // do anything.
+                if (!activeElement || activeElement === this._document.body || activeElement === element ||
+                    element.contains(activeElement)) {
+                    toFocus.focus();
+                }
             }
             if (this._focusTrap) {
                 this._focusTrap.destroy();

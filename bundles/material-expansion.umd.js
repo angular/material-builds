@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/accordion'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/platform-browser/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/cdk/accordion', '@angular/cdk/portal', '@angular/common', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/collections', '@angular/platform-browser/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.collections, global.ng.platformBrowser.animations));
-}(this, (function (exports, accordion, portal, common, core, tslib, coercion, a11y, keycodes, rxjs, operators, animations, collections, animations$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/accordion'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/platform-browser/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/cdk/accordion', '@angular/cdk/portal', '@angular/common', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/operators', 'rxjs', '@angular/animations', '@angular/cdk/collections', '@angular/platform-browser/animations'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs.operators, global.rxjs, global.ng.animations, global.ng.cdk.collections, global.ng.platformBrowser.animations));
+}(this, (function (exports, accordion, portal, common, core, tslib, coercion, a11y, keycodes, operators, rxjs, animations, collections, animations$1) { 'use strict';
 
     /**
      * @license
@@ -506,6 +506,8 @@
         tslib.__extends(MatAccordion, _super);
         function MatAccordion() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
+            /** Headers belonging to this accordion. */
+            _this._ownHeaders = new core.QueryList();
             _this._hideToggle = false;
             /**
              * Display mode used for all expansion panels in the accordion. Currently two display
@@ -528,7 +530,14 @@
             configurable: true
         });
         MatAccordion.prototype.ngAfterContentInit = function () {
-            this._keyManager = new a11y.FocusKeyManager(this._headers).withWrap();
+            var _this = this;
+            this._headers.changes
+                .pipe(operators.startWith(this._headers))
+                .subscribe(function (headers) {
+                _this._ownHeaders.reset(headers.filter(function (header) { return header.panel.accordion === _this; }));
+                _this._ownHeaders.notifyOnChanges();
+            });
+            this._keyManager = new a11y.FocusKeyManager(this._ownHeaders).withWrap();
         };
         /** Handles keyboard events coming in from the panel headers. */
         MatAccordion.prototype._handleHeaderKeydown = function (event) {

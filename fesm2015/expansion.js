@@ -1,12 +1,12 @@
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { ENTER, hasModifierKey, SPACE, HOME, END } from '@angular/cdk/keycodes';
-import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
+import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { trigger, state, style, transition, animate, group, query, animateChild } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -794,6 +794,10 @@ MatExpansionPanelTitle.decorators = [
 class MatAccordion extends CdkAccordion {
     constructor() {
         super(...arguments);
+        /**
+         * Headers belonging to this accordion.
+         */
+        this._ownHeaders = new QueryList();
         this._hideToggle = false;
         /**
          * Display mode used for all expansion panels in the accordion. Currently two display
@@ -823,7 +827,21 @@ class MatAccordion extends CdkAccordion {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._keyManager = new FocusKeyManager(this._headers).withWrap();
+        this._headers.changes
+            .pipe(startWith(this._headers))
+            .subscribe((/**
+         * @param {?} headers
+         * @return {?}
+         */
+        (headers) => {
+            this._ownHeaders.reset(headers.filter((/**
+             * @param {?} header
+             * @return {?}
+             */
+            header => header.panel.accordion === this)));
+            this._ownHeaders.notifyOnChanges();
+        }));
+        this._keyManager = new FocusKeyManager(this._ownHeaders).withWrap();
     }
     /**
      * Handles keyboard events coming in from the panel headers.
@@ -888,7 +906,16 @@ if (false) {
      * @private
      */
     MatAccordion.prototype._keyManager;
-    /** @type {?} */
+    /**
+     * Headers belonging to this accordion.
+     * @type {?}
+     * @private
+     */
+    MatAccordion.prototype._ownHeaders;
+    /**
+     * All headers inside the accordion. Includes headers inside nested accordions.
+     * @type {?}
+     */
     MatAccordion.prototype._headers;
     /**
      * @type {?}
