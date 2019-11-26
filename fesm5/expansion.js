@@ -199,10 +199,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     MatExpansionPanel.prototype._hasSpacing = function () {
         if (this.accordion) {
-            // We don't need to subscribe to the `stateChanges` of the parent accordion because each time
-            // the [displayMode] input changes, the change detection will also cover the host bindings
-            // of this expansion panel.
-            return (this.expanded ? this.accordion.displayMode : this._getExpandedState()) === 'default';
+            return this.expanded && this.accordion.displayMode === 'default';
         }
         return false;
     };
