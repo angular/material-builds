@@ -33,7 +33,7 @@ interface MatTabGroupBaseHeader {
  * @docs-private
  */
 export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
-    private _changeDetectorRef;
+    protected _changeDetectorRef: ChangeDetectorRef;
     _animationMode?: string | undefined;
     /**
      * All tabs inside the tab group. This includes tabs that belong to groups that are nested

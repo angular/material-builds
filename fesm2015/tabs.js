@@ -1426,7 +1426,7 @@ if (false) {
     _MatTabGroupBase.prototype._groupId;
     /**
      * @type {?}
-     * @private
+     * @protected
      */
     _MatTabGroupBase.prototype._changeDetectorRef;
     /** @type {?} */
