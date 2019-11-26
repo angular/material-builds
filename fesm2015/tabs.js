@@ -2442,7 +2442,7 @@ MatTabHeader.ctorParameters = () => [
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatTabHeader.propDecorators = {
-    _items: [{ type: ContentChildren, args: [MatTabLabelWrapper, { descendants: false },] }],
+    _items: [{ type: ContentChildren, args: [MatTabLabelWrapper,] }],
     _inkBar: [{ type: ViewChild, args: [MatInkBar, { static: true },] }],
     _tabListContainer: [{ type: ViewChild, args: ['tabListContainer', { static: true },] }],
     _tabList: [{ type: ViewChild, args: ['tabList', { static: true },] }],

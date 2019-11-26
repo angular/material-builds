@@ -1499,7 +1499,7 @@
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
         ]; };
         MatTabHeader.propDecorators = {
-            _items: [{ type: core.ContentChildren, args: [MatTabLabelWrapper, { descendants: false },] }],
+            _items: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
             _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
             _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
             _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
