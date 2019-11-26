@@ -1052,7 +1052,7 @@ _MatMenuBase.propDecorators = {
     xPosition: [{ type: Input }],
     yPosition: [{ type: Input }],
     templateRef: [{ type: ViewChild, args: [TemplateRef,] }],
-    items: [{ type: ContentChildren, args: [MatMenuItem,] }],
+    items: [{ type: ContentChildren, args: [MatMenuItem, { descendants: false },] }],
     lazyContent: [{ type: ContentChild, args: [MatMenuContent,] }],
     overlapTrigger: [{ type: Input }],
     hasBackdrop: [{ type: Input }],

@@ -826,7 +826,8 @@ class MatSelect extends _MatSelectMixinBase {
         /** @type {?} */
         const manager = this._keyManager;
         // Open the select on ALT + arrow key to match the native <select>
-        if ((isOpenKey && !hasModifierKey(event)) || ((this.multiple || event.altKey) && isArrowKey)) {
+        if (!manager.isTyping() && (isOpenKey && !hasModifierKey(event)) ||
+            ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
@@ -858,11 +859,13 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _handleOpenKeydown(event) {
         /** @type {?} */
+        const manager = this._keyManager;
+        /** @type {?} */
         const keyCode = event.keyCode;
         /** @type {?} */
         const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
         /** @type {?} */
-        const manager = this._keyManager;
+        const isTyping = manager.isTyping();
         if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
             keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
@@ -871,13 +874,15 @@ class MatSelect extends _MatSelectMixinBase {
             // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
             this.close();
+            // Don't do anything in this case if the user is typing,
+            // because the typing sequence can include the space key.
         }
-        else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem &&
+        else if (!isTyping && (keyCode === ENTER || keyCode === SPACE) && manager.activeItem &&
             !hasModifierKey(event)) {
             event.preventDefault();
             manager.activeItem._selectViaInteraction();
         }
-        else if (this._multiple && keyCode === A && event.ctrlKey) {
+        else if (!isTyping && this._multiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
             /** @type {?} */
             const hasDeselectedOptions = this.options.some((/**

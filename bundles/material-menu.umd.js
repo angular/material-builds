@@ -687,7 +687,7 @@
             xPosition: [{ type: core.Input }],
             yPosition: [{ type: core.Input }],
             templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
-            items: [{ type: core.ContentChildren, args: [MatMenuItem,] }],
+            items: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: false },] }],
             lazyContent: [{ type: core.ContentChild, args: [MatMenuContent,] }],
             overlapTrigger: [{ type: core.Input }],
             hasBackdrop: [{ type: core.Input }],

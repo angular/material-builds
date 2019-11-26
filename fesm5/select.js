@@ -586,7 +586,8 @@ var MatSelect = /** @class */ (function (_super) {
         var isOpenKey = keyCode === ENTER || keyCode === SPACE;
         var manager = this._keyManager;
         // Open the select on ALT + arrow key to match the native <select>
-        if ((isOpenKey && !hasModifierKey(event)) || ((this.multiple || event.altKey) && isArrowKey)) {
+        if (!manager.isTyping() && (isOpenKey && !hasModifierKey(event)) ||
+            ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
@@ -610,9 +611,10 @@ var MatSelect = /** @class */ (function (_super) {
     };
     /** Handles keyboard events when the selected is open. */
     MatSelect.prototype._handleOpenKeydown = function (event) {
+        var manager = this._keyManager;
         var keyCode = event.keyCode;
         var isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
-        var manager = this._keyManager;
+        var isTyping = manager.isTyping();
         if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
             keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
@@ -621,13 +623,15 @@ var MatSelect = /** @class */ (function (_super) {
             // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
             this.close();
+            // Don't do anything in this case if the user is typing,
+            // because the typing sequence can include the space key.
         }
-        else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem &&
+        else if (!isTyping && (keyCode === ENTER || keyCode === SPACE) && manager.activeItem &&
             !hasModifierKey(event)) {
             event.preventDefault();
             manager.activeItem._selectViaInteraction();
         }
-        else if (this._multiple && keyCode === A && event.ctrlKey) {
+        else if (!isTyping && this._multiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
             var hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
             this.options.forEach(function (option) {

@@ -575,7 +575,8 @@
             var isOpenKey = keyCode === keycodes.ENTER || keyCode === keycodes.SPACE;
             var manager = this._keyManager;
             // Open the select on ALT + arrow key to match the native <select>
-            if ((isOpenKey && !keycodes.hasModifierKey(event)) || ((this.multiple || event.altKey) && isArrowKey)) {
+            if (!manager.isTyping() && (isOpenKey && !keycodes.hasModifierKey(event)) ||
+                ((this.multiple || event.altKey) && isArrowKey)) {
                 event.preventDefault(); // prevents the page from scrolling down when pressing space
                 this.open();
             }
@@ -599,9 +600,10 @@
         };
         /** Handles keyboard events when the selected is open. */
         MatSelect.prototype._handleOpenKeydown = function (event) {
+            var manager = this._keyManager;
             var keyCode = event.keyCode;
             var isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW;
-            var manager = this._keyManager;
+            var isTyping = manager.isTyping();
             if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
                 event.preventDefault();
                 keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
@@ -610,13 +612,15 @@
                 // Close the select on ALT + arrow key to match the native <select>
                 event.preventDefault();
                 this.close();
+                // Don't do anything in this case if the user is typing,
+                // because the typing sequence can include the space key.
             }
-            else if ((keyCode === keycodes.ENTER || keyCode === keycodes.SPACE) && manager.activeItem &&
+            else if (!isTyping && (keyCode === keycodes.ENTER || keyCode === keycodes.SPACE) && manager.activeItem &&
                 !keycodes.hasModifierKey(event)) {
                 event.preventDefault();
                 manager.activeItem._selectViaInteraction();
             }
-            else if (this._multiple && keyCode === keycodes.A && event.ctrlKey) {
+            else if (!isTyping && this._multiple && keyCode === keycodes.A && event.ctrlKey) {
                 event.preventDefault();
                 var hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
                 this.options.forEach(function (option) {
