@@ -1,5 +1,6 @@
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/sort/sort-direction.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**

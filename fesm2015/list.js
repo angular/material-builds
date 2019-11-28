@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/list/list.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatList.
@@ -310,6 +311,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/list/selection-list.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1253,6 +1255,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/list/list-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatListModule {
@@ -1289,6 +1292,7 @@ MatListModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/list/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

@@ -12,6 +12,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/error.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -44,6 +45,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/form-field-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -67,6 +69,7 @@ const matFormFieldAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/form-field-control.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -167,6 +170,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/form-field-errors.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -201,6 +205,7 @@ function getMatFormFieldMissingControlError() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/hint.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -251,6 +256,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/label.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -266,6 +272,7 @@ MatLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/placeholder.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -284,6 +291,7 @@ MatPlaceholder.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/prefix.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -299,6 +307,7 @@ MatPrefix.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/suffix.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -314,6 +323,7 @@ MatSuffix.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/form-field.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -1109,6 +1119,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/form-field-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatFormFieldModule {
@@ -1142,6 +1153,7 @@ MatFormFieldModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/form-field/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/input/autosize.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -86,6 +87,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/input/input-errors.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -106,6 +108,7 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/input/input-value-accessor.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -119,6 +122,7 @@ const MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/input/input.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
@@ -726,6 +730,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/input/input-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatInputModule {
@@ -752,6 +757,7 @@ MatInputModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/input/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

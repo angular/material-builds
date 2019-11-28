@@ -13,6 +13,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/step-label.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepLabel extends CdkStepLabel {
@@ -25,6 +26,7 @@ MatStepLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/stepper-intl.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -80,6 +82,7 @@ const MAT_STEPPER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/step-header.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepHeader extends CdkStepHeader {
@@ -255,6 +258,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/stepper-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -285,6 +289,7 @@ const matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/stepper-icon.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -344,6 +349,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/stepper.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStep extends CdkStep {
@@ -645,6 +651,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/stepper-button.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -678,6 +685,7 @@ MatStepperPrevious.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/stepper-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatStepperModule {
@@ -722,6 +730,7 @@ MatStepperModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/stepper/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

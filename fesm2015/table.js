@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/table/table.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -52,6 +53,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/table/cell.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -204,6 +206,7 @@ MatCell.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/table/row.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -321,6 +324,7 @@ MatRow.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/table/text-column.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -361,6 +365,7 @@ MatTextColumn.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/table/table-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -401,6 +406,7 @@ MatTableModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/table/table-data-source.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -861,6 +867,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/table/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

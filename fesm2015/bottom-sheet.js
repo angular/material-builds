@@ -13,6 +13,7 @@ import { filter, take } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/bottom-sheet/bottom-sheet-config.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -130,6 +131,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/bottom-sheet/bottom-sheet-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -150,6 +152,7 @@ const matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/bottom-sheet/bottom-sheet-container.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
@@ -501,6 +504,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/bottom-sheet/bottom-sheet-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatBottomSheetModule {
@@ -521,6 +525,7 @@ MatBottomSheetModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/bottom-sheet/bottom-sheet-ref.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -710,6 +715,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/bottom-sheet/bottom-sheet.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -951,6 +957,7 @@ function _applyConfigDefaults(defaults, config) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/bottom-sheet/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

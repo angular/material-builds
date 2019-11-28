@@ -14,6 +14,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/sidenav/drawer-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -46,6 +47,7 @@ const matDrawerAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/sidenav/drawer.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1329,6 +1331,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/sidenav/sidenav.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSidenavContent extends MatDrawerContent {
@@ -1506,6 +1509,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/sidenav/sidenav-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSidenavModule {
@@ -1540,6 +1544,7 @@ MatSidenavModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/sidenav/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

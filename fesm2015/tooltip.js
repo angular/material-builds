@@ -16,6 +16,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/tooltip/tooltip-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -41,6 +42,7 @@ const matTooltipAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/tooltip/tooltip.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1111,6 +1113,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/tooltip/tooltip-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatTooltipModule {
@@ -1132,6 +1135,7 @@ MatTooltipModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/tooltip/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

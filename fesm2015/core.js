@@ -13,16 +13,18 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/version.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.4-sha-9091330ab');
+const VERSION = new Version('9.0.0-rc.4-sha-2ecb0d5e6');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/animation/animation.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -70,6 +72,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/common-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Private version constant to circumvent test/build issues,
@@ -77,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.0.0-rc.4-sha-9091330ab');
+const VERSION$1 = new Version('9.0.0-rc.4-sha-2ecb0d5e6');
 /**
  * \@docs-private
  * @return {?}
@@ -266,6 +269,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/disabled.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -309,6 +313,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/color.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -382,6 +387,7 @@ function mixinColor(base, defaultColor) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/disable-ripple.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -426,6 +432,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/tabindex.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -480,6 +487,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/error-state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -562,6 +570,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/initialized.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -658,11 +667,13 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/common-behaviors/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/datetime/date-adapter.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -961,6 +972,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/datetime/date-formats.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -968,6 +980,7 @@ const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/datetime/native-date-adapter.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(mmalerba): Remove when we no longer support safari 9.
@@ -1415,6 +1428,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/datetime/native-date-formats.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1439,6 +1453,7 @@ const MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/datetime/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class NativeDateModule {
@@ -1463,6 +1478,7 @@ MatNativeDateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/error/error-options.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1501,6 +1517,7 @@ ErrorStateMatcher.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/gestures/gesture-annotations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1656,6 +1673,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/gestures/gesture-config.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1807,6 +1825,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/line/line.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1887,6 +1906,7 @@ MatLineModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/ripple/ripple-ref.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1955,6 +1975,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/ripple/ripple-renderer.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2405,6 +2426,7 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/ripple/ripple.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2656,6 +2678,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/ripple/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatRippleModule {
@@ -2670,6 +2693,7 @@ MatRippleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/selection/pseudo-checkbox/pseudo-checkbox.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2742,6 +2766,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/selection/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatPseudoCheckboxModule {
@@ -2755,6 +2780,7 @@ MatPseudoCheckboxModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/option/optgroup.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatOptgroup.
@@ -2818,6 +2844,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/option/option.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -3242,6 +3269,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/option/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatOptionModule {
@@ -3256,6 +3284,7 @@ MatOptionModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/label/label-options.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -3279,6 +3308,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/month-constants.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -3321,6 +3351,7 @@ const DEC = 11;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/core/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

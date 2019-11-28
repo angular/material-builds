@@ -4,6 +4,7 @@ import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/card/card.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -239,6 +240,7 @@ MatCardTitleGroup.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/card/card-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatCardModule {
@@ -273,6 +275,7 @@ MatCardModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/card/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

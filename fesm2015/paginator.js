@@ -9,6 +9,7 @@ import { mixinDisabled, mixinInitialized } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/paginator/paginator-intl.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -130,6 +131,7 @@ const MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/paginator/paginator.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -563,6 +565,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/paginator/paginator-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatPaginatorModule {
@@ -583,6 +586,7 @@ MatPaginatorModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/paginator/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

@@ -9,6 +9,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slide-toggle/slide-toggle-config.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -44,6 +45,7 @@ const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-de
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slide-toggle/slide-toggle.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Increasing integer for generating unique ids for slide-toggle components.
@@ -515,6 +517,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slide-toggle/slide-toggle-required-validator.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -546,6 +549,7 @@ MatSlideToggleRequiredValidator.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slide-toggle/slide-toggle-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -581,6 +585,7 @@ MatSlideToggleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slide-toggle/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

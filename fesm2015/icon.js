@@ -9,6 +9,7 @@ import { of, throwError, forkJoin } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/icon/icon-registry.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -829,6 +830,7 @@ function iconKey(namespace, name) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/icon/icon.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Boilerplate for applying mixins to MatIcon.
@@ -1378,6 +1380,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/icon/icon-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatIconModule {
@@ -1392,6 +1395,7 @@ MatIconModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/icon/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

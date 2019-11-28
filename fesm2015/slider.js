@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slider/slider.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -1253,6 +1254,7 @@ function getPointerPositionOnPage(event) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slider/slider-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSliderModule {
@@ -1267,6 +1269,7 @@ MatSliderModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/slider/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

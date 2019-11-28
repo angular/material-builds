@@ -16,6 +16,7 @@ import { take, switchMap, filter, map, tap, delay } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/autocomplete/autocomplete.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -345,6 +346,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/autocomplete/autocomplete-origin.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -379,6 +381,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/autocomplete/autocomplete-trigger.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1400,6 +1403,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/autocomplete/autocomplete-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatAutocompleteModule {
@@ -1421,6 +1425,7 @@ MatAutocompleteModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/autocomplete/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

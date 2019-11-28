@@ -5,6 +5,7 @@ import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/grid-list/grid-list-base.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -30,6 +31,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/grid-list/grid-tile.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatGridTile {
@@ -190,6 +192,7 @@ MatGridTileFooterCssMatStyler.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/grid-list/tile-coordinator.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -409,6 +412,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/grid-list/tile-styler.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -783,6 +787,7 @@ function normalizeUnits(value) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/grid-list/grid-list.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(kara): Conditional (responsive) column count / row size.
@@ -1025,6 +1030,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/grid-list/grid-list-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatGridListModule {
@@ -1055,6 +1061,7 @@ MatGridListModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/grid-list/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

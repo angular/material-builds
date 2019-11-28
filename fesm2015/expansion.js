@@ -13,6 +13,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/accordion-base.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -57,6 +58,7 @@ const MAT_ACCORDION = new InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/expansion-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -127,6 +129,7 @@ const matExpansionAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/expansion-panel-content.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -157,6 +160,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/expansion-panel.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -486,6 +490,7 @@ MatExpansionPanelActionRow.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/expansion-panel-header.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -783,6 +788,7 @@ MatExpansionPanelTitle.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/accordion.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -938,6 +944,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/expansion-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatExpansionModule {
@@ -968,6 +975,7 @@ MatExpansionModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/expansion/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

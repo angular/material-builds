@@ -12,6 +12,7 @@ import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/dialog-config.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -251,6 +252,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/dialog-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -275,6 +277,7 @@ const matDialogAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/dialog-container.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -584,6 +587,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/dialog-ref.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // TODO(jelbourn): resizing
@@ -891,6 +895,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/dialog.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1350,6 +1355,7 @@ function _applyConfigDefaults(config, defaultOptions) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/dialog-content-directives.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1572,6 +1578,7 @@ function getClosestDialog(element, openDialogs) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/dialog-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatDialogModule {
@@ -1609,6 +1616,7 @@ MatDialogModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/dialog/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

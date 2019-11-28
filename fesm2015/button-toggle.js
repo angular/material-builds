@@ -7,6 +7,7 @@ import { mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/m
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/button-toggle/button-toggle.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -842,6 +843,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/button-toggle/button-toggle-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatButtonToggleModule {
@@ -856,6 +858,7 @@ MatButtonToggleModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/button-toggle/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

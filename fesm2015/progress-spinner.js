@@ -7,6 +7,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/progress-spinner/progress-spinner.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -477,6 +478,7 @@ function _getShadowRoot(element, _document) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/progress-spinner/progress-spinner-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatProgressSpinnerModule {
@@ -498,6 +500,7 @@ MatProgressSpinnerModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/progress-spinner/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

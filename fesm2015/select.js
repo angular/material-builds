@@ -16,6 +16,7 @@ import { trigger, transition, query, animateChild, state, style, animate } from 
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/select/select-animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -69,6 +70,7 @@ const matSelectAnimations = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/select/select-errors.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -109,6 +111,7 @@ function getMatSelectNonFunctionValueError() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/select/select.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -1977,6 +1980,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/select/select-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatSelectModule {
@@ -1997,6 +2001,7 @@ MatSelectModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/select/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

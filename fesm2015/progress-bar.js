@@ -8,6 +8,7 @@ import { filter } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/progress-bar/progress-bar.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -340,6 +341,7 @@ function clamp(v, min = 0, max = 100) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/progress-bar/progress-bar-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class MatProgressBarModule {
@@ -354,6 +356,7 @@ MatProgressBarModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/material/progress-bar/public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
