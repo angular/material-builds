@@ -644,7 +644,7 @@
             }
             else {
                 var injector = this._createInjector(config, dialogRef, dialogContainer);
-                var contentRef = dialogContainer.attachComponentPortal(new portal.ComponentPortal(componentOrTemplateRef, undefined, injector));
+                var contentRef = dialogContainer.attachComponentPortal(new portal.ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector));
                 dialogRef.componentInstance = contentRef.instance;
             }
             dialogRef

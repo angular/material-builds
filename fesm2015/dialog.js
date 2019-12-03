@@ -1157,7 +1157,7 @@ class MatDialog {
             /** @type {?} */
             const injector = this._createInjector(config, dialogRef, dialogContainer);
             /** @type {?} */
-            const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, undefined, injector));
+            const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector));
             dialogRef.componentInstance = contentRef.instance;
         }
         dialogRef
