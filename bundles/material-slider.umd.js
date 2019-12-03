@@ -114,7 +114,6 @@
                     var oldValue = _this.value;
                     var pointerPosition = getPointerPositionOnPage(event);
                     _this._isSliding = true;
-                    _this._lastPointerEvent = event;
                     event.preventDefault();
                     _this._focusHostElement();
                     _this._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
@@ -139,7 +138,6 @@
                     // Prevent the slide from selecting anything else.
                     event.preventDefault();
                     var oldValue = _this.value;
-                    _this._lastPointerEvent = event;
                     _this._updateValueFromPosition(getPointerPositionOnPage(event));
                     // Native range elements always emit `input` events when the value changed while sliding.
                     if (oldValue != _this.value) {
@@ -154,21 +152,13 @@
                     var currentPointerPosition = getPointerPositionOnPage(event);
                     event.preventDefault();
                     _this._removeGlobalEvents();
-                    _this._valueOnSlideStart = _this._pointerPositionOnStart = _this._lastPointerEvent = null;
+                    _this._valueOnSlideStart = _this._pointerPositionOnStart = null;
                     _this._isSliding = false;
                     if (_this._valueOnSlideStart != _this.value && !_this.disabled &&
                         pointerPositionOnStart && (pointerPositionOnStart.x !== currentPointerPosition.x ||
                         pointerPositionOnStart.y !== currentPointerPosition.y)) {
                         _this._emitChangeEvent();
                     }
-                }
-            };
-            /** Called when the window has lost focus. */
-            _this._windowBlur = function () {
-                // If the window is blurred while dragging we need to stop dragging because the
-                // browser won't dispatch the `mouseup` and `touchend` events anymore.
-                if (_this._lastPointerEvent) {
-                    _this._pointerUp(_this._lastPointerEvent);
                 }
             };
             _this.tabIndex = parseInt(tabIndex) || 0;
@@ -482,7 +472,6 @@
             var element = this._elementRef.nativeElement;
             element.removeEventListener('mousedown', this._pointerDown, activeEventOptions);
             element.removeEventListener('touchstart', this._pointerDown, activeEventOptions);
-            this._lastPointerEvent = null;
             this._removeGlobalEvents();
             this._focusMonitor.stopMonitoring(this._elementRef);
             this._dirChangeSubscription.unsubscribe();
@@ -575,9 +564,6 @@
                     body.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
                 }
             }
-            if (typeof window !== 'undefined' && window) {
-                window.addEventListener('blur', this._windowBlur);
-            }
         };
         /** Removes any global event listeners that we may have added. */
         MatSlider.prototype._removeGlobalEvents = function () {
@@ -588,9 +574,6 @@
                 body.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
                 body.removeEventListener('touchend', this._pointerUp, activeEventOptions);
                 body.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
-            }
-            if (typeof window !== 'undefined' && window) {
-                window.removeEventListener('blur', this._windowBlur);
             }
         };
         /** Increments the slider by the given number of steps (negative number decrements). */
