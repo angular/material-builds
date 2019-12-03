@@ -1853,6 +1853,9 @@ if (false) {
     MatSelect.prototype.panel;
     /**
      * Overlay pane containing the options.
+     * @deprecated To be turned into a private API.
+     * \@breaking-change 10.0.0
+     * \@docs-private
      * @type {?}
      */
     MatSelect.prototype.overlayDir;

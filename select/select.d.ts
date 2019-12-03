@@ -151,7 +151,12 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     trigger: ElementRef;
     /** Panel containing the select options. */
     panel: ElementRef;
-    /** Overlay pane containing the options. */
+    /**
+     * Overlay pane containing the options.
+     * @deprecated To be turned into a private API.
+     * @breaking-change 10.0.0
+     * @docs-private
+     */
     overlayDir: CdkConnectedOverlay;
     /** All of the defined select options. */
     options: QueryList<MatOption>;
