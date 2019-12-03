@@ -156,6 +156,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     _shouldInvertMouseCoords(): boolean;
     /** The language direction for this slider element. */
     private _getDirection;
+    /** Keeps track of the last pointer event that was captured by the slider. */
+    private _lastPointerEvent;
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined, _ngZone?: NgZone | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;
@@ -173,6 +175,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _pointerMove;
     /** Called when the user has lifted their pointer. Bound on the document level. */
     private _pointerUp;
+    /** Called when the window has lost focus. */
+    private _windowBlur;
     /**
      * Binds our global move and end events. They're bound at the document level and only while
      * dragging so that the user doesn't have to keep their pointer exactly over the slider
