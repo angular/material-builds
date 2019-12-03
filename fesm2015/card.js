@@ -15,7 +15,7 @@ class MatCardContent {
 }
 MatCardContent.decorators = [
     { type: Directive, args: [{
-                selector: 'mat-card-content',
+                selector: 'mat-card-content, [mat-card-content], [matCardContent]',
                 host: { 'class': 'mat-card-content' }
             },] }
 ];
