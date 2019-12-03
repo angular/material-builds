@@ -1198,6 +1198,7 @@ $mat-light-theme-background: (
   disabled-button-toggle: map_get($mat-grey, 200),
   unselected-chip: map_get($mat-grey, 300),
   disabled-list-option: map_get($mat-grey, 200),
+  tooltip: map_get($mat-grey, 700),
 );
 
 // Background palette for dark themes.
@@ -1216,6 +1217,7 @@ $mat-dark-theme-background: (
   disabled-button-toggle: black,
   unselected-chip: map_get($mat-grey, 700),
   disabled-list-option: black,
+  tooltip: map_get($mat-grey, 700),
 );
 
 // Foreground palette for light themes.
@@ -4184,8 +4186,10 @@ $mat-tooltip-handset-vertical-padding:
     ($mat-tooltip-handset-target-height - $mat-tooltip-handset-font-size) / 2;
 
 @mixin mat-tooltip-theme($theme) {
+  $background: map-get($theme, background);
+
   .mat-tooltip {
-    background: mat-color($mat-grey, 700, 0.9);
+    background: mat-color($background, tooltip, 0.9);
   }
 }
 
