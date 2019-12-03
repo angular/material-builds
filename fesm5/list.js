@@ -636,7 +636,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         switch (keyCode) {
             case SPACE:
             case ENTER:
-                if (!hasModifier) {
+                if (!hasModifier && !manager.isTyping()) {
                     this._toggleFocusedOption();
                     // Always prevent space from scrolling the page since the list has focus
                     event.preventDefault();
@@ -650,7 +650,7 @@ var MatSelectionList = /** @class */ (function (_super) {
                 }
                 break;
             case A:
-                if (hasModifierKey(event, 'ctrlKey')) {
+                if (hasModifierKey(event, 'ctrlKey') && !manager.isTyping()) {
                     this.options.find(function (option) { return !option.selected; }) ? this.selectAll() : this.deselectAll();
                     event.preventDefault();
                 }

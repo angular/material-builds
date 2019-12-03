@@ -629,7 +629,7 @@
             switch (keyCode) {
                 case keycodes.SPACE:
                 case keycodes.ENTER:
-                    if (!hasModifier) {
+                    if (!hasModifier && !manager.isTyping()) {
                         this._toggleFocusedOption();
                         // Always prevent space from scrolling the page since the list has focus
                         event.preventDefault();
@@ -643,7 +643,7 @@
                     }
                     break;
                 case keycodes.A:
-                    if (keycodes.hasModifierKey(event, 'ctrlKey')) {
+                    if (keycodes.hasModifierKey(event, 'ctrlKey') && !manager.isTyping()) {
                         this.options.find(function (option) { return !option.selected; }) ? this.selectAll() : this.deselectAll();
                         event.preventDefault();
                     }

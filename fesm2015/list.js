@@ -923,7 +923,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         switch (keyCode) {
             case SPACE:
             case ENTER:
-                if (!hasModifier) {
+                if (!hasModifier && !manager.isTyping()) {
                     this._toggleFocusedOption();
                     // Always prevent space from scrolling the page since the list has focus
                     event.preventDefault();
@@ -937,7 +937,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 }
                 break;
             case A:
-                if (hasModifierKey(event, 'ctrlKey')) {
+                if (hasModifierKey(event, 'ctrlKey') && !manager.isTyping()) {
                     this.options.find((/**
                      * @param {?} option
                      * @return {?}
