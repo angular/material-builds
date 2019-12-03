@@ -267,14 +267,6 @@
             _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
             // Unique id for the internal form field label.
             _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
-            /* Holds the previous direction emitted by directionality service change emitter.
-               This is used in updateOutlineGap() method to update the width and position of the gap in the
-               outline. Only relevant for the outline appearance. The direction is getting updated in the
-               UI after directionality service change emission. So the outlines gaps are getting
-               updated in updateOutlineGap() method before connectionContainer child direction change
-               in UI. We may get wrong calculations. So we are storing the previous direction to get the
-               correct outline calculations*/
-            _this._previousDirection = 'ltr';
             _this._labelOptions = labelOptions ? labelOptions : {};
             _this.floatLabel = _this._labelOptions.float || 'auto';
             _this._animationsEnabled = _animationMode !== 'NoopAnimations';
@@ -423,8 +415,14 @@
             });
             if (this._dir) {
                 this._dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
-                    _this.updateOutlineGap();
-                    _this._previousDirection = _this._dir.value;
+                    if (typeof requestAnimationFrame === 'function') {
+                        _this._ngZone.runOutsideAngular(function () {
+                            requestAnimationFrame(function () { return _this.updateOutlineGap(); });
+                        });
+                    }
+                    else {
+                        _this.updateOutlineGap();
+                    }
                 });
             }
         };
@@ -629,7 +627,7 @@
         };
         /** Gets the start end of the rect considering the current directionality. */
         MatFormField.prototype._getStartEnd = function (rect) {
-            return this._previousDirection === 'rtl' ? rect.right : rect.left;
+            return (this._dir && this._dir.value === 'rtl') ? rect.right : rect.left;
         };
         /** Checks whether the form field is attached to the DOM. */
         MatFormField.prototype._isAttachedToDOM = function () {

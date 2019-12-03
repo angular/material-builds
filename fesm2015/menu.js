@@ -892,8 +892,6 @@ class _MatMenuBase {
      * @return {?}
      */
     focusFirstItem(origin = 'program') {
-        /** @type {?} */
-        const manager = this._keyManager;
         // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
@@ -901,11 +899,23 @@ class _MatMenuBase {
                 .subscribe((/**
              * @return {?}
              */
-            () => manager.setFocusOrigin(origin).setFirstItemActive()));
+            () => this._focusFirstItem(origin)));
         }
         else {
-            manager.setFocusOrigin(origin).setFirstItemActive();
+            this._focusFirstItem(origin);
         }
+    }
+    /**
+     * Actual implementation that focuses the first item. Needs to be separated
+     * out so we don't repeat the same logic in the public `focusFirstItem` method.
+     * @private
+     * @param {?} origin
+     * @return {?}
+     */
+    _focusFirstItem(origin) {
+        /** @type {?} */
+        const manager = this._keyManager;
+        manager.setFocusOrigin(origin).setFirstItemActive();
         // If there's no active item at this point, it means that all the items are disabled.
         // Move focus to the menu panel so keyboard events like Escape still work. Also this will
         // give _some_ feedback to screen readers.
