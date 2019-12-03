@@ -44,11 +44,6 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     abstract _tabHeader: MatTabGroupBaseHeader;
     /** All of the tabs that belong to the group. */
     _tabs: QueryList<MatTab>;
-    /**
-     * We need to store the tabs in an Iterable due to strict template type checking with *ngFor and
-     * https://github.com/angular/angular/issues/29842.
-     */
-    _tabsArray: MatTab[];
     /** The tab index that should be selected after the content has been checked. */
     private _indexToSelect;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
