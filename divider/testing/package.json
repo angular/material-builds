@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/divider/testing",
+  "main": "../../bundles/material-divider-testing.umd.js",
+  "fesm5": "../../fesm5/divider/testing.js",
+  "fesm2015": "../../fesm2015/divider/testing.js",
+  "esm5": "../../esm5/divider/testing/index.js",
+  "esm2015": "../../esm2015/divider/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/divider/testing.js",
+  "es2015": "../../fesm2015/divider/testing.js"
+}
