@@ -55,7 +55,6 @@
                             // Textarea elements that have the directive applied should have a single row by default.
                             // Browsers normally show two rows by default and therefore this limits the minRows binding.
                             'rows': '1',
-                            '(input)': '_noopInputHandler()',
                         },
                     },] }
         ];
