@@ -226,6 +226,8 @@
             _this.role = 'menuitem';
             /** Stream that emits when the menu item is hovered. */
             _this._hovered = new rxjs.Subject();
+            /** Stream that emits when the menu item is focused. */
+            _this._focused = new rxjs.Subject();
             /** Whether the menu item is highlighted. */
             _this._highlighted = false;
             /** Whether the menu item acts as a trigger for a sub-menu. */
@@ -251,6 +253,7 @@
             else {
                 this._getHostElement().focus(options);
             }
+            this._focused.next(this);
         };
         MatMenuItem.prototype.ngOnDestroy = function () {
             if (this._focusMonitor) {
@@ -260,6 +263,7 @@
                 this._parentMenu.removeItem(this);
             }
             this._hovered.complete();
+            this._focused.complete();
         };
         /** Used to set the `tabindex`. */
         MatMenuItem.prototype._getTabIndex = function () {
@@ -492,6 +496,10 @@
             this._updateDirectDescendants();
             this._keyManager = new a11y.FocusKeyManager(this._directDescendantItems).withWrap().withTypeAhead();
             this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.closed.emit('tab'); });
+            // If a user manually (programatically) focuses a menu item, we need to reflect that focus
+            // change back to the key manager. Note that we don't need to unsubscribe here because _focused
+            // is internal and we know that it gets completed on destroy.
+            this._directDescendantItems.changes.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, tslib.__spread(items.map(function (item) { return item._focused; }))); })).subscribe(function (focusedItem) { return _this._keyManager.updateActiveItem(focusedItem); });
         };
         _MatMenuBase.prototype.ngOnDestroy = function () {
             this._directDescendantItems.destroy();

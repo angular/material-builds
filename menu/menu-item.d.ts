@@ -27,6 +27,8 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     private _document;
     /** Stream that emits when the menu item is hovered. */
     readonly _hovered: Subject<MatMenuItem>;
+    /** Stream that emits when the menu item is focused. */
+    readonly _focused: Subject<MatMenuItem>;
     /** Whether the menu item is highlighted. */
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */

@@ -375,6 +375,10 @@ class MatMenuItem extends _MatMenuItemMixinBase {
          */
         this._hovered = new Subject();
         /**
+         * Stream that emits when the menu item is focused.
+         */
+        this._focused = new Subject();
+        /**
          * Whether the menu item is highlighted.
          */
         this._highlighted = false;
@@ -406,6 +410,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
         else {
             this._getHostElement().focus(options);
         }
+        this._focused.next(this);
     }
     /**
      * @return {?}
@@ -418,6 +423,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
             this._parentMenu.removeItem(this);
         }
         this._hovered.complete();
+        this._focused.complete();
     }
     /**
      * Used to set the `tabindex`.
@@ -538,6 +544,11 @@ if (false) {
      * @type {?}
      */
     MatMenuItem.prototype._hovered;
+    /**
+     * Stream that emits when the menu item is focused.
+     * @type {?}
+     */
+    MatMenuItem.prototype._focused;
     /**
      * Whether the menu item is highlighted.
      * @type {?}
@@ -798,6 +809,22 @@ class _MatMenuBase {
          * @return {?}
          */
         () => this.closed.emit('tab')));
+        // If a user manually (programatically) focuses a menu item, we need to reflect that focus
+        // change back to the key manager. Note that we don't need to unsubscribe here because _focused
+        // is internal and we know that it gets completed on destroy.
+        this._directDescendantItems.changes.pipe(startWith(this._directDescendantItems), switchMap((/**
+         * @param {?} items
+         * @return {?}
+         */
+        items => merge(...items.map((/**
+         * @param {?} item
+         * @return {?}
+         */
+        (item) => item._focused)))))).subscribe((/**
+         * @param {?} focusedItem
+         * @return {?}
+         */
+        focusedItem => this._keyManager.updateActiveItem(focusedItem)));
     }
     /**
      * @return {?}
