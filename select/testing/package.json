@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/select/testing",
+  "main": "../../bundles/material-select-testing.umd.js",
+  "fesm5": "../../fesm5/select/testing.js",
+  "fesm2015": "../../fesm2015/select/testing.js",
+  "esm5": "../../esm5/select/testing/index.js",
+  "esm2015": "../../esm2015/select/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/select/testing.js",
+  "es2015": "../../fesm2015/select/testing.js"
+}

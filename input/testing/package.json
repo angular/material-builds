@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/input/testing",
+  "main": "../../bundles/material-input-testing.umd.js",
+  "fesm5": "../../fesm5/input/testing.js",
+  "fesm2015": "../../fesm2015/input/testing.js",
+  "esm5": "../../esm5/input/testing/index.js",
+  "esm2015": "../../esm2015/input/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/input/testing.js",
+  "es2015": "../../fesm2015/input/testing.js"
+}
