@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, OnInit, ElementRef } from '@angular/core';
 import { CanDisable, CanDisableCtor } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
 import { MatSortHeaderIntl } from './sort-header-intl';
@@ -49,6 +50,12 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     _intl: MatSortHeaderIntl;
     _sort: MatSort;
     _columnDef: MatSortHeaderColumnDef;
+    /**
+     * @deprecated _focusMonitor and _elementRef to become required parameters.
+     * @breaking-change 10.0.0
+     */
+    private _focusMonitor?;
+    private _elementRef?;
     private _rerenderSubscription;
     /**
      * Flag set to true when the indicator should be displayed while the sort is not active. Used to
@@ -79,7 +86,12 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     disableClear: boolean;
     private _disableClear;
-    constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef);
+    constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, 
+    /**
+     * @deprecated _focusMonitor and _elementRef to become required parameters.
+     * @breaking-change 10.0.0
+     */
+    _focusMonitor?: FocusMonitor | undefined, _elementRef?: ElementRef<HTMLElement> | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /**

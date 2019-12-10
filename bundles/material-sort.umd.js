@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/common'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.material.core, global.rxjs, global.ng.animations, global.ng.common));
-}(this, (function (exports, i0, tslib, coercion, core, rxjs, animations, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', 'tslib', '@angular/cdk/coercion', '@angular/material/core', '@angular/cdk/a11y', 'rxjs', '@angular/animations', '@angular/common'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.tslib, global.ng.cdk.coercion, global.ng.material.core, global.ng.cdk.a11y, global.rxjs, global.ng.animations, global.ng.common));
+}(this, (function (exports, i0, tslib, coercion, core, a11y, rxjs, animations, common) { 'use strict';
 
     /**
      * @license
@@ -317,7 +317,12 @@
      */
     var MatSortHeader = /** @class */ (function (_super) {
         tslib.__extends(MatSortHeader, _super);
-        function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef) {
+        function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef, 
+        /**
+         * @deprecated _focusMonitor and _elementRef to become required parameters.
+         * @breaking-change 10.0.0
+         */
+        _focusMonitor, _elementRef) {
             var _this = 
             // Note that we use a string token for the `_columnDef`, because the value is provided both by
             // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
@@ -327,6 +332,8 @@
             _this._intl = _intl;
             _this._sort = _sort;
             _this._columnDef = _columnDef;
+            _this._focusMonitor = _focusMonitor;
+            _this._elementRef = _elementRef;
             /**
              * Flag set to true when the indicator should be displayed while the sort is not active. Used to
              * provide an affordance that the header is sortable by showing on focus and hover.
@@ -355,6 +362,12 @@
                 }
                 changeDetectorRef.markForCheck();
             });
+            if (_focusMonitor && _elementRef) {
+                // We use the focus monitor because we also want to style
+                // things differently based on the focus origin.
+                _focusMonitor.monitor(_elementRef, true)
+                    .subscribe(function (origin) { return _this._setIndicatorHintVisible(!!origin); });
+            }
             return _this;
         }
         Object.defineProperty(MatSortHeader.prototype, "disableClear", {
@@ -374,6 +387,10 @@
             this._sort.register(this);
         };
         MatSortHeader.prototype.ngOnDestroy = function () {
+            // @breaking-change 10.0.0 Remove null check for _focusMonitor and _elementRef.
+            if (this._focusMonitor && this._elementRef) {
+                this._focusMonitor.stopMonitoring(this._elementRef);
+            }
             this._sort.deregister(this);
             this._rerenderSubscription.unsubscribe();
         };
@@ -480,7 +497,7 @@
             { type: i0.Component, args: [{
                         selector: '[mat-sort-header]',
                         exportAs: 'matSortHeader',
-                        template: "<div class=\"mat-sort-header-container\"\n     [class.mat-sort-header-sorted]=\"_isSorted()\"\n     [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\">\n  <button class=\"mat-sort-header-button\" type=\"button\"\n          [attr.disabled]=\"_isDisabled() || null\"\n          [attr.aria-label]=\"_intl.sortButtonLabel(id)\"\n          (focus)=\"_setIndicatorHintVisible(true)\"\n          (blur)=\"_setIndicatorHintVisible(false)\">\n    <ng-content></ng-content>\n  </button>\n\n  <!-- Disable animations while a current animation is running -->\n  <div class=\"mat-sort-header-arrow\"\n       *ngIf=\"_renderArrow()\"\n       [@arrowOpacity]=\"_getArrowViewState()\"\n       [@arrowPosition]=\"_getArrowViewState()\"\n       [@allowChildren]=\"_getArrowDirectionState()\"\n       (@arrowPosition.start)=\"_disableViewStateAnimation = true\"\n       (@arrowPosition.done)=\"_disableViewStateAnimation = false\">\n    <div class=\"mat-sort-header-stem\"></div>\n    <div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\">\n      <div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-middle\"></div>\n    </div>\n  </div>\n</div>\n",
+                        template: "<div class=\"mat-sort-header-container\"\n     [class.mat-sort-header-sorted]=\"_isSorted()\"\n     [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\">\n  <button class=\"mat-sort-header-button\" type=\"button\"\n          [attr.disabled]=\"_isDisabled() || null\"\n          [attr.aria-label]=\"_intl.sortButtonLabel(id)\">\n    <ng-content></ng-content>\n  </button>\n\n  <!-- Disable animations while a current animation is running -->\n  <div class=\"mat-sort-header-arrow\"\n       *ngIf=\"_renderArrow()\"\n       [@arrowOpacity]=\"_getArrowViewState()\"\n       [@arrowPosition]=\"_getArrowViewState()\"\n       [@allowChildren]=\"_getArrowDirectionState()\"\n       (@arrowPosition.start)=\"_disableViewStateAnimation = true\"\n       (@arrowPosition.done)=\"_disableViewStateAnimation = false\">\n    <div class=\"mat-sort-header-stem\"></div>\n    <div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\">\n      <div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-middle\"></div>\n    </div>\n  </div>\n</div>\n",
                         host: {
                             'class': 'mat-sort-header',
                             '(click)': '_handleClick()',
@@ -500,7 +517,7 @@
                             matSortAnimations.arrowPosition,
                             matSortAnimations.allowChildren,
                         ],
-                        styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-button::-moz-focus-inner{border:0}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.cdk-high-contrast-active .mat-sort-header-stem{width:0;border-left:solid 2px}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.cdk-high-contrast-active .mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}.cdk-high-contrast-active .mat-sort-header-pointer-left,.cdk-high-contrast-active .mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}\n"]
+                        styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}[mat-sort-header].cdk-keyboard-focused .mat-sort-header-button,[mat-sort-header].cdk-program-focused .mat-sort-header-button{border-bottom:solid 1px currentColor}.mat-sort-header-button::-moz-focus-inner{border:0}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.cdk-high-contrast-active .mat-sort-header-stem{width:0;border-left:solid 2px}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.cdk-high-contrast-active .mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}.cdk-high-contrast-active .mat-sort-header-pointer-left,.cdk-high-contrast-active .mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}\n"]
                     }] }
         ];
         /** @nocollapse */
@@ -508,7 +525,9 @@
             { type: MatSortHeaderIntl },
             { type: i0.ChangeDetectorRef },
             { type: MatSort, decorators: [{ type: i0.Optional }] },
-            { type: undefined, decorators: [{ type: i0.Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: i0.Optional }] }
+            { type: undefined, decorators: [{ type: i0.Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: i0.Optional }] },
+            { type: a11y.FocusMonitor },
+            { type: i0.ElementRef }
         ]; };
         MatSortHeader.propDecorators = {
             id: [{ type: i0.Input, args: ['mat-sort-header',] }],
