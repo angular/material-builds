@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.0.0-rc.5-sha-191357ad5');
+    var VERSION = new i0.Version('9.0.0-rc.5-sha-8fd9d7d39');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.0.0-rc.5-sha-191357ad5');
+    var VERSION$1 = new i0.Version('9.0.0-rc.5-sha-8fd9d7d39');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1234,7 +1234,8 @@
             ripple.style.height = radius * 2 + "px";
             ripple.style.width = radius * 2 + "px";
             // If the color is not set, the default CSS color will be used.
-            ripple.style.backgroundColor = config.color || null;
+            // TODO(TS3.7): Type 'string | null' is not assignable to type 'string'.
+            ripple.style.backgroundColor = (config.color || null);
             ripple.style.transitionDuration = duration + "ms";
             this._containerElement.appendChild(ripple);
             // By default the browser does not recalculate the styles of dynamically created

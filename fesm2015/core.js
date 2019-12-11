@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.5-sha-191357ad5');
+const VERSION = new Version('9.0.0-rc.5-sha-8fd9d7d39');
 
 /**
  * @fileoverview added by tsickle
@@ -80,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.0.0-rc.5-sha-191357ad5');
+const VERSION$1 = new Version('9.0.0-rc.5-sha-8fd9d7d39');
 /**
  * \@docs-private
  * @return {?}
@@ -2180,7 +2180,8 @@ class RippleRenderer {
         ripple.style.height = `${radius * 2}px`;
         ripple.style.width = `${radius * 2}px`;
         // If the color is not set, the default CSS color will be used.
-        ripple.style.backgroundColor = config.color || null;
+        // TODO(TS3.7): Type 'string | null' is not assignable to type 'string'.
+        ripple.style.backgroundColor = (/** @type {?} */ ((config.color || null)));
         ripple.style.transitionDuration = `${duration}ms`;
         this._containerElement.appendChild(ripple);
         // By default the browser does not recalculate the styles of dynamically created
