@@ -328,7 +328,7 @@ var MatMenuItem = /** @class */ (function (_super) {
                     inputs: ['disabled', 'disableRipple'],
                     host: {
                         '[attr.role]': 'role',
-                        'class': 'mat-menu-item',
+                        '[class.mat-menu-item]': 'true',
                         '[class.mat-menu-item-highlighted]': '_highlighted',
                         '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
                         '[attr.tabindex]': '_getTabIndex()',
