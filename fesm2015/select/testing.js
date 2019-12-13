@@ -1,6 +1,7 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
 /**
  * @license
@@ -9,64 +10,14 @@ import { MatFormFieldControlHarness } from '@angular/material/form-field/testing
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a the `mat-option` for a `mat-select` in tests. */
-class MatSelectOptionHarness extends ComponentHarness {
-    // TODO(crisbeto): things to add here when adding a common option harness:
-    // - isDisabled
-    // - isSelected
-    // - isActive
-    // - isMultiple
-    static with(options = {}) {
-        return new HarnessPredicate(MatSelectOptionHarness, options)
-            .addOption('text', options.text, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getText(), title); }));
-    }
-    /** Clicks the option. */
-    click() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).click();
-        });
-    }
-    /** Gets a promise for the option's label text. */
-    getText() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).text();
-        });
-    }
-}
-MatSelectOptionHarness.hostSelector = '.mat-select-panel .mat-option';
-/** Harness for interacting with a the `mat-optgroup` for a `mat-select` in tests. */
-class MatSelectOptionGroupHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._label = this.locatorFor('.mat-optgroup-label');
-    }
-    static with(options = {}) {
-        return new HarnessPredicate(MatSelectOptionGroupHarness, options)
-            .addOption('labelText', options.labelText, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getLabelText(), title); }));
-    }
-    /** Gets a promise for the option group's label text. */
-    getLabelText() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._label()).text();
-        });
-    }
-}
-MatSelectOptionGroupHarness.hostSelector = '.mat-select-panel .mat-optgroup';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+const PANEL_SELECTOR = '.mat-select-panel';
 /** Harness for interacting with a standard mat-select in tests. */
 class MatSelectHarness extends MatFormFieldControlHarness {
     constructor() {
         super(...arguments);
         this._documentRootLocator = this.documentRootLocatorFactory();
         this._backdrop = this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
-        this._optionalPanel = this._documentRootLocator.locatorForOptional('.mat-select-panel');
+        this._optionalPanel = this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
         this._trigger = this.locatorFor('.mat-select-trigger');
         this._value = this.locatorFor('.mat-select-value');
     }
@@ -131,13 +82,13 @@ class MatSelectHarness extends MatFormFieldControlHarness {
     /** Gets the options inside the select panel. */
     getOptions(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatSelectOptionHarness.with(filter))();
+            return this._documentRootLocator.locatorForAll(MatOptionHarness.with(Object.assign(Object.assign({}, filter), { ancestor: PANEL_SELECTOR })))();
         });
     }
     /** Gets the groups of options inside the panel. */
     getOptionGroups(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatSelectOptionGroupHarness.with(filter))();
+            return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(Object.assign(Object.assign({}, filter), { ancestor: PANEL_SELECTOR })))();
         });
     }
     /** Gets whether the select is open. */

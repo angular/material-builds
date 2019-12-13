@@ -7,8 +7,8 @@
  */
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+import { MatOptionHarness, MatOptgroupHarness, OptionHarnessFilters, OptgroupHarnessFilters } from '@angular/material/core/testing';
 import { SelectHarnessFilters } from './select-harness-filters';
-import { MatSelectOptionHarness, MatSelectOptionGroupHarness, OptionHarnessFilters, OptionGroupHarnessFilters } from './option-harness';
 /** Harness for interacting with a standard mat-select in tests. */
 export declare class MatSelectHarness extends MatFormFieldControlHarness {
     private _documentRootLocator;
@@ -41,9 +41,9 @@ export declare class MatSelectHarness extends MatFormFieldControlHarness {
     /** Blurs the select and returns a void promise that indicates when the action is complete. */
     blur(): Promise<void>;
     /** Gets the options inside the select panel. */
-    getOptions(filter?: OptionHarnessFilters): Promise<MatSelectOptionHarness[]>;
+    getOptions(filter?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptionHarness[]>;
     /** Gets the groups of options inside the panel. */
-    getOptionGroups(filter?: OptionGroupHarnessFilters): Promise<MatSelectOptionGroupHarness[]>;
+    getOptionGroups(filter?: Omit<OptgroupHarnessFilters, 'ancestor'>): Promise<MatOptgroupHarness[]>;
     /** Gets whether the select is open. */
     isOpen(): Promise<boolean>;
     /** Opens the select's panel. */

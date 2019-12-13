@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { MatOptgroupHarness, MatOptionHarness, OptgroupHarnessFilters, OptionHarnessFilters } from '@angular/material/core/testing';
 import { AutocompleteHarnessFilters } from './autocomplete-harness-filters';
-import { MatAutocompleteOptionGroupHarness, MatAutocompleteOptionHarness, OptionGroupHarnessFilters, OptionHarnessFilters } from './option-harness';
 /** Harness for interacting with a standard mat-autocomplete in tests. */
 export declare class MatAutocompleteHarness extends ComponentHarness {
     private _documentRootLocator;
@@ -32,9 +32,9 @@ export declare class MatAutocompleteHarness extends ComponentHarness {
     /** Enters text into the autocomplete. */
     enterText(value: string): Promise<void>;
     /** Gets the options inside the autocomplete panel. */
-    getOptions(filters?: OptionHarnessFilters): Promise<MatAutocompleteOptionHarness[]>;
+    getOptions(filters?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptionHarness[]>;
     /** Gets the option groups inside the autocomplete panel. */
-    getOptionGroups(filters?: OptionGroupHarnessFilters): Promise<MatAutocompleteOptionGroupHarness[]>;
+    getOptionGroups(filters?: Omit<OptgroupHarnessFilters, 'ancestor'>): Promise<MatOptgroupHarness[]>;
     /** Selects the first option matching the given filters. */
     selectOption(filters: OptionHarnessFilters): Promise<void>;
     /** Whether the autocomplete is open. */

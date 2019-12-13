@@ -1,66 +1,7 @@
 import { __awaiter } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/** Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests. */
-class MatAutocompleteOptionHarness extends ComponentHarness {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionHarness` that
-     * meets certain criteria.
-     * @param options Options for filtering which option instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatAutocompleteOptionHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
-    }
-    /** Clicks the option. */
-    select() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).click();
-        });
-    }
-    /** Gets the option's label text. */
-    getText() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).text();
-        });
-    }
-}
-/** The selector for the host element of an autocomplete `MatOption` instance. */
-MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
-/** Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests. */
-class MatAutocompleteOptionGroupHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._label = this.locatorFor('.mat-optgroup-label');
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionGroupHarness`
-     * that meets certain criteria.
-     * @param options Options for filtering which option group instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatAutocompleteOptionGroupHarness, options)
-            .addOption('labelText', options.labelText, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label));
-    }
-    /** Gets the option group's label text. */
-    getLabelText() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._label()).text();
-        });
-    }
-}
-/** The selector for the host element of an autocomplete `MatOptionGroup` instance. */
-MatAutocompleteOptionGroupHarness.hostSelector = '.mat-autocomplete-panel .mat-optgroup';
+import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
 /**
  * @license
@@ -122,13 +63,13 @@ class MatAutocompleteHarness extends ComponentHarness {
     /** Gets the options inside the autocomplete panel. */
     getOptions(filters = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness.with(filters))();
+            return this._documentRootLocator.locatorForAll(MatOptionHarness.with(Object.assign(Object.assign({}, filters), { ancestor: PANEL_SELECTOR })))();
         });
     }
     /** Gets the option groups inside the autocomplete panel. */
     getOptionGroups(filters = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness.with(filters))();
+            return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(Object.assign(Object.assign({}, filters), { ancestor: PANEL_SELECTOR })))();
         });
     }
     /** Selects the first option matching the given filters. */
@@ -139,7 +80,7 @@ class MatAutocompleteHarness extends ComponentHarness {
             if (!options.length) {
                 throw Error(`Could not find a mat-option matching ${JSON.stringify(filters)}`);
             }
-            yield options[0].select();
+            yield options[0].click();
         });
     }
     /** Whether the autocomplete is open. */

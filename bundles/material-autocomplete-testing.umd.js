@@ -1,93 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/testing')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/autocomplete/testing', ['exports', 'tslib', '@angular/cdk/coercion', '@angular/cdk/testing'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}, global.ng.material.autocomplete.testing = {}), global.tslib, global.ng.cdk.coercion, global.ng.cdk.testing));
-}(this, (function (exports, tslib, coercion, testing) { 'use strict';
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /** Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests. */
-    var MatAutocompleteOptionHarness = /** @class */ (function (_super) {
-        tslib.__extends(MatAutocompleteOptionHarness, _super);
-        function MatAutocompleteOptionHarness() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        /**
-         * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionHarness` that
-         * meets certain criteria.
-         * @param options Options for filtering which option instances are considered a match.
-         * @return a `HarnessPredicate` configured with the given options.
-         */
-        MatAutocompleteOptionHarness.with = function (options) {
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatAutocompleteOptionHarness, options)
-                .addOption('text', options.text, function (harness, text) { return testing.HarnessPredicate.stringMatches(harness.getText(), text); });
-        };
-        /** Clicks the option. */
-        MatAutocompleteOptionHarness.prototype.select = function () {
-            return tslib.__awaiter(this, void 0, void 0, function () {
-                return tslib.__generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).click()];
-                    }
-                });
-            });
-        };
-        /** Gets the option's label text. */
-        MatAutocompleteOptionHarness.prototype.getText = function () {
-            return tslib.__awaiter(this, void 0, void 0, function () {
-                return tslib.__generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
-                    }
-                });
-            });
-        };
-        /** The selector for the host element of an autocomplete `MatOption` instance. */
-        MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
-        return MatAutocompleteOptionHarness;
-    }(testing.ComponentHarness));
-    /** Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests. */
-    var MatAutocompleteOptionGroupHarness = /** @class */ (function (_super) {
-        tslib.__extends(MatAutocompleteOptionGroupHarness, _super);
-        function MatAutocompleteOptionGroupHarness() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this._label = _this.locatorFor('.mat-optgroup-label');
-            return _this;
-        }
-        /**
-         * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionGroupHarness`
-         * that meets certain criteria.
-         * @param options Options for filtering which option group instances are considered a match.
-         * @return a `HarnessPredicate` configured with the given options.
-         */
-        MatAutocompleteOptionGroupHarness.with = function (options) {
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatAutocompleteOptionGroupHarness, options)
-                .addOption('labelText', options.labelText, function (harness, label) { return testing.HarnessPredicate.stringMatches(harness.getLabelText(), label); });
-        };
-        /** Gets the option group's label text. */
-        MatAutocompleteOptionGroupHarness.prototype.getLabelText = function () {
-            return tslib.__awaiter(this, void 0, void 0, function () {
-                return tslib.__generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._label()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
-                    }
-                });
-            });
-        };
-        /** The selector for the host element of an autocomplete `MatOptionGroup` instance. */
-        MatAutocompleteOptionGroupHarness.hostSelector = '.mat-autocomplete-panel .mat-optgroup';
-        return MatAutocompleteOptionGroupHarness;
-    }(testing.ComponentHarness));
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/testing'), require('@angular/material/core/testing')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/autocomplete/testing', ['exports', 'tslib', '@angular/cdk/coercion', '@angular/cdk/testing', '@angular/material/core/testing'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}, global.ng.material.autocomplete.testing = {}), global.tslib, global.ng.cdk.coercion, global.ng.cdk.testing, global.ng.material.core.testing));
+}(this, (function (exports, tslib, coercion, testing, testing$1) { 'use strict';
 
     /**
      * @license
@@ -183,7 +98,7 @@
             if (filters === void 0) { filters = {}; }
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
-                    return [2 /*return*/, this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness.with(filters))()];
+                    return [2 /*return*/, this._documentRootLocator.locatorForAll(testing$1.MatOptionHarness.with(tslib.__assign(tslib.__assign({}, filters), { ancestor: PANEL_SELECTOR })))()];
                 });
             });
         };
@@ -192,7 +107,7 @@
             if (filters === void 0) { filters = {}; }
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
-                    return [2 /*return*/, this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness.with(filters))()];
+                    return [2 /*return*/, this._documentRootLocator.locatorForAll(testing$1.MatOptgroupHarness.with(tslib.__assign(tslib.__assign({}, filters), { ancestor: PANEL_SELECTOR })))()];
                 });
             });
         };
@@ -211,7 +126,7 @@
                             if (!options.length) {
                                 throw Error("Could not find a mat-option matching " + JSON.stringify(filters));
                             }
-                            return [4 /*yield*/, options[0].select()];
+                            return [4 /*yield*/, options[0].click()];
                         case 3:
                             _a.sent();
                             return [2 /*return*/];

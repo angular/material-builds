@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing'), require('@angular/material/form-field/testing/control')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/select/testing', ['exports', 'tslib', '@angular/cdk/testing', '@angular/material/form-field/testing/control'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}, global.ng.material.select.testing = {}), global.tslib, global.ng.cdk.testing, global.ng.material.formField.testing.control));
-}(this, (function (exports, tslib, testing, control) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/testing'), require('@angular/material/form-field/testing/control'), require('@angular/material/core/testing')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/select/testing', ['exports', 'tslib', '@angular/cdk/testing', '@angular/material/form-field/testing/control', '@angular/material/core/testing'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}, global.ng.material.select.testing = {}), global.tslib, global.ng.cdk.testing, global.ng.material.formField.testing.control, global.ng.material.core.testing));
+}(this, (function (exports, tslib, testing, control, testing$1) { 'use strict';
 
     /**
      * @license
@@ -11,98 +11,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /** Harness for interacting with a the `mat-option` for a `mat-select` in tests. */
-    var MatSelectOptionHarness = /** @class */ (function (_super) {
-        tslib.__extends(MatSelectOptionHarness, _super);
-        function MatSelectOptionHarness() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        // TODO(crisbeto): things to add here when adding a common option harness:
-        // - isDisabled
-        // - isSelected
-        // - isActive
-        // - isMultiple
-        MatSelectOptionHarness.with = function (options) {
-            var _this = this;
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatSelectOptionHarness, options)
-                .addOption('text', options.text, function (harness, title) { return tslib.__awaiter(_this, void 0, void 0, function () { var _a, _b; return tslib.__generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0:
-                        _b = (_a = testing.HarnessPredicate).stringMatches;
-                        return [4 /*yield*/, harness.getText()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent(), title])];
-                }
-            }); }); });
-        };
-        /** Clicks the option. */
-        MatSelectOptionHarness.prototype.click = function () {
-            return tslib.__awaiter(this, void 0, void 0, function () {
-                return tslib.__generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).click()];
-                    }
-                });
-            });
-        };
-        /** Gets a promise for the option's label text. */
-        MatSelectOptionHarness.prototype.getText = function () {
-            return tslib.__awaiter(this, void 0, void 0, function () {
-                return tslib.__generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
-                    }
-                });
-            });
-        };
-        MatSelectOptionHarness.hostSelector = '.mat-select-panel .mat-option';
-        return MatSelectOptionHarness;
-    }(testing.ComponentHarness));
-    /** Harness for interacting with a the `mat-optgroup` for a `mat-select` in tests. */
-    var MatSelectOptionGroupHarness = /** @class */ (function (_super) {
-        tslib.__extends(MatSelectOptionGroupHarness, _super);
-        function MatSelectOptionGroupHarness() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this._label = _this.locatorFor('.mat-optgroup-label');
-            return _this;
-        }
-        MatSelectOptionGroupHarness.with = function (options) {
-            var _this = this;
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatSelectOptionGroupHarness, options)
-                .addOption('labelText', options.labelText, function (harness, title) { return tslib.__awaiter(_this, void 0, void 0, function () { var _a, _b; return tslib.__generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0:
-                        _b = (_a = testing.HarnessPredicate).stringMatches;
-                        return [4 /*yield*/, harness.getLabelText()];
-                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent(), title])];
-                }
-            }); }); });
-        };
-        /** Gets a promise for the option group's label text. */
-        MatSelectOptionGroupHarness.prototype.getLabelText = function () {
-            return tslib.__awaiter(this, void 0, void 0, function () {
-                return tslib.__generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._label()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
-                    }
-                });
-            });
-        };
-        MatSelectOptionGroupHarness.hostSelector = '.mat-select-panel .mat-optgroup';
-        return MatSelectOptionGroupHarness;
-    }(testing.ComponentHarness));
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
+    var PANEL_SELECTOR = '.mat-select-panel';
     /** Harness for interacting with a standard mat-select in tests. */
     var MatSelectHarness = /** @class */ (function (_super) {
         tslib.__extends(MatSelectHarness, _super);
@@ -110,7 +19,7 @@
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this._documentRootLocator = _this.documentRootLocatorFactory();
             _this._backdrop = _this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
-            _this._optionalPanel = _this._documentRootLocator.locatorForOptional('.mat-select-panel');
+            _this._optionalPanel = _this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
             _this._trigger = _this.locatorFor('.mat-select-trigger');
             _this._value = _this.locatorFor('.mat-select-value');
             return _this;
@@ -223,7 +132,7 @@
             if (filter === void 0) { filter = {}; }
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
-                    return [2 /*return*/, this._documentRootLocator.locatorForAll(MatSelectOptionHarness.with(filter))()];
+                    return [2 /*return*/, this._documentRootLocator.locatorForAll(testing$1.MatOptionHarness.with(tslib.__assign(tslib.__assign({}, filter), { ancestor: PANEL_SELECTOR })))()];
                 });
             });
         };
@@ -232,7 +141,7 @@
             if (filter === void 0) { filter = {}; }
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
-                    return [2 /*return*/, this._documentRootLocator.locatorForAll(MatSelectOptionGroupHarness.with(filter))()];
+                    return [2 /*return*/, this._documentRootLocator.locatorForAll(testing$1.MatOptgroupHarness.with(tslib.__assign(tslib.__assign({}, filter), { ancestor: PANEL_SELECTOR })))()];
                 });
             });
         };

@@ -1,91 +1,7 @@
-import { __extends, __awaiter, __generator } from 'tslib';
+import { __extends, __awaiter, __generator, __assign } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/** Harness for interacting with a the `mat-option` for a `mat-autocomplete` in tests. */
-var MatAutocompleteOptionHarness = /** @class */ (function (_super) {
-    __extends(MatAutocompleteOptionHarness, _super);
-    function MatAutocompleteOptionHarness() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionHarness` that
-     * meets certain criteria.
-     * @param options Options for filtering which option instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    MatAutocompleteOptionHarness.with = function (options) {
-        if (options === void 0) { options = {}; }
-        return new HarnessPredicate(MatAutocompleteOptionHarness, options)
-            .addOption('text', options.text, function (harness, text) { return HarnessPredicate.stringMatches(harness.getText(), text); });
-    };
-    /** Clicks the option. */
-    MatAutocompleteOptionHarness.prototype.select = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.host()];
-                    case 1: return [2 /*return*/, (_a.sent()).click()];
-                }
-            });
-        });
-    };
-    /** Gets the option's label text. */
-    MatAutocompleteOptionHarness.prototype.getText = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.host()];
-                    case 1: return [2 /*return*/, (_a.sent()).text()];
-                }
-            });
-        });
-    };
-    /** The selector for the host element of an autocomplete `MatOption` instance. */
-    MatAutocompleteOptionHarness.hostSelector = '.mat-autocomplete-panel .mat-option';
-    return MatAutocompleteOptionHarness;
-}(ComponentHarness));
-/** Harness for interacting with a the `mat-optgroup` for a `mat-autocomplete` in tests. */
-var MatAutocompleteOptionGroupHarness = /** @class */ (function (_super) {
-    __extends(MatAutocompleteOptionGroupHarness, _super);
-    function MatAutocompleteOptionGroupHarness() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._label = _this.locatorFor('.mat-optgroup-label');
-        return _this;
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteOptionGroupHarness`
-     * that meets certain criteria.
-     * @param options Options for filtering which option group instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    MatAutocompleteOptionGroupHarness.with = function (options) {
-        if (options === void 0) { options = {}; }
-        return new HarnessPredicate(MatAutocompleteOptionGroupHarness, options)
-            .addOption('labelText', options.labelText, function (harness, label) { return HarnessPredicate.stringMatches(harness.getLabelText(), label); });
-    };
-    /** Gets the option group's label text. */
-    MatAutocompleteOptionGroupHarness.prototype.getLabelText = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._label()];
-                    case 1: return [2 /*return*/, (_a.sent()).text()];
-                }
-            });
-        });
-    };
-    /** The selector for the host element of an autocomplete `MatOptionGroup` instance. */
-    MatAutocompleteOptionGroupHarness.hostSelector = '.mat-autocomplete-panel .mat-optgroup';
-    return MatAutocompleteOptionGroupHarness;
-}(ComponentHarness));
+import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
 /**
  * @license
@@ -181,7 +97,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
         if (filters === void 0) { filters = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatAutocompleteOptionHarness.with(filters))()];
+                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatOptionHarness.with(__assign(__assign({}, filters), { ancestor: PANEL_SELECTOR })))()];
             });
         });
     };
@@ -190,7 +106,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
         if (filters === void 0) { filters = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatAutocompleteOptionGroupHarness.with(filters))()];
+                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(__assign(__assign({}, filters), { ancestor: PANEL_SELECTOR })))()];
             });
         });
     };
@@ -209,7 +125,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
                         if (!options.length) {
                             throw Error("Could not find a mat-option matching " + JSON.stringify(filters));
                         }
-                        return [4 /*yield*/, options[0].select()];
+                        return [4 /*yield*/, options[0].click()];
                     case 3:
                         _a.sent();
                         return [2 /*return*/];
