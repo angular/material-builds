@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef } from '@angular/core';
 import { CanDisableRipple, CanDisableRippleCtor, MatOptgroup, MatOption } from '@angular/material/core';
 /** Event object that is emitted when an autocomplete option is selected. */
@@ -95,7 +96,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     _emitSelectEvent(option: MatOption): void;
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
-    static ngAcceptInputType_autoActiveFirstOption: boolean | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_autoActiveFirstOption: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

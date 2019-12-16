@@ -7,6 +7,7 @@
  */
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -266,9 +267,9 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     private _hasFocusedChip;
     /** Syncs the list's state with the individual chips. */
     private _syncChipsState;
-    static ngAcceptInputType_multiple: boolean | string | null | undefined;
-    static ngAcceptInputType_required: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_selectable: boolean | string | null | undefined;
+    static ngAcceptInputType_multiple: BooleanInput;
+    static ngAcceptInputType_required: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_selectable: BooleanInput;
 }
 export {};

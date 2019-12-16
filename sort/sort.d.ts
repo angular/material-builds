@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { EventEmitter, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable, CanDisableCtor, HasInitialized, HasInitializedCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
@@ -70,7 +71,7 @@ export declare class MatSort extends _MatSortMixinBase implements CanDisable, Ha
     ngOnInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableClear: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableClear: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

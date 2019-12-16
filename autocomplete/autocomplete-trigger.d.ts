@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
@@ -200,5 +201,5 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _resetActiveItem;
     /** Determines whether the panel can be opened. */
     private _canOpen;
-    static ngAcceptInputType_autocompleteDisabled: boolean | string | null | undefined;
+    static ngAcceptInputType_autocompleteDisabled: BooleanInput;
 }

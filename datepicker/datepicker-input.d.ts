@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
 import { DateAdapter, MatDateFormats, ThemePalette } from '@angular/material/core';
@@ -115,6 +116,6 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
     private _getValidDateOrNull;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
     static ngAcceptInputType_value: any;
+    static ngAcceptInputType_disabled: BooleanInput;
 }

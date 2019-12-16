@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
@@ -98,9 +99,9 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
      * changed.
      */
     _markForCheck(): void;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_selected: boolean | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_selected: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -190,7 +191,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _getOptionIndex;
     /** Marks all the options to be checked in the next change detection run. */
     private _markOptionsForCheck;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

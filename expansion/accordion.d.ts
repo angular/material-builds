@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { QueryList, AfterContentInit } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { MatAccordionBase, MatAccordionDisplayMode, MatAccordionTogglePosition } from './accordion-base';
 import { MatExpansionPanelHeader } from './expansion-panel-header';
@@ -36,6 +37,6 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     /** Handles keyboard events coming in from the panel headers. */
     _handleHeaderKeydown(event: KeyboardEvent): void;
     _handleHeaderFocus(header: MatExpansionPanelHeader): void;
-    static ngAcceptInputType_hideToggle: boolean | string | null | undefined;
-    static ngAcceptInputType_multi: boolean | string | null | undefined;
+    static ngAcceptInputType_hideToggle: BooleanInput;
+    static ngAcceptInputType_multi: BooleanInput;
 }

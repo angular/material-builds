@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, EventEmitter, OnChanges } from '@angular/core';
 import { MatChipsDefaultOptions } from './chip-default-options';
 import { MatChipList } from './chip-list';
@@ -66,6 +67,6 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
     focus(options?: FocusOptions): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
-    static ngAcceptInputType_addOnBlur: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_addOnBlur: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }

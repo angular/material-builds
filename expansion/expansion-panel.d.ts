@@ -7,6 +7,7 @@
  */
 import { AnimationEvent } from '@angular/animations';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, ElementRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, InjectionToken } from '@angular/core';
@@ -76,9 +77,9 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     ngOnDestroy(): void;
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     _containsFocus(): boolean;
-    static ngAcceptInputType_hideToggle: boolean | string | null | undefined;
-    static ngAcceptInputType_expanded: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_hideToggle: BooleanInput;
+    static ngAcceptInputType_expanded: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 export declare class MatExpansionPanelActionRow {
 }

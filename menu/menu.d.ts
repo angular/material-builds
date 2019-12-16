@@ -7,6 +7,7 @@
  */
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, TemplateRef, QueryList, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatMenuContent } from './menu-content';
@@ -175,6 +176,6 @@ export declare class MatMenu extends _MatMenuBase {
 /** @docs-public MatMenu */
 export declare class _MatMenu extends MatMenu {
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
-    static ngAcceptInputType_overlapTrigger: boolean | string | null | undefined;
-    static ngAcceptInputType_hasBackdrop: boolean | string | null | undefined;
+    static ngAcceptInputType_overlapTrigger: BooleanInput;
+    static ngAcceptInputType_hasBackdrop: BooleanInput;
 }

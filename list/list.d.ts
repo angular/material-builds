@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ElementRef, QueryList, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
 import { Subject } from 'rxjs';
@@ -21,7 +22,7 @@ export declare class MatNavList extends _MatListMixinBase implements CanDisableR
     _stateChanges: Subject<void>;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export declare class MatList extends _MatListMixinBase implements CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
@@ -31,7 +32,7 @@ export declare class MatList extends _MatListMixinBase implements CanDisableRipp
     _getListType(): 'list' | 'action-list' | null;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -67,6 +68,6 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     _isRippleDisabled(): boolean;
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

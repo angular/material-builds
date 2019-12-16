@@ -7,6 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
@@ -243,14 +244,14 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * @param isDisabled
      */
     setDisabledState(isDisabled: boolean): void;
-    static ngAcceptInputType_invert: boolean | string | null | undefined;
-    static ngAcceptInputType_max: number | string | null | undefined;
-    static ngAcceptInputType_min: number | string | null | undefined;
-    static ngAcceptInputType_step: number | string | null | undefined;
-    static ngAcceptInputType_thumbLabel: boolean | string | null | undefined;
-    static ngAcceptInputType_tickInterval: number | string | null | undefined;
-    static ngAcceptInputType_value: number | string | null | undefined;
-    static ngAcceptInputType_vertical: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_invert: BooleanInput;
+    static ngAcceptInputType_max: NumberInput;
+    static ngAcceptInputType_min: NumberInput;
+    static ngAcceptInputType_step: NumberInput;
+    static ngAcceptInputType_thumbLabel: BooleanInput;
+    static ngAcceptInputType_tickInterval: NumberInput;
+    static ngAcceptInputType_value: NumberInput;
+    static ngAcceptInputType_vertical: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

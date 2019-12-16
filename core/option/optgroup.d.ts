@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { CanDisable, CanDisableCtor } from '../common-behaviors/disabled';
 /** @docs-private */
 declare class MatOptgroupBase {
@@ -18,6 +19,6 @@ export declare class MatOptgroup extends _MatOptgroupMixinBase implements CanDis
     label: string;
     /** Unique id for the underlying label. */
     _labelId: string;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

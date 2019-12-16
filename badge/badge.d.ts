@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AriaDescriber } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, NgZone, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { CanDisable, CanDisableCtor, ThemePalette } from '@angular/material/core';
 /** @docs-private */
@@ -71,8 +72,8 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     private _setColor;
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_hidden: boolean | string | null | undefined;
-    static ngAcceptInputType_overlap: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_hidden: BooleanInput;
+    static ngAcceptInputType_overlap: BooleanInput;
 }
 export {};

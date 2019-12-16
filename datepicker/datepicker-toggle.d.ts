@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDatepicker } from './datepicker';
@@ -35,5 +36,5 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     ngAfterContentInit(): void;
     _open(event: Event): void;
     private _watchStateChanges;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
 }

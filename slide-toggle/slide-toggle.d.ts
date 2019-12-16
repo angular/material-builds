@@ -7,6 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
@@ -111,9 +112,9 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _emitChangeEvent;
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
-    static ngAcceptInputType_required: boolean | string | null | undefined;
-    static ngAcceptInputType_checked: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_required: BooleanInput;
+    static ngAcceptInputType_checked: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

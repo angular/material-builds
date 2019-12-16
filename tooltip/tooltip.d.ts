@@ -8,6 +8,7 @@
 import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -170,9 +171,9 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     private _setupPointerEvents;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_hideDelay: number | string | null | undefined;
-    static ngAcceptInputType_showDelay: number | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_hideDelay: NumberInput;
+    static ngAcceptInputType_showDelay: NumberInput;
 }
 /**
  * Internal component that wraps the tooltip's content.

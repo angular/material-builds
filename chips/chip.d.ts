@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, EventEmitter, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
@@ -142,11 +143,11 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _blur(): void;
     private _dispatchSelectionChange;
     private _markForCheck;
-    static ngAcceptInputType_selected: boolean | string | null | undefined;
-    static ngAcceptInputType_selectable: boolean | string | null | undefined;
-    static ngAcceptInputType_removable: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_selected: BooleanInput;
+    static ngAcceptInputType_selectable: BooleanInput;
+    static ngAcceptInputType_removable: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon

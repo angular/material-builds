@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
 import { HasInitialized, HasInitializedCtor, ThemePalette, CanDisableCtor, CanDisable } from '@angular/material/core';
@@ -100,11 +101,11 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
     private _updateDisplayedPageSizeOptions;
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     private _emitPageEvent;
-    static ngAcceptInputType_pageIndex: number | string | null | undefined;
-    static ngAcceptInputType_length: number | string | null | undefined;
-    static ngAcceptInputType_pageSize: number | string | null | undefined;
-    static ngAcceptInputType_hidePageSize: boolean | string | null | undefined;
-    static ngAcceptInputType_showFirstLastButtons: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_pageIndex: NumberInput;
+    static ngAcceptInputType_length: NumberInput;
+    static ngAcceptInputType_pageSize: NumberInput;
+    static ngAcceptInputType_hidePageSize: BooleanInput;
+    static ngAcceptInputType_showFirstLastButtons: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

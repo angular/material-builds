@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, OnDestroy, OnInit, ElementRef } from '@angular/core';
 import { CanDisable, CanDisableCtor } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -134,7 +135,7 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     _getAriaSortAttribute(): "ascending" | "descending" | null;
     /** Whether the arrow inside the sort header should be rendered. */
     _renderArrow(): boolean;
-    static ngAcceptInputType_disableClear: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
+    static ngAcceptInputType_disableClear: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

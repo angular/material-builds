@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef } from '@angular/core';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
 /**
@@ -32,8 +33,8 @@ export declare class MatFooterCellDef extends CdkFooterCellDef {
 export declare class MatColumnDef extends CdkColumnDef {
     /** Unique name for this column. */
     name: string;
-    static ngAcceptInputType_sticky: boolean | string | null | undefined;
-    static ngAcceptInputType_stickyEnd: boolean | string | null | undefined;
+    static ngAcceptInputType_sticky: BooleanInput;
+    static ngAcceptInputType_stickyEnd: BooleanInput;
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {

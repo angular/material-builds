@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { DoCheck, ElementRef, NgZone, OnChanges, OnDestroy, OnInit } from '@angular/core';
@@ -139,9 +140,9 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      * @docs-private
      */
     onContainerClick(): void;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_readonly: boolean | string | null | undefined;
-    static ngAcceptInputType_required: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_readonly: BooleanInput;
+    static ngAcceptInputType_required: BooleanInput;
     static ngAcceptInputType_value: any;
 }
 export {};

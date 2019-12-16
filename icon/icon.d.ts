@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ElementRef, ErrorHandler, InjectionToken, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
@@ -129,6 +130,6 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * references that we need to prefix with the current path.
      */
     private _cacheChildrenWithExternalReferences;
-    static ngAcceptInputType_inline: boolean | string | null | undefined;
+    static ngAcceptInputType_inline: BooleanInput;
 }
 export {};

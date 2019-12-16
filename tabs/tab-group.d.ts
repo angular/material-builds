@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
@@ -131,9 +132,9 @@ export declare class MatTabGroup extends _MatTabGroupBase {
     _tabBodyWrapper: ElementRef;
     _tabHeader: MatTabGroupBaseHeader;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
-    static ngAcceptInputType_dynamicHeight: boolean | string | null | undefined;
-    static ngAcceptInputType_animationDuration: number | string | null | undefined;
-    static ngAcceptInputType_selectedIndex: number | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_dynamicHeight: BooleanInput;
+    static ngAcceptInputType_animationDuration: NumberInput;
+    static ngAcceptInputType_selectedIndex: NumberInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

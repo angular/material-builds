@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList, OnDestroy } from '@angular/core';
 import { CanColor, CanColorCtor, FloatLabelType, LabelOptions } from '@angular/material/core';
 import { MatError } from './error';
@@ -167,6 +168,6 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _getStartEnd;
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDOM;
-    static ngAcceptInputType_hideRequiredMarker: boolean | string | null | undefined;
+    static ngAcceptInputType_hideRequiredMarker: BooleanInput;
 }
 export {};

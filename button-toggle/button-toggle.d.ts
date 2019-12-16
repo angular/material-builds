@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, InjectionToken } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
@@ -128,9 +129,9 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _selectValue;
     /** Syncs up the group's value with the model and emits the change event. */
     private _updateModelValue;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_multiple: boolean | string | null | undefined;
-    static ngAcceptInputType_vertical: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_multiple: BooleanInput;
+    static ngAcceptInputType_vertical: BooleanInput;
 }
 /** @docs-private */
 declare class MatButtonToggleBase {
@@ -190,10 +191,10 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
      * update bound properties of the radio button.
      */
     _markForCheck(): void;
-    static ngAcceptInputType_checked: boolean | string | null | undefined;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_vertical: boolean | string | null | undefined;
-    static ngAcceptInputType_multiple: boolean | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
+    static ngAcceptInputType_checked: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_vertical: BooleanInput;
+    static ngAcceptInputType_multiple: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

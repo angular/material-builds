@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
@@ -164,9 +165,9 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * server-side rendering.
      */
     private _syncIndeterminate;
-    static ngAcceptInputType_disabled: boolean | string | null | undefined;
-    static ngAcceptInputType_required: boolean | string | null | undefined;
-    static ngAcceptInputType_disableRipple: boolean | string | null | undefined;
-    static ngAcceptInputType_indeterminate: boolean | string | null | undefined;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_required: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_indeterminate: BooleanInput;
 }
 export {};

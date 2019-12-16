@@ -7,6 +7,7 @@
  */
 import { ChangeDetectorRef, QueryList, ElementRef, NgZone } from '@angular/core';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from './drawer';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 export declare class MatSidenavContent extends MatDrawerContent {
     constructor(changeDetectorRef: ChangeDetectorRef, container: MatSidenavContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
@@ -27,16 +28,16 @@ export declare class MatSidenav extends MatDrawer {
      */
     fixedBottomGap: number;
     private _fixedBottomGap;
-    static ngAcceptInputType_fixedInViewport: boolean | string | null | undefined;
-    static ngAcceptInputType_fixedTopGap: number | string | null | undefined;
-    static ngAcceptInputType_fixedBottomGap: number | string | null | undefined;
-    static ngAcceptInputType_disableClose: boolean | string | null | undefined;
-    static ngAcceptInputType_autoFocus: boolean | string | null | undefined;
-    static ngAcceptInputType_opened: boolean | string | null | undefined;
+    static ngAcceptInputType_fixedInViewport: BooleanInput;
+    static ngAcceptInputType_fixedTopGap: NumberInput;
+    static ngAcceptInputType_fixedBottomGap: NumberInput;
+    static ngAcceptInputType_disableClose: BooleanInput;
+    static ngAcceptInputType_autoFocus: BooleanInput;
+    static ngAcceptInputType_opened: BooleanInput;
 }
 export declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
-    static ngAcceptInputType_autosize: boolean | string | null | undefined;
-    static ngAcceptInputType_hasBackdrop: boolean | string | null | undefined;
+    static ngAcceptInputType_autosize: BooleanInput;
+    static ngAcceptInputType_hasBackdrop: BooleanInput;
 }

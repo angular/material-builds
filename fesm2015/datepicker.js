@@ -3598,9 +3598,9 @@ MatDatepickerInput.propDecorators = {
 };
 if (false) {
     /** @type {?} */
-    MatDatepickerInput.ngAcceptInputType_disabled;
-    /** @type {?} */
     MatDatepickerInput.ngAcceptInputType_value;
+    /** @type {?} */
+    MatDatepickerInput.ngAcceptInputType_disabled;
     /** @type {?} */
     MatDatepickerInput.prototype._datepicker;
     /** @type {?} */

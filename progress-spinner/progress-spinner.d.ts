@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { NumberInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, InjectionToken, OnInit } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
@@ -81,9 +82,9 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _attachStyleNode;
     /** Generates animation styles adjusted for the spinner's diameter. */
     private _getAnimationText;
-    static ngAcceptInputType_diameter: number | string | null | undefined;
-    static ngAcceptInputType_strokeWidth: number | string | null | undefined;
-    static ngAcceptInputType_value: number | string | null | undefined;
+    static ngAcceptInputType_diameter: NumberInput;
+    static ngAcceptInputType_strokeWidth: NumberInput;
+    static ngAcceptInputType_value: NumberInput;
 }
 /**
  * `<mat-spinner>` component.
@@ -93,9 +94,9 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
  */
 export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
-    static ngAcceptInputType_diameter: number | string | null | undefined;
-    static ngAcceptInputType_strokeWidth: number | string | null | undefined;
-    static ngAcceptInputType_value: number | string | null | undefined;
+    static ngAcceptInputType_diameter: NumberInput;
+    static ngAcceptInputType_strokeWidth: NumberInput;
+    static ngAcceptInputType_value: NumberInput;
 }
 /** Gets the shadow root of an element, if supported and the element is inside the Shadow DOM. */
 export declare function _getShadowRoot(element: HTMLElement, _document: Document): Node | null;
