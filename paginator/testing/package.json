@@ -1,0 +1,11 @@
+{
+  "name": "@angular/material/paginator/testing",
+  "main": "../../bundles/material-paginator-testing.umd.js",
+  "fesm5": "../../fesm5/paginator/testing.js",
+  "fesm2015": "../../fesm2015/paginator/testing.js",
+  "esm5": "../../esm5/paginator/testing/index.js",
+  "esm2015": "../../esm2015/paginator/testing/index.js",
+  "typings": "./index.d.ts",
+  "module": "../../fesm5/paginator/testing.js",
+  "es2015": "../../fesm2015/paginator/testing.js"
+}
