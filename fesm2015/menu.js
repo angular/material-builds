@@ -1092,6 +1092,9 @@ _MatMenuBase.ctorParameters = () => [
 _MatMenuBase.propDecorators = {
     _allItems: [{ type: ContentChildren, args: [MatMenuItem, { descendants: true },] }],
     backdropClass: [{ type: Input }],
+    ariaLabel: [{ type: Input, args: ['aria-label',] }],
+    ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+    ariaDescribedby: [{ type: Input, args: ['aria-describedby',] }],
     xPosition: [{ type: Input }],
     yPosition: [{ type: Input }],
     templateRef: [{ type: ViewChild, args: [TemplateRef,] }],
@@ -1177,6 +1180,21 @@ if (false) {
      * @type {?}
      */
     _MatMenuBase.prototype.backdropClass;
+    /**
+     * aria-label for the menu panel.
+     * @type {?}
+     */
+    _MatMenuBase.prototype.ariaLabel;
+    /**
+     * aria-labelledby for the menu panel.
+     * @type {?}
+     */
+    _MatMenuBase.prototype.ariaLabelledby;
+    /**
+     * aria-describedby for the menu panel.
+     * @type {?}
+     */
+    _MatMenuBase.prototype.ariaDescribedby;
     /**
      * \@docs-private
      * @type {?}
@@ -1275,7 +1293,7 @@ class _MatMenu extends MatMenu {
 _MatMenu.decorators = [
     { type: Component, args: [{
                 selector: 'mat-menu',
-                template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
+                template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matMenu',

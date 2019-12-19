@@ -700,6 +700,9 @@
         _MatMenuBase.propDecorators = {
             _allItems: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: true },] }],
             backdropClass: [{ type: core.Input }],
+            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+            ariaDescribedby: [{ type: core.Input, args: ['aria-describedby',] }],
             xPosition: [{ type: core.Input }],
             yPosition: [{ type: core.Input }],
             templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
@@ -744,7 +747,7 @@
         _MatMenu.decorators = [
             { type: core.Component, args: [{
                         selector: 'mat-menu',
-                        template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
+                        template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         exportAs: 'matMenu',

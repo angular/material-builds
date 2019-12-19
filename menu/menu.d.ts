@@ -63,6 +63,12 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     direction: Direction;
     /** Class to be added to the backdrop element. */
     backdropClass: string;
+    /** aria-label for the menu panel. */
+    ariaLabel: string;
+    /** aria-labelledby for the menu panel. */
+    ariaLabelledby: string;
+    /** aria-describedby for the menu panel. */
+    ariaDescribedby: string;
     /** Position of the menu in the X axis. */
     xPosition: MenuPositionX;
     /** Position of the menu in the Y axis. */
