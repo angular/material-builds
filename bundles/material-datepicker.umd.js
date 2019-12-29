@@ -2013,6 +2013,7 @@
             }
         };
         MatDatepickerInput.prototype._onInput = function (value) {
+            var lastValueWasValid = this._lastValueValid;
             var date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
             this._lastValueValid = !date || this._dateAdapter.isValid(date);
             date = this._getValidDateOrNull(date);
@@ -2022,7 +2023,7 @@
                 this._valueChange.emit(date);
                 this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
             }
-            else {
+            else if (lastValueWasValid !== this._lastValueValid) {
                 this._validatorOnChange();
             }
         };

@@ -3501,6 +3501,8 @@ class MatDatepickerInput {
      */
     _onInput(value) {
         /** @type {?} */
+        const lastValueWasValid = this._lastValueValid;
+        /** @type {?} */
         let date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = !date || this._dateAdapter.isValid(date);
         date = this._getValidDateOrNull(date);
@@ -3510,7 +3512,7 @@ class MatDatepickerInput {
             this._valueChange.emit(date);
             this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
         }
-        else {
+        else if (lastValueWasValid !== this._lastValueValid) {
             this._validatorOnChange();
         }
     }
