@@ -167,7 +167,6 @@ class MatDrawer {
         this._position = 'start';
         this._mode = 'over';
         this._disableClose = false;
-        this._autoFocus = true;
         this._opened = false;
         /**
          * Emits whenever the drawer has started animating.
@@ -214,9 +213,7 @@ class MatDrawer {
                 if (this._doc) {
                     this._elementFocusedBeforeDrawerWasOpened = (/** @type {?} */ (this._doc.activeElement));
                 }
-                if (this._isFocusTrapEnabled && this._focusTrap) {
-                    this._trapFocus();
-                }
+                this._takeFocus();
             }
             else {
                 this._restoreFocus();
@@ -314,9 +311,18 @@ class MatDrawer {
     set disableClose(value) { this._disableClose = coerceBooleanProperty(value); }
     /**
      * Whether the drawer should focus the first focusable element automatically when opened.
+     * Defaults to false in when `mode` is set to `side`, otherwise defaults to `true`. If explicitly
+     * enabled, focus will be moved into the sidenav in `side` mode as well.
      * @return {?}
      */
-    get autoFocus() { return this._autoFocus; }
+    get autoFocus() {
+        /** @type {?} */
+        const value = this._autoFocus;
+        // Note that usually we disable auto focusing in `side` mode, because we don't know how the
+        // sidenav is being used, but in some cases it still makes sense to do it. If the consumer
+        // explicitly enabled `autoFocus`, we take it as them always wanting to enable it.
+        return value == null ? this.mode !== 'side' : value;
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -390,19 +396,13 @@ class MatDrawer {
         () => { })));
     }
     /**
-     * @return {?}
-     */
-    get _isFocusTrapEnabled() {
-        // The focus trap is only enabled when the drawer is open in any mode other than side.
-        return this.opened && this.mode !== 'side';
-    }
-    /**
-     * Traps focus inside the drawer.
+     * Moves focus into the drawer. Note that this works even if
+     * the focus trap is disabled in `side` mode.
      * @private
      * @return {?}
      */
-    _trapFocus() {
-        if (!this.autoFocus) {
+    _takeFocus() {
+        if (!this.autoFocus || !this._focusTrap) {
             return;
         }
         this._focusTrap.focusInitialElementWhenReady().then((/**
@@ -531,7 +531,8 @@ class MatDrawer {
      */
     _updateFocusTrapState() {
         if (this._focusTrap) {
-            this._focusTrap.enabled = this._isFocusTrapEnabled;
+            // The focus trap is only enabled when the drawer is open in any mode other than side.
+            this._focusTrap.enabled = this.opened && this.mode !== 'side';
         }
     }
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.

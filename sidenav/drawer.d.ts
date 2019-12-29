@@ -65,7 +65,11 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
     disableClose: boolean;
     private _disableClose;
-    /** Whether the drawer should focus the first focusable element automatically when opened. */
+    /**
+     * Whether the drawer should focus the first focusable element automatically when opened.
+     * Defaults to false in when `mode` is set to `side`, otherwise defaults to `true`. If explicitly
+     * enabled, focus will be moved into the sidenav in `side` mode as well.
+     */
     autoFocus: boolean;
     private _autoFocus;
     /**
@@ -101,15 +105,17 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * to know when to when the mode changes so it can adapt the margins on the content.
      */
     readonly _modeChanged: Subject<void>;
-    readonly _isFocusTrapEnabled: boolean;
     constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any, 
     /**
      * @deprecated `_container` parameter to be made required.
      * @breaking-change 10.0.0
      */
     _container?: MatDrawerContainer | undefined);
-    /** Traps focus inside the drawer. */
-    private _trapFocus;
+    /**
+     * Moves focus into the drawer. Note that this works even if
+     * the focus trap is disabled in `side` mode.
+     */
+    private _takeFocus;
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
