@@ -127,6 +127,7 @@ var MatDrawer = /** @class */ (function () {
         this._position = 'start';
         this._mode = 'over';
         this._disableClose = false;
+        this._autoFocus = true;
         this._opened = false;
         /** Emits whenever the drawer has started animating. */
         this._animationStarted = new Subject();
@@ -157,7 +158,9 @@ var MatDrawer = /** @class */ (function () {
                 if (_this._doc) {
                     _this._elementFocusedBeforeDrawerWasOpened = _this._doc.activeElement;
                 }
-                _this._takeFocus();
+                if (_this._isFocusTrapEnabled && _this._focusTrap) {
+                    _this._trapFocus();
+                }
             }
             else {
                 _this._restoreFocus();
@@ -222,18 +225,8 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "autoFocus", {
-        /**
-         * Whether the drawer should focus the first focusable element automatically when opened.
-         * Defaults to false in when `mode` is set to `side`, otherwise defaults to `true`. If explicitly
-         * enabled, focus will be moved into the sidenav in `side` mode as well.
-         */
-        get: function () {
-            var value = this._autoFocus;
-            // Note that usually we disable auto focusing in `side` mode, because we don't know how the
-            // sidenav is being used, but in some cases it still makes sense to do it. If the consumer
-            // explicitly enabled `autoFocus`, we take it as them always wanting to enable it.
-            return value == null ? this.mode !== 'side' : value;
-        },
+        /** Whether the drawer should focus the first focusable element automatically when opened. */
+        get: function () { return this._autoFocus; },
         set: function (value) { this._autoFocus = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
@@ -280,13 +273,18 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * Moves focus into the drawer. Note that this works even if
-     * the focus trap is disabled in `side` mode.
-     */
-    MatDrawer.prototype._takeFocus = function () {
+    Object.defineProperty(MatDrawer.prototype, "_isFocusTrapEnabled", {
+        get: function () {
+            // The focus trap is only enabled when the drawer is open in any mode other than side.
+            return this.opened && this.mode !== 'side';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Traps focus inside the drawer. */
+    MatDrawer.prototype._trapFocus = function () {
         var _this = this;
-        if (!this.autoFocus || !this._focusTrap) {
+        if (!this.autoFocus) {
             return;
         }
         this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
@@ -386,8 +384,7 @@ var MatDrawer = /** @class */ (function () {
     /** Updates the enabled state of the focus trap. */
     MatDrawer.prototype._updateFocusTrapState = function () {
         if (this._focusTrap) {
-            // The focus trap is only enabled when the drawer is open in any mode other than side.
-            this._focusTrap.enabled = this.opened && this.mode !== 'side';
+            this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
     };
     // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
