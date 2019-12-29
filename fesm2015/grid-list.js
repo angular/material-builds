@@ -82,6 +82,10 @@ MatGridTile.decorators = [
                 exportAs: 'matGridTile',
                 host: {
                     'class': 'mat-grid-tile',
+                    // Ensures that the "rowspan" and "colspan" input value is reflected in
+                    // the DOM. This is needed for the grid-tile harness.
+                    '[attr.rowspan]': 'rowspan',
+                    '[attr.colspan]': 'colspan'
                 },
                 template: "<!-- TODO(kara): Revisit why this is a figure.-->\n<figure class=\"mat-figure\">\n  <ng-content></ng-content>\n</figure>",
                 encapsulation: ViewEncapsulation.None,
@@ -203,6 +207,24 @@ MatGridTileFooterCssMatStyler.decorators = [
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Interface describing a tile.
+ * \@docs-private
+ * @record
+ */
+function Tile() { }
+if (false) {
+    /**
+     * Amount of rows that the tile takes up.
+     * @type {?}
+     */
+    Tile.prototype.rowspan;
+    /**
+     * Amount of columns that the tile takes up.
+     * @type {?}
+     */
+    Tile.prototype.colspan;
+}
+/**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
  * because the tiles can have a rowspan.
@@ -250,7 +272,7 @@ class TileCoordinator {
     /**
      * Updates the tile positions.
      * @param {?} numColumns Amount of columns in the grid.
-     * @param {?} tiles
+     * @param {?} tiles Tiles to be positioned.
      * @return {?}
      */
     update(numColumns, tiles) {
@@ -954,6 +976,9 @@ MatGridList.decorators = [
                 template: "<div>\n  <ng-content></ng-content>\n</div>",
                 host: {
                     'class': 'mat-grid-list',
+                    // Ensures that the "cols" input value is reflected in the DOM. This is
+                    // needed for the grid-list harness.
+                    '[attr.cols]': 'cols',
                 },
                 providers: [{
                         provide: MAT_GRID_LIST,
@@ -1069,5 +1094,5 @@ MatGridListModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MatGridAvatarCssMatStyler, MatGridList, MatGridListModule, MatGridTile, MatGridTileFooterCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileText, MAT_GRID_LIST as ɵangular_material_src_material_grid_list_grid_list_a };
+export { MatGridAvatarCssMatStyler, MatGridList, MatGridListModule, MatGridTile, MatGridTileFooterCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileText, TileCoordinator as ɵTileCoordinator, MAT_GRID_LIST as ɵangular_material_src_material_grid_list_grid_list_a };
 //# sourceMappingURL=grid-list.js.map

@@ -58,6 +58,10 @@
                         exportAs: 'matGridTile',
                         host: {
                             'class': 'mat-grid-tile',
+                            // Ensures that the "rowspan" and "colspan" input value is reflected in
+                            // the DOM. This is needed for the grid-tile harness.
+                            '[attr.rowspan]': 'rowspan',
+                            '[attr.colspan]': 'colspan'
                         },
                         template: "<!-- TODO(kara): Revisit why this is a figure.-->\n<figure class=\"mat-figure\">\n  <ng-content></ng-content>\n</figure>",
                         encapsulation: core.ViewEncapsulation.None,
@@ -200,6 +204,7 @@
         /**
          * Updates the tile positions.
          * @param numColumns Amount of columns in the grid.
+         * @param tiles Tiles to be positioned.
          */
         TileCoordinator.prototype.update = function (numColumns, tiles) {
             var _this = this;
@@ -656,6 +661,9 @@
                         template: "<div>\n  <ng-content></ng-content>\n</div>",
                         host: {
                             'class': 'mat-grid-list',
+                            // Ensures that the "cols" input value is reflected in the DOM. This is
+                            // needed for the grid-list harness.
+                            '[attr.cols]': 'cols',
                         },
                         providers: [{
                                 provide: MAT_GRID_LIST,
@@ -735,6 +743,7 @@
     exports.MatGridTileFooterCssMatStyler = MatGridTileFooterCssMatStyler;
     exports.MatGridTileHeaderCssMatStyler = MatGridTileHeaderCssMatStyler;
     exports.MatGridTileText = MatGridTileText;
+    exports.ɵTileCoordinator = TileCoordinator;
     exports.ɵangular_material_src_material_grid_list_grid_list_a = MAT_GRID_LIST;
 
     Object.defineProperty(exports, '__esModule', { value: true });

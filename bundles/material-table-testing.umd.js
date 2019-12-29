@@ -150,6 +150,14 @@
                 });
             });
         };
+        /** Gets the text inside the row organized by columns. */
+        MatRowHarness.prototype.getCellTextByColumnName = function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
+                    return [2 /*return*/, getCellTextByColumnName(this)];
+                });
+            });
+        };
         /** The selector for the host element of a `MatRowHarness` instance. */
         MatRowHarness.hostSelector = '.mat-row';
         return MatRowHarness;
@@ -185,6 +193,14 @@
             return tslib.__awaiter(this, void 0, void 0, function () {
                 return tslib.__generator(this, function (_a) {
                     return [2 /*return*/, getCellTextByIndex(this, filter)];
+                });
+            });
+        };
+        /** Gets the text inside the header row organized by columns. */
+        MatHeaderRowHarness.prototype.getCellTextByColumnName = function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
+                    return [2 /*return*/, getCellTextByColumnName(this)];
                 });
             });
         };
@@ -226,6 +242,14 @@
                 });
             });
         };
+        /** Gets the text inside the footer row organized by columns. */
+        MatFooterRowHarness.prototype.getCellTextByColumnName = function () {
+            return tslib.__awaiter(this, void 0, void 0, function () {
+                return tslib.__generator(this, function (_a) {
+                    return [2 /*return*/, getCellTextByColumnName(this)];
+                });
+            });
+        };
         /** The selector for the host element of a `MatFooterRowHarness` instance. */
         MatFooterRowHarness.hostSelector = '.mat-footer-row';
         return MatFooterRowHarness;
@@ -239,6 +263,30 @@
                     case 1:
                         cells = _a.sent();
                         return [2 /*return*/, Promise.all(cells.map(function (cell) { return cell.getText(); }))];
+                }
+            });
+        });
+    }
+    function getCellTextByColumnName(harness) {
+        return tslib.__awaiter(this, void 0, void 0, function () {
+            var output, cells, cellsData;
+            return tslib.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        output = {};
+                        return [4 /*yield*/, harness.getCells()];
+                    case 1:
+                        cells = _a.sent();
+                        return [4 /*yield*/, Promise.all(cells.map(function (cell) {
+                                return Promise.all([cell.getColumnName(), cell.getText()]);
+                            }))];
+                    case 2:
+                        cellsData = _a.sent();
+                        cellsData.forEach(function (_a) {
+                            var _b = tslib.__read(_a, 2), columnName = _b[0], text = _b[1];
+                            return output[columnName] = text;
+                        });
+                        return [2 /*return*/, output];
                 }
             });
         });
@@ -322,15 +370,15 @@
                             _a = tslib.__read.apply(void 0, [_c.sent(), 3]), headerRows = _a[0], footerRows = _a[1], dataRows = _a[2];
                             text = {};
                             return [4 /*yield*/, Promise.all([
-                                    Promise.all(headerRows.map(function (row) { return getRowData(row); })),
-                                    Promise.all(footerRows.map(function (row) { return getRowData(row); })),
-                                    Promise.all(dataRows.map(function (row) { return getRowData(row); })),
+                                    Promise.all(headerRows.map(function (row) { return row.getCellTextByColumnName(); })),
+                                    Promise.all(footerRows.map(function (row) { return row.getCellTextByColumnName(); })),
+                                    Promise.all(dataRows.map(function (row) { return row.getCellTextByColumnName(); })),
                                 ])];
                         case 2:
                             _b = tslib.__read.apply(void 0, [_c.sent(), 3]), headerData = _b[0], footerData = _b[1], rowsData = _b[2];
-                            rowsData.forEach(function (cells) {
-                                cells.forEach(function (_a) {
-                                    var _b = tslib.__read(_a, 2), columnName = _b[0], cellText = _b[1];
+                            rowsData.forEach(function (data) {
+                                Object.keys(data).forEach(function (columnName) {
+                                    var cellText = data[columnName];
                                     if (!text[columnName]) {
                                         text[columnName] = {
                                             headerText: getCellTextsByColumn(headerData, columnName),
@@ -350,28 +398,13 @@
         MatTableHarness.hostSelector = '.mat-table';
         return MatTableHarness;
     }(testing.ComponentHarness));
-    /** Utility to extract the column names and text from all of the cells in a row. */
-    function getRowData(row) {
-        return tslib.__awaiter(this, void 0, void 0, function () {
-            var cells;
-            return tslib.__generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, row.getCells()];
-                    case 1:
-                        cells = _a.sent();
-                        return [2 /*return*/, Promise.all(cells.map(function (cell) { return Promise.all([cell.getColumnName(), cell.getText()]); }))];
-                }
-            });
-        });
-    }
     /** Extracts the text of cells only under a particular column. */
     function getCellTextsByColumn(rowsData, column) {
         var columnTexts = [];
-        rowsData.forEach(function (cells) {
-            cells.forEach(function (_a) {
-                var _b = tslib.__read(_a, 2), columnName = _b[0], cellText = _b[1];
+        rowsData.forEach(function (data) {
+            Object.keys(data).forEach(function (columnName) {
                 if (columnName === column) {
-                    columnTexts.push(cellText);
+                    columnTexts.push(data[columnName]);
                 }
             });
         });

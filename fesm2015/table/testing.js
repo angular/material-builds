@@ -104,6 +104,12 @@ class MatRowHarness extends ComponentHarness {
             return getCellTextByIndex(this, filter);
         });
     }
+    /** Gets the text inside the row organized by columns. */
+    getCellTextByColumnName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return getCellTextByColumnName(this);
+        });
+    }
 }
 /** The selector for the host element of a `MatRowHarness` instance. */
 MatRowHarness.hostSelector = '.mat-row';
@@ -128,6 +134,12 @@ class MatHeaderRowHarness extends ComponentHarness {
     getCellTextByIndex(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             return getCellTextByIndex(this, filter);
+        });
+    }
+    /** Gets the text inside the header row organized by columns. */
+    getCellTextByColumnName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return getCellTextByColumnName(this);
         });
     }
 }
@@ -156,6 +168,12 @@ class MatFooterRowHarness extends ComponentHarness {
             return getCellTextByIndex(this, filter);
         });
     }
+    /** Gets the text inside the footer row organized by columns. */
+    getCellTextByColumnName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return getCellTextByColumnName(this);
+        });
+    }
 }
 /** The selector for the host element of a `MatFooterRowHarness` instance. */
 MatFooterRowHarness.hostSelector = '.mat-footer-row';
@@ -163,6 +181,17 @@ function getCellTextByIndex(harness, filter) {
     return __awaiter(this, void 0, void 0, function* () {
         const cells = yield harness.getCells(filter);
         return Promise.all(cells.map(cell => cell.getText()));
+    });
+}
+function getCellTextByColumnName(harness) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const output = {};
+        const cells = yield harness.getCells();
+        const cellsData = yield Promise.all(cells.map(cell => {
+            return Promise.all([cell.getColumnName(), cell.getText()]);
+        }));
+        cellsData.forEach(([columnName, text]) => output[columnName] = text);
+        return output;
     });
 }
 
@@ -218,12 +247,13 @@ class MatTableHarness extends ComponentHarness {
             ]);
             const text = {};
             const [headerData, footerData, rowsData] = yield Promise.all([
-                Promise.all(headerRows.map(row => getRowData(row))),
-                Promise.all(footerRows.map(row => getRowData(row))),
-                Promise.all(dataRows.map(row => getRowData(row))),
+                Promise.all(headerRows.map(row => row.getCellTextByColumnName())),
+                Promise.all(footerRows.map(row => row.getCellTextByColumnName())),
+                Promise.all(dataRows.map(row => row.getCellTextByColumnName())),
             ]);
-            rowsData.forEach(cells => {
-                cells.forEach(([columnName, cellText]) => {
+            rowsData.forEach(data => {
+                Object.keys(data).forEach(columnName => {
+                    const cellText = data[columnName];
                     if (!text[columnName]) {
                         text[columnName] = {
                             headerText: getCellTextsByColumn(headerData, columnName),
@@ -240,20 +270,13 @@ class MatTableHarness extends ComponentHarness {
 }
 /** The selector for the host element of a `MatTableHarness` instance. */
 MatTableHarness.hostSelector = '.mat-table';
-/** Utility to extract the column names and text from all of the cells in a row. */
-function getRowData(row) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const cells = yield row.getCells();
-        return Promise.all(cells.map(cell => Promise.all([cell.getColumnName(), cell.getText()])));
-    });
-}
 /** Extracts the text of cells only under a particular column. */
 function getCellTextsByColumn(rowsData, column) {
     const columnTexts = [];
-    rowsData.forEach(cells => {
-        cells.forEach(([columnName, cellText]) => {
+    rowsData.forEach(data => {
+        Object.keys(data).forEach(columnName => {
             if (columnName === column) {
-                columnTexts.push(cellText);
+                columnTexts.push(data[columnName]);
             }
         });
     });

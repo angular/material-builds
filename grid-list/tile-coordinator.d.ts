@@ -5,7 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { MatGridTile } from './grid-tile';
+/**
+ * Interface describing a tile.
+ * @docs-private
+ */
+export interface Tile {
+    /** Amount of rows that the tile takes up. */
+    rowspan: number;
+    /** Amount of columns that the tile takes up. */
+    colspan: number;
+}
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -42,8 +51,9 @@ export declare class TileCoordinator {
     /**
      * Updates the tile positions.
      * @param numColumns Amount of columns in the grid.
+     * @param tiles Tiles to be positioned.
      */
-    update(numColumns: number, tiles: MatGridTile[]): void;
+    update(numColumns: number, tiles: Tile[]): void;
     /** Calculates the row and col position of a tile. */
     private _trackTile;
     /** Finds the next available space large enough to fit the tile. */

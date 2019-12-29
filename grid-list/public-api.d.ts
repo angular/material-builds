@@ -8,3 +8,4 @@
 export * from './grid-list-module';
 export * from './grid-list';
 export * from './grid-tile';
+export { TileCoordinator as ɵTileCoordinator } from './tile-coordinator';

@@ -58,6 +58,10 @@ var MatGridTile = /** @class */ (function () {
                     exportAs: 'matGridTile',
                     host: {
                         'class': 'mat-grid-tile',
+                        // Ensures that the "rowspan" and "colspan" input value is reflected in
+                        // the DOM. This is needed for the grid-tile harness.
+                        '[attr.rowspan]': 'rowspan',
+                        '[attr.colspan]': 'colspan'
                     },
                     template: "<!-- TODO(kara): Revisit why this is a figure.-->\n<figure class=\"mat-figure\">\n  <ng-content></ng-content>\n</figure>",
                     encapsulation: ViewEncapsulation.None,
@@ -200,6 +204,7 @@ var TileCoordinator = /** @class */ (function () {
     /**
      * Updates the tile positions.
      * @param numColumns Amount of columns in the grid.
+     * @param tiles Tiles to be positioned.
      */
     TileCoordinator.prototype.update = function (numColumns, tiles) {
         var _this = this;
@@ -656,6 +661,9 @@ var MatGridList = /** @class */ (function () {
                     template: "<div>\n  <ng-content></ng-content>\n</div>",
                     host: {
                         'class': 'mat-grid-list',
+                        // Ensures that the "cols" input value is reflected in the DOM. This is
+                        // needed for the grid-list harness.
+                        '[attr.cols]': 'cols',
                     },
                     providers: [{
                             provide: MAT_GRID_LIST,
@@ -728,5 +736,5 @@ var MatGridListModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatGridAvatarCssMatStyler, MatGridList, MatGridListModule, MatGridTile, MatGridTileFooterCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileText, MAT_GRID_LIST as ɵangular_material_src_material_grid_list_grid_list_a };
+export { MatGridAvatarCssMatStyler, MatGridList, MatGridListModule, MatGridTile, MatGridTileFooterCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileText, TileCoordinator as ɵTileCoordinator, MAT_GRID_LIST as ɵangular_material_src_material_grid_list_grid_list_a };
 //# sourceMappingURL=grid-list.js.map
