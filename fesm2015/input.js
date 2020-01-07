@@ -447,6 +447,13 @@ class MatInput extends _MatInputMixinBase {
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
     }
     /**
+     * Determines if the component host is a textarea.
+     * @return {?}
+     */
+    _isTextarea() {
+        return this._elementRef.nativeElement.nodeName.toLowerCase() === 'textarea';
+    }
+    /**
      * Does some manual dirty checking on the native input `value` property.
      * @protected
      * @return {?}
@@ -487,14 +494,6 @@ class MatInput extends _MatInputMixinBase {
         /** @type {?} */
         let validity = ((/** @type {?} */ (this._elementRef.nativeElement))).validity;
         return validity && validity.badInput;
-    }
-    /**
-     * Determines if the component host is a textarea.
-     * @protected
-     * @return {?}
-     */
-    _isTextarea() {
-        return this._elementRef.nativeElement.nodeName.toLowerCase() === 'textarea';
     }
     /**
      * Implemented as part of MatFormFieldControl.

@@ -110,6 +110,8 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
+    /** Determines if the component host is a textarea. */
+    _isTextarea(): boolean;
     /** Does some manual dirty checking on the native input `value` property. */
     protected _dirtyCheckNativeValue(): void;
     /** Make sure the input is a supported type. */
@@ -118,8 +120,6 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _isNeverEmpty(): boolean;
     /** Checks whether the input is invalid based on the native validation. */
     protected _isBadInput(): boolean;
-    /** Determines if the component host is a textarea. */
-    protected _isTextarea(): boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

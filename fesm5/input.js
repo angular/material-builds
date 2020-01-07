@@ -345,6 +345,10 @@ var MatInput = /** @class */ (function (_super) {
         // Listening to the input event wouldn't be necessary when the input is using the
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
     };
+    /** Determines if the component host is a textarea. */
+    MatInput.prototype._isTextarea = function () {
+        return this._elementRef.nativeElement.nodeName.toLowerCase() === 'textarea';
+    };
     /** Does some manual dirty checking on the native input `value` property. */
     MatInput.prototype._dirtyCheckNativeValue = function () {
         var newValue = this._elementRef.nativeElement.value;
@@ -368,10 +372,6 @@ var MatInput = /** @class */ (function (_super) {
         // The `validity` property won't be present on platform-server.
         var validity = this._elementRef.nativeElement.validity;
         return validity && validity.badInput;
-    };
-    /** Determines if the component host is a textarea. */
-    MatInput.prototype._isTextarea = function () {
-        return this._elementRef.nativeElement.nodeName.toLowerCase() === 'textarea';
     };
     Object.defineProperty(MatInput.prototype, "empty", {
         /**
