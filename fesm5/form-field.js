@@ -624,10 +624,10 @@ var MatFormField = /** @class */ (function (_super) {
             gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
         }
         for (var i = 0; i < startEls.length; i++) {
-            startEls.item(i).style.width = startWidth + "px";
+            startEls[i].style.width = startWidth + "px";
         }
         for (var i = 0; i < gapEls.length; i++) {
-            gapEls.item(i).style.width = gapWidth + "px";
+            gapEls[i].style.width = gapWidth + "px";
         }
         this._outlineGapCalculationNeededOnStable =
             this._outlineGapCalculationNeededImmediately = false;
