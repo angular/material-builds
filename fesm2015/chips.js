@@ -628,6 +628,8 @@ MatChipRemove.decorators = [
                 host: {
                     'class': 'mat-chip-remove mat-chip-trailing-icon',
                     '(click)': '_handleClick($event)',
+                    // Prevent accidental form submissions.
+                    'type': 'button',
                 }
             },] }
 ];
