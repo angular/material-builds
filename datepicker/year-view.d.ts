@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatCalendarBody, MatCalendarCell } from './calendar-body';
@@ -13,11 +13,12 @@ import { MatCalendarBody, MatCalendarCell } from './calendar-body';
  * An internal component used to display a single year in the datepicker.
  * @docs-private
  */
-export declare class MatYearView<D> implements AfterContentInit {
+export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
+    private _rerenderSubscription;
     /** The date to display in this year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
@@ -53,6 +54,7 @@ export declare class MatYearView<D> implements AfterContentInit {
     _selectedMonth: number | null;
     constructor(_changeDetectorRef: ChangeDetectorRef, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /** Handles when a new month is selected. */
     _monthSelected(month: number): void;
     /** Handles keydown events on the calendar body when calendar is in year view. */

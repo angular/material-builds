@@ -9,7 +9,7 @@ import { MAT_DATE_FORMATS, DateAdapter, mixinColor } from '@angular/material/cor
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
-import { take, filter } from 'rxjs/operators';
+import { take, startWith, filter } from 'rxjs/operators';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators } from '@angular/forms';
@@ -427,6 +427,7 @@ class MatMonthView {
         this._dateFormats = _dateFormats;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
+        this._rerenderSubscription = Subscription.EMPTY;
         /**
          * Emits when a new date is selected.
          */
@@ -507,7 +508,18 @@ class MatMonthView {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._init();
+        this._rerenderSubscription = this._dateAdapter.localeChanges
+            .pipe(startWith(null))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this._init()));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._rerenderSubscription.unsubscribe();
     }
     /**
      * Handles when a new date is selected.
@@ -754,6 +766,11 @@ if (false) {
      * @type {?}
      * @private
      */
+    MatMonthView.prototype._rerenderSubscription;
+    /**
+     * @type {?}
+     * @private
+     */
     MatMonthView.prototype._activeDate;
     /**
      * @type {?}
@@ -874,6 +891,7 @@ class MatMultiYearView {
         this._changeDetectorRef = _changeDetectorRef;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
+        this._rerenderSubscription = Subscription.EMPTY;
         /**
          * Emits when a new year is selected.
          */
@@ -951,7 +969,18 @@ class MatMultiYearView {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._init();
+        this._rerenderSubscription = this._dateAdapter.localeChanges
+            .pipe(startWith(null))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this._init()));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._rerenderSubscription.unsubscribe();
     }
     /**
      * Initializes this multi-year view.
@@ -1146,6 +1175,11 @@ if (false) {
      * @type {?}
      * @private
      */
+    MatMultiYearView.prototype._rerenderSubscription;
+    /**
+     * @type {?}
+     * @private
+     */
     MatMultiYearView.prototype._activeDate;
     /**
      * @type {?}
@@ -1304,6 +1338,7 @@ class MatYearView {
         this._dateFormats = _dateFormats;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
+        this._rerenderSubscription = Subscription.EMPTY;
         /**
          * Emits when a new month is selected.
          */
@@ -1384,7 +1419,18 @@ class MatYearView {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._init();
+        this._rerenderSubscription = this._dateAdapter.localeChanges
+            .pipe(startWith(null))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this._init()));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._rerenderSubscription.unsubscribe();
     }
     /**
      * Handles when a new month is selected.
@@ -1617,6 +1663,11 @@ MatYearView.propDecorators = {
     _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
 };
 if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    MatYearView.prototype._rerenderSubscription;
     /**
      * @type {?}
      * @private

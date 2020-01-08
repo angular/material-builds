@@ -197,6 +197,7 @@
             this._dateFormats = _dateFormats;
             this._dateAdapter = _dateAdapter;
             this._dir = _dir;
+            this._rerenderSubscription = rxjs.Subscription.EMPTY;
             /** Emits when a new date is selected. */
             this.selectedChange = new i0.EventEmitter();
             /** Emits when any date is selected. */
@@ -256,7 +257,13 @@
             configurable: true
         });
         MatMonthView.prototype.ngAfterContentInit = function () {
-            this._init();
+            var _this = this;
+            this._rerenderSubscription = this._dateAdapter.localeChanges
+                .pipe(operators.startWith(null))
+                .subscribe(function () { return _this._init(); });
+        };
+        MatMonthView.prototype.ngOnDestroy = function () {
+            this._rerenderSubscription.unsubscribe();
         };
         /** Handles when a new date is selected. */
         MatMonthView.prototype._dateSelected = function (date) {
@@ -453,6 +460,7 @@
             this._changeDetectorRef = _changeDetectorRef;
             this._dateAdapter = _dateAdapter;
             this._dir = _dir;
+            this._rerenderSubscription = rxjs.Subscription.EMPTY;
             /** Emits when a new year is selected. */
             this.selectedChange = new i0.EventEmitter();
             /** Emits the selected year. This doesn't imply a change on the selected date */
@@ -507,7 +515,13 @@
             configurable: true
         });
         MatMultiYearView.prototype.ngAfterContentInit = function () {
-            this._init();
+            var _this = this;
+            this._rerenderSubscription = this._dateAdapter.localeChanges
+                .pipe(operators.startWith(null))
+                .subscribe(function () { return _this._init(); });
+        };
+        MatMultiYearView.prototype.ngOnDestroy = function () {
+            this._rerenderSubscription.unsubscribe();
         };
         /** Initializes this multi-year view. */
         MatMultiYearView.prototype._init = function () {
@@ -708,6 +722,7 @@
             this._dateFormats = _dateFormats;
             this._dateAdapter = _dateAdapter;
             this._dir = _dir;
+            this._rerenderSubscription = rxjs.Subscription.EMPTY;
             /** Emits when a new month is selected. */
             this.selectedChange = new i0.EventEmitter();
             /** Emits the selected month. This doesn't imply a change on the selected date */
@@ -765,7 +780,13 @@
             configurable: true
         });
         MatYearView.prototype.ngAfterContentInit = function () {
-            this._init();
+            var _this = this;
+            this._rerenderSubscription = this._dateAdapter.localeChanges
+                .pipe(operators.startWith(null))
+                .subscribe(function () { return _this._init(); });
+        };
+        MatYearView.prototype.ngOnDestroy = function () {
+            this._rerenderSubscription.unsubscribe();
         };
         /** Handles when a new month is selected. */
         MatYearView.prototype._monthSelected = function (month) {

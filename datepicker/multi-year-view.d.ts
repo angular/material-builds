@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatCalendarBody, MatCalendarCell } from './calendar-body';
@@ -15,10 +15,11 @@ export declare const yearsPerRow = 4;
  * An internal component used to display a year selector in the datepicker.
  * @docs-private
  */
-export declare class MatMultiYearView<D> implements AfterContentInit {
+export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
+    private _rerenderSubscription;
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
@@ -49,6 +50,7 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     _selectedYear: number | null;
     constructor(_changeDetectorRef: ChangeDetectorRef, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /** Initializes this multi-year view. */
     _init(): void;
     /** Handles when a new year is selected. */
