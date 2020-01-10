@@ -350,8 +350,7 @@ class MatMenuItemBase {
 /** @type {?} */
 const _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
 /**
- * This directive is intended to be used inside an mat-menu tag.
- * It exists mostly to set the role attribute.
+ * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
 class MatMenuItem extends _MatMenuItemMixinBase {
     /**
@@ -1363,8 +1362,7 @@ const MENU_PANEL_TOP_PADDING = 8;
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
 /**
- * This directive is intended to be used in conjunction with an mat-menu tag.  It is
- * responsible for toggling the display of the provided menu instance.
+ * Directive applied to an element that should trigger a `mat-menu`.
  */
 class MatMenuTrigger {
     /**

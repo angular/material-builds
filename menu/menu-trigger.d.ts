@@ -24,10 +24,7 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 };
 /** Default top padding of the menu panel. */
 export declare const MENU_PANEL_TOP_PADDING = 8;
-/**
- * This directive is intended to be used in conjunction with an mat-menu tag.  It is
- * responsible for toggling the display of the provided menu instance.
- */
+/** Directive applied to an element that should trigger a `mat-menu`. */
 export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _overlay;
     private _element;

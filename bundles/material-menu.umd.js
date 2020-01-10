@@ -210,8 +210,7 @@
     }());
     var _MatMenuItemMixinBase = core$1.mixinDisableRipple(core$1.mixinDisabled(MatMenuItemBase));
     /**
-     * This directive is intended to be used inside an mat-menu tag.
-     * It exists mostly to set the role attribute.
+     * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
      */
     var MatMenuItem = /** @class */ (function (_super) {
         tslib.__extends(MatMenuItem, _super);
@@ -795,10 +794,7 @@
     /** Options for binding a passive event listener. */
     var passiveEventListenerOptions = platform.normalizePassiveListenerOptions({ passive: true });
     // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
-    /**
-     * This directive is intended to be used in conjunction with an mat-menu tag.  It is
-     * responsible for toggling the display of the provided menu instance.
-     */
+    /** Directive applied to an element that should trigger a `mat-menu`. */
     var MatMenuTrigger = /** @class */ (function () {
         function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, 
         // TODO(crisbeto): make the _focusMonitor required when doing breaking changes.
