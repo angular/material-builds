@@ -275,7 +275,7 @@ var MatFormField = /** @class */ (function (_super) {
         // Unique id for the internal form field label.
         _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
         _this._labelOptions = labelOptions ? labelOptions : {};
-        _this.floatLabel = _this._labelOptions.float || 'auto';
+        _this.floatLabel = _this._getDefaultFloatLabelState();
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
         _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
@@ -343,7 +343,7 @@ var MatFormField = /** @class */ (function (_super) {
         },
         set: function (value) {
             if (value !== this._floatLabel) {
-                this._floatLabel = value || this._labelOptions.float || 'auto';
+                this._floatLabel = value || this._getDefaultFloatLabelState();
                 this._changeDetectorRef.markForCheck();
             }
         },
@@ -530,6 +530,10 @@ var MatFormField = /** @class */ (function (_super) {
                 }
             });
         }
+    };
+    /** Gets the default float label state. */
+    MatFormField.prototype._getDefaultFloatLabelState = function () {
+        return (this._defaults && this._defaults.floatLabel) || this._labelOptions.float || 'auto';
     };
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update

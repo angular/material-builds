@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList, OnDestroy } from '@angular/core';
-import { CanColor, CanColorCtor, FloatLabelType, LabelOptions } from '@angular/material/core';
+import { CanColor, CanColorCtor, LabelOptions } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
 import { MatHint } from './hint';
@@ -38,6 +38,8 @@ declare const _MatFormFieldMixinBase: CanColorCtor & typeof MatFormFieldBase;
  * @breaking-change 11.0.0 Remove `legacy` and `standard`.
  */
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
+/** Possible values for the "floatLabel" form-field input. */
+export declare type FloatLabelType = 'always' | 'never' | 'auto';
 /**
  * Represents the default options for the form field that can be configured
  * using the `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token.
@@ -45,6 +47,11 @@ export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'o
 export interface MatFormFieldDefaultOptions {
     appearance?: MatFormFieldAppearance;
     hideRequiredMarker?: boolean;
+    /**
+     * Whether the label for form-fields should by default float `always`,
+     * `never`, or `auto` (only when necessary).
+     */
+    floatLabel?: FloatLabelType;
 }
 /**
  * Injection token that can be used to configure the
@@ -152,6 +159,8 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
      * attribute being considered as `align="start"`.
      */
     private _validateHints;
+    /** Gets the default float label state. */
+    private _getDefaultFloatLabelState;
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.

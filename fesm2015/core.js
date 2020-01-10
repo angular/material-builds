@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.7-sha-5fe233add');
+const VERSION = new Version('9.0.0-rc.7-sha-dbdc1a8c5');
 
 /**
  * @fileoverview added by tsickle
@@ -80,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.0.0-rc.7-sha-5fe233add');
+const VERSION$1 = new Version('9.0.0-rc.7-sha-dbdc1a8c5');
 /**
  * \@docs-private
  * @return {?}
@@ -3292,11 +3292,16 @@ MatOptionModule.decorators = [
  */
 /**
  * InjectionToken that can be used to specify the global label options.
+ * @deprecated Use `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token from
+ *     `\@angular/material/form-field` instead.
+ * \@breaking-change 11.0.0
  * @type {?}
  */
 const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 /**
  * Configurable options for floating labels.
+ * @deprecated Use `MatFormFieldDefaultOptions` from `\@angular/material/form-field` instead.
+ * \@breaking-change 11.0.0
  * @record
  */
 function LabelOptions() { }

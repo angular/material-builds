@@ -365,6 +365,12 @@ if (false) {
     MatFormFieldDefaultOptions.prototype.appearance;
     /** @type {?|undefined} */
     MatFormFieldDefaultOptions.prototype.hideRequiredMarker;
+    /**
+     * Whether the label for form-fields should by default float `always`,
+     * `never`, or `auto` (only when necessary).
+     * @type {?|undefined}
+     */
+    MatFormFieldDefaultOptions.prototype.floatLabel;
 }
 /**
  * Injection token that can be used to configure the
@@ -418,7 +424,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         // Unique id for the internal form field label.
         this._labelId = `mat-form-field-label-${nextUniqueId$2++}`;
         this._labelOptions = labelOptions ? labelOptions : {};
-        this.floatLabel = this._labelOptions.float || 'auto';
+        this.floatLabel = this._getDefaultFloatLabelState();
         this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
         this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
@@ -497,7 +503,7 @@ class MatFormField extends _MatFormFieldMixinBase {
      */
     set floatLabel(value) {
         if (value !== this._floatLabel) {
-            this._floatLabel = value || this._labelOptions.float || 'auto';
+            this._floatLabel = value || this._getDefaultFloatLabelState();
             this._changeDetectorRef.markForCheck();
         }
     }
@@ -767,6 +773,14 @@ class MatFormField extends _MatFormFieldMixinBase {
                 }
             }));
         }
+    }
+    /**
+     * Gets the default float label state.
+     * @private
+     * @return {?}
+     */
+    _getDefaultFloatLabelState() {
+        return (this._defaults && this._defaults.floatLabel) || this._labelOptions.float || 'auto';
     }
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update

@@ -48,6 +48,15 @@ export declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
 export declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
 export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
+/** Object that can be used to configure the default options for the select module. */
+export interface MatSelectConfig {
+    /** Whether option centering should be disabled. */
+    disableOptionCentering?: boolean;
+    /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
+    typeaheadDebounceInterval?: number;
+}
+/** Injection token that can be used to provide the default options the select module. */
+export declare const MAT_SELECT_CONFIG: InjectionToken<MatSelectConfig>;
 /** @docs-private */
 export declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
@@ -219,7 +228,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, defaults?: MatSelectConfig);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;

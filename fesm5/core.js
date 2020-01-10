@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('9.0.0-rc.7-sha-5fe233add');
+var VERSION = new Version('9.0.0-rc.7-sha-dbdc1a8c5');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('9.0.0-rc.7-sha-5fe233add');
+var VERSION$1 = new Version('9.0.0-rc.7-sha-dbdc1a8c5');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1953,7 +1953,12 @@ var MatOptionModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** InjectionToken that can be used to specify the global label options. */
+/**
+ * InjectionToken that can be used to specify the global label options.
+ * @deprecated Use `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token from
+ *     `@angular/material/form-field` instead.
+ * @breaking-change 11.0.0
+ */
 var MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 
 /**
