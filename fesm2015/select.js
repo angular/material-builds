@@ -171,28 +171,6 @@ function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     () => overlay.scrollStrategies.reposition());
 }
 /**
- * Object that can be used to configure the default options for the select module.
- * @record
- */
-function MatSelectConfig() { }
-if (false) {
-    /**
-     * Whether option centering should be disabled.
-     * @type {?|undefined}
-     */
-    MatSelectConfig.prototype.disableOptionCentering;
-    /**
-     * Time to wait in milliseconds after the last keystroke before moving focus to an item.
-     * @type {?|undefined}
-     */
-    MatSelectConfig.prototype.typeaheadDebounceInterval;
-}
-/**
- * Injection token that can be used to provide the default options the select module.
- * @type {?}
- */
-const MAT_SELECT_CONFIG = new InjectionToken('MAT_SELECT_CONFIG');
-/**
  * \@docs-private
  * @type {?}
  */
@@ -285,9 +263,8 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} tabIndex
      * @param {?} scrollStrategyFactory
      * @param {?} _liveAnnouncer
-     * @param {?=} defaults
      */
-    constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, defaults) {
+    constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer) {
         super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
@@ -470,14 +447,6 @@ class MatSelect extends _MatSelectMixinBase {
         this.tabIndex = parseInt(tabIndex) || 0;
         // Force setter to be called in case id was not specified.
         this.id = this.id;
-        if (defaults) {
-            if (defaults.disableOptionCentering != null) {
-                this.disableOptionCentering = defaults.disableOptionCentering;
-            }
-            if (defaults.typeaheadDebounceInterval != null) {
-                this.typeaheadDebounceInterval = defaults.typeaheadDebounceInterval;
-            }
-        }
     }
     /**
      * Whether the select is focused.
@@ -1692,8 +1661,7 @@ MatSelect.ctorParameters = () => [
     { type: NgControl, decorators: [{ type: Self }, { type: Optional }] },
     { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] },
-    { type: LiveAnnouncer },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_SELECT_CONFIG,] }] }
+    { type: LiveAnnouncer }
 ];
 MatSelect.propDecorators = {
     trigger: [{ type: ViewChild, args: ['trigger',] }],
@@ -2044,5 +2012,5 @@ MatSelectModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, matSelectAnimations };
+export { MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, matSelectAnimations };
 //# sourceMappingURL=select.js.map

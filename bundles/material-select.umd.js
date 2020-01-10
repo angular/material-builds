@@ -133,8 +133,6 @@
     function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
         return function () { return overlay.scrollStrategies.reposition(); };
     }
-    /** Injection token that can be used to provide the default options the select module. */
-    var MAT_SELECT_CONFIG = new core.InjectionToken('MAT_SELECT_CONFIG');
     /** @docs-private */
     var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
         provide: MAT_SELECT_SCROLL_STRATEGY,
@@ -181,7 +179,7 @@
     }());
     var MatSelect = /** @class */ (function (_super) {
         tslib.__extends(MatSelect, _super);
-        function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, defaults) {
+        function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer) {
             var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._viewportRuler = _viewportRuler;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -283,14 +281,6 @@
             _this.tabIndex = parseInt(tabIndex) || 0;
             // Force setter to be called in case id was not specified.
             _this.id = _this.id;
-            if (defaults) {
-                if (defaults.disableOptionCentering != null) {
-                    _this.disableOptionCentering = defaults.disableOptionCentering;
-                }
-                if (defaults.typeaheadDebounceInterval != null) {
-                    _this.typeaheadDebounceInterval = defaults.typeaheadDebounceInterval;
-                }
-            }
             return _this;
         }
         Object.defineProperty(MatSelect.prototype, "focused", {
@@ -1195,8 +1185,7 @@
             { type: forms.NgControl, decorators: [{ type: core.Self }, { type: core.Optional }] },
             { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
             { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] },
-            { type: a11y.LiveAnnouncer },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_SELECT_CONFIG,] }] }
+            { type: a11y.LiveAnnouncer }
         ]; };
         MatSelect.propDecorators = {
             trigger: [{ type: core.ViewChild, args: ['trigger',] }],
@@ -1265,7 +1254,6 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MAT_SELECT_CONFIG = MAT_SELECT_CONFIG;
     exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
     exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
     exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
