@@ -1381,11 +1381,32 @@
      */
     var MatDatepickerContent = /** @class */ (function (_super) {
         tslib.__extends(MatDatepickerContent, _super);
-        function MatDatepickerContent(elementRef) {
-            return _super.call(this, elementRef) || this;
+        function MatDatepickerContent(elementRef, 
+        /**
+         * @deprecated `_changeDetectorRef` parameter to become required.
+         * @breaking-change 11.0.0
+         */
+        _changeDetectorRef) {
+            var _this = _super.call(this, elementRef) || this;
+            _this._changeDetectorRef = _changeDetectorRef;
+            /** Current state of the animation. */
+            _this._animationState = 'enter';
+            /** Emits when an animation has finished. */
+            _this._animationDone = new rxjs.Subject();
+            return _this;
         }
         MatDatepickerContent.prototype.ngAfterViewInit = function () {
             this._calendar.focusActiveCell();
+        };
+        MatDatepickerContent.prototype.ngOnDestroy = function () {
+            this._animationDone.complete();
+        };
+        MatDatepickerContent.prototype._startExitAnimation = function () {
+            this._animationState = 'void';
+            // @breaking-change 11.0.0 Remove null check for `_changeDetectorRef`.
+            if (this._changeDetectorRef) {
+                this._changeDetectorRef.markForCheck();
+            }
         };
         MatDatepickerContent.decorators = [
             { type: i0.Component, args: [{
@@ -1393,7 +1414,8 @@
                         template: "<mat-calendar cdkTrapFocus\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._minDate\"\n    [maxDate]=\"datepicker._maxDate\"\n    [dateFilter]=\"datepicker._dateFilter\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"datepicker._selected\"\n    [dateClass]=\"datepicker.dateClass\"\n    [@fadeInCalendar]=\"'enter'\"\n    (selectedChange)=\"datepicker.select($event)\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (_userSelection)=\"datepicker.close()\">\n</mat-calendar>\n",
                         host: {
                             'class': 'mat-datepicker-content',
-                            '[@transformPanel]': '"enter"',
+                            '[@transformPanel]': '_animationState',
+                            '(@transformPanel.done)': '_animationDone.next()',
                             '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
                         },
                         animations: [
@@ -1409,7 +1431,8 @@
         ];
         /** @nocollapse */
         MatDatepickerContent.ctorParameters = function () { return [
-            { type: i0.ElementRef }
+            { type: i0.ElementRef },
+            { type: i0.ChangeDetectorRef }
         ]; };
         MatDatepickerContent.propDecorators = {
             _calendar: [{ type: i0.ViewChild, args: [MatCalendar,] }]
@@ -1554,13 +1577,10 @@
             configurable: true
         });
         MatDatepicker.prototype.ngOnDestroy = function () {
+            this._destroyPopup();
             this.close();
             this._inputSubscription.unsubscribe();
             this._disabledChange.complete();
-            if (this._popupRef) {
-                this._popupRef.dispose();
-                this._popupComponentRef = null;
-            }
         };
         /** Selects the given date */
         MatDatepicker.prototype.select = function (date) {
@@ -1612,15 +1632,14 @@
             if (!this._opened) {
                 return;
             }
-            if (this._popupRef && this._popupRef.hasAttached()) {
-                this._popupRef.detach();
+            if (this._popupComponentRef && this._popupRef) {
+                var instance = this._popupComponentRef.instance;
+                instance._startExitAnimation();
+                instance._animationDone.pipe(operators.take(1)).subscribe(function () { return _this._destroyPopup(); });
             }
             if (this._dialogRef) {
                 this._dialogRef.close();
                 this._dialogRef = null;
-            }
-            if (this._calendarPortal && this._calendarPortal.isAttached) {
-                this._calendarPortal.detach();
             }
             var completeClose = function () {
                 // The `_opened` could've been reset already if
@@ -1662,26 +1681,21 @@
             });
             this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
             this._dialogRef.componentInstance.datepicker = this;
-            this._setColor();
+            this._dialogRef.componentInstance.color = this.color;
         };
         /** Open the calendar as a popup. */
         MatDatepicker.prototype._openAsPopup = function () {
             var _this = this;
-            if (!this._calendarPortal) {
-                this._calendarPortal = new portal.ComponentPortal(MatDatepickerContent, this._viewContainerRef);
-            }
-            if (!this._popupRef) {
-                this._createPopup();
-            }
-            if (!this._popupRef.hasAttached()) {
-                this._popupComponentRef = this._popupRef.attach(this._calendarPortal);
-                this._popupComponentRef.instance.datepicker = this;
-                this._setColor();
-                // Update the position once the calendar has rendered.
-                this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
-                    _this._popupRef.updatePosition();
-                });
-            }
+            var portal$1 = new portal.ComponentPortal(MatDatepickerContent, this._viewContainerRef);
+            this._destroyPopup();
+            this._createPopup();
+            var ref = this._popupComponentRef = this._popupRef.attach(portal$1);
+            ref.instance.datepicker = this;
+            ref.instance.color = this.color;
+            // Update the position once the calendar has rendered.
+            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+                _this._popupRef.updatePosition();
+            });
         };
         /** Create the popup. */
         MatDatepicker.prototype._createPopup = function () {
@@ -1706,6 +1720,13 @@
                 }
                 _this.close();
             });
+        };
+        /** Destroys the current popup overlay. */
+        MatDatepicker.prototype._destroyPopup = function () {
+            if (this._popupRef) {
+                this._popupRef.dispose();
+                this._popupRef = this._popupComponentRef = null;
+            }
         };
         /** Create the popup PositionStrategy. */
         MatDatepicker.prototype._createPopupPositionStrategy = function () {
@@ -1748,16 +1769,6 @@
          */
         MatDatepicker.prototype._getValidDateOrNull = function (obj) {
             return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
-        };
-        /** Passes the current theme color along to the calendar overlay. */
-        MatDatepicker.prototype._setColor = function () {
-            var color = this.color;
-            if (this._popupComponentRef) {
-                this._popupComponentRef.instance.color = color;
-            }
-            if (this._dialogRef) {
-                this._dialogRef.componentInstance.color = color;
-            }
         };
         MatDatepicker.decorators = [
             { type: i0.Component, args: [{

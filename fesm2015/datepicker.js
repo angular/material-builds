@@ -2463,15 +2463,41 @@ const _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
 class MatDatepickerContent extends _MatDatepickerContentMixinBase {
     /**
      * @param {?} elementRef
+     * @param {?=} _changeDetectorRef
      */
-    constructor(elementRef) {
+    constructor(elementRef, _changeDetectorRef) {
         super(elementRef);
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Current state of the animation.
+         */
+        this._animationState = 'enter';
+        /**
+         * Emits when an animation has finished.
+         */
+        this._animationDone = new Subject();
     }
     /**
      * @return {?}
      */
     ngAfterViewInit() {
         this._calendar.focusActiveCell();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._animationDone.complete();
+    }
+    /**
+     * @return {?}
+     */
+    _startExitAnimation() {
+        this._animationState = 'void';
+        // @breaking-change 11.0.0 Remove null check for `_changeDetectorRef`.
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
     }
 }
 MatDatepickerContent.decorators = [
@@ -2480,7 +2506,8 @@ MatDatepickerContent.decorators = [
                 template: "<mat-calendar cdkTrapFocus\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._minDate\"\n    [maxDate]=\"datepicker._maxDate\"\n    [dateFilter]=\"datepicker._dateFilter\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"datepicker._selected\"\n    [dateClass]=\"datepicker.dateClass\"\n    [@fadeInCalendar]=\"'enter'\"\n    (selectedChange)=\"datepicker.select($event)\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (_userSelection)=\"datepicker.close()\">\n</mat-calendar>\n",
                 host: {
                     'class': 'mat-datepicker-content',
-                    '[@transformPanel]': '"enter"',
+                    '[@transformPanel]': '_animationState',
+                    '(@transformPanel.done)': '_animationDone.next()',
                     '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
                 },
                 animations: [
@@ -2496,7 +2523,8 @@ MatDatepickerContent.decorators = [
 ];
 /** @nocollapse */
 MatDatepickerContent.ctorParameters = () => [
-    { type: ElementRef }
+    { type: ElementRef },
+    { type: ChangeDetectorRef }
 ];
 MatDatepickerContent.propDecorators = {
     _calendar: [{ type: ViewChild, args: [MatCalendar,] }]
@@ -2517,6 +2545,23 @@ if (false) {
      * @type {?}
      */
     MatDatepickerContent.prototype._isAbove;
+    /**
+     * Current state of the animation.
+     * @type {?}
+     */
+    MatDatepickerContent.prototype._animationState;
+    /**
+     * Emits when an animation has finished.
+     * @type {?}
+     */
+    MatDatepickerContent.prototype._animationDone;
+    /**
+     * @deprecated `_changeDetectorRef` parameter to become required.
+     * \@breaking-change 11.0.0
+     * @type {?}
+     * @private
+     */
+    MatDatepickerContent.prototype._changeDetectorRef;
 }
 // TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
 // template reference variables (e.g. #d vs #d="matDatepicker"). We can change this to a directive
@@ -2702,13 +2747,10 @@ class MatDatepicker {
      * @return {?}
      */
     ngOnDestroy() {
+        this._destroyPopup();
         this.close();
         this._inputSubscription.unsubscribe();
         this._disabledChange.complete();
-        if (this._popupRef) {
-            this._popupRef.dispose();
-            this._popupComponentRef = null;
-        }
     }
     /**
      * Selects the given date
@@ -2782,15 +2824,18 @@ class MatDatepicker {
         if (!this._opened) {
             return;
         }
-        if (this._popupRef && this._popupRef.hasAttached()) {
-            this._popupRef.detach();
+        if (this._popupComponentRef && this._popupRef) {
+            /** @type {?} */
+            const instance = this._popupComponentRef.instance;
+            instance._startExitAnimation();
+            instance._animationDone.pipe(take(1)).subscribe((/**
+             * @return {?}
+             */
+            () => this._destroyPopup()));
         }
         if (this._dialogRef) {
             this._dialogRef.close();
             this._dialogRef = null;
-        }
-        if (this._calendarPortal && this._calendarPortal.isAttached) {
-            this._calendarPortal.detach();
         }
         /** @type {?} */
         const completeClose = (/**
@@ -2842,7 +2887,7 @@ class MatDatepicker {
          */
         () => this.close()));
         this._dialogRef.componentInstance.datepicker = this;
-        this._setColor();
+        this._dialogRef.componentInstance.color = this.color;
     }
     /**
      * Open the calendar as a popup.
@@ -2850,24 +2895,21 @@ class MatDatepicker {
      * @return {?}
      */
     _openAsPopup() {
-        if (!this._calendarPortal) {
-            this._calendarPortal = new ComponentPortal(MatDatepickerContent, this._viewContainerRef);
-        }
-        if (!this._popupRef) {
-            this._createPopup();
-        }
-        if (!this._popupRef.hasAttached()) {
-            this._popupComponentRef = this._popupRef.attach(this._calendarPortal);
-            this._popupComponentRef.instance.datepicker = this;
-            this._setColor();
-            // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe((/**
-             * @return {?}
-             */
-            () => {
-                this._popupRef.updatePosition();
-            }));
-        }
+        /** @type {?} */
+        const portal = new ComponentPortal(MatDatepickerContent, this._viewContainerRef);
+        this._destroyPopup();
+        this._createPopup();
+        /** @type {?} */
+        const ref = this._popupComponentRef = (/** @type {?} */ (this._popupRef)).attach(portal);
+        ref.instance.datepicker = this;
+        ref.instance.color = this.color;
+        // Update the position once the calendar has rendered.
+        this._ngZone.onStable.asObservable().pipe(take(1)).subscribe((/**
+         * @return {?}
+         */
+        () => {
+            (/** @type {?} */ (this._popupRef)).updatePosition();
+        }));
     }
     /**
      * Create the popup.
@@ -2904,6 +2946,17 @@ class MatDatepicker {
             }
             this.close();
         }));
+    }
+    /**
+     * Destroys the current popup overlay.
+     * @private
+     * @return {?}
+     */
+    _destroyPopup() {
+        if (this._popupRef) {
+            this._popupRef.dispose();
+            this._popupRef = this._popupComponentRef = null;
+        }
     }
     /**
      * Create the popup PositionStrategy.
@@ -2951,21 +3004,6 @@ class MatDatepicker {
      */
     _getValidDateOrNull(obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
-    }
-    /**
-     * Passes the current theme color along to the calendar overlay.
-     * @private
-     * @return {?}
-     */
-    _setColor() {
-        /** @type {?} */
-        const color = this.color;
-        if (this._popupComponentRef) {
-            this._popupComponentRef.instance.color = color;
-        }
-        if (this._dialogRef) {
-            this._dialogRef.componentInstance.color = color;
-        }
     }
 }
 MatDatepicker.decorators = [
@@ -3090,6 +3128,7 @@ if (false) {
     /**
      * A reference to the overlay when the calendar is opened as a popup.
      * @type {?}
+     * @private
      */
     MatDatepicker.prototype._popupRef;
     /**
@@ -3098,12 +3137,6 @@ if (false) {
      * @private
      */
     MatDatepicker.prototype._dialogRef;
-    /**
-     * A portal containing the calendar for this datepicker.
-     * @type {?}
-     * @private
-     */
-    MatDatepicker.prototype._calendarPortal;
     /**
      * Reference to the component instantiated in popup mode.
      * @type {?}

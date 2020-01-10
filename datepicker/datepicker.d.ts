@@ -7,9 +7,9 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { Overlay, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
@@ -39,15 +39,31 @@ declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepicke
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterViewInit, CanColor {
+export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterViewInit, OnDestroy, CanColor {
+    /**
+     * @deprecated `_changeDetectorRef` parameter to become required.
+     * @breaking-change 11.0.0
+     */
+    private _changeDetectorRef?;
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
     /** Reference to the datepicker that created the overlay. */
     datepicker: MatDatepicker<D>;
     /** Whether the datepicker is above or below the input. */
     _isAbove: boolean;
-    constructor(elementRef: ElementRef);
+    /** Current state of the animation. */
+    _animationState: 'enter' | 'void';
+    /** Emits when an animation has finished. */
+    _animationDone: Subject<void>;
+    constructor(elementRef: ElementRef, 
+    /**
+     * @deprecated `_changeDetectorRef` parameter to become required.
+     * @breaking-change 11.0.0
+     */
+    _changeDetectorRef?: ChangeDetectorRef | undefined);
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    _startExitAnimation(): void;
 }
 /** Component responsible for managing the datepicker popup/dialog. */
 export declare class MatDatepicker<D> implements OnDestroy, CanColor {
@@ -110,11 +126,9 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     readonly _maxDate: D | null;
     readonly _dateFilter: (date: D | null) => boolean;
     /** A reference to the overlay when the calendar is opened as a popup. */
-    _popupRef: OverlayRef;
+    private _popupRef;
     /** A reference to the dialog when the calendar is opened as a dialog. */
     private _dialogRef;
-    /** A portal containing the calendar for this datepicker. */
-    private _calendarPortal;
     /** Reference to the component instantiated in popup mode. */
     private _popupComponentRef;
     /** The element that was focused before the datepicker was opened. */
@@ -150,6 +164,8 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     private _openAsPopup;
     /** Create the popup. */
     private _createPopup;
+    /** Destroys the current popup overlay. */
+    private _destroyPopup;
     /** Create the popup PositionStrategy. */
     private _createPopupPositionStrategy;
     /**
@@ -157,8 +173,6 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
     private _getValidDateOrNull;
-    /** Passes the current theme color along to the calendar overlay. */
-    private _setColor;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_touchUi: BooleanInput;
 }
