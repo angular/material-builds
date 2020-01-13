@@ -17,7 +17,7 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /** Name of the Material version that is shipped together with the schematics. */
-    exports.materialVersion = '9.0.0-rc.7-sha-7cced9c3f';
+    exports.materialVersion = '9.0.0-rc.7-sha-71955d2e1';
     /**
      * Range of Angular versions that can be used together with the Angular Material version
      * that provides these schematics.
