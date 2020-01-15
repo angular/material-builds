@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, ContentChildren, ContentChild, forwardRef, Inject, ViewChild, Input, EventEmitter, Attribute, Output, NgModule } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, ContentChildren, ContentChild, forwardRef, Inject, ViewChild, Input, EventEmitter, isDevMode, Attribute, Output, NgModule } from '@angular/core';
 import { mixinDisableRipple, setLines, MatLine, MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -546,7 +546,7 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     _handleClick() {
-        if (!this.disabled) {
+        if (!this.disabled && (this.selectionList.multiple || !this.selected)) {
             this.toggle();
             // Emit a change event if the selected state of the option changed through user interaction.
             this.selectionList._emitChangeEvent(this);
@@ -624,10 +624,11 @@ MatListOption.decorators = [
                     // be placed inside a parent that has one of the other colors with a higher specificity.
                     '[class.mat-accent]': 'color !== "primary" && color !== "warn"',
                     '[class.mat-warn]': 'color === "warn"',
+                    '[class.mat-list-single-selected-option]': 'selected && !selectionList.multiple',
                     '[attr.aria-selected]': 'selected',
                     '[attr.aria-disabled]': 'disabled',
                 },
-                template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
+                template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    *ngIf=\"selectionList.multiple\"\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             }] }
@@ -734,6 +735,8 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     constructor(_element, tabIndex) {
         super();
         this._element = _element;
+        this._multiple = true;
+        this._contentInitialized = false;
         /**
          * Emits a change event whenever the selected state of an option changes.
          */
@@ -761,7 +764,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         /**
          * The currently selected options.
          */
-        this.selectedOptions = new SelectionModel(true);
+        this.selectedOptions = new SelectionModel(this._multiple);
         /**
          * View to model callback that should be called whenever the selected options change.
          */
@@ -801,9 +804,30 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         this._markOptionsForCheck();
     }
     /**
+     * Whether selection is limited to one or multiple items (default multiple).
+     * @return {?}
+     */
+    get multiple() { return this._multiple; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set multiple(value) {
+        /** @type {?} */
+        const newValue = coerceBooleanProperty(value);
+        if (newValue !== this._multiple) {
+            if (isDevMode() && this._contentInitialized) {
+                throw new Error('Cannot change `multiple` mode of mat-selection-list after initialization.');
+            }
+            this._multiple = newValue;
+            this.selectedOptions = new SelectionModel(this._multiple, this.selectedOptions.selected);
+        }
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
+        this._contentInitialized = true;
         this._keyManager = new FocusKeyManager(this.options)
             .withWrap()
             .withTypeAhead()
@@ -1071,7 +1095,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             /** @type {?} */
             let focusedOption = this.options.toArray()[focusedIndex];
-            if (focusedOption && !focusedOption.disabled) {
+            if (focusedOption && !focusedOption.disabled && (this._multiple || !focusedOption.selected)) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
                 // interaction.
@@ -1148,7 +1172,7 @@ MatSelectionList.decorators = [
                     'class': 'mat-selection-list mat-list-base',
                     '(blur)': '_onTouched()',
                     '(keydown)': '_keydown($event)',
-                    'aria-multiselectable': 'true',
+                    '[attr.aria-multiselectable]': 'multiple',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
                 template: '<ng-content></ng-content>',
@@ -1169,13 +1193,26 @@ MatSelectionList.propDecorators = {
     tabIndex: [{ type: Input }],
     color: [{ type: Input }],
     compareWith: [{ type: Input }],
-    disabled: [{ type: Input }]
+    disabled: [{ type: Input }],
+    multiple: [{ type: Input }]
 };
 if (false) {
     /** @type {?} */
     MatSelectionList.ngAcceptInputType_disabled;
     /** @type {?} */
     MatSelectionList.ngAcceptInputType_disableRipple;
+    /** @type {?} */
+    MatSelectionList.ngAcceptInputType_multiple;
+    /**
+     * @type {?}
+     * @private
+     */
+    MatSelectionList.prototype._multiple;
+    /**
+     * @type {?}
+     * @private
+     */
+    MatSelectionList.prototype._contentInitialized;
     /**
      * The FocusKeyManager which handles focus.
      * @type {?}

@@ -392,7 +392,7 @@
             return this.disabled || this.disableRipple || this.selectionList.disableRipple;
         };
         MatListOption.prototype._handleClick = function () {
-            if (!this.disabled) {
+            if (!this.disabled && (this.selectionList.multiple || !this.selected)) {
                 this.toggle();
                 // Emit a change event if the selected state of the option changed through user interaction.
                 this.selectionList._emitChangeEvent(this);
@@ -455,10 +455,11 @@
                             // be placed inside a parent that has one of the other colors with a higher specificity.
                             '[class.mat-accent]': 'color !== "primary" && color !== "warn"',
                             '[class.mat-warn]': 'color === "warn"',
+                            '[class.mat-list-single-selected-option]': 'selected && !selectionList.multiple',
                             '[attr.aria-selected]': 'selected',
                             '[attr.aria-disabled]': 'disabled',
                         },
-                        template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
+                        template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    *ngIf=\"selectionList.multiple\"\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
                         encapsulation: core.ViewEncapsulation.None,
                         changeDetection: core.ChangeDetectionStrategy.OnPush
                     }] }
@@ -490,6 +491,8 @@
         function MatSelectionList(_element, tabIndex) {
             var _this = _super.call(this) || this;
             _this._element = _element;
+            _this._multiple = true;
+            _this._contentInitialized = false;
             /** Emits a change event whenever the selected state of an option changes. */
             _this.selectionChange = new core.EventEmitter();
             /** Tabindex of the selection list. */
@@ -504,7 +507,7 @@
             _this.compareWith = function (a1, a2) { return a1 === a2; };
             _this._disabled = false;
             /** The currently selected options. */
-            _this.selectedOptions = new collections.SelectionModel(true);
+            _this.selectedOptions = new collections.SelectionModel(_this._multiple);
             /** View to model callback that should be called whenever the selected options change. */
             _this._onChange = function (_) { };
             /** Emits when the list has been destroyed. */
@@ -528,7 +531,24 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(MatSelectionList.prototype, "multiple", {
+            /** Whether selection is limited to one or multiple items (default multiple). */
+            get: function () { return this._multiple; },
+            set: function (value) {
+                var newValue = coercion.coerceBooleanProperty(value);
+                if (newValue !== this._multiple) {
+                    if (core.isDevMode() && this._contentInitialized) {
+                        throw new Error('Cannot change `multiple` mode of mat-selection-list after initialization.');
+                    }
+                    this._multiple = newValue;
+                    this.selectedOptions = new collections.SelectionModel(this._multiple, this.selectedOptions.selected);
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
         MatSelectionList.prototype.ngAfterContentInit = function () {
+            this._contentInitialized = true;
             this._keyManager = new a11y.FocusKeyManager(this.options)
                 .withWrap()
                 .withTypeAhead()
@@ -714,7 +734,7 @@
             var focusedIndex = this._keyManager.activeItemIndex;
             if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
                 var focusedOption = this.options.toArray()[focusedIndex];
-                if (focusedOption && !focusedOption.disabled) {
+                if (focusedOption && !focusedOption.disabled && (this._multiple || !focusedOption.selected)) {
                     focusedOption.toggle();
                     // Emit a change event because the focused option changed its state through user
                     // interaction.
@@ -768,7 +788,7 @@
                             'class': 'mat-selection-list mat-list-base',
                             '(blur)': '_onTouched()',
                             '(keydown)': '_keydown($event)',
-                            'aria-multiselectable': 'true',
+                            '[attr.aria-multiselectable]': 'multiple',
                             '[attr.aria-disabled]': 'disabled.toString()',
                         },
                         template: '<ng-content></ng-content>',
@@ -789,7 +809,8 @@
             tabIndex: [{ type: core.Input }],
             color: [{ type: core.Input }],
             compareWith: [{ type: core.Input }],
-            disabled: [{ type: core.Input }]
+            disabled: [{ type: core.Input }],
+            multiple: [{ type: core.Input }]
         };
         return MatSelectionList;
     }(_MatSelectionListMixinBase));

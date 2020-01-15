@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, ContentChildren, ContentChild, forwardRef, Inject, ViewChild, Input, EventEmitter, Attribute, Output, NgModule } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, ContentChildren, ContentChild, forwardRef, Inject, ViewChild, Input, EventEmitter, isDevMode, Attribute, Output, NgModule } from '@angular/core';
 import { mixinDisableRipple, setLines, MatLine, MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { __extends, __values } from 'tslib';
 import { Subject } from 'rxjs';
@@ -399,7 +399,7 @@ var MatListOption = /** @class */ (function (_super) {
         return this.disabled || this.disableRipple || this.selectionList.disableRipple;
     };
     MatListOption.prototype._handleClick = function () {
-        if (!this.disabled) {
+        if (!this.disabled && (this.selectionList.multiple || !this.selected)) {
             this.toggle();
             // Emit a change event if the selected state of the option changed through user interaction.
             this.selectionList._emitChangeEvent(this);
@@ -462,10 +462,11 @@ var MatListOption = /** @class */ (function (_super) {
                         // be placed inside a parent that has one of the other colors with a higher specificity.
                         '[class.mat-accent]': 'color !== "primary" && color !== "warn"',
                         '[class.mat-warn]': 'color === "warn"',
+                        '[class.mat-list-single-selected-option]': 'selected && !selectionList.multiple',
                         '[attr.aria-selected]': 'selected',
                         '[attr.aria-disabled]': 'disabled',
                     },
-                    template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
+                    template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    *ngIf=\"selectionList.multiple\"\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 }] }
@@ -497,6 +498,8 @@ var MatSelectionList = /** @class */ (function (_super) {
     function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
         _this._element = _element;
+        _this._multiple = true;
+        _this._contentInitialized = false;
         /** Emits a change event whenever the selected state of an option changes. */
         _this.selectionChange = new EventEmitter();
         /** Tabindex of the selection list. */
@@ -511,7 +514,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         _this.compareWith = function (a1, a2) { return a1 === a2; };
         _this._disabled = false;
         /** The currently selected options. */
-        _this.selectedOptions = new SelectionModel(true);
+        _this.selectedOptions = new SelectionModel(_this._multiple);
         /** View to model callback that should be called whenever the selected options change. */
         _this._onChange = function (_) { };
         /** Emits when the list has been destroyed. */
@@ -535,7 +538,24 @@ var MatSelectionList = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatSelectionList.prototype, "multiple", {
+        /** Whether selection is limited to one or multiple items (default multiple). */
+        get: function () { return this._multiple; },
+        set: function (value) {
+            var newValue = coerceBooleanProperty(value);
+            if (newValue !== this._multiple) {
+                if (isDevMode() && this._contentInitialized) {
+                    throw new Error('Cannot change `multiple` mode of mat-selection-list after initialization.');
+                }
+                this._multiple = newValue;
+                this.selectedOptions = new SelectionModel(this._multiple, this.selectedOptions.selected);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     MatSelectionList.prototype.ngAfterContentInit = function () {
+        this._contentInitialized = true;
         this._keyManager = new FocusKeyManager(this.options)
             .withWrap()
             .withTypeAhead()
@@ -721,7 +741,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         var focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             var focusedOption = this.options.toArray()[focusedIndex];
-            if (focusedOption && !focusedOption.disabled) {
+            if (focusedOption && !focusedOption.disabled && (this._multiple || !focusedOption.selected)) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
                 // interaction.
@@ -775,7 +795,7 @@ var MatSelectionList = /** @class */ (function (_super) {
                         'class': 'mat-selection-list mat-list-base',
                         '(blur)': '_onTouched()',
                         '(keydown)': '_keydown($event)',
-                        'aria-multiselectable': 'true',
+                        '[attr.aria-multiselectable]': 'multiple',
                         '[attr.aria-disabled]': 'disabled.toString()',
                     },
                     template: '<ng-content></ng-content>',
@@ -796,7 +816,8 @@ var MatSelectionList = /** @class */ (function (_super) {
         tabIndex: [{ type: Input }],
         color: [{ type: Input }],
         compareWith: [{ type: Input }],
-        disabled: [{ type: Input }]
+        disabled: [{ type: Input }],
+        multiple: [{ type: Input }]
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));

@@ -108,6 +108,8 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
  */
 export declare class MatSelectionList extends _MatSelectionListMixinBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
+    private _multiple;
+    private _contentInitialized;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager<MatListOption>;
     /** The option components contained within this selection-list. */
@@ -127,6 +129,8 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     /** Whether the selection list is disabled. */
     disabled: boolean;
     private _disabled;
+    /** Whether selection is limited to one or multiple items (default multiple). */
+    multiple: boolean;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** View to model callback that should be called whenever the selected options change. */
@@ -193,5 +197,6 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _markOptionsForCheck;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_multiple: BooleanInput;
 }
 export {};
