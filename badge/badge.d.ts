@@ -27,10 +27,12 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     /** Whether the badge has any content. */
     _hasContent: boolean;
     /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
-    color: ThemePalette;
+    get color(): ThemePalette;
+    set color(value: ThemePalette);
     private _color;
     /** Whether the badge should overlap its contents or not */
-    overlap: boolean;
+    get overlap(): boolean;
+    set overlap(val: boolean);
     private _overlap;
     /**
      * Position the badge should reside.
@@ -40,12 +42,14 @@ export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, O
     /** The content for the badge */
     content: string;
     /** Message used to describe the decorated element via aria-describedby */
-    description: string;
+    get description(): string;
+    set description(newDescription: string);
     private _description;
     /** Size of the badge. Can be 'small', 'medium', or 'large'. */
     size: MatBadgeSize;
     /** Whether the badge is hidden. */
-    hidden: boolean;
+    get hidden(): boolean;
+    set hidden(val: boolean);
     private _hidden;
     /** Unique id for the badge */
     _id: number;

@@ -18,7 +18,8 @@ export declare class MatTreeNestedDataSource<T> extends DataSource<T> {
     /**
      * Data for the nested tree
      */
-    data: T[];
+    get data(): T[];
+    set data(value: T[]);
     connect(collectionViewer: CollectionViewer): Observable<T[]>;
     disconnect(): void;
 }

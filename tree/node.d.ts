@@ -35,10 +35,12 @@ export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implement
     protected _differs: IterableDiffers;
     node: T;
     /** Whether the node is disabled. */
-    disabled: any;
+    get disabled(): any;
+    set disabled(value: any);
     private _disabled;
     /** Tabindex for the node. */
-    tabIndex: number;
+    get tabIndex(): number;
+    set tabIndex(value: number);
     private _tabIndex;
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
     ngAfterContentInit(): void;

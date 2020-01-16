@@ -20,7 +20,8 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     /** All headers inside the accordion. Includes headers inside nested accordions. */
     _headers: QueryList<MatExpansionPanelHeader>;
     /** Whether the expansion indicator should be hidden. */
-    hideToggle: boolean;
+    get hideToggle(): boolean;
+    set hideToggle(show: boolean);
     private _hideToggle;
     /**
      * Display mode used for all expansion panels in the accordion. Currently two display

@@ -13,10 +13,14 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
  * @breaking-change 8.0.0
  */
 export declare class MatTextareaAutosize extends CdkTextareaAutosize {
-    matAutosizeMinRows: number;
-    matAutosizeMaxRows: number;
-    matAutosize: boolean;
-    matTextareaAutosize: boolean;
+    get matAutosizeMinRows(): number;
+    set matAutosizeMinRows(value: number);
+    get matAutosizeMaxRows(): number;
+    set matAutosizeMaxRows(value: number);
+    get matAutosize(): boolean;
+    set matAutosize(value: boolean);
+    get matTextareaAutosize(): boolean;
+    set matTextareaAutosize(value: boolean);
     static ngAcceptInputType_minRows: NumberInput;
     static ngAcceptInputType_maxRows: NumberInput;
     static ngAcceptInputType_enabled: BooleanInput;

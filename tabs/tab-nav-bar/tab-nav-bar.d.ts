@@ -24,10 +24,12 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
         active: boolean;
     }>;
     /** Background color of the tab nav. */
-    backgroundColor: ThemePalette;
+    get backgroundColor(): ThemePalette;
+    set backgroundColor(value: ThemePalette);
     private _backgroundColor;
     /** Whether the ripple effect is disabled or not. */
-    disableRipple: any;
+    get disableRipple(): any;
+    set disableRipple(value: any);
     private _disableRipple;
     /** Theme color of the nav bar. */
     color: ThemePalette;
@@ -74,7 +76,8 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements OnD
     /** Whether the tab link is active or not. */
     protected _isActive: boolean;
     /** Whether the link is active. */
-    active: boolean;
+    get active(): boolean;
+    set active(value: boolean);
     /**
      * Ripple configuration for ripples that are launched on pointer down. The ripple config
      * is set to the global ripple options since we don't have any configurable options for
@@ -86,7 +89,7 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements OnD
      * Whether ripples are disabled on interaction.
      * @docs-private
      */
-    readonly rippleDisabled: boolean;
+    get rippleDisabled(): boolean;
     constructor(_tabNavBar: _MatTabNavBase, elementRef: ElementRef, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, _focusMonitor: FocusMonitor, animationMode?: string);
     focus(): void;
     ngOnDestroy(): void;

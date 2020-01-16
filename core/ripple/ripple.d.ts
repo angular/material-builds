@@ -57,13 +57,15 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * Whether click events will not trigger the ripple. Ripples can be still launched manually
      * by using the `launch()` method.
      */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     private _disabled;
     /**
      * The element that triggers the ripple when click events are received.
      * Defaults to the directive's host element.
      */
-    trigger: HTMLElement;
+    get trigger(): HTMLElement;
+    set trigger(trigger: HTMLElement);
     private _trigger;
     /** Renderer for the ripple DOM manipulations. */
     private _rippleRenderer;
@@ -80,12 +82,12 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * Ripple configuration from the directive's input values.
      * @docs-private Implemented as part of RippleTarget
      */
-    readonly rippleConfig: RippleConfig;
+    get rippleConfig(): RippleConfig;
     /**
      * Whether ripples on pointer-down are disabled or not.
      * @docs-private Implemented as part of RippleTarget
      */
-    readonly rippleDisabled: boolean;
+    get rippleDisabled(): boolean;
     /** Sets up the trigger event listeners if ripples are enabled. */
     private _setupTriggerEventsIfEnabled;
     /**

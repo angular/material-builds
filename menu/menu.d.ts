@@ -70,9 +70,11 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     /** aria-describedby for the menu panel. */
     ariaDescribedby: string;
     /** Position of the menu in the X axis. */
-    xPosition: MenuPositionX;
+    get xPosition(): MenuPositionX;
+    set xPosition(value: MenuPositionX);
     /** Position of the menu in the Y axis. */
-    yPosition: MenuPositionY;
+    get yPosition(): MenuPositionY;
+    set yPosition(value: MenuPositionY);
     /** @docs-private */
     templateRef: TemplateRef<any>;
     /**
@@ -87,10 +89,12 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      */
     lazyContent: MatMenuContent;
     /** Whether the menu should overlap its trigger. */
-    overlapTrigger: boolean;
+    get overlapTrigger(): boolean;
+    set overlapTrigger(value: boolean);
     private _overlapTrigger;
     /** Whether the menu has a backdrop. */
-    hasBackdrop: boolean | undefined;
+    get hasBackdrop(): boolean | undefined;
+    set hasBackdrop(value: boolean | undefined);
     private _hasBackdrop;
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
@@ -98,7 +102,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * to style the containing menu from outside the component.
      * @param classes list of class names
      */
-    panelClass: string;
+    set panelClass(classes: string);
     private _previousPanelClass;
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
@@ -107,7 +111,8 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * @deprecated Use `panelClass` instead.
      * @breaking-change 8.0.0
      */
-    classList: string;
+    get classList(): string;
+    set classList(classes: string);
     /** Event emitted when the menu is closed. */
     readonly closed: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
     /**

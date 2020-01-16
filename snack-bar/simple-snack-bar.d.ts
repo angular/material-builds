@@ -21,5 +21,5 @@ export declare class SimpleSnackBar {
     /** Performs the action on the snack bar. */
     action(): void;
     /** If the action button should be shown. */
-    readonly hasAction: boolean;
+    get hasAction(): boolean;
 }

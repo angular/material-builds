@@ -50,10 +50,12 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
     /** Flag that indicates whether NoopAnimations mode is set to true. */
     _isNoopAnimation: boolean;
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
-    value: number;
+    get value(): number;
+    set value(v: number);
     private _value;
     /** Buffer value of the progress bar. Defaults to zero. */
-    bufferValue: number;
+    get bufferValue(): number;
+    set bufferValue(v: number);
     private _bufferValue;
     _primaryValueBar: ElementRef;
     /**

@@ -75,7 +75,8 @@ export declare class MatTreeFlatDataSource<T, F> extends DataSource<F> {
     _flattenedData: BehaviorSubject<F[]>;
     _expandedData: BehaviorSubject<F[]>;
     _data: BehaviorSubject<T[]>;
-    data: T[];
+    get data(): T[];
+    set data(value: T[]);
     constructor(_treeControl: FlatTreeControl<F>, _treeFlattener: MatTreeFlattener<T, F>, initialData?: T[]);
     connect(collectionViewer: CollectionViewer): Observable<F[]>;
     disconnect(): void;

@@ -40,22 +40,26 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     private _dateFormats;
     private _formField;
     /** The datepicker that this input is associated with. */
-    matDatepicker: MatDatepicker<D>;
+    set matDatepicker(value: MatDatepicker<D>);
     _datepicker: MatDatepicker<D>;
     /** Function that can be used to filter out dates within the datepicker. */
-    matDatepickerFilter: (date: D | null) => boolean;
+    set matDatepickerFilter(value: (date: D | null) => boolean);
     _dateFilter: (date: D | null) => boolean;
     /** The value of the input. */
-    value: D | null;
+    get value(): D | null;
+    set value(value: D | null);
     private _value;
     /** The minimum valid date. */
-    min: D | null;
+    get min(): D | null;
+    set min(value: D | null);
     private _min;
     /** The maximum valid date. */
-    max: D | null;
+    get max(): D | null;
+    set max(value: D | null);
     private _max;
     /** Whether the datepicker-input is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     private _disabled;
     /** Emits when a `change` event is fired on this `<input>`. */
     readonly dateChange: EventEmitter<MatDatepickerInputEvent<D>>;

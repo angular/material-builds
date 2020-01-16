@@ -59,25 +59,28 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
     _noopAnimations: boolean;
     /** The diameter of the progress spinner (will set width and height of svg). */
-    diameter: number;
+    get diameter(): number;
+    set diameter(size: number);
     /** Stroke width of the progress spinner. */
-    strokeWidth: number;
+    get strokeWidth(): number;
+    set strokeWidth(value: number);
     /** Mode of the progress circle */
     mode: ProgressSpinnerMode;
     /** Value of the progress circle. */
-    value: number;
+    get value(): number;
+    set value(newValue: number);
     constructor(_elementRef: ElementRef<HTMLElement>, platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
     ngOnInit(): void;
     /** The radius of the spinner, adjusted for stroke width. */
-    readonly _circleRadius: number;
+    get _circleRadius(): number;
     /** The view box of the spinner's svg element. */
-    readonly _viewBox: string;
+    get _viewBox(): string;
     /** The stroke circumference of the svg circle. */
-    readonly _strokeCircumference: number;
+    get _strokeCircumference(): number;
     /** The dash offset of the svg circle. */
-    readonly _strokeDashOffset: number | null;
+    get _strokeDashOffset(): number | null;
     /** Stroke width of the circle in percent. */
-    readonly _circleStrokeWidth: number;
+    get _circleStrokeWidth(): number;
     /** Dynamically generates a style tag containing the correct animation for this diameter. */
     private _attachStyleNode;
     /** Generates animation styles adjusted for the spinner's diameter. */

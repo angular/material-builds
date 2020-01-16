@@ -8,10 +8,12 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 export declare class MatDivider {
     /** Whether the divider is vertically aligned. */
-    vertical: boolean;
+    get vertical(): boolean;
+    set vertical(value: boolean);
     private _vertical;
     /** Whether the divider is an inset divider. */
-    inset: boolean;
+    get inset(): boolean;
+    set inset(value: boolean);
     private _inset;
     static ngAcceptInputType_vertical: BooleanInput;
     static ngAcceptInputType_inset: BooleanInput;

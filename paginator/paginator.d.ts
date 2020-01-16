@@ -43,22 +43,28 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
     /** Theme color to be used for the underlying form controls. */
     color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
-    pageIndex: number;
+    get pageIndex(): number;
+    set pageIndex(value: number);
     private _pageIndex;
     /** The length of the total number of items that are being paginated. Defaulted to 0. */
-    length: number;
+    get length(): number;
+    set length(value: number);
     private _length;
     /** Number of items to display on a page. By default set to 50. */
-    pageSize: number;
+    get pageSize(): number;
+    set pageSize(value: number);
     private _pageSize;
     /** The set of provided page size options to display to the user. */
-    pageSizeOptions: number[];
+    get pageSizeOptions(): number[];
+    set pageSizeOptions(value: number[]);
     private _pageSizeOptions;
     /** Whether to hide the page size selection UI from the user. */
-    hidePageSize: boolean;
+    get hidePageSize(): boolean;
+    set hidePageSize(value: boolean);
     private _hidePageSize;
     /** Whether to show the first/last buttons UI to the user. */
-    showFirstLastButtons: boolean;
+    get showFirstLastButtons(): boolean;
+    set showFirstLastButtons(value: boolean);
     private _showFirstLastButtons;
     /** Event emitted when the paginator changes the page size or page index. */
     readonly page: EventEmitter<PageEvent>;

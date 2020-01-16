@@ -55,7 +55,8 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: 'before' | 'after';
     /** Theme color of the list option. This sets the color of the checkbox. */
-    color: ThemePalette;
+    get color(): ThemePalette;
+    set color(newValue: ThemePalette);
     private _color;
     /**
      * This is set to true after the first OnChanges cycle so we don't clear the value of `selected`
@@ -63,12 +64,15 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
      */
     private _inputsInitialized;
     /** Value of the option */
-    value: any;
+    get value(): any;
+    set value(newValue: any);
     private _value;
     /** Whether the option is disabled. */
-    disabled: any;
+    get disabled(): any;
+    set disabled(value: any);
     /** Whether the option is selected. */
-    selected: boolean;
+    get selected(): boolean;
+    set selected(value: boolean);
     constructor(_element: ElementRef<HTMLElement>, _changeDetector: ChangeDetectorRef, 
     /** @docs-private */
     selectionList: MatSelectionList);
@@ -127,10 +131,12 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
      */
     compareWith: (o1: any, o2: any) => boolean;
     /** Whether the selection list is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     private _disabled;
     /** Whether selection is limited to one or multiple items (default multiple). */
-    multiple: boolean;
+    get multiple(): boolean;
+    set multiple(value: boolean);
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** View to model callback that should be called whenever the selected options change. */

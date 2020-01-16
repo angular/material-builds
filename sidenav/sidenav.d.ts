@@ -14,19 +14,22 @@ export declare class MatSidenavContent extends MatDrawerContent {
 }
 export declare class MatSidenav extends MatDrawer {
     /** Whether the sidenav is fixed in the viewport. */
-    fixedInViewport: boolean;
+    get fixedInViewport(): boolean;
+    set fixedInViewport(value: boolean);
     private _fixedInViewport;
     /**
      * The gap between the top of the sidenav and the top of the viewport when the sidenav is in fixed
      * mode.
      */
-    fixedTopGap: number;
+    get fixedTopGap(): number;
+    set fixedTopGap(value: number);
     private _fixedTopGap;
     /**
      * The gap between the bottom of the sidenav and the bottom of the viewport when the sidenav is in
      * fixed mode.
      */
-    fixedBottomGap: number;
+    get fixedBottomGap(): number;
+    set fixedBottomGap(value: number);
     private _fixedBottomGap;
     static ngAcceptInputType_fixedInViewport: BooleanInput;
     static ngAcceptInputType_fixedTopGap: NumberInput;

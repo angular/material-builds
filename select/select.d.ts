@@ -153,7 +153,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Whether the component is disabling centering of the active option over the trigger. */
     private _disableOptionCentering;
     /** Whether the select is focused. */
-    readonly focused: boolean;
+    get focused(): boolean;
     private _focused;
     /** A name for this control that can be used by `mat-form-field`. */
     controlType: string;
@@ -179,21 +179,27 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** User-supplied override of the trigger element. */
     customTrigger: MatSelectTrigger;
     /** Placeholder to be shown if no value has been selected. */
-    placeholder: string;
+    get placeholder(): string;
+    set placeholder(value: string);
     /** Whether the component is required. */
-    required: boolean;
+    get required(): boolean;
+    set required(value: boolean);
     /** Whether the user should be allowed to select multiple options. */
-    multiple: boolean;
+    get multiple(): boolean;
+    set multiple(value: boolean);
     /** Whether to center the active option over the trigger. */
-    disableOptionCentering: boolean;
+    get disableOptionCentering(): boolean;
+    set disableOptionCentering(value: boolean);
     /**
      * Function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean
      * should be returned.
      */
-    compareWith: (o1: any, o2: any) => boolean;
+    get compareWith(): (o1: any, o2: any) => boolean;
+    set compareWith(fn: (o1: any, o2: any) => boolean);
     /** Value of the select control. */
-    value: any;
+    get value(): any;
+    set value(newValue: any);
     private _value;
     /** Aria label of the select. If not specified, the placeholder will be used as label. */
     ariaLabel: string;
@@ -202,7 +208,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
-    typeaheadDebounceInterval: number;
+    get typeaheadDebounceInterval(): number;
+    set typeaheadDebounceInterval(value: number);
     private _typeaheadDebounceInterval;
     /**
      * Function used to sort the values in a select in multiple mode.
@@ -210,7 +217,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      */
     sortComparator: (a: MatOption, b: MatOption, options: MatOption[]) => number;
     /** Unique id of the element. */
-    id: string;
+    get id(): string;
+    set id(value: string);
     private _id;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MatOptionSelectionChange>;
@@ -271,11 +279,11 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      */
     setDisabledState(isDisabled: boolean): void;
     /** Whether or not the overlay panel is open. */
-    readonly panelOpen: boolean;
+    get panelOpen(): boolean;
     /** The currently selected option. */
-    readonly selected: MatOption | MatOption[];
+    get selected(): MatOption | MatOption[];
     /** The value displayed in the trigger. */
-    readonly triggerValue: string;
+    get triggerValue(): string;
     /** Whether the element is in RTL mode. */
     _isRtl(): boolean;
     /** Handles all keydown events on the select. */
@@ -297,7 +305,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Returns the theme to be used on the panel. */
     _getPanelTheme(): string;
     /** Whether the select has a value. */
-    readonly empty: boolean;
+    get empty(): boolean;
     private _initializeSelection;
     /**
      * Sets the selected option based on a value. If no option can be
@@ -393,7 +401,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    readonly shouldLabelFloat: boolean;
+    get shouldLabelFloat(): boolean;
     static ngAcceptInputType_required: BooleanInput;
     static ngAcceptInputType_multiple: BooleanInput;
     static ngAcceptInputType_disableOptionCentering: BooleanInput;

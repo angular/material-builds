@@ -48,17 +48,18 @@ export declare class MatOption implements FocusableOption, AfterViewChecked, OnD
     private _disabled;
     private _mostRecentViewValue;
     /** Whether the wrapping component is in multiple selection mode. */
-    readonly multiple: boolean | undefined;
+    get multiple(): boolean | undefined;
     /** Whether or not the option is currently selected. */
-    readonly selected: boolean;
+    get selected(): boolean;
     /** The form value of the option. */
     value: any;
     /** The unique ID of the option. */
     id: string;
     /** Whether the option is disabled. */
-    disabled: any;
+    get disabled(): any;
+    set disabled(value: any);
     /** Whether ripples for the option are disabled. */
-    readonly disableRipple: boolean | undefined;
+    get disableRipple(): boolean | undefined;
     /** Event emitted when the option is selected or deselected. */
     readonly onSelectionChange: EventEmitter<MatOptionSelectionChange>;
     /** Emits when the state of the option changes and any parents have to be notified. */
@@ -70,12 +71,12 @@ export declare class MatOption implements FocusableOption, AfterViewChecked, OnD
      * focus is actually retained somewhere else. This comes in handy
      * for components like autocomplete where focus must remain on the input.
      */
-    readonly active: boolean;
+    get active(): boolean;
     /**
      * The displayed value of the option. It is necessary to show the selected option in the
      * select's trigger.
      */
-    readonly viewValue: string;
+    get viewValue(): string;
     /** Selects the option. */
     select(): void;
     /** Deselects the option. */

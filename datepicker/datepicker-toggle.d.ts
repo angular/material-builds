@@ -22,7 +22,8 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     /** Tabindex for the toggle. */
     tabIndex: number | null;
     /** Whether the toggle button is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     private _disabled;
     /** Whether ripples on the toggle should be disabled. */
     disableRipple: boolean;

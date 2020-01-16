@@ -81,7 +81,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     /** Duration for the tab's animation. */
     animationDuration: string;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
-    position: number;
+    set position(position: number);
     constructor(_elementRef: ElementRef<HTMLElement>, _dir: Directionality, changeDetectorRef: ChangeDetectorRef);
     /**
      * After initialized, check if the content is centered and has an origin. If so, set the

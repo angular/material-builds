@@ -28,11 +28,12 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
     focused: boolean;
     _chipList: MatChipList;
     /** Register input for chip list */
-    chipList: MatChipList;
+    set chipList(value: MatChipList);
     /**
      * Whether or not the chipEnd event will be emitted when the input is blurred.
      */
-    addOnBlur: boolean;
+    get addOnBlur(): boolean;
+    set addOnBlur(value: boolean);
     _addOnBlur: boolean;
     /**
      * The list of key codes that will trigger a chipEnd event.
@@ -47,10 +48,11 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
     /** Unique id for the input. */
     id: string;
     /** Whether the input is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     private _disabled;
     /** Whether the input is empty. */
-    readonly empty: boolean;
+    get empty(): boolean;
     /** The native input element to which this directive is attached. */
     protected _inputElement: HTMLInputElement;
     constructor(_elementRef: ElementRef<HTMLInputElement>, _defaultOptions: MatChipsDefaultOptions);
