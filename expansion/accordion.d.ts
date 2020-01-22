@@ -38,5 +38,4 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     _handleHeaderKeydown(event: KeyboardEvent): void;
     _handleHeaderFocus(header: MatExpansionPanelHeader): void;
     static ngAcceptInputType_hideToggle: BooleanInput;
-    static ngAcceptInputType_multi: BooleanInput;
 }

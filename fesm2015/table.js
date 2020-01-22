@@ -41,8 +41,6 @@ MatTable.decorators = [
             }] }
 ];
 if (false) {
-    /** @type {?} */
-    MatTable.ngAcceptInputType_multiTemplateDataRows;
     /**
      * Overrides the sticky CSS class set by the `CdkTable`.
      * @type {?}
@@ -114,8 +112,6 @@ MatColumnDef.propDecorators = {
 if (false) {
     /** @type {?} */
     MatColumnDef.ngAcceptInputType_sticky;
-    /** @type {?} */
-    MatColumnDef.ngAcceptInputType_stickyEnd;
     /**
      * Unique name for this column.
      * @type {?}

@@ -1108,6 +1108,10 @@ _MatMenuBase.propDecorators = {
     close: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    _MatMenuBase.ngAcceptInputType_overlapTrigger;
+    /** @type {?} */
+    _MatMenuBase.ngAcceptInputType_hasBackdrop;
     /**
      * @type {?}
      * @private
@@ -1314,12 +1318,6 @@ _MatMenu.ctorParameters = () => [
     { type: NgZone },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
 ];
-if (false) {
-    /** @type {?} */
-    _MatMenu.ngAcceptInputType_overlapTrigger;
-    /** @type {?} */
-    _MatMenu.ngAcceptInputType_hasBackdrop;
-}
 
 /**
  * @fileoverview added by tsickle

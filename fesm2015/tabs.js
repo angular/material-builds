@@ -1326,6 +1326,14 @@ _MatTabGroupBase.propDecorators = {
     selectedTabChange: [{ type: Output }]
 };
 if (false) {
+    /** @type {?} */
+    _MatTabGroupBase.ngAcceptInputType_dynamicHeight;
+    /** @type {?} */
+    _MatTabGroupBase.ngAcceptInputType_animationDuration;
+    /** @type {?} */
+    _MatTabGroupBase.ngAcceptInputType_selectedIndex;
+    /** @type {?} */
+    _MatTabGroupBase.ngAcceptInputType_disableRipple;
     /**
      * All tabs inside the tab group. This includes tabs that belong to groups that are nested
      * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
@@ -1479,14 +1487,6 @@ MatTabGroup.propDecorators = {
     _tabHeader: [{ type: ViewChild, args: ['tabHeader',] }]
 };
 if (false) {
-    /** @type {?} */
-    MatTabGroup.ngAcceptInputType_dynamicHeight;
-    /** @type {?} */
-    MatTabGroup.ngAcceptInputType_animationDuration;
-    /** @type {?} */
-    MatTabGroup.ngAcceptInputType_selectedIndex;
-    /** @type {?} */
-    MatTabGroup.ngAcceptInputType_disableRipple;
     /** @type {?} */
     MatTabGroup.prototype._allTabs;
     /** @type {?} */
@@ -2188,6 +2188,8 @@ MatPaginatedTabHeader.propDecorators = {
 };
 if (false) {
     /** @type {?} */
+    MatPaginatedTabHeader.ngAcceptInputType_selectedIndex;
+    /** @type {?} */
     MatPaginatedTabHeader.prototype._items;
     /** @type {?} */
     MatPaginatedTabHeader.prototype._inkBar;
@@ -2459,8 +2461,6 @@ if (false) {
     /** @type {?} */
     MatTabHeader.ngAcceptInputType_disableRipple;
     /** @type {?} */
-    MatTabHeader.ngAcceptInputType_selectedIndex;
-    /** @type {?} */
     MatTabHeader.prototype._items;
     /** @type {?} */
     MatTabHeader.prototype._inkBar;
@@ -2687,8 +2687,6 @@ if (false) {
     /** @type {?} */
     MatTabNav.ngAcceptInputType_disableRipple;
     /** @type {?} */
-    MatTabNav.ngAcceptInputType_selectedIndex;
-    /** @type {?} */
     MatTabNav.prototype._items;
     /** @type {?} */
     MatTabNav.prototype._inkBar;
@@ -2788,6 +2786,10 @@ _MatTabLinkBase.propDecorators = {
     active: [{ type: Input }]
 };
 if (false) {
+    /** @type {?} */
+    _MatTabLinkBase.ngAcceptInputType_disabled;
+    /** @type {?} */
+    _MatTabLinkBase.ngAcceptInputType_disableRipple;
     /**
      * Whether the tab link is active or not.
      * @type {?}
@@ -2869,10 +2871,6 @@ MatTabLink.ctorParameters = () => [
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 if (false) {
-    /** @type {?} */
-    MatTabLink.ngAcceptInputType_disabled;
-    /** @type {?} */
-    MatTabLink.ngAcceptInputType_disableRipple;
     /**
      * Reference to the RippleRenderer for the tab-link.
      * @type {?}

@@ -233,10 +233,6 @@ MatAnchor.propDecorators = {
     tabIndex: [{ type: Input }]
 };
 if (false) {
-    /** @type {?} */
-    MatAnchor.ngAcceptInputType_disabled;
-    /** @type {?} */
-    MatAnchor.ngAcceptInputType_disableRipple;
     /**
      * Tabindex of the button.
      * @type {?}

@@ -175,6 +175,8 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * when it comes to maintaining the item order.
      */
     private _updateDirectDescendants;
+    static ngAcceptInputType_overlapTrigger: BooleanInput;
+    static ngAcceptInputType_hasBackdrop: BooleanInput;
 }
 /** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
 export declare class MatMenu extends _MatMenuBase {
@@ -182,6 +184,4 @@ export declare class MatMenu extends _MatMenuBase {
 /** @docs-public MatMenu */
 export declare class _MatMenu extends MatMenu {
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
-    static ngAcceptInputType_overlapTrigger: BooleanInput;
-    static ngAcceptInputType_hasBackdrop: BooleanInput;
 }

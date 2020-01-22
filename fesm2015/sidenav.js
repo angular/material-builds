@@ -1447,12 +1447,6 @@ if (false) {
     MatSidenav.ngAcceptInputType_fixedTopGap;
     /** @type {?} */
     MatSidenav.ngAcceptInputType_fixedBottomGap;
-    /** @type {?} */
-    MatSidenav.ngAcceptInputType_disableClose;
-    /** @type {?} */
-    MatSidenav.ngAcceptInputType_autoFocus;
-    /** @type {?} */
-    MatSidenav.ngAcceptInputType_opened;
     /**
      * @type {?}
      * @private
@@ -1498,8 +1492,6 @@ MatSidenavContainer.propDecorators = {
     _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
 };
 if (false) {
-    /** @type {?} */
-    MatSidenavContainer.ngAcceptInputType_autosize;
     /** @type {?} */
     MatSidenavContainer.ngAcceptInputType_hasBackdrop;
     /** @type {?} */

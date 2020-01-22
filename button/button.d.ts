@@ -46,7 +46,5 @@ export declare class MatAnchor extends MatButton {
     tabIndex: number;
     constructor(focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode: string);
     _haltDisabledEvents(event: Event): void;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

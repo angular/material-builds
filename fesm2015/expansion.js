@@ -928,8 +928,6 @@ MatAccordion.propDecorators = {
 if (false) {
     /** @type {?} */
     MatAccordion.ngAcceptInputType_hideToggle;
-    /** @type {?} */
-    MatAccordion.ngAcceptInputType_multi;
     /**
      * @type {?}
      * @private

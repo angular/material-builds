@@ -75,14 +75,6 @@ MatTextareaAutosize.propDecorators = {
     matAutosize: [{ type: Input, args: ['mat-autosize',] }],
     matTextareaAutosize: [{ type: Input }]
 };
-if (false) {
-    /** @type {?} */
-    MatTextareaAutosize.ngAcceptInputType_minRows;
-    /** @type {?} */
-    MatTextareaAutosize.ngAcceptInputType_maxRows;
-    /** @type {?} */
-    MatTextareaAutosize.ngAcceptInputType_enabled;
-}
 
 /**
  * @fileoverview added by tsickle
