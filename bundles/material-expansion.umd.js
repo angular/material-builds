@@ -199,6 +199,18 @@
         MatExpansionPanel.prototype._getExpandedState = function () {
             return this.expanded ? 'expanded' : 'collapsed';
         };
+        /** Toggles the expanded state of the expansion panel. */
+        MatExpansionPanel.prototype.toggle = function () {
+            this.expanded = !this.expanded;
+        };
+        /** Sets the expanded state of the expansion panel to false. */
+        MatExpansionPanel.prototype.close = function () {
+            this.expanded = false;
+        };
+        /** Sets the expanded state of the expansion panel to true. */
+        MatExpansionPanel.prototype.open = function () {
+            this.expanded = true;
+        };
         MatExpansionPanel.prototype.ngAfterContentInit = function () {
             var _this = this;
             if (this._lazyContent) {
@@ -355,7 +367,9 @@
         });
         /** Toggles the expanded state of the panel. */
         MatExpansionPanelHeader.prototype._toggle = function () {
-            this.panel.toggle();
+            if (!this.disabled) {
+                this.panel.toggle();
+            }
         };
         /** Gets whether the panel is expanded. */
         MatExpansionPanelHeader.prototype._isExpanded = function () {

@@ -74,6 +74,12 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */
     _getExpandedState(): MatExpansionPanelState;
+    /** Toggles the expanded state of the expansion panel. */
+    toggle(): void;
+    /** Sets the expanded state of the expansion panel to false. */
+    close(): void;
+    /** Sets the expanded state of the expansion panel to true. */
+    open(): void;
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;

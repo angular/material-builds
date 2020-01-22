@@ -314,6 +314,27 @@ class MatExpansionPanel extends CdkAccordionItem {
         return this.expanded ? 'expanded' : 'collapsed';
     }
     /**
+     * Toggles the expanded state of the expansion panel.
+     * @return {?}
+     */
+    toggle() {
+        this.expanded = !this.expanded;
+    }
+    /**
+     * Sets the expanded state of the expansion panel to false.
+     * @return {?}
+     */
+    close() {
+        this.expanded = false;
+    }
+    /**
+     * Sets the expanded state of the expansion panel to true.
+     * @return {?}
+     */
+    open() {
+        this.expanded = true;
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
@@ -591,7 +612,9 @@ class MatExpansionPanelHeader {
      * @return {?}
      */
     _toggle() {
-        this.panel.toggle();
+        if (!this.disabled) {
+            this.panel.toggle();
+        }
     }
     /**
      * Gets whether the panel is expanded.
