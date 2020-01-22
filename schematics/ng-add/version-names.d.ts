@@ -7,7 +7,7 @@
  */
 /// <amd-module name="@angular/material/schematics/ng-add/version-names" />
 /** Name of the Material version that is shipped together with the schematics. */
-export declare const materialVersion = "9.0.0-rc.8-sha-3a6c16f0c";
+export declare const materialVersion = "9.0.0-rc.8-sha-1b167019a";
 /**
  * Range of Angular versions that can be used together with the Angular Material version
  * that provides these schematics.
