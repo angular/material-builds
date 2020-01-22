@@ -264,7 +264,10 @@ var MatCheckbox = /** @class */ (function (_super) {
         this.disabled = isDisabled;
     };
     MatCheckbox.prototype._getAriaChecked = function () {
-        return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
+        if (this.checked) {
+            return 'true';
+        }
+        return this.indeterminate ? 'mixed' : 'false';
     };
     MatCheckbox.prototype._transitionCheckState = function (newState) {
         var oldState = this._currentCheckState;

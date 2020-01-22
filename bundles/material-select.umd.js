@@ -890,7 +890,10 @@
         /** Gets the index of the provided option in the option list. */
         MatSelect.prototype._getOptionIndex = function (option) {
             return this.options.reduce(function (result, current, index) {
-                return result === undefined ? (option === current ? index : undefined) : result;
+                if (result !== undefined) {
+                    return result;
+                }
+                return option === current ? index : undefined;
             }, undefined);
         };
         /** Calculates the scroll position and x- and y-offsets of the overlay panel. */

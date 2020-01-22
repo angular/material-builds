@@ -2134,8 +2134,18 @@ class MatCalendar {
      */
     updateTodaysDate() {
         /** @type {?} */
-        let view = this.currentView == 'month' ? this.monthView :
-            (this.currentView == 'year' ? this.yearView : this.multiYearView);
+        const currentView = this.currentView;
+        /** @type {?} */
+        let view;
+        if (currentView === 'month') {
+            view = this.monthView;
+        }
+        else if (currentView === 'year') {
+            view = this.yearView;
+        }
+        else {
+            view = this.multiYearView;
+        }
         view.ngAfterContentInit();
     }
     /**

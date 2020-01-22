@@ -1296,7 +1296,10 @@ class MatSelect extends _MatSelectMixinBase {
          * @return {?}
          */
         (result, current, index) => {
-            return result === undefined ? (option === current ? index : undefined) : result;
+            if (result !== undefined) {
+                return result;
+            }
+            return option === current ? index : undefined;
         }), undefined);
     }
     /**

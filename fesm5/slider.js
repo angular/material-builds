@@ -436,9 +436,13 @@ var MatSlider = /** @class */ (function (_super) {
                 'transform': "translateZ(0) translate" + axis + "(" + sign + tickSize / 2 + "%)" + rotate
             };
             if (this._isMinValue && this._thumbGap) {
-                var side = this.vertical ?
-                    (this._invertAxis ? 'Bottom' : 'Top') :
-                    (this._invertAxis ? 'Right' : 'Left');
+                var side = void 0;
+                if (this.vertical) {
+                    side = this._invertAxis ? 'Bottom' : 'Top';
+                }
+                else {
+                    side = this._invertAxis ? 'Right' : 'Left';
+                }
                 styles["padding" + side] = this._thumbGap + "px";
             }
             return styles;

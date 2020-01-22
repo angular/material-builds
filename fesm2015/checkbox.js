@@ -368,7 +368,10 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * @return {?}
      */
     _getAriaChecked() {
-        return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
+        if (this.checked) {
+            return 'true';
+        }
+        return this.indeterminate ? 'mixed' : 'false';
     }
     /**
      * @private

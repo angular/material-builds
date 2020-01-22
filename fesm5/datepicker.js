@@ -1244,8 +1244,17 @@ var MatCalendar = /** @class */ (function () {
     };
     /** Updates today's date after an update of the active date */
     MatCalendar.prototype.updateTodaysDate = function () {
-        var view = this.currentView == 'month' ? this.monthView :
-            (this.currentView == 'year' ? this.yearView : this.multiYearView);
+        var currentView = this.currentView;
+        var view;
+        if (currentView === 'month') {
+            view = this.monthView;
+        }
+        else if (currentView === 'year') {
+            view = this.yearView;
+        }
+        else {
+            view = this.multiYearView;
+        }
         view.ngAfterContentInit();
     };
     /** Handles date selection in the month view. */
