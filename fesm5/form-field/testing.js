@@ -126,17 +126,6 @@ var MatFormFieldHarness = /** @class */ (function (_super) {
             });
         });
     };
-    /** Whether the form-field has a floating label. */
-    MatFormFieldHarness.prototype.hasFloatingLabel = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.host()];
-                    case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-form-field-can-float')];
-                }
-            });
-        });
-    };
     /** Whether the form-field has errors. */
     MatFormFieldHarness.prototype.hasErrors = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -151,10 +140,21 @@ var MatFormFieldHarness = /** @class */ (function (_super) {
     /** Whether the label is currently floating. */
     MatFormFieldHarness.prototype.isLabelFloating = function () {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.host()];
-                    case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-form-field-should-float')];
+            var _a, hasLabel, shouldFloat, _b, _c, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
+                    case 0:
+                        _c = (_b = Promise).all;
+                        _d = [this.hasLabel()];
+                        return [4 /*yield*/, this.host()];
+                    case 1: return [4 /*yield*/, _c.apply(_b, [_d.concat([
+                                (_e.sent()).hasClass('mat-form-field-should-float')
+                            ])])];
+                    case 2:
+                        _a = __read.apply(void 0, [_e.sent(), 2]), hasLabel = _a[0], shouldFloat = _a[1];
+                        // If there is no label, the label conceptually can never float. The `should-float` class
+                        // is just always set regardless of whether the label is displayed or not.
+                        return [2 /*return*/, hasLabel && shouldFloat];
                 }
             });
         });

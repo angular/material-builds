@@ -80,12 +80,6 @@ class MatFormFieldHarness extends ComponentHarness {
             return labelEl ? labelEl.text() : null;
         });
     }
-    /** Whether the form-field has a floating label. */
-    hasFloatingLabel() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-form-field-can-float');
-        });
-    }
     /** Whether the form-field has errors. */
     hasErrors() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -95,7 +89,13 @@ class MatFormFieldHarness extends ComponentHarness {
     /** Whether the label is currently floating. */
     isLabelFloating() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-form-field-should-float');
+            const [hasLabel, shouldFloat] = yield Promise.all([
+                this.hasLabel(),
+                (yield this.host()).hasClass('mat-form-field-should-float'),
+            ]);
+            // If there is no label, the label conceptually can never float. The `should-float` class
+            // is just always set regardless of whether the label is displayed or not.
+            return hasLabel && shouldFloat;
         });
     }
     /** Whether the form-field is disabled. */

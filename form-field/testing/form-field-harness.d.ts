@@ -51,8 +51,6 @@ export declare class MatFormFieldHarness extends ComponentHarness {
     hasLabel(): Promise<boolean>;
     /** Gets the label of the form-field. */
     getLabel(): Promise<string | null>;
-    /** Whether the form-field has a floating label. */
-    hasFloatingLabel(): Promise<boolean>;
     /** Whether the form-field has errors. */
     hasErrors(): Promise<boolean>;
     /** Whether the label is currently floating. */
