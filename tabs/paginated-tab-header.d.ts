@@ -188,7 +188,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      * Starts scrolling the header after a certain amount of time.
      * @param direction In which direction the paginator should be scrolled.
      */
-    _handlePaginatorPress(direction: ScrollDirection): void;
+    _handlePaginatorPress(direction: ScrollDirection, mouseEvent?: MouseEvent): void;
     /**
      * Scrolls the header to a given position.
      * @param position Position to which to scroll.
