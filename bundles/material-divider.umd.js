@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/material/core')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/divider', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/common', '@angular/material/core'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.divider = {}), global.ng.core, global.ng.cdk.coercion, global.ng.common, global.ng.material.core));
-}(this, (function (exports, core, coercion, common, core$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/divider', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.divider = {}), global.ng.core, global.ng.cdk.coercion, global.ng.material.core));
+}(this, (function (exports, core, coercion, core$1) { 'use strict';
 
     /**
      * @license
@@ -66,7 +66,7 @@
         }
         MatDividerModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [core$1.MatCommonModule, common.CommonModule],
+                        imports: [core$1.MatCommonModule],
                         exports: [MatDivider, core$1.MatCommonModule],
                         declarations: [MatDivider],
                     },] }

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Optional, Inject, ViewChild, Input, NgModule } from '@angular/core';
 import { mixinColor, mixinDisabled, mixinDisableRipple, MatRipple, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -254,7 +253,6 @@ class MatButtonModule {
 MatButtonModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
-                    CommonModule,
                     MatRippleModule,
                     MatCommonModule,
                 ],

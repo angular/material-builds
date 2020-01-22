@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 
 /**
@@ -81,7 +80,7 @@ class MatDividerModule {
 }
 MatDividerModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatCommonModule, CommonModule],
+                imports: [MatCommonModule],
                 exports: [MatDivider, MatCommonModule],
                 declarations: [MatDivider],
             },] }

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/text-field'), require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', 'tslib', '@angular/cdk/text-field', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs', '@angular/common'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}), global.tslib, global.ng.cdk.textField, global.ng.core, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.forms, global.ng.material.core, global.ng.material.formField, global.rxjs, global.ng.common));
-}(this, (function (exports, tslib, textField, core, coercion, platform, forms, core$1, formField, rxjs, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/text-field'), require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', 'tslib', '@angular/cdk/text-field', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}), global.tslib, global.ng.cdk.textField, global.ng.core, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.forms, global.ng.material.core, global.ng.material.formField, global.rxjs));
+}(this, (function (exports, tslib, textField, core, coercion, platform, forms, core$1, formField, rxjs) { 'use strict';
 
     /**
      * @license
@@ -489,7 +489,6 @@
             { type: core.NgModule, args: [{
                         declarations: [MatInput, MatTextareaAutosize],
                         imports: [
-                            common.CommonModule,
                             textField.TextFieldModule,
                             formField.MatFormFieldModule,
                         ],

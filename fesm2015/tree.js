@@ -2,7 +2,6 @@ import { CdkTreeNode, CdkTree, CdkTreeNodeDef, CdkNestedTreeNode, CDK_TREE_NODE_
 import { Directive, ElementRef, Attribute, Input, IterableDiffers, ViewContainerRef, Inject, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
 import { take, map } from 'rxjs/operators';
@@ -373,7 +372,7 @@ class MatTreeModule {
 }
 MatTreeModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CdkTreeModule, CommonModule, MatCommonModule],
+                imports: [CdkTreeModule, MatCommonModule],
                 exports: MAT_TREE_DIRECTIVES,
                 declarations: MAT_TREE_DIRECTIVES,
             },] }

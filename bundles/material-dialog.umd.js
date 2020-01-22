@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/bidi'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/bidi', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/keycodes'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.bidi, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.keycodes));
-}(this, (function (exports, overlay, portal, common, core, core$1, tslib, bidi, rxjs, operators, animations, a11y, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/bidi'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/bidi', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/keycodes'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.bidi, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.keycodes));
+}(this, (function (exports, overlay, portal, core, core$1, tslib, bidi, common, rxjs, operators, animations, a11y, keycodes) { 'use strict';
 
     /**
      * @license
@@ -921,7 +921,6 @@
         MatDialogModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
-                            common.CommonModule,
                             overlay.OverlayModule,
                             portal.PortalModule,
                             core$1.MatCommonModule,

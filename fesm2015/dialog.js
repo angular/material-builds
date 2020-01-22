@@ -1,9 +1,9 @@
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalInjector, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { DOCUMENT, Location, CommonModule } from '@angular/common';
 import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, InjectionToken, TemplateRef, Injectable, Injector, SkipSelf, Directive, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
+import { DOCUMENT, Location } from '@angular/common';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -1586,7 +1586,6 @@ class MatDialogModule {
 MatDialogModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
-                    CommonModule,
                     OverlayModule,
                     PortalModule,
                     MatCommonModule,

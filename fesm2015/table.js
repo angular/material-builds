@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
 import { CdkTable, CDK_TABLE_TEMPLATE, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
-import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
@@ -396,7 +395,6 @@ MatTableModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CdkTableModule,
-                    CommonModule,
                     MatCommonModule,
                 ],
                 exports: EXPORTED_DECLARATIONS,

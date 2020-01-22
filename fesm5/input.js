@@ -7,7 +7,6 @@ import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
-import { CommonModule } from '@angular/common';
 
 /**
  * @license
@@ -494,7 +493,6 @@ var MatInputModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [MatInput, MatTextareaAutosize],
                     imports: [
-                        CommonModule,
                         TextFieldModule,
                         MatFormFieldModule,
                     ],

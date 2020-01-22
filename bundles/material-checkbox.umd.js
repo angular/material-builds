@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/observers'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/checkbox', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers', '@angular/common'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.forms, global.ng.material.core, global.ng.platformBrowser.animations, global.ng.cdk.observers, global.ng.common));
-}(this, (function (exports, tslib, a11y, coercion, core, forms, core$1, animations, observers, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/observers')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/checkbox', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.forms, global.ng.material.core, global.ng.platformBrowser.animations, global.ng.cdk.observers));
+}(this, (function (exports, tslib, a11y, coercion, core, forms, core$1, animations, observers) { 'use strict';
 
     /**
      * @license
@@ -499,7 +499,7 @@
         MatCheckboxModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
-                            common.CommonModule, core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule,
+                            core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule,
                             _MatCheckboxRequiredValidatorModule
                         ],
                         exports: [MatCheckbox, core$1.MatCommonModule, _MatCheckboxRequiredValidatorModule],

@@ -1,11 +1,11 @@
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { CdkPortalOutlet, BasePortalOutlet, PortalModule, TemplatePortal, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { DOCUMENT, CommonModule, Location } from '@angular/common';
 import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injectable, Injector, SkipSelf, ɵɵdefineInjectable, ɵɵinject, INJECTOR } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { __extends, __assign } from 'tslib';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DOCUMENT, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, merge, of } from 'rxjs';
@@ -283,7 +283,6 @@ var MatBottomSheetModule = /** @class */ (function () {
     MatBottomSheetModule.decorators = [
         { type: NgModule, args: [{
                     imports: [
-                        CommonModule,
                         OverlayModule,
                         MatCommonModule,
                         PortalModule,

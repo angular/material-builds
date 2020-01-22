@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/button', ['exports', '@angular/common', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/platform-browser/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.button = {}), global.ng.common, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.platformBrowser.animations));
-}(this, (function (exports, common, core, core$1, tslib, a11y, animations) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/button', ['exports', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/a11y', '@angular/platform-browser/animations'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.button = {}), global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.a11y, global.ng.platformBrowser.animations));
+}(this, (function (exports, core, core$1, tslib, a11y, animations) { 'use strict';
 
     /**
      * @license
@@ -186,7 +186,6 @@
         MatButtonModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
-                            common.CommonModule,
                             core$1.MatRippleModule,
                             core$1.MatCommonModule,
                         ],

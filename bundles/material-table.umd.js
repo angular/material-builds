@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', 'tslib', '@angular/cdk/table', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}), global.ng.core, global.tslib, global.ng.cdk.table, global.ng.common, global.ng.material.core, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, core, tslib, table, common, core$1, coercion, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('tslib'), require('@angular/cdk/table'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', 'tslib', '@angular/cdk/table', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}), global.ng.core, global.tslib, global.ng.cdk.table, global.ng.material.core, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, core, tslib, table, core$1, coercion, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -404,7 +404,6 @@
             { type: core.NgModule, args: [{
                         imports: [
                             table.CdkTableModule,
-                            common.CommonModule,
                             core$1.MatCommonModule,
                         ],
                         exports: EXPORTED_DECLARATIONS,

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/tree'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', 'tslib', '@angular/cdk/tree', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}), global.tslib, global.ng.cdk.tree, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.common, global.ng.cdk.collections, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, tslib, tree, core, core$1, coercion, common, collections, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/tree'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', 'tslib', '@angular/cdk/tree', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}), global.tslib, global.ng.cdk.tree, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.collections, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, tslib, tree, core, core$1, coercion, collections, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -285,7 +285,7 @@
         }
         MatTreeModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [tree.CdkTreeModule, common.CommonModule, core$1.MatCommonModule],
+                        imports: [tree.CdkTreeModule, core$1.MatCommonModule],
                         exports: MAT_TREE_DIRECTIVES,
                         declarations: MAT_TREE_DIRECTIVES,
                     },] }

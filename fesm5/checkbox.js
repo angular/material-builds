@@ -6,7 +6,6 @@ import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@an
 import { mixinTabIndex, mixinColor, mixinDisableRipple, mixinDisabled, MatRipple, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ObserversModule } from '@angular/cdk/observers';
-import { CommonModule } from '@angular/common';
 
 /**
  * @license
@@ -508,7 +507,7 @@ var MatCheckboxModule = /** @class */ (function () {
     MatCheckboxModule.decorators = [
         { type: NgModule, args: [{
                     imports: [
-                        CommonModule, MatRippleModule, MatCommonModule, ObserversModule,
+                        MatRippleModule, MatCommonModule, ObserversModule,
                         _MatCheckboxRequiredValidatorModule
                     ],
                     exports: [MatCheckbox, MatCommonModule, _MatCheckboxRequiredValidatorModule],

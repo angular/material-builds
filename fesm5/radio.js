@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Output, ContentChildren, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, ElementRef, Inject, ViewChild, NgModule } from '@angular/core';
 import { mixinDisableRipple, mixinTabIndex, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { __extends } from 'tslib';
@@ -566,7 +565,7 @@ var MatRadioModule = /** @class */ (function () {
     }
     MatRadioModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, MatRippleModule, MatCommonModule],
+                    imports: [MatRippleModule, MatCommonModule],
                     exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] }

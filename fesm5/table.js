@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
 import { __extends, __read } from 'tslib';
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkFooterRow, CdkRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
-import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
@@ -407,7 +406,6 @@ var MatTableModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     imports: [
                         CdkTableModule,
-                        CommonModule,
                         MatCommonModule,
                     ],
                     exports: EXPORTED_DECLARATIONS,
