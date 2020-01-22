@@ -232,8 +232,6 @@ MatTreeNodePadding.propDecorators = {
     indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
 };
 if (false) {
-    /** @type {?} */
-    MatTreeNodePadding.ngAcceptInputType_level;
     /**
      * The level of depth of the tree node. The padding will be `level * indent` pixels.
      * @type {?}
@@ -347,8 +345,6 @@ MatTreeNodeToggle.propDecorators = {
     recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
 };
 if (false) {
-    /** @type {?} */
-    MatTreeNodeToggle.ngAcceptInputType_recursive;
     /** @type {?} */
     MatTreeNodeToggle.prototype.recursive;
 }

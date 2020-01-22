@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -21,7 +20,4 @@ export declare class MatTextareaAutosize extends CdkTextareaAutosize {
     set matAutosize(value: boolean);
     get matTextareaAutosize(): boolean;
     set matTextareaAutosize(value: boolean);
-    static ngAcceptInputType_minRows: NumberInput;
-    static ngAcceptInputType_maxRows: NumberInput;
-    static ngAcceptInputType_enabled: BooleanInput;
 }

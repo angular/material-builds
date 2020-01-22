@@ -34,13 +34,9 @@ export declare class MatSidenav extends MatDrawer {
     static ngAcceptInputType_fixedInViewport: BooleanInput;
     static ngAcceptInputType_fixedTopGap: NumberInput;
     static ngAcceptInputType_fixedBottomGap: NumberInput;
-    static ngAcceptInputType_disableClose: BooleanInput;
-    static ngAcceptInputType_autoFocus: BooleanInput;
-    static ngAcceptInputType_opened: BooleanInput;
 }
 export declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
-    static ngAcceptInputType_autosize: BooleanInput;
     static ngAcceptInputType_hasBackdrop: BooleanInput;
 }

@@ -125,6 +125,10 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     _handleClick(tab: MatTab, tabHeader: MatTabGroupBaseHeader, index: number): void;
     /** Retrieves the tabindex for the tab. */
     _getTabIndex(tab: MatTab, idx: number): number | null;
+    static ngAcceptInputType_dynamicHeight: BooleanInput;
+    static ngAcceptInputType_animationDuration: NumberInput;
+    static ngAcceptInputType_selectedIndex: NumberInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
@@ -136,9 +140,5 @@ export declare class MatTabGroup extends _MatTabGroupBase {
     _tabBodyWrapper: ElementRef;
     _tabHeader: MatTabGroupBaseHeader;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
-    static ngAcceptInputType_dynamicHeight: BooleanInput;
-    static ngAcceptInputType_animationDuration: NumberInput;
-    static ngAcceptInputType_selectedIndex: NumberInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export {};

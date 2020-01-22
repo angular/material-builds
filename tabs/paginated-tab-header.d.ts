@@ -7,6 +7,7 @@
  */
 import { ChangeDetectorRef, ElementRef, NgZone, QueryList, EventEmitter, AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Direction, Directionality } from '@angular/cdk/bidi';
+import { NumberInput } from '@angular/cdk/coercion';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
@@ -195,4 +196,5 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      * @returns Information on the current scroll distance and the maximum.
      */
     private _scrollTo;
+    static ngAcceptInputType_selectedIndex: NumberInput;
 }
