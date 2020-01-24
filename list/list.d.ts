@@ -7,24 +7,25 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ElementRef, QueryList, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
+import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** @docs-private */
 declare class MatListBase {
 }
-declare const _MatListMixinBase: CanDisableRippleCtor & typeof MatListBase;
+declare const _MatListMixinBase: CanDisableRippleCtor & CanDisableCtor & typeof MatListBase;
 /** @docs-private */
 declare class MatListItemBase {
 }
 declare const _MatListItemMixinBase: CanDisableRippleCtor & typeof MatListItemBase;
-export declare class MatNavList extends _MatListMixinBase implements CanDisableRipple, OnChanges, OnDestroy {
+export declare class MatNavList extends _MatListMixinBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     /** Emits when the state of the list changes. */
     _stateChanges: Subject<void>;
     ngOnChanges(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
-export declare class MatList extends _MatListMixinBase implements CanDisableRipple, OnChanges, OnDestroy {
+export declare class MatList extends _MatListMixinBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
     /** Emits when the state of the list changes. */
     _stateChanges: Subject<void>;
@@ -33,6 +34,7 @@ export declare class MatList extends _MatListMixinBase implements CanDisableRipp
     ngOnChanges(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -62,6 +64,10 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     _avatar: MatListAvatarCssMatStyler;
     _icon: MatListIconCssMatStyler;
     constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, navList?: MatNavList, list?: MatList);
+    /** Whether the option is disabled. */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    private _disabled;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether this list item should show a ripple effect when clicked. */
@@ -69,5 +75,6 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

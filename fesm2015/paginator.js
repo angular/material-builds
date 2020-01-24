@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Injectable, ɵɵdefineInjectable, Optional, SkipSelf, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Input, Output, NgModule } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, Optional, SkipSelf, InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, Input, Output, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -168,6 +168,38 @@ if (false) {
      */
     PageEvent.prototype.length;
 }
+/**
+ * Object that can be used to configure the default options for the paginator module.
+ * @record
+ */
+function MatPaginatorDefaultOptions() { }
+if (false) {
+    /**
+     * Number of items to display on a page. By default set to 50.
+     * @type {?|undefined}
+     */
+    MatPaginatorDefaultOptions.prototype.pageSize;
+    /**
+     * The set of provided page size options to display to the user.
+     * @type {?|undefined}
+     */
+    MatPaginatorDefaultOptions.prototype.pageSizeOptions;
+    /**
+     * Whether to hide the page size selection UI from the user.
+     * @type {?|undefined}
+     */
+    MatPaginatorDefaultOptions.prototype.hidePageSize;
+    /**
+     * Whether to show the first/last buttons UI to the user.
+     * @type {?|undefined}
+     */
+    MatPaginatorDefaultOptions.prototype.showFirstLastButtons;
+}
+/**
+ * Injection token that can be used to provide the default options for the paginator module.
+ * @type {?}
+ */
+const MAT_PAGINATOR_DEFAULT_OPTIONS = new InjectionToken('MAT_PAGINATOR_DEFAULT_OPTIONS');
 // Boilerplate for applying mixins to MatPaginator.
 /**
  * \@docs-private
@@ -185,8 +217,9 @@ class MatPaginator extends _MatPaginatorBase {
     /**
      * @param {?} _intl
      * @param {?} _changeDetectorRef
+     * @param {?=} defaults
      */
-    constructor(_intl, _changeDetectorRef) {
+    constructor(_intl, _changeDetectorRef, defaults) {
         super();
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
@@ -203,6 +236,21 @@ class MatPaginator extends _MatPaginatorBase {
          * @return {?}
          */
         () => this._changeDetectorRef.markForCheck()));
+        if (defaults) {
+            const { pageSize, pageSizeOptions, hidePageSize, showFirstLastButtons } = defaults;
+            if (pageSize != null) {
+                this._pageSize = pageSize;
+            }
+            if (pageSizeOptions != null) {
+                this._pageSizeOptions = pageSizeOptions;
+            }
+            if (hidePageSize != null) {
+                this._hidePageSize = hidePageSize;
+            }
+            if (showFirstLastButtons != null) {
+                this._showFirstLastButtons = showFirstLastButtons;
+            }
+        }
     }
     /**
      * The zero-based page index of the displayed list of items. Defaulted to 0.
@@ -474,7 +522,8 @@ MatPaginator.decorators = [
 /** @nocollapse */
 MatPaginator.ctorParameters = () => [
     { type: MatPaginatorIntl },
-    { type: ChangeDetectorRef }
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PAGINATOR_DEFAULT_OPTIONS,] }] }
 ];
 MatPaginator.propDecorators = {
     color: [{ type: Input }],
@@ -594,5 +643,5 @@ MatPaginatorModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
+export { MAT_PAGINATOR_DEFAULT_OPTIONS, MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
 //# sourceMappingURL=paginator.js.map

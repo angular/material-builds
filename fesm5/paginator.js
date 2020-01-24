@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Injectable, ɵɵdefineInjectable, Optional, SkipSelf, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Input, Output, NgModule } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, Optional, SkipSelf, InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, Input, Output, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -86,6 +86,8 @@ var PageEvent = /** @class */ (function () {
     }
     return PageEvent;
 }());
+/** Injection token that can be used to provide the default options for the paginator module. */
+var MAT_PAGINATOR_DEFAULT_OPTIONS = new InjectionToken('MAT_PAGINATOR_DEFAULT_OPTIONS');
 // Boilerplate for applying mixins to MatPaginator.
 /** @docs-private */
 var MatPaginatorBase = /** @class */ (function () {
@@ -101,7 +103,7 @@ var _MatPaginatorBase = mixinDisabled(mixinInitialized(MatPaginatorBase));
  */
 var MatPaginator = /** @class */ (function (_super) {
     __extends(MatPaginator, _super);
-    function MatPaginator(_intl, _changeDetectorRef) {
+    function MatPaginator(_intl, _changeDetectorRef, defaults) {
         var _this = _super.call(this) || this;
         _this._intl = _intl;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -113,6 +115,21 @@ var MatPaginator = /** @class */ (function (_super) {
         /** Event emitted when the paginator changes the page size or page index. */
         _this.page = new EventEmitter();
         _this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        if (defaults) {
+            var pageSize = defaults.pageSize, pageSizeOptions = defaults.pageSizeOptions, hidePageSize = defaults.hidePageSize, showFirstLastButtons = defaults.showFirstLastButtons;
+            if (pageSize != null) {
+                _this._pageSize = pageSize;
+            }
+            if (pageSizeOptions != null) {
+                _this._pageSizeOptions = pageSizeOptions;
+            }
+            if (hidePageSize != null) {
+                _this._hidePageSize = hidePageSize;
+            }
+            if (showFirstLastButtons != null) {
+                _this._showFirstLastButtons = showFirstLastButtons;
+            }
+        }
         return _this;
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
@@ -308,7 +325,8 @@ var MatPaginator = /** @class */ (function (_super) {
     /** @nocollapse */
     MatPaginator.ctorParameters = function () { return [
         { type: MatPaginatorIntl },
-        { type: ChangeDetectorRef }
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PAGINATOR_DEFAULT_OPTIONS,] }] }
     ]; };
     MatPaginator.propDecorators = {
         color: [{ type: Input }],
@@ -361,5 +379,5 @@ var MatPaginatorModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
+export { MAT_PAGINATOR_DEFAULT_OPTIONS, MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
 //# sourceMappingURL=paginator.js.map

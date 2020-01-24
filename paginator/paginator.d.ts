@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, InjectionToken } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
 import { HasInitialized, HasInitializedCtor, ThemePalette, CanDisableCtor, CanDisable } from '@angular/material/core';
 /**
@@ -26,6 +26,19 @@ export declare class PageEvent {
     /** The current total number of items being paged */
     length: number;
 }
+/** Object that can be used to configure the default options for the paginator module. */
+export interface MatPaginatorDefaultOptions {
+    /** Number of items to display on a page. By default set to 50. */
+    pageSize?: number;
+    /** The set of provided page size options to display to the user. */
+    pageSizeOptions?: number[];
+    /** Whether to hide the page size selection UI from the user. */
+    hidePageSize?: boolean;
+    /** Whether to show the first/last buttons UI to the user. */
+    showFirstLastButtons?: boolean;
+}
+/** Injection token that can be used to provide the default options for the paginator module. */
+export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
 /** @docs-private */
 declare class MatPaginatorBase {
 }
@@ -70,7 +83,7 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
     readonly page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
     _displayedPageSizeOptions: number[];
-    constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Advances to the next page if it exists. */

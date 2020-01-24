@@ -82,6 +82,8 @@
         }
         return PageEvent;
     }());
+    /** Injection token that can be used to provide the default options for the paginator module. */
+    var MAT_PAGINATOR_DEFAULT_OPTIONS = new i0.InjectionToken('MAT_PAGINATOR_DEFAULT_OPTIONS');
     // Boilerplate for applying mixins to MatPaginator.
     /** @docs-private */
     var MatPaginatorBase = /** @class */ (function () {
@@ -97,7 +99,7 @@
      */
     var MatPaginator = /** @class */ (function (_super) {
         tslib.__extends(MatPaginator, _super);
-        function MatPaginator(_intl, _changeDetectorRef) {
+        function MatPaginator(_intl, _changeDetectorRef, defaults) {
             var _this = _super.call(this) || this;
             _this._intl = _intl;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -109,6 +111,21 @@
             /** Event emitted when the paginator changes the page size or page index. */
             _this.page = new i0.EventEmitter();
             _this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            if (defaults) {
+                var pageSize = defaults.pageSize, pageSizeOptions = defaults.pageSizeOptions, hidePageSize = defaults.hidePageSize, showFirstLastButtons = defaults.showFirstLastButtons;
+                if (pageSize != null) {
+                    _this._pageSize = pageSize;
+                }
+                if (pageSizeOptions != null) {
+                    _this._pageSizeOptions = pageSizeOptions;
+                }
+                if (hidePageSize != null) {
+                    _this._hidePageSize = hidePageSize;
+                }
+                if (showFirstLastButtons != null) {
+                    _this._showFirstLastButtons = showFirstLastButtons;
+                }
+            }
             return _this;
         }
         Object.defineProperty(MatPaginator.prototype, "pageIndex", {
@@ -304,7 +321,8 @@
         /** @nocollapse */
         MatPaginator.ctorParameters = function () { return [
             { type: MatPaginatorIntl },
-            { type: i0.ChangeDetectorRef }
+            { type: i0.ChangeDetectorRef },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_PAGINATOR_DEFAULT_OPTIONS,] }] }
         ]; };
         MatPaginator.propDecorators = {
             color: [{ type: i0.Input }],
@@ -357,6 +375,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_PAGINATOR_DEFAULT_OPTIONS = MAT_PAGINATOR_DEFAULT_OPTIONS;
     exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
     exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
     exports.MatPaginator = MatPaginator;
