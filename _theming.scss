@@ -2339,7 +2339,6 @@ $_mat-button-ripple-opacity: 0.1;
 
 
 
-
 @mixin mat-checkbox-theme($theme) {
   $is-dark-theme: map-get($theme, is-dark);
   $primary: map-get($theme, primary);
@@ -2371,12 +2370,6 @@ $_mat-button-ripple-opacity: 0.1;
     // !important is needed here because a stroke must be set as an
     // attribute on the SVG in order for line animation to work properly.
     stroke: $checkbox-mark-color !important;
-
-    @include cdk-high-contrast(black-on-white) {
-      // Having the one above be !important ends up overriding the browser's automatic
-      // color inversion so we need to re-invert it ourselves for black-on-white.
-      stroke: #000 !important;
-    }
   }
 
   .mat-checkbox-mixedmark {
@@ -2413,19 +2406,6 @@ $_mat-button-ripple-opacity: 0.1;
 
     .mat-checkbox-label {
       color: mat-color($foreground, secondary-text);
-    }
-
-    @include cdk-high-contrast {
-      opacity: 0.5;
-    }
-  }
-
-  // This one is moved down here so it can target both
-  // the theme colors and the disabled state.
-  @include cdk-high-contrast {
-    .mat-checkbox-background {
-      // Needs to be removed because it hides the checkbox outline.
-      background: none;
     }
   }
 
