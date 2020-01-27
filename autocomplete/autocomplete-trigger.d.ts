@@ -113,13 +113,14 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      * Whether the autocomplete is disabled. When disabled, the element will
      * act as a regular input and the user won't be able to open the panel.
      */
-    autocompleteDisabled: boolean;
+    get autocompleteDisabled(): boolean;
+    set autocompleteDisabled(value: boolean);
     constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
-    readonly panelOpen: boolean;
+    get panelOpen(): boolean;
     private _overlayAttached;
     /** Opens the autocomplete suggestion panel. */
     openPanel(): void;
@@ -134,11 +135,11 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      * A stream of actions that should close the autocomplete panel, including
      * when an option is selected, on blur, and when TAB is pressed.
      */
-    readonly panelClosingActions: Observable<MatOptionSelectionChange | null>;
+    get panelClosingActions(): Observable<MatOptionSelectionChange | null>;
     /** Stream of autocomplete option selections. */
     readonly optionSelections: Observable<MatOptionSelectionChange>;
     /** The currently active option, coerced to MatOption type. */
-    readonly activeOption: MatOption | null;
+    get activeOption(): MatOption | null;
     /** Stream of clicks outside of the autocomplete panel. */
     private _getOutsideClickStream;
     writeValue(value: any): void;

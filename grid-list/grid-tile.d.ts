@@ -16,9 +16,11 @@ export declare class MatGridTile {
     _colspan: number;
     constructor(_element: ElementRef<HTMLElement>, _gridList?: MatGridListBase | undefined);
     /** Amount of rows that the grid tile takes up. */
-    rowspan: number;
+    get rowspan(): number;
+    set rowspan(value: number);
     /** Amount of columns that the grid tile takes up. */
-    colspan: number;
+    get colspan(): number;
+    set colspan(value: number);
     /**
      * Sets the style of the grid-tile element.  Needs to be set manually to avoid
      * "Changed after checked" errors that would occur with HostBinding.

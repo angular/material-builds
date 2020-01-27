@@ -19,7 +19,8 @@ import { MatPaginatedTabHeader } from './paginated-tab-header';
  */
 export declare abstract class _MatTabHeaderBase extends MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy {
     /** Whether the ripple effect is disabled or not. */
-    disableRipple: any;
+    get disableRipple(): any;
+    set disableRipple(value: any);
     private _disableRipple;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
     protected _itemSelected(event: KeyboardEvent): void;

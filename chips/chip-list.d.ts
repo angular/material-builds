@@ -91,61 +91,67 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     _onChange: (value: any) => void;
     _selectionModel: SelectionModel<MatChip>;
     /** The array of selected chips inside chip list. */
-    readonly selected: MatChip[] | MatChip;
+    get selected(): MatChip[] | MatChip;
     /** The ARIA role applied to the chip list. */
-    readonly role: string | null;
+    get role(): string | null;
     /** An object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** Whether the user should be allowed to select multiple chips. */
-    multiple: boolean;
+    get multiple(): boolean;
+    set multiple(value: boolean);
     private _multiple;
     /**
      * A function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean
      * should be returned.
      */
-    compareWith: (o1: any, o2: any) => boolean;
+    get compareWith(): (o1: any, o2: any) => boolean;
+    set compareWith(fn: (o1: any, o2: any) => boolean);
     private _compareWith;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    value: any;
+    get value(): any;
+    set value(value: any);
     protected _value: any;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    readonly id: string;
+    get id(): string;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    required: boolean;
+    get required(): boolean;
+    set required(value: boolean);
     protected _required: boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    placeholder: string;
+    get placeholder(): string;
+    set placeholder(value: string);
     protected _placeholder: string;
     /** Whether any chips or the matChipInput inside of this chip-list has focus. */
-    readonly focused: boolean;
+    get focused(): boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    readonly empty: boolean;
+    get empty(): boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    readonly shouldLabelFloat: boolean;
+    get shouldLabelFloat(): boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     protected _disabled: boolean;
     /** Orientation of the chip list. */
     ariaOrientation: 'horizontal' | 'vertical';
@@ -153,17 +159,18 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * Whether or not this chip list is selectable. When a chip list is not selectable,
      * the selected states for all the chips inside the chip list are always ignored.
      */
-    selectable: boolean;
+    get selectable(): boolean;
+    set selectable(value: boolean);
     protected _selectable: boolean;
-    tabIndex: number;
+    set tabIndex(value: number);
     /** Combined stream of all of the child chips' selection change events. */
-    readonly chipSelectionChanges: Observable<MatChipSelectionChange>;
+    get chipSelectionChanges(): Observable<MatChipSelectionChange>;
     /** Combined stream of all of the child chips' focus change events. */
-    readonly chipFocusChanges: Observable<MatChipEvent>;
+    get chipFocusChanges(): Observable<MatChipEvent>;
     /** Combined stream of all of the child chips' blur change events. */
-    readonly chipBlurChanges: Observable<MatChipEvent>;
+    get chipBlurChanges(): Observable<MatChipEvent>;
     /** Combined stream of all of the child chips' remove change events. */
-    readonly chipRemoveChanges: Observable<MatChipEvent>;
+    get chipRemoveChanges(): Observable<MatChipEvent>;
     /** Event emitted when the selected chip list value has been changed by the user. */
     readonly change: EventEmitter<MatChipListChange>;
     /**

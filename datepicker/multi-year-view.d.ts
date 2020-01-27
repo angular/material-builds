@@ -21,16 +21,20 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     private _dir?;
     private _rerenderSubscription;
     /** The date to display in this multi-year view (everything other than the year is ignored). */
-    activeDate: D;
+    get activeDate(): D;
+    set activeDate(value: D);
     private _activeDate;
     /** The currently selected date. */
-    selected: D | null;
+    get selected(): D | null;
+    set selected(value: D | null);
     private _selected;
     /** The minimum selectable date. */
-    minDate: D | null;
+    get minDate(): D | null;
+    set minDate(value: D | null);
     private _minDate;
     /** The maximum selectable date. */
-    maxDate: D | null;
+    get maxDate(): D | null;
+    set maxDate(value: D | null);
     private _maxDate;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;

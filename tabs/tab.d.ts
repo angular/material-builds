@@ -28,7 +28,8 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
      */
     _closestTabGroup?: any;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
-    templateLabel: MatTabLabel;
+    get templateLabel(): MatTabLabel;
+    set templateLabel(value: MatTabLabel);
     private _templateLabel;
     /**
      * Template provided in the tab content that will be used if present, used to enable lazy-loading
@@ -48,7 +49,7 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     /** Portal that will be the hosted content of the tab */
     private _contentPortal;
     /** @docs-private */
-    readonly content: TemplatePortal | null;
+    get content(): TemplatePortal | null;
     /** Emits whenever the internal state of the tab changes. */
     readonly _stateChanges: Subject<void>;
     /**

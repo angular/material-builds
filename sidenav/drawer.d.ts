@@ -57,26 +57,31 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Whether the drawer is initialized. Used for disabling the initial animation. */
     private _enableAnimations;
     /** The side that the drawer is attached to. */
-    position: 'start' | 'end';
+    get position(): 'start' | 'end';
+    set position(value: 'start' | 'end');
     private _position;
     /** Mode of the drawer; one of 'over', 'push' or 'side'. */
-    mode: MatDrawerMode;
+    get mode(): MatDrawerMode;
+    set mode(value: MatDrawerMode);
     private _mode;
     /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
-    disableClose: boolean;
+    get disableClose(): boolean;
+    set disableClose(value: boolean);
     private _disableClose;
     /**
      * Whether the drawer should focus the first focusable element automatically when opened.
      * Defaults to false in when `mode` is set to `side`, otherwise defaults to `true`. If explicitly
      * enabled, focus will be moved into the sidenav in `side` mode as well.
      */
-    autoFocus: boolean;
+    get autoFocus(): boolean;
+    set autoFocus(value: boolean);
     private _autoFocus;
     /**
      * Whether the drawer is opened. We overload this because we trigger an event when it
      * starts or end.
      */
-    opened: boolean;
+    get opened(): boolean;
+    set opened(value: boolean);
     private _opened;
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
@@ -89,13 +94,13 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Event emitted when the drawer open state is changed. */
     readonly openedChange: EventEmitter<boolean>;
     /** Event emitted when the drawer has been opened. */
-    readonly _openedStream: Observable<void>;
+    get _openedStream(): Observable<void>;
     /** Event emitted when the drawer has started opening. */
-    readonly openedStart: Observable<void>;
+    get openedStart(): Observable<void>;
     /** Event emitted when the drawer has been closed. */
-    readonly _closedStream: Observable<void>;
+    get _closedStream(): Observable<void>;
     /** Event emitted when the drawer has started closing. */
-    readonly closedStart: Observable<void>;
+    get closedStart(): Observable<void>;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
     /** Event emitted when the drawer's position changes. */
@@ -139,7 +144,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * Used for focus management after the sidenav is closed.
      */
     toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
-    readonly _width: number;
+    get _width(): number;
     /** Updates the enabled state of the focus trap. */
     private _updateFocusTrapState;
     _animationStartListener(event: AnimationEvent): void;
@@ -167,9 +172,9 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     _content: MatDrawerContent;
     _userContent: MatDrawerContent;
     /** The drawer child with the `start` position. */
-    readonly start: MatDrawer | null;
+    get start(): MatDrawer | null;
     /** The drawer child with the `end` position. */
-    readonly end: MatDrawer | null;
+    get end(): MatDrawer | null;
     /**
      * Whether to automatically resize the container whenever
      * the size of any of its drawers changes.
@@ -178,14 +183,16 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
      * the drawers on every change detection cycle. Can be configured globally via the
      * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
      */
-    autosize: boolean;
+    get autosize(): boolean;
+    set autosize(value: boolean);
     private _autosize;
     /**
      * Whether the drawer container should have a backdrop while one of the sidenavs is open.
      * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
      * mode as well.
      */
-    hasBackdrop: any;
+    get hasBackdrop(): any;
+    set hasBackdrop(value: any);
     _backdropOverride: boolean | null;
     /** Event emitted when the drawer backdrop is clicked. */
     readonly backdropClick: EventEmitter<void>;
@@ -218,7 +225,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
         right: number | null;
     }>;
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
-    readonly scrollable: CdkScrollable;
+    get scrollable(): CdkScrollable;
     constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, defaultAutosize?: boolean, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

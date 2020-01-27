@@ -58,9 +58,11 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Used to set the aria-labelledby attribute on the underlying input element. */
     ariaLabelledby: string | null;
     /** Whether the slide-toggle is required. */
-    required: boolean;
+    get required(): boolean;
+    set required(value: boolean);
     /** Whether the slide-toggle element is checked or not. */
-    checked: boolean;
+    get checked(): boolean;
+    set checked(value: boolean);
     /** An event will be dispatched each time the slide-toggle changes its value. */
     readonly change: EventEmitter<MatSlideToggleChange>;
     /**
@@ -79,7 +81,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
      */
     readonly dragChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
-    readonly inputId: string;
+    get inputId(): string;
     /** Reference to the underlying input element. */
     _inputElement: ElementRef<HTMLInputElement>;
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, 

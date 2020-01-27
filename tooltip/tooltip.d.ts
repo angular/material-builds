@@ -80,9 +80,11 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     private _tooltipClass;
     private _scrollStrategy;
     /** Allows the user to define the position of the tooltip relative to the parent element */
-    position: TooltipPosition;
+    get position(): TooltipPosition;
+    set position(value: TooltipPosition);
     /** Disables the display of the tooltip. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     /** The default delay in ms before showing the tooltip after show is called */
     showDelay: number;
     /** The default delay in ms before hiding the tooltip after hide is called */
@@ -103,12 +105,16 @@ export declare class MatTooltip implements OnDestroy, OnInit {
      */
     touchGestures: TooltipTouchGestures;
     /** The message to be displayed in the tooltip */
-    message: string;
+    get message(): string;
+    set message(value: string);
     private _message;
     /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
-    tooltipClass: string | string[] | Set<string> | {
+    get tooltipClass(): string | string[] | Set<string> | {
         [key: string]: any;
     };
+    set tooltipClass(value: string | string[] | Set<string> | {
+        [key: string]: any;
+    });
     /** Manually-bound passive event listeners. */
     private _passiveListeners;
     /** Timer started at the last `touchstart` event. */

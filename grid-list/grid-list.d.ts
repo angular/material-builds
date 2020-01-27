@@ -32,11 +32,14 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     _tiles: QueryList<MatGridTile>;
     constructor(_element: ElementRef<HTMLElement>, _dir: Directionality);
     /** Amount of columns in the grid list. */
-    cols: number;
+    get cols(): number;
+    set cols(value: number);
     /** Size of the grid list's gutter in pixels. */
-    gutterSize: string;
+    get gutterSize(): string;
+    set gutterSize(value: string);
     /** Set internal representation of row height from the user-provided value. */
-    rowHeight: string | number;
+    get rowHeight(): string | number;
+    set rowHeight(value: string | number);
     ngOnInit(): void;
     /**
      * The layout calculation is fairly cheap if nothing changes, so there's little cost

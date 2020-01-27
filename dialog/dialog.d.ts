@@ -43,10 +43,10 @@ export declare class MatDialog implements OnDestroy {
     private _ariaHiddenElements;
     private _scrollStrategy;
     /** Keeps track of the currently-open dialogs. */
-    readonly openDialogs: MatDialogRef<any>[];
+    get openDialogs(): MatDialogRef<any>[];
     /** Stream that emits when a dialog has been opened. */
-    readonly afterOpened: Subject<MatDialogRef<any>>;
-    readonly _afterAllClosed: Subject<void>;
+    get afterOpened(): Subject<MatDialogRef<any>>;
+    get _afterAllClosed(): Subject<void>;
     /**
      * Stream that emits when all open dialog have finished closing.
      * Will emit on subscribe if there are no open dialogs to begin with.

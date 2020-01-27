@@ -71,26 +71,32 @@ export declare class MatRadioGroup implements AfterContentInit, ControlValueAcce
     /** Theme color for all of the radio buttons in the group. */
     color: ThemePalette;
     /** Name of the radio button group. All radio buttons inside this group will use this name. */
-    name: string;
+    get name(): string;
+    set name(value: string);
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
-    labelPosition: 'before' | 'after';
+    get labelPosition(): 'before' | 'after';
+    set labelPosition(v: 'before' | 'after');
     /**
      * Value for the radio-group. Should equal the value of the selected radio button if there is
      * a corresponding radio button with a matching value. If there is not such a corresponding
      * radio button, this value persists to be applied in case a new radio button is added with a
      * matching value.
      */
-    value: any;
+    get value(): any;
+    set value(newValue: any);
     _checkSelectedRadioButton(): void;
     /**
      * The currently selected radio button. If set to a new radio button, the radio group value
      * will be updated to match the new selected button.
      */
-    selected: MatRadioButton | null;
+    get selected(): MatRadioButton | null;
+    set selected(selected: MatRadioButton | null);
     /** Whether the radio group is disabled */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     /** Whether the radio group is required */
-    required: boolean;
+    get required(): boolean;
+    set required(value: boolean);
     constructor(_changeDetector: ChangeDetectorRef);
     /**
      * Initialize properties once content children are available.
@@ -161,18 +167,24 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     /** The 'aria-describedby' attribute is read after the element's label and field type. */
     ariaDescribedby: string;
     /** Whether this radio button is checked. */
-    checked: boolean;
+    get checked(): boolean;
+    set checked(value: boolean);
     /** The value of this radio button. */
-    value: any;
+    get value(): any;
+    set value(value: any);
     /** Whether the label should appear after or before the radio button. Defaults to 'after' */
-    labelPosition: 'before' | 'after';
+    get labelPosition(): 'before' | 'after';
+    set labelPosition(value: 'before' | 'after');
     private _labelPosition;
     /** Whether the radio button is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     /** Whether the radio button is required. */
-    required: boolean;
+    get required(): boolean;
+    set required(value: boolean);
     /** Theme color of the radio button. */
-    color: ThemePalette;
+    get color(): ThemePalette;
+    set color(newValue: ThemePalette);
     private _color;
     /**
      * Event emitted when the checked state of this radio button changes.
@@ -183,7 +195,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     /** The parent radio group. May or may not be present. */
     radioGroup: MatRadioGroup;
     /** ID of the native input element inside `<mat-radio-button>` */
-    readonly inputId: string;
+    get inputId(): string;
     /** Whether this radio is checked. */
     private _checked;
     /** Whether this radio is disabled. */

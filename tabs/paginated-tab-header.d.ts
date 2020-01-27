@@ -78,7 +78,8 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     disablePagination: boolean;
     /** The index of the active tab. */
-    selectedIndex: number;
+    get selectedIndex(): number;
+    set selectedIndex(value: number);
     private _selectedIndex;
     /** Event emitted when the option is selected. */
     readonly selectFocusedIndex: EventEmitter<number>;
@@ -111,8 +112,9 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     updatePagination(): void;
     /** Tracks which element has focus; used for keyboard navigation */
+    get focusIndex(): number;
     /** When the focus index is set, we must manually send focus to the correct label */
-    focusIndex: number;
+    set focusIndex(value: number);
     /**
      * Determines if an index is valid.  If the tabs are not ready yet, we assume that the user is
      * providing a valid index and return true.
@@ -128,7 +130,8 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     /** Performs the CSS transformation on the tab list that will cause the list to scroll. */
     _updateTabScrollPosition(): void;
     /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
-    scrollDistance: number;
+    get scrollDistance(): number;
+    set scrollDistance(value: number);
     /**
      * Moves the tab list in the 'before' or 'after' direction (towards the beginning of the list or
      * the end of the list, respectively). The distance to scroll is computed to be a third of the

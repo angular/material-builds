@@ -69,15 +69,18 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * Whether the icon should be inlined, automatically sizing the icon to match the font size of
      * the element the icon is contained in.
      */
-    inline: boolean;
+    get inline(): boolean;
+    set inline(inline: boolean);
     private _inline;
     /** Name of the icon in the SVG icon set. */
     svgIcon: string;
     /** Font set that the icon is a part of. */
-    fontSet: string;
+    get fontSet(): string;
+    set fontSet(value: string);
     private _fontSet;
     /** Name of an icon within a font set. */
-    fontIcon: string;
+    get fontIcon(): string;
+    set fontIcon(value: string);
     private _fontIcon;
     private _previousFontSetClass;
     private _previousFontIconClass;

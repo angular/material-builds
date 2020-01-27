@@ -76,12 +76,15 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     /** The appearance for all the buttons in the group. */
     appearance: MatButtonToggleAppearance;
     /** `name` attribute for the underlying `input` element. */
-    name: string;
+    get name(): string;
+    set name(value: string);
     private _name;
     /** Whether the toggle group is vertical. */
-    vertical: boolean;
+    get vertical(): boolean;
+    set vertical(value: boolean);
     /** Value of the toggle group. */
-    value: any;
+    get value(): any;
+    set value(newValue: any);
     /**
      * Event that emits whenever the value of the group changes.
      * Used to facilitate two-way data binding.
@@ -89,11 +92,13 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
      */
     readonly valueChange: EventEmitter<any>;
     /** Selected button toggles in the group. */
-    readonly selected: MatButtonToggle | MatButtonToggle[];
+    get selected(): MatButtonToggle | MatButtonToggle[];
     /** Whether multiple button toggles can be selected. */
-    multiple: boolean;
+    get multiple(): boolean;
+    set multiple(value: boolean);
     /** Whether multiple button toggle group is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     /** Event emitted when the group's value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
     constructor(_changeDetector: ChangeDetectorRef, defaultOptions?: MatButtonToggleDefaultOptions);
@@ -159,7 +164,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     /** The parent button toggle group (exclusive selection). Optional. */
     buttonToggleGroup: MatButtonToggleGroup;
     /** Unique ID for the underlying `button` element. */
-    readonly buttonId: string;
+    get buttonId(): string;
     /** The unique ID for this button toggle. */
     id: string;
     /** HTML's 'name' attribute used to group radios for unique selection. */
@@ -169,12 +174,15 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     /** Tabindex for the toggle. */
     tabIndex: number | null;
     /** The appearance style of the button. */
-    appearance: MatButtonToggleAppearance;
+    get appearance(): MatButtonToggleAppearance;
+    set appearance(value: MatButtonToggleAppearance);
     private _appearance;
     /** Whether the button is checked. */
-    checked: boolean;
+    get checked(): boolean;
+    set checked(value: boolean);
     /** Whether the button is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     private _disabled;
     /** Event emitted when the group value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;

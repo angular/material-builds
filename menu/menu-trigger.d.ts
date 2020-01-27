@@ -53,9 +53,11 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * @deprecated
      * @breaking-change 8.0.0
      */
-    _deprecatedMatMenuTriggerFor: MatMenuPanel;
+    get _deprecatedMatMenuTriggerFor(): MatMenuPanel;
+    set _deprecatedMatMenuTriggerFor(v: MatMenuPanel);
     /** References the menu instance that the trigger is associated with. */
-    menu: MatMenuPanel;
+    get menu(): MatMenuPanel;
+    set menu(menu: MatMenuPanel);
     private _menu;
     /** Data to be passed along to any lazily-rendered content. */
     menuData: any;
@@ -85,9 +87,9 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
-    readonly menuOpen: boolean;
+    get menuOpen(): boolean;
     /** The text direction of the containing app. */
-    readonly dir: Direction;
+    get dir(): Direction;
     /** Whether the menu triggers a sub-menu or a top-level one. */
     triggersSubmenu(): boolean;
     /** Toggles the menu between the open and closed states. */

@@ -44,13 +44,15 @@ export declare class MatSort extends _MatSortMixinBase implements CanDisable, Ha
      */
     start: 'asc' | 'desc';
     /** The sort direction of the currently active MatSortable. */
-    direction: SortDirection;
+    get direction(): SortDirection;
+    set direction(direction: SortDirection);
     private _direction;
     /**
      * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
      * May be overriden by the MatSortable's disable clear input.
      */
-    disableClear: boolean;
+    get disableClear(): boolean;
+    set disableClear(v: boolean);
     private _disableClear;
     /** Event emitted when the user changes either the active sort or sort direction. */
     readonly sortChange: EventEmitter<Sort>;

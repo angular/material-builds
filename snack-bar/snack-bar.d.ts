@@ -34,7 +34,8 @@ export declare class MatSnackBar implements OnDestroy {
      */
     private _snackBarRefAtThisLevel;
     /** Reference to the currently opened snackbar at *any* level. */
-    _openedSnackBarRef: MatSnackBarRef<any> | null;
+    get _openedSnackBarRef(): MatSnackBarRef<any> | null;
+    set _openedSnackBarRef(value: MatSnackBarRef<any> | null);
     constructor(_overlay: Overlay, _live: LiveAnnouncer, _injector: Injector, _breakpointObserver: BreakpointObserver, _parentSnackBar: MatSnackBar, _defaultConfig: MatSnackBarConfig);
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any

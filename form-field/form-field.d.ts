@@ -64,21 +64,24 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _outlineGapCalculationNeededOnStable;
     private _destroyed;
     /** The form-field appearance style. */
-    appearance: MatFormFieldAppearance;
+    get appearance(): MatFormFieldAppearance;
+    set appearance(value: MatFormFieldAppearance);
     _appearance: MatFormFieldAppearance;
     /** Whether the required marker should be hidden. */
-    hideRequiredMarker: boolean;
+    get hideRequiredMarker(): boolean;
+    set hideRequiredMarker(value: boolean);
     private _hideRequiredMarker;
     /** Override for the logic that disables the label animation in certain cases. */
     private _showAlwaysAnimate;
     /** Whether the floating label should always float or not. */
-    readonly _shouldAlwaysFloat: boolean;
+    get _shouldAlwaysFloat(): boolean;
     /** Whether the label can float or not. */
-    readonly _canLabelFloat: boolean;
+    get _canLabelFloat(): boolean;
     /** State of the mat-hint and mat-error animations. */
     _subscriptAnimationState: string;
     /** Text for the form field hint. */
-    hintLabel: string;
+    get hintLabel(): string;
+    set hintLabel(value: string);
     private _hintLabel;
     _hintLabelId: string;
     _labelId: string;
@@ -90,7 +93,8 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
      * the form field now supports both floating labels and placeholders. Therefore in the non-legacy
      * appearances the `never` option has been disabled in favor of just using the placeholder.
      */
-    floatLabel: FloatLabelType;
+    get floatLabel(): FloatLabelType;
+    set floatLabel(value: FloatLabelType);
     private _floatLabel;
     /** Whether the Angular animations are enabled. */
     _animationsEnabled: boolean;
@@ -104,11 +108,12 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _label;
     _controlNonStatic: MatFormFieldControl<any>;
     _controlStatic: MatFormFieldControl<any>;
-    _control: MatFormFieldControl<any>;
+    get _control(): MatFormFieldControl<any>;
+    set _control(value: MatFormFieldControl<any>);
     private _explicitFormFieldControl;
     _labelChildNonStatic: MatLabel;
     _labelChildStatic: MatLabel;
-    readonly _labelChild: MatLabel;
+    get _labelChild(): MatLabel;
     _placeholderChild: MatPlaceholder;
     _errorChildren: QueryList<MatError>;
     _hintChildren: QueryList<MatHint>;

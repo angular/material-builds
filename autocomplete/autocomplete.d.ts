@@ -42,7 +42,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
     /** Whether the autocomplete panel is open. */
-    readonly isOpen: boolean;
+    get isOpen(): boolean;
     _isOpen: boolean;
     /** @docs-private */
     template: TemplateRef<any>;
@@ -58,7 +58,8 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
      * Whether the first option should be highlighted when the autocomplete panel is opened.
      * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
      */
-    autoActiveFirstOption: boolean;
+    get autoActiveFirstOption(): boolean;
+    set autoActiveFirstOption(value: boolean);
     private _autoActiveFirstOption;
     /**
      * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
@@ -75,7 +76,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
      * inside the overlay container to allow for easy styling.
      */
-    classList: string;
+    set classList(value: string);
     _classList: {
         [key: string]: boolean;
     };

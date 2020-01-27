@@ -77,9 +77,10 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     /** A unique id for the checkbox input. If none is supplied, it will be auto-generated. */
     id: string;
     /** Returns the unique id for the visual hidden input. */
-    readonly inputId: string;
+    get inputId(): string;
     /** Whether the checkbox is required. */
-    required: boolean;
+    get required(): boolean;
+    set required(value: boolean);
     private _required;
     /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
     labelPosition: 'before' | 'after';
@@ -116,13 +117,15 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     /**
      * Whether the checkbox is checked.
      */
-    checked: boolean;
+    get checked(): boolean;
+    set checked(value: boolean);
     private _checked;
     /**
      * Whether the checkbox is disabled. This fully overrides the implementation provided by
      * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
      */
-    disabled: any;
+    get disabled(): any;
+    set disabled(value: any);
     private _disabled;
     /**
      * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
@@ -130,7 +133,8 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
      * set to false.
      */
-    indeterminate: boolean;
+    get indeterminate(): boolean;
+    set indeterminate(value: boolean);
     private _indeterminate;
     _isRippleDisabled(): any;
     /** Method being called whenever the label text changes. */

@@ -85,7 +85,8 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     /** Overrides the sort start value of the containing MatSort for this MatSortable. */
     start: 'asc' | 'desc';
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
-    disableClear: boolean;
+    get disableClear(): boolean;
+    set disableClear(v: boolean);
     private _disableClear;
     constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, 
     /**

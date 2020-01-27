@@ -65,13 +65,15 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     protected _disabled: boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    id: string;
+    get id(): string;
+    set id(value: string);
     protected _id: string;
     /**
      * Implemented as part of MatFormFieldControl.
@@ -82,10 +84,12 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    required: boolean;
+    get required(): boolean;
+    set required(value: boolean);
     protected _required: boolean;
     /** Input type of the element. */
-    type: string;
+    get type(): string;
+    set type(value: string);
     protected _type: string;
     /** An object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
@@ -93,9 +97,11 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    value: string;
+    get value(): string;
+    set value(value: string);
     /** Whether the element is readonly. */
-    readonly: boolean;
+    get readonly(): boolean;
+    set readonly(value: boolean);
     private _readonly;
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, 
@@ -124,12 +130,12 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    readonly empty: boolean;
+    get empty(): boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    readonly shouldLabelFloat: boolean;
+    get shouldLabelFloat(): boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

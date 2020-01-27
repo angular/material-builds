@@ -32,7 +32,7 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
      * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
      * @docs-private
      */
-    readonly disabled: any;
+    get disabled(): any;
     /** Toggles the expanded state of the panel. */
     _toggle(): void;
     /** Gets whether the panel is expanded. */

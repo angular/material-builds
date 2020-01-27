@@ -118,7 +118,10 @@ class MatInputHarness extends MatFormFieldControlHarness {
         });
     }
 }
-MatInputHarness.hostSelector = '[matInput]';
+// TODO: We do not want to handle `select` elements with `matNativeControl` because
+// not all methods of this harness work reasonably for native select elements.
+// For more details. See: https://github.com/angular/components/pull/18221.
+MatInputHarness.hostSelector = '[matInput], input[matNativeControl], textarea[matNativeControl]';
 
 /**
  * @license

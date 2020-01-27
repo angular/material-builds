@@ -44,17 +44,20 @@ export declare class MatTableDataSource<T> extends DataSource<T> {
      */
     filteredData: T[];
     /** Array of data that should be rendered by the table, where each object represents one row. */
-    data: T[];
+    get data(): T[];
+    set data(data: T[]);
     /**
      * Filter term that should be used to filter out objects from the data array. To override how
      * data objects match to this filter string, provide a custom function for filterPredicate.
      */
-    filter: string;
+    get filter(): string;
+    set filter(filter: string);
     /**
      * Instance of the MatSort directive used by the table to control its sorting. Sort changes
      * emitted by the MatSort will trigger an update to the table's rendered data.
      */
-    sort: MatSort | null;
+    get sort(): MatSort | null;
+    set sort(sort: MatSort | null);
     private _sort;
     /**
      * Instance of the MatPaginator component used by the table to control what page of the data is
@@ -66,7 +69,8 @@ export declare class MatTableDataSource<T> extends DataSource<T> {
      * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
      * initialized before assigning it to this data source.
      */
-    paginator: MatPaginator | null;
+    get paginator(): MatPaginator | null;
+    set paginator(paginator: MatPaginator | null);
     private _paginator;
     /**
      * Data accessor function that is used for accessing data properties for sorting through

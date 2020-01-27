@@ -62,21 +62,25 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     /** An input indicating the type of the custom header component for the calendar, if set. */
     calendarHeaderComponent: ComponentType<any>;
     /** The date to open the calendar to initially. */
-    startAt: D | null;
+    get startAt(): D | null;
+    set startAt(value: D | null);
     private _startAt;
     /** The view that the calendar should start in. */
     startView: 'month' | 'year' | 'multi-year';
     /** Color palette to use on the datepicker's calendar. */
-    color: ThemePalette;
+    get color(): ThemePalette;
+    set color(value: ThemePalette);
     _color: ThemePalette;
     /**
      * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
      * than a popup and elements have more padding to allow for bigger touch targets.
      */
-    touchUi: boolean;
+    get touchUi(): boolean;
+    set touchUi(value: boolean);
     private _touchUi;
     /** Whether the datepicker pop-up should be disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
     private _disabled;
     /**
      * Emits selected year in multiyear view.
@@ -97,18 +101,20 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     /** Emits when the datepicker has been closed. */
     closedStream: EventEmitter<void>;
     /** Whether the calendar is open. */
-    opened: boolean;
+    get opened(): boolean;
+    set opened(value: boolean);
     private _opened;
     /** The id for the datepicker calendar. */
     id: string;
     /** The currently selected date. */
-    _selected: D | null;
+    get _selected(): D | null;
+    set _selected(value: D | null);
     private _validSelected;
     /** The minimum selectable date. */
-    readonly _minDate: D | null;
+    get _minDate(): D | null;
     /** The maximum selectable date. */
-    readonly _maxDate: D | null;
-    readonly _dateFilter: (date: D | null) => boolean;
+    get _maxDate(): D | null;
+    get _dateFilter(): (date: D | null) => boolean;
     /** A reference to the overlay when the calendar is opened as a popup. */
     _popupRef: OverlayRef;
     /** A reference to the dialog when the calendar is opened as a dialog. */

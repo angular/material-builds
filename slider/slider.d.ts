@@ -41,28 +41,35 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     _animationMode?: string | undefined;
     private _ngZone?;
     /** Whether the slider is inverted. */
-    invert: boolean;
+    get invert(): boolean;
+    set invert(value: boolean);
     private _invert;
     /** The maximum value that the slider can have. */
-    max: number;
+    get max(): number;
+    set max(v: number);
     private _max;
     /** The minimum value that the slider can have. */
-    min: number;
+    get min(): number;
+    set min(v: number);
     private _min;
     /** The values at which the thumb will snap. */
-    step: number;
+    get step(): number;
+    set step(v: number);
     private _step;
     /** Whether or not to show the thumb label. */
-    thumbLabel: boolean;
+    get thumbLabel(): boolean;
+    set thumbLabel(value: boolean);
     private _thumbLabel;
     /**
      * How often to show ticks. Relative to the step so that a tick always appears on a step.
      * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
      */
-    tickInterval: 'auto' | number;
+    get tickInterval(): 'auto' | number;
+    set tickInterval(value: 'auto' | number);
     private _tickInterval;
     /** Value of the slider. */
-    value: number | null;
+    get value(): number | null;
+    set value(v: number | null);
     private _value;
     /**
      * Function that will be used to format the value before it is displayed
@@ -71,7 +78,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      */
     displayWith: (value: number) => string | number;
     /** Whether the slider is vertical. */
-    vertical: boolean;
+    get vertical(): boolean;
+    set vertical(value: boolean);
     private _vertical;
     /** Event emitted when the slider value has changed. */
     readonly change: EventEmitter<MatSliderChange>;
@@ -84,7 +92,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      */
     readonly valueChange: EventEmitter<number | null>;
     /** The value to be used for display purposes. */
-    readonly displayValue: string | number;
+    get displayValue(): string | number;
     /** set focus to the host element */
     focus(options?: FocusOptions): void;
     /** blur the host element */
@@ -92,7 +100,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
     onTouched: () => any;
     /** The percentage of the slider that coincides with the value. */
-    readonly percent: number;
+    get percent(): number;
     private _percent;
     /**
      * Whether or not the thumb is sliding.
@@ -108,31 +116,31 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * Whether the axis of the slider is inverted.
      * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
      */
-    readonly _invertAxis: boolean;
+    get _invertAxis(): boolean;
     /** Whether the slider is at its minimum value. */
-    readonly _isMinValue: boolean;
+    get _isMinValue(): boolean;
     /**
      * The amount of space to leave between the slider thumb and the track fill & track background
      * elements.
      */
-    readonly _thumbGap: 7 | 10 | 0;
+    get _thumbGap(): 7 | 10 | 0;
     /** CSS styles for the track background element. */
-    readonly _trackBackgroundStyles: {
+    get _trackBackgroundStyles(): {
         [key: string]: string;
     };
     /** CSS styles for the track fill element. */
-    readonly _trackFillStyles: {
+    get _trackFillStyles(): {
         [key: string]: string;
     };
     /** CSS styles for the ticks container element. */
-    readonly _ticksContainerStyles: {
+    get _ticksContainerStyles(): {
         [key: string]: string;
     };
     /** CSS styles for the ticks element. */
-    readonly _ticksStyles: {
+    get _ticksStyles(): {
         [key: string]: string;
     };
-    readonly _thumbContainerStyles: {
+    get _thumbContainerStyles(): {
         [key: string]: string;
     };
     /** The size of a tick interval as a percentage of the size of the track. */

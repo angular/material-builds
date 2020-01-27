@@ -70,7 +70,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
      * Whether ripples are disabled on interaction
      * @docs-private
      */
-    readonly rippleDisabled: boolean;
+    get rippleDisabled(): boolean;
     /** Whether the chip has focus. */
     _hasFocus: boolean;
     /** Whether animations for the chip are enabled. */
@@ -86,10 +86,12 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     /** The chip's remove toggler. */
     removeIcon: MatChipRemove;
     /** Whether the chip is selected. */
-    selected: boolean;
+    get selected(): boolean;
+    set selected(value: boolean);
     protected _selected: boolean;
     /** The value of the chip. Defaults to the content inside `<mat-chip>` tags. */
-    value: any;
+    get value(): any;
+    set value(value: any);
     protected _value: any;
     /**
      * Whether or not the chip is selectable. When a chip is not selectable,
@@ -97,12 +99,14 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
      * selectable, and it becomes non-selectable if its parent chip list is
      * not selectable.
      */
-    selectable: boolean;
+    get selectable(): boolean;
+    set selectable(value: boolean);
     protected _selectable: boolean;
     /**
      * Determines whether or not the chip displays the remove styling and emits (removed) events.
      */
-    removable: boolean;
+    get removable(): boolean;
+    set removable(value: boolean);
     protected _removable: boolean;
     /** Emits when the chip is focused. */
     readonly _onFocus: Subject<MatChipEvent>;
@@ -115,7 +119,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     /** Emitted when a chip is to be removed. */
     readonly removed: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
-    readonly ariaSelected: string | null;
+    get ariaSelected(): string | null;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, animationMode?: string, _changeDetectorRef?: ChangeDetectorRef | undefined);
     _addHostClassName(): void;
     ngOnDestroy(): void;

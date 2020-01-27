@@ -54,15 +54,18 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     /** Subscription to changes in the tab labels. */
     private _tabLabelSubscription;
     /** Whether the tab group should grow to the size of the active tab. */
-    dynamicHeight: boolean;
+    get dynamicHeight(): boolean;
+    set dynamicHeight(value: boolean);
     private _dynamicHeight;
     /** The index of the active tab. */
-    selectedIndex: number | null;
+    get selectedIndex(): number | null;
+    set selectedIndex(value: number | null);
     private _selectedIndex;
     /** Position of the tab header. */
     headerPosition: MatTabHeaderPosition;
     /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
-    animationDuration: string;
+    get animationDuration(): string;
+    set animationDuration(value: string);
     private _animationDuration;
     /**
      * Whether pagination should be disabled. This can be used to avoid unnecessary
@@ -70,7 +73,8 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
      */
     disablePagination: boolean;
     /** Background color of the tab group. */
-    backgroundColor: ThemePalette;
+    get backgroundColor(): ThemePalette;
+    set backgroundColor(value: ThemePalette);
     private _backgroundColor;
     /** Output to enable support for two-way binding on `[(selectedIndex)]` */
     readonly selectedIndexChange: EventEmitter<number>;
