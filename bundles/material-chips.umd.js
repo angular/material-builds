@@ -35,7 +35,7 @@
         }
         return MatChipBase;
     }());
-    var _MatChipMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatChipBase)), 'primary');
+    var _MatChipMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatChipBase)), 'primary'), -1);
     /**
      * Dummy directive to add CSS class to chip avatar.
      * @docs-private
@@ -75,7 +75,7 @@
         // @breaking-change 8.0.0 `animationMode` parameter to become required.
         animationMode, 
         // @breaking-change 9.0.0 `_changeDetectorRef` parameter to become required.
-        _changeDetectorRef) {
+        _changeDetectorRef, tabIndex) {
             var _this = _super.call(this, _elementRef) || this;
             _this._elementRef = _elementRef;
             _this._ngZone = _ngZone;
@@ -104,6 +104,7 @@
             _this._chipRipple.setupTriggerEvents(_elementRef);
             _this.rippleConfig = globalRippleOptions || {};
             _this._animationsDisabled = animationMode === 'NoopAnimations';
+            _this.tabIndex = tabIndex != null ? (parseInt(tabIndex) || -1) : -1;
             return _this;
         }
         Object.defineProperty(MatChip.prototype, "rippleDisabled", {
@@ -309,11 +310,11 @@
         MatChip.decorators = [
             { type: core.Directive, args: [{
                         selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-                        inputs: ['color', 'disabled', 'disableRipple'],
+                        inputs: ['color', 'disabled', 'disableRipple', 'tabIndex'],
                         exportAs: 'matChip',
                         host: {
                             'class': 'mat-chip',
-                            '[attr.tabindex]': 'disabled ? null : -1',
+                            '[attr.tabindex]': 'disabled ? null : tabIndex',
                             'role': 'option',
                             '[class.mat-chip-selected]': 'selected',
                             '[class.mat-chip-with-avatar]': 'avatar',
@@ -337,7 +338,8 @@
             { type: platform.Platform },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-            { type: core.ChangeDetectorRef }
+            { type: core.ChangeDetectorRef },
+            { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
         ]; };
         MatChip.propDecorators = {
             avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],

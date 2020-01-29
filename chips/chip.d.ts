@@ -9,7 +9,7 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, EventEmitter, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
@@ -37,7 +37,7 @@ declare class MatChipBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatChipBase;
+declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & CanDisableCtor & HasTabIndexCtor & typeof MatChipBase;
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private
@@ -53,7 +53,7 @@ export declare class MatChipTrailingIcon {
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
-export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable, CanDisableRipple, RippleTarget {
+export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable, CanDisableRipple, RippleTarget, HasTabIndex {
     _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
     private _changeDetectorRef?;
@@ -120,7 +120,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     readonly removed: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
     get ariaSelected(): string | null;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, animationMode?: string, _changeDetectorRef?: ChangeDetectorRef | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, animationMode?: string, _changeDetectorRef?: ChangeDetectorRef | undefined, tabIndex?: string);
     _addHostClassName(): void;
     ngOnDestroy(): void;
     /** Selects the chip. */

@@ -1,6 +1,6 @@
 import { SPACE, BACKSPACE, DELETE, HOME, END, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
-import { Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, ContentChild, forwardRef, Input, Output, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
-import { mixinColor, mixinDisableRipple, mixinDisabled, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, Attribute, ContentChild, forwardRef, Input, Output, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
+import { mixinTabIndex, mixinColor, mixinDisableRipple, mixinDisabled, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { Subject, merge } from 'rxjs';
@@ -78,7 +78,7 @@ if (false) {
     MatChipBase.prototype._elementRef;
 }
 /** @type {?} */
-const _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
+const _MatChipMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary'), -1);
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -114,10 +114,11 @@ class MatChip extends _MatChipMixinBase {
      * @param {?} globalRippleOptions
      * @param {?=} animationMode
      * @param {?=} _changeDetectorRef
+     * @param {?=} tabIndex
      */
     constructor(_elementRef, _ngZone, platform, globalRippleOptions, 
     // @breaking-change 8.0.0 `animationMode` parameter to become required.
-    animationMode, _changeDetectorRef) {
+    animationMode, _changeDetectorRef, tabIndex) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -162,6 +163,7 @@ class MatChip extends _MatChipMixinBase {
         this._chipRipple.setupTriggerEvents(_elementRef);
         this.rippleConfig = globalRippleOptions || {};
         this._animationsDisabled = animationMode === 'NoopAnimations';
+        this.tabIndex = tabIndex != null ? (parseInt(tabIndex) || -1) : -1;
     }
     /**
      * Whether ripples are disabled on interaction
@@ -420,11 +422,11 @@ class MatChip extends _MatChipMixinBase {
 MatChip.decorators = [
     { type: Directive, args: [{
                 selector: `mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]`,
-                inputs: ['color', 'disabled', 'disableRipple'],
+                inputs: ['color', 'disabled', 'disableRipple', 'tabIndex'],
                 exportAs: 'matChip',
                 host: {
                     'class': 'mat-chip',
-                    '[attr.tabindex]': 'disabled ? null : -1',
+                    '[attr.tabindex]': 'disabled ? null : tabIndex',
                     'role': 'option',
                     '[class.mat-chip-selected]': 'selected',
                     '[class.mat-chip-with-avatar]': 'avatar',
@@ -448,7 +450,8 @@ MatChip.ctorParameters = () => [
     { type: Platform },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-    { type: ChangeDetectorRef }
+    { type: ChangeDetectorRef },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 MatChip.propDecorators = {
     avatar: [{ type: ContentChild, args: [MatChipAvatar,] }],
