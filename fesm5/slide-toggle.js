@@ -134,7 +134,14 @@ var MatSlideToggle = /** @class */ (function (_super) {
         this._focusMonitor
             .monitor(this._elementRef, true)
             .subscribe(function (focusOrigin) {
-            if (!focusOrigin) {
+            // Only forward focus manually when it was received programmatically or through the
+            // keyboard. We should not do this for mouse/touch focus for two reasons:
+            // 1. It can prevent clicks from landing in Chrome (see #18269).
+            // 2. They're already handled by the wrapping `label` element.
+            if (focusOrigin === 'keyboard' || focusOrigin === 'program') {
+                _this._inputElement.nativeElement.focus();
+            }
+            else if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
                 // Angular does not expect events to be raised during change detection, so any state
                 // change (such as a form control's 'ng-touched') will cause a changed-after-checked
@@ -235,7 +242,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[class.mat-disabled]': 'disabled',
                         '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
                         '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                        '(focus)': '_inputElement.nativeElement.focus()',
                     },
                     template: "<label [attr.for]=\"inputId\" class=\"mat-slide-toggle-label\" #label>\n  <div #toggleBar class=\"mat-slide-toggle-bar\"\n       [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\">\n\n    <input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"inputId\"\n           [required]=\"required\"\n           [tabIndex]=\"tabIndex\"\n           [checked]=\"checked\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [attr.aria-checked]=\"checked.toString()\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           (change)=\"_onChangeEvent($event)\"\n           (click)=\"_onInputClick($event)\">\n\n    <div class=\"mat-slide-toggle-thumb-container\" #thumbContainer>\n      <div class=\"mat-slide-toggle-thumb\"></div>\n      <div class=\"mat-slide-toggle-ripple\" mat-ripple\n           [matRippleTrigger]=\"label\"\n           [matRippleDisabled]=\"disableRipple || disabled\"\n           [matRippleCentered]=\"true\"\n           [matRippleRadius]=\"20\"\n           [matRippleAnimation]=\"{enterDuration: 150}\">\n\n        <div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div>\n      </div>\n    </div>\n\n  </div>\n\n  <span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\">\n    <!-- Add an invisible span so JAWS can read the label -->\n    <span style=\"display:none\">&nbsp;</span>\n    <ng-content></ng-content>\n  </span>\n</label>\n",
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
