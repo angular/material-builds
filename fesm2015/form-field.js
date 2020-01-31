@@ -511,8 +511,8 @@ class MatFormField extends _MatFormFieldMixinBase {
      * @return {?}
      */
     get _control() {
-        // TODO(crisbeto): we need this hacky workaround in order to support both Ivy
-        // and ViewEngine. We should clean this up once Ivy is the default renderer.
+        // TODO(crisbeto): we need this workaround in order to support both Ivy and ViewEngine.
+        //  We should clean this up once Ivy is the default renderer.
         return this._explicitFormFieldControl || this._controlNonStatic || this._controlStatic;
     }
     /**
