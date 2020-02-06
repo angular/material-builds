@@ -299,7 +299,7 @@
         function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host, 
         /**
          * @deprecated `_document` parameter to be made required.
-         * @breaking-change 9.0.0
+         * @breaking-change 9.0.0-sha-173f5fac2
          */
         _document) {
             var _this = _super.call(this, componentFactoryResolver, viewContainerRef, _document) || this;
@@ -944,7 +944,7 @@
     var MatPaginatedTabHeader = /** @class */ (function () {
         function MatPaginatedTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, 
         /**
-         * @deprecated @breaking-change 9.0.0 `_platform` and `_animationMode`
+         * @deprecated @breaking-change 9.0.0-sha-173f5fac2 `_platform` and `_animationMode`
          * parameters to become required.
          */
         _platform, _animationMode) {
@@ -1205,7 +1205,7 @@
             // position to be thrown off in some cases. We have to reset it ourselves to ensure that
             // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
             // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-            // @breaking-change 9.0.0 Remove null check for `platform` after it can no longer be undefined.
+            // @breaking-change 9.0.0-sha-173f5fac2 Remove null check for `platform` after it can no longer be undefined.
             if (platform && (platform.TRIDENT || platform.EDGE)) {
                 this._tabListContainer.nativeElement.scrollLeft = 0;
             }
@@ -1422,7 +1422,7 @@
     var _MatTabHeaderBase = /** @class */ (function (_super) {
         tslib.__extends(_MatTabHeaderBase, _super);
         function _MatTabHeaderBase(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-        // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
+        // @breaking-change 9.0.0-sha-173f5fac2 `_animationMode` parameter to be made required.
         animationMode) {
             var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
             _this._disableRipple = false;
@@ -1466,7 +1466,7 @@
     var MatTabHeader = /** @class */ (function (_super) {
         tslib.__extends(MatTabHeader, _super);
         function MatTabHeader(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-        // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
+        // @breaking-change 9.0.0-sha-173f5fac2 `_animationMode` parameter to be made required.
         animationMode) {
             return _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
         }
@@ -1516,7 +1516,7 @@
         tslib.__extends(_MatTabNavBase, _super);
         function _MatTabNavBase(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
         /**
-         * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
+         * @deprecated @breaking-change 9.0.0-sha-173f5fac2 `platform` parameter to become required.
          */
         platform, animationMode) {
             var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
@@ -1606,7 +1606,7 @@
         tslib.__extends(MatTabNav, _super);
         function MatTabNav(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
         /**
-         * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
+         * @deprecated @breaking-change 9.0.0-sha-173f5fac2 `platform` parameter to become required.
          */
         platform, animationMode) {
             return _super.call(this, elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode) || this;
