@@ -64,7 +64,7 @@ var MatSlider = /** @class */ (function (_super) {
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
     // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
     _animationMode, 
-    // @breaking-change 9.0.0 `_ngZone` parameter to be made required.
+    // @breaking-change 9.0.0-sha-25ace5445 `_ngZone` parameter to be made required.
     _ngZone) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -705,12 +705,12 @@ var MatSlider = /** @class */ (function (_super) {
     };
     /** Runs a callback inside of the NgZone, if possible. */
     MatSlider.prototype._runInsideZone = function (fn) {
-        // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.run(fn) : fn();
     };
     /** Runs a callback outside of the NgZone, if possible. */
     MatSlider.prototype._runOutsizeZone = function (fn) {
-        // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
     };
     /**
