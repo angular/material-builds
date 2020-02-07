@@ -383,11 +383,7 @@
                 return this._disabled || (this.radioGroup !== null && this.radioGroup.disabled);
             },
             set: function (value) {
-                var newDisabledState = coercion.coerceBooleanProperty(value);
-                if (this._disabled !== newDisabledState) {
-                    this._disabled = newDisabledState;
-                    this._changeDetector.markForCheck();
-                }
+                this._setDisabled(coercion.coerceBooleanProperty(value));
             },
             enumerable: true,
             configurable: true
@@ -490,6 +486,13 @@
                 if (groupValueChanged) {
                     this.radioGroup._emitChangeEvent();
                 }
+            }
+        };
+        /** Sets the disabled state and marks for check if a change occurred. */
+        MatRadioButton.prototype._setDisabled = function (value) {
+            if (this._disabled !== value) {
+                this._disabled = value;
+                this._changeDetector.markForCheck();
             }
         };
         MatRadioButton.decorators = [

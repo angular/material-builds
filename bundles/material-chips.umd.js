@@ -74,7 +74,7 @@
         function MatChip(_elementRef, _ngZone, platform, globalRippleOptions, 
         // @breaking-change 8.0.0 `animationMode` parameter to become required.
         animationMode, 
-        // @breaking-change 9.0.0-sha-474c83888 `_changeDetectorRef` parameter to become required.
+        // @breaking-change 9.0.0-sha-59fce287a `_changeDetectorRef` parameter to become required.
         _changeDetectorRef, tabIndex) {
             var _this = _super.call(this, _elementRef) || this;
             _this._elementRef = _elementRef;
@@ -302,7 +302,7 @@
             });
         };
         MatChip.prototype._markForCheck = function () {
-            // @breaking-change 9.0.0-sha-474c83888 Remove this method once the _changeDetectorRef is a required param.
+            // @breaking-change 9.0.0-sha-59fce287a Remove this method once the _changeDetectorRef is a required param.
             if (this._changeDetectorRef) {
                 this._changeDetectorRef.markForCheck();
             }

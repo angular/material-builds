@@ -150,7 +150,7 @@ declare const _MatRadioButtonMixinBase: CanDisableRippleCtor & HasTabIndexCtor &
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
 export declare class MatRadioButton extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanDisableRipple, HasTabIndex {
-    private _changeDetector;
+    protected _changeDetector: ChangeDetectorRef;
     private _focusMonitor;
     private _radioDispatcher;
     _animationMode?: string | undefined;
@@ -229,6 +229,8 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
      * Clicking on a label element, will trigger a change event on the associated input.
      */
     _onInputChange(event: Event): void;
+    /** Sets the disabled state and marks for check if a change occurred. */
+    protected _setDisabled(value: boolean): void;
     static ngAcceptInputType_checked: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_required: BooleanInput;

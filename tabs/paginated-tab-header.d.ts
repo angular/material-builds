@@ -33,7 +33,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     private _dir;
     private _ngZone;
     /**
-     * @deprecated @breaking-change 9.0.0-sha-474c83888 `_platform` and `_animationMode`
+     * @deprecated @breaking-change 9.0.0-sha-59fce287a `_platform` and `_animationMode`
      * parameters to become required.
      */
     private _platform?;
@@ -87,7 +87,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     readonly indexFocused: EventEmitter<number>;
     constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone: NgZone, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-474c83888 `_platform` and `_animationMode`
+     * @deprecated @breaking-change 9.0.0-sha-59fce287a `_platform` and `_animationMode`
      * parameters to become required.
      */
     _platform?: Platform | undefined, _animationMode?: string | undefined);

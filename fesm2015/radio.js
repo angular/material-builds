@@ -619,12 +619,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     set disabled(value) {
-        /** @type {?} */
-        const newDisabledState = coerceBooleanProperty(value);
-        if (this._disabled !== newDisabledState) {
-            this._disabled = newDisabledState;
-            this._changeDetector.markForCheck();
-        }
+        this._setDisabled(coerceBooleanProperty(value));
     }
     /**
      * Whether the radio button is required.
@@ -760,6 +755,18 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
             if (groupValueChanged) {
                 this.radioGroup._emitChangeEvent();
             }
+        }
+    }
+    /**
+     * Sets the disabled state and marks for check if a change occurred.
+     * @protected
+     * @param {?} value
+     * @return {?}
+     */
+    _setDisabled(value) {
+        if (this._disabled !== value) {
+            this._disabled = value;
+            this._changeDetector.markForCheck();
         }
     }
 }
@@ -916,7 +923,7 @@ if (false) {
     MatRadioButton.prototype._inputElement;
     /**
      * @type {?}
-     * @private
+     * @protected
      */
     MatRadioButton.prototype._changeDetector;
     /**
