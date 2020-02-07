@@ -160,7 +160,7 @@ class MatTooltip {
     constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
     /**
      * @deprecated _hammerLoader parameter to be removed.
-     * @breaking-change 9.0.0-sha-ed77ec9ca
+     * @breaking-change 9.0.0-sha-9cfc66d5e
      */
     // Note that we need to give Angular something to inject here so it doesn't throw.
     _hammerLoader) {

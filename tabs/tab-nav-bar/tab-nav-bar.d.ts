@@ -35,7 +35,7 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     color: ThemePalette;
     constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-ed77ec9ca `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-9cfc66d5e `platform` parameter to become required.
      */
     platform?: Platform, animationMode?: string);
     protected _itemSelected(): void;
@@ -59,7 +59,7 @@ export declare class MatTabNav extends _MatTabNavBase {
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-ed77ec9ca `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-9cfc66d5e `platform` parameter to become required.
      */
     platform?: Platform, animationMode?: string);
     static ngAcceptInputType_disableRipple: BooleanInput;

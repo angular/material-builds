@@ -310,7 +310,7 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
     function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host, 
     /**
      * @deprecated `_document` parameter to be made required.
-     * @breaking-change 9.0.0-sha-ed77ec9ca
+     * @breaking-change 9.0.0-sha-9cfc66d5e
      */
     _document) {
         var _this = _super.call(this, componentFactoryResolver, viewContainerRef, _document) || this;
@@ -955,7 +955,7 @@ var HEADER_SCROLL_INTERVAL = 100;
 var MatPaginatedTabHeader = /** @class */ (function () {
     function MatPaginatedTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-ed77ec9ca `_platform` and `_animationMode`
+     * @deprecated @breaking-change 9.0.0-sha-9cfc66d5e `_platform` and `_animationMode`
      * parameters to become required.
      */
     _platform, _animationMode) {
@@ -1216,7 +1216,7 @@ var MatPaginatedTabHeader = /** @class */ (function () {
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
         // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-        // @breaking-change 9.0.0-sha-ed77ec9ca Remove null check for `platform` after it can no longer be undefined.
+        // @breaking-change 9.0.0-sha-9cfc66d5e Remove null check for `platform` after it can no longer be undefined.
         if (platform && (platform.TRIDENT || platform.EDGE)) {
             this._tabListContainer.nativeElement.scrollLeft = 0;
         }
@@ -1433,7 +1433,7 @@ var MatPaginatedTabHeader = /** @class */ (function () {
 var _MatTabHeaderBase = /** @class */ (function (_super) {
     __extends(_MatTabHeaderBase, _super);
     function _MatTabHeaderBase(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-ed77ec9ca `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-9cfc66d5e `_animationMode` parameter to be made required.
     animationMode) {
         var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
         _this._disableRipple = false;
@@ -1477,7 +1477,7 @@ var _MatTabHeaderBase = /** @class */ (function (_super) {
 var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
     function MatTabHeader(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-ed77ec9ca `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-9cfc66d5e `_animationMode` parameter to be made required.
     animationMode) {
         return _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
     }
@@ -1527,7 +1527,7 @@ var _MatTabNavBase = /** @class */ (function (_super) {
     __extends(_MatTabNavBase, _super);
     function _MatTabNavBase(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-ed77ec9ca `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-9cfc66d5e `platform` parameter to become required.
      */
     platform, animationMode) {
         var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
@@ -1617,7 +1617,7 @@ var MatTabNav = /** @class */ (function (_super) {
     __extends(MatTabNav, _super);
     function MatTabNav(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-ed77ec9ca `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-9cfc66d5e `platform` parameter to become required.
      */
     platform, animationMode) {
         return _super.call(this, elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode) || this;
