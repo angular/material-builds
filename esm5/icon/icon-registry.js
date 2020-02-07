@@ -78,7 +78,7 @@ var SvgIconConfig = /** @class */ (function () {
  */
 var MatIconRegistry = /** @class */ (function () {
     function MatIconRegistry(_httpClient, _sanitizer, document, 
-    // @breaking-change 9.0.0-sha-fc910613c _errorHandler parameter to be made required
+    // @breaking-change 9.0.0-sha-ed77ec9ca _errorHandler parameter to be made required
     _errorHandler) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
@@ -307,7 +307,7 @@ var MatIconRegistry = /** @class */ (function () {
                 // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
                 var errorMessage = "Loading icon set URL: " + url + " failed: " + err.message;
-                // @breaking-change 9.0.0-sha-fc910613c _errorHandler parameter to be made required
+                // @breaking-change 9.0.0-sha-ed77ec9ca _errorHandler parameter to be made required
                 if (_this._errorHandler) {
                     _this._errorHandler.handleError(new Error(errorMessage));
                 }

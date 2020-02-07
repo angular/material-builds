@@ -22,7 +22,7 @@ import { MatPaginatedTabHeader } from './paginated-tab-header';
 var _MatTabHeaderBase = /** @class */ (function (_super) {
     __extends(_MatTabHeaderBase, _super);
     function _MatTabHeaderBase(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-fc910613c `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-ed77ec9ca `_animationMode` parameter to be made required.
     animationMode) {
         var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
         _this._disableRipple = false;
@@ -67,7 +67,7 @@ export { _MatTabHeaderBase };
 var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
     function MatTabHeader(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-fc910613c `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-ed77ec9ca `_animationMode` parameter to be made required.
     animationMode) {
         return _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
     }

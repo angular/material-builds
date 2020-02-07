@@ -22,7 +22,7 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
     function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host, 
     /**
      * @deprecated `_document` parameter to be made required.
-     * @breaking-change 9.0.0-sha-fc910613c
+     * @breaking-change 9.0.0-sha-ed77ec9ca
      */
     _document) {
         var _this = _super.call(this, componentFactoryResolver, viewContainerRef, _document) || this;
