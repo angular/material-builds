@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Attribute, Inject, NgZone, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinColor, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -100,8 +100,11 @@ class MatSlider extends _MatSliderMixinBase {
      * @param {?} tabIndex
      * @param {?=} _animationMode
      * @param {?=} _ngZone
+     * @param {?=} document
      */
-    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _animationMode, _ngZone) {
+    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _animationMode, _ngZone, 
+    /** @breaking-change 11.0.0 make document required */
+    document) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
@@ -261,6 +264,7 @@ class MatSlider extends _MatSliderMixinBase {
                 this._pointerUp(this._lastPointerEvent);
             }
         });
+        this._document = document;
         this.tabIndex = parseInt(tabIndex) || 0;
         this._runOutsizeZone((/**
          * @return {?}
@@ -731,9 +735,9 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _bindGlobalEvents(triggerEvent) {
-        if (typeof document !== 'undefined' && document) {
+        if (typeof this._document !== 'undefined' && this._document) {
             /** @type {?} */
-            const body = document.body;
+            const body = this._document.body;
             /** @type {?} */
             const isTouch = isTouchEvent(triggerEvent);
             /** @type {?} */
@@ -756,9 +760,9 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _removeGlobalEvents() {
-        if (typeof document !== 'undefined' && document) {
+        if (typeof this._document !== 'undefined' && this._document) {
             /** @type {?} */
-            const body = document.body;
+            const body = this._document.body;
             body.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
             body.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
             body.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
@@ -940,7 +944,7 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _runInsideZone(fn) {
-        // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.run(fn) : fn();
     }
     /**
@@ -950,7 +954,7 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _runOutsizeZone(fn) {
-        // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
     }
     /**
@@ -1040,7 +1044,8 @@ MatSlider.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional }] },
     { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-    { type: NgZone }
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
 ];
 MatSlider.propDecorators = {
     invert: [{ type: Input }],
@@ -1215,6 +1220,12 @@ if (false) {
      * @private
      */
     MatSlider.prototype._lastPointerEvent;
+    /**
+     * Used to subscribe to global move and end events
+     * @type {?}
+     * @protected
+     */
+    MatSlider.prototype._document;
     /**
      * Called when the user has put their pointer down on the slider.
      * @type {?}

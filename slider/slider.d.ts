@@ -167,7 +167,11 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _getDirection;
     /** Keeps track of the last pointer event that was captured by the slider. */
     private _lastPointerEvent;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined, _ngZone?: NgZone | undefined);
+    /** Used to subscribe to global move and end events */
+    protected _document?: Document;
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined, _ngZone?: NgZone | undefined, 
+    /** @breaking-change 11.0.0 make document required */
+    document?: any);
     ngOnInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;

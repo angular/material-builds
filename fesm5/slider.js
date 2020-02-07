@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Attribute, Inject, NgZone, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinColor, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { __extends } from 'tslib';
@@ -64,8 +64,10 @@ var MatSlider = /** @class */ (function (_super) {
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
     // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
     _animationMode, 
-    // @breaking-change 9.0.0-sha-25ace5445 `_ngZone` parameter to be made required.
-    _ngZone) {
+    // @breaking-change 9.0.0-sha-d8b726d3c `_ngZone` parameter to be made required.
+    _ngZone, 
+    /** @breaking-change 11.0.0 make document required */
+    document) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -178,6 +180,7 @@ var MatSlider = /** @class */ (function (_super) {
                 _this._pointerUp(_this._lastPointerEvent);
             }
         };
+        _this._document = document;
         _this.tabIndex = parseInt(tabIndex) || 0;
         _this._runOutsizeZone(function () {
             var element = elementRef.nativeElement;
@@ -571,8 +574,8 @@ var MatSlider = /** @class */ (function (_super) {
      * as they're swiping across the screen.
      */
     MatSlider.prototype._bindGlobalEvents = function (triggerEvent) {
-        if (typeof document !== 'undefined' && document) {
-            var body = document.body;
+        if (typeof this._document !== 'undefined' && this._document) {
+            var body = this._document.body;
             var isTouch = isTouchEvent(triggerEvent);
             var moveEventName = isTouch ? 'touchmove' : 'mousemove';
             var endEventName = isTouch ? 'touchend' : 'mouseup';
@@ -588,8 +591,8 @@ var MatSlider = /** @class */ (function (_super) {
     };
     /** Removes any global event listeners that we may have added. */
     MatSlider.prototype._removeGlobalEvents = function () {
-        if (typeof document !== 'undefined' && document) {
-            var body = document.body;
+        if (typeof this._document !== 'undefined' && this._document) {
+            var body = this._document.body;
             body.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
             body.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
             body.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
@@ -705,12 +708,12 @@ var MatSlider = /** @class */ (function (_super) {
     };
     /** Runs a callback inside of the NgZone, if possible. */
     MatSlider.prototype._runInsideZone = function (fn) {
-        // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.run(fn) : fn();
     };
     /** Runs a callback outside of the NgZone, if possible. */
     MatSlider.prototype._runOutsizeZone = function (fn) {
-        // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
     };
     /**
@@ -795,7 +798,8 @@ var MatSlider = /** @class */ (function (_super) {
         { type: Directionality, decorators: [{ type: Optional }] },
         { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
         { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-        { type: NgZone }
+        { type: NgZone },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
     ]; };
     MatSlider.propDecorators = {
         invert: [{ type: Input }],

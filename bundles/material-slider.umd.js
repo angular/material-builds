@@ -57,8 +57,10 @@
         function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
         // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
         _animationMode, 
-        // @breaking-change 9.0.0-sha-25ace5445 `_ngZone` parameter to be made required.
-        _ngZone) {
+        // @breaking-change 9.0.0-sha-d8b726d3c `_ngZone` parameter to be made required.
+        _ngZone, 
+        /** @breaking-change 11.0.0 make document required */
+        document) {
             var _this = _super.call(this, elementRef) || this;
             _this._focusMonitor = _focusMonitor;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -171,6 +173,7 @@
                     _this._pointerUp(_this._lastPointerEvent);
                 }
             };
+            _this._document = document;
             _this.tabIndex = parseInt(tabIndex) || 0;
             _this._runOutsizeZone(function () {
                 var element = elementRef.nativeElement;
@@ -564,8 +567,8 @@
          * as they're swiping across the screen.
          */
         MatSlider.prototype._bindGlobalEvents = function (triggerEvent) {
-            if (typeof document !== 'undefined' && document) {
-                var body = document.body;
+            if (typeof this._document !== 'undefined' && this._document) {
+                var body = this._document.body;
                 var isTouch = isTouchEvent(triggerEvent);
                 var moveEventName = isTouch ? 'touchmove' : 'mousemove';
                 var endEventName = isTouch ? 'touchend' : 'mouseup';
@@ -581,8 +584,8 @@
         };
         /** Removes any global event listeners that we may have added. */
         MatSlider.prototype._removeGlobalEvents = function () {
-            if (typeof document !== 'undefined' && document) {
-                var body = document.body;
+            if (typeof this._document !== 'undefined' && this._document) {
+                var body = this._document.body;
                 body.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
                 body.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
                 body.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
@@ -698,12 +701,12 @@
         };
         /** Runs a callback inside of the NgZone, if possible. */
         MatSlider.prototype._runInsideZone = function (fn) {
-            // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
+            // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
             this._ngZone ? this._ngZone.run(fn) : fn();
         };
         /** Runs a callback outside of the NgZone, if possible. */
         MatSlider.prototype._runOutsizeZone = function (fn) {
-            // @breaking-change 9.0.0-sha-25ace5445 Remove this function once `_ngZone` is a required parameter.
+            // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
             this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
         };
         /**
@@ -788,7 +791,8 @@
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
             { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-            { type: core.NgZone }
+            { type: core.NgZone },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
         MatSlider.propDecorators = {
             invert: [{ type: core.Input }],
