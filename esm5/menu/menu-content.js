@@ -47,7 +47,7 @@ var MatMenuContent = /** @class */ (function () {
         // by Angular. This causes the `@ContentChildren` for menu items within the menu to
         // not be updated by Angular. By explicitly marking for check here, we tell Angular that
         // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
-        // @breaking-change 9.0.0-sha-f2f78a0f1 Make change detector ref required
+        // @breaking-change 9.0.0-sha-a58c72591 Make change detector ref required
         if (this._changeDetectorRef) {
             this._changeDetectorRef.markForCheck();
         }

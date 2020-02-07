@@ -454,7 +454,7 @@ class MatTabBodyPortal extends CdkPortalOutlet {
     constructor(componentFactoryResolver, viewContainerRef, _host, 
     /**
      * @deprecated `_document` parameter to be made required.
-     * @breaking-change 9.0.0-sha-f2f78a0f1
+     * @breaking-change 9.0.0-sha-a58c72591
      */
     _document) {
         super(componentFactoryResolver, viewContainerRef, _document);
@@ -1945,7 +1945,7 @@ class MatPaginatedTabHeader {
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
         // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-        // @breaking-change 9.0.0-sha-f2f78a0f1 Remove null check for `platform` after it can no longer be undefined.
+        // @breaking-change 9.0.0-sha-a58c72591 Remove null check for `platform` after it can no longer be undefined.
         if (platform && (platform.TRIDENT || platform.EDGE)) {
             this._tabListContainer.nativeElement.scrollLeft = 0;
         }
@@ -2312,7 +2312,7 @@ if (false) {
      */
     MatPaginatedTabHeader.prototype._ngZone;
     /**
-     * @deprecated \@breaking-change 9.0.0-sha-f2f78a0f1 `_platform` and `_animationMode`
+     * @deprecated \@breaking-change 9.0.0-sha-a58c72591 `_platform` and `_animationMode`
      * parameters to become required.
      * @type {?}
      * @private
@@ -2352,7 +2352,7 @@ class _MatTabHeaderBase extends MatPaginatedTabHeader {
      * @param {?=} animationMode
      */
     constructor(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-f2f78a0f1 `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-a58c72591 `_animationMode` parameter to be made required.
     animationMode) {
         super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
         this._disableRipple = false;
@@ -2417,7 +2417,7 @@ class MatTabHeader extends _MatTabHeaderBase {
      * @param {?=} animationMode
      */
     constructor(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-f2f78a0f1 `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-a58c72591 `_animationMode` parameter to be made required.
     animationMode) {
         super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
     }
@@ -2497,7 +2497,7 @@ class _MatTabNavBase extends MatPaginatedTabHeader {
      */
     constructor(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-f2f78a0f1 `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-a58c72591 `platform` parameter to become required.
      */
     platform, animationMode) {
         super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
@@ -2636,7 +2636,7 @@ class MatTabNav extends _MatTabNavBase {
      */
     constructor(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-f2f78a0f1 `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-a58c72591 `platform` parameter to become required.
      */
     platform, animationMode) {
         super(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode);

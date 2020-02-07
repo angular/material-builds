@@ -199,7 +199,7 @@ var MatCardAvatar = /** @class */ (function () {
  * - mat-card-footer
  */
 var MatCard = /** @class */ (function () {
-    // @breaking-change 9.0.0-sha-f2f78a0f1 `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-a58c72591 `_animationMode` parameter to be made required.
     function MatCard(_animationMode) {
         this._animationMode = _animationMode;
     }
