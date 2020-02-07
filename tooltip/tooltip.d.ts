@@ -124,7 +124,7 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, 
     /**
      * @deprecated _hammerLoader parameter to be removed.
-     * @breaking-change 9.0.0-sha-9cfc66d5e
+     * @breaking-change 9.0.0-sha-b24b9e31c
      */
     _hammerLoader?: any);
     /**

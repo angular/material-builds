@@ -36,7 +36,7 @@ export class _MatTabHeaderBase extends MatPaginatedTabHeader {
      * @param {?=} animationMode
      */
     constructor(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-9cfc66d5e `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-b24b9e31c `_animationMode` parameter to be made required.
     animationMode) {
         super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
         this._disableRipple = false;
@@ -101,7 +101,7 @@ export class MatTabHeader extends _MatTabHeaderBase {
      * @param {?=} animationMode
      */
     constructor(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-    // @breaking-change 9.0.0-sha-9cfc66d5e `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-b24b9e31c `_animationMode` parameter to be made required.
     animationMode) {
         super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
     }
