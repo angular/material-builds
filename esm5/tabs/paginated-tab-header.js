@@ -39,7 +39,7 @@ var HEADER_SCROLL_INTERVAL = 100;
 var MatPaginatedTabHeader = /** @class */ (function () {
     function MatPaginatedTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-2497e50fb `_platform` and `_animationMode`
+     * @deprecated @breaking-change 9.0.0-sha-f2f78a0f1 `_platform` and `_animationMode`
      * parameters to become required.
      */
     _platform, _animationMode) {
@@ -300,7 +300,7 @@ var MatPaginatedTabHeader = /** @class */ (function () {
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
         // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-        // @breaking-change 9.0.0-sha-2497e50fb Remove null check for `platform` after it can no longer be undefined.
+        // @breaking-change 9.0.0-sha-f2f78a0f1 Remove null check for `platform` after it can no longer be undefined.
         if (platform && (platform.TRIDENT || platform.EDGE)) {
             this._tabListContainer.nativeElement.scrollLeft = 0;
         }
