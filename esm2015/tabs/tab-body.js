@@ -31,7 +31,7 @@ export class MatTabBodyPortal extends CdkPortalOutlet {
     constructor(componentFactoryResolver, viewContainerRef, _host, 
     /**
      * @deprecated `_document` parameter to be made required.
-     * @breaking-change 9.0.0-sha-a58c72591
+     * @breaking-change 9.0.0-sha-52fea0662
      */
     _document) {
         super(componentFactoryResolver, viewContainerRef, _document);

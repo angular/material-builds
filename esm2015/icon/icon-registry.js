@@ -440,7 +440,7 @@ export class MatIconRegistry {
                 // combined Observable won't necessarily fail.
                 /** @type {?} */
                 const errorMessage = `Loading icon set URL: ${url} failed: ${err.message}`;
-                // @breaking-change 9.0.0-sha-a58c72591 _errorHandler parameter to be made required
+                // @breaking-change 9.0.0-sha-52fea0662 _errorHandler parameter to be made required
                 if (this._errorHandler) {
                     this._errorHandler.handleError(new Error(errorMessage));
                 }

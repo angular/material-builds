@@ -17,7 +17,7 @@
       "factory": "./ng-update/index#updateToV8"
     },
     "migration-v9": {
-      "version": "9.0.0-sha-a58c72591-0",
+      "version": "9.0.0-sha-52fea0662-0",
       "description": "Updates Angular Material to v9",
       "factory": "./ng-update/index#updateToV9"
     },
