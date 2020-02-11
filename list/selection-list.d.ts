@@ -112,6 +112,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
  */
 export declare class MatSelectionList extends _MatSelectionListMixinBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
+    private _changeDetector;
     private _multiple;
     private _contentInitialized;
     /** The FocusKeyManager which handles focus. */
@@ -120,7 +121,10 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     options: QueryList<MatListOption>;
     /** Emits a change event whenever the selected state of an option changes. */
     readonly selectionChange: EventEmitter<MatSelectionListChange>;
-    /** Tabindex of the selection list. */
+    /**
+     * Tabindex of the selection list.
+     * @breaking-change 11.0.0 Remove `tabIndex` input.
+     */
     tabIndex: number;
     /** Theme color of the selection list. This sets the checkbox color for all list options. */
     color: ThemePalette;
@@ -139,6 +143,8 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     set multiple(value: boolean);
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
+    /** The tabindex of the selection list. */
+    _tabIndex: number;
     /** View to model callback that should be called whenever the selected options change. */
     private _onChange;
     /** Keeps track of the currently-selected value. */
@@ -149,7 +155,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     _onTouched: () => void;
     /** Whether the list has been destroyed. */
     private _isDestroyed;
-    constructor(_element: ElementRef<HTMLElement>, tabIndex: string);
+    constructor(_element: ElementRef<HTMLElement>, tabIndex: string, _changeDetector: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
@@ -172,6 +178,11 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     _reportValueChange(): void;
     /** Emits a change event if the selected state of an option changed. */
     _emitChangeEvent(option: MatListOption): void;
+    /**
+     * When the selection list is focused, we want to move focus to an option within the list. Do this
+     * by setting the appropriate option to be active.
+     */
+    _onFocus(): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(values: string[]): void;
     /** Implemented as a part of ControlValueAccessor. */
@@ -201,6 +212,14 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _getOptionIndex;
     /** Marks all the options to be checked in the next change detection run. */
     private _markOptionsForCheck;
+    /**
+     * Removes the tabindex from the selection list and resets it back afterwards, allowing the user
+     * to tab out of it. This prevents the list from capturing focus and redirecting it back within
+     * the list, creating a focus trap if it user tries to tab away.
+     */
+    private _allowFocusEscape;
+    /** Updates the tabindex based upon if the selection list is empty. */
+    private _updateTabIndex;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_multiple: BooleanInput;

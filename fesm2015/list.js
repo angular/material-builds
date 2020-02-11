@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Dire
 import { mixinDisabled, mixinDisableRipple, setLines, MatLine, MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, startWith } from 'rxjs/operators';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { hasModifierKey, A, END, HOME, ENTER, SPACE, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
@@ -639,7 +639,6 @@ MatListOption.decorators = [
                     '(focus)': '_handleFocus()',
                     '(blur)': '_handleBlur()',
                     '(click)': '_handleClick()',
-                    'tabindex': '-1',
                     '[class.mat-list-item-disabled]': 'disabled',
                     '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                     // Manually set the "primary" or "warn" class if the color has been explicitly
@@ -653,6 +652,7 @@ MatListOption.decorators = [
                     '[class.mat-list-single-selected-option]': 'selected && !selectionList.multiple',
                     '[attr.aria-selected]': 'selected',
                     '[attr.aria-disabled]': 'disabled',
+                    '[attr.tabindex]': '-1',
                 },
                 template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    *ngIf=\"selectionList.multiple\"\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
                 encapsulation: ViewEncapsulation.None,
@@ -757,10 +757,14 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     /**
      * @param {?} _element
      * @param {?} tabIndex
+     * @param {?} _changeDetector
      */
-    constructor(_element, tabIndex) {
+    constructor(_element, 
+    // @breaking-change 11.0.0 Remove `tabIndex` parameter.
+    tabIndex, _changeDetector) {
         super();
         this._element = _element;
+        this._changeDetector = _changeDetector;
         this._multiple = true;
         this._contentInitialized = false;
         /**
@@ -769,6 +773,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         this.selectionChange = new EventEmitter();
         /**
          * Tabindex of the selection list.
+         * \@breaking-change 11.0.0 Remove `tabIndex` input.
          */
         this.tabIndex = 0;
         /**
@@ -792,6 +797,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
          */
         this.selectedOptions = new SelectionModel(this._multiple);
         /**
+         * The tabindex of the selection list.
+         */
+        this._tabIndex = -1;
+        /**
          * View to model callback that should be called whenever the selected options change.
          */
         this._onChange = (/**
@@ -810,7 +819,6 @@ class MatSelectionList extends _MatSelectionListMixinBase {
          * @return {?}
          */
         () => { });
-        this.tabIndex = parseInt(tabIndex) || 0;
     }
     /**
      * Whether the selection list is disabled.
@@ -867,6 +875,20 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         if (this._value) {
             this._setOptionsFromValues(this._value);
         }
+        // If the user attempts to tab out of the selection list, allow focus to escape.
+        this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this._allowFocusEscape();
+        }));
+        // When the number of options change, update the tabindex of the selection list.
+        this.options.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this._updateTabIndex();
+        }));
         // Sync external changes to the model back to the options.
         this.selectedOptions.changed.pipe(takeUntil(this._destroyed)).subscribe((/**
          * @param {?} event
@@ -1028,6 +1050,23 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         this.selectionChange.emit(new MatSelectionListChange(this, option));
     }
     /**
+     * When the selection list is focused, we want to move focus to an option within the list. Do this
+     * by setting the appropriate option to be active.
+     * @return {?}
+     */
+    _onFocus() {
+        /** @type {?} */
+        const activeIndex = this._keyManager.activeItemIndex;
+        if (!activeIndex || (activeIndex === -1)) {
+            // If there is no active index, set focus to the first option.
+            this._keyManager.setFirstItemActive();
+        }
+        else {
+            // Otherwise, set focus to the active option.
+            this._keyManager.setActiveItem(activeIndex);
+        }
+    }
+    /**
      * Implemented as part of ControlValueAccessor.
      * @param {?} values
      * @return {?}
@@ -1186,6 +1225,31 @@ class MatSelectionList extends _MatSelectionListMixinBase {
             option => option._markForCheck()));
         }
     }
+    /**
+     * Removes the tabindex from the selection list and resets it back afterwards, allowing the user
+     * to tab out of it. This prevents the list from capturing focus and redirecting it back within
+     * the list, creating a focus trap if it user tries to tab away.
+     * @private
+     * @return {?}
+     */
+    _allowFocusEscape() {
+        this._tabIndex = -1;
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this._tabIndex = 0;
+            this._changeDetector.markForCheck();
+        }));
+    }
+    /**
+     * Updates the tabindex based upon if the selection list is empty.
+     * @private
+     * @return {?}
+     */
+    _updateTabIndex() {
+        this._tabIndex = (this.options.length === 0) ? -1 : 0;
+    }
 }
 MatSelectionList.decorators = [
     { type: Component, args: [{
@@ -1194,12 +1258,13 @@ MatSelectionList.decorators = [
                 inputs: ['disableRipple'],
                 host: {
                     'role': 'listbox',
-                    '[tabIndex]': 'tabIndex',
                     'class': 'mat-selection-list mat-list-base',
+                    '(focus)': '_onFocus()',
                     '(blur)': '_onTouched()',
                     '(keydown)': '_keydown($event)',
                     '[attr.aria-multiselectable]': 'multiple',
                     '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.tabindex]': '_tabIndex',
                 },
                 template: '<ng-content></ng-content>',
                 encapsulation: ViewEncapsulation.None,
@@ -1211,7 +1276,8 @@ MatSelectionList.decorators = [
 /** @nocollapse */
 MatSelectionList.ctorParameters = () => [
     { type: ElementRef },
-    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+    { type: ChangeDetectorRef }
 ];
 MatSelectionList.propDecorators = {
     options: [{ type: ContentChildren, args: [MatListOption, { descendants: true },] }],
@@ -1256,6 +1322,7 @@ if (false) {
     MatSelectionList.prototype.selectionChange;
     /**
      * Tabindex of the selection list.
+     * \@breaking-change 11.0.0 Remove `tabIndex` input.
      * @type {?}
      */
     MatSelectionList.prototype.tabIndex;
@@ -1281,6 +1348,11 @@ if (false) {
      * @type {?}
      */
     MatSelectionList.prototype.selectedOptions;
+    /**
+     * The tabindex of the selection list.
+     * @type {?}
+     */
+    MatSelectionList.prototype._tabIndex;
     /**
      * View to model callback that should be called whenever the selected options change.
      * @type {?}
@@ -1314,6 +1386,11 @@ if (false) {
      * @private
      */
     MatSelectionList.prototype._element;
+    /**
+     * @type {?}
+     * @private
+     */
+    MatSelectionList.prototype._changeDetector;
 }
 
 /**
