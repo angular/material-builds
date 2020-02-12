@@ -299,7 +299,7 @@
         function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host, 
         /**
          * @deprecated `_document` parameter to be made required.
-         * @breaking-change 9.0.0-sha-048fdb2ff
+         * @breaking-change 9.0.0-sha-dbb0b2340
          */
         _document) {
             var _this = _super.call(this, componentFactoryResolver, viewContainerRef, _document) || this;
@@ -828,7 +828,7 @@
             { type: core.Component, args: [{
                         selector: 'mat-tab-group',
                         exportAs: 'matTabGroup',
-                        template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex || 0\"\n               [disableRipple]=\"disableRipple\"\n               [disablePagination]=\"disablePagination\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex == i\"\n               [content]=\"tab.content!\"\n               [position]=\"tab.position!\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n",
+                        template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex || 0\"\n               [disableRipple]=\"disableRipple\"\n               [disablePagination]=\"disablePagination\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label mat-focus-indicator\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex == i\"\n               [content]=\"tab.content!\"\n               [position]=\"tab.position!\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n",
                         encapsulation: core.ViewEncapsulation.None,
                         // tslint:disable-next-line:validate-decorators
                         changeDetection: core.ChangeDetectionStrategy.Default,
@@ -944,7 +944,7 @@
     var MatPaginatedTabHeader = /** @class */ (function () {
         function MatPaginatedTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone, 
         /**
-         * @deprecated @breaking-change 9.0.0-sha-048fdb2ff `_platform` and `_animationMode`
+         * @deprecated @breaking-change 9.0.0-sha-dbb0b2340 `_platform` and `_animationMode`
          * parameters to become required.
          */
         _platform, _animationMode) {
@@ -1205,7 +1205,7 @@
             // position to be thrown off in some cases. We have to reset it ourselves to ensure that
             // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
             // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-            // @breaking-change 9.0.0-sha-048fdb2ff Remove null check for `platform` after it can no longer be undefined.
+            // @breaking-change 9.0.0-sha-dbb0b2340 Remove null check for `platform` after it can no longer be undefined.
             if (platform && (platform.TRIDENT || platform.EDGE)) {
                 this._tabListContainer.nativeElement.scrollLeft = 0;
             }
@@ -1422,7 +1422,7 @@
     var _MatTabHeaderBase = /** @class */ (function (_super) {
         tslib.__extends(_MatTabHeaderBase, _super);
         function _MatTabHeaderBase(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-        // @breaking-change 9.0.0-sha-048fdb2ff `_animationMode` parameter to be made required.
+        // @breaking-change 9.0.0-sha-dbb0b2340 `_animationMode` parameter to be made required.
         animationMode) {
             var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
             _this._disableRipple = false;
@@ -1466,7 +1466,7 @@
     var MatTabHeader = /** @class */ (function (_super) {
         tslib.__extends(MatTabHeader, _super);
         function MatTabHeader(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
-        // @breaking-change 9.0.0-sha-048fdb2ff `_animationMode` parameter to be made required.
+        // @breaking-change 9.0.0-sha-dbb0b2340 `_animationMode` parameter to be made required.
         animationMode) {
             return _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
         }
@@ -1516,7 +1516,7 @@
         tslib.__extends(_MatTabNavBase, _super);
         function _MatTabNavBase(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
         /**
-         * @deprecated @breaking-change 9.0.0-sha-048fdb2ff `platform` parameter to become required.
+         * @deprecated @breaking-change 9.0.0-sha-dbb0b2340 `platform` parameter to become required.
          */
         platform, animationMode) {
             var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
@@ -1606,7 +1606,7 @@
         tslib.__extends(MatTabNav, _super);
         function MatTabNav(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
         /**
-         * @deprecated @breaking-change 9.0.0-sha-048fdb2ff `platform` parameter to become required.
+         * @deprecated @breaking-change 9.0.0-sha-dbb0b2340 `platform` parameter to become required.
          */
         platform, animationMode) {
             return _super.call(this, elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode) || this;
@@ -1744,7 +1744,7 @@
                         exportAs: 'matTabLink',
                         inputs: ['disabled', 'disableRipple', 'tabIndex'],
                         host: {
-                            'class': 'mat-tab-link',
+                            'class': 'mat-tab-link mat-focus-indicator',
                             '[attr.aria-current]': 'active ? "page" : null',
                             '[attr.aria-disabled]': 'disabled',
                             '[attr.tabIndex]': 'tabIndex',

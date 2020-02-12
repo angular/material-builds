@@ -131,6 +131,7 @@ MatButton.decorators = [
                 host: {
                     '[attr.disabled]': 'disabled || null',
                     '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    'class': 'mat-focus-indicator',
                 },
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span>\n<div matRipple class=\"mat-button-ripple\"\n     [class.mat-button-ripple-round]=\"isRoundButton || isIconButton\"\n     [matRippleDisabled]=\"_isRippleDisabled()\"\n     [matRippleCentered]=\"isIconButton\"\n     [matRippleTrigger]=\"_getHostElement()\"></div>\n<div class=\"mat-button-focus-overlay\"></div>\n",
                 inputs: ['disabled', 'disableRipple', 'color'],
@@ -214,6 +215,7 @@ MatAnchor.decorators = [
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_haltDisabledEvents($event)',
                     '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    'class': 'mat-focus-indicator',
                 },
                 inputs: ['disabled', 'disableRipple', 'color'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span>\n<div matRipple class=\"mat-button-ripple\"\n     [class.mat-button-ripple-round]=\"isRoundButton || isIconButton\"\n     [matRippleDisabled]=\"_isRippleDisabled()\"\n     [matRippleCentered]=\"isIconButton\"\n     [matRippleTrigger]=\"_getHostElement()\"></div>\n<div class=\"mat-button-focus-overlay\"></div>\n",

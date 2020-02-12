@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.0.0-sha-048fdb2ff');
+const VERSION = new Version('9.0.0-sha-dbb0b2340');
 
 /**
  * @fileoverview added by tsickle
@@ -80,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.0.0-sha-048fdb2ff');
+const VERSION$1 = new Version('9.0.0-sha-dbb0b2340');
 /**
  * \@docs-private
  * @return {?}
@@ -3142,7 +3142,7 @@ MatOption.decorators = [
                     '[class.mat-option-disabled]': 'disabled',
                     '(click)': '_selectViaInteraction()',
                     '(keydown)': '_handleKeydown($event)',
-                    'class': 'mat-option',
+                    'class': 'mat-option mat-focus-indicator',
                 },
                 template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
                 encapsulation: ViewEncapsulation.None,

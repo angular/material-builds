@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/keycodes', '@angular/core', '@angular/material/core', 'tslib', '@angular/cdk/coercion', '@angular/cdk/platform', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.tslib, global.ng.cdk.coercion, global.ng.cdk.platform, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
-}(this, (function (exports, keycodes, core, core$1, tslib, coercion, platform, rxjs, operators, animations, a11y, bidi, collections, forms, formField) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/material/core'), require('tslib'), require('@angular/common'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/keycodes', '@angular/core', '@angular/material/core', 'tslib', '@angular/common', '@angular/cdk/coercion', '@angular/cdk/platform', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.tslib, global.ng.common, global.ng.cdk.coercion, global.ng.cdk.platform, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
+}(this, (function (exports, keycodes, core, core$1, tslib, common, coercion, platform, rxjs, operators, animations, a11y, bidi, collections, forms, formField) { 'use strict';
 
     /**
      * @license
@@ -74,8 +74,10 @@
         function MatChip(_elementRef, _ngZone, platform, globalRippleOptions, 
         // @breaking-change 8.0.0 `animationMode` parameter to become required.
         animationMode, 
-        // @breaking-change 9.0.0-sha-048fdb2ff `_changeDetectorRef` parameter to become required.
-        _changeDetectorRef, tabIndex) {
+        // @breaking-change 9.0.0-sha-dbb0b2340 `_changeDetectorRef` parameter to become required.
+        _changeDetectorRef, tabIndex, 
+        // @breaking-change 11.0.0 `_document` parameter to become required.
+        _document) {
             var _this = _super.call(this, _elementRef) || this;
             _this._elementRef = _elementRef;
             _this._ngZone = _ngZone;
@@ -100,7 +102,13 @@
             /** Emitted when a chip is to be removed. */
             _this.removed = new core.EventEmitter();
             _this._addHostClassName();
-            _this._chipRipple = new core$1.RippleRenderer(_this, _ngZone, _elementRef, platform);
+            // Dynamically create the ripple target, append it within the chip, and use it as the
+            // chip's ripple target. Adding the class '.mat-chip-ripple' ensures that it will have
+            // the proper styles.
+            _this._chipRippleTarget = (_document || document).createElement('div');
+            _this._chipRippleTarget.classList.add('mat-chip-ripple');
+            _this._elementRef.nativeElement.appendChild(_this._chipRippleTarget);
+            _this._chipRipple = new core$1.RippleRenderer(_this, _ngZone, _this._chipRippleTarget, platform);
             _this._chipRipple.setupTriggerEvents(_elementRef);
             _this.rippleConfig = globalRippleOptions || {};
             _this._animationsDisabled = animationMode === 'NoopAnimations';
@@ -302,7 +310,7 @@
             });
         };
         MatChip.prototype._markForCheck = function () {
-            // @breaking-change 9.0.0-sha-048fdb2ff Remove this method once the _changeDetectorRef is a required param.
+            // @breaking-change 9.0.0-sha-dbb0b2340 Remove this method once the _changeDetectorRef is a required param.
             if (this._changeDetectorRef) {
                 this._changeDetectorRef.markForCheck();
             }
@@ -313,7 +321,7 @@
                         inputs: ['color', 'disabled', 'disableRipple', 'tabIndex'],
                         exportAs: 'matChip',
                         host: {
-                            'class': 'mat-chip',
+                            'class': 'mat-chip mat-focus-indicator',
                             '[attr.tabindex]': 'disabled ? null : tabIndex',
                             'role': 'option',
                             '[class.mat-chip-selected]': 'selected',
@@ -339,7 +347,8 @@
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
             { type: core.ChangeDetectorRef },
-            { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
+            { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
         MatChip.propDecorators = {
             avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],
@@ -1137,7 +1146,7 @@
                         providers: [{ provide: formField.MatFormFieldControl, useExisting: MatChipList }],
                         encapsulation: core.ViewEncapsulation.None,
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        styles: [".mat-chip{position:relative;overflow:hidden;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0);border:none;-webkit-appearance:none;-moz-appearance:none}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}._mat-animation-noopable.mat-standard-chip{transition:none;animation:none}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:\"\";pointer-events:none;transition:opacity 200ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:none}.mat-standard-chip:focus::after{opacity:.16}.cdk-high-contrast-active .mat-standard-chip{outline:solid 1px}.cdk-high-contrast-active .mat-standard-chip:focus{outline:dotted 2px}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper input.mat-input-element,.mat-chip-list-wrapper .mat-standard-chip{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}\n"]
+                        styles: [".mat-chip{position:relative;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0);border:none;-webkit-appearance:none;-moz-appearance:none}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}._mat-animation-noopable.mat-standard-chip{transition:none;animation:none}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:\"\";pointer-events:none;transition:opacity 200ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:none}.mat-standard-chip:focus::after{opacity:.16}.cdk-high-contrast-active .mat-standard-chip{outline:solid 1px}.cdk-high-contrast-active .mat-standard-chip:focus{outline:dotted 2px}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit;overflow:hidden}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper input.mat-input-element,.mat-chip-list-wrapper .mat-standard-chip{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}\n"]
                     }] }
         ];
         /** @nocollapse */

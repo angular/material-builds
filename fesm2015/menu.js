@@ -131,7 +131,7 @@ class MatMenuContent {
         // by Angular. This causes the `@ContentChildren` for menu items within the menu to
         // not be updated by Angular. By explicitly marking for check here, we tell Angular that
         // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
-        // @breaking-change 9.0.0-sha-048fdb2ff Make change detector ref required
+        // @breaking-change 9.0.0-sha-dbb0b2340 Make change detector ref required
         if (this._changeDetectorRef) {
             this._changeDetectorRef.markForCheck();
         }
@@ -505,6 +505,7 @@ MatMenuItem.decorators = [
                     '[attr.tabindex]': '_getTabIndex()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.disabled]': 'disabled || null',
+                    'class': 'mat-focus-indicator',
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
@@ -855,7 +856,7 @@ class _MatMenuBase {
        * Registers a menu item with the menu.
        * @docs-private
        * @deprecated No longer being used. To be removed.
-       * @breaking-change 9.0.0-sha-048fdb2ff
+       * @breaking-change 9.0.0-sha-dbb0b2340
        */
     /**
      * @param {?} _item
@@ -866,7 +867,7 @@ class _MatMenuBase {
      * Removes an item from the menu.
      * \@docs-private
      * @deprecated No longer being used. To be removed.
-     * \@breaking-change 9.0.0-sha-048fdb2ff
+     * \@breaking-change 9.0.0-sha-dbb0b2340
      * @param {?} _item
      * @return {?}
      */

@@ -64,7 +64,7 @@ var MatSlider = /** @class */ (function (_super) {
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
     // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
     _animationMode, 
-    // @breaking-change 9.0.0-sha-048fdb2ff `_ngZone` parameter to be made required.
+    // @breaking-change 9.0.0-sha-dbb0b2340 `_ngZone` parameter to be made required.
     _ngZone, 
     /** @breaking-change 11.0.0 make document required */
     document) {
@@ -712,12 +712,12 @@ var MatSlider = /** @class */ (function (_super) {
     };
     /** Runs a callback inside of the NgZone, if possible. */
     MatSlider.prototype._runInsideZone = function (fn) {
-        // @breaking-change 9.0.0-sha-048fdb2ff Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-dbb0b2340 Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.run(fn) : fn();
     };
     /** Runs a callback outside of the NgZone, if possible. */
     MatSlider.prototype._runOutsizeZone = function (fn) {
-        // @breaking-change 9.0.0-sha-048fdb2ff Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-dbb0b2340 Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
     };
     /**
@@ -765,7 +765,7 @@ var MatSlider = /** @class */ (function (_super) {
                         // On Safari starting to slide temporarily triggers text selection mode which
                         // show the wrong cursor. We prevent it by stopping the `selectstart` event.
                         '(selectstart)': '$event.preventDefault()',
-                        'class': 'mat-slider',
+                        'class': 'mat-slider mat-focus-indicator',
                         'role': 'slider',
                         '[tabIndex]': 'tabIndex',
                         '[attr.aria-disabled]': 'disabled',

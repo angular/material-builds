@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('9.0.0-sha-048fdb2ff');
+var VERSION = new Version('9.0.0-sha-dbb0b2340');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('9.0.0-sha-048fdb2ff');
+var VERSION$1 = new Version('9.0.0-sha-dbb0b2340');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1863,7 +1863,7 @@ var MatOption = /** @class */ (function () {
                         '[class.mat-option-disabled]': 'disabled',
                         '(click)': '_selectViaInteraction()',
                         '(keydown)': '_handleKeydown($event)',
-                        'class': 'mat-option',
+                        'class': 'mat-option mat-focus-indicator',
                     },
                     template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
                     encapsulation: ViewEncapsulation.None,

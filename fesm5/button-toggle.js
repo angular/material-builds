@@ -445,7 +445,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
     MatButtonToggle.decorators = [
         { type: Component, args: [{
                     selector: 'mat-button-toggle',
-                    template: "<button #button class=\"mat-button-toggle-button\"\n        type=\"button\"\n        [id]=\"buttonId\"\n        [attr.tabindex]=\"disabled ? -1 : tabIndex\"\n        [attr.aria-pressed]=\"checked\"\n        [disabled]=\"disabled || null\"\n        [attr.name]=\"name || null\"\n        [attr.aria-label]=\"ariaLabel\"\n        [attr.aria-labelledby]=\"ariaLabelledby\"\n        (click)=\"_onButtonClick()\">\n  <div class=\"mat-button-toggle-label-content\">\n    <ng-content></ng-content>\n  </div>\n</button>\n\n<div class=\"mat-button-toggle-focus-overlay\"></div>\n<div class=\"mat-button-toggle-ripple\" matRipple\n     [matRippleTrigger]=\"button\"\n     [matRippleDisabled]=\"this.disableRipple || this.disabled\">\n</div>\n",
+                    template: "<button #button class=\"mat-button-toggle-button mat-focus-indicator\"\n        type=\"button\"\n        [id]=\"buttonId\"\n        [attr.tabindex]=\"disabled ? -1 : tabIndex\"\n        [attr.aria-pressed]=\"checked\"\n        [disabled]=\"disabled || null\"\n        [attr.name]=\"name || null\"\n        [attr.aria-label]=\"ariaLabel\"\n        [attr.aria-labelledby]=\"ariaLabelledby\"\n        (click)=\"_onButtonClick()\">\n  <div class=\"mat-button-toggle-label-content\">\n    <ng-content></ng-content>\n  </div>\n</button>\n\n<div class=\"mat-button-toggle-focus-overlay\"></div>\n<div class=\"mat-button-toggle-ripple\" matRipple\n     [matRippleTrigger]=\"button\"\n     [matRippleDisabled]=\"this.disableRipple || this.disabled\">\n</div>\n",
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matButtonToggle',
                     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -455,7 +455,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
                         '[class.mat-button-toggle-checked]': 'checked',
                         '[class.mat-button-toggle-disabled]': 'disabled',
                         '[class.mat-button-toggle-appearance-standard]': 'appearance === "standard"',
-                        'class': 'mat-button-toggle',
+                        'class': 'mat-button-toggle mat-focus-indicator',
                         // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
                         // but can still receive focus from things like cdkFocusInitial.
                         '[attr.tabindex]': '-1',
