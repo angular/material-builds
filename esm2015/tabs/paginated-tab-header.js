@@ -399,7 +399,7 @@ export class MatPaginatedTabHeader {
         // position to be thrown off in some cases. We have to reset it ourselves to ensure that
         // it doesn't get thrown off. Note that we scope it only to IE and Edge, because messing
         // with the scroll position throws off Chrome 71+ in RTL mode (see #14689).
-        // @breaking-change 9.0.0-sha-9c137720f Remove null check for `platform` after it can no longer be undefined.
+        // @breaking-change 9.0.0-sha-048fdb2ff Remove null check for `platform` after it can no longer be undefined.
         if (platform && (platform.TRIDENT || platform.EDGE)) {
             this._tabListContainer.nativeElement.scrollLeft = 0;
         }
@@ -766,7 +766,7 @@ if (false) {
      */
     MatPaginatedTabHeader.prototype._ngZone;
     /**
-     * @deprecated \@breaking-change 9.0.0-sha-9c137720f `_platform` and `_animationMode`
+     * @deprecated \@breaking-change 9.0.0-sha-048fdb2ff `_platform` and `_animationMode`
      * parameters to become required.
      * @type {?}
      * @private

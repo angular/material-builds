@@ -299,7 +299,7 @@ export class _MatMenuBase {
        * Registers a menu item with the menu.
        * @docs-private
        * @deprecated No longer being used. To be removed.
-       * @breaking-change 9.0.0-sha-9c137720f
+       * @breaking-change 9.0.0-sha-048fdb2ff
        */
     /**
      * @param {?} _item
@@ -310,7 +310,7 @@ export class _MatMenuBase {
      * Removes an item from the menu.
      * \@docs-private
      * @deprecated No longer being used. To be removed.
-     * \@breaking-change 9.0.0-sha-9c137720f
+     * \@breaking-change 9.0.0-sha-048fdb2ff
      * @param {?} _item
      * @return {?}
      */

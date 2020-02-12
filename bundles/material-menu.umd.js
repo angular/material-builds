@@ -111,7 +111,7 @@
             // by Angular. This causes the `@ContentChildren` for menu items within the menu to
             // not be updated by Angular. By explicitly marking for check here, we tell Angular that
             // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
-            // @breaking-change 9.0.0-sha-9c137720f Make change detector ref required
+            // @breaking-change 9.0.0-sha-048fdb2ff Make change detector ref required
             if (this._changeDetectorRef) {
                 this._changeDetectorRef.markForCheck();
             }
@@ -515,14 +515,14 @@
          * Registers a menu item with the menu.
          * @docs-private
          * @deprecated No longer being used. To be removed.
-         * @breaking-change 9.0.0-sha-9c137720f
+         * @breaking-change 9.0.0-sha-048fdb2ff
          */
         _MatMenuBase.prototype.addItem = function (_item) { };
         /**
          * Removes an item from the menu.
          * @docs-private
          * @deprecated No longer being used. To be removed.
-         * @breaking-change 9.0.0-sha-9c137720f
+         * @breaking-change 9.0.0-sha-048fdb2ff
          */
         _MatMenuBase.prototype.removeItem = function (_item) { };
         /** Handle a keyboard event from the menu, delegating to the appropriate action. */
