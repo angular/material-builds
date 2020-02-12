@@ -180,7 +180,7 @@ MatCardAvatar.decorators = [
  * - mat-card-footer
  */
 export class MatCard {
-    // @breaking-change 9.0.0-sha-fd1593df1 `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-9c137720f `_animationMode` parameter to be made required.
     /**
      * @param {?=} _animationMode
      */

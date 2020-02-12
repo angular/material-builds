@@ -131,7 +131,7 @@ class MatMenuContent {
         // by Angular. This causes the `@ContentChildren` for menu items within the menu to
         // not be updated by Angular. By explicitly marking for check here, we tell Angular that
         // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
-        // @breaking-change 9.0.0-sha-fd1593df1 Make change detector ref required
+        // @breaking-change 9.0.0-sha-9c137720f Make change detector ref required
         if (this._changeDetectorRef) {
             this._changeDetectorRef.markForCheck();
         }
@@ -855,7 +855,7 @@ class _MatMenuBase {
        * Registers a menu item with the menu.
        * @docs-private
        * @deprecated No longer being used. To be removed.
-       * @breaking-change 9.0.0-sha-fd1593df1
+       * @breaking-change 9.0.0-sha-9c137720f
        */
     /**
      * @param {?} _item
@@ -866,7 +866,7 @@ class _MatMenuBase {
      * Removes an item from the menu.
      * \@docs-private
      * @deprecated No longer being used. To be removed.
-     * \@breaking-change 9.0.0-sha-fd1593df1
+     * \@breaking-change 9.0.0-sha-9c137720f
      * @param {?} _item
      * @return {?}
      */

@@ -41,7 +41,7 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     constructor(componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef, _host: MatTabBody, 
     /**
      * @deprecated `_document` parameter to be made required.
-     * @breaking-change 9.0.0-sha-fd1593df1
+     * @breaking-change 9.0.0-sha-9c137720f
      */
     _document?: any);
     /** Set initial visibility or set up subscription for changing visibility. */

@@ -65,7 +65,7 @@ var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
     /**
      * @deprecated _hammerLoader parameter to be removed.
-     * @breaking-change 9.0.0-sha-fd1593df1
+     * @breaking-change 9.0.0-sha-9c137720f
      */
     // Note that we need to give Angular something to inject here so it doesn't throw.
     _hammerLoader) {
