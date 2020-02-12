@@ -423,7 +423,7 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     _markForCheck() {
-        // @breaking-change 9.0.0-sha-dbb0b2340 Remove this method once the _changeDetectorRef is a required param.
+        // @breaking-change 9.0.0-sha-555037a8e Remove this method once the _changeDetectorRef is a required param.
         if (this._changeDetectorRef) {
             this._changeDetectorRef.markForCheck();
         }

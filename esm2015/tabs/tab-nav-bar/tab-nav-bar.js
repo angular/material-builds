@@ -39,7 +39,7 @@ export class _MatTabNavBase extends MatPaginatedTabHeader {
      */
     constructor(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-dbb0b2340 `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-555037a8e `platform` parameter to become required.
      */
     platform, animationMode) {
         super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
@@ -178,7 +178,7 @@ export class MatTabNav extends _MatTabNavBase {
      */
     constructor(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-dbb0b2340 `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-555037a8e `platform` parameter to become required.
      */
     platform, animationMode) {
         super(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode);
