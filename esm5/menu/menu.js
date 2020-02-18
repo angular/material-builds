@@ -180,14 +180,14 @@ var _MatMenuBase = /** @class */ (function () {
      * Registers a menu item with the menu.
      * @docs-private
      * @deprecated No longer being used. To be removed.
-     * @breaking-change 9.0.0-sha-42ff0ae10
+     * @breaking-change 9.0.0-sha-2ce4d7d58
      */
     _MatMenuBase.prototype.addItem = function (_item) { };
     /**
      * Removes an item from the menu.
      * @docs-private
      * @deprecated No longer being used. To be removed.
-     * @breaking-change 9.0.0-sha-42ff0ae10
+     * @breaking-change 9.0.0-sha-2ce4d7d58
      */
     _MatMenuBase.prototype.removeItem = function (_item) { };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
