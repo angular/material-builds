@@ -175,7 +175,7 @@ MatCardAvatar.decorators = [
  * - mat-card-footer
  */
 class MatCard {
-    // @breaking-change 9.0.0-sha-2ce4d7d58 `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-a0aee924f `_animationMode` parameter to be made required.
     /**
      * @param {?=} _animationMode
      */

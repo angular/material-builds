@@ -25,7 +25,7 @@ var _MatTabNavBase = /** @class */ (function (_super) {
     __extends(_MatTabNavBase, _super);
     function _MatTabNavBase(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-2ce4d7d58 `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-a0aee924f `platform` parameter to become required.
      */
     platform, animationMode) {
         var _this = _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
@@ -116,7 +116,7 @@ var MatTabNav = /** @class */ (function (_super) {
     __extends(MatTabNav, _super);
     function MatTabNav(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
-     * @deprecated @breaking-change 9.0.0-sha-2ce4d7d58 `platform` parameter to become required.
+     * @deprecated @breaking-change 9.0.0-sha-a0aee924f `platform` parameter to become required.
      */
     platform, animationMode) {
         return _super.call(this, elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode) || this;

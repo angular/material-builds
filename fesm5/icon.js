@@ -78,7 +78,7 @@ var SvgIconConfig = /** @class */ (function () {
  */
 var MatIconRegistry = /** @class */ (function () {
     function MatIconRegistry(_httpClient, _sanitizer, document, 
-    // @breaking-change 9.0.0-sha-2ce4d7d58 _errorHandler parameter to be made required
+    // @breaking-change 9.0.0-sha-a0aee924f _errorHandler parameter to be made required
     _errorHandler) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
@@ -307,7 +307,7 @@ var MatIconRegistry = /** @class */ (function () {
                 // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
                 var errorMessage = "Loading icon set URL: " + url + " failed: " + err.message;
-                // @breaking-change 9.0.0-sha-2ce4d7d58 _errorHandler parameter to be made required
+                // @breaking-change 9.0.0-sha-a0aee924f _errorHandler parameter to be made required
                 if (_this._errorHandler) {
                     _this._errorHandler.handleError(new Error(errorMessage));
                 }
@@ -647,7 +647,7 @@ var MatIcon = /** @class */ (function (_super) {
      * @breaking-change 8.0.0
      */
     _location, 
-    // @breaking-change 9.0.0-sha-2ce4d7d58 _errorHandler parameter to be made required
+    // @breaking-change 9.0.0-sha-a0aee924f _errorHandler parameter to be made required
     _errorHandler) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
@@ -728,7 +728,7 @@ var MatIcon = /** @class */ (function (_super) {
                     .pipe(take(1))
                     .subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) {
                     var errorMessage = "Error retrieving icon " + namespace_1 + ":" + iconName_1 + "! " + err.message;
-                    // @breaking-change 9.0.0-sha-2ce4d7d58 _errorHandler parameter to be made required.
+                    // @breaking-change 9.0.0-sha-a0aee924f _errorHandler parameter to be made required.
                     if (_this._errorHandler) {
                         _this._errorHandler.handleError(new Error(errorMessage));
                     }

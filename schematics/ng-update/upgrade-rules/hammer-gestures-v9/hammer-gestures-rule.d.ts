@@ -155,11 +155,6 @@ export declare class HammerGesturesRule extends MigrationRule<null> {
      * that failure positions are corrected if source file modifications shifted lines.
      */
     private _createMigrationFailures;
-    /**
-     * Gets the project from the current program or throws if no project
-     * could be found.
-     */
-    private _getProjectOrThrow;
     /** Global state of whether Hammer is used in any analyzed project target. */
     static globalUsesHammer: boolean;
     /**
