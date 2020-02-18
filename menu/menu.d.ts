@@ -133,7 +133,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * Removes an item from the menu.
      * @docs-private
      * @deprecated No longer being used. To be removed.
-     * @breaking-change 9.0.0-sha-198911f5c
+     * @breaking-change 9.0.0-sha-f3d43fe8c
      */
     removeItem(_item: MatMenuItem): void;
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
