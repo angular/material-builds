@@ -432,7 +432,7 @@ class MatIconRegistry {
                 // combined Observable won't necessarily fail.
                 /** @type {?} */
                 const errorMessage = `Loading icon set URL: ${url} failed: ${err.message}`;
-                // @breaking-change 9.0.0-sha-e902a4f8e _errorHandler parameter to be made required
+                // @breaking-change 9.0.0-sha-78115de0f _errorHandler parameter to be made required
                 if (this._errorHandler) {
                     this._errorHandler.handleError(new Error(errorMessage));
                 }
@@ -1060,7 +1060,7 @@ class MatIcon extends _MatIconMixinBase {
                 (err) => {
                     /** @type {?} */
                     const errorMessage = `Error retrieving icon ${namespace}:${iconName}! ${err.message}`;
-                    // @breaking-change 9.0.0-sha-e902a4f8e _errorHandler parameter to be made required.
+                    // @breaking-change 9.0.0-sha-78115de0f _errorHandler parameter to be made required.
                     if (this._errorHandler) {
                         this._errorHandler.handleError(new Error(errorMessage));
                     }

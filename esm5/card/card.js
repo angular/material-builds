@@ -208,7 +208,7 @@ export { MatCardAvatar };
  * - mat-card-footer
  */
 var MatCard = /** @class */ (function () {
-    // @breaking-change 9.0.0-sha-e902a4f8e `_animationMode` parameter to be made required.
+    // @breaking-change 9.0.0-sha-78115de0f `_animationMode` parameter to be made required.
     function MatCard(_animationMode) {
         this._animationMode = _animationMode;
     }
