@@ -243,7 +243,7 @@ export class MatIcon extends _MatIconMixinBase {
                 (err) => {
                     /** @type {?} */
                     const errorMessage = `Error retrieving icon ${namespace}:${iconName}! ${err.message}`;
-                    // @breaking-change 9.0.0-sha-fdae14ad5 _errorHandler parameter to be made required.
+                    // @breaking-change 9.0.0-sha-e902a4f8e _errorHandler parameter to be made required.
                     if (this._errorHandler) {
                         this._errorHandler.handleError(new Error(errorMessage));
                     }

@@ -82,7 +82,7 @@
         function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
         /**
          * @deprecated _hammerLoader parameter to be removed.
-         * @breaking-change 9.0.0-sha-fdae14ad5
+         * @breaking-change 9.0.0-sha-e902a4f8e
          */
         // Note that we need to give Angular something to inject here so it doesn't throw.
         _hammerLoader) {
