@@ -19,7 +19,7 @@ import { VERSION as CDK_VERSION } from '@angular/cdk';
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION = new Version('9.0.0-sha-c07adea6d');
+const VERSION = new Version('9.0.0-sha-0590af6b1');
 /**
  * \@docs-private
  * @return {?}
