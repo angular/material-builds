@@ -944,7 +944,7 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _runInsideZone(fn) {
-        // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-c07adea6d Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.run(fn) : fn();
     }
     /**
@@ -954,7 +954,7 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _runOutsizeZone(fn) {
-        // @breaking-change 9.0.0-sha-d8b726d3c Remove this function once `_ngZone` is a required parameter.
+        // @breaking-change 9.0.0-sha-c07adea6d Remove this function once `_ngZone` is a required parameter.
         this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
     }
     /**
