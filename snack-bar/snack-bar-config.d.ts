@@ -25,10 +25,7 @@ export declare class MatSnackBarConfig<D = any> {
      * component or template, the announcement message will default to the specified message.
      */
     announcementMessage?: string;
-    /**
-     * The view container that serves as the parent for the snackbar for the purposes of dependency
-     * injection. Note: this does not affect where the snackbar is inserted in the DOM.
-     */
+    /** The view container to place the overlay for the snack bar into. */
     viewContainerRef?: ViewContainerRef;
     /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
     duration?: number;
