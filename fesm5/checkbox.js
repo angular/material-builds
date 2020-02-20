@@ -52,21 +52,6 @@ var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     useExisting: forwardRef(function () { return MatCheckbox; }),
     multi: true
 };
-/**
- * Represents the different states that require custom transitions between them.
- * @docs-private
- */
-var TransitionCheckState;
-(function (TransitionCheckState) {
-    /** The initial state of the component before any user interaction. */
-    TransitionCheckState[TransitionCheckState["Init"] = 0] = "Init";
-    /** The state representing the component when it's becoming checked. */
-    TransitionCheckState[TransitionCheckState["Checked"] = 1] = "Checked";
-    /** The state representing the component when it's becoming unchecked. */
-    TransitionCheckState[TransitionCheckState["Unchecked"] = 2] = "Unchecked";
-    /** The state representing the component when it's becoming indeterminate. */
-    TransitionCheckState[TransitionCheckState["Indeterminate"] = 3] = "Indeterminate";
-})(TransitionCheckState || (TransitionCheckState = {}));
 /** Change event object emitted by MatCheckbox. */
 var MatCheckboxChange = /** @class */ (function () {
     function MatCheckboxChange() {
@@ -132,7 +117,7 @@ var MatCheckbox = /** @class */ (function (_super) {
          */
         _this._onTouched = function () { };
         _this._currentAnimationClass = '';
-        _this._currentCheckState = TransitionCheckState.Init;
+        _this._currentCheckState = 0 /* Init */;
         _this._controlValueAccessorChangeFn = function () { };
         _this._checked = false;
         _this._disabled = false;
@@ -223,10 +208,10 @@ var MatCheckbox = /** @class */ (function (_super) {
             this._indeterminate = coerceBooleanProperty(value);
             if (changed) {
                 if (this._indeterminate) {
-                    this._transitionCheckState(TransitionCheckState.Indeterminate);
+                    this._transitionCheckState(3 /* Indeterminate */);
                 }
                 else {
-                    this._transitionCheckState(this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+                    this._transitionCheckState(this.checked ? 1 /* Checked */ : 2 /* Unchecked */);
                 }
                 this.indeterminateChange.emit(this._indeterminate);
             }
@@ -329,7 +314,7 @@ var MatCheckbox = /** @class */ (function (_super) {
                 });
             }
             this.toggle();
-            this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+            this._transitionCheckState(this._checked ? 1 /* Checked */ : 2 /* Unchecked */);
             // Emit our custom change event if the native input emitted one.
             // It is important to only emit it, if the native input triggered one, because
             // we don't want to trigger a change event, when the `checked` variable changes for example.
@@ -360,29 +345,29 @@ var MatCheckbox = /** @class */ (function (_super) {
         }
         var animSuffix = '';
         switch (oldState) {
-            case TransitionCheckState.Init:
+            case 0 /* Init */:
                 // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
                 // [checked] bound to it.
-                if (newState === TransitionCheckState.Checked) {
+                if (newState === 1 /* Checked */) {
                     animSuffix = 'unchecked-checked';
                 }
-                else if (newState == TransitionCheckState.Indeterminate) {
+                else if (newState == 3 /* Indeterminate */) {
                     animSuffix = 'unchecked-indeterminate';
                 }
                 else {
                     return '';
                 }
                 break;
-            case TransitionCheckState.Unchecked:
-                animSuffix = newState === TransitionCheckState.Checked ?
+            case 2 /* Unchecked */:
+                animSuffix = newState === 1 /* Checked */ ?
                     'unchecked-checked' : 'unchecked-indeterminate';
                 break;
-            case TransitionCheckState.Checked:
-                animSuffix = newState === TransitionCheckState.Unchecked ?
+            case 1 /* Checked */:
+                animSuffix = newState === 2 /* Unchecked */ ?
                     'checked-unchecked' : 'checked-indeterminate';
                 break;
-            case TransitionCheckState.Indeterminate:
-                animSuffix = newState === TransitionCheckState.Checked ?
+            case 3 /* Indeterminate */:
+                animSuffix = newState === 1 /* Checked */ ?
                     'indeterminate-checked' : 'indeterminate-unchecked';
                 break;
         }
@@ -532,5 +517,5 @@ var MatCheckboxModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHECKBOX_CLICK_ACTION, MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, TransitionCheckState, _MatCheckboxRequiredValidatorModule };
+export { MAT_CHECKBOX_CLICK_ACTION, MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, _MatCheckboxRequiredValidatorModule };
 //# sourceMappingURL=checkbox.js.map

@@ -81,10 +81,6 @@ const TransitionCheckState = {
     /** The state representing the component when it's becoming indeterminate. */
     Indeterminate: 3,
 };
-TransitionCheckState[TransitionCheckState.Init] = 'Init';
-TransitionCheckState[TransitionCheckState.Checked] = 'Checked';
-TransitionCheckState[TransitionCheckState.Unchecked] = 'Unchecked';
-TransitionCheckState[TransitionCheckState.Indeterminate] = 'Indeterminate';
 /**
  * Change event object emitted by MatCheckbox.
  */
@@ -186,7 +182,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
          */
         () => { });
         this._currentAnimationClass = '';
-        this._currentCheckState = TransitionCheckState.Init;
+        this._currentCheckState = 0 /* Init */;
         this._controlValueAccessorChangeFn = (/**
          * @return {?}
          */
@@ -305,10 +301,10 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._indeterminate = coerceBooleanProperty(value);
         if (changed) {
             if (this._indeterminate) {
-                this._transitionCheckState(TransitionCheckState.Indeterminate);
+                this._transitionCheckState(3 /* Indeterminate */);
             }
             else {
-                this._transitionCheckState(this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+                this._transitionCheckState(this.checked ? 1 /* Checked */ : 2 /* Unchecked */);
             }
             this.indeterminateChange.emit(this._indeterminate);
         }
@@ -458,7 +454,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
                 }));
             }
             this.toggle();
-            this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+            this._transitionCheckState(this._checked ? 1 /* Checked */ : 2 /* Unchecked */);
             // Emit our custom change event if the native input emitted one.
             // It is important to only emit it, if the native input triggered one, because
             // we don't want to trigger a change event, when the `checked` variable changes for example.
@@ -504,29 +500,29 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         /** @type {?} */
         let animSuffix = '';
         switch (oldState) {
-            case TransitionCheckState.Init:
+            case 0 /* Init */:
                 // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
                 // [checked] bound to it.
-                if (newState === TransitionCheckState.Checked) {
+                if (newState === 1 /* Checked */) {
                     animSuffix = 'unchecked-checked';
                 }
-                else if (newState == TransitionCheckState.Indeterminate) {
+                else if (newState == 3 /* Indeterminate */) {
                     animSuffix = 'unchecked-indeterminate';
                 }
                 else {
                     return '';
                 }
                 break;
-            case TransitionCheckState.Unchecked:
-                animSuffix = newState === TransitionCheckState.Checked ?
+            case 2 /* Unchecked */:
+                animSuffix = newState === 1 /* Checked */ ?
                     'unchecked-checked' : 'unchecked-indeterminate';
                 break;
-            case TransitionCheckState.Checked:
-                animSuffix = newState === TransitionCheckState.Unchecked ?
+            case 1 /* Checked */:
+                animSuffix = newState === 2 /* Unchecked */ ?
                     'checked-unchecked' : 'checked-indeterminate';
                 break;
-            case TransitionCheckState.Indeterminate:
-                animSuffix = newState === TransitionCheckState.Checked ?
+            case 3 /* Indeterminate */:
+                animSuffix = newState === 1 /* Checked */ ?
                     'indeterminate-checked' : 'indeterminate-unchecked';
                 break;
         }
@@ -807,5 +803,5 @@ MatCheckboxModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHECKBOX_CLICK_ACTION, MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, TransitionCheckState, _MatCheckboxRequiredValidatorModule };
+export { MAT_CHECKBOX_CLICK_ACTION, MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, _MatCheckboxRequiredValidatorModule };
 //# sourceMappingURL=checkbox.js.map

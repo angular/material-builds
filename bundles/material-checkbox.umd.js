@@ -49,16 +49,6 @@
         useExisting: core.forwardRef(function () { return MatCheckbox; }),
         multi: true
     };
-    (function (TransitionCheckState) {
-        /** The initial state of the component before any user interaction. */
-        TransitionCheckState[TransitionCheckState["Init"] = 0] = "Init";
-        /** The state representing the component when it's becoming checked. */
-        TransitionCheckState[TransitionCheckState["Checked"] = 1] = "Checked";
-        /** The state representing the component when it's becoming unchecked. */
-        TransitionCheckState[TransitionCheckState["Unchecked"] = 2] = "Unchecked";
-        /** The state representing the component when it's becoming indeterminate. */
-        TransitionCheckState[TransitionCheckState["Indeterminate"] = 3] = "Indeterminate";
-    })(exports.TransitionCheckState || (exports.TransitionCheckState = {}));
     /** Change event object emitted by MatCheckbox. */
     var MatCheckboxChange = /** @class */ (function () {
         function MatCheckboxChange() {
@@ -124,7 +114,7 @@
              */
             _this._onTouched = function () { };
             _this._currentAnimationClass = '';
-            _this._currentCheckState = exports.TransitionCheckState.Init;
+            _this._currentCheckState = 0 /* Init */;
             _this._controlValueAccessorChangeFn = function () { };
             _this._checked = false;
             _this._disabled = false;
@@ -215,10 +205,10 @@
                 this._indeterminate = coercion.coerceBooleanProperty(value);
                 if (changed) {
                     if (this._indeterminate) {
-                        this._transitionCheckState(exports.TransitionCheckState.Indeterminate);
+                        this._transitionCheckState(3 /* Indeterminate */);
                     }
                     else {
-                        this._transitionCheckState(this.checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
+                        this._transitionCheckState(this.checked ? 1 /* Checked */ : 2 /* Unchecked */);
                     }
                     this.indeterminateChange.emit(this._indeterminate);
                 }
@@ -321,7 +311,7 @@
                     });
                 }
                 this.toggle();
-                this._transitionCheckState(this._checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
+                this._transitionCheckState(this._checked ? 1 /* Checked */ : 2 /* Unchecked */);
                 // Emit our custom change event if the native input emitted one.
                 // It is important to only emit it, if the native input triggered one, because
                 // we don't want to trigger a change event, when the `checked` variable changes for example.
@@ -352,29 +342,29 @@
             }
             var animSuffix = '';
             switch (oldState) {
-                case exports.TransitionCheckState.Init:
+                case 0 /* Init */:
                     // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
                     // [checked] bound to it.
-                    if (newState === exports.TransitionCheckState.Checked) {
+                    if (newState === 1 /* Checked */) {
                         animSuffix = 'unchecked-checked';
                     }
-                    else if (newState == exports.TransitionCheckState.Indeterminate) {
+                    else if (newState == 3 /* Indeterminate */) {
                         animSuffix = 'unchecked-indeterminate';
                     }
                     else {
                         return '';
                     }
                     break;
-                case exports.TransitionCheckState.Unchecked:
-                    animSuffix = newState === exports.TransitionCheckState.Checked ?
+                case 2 /* Unchecked */:
+                    animSuffix = newState === 1 /* Checked */ ?
                         'unchecked-checked' : 'unchecked-indeterminate';
                     break;
-                case exports.TransitionCheckState.Checked:
-                    animSuffix = newState === exports.TransitionCheckState.Unchecked ?
+                case 1 /* Checked */:
+                    animSuffix = newState === 2 /* Unchecked */ ?
                         'checked-unchecked' : 'checked-indeterminate';
                     break;
-                case exports.TransitionCheckState.Indeterminate:
-                    animSuffix = newState === exports.TransitionCheckState.Checked ?
+                case 3 /* Indeterminate */:
+                    animSuffix = newState === 1 /* Checked */ ?
                         'indeterminate-checked' : 'indeterminate-unchecked';
                     break;
             }
