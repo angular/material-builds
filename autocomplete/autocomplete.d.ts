@@ -7,7 +7,7 @@
  */
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef, OnDestroy } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef } from '@angular/core';
 import { CanDisableRipple, CanDisableRippleCtor, MatOptgroup, MatOption } from '@angular/material/core';
 /** Event object that is emitted when an autocomplete option is selected. */
 export declare class MatAutocompleteSelectedEvent {
@@ -20,13 +20,6 @@ export declare class MatAutocompleteSelectedEvent {
     source: MatAutocomplete, 
     /** Option that was selected. */
     option: MatOption);
-}
-/** Event object that is emitted when an autocomplete option is activated. */
-export interface MatAutocompleteActivatedEvent {
-    /** Reference to the autocomplete panel that emitted the event. */
-    source: MatAutocomplete;
-    /** Option that was selected. */
-    option: MatOption | null;
 }
 /** @docs-private */
 declare class MatAutocompleteBase {
@@ -41,10 +34,9 @@ export interface MatAutocompleteDefaultOptions {
 export declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
 /** @docs-private */
 export declare function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): MatAutocompleteDefaultOptions;
-export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
+export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple {
     private _changeDetectorRef;
     private _elementRef;
-    private _activeOptionChanges;
     /** Manages active item in option list based on key events. */
     _keyManager: ActiveDescendantKeyManager<MatOption>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
@@ -80,8 +72,6 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     readonly opened: EventEmitter<void>;
     /** Event that is emitted when the autocomplete panel is closed. */
     readonly closed: EventEmitter<void>;
-    /** Emits whenever an option is activated using the keyboard. */
-    readonly optionActivated: EventEmitter<MatAutocompleteActivatedEvent>;
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
      * inside the overlay container to allow for easy styling.
@@ -94,7 +84,6 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     id: string;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, defaults: MatAutocompleteDefaultOptions);
     ngAfterContentInit(): void;
-    ngOnDestroy(): void;
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options
      * above or below the fold, as they are not actually being focused when active.

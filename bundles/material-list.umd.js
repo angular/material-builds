@@ -690,16 +690,14 @@
                         event.preventDefault();
                     }
                     break;
-                default:
-                    // The "A" key gets special treatment, because it's used for the "select all" functionality.
-                    if (keyCode === keycodes.A && this.multiple && keycodes.hasModifierKey(event, 'ctrlKey') &&
-                        !manager.isTyping()) {
+                case keycodes.A:
+                    if (keycodes.hasModifierKey(event, 'ctrlKey') && !manager.isTyping()) {
                         this.options.find(function (option) { return !option.selected; }) ? this.selectAll() : this.deselectAll();
                         event.preventDefault();
                     }
-                    else {
-                        manager.onKeydown(event);
-                    }
+                    break;
+                default:
+                    manager.onKeydown(event);
             }
             if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
                 manager.activeItemIndex !== previousFocusIndex) {
