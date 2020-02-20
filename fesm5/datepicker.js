@@ -396,9 +396,9 @@ var MatMonthView = /** @class */ (function () {
     /** Date filter for the month */
     MatMonthView.prototype._shouldEnableDate = function (date) {
         return !!date &&
-            (!this.dateFilter || this.dateFilter(date)) &&
             (!this.minDate || this._dateAdapter.compareDate(date, this.minDate) >= 0) &&
-            (!this.maxDate || this._dateAdapter.compareDate(date, this.maxDate) <= 0);
+            (!this.maxDate || this._dateAdapter.compareDate(date, this.maxDate) <= 0) &&
+            (!this.dateFilter || this.dateFilter(date));
     };
     /**
      * Gets the date in this month that the given Date falls on.
