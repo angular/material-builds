@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.0.1-sha-5e34de2fd');
+    var VERSION = new i0.Version('9.0.1-sha-74b344106');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.0.1-sha-5e34de2fd');
+    var VERSION$1 = new i0.Version('9.0.1-sha-74b344106');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1088,12 +1088,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    (function (RippleState) {
-        RippleState[RippleState["FADING_IN"] = 0] = "FADING_IN";
-        RippleState[RippleState["VISIBLE"] = 1] = "VISIBLE";
-        RippleState[RippleState["FADING_OUT"] = 2] = "FADING_OUT";
-        RippleState[RippleState["HIDDEN"] = 3] = "HIDDEN";
-    })(exports.RippleState || (exports.RippleState = {}));
     /**
      * Reference to a previously launched ripple element.
      */
@@ -1107,7 +1101,7 @@
             this.element = element;
             this.config = config;
             /** Current state of the ripple. */
-            this.state = exports.RippleState.HIDDEN;
+            this.state = 3 /* HIDDEN */;
         }
         /** Fades out the ripple element. */
         RippleRef.prototype.fadeOut = function () {
@@ -1187,8 +1181,8 @@
                 _this._activeRipples.forEach(function (ripple) {
                     // By default, only ripples that are completely visible will fade out on pointer release.
                     // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
-                    var isVisible = ripple.state === exports.RippleState.VISIBLE ||
-                        ripple.config.terminateOnPointerUp && ripple.state === exports.RippleState.FADING_IN;
+                    var isVisible = ripple.state === 1 /* VISIBLE */ ||
+                        ripple.config.terminateOnPointerUp && ripple.state === 0 /* FADING_IN */;
                     if (!ripple.config.persistent && isVisible) {
                         ripple.fadeOut();
                     }
@@ -1246,7 +1240,7 @@
             ripple.style.transform = 'scale(1)';
             // Exposed reference to the ripple that will be returned.
             var rippleRef = new RippleRef(this, ripple, config);
-            rippleRef.state = exports.RippleState.FADING_IN;
+            rippleRef.state = 0 /* FADING_IN */;
             // Add the ripple reference to the list of all active ripples.
             this._activeRipples.add(rippleRef);
             if (!config.persistent) {
@@ -1256,7 +1250,7 @@
             // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
             this._runTimeoutOutsideZone(function () {
                 var isMostRecentTransientRipple = rippleRef === _this._mostRecentTransientRipple;
-                rippleRef.state = exports.RippleState.VISIBLE;
+                rippleRef.state = 1 /* VISIBLE */;
                 // When the timer runs out while the user has kept their pointer down, we want to
                 // keep only the persistent ripples and the latest transient ripple. We do this,
                 // because we don't want stacked transient ripples to appear after their enter
@@ -1285,10 +1279,10 @@
             var animationConfig = tslib.__assign(tslib.__assign({}, defaultRippleAnimationConfig), rippleRef.config.animation);
             rippleEl.style.transitionDuration = animationConfig.exitDuration + "ms";
             rippleEl.style.opacity = '0';
-            rippleRef.state = exports.RippleState.FADING_OUT;
+            rippleRef.state = 2 /* FADING_OUT */;
             // Once the ripple faded out, the ripple can be safely removed from the DOM.
             this._runTimeoutOutsideZone(function () {
-                rippleRef.state = exports.RippleState.HIDDEN;
+                rippleRef.state = 3 /* HIDDEN */;
                 rippleEl.parentNode.removeChild(rippleEl);
             }, animationConfig.exitDuration);
         };
