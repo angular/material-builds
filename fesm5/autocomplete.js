@@ -3,6 +3,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { InjectionToken, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, ContentChildren, Input, Output, Directive, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
 import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
@@ -12,7 +13,6 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { take, switchMap, filter, map, tap, delay } from 'rxjs/operators';
 
 /**
@@ -62,6 +62,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
+        _this._activeOptionChanges = Subscription.EMPTY;
         /** Whether the autocomplete panel should be visible, depending on option length. */
         _this.showPanel = false;
         _this._isOpen = false;
@@ -73,6 +74,8 @@ var MatAutocomplete = /** @class */ (function (_super) {
         _this.opened = new EventEmitter();
         /** Event that is emitted when the autocomplete panel is closed. */
         _this.closed = new EventEmitter();
+        /** Emits whenever an option is activated using the keyboard. */
+        _this.optionActivated = new EventEmitter();
         _this._classList = {};
         /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
         _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
@@ -119,9 +122,16 @@ var MatAutocomplete = /** @class */ (function (_super) {
         configurable: true
     });
     MatAutocomplete.prototype.ngAfterContentInit = function () {
+        var _this = this;
         this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
+        this._activeOptionChanges = this._keyManager.change.subscribe(function (index) {
+            _this.optionActivated.emit({ source: _this, option: _this.options.toArray()[index] || null });
+        });
         // Set the initial visibility state.
         this._setVisibility();
+    };
+    MatAutocomplete.prototype.ngOnDestroy = function () {
+        this._activeOptionChanges.unsubscribe();
     };
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options
@@ -186,6 +196,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
         optionSelected: [{ type: Output }],
         opened: [{ type: Output }],
         closed: [{ type: Output }],
+        optionActivated: [{ type: Output }],
         classList: [{ type: Input, args: ['class',] }]
     };
     return MatAutocomplete;
