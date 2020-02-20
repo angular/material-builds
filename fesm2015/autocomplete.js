@@ -2,6 +2,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { InjectionToken, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, ContentChildren, Input, Output, Directive, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
 import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
@@ -11,7 +12,6 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { take, switchMap, filter, map, tap, delay } from 'rxjs/operators';
 
 /**
@@ -49,6 +49,23 @@ if (false) {
      * @type {?}
      */
     MatAutocompleteSelectedEvent.prototype.option;
+}
+/**
+ * Event object that is emitted when an autocomplete option is activated.
+ * @record
+ */
+function MatAutocompleteActivatedEvent() { }
+if (false) {
+    /**
+     * Reference to the autocomplete panel that emitted the event.
+     * @type {?}
+     */
+    MatAutocompleteActivatedEvent.prototype.source;
+    /**
+     * Option that was selected.
+     * @type {?}
+     */
+    MatAutocompleteActivatedEvent.prototype.option;
 }
 // Boilerplate for applying mixins to MatAutocomplete.
 /**
@@ -95,6 +112,7 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
         super();
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
+        this._activeOptionChanges = Subscription.EMPTY;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
@@ -116,6 +134,10 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
          * Event that is emitted when the autocomplete panel is closed.
          */
         this.closed = new EventEmitter();
+        /**
+         * Emits whenever an option is activated using the keyboard.
+         */
+        this.optionActivated = new EventEmitter();
         this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
@@ -170,8 +192,21 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
      */
     ngAfterContentInit() {
         this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
+        this._activeOptionChanges = this._keyManager.change.subscribe((/**
+         * @param {?} index
+         * @return {?}
+         */
+        index => {
+            this.optionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+        }));
         // Set the initial visibility state.
         this._setVisibility();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._activeOptionChanges.unsubscribe();
     }
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options
@@ -255,6 +290,7 @@ MatAutocomplete.propDecorators = {
     optionSelected: [{ type: Output }],
     opened: [{ type: Output }],
     closed: [{ type: Output }],
+    optionActivated: [{ type: Output }],
     classList: [{ type: Input, args: ['class',] }]
 };
 if (false) {
@@ -262,6 +298,11 @@ if (false) {
     MatAutocomplete.ngAcceptInputType_autoActiveFirstOption;
     /** @type {?} */
     MatAutocomplete.ngAcceptInputType_disableRipple;
+    /**
+     * @type {?}
+     * @private
+     */
+    MatAutocomplete.prototype._activeOptionChanges;
     /**
      * Manages active item in option list based on key events.
      * @type {?}
@@ -325,6 +366,11 @@ if (false) {
      * @type {?}
      */
     MatAutocomplete.prototype.closed;
+    /**
+     * Emits whenever an option is activated using the keyboard.
+     * @type {?}
+     */
+    MatAutocomplete.prototype.optionActivated;
     /** @type {?} */
     MatAutocomplete.prototype._classList;
     /**

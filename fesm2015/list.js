@@ -1008,8 +1008,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                     event.preventDefault();
                 }
                 break;
-            case A:
-                if (hasModifierKey(event, 'ctrlKey') && !manager.isTyping()) {
+            default:
+                // The "A" key gets special treatment, because it's used for the "select all" functionality.
+                if (keyCode === A && this.multiple && hasModifierKey(event, 'ctrlKey') &&
+                    !manager.isTyping()) {
                     this.options.find((/**
                      * @param {?} option
                      * @return {?}
@@ -1017,9 +1019,9 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                     option => !option.selected)) ? this.selectAll() : this.deselectAll();
                     event.preventDefault();
                 }
-                break;
-            default:
-                manager.onKeydown(event);
+                else {
+                    manager.onKeydown(event);
+                }
         }
         if ((keyCode === UP_ARROW || keyCode === DOWN_ARROW) && event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex) {

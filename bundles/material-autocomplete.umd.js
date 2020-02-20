@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/material/form-field', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.material.core, global.ng.common, global.ng.cdk.overlay, global.ng.cdk.bidi, global.ng.cdk.keycodes, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.ng.forms, global.ng.material.formField, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, tslib, a11y, coercion, core, core$1, common, overlay, bidi, keycodes, platform, portal, scrolling, forms, formField, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', 'tslib', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', 'rxjs', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/material/form-field', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}), global.tslib, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.material.core, global.rxjs, global.ng.common, global.ng.cdk.overlay, global.ng.cdk.bidi, global.ng.cdk.keycodes, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.ng.forms, global.ng.material.formField, global.rxjs.operators));
+}(this, (function (exports, tslib, a11y, coercion, core, core$1, rxjs, common, overlay, bidi, keycodes, platform, portal, scrolling, forms, formField, operators) { 'use strict';
 
     /**
      * @license
@@ -51,6 +51,7 @@
             var _this = _super.call(this) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._elementRef = _elementRef;
+            _this._activeOptionChanges = rxjs.Subscription.EMPTY;
             /** Whether the autocomplete panel should be visible, depending on option length. */
             _this.showPanel = false;
             _this._isOpen = false;
@@ -62,6 +63,8 @@
             _this.opened = new core.EventEmitter();
             /** Event that is emitted when the autocomplete panel is closed. */
             _this.closed = new core.EventEmitter();
+            /** Emits whenever an option is activated using the keyboard. */
+            _this.optionActivated = new core.EventEmitter();
             _this._classList = {};
             /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
             _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
@@ -108,9 +111,16 @@
             configurable: true
         });
         MatAutocomplete.prototype.ngAfterContentInit = function () {
+            var _this = this;
             this._keyManager = new a11y.ActiveDescendantKeyManager(this.options).withWrap();
+            this._activeOptionChanges = this._keyManager.change.subscribe(function (index) {
+                _this.optionActivated.emit({ source: _this, option: _this.options.toArray()[index] || null });
+            });
             // Set the initial visibility state.
             this._setVisibility();
+        };
+        MatAutocomplete.prototype.ngOnDestroy = function () {
+            this._activeOptionChanges.unsubscribe();
         };
         /**
          * Sets the panel scrollTop. This allows us to manually scroll to display options
@@ -175,6 +185,7 @@
             optionSelected: [{ type: core.Output }],
             opened: [{ type: core.Output }],
             closed: [{ type: core.Output }],
+            optionActivated: [{ type: core.Output }],
             classList: [{ type: core.Input, args: ['class',] }]
         };
         return MatAutocomplete;
