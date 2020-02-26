@@ -174,7 +174,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
  */
 export declare class MatChipRemove {
     protected _parentChip: MatChip;
-    constructor(_parentChip: MatChip);
+    constructor(_parentChip: MatChip, elementRef?: ElementRef<HTMLElement>);
     /** Calls the parent chip's public `remove()` method if applicable. */
     _handleClick(event: Event): void;
 }

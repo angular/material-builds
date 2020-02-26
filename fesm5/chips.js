@@ -388,8 +388,14 @@ var MatChip = /** @class */ (function (_super) {
  * styles to properly center the icon within the chip.
  */
 var MatChipRemove = /** @class */ (function () {
-    function MatChipRemove(_parentChip) {
+    function MatChipRemove(_parentChip, 
+    // @breaking-change 11.0.0 `elementRef` parameter to be made required.
+    elementRef) {
         this._parentChip = _parentChip;
+        // @breaking-change 11.0.0 Remove null check for `elementRef`.
+        if (elementRef && elementRef.nativeElement.nodeName === 'BUTTON') {
+            elementRef.nativeElement.setAttribute('type', 'button');
+        }
     }
     /** Calls the parent chip's public `remove()` method if applicable. */
     MatChipRemove.prototype._handleClick = function (event) {
@@ -410,14 +416,13 @@ var MatChipRemove = /** @class */ (function () {
                     host: {
                         'class': 'mat-chip-remove mat-chip-trailing-icon',
                         '(click)': '_handleClick($event)',
-                        // Prevent accidental form submissions.
-                        'type': 'button',
                     }
                 },] }
     ];
     /** @nocollapse */
     MatChipRemove.ctorParameters = function () { return [
-        { type: MatChip }
+        { type: MatChip },
+        { type: ElementRef }
     ]; };
     return MatChipRemove;
 }());
