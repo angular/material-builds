@@ -430,7 +430,8 @@ class MatDrawer {
         /** @type {?} */
         const activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
-            if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
+            // Note that we don't check via `instanceof HTMLElement` so that we can cover SVGs as well.
+            if (this._elementFocusedBeforeDrawerWasOpened) {
                 this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, this._openedVia);
             }
             else {
