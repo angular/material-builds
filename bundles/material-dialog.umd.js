@@ -611,9 +611,10 @@
          */
         MatDialog.prototype._attachDialogContainer = function (overlay, config) {
             var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-            var injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
-                [MatDialogConfig, config]
-            ]));
+            var injector = core.Injector.create({
+                parent: userInjector || this._injector,
+                providers: [{ provide: MatDialogConfig, useValue: config }]
+            });
             var containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector, config.componentFactoryResolver);
             var containerRef = overlay.attach(containerPortal);
             return containerRef.instance;
@@ -666,19 +667,19 @@
             // content are created out of the same ViewContainerRef and as such, are siblings for injector
             // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
             // added to the injection tokens.
-            var injectionTokens = new WeakMap([
-                [MatDialogContainer, dialogContainer],
-                [MAT_DIALOG_DATA, config.data],
-                [MatDialogRef, dialogRef]
-            ]);
+            var providers = [
+                { provide: MatDialogContainer, useValue: dialogContainer },
+                { provide: MAT_DIALOG_DATA, useValue: config.data },
+                { provide: MatDialogRef, useValue: dialogRef }
+            ];
             if (config.direction &&
                 (!userInjector || !userInjector.get(bidi.Directionality, null))) {
-                injectionTokens.set(bidi.Directionality, {
-                    value: config.direction,
-                    change: rxjs.of()
+                providers.push({
+                    provide: bidi.Directionality,
+                    useValue: { value: config.direction, change: rxjs.of() }
                 });
             }
-            return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
+            return core.Injector.create({ parent: userInjector || this._injector, providers: providers });
         };
         /**
          * Removes a dialog from the array of open dialogs.

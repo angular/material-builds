@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { CdkPortalOutlet, BasePortalOutlet, PortalInjector, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, InjectionToken, TemplateRef, Injectable, Injector, SkipSelf, Directive, Input, NgModule } from '@angular/core';
+import { CdkPortalOutlet, BasePortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
+import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, InjectionToken, Injector, TemplateRef, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { __extends, __assign } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
@@ -618,9 +618,10 @@ var MatDialog = /** @class */ (function () {
      */
     MatDialog.prototype._attachDialogContainer = function (overlay, config) {
         var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var injector = new PortalInjector(userInjector || this._injector, new WeakMap([
-            [MatDialogConfig, config]
-        ]));
+        var injector = Injector.create({
+            parent: userInjector || this._injector,
+            providers: [{ provide: MatDialogConfig, useValue: config }]
+        });
         var containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector, config.componentFactoryResolver);
         var containerRef = overlay.attach(containerPortal);
         return containerRef.instance;
@@ -673,19 +674,19 @@ var MatDialog = /** @class */ (function () {
         // content are created out of the same ViewContainerRef and as such, are siblings for injector
         // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
         // added to the injection tokens.
-        var injectionTokens = new WeakMap([
-            [MatDialogContainer, dialogContainer],
-            [MAT_DIALOG_DATA, config.data],
-            [MatDialogRef, dialogRef]
-        ]);
+        var providers = [
+            { provide: MatDialogContainer, useValue: dialogContainer },
+            { provide: MAT_DIALOG_DATA, useValue: config.data },
+            { provide: MatDialogRef, useValue: dialogRef }
+        ];
         if (config.direction &&
             (!userInjector || !userInjector.get(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+            providers.push({
+                provide: Directionality,
+                useValue: { value: config.direction, change: of() }
             });
         }
-        return new PortalInjector(userInjector || this._injector, injectionTokens);
+        return Injector.create({ parent: userInjector || this._injector, providers: providers });
     };
     /**
      * Removes a dialog from the array of open dialogs.

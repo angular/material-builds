@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalOutlet, CdkPortalOutlet, PortalInjector, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, InjectionToken, TemplateRef, Injectable, Injector, SkipSelf, Directive, Input, NgModule } from '@angular/core';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
+import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, InjectionToken, Injector, TemplateRef, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT, Location } from '@angular/common';
@@ -1114,9 +1114,10 @@ class MatDialog {
         /** @type {?} */
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         /** @type {?} */
-        const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
-            [MatDialogConfig, config]
-        ]));
+        const injector = Injector.create({
+            parent: userInjector || this._injector,
+            providers: [{ provide: MatDialogConfig, useValue: config }]
+        });
         /** @type {?} */
         const containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector, config.componentFactoryResolver);
         /** @type {?} */
@@ -1183,19 +1184,19 @@ class MatDialog {
         // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
         // added to the injection tokens.
         /** @type {?} */
-        const injectionTokens = new WeakMap([
-            [MatDialogContainer, dialogContainer],
-            [MAT_DIALOG_DATA, config.data],
-            [MatDialogRef, dialogRef]
-        ]);
+        const providers = [
+            { provide: MatDialogContainer, useValue: dialogContainer },
+            { provide: MAT_DIALOG_DATA, useValue: config.data },
+            { provide: MatDialogRef, useValue: dialogRef }
+        ];
         if (config.direction &&
             (!userInjector || !userInjector.get(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+            providers.push({
+                provide: Directionality,
+                useValue: { value: config.direction, change: of() }
             });
         }
-        return new PortalInjector(userInjector || this._injector, injectionTokens);
+        return Injector.create({ parent: userInjector || this._injector, providers });
     }
     /**
      * Removes a dialog from the array of open dialogs.
