@@ -69,7 +69,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     /** Event emitted before the centering of the tab begins. */
     readonly _beforeCentering: EventEmitter<boolean>;
     /** Event emitted before the centering of the tab begins. */
-    readonly _afterLeavingCenter: EventEmitter<void>;
+    readonly _afterLeavingCenter: EventEmitter<boolean>;
     /** Event emitted when the tab completes its animation towards the center. */
     readonly _onCentered: EventEmitter<void>;
     /** The portal host inside of this container into which the tab body content will be loaded. */
