@@ -1664,7 +1664,7 @@ $mat-ripple-color-opacity: 0.1;
   $line-height: $font-size,
   $font-weight: 400,
   $font-family: null,
-  $letter-spacing: null) {
+  $letter-spacing: normal) {
 
   @return (
     font-size: $font-size,
