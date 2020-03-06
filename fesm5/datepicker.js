@@ -1700,6 +1700,19 @@ var MatDatepicker = /** @class */ (function () {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
+            // These values are all the same as the defaults, but we set them explicitly so that the
+            // datepicker dialog behaves consistently even if the user changed the defaults.
+            hasBackdrop: true,
+            disableClose: false,
+            width: '',
+            height: '',
+            minWidth: '',
+            minHeight: '',
+            maxWidth: '80vw',
+            maxHeight: '',
+            position: {},
+            autoFocus: true,
+            restoreFocus: true
         });
         this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
         this._dialogRef.componentInstance.datepicker = this;
