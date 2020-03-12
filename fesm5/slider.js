@@ -572,6 +572,11 @@ var MatSlider = /** @class */ (function (_super) {
     MatSlider.prototype._onKeyup = function () {
         this._isSliding = false;
     };
+    /** Use defaultView of injected document if available or fallback to global window reference */
+    MatSlider.prototype._getWindow = function () {
+        var _a;
+        return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+    };
     /**
      * Binds our global move and end events. They're bound at the document level and only while
      * dragging so that the user doesn't have to keep their pointer exactly over the slider
@@ -589,6 +594,7 @@ var MatSlider = /** @class */ (function (_super) {
                 body.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
             }
         }
+        var window = this._getWindow();
         if (typeof window !== 'undefined' && window) {
             window.addEventListener('blur', this._windowBlur);
         }
@@ -603,6 +609,7 @@ var MatSlider = /** @class */ (function (_super) {
             body.removeEventListener('touchend', this._pointerUp, activeEventOptions);
             body.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
         }
+        var window = this._getWindow();
         if (typeof window !== 'undefined' && window) {
             window.removeEventListener('blur', this._windowBlur);
         }

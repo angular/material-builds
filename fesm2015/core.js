@@ -2,12 +2,12 @@ import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject,
 import { HighContrastModeDetector, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { startWith } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.1.2-sha-0dbe23bb9');
+const VERSION = new Version('9.1.2-sha-3854db02b');
 
 /**
  * @fileoverview added by tsickle
@@ -80,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.1.2-sha-0dbe23bb9');
+const VERSION$1 = new Version('9.1.2-sha-3854db02b');
 /**
  * \@docs-private
  * @return {?}
@@ -125,20 +125,16 @@ class MatCommonModule {
     /**
      * @param {?} highContrastModeDetector
      * @param {?} sanityChecks
+     * @param {?=} document
      */
-    constructor(highContrastModeDetector, sanityChecks) {
+    constructor(highContrastModeDetector, sanityChecks, 
+    /** @breaking-change 11.0.0 make document required */
+    document) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        /**
-         * Reference to the global `document` object.
-         */
-        this._document = typeof document === 'object' && document ? document : null;
-        /**
-         * Reference to the global 'window' object.
-         */
-        this._window = typeof window === 'object' && window ? window : null;
+        this._document = document;
         // While A11yModule also does this, we repeat it here to avoid importing A11yModule
         // in MatCommonModule.
         highContrastModeDetector._applyBodyHighContrastModeCssClasses();
@@ -151,6 +147,29 @@ class MatCommonModule {
             this._checkCdkVersionMatch();
             this._hasDoneGlobalChecks = true;
         }
+    }
+    /**
+     * Access injected document if available or fallback to global document reference
+     * @private
+     * @return {?}
+     */
+    _getDocument() {
+        /** @type {?} */
+        const doc = this._document || document;
+        return typeof doc === 'object' && doc ? doc : null;
+    }
+    /**
+     * Use defaultView of injected document if available or fallback to global window reference
+     * @private
+     * @return {?}
+     */
+    _getWindow() {
+        var _a;
+        /** @type {?} */
+        const doc = this._getDocument();
+        /** @type {?} */
+        const win = ((_a = doc) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+        return typeof win === 'object' && win ? win : null;
     }
     /**
      * Whether any sanity checks are enabled.
@@ -167,7 +186,7 @@ class MatCommonModule {
      */
     _isTestEnv() {
         /** @type {?} */
-        const window = (/** @type {?} */ (this._window));
+        const window = (/** @type {?} */ (this._getWindow()));
         return window && (window.__karma__ || window.jasmine);
     }
     /**
@@ -178,7 +197,9 @@ class MatCommonModule {
         /** @type {?} */
         const isEnabled = this._checksAreEnabled() &&
             (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).doctype);
-        if (isEnabled && this._document && !this._document.doctype) {
+        /** @type {?} */
+        const document = this._getDocument();
+        if (isEnabled && document && !document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -193,14 +214,16 @@ class MatCommonModule {
         /** @type {?} */
         const isDisabled = !this._checksAreEnabled() ||
             (this._sanityChecks === false || !((/** @type {?} */ (this._sanityChecks))).theme);
-        if (isDisabled || !this._document || !this._document.body ||
+        /** @type {?} */
+        const document = this._getDocument();
+        if (isDisabled || !document || !document.body ||
             typeof getComputedStyle !== 'function') {
             return;
         }
         /** @type {?} */
-        const testElement = this._document.createElement('div');
+        const testElement = document.createElement('div');
         testElement.classList.add('mat-theme-loaded-marker');
-        this._document.body.appendChild(testElement);
+        document.body.appendChild(testElement);
         /** @type {?} */
         const computedStyle = getComputedStyle(testElement);
         // In some situations the computed style of the test element can be null. For example in
@@ -211,7 +234,7 @@ class MatCommonModule {
                 'components may not work as expected. For more info refer ' +
                 'to the theming guide: https://material.angular.io/guide/theming');
         }
-        this._document.body.removeChild(testElement);
+        document.body.removeChild(testElement);
     }
     /**
      * Checks whether the material version matches the cdk version
@@ -238,7 +261,8 @@ MatCommonModule.decorators = [
 /** @nocollapse */
 MatCommonModule.ctorParameters = () => [
     { type: HighContrastModeDetector },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
 ];
 if (false) {
     /**
@@ -248,23 +272,17 @@ if (false) {
      */
     MatCommonModule.prototype._hasDoneGlobalChecks;
     /**
-     * Reference to the global `document` object.
-     * @type {?}
-     * @private
-     */
-    MatCommonModule.prototype._document;
-    /**
-     * Reference to the global 'window' object.
-     * @type {?}
-     * @private
-     */
-    MatCommonModule.prototype._window;
-    /**
      * Configured sanity checks.
      * @type {?}
      * @private
      */
     MatCommonModule.prototype._sanityChecks;
+    /**
+     * Used to reference correct document/window
+     * @type {?}
+     * @protected
+     */
+    MatCommonModule.prototype._document;
 }
 
 /**

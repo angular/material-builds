@@ -615,6 +615,8 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     ngAfterViewInit() {
+        /** @type {?} */
+        const window = this._getWindow();
         if (typeof window !== 'undefined') {
             this._zone.runOutsideAngular((/**
              * @return {?}
@@ -641,6 +643,8 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     ngOnDestroy() {
+        /** @type {?} */
+        const window = this._getWindow();
         if (typeof window !== 'undefined') {
             window.removeEventListener('blur', this._windowBlurHandler);
         }
@@ -1216,6 +1220,15 @@ class MatAutocompleteTrigger {
         /** @type {?} */
         const element = this._element.nativeElement;
         return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
+    }
+    /**
+     * Use defaultView of injected document if available or fallback to global window reference
+     * @private
+     * @return {?}
+     */
+    _getWindow() {
+        var _a;
+        return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
     }
 }
 MatAutocompleteTrigger.decorators = [

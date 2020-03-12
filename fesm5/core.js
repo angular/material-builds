@@ -2,13 +2,13 @@ import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject,
 import { HighContrastModeDetector, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { __extends, __spread, __assign } from 'tslib';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { startWith } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('9.1.2-sha-0dbe23bb9');
+var VERSION = new Version('9.1.2-sha-3854db02b');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('9.1.2-sha-0dbe23bb9');
+var VERSION$1 = new Version('9.1.2-sha-3854db02b');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -77,13 +77,12 @@ var MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = /** @class */ (function () {
-    function MatCommonModule(highContrastModeDetector, sanityChecks) {
+    function MatCommonModule(highContrastModeDetector, sanityChecks, 
+    /** @breaking-change 11.0.0 make document required */
+    document) {
         /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
         this._hasDoneGlobalChecks = false;
-        /** Reference to the global `document` object. */
-        this._document = typeof document === 'object' && document ? document : null;
-        /** Reference to the global 'window' object. */
-        this._window = typeof window === 'object' && window ? window : null;
+        this._document = document;
         // While A11yModule also does this, we repeat it here to avoid importing A11yModule
         // in MatCommonModule.
         highContrastModeDetector._applyBodyHighContrastModeCssClasses();
@@ -97,19 +96,32 @@ var MatCommonModule = /** @class */ (function () {
             this._hasDoneGlobalChecks = true;
         }
     }
+    /** Access injected document if available or fallback to global document reference */
+    MatCommonModule.prototype._getDocument = function () {
+        var doc = this._document || document;
+        return typeof doc === 'object' && doc ? doc : null;
+    };
+    /** Use defaultView of injected document if available or fallback to global window reference */
+    MatCommonModule.prototype._getWindow = function () {
+        var _a;
+        var doc = this._getDocument();
+        var win = ((_a = doc) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+        return typeof win === 'object' && win ? win : null;
+    };
     /** Whether any sanity checks are enabled. */
     MatCommonModule.prototype._checksAreEnabled = function () {
         return isDevMode() && !this._isTestEnv();
     };
     /** Whether the code is running in tests. */
     MatCommonModule.prototype._isTestEnv = function () {
-        var window = this._window;
+        var window = this._getWindow();
         return window && (window.__karma__ || window.jasmine);
     };
     MatCommonModule.prototype._checkDoctypeIsDefined = function () {
         var isEnabled = this._checksAreEnabled() &&
             (this._sanityChecks === true || this._sanityChecks.doctype);
-        if (isEnabled && this._document && !this._document.doctype) {
+        var document = this._getDocument();
+        if (isEnabled && document && !document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -119,13 +131,14 @@ var MatCommonModule = /** @class */ (function () {
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
         var isDisabled = !this._checksAreEnabled() ||
             (this._sanityChecks === false || !this._sanityChecks.theme);
-        if (isDisabled || !this._document || !this._document.body ||
+        var document = this._getDocument();
+        if (isDisabled || !document || !document.body ||
             typeof getComputedStyle !== 'function') {
             return;
         }
-        var testElement = this._document.createElement('div');
+        var testElement = document.createElement('div');
         testElement.classList.add('mat-theme-loaded-marker');
-        this._document.body.appendChild(testElement);
+        document.body.appendChild(testElement);
         var computedStyle = getComputedStyle(testElement);
         // In some situations the computed style of the test element can be null. For example in
         // Firefox, the computed style is null if an application is running inside of a hidden iframe.
@@ -135,7 +148,7 @@ var MatCommonModule = /** @class */ (function () {
                 'components may not work as expected. For more info refer ' +
                 'to the theming guide: https://material.angular.io/guide/theming');
         }
-        this._document.body.removeChild(testElement);
+        document.body.removeChild(testElement);
     };
     /** Checks whether the material version matches the cdk version */
     MatCommonModule.prototype._checkCdkVersionMatch = function () {
@@ -156,7 +169,8 @@ var MatCommonModule = /** @class */ (function () {
     /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
         { type: HighContrastModeDetector },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
     ]; };
     return MatCommonModule;
 }());
