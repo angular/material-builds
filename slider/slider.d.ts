@@ -190,6 +190,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _pointerUp;
     /** Called when the window has lost focus. */
     private _windowBlur;
+    /** Use defaultView of injected document if available or fallback to global window reference */
+    private _getWindow;
     /**
      * Binds our global move and end events. They're bound at the document level and only while
      * dragging so that the user doesn't have to keep their pointer exactly over the slider

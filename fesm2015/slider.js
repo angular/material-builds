@@ -731,6 +731,15 @@ class MatSlider extends _MatSliderMixinBase {
         this._isSliding = false;
     }
     /**
+     * Use defaultView of injected document if available or fallback to global window reference
+     * @private
+     * @return {?}
+     */
+    _getWindow() {
+        var _a;
+        return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+    }
+    /**
      * Binds our global move and end events. They're bound at the document level and only while
      * dragging so that the user doesn't have to keep their pointer exactly over the slider
      * as they're swiping across the screen.
@@ -754,6 +763,8 @@ class MatSlider extends _MatSliderMixinBase {
                 body.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
             }
         }
+        /** @type {?} */
+        const window = this._getWindow();
         if (typeof window !== 'undefined' && window) {
             window.addEventListener('blur', this._windowBlur);
         }
@@ -773,6 +784,8 @@ class MatSlider extends _MatSliderMixinBase {
             body.removeEventListener('touchend', this._pointerUp, activeEventOptions);
             body.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
         }
+        /** @type {?} */
+        const window = this._getWindow();
         if (typeof window !== 'undefined' && window) {
             window.removeEventListener('blur', this._windowBlur);
         }

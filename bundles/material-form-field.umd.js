@@ -672,7 +672,7 @@
             if (this._hasFloatingLabel() && this._canLabelFloat) {
                 // If animations are disabled, we shouldn't go in here,
                 // because the `transitionend` will never fire.
-                if (this._animationsEnabled) {
+                if (this._animationsEnabled && this._label) {
                     this._showAlwaysAnimate = true;
                     rxjs.fromEvent(this._label.nativeElement, 'transitionend').pipe(operators.take(1)).subscribe(function () {
                         _this._showAlwaysAnimate = false;

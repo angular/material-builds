@@ -98,6 +98,4 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
 export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
 }
-/** Gets the shadow root of an element, if supported and the element is inside the Shadow DOM. */
-export declare function _getShadowRoot(element: HTMLElement, _document: Document): Node | null;
 export {};

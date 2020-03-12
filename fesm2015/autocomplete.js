@@ -7,7 +7,7 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { _supportsShadowDom } from '@angular/cdk/platform';
+import { _getShadowRoot } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -615,6 +615,8 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     ngAfterViewInit() {
+        /** @type {?} */
+        const window = this._getWindow();
         if (typeof window !== 'undefined') {
             this._zone.runOutsideAngular((/**
              * @return {?}
@@ -622,15 +624,7 @@ class MatAutocompleteTrigger {
             () => {
                 window.addEventListener('blur', this._windowBlurHandler);
             }));
-            if (_supportsShadowDom()) {
-                /** @type {?} */
-                const element = this._element.nativeElement;
-                /** @type {?} */
-                const rootNode = element.getRootNode ? element.getRootNode() : null;
-                // We need to take the `ShadowRoot` off of `window`, because the built-in types are
-                // incorrect. See https://github.com/Microsoft/TypeScript/issues/27929.
-                this._isInsideShadowRoot = rootNode instanceof ((/** @type {?} */ (window))).ShadowRoot;
-            }
+            this._isInsideShadowRoot = !!_getShadowRoot(this._element.nativeElement);
         }
     }
     /**
@@ -649,6 +643,8 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     ngOnDestroy() {
+        /** @type {?} */
+        const window = this._getWindow();
         if (typeof window !== 'undefined') {
             window.removeEventListener('blur', this._windowBlurHandler);
         }
@@ -1224,6 +1220,15 @@ class MatAutocompleteTrigger {
         /** @type {?} */
         const element = this._element.nativeElement;
         return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
+    }
+    /**
+     * Use defaultView of injected document if available or fallback to global window reference
+     * @private
+     * @return {?}
+     */
+    _getWindow() {
+        var _a;
+        return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
     }
 }
 MatAutocompleteTrigger.decorators = [

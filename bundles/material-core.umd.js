@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/common'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/common', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.common, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
-}(this, (function (exports, i0, a11y, bidi, cdk, coercion, rxjs, platform, platformBrowser, operators, common, animations, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/common'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', '@angular/common', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.common, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
+}(this, (function (exports, i0, a11y, bidi, cdk, common, coercion, rxjs, platform, platformBrowser, operators, animations, keycodes) { 'use strict';
 
     /**
      * @license
@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.1.2-sha-2d90b6562');
+    var VERSION = new i0.Version('9.1.2-sha-618585d9a');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.1.2-sha-2d90b6562');
+    var VERSION$1 = new i0.Version('9.1.2-sha-618585d9a');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -69,13 +69,12 @@
      * This module should be imported to each top-level component module (e.g., MatTabsModule).
      */
     var MatCommonModule = /** @class */ (function () {
-        function MatCommonModule(highContrastModeDetector, sanityChecks) {
+        function MatCommonModule(highContrastModeDetector, sanityChecks, 
+        /** @breaking-change 11.0.0 make document required */
+        document) {
             /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
             this._hasDoneGlobalChecks = false;
-            /** Reference to the global `document` object. */
-            this._document = typeof document === 'object' && document ? document : null;
-            /** Reference to the global 'window' object. */
-            this._window = typeof window === 'object' && window ? window : null;
+            this._document = document;
             // While A11yModule also does this, we repeat it here to avoid importing A11yModule
             // in MatCommonModule.
             highContrastModeDetector._applyBodyHighContrastModeCssClasses();
@@ -89,19 +88,32 @@
                 this._hasDoneGlobalChecks = true;
             }
         }
+        /** Access injected document if available or fallback to global document reference */
+        MatCommonModule.prototype._getDocument = function () {
+            var doc = this._document || document;
+            return typeof doc === 'object' && doc ? doc : null;
+        };
+        /** Use defaultView of injected document if available or fallback to global window reference */
+        MatCommonModule.prototype._getWindow = function () {
+            var _a;
+            var doc = this._getDocument();
+            var win = ((_a = doc) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+            return typeof win === 'object' && win ? win : null;
+        };
         /** Whether any sanity checks are enabled. */
         MatCommonModule.prototype._checksAreEnabled = function () {
             return i0.isDevMode() && !this._isTestEnv();
         };
         /** Whether the code is running in tests. */
         MatCommonModule.prototype._isTestEnv = function () {
-            var window = this._window;
+            var window = this._getWindow();
             return window && (window.__karma__ || window.jasmine);
         };
         MatCommonModule.prototype._checkDoctypeIsDefined = function () {
             var isEnabled = this._checksAreEnabled() &&
                 (this._sanityChecks === true || this._sanityChecks.doctype);
-            if (isEnabled && this._document && !this._document.doctype) {
+            var document = this._getDocument();
+            if (isEnabled && document && !document.doctype) {
                 console.warn('Current document does not have a doctype. This may cause ' +
                     'some Angular Material components not to behave as expected.');
             }
@@ -111,13 +123,14 @@
             // and the `body` won't be defined if the consumer put their scripts in the `head`.
             var isDisabled = !this._checksAreEnabled() ||
                 (this._sanityChecks === false || !this._sanityChecks.theme);
-            if (isDisabled || !this._document || !this._document.body ||
+            var document = this._getDocument();
+            if (isDisabled || !document || !document.body ||
                 typeof getComputedStyle !== 'function') {
                 return;
             }
-            var testElement = this._document.createElement('div');
+            var testElement = document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
-            this._document.body.appendChild(testElement);
+            document.body.appendChild(testElement);
             var computedStyle = getComputedStyle(testElement);
             // In some situations the computed style of the test element can be null. For example in
             // Firefox, the computed style is null if an application is running inside of a hidden iframe.
@@ -127,7 +140,7 @@
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
             }
-            this._document.body.removeChild(testElement);
+            document.body.removeChild(testElement);
         };
         /** Checks whether the material version matches the cdk version */
         MatCommonModule.prototype._checkCdkVersionMatch = function () {
@@ -148,7 +161,8 @@
         /** @nocollapse */
         MatCommonModule.ctorParameters = function () { return [
             { type: a11y.HighContrastModeDetector },
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [common.DOCUMENT,] }] }
         ]; };
         return MatCommonModule;
     }());
@@ -1232,19 +1246,20 @@
      * Helper that takes a query list of lines and sets the correct class on the host.
      * @docs-private
      */
-    function setLines(lines, element) {
+    function setLines(lines, element, prefix) {
+        if (prefix === void 0) { prefix = 'mat'; }
         // Note: doesn't need to unsubscribe, because `changes`
         // gets completed by Angular when the view is destroyed.
         lines.changes.pipe(operators.startWith(lines)).subscribe(function (_a) {
             var length = _a.length;
-            setClass(element, 'mat-2-line', false);
-            setClass(element, 'mat-3-line', false);
-            setClass(element, 'mat-multi-line', false);
+            setClass(element, prefix + "-2-line", false);
+            setClass(element, prefix + "-3-line", false);
+            setClass(element, prefix + "-multi-line", false);
             if (length === 2 || length === 3) {
-                setClass(element, "mat-" + length + "-line", true);
+                setClass(element, prefix + "-" + length + "-line", true);
             }
             else if (length > 3) {
-                setClass(element, "mat-multi-line", true);
+                setClass(element, prefix + "-multi-line", true);
             }
         });
     }

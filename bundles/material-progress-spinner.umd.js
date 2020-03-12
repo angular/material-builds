@@ -314,7 +314,7 @@
             // Note that we need to look up the root node in ngOnInit, rather than the constructor, because
             // Angular seems to create the element outside the shadow root and then moves it inside, if the
             // node is inside an `ngIf` and a ShadowDom-encapsulated component.
-            this._styleRoot = _getShadowRoot(element, this._document) || this._document.head;
+            this._styleRoot = platform._getShadowRoot(element) || this._document.head;
             this._attachStyleNode();
             // On IE and Edge, we can't animate the `stroke-dashoffset`
             // reliably so we fall back to a non-spec animation.
@@ -481,24 +481,6 @@
         ]; };
         return MatSpinner;
     }(MatProgressSpinner));
-    /** Gets the shadow root of an element, if supported and the element is inside the Shadow DOM. */
-    function _getShadowRoot(element, _document) {
-        // TODO(crisbeto): see whether we should move this into the CDK
-        // feature detection utilities once #15616 gets merged in.
-        if (typeof window !== 'undefined') {
-            var head = _document.head;
-            // Check whether the browser supports Shadow DOM.
-            if (head && (head.createShadowRoot || head.attachShadow)) {
-                var rootNode = element.getRootNode ? element.getRootNode() : null;
-                // We need to take the `ShadowRoot` off of `window`, because the built-in types are
-                // incorrect. See https://github.com/Microsoft/TypeScript/issues/27929.
-                if (rootNode instanceof window.ShadowRoot) {
-                    return rootNode;
-                }
-            }
-        }
-        return null;
-    }
 
     /**
      * @license

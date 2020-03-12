@@ -36,13 +36,17 @@ export interface GranularSanityChecks {
 export declare class MatCommonModule {
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;
-    /** Reference to the global `document` object. */
-    private _document;
-    /** Reference to the global 'window' object. */
-    private _window;
     /** Configured sanity checks. */
     private _sanityChecks;
-    constructor(highContrastModeDetector: HighContrastModeDetector, sanityChecks: any);
+    /** Used to reference correct document/window */
+    protected _document?: Document;
+    constructor(highContrastModeDetector: HighContrastModeDetector, sanityChecks: any, 
+    /** @breaking-change 11.0.0 make document required */
+    document?: any);
+    /** Access injected document if available or fallback to global document reference */
+    private _getDocument;
+    /** Use defaultView of injected document if available or fallback to global window reference */
+    private _getWindow;
     /** Whether any sanity checks are enabled. */
     private _checksAreEnabled;
     /** Whether the code is running in tests. */
