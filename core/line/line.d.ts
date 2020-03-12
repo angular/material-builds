@@ -17,7 +17,7 @@ export declare class MatLine {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * @docs-private
  */
-export declare function setLines(lines: QueryList<MatLine>, element: ElementRef<HTMLElement>): void;
+export declare function setLines(lines: QueryList<unknown>, element: ElementRef<HTMLElement>, prefix?: string): void;
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * @docs-private

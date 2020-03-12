@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.1.2-sha-fa96c8a8b');
+    var VERSION = new i0.Version('9.1.2-sha-dd239dd94');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.1.2-sha-fa96c8a8b');
+    var VERSION$1 = new i0.Version('9.1.2-sha-dd239dd94');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1232,19 +1232,20 @@
      * Helper that takes a query list of lines and sets the correct class on the host.
      * @docs-private
      */
-    function setLines(lines, element) {
+    function setLines(lines, element, prefix) {
+        if (prefix === void 0) { prefix = 'mat'; }
         // Note: doesn't need to unsubscribe, because `changes`
         // gets completed by Angular when the view is destroyed.
         lines.changes.pipe(operators.startWith(lines)).subscribe(function (_a) {
             var length = _a.length;
-            setClass(element, 'mat-2-line', false);
-            setClass(element, 'mat-3-line', false);
-            setClass(element, 'mat-multi-line', false);
+            setClass(element, prefix + "-2-line", false);
+            setClass(element, prefix + "-3-line", false);
+            setClass(element, prefix + "-multi-line", false);
             if (length === 2 || length === 3) {
-                setClass(element, "mat-" + length + "-line", true);
+                setClass(element, prefix + "-" + length + "-line", true);
             }
             else if (length > 3) {
-                setClass(element, "mat-multi-line", true);
+                setClass(element, prefix + "-multi-line", true);
             }
         });
     }
