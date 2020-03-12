@@ -12,7 +12,7 @@ import { _getShadowRoot } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MAT_FORM_FIELD } from '@angular/material/form-field';
 import { take, switchMap, filter, map, tap, delay } from 'rxjs/operators';
 
 /**
@@ -839,7 +839,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: ChangeDetectorRef },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
         { type: Directionality, decorators: [{ type: Optional }] },
-        { type: MatFormField, decorators: [{ type: Optional }, { type: Host }] },
+        { type: MatFormField, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD,] }, { type: Host }] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
         { type: ViewportRuler }
     ]; };

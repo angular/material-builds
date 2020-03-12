@@ -1,4 +1,4 @@
-import { __extends, __awaiter, __generator } from 'tslib';
+import { __extends, __awaiter, __generator, __read } from 'tslib';
 import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
 /**
@@ -111,6 +111,28 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
             });
         });
     };
+    /** Gets whether the snack-bar has been dismissed. */
+    MatSnackBarHarness.prototype.isDismissed = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var host, _a, exit, dimensions;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.host()];
+                    case 1:
+                        host = _b.sent();
+                        return [4 /*yield*/, Promise.all([
+                                // The snackbar container is marked with the "exit" attribute after it has been dismissed
+                                // but before the animation has finished (after which it's removed from the DOM).
+                                host.getAttribute('mat-exit'),
+                                host.getDimensions(),
+                            ])];
+                    case 2:
+                        _a = __read.apply(void 0, [_b.sent(), 2]), exit = _a[0], dimensions = _a[1];
+                        return [2 /*return*/, exit != null || (!!dimensions && dimensions.height === 0 && dimensions.width === 0)];
+                }
+            });
+        });
+    };
     /**
      * Asserts that the current snack-bar does not use custom content. Promise rejects if
      * custom content is used.
@@ -122,7 +144,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, this._isSimpleSnackBar()];
                     case 1:
                         if (!(_a.sent())) {
-                            throw new Error('Method cannot be used for snack-bar with custom content.');
+                            throw Error('Method cannot be used for snack-bar with custom content.');
                         }
                         return [2 /*return*/];
                 }
@@ -143,7 +165,7 @@ var MatSnackBarHarness = /** @class */ (function (_super) {
                         return [4 /*yield*/, this.hasAction()];
                     case 2:
                         if (!(_a.sent())) {
-                            throw new Error('Method cannot be used for standard snack-bar without action.');
+                            throw Error('Method cannot be used for standard snack-bar without action.');
                         }
                         return [2 /*return*/];
                 }

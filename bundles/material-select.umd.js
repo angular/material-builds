@@ -1391,7 +1391,7 @@
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
             { type: forms.NgForm, decorators: [{ type: core.Optional }] },
             { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
-            { type: formField.MatFormField, decorators: [{ type: core.Optional }] },
+            { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Inject, args: [formField.MAT_FORM_FIELD,] }] },
             { type: forms.NgControl, decorators: [{ type: core.Self }, { type: core.Optional }] },
             { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
             { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] },

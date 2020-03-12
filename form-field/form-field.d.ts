@@ -53,6 +53,12 @@ export interface MatFormFieldDefaultOptions {
  * default options for all form field within an app.
  */
 export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormFieldDefaultOptions>;
+/**
+ * Injection token that can be used to inject an instances of `MatFormField`. It serves
+ * as alternative token to the actual `MatFormField` class which would cause unnecessary
+ * retention of the `MatFormField` class and its component metadata.
+ */
+export declare const MAT_FORM_FIELD: InjectionToken<MatFormField>;
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
     _elementRef: ElementRef;

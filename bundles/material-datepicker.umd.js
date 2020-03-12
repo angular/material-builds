@@ -2332,7 +2332,7 @@
             { type: i0.ElementRef },
             { type: core.DateAdapter, decorators: [{ type: i0.Optional }] },
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [core.MAT_DATE_FORMATS,] }] },
-            { type: formField.MatFormField, decorators: [{ type: i0.Optional }] }
+            { type: formField.MatFormField, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [formField.MAT_FORM_FIELD,] }] }
         ]; };
         MatDatepickerInput.propDecorators = {
             matDatepicker: [{ type: i0.Input }],

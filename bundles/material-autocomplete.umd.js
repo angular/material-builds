@@ -1025,7 +1025,7 @@
             { type: core.ChangeDetectorRef },
             { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Host }] },
+            { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Inject, args: [formField.MAT_FORM_FIELD,] }, { type: core.Host }] },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
             { type: scrolling.ViewportRuler }
         ]; };

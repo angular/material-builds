@@ -72,6 +72,21 @@ class MatSnackBarHarness extends ComponentHarness {
             return (yield this._simpleSnackBarMessage()).text();
         });
     }
+    /** Gets whether the snack-bar has been dismissed. */
+    isDismissed() {
+        return __awaiter(this, void 0, void 0, function* () {
+            // We consider the snackbar dismissed if it's not in the DOM. We can assert that the
+            // element isn't in the DOM by seeing that its width and height are zero.
+            const host = yield this.host();
+            const [exit, dimensions] = yield Promise.all([
+                // The snackbar container is marked with the "exit" attribute after it has been dismissed
+                // but before the animation has finished (after which it's removed from the DOM).
+                host.getAttribute('mat-exit'),
+                host.getDimensions(),
+            ]);
+            return exit != null || (!!dimensions && dimensions.height === 0 && dimensions.width === 0);
+        });
+    }
     /**
      * Asserts that the current snack-bar does not use custom content. Promise rejects if
      * custom content is used.
@@ -79,7 +94,7 @@ class MatSnackBarHarness extends ComponentHarness {
     _assertSimpleSnackBar() {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(yield this._isSimpleSnackBar())) {
-                throw new Error('Method cannot be used for snack-bar with custom content.');
+                throw Error('Method cannot be used for snack-bar with custom content.');
             }
         });
     }
@@ -91,7 +106,7 @@ class MatSnackBarHarness extends ComponentHarness {
         return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBar();
             if (!(yield this.hasAction())) {
-                throw new Error('Method cannot be used for standard snack-bar without action.');
+                throw Error('Method cannot be used for standard snack-bar without action.');
             }
         });
     }

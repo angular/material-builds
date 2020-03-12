@@ -14,7 +14,7 @@ import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MAT_FORM_FIELD } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 
 /**
@@ -2148,7 +2148,7 @@ var MatDatepickerInput = /** @class */ (function () {
         { type: ElementRef },
         { type: DateAdapter, decorators: [{ type: Optional }] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
-        { type: MatFormField, decorators: [{ type: Optional }] }
+        { type: MatFormField, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD,] }] }
     ]; };
     MatDatepickerInput.propDecorators = {
         matDatepicker: [{ type: Input }],

@@ -1,8 +1,8 @@
 import { Overlay, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Directive, EventEmitter, isDevMode, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, ElementRef, Optional, Self, Attribute, Inject, ViewChild, ContentChildren, Input, ContentChild, Output, NgModule } from '@angular/core';
+import { InjectionToken, Directive, EventEmitter, isDevMode, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, ElementRef, Optional, Inject, Self, Attribute, ViewChild, ContentChildren, Input, ContentChild, Output, NgModule } from '@angular/core';
 import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, ErrorStateMatcher, MatOption, MatOptgroup, MatOptionModule, MatCommonModule } from '@angular/material/core';
-import { MatFormFieldControl, MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormField, MAT_FORM_FIELD, MatFormFieldModule } from '@angular/material/form-field';
 import { __extends, __spread } from 'tslib';
 import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -1205,7 +1205,7 @@ var MatSelect = /** @class */ (function (_super) {
         { type: Directionality, decorators: [{ type: Optional }] },
         { type: NgForm, decorators: [{ type: Optional }] },
         { type: FormGroupDirective, decorators: [{ type: Optional }] },
-        { type: MatFormField, decorators: [{ type: Optional }] },
+        { type: MatFormField, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD,] }] },
         { type: NgControl, decorators: [{ type: Self }, { type: Optional }] },
         { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] },

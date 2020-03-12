@@ -44,6 +44,8 @@ export declare class MatSnackBarHarness extends ComponentHarness {
      * Gets the message of the snack-bar. Method cannot be used for snack-bar's with custom content.
      */
     getMessage(): Promise<string>;
+    /** Gets whether the snack-bar has been dismissed. */
+    isDismissed(): Promise<boolean>;
     /**
      * Asserts that the current snack-bar does not use custom content. Promise rejects if
      * custom content is used.
