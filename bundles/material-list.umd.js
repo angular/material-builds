@@ -898,7 +898,7 @@
                         manager.onKeydown(event);
                     }
             }
-            if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
+            if (this.multiple && (keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
                 manager.activeItemIndex !== previousFocusIndex) {
                 this._toggleFocusedOption();
             }

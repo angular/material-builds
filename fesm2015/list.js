@@ -1023,7 +1023,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                     manager.onKeydown(event);
                 }
         }
-        if ((keyCode === UP_ARROW || keyCode === DOWN_ARROW) && event.shiftKey &&
+        if (this.multiple && (keyCode === UP_ARROW || keyCode === DOWN_ARROW) && event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex) {
             this._toggleFocusedOption();
         }
