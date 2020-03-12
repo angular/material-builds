@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.1.2-sha-fa96c8a8b');
+const VERSION = new Version('9.1.2-sha-76c3fb6db');
 
 /**
  * @fileoverview added by tsickle
@@ -80,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.1.2-sha-fa96c8a8b');
+const VERSION$1 = new Version('9.1.2-sha-76c3fb6db');
 /**
  * \@docs-private
  * @return {?}
@@ -1846,9 +1846,10 @@ MatLine.decorators = [
  * \@docs-private
  * @param {?} lines
  * @param {?} element
+ * @param {?=} prefix
  * @return {?}
  */
-function setLines(lines, element) {
+function setLines(lines, element, prefix = 'mat') {
     // Note: doesn't need to unsubscribe, because `changes`
     // gets completed by Angular when the view is destroyed.
     lines.changes.pipe(startWith(lines)).subscribe((/**
@@ -1856,14 +1857,14 @@ function setLines(lines, element) {
      * @return {?}
      */
     ({ length }) => {
-        setClass(element, 'mat-2-line', false);
-        setClass(element, 'mat-3-line', false);
-        setClass(element, 'mat-multi-line', false);
+        setClass(element, `${prefix}-2-line`, false);
+        setClass(element, `${prefix}-3-line`, false);
+        setClass(element, `${prefix}-multi-line`, false);
         if (length === 2 || length === 3) {
-            setClass(element, `mat-${length}-line`, true);
+            setClass(element, `${prefix}-${length}-line`, true);
         }
         else if (length > 3) {
-            setClass(element, `mat-multi-line`, true);
+            setClass(element, `${prefix}-multi-line`, true);
         }
     }));
 }

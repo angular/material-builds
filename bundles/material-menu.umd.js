@@ -1170,6 +1170,7 @@
             var menu = this.menu;
             this._closingActionsSubscription.unsubscribe();
             this._overlayRef.detach();
+            this._restoreFocus();
             if (menu instanceof MatMenu) {
                 menu._resetAnimation();
                 if (menu.lazyContent) {
@@ -1194,7 +1195,6 @@
                     menu.lazyContent.detach();
                 }
             }
-            this._restoreFocus();
         };
         /**
          * This method sets the menu state to open and focuses the first item if
