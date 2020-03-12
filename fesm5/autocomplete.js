@@ -8,7 +8,7 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { _supportsShadowDom } from '@angular/cdk/platform';
+import { _getShadowRoot } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -359,13 +359,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._zone.runOutsideAngular(function () {
                 window.addEventListener('blur', _this._windowBlurHandler);
             });
-            if (_supportsShadowDom()) {
-                var element = this._element.nativeElement;
-                var rootNode = element.getRootNode ? element.getRootNode() : null;
-                // We need to take the `ShadowRoot` off of `window`, because the built-in types are
-                // incorrect. See https://github.com/Microsoft/TypeScript/issues/27929.
-                this._isInsideShadowRoot = rootNode instanceof window.ShadowRoot;
-            }
+            this._isInsideShadowRoot = !!_getShadowRoot(this._element.nativeElement);
         }
     };
     MatAutocompleteTrigger.prototype.ngOnChanges = function (changes) {
