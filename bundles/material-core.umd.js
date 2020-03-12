@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('9.1.2-sha-e3d205121');
+    var VERSION = new i0.Version('9.1.2-sha-b4d28385e');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('9.1.2-sha-e3d205121');
+    var VERSION$1 = new i0.Version('9.1.2-sha-b4d28385e');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -95,9 +95,8 @@
         };
         /** Use defaultView of injected document if available or fallback to global window reference */
         MatCommonModule.prototype._getWindow = function () {
-            var _a;
             var doc = this._getDocument();
-            var win = ((_a = doc) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+            var win = (doc === null || doc === void 0 ? void 0 : doc.defaultView) || window;
             return typeof win === 'object' && win ? win : null;
         };
         /** Whether any sanity checks are enabled. */
