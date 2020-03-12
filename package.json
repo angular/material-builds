@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "9.1.2-sha-807498dbb",
+  "version": "9.1.2-sha-fe298350c",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "fesm5": "./fesm5/material.js",
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/angular/components#readme",
   "peerDependencies": {
     "@angular/animations": "^9.0.0 || ^10.0.0-0",
-    "@angular/cdk": "9.1.2-sha-807498dbb",
+    "@angular/cdk": "9.1.2-sha-fe298350c",
     "@angular/core": "^9.0.0 || ^10.0.0-0",
     "@angular/common": "^9.0.0 || ^10.0.0-0",
     "@angular/forms": "^9.0.0 || ^10.0.0-0",
