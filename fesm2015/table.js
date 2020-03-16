@@ -254,7 +254,7 @@ MatRowDef.decorators = [
             },] }
 ];
 /**
- * Footer template container that contains the cell outlet. Adds the right class and role.
+ * Header template container that contains the cell outlet. Adds the right class and role.
  */
 class MatHeaderRow extends CdkHeaderRow {
 }

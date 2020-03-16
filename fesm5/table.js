@@ -260,7 +260,7 @@ var MatRowDef = /** @class */ (function (_super) {
     ];
     return MatRowDef;
 }(CdkRowDef));
-/** Footer template container that contains the cell outlet. Adds the right class and role. */
+/** Header template container that contains the cell outlet. Adds the right class and role. */
 var MatHeaderRow = /** @class */ (function (_super) {
     __extends(MatHeaderRow, _super);
     function MatHeaderRow() {
