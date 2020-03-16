@@ -25,7 +25,7 @@ import * as i0 from "@angular/core";
 import * as i1 from "@angular/cdk/overlay";
 import * as i2 from "@angular/cdk/a11y";
 import * as i3 from "@angular/cdk/layout";
-import * as i4 from "angular_material/src/material/snack-bar/snack-bar-module";
+import * as i4 from "./snack-bar-module";
 /**
  * Injection token that can be used to specify default snack bar.
  * @type {?}

@@ -19,7 +19,7 @@ import { MatBottomSheetRef } from './bottom-sheet-ref';
 import * as i0 from "@angular/core";
 import * as i1 from "@angular/cdk/overlay";
 import * as i2 from "@angular/common";
-import * as i3 from "angular_material/src/material/bottom-sheet/bottom-sheet-module";
+import * as i3 from "./bottom-sheet-module";
 /** Injection token that can be used to specify default bottom sheet options. */
 export var MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-default-options');
 /**
