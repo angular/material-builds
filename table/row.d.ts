@@ -28,7 +28,7 @@ export declare class MatFooterRowDef extends CdkFooterRowDef {
  */
 export declare class MatRowDef<T> extends CdkRowDef<T> {
 }
-/** Footer template container that contains the cell outlet. Adds the right class and role. */
+/** Header template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatHeaderRow extends CdkHeaderRow {
 }
 /** Footer template container that contains the cell outlet. Adds the right class and role. */
