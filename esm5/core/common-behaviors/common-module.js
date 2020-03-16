@@ -14,7 +14,7 @@ import { DOCUMENT } from '@angular/common';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION = new Version('9.1.2-sha-d3eda5575');
+var VERSION = new Version('9.1.3-sha-c88780fa9');
 /** @docs-private */
 export function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
