@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
 import { __extends, __read } from 'tslib';
-import { CDK_TABLE_TEMPLATE, CdkTable, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkFooterRow, CdkRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { CDK_TABLE_TEMPLATE, CdkTable, CDK_TABLE, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkFooterRow, CdkRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
@@ -32,7 +32,10 @@ var MatTable = /** @class */ (function (_super) {
                     host: {
                         'class': 'mat-table',
                     },
-                    providers: [{ provide: CdkTable, useExisting: MatTable }],
+                    providers: [
+                        { provide: CdkTable, useExisting: MatTable },
+                        { provide: CDK_TABLE, useExisting: MatTable }
+                    ],
                     encapsulation: ViewEncapsulation.None,
                     // See note on CdkTable for explanation on why this uses the default change detection strategy.
                     // tslint:disable-next-line:validate-decorators
