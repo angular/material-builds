@@ -160,7 +160,7 @@ export declare abstract class DateAdapter<D> {
      * @param obj The object to check
      * @returns Whether the object is a date instance.
      */
-    abstract isDateInstance(obj: any): boolean;
+    abstract isDateInstance(obj: any): obj is D;
     /**
      * Checks whether the given date is valid.
      * @param date The date to check.
