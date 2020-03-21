@@ -820,7 +820,7 @@
                     }
                     finally { if (e_1) throw e_1.error; }
                 }
-                startWidth = labelStart - containerStart - outlineGapPadding;
+                startWidth = Math.abs(labelStart - containerStart) - outlineGapPadding;
                 gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
             }
             for (var i = 0; i < startEls.length; i++) {

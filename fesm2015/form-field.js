@@ -899,7 +899,7 @@ class MatFormField extends _MatFormFieldMixinBase {
             for (const child of labelEl.children) {
                 labelWidth += child.offsetWidth;
             }
-            startWidth = labelStart - containerStart - outlineGapPadding;
+            startWidth = Math.abs(labelStart - containerStart) - outlineGapPadding;
             gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
         }
         for (let i = 0; i < startEls.length; i++) {
