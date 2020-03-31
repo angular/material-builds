@@ -458,10 +458,11 @@ var MatBottomSheet = /** @class */ (function () {
     };
     /**
      * Dismisses the currently-visible bottom sheet.
+     * @param result Data to pass to the bottom sheet instance.
      */
-    MatBottomSheet.prototype.dismiss = function () {
+    MatBottomSheet.prototype.dismiss = function (result) {
         if (this._openedBottomSheetRef) {
-            this._openedBottomSheetRef.dismiss();
+            this._openedBottomSheetRef.dismiss(result);
         }
     };
     MatBottomSheet.prototype.ngOnDestroy = function () {

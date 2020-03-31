@@ -818,11 +818,13 @@ class MatBottomSheet {
     }
     /**
      * Dismisses the currently-visible bottom sheet.
+     * @template R
+     * @param {?=} result Data to pass to the bottom sheet instance.
      * @return {?}
      */
-    dismiss() {
+    dismiss(result) {
         if (this._openedBottomSheetRef) {
-            this._openedBottomSheetRef.dismiss();
+            this._openedBottomSheetRef.dismiss(result);
         }
     }
     /**

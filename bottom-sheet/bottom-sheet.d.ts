@@ -31,8 +31,9 @@ export declare class MatBottomSheet implements OnDestroy {
     open<T, D = any, R = any>(template: TemplateRef<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
     /**
      * Dismisses the currently-visible bottom sheet.
+     * @param result Data to pass to the bottom sheet instance.
      */
-    dismiss(): void;
+    dismiss<R = any>(result?: R): void;
     ngOnDestroy(): void;
     /**
      * Attaches the bottom sheet container component to the overlay.
