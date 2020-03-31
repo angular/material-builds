@@ -27,7 +27,7 @@
      * Note that the fallback version range does not use caret, but tilde because that is
      * the default for Angular framework dependencies in CLI projects.
      */
-    const fallbackMaterialVersionRange = `~9.2.0-sha-93f6b3020`;
+    const fallbackMaterialVersionRange = `~9.2.0-sha-a0695ca0d`;
     /**
      * Schematic factory entry-point for the `ng-add` schematic. The ng-add schematic will be
      * automatically executed if developers run `ng add @angular/material`.
