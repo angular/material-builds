@@ -2018,7 +2018,10 @@ var MatDatepickerInput = /** @class */ (function () {
                 this._disabledChange.emit(newValue);
             }
             // We need to null check the `blur` method, because it's undefined during SSR.
-            if (newValue && element.blur) {
+            // In Ivy static bindings are invoked earlier, before the element is attached to the DOM.
+            // This can cause an error to be thrown in some browsers (IE/Edge) which assert that the
+            // element has been inserted.
+            if (newValue && this._isInitialized && element.blur) {
                 // Normally, native input elements automatically blur if they turn disabled. This behavior
                 // is problematic, because it would mean that it triggers another change detection cycle,
                 // which then causes a changed after checked error if the input element was focused before.
@@ -2028,6 +2031,9 @@ var MatDatepickerInput = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    MatDatepickerInput.prototype.ngAfterViewInit = function () {
+        this._isInitialized = true;
+    };
     MatDatepickerInput.prototype.ngOnDestroy = function () {
         this._datepickerSubscription.unsubscribe();
         this._localeSubscription.unsubscribe();
