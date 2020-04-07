@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-var VERSION = new Version('9.2.0-sha-f6206ce98');
+var VERSION = new Version('9.2.0-sha-a5b29c582');
 
 /**
  * @license
@@ -60,7 +60,7 @@ var AnimationDurations = /** @class */ (function () {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-var VERSION$1 = new Version('9.2.0-sha-f6206ce98');
+var VERSION$1 = new Version('9.2.0-sha-a5b29c582');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1370,8 +1370,9 @@ function distanceToFurthestCorner(x, y, rect) {
 /** Injection token that can be used to specify the global ripple options. */
 var MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
-    function MatRipple(_elementRef, ngZone, platform, globalOptions, animationMode) {
+    function MatRipple(_elementRef, ngZone, platform, globalOptions, _animationMode) {
         this._elementRef = _elementRef;
+        this._animationMode = _animationMode;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1383,9 +1384,6 @@ var MatRipple = /** @class */ (function () {
         this._isInitialized = false;
         this._globalOptions = globalOptions || {};
         this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
-        if (animationMode === 'NoopAnimations') {
-            this._globalOptions.animation = { enterDuration: 0, exitDuration: 0 };
-        }
     }
     Object.defineProperty(MatRipple.prototype, "disabled", {
         /**
@@ -1434,7 +1432,7 @@ var MatRipple = /** @class */ (function () {
                 centered: this.centered,
                 radius: this.radius,
                 color: this.color,
-                animation: __assign(__assign({}, this._globalOptions.animation), this.animation),
+                animation: __assign(__assign(__assign({}, this._globalOptions.animation), (this._animationMode === 'NoopAnimations' ? { enterDuration: 0, exitDuration: 0 } : {})), this.animation),
                 terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
             };
         },

@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.2.0-sha-f6206ce98');
+const VERSION = new Version('9.2.0-sha-a5b29c582');
 
 /**
  * @fileoverview added by tsickle
@@ -80,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.2.0-sha-f6206ce98');
+const VERSION$1 = new Version('9.2.0-sha-a5b29c582');
 /**
  * \@docs-private
  * @return {?}
@@ -2483,10 +2483,11 @@ class MatRipple {
      * @param {?} ngZone
      * @param {?} platform
      * @param {?=} globalOptions
-     * @param {?=} animationMode
+     * @param {?=} _animationMode
      */
-    constructor(_elementRef, ngZone, platform, globalOptions, animationMode) {
+    constructor(_elementRef, ngZone, platform, globalOptions, _animationMode) {
         this._elementRef = _elementRef;
+        this._animationMode = _animationMode;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -2500,9 +2501,6 @@ class MatRipple {
         this._isInitialized = false;
         this._globalOptions = globalOptions || {};
         this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
-        if (animationMode === 'NoopAnimations') {
-            this._globalOptions.animation = { enterDuration: 0, exitDuration: 0 };
-        }
     }
     /**
      * Whether click events will not trigger the ripple. Ripples can be still launched manually
@@ -2562,7 +2560,7 @@ class MatRipple {
             centered: this.centered,
             radius: this.radius,
             color: this.color,
-            animation: Object.assign(Object.assign({}, this._globalOptions.animation), this.animation),
+            animation: Object.assign(Object.assign(Object.assign({}, this._globalOptions.animation), (this._animationMode === 'NoopAnimations' ? { enterDuration: 0, exitDuration: 0 } : {})), this.animation),
             terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
         };
     }
@@ -2691,6 +2689,11 @@ if (false) {
      * @private
      */
     MatRipple.prototype._elementRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    MatRipple.prototype._animationMode;
 }
 
 /**
