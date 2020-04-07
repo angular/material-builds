@@ -1255,7 +1255,7 @@ var MatCalendar = /** @class */ (function () {
         else {
             view = this.multiYearView;
         }
-        view.ngAfterContentInit();
+        view._init();
     };
     /** Handles date selection in the month view. */
     MatCalendar.prototype._dateSelected = function (date) {
