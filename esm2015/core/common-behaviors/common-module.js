@@ -20,7 +20,7 @@ import { DOCUMENT } from '@angular/common';
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION = new Version('9.2.0-sha-029e36329');
+const VERSION = new Version('9.2.0-sha-96fd5856f');
 /**
  * \@docs-private
  * @return {?}
