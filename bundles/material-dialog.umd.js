@@ -354,28 +354,30 @@
             this._savePreviouslyFocusedElement();
             return this._portalOutlet.attachTemplatePortal(portal);
         };
+        /** Moves focus back into the dialog if it was moved out. */
+        MatDialogContainer.prototype._recaptureFocus = function () {
+            if (!this._containsFocus()) {
+                var focusWasTrapped = this._getFocusTrap().focusInitialElement();
+                if (!focusWasTrapped) {
+                    this._elementRef.nativeElement.focus();
+                }
+            }
+        };
         /** Moves the focus inside the focus trap. */
         MatDialogContainer.prototype._trapFocus = function () {
-            var element = this._elementRef.nativeElement;
-            if (!this._focusTrap) {
-                this._focusTrap = this._focusTrapFactory.create(element);
-            }
             // If we were to attempt to focus immediately, then the content of the dialog would not yet be
             // ready in instances where change detection has to run first. To deal with this, we simply
             // wait for the microtask queue to be empty.
             if (this._config.autoFocus) {
-                this._focusTrap.focusInitialElementWhenReady();
+                this._getFocusTrap().focusInitialElementWhenReady();
             }
-            else {
-                var activeElement = this._document.activeElement;
+            else if (!this._containsFocus()) {
                 // Otherwise ensure that focus is on the dialog container. It's possible that a different
                 // component tried to move focus while the open animation was running. See:
                 // https://github.com/angular/components/issues/16215. Note that we only want to do this
                 // if the focus isn't inside the dialog already, because it's possible that the consumer
                 // turned off `autoFocus` in order to move focus themselves.
-                if (activeElement !== element && !element.contains(activeElement)) {
-                    element.focus();
-                }
+                this._elementRef.nativeElement.focus();
             }
         };
         /** Restores focus to the element that was focused before the dialog opened. */
@@ -411,6 +413,19 @@
                     Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
                 }
             }
+        };
+        /** Returns whether focus is inside the dialog. */
+        MatDialogContainer.prototype._containsFocus = function () {
+            var element = this._elementRef.nativeElement;
+            var activeElement = this._document.activeElement;
+            return element === activeElement || element.contains(activeElement);
+        };
+        /** Gets the focus trap associated with the dialog. */
+        MatDialogContainer.prototype._getFocusTrap = function () {
+            if (!this._focusTrap) {
+                this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+            }
+            return this._focusTrap;
         };
         /** Callback, invoked whenever an animation on the host completes. */
         MatDialogContainer.prototype._onAnimationDone = function (event) {
@@ -530,6 +545,14 @@
                 .subscribe(function (event) {
                 event.preventDefault();
                 _this.close();
+            });
+            _overlayRef.backdropClick().subscribe(function () {
+                if (_this.disableClose) {
+                    _this._containerInstance._recaptureFocus();
+                }
+                else {
+                    _this.close();
+                }
             });
         }
         /**
@@ -829,14 +852,6 @@
             // Create a reference to the dialog we're creating in order to give the user a handle
             // to modify and close it.
             var dialogRef = new MatDialogRef(overlayRef, dialogContainer, config.id);
-            // When the dialog backdrop is clicked, we want to close it.
-            if (config.hasBackdrop) {
-                overlayRef.backdropClick().subscribe(function () {
-                    if (!dialogRef.disableClose) {
-                        dialogRef.close();
-                    }
-                });
-            }
             if (componentOrTemplateRef instanceof core.TemplateRef) {
                 dialogContainer.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, null, { $implicit: config.data, dialogRef: dialogRef }));
             }
