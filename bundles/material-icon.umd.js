@@ -544,7 +544,7 @@
          */
         MatIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
             var _this = this;
-            return this._fetchUrl(config.url)
+            return this._fetchIcon(config)
                 .pipe(operators.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText, config.options); }));
         };
         /**
@@ -557,7 +557,7 @@
             if (config.svgElement) {
                 return rxjs.of(config.svgElement);
             }
-            return this._fetchUrl(config.url).pipe(operators.map(function (svgText) {
+            return this._fetchIcon(config).pipe(operators.map(function (svgText) {
                 // It is possible that the icon set was parsed and cached by an earlier request, so parsing
                 // only needs to occur if the cache is yet unset.
                 if (!config.svgElement) {
@@ -658,11 +658,14 @@
             return svg;
         };
         /**
-         * Returns an Observable which produces the string contents of the given URL. Results may be
+         * Returns an Observable which produces the string contents of the given icon. Results may be
          * cached, so future calls with the same URL may not cause another HTTP request.
          */
-        MatIconRegistry.prototype._fetchUrl = function (safeUrl) {
+        MatIconRegistry.prototype._fetchIcon = function (iconConfig) {
             var _this = this;
+            var _a;
+            var safeUrl = iconConfig.url, options = iconConfig.options;
+            var withCredentials = (_a = options === null || options === void 0 ? void 0 : options.withCredentials) !== null && _a !== void 0 ? _a : false;
             if (!this._httpClient) {
                 throw getMatIconNoHttpProviderError();
             }
@@ -682,7 +685,7 @@
             }
             // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
             // Observable. Figure out why and fix it.
-            var req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
+            var req = this._httpClient.get(url, { responseType: 'text', withCredentials: withCredentials }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
             this._inProgressUrlFetches.set(url, req);
             return req;
         };

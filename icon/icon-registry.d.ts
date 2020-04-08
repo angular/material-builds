@@ -37,6 +37,8 @@ export declare function getMatIconFailedToSanitizeLiteralError(literal: SafeHtml
 export interface IconOptions {
     /** View box to set on the icon. */
     viewBox?: string;
+    /** Whether or not to fetch the icon or icon set using HTTP credentials. */
+    withCredentials?: boolean;
 }
 /**
  * Service to register and display icons used by the `<mat-icon>` component.
@@ -217,10 +219,10 @@ export declare class MatIconRegistry implements OnDestroy {
      */
     private _setSvgAttributes;
     /**
-     * Returns an Observable which produces the string contents of the given URL. Results may be
+     * Returns an Observable which produces the string contents of the given icon. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
      */
-    private _fetchUrl;
+    private _fetchIcon;
     /**
      * Registers an icon config by name in the specified namespace.
      * @param namespace Namespace in which to register the icon config.

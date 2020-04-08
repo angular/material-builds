@@ -64,6 +64,11 @@ if (false) {
      * @type {?|undefined}
      */
     IconOptions.prototype.viewBox;
+    /**
+     * Whether or not to fetch the icon or icon set using HTTP credentials.
+     * @type {?|undefined}
+     */
+    IconOptions.prototype.withCredentials;
 }
 /**
  * Configuration for an icon, including the URL and possibly the cached SVG element.
@@ -488,7 +493,7 @@ class MatIconRegistry {
      * @return {?}
      */
     _loadSvgIconFromConfig(config) {
-        return this._fetchUrl(config.url)
+        return this._fetchIcon(config)
             .pipe(map((/**
          * @param {?} svgText
          * @return {?}
@@ -507,7 +512,7 @@ class MatIconRegistry {
         if (config.svgElement) {
             return of(config.svgElement);
         }
-        return this._fetchUrl(config.url).pipe(map((/**
+        return this._fetchIcon(config).pipe(map((/**
          * @param {?} svgText
          * @return {?}
          */
@@ -639,13 +644,17 @@ class MatIconRegistry {
         return svg;
     }
     /**
-     * Returns an Observable which produces the string contents of the given URL. Results may be
+     * Returns an Observable which produces the string contents of the given icon. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
      * @private
-     * @param {?} safeUrl
+     * @param {?} iconConfig
      * @return {?}
      */
-    _fetchUrl(safeUrl) {
+    _fetchIcon(iconConfig) {
+        var _a;
+        const { url: safeUrl, options } = iconConfig;
+        /** @type {?} */
+        const withCredentials = (_a = options === null || options === void 0 ? void 0 : options.withCredentials) !== null && _a !== void 0 ? _a : false;
         if (!this._httpClient) {
             throw getMatIconNoHttpProviderError();
         }
@@ -668,7 +677,7 @@ class MatIconRegistry {
         // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
         /** @type {?} */
-        const req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize((/**
+        const req = this._httpClient.get(url, { responseType: 'text', withCredentials }).pipe(finalize((/**
          * @return {?}
          */
         () => this._inProgressUrlFetches.delete(url))), share());
