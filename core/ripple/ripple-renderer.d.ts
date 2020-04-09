@@ -52,7 +52,7 @@ export declare const defaultRippleAnimationConfig: {
  * This will eventually become a custom renderer once Angular support exists.
  * @docs-private
  */
-export declare class RippleRenderer {
+export declare class RippleRenderer implements EventListenerObject {
     private _target;
     private _ngZone;
     /** Element where the ripples are being added to. */
@@ -61,14 +61,14 @@ export declare class RippleRenderer {
     private _triggerElement;
     /** Whether the pointer is currently down or not. */
     private _isPointerDown;
-    /** Events to be registered on the trigger element. */
-    private _triggerEvents;
     /** Set of currently active ripple references. */
     private _activeRipples;
     /** Latest non-persistent ripple that was triggered. */
     private _mostRecentTransientRipple;
     /** Time in milliseconds when the last touchstart event happened. */
     private _lastTouchStartEvent;
+    /** Whether pointer-up event listeners have been registered. */
+    private _pointerUpEventsRegistered;
     /**
      * Cached dimensions of the ripple container. Set when the first
      * ripple is shown and cleared once no more ripples are visible.
@@ -88,6 +88,11 @@ export declare class RippleRenderer {
     fadeOutAll(): void;
     /** Sets up the trigger event listeners */
     setupTriggerEvents(elementOrElementRef: HTMLElement | ElementRef<HTMLElement>): void;
+    /**
+     * Handles all registered events.
+     * @docs-private
+     */
+    handleEvent(event: Event): void;
     /** Function being called whenever the trigger is being pressed using mouse. */
     private _onMousedown;
     /** Function being called whenever the trigger is being pressed using touch. */
@@ -96,6 +101,8 @@ export declare class RippleRenderer {
     private _onPointerUp;
     /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
     private _runTimeoutOutsideZone;
+    /** Registers event listeners for a given list of events. */
+    private _registerEvents;
     /** Removes previously registered event listeners from the trigger element. */
     _removeTriggerEvents(): void;
 }
