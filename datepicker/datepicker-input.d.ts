@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, EventEmitter, OnDestroy } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
 import { DateAdapter, MatDateFormats, ThemePalette } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
@@ -34,11 +34,13 @@ export declare class MatDatepickerInputEvent<D> {
     targetElement: HTMLElement);
 }
 /** Directive used to connect an input to a MatDatepicker. */
-export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDestroy, Validator {
+export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator {
     private _elementRef;
     _dateAdapter: DateAdapter<D>;
     private _dateFormats;
     private _formField;
+    /** Whether the component has been initialized. */
+    private _isInitialized;
     /** The datepicker that this input is associated with. */
     set matDatepicker(value: MatDatepicker<D>);
     _datepicker: MatDatepicker<D>;
@@ -87,6 +89,7 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     /** Whether the last value set on the input was valid. */
     private _lastValueValid;
     constructor(_elementRef: ElementRef<HTMLInputElement>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _formField: MatFormField);
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** @docs-private */
     registerOnValidatorChange(fn: () => void): void;

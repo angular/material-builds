@@ -1146,34 +1146,33 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _setStrategyPositions(positionStrategy) {
+        // Note that we provide horizontal fallback positions, even though by default the dropdown
+        // width matches the input, because consumers can override the width. See #18854.
         /** @type {?} */
-        const belowPosition = {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top'
-        };
+        const belowPositions = [
+            { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
+            { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' }
+        ];
+        // The overlay edge connected to the trigger should have squared corners, while
+        // the opposite end has rounded corners. We apply a CSS class to swap the
+        // border-radius based on the overlay position.
         /** @type {?} */
-        const abovePosition = {
-            originX: 'start',
-            originY: 'top',
-            overlayX: 'start',
-            overlayY: 'bottom',
-            // The overlay edge connected to the trigger should have squared corners, while
-            // the opposite end has rounded corners. We apply a CSS class to swap the
-            // border-radius based on the overlay position.
-            panelClass: 'mat-autocomplete-panel-above'
-        };
+        const panelClass = 'mat-autocomplete-panel-above';
+        /** @type {?} */
+        const abovePositions = [
+            { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', panelClass },
+            { originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'bottom', panelClass }
+        ];
         /** @type {?} */
         let positions;
         if (this.position === 'above') {
-            positions = [abovePosition];
+            positions = abovePositions;
         }
         else if (this.position === 'below') {
-            positions = [belowPosition];
+            positions = belowPositions;
         }
         else {
-            positions = [belowPosition, abovePosition];
+            positions = [...belowPositions, ...abovePositions];
         }
         positionStrategy.withPositions(positions);
     }

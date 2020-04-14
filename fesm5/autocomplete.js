@@ -749,31 +749,29 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     };
     /** Sets the positions on a position strategy based on the directive's input state. */
     MatAutocompleteTrigger.prototype._setStrategyPositions = function (positionStrategy) {
-        var belowPosition = {
-            originX: 'start',
-            originY: 'bottom',
-            overlayX: 'start',
-            overlayY: 'top'
-        };
-        var abovePosition = {
-            originX: 'start',
-            originY: 'top',
-            overlayX: 'start',
-            overlayY: 'bottom',
-            // The overlay edge connected to the trigger should have squared corners, while
-            // the opposite end has rounded corners. We apply a CSS class to swap the
-            // border-radius based on the overlay position.
-            panelClass: 'mat-autocomplete-panel-above'
-        };
+        // Note that we provide horizontal fallback positions, even though by default the dropdown
+        // width matches the input, because consumers can override the width. See #18854.
+        var belowPositions = [
+            { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
+            { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' }
+        ];
+        // The overlay edge connected to the trigger should have squared corners, while
+        // the opposite end has rounded corners. We apply a CSS class to swap the
+        // border-radius based on the overlay position.
+        var panelClass = 'mat-autocomplete-panel-above';
+        var abovePositions = [
+            { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', panelClass: panelClass },
+            { originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'bottom', panelClass: panelClass }
+        ];
         var positions;
         if (this.position === 'above') {
-            positions = [abovePosition];
+            positions = abovePositions;
         }
         else if (this.position === 'below') {
-            positions = [belowPosition];
+            positions = belowPositions;
         }
         else {
-            positions = [belowPosition, abovePosition];
+            positions = __spread(belowPositions, abovePositions);
         }
         positionStrategy.withPositions(positions);
     };
