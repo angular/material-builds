@@ -1310,7 +1310,7 @@ var MatMenuModule = /** @class */ (function () {
                         OverlayModule,
                         _MatMenuDirectivesModule,
                     ],
-                    exports: [_MatMenu, MatMenuItem, _MatMenuDirectivesModule],
+                    exports: [MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
                     declarations: [_MatMenu, MatMenuItem],
                     providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                 },] }

@@ -458,7 +458,7 @@
                             a11y.A11yModule,
                             core$1.MatCommonModule
                         ],
-                        exports: [MatBadge],
+                        exports: [MatBadge, core$1.MatCommonModule],
                         declarations: [MatBadge],
                     },] }
         ];

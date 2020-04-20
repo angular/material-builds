@@ -483,7 +483,7 @@
         MatTreeModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [tree.CdkTreeModule, core$1.MatCommonModule],
-                        exports: MAT_TREE_DIRECTIVES,
+                        exports: [core$1.MatCommonModule, MAT_TREE_DIRECTIVES],
                         declarations: MAT_TREE_DIRECTIVES,
                     },] }
         ];

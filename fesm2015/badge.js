@@ -421,7 +421,7 @@ MatBadgeModule.decorators = [
                     A11yModule,
                     MatCommonModule
                 ],
-                exports: [MatBadge],
+                exports: [MatBadge, MatCommonModule],
                 declarations: [MatBadge],
             },] }
 ];
