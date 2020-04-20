@@ -891,7 +891,8 @@
                     // The "A" key gets special treatment, because it's used for the "select all" functionality.
                     if (keyCode === keycodes.A && this.multiple && keycodes.hasModifierKey(event, 'ctrlKey') &&
                         !manager.isTyping()) {
-                        this.options.find(function (option) { return !option.selected; }) ? this.selectAll() : this.deselectAll();
+                        var shouldSelect = this.options.some(function (option) { return !option.disabled && !option.selected; });
+                        this._setAllOptionsSelected(shouldSelect, true);
                         event.preventDefault();
                     }
                     else {
@@ -988,12 +989,12 @@
          * Sets the selected state on all of the options
          * and emits an event if anything changed.
          */
-        MatSelectionList.prototype._setAllOptionsSelected = function (isSelected) {
+        MatSelectionList.prototype._setAllOptionsSelected = function (isSelected, skipDisabled) {
             // Keep track of whether anything changed, because we only want to
             // emit the changed event when something actually changed.
             var hasChanged = false;
             this.options.forEach(function (option) {
-                if (option._setSelected(isSelected)) {
+                if ((!skipDisabled || !option.disabled) && option._setSelected(isSelected)) {
                     hasChanged = true;
                 }
             });

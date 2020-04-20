@@ -1012,11 +1012,13 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 // The "A" key gets special treatment, because it's used for the "select all" functionality.
                 if (keyCode === A && this.multiple && hasModifierKey(event, 'ctrlKey') &&
                     !manager.isTyping()) {
-                    this.options.find((/**
+                    /** @type {?} */
+                    const shouldSelect = this.options.some((/**
                      * @param {?} option
                      * @return {?}
                      */
-                    option => !option.selected)) ? this.selectAll() : this.deselectAll();
+                    option => !option.disabled && !option.selected));
+                    this._setAllOptionsSelected(shouldSelect, true);
                     event.preventDefault();
                 }
                 else {
@@ -1175,9 +1177,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * and emits an event if anything changed.
      * @private
      * @param {?} isSelected
+     * @param {?=} skipDisabled
      * @return {?}
      */
-    _setAllOptionsSelected(isSelected) {
+    _setAllOptionsSelected(isSelected, skipDisabled) {
         // Keep track of whether anything changed, because we only want to
         // emit the changed event when something actually changed.
         /** @type {?} */
@@ -1187,7 +1190,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
          * @return {?}
          */
         option => {
-            if (option._setSelected(isSelected)) {
+            if ((!skipDisabled || !option.disabled) && option._setSelected(isSelected)) {
                 hasChanged = true;
             }
         }));
