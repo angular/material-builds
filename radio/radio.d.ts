@@ -147,9 +147,10 @@ declare class MatRadioButtonBase {
 }
 declare const _MatRadioButtonMixinBase: CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;
 /**
- * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
+ * Base class with all of the `MatRadioButton` functionality.
+ * @docs-private
  */
-export declare class MatRadioButton extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanDisableRipple, HasTabIndex {
+export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanDisableRipple, HasTabIndex {
     protected _changeDetector: ChangeDetectorRef;
     private _focusMonitor;
     private _radioDispatcher;
@@ -235,5 +236,10 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_required: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+}
+/**
+ * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
+ */
+export declare class MatRadioButton extends _MatRadioButtonBase {
 }
 export {};

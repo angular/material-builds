@@ -1,5 +1,5 @@
 import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
-import { Directive, Input, InjectionToken, ElementRef, Optional, Self, Inject, NgZone, NgModule } from '@angular/core';
+import { Directive, Input, InjectionToken, ElementRef, Optional, Self, Inject, NgZone, HostListener, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
@@ -414,17 +414,28 @@ class MatInput extends _MatInputMixinBase {
     focus(options) {
         this._elementRef.nativeElement.focus(options);
     }
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritten.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     /**
      * Callback for the cases where the focused state of the input changes.
      * @param {?} isFocused
      * @return {?}
      */
+    // tslint:disable:no-host-decorator-in-concrete
+    // tslint:enable:no-host-decorator-in-concrete
     _focusChanged(isFocused) {
         if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
             this.focused = isFocused;
             this.stateChanges.next();
         }
     }
+    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+    // ViewEngine they're overwritten.
+    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+    // tslint:disable-next-line:no-host-decorator-in-concrete
     /**
      * @return {?}
      */
@@ -562,9 +573,6 @@ MatInput.decorators = [
                     '[attr.aria-describedby]': '_ariaDescribedby || null',
                     '[attr.aria-invalid]': 'errorState',
                     '[attr.aria-required]': 'required.toString()',
-                    '(blur)': '_focusChanged(false)',
-                    '(focus)': '_focusChanged(true)',
-                    '(input)': '_onInput()',
                 },
                 providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
             },] }
@@ -589,7 +597,9 @@ MatInput.propDecorators = {
     type: [{ type: Input }],
     errorStateMatcher: [{ type: Input }],
     value: [{ type: Input }],
-    readonly: [{ type: Input }]
+    readonly: [{ type: Input }],
+    _focusChanged: [{ type: HostListener, args: ['focus', ['true'],] }, { type: HostListener, args: ['blur', ['false'],] }],
+    _onInput: [{ type: HostListener, args: ['input',] }]
 };
 if (false) {
     /** @type {?} */

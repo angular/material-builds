@@ -521,13 +521,24 @@
         MatInput.prototype.focus = function (options) {
             this._elementRef.nativeElement.focus(options);
         };
+        // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+        // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+        // ViewEngine they're overwritten.
+        // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
         /** Callback for the cases where the focused state of the input changes. */
+        // tslint:disable:no-host-decorator-in-concrete
+        // tslint:enable:no-host-decorator-in-concrete
         MatInput.prototype._focusChanged = function (isFocused) {
             if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
                 this.focused = isFocused;
                 this.stateChanges.next();
             }
         };
+        // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
+        // In Ivy the `host` bindings will be merged when this class is extended, whereas in
+        // ViewEngine they're overwritten.
+        // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
+        // tslint:disable-next-line:no-host-decorator-in-concrete
         MatInput.prototype._onInput = function () {
             // This is a noop function and is used to let Angular know whenever the value changes.
             // Angular will run a new change detection each time the `input` event has been dispatched.
@@ -640,9 +651,6 @@
                             '[attr.aria-describedby]': '_ariaDescribedby || null',
                             '[attr.aria-invalid]': 'errorState',
                             '[attr.aria-required]': 'required.toString()',
-                            '(blur)': '_focusChanged(false)',
-                            '(focus)': '_focusChanged(true)',
-                            '(input)': '_onInput()',
                         },
                         providers: [{ provide: formField.MatFormFieldControl, useExisting: MatInput }],
                     },] }
@@ -667,7 +675,9 @@
             type: [{ type: core.Input }],
             errorStateMatcher: [{ type: core.Input }],
             value: [{ type: core.Input }],
-            readonly: [{ type: core.Input }]
+            readonly: [{ type: core.Input }],
+            _focusChanged: [{ type: core.HostListener, args: ['focus', ['true'],] }, { type: core.HostListener, args: ['blur', ['false'],] }],
+            _onInput: [{ type: core.HostListener, args: ['input',] }]
         };
         return MatInput;
     }(_MatInputMixinBase));

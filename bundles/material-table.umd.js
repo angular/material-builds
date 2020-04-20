@@ -606,7 +606,7 @@
                             table.CdkTableModule,
                             core$1.MatCommonModule,
                         ],
-                        exports: EXPORTED_DECLARATIONS,
+                        exports: [core$1.MatCommonModule, EXPORTED_DECLARATIONS],
                         declarations: EXPORTED_DECLARATIONS,
                     },] }
         ];

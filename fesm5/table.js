@@ -411,7 +411,7 @@ var MatTableModule = /** @class */ (function () {
                         CdkTableModule,
                         MatCommonModule,
                     ],
-                    exports: EXPORTED_DECLARATIONS,
+                    exports: [MatCommonModule, EXPORTED_DECLARATIONS],
                     declarations: EXPORTED_DECLARATIONS,
                 },] }
     ];
