@@ -684,7 +684,7 @@ class MatDialogRef {
          */
         () => {
             clearTimeout(this._closeFallbackTimeout);
-            this._overlayRef.dispose();
+            this._finishDialogClose();
         }));
         _overlayRef.detachments().subscribe((/**
          * @return {?}
@@ -745,7 +745,6 @@ class MatDialogRef {
         event => {
             this._beforeClosed.next(dialogResult);
             this._beforeClosed.complete();
-            this._state = 2 /* CLOSED */;
             this._overlayRef.detachBackdrop();
             // The logic that disposes of the overlay depends on the exit animation completing, however
             // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
@@ -755,9 +754,7 @@ class MatDialogRef {
             this._closeFallbackTimeout = setTimeout((/**
              * @return {?}
              */
-            () => {
-                this._overlayRef.dispose();
-            }), event.totalTime + 100);
+            () => this._finishDialogClose()), event.totalTime + 100);
         }));
         this._containerInstance._startExitAnimation();
         this._state = 1 /* CLOSING */;
@@ -863,6 +860,16 @@ class MatDialogRef {
      */
     getState() {
         return this._state;
+    }
+    /**
+     * Finishes the dialog close by updating the state of the dialog
+     * and disposing the overlay.
+     * @private
+     * @return {?}
+     */
+    _finishDialogClose() {
+        this._state = 2 /* CLOSED */;
+        this._overlayRef.dispose();
     }
     /**
      * Fetches the position strategy object from the overlay ref.

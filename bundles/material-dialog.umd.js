@@ -528,7 +528,7 @@
             // Dispose overlay when closing animation is complete
             _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), operators.take(1)).subscribe(function () {
                 clearTimeout(_this._closeFallbackTimeout);
-                _this._overlayRef.dispose();
+                _this._finishDialogClose();
             });
             _overlayRef.detachments().subscribe(function () {
                 _this._beforeClosed.next(_this._result);
@@ -567,16 +567,13 @@
                 .subscribe(function (event) {
                 _this._beforeClosed.next(dialogResult);
                 _this._beforeClosed.complete();
-                _this._state = 2 /* CLOSED */;
                 _this._overlayRef.detachBackdrop();
                 // The logic that disposes of the overlay depends on the exit animation completing, however
                 // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
                 // timeout which will clean everything up if the animation hasn't fired within the specified
                 // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
                 // vast majority of cases the timeout will have been cleared before it has the chance to fire.
-                _this._closeFallbackTimeout = setTimeout(function () {
-                    _this._overlayRef.dispose();
-                }, event.totalTime + 100);
+                _this._closeFallbackTimeout = setTimeout(function () { return _this._finishDialogClose(); }, event.totalTime + 100);
             });
             this._containerInstance._startExitAnimation();
             this._state = 1 /* CLOSING */;
@@ -657,6 +654,14 @@
         /** Gets the current state of the dialog's lifecycle. */
         MatDialogRef.prototype.getState = function () {
             return this._state;
+        };
+        /**
+         * Finishes the dialog close by updating the state of the dialog
+         * and disposing the overlay.
+         */
+        MatDialogRef.prototype._finishDialogClose = function () {
+            this._state = 2 /* CLOSED */;
+            this._overlayRef.dispose();
         };
         /** Fetches the position strategy object from the overlay ref. */
         MatDialogRef.prototype._getPositionStrategy = function () {

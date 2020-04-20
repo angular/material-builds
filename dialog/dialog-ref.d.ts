@@ -81,6 +81,11 @@ export declare class MatDialogRef<T, R = any> {
     removePanelClass(classes: string | string[]): this;
     /** Gets the current state of the dialog's lifecycle. */
     getState(): MatDialogState;
+    /**
+     * Finishes the dialog close by updating the state of the dialog
+     * and disposing the overlay.
+     */
+    private _finishDialogClose;
     /** Fetches the position strategy object from the overlay ref. */
     private _getPositionStrategy;
 }
