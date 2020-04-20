@@ -1,4 +1,4 @@
-import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Output, ContentChildren, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, ElementRef, Inject, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Output, ContentChildren, Input, Optional, ElementRef, Inject, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { mixinDisableRipple, mixinTabIndex, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -481,9 +481,12 @@ if (false) {
 /** @type {?} */
 const _MatRadioButtonMixinBase = mixinDisableRipple(mixinTabIndex(MatRadioButtonBase));
 /**
- * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
+ * Base class with all of the `MatRadioButton` functionality.
+ * \@docs-private
+ * @abstract
  */
-class MatRadioButton extends _MatRadioButtonMixinBase {
+// tslint:disable-next-line:class-name
+class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
     /**
      * @param {?} radioGroup
      * @param {?} elementRef
@@ -770,6 +773,158 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
         }
     }
 }
+_MatRadioButtonBase.decorators = [
+    { type: Directive }
+];
+/** @nocollapse */
+_MatRadioButtonBase.ctorParameters = () => [
+    { type: MatRadioGroup, decorators: [{ type: Optional }] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: FocusMonitor },
+    { type: UniqueSelectionDispatcher },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
+];
+_MatRadioButtonBase.propDecorators = {
+    id: [{ type: Input }],
+    name: [{ type: Input }],
+    ariaLabel: [{ type: Input, args: ['aria-label',] }],
+    ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+    ariaDescribedby: [{ type: Input, args: ['aria-describedby',] }],
+    checked: [{ type: Input }],
+    value: [{ type: Input }],
+    labelPosition: [{ type: Input }],
+    disabled: [{ type: Input }],
+    required: [{ type: Input }],
+    color: [{ type: Input }],
+    change: [{ type: Output }],
+    _inputElement: [{ type: ViewChild, args: ['input',] }]
+};
+if (false) {
+    /** @type {?} */
+    _MatRadioButtonBase.ngAcceptInputType_checked;
+    /** @type {?} */
+    _MatRadioButtonBase.ngAcceptInputType_disabled;
+    /** @type {?} */
+    _MatRadioButtonBase.ngAcceptInputType_required;
+    /** @type {?} */
+    _MatRadioButtonBase.ngAcceptInputType_disableRipple;
+    /**
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._uniqueId;
+    /**
+     * The unique ID for the radio button.
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype.id;
+    /**
+     * Analog to HTML 'name' attribute used to group radios for unique selection.
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype.name;
+    /**
+     * Used to set the 'aria-label' attribute on the underlying input element.
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype.ariaLabel;
+    /**
+     * The 'aria-labelledby' attribute takes precedence as the element's text alternative.
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype.ariaLabelledby;
+    /**
+     * The 'aria-describedby' attribute is read after the element's label and field type.
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype.ariaDescribedby;
+    /**
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._labelPosition;
+    /**
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._color;
+    /**
+     * Event emitted when the checked state of this radio button changes.
+     * Change events are only emitted when the value changes due to user interaction with
+     * the radio button (the same behavior as `<input type-"radio">`).
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype.change;
+    /**
+     * The parent radio group. May or may not be present.
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype.radioGroup;
+    /**
+     * Whether this radio is checked.
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._checked;
+    /**
+     * Whether this radio is disabled.
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._disabled;
+    /**
+     * Whether this radio is required.
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._required;
+    /**
+     * Value assigned to this radio.
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._value;
+    /**
+     * Unregister function for _radioDispatcher
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._removeUniqueSelectionListener;
+    /**
+     * The native `<input type=radio>` element
+     * @type {?}
+     */
+    _MatRadioButtonBase.prototype._inputElement;
+    /**
+     * @type {?}
+     * @protected
+     */
+    _MatRadioButtonBase.prototype._changeDetector;
+    /**
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._focusMonitor;
+    /**
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._radioDispatcher;
+    /** @type {?} */
+    _MatRadioButtonBase.prototype._animationMode;
+    /**
+     * @type {?}
+     * @private
+     */
+    _MatRadioButtonBase.prototype._providerOverride;
+}
+/**
+ * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
+ */
+class MatRadioButton extends _MatRadioButtonBase {
+}
 MatRadioButton.decorators = [
     { type: Component, args: [{
                 selector: 'mat-radio-button',
@@ -800,150 +955,6 @@ MatRadioButton.decorators = [
                 styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent;outline:0}.mat-radio-label{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle;width:100%}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(0.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(0.5)}.cdk-high-contrast-active .mat-radio-checked .mat-radio-inner-circle{border:solid 10px}.mat-radio-label-content{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto;display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button:not(.mat-radio-disabled).cdk-keyboard-focused .mat-radio-persistent-ripple,.mat-radio-button:not(.mat-radio-disabled).cdk-program-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-persistent-ripple,.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple{opacity:0}@media(hover: none){.mat-radio-container:hover .mat-radio-persistent-ripple{display:none}}.mat-radio-input{bottom:0;left:50%}.cdk-high-contrast-active .mat-radio-disabled{opacity:.5}\n"]
             }] }
 ];
-/** @nocollapse */
-MatRadioButton.ctorParameters = () => [
-    { type: MatRadioGroup, decorators: [{ type: Optional }] },
-    { type: ElementRef },
-    { type: ChangeDetectorRef },
-    { type: FocusMonitor },
-    { type: UniqueSelectionDispatcher },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
-];
-MatRadioButton.propDecorators = {
-    id: [{ type: Input }],
-    name: [{ type: Input }],
-    ariaLabel: [{ type: Input, args: ['aria-label',] }],
-    ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
-    ariaDescribedby: [{ type: Input, args: ['aria-describedby',] }],
-    checked: [{ type: Input }],
-    value: [{ type: Input }],
-    labelPosition: [{ type: Input }],
-    disabled: [{ type: Input }],
-    required: [{ type: Input }],
-    color: [{ type: Input }],
-    change: [{ type: Output }],
-    _inputElement: [{ type: ViewChild, args: ['input',] }]
-};
-if (false) {
-    /** @type {?} */
-    MatRadioButton.ngAcceptInputType_checked;
-    /** @type {?} */
-    MatRadioButton.ngAcceptInputType_disabled;
-    /** @type {?} */
-    MatRadioButton.ngAcceptInputType_required;
-    /** @type {?} */
-    MatRadioButton.ngAcceptInputType_disableRipple;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._uniqueId;
-    /**
-     * The unique ID for the radio button.
-     * @type {?}
-     */
-    MatRadioButton.prototype.id;
-    /**
-     * Analog to HTML 'name' attribute used to group radios for unique selection.
-     * @type {?}
-     */
-    MatRadioButton.prototype.name;
-    /**
-     * Used to set the 'aria-label' attribute on the underlying input element.
-     * @type {?}
-     */
-    MatRadioButton.prototype.ariaLabel;
-    /**
-     * The 'aria-labelledby' attribute takes precedence as the element's text alternative.
-     * @type {?}
-     */
-    MatRadioButton.prototype.ariaLabelledby;
-    /**
-     * The 'aria-describedby' attribute is read after the element's label and field type.
-     * @type {?}
-     */
-    MatRadioButton.prototype.ariaDescribedby;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._labelPosition;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._color;
-    /**
-     * Event emitted when the checked state of this radio button changes.
-     * Change events are only emitted when the value changes due to user interaction with
-     * the radio button (the same behavior as `<input type-"radio">`).
-     * @type {?}
-     */
-    MatRadioButton.prototype.change;
-    /**
-     * The parent radio group. May or may not be present.
-     * @type {?}
-     */
-    MatRadioButton.prototype.radioGroup;
-    /**
-     * Whether this radio is checked.
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._checked;
-    /**
-     * Whether this radio is disabled.
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._disabled;
-    /**
-     * Whether this radio is required.
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._required;
-    /**
-     * Value assigned to this radio.
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._value;
-    /**
-     * Unregister function for _radioDispatcher
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._removeUniqueSelectionListener;
-    /**
-     * The native `<input type=radio>` element
-     * @type {?}
-     */
-    MatRadioButton.prototype._inputElement;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatRadioButton.prototype._changeDetector;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._focusMonitor;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._radioDispatcher;
-    /** @type {?} */
-    MatRadioButton.prototype._animationMode;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatRadioButton.prototype._providerOverride;
-}
 
 /**
  * @fileoverview added by tsickle
@@ -970,5 +981,5 @@ MatRadioModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule };
+export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule, _MatRadioButtonBase };
 //# sourceMappingURL=radio.js.map
