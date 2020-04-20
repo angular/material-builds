@@ -530,6 +530,20 @@
         ];
         return MatRow;
     }(table.CdkRow));
+    /** Row that can be used to display a message when no data is shown in the table. */
+    var MatNoDataRow = /** @class */ (function (_super) {
+        __extends(MatNoDataRow, _super);
+        function MatNoDataRow() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        MatNoDataRow.decorators = [
+            { type: core.Directive, args: [{
+                        selector: 'ng-template[matNoDataRow]',
+                        providers: [{ provide: table.CdkNoDataRow, useExisting: MatNoDataRow }],
+                    },] }
+        ];
+        return MatNoDataRow;
+    }(table.CdkNoDataRow));
 
     /**
      * @license
@@ -595,6 +609,7 @@
         MatHeaderRow,
         MatRow,
         MatFooterRow,
+        MatNoDataRow,
         MatTextColumn,
     ];
     var MatTableModule = /** @class */ (function () {
@@ -936,6 +951,7 @@
     exports.MatHeaderCellDef = MatHeaderCellDef;
     exports.MatHeaderRow = MatHeaderRow;
     exports.MatHeaderRowDef = MatHeaderRowDef;
+    exports.MatNoDataRow = MatNoDataRow;
     exports.MatRow = MatRow;
     exports.MatRowDef = MatRowDef;
     exports.MatTable = MatTable;

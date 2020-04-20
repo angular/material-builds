@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef } from '@angular/cdk/table';
+import { CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkNoDataRow } from '@angular/cdk/table';
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -36,4 +36,7 @@ export declare class MatFooterRow extends CdkFooterRow {
 }
 /** Data row template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatRow extends CdkRow {
+}
+/** Row that can be used to display a message when no data is shown in the table. */
+export declare class MatNoDataRow extends CdkNoDataRow {
 }

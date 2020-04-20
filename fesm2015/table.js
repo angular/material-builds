@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
-import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
@@ -319,6 +319,17 @@ MatRow.decorators = [
                 providers: [{ provide: CdkRow, useExisting: MatRow }]
             }] }
 ];
+/**
+ * Row that can be used to display a message when no data is shown in the table.
+ */
+class MatNoDataRow extends CdkNoDataRow {
+}
+MatNoDataRow.decorators = [
+    { type: Directive, args: [{
+                selector: 'ng-template[matNoDataRow]',
+                providers: [{ provide: CdkNoDataRow, useExisting: MatNoDataRow }],
+            },] }
+];
 
 /**
  * @fileoverview added by tsickle
@@ -386,6 +397,7 @@ const EXPORTED_DECLARATIONS = [
     MatHeaderRow,
     MatRow,
     MatFooterRow,
+    MatNoDataRow,
     MatTextColumn,
 ];
 class MatTableModule {
@@ -872,5 +884,5 @@ if (false) {
  * Generated bundle index. Do not edit.
  */
 
-export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn };
+export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn };
 //# sourceMappingURL=table.js.map

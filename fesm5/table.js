@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
 import { __extends, __read } from 'tslib';
-import { CDK_TABLE_TEMPLATE, CdkTable, CDK_TABLE, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkFooterRow, CdkRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { CDK_TABLE_TEMPLATE, CdkTable, CDK_TABLE, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
@@ -335,6 +335,20 @@ var MatRow = /** @class */ (function (_super) {
     ];
     return MatRow;
 }(CdkRow));
+/** Row that can be used to display a message when no data is shown in the table. */
+var MatNoDataRow = /** @class */ (function (_super) {
+    __extends(MatNoDataRow, _super);
+    function MatNoDataRow() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MatNoDataRow.decorators = [
+        { type: Directive, args: [{
+                    selector: 'ng-template[matNoDataRow]',
+                    providers: [{ provide: CdkNoDataRow, useExisting: MatNoDataRow }],
+                },] }
+    ];
+    return MatNoDataRow;
+}(CdkNoDataRow));
 
 /**
  * @license
@@ -400,6 +414,7 @@ var EXPORTED_DECLARATIONS = [
     MatHeaderRow,
     MatRow,
     MatFooterRow,
+    MatNoDataRow,
     MatTextColumn,
 ];
 var MatTableModule = /** @class */ (function () {
@@ -730,5 +745,5 @@ var MatTableDataSource = /** @class */ (function (_super) {
  * Generated bundle index. Do not edit.
  */
 
-export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn };
+export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn };
 //# sourceMappingURL=table.js.map
