@@ -10,15 +10,12 @@ import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/tes
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Selector for the autocomplete panel. */
-var PANEL_SELECTOR = '.mat-autocomplete-panel';
 /** Harness for interacting with a standard mat-autocomplete in tests. */
 var MatAutocompleteHarness = /** @class */ (function (_super) {
     __extends(MatAutocompleteHarness, _super);
     function MatAutocompleteHarness() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._documentRootLocator = _this.documentRootLocatorFactory();
-        _this._optionalPanel = _this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
         return _this;
     }
     /**
@@ -96,8 +93,17 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
     MatAutocompleteHarness.prototype.getOptions = function (filters) {
         if (filters === void 0) { filters = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatOptionHarness.with(__assign(__assign({}, filters), { ancestor: PANEL_SELECTOR })))()];
+            var _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        _b = (_a = this._documentRootLocator).locatorForAll;
+                        _d = (_c = MatOptionHarness).with;
+                        _e = [__assign({}, filters)];
+                        _f = {};
+                        return [4 /*yield*/, this._getPanelSelector()];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_d.apply(_c, [__assign.apply(void 0, _e.concat([(_f.ancestor = _g.sent(), _f)]))])])()];
+                }
             });
         });
     };
@@ -105,8 +111,17 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
     MatAutocompleteHarness.prototype.getOptionGroups = function (filters) {
         if (filters === void 0) { filters = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(__assign(__assign({}, filters), { ancestor: PANEL_SELECTOR })))()];
+            var _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        _b = (_a = this._documentRootLocator).locatorForAll;
+                        _d = (_c = MatOptgroupHarness).with;
+                        _e = [__assign({}, filters)];
+                        _f = {};
+                        return [4 /*yield*/, this._getPanelSelector()];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_d.apply(_c, [__assign.apply(void 0, _e.concat([(_f.ancestor = _g.sent(), _f)]))])])()];
+                }
             });
         });
     };
@@ -139,7 +154,7 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
             var panel, _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this._optionalPanel()];
+                    case 0: return [4 /*yield*/, this._getPanel()];
                     case 1:
                         panel = _b.sent();
                         _a = !!panel;
@@ -149,6 +164,38 @@ var MatAutocompleteHarness = /** @class */ (function (_super) {
                         _a = (_b.sent());
                         _b.label = 3;
                     case 3: return [2 /*return*/, _a];
+                }
+            });
+        });
+    };
+    /** Gets the panel associated with this autocomplete trigger. */
+    MatAutocompleteHarness.prototype._getPanel = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = this._documentRootLocator).locatorForOptional;
+                        return [4 /*yield*/, this._getPanelSelector()];
+                    case 1: 
+                    // Technically this is static, but it needs to be in a
+                    // function, because the autocomplete's panel ID can changed.
+                    return [2 /*return*/, _b.apply(_a, [_c.sent()])()];
+                }
+            });
+        });
+    };
+    /** Gets the selector that can be used to find the autocomplete trigger's panel. */
+    MatAutocompleteHarness.prototype._getPanelSelector = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = "#";
+                        return [4 /*yield*/, this.host()];
+                    case 1: return [4 /*yield*/, (_b.sent()).getAttribute('aria-owns')];
+                    case 2: return [2 /*return*/, _a + (_b.sent())];
                 }
             });
         });
