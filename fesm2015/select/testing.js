@@ -10,14 +10,12 @@ import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/tes
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const PANEL_SELECTOR = '.mat-select-panel';
 /** Harness for interacting with a standard mat-select in tests. */
 class MatSelectHarness extends MatFormFieldControlHarness {
     constructor() {
         super(...arguments);
         this._documentRootLocator = this.documentRootLocatorFactory();
         this._backdrop = this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
-        this._optionalPanel = this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
         this._trigger = this.locatorFor('.mat-select-trigger');
         this._value = this.locatorFor('.mat-select-value');
     }
@@ -82,19 +80,19 @@ class MatSelectHarness extends MatFormFieldControlHarness {
     /** Gets the options inside the select panel. */
     getOptions(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatOptionHarness.with(Object.assign(Object.assign({}, filter), { ancestor: PANEL_SELECTOR })))();
+            return this._documentRootLocator.locatorForAll(MatOptionHarness.with(Object.assign(Object.assign({}, filter), { ancestor: yield this._getPanelSelector() })))();
         });
     }
     /** Gets the groups of options inside the panel. */
     getOptionGroups(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(Object.assign(Object.assign({}, filter), { ancestor: PANEL_SELECTOR })))();
+            return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(Object.assign(Object.assign({}, filter), { ancestor: yield this._getPanelSelector() })))();
         });
     }
     /** Gets whether the select is open. */
     isOpen() {
         return __awaiter(this, void 0, void 0, function* () {
-            return !!(yield this._optionalPanel());
+            return !!(yield this._documentRootLocator.locatorForOptional(yield this._getPanelSelector())());
         });
     }
     /** Opens the select's panel. */
@@ -133,6 +131,13 @@ class MatSelectHarness extends MatFormFieldControlHarness {
                 // a bit more precise after #16645 where we can dispatch an ESCAPE press to the host instead.
                 return (yield this._backdrop()).click();
             }
+        });
+    }
+    /** Gets the selector that should be used to find this select's panel. */
+    _getPanelSelector() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = yield (yield this.host()).getAttribute('id');
+            return `#${id}-panel`;
         });
     }
 }

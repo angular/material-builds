@@ -10,7 +10,6 @@ import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/tes
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var PANEL_SELECTOR = '.mat-select-panel';
 /** Harness for interacting with a standard mat-select in tests. */
 var MatSelectHarness = /** @class */ (function (_super) {
     __extends(MatSelectHarness, _super);
@@ -18,7 +17,6 @@ var MatSelectHarness = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._documentRootLocator = _this.documentRootLocatorFactory();
         _this._backdrop = _this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
-        _this._optionalPanel = _this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
         _this._trigger = _this.locatorFor('.mat-select-trigger');
         _this._value = _this.locatorFor('.mat-select-value');
         return _this;
@@ -130,8 +128,17 @@ var MatSelectHarness = /** @class */ (function (_super) {
     MatSelectHarness.prototype.getOptions = function (filter) {
         if (filter === void 0) { filter = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatOptionHarness.with(__assign(__assign({}, filter), { ancestor: PANEL_SELECTOR })))()];
+            var _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        _b = (_a = this._documentRootLocator).locatorForAll;
+                        _d = (_c = MatOptionHarness).with;
+                        _e = [__assign({}, filter)];
+                        _f = {};
+                        return [4 /*yield*/, this._getPanelSelector()];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_d.apply(_c, [__assign.apply(void 0, _e.concat([(_f.ancestor = _g.sent(), _f)]))])])()];
+                }
             });
         });
     };
@@ -139,18 +146,31 @@ var MatSelectHarness = /** @class */ (function (_super) {
     MatSelectHarness.prototype.getOptionGroups = function (filter) {
         if (filter === void 0) { filter = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(__assign(__assign({}, filter), { ancestor: PANEL_SELECTOR })))()];
+            var _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        _b = (_a = this._documentRootLocator).locatorForAll;
+                        _d = (_c = MatOptgroupHarness).with;
+                        _e = [__assign({}, filter)];
+                        _f = {};
+                        return [4 /*yield*/, this._getPanelSelector()];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_d.apply(_c, [__assign.apply(void 0, _e.concat([(_f.ancestor = _g.sent(), _f)]))])])()];
+                }
             });
         });
     };
     /** Gets whether the select is open. */
     MatSelectHarness.prototype.isOpen = function () {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this._optionalPanel()];
-                    case 1: return [2 /*return*/, !!(_a.sent())];
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = this._documentRootLocator).locatorForOptional;
+                        return [4 /*yield*/, this._getPanelSelector()];
+                    case 1: return [4 /*yield*/, _b.apply(_a, [_c.sent()])()];
+                    case 2: return [2 /*return*/, !!(_c.sent())];
                 }
             });
         });
@@ -218,6 +238,21 @@ var MatSelectHarness = /** @class */ (function (_super) {
                     // a bit more precise after #16645 where we can dispatch an ESCAPE press to the host instead.
                     return [2 /*return*/, (_a.sent()).click()];
                     case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /** Gets the selector that should be used to find this select's panel. */
+    MatSelectHarness.prototype._getPanelSelector = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var id;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.host()];
+                    case 1: return [4 /*yield*/, (_a.sent()).getAttribute('id')];
+                    case 2:
+                        id = _a.sent();
+                        return [2 /*return*/, "#" + id + "-panel"];
                 }
             });
         });

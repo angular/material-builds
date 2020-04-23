@@ -13,7 +13,6 @@ import { SelectHarnessFilters } from './select-harness-filters';
 export declare class MatSelectHarness extends MatFormFieldControlHarness {
     private _documentRootLocator;
     private _backdrop;
-    private _optionalPanel;
     private _trigger;
     private _value;
     static hostSelector: string;
@@ -55,4 +54,6 @@ export declare class MatSelectHarness extends MatFormFieldControlHarness {
     clickOptions(filter?: OptionHarnessFilters): Promise<void>;
     /** Closes the select's panel. */
     close(): Promise<void>;
+    /** Gets the selector that should be used to find this select's panel. */
+    private _getPanelSelector;
 }
