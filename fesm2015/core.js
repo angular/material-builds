@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('9.2.1-sha-403a3d1ca');
+const VERSION = new Version('9.2.1-sha-9104a0b2e');
 
 /**
  * @fileoverview added by tsickle
@@ -80,7 +80,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('9.2.1-sha-403a3d1ca');
+const VERSION$1 = new Version('9.2.1-sha-9104a0b2e');
 /**
  * \@docs-private
  * @return {?}

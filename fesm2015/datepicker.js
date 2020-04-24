@@ -2605,6 +2605,14 @@ class MatDatepicker {
         this.startView = 'month';
         this._touchUi = false;
         /**
+         * Preferred position of the datepicker in the X axis.
+         */
+        this.xPosition = 'start';
+        /**
+         * Preferred position of the datepicker in the Y axis.
+         */
+        this.yPosition = 'below';
+        /**
          * Emits selected year in multiyear view.
          * This doesn't imply a change on the selected date.
          */
@@ -2752,6 +2760,20 @@ class MatDatepicker {
      */
     get _dateFilter() {
         return this._datepickerInput && this._datepickerInput._dateFilter;
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        /** @type {?} */
+        const positionChange = changes['xPosition'] || changes['yPosition'];
+        if (positionChange && !positionChange.firstChange && this._popupRef) {
+            this._setConnectedPositions((/** @type {?} */ (this._popupRef.getConfig().positionStrategy)));
+            if (this.opened) {
+                this._popupRef.updatePosition();
+            }
+        }
     }
     /**
      * @return {?}
@@ -2947,8 +2969,15 @@ class MatDatepicker {
      */
     _createPopup() {
         /** @type {?} */
+        const positionStrategy = this._overlay.position()
+            .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
+            .withTransformOriginOn('.mat-datepicker-content')
+            .withFlexibleDimensions(false)
+            .withViewportMargin(8)
+            .withLockedPosition();
+        /** @type {?} */
         const overlayConfig = new OverlayConfig({
-            positionStrategy: this._createPopupPositionStrategy(),
+            positionStrategy: this._setConnectedPositions(positionStrategy),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
             direction: this._dir,
@@ -2988,41 +3017,44 @@ class MatDatepicker {
         }
     }
     /**
-     * Create the popup PositionStrategy.
+     * Sets the positions of the datepicker in dropdown mode based on the current configuration.
      * @private
+     * @param {?} strategy
      * @return {?}
      */
-    _createPopupPositionStrategy() {
-        return this._overlay.position()
-            .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
-            .withTransformOriginOn('.mat-datepicker-content')
-            .withFlexibleDimensions(false)
-            .withViewportMargin(8)
-            .withLockedPosition()
-            .withPositions([
+    _setConnectedPositions(strategy) {
+        /** @type {?} */
+        const primaryX = this.xPosition === 'end' ? 'end' : 'start';
+        /** @type {?} */
+        const secondaryX = primaryX === 'start' ? 'end' : 'start';
+        /** @type {?} */
+        const primaryY = this.yPosition === 'above' ? 'bottom' : 'top';
+        /** @type {?} */
+        const secondaryY = primaryY === 'top' ? 'bottom' : 'top';
+        return strategy.withPositions([
             {
-                originX: 'start',
-                originY: 'bottom',
-                overlayX: 'start',
-                overlayY: 'top'
+                originX: primaryX,
+                originY: secondaryY,
+                overlayX: primaryX,
+                overlayY: primaryY
             },
             {
-                originX: 'start',
-                originY: 'top',
-                overlayX: 'start',
-                overlayY: 'bottom'
+                originX: primaryX,
+                originY: primaryY,
+                overlayX: primaryX,
+                overlayY: secondaryY
             },
             {
-                originX: 'end',
-                originY: 'bottom',
-                overlayX: 'end',
-                overlayY: 'top'
+                originX: secondaryX,
+                originY: secondaryY,
+                overlayX: secondaryX,
+                overlayY: primaryY
             },
             {
-                originX: 'end',
-                originY: 'top',
-                overlayX: 'end',
-                overlayY: 'bottom'
+                originX: secondaryX,
+                originY: primaryY,
+                overlayX: secondaryX,
+                overlayY: secondaryY
             }
         ]);
     }
@@ -3062,6 +3094,8 @@ MatDatepicker.propDecorators = {
     color: [{ type: Input }],
     touchUi: [{ type: Input }],
     disabled: [{ type: Input }],
+    xPosition: [{ type: Input }],
+    yPosition: [{ type: Input }],
     yearSelected: [{ type: Output }],
     monthSelected: [{ type: Output }],
     panelClass: [{ type: Input }],
@@ -3107,6 +3141,16 @@ if (false) {
      * @private
      */
     MatDatepicker.prototype._disabled;
+    /**
+     * Preferred position of the datepicker in the X axis.
+     * @type {?}
+     */
+    MatDatepicker.prototype.xPosition;
+    /**
+     * Preferred position of the datepicker in the Y axis.
+     * @type {?}
+     */
+    MatDatepicker.prototype.yPosition;
     /**
      * Emits selected year in multiyear view.
      * This doesn't imply a change on the selected date.

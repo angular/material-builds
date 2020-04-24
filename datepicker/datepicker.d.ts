@@ -9,7 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
@@ -26,6 +26,10 @@ export declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     deps: (typeof Overlay)[];
     useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 };
+/** Possible positions for the datepicker dropdown along the X axis. */
+export declare type DatepickerDropdownPositionX = 'start' | 'end';
+/** Possible positions for the datepicker dropdown along the Y axis. */
+export declare type DatepickerDropdownPositionY = 'above' | 'below';
 /** @docs-private */
 declare class MatDatepickerContentBase {
     _elementRef: ElementRef;
@@ -66,7 +70,7 @@ export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinB
     _startExitAnimation(): void;
 }
 /** Component responsible for managing the datepicker popup/dialog. */
-export declare class MatDatepicker<D> implements OnDestroy, CanColor {
+export declare class MatDatepicker<D> implements OnDestroy, CanColor, OnChanges {
     private _dialog;
     private _overlay;
     private _ngZone;
@@ -98,6 +102,10 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     get disabled(): boolean;
     set disabled(value: boolean);
     private _disabled;
+    /** Preferred position of the datepicker in the X axis. */
+    xPosition: DatepickerDropdownPositionX;
+    /** Preferred position of the datepicker in the Y axis. */
+    yPosition: DatepickerDropdownPositionY;
     /**
      * Emits selected year in multiyear view.
      * This doesn't imply a change on the selected date.
@@ -148,6 +156,7 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     /** Emits new selected date when selected date changes. */
     readonly _selectedChanged: Subject<D>;
     constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Selects the given date */
     select(date: D): void;
@@ -172,8 +181,8 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     private _createPopup;
     /** Destroys the current popup overlay. */
     private _destroyPopup;
-    /** Create the popup PositionStrategy. */
-    private _createPopupPositionStrategy;
+    /** Sets the positions of the datepicker in dropdown mode based on the current configuration. */
+    private _setConnectedPositions;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

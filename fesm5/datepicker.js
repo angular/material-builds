@@ -1477,6 +1477,10 @@ var MatDatepicker = /** @class */ (function () {
         /** The view that the calendar should start in. */
         this.startView = 'month';
         this._touchUi = false;
+        /** Preferred position of the datepicker in the X axis. */
+        this.xPosition = 'start';
+        /** Preferred position of the datepicker in the Y axis. */
+        this.yPosition = 'below';
         /**
          * Emits selected year in multiyear view.
          * This doesn't imply a change on the selected date.
@@ -1598,6 +1602,15 @@ var MatDatepicker = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    MatDatepicker.prototype.ngOnChanges = function (changes) {
+        var positionChange = changes['xPosition'] || changes['yPosition'];
+        if (positionChange && !positionChange.firstChange && this._popupRef) {
+            this._setConnectedPositions(this._popupRef.getConfig().positionStrategy);
+            if (this.opened) {
+                this._popupRef.updatePosition();
+            }
+        }
+    };
     MatDatepicker.prototype.ngOnDestroy = function () {
         this._destroyPopup();
         this.close();
@@ -1741,8 +1754,14 @@ var MatDatepicker = /** @class */ (function () {
     /** Create the popup. */
     MatDatepicker.prototype._createPopup = function () {
         var _this = this;
+        var positionStrategy = this._overlay.position()
+            .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
+            .withTransformOriginOn('.mat-datepicker-content')
+            .withFlexibleDimensions(false)
+            .withViewportMargin(8)
+            .withLockedPosition();
         var overlayConfig = new OverlayConfig({
-            positionStrategy: this._createPopupPositionStrategy(),
+            positionStrategy: this._setConnectedPositions(positionStrategy),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
             direction: this._dir,
@@ -1769,38 +1788,36 @@ var MatDatepicker = /** @class */ (function () {
             this._popupRef = this._popupComponentRef = null;
         }
     };
-    /** Create the popup PositionStrategy. */
-    MatDatepicker.prototype._createPopupPositionStrategy = function () {
-        return this._overlay.position()
-            .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
-            .withTransformOriginOn('.mat-datepicker-content')
-            .withFlexibleDimensions(false)
-            .withViewportMargin(8)
-            .withLockedPosition()
-            .withPositions([
+    /** Sets the positions of the datepicker in dropdown mode based on the current configuration. */
+    MatDatepicker.prototype._setConnectedPositions = function (strategy) {
+        var primaryX = this.xPosition === 'end' ? 'end' : 'start';
+        var secondaryX = primaryX === 'start' ? 'end' : 'start';
+        var primaryY = this.yPosition === 'above' ? 'bottom' : 'top';
+        var secondaryY = primaryY === 'top' ? 'bottom' : 'top';
+        return strategy.withPositions([
             {
-                originX: 'start',
-                originY: 'bottom',
-                overlayX: 'start',
-                overlayY: 'top'
+                originX: primaryX,
+                originY: secondaryY,
+                overlayX: primaryX,
+                overlayY: primaryY
             },
             {
-                originX: 'start',
-                originY: 'top',
-                overlayX: 'start',
-                overlayY: 'bottom'
+                originX: primaryX,
+                originY: primaryY,
+                overlayX: primaryX,
+                overlayY: secondaryY
             },
             {
-                originX: 'end',
-                originY: 'bottom',
-                overlayX: 'end',
-                overlayY: 'top'
+                originX: secondaryX,
+                originY: secondaryY,
+                overlayX: secondaryX,
+                overlayY: primaryY
             },
             {
-                originX: 'end',
-                originY: 'top',
-                overlayX: 'end',
-                overlayY: 'bottom'
+                originX: secondaryX,
+                originY: primaryY,
+                overlayX: secondaryX,
+                overlayY: secondaryY
             }
         ]);
     };
@@ -1838,6 +1855,8 @@ var MatDatepicker = /** @class */ (function () {
         color: [{ type: Input }],
         touchUi: [{ type: Input }],
         disabled: [{ type: Input }],
+        xPosition: [{ type: Input }],
+        yPosition: [{ type: Input }],
         yearSelected: [{ type: Output }],
         monthSelected: [{ type: Output }],
         panelClass: [{ type: Input }],
