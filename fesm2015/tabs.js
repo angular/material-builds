@@ -1739,8 +1739,7 @@ class MatPaginatedTabHeader {
          * @return {?}
          */
         () => {
-            // We need to defer this to give the browser some time to recalculate the element dimensions.
-            Promise.resolve().then(realign);
+            realign();
             this._keyManager.withHorizontalOrientation(this._getLayoutDirection());
         }));
         // If there is a change in the focus key manager we need to emit the `indexFocused`

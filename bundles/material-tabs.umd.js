@@ -1234,8 +1234,7 @@
             // On dir change or window resize, realign the ink bar and update the orientation of
             // the key manager if the direction has changed.
             rxjs.merge(dirChange, resize, this._items.changes).pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
-                // We need to defer this to give the browser some time to recalculate the element dimensions.
-                Promise.resolve().then(realign);
+                realign();
                 _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
             });
             // If there is a change in the focus key manager we need to emit the `indexFocused`
