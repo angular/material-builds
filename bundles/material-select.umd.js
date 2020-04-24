@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/material/form-field'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/material/form-field', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}), global.ng.cdk.overlay, global.ng.common, global.ng.core, global.ng.material.core, global.ng.material.formField, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.cdk.keycodes, global.ng.cdk.scrolling, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.animations));
-}(this, (function (exports, overlay, common, core, core$1, formField, a11y, bidi, coercion, collections, keycodes, scrolling, forms, rxjs, operators, animations) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/material/form-field'), require('@angular/cdk/scrolling'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/material/form-field', '@angular/cdk/scrolling', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}), global.ng.cdk.overlay, global.ng.common, global.ng.core, global.ng.material.core, global.ng.material.formField, global.ng.cdk.scrolling, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.collections, global.ng.cdk.keycodes, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.animations));
+}(this, (function (exports, overlay, common, core, core$1, formField, scrolling, a11y, bidi, coercion, collections, keycodes, forms, rxjs, operators, animations) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1447,7 +1447,14 @@
                             core$1.MatOptionModule,
                             core$1.MatCommonModule,
                         ],
-                        exports: [formField.MatFormFieldModule, MatSelect, MatSelectTrigger, core$1.MatOptionModule, core$1.MatCommonModule],
+                        exports: [
+                            scrolling.CdkScrollableModule,
+                            formField.MatFormFieldModule,
+                            MatSelect,
+                            MatSelectTrigger,
+                            core$1.MatOptionModule,
+                            core$1.MatCommonModule
+                        ],
                         declarations: [MatSelect, MatSelectTrigger],
                         providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
                     },] }

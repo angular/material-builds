@@ -3,6 +3,7 @@ import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, ViewContainerRef, NgZone, Inject, Optional, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
+import { ScrollDispatcher, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { __assign } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -10,7 +11,6 @@ import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
@@ -679,7 +679,7 @@ var MatTooltipModule = /** @class */ (function () {
                         OverlayModule,
                         MatCommonModule,
                     ],
-                    exports: [MatTooltip, TooltipComponent, MatCommonModule],
+                    exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule],
                     declarations: [MatTooltip, TooltipComponent],
                     entryComponents: [TooltipComponent],
                     providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]

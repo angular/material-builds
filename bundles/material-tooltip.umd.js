@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/scrolling', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}), global.ng.cdk.overlay, global.ng.cdk.a11y, global.ng.common, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.cdk.layout, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.cdk.scrolling, global.rxjs, global.rxjs.operators, global.ng.animations));
-}(this, (function (exports, overlay, a11y, common, core, core$1, bidi, coercion, keycodes, layout, platform, portal, scrolling, rxjs, operators, animations) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs'), require('rxjs/operators'), require('@angular/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs', 'rxjs/operators', '@angular/animations'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}), global.ng.cdk.overlay, global.ng.cdk.a11y, global.ng.common, global.ng.core, global.ng.material.core, global.ng.cdk.scrolling, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.cdk.layout, global.ng.cdk.platform, global.ng.cdk.portal, global.rxjs, global.rxjs.operators, global.ng.animations));
+}(this, (function (exports, overlay, a11y, common, core, core$1, scrolling, bidi, coercion, keycodes, layout, platform, portal, rxjs, operators, animations) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -865,7 +865,7 @@
                             overlay.OverlayModule,
                             core$1.MatCommonModule,
                         ],
-                        exports: [MatTooltip, TooltipComponent, core$1.MatCommonModule],
+                        exports: [MatTooltip, TooltipComponent, core$1.MatCommonModule, scrolling.CdkScrollableModule],
                         declarations: [MatTooltip, TooltipComponent],
                         entryComponents: [TooltipComponent],
                         providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]

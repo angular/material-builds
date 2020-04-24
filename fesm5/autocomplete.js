@@ -6,11 +6,11 @@ import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Directionality } from '@angular/cdk/bidi';
 import { ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { _getShadowRoot } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField, MAT_FORM_FIELD } from '@angular/material/form-field';
 import { take, switchMap, filter, map, tap, delay } from 'rxjs/operators';
@@ -865,6 +865,7 @@ var MatAutocompleteModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
                     exports: [
+                        CdkScrollableModule,
                         MatAutocomplete,
                         MatOptionModule,
                         MatAutocompleteTrigger,

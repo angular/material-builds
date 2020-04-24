@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { InjectionToken, Directive, EventEmitter, isDevMode, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, ElementRef, Optional, Inject, Self, Attribute, ViewChild, ContentChildren, Input, ContentChild, Output, NgModule } from '@angular/core';
 import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, ErrorStateMatcher, MatOption, MatOptgroup, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField, MAT_FORM_FIELD, MatFormFieldModule } from '@angular/material/form-field';
+import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { __extends, __spread } from 'tslib';
 import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from '@angular/cdk/keycodes';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, take, filter, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -1261,7 +1261,14 @@ var MatSelectModule = /** @class */ (function () {
                         MatOptionModule,
                         MatCommonModule,
                     ],
-                    exports: [MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
+                    exports: [
+                        CdkScrollableModule,
+                        MatFormFieldModule,
+                        MatSelect,
+                        MatSelectTrigger,
+                        MatOptionModule,
+                        MatCommonModule
+                    ],
                     declarations: [MatSelect, MatSelectTrigger],
                     providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
                 },] }
