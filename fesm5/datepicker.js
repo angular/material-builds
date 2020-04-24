@@ -5,6 +5,7 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import { Injectable, ɵɵdefineInjectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, NgZone, Input, Output, ChangeDetectorRef, Optional, Inject, ViewChild, forwardRef, InjectionToken, ViewContainerRef, Directive, Attribute, ContentChild, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { MAT_DATE_FORMATS, DateAdapter, mixinColor } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE } from '@angular/cdk/keycodes';
@@ -1712,7 +1713,13 @@ var MatDatepicker = /** @class */ (function () {
             maxHeight: '',
             position: {},
             autoFocus: true,
-            restoreFocus: true
+            // `MatDialog` has focus restoration built in, however we want to disable it since the
+            // datepicker also has focus restoration for dropdown mode. We want to do this, in order
+            // to ensure that the timing is consistent between dropdown and dialog modes since `MatDialog`
+            // restores focus when the animation is finished, but the datepicker does it immediately.
+            // Furthermore, this avoids any conflicts where the datepicker consumer might move focus
+            // inside the `closed` event which is dispatched immediately.
+            restoreFocus: false
         });
         this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
         this._dialogRef.componentInstance.datepicker = this;
@@ -2295,6 +2302,7 @@ var MatDatepickerModule = /** @class */ (function () {
                         PortalModule,
                     ],
                     exports: [
+                        CdkScrollableModule,
                         MatCalendar,
                         MatCalendarBody,
                         MatDatepicker,

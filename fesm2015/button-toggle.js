@@ -305,7 +305,7 @@ class MatButtonToggleGroup {
         // the side-effect is that we may end up updating the model value out of sequence in others
         // The `deferEvents` flag allows us to decide whether to do it on a case-by-case basis.
         if (deferEvents) {
-            Promise.resolve((/**
+            Promise.resolve().then((/**
              * @return {?}
              */
             () => this._updateModelValue(isUserInput)));
@@ -638,14 +638,25 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
      * @return {?}
      */
     ngOnInit() {
-        this._isSingleSelector = this.buttonToggleGroup && !this.buttonToggleGroup.multiple;
+        /** @type {?} */
+        const group = this.buttonToggleGroup;
+        this._isSingleSelector = group && !group.multiple;
         this._type = this._isSingleSelector ? 'radio' : 'checkbox';
         this.id = this.id || `mat-button-toggle-${_uniqueIdCounter++}`;
         if (this._isSingleSelector) {
-            this.name = this.buttonToggleGroup.name;
+            this.name = group.name;
         }
-        if (this.buttonToggleGroup && this.buttonToggleGroup._isPrechecked(this)) {
-            this.checked = true;
+        if (group) {
+            if (group._isPrechecked(this)) {
+                this.checked = true;
+            }
+            else if (group._isSelected(this) !== this._checked) {
+                // As as side effect of the circular dependency between the toggle group and the button,
+                // we may end up in a state where the button is supposed to be checked on init, but it
+                // isn't, because the checked value was assigned too early. This can happen when Ivy
+                // assigns the static input value before the `ngOnInit` has run.
+                group._syncButtonToggle(this, this._checked);
+            }
         }
         this._focusMonitor.monitor(this._elementRef, true);
     }

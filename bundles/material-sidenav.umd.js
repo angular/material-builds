@@ -1149,10 +1149,11 @@
                         imports: [
                             common.CommonModule,
                             core$1.MatCommonModule,
-                            scrolling.ScrollingModule,
                             platform.PlatformModule,
+                            scrolling.CdkScrollableModule,
                         ],
                         exports: [
+                            scrolling.CdkScrollableModule,
                             core$1.MatCommonModule,
                             MatDrawer,
                             MatDrawerContainer,

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/animations', '@angular/forms', '@angular/material/form-field', '@angular/material/input'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}), global.ng.cdk.a11y, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.dialog, global.ng.material.core, global.rxjs, global.ng.cdk.keycodes, global.ng.cdk.bidi, global.rxjs.operators, global.ng.cdk.coercion, global.ng.animations, global.ng.forms, global.ng.material.formField, global.ng.material.input));
-}(this, (function (exports, a11y, overlay, portal, common, i0, button, dialog, core, rxjs, keycodes, bidi, operators, coercion, animations, forms, formField, input) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/cdk/scrolling'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/cdk/scrolling', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/animations', '@angular/forms', '@angular/material/form-field', '@angular/material/input'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}), global.ng.cdk.a11y, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.dialog, global.ng.cdk.scrolling, global.ng.material.core, global.rxjs, global.ng.cdk.keycodes, global.ng.cdk.bidi, global.rxjs.operators, global.ng.cdk.coercion, global.ng.animations, global.ng.forms, global.ng.material.formField, global.ng.material.input));
+}(this, (function (exports, a11y, overlay, portal, common, i0, button, dialog, scrolling, core, rxjs, keycodes, bidi, operators, coercion, animations, forms, formField, input) { 'use strict';
 
     /**
      * @license
@@ -1896,7 +1896,13 @@
                 maxHeight: '',
                 position: {},
                 autoFocus: true,
-                restoreFocus: true
+                // `MatDialog` has focus restoration built in, however we want to disable it since the
+                // datepicker also has focus restoration for dropdown mode. We want to do this, in order
+                // to ensure that the timing is consistent between dropdown and dialog modes since `MatDialog`
+                // restores focus when the animation is finished, but the datepicker does it immediately.
+                // Furthermore, this avoids any conflicts where the datepicker consumer might move focus
+                // inside the `closed` event which is dispatched immediately.
+                restoreFocus: false
             });
             this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
             this._dialogRef.componentInstance.datepicker = this;
@@ -2479,6 +2485,7 @@
                             portal.PortalModule,
                         ],
                         exports: [
+                            scrolling.CdkScrollableModule,
                             MatCalendar,
                             MatCalendarBody,
                             MatDatepicker,

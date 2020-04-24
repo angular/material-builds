@@ -12,6 +12,7 @@ import { mixinDisableRipple, mixinDisabled, MatCommonModule, MatRippleModule } f
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 
 /**
  * @license
@@ -1310,7 +1311,7 @@ var MatMenuModule = /** @class */ (function () {
                         OverlayModule,
                         _MatMenuDirectivesModule,
                     ],
-                    exports: [MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
+                    exports: [CdkScrollableModule, MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
                     declarations: [_MatMenu, MatMenuItem],
                     providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                 },] }

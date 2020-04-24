@@ -10,14 +10,11 @@ import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/tes
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Selector for the autocomplete panel. */
-const PANEL_SELECTOR = '.mat-autocomplete-panel';
 /** Harness for interacting with a standard mat-autocomplete in tests. */
 class MatAutocompleteHarness extends ComponentHarness {
     constructor() {
         super(...arguments);
         this._documentRootLocator = this.documentRootLocatorFactory();
-        this._optionalPanel = this._documentRootLocator.locatorForOptional(PANEL_SELECTOR);
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets
@@ -63,13 +60,13 @@ class MatAutocompleteHarness extends ComponentHarness {
     /** Gets the options inside the autocomplete panel. */
     getOptions(filters = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatOptionHarness.with(Object.assign(Object.assign({}, filters), { ancestor: PANEL_SELECTOR })))();
+            return this._documentRootLocator.locatorForAll(MatOptionHarness.with(Object.assign(Object.assign({}, filters), { ancestor: yield this._getPanelSelector() })))();
         });
     }
     /** Gets the option groups inside the autocomplete panel. */
     getOptionGroups(filters = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(Object.assign(Object.assign({}, filters), { ancestor: PANEL_SELECTOR })))();
+            return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(Object.assign(Object.assign({}, filters), { ancestor: yield this._getPanelSelector() })))();
         });
     }
     /** Selects the first option matching the given filters. */
@@ -86,8 +83,22 @@ class MatAutocompleteHarness extends ComponentHarness {
     /** Whether the autocomplete is open. */
     isOpen() {
         return __awaiter(this, void 0, void 0, function* () {
-            const panel = yield this._optionalPanel();
+            const panel = yield this._getPanel();
             return !!panel && (yield panel.hasClass('mat-autocomplete-visible'));
+        });
+    }
+    /** Gets the panel associated with this autocomplete trigger. */
+    _getPanel() {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Technically this is static, but it needs to be in a
+            // function, because the autocomplete's panel ID can changed.
+            return this._documentRootLocator.locatorForOptional(yield this._getPanelSelector())();
+        });
+    }
+    /** Gets the selector that can be used to find the autocomplete trigger's panel. */
+    _getPanelSelector() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return `#${(yield (yield this.host()).getAttribute('aria-owns'))}`;
         });
     }
 }

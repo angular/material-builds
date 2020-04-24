@@ -11,7 +11,6 @@ import { AutocompleteHarnessFilters } from './autocomplete-harness-filters';
 /** Harness for interacting with a standard mat-autocomplete in tests. */
 export declare class MatAutocompleteHarness extends ComponentHarness {
     private _documentRootLocator;
-    private _optionalPanel;
     /** The selector for the host element of a `MatAutocomplete` instance. */
     static hostSelector: string;
     /**
@@ -39,4 +38,8 @@ export declare class MatAutocompleteHarness extends ComponentHarness {
     selectOption(filters: OptionHarnessFilters): Promise<void>;
     /** Whether the autocomplete is open. */
     isOpen(): Promise<boolean>;
+    /** Gets the panel associated with this autocomplete trigger. */
+    private _getPanel;
+    /** Gets the selector that can be used to find the autocomplete trigger's panel. */
+    private _getPanelSelector;
 }

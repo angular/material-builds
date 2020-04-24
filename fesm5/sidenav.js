@@ -1,5 +1,5 @@
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { ScrollDispatcher, CdkScrollable, ViewportRuler, ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollDispatcher, CdkScrollable, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, forwardRef, ElementRef, NgZone, EventEmitter, Optional, Input, HostBinding, Output, HostListener, QueryList, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
@@ -961,10 +961,11 @@ var MatSidenavModule = /** @class */ (function () {
                     imports: [
                         CommonModule,
                         MatCommonModule,
-                        ScrollingModule,
                         PlatformModule,
+                        CdkScrollableModule,
                     ],
                     exports: [
+                        CdkScrollableModule,
                         MatCommonModule,
                         MatDrawer,
                         MatDrawerContainer,

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/portal', '@angular/common', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}), global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.portal, global.ng.common, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.overlay, global.ng.cdk.platform));
-}(this, (function (exports, a11y, coercion, keycodes, core, rxjs, operators, animations, portal, common, core$1, bidi, overlay, platform) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/scrolling')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/portal', '@angular/common', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/scrolling'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}), global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.portal, global.ng.common, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.overlay, global.ng.cdk.platform, global.ng.cdk.scrolling));
+}(this, (function (exports, a11y, coercion, keycodes, core, rxjs, operators, animations, portal, common, core$1, bidi, overlay, platform, scrolling) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1498,7 +1498,7 @@
                             overlay.OverlayModule,
                             _MatMenuDirectivesModule,
                         ],
-                        exports: [core$1.MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
+                        exports: [scrolling.CdkScrollableModule, core$1.MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
                         declarations: [_MatMenu, MatMenuItem],
                         providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                     },] }
