@@ -8,7 +8,8 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarBody, MatCalendarCell } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell, MatCalendarUserEvent } from './calendar-body';
+import { DateRange } from './date-selection-model';
 /**
  * An internal component used to display a single year in the datepicker.
  * @docs-private
@@ -24,8 +25,8 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     set activeDate(value: D);
     private _activeDate;
     /** The currently selected date. */
-    get selected(): D | null;
-    set selected(value: D | null);
+    get selected(): DateRange<D> | D | null;
+    set selected(value: DateRange<D> | D | null);
     private _selected;
     /** The minimum selectable date. */
     get minDate(): D | null;
@@ -60,7 +61,7 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Handles when a new month is selected. */
-    _monthSelected(month: number): void;
+    _monthSelected(event: MatCalendarUserEvent<number>): void;
     /** Handles keydown events on the calendar body when calendar is in year view. */
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
     /** Initializes this year view. */
@@ -93,4 +94,6 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
+    /** Sets the currently-selected month based on a model value. */
+    private _setSelectedMonth;
 }

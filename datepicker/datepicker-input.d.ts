@@ -5,52 +5,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
+import { ElementRef } from '@angular/core';
+import { ValidatorFn } from '@angular/forms';
 import { DateAdapter, MatDateFormats, ThemePalette } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatDatepicker } from './datepicker';
+import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
+import { MatDatepickerControl } from './datepicker-base';
 /** @docs-private */
 export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
 /** @docs-private */
 export declare const MAT_DATEPICKER_VALIDATORS: any;
-/**
- * An event used for datepicker input and change events. We don't always have access to a native
- * input or change event because the event may have been triggered by the user clicking on the
- * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
- */
-export declare class MatDatepickerInputEvent<D> {
-    /** Reference to the datepicker input component that emitted the event. */
-    target: MatDatepickerInput<D>;
-    /** Reference to the native input element associated with the datepicker input. */
-    targetElement: HTMLElement;
-    /** The new value for the target datepicker input. */
-    value: D | null;
-    constructor(
-    /** Reference to the datepicker input component that emitted the event. */
-    target: MatDatepickerInput<D>, 
-    /** Reference to the native input element associated with the datepicker input. */
-    targetElement: HTMLElement);
-}
 /** Directive used to connect an input to a MatDatepicker. */
-export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator {
-    private _elementRef;
-    _dateAdapter: DateAdapter<D>;
-    private _dateFormats;
+export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null> {
     private _formField;
-    /** Whether the component has been initialized. */
-    private _isInitialized;
     /** The datepicker that this input is associated with. */
-    set matDatepicker(value: MatDatepicker<D>);
+    set matDatepicker(datepicker: MatDatepicker<D>);
     _datepicker: MatDatepicker<D>;
-    /** Function that can be used to filter out dates within the datepicker. */
-    set matDatepickerFilter(value: (date: D | null) => boolean);
-    _dateFilter: (date: D | null) => boolean;
-    /** The value of the input. */
-    get value(): D | null;
-    set value(value: D | null);
-    private _value;
     /** The minimum valid date. */
     get min(): D | null;
     set min(value: D | null);
@@ -59,70 +30,37 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     get max(): D | null;
     set max(value: D | null);
     private _max;
-    /** Whether the datepicker-input is disabled. */
-    get disabled(): boolean;
-    set disabled(value: boolean);
-    private _disabled;
-    /** Emits when a `change` event is fired on this `<input>`. */
-    readonly dateChange: EventEmitter<MatDatepickerInputEvent<D>>;
-    /** Emits when an `input` event is fired on this `<input>`. */
-    readonly dateInput: EventEmitter<MatDatepickerInputEvent<D>>;
-    /** Emits when the value changes (either due to user input or programmatic change). */
-    _valueChange: EventEmitter<D | null>;
-    /** Emits when the disabled state has changed */
-    _disabledChange: EventEmitter<boolean>;
-    _onTouched: () => void;
-    private _cvaOnChange;
-    private _validatorOnChange;
-    private _datepickerSubscription;
-    private _localeSubscription;
-    /** The form control validator for whether the input parses. */
-    private _parseValidator;
-    /** The form control validator for the min date. */
-    private _minValidator;
-    /** The form control validator for the max date. */
-    private _maxValidator;
-    /** The form control validator for the date filter. */
-    private _filterValidator;
+    /** Function that can be used to filter out dates within the datepicker. */
+    get dateFilter(): DateFilterFn<D | null>;
+    set dateFilter(value: DateFilterFn<D | null>);
+    private _dateFilter;
     /** The combined form control validator for this input. */
-    private _validator;
-    /** Whether the last value set on the input was valid. */
-    private _lastValueValid;
-    constructor(_elementRef: ElementRef<HTMLInputElement>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _formField: MatFormField);
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
-    /** @docs-private */
-    registerOnValidatorChange(fn: () => void): void;
-    /** @docs-private */
-    validate(c: AbstractControl): ValidationErrors | null;
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0 Use `getConnectedOverlayOrigin` instead
-     */
-    getPopupConnectionElementRef(): ElementRef;
+    protected _validator: ValidatorFn | null;
+    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField: MatFormField);
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
      */
     getConnectedOverlayOrigin(): ElementRef;
-    writeValue(value: D): void;
-    registerOnChange(fn: (value: any) => void): void;
-    registerOnTouched(fn: () => void): void;
-    setDisabledState(isDisabled: boolean): void;
-    _onKeydown(event: KeyboardEvent): void;
-    _onInput(value: string): void;
-    _onChange(): void;
     /** Returns the palette used by the input's form field, if any. */
-    _getThemePalette(): ThemePalette;
-    /** Handles blur events on the input. */
-    _onBlur(): void;
-    /** Formats a value and sets it on the input element. */
-    private _formatValue;
+    getThemePalette(): ThemePalette;
+    /** Gets the value at which the calendar should start. */
+    getStartValue(): D | null;
     /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
+     * @deprecated
+     * @breaking-change 8.0.0 Use `getConnectedOverlayOrigin` instead
      */
-    private _getValidDateOrNull;
+    getPopupConnectionElementRef(): ElementRef;
+    /** Opens the associated datepicker. */
+    protected _openPopup(): void;
+    protected _getValueFromModel(modelValue: D | null): D | null;
+    protected _assignValueToModel(value: D | null): void;
+    /** Gets the input's minimum date. */
+    protected _getMinDate(): D | null;
+    /** Gets the input's maximum date. */
+    protected _getMaxDate(): D | null;
+    /** Gets the input's date filtering function. */
+    protected _getDateFilter(): DateFilterFn<D | null>;
+    protected _outsideValueChanged: undefined;
     static ngAcceptInputType_value: any;
-    static ngAcceptInputType_disabled: BooleanInput;
 }

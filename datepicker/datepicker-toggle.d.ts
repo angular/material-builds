@@ -8,8 +8,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { MatDatepicker } from './datepicker';
 import { MatDatepickerIntl } from './datepicker-intl';
+import { MatDatepickerBase, MatDatepickerControl } from './datepicker-base';
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 export declare class MatDatepickerToggleIcon {
 }
@@ -18,7 +18,7 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     private _changeDetectorRef;
     private _stateChanges;
     /** Datepicker instance that the button will toggle. */
-    datepicker: MatDatepicker<D>;
+    datepicker: MatDatepickerBase<MatDatepickerControl<any>, D>;
     /** Tabindex for the toggle. */
     tabIndex: number | null;
     /** Whether the toggle button is disabled. */

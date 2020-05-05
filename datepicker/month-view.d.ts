@@ -8,7 +8,9 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarBody, MatCalendarCell, MatCalendarCellCssClasses } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell, MatCalendarCellCssClasses, MatCalendarUserEvent } from './calendar-body';
+import { DateRange } from './date-selection-model';
+import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
 /**
  * An internal component used to display a single month in the datepicker.
  * @docs-private
@@ -18,6 +20,7 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
+    private _rangeStrategy?;
     private _rerenderSubscription;
     /**
      * The date to display in this month view (everything other than the month and year is ignored).
@@ -26,8 +29,8 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     set activeDate(value: D);
     private _activeDate;
     /** The currently selected date. */
-    get selected(): D | null;
-    set selected(value: D | null);
+    get selected(): DateRange<D> | D | null;
+    set selected(value: DateRange<D> | D | null);
     private _selected;
     /** The minimum selectable date. */
     get minDate(): D | null;
@@ -41,10 +44,14 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     dateFilter: (date: D) => boolean;
     /** Function that can be used to add custom CSS classes to dates. */
     dateClass: (date: D) => MatCalendarCellCssClasses;
+    /** Start of the comparison range. */
+    comparisonStart: D | null;
+    /** End of the comparison range. */
+    comparisonEnd: D | null;
     /** Emits when a new date is selected. */
     readonly selectedChange: EventEmitter<D | null>;
     /** Emits when any date is selected. */
-    readonly _userSelection: EventEmitter<void>;
+    readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
     /** Emits when any date is activated. */
     readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
@@ -55,11 +62,20 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     _weeks: MatCalendarCell[][];
     /** The number of blank cells in the first row before the 1st of the month. */
     _firstWeekOffset: number;
-    /**
-     * The date of the month that the currently selected Date falls on.
-     * Null if the currently selected Date is in another month.
-     */
-    _selectedDate: number | null;
+    /** Start value of the currently-shown date range. */
+    _rangeStart: number | null;
+    /** End value of the currently-shown date range. */
+    _rangeEnd: number | null;
+    /** Start value of the currently-shown comparison date range. */
+    _comparisonRangeStart: number | null;
+    /** End value of the currently-shown comparison date range. */
+    _comparisonRangeEnd: number | null;
+    /** Start of the preview range. */
+    _previewStart: number | null;
+    /** End of the preview range. */
+    _previewEnd: number | null;
+    /** Whether the user is currently selecting a range of dates. */
+    _isRange: boolean;
     /** The date of the month that today falls on. Null if today is in another month. */
     _todayDate: number | null;
     /** The names of the weekdays. */
@@ -67,17 +83,19 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
         long: string;
         narrow: string;
     }[];
-    constructor(_changeDetectorRef: ChangeDetectorRef, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined, _rangeStrategy?: MatDateRangeSelectionStrategy<D> | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Handles when a new date is selected. */
-    _dateSelected(date: number): void;
+    _dateSelected(event: MatCalendarUserEvent<number>): void;
     /** Handles keydown events on the calendar body when calendar is in month view. */
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
     /** Initializes this month view. */
     _init(): void;
     /** Focuses the active cell after the microtask queue is empty. */
-    _focusActiveCell(): void;
+    _focusActiveCell(movePreview?: boolean): void;
+    /** Called when the user has activated a new cell and the preview needs to be updated. */
+    _previewChanged({ event, value: cell }: MatCalendarUserEvent<MatCalendarCell<D> | null>): void;
     /** Initializes the weekdays. */
     private _initWeekdays;
     /** Creates MatCalendarCells for the dates in this month. */
@@ -91,6 +109,8 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     private _getDateInCurrentMonth;
     /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
     private _hasSameMonthAndYear;
+    /** Gets the value that will be used to one cell to another. */
+    private _getCellCompareValue;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
@@ -98,4 +118,6 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
+    /** Sets the current range based on a model value. */
+    private _setRanges;
 }
