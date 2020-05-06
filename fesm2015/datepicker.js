@@ -2,7 +2,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { Injectable, ɵɵdefineInjectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, NgZone, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, Inject, ViewChild, forwardRef, Directive, ViewContainerRef, Attribute, ContentChild, InjectFlags, Injector, Self, NgModule } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, NgZone, Input, Output, Directive, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, Inject, ViewChild, forwardRef, ViewContainerRef, Attribute, ContentChild, InjectFlags, Injector, Self, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -868,6 +868,14 @@ class MatDateSelectionModel {
         return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
     }
 }
+MatDateSelectionModel.decorators = [
+    { type: Directive }
+];
+/** @nocollapse */
+MatDateSelectionModel.ctorParameters = () => [
+    { type: undefined },
+    { type: DateAdapter }
+];
 if (false) {
     /**
      * @type {?}

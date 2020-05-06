@@ -592,6 +592,14 @@
         MatDateSelectionModel.prototype._isValidDateInstance = function (date) {
             return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
         };
+        MatDateSelectionModel.decorators = [
+            { type: i0.Directive }
+        ];
+        /** @nocollapse */
+        MatDateSelectionModel.ctorParameters = function () { return [
+            { type: undefined },
+            { type: core.DateAdapter }
+        ]; };
         return MatDateSelectionModel;
     }());
     /**  A selection model that contains a single date. */
