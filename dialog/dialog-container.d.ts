@@ -68,12 +68,13 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     private _trapFocus;
     /** Restores focus to the element that was focused before the dialog opened. */
     private _restoreFocus;
-    /** Saves a reference to the element that was focused before the dialog was opened. */
-    private _savePreviouslyFocusedElement;
+    /**
+     * Sets up the focus trand and saves a reference to the
+     * element that was focused before the dialog was opened.
+     */
+    private _setupFocusTrap;
     /** Returns whether focus is inside the dialog. */
     private _containsFocus;
-    /** Gets the focus trap associated with the dialog. */
-    private _getFocusTrap;
     /** Callback, invoked whenever an animation on the host completes. */
     _onAnimationDone(event: AnimationEvent): void;
     /** Callback, invoked when an animation on the host starts. */
