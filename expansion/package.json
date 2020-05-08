@@ -1,11 +1,9 @@
 {
   "name": "@angular/material/expansion",
   "main": "../bundles/material-expansion.umd.js",
-  "fesm5": "../fesm5/expansion.js",
   "fesm2015": "../fesm2015/expansion.js",
-  "esm5": "../esm5/expansion/index.js",
   "esm2015": "../esm2015/expansion/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/expansion.js",
+  "module": "../fesm2015/expansion.js",
   "es2015": "../fesm2015/expansion.js"
 }

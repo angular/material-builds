@@ -1,15 +1,7 @@
 {
   "name": "@angular/material",
-  "version": "9.2.1-sha-dfe92fcac",
+  "version": "9.2.1-sha-6bfacb253",
   "description": "Angular Material",
-  "main": "./bundles/material.umd.js",
-  "fesm5": "./fesm5/material.js",
-  "fesm2015": "./fesm2015/material.js",
-  "esm5": "./esm5/index.js",
-  "esm2015": "./esm2015/index.js",
-  "typings": "./index.d.ts",
-  "module": "./fesm5/material.js",
-  "es2015": "./fesm2015/material.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/angular/components.git"
@@ -26,12 +18,12 @@
   },
   "homepage": "https://github.com/angular/components#readme",
   "peerDependencies": {
-    "@angular/animations": "^9.0.0 || ^10.0.0-0",
-    "@angular/cdk": "9.2.1-sha-dfe92fcac",
-    "@angular/core": "^9.0.0 || ^10.0.0-0",
-    "@angular/common": "^9.0.0 || ^10.0.0-0",
-    "@angular/forms": "^9.0.0 || ^10.0.0-0",
-    "tslib": "^1.9.0"
+    "@angular/animations": "^10.0.0-0 || ^11.0.0-0",
+    "@angular/cdk": "9.2.1-sha-6bfacb253",
+    "@angular/core": "^10.0.0-0 || ^11.0.0-0",
+    "@angular/common": "^10.0.0-0 || ^11.0.0-0",
+    "@angular/forms": "^10.0.0-0 || ^11.0.0-0",
+    "tslib": "^1.10.0"
   },
   "schematics": "./schematics/collection.json",
   "ng-update": {
@@ -45,5 +37,11 @@
   "sideEffects": false,
   "publishConfig": {
     "registry": "https://wombat-dressing-room.appspot.com"
-  }
+  },
+  "main": "./bundles/material.umd.js",
+  "fesm2015": "./fesm2015/material.js",
+  "esm2015": "./esm2015/index.js",
+  "typings": "./index.d.ts",
+  "module": "./fesm2015/material.js",
+  "es2015": "./fesm2015/material.js"
 }

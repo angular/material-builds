@@ -1,11 +1,9 @@
 {
   "name": "@angular/material/divider",
   "main": "../bundles/material-divider.umd.js",
-  "fesm5": "../fesm5/divider.js",
   "fesm2015": "../fesm2015/divider.js",
-  "esm5": "../esm5/divider/index.js",
   "esm2015": "../esm2015/divider/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/divider.js",
+  "module": "../fesm2015/divider.js",
   "es2015": "../fesm2015/divider.js"
 }

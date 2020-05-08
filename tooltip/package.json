@@ -1,11 +1,9 @@
 {
   "name": "@angular/material/tooltip",
   "main": "../bundles/material-tooltip.umd.js",
-  "fesm5": "../fesm5/tooltip.js",
   "fesm2015": "../fesm2015/tooltip.js",
-  "esm5": "../esm5/tooltip/index.js",
   "esm2015": "../esm2015/tooltip/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/tooltip.js",
+  "module": "../fesm2015/tooltip.js",
   "es2015": "../fesm2015/tooltip.js"
 }

@@ -1,11 +1,9 @@
 {
   "name": "@angular/material/core",
   "main": "../bundles/material-core.umd.js",
-  "fesm5": "../fesm5/core.js",
   "fesm2015": "../fesm2015/core.js",
-  "esm5": "../esm5/core/index.js",
   "esm2015": "../esm2015/core/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/core.js",
+  "module": "../fesm2015/core.js",
   "es2015": "../fesm2015/core.js"
 }

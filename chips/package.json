@@ -1,11 +1,9 @@
 {
   "name": "@angular/material/chips",
   "main": "../bundles/material-chips.umd.js",
-  "fesm5": "../fesm5/chips.js",
   "fesm2015": "../fesm2015/chips.js",
-  "esm5": "../esm5/chips/index.js",
   "esm2015": "../esm2015/chips/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/chips.js",
+  "module": "../fesm2015/chips.js",
   "es2015": "../fesm2015/chips.js"
 }

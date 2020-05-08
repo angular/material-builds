@@ -1,11 +1,9 @@
 {
   "name": "@angular/material/stepper",
   "main": "../bundles/material-stepper.umd.js",
-  "fesm5": "../fesm5/stepper.js",
   "fesm2015": "../fesm2015/stepper.js",
-  "esm5": "../esm5/stepper/index.js",
   "esm2015": "../esm2015/stepper/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/stepper.js",
+  "module": "../fesm2015/stepper.js",
   "es2015": "../fesm2015/stepper.js"
 }

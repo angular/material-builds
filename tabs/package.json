@@ -1,11 +1,9 @@
 {
   "name": "@angular/material/tabs",
   "main": "../bundles/material-tabs.umd.js",
-  "fesm5": "../fesm5/tabs.js",
   "fesm2015": "../fesm2015/tabs.js",
-  "esm5": "../esm5/tabs/index.js",
   "esm2015": "../esm2015/tabs/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/tabs.js",
+  "module": "../fesm2015/tabs.js",
   "es2015": "../fesm2015/tabs.js"
 }
