@@ -104,7 +104,8 @@ var MatFooterCellHarness = /** @class */ (function (_super) {
 }(MatCellHarness));
 function getCellPredicate(type, options) {
     return new HarnessPredicate(type, options)
-        .addOption('text', options.text, function (harness, text) { return HarnessPredicate.stringMatches(harness.getText(), text); });
+        .addOption('text', options.text, function (harness, text) { return HarnessPredicate.stringMatches(harness.getText(), text); })
+        .addOption('columnName', options.columnName, function (harness, name) { return HarnessPredicate.stringMatches(harness.getColumnName(), name); });
 }
 
 /**

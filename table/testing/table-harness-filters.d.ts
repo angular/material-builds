@@ -10,6 +10,8 @@ import { BaseHarnessFilters } from '@angular/cdk/testing';
 export interface CellHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
+    /** Only find instances whose column name matches the given value. */
+    columnName?: string | RegExp;
 }
 /** A set of criteria that can be used to filter a list of row harness instances. */
 export interface RowHarnessFilters extends BaseHarnessFilters {
