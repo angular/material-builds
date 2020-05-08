@@ -325,7 +325,7 @@
                 if (_this._portalOutlet.hasAttached()) {
                     throwMatDialogContentAlreadyAttachedError();
                 }
-                _this._savePreviouslyFocusedElement();
+                _this._setupFocusTrap();
                 return _this._portalOutlet.attachDomPortal(portal);
             };
             _this._ariaLabelledBy = _config.ariaLabelledBy || null;
@@ -340,7 +340,7 @@
             if (this._portalOutlet.hasAttached()) {
                 throwMatDialogContentAlreadyAttachedError();
             }
-            this._savePreviouslyFocusedElement();
+            this._setupFocusTrap();
             return this._portalOutlet.attachComponentPortal(portal);
         };
         /**
@@ -351,13 +351,13 @@
             if (this._portalOutlet.hasAttached()) {
                 throwMatDialogContentAlreadyAttachedError();
             }
-            this._savePreviouslyFocusedElement();
+            this._setupFocusTrap();
             return this._portalOutlet.attachTemplatePortal(portal);
         };
         /** Moves focus back into the dialog if it was moved out. */
         MatDialogContainer.prototype._recaptureFocus = function () {
             if (!this._containsFocus()) {
-                var focusWasTrapped = this._getFocusTrap().focusInitialElement();
+                var focusWasTrapped = this._focusTrap.focusInitialElement();
                 if (!focusWasTrapped) {
                     this._elementRef.nativeElement.focus();
                 }
@@ -369,7 +369,7 @@
             // ready in instances where change detection has to run first. To deal with this, we simply
             // wait for the microtask queue to be empty.
             if (this._config.autoFocus) {
-                this._getFocusTrap().focusInitialElementWhenReady();
+                this._focusTrap.focusInitialElementWhenReady();
             }
             else if (!this._containsFocus()) {
                 // Otherwise ensure that focus is on the dialog container. It's possible that a different
@@ -400,9 +400,15 @@
                 this._focusTrap.destroy();
             }
         };
-        /** Saves a reference to the element that was focused before the dialog was opened. */
-        MatDialogContainer.prototype._savePreviouslyFocusedElement = function () {
+        /**
+         * Sets up the focus trand and saves a reference to the
+         * element that was focused before the dialog was opened.
+         */
+        MatDialogContainer.prototype._setupFocusTrap = function () {
             var _this = this;
+            if (!this._focusTrap) {
+                this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+            }
             if (this._document) {
                 this._elementFocusedBeforeDialogWasOpened = this._document.activeElement;
                 // Note that there is no focus method when rendering on the server.
@@ -419,13 +425,6 @@
             var element = this._elementRef.nativeElement;
             var activeElement = this._document.activeElement;
             return element === activeElement || element.contains(activeElement);
-        };
-        /** Gets the focus trap associated with the dialog. */
-        MatDialogContainer.prototype._getFocusTrap = function () {
-            if (!this._focusTrap) {
-                this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-            }
-            return this._focusTrap;
         };
         /** Callback, invoked whenever an animation on the host completes. */
         MatDialogContainer.prototype._onAnimationDone = function (event) {
