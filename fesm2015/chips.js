@@ -1,6 +1,6 @@
 import { SPACE, BACKSPACE, DELETE, HOME, END, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
 import { Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, Attribute, ContentChild, forwardRef, Input, Output, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
-import { mixinTabIndex, mixinColor, mixinDisableRipple, mixinDisabled, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { mixinTabIndex, mixinColor, mixinDisableRipple, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
@@ -76,10 +76,12 @@ class MatChipBase {
 }
 if (false) {
     /** @type {?} */
+    MatChipBase.prototype.disabled;
+    /** @type {?} */
     MatChipBase.prototype._elementRef;
 }
 /** @type {?} */
-const _MatChipMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary'), -1);
+const _MatChipMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(MatChipBase), 'primary'), -1);
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -139,8 +141,13 @@ class MatChip extends _MatChipMixinBase {
          * Whether the chip list is in multi-selection mode.
          */
         this._chipListMultiple = false;
+        /**
+         * Whether the chip list as a whole is disabled.
+         */
+        this._chipListDisabled = false;
         this._selected = false;
         this._selectable = true;
+        this._disabled = false;
         this._removable = true;
         /**
          * Emits when the chip is focused.
@@ -228,6 +235,18 @@ class MatChip extends _MatChipMixinBase {
      */
     set selectable(value) {
         this._selectable = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether the chip is disabled.
+     * @return {?}
+     */
+    get disabled() { return this._chipListDisabled || this._disabled; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
     }
     /**
      * Determines whether or not the chip displays the remove styling and emits (removed) events.
@@ -432,7 +451,7 @@ class MatChip extends _MatChipMixinBase {
 MatChip.decorators = [
     { type: Directive, args: [{
                 selector: `mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]`,
-                inputs: ['color', 'disabled', 'disableRipple', 'tabIndex'],
+                inputs: ['color', 'disableRipple', 'tabIndex'],
                 exportAs: 'matChip',
                 host: {
                     'class': 'mat-chip mat-focus-indicator',
@@ -474,6 +493,7 @@ MatChip.propDecorators = {
     selected: [{ type: Input }],
     value: [{ type: Input }],
     selectable: [{ type: Input }],
+    disabled: [{ type: Input }],
     removable: [{ type: Input }],
     selectionChange: [{ type: Output }],
     destroyed: [{ type: Output }],
@@ -533,6 +553,11 @@ if (false) {
      */
     MatChip.prototype._chipListMultiple;
     /**
+     * Whether the chip list as a whole is disabled.
+     * @type {?}
+     */
+    MatChip.prototype._chipListDisabled;
+    /**
      * The chip avatar
      * @type {?}
      */
@@ -562,6 +587,11 @@ if (false) {
      * @protected
      */
     MatChip.prototype._selectable;
+    /**
+     * @type {?}
+     * @protected
+     */
+    MatChip.prototype._disabled;
     /**
      * @type {?}
      * @protected
@@ -1650,7 +1680,7 @@ class MatChipList extends _MatChipListMixinBase {
              * @return {?}
              */
             chip => {
-                chip.disabled = this._disabled;
+                chip._chipListDisabled = this._disabled;
                 chip._chipListMultiple = this.multiple;
             }));
         }

@@ -9,7 +9,7 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, EventEmitter, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
@@ -35,9 +35,10 @@ export declare class MatChipSelectionChange {
 /** @docs-private */
 declare class MatChipBase {
     _elementRef: ElementRef;
+    disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & CanDisableCtor & HasTabIndexCtor & typeof MatChipBase;
+declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & HasTabIndexCtor & typeof MatChipBase;
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private
@@ -53,7 +54,7 @@ export declare class MatChipTrailingIcon {
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
-export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable, CanDisableRipple, RippleTarget, HasTabIndex {
+export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisableRipple, RippleTarget, HasTabIndex {
     _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
     private _changeDetectorRef?;
@@ -85,6 +86,8 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     chipListSelectable: boolean;
     /** Whether the chip list is in multi-selection mode. */
     _chipListMultiple: boolean;
+    /** Whether the chip list as a whole is disabled. */
+    _chipListDisabled: boolean;
     /** The chip avatar */
     avatar: MatChipAvatar;
     /** The chip's trailing icon. */
@@ -108,6 +111,10 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     get selectable(): boolean;
     set selectable(value: boolean);
     protected _selectable: boolean;
+    /** Whether the chip is disabled. */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    protected _disabled: boolean;
     /**
      * Determines whether or not the chip displays the remove styling and emits (removed) events.
      */

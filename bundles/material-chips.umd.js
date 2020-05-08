@@ -232,7 +232,7 @@
         }
         return MatChipBase;
     }());
-    var _MatChipMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatChipBase)), 'primary'), -1);
+    var _MatChipMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(MatChipBase), 'primary'), -1);
     /**
      * Dummy directive to add CSS class to chip avatar.
      * @docs-private
@@ -285,8 +285,11 @@
             _this.chipListSelectable = true;
             /** Whether the chip list is in multi-selection mode. */
             _this._chipListMultiple = false;
+            /** Whether the chip list as a whole is disabled. */
+            _this._chipListDisabled = false;
             _this._selected = false;
             _this._selectable = true;
+            _this._disabled = false;
             _this._removable = true;
             /** Emits when the chip is focused. */
             _this._onFocus = new rxjs.Subject();
@@ -357,6 +360,15 @@
             get: function () { return this._selectable && this.chipListSelectable; },
             set: function (value) {
                 this._selectable = coercion.coerceBooleanProperty(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MatChip.prototype, "disabled", {
+            /** Whether the chip is disabled. */
+            get: function () { return this._chipListDisabled || this._disabled; },
+            set: function (value) {
+                this._disabled = coercion.coerceBooleanProperty(value);
             },
             enumerable: true,
             configurable: true
@@ -515,7 +527,7 @@
         MatChip.decorators = [
             { type: core.Directive, args: [{
                         selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-                        inputs: ['color', 'disabled', 'disableRipple', 'tabIndex'],
+                        inputs: ['color', 'disableRipple', 'tabIndex'],
                         exportAs: 'matChip',
                         host: {
                             'class': 'mat-chip mat-focus-indicator',
@@ -554,6 +566,7 @@
             selected: [{ type: core.Input }],
             value: [{ type: core.Input }],
             selectable: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
             removable: [{ type: core.Input }],
             selectionChange: [{ type: core.Output }],
             destroyed: [{ type: core.Output }],
@@ -1320,7 +1333,7 @@
             var _this = this;
             if (this.chips) {
                 this.chips.forEach(function (chip) {
-                    chip.disabled = _this._disabled;
+                    chip._chipListDisabled = _this._disabled;
                     chip._chipListMultiple = _this.multiple;
                 });
             }
