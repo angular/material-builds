@@ -1,6 +1,6 @@
 import { SPACE, BACKSPACE, DELETE, HOME, END, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
 import { Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, Attribute, ContentChild, forwardRef, Input, Output, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
-import { mixinTabIndex, mixinColor, mixinDisableRipple, mixinDisabled, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { mixinTabIndex, mixinColor, mixinDisableRipple, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { __extends, __spread } from 'tslib';
 import { DOCUMENT } from '@angular/common';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -45,7 +45,7 @@ var MatChipBase = /** @class */ (function () {
     }
     return MatChipBase;
 }());
-var _MatChipMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary'), -1);
+var _MatChipMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(MatChipBase), 'primary'), -1);
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private
@@ -98,8 +98,11 @@ var MatChip = /** @class */ (function (_super) {
         _this.chipListSelectable = true;
         /** Whether the chip list is in multi-selection mode. */
         _this._chipListMultiple = false;
+        /** Whether the chip list as a whole is disabled. */
+        _this._chipListDisabled = false;
         _this._selected = false;
         _this._selectable = true;
+        _this._disabled = false;
         _this._removable = true;
         /** Emits when the chip is focused. */
         _this._onFocus = new Subject();
@@ -170,6 +173,15 @@ var MatChip = /** @class */ (function (_super) {
         get: function () { return this._selectable && this.chipListSelectable; },
         set: function (value) {
             this._selectable = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatChip.prototype, "disabled", {
+        /** Whether the chip is disabled. */
+        get: function () { return this._chipListDisabled || this._disabled; },
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -328,7 +340,7 @@ var MatChip = /** @class */ (function (_super) {
     MatChip.decorators = [
         { type: Directive, args: [{
                     selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-                    inputs: ['color', 'disabled', 'disableRipple', 'tabIndex'],
+                    inputs: ['color', 'disableRipple', 'tabIndex'],
                     exportAs: 'matChip',
                     host: {
                         'class': 'mat-chip mat-focus-indicator',
@@ -367,6 +379,7 @@ var MatChip = /** @class */ (function (_super) {
         selected: [{ type: Input }],
         value: [{ type: Input }],
         selectable: [{ type: Input }],
+        disabled: [{ type: Input }],
         removable: [{ type: Input }],
         selectionChange: [{ type: Output }],
         destroyed: [{ type: Output }],
@@ -1133,7 +1146,7 @@ var MatChipList = /** @class */ (function (_super) {
         var _this = this;
         if (this.chips) {
             this.chips.forEach(function (chip) {
-                chip.disabled = _this._disabled;
+                chip._chipListDisabled = _this._disabled;
                 chip._chipListMultiple = _this.multiple;
             });
         }

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/observers'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/form-field', ['exports', '@angular/common', '@angular/core', '@angular/cdk/observers', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/platform', '@angular/platform-browser/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}), global.ng.common, global.ng.core, global.ng.cdk.observers, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.material.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.platform, global.ng.platformBrowser.animations));
-}(this, (function (exports, common, core, observers, bidi, coercion, core$1, rxjs, operators, animations, platform, animations$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/form-field', ['exports', '@angular/cdk/observers', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/platform', '@angular/platform-browser/animations'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}), global.ng.cdk.observers, global.ng.common, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.platform, global.ng.platformBrowser.animations));
+}(this, (function (exports, observers, common, core, core$1, bidi, coercion, rxjs, operators, animations, platform, animations$1) { 'use strict';
 
     /**
      * @license
@@ -945,9 +945,11 @@
                         ],
                         imports: [
                             common.CommonModule,
+                            core$1.MatCommonModule,
                             observers.ObserversModule,
                         ],
                         exports: [
+                            core$1.MatCommonModule,
                             MatError,
                             MatFormField,
                             MatHint,

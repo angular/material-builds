@@ -856,7 +856,6 @@ var MatSelectionList = /** @class */ (function (_super) {
                         'role': 'listbox',
                         'class': 'mat-selection-list mat-list-base',
                         '(focus)': '_onFocus()',
-                        '(blur)': '_onTouched()',
                         '(keydown)': '_keydown($event)',
                         '[attr.aria-multiselectable]': 'multiple',
                         '[attr.aria-disabled]': 'disabled.toString()',

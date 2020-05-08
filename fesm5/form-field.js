@@ -1,10 +1,10 @@
+import { ObserversModule } from '@angular/cdk/observers';
 import { CommonModule } from '@angular/common';
 import { Directive, Input, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, NgZone, ViewChild, ContentChild, ContentChildren, NgModule } from '@angular/core';
-import { ObserversModule } from '@angular/cdk/observers';
+import { mixinColor, MAT_LABEL_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { __extends, __values } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { mixinColor, MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
 import { Subject, merge, fromEvent } from 'rxjs';
 import { startWith, takeUntil, take } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -755,9 +755,11 @@ var MatFormFieldModule = /** @class */ (function () {
                     ],
                     imports: [
                         CommonModule,
+                        MatCommonModule,
                         ObserversModule,
                     ],
                     exports: [
+                        MatCommonModule,
                         MatError,
                         MatFormField,
                         MatHint,

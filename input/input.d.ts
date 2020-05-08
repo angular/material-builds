@@ -38,9 +38,11 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** The aria-describedby attribute on the input for improved a11y. */
     _ariaDescribedby: string;
     /** Whether the component is being rendered on the server. */
-    _isServer: boolean;
+    readonly _isServer: boolean;
     /** Whether the component is a native html select. */
-    _isNativeSelect: boolean;
+    readonly _isNativeSelect: boolean;
+    /** Whether the component is a textarea. */
+    readonly _isTextarea: boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -116,8 +118,6 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
-    /** Determines if the component host is a textarea. */
-    _isTextarea(): boolean;
     /** Does some manual dirty checking on the native input `value` property. */
     protected _dirtyCheckNativeValue(): void;
     /** Make sure the input is a supported type. */

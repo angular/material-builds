@@ -144,10 +144,6 @@ var MatInput = /** @class */ (function (_super) {
         _this.ngControl = ngControl;
         _this._autofillMonitor = _autofillMonitor;
         _this._uid = "mat-input-" + nextUniqueId++;
-        /** Whether the component is being rendered on the server. */
-        _this._isServer = false;
-        /** Whether the component is a native html select. */
-        _this._isNativeSelect = false;
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private
@@ -181,6 +177,7 @@ var MatInput = /** @class */ (function (_super) {
             'week'
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
         var element = _this._elementRef.nativeElement;
+        var nodeName = element.nodeName.toLowerCase();
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
         _this._inputValueAccessor = inputValueAccessor || element;
@@ -206,7 +203,8 @@ var MatInput = /** @class */ (function (_super) {
             });
         }
         _this._isServer = !_this._platform.isBrowser;
-        _this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
+        _this._isNativeSelect = nodeName === 'select';
+        _this._isTextarea = nodeName === 'textarea';
         if (_this._isNativeSelect) {
             _this.controlType = element.multiple ? 'mat-native-select-multiple' :
                 'mat-native-select';
@@ -265,7 +263,7 @@ var MatInput = /** @class */ (function (_super) {
             // When using Angular inputs, developers are no longer able to set the properties on the native
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
-            if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
+            if (!this._isTextarea && getSupportedInputTypes().has(this._type)) {
                 this._elementRef.nativeElement.type = this._type;
             }
         },
@@ -354,10 +352,6 @@ var MatInput = /** @class */ (function (_super) {
         // value changes and will not disappear.
         // Listening to the input event wouldn't be necessary when the input is using the
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
-    };
-    /** Determines if the component host is a textarea. */
-    MatInput.prototype._isTextarea = function () {
-        return this._elementRef.nativeElement.nodeName.toLowerCase() === 'textarea';
     };
     /** Does some manual dirty checking on the native input `value` property. */
     MatInput.prototype._dirtyCheckNativeValue = function () {
