@@ -1811,8 +1811,10 @@ class MatPaginatedTabHeader {
                 break;
             case ENTER:
             case SPACE:
-                this.selectFocusedIndex.emit(this.focusIndex);
-                this._itemSelected(event);
+                if (this.focusIndex !== this.selectedIndex) {
+                    this.selectFocusedIndex.emit(this.focusIndex);
+                    this._itemSelected(event);
+                }
                 break;
             default:
                 this._keyManager.onKeydown(event);
