@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/platform-browser/animations')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/slide-toggle', ['exports', '@angular/cdk/observers', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/forms', '@angular/platform-browser/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = {}), global.ng.cdk.observers, global.ng.core, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.forms, global.ng.platformBrowser.animations));
-}(this, (function (exports, observers, core, core$1, a11y, coercion, forms, animations) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/platform-browser/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/slide-toggle', ['exports', '@angular/cdk/observers', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/forms', '@angular/platform-browser/animations'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = {}), global.ng.cdk.observers, global.ng.core, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.coercion, global.ng.forms, global.ng.platformBrowser.animations));
+}(this, (function (exports, observers, core, core$1, a11y, bidi, coercion, forms, animations) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -253,7 +253,12 @@
     /** Represents a slidable "switch" toggle that can be moved between on and off. */
     var MatSlideToggle = /** @class */ (function (_super) {
         __extends(MatSlideToggle, _super);
-        function MatSlideToggle(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, defaults, _animationMode) {
+        function MatSlideToggle(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, 
+        /**
+         * @deprecated `_ngZone` and `_dir` parameters to be removed.
+         * @breaking-change 10.0.0
+         */
+        _ngZone, defaults, _animationMode, _dir) {
             var _this = _super.call(this, elementRef) || this;
             _this._focusMonitor = _focusMonitor;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -282,6 +287,15 @@
              * the slide toggle's value has changed.
              */
             _this.toggleChange = new core.EventEmitter();
+            /**
+             * An event will be dispatched each time the slide-toggle is dragged.
+             * This event is always emitted when the user drags the slide toggle to make a change greater
+             * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
+             * the user toggles the slide toggle to change its value.
+             * @deprecated No longer being used. To be removed.
+             * @breaking-change 10.0.0
+             */
+            _this.dragChange = new core.EventEmitter();
             _this.tabIndex = parseInt(tabIndex) || 0;
             return _this;
         }
@@ -436,8 +450,10 @@
             { type: a11y.FocusMonitor },
             { type: core.ChangeDetectorRef },
             { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+            { type: core.NgZone },
             { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+            { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
         ]; };
         MatSlideToggle.propDecorators = {
             _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer',] }],
@@ -451,6 +467,7 @@
             checked: [{ type: core.Input }],
             change: [{ type: core.Output }],
             toggleChange: [{ type: core.Output }],
+            dragChange: [{ type: core.Output }],
             _inputElement: [{ type: core.ViewChild, args: ['input',] }]
         };
         return MatSlideToggle;

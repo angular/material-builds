@@ -1,7 +1,8 @@
 import { ObserversModule } from '@angular/cdk/observers';
-import { InjectionToken, forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Attribute, Inject, Optional, ViewChild, Input, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Attribute, NgZone, Inject, Optional, ViewChild, Input, Output, Directive, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinColor, mixinDisableRipple, mixinDisabled, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -22,6 +23,13 @@ if (false) {
      * @type {?|undefined}
      */
     MatSlideToggleDefaultOptions.prototype.disableToggleValue;
+    /**
+     * Whether drag action triggers value changes in slide toggle.
+     * @deprecated No longer being used.
+     * \@breaking-change 10.0.0
+     * @type {?|undefined}
+     */
+    MatSlideToggleDefaultOptions.prototype.disableDragValue;
 }
 /**
  * Injection token to be used to override the default options for `mat-slide-toggle`.
@@ -107,10 +115,17 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      * @param {?} tabIndex
+     * @param {?} _ngZone
      * @param {?} defaults
      * @param {?=} _animationMode
+     * @param {?=} _dir
      */
-    constructor(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, defaults, _animationMode) {
+    constructor(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, 
+    /**
+     * @deprecated `_ngZone` and `_dir` parameters to be removed.
+     * @breaking-change 10.0.0
+     */
+    _ngZone, defaults, _animationMode, _dir) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
@@ -158,6 +173,15 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
          * the slide toggle's value has changed.
          */
         this.toggleChange = new EventEmitter();
+        /**
+         * An event will be dispatched each time the slide-toggle is dragged.
+         * This event is always emitted when the user drags the slide toggle to make a change greater
+         * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
+         * the user toggles the slide toggle to change its value.
+         * @deprecated No longer being used. To be removed.
+         * \@breaking-change 10.0.0
+         */
+        this.dragChange = new EventEmitter();
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /**
@@ -365,8 +389,10 @@ MatSlideToggle.ctorParameters = () => [
     { type: FocusMonitor },
     { type: ChangeDetectorRef },
     { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+    { type: NgZone },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: Directionality, decorators: [{ type: Optional }] }
 ];
 MatSlideToggle.propDecorators = {
     _thumbEl: [{ type: ViewChild, args: ['thumbContainer',] }],
@@ -380,6 +406,7 @@ MatSlideToggle.propDecorators = {
     checked: [{ type: Input }],
     change: [{ type: Output }],
     toggleChange: [{ type: Output }],
+    dragChange: [{ type: Output }],
     _inputElement: [{ type: ViewChild, args: ['input',] }]
 };
 if (false) {
@@ -463,6 +490,16 @@ if (false) {
      * @type {?}
      */
     MatSlideToggle.prototype.toggleChange;
+    /**
+     * An event will be dispatched each time the slide-toggle is dragged.
+     * This event is always emitted when the user drags the slide toggle to make a change greater
+     * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
+     * the user toggles the slide toggle to change its value.
+     * @deprecated No longer being used. To be removed.
+     * \@breaking-change 10.0.0
+     * @type {?}
+     */
+    MatSlideToggle.prototype.dragChange;
     /**
      * Reference to the underlying input element.
      * @type {?}
