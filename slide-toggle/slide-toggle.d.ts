@@ -6,9 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 import { MatSlideToggleDefaultOptions } from './slide-toggle-config';
@@ -71,25 +70,11 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
      * the slide toggle's value has changed.
      */
     readonly toggleChange: EventEmitter<void>;
-    /**
-     * An event will be dispatched each time the slide-toggle is dragged.
-     * This event is always emitted when the user drags the slide toggle to make a change greater
-     * than 50%. It does not mean the slide toggle's value is changed. The event is not emitted when
-     * the user toggles the slide toggle to change its value.
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 10.0.0
-     */
-    readonly dragChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
     get inputId(): string;
     /** Reference to the underlying input element. */
     _inputElement: ElementRef<HTMLInputElement>;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, 
-    /**
-     * @deprecated `_ngZone` and `_dir` parameters to be removed.
-     * @breaking-change 10.0.0
-     */
-    _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */
