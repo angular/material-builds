@@ -1,4 +1,5 @@
 @import '../theming/theming';
+@import '../theming/check-duplicate-styles';
 @import '../style/layout-common';
 
 /// Mixin that turns on strong focus indicators.
@@ -79,6 +80,18 @@
   }
 }
 
+// Mixin that applies the border color for the focus indicators.
+@mixin _mat-strong-focus-indicators-border-color($color) {
+  .mat-focus-indicator::before {
+    border-color: $color;
+  }
+}
+
+@mixin mat-strong-focus-indicators-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  @include _mat-strong-focus-indicators-border-color(mat-color(map_get($config, primary)));
+}
+
 /// Mixin that sets the color of the focus indicators.
 ///
 /// @param {color|map} $theme-or-color
@@ -94,11 +107,18 @@
 ///   .demo-red-theme {
 ///     @include mat-strong-focus-indicators-theme(#f00);
 ///   }
+/* stylelint-disable-next-line material/theme-mixin-api */
 @mixin mat-strong-focus-indicators-theme($theme-or-color) {
-  .mat-focus-indicator::before {
-    border-color: if(
-      type-of($theme-or-color) == 'map',
-      mat-color(map_get($theme-or-color, primary)),
-      $theme-or-color);
+  @if type-of($theme-or-color) != 'map' {
+    @include _mat-strong-focus-indicators-border-color($theme-or-color);
+  }
+  @else {
+    $theme: _mat-legacy-get-theme($theme-or-color);
+    @include _mat-check-duplicate-theme-styles($theme, 'mat-strong-focus-indicators') {
+      $color: mat-get-color-config($theme);
+      @if $color != null {
+        @include mat-strong-focus-indicators-color($color);
+      }
+    }
   }
 }

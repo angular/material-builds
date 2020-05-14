@@ -222,6 +222,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Time and timing curve for expansion panel animations. */
+    // Note: Keep this in sync with the Sass variable for the panel header animation.
     var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
     /**
      * Animations used by the Material expansion panel.
@@ -251,23 +252,6 @@
             animations.state('collapsed, void', animations.style({ transform: 'rotate(0deg)' })),
             animations.state('expanded', animations.style({ transform: 'rotate(180deg)' })),
             animations.transition('expanded <=> collapsed, void => collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-        ]),
-        /** Animation that expands and collapses the panel header height. */
-        expansionHeaderHeight: animations.trigger('expansionHeight', [
-            animations.state('collapsed, void', animations.style({
-                height: '{{collapsedHeight}}',
-            }), {
-                params: { collapsedHeight: '48px' },
-            }),
-            animations.state('expanded', animations.style({
-                height: '{{expandedHeight}}'
-            }), {
-                params: { expandedHeight: '64px' }
-            }),
-            animations.transition('expanded <=> collapsed, void => collapsed', animations.group([
-                animations.query('@indicatorRotate', animations.animateChild(), { optional: true }),
-                animations.animate(EXPANSION_PANEL_ANIMATION_TIMING),
-            ])),
         ]),
         /** Animation that expands and collapses the panel content. */
         bodyExpansion: animations.trigger('bodyExpansion', [
@@ -512,8 +496,6 @@
             this._focusMonitor = _focusMonitor;
             this._changeDetectorRef = _changeDetectorRef;
             this._parentChangeSubscription = rxjs.Subscription.EMPTY;
-            /** Whether Angular animations in the panel header should be disabled. */
-            this._animationsDisabled = true;
             var accordionHideToggleChange = panel.accordion ?
                 panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!(changes['hideToggle'] || changes['togglePosition']); })) :
                 rxjs.EMPTY;
@@ -540,17 +522,6 @@
                 this.collapsedHeight = defaultOptions.collapsedHeight;
             }
         }
-        MatExpansionPanelHeader.prototype._animationStarted = function () {
-            // Currently the `expansionHeight` animation has a `void => collapsed` transition which is
-            // there to work around a bug in Angular (see #13088), however this introduces a different
-            // issue. The new transition will cause the header to animate in on init (see #16067), if the
-            // consumer has set a header height that is different from the default one. We work around it
-            // by disabling animations on the header and re-enabling them after the first animation has run.
-            // Note that Angular dispatches animation events even if animations are disabled. Ideally this
-            // wouldn't be necessary if we remove the `void => collapsed` transition, but we have to wait
-            // for https://github.com/angular/angular/issues/18847 to be resolved.
-            this._animationsDisabled = false;
-        };
         Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
             /**
              * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
@@ -587,6 +558,20 @@
         /** Gets whether the expand indicator should be shown. */
         MatExpansionPanelHeader.prototype._showToggle = function () {
             return !this.panel.hideToggle && !this.panel.disabled;
+        };
+        /**
+         * Gets the current height of the header. Null if no custom height has been
+         * specified, and if the default height from the stylesheet should be used.
+         */
+        MatExpansionPanelHeader.prototype._getHeaderHeight = function () {
+            var isExpanded = this._isExpanded();
+            if (isExpanded && this.expandedHeight) {
+                return this.expandedHeight;
+            }
+            else if (!isExpanded && this.collapsedHeight) {
+                return this.collapsedHeight;
+            }
+            return null;
         };
         /** Handle keydown event calling to toggle() if appropriate. */
         MatExpansionPanelHeader.prototype._keydown = function (event) {
@@ -627,7 +612,6 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         animations: [
                             matExpansionAnimations.indicatorRotate,
-                            matExpansionAnimations.expansionHeaderHeight
                         ],
                         host: {
                             'class': 'mat-expansion-panel-header mat-focus-indicator',
@@ -640,13 +624,11 @@
                             '[class.mat-expanded]': '_isExpanded()',
                             '[class.mat-expansion-toggle-indicator-after]': "_getTogglePosition() === 'after'",
                             '[class.mat-expansion-toggle-indicator-before]': "_getTogglePosition() === 'before'",
+                            '[style.height]': '_getHeaderHeight()',
                             '(click)': '_toggle()',
                             '(keydown)': '_keydown($event)',
-                            '[@.disabled]': '_animationsDisabled',
-                            '(@expansionHeight.start)': '_animationStarted()',
-                            '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                         },
-                        styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;position:relative}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}\n"]
+                        styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;position:relative;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}\n"]
                     }] }
         ];
         /** @nocollapse */

@@ -20,10 +20,7 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
     private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    /** Whether Angular animations in the panel header should be disabled. */
-    _animationsDisabled: boolean;
     constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions);
-    _animationStarted(): void;
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
@@ -45,6 +42,11 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
     _getTogglePosition(): MatAccordionTogglePosition;
     /** Gets whether the expand indicator should be shown. */
     _showToggle(): boolean;
+    /**
+     * Gets the current height of the header. Null if no custom height has been
+     * specified, and if the default height from the stylesheet should be used.
+     */
+    _getHeaderHeight(): string | null;
     /** Handle keydown event calling to toggle() if appropriate. */
     _keydown(event: KeyboardEvent): void;
     /**
