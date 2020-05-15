@@ -2,10 +2,10 @@ import { SecurityContext, Injectable, Optional, Inject, ErrorHandler, ɵɵdefine
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
+import { of, throwError, forkJoin, Subscription } from 'rxjs';
 import { tap, map, catchError, finalize, share, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { of, throwError, forkJoin } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
@@ -972,6 +972,10 @@ class MatIcon extends _MatIconMixinBase {
         this._location = _location;
         this._errorHandler = _errorHandler;
         this._inline = false;
+        /**
+         * Subscription to the current in-progress SVG icon request.
+         */
+        this._currentIconFetch = Subscription.EMPTY;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
@@ -1054,9 +1058,10 @@ class MatIcon extends _MatIconMixinBase {
         /** @type {?} */
         const svgIconChanges = changes['svgIcon'];
         if (svgIconChanges) {
+            this._currentIconFetch.unsubscribe();
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace)
+                this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName, namespace)
                     .pipe(take(1))
                     .subscribe((/**
                  * @param {?} svg
@@ -1121,6 +1126,7 @@ class MatIcon extends _MatIconMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
+        this._currentIconFetch.unsubscribe();
         if (this._elementsWithExternalReferences) {
             this._elementsWithExternalReferences.clear();
         }
@@ -1368,6 +1374,12 @@ if (false) {
      * @private
      */
     MatIcon.prototype._elementsWithExternalReferences;
+    /**
+     * Subscription to the current in-progress SVG icon request.
+     * @type {?}
+     * @private
+     */
+    MatIcon.prototype._currentIconFetch;
     /**
      * @type {?}
      * @private
