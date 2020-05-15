@@ -543,10 +543,7 @@
             var _this = this;
             var window = this._getWindow();
             if (typeof window !== 'undefined') {
-                this._zone.runOutsideAngular(function () {
-                    window.addEventListener('blur', _this._windowBlurHandler);
-                });
-                this._isInsideShadowRoot = !!platform._getShadowRoot(this._element.nativeElement);
+                this._zone.runOutsideAngular(function () { return window.addEventListener('blur', _this._windowBlurHandler); });
             }
         };
         MatAutocompleteTrigger.prototype.ngOnChanges = function (changes) {
@@ -870,6 +867,11 @@
             var _this = this;
             if (!this.autocomplete) {
                 throw getMatAutocompleteMissingPanelError();
+            }
+            // We want to resolve this once, as late as possible so that we can be
+            // sure that the element has been moved into its final place in the DOM.
+            if (this._isInsideShadowRoot == null) {
+                this._isInsideShadowRoot = !!platform._getShadowRoot(this._element.nativeElement);
             }
             var overlayRef = this._overlayRef;
             if (!overlayRef) {

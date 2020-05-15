@@ -621,10 +621,7 @@ class MatAutocompleteTrigger {
             this._zone.runOutsideAngular((/**
              * @return {?}
              */
-            () => {
-                window.addEventListener('blur', this._windowBlurHandler);
-            }));
-            this._isInsideShadowRoot = !!_getShadowRoot(this._element.nativeElement);
+            () => window.addEventListener('blur', this._windowBlurHandler)));
         }
     }
     /**
@@ -1058,6 +1055,11 @@ class MatAutocompleteTrigger {
     _attachOverlay() {
         if (!this.autocomplete) {
             throw getMatAutocompleteMissingPanelError();
+        }
+        // We want to resolve this once, as late as possible so that we can be
+        // sure that the element has been moved into its final place in the DOM.
+        if (this._isInsideShadowRoot == null) {
+            this._isInsideShadowRoot = !!_getShadowRoot(this._element.nativeElement);
         }
         /** @type {?} */
         let overlayRef = this._overlayRef;

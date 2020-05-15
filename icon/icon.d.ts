@@ -88,6 +88,8 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _previousPath?;
     /** Keeps track of the elements and attributes that we've prefixed with the current path. */
     private _elementsWithExternalReferences?;
+    /** Subscription to the current in-progress SVG icon request. */
+    private _currentIconFetch;
     constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, 
     /**
      * @deprecated `location` parameter to be made required.

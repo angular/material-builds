@@ -3,10 +3,10 @@ import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { __extends, __read } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
+import { of, throwError, forkJoin, Subscription } from 'rxjs';
 import { tap, map, catchError, finalize, share, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { of, throwError, forkJoin } from 'rxjs';
 
 /**
  * @license
@@ -654,6 +654,8 @@ var MatIcon = /** @class */ (function (_super) {
         _this._location = _location;
         _this._errorHandler = _errorHandler;
         _this._inline = false;
+        /** Subscription to the current in-progress SVG icon request. */
+        _this._currentIconFetch = Subscription.EMPTY;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
@@ -722,9 +724,10 @@ var MatIcon = /** @class */ (function (_super) {
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
         var svgIconChanges = changes['svgIcon'];
         if (svgIconChanges) {
+            this._currentIconFetch.unsubscribe();
             if (this.svgIcon) {
                 var _a = __read(this._splitIconName(this.svgIcon), 2), namespace_1 = _a[0], iconName_1 = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
+                this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
                     .pipe(take(1))
                     .subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) {
                     var errorMessage = "Error retrieving icon " + namespace_1 + ":" + iconName_1 + "! " + err.message;
@@ -769,6 +772,7 @@ var MatIcon = /** @class */ (function (_super) {
         }
     };
     MatIcon.prototype.ngOnDestroy = function () {
+        this._currentIconFetch.unsubscribe();
         if (this._elementsWithExternalReferences) {
             this._elementsWithExternalReferences.clear();
         }
