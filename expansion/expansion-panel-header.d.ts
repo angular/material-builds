@@ -19,8 +19,9 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
     private _element;
     private _focusMonitor;
     private _changeDetectorRef;
+    _animationMode?: string | undefined;
     private _parentChangeSubscription;
-    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions);
+    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions, _animationMode?: string | undefined);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */

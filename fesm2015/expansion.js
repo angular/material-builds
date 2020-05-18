@@ -6,10 +6,10 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { ENTER, hasModifierKey, SPACE, HOME, END } from '@angular/cdk/keycodes';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @fileoverview added by tsickle
@@ -533,12 +533,14 @@ let MatExpansionPanelHeader = /** @class */ (() => {
          * @param {?} _focusMonitor
          * @param {?} _changeDetectorRef
          * @param {?=} defaultOptions
+         * @param {?=} _animationMode
          */
-        constructor(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions) {
+        constructor(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions, _animationMode) {
             this.panel = panel;
             this._element = _element;
             this._focusMonitor = _focusMonitor;
             this._changeDetectorRef = _changeDetectorRef;
+            this._animationMode = _animationMode;
             this._parentChangeSubscription = Subscription.EMPTY;
             /** @type {?} */
             const accordionHideToggleChange = panel.accordion ?
@@ -716,11 +718,12 @@ let MatExpansionPanelHeader = /** @class */ (() => {
                         '[class.mat-expanded]': '_isExpanded()',
                         '[class.mat-expansion-toggle-indicator-after]': `_getTogglePosition() === 'after'`,
                         '[class.mat-expansion-toggle-indicator-before]': `_getTogglePosition() === 'before'`,
+                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                         '[style.height]': '_getHeaderHeight()',
                         '(click)': '_toggle()',
                         '(keydown)': '_keydown($event)',
                     },
-                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;position:relative;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}\n"]
+                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;position:relative;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}\n"]
                 }] }
     ];
     /** @nocollapse */
@@ -729,7 +732,8 @@ let MatExpansionPanelHeader = /** @class */ (() => {
         { type: ElementRef },
         { type: FocusMonitor },
         { type: ChangeDetectorRef },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: Optional }] }
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: Optional }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ];
     MatExpansionPanelHeader.propDecorators = {
         expandedHeight: [{ type: Input }],
@@ -770,6 +774,8 @@ if (false) {
      * @private
      */
     MatExpansionPanelHeader.prototype._changeDetectorRef;
+    /** @type {?} */
+    MatExpansionPanelHeader.prototype._animationMode;
 }
 /**
  * `<mat-panel-description>`
