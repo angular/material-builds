@@ -20,14 +20,14 @@
             /** Whether the divider is vertically aligned. */
             get: function () { return this._vertical; },
             set: function (value) { this._vertical = coercion.coerceBooleanProperty(value); },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDivider.prototype, "inset", {
             /** Whether the divider is an inset divider. */
             get: function () { return this._inset; },
             set: function (value) { this._inset = coercion.coerceBooleanProperty(value); },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatDivider.decorators = [

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -5,48 +6,38 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MiscClassNamesMigration = void 0;
+const schematics_1 = require("@angular/cdk/schematics");
+const ts = require("typescript");
+/**
+ * Migration that looks for class name identifiers that have been removed but
+ * cannot be automatically migrated.
+ */
+class MiscClassNamesMigration extends schematics_1.Migration {
+    constructor() {
+        super(...arguments);
+        // Only enable this rule if the migration targets version 6. The rule
+        // currently only includes migrations for V6 deprecations.
+        this.enabled = this.targetVersion === schematics_1.TargetVersion.V6;
     }
-    else if (typeof define === "function" && define.amd) {
-        define("@angular/material/schematics/ng-update/migrations/misc-checks/misc-class-names", ["require", "exports", "@angular/cdk/schematics", "typescript"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    const schematics_1 = require("@angular/cdk/schematics");
-    const ts = require("typescript");
-    /**
-     * Migration that looks for class name identifiers that have been removed but
-     * cannot be automatically migrated.
-     */
-    class MiscClassNamesMigration extends schematics_1.Migration {
-        constructor() {
-            super(...arguments);
-            // Only enable this rule if the migration targets version 6. The rule
-            // currently only includes migrations for V6 deprecations.
-            this.enabled = this.targetVersion === schematics_1.TargetVersion.V6;
-        }
-        visitNode(node) {
-            if (ts.isIdentifier(node)) {
-                this._visitIdentifier(node);
-            }
-        }
-        _visitIdentifier(identifier) {
-            // Migration for: https://github.com/angular/components/pull/10279 (v6)
-            if (identifier.getText() === 'MatDrawerToggleResult') {
-                this.createFailureAtNode(identifier, `Found "MatDrawerToggleResult" which has changed from a class type to a string ` +
-                    `literal type. Your code may need to be updated.`);
-            }
-            // Migration for: https://github.com/angular/components/pull/10398 (v6)
-            if (identifier.getText() === 'MatListOptionChange') {
-                this.createFailureAtNode(identifier, `Found usage of "MatListOptionChange" which has been removed. Please listen for ` +
-                    `"selectionChange" on "MatSelectionList" instead.`);
-            }
+    visitNode(node) {
+        if (ts.isIdentifier(node)) {
+            this._visitIdentifier(node);
         }
     }
-    exports.MiscClassNamesMigration = MiscClassNamesMigration;
-});
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWlzYy1jbGFzcy1uYW1lcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9zY2hlbWF0aWNzL25nLXVwZGF0ZS9taWdyYXRpb25zL21pc2MtY2hlY2tzL21pc2MtY2xhc3MtbmFtZXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HOzs7Ozs7Ozs7Ozs7SUFFSCx3REFBaUU7SUFDakUsaUNBQWlDO0lBRWpDOzs7T0FHRztJQUNILE1BQWEsdUJBQXdCLFNBQVEsc0JBQWU7UUFBNUQ7O1lBRUUscUVBQXFFO1lBQ3JFLDBEQUEwRDtZQUMxRCxZQUFPLEdBQUcsSUFBSSxDQUFDLGFBQWEsS0FBSywwQkFBYSxDQUFDLEVBQUUsQ0FBQztRQXlCcEQsQ0FBQztRQXZCQyxTQUFTLENBQUMsSUFBYTtZQUNyQixJQUFJLEVBQUUsQ0FBQyxZQUFZLENBQUMsSUFBSSxDQUFDLEVBQUU7Z0JBQ3pCLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxJQUFJLENBQUMsQ0FBQzthQUM3QjtRQUNILENBQUM7UUFFTyxnQkFBZ0IsQ0FBQyxVQUF5QjtZQUNoRCx1RUFBdUU7WUFDdkUsSUFBSSxVQUFVLENBQUMsT0FBTyxFQUFFLEtBQUssdUJBQXVCLEVBQUU7Z0JBQ3BELElBQUksQ0FBQyxtQkFBbUIsQ0FDcEIsVUFBVSxFQUNWLGdGQUFnRjtvQkFDNUUsaURBQWlELENBQUMsQ0FBQzthQUM1RDtZQUVELHVFQUF1RTtZQUN2RSxJQUFJLFVBQVUsQ0FBQyxPQUFPLEVBQUUsS0FBSyxxQkFBcUIsRUFBRTtnQkFDbEQsSUFBSSxDQUFDLG1CQUFtQixDQUNwQixVQUFVLEVBQ1YsaUZBQWlGO29CQUM3RSxrREFBa0QsQ0FBQyxDQUFDO2FBQzdEO1FBQ0gsQ0FBQztLQUNGO0lBN0JELDBEQTZCQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge01pZ3JhdGlvbiwgVGFyZ2V0VmVyc2lvbn0gZnJvbSAnQGFuZ3VsYXIvY2RrL3NjaGVtYXRpY3MnO1xuaW1wb3J0ICogYXMgdHMgZnJvbSAndHlwZXNjcmlwdCc7XG5cbi8qKlxuICogTWlncmF0aW9uIHRoYXQgbG9va3MgZm9yIGNsYXNzIG5hbWUgaWRlbnRpZmllcnMgdGhhdCBoYXZlIGJlZW4gcmVtb3ZlZCBidXRcbiAqIGNhbm5vdCBiZSBhdXRvbWF0aWNhbGx5IG1pZ3JhdGVkLlxuICovXG5leHBvcnQgY2xhc3MgTWlzY0NsYXNzTmFtZXNNaWdyYXRpb24gZXh0ZW5kcyBNaWdyYXRpb248bnVsbD4ge1xuXG4gIC8vIE9ubHkgZW5hYmxlIHRoaXMgcnVsZSBpZiB0aGUgbWlncmF0aW9uIHRhcmdldHMgdmVyc2lvbiA2LiBUaGUgcnVsZVxuICAvLyBjdXJyZW50bHkgb25seSBpbmNsdWRlcyBtaWdyYXRpb25zIGZvciBWNiBkZXByZWNhdGlvbnMuXG4gIGVuYWJsZWQgPSB0aGlzLnRhcmdldFZlcnNpb24gPT09IFRhcmdldFZlcnNpb24uVjY7XG5cbiAgdmlzaXROb2RlKG5vZGU6IHRzLk5vZGUpOiB2b2lkIHtcbiAgICBpZiAodHMuaXNJZGVudGlmaWVyKG5vZGUpKSB7XG4gICAgICB0aGlzLl92aXNpdElkZW50aWZpZXIobm9kZSk7XG4gICAgfVxuICB9XG5cbiAgcHJpdmF0ZSBfdmlzaXRJZGVudGlmaWVyKGlkZW50aWZpZXI6IHRzLklkZW50aWZpZXIpIHtcbiAgICAvLyBNaWdyYXRpb24gZm9yOiBodHRwczovL2dpdGh1Yi5jb20vYW5ndWxhci9jb21wb25lbnRzL3B1bGwvMTAyNzkgKHY2KVxuICAgIGlmIChpZGVudGlmaWVyLmdldFRleHQoKSA9PT0gJ01hdERyYXdlclRvZ2dsZVJlc3VsdCcpIHtcbiAgICAgIHRoaXMuY3JlYXRlRmFpbHVyZUF0Tm9kZShcbiAgICAgICAgICBpZGVudGlmaWVyLFxuICAgICAgICAgIGBGb3VuZCBcIk1hdERyYXdlclRvZ2dsZVJlc3VsdFwiIHdoaWNoIGhhcyBjaGFuZ2VkIGZyb20gYSBjbGFzcyB0eXBlIHRvIGEgc3RyaW5nIGAgK1xuICAgICAgICAgICAgICBgbGl0ZXJhbCB0eXBlLiBZb3VyIGNvZGUgbWF5IG5lZWQgdG8gYmUgdXBkYXRlZC5gKTtcbiAgICB9XG5cbiAgICAvLyBNaWdyYXRpb24gZm9yOiBodHRwczovL2dpdGh1Yi5jb20vYW5ndWxhci9jb21wb25lbnRzL3B1bGwvMTAzOTggKHY2KVxuICAgIGlmIChpZGVudGlmaWVyLmdldFRleHQoKSA9PT0gJ01hdExpc3RPcHRpb25DaGFuZ2UnKSB7XG4gICAgICB0aGlzLmNyZWF0ZUZhaWx1cmVBdE5vZGUoXG4gICAgICAgICAgaWRlbnRpZmllcixcbiAgICAgICAgICBgRm91bmQgdXNhZ2Ugb2YgXCJNYXRMaXN0T3B0aW9uQ2hhbmdlXCIgd2hpY2ggaGFzIGJlZW4gcmVtb3ZlZC4gUGxlYXNlIGxpc3RlbiBmb3IgYCArXG4gICAgICAgICAgICAgIGBcInNlbGVjdGlvbkNoYW5nZVwiIG9uIFwiTWF0U2VsZWN0aW9uTGlzdFwiIGluc3RlYWQuYCk7XG4gICAgfVxuICB9XG59XG4iXX0=
+    _visitIdentifier(identifier) {
+        // Migration for: https://github.com/angular/components/pull/10279 (v6)
+        if (identifier.getText() === 'MatDrawerToggleResult') {
+            this.createFailureAtNode(identifier, `Found "MatDrawerToggleResult" which has changed from a class type to a string ` +
+                `literal type. Your code may need to be updated.`);
+        }
+        // Migration for: https://github.com/angular/components/pull/10398 (v6)
+        if (identifier.getText() === 'MatListOptionChange') {
+            this.createFailureAtNode(identifier, `Found usage of "MatListOptionChange" which has been removed. Please listen for ` +
+                `"selectionChange" on "MatSelectionList" instead.`);
+        }
+    }
+}
+exports.MiscClassNamesMigration = MiscClassNamesMigration;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWlzYy1jbGFzcy1uYW1lcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9zY2hlbWF0aWNzL25nLXVwZGF0ZS9taWdyYXRpb25zL21pc2MtY2hlY2tzL21pc2MtY2xhc3MtbmFtZXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBOzs7Ozs7R0FNRzs7O0FBRUgsd0RBQWlFO0FBQ2pFLGlDQUFpQztBQUVqQzs7O0dBR0c7QUFDSCxNQUFhLHVCQUF3QixTQUFRLHNCQUFlO0lBQTVEOztRQUVFLHFFQUFxRTtRQUNyRSwwREFBMEQ7UUFDMUQsWUFBTyxHQUFHLElBQUksQ0FBQyxhQUFhLEtBQUssMEJBQWEsQ0FBQyxFQUFFLENBQUM7SUF5QnBELENBQUM7SUF2QkMsU0FBUyxDQUFDLElBQWE7UUFDckIsSUFBSSxFQUFFLENBQUMsWUFBWSxDQUFDLElBQUksQ0FBQyxFQUFFO1lBQ3pCLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxJQUFJLENBQUMsQ0FBQztTQUM3QjtJQUNILENBQUM7SUFFTyxnQkFBZ0IsQ0FBQyxVQUF5QjtRQUNoRCx1RUFBdUU7UUFDdkUsSUFBSSxVQUFVLENBQUMsT0FBTyxFQUFFLEtBQUssdUJBQXVCLEVBQUU7WUFDcEQsSUFBSSxDQUFDLG1CQUFtQixDQUNwQixVQUFVLEVBQ1YsZ0ZBQWdGO2dCQUM1RSxpREFBaUQsQ0FBQyxDQUFDO1NBQzVEO1FBRUQsdUVBQXVFO1FBQ3ZFLElBQUksVUFBVSxDQUFDLE9BQU8sRUFBRSxLQUFLLHFCQUFxQixFQUFFO1lBQ2xELElBQUksQ0FBQyxtQkFBbUIsQ0FDcEIsVUFBVSxFQUNWLGlGQUFpRjtnQkFDN0Usa0RBQWtELENBQUMsQ0FBQztTQUM3RDtJQUNILENBQUM7Q0FDRjtBQTdCRCwwREE2QkMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtNaWdyYXRpb24sIFRhcmdldFZlcnNpb259IGZyb20gJ0Bhbmd1bGFyL2Nkay9zY2hlbWF0aWNzJztcbmltcG9ydCAqIGFzIHRzIGZyb20gJ3R5cGVzY3JpcHQnO1xuXG4vKipcbiAqIE1pZ3JhdGlvbiB0aGF0IGxvb2tzIGZvciBjbGFzcyBuYW1lIGlkZW50aWZpZXJzIHRoYXQgaGF2ZSBiZWVuIHJlbW92ZWQgYnV0XG4gKiBjYW5ub3QgYmUgYXV0b21hdGljYWxseSBtaWdyYXRlZC5cbiAqL1xuZXhwb3J0IGNsYXNzIE1pc2NDbGFzc05hbWVzTWlncmF0aW9uIGV4dGVuZHMgTWlncmF0aW9uPG51bGw+IHtcblxuICAvLyBPbmx5IGVuYWJsZSB0aGlzIHJ1bGUgaWYgdGhlIG1pZ3JhdGlvbiB0YXJnZXRzIHZlcnNpb24gNi4gVGhlIHJ1bGVcbiAgLy8gY3VycmVudGx5IG9ubHkgaW5jbHVkZXMgbWlncmF0aW9ucyBmb3IgVjYgZGVwcmVjYXRpb25zLlxuICBlbmFibGVkID0gdGhpcy50YXJnZXRWZXJzaW9uID09PSBUYXJnZXRWZXJzaW9uLlY2O1xuXG4gIHZpc2l0Tm9kZShub2RlOiB0cy5Ob2RlKTogdm9pZCB7XG4gICAgaWYgKHRzLmlzSWRlbnRpZmllcihub2RlKSkge1xuICAgICAgdGhpcy5fdmlzaXRJZGVudGlmaWVyKG5vZGUpO1xuICAgIH1cbiAgfVxuXG4gIHByaXZhdGUgX3Zpc2l0SWRlbnRpZmllcihpZGVudGlmaWVyOiB0cy5JZGVudGlmaWVyKSB7XG4gICAgLy8gTWlncmF0aW9uIGZvcjogaHR0cHM6Ly9naXRodWIuY29tL2FuZ3VsYXIvY29tcG9uZW50cy9wdWxsLzEwMjc5ICh2NilcbiAgICBpZiAoaWRlbnRpZmllci5nZXRUZXh0KCkgPT09ICdNYXREcmF3ZXJUb2dnbGVSZXN1bHQnKSB7XG4gICAgICB0aGlzLmNyZWF0ZUZhaWx1cmVBdE5vZGUoXG4gICAgICAgICAgaWRlbnRpZmllcixcbiAgICAgICAgICBgRm91bmQgXCJNYXREcmF3ZXJUb2dnbGVSZXN1bHRcIiB3aGljaCBoYXMgY2hhbmdlZCBmcm9tIGEgY2xhc3MgdHlwZSB0byBhIHN0cmluZyBgICtcbiAgICAgICAgICAgICAgYGxpdGVyYWwgdHlwZS4gWW91ciBjb2RlIG1heSBuZWVkIHRvIGJlIHVwZGF0ZWQuYCk7XG4gICAgfVxuXG4gICAgLy8gTWlncmF0aW9uIGZvcjogaHR0cHM6Ly9naXRodWIuY29tL2FuZ3VsYXIvY29tcG9uZW50cy9wdWxsLzEwMzk4ICh2NilcbiAgICBpZiAoaWRlbnRpZmllci5nZXRUZXh0KCkgPT09ICdNYXRMaXN0T3B0aW9uQ2hhbmdlJykge1xuICAgICAgdGhpcy5jcmVhdGVGYWlsdXJlQXROb2RlKFxuICAgICAgICAgIGlkZW50aWZpZXIsXG4gICAgICAgICAgYEZvdW5kIHVzYWdlIG9mIFwiTWF0TGlzdE9wdGlvbkNoYW5nZVwiIHdoaWNoIGhhcyBiZWVuIHJlbW92ZWQuIFBsZWFzZSBsaXN0ZW4gZm9yIGAgK1xuICAgICAgICAgICAgICBgXCJzZWxlY3Rpb25DaGFuZ2VcIiBvbiBcIk1hdFNlbGVjdGlvbkxpc3RcIiBpbnN0ZWFkLmApO1xuICAgIH1cbiAgfVxufVxuIl19

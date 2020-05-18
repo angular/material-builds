@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/// <amd-module name="@angular/material/schematics/ng-update/migrations/hammer-gestures-v9/find-main-module" />
 import * as ts from 'typescript';
 /**
  * Finds the main Angular module within the specified source file. The first module

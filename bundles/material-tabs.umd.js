@@ -93,18 +93,18 @@
     }());
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -160,10 +160,11 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -196,19 +197,28 @@
         }
     }
 
+    const __createBinding = Object.create ? (function(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    }) : (function(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    });
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
     }
 
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -277,16 +287,37 @@
         return cooked;
     };
 
+    const __setModuleDefault = Object.create ? (function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function(o, v) {
+        o["default"] = v;
+    };
+
     function __importStar(mod) {
         if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-        result.default = mod;
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
 
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
     }
 
     /**
@@ -397,7 +428,7 @@
                     this._templateLabel = value;
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatTab.prototype, "content", {
@@ -405,7 +436,7 @@
             get: function () {
                 return this._contentPortal;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatTab.prototype.ngOnChanges = function (changes) {
@@ -593,7 +624,7 @@
                 this._positionIndex = position;
                 this._computePositionAnimationState();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -783,7 +814,7 @@
             /** Whether the tab group should grow to the size of the active tab. */
             get: function () { return this._dynamicHeight; },
             set: function (value) { this._dynamicHeight = coercion.coerceBooleanProperty(value); },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(_MatTabGroupBase.prototype, "selectedIndex", {
@@ -792,7 +823,7 @@
             set: function (value) {
                 this._indexToSelect = coercion.coerceNumberProperty(value, null);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(_MatTabGroupBase.prototype, "animationDuration", {
@@ -801,7 +832,7 @@
             set: function (value) {
                 this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(_MatTabGroupBase.prototype, "backgroundColor", {
@@ -815,7 +846,7 @@
                 }
                 this._backgroundColor = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -1199,7 +1230,7 @@
                     }
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatPaginatedTabHeader.prototype.ngAfterViewInit = function () {
@@ -1345,7 +1376,7 @@
                 }
                 this._keyManager.setActiveItem(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -1416,7 +1447,7 @@
             set: function (value) {
                 this._scrollTo(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -1632,7 +1663,7 @@
             /** Whether the ripple effect is disabled or not. */
             get: function () { return this._disableRipple; },
             set: function (value) { this._disableRipple = coercion.coerceBooleanProperty(value); },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         _MatTabHeaderBase.prototype._itemSelected = function (event) {
@@ -1736,14 +1767,14 @@
                 }
                 this._backgroundColor = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(_MatTabNavBase.prototype, "disableRipple", {
             /** Whether the ripple effect is disabled or not. */
             get: function () { return this._disableRipple; },
             set: function (value) { this._disableRipple = coercion.coerceBooleanProperty(value); },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         _MatTabNavBase.prototype._itemSelected = function () {
@@ -1885,7 +1916,7 @@
                     this._tabNavBar.updateActiveLink(this.elementRef);
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(_MatTabLinkBase.prototype, "rippleDisabled", {
@@ -1897,7 +1928,7 @@
                 return this.disabled || this.disableRipple || this._tabNavBar.disableRipple ||
                     !!this.rippleConfig.disabled;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         _MatTabLinkBase.prototype.focus = function () {

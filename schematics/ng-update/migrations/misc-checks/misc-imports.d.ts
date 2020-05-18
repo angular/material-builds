@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/// <amd-module name="@angular/material/schematics/ng-update/migrations/misc-checks/misc-imports" />
 import { Migration } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 /**

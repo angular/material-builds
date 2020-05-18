@@ -14,34 +14,41 @@ import { map } from 'rxjs/operators';
  * Wrapper for the CdkTable with Material design styles.
  * @template T
  */
-class MatTable extends CdkTable {
-    constructor() {
-        super(...arguments);
-        /**
-         * Overrides the sticky CSS class set by the `CdkTable`.
-         */
-        this.stickyCssClass = 'mat-table-sticky';
+let MatTable = /** @class */ (() => {
+    /**
+     * Wrapper for the CdkTable with Material design styles.
+     * @template T
+     */
+    class MatTable extends CdkTable {
+        constructor() {
+            super(...arguments);
+            /**
+             * Overrides the sticky CSS class set by the `CdkTable`.
+             */
+            this.stickyCssClass = 'mat-table-sticky';
+        }
     }
-}
-MatTable.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-table, table[mat-table]',
-                exportAs: 'matTable',
-                template: CDK_TABLE_TEMPLATE,
-                host: {
-                    'class': 'mat-table',
-                },
-                providers: [
-                    { provide: CdkTable, useExisting: MatTable },
-                    { provide: CDK_TABLE, useExisting: MatTable }
-                ],
-                encapsulation: ViewEncapsulation.None,
-                // See note on CdkTable for explanation on why this uses the default change detection strategy.
-                // tslint:disable-next-line:validate-decorators
-                changeDetection: ChangeDetectionStrategy.Default,
-                styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row,mat-footer-row{min-height:48px}mat-row,mat-header-row,mat-footer-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-row::after,mat-header-row::after,mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}mat-cell:first-of-type,mat-header-cell:first-of-type,mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] mat-cell:first-of-type,[dir=rtl] mat-header-cell:first-of-type,[dir=rtl] mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}mat-cell:last-of-type,mat-header-cell:last-of-type,mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] mat-cell:last-of-type,[dir=rtl] mat-header-cell:last-of-type,[dir=rtl] mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}mat-cell,mat-header-cell,mat-footer-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type,[dir=rtl] td.mat-cell:first-of-type,[dir=rtl] td.mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type,[dir=rtl] td.mat-cell:last-of-type,[dir=rtl] td.mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}\n"]
-            }] }
-];
+    MatTable.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-table, table[mat-table]',
+                    exportAs: 'matTable',
+                    template: CDK_TABLE_TEMPLATE,
+                    host: {
+                        'class': 'mat-table',
+                    },
+                    providers: [
+                        { provide: CdkTable, useExisting: MatTable },
+                        { provide: CDK_TABLE, useExisting: MatTable }
+                    ],
+                    encapsulation: ViewEncapsulation.None,
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
+                    styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row,mat-footer-row{min-height:48px}mat-row,mat-header-row,mat-footer-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-row::after,mat-header-row::after,mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}mat-cell:first-of-type,mat-header-cell:first-of-type,mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] mat-cell:first-of-type,[dir=rtl] mat-header-cell:first-of-type,[dir=rtl] mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}mat-cell:last-of-type,mat-header-cell:last-of-type,mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] mat-cell:last-of-type,[dir=rtl] mat-header-cell:last-of-type,[dir=rtl] mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}mat-cell,mat-header-cell,mat-footer-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type,[dir=rtl] td.mat-cell:first-of-type,[dir=rtl] td.mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type,[dir=rtl] td.mat-cell:last-of-type,[dir=rtl] td.mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}\n"]
+                }] }
+    ];
+    return MatTable;
+})();
 if (false) {
     /**
      * Overrides the sticky CSS class set by the `CdkTable`.
@@ -60,57 +67,85 @@ if (false) {
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-class MatCellDef extends CdkCellDef {
-}
-MatCellDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matCellDef]',
-                providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
-            },] }
-];
+let MatCellDef = /** @class */ (() => {
+    /**
+     * Cell definition for the mat-table.
+     * Captures the template of a column's data row cell as well as cell-specific properties.
+     */
+    class MatCellDef extends CdkCellDef {
+    }
+    MatCellDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matCellDef]',
+                    providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
+                },] }
+    ];
+    return MatCellDef;
+})();
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-class MatHeaderCellDef extends CdkHeaderCellDef {
-}
-MatHeaderCellDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matHeaderCellDef]',
-                providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
-            },] }
-];
+let MatHeaderCellDef = /** @class */ (() => {
+    /**
+     * Header cell definition for the mat-table.
+     * Captures the template of a column's header cell and as well as cell-specific properties.
+     */
+    class MatHeaderCellDef extends CdkHeaderCellDef {
+    }
+    MatHeaderCellDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matHeaderCellDef]',
+                    providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
+                },] }
+    ];
+    return MatHeaderCellDef;
+})();
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
  */
-class MatFooterCellDef extends CdkFooterCellDef {
-}
-MatFooterCellDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matFooterCellDef]',
-                providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
-            },] }
-];
+let MatFooterCellDef = /** @class */ (() => {
+    /**
+     * Footer cell definition for the mat-table.
+     * Captures the template of a column's footer cell and as well as cell-specific properties.
+     */
+    class MatFooterCellDef extends CdkFooterCellDef {
+    }
+    MatFooterCellDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matFooterCellDef]',
+                    providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
+                },] }
+    ];
+    return MatFooterCellDef;
+})();
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
-class MatColumnDef extends CdkColumnDef {
-}
-MatColumnDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matColumnDef]',
-                inputs: ['sticky'],
-                providers: [
-                    { provide: CdkColumnDef, useExisting: MatColumnDef },
-                    { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
-                ],
-            },] }
-];
-MatColumnDef.propDecorators = {
-    name: [{ type: Input, args: ['matColumnDef',] }]
-};
+let MatColumnDef = /** @class */ (() => {
+    /**
+     * Column definition for the mat-table.
+     * Defines a set of cells available for a table column.
+     */
+    class MatColumnDef extends CdkColumnDef {
+    }
+    MatColumnDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matColumnDef]',
+                    inputs: ['sticky'],
+                    providers: [
+                        { provide: CdkColumnDef, useExisting: MatColumnDef },
+                        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
+                    ],
+                },] }
+    ];
+    MatColumnDef.propDecorators = {
+        name: [{ type: Input, args: ['matColumnDef',] }]
+    };
+    return MatColumnDef;
+})();
 if (false) {
     /** @type {?} */
     MatColumnDef.ngAcceptInputType_sticky;
@@ -123,84 +158,102 @@ if (false) {
 /**
  * Header cell template container that adds the right classes and role.
  */
-class MatHeaderCell extends CdkHeaderCell {
+let MatHeaderCell = /** @class */ (() => {
     /**
-     * @param {?} columnDef
-     * @param {?} elementRef
+     * Header cell template container that adds the right classes and role.
      */
-    constructor(columnDef, elementRef) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
+    class MatHeaderCell extends CdkHeaderCell {
+        /**
+         * @param {?} columnDef
+         * @param {?} elementRef
+         */
+        constructor(columnDef, elementRef) {
+            super(columnDef, elementRef);
+            elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
+        }
     }
-}
-MatHeaderCell.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-header-cell, th[mat-header-cell]',
-                host: {
-                    'class': 'mat-header-cell',
-                    'role': 'columnheader',
-                },
-            },] }
-];
-/** @nocollapse */
-MatHeaderCell.ctorParameters = () => [
-    { type: CdkColumnDef },
-    { type: ElementRef }
-];
+    MatHeaderCell.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-header-cell, th[mat-header-cell]',
+                    host: {
+                        'class': 'mat-header-cell',
+                        'role': 'columnheader',
+                    },
+                },] }
+    ];
+    /** @nocollapse */
+    MatHeaderCell.ctorParameters = () => [
+        { type: CdkColumnDef },
+        { type: ElementRef }
+    ];
+    return MatHeaderCell;
+})();
 /**
  * Footer cell template container that adds the right classes and role.
  */
-class MatFooterCell extends CdkFooterCell {
+let MatFooterCell = /** @class */ (() => {
     /**
-     * @param {?} columnDef
-     * @param {?} elementRef
+     * Footer cell template container that adds the right classes and role.
      */
-    constructor(columnDef, elementRef) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
+    class MatFooterCell extends CdkFooterCell {
+        /**
+         * @param {?} columnDef
+         * @param {?} elementRef
+         */
+        constructor(columnDef, elementRef) {
+            super(columnDef, elementRef);
+            elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
+        }
     }
-}
-MatFooterCell.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-footer-cell, td[mat-footer-cell]',
-                host: {
-                    'class': 'mat-footer-cell',
-                    'role': 'gridcell',
-                },
-            },] }
-];
-/** @nocollapse */
-MatFooterCell.ctorParameters = () => [
-    { type: CdkColumnDef },
-    { type: ElementRef }
-];
+    MatFooterCell.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-footer-cell, td[mat-footer-cell]',
+                    host: {
+                        'class': 'mat-footer-cell',
+                        'role': 'gridcell',
+                    },
+                },] }
+    ];
+    /** @nocollapse */
+    MatFooterCell.ctorParameters = () => [
+        { type: CdkColumnDef },
+        { type: ElementRef }
+    ];
+    return MatFooterCell;
+})();
 /**
  * Cell template container that adds the right classes and role.
  */
-class MatCell extends CdkCell {
+let MatCell = /** @class */ (() => {
     /**
-     * @param {?} columnDef
-     * @param {?} elementRef
+     * Cell template container that adds the right classes and role.
      */
-    constructor(columnDef, elementRef) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
+    class MatCell extends CdkCell {
+        /**
+         * @param {?} columnDef
+         * @param {?} elementRef
+         */
+        constructor(columnDef, elementRef) {
+            super(columnDef, elementRef);
+            elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
+        }
     }
-}
-MatCell.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-cell, td[mat-cell]',
-                host: {
-                    'class': 'mat-cell',
-                    'role': 'gridcell',
-                },
-            },] }
-];
-/** @nocollapse */
-MatCell.ctorParameters = () => [
-    { type: CdkColumnDef },
-    { type: ElementRef }
-];
+    MatCell.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-cell, td[mat-cell]',
+                    host: {
+                        'class': 'mat-cell',
+                        'role': 'gridcell',
+                    },
+                },] }
+    ];
+    /** @nocollapse */
+    MatCell.ctorParameters = () => [
+        { type: CdkColumnDef },
+        { type: ElementRef }
+    ];
+    return MatCell;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -211,15 +264,22 @@ MatCell.ctorParameters = () => [
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-class MatHeaderRowDef extends CdkHeaderRowDef {
-}
-MatHeaderRowDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matHeaderRowDef]',
-                providers: [{ provide: CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
-                inputs: ['columns: matHeaderRowDef', 'sticky: matHeaderRowDefSticky'],
-            },] }
-];
+let MatHeaderRowDef = /** @class */ (() => {
+    /**
+     * Header row definition for the mat-table.
+     * Captures the header row's template and other header properties such as the columns to display.
+     */
+    class MatHeaderRowDef extends CdkHeaderRowDef {
+    }
+    MatHeaderRowDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matHeaderRowDef]',
+                    providers: [{ provide: CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
+                    inputs: ['columns: matHeaderRowDef', 'sticky: matHeaderRowDefSticky'],
+                },] }
+    ];
+    return MatHeaderRowDef;
+})();
 if (false) {
     /** @type {?} */
     MatHeaderRowDef.ngAcceptInputType_sticky;
@@ -228,15 +288,22 @@ if (false) {
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
  */
-class MatFooterRowDef extends CdkFooterRowDef {
-}
-MatFooterRowDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matFooterRowDef]',
-                providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }],
-                inputs: ['columns: matFooterRowDef', 'sticky: matFooterRowDefSticky'],
-            },] }
-];
+let MatFooterRowDef = /** @class */ (() => {
+    /**
+     * Footer row definition for the mat-table.
+     * Captures the footer row's template and other footer properties such as the columns to display.
+     */
+    class MatFooterRowDef extends CdkFooterRowDef {
+    }
+    MatFooterRowDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matFooterRowDef]',
+                    providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }],
+                    inputs: ['columns: matFooterRowDef', 'sticky: matFooterRowDefSticky'],
+                },] }
+    ];
+    return MatFooterRowDef;
+})();
 if (false) {
     /** @type {?} */
     MatFooterRowDef.ngAcceptInputType_sticky;
@@ -247,89 +314,122 @@ if (false) {
  * a when predicate that describes when this row should be used.
  * @template T
  */
-class MatRowDef extends CdkRowDef {
-}
-MatRowDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matRowDef]',
-                providers: [{ provide: CdkRowDef, useExisting: MatRowDef }],
-                inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
-            },] }
-];
+let MatRowDef = /** @class */ (() => {
+    /**
+     * Data row definition for the mat-table.
+     * Captures the data row's template and other properties such as the columns to display and
+     * a when predicate that describes when this row should be used.
+     * @template T
+     */
+    class MatRowDef extends CdkRowDef {
+    }
+    MatRowDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matRowDef]',
+                    providers: [{ provide: CdkRowDef, useExisting: MatRowDef }],
+                    inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
+                },] }
+    ];
+    return MatRowDef;
+})();
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
-class MatHeaderRow extends CdkHeaderRow {
-}
-MatHeaderRow.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-header-row, tr[mat-header-row]',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'mat-header-row',
-                    'role': 'row',
-                },
-                // See note on CdkTable for explanation on why this uses the default change detection strategy.
-                // tslint:disable-next-line:validate-decorators
-                changeDetection: ChangeDetectionStrategy.Default,
-                encapsulation: ViewEncapsulation.None,
-                exportAs: 'matHeaderRow',
-                providers: [{ provide: CdkHeaderRow, useExisting: MatHeaderRow }]
-            }] }
-];
+let MatHeaderRow = /** @class */ (() => {
+    /**
+     * Header template container that contains the cell outlet. Adds the right class and role.
+     */
+    class MatHeaderRow extends CdkHeaderRow {
+    }
+    MatHeaderRow.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-header-row, tr[mat-header-row]',
+                    template: CDK_ROW_TEMPLATE,
+                    host: {
+                        'class': 'mat-header-row',
+                        'role': 'row',
+                    },
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
+                    encapsulation: ViewEncapsulation.None,
+                    exportAs: 'matHeaderRow',
+                    providers: [{ provide: CdkHeaderRow, useExisting: MatHeaderRow }]
+                }] }
+    ];
+    return MatHeaderRow;
+})();
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
-class MatFooterRow extends CdkFooterRow {
-}
-MatFooterRow.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-footer-row, tr[mat-footer-row]',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'mat-footer-row',
-                    'role': 'row',
-                },
-                // See note on CdkTable for explanation on why this uses the default change detection strategy.
-                // tslint:disable-next-line:validate-decorators
-                changeDetection: ChangeDetectionStrategy.Default,
-                encapsulation: ViewEncapsulation.None,
-                exportAs: 'matFooterRow',
-                providers: [{ provide: CdkFooterRow, useExisting: MatFooterRow }]
-            }] }
-];
+let MatFooterRow = /** @class */ (() => {
+    /**
+     * Footer template container that contains the cell outlet. Adds the right class and role.
+     */
+    class MatFooterRow extends CdkFooterRow {
+    }
+    MatFooterRow.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-footer-row, tr[mat-footer-row]',
+                    template: CDK_ROW_TEMPLATE,
+                    host: {
+                        'class': 'mat-footer-row',
+                        'role': 'row',
+                    },
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
+                    encapsulation: ViewEncapsulation.None,
+                    exportAs: 'matFooterRow',
+                    providers: [{ provide: CdkFooterRow, useExisting: MatFooterRow }]
+                }] }
+    ];
+    return MatFooterRow;
+})();
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
-class MatRow extends CdkRow {
-}
-MatRow.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-row, tr[mat-row]',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'mat-row',
-                    'role': 'row',
-                },
-                // See note on CdkTable for explanation on why this uses the default change detection strategy.
-                // tslint:disable-next-line:validate-decorators
-                changeDetection: ChangeDetectionStrategy.Default,
-                encapsulation: ViewEncapsulation.None,
-                exportAs: 'matRow',
-                providers: [{ provide: CdkRow, useExisting: MatRow }]
-            }] }
-];
+let MatRow = /** @class */ (() => {
+    /**
+     * Data row template container that contains the cell outlet. Adds the right class and role.
+     */
+    class MatRow extends CdkRow {
+    }
+    MatRow.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-row, tr[mat-row]',
+                    template: CDK_ROW_TEMPLATE,
+                    host: {
+                        'class': 'mat-row',
+                        'role': 'row',
+                    },
+                    // See note on CdkTable for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
+                    encapsulation: ViewEncapsulation.None,
+                    exportAs: 'matRow',
+                    providers: [{ provide: CdkRow, useExisting: MatRow }]
+                }] }
+    ];
+    return MatRow;
+})();
 /**
  * Row that can be used to display a message when no data is shown in the table.
  */
-class MatNoDataRow extends CdkNoDataRow {
-}
-MatNoDataRow.decorators = [
-    { type: Directive, args: [{
-                selector: 'ng-template[matNoDataRow]',
-                providers: [{ provide: CdkNoDataRow, useExisting: MatNoDataRow }],
-            },] }
-];
+let MatNoDataRow = /** @class */ (() => {
+    /**
+     * Row that can be used to display a message when no data is shown in the table.
+     */
+    class MatNoDataRow extends CdkNoDataRow {
+    }
+    MatNoDataRow.decorators = [
+        { type: Directive, args: [{
+                    selector: 'ng-template[matNoDataRow]',
+                    providers: [{ provide: CdkNoDataRow, useExisting: MatNoDataRow }],
+                },] }
+    ];
+    return MatNoDataRow;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -346,12 +446,23 @@ MatNoDataRow.decorators = [
  * input.
  * @template T
  */
-class MatTextColumn extends CdkTextColumn {
-}
-MatTextColumn.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-text-column',
-                template: `
+let MatTextColumn = /** @class */ (() => {
+    /**
+     * Column that simply shows text content for the header and row cells. Assumes that the table
+     * is using the native table implementation (`<table>`).
+     *
+     * By default, the name of this column will be the header text and data property accessor.
+     * The header text can be overridden with the `headerText` input. Cell values can be overridden with
+     * the `dataAccessor` input. Change the text justification to the start or end using the `justify`
+     * input.
+     * @template T
+     */
+    class MatTextColumn extends CdkTextColumn {
+    }
+    MatTextColumn.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-text-column',
+                    template: `
     <ng-container matColumnDef>
       <th mat-header-cell *matHeaderCellDef [style.text-align]="justify">
         {{headerText}}
@@ -361,16 +472,18 @@ MatTextColumn.decorators = [
       </td>
     </ng-container>
   `,
-                encapsulation: ViewEncapsulation.None,
-                // Change detection is intentionally not set to OnPush. This component's template will be provided
-                // to the table to be inserted into its view. This is problematic when change detection runs since
-                // the bindings in this template will be evaluated _after_ the table's view is evaluated, which
-                // mean's the template in the table's view will not have the updated value (and in fact will cause
-                // an ExpressionChangedAfterItHasBeenCheckedError).
-                // tslint:disable-next-line:validate-decorators
-                changeDetection: ChangeDetectionStrategy.Default
-            }] }
-];
+                    encapsulation: ViewEncapsulation.None,
+                    // Change detection is intentionally not set to OnPush. This component's template will be provided
+                    // to the table to be inserted into its view. This is problematic when change detection runs since
+                    // the bindings in this template will be evaluated _after_ the table's view is evaluated, which
+                    // mean's the template in the table's view will not have the updated value (and in fact will cause
+                    // an ExpressionChangedAfterItHasBeenCheckedError).
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default
+                }] }
+    ];
+    return MatTextColumn;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -400,18 +513,21 @@ const EXPORTED_DECLARATIONS = [
     MatNoDataRow,
     MatTextColumn,
 ];
-class MatTableModule {
-}
-MatTableModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CdkTableModule,
-                    MatCommonModule,
-                ],
-                exports: [MatCommonModule, EXPORTED_DECLARATIONS],
-                declarations: EXPORTED_DECLARATIONS,
-            },] }
-];
+let MatTableModule = /** @class */ (() => {
+    class MatTableModule {
+    }
+    MatTableModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        CdkTableModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatCommonModule, EXPORTED_DECLARATIONS],
+                    declarations: EXPORTED_DECLARATIONS,
+                },] }
+    ];
+    return MatTableModule;
+})();
 
 /**
  * @fileoverview added by tsickle

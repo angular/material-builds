@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/// <amd-module name="@angular/material/schematics/ng-update/upgrade-data" />
 import { UpgradeData } from '@angular/cdk/schematics';
 /** Upgrade data that will be used for the Angular Material ng-update schematic. */
 export declare const materialUpgradeData: UpgradeData;

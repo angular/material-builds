@@ -20,7 +20,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * Current version of Angular Material.
  * @type {?}
  */
-const VERSION = new Version('10.0.0-next.0-sha-948dfa96b');
+const VERSION = new Version('10.0.0-next.0-sha-a86064ac8');
 
 /**
  * @fileoverview added by tsickle
@@ -37,12 +37,18 @@ const VERSION = new Version('10.0.0-next.0-sha-948dfa96b');
 /**
  * \@docs-private
  */
-class AnimationCurves {
-}
-AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
-AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
-AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
-AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
+let AnimationCurves = /** @class */ (() => {
+    /**
+     * \@docs-private
+     */
+    class AnimationCurves {
+    }
+    AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
+    AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
+    AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
+    AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
+    return AnimationCurves;
+})();
 if (false) {
     /** @type {?} */
     AnimationCurves.STANDARD_CURVE;
@@ -56,11 +62,17 @@ if (false) {
 /**
  * \@docs-private
  */
-class AnimationDurations {
-}
-AnimationDurations.COMPLEX = '375ms';
-AnimationDurations.ENTERING = '225ms';
-AnimationDurations.EXITING = '195ms';
+let AnimationDurations = /** @class */ (() => {
+    /**
+     * \@docs-private
+     */
+    class AnimationDurations {
+    }
+    AnimationDurations.COMPLEX = '375ms';
+    AnimationDurations.ENTERING = '225ms';
+    AnimationDurations.EXITING = '195ms';
+    return AnimationDurations;
+})();
 if (false) {
     /** @type {?} */
     AnimationDurations.COMPLEX;
@@ -80,7 +92,7 @@ if (false) {
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 /** @type {?} */
-const VERSION$1 = new Version('10.0.0-next.0-sha-948dfa96b');
+const VERSION$1 = new Version('10.0.0-next.0-sha-a86064ac8');
 /**
  * \@docs-private
  * @return {?}
@@ -121,148 +133,157 @@ if (false) {
  *
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-class MatCommonModule {
+let MatCommonModule = /** @class */ (() => {
     /**
-     * @param {?} highContrastModeDetector
-     * @param {?} sanityChecks
-     * @param {?=} document
+     * Module that captures anything that should be loaded and/or run for *all* Angular Material
+     * components. This includes Bidi, etc.
+     *
+     * This module should be imported to each top-level component module (e.g., MatTabsModule).
      */
-    constructor(highContrastModeDetector, sanityChecks, 
-    /** @breaking-change 11.0.0 make document required */
-    document) {
+    class MatCommonModule {
         /**
-         * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
+         * @param {?} highContrastModeDetector
+         * @param {?} sanityChecks
+         * @param {?=} document
          */
-        this._hasDoneGlobalChecks = false;
-        this._document = document;
-        // While A11yModule also does this, we repeat it here to avoid importing A11yModule
-        // in MatCommonModule.
-        highContrastModeDetector._applyBodyHighContrastModeCssClasses();
-        // Note that `_sanityChecks` is typed to `any`, because AoT
-        // throws an error if we use the `SanityChecks` type directly.
-        this._sanityChecks = sanityChecks;
-        if (!this._hasDoneGlobalChecks) {
-            this._checkDoctypeIsDefined();
-            this._checkThemeIsPresent();
-            this._checkCdkVersionMatch();
-            this._hasDoneGlobalChecks = true;
+        constructor(highContrastModeDetector, sanityChecks, 
+        /** @breaking-change 11.0.0 make document required */
+        document) {
+            /**
+             * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
+             */
+            this._hasDoneGlobalChecks = false;
+            this._document = document;
+            // While A11yModule also does this, we repeat it here to avoid importing A11yModule
+            // in MatCommonModule.
+            highContrastModeDetector._applyBodyHighContrastModeCssClasses();
+            // Note that `_sanityChecks` is typed to `any`, because AoT
+            // throws an error if we use the `SanityChecks` type directly.
+            this._sanityChecks = sanityChecks;
+            if (!this._hasDoneGlobalChecks) {
+                this._checkDoctypeIsDefined();
+                this._checkThemeIsPresent();
+                this._checkCdkVersionMatch();
+                this._hasDoneGlobalChecks = true;
+            }
+        }
+        /**
+         * Access injected document if available or fallback to global document reference
+         * @private
+         * @return {?}
+         */
+        _getDocument() {
+            /** @type {?} */
+            const doc = this._document || document;
+            return typeof doc === 'object' && doc ? doc : null;
+        }
+        /**
+         * Use defaultView of injected document if available or fallback to global window reference
+         * @private
+         * @return {?}
+         */
+        _getWindow() {
+            /** @type {?} */
+            const doc = this._getDocument();
+            /** @type {?} */
+            const win = (doc === null || doc === void 0 ? void 0 : doc.defaultView) || window;
+            return typeof win === 'object' && win ? win : null;
+        }
+        /**
+         * Whether any sanity checks are enabled.
+         * @private
+         * @return {?}
+         */
+        _checksAreEnabled() {
+            return isDevMode() && !this._isTestEnv();
+        }
+        /**
+         * Whether the code is running in tests.
+         * @private
+         * @return {?}
+         */
+        _isTestEnv() {
+            /** @type {?} */
+            const window = (/** @type {?} */ (this._getWindow()));
+            return window && (window.__karma__ || window.jasmine);
+        }
+        /**
+         * @private
+         * @return {?}
+         */
+        _checkDoctypeIsDefined() {
+            /** @type {?} */
+            const isEnabled = this._checksAreEnabled() &&
+                (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).doctype);
+            /** @type {?} */
+            const document = this._getDocument();
+            if (isEnabled && document && !document.doctype) {
+                console.warn('Current document does not have a doctype. This may cause ' +
+                    'some Angular Material components not to behave as expected.');
+            }
+        }
+        /**
+         * @private
+         * @return {?}
+         */
+        _checkThemeIsPresent() {
+            // We need to assert that the `body` is defined, because these checks run very early
+            // and the `body` won't be defined if the consumer put their scripts in the `head`.
+            /** @type {?} */
+            const isDisabled = !this._checksAreEnabled() ||
+                (this._sanityChecks === false || !((/** @type {?} */ (this._sanityChecks))).theme);
+            /** @type {?} */
+            const document = this._getDocument();
+            if (isDisabled || !document || !document.body ||
+                typeof getComputedStyle !== 'function') {
+                return;
+            }
+            /** @type {?} */
+            const testElement = document.createElement('div');
+            testElement.classList.add('mat-theme-loaded-marker');
+            document.body.appendChild(testElement);
+            /** @type {?} */
+            const computedStyle = getComputedStyle(testElement);
+            // In some situations the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
+                console.warn('Could not find Angular Material core theme. Most Material ' +
+                    'components may not work as expected. For more info refer ' +
+                    'to the theming guide: https://material.angular.io/guide/theming');
+            }
+            document.body.removeChild(testElement);
+        }
+        /**
+         * Checks whether the material version matches the cdk version
+         * @private
+         * @return {?}
+         */
+        _checkCdkVersionMatch() {
+            /** @type {?} */
+            const isEnabled = this._checksAreEnabled() &&
+                (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).version);
+            if (isEnabled && VERSION$1.full !== VERSION$2.full) {
+                console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
+                    'the Angular CDK version (' + VERSION$2.full + ').\n' +
+                    'Please ensure the versions of these two packages exactly match.');
+            }
         }
     }
-    /**
-     * Access injected document if available or fallback to global document reference
-     * @private
-     * @return {?}
-     */
-    _getDocument() {
-        /** @type {?} */
-        const doc = this._document || document;
-        return typeof doc === 'object' && doc ? doc : null;
-    }
-    /**
-     * Use defaultView of injected document if available or fallback to global window reference
-     * @private
-     * @return {?}
-     */
-    _getWindow() {
-        /** @type {?} */
-        const doc = this._getDocument();
-        /** @type {?} */
-        const win = (doc === null || doc === void 0 ? void 0 : doc.defaultView) || window;
-        return typeof win === 'object' && win ? win : null;
-    }
-    /**
-     * Whether any sanity checks are enabled.
-     * @private
-     * @return {?}
-     */
-    _checksAreEnabled() {
-        return isDevMode() && !this._isTestEnv();
-    }
-    /**
-     * Whether the code is running in tests.
-     * @private
-     * @return {?}
-     */
-    _isTestEnv() {
-        /** @type {?} */
-        const window = (/** @type {?} */ (this._getWindow()));
-        return window && (window.__karma__ || window.jasmine);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _checkDoctypeIsDefined() {
-        /** @type {?} */
-        const isEnabled = this._checksAreEnabled() &&
-            (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).doctype);
-        /** @type {?} */
-        const document = this._getDocument();
-        if (isEnabled && document && !document.doctype) {
-            console.warn('Current document does not have a doctype. This may cause ' +
-                'some Angular Material components not to behave as expected.');
-        }
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _checkThemeIsPresent() {
-        // We need to assert that the `body` is defined, because these checks run very early
-        // and the `body` won't be defined if the consumer put their scripts in the `head`.
-        /** @type {?} */
-        const isDisabled = !this._checksAreEnabled() ||
-            (this._sanityChecks === false || !((/** @type {?} */ (this._sanityChecks))).theme);
-        /** @type {?} */
-        const document = this._getDocument();
-        if (isDisabled || !document || !document.body ||
-            typeof getComputedStyle !== 'function') {
-            return;
-        }
-        /** @type {?} */
-        const testElement = document.createElement('div');
-        testElement.classList.add('mat-theme-loaded-marker');
-        document.body.appendChild(testElement);
-        /** @type {?} */
-        const computedStyle = getComputedStyle(testElement);
-        // In some situations the computed style of the test element can be null. For example in
-        // Firefox, the computed style is null if an application is running inside of a hidden iframe.
-        // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-        if (computedStyle && computedStyle.display !== 'none') {
-            console.warn('Could not find Angular Material core theme. Most Material ' +
-                'components may not work as expected. For more info refer ' +
-                'to the theming guide: https://material.angular.io/guide/theming');
-        }
-        document.body.removeChild(testElement);
-    }
-    /**
-     * Checks whether the material version matches the cdk version
-     * @private
-     * @return {?}
-     */
-    _checkCdkVersionMatch() {
-        /** @type {?} */
-        const isEnabled = this._checksAreEnabled() &&
-            (this._sanityChecks === true || ((/** @type {?} */ (this._sanityChecks))).version);
-        if (isEnabled && VERSION$1.full !== VERSION$2.full) {
-            console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
-                'the Angular CDK version (' + VERSION$2.full + ').\n' +
-                'Please ensure the versions of these two packages exactly match.');
-        }
-    }
-}
-MatCommonModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [BidiModule],
-                exports: [BidiModule],
-            },] }
-];
-/** @nocollapse */
-MatCommonModule.ctorParameters = () => [
-    { type: HighContrastModeDetector },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
-];
+    MatCommonModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [BidiModule],
+                    exports: [BidiModule],
+                },] }
+    ];
+    /** @nocollapse */
+    MatCommonModule.ctorParameters = () => [
+        { type: HighContrastModeDetector },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
+    ];
+    return MatCommonModule;
+})();
 if (false) {
     /**
      * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -1073,354 +1094,360 @@ function range(length, valueFunction) {
 /**
  * Adapts the native JS Date for use with cdk-based components that work with dates.
  */
-class NativeDateAdapter extends DateAdapter {
+let NativeDateAdapter = /** @class */ (() => {
     /**
-     * @param {?} matDateLocale
-     * @param {?} platform
+     * Adapts the native JS Date for use with cdk-based components that work with dates.
      */
-    constructor(matDateLocale, platform) {
-        super();
+    class NativeDateAdapter extends DateAdapter {
         /**
-         * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
-         * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
-         * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
-         * will produce `'8/13/1800'`.
-         *
-         * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
-         * getting the string representation of a Date object from its utc representation. We're keeping
-         * it here for sometime, just for precaution, in case we decide to revert some of these changes
-         * though.
+         * @param {?} matDateLocale
+         * @param {?} platform
          */
-        this.useUtcForDisplay = true;
-        super.setLocale(matDateLocale);
-        // IE does its own time zone correction, so we disable this on IE.
-        this.useUtcForDisplay = !platform.TRIDENT;
-        this._clampDate = platform.TRIDENT || platform.EDGE;
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    getYear(date) {
-        return date.getFullYear();
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    getMonth(date) {
-        return date.getMonth();
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    getDate(date) {
-        return date.getDate();
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    getDayOfWeek(date) {
-        return date.getDay();
-    }
-    /**
-     * @param {?} style
-     * @return {?}
-     */
-    getMonthNames(style) {
-        if (SUPPORTS_INTL_API) {
-            /** @type {?} */
-            const dtf = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
-            return range(12, (/**
-             * @param {?} i
-             * @return {?}
+        constructor(matDateLocale, platform) {
+            super();
+            /**
+             * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
+             * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
+             * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
+             * will produce `'8/13/1800'`.
+             *
+             * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
+             * getting the string representation of a Date object from its utc representation. We're keeping
+             * it here for sometime, just for precaution, in case we decide to revert some of these changes
+             * though.
              */
-            i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, i, 1)))));
+            this.useUtcForDisplay = true;
+            super.setLocale(matDateLocale);
+            // IE does its own time zone correction, so we disable this on IE.
+            this.useUtcForDisplay = !platform.TRIDENT;
+            this._clampDate = platform.TRIDENT || platform.EDGE;
         }
-        return DEFAULT_MONTH_NAMES[style];
-    }
-    /**
-     * @return {?}
-     */
-    getDateNames() {
-        if (SUPPORTS_INTL_API) {
-            /** @type {?} */
-            const dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
-            return range(31, (/**
-             * @param {?} i
-             * @return {?}
-             */
-            i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1)))));
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        getYear(date) {
+            return date.getFullYear();
         }
-        return DEFAULT_DATE_NAMES;
-    }
-    /**
-     * @param {?} style
-     * @return {?}
-     */
-    getDayOfWeekNames(style) {
-        if (SUPPORTS_INTL_API) {
-            /** @type {?} */
-            const dtf = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
-            return range(7, (/**
-             * @param {?} i
-             * @return {?}
-             */
-            i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1)))));
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        getMonth(date) {
+            return date.getMonth();
         }
-        return DEFAULT_DAY_OF_WEEK_NAMES[style];
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    getYearName(date) {
-        if (SUPPORTS_INTL_API) {
-            /** @type {?} */
-            const dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
-            return this._stripDirectionalityCharacters(this._format(dtf, date));
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        getDate(date) {
+            return date.getDate();
         }
-        return String(this.getYear(date));
-    }
-    /**
-     * @return {?}
-     */
-    getFirstDayOfWeek() {
-        // We can't tell using native JS Date what the first day of the week is, we default to Sunday.
-        return 0;
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    getNumDaysInMonth(date) {
-        return this.getDate(this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + 1, 0));
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    clone(date) {
-        return new Date(date.getTime());
-    }
-    /**
-     * @param {?} year
-     * @param {?} month
-     * @param {?} date
-     * @return {?}
-     */
-    createDate(year, month, date) {
-        // Check for invalid month and date (except upper bound on date which we have to check after
-        // creating the Date).
-        if (month < 0 || month > 11) {
-            throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        getDayOfWeek(date) {
+            return date.getDay();
         }
-        if (date < 1) {
-            throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
-        }
-        /** @type {?} */
-        let result = this._createDateWithOverflow(year, month, date);
-        // Check that the date wasn't above the upper bound for the month, causing the month to overflow
-        if (result.getMonth() != month) {
-            throw Error(`Invalid date "${date}" for month with index "${month}".`);
-        }
-        return result;
-    }
-    /**
-     * @return {?}
-     */
-    today() {
-        return new Date();
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    parse(value) {
-        // We have no way using the native JS Date to set the parse format or locale, so we ignore these
-        // parameters.
-        if (typeof value == 'number') {
-            return new Date(value);
-        }
-        return value ? new Date(Date.parse(value)) : null;
-    }
-    /**
-     * @param {?} date
-     * @param {?} displayFormat
-     * @return {?}
-     */
-    format(date, displayFormat) {
-        if (!this.isValid(date)) {
-            throw Error('NativeDateAdapter: Cannot format invalid date.');
-        }
-        if (SUPPORTS_INTL_API) {
-            // On IE and Edge the i18n API will throw a hard error that can crash the entire app
-            // if we attempt to format a date whose year is less than 1 or greater than 9999.
-            if (this._clampDate && (date.getFullYear() < 1 || date.getFullYear() > 9999)) {
-                date = this.clone(date);
-                date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
-            }
-            displayFormat = Object.assign(Object.assign({}, displayFormat), { timeZone: 'utc' });
-            /** @type {?} */
-            const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
-            return this._stripDirectionalityCharacters(this._format(dtf, date));
-        }
-        return this._stripDirectionalityCharacters(date.toDateString());
-    }
-    /**
-     * @param {?} date
-     * @param {?} years
-     * @return {?}
-     */
-    addCalendarYears(date, years) {
-        return this.addCalendarMonths(date, years * 12);
-    }
-    /**
-     * @param {?} date
-     * @param {?} months
-     * @return {?}
-     */
-    addCalendarMonths(date, months) {
-        /** @type {?} */
-        let newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
-        // It's possible to wind up in the wrong month if the original month has more days than the new
-        // month. In this case we want to go to the last day of the desired month.
-        // Note: the additional + 12 % 12 ensures we end up with a positive number, since JS % doesn't
-        // guarantee this.
-        if (this.getMonth(newDate) != ((this.getMonth(date) + months) % 12 + 12) % 12) {
-            newDate = this._createDateWithOverflow(this.getYear(newDate), this.getMonth(newDate), 0);
-        }
-        return newDate;
-    }
-    /**
-     * @param {?} date
-     * @param {?} days
-     * @return {?}
-     */
-    addCalendarDays(date, days) {
-        return this._createDateWithOverflow(this.getYear(date), this.getMonth(date), this.getDate(date) + days);
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    toIso8601(date) {
-        return [
-            date.getUTCFullYear(),
-            this._2digit(date.getUTCMonth() + 1),
-            this._2digit(date.getUTCDate())
-        ].join('-');
-    }
-    /**
-     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
-     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
-     * invalid date for all other values.
-     * @param {?} value
-     * @return {?}
-     */
-    deserialize(value) {
-        if (typeof value === 'string') {
-            if (!value) {
-                return null;
-            }
-            // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
-            // string is the right format first.
-            if (ISO_8601_REGEX.test(value)) {
+        /**
+         * @param {?} style
+         * @return {?}
+         */
+        getMonthNames(style) {
+            if (SUPPORTS_INTL_API) {
                 /** @type {?} */
-                let date = new Date(value);
-                if (this.isValid(date)) {
-                    return date;
+                const dtf = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
+                return range(12, (/**
+                 * @param {?} i
+                 * @return {?}
+                 */
+                i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, i, 1)))));
+            }
+            return DEFAULT_MONTH_NAMES[style];
+        }
+        /**
+         * @return {?}
+         */
+        getDateNames() {
+            if (SUPPORTS_INTL_API) {
+                /** @type {?} */
+                const dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
+                return range(31, (/**
+                 * @param {?} i
+                 * @return {?}
+                 */
+                i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1)))));
+            }
+            return DEFAULT_DATE_NAMES;
+        }
+        /**
+         * @param {?} style
+         * @return {?}
+         */
+        getDayOfWeekNames(style) {
+            if (SUPPORTS_INTL_API) {
+                /** @type {?} */
+                const dtf = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
+                return range(7, (/**
+                 * @param {?} i
+                 * @return {?}
+                 */
+                i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1)))));
+            }
+            return DEFAULT_DAY_OF_WEEK_NAMES[style];
+        }
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        getYearName(date) {
+            if (SUPPORTS_INTL_API) {
+                /** @type {?} */
+                const dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
+                return this._stripDirectionalityCharacters(this._format(dtf, date));
+            }
+            return String(this.getYear(date));
+        }
+        /**
+         * @return {?}
+         */
+        getFirstDayOfWeek() {
+            // We can't tell using native JS Date what the first day of the week is, we default to Sunday.
+            return 0;
+        }
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        getNumDaysInMonth(date) {
+            return this.getDate(this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + 1, 0));
+        }
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        clone(date) {
+            return new Date(date.getTime());
+        }
+        /**
+         * @param {?} year
+         * @param {?} month
+         * @param {?} date
+         * @return {?}
+         */
+        createDate(year, month, date) {
+            // Check for invalid month and date (except upper bound on date which we have to check after
+            // creating the Date).
+            if (month < 0 || month > 11) {
+                throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
+            }
+            if (date < 1) {
+                throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
+            }
+            /** @type {?} */
+            let result = this._createDateWithOverflow(year, month, date);
+            // Check that the date wasn't above the upper bound for the month, causing the month to overflow
+            if (result.getMonth() != month) {
+                throw Error(`Invalid date "${date}" for month with index "${month}".`);
+            }
+            return result;
+        }
+        /**
+         * @return {?}
+         */
+        today() {
+            return new Date();
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        parse(value) {
+            // We have no way using the native JS Date to set the parse format or locale, so we ignore these
+            // parameters.
+            if (typeof value == 'number') {
+                return new Date(value);
+            }
+            return value ? new Date(Date.parse(value)) : null;
+        }
+        /**
+         * @param {?} date
+         * @param {?} displayFormat
+         * @return {?}
+         */
+        format(date, displayFormat) {
+            if (!this.isValid(date)) {
+                throw Error('NativeDateAdapter: Cannot format invalid date.');
+            }
+            if (SUPPORTS_INTL_API) {
+                // On IE and Edge the i18n API will throw a hard error that can crash the entire app
+                // if we attempt to format a date whose year is less than 1 or greater than 9999.
+                if (this._clampDate && (date.getFullYear() < 1 || date.getFullYear() > 9999)) {
+                    date = this.clone(date);
+                    date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
+                }
+                displayFormat = Object.assign(Object.assign({}, displayFormat), { timeZone: 'utc' });
+                /** @type {?} */
+                const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
+                return this._stripDirectionalityCharacters(this._format(dtf, date));
+            }
+            return this._stripDirectionalityCharacters(date.toDateString());
+        }
+        /**
+         * @param {?} date
+         * @param {?} years
+         * @return {?}
+         */
+        addCalendarYears(date, years) {
+            return this.addCalendarMonths(date, years * 12);
+        }
+        /**
+         * @param {?} date
+         * @param {?} months
+         * @return {?}
+         */
+        addCalendarMonths(date, months) {
+            /** @type {?} */
+            let newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
+            // It's possible to wind up in the wrong month if the original month has more days than the new
+            // month. In this case we want to go to the last day of the desired month.
+            // Note: the additional + 12 % 12 ensures we end up with a positive number, since JS % doesn't
+            // guarantee this.
+            if (this.getMonth(newDate) != ((this.getMonth(date) + months) % 12 + 12) % 12) {
+                newDate = this._createDateWithOverflow(this.getYear(newDate), this.getMonth(newDate), 0);
+            }
+            return newDate;
+        }
+        /**
+         * @param {?} date
+         * @param {?} days
+         * @return {?}
+         */
+        addCalendarDays(date, days) {
+            return this._createDateWithOverflow(this.getYear(date), this.getMonth(date), this.getDate(date) + days);
+        }
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        toIso8601(date) {
+            return [
+                date.getUTCFullYear(),
+                this._2digit(date.getUTCMonth() + 1),
+                this._2digit(date.getUTCDate())
+            ].join('-');
+        }
+        /**
+         * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
+         * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
+         * invalid date for all other values.
+         * @param {?} value
+         * @return {?}
+         */
+        deserialize(value) {
+            if (typeof value === 'string') {
+                if (!value) {
+                    return null;
+                }
+                // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
+                // string is the right format first.
+                if (ISO_8601_REGEX.test(value)) {
+                    /** @type {?} */
+                    let date = new Date(value);
+                    if (this.isValid(date)) {
+                        return date;
+                    }
                 }
             }
+            return super.deserialize(value);
         }
-        return super.deserialize(value);
-    }
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
-    isDateInstance(obj) {
-        return obj instanceof Date;
-    }
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    isValid(date) {
-        return !isNaN(date.getTime());
-    }
-    /**
-     * @return {?}
-     */
-    invalid() {
-        return new Date(NaN);
-    }
-    /**
-     * Creates a date but allows the month and date to overflow.
-     * @private
-     * @param {?} year
-     * @param {?} month
-     * @param {?} date
-     * @return {?}
-     */
-    _createDateWithOverflow(year, month, date) {
-        /** @type {?} */
-        const result = new Date(year, month, date);
-        // We need to correct for the fact that JS native Date treats years in range [0, 99] as
-        // abbreviations for 19xx.
-        if (year >= 0 && year < 100) {
-            result.setFullYear(this.getYear(result) - 1900);
+        /**
+         * @param {?} obj
+         * @return {?}
+         */
+        isDateInstance(obj) {
+            return obj instanceof Date;
         }
-        return result;
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        isValid(date) {
+            return !isNaN(date.getTime());
+        }
+        /**
+         * @return {?}
+         */
+        invalid() {
+            return new Date(NaN);
+        }
+        /**
+         * Creates a date but allows the month and date to overflow.
+         * @private
+         * @param {?} year
+         * @param {?} month
+         * @param {?} date
+         * @return {?}
+         */
+        _createDateWithOverflow(year, month, date) {
+            /** @type {?} */
+            const result = new Date(year, month, date);
+            // We need to correct for the fact that JS native Date treats years in range [0, 99] as
+            // abbreviations for 19xx.
+            if (year >= 0 && year < 100) {
+                result.setFullYear(this.getYear(result) - 1900);
+            }
+            return result;
+        }
+        /**
+         * Pads a number to make it two digits.
+         * @private
+         * @param {?} n The number to pad.
+         * @return {?} The padded number.
+         */
+        _2digit(n) {
+            return ('00' + n).slice(-2);
+        }
+        /**
+         * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
+         * other browsers do not. We remove them to make output consistent and because they interfere with
+         * date parsing.
+         * @private
+         * @param {?} str The string to strip direction characters from.
+         * @return {?} The stripped string.
+         */
+        _stripDirectionalityCharacters(str) {
+            return str.replace(/[\u200e\u200f]/g, '');
+        }
+        /**
+         * When converting Date object to string, javascript built-in functions may return wrong
+         * results because it applies its internal DST rules. The DST rules around the world change
+         * very frequently, and the current valid rule is not always valid in previous years though.
+         * We work around this problem building a new Date object which has its internal UTC
+         * representation with the local date and time.
+         * @private
+         * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+         *    timeZone set to 'utc' to work fine.
+         * @param {?} date Date from which we want to get the string representation according to dtf
+         * @return {?} A Date object with its UTC representation based on the passed in date info
+         */
+        _format(dtf, date) {
+            /** @type {?} */
+            const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+            return dtf.format(d);
+        }
     }
-    /**
-     * Pads a number to make it two digits.
-     * @private
-     * @param {?} n The number to pad.
-     * @return {?} The padded number.
-     */
-    _2digit(n) {
-        return ('00' + n).slice(-2);
-    }
-    /**
-     * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
-     * other browsers do not. We remove them to make output consistent and because they interfere with
-     * date parsing.
-     * @private
-     * @param {?} str The string to strip direction characters from.
-     * @return {?} The stripped string.
-     */
-    _stripDirectionalityCharacters(str) {
-        return str.replace(/[\u200e\u200f]/g, '');
-    }
-    /**
-     * When converting Date object to string, javascript built-in functions may return wrong
-     * results because it applies its internal DST rules. The DST rules around the world change
-     * very frequently, and the current valid rule is not always valid in previous years though.
-     * We work around this problem building a new Date object which has its internal UTC
-     * representation with the local date and time.
-     * @private
-     * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
-     *    timeZone set to 'utc' to work fine.
-     * @param {?} date Date from which we want to get the string representation according to dtf
-     * @return {?} A Date object with its UTC representation based on the passed in date info
-     */
-    _format(dtf, date) {
-        /** @type {?} */
-        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
-        return dtf.format(d);
-    }
-}
-NativeDateAdapter.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-NativeDateAdapter.ctorParameters = () => [
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] }] },
-    { type: Platform }
-];
+    NativeDateAdapter.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    NativeDateAdapter.ctorParameters = () => [
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] }] },
+        { type: Platform }
+    ];
+    return NativeDateAdapter;
+})();
 if (false) {
     /**
      * Whether to clamp the date between 1 and 9999 to avoid IE and Edge errors.
@@ -1473,25 +1500,31 @@ const MAT_NATIVE_DATE_FORMATS = {
  * Generated from: src/material/core/datetime/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class NativeDateModule {
-}
-NativeDateModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [PlatformModule],
-                providers: [
-                    { provide: DateAdapter, useClass: NativeDateAdapter },
-                ],
-            },] }
-];
+let NativeDateModule = /** @class */ (() => {
+    class NativeDateModule {
+    }
+    NativeDateModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [PlatformModule],
+                    providers: [
+                        { provide: DateAdapter, useClass: NativeDateAdapter },
+                    ],
+                },] }
+    ];
+    return NativeDateModule;
+})();
 const ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
-class MatNativeDateModule {
-}
-MatNativeDateModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
-            },] }
-];
+let MatNativeDateModule = /** @class */ (() => {
+    class MatNativeDateModule {
+    }
+    MatNativeDateModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [NativeDateModule],
+                    providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
+                },] }
+    ];
+    return MatNativeDateModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -1501,36 +1534,48 @@ MatNativeDateModule.decorators = [
 /**
  * Error state matcher that matches when a control is invalid and dirty.
  */
-class ShowOnDirtyErrorStateMatcher {
+let ShowOnDirtyErrorStateMatcher = /** @class */ (() => {
     /**
-     * @param {?} control
-     * @param {?} form
-     * @return {?}
+     * Error state matcher that matches when a control is invalid and dirty.
      */
-    isErrorState(control, form) {
-        return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
+    class ShowOnDirtyErrorStateMatcher {
+        /**
+         * @param {?} control
+         * @param {?} form
+         * @return {?}
+         */
+        isErrorState(control, form) {
+            return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
+        }
     }
-}
-ShowOnDirtyErrorStateMatcher.decorators = [
-    { type: Injectable }
-];
+    ShowOnDirtyErrorStateMatcher.decorators = [
+        { type: Injectable }
+    ];
+    return ShowOnDirtyErrorStateMatcher;
+})();
 /**
  * Provider that defines how form controls behave with regards to displaying error messages.
  */
-class ErrorStateMatcher {
+let ErrorStateMatcher = /** @class */ (() => {
     /**
-     * @param {?} control
-     * @param {?} form
-     * @return {?}
+     * Provider that defines how form controls behave with regards to displaying error messages.
      */
-    isErrorState(control, form) {
-        return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+    class ErrorStateMatcher {
+        /**
+         * @param {?} control
+         * @param {?} form
+         * @return {?}
+         */
+        isErrorState(control, form) {
+            return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+        }
     }
-}
-ErrorStateMatcher.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root' },] }
-];
-/** @nocollapse */ ErrorStateMatcher.ɵprov = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    ErrorStateMatcher.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    /** @nocollapse */ ErrorStateMatcher.ɵprov = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    return ErrorStateMatcher;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -1731,102 +1776,110 @@ const noopHammerInstance = {
  * @deprecated No longer being used. To be removed.
  * \@breaking-change 10.0.0
  */
-class GestureConfig extends HammerGestureConfig {
+let GestureConfig = /** @class */ (() => {
     /**
-     * @param {?=} _hammerOptions
-     * @param {?=} _commonModule
+     * Adjusts configuration of our gesture library, Hammer.
+     * @deprecated No longer being used. To be removed.
+     * \@breaking-change 10.0.0
      */
-    constructor(_hammerOptions, _commonModule) {
-        super();
-        this._hammerOptions = _hammerOptions;
+    class GestureConfig extends HammerGestureConfig {
         /**
-         * List of new event names to add to the gesture support list
+         * @param {?=} _hammerOptions
+         * @param {?=} _commonModule
          */
-        this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
-    }
-    /**
-     * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
-     *
-     * Our gesture names come from the Material Design gestures spec:
-     * https://material.io/design/#gestures-touch-mechanics
-     *
-     * More information on default recognizers can be found in Hammer docs:
-     * http://hammerjs.github.io/recognizer-pan/
-     * http://hammerjs.github.io/recognizer-press/
-     *
-     * @param {?} element Element to which to assign the new HammerJS gestures.
-     * @return {?} Newly-created HammerJS instance.
-     */
-    buildHammer(element) {
-        /** @type {?} */
-        const hammer = typeof window !== 'undefined' ? ((/** @type {?} */ (window))).Hammer : null;
-        if (!hammer) {
-            // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
-            // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
-            // the lazy-loading of HammerJS via the HAMMER_LOADER token introduced in Angular 6.1.
-            // Because we can't depend on HAMMER_LOADER's existance until 7.0, we have to always set
-            // `this.events` to the set we support, instead of conditionally setting it to `[]` if
-            // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
-            // undefined).
-            // @breaking-change 8.0.0
-            return noopHammerInstance;
+        constructor(_hammerOptions, _commonModule) {
+            super();
+            this._hammerOptions = _hammerOptions;
+            /**
+             * List of new event names to add to the gesture support list
+             */
+            this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
         }
-        /** @type {?} */
-        const mc = new hammer(element, this._hammerOptions || undefined);
-        // Default Hammer Recognizers.
-        /** @type {?} */
-        const pan = new hammer.Pan();
-        /** @type {?} */
-        const swipe = new hammer.Swipe();
-        /** @type {?} */
-        const press = new hammer.Press();
-        // Notice that a HammerJS recognizer can only depend on one other recognizer once.
-        // Otherwise the previous `recognizeWith` will be dropped.
-        // TODO: Confirm threshold numbers with Material Design UX Team
-        /** @type {?} */
-        const slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
-        /** @type {?} */
-        const longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
-        // Overwrite the default `pan` event to use the swipe event.
-        pan.recognizeWith(swipe);
-        // Since the slide event threshold is set to zero, the slide recognizer can fire and
-        // accidentally reset the longpress recognizer. In order to make sure that the two
-        // recognizers can run simultaneously but don't affect each other, we allow the slide
-        // recognizer to recognize while a longpress is being processed.
-        // See: https://github.com/hammerjs/hammer.js/blob/master/src/manager.js#L123-L124
-        longpress.recognizeWith(slide);
-        // Add customized gestures to Hammer manager
-        mc.add([swipe, press, pan, slide, longpress]);
-        return (/** @type {?} */ (mc));
-    }
-    /**
-     * Creates a new recognizer, without affecting the default recognizers of HammerJS
-     * @private
-     * @param {?} base
-     * @param {?} options
-     * @param {...?} inheritances
-     * @return {?}
-     */
-    _createRecognizer(base, options, ...inheritances) {
-        /** @type {?} */
-        let recognizer = new ((/** @type {?} */ (base.constructor)))(options);
-        inheritances.push(base);
-        inheritances.forEach((/**
-         * @param {?} item
+        /**
+         * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
+         *
+         * Our gesture names come from the Material Design gestures spec:
+         * https://material.io/design/#gestures-touch-mechanics
+         *
+         * More information on default recognizers can be found in Hammer docs:
+         * http://hammerjs.github.io/recognizer-pan/
+         * http://hammerjs.github.io/recognizer-press/
+         *
+         * @param {?} element Element to which to assign the new HammerJS gestures.
+         * @return {?} Newly-created HammerJS instance.
+         */
+        buildHammer(element) {
+            /** @type {?} */
+            const hammer = typeof window !== 'undefined' ? ((/** @type {?} */ (window))).Hammer : null;
+            if (!hammer) {
+                // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
+                // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
+                // the lazy-loading of HammerJS via the HAMMER_LOADER token introduced in Angular 6.1.
+                // Because we can't depend on HAMMER_LOADER's existance until 7.0, we have to always set
+                // `this.events` to the set we support, instead of conditionally setting it to `[]` if
+                // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
+                // undefined).
+                // @breaking-change 8.0.0
+                return noopHammerInstance;
+            }
+            /** @type {?} */
+            const mc = new hammer(element, this._hammerOptions || undefined);
+            // Default Hammer Recognizers.
+            /** @type {?} */
+            const pan = new hammer.Pan();
+            /** @type {?} */
+            const swipe = new hammer.Swipe();
+            /** @type {?} */
+            const press = new hammer.Press();
+            // Notice that a HammerJS recognizer can only depend on one other recognizer once.
+            // Otherwise the previous `recognizeWith` will be dropped.
+            // TODO: Confirm threshold numbers with Material Design UX Team
+            /** @type {?} */
+            const slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
+            /** @type {?} */
+            const longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
+            // Overwrite the default `pan` event to use the swipe event.
+            pan.recognizeWith(swipe);
+            // Since the slide event threshold is set to zero, the slide recognizer can fire and
+            // accidentally reset the longpress recognizer. In order to make sure that the two
+            // recognizers can run simultaneously but don't affect each other, we allow the slide
+            // recognizer to recognize while a longpress is being processed.
+            // See: https://github.com/hammerjs/hammer.js/blob/master/src/manager.js#L123-L124
+            longpress.recognizeWith(slide);
+            // Add customized gestures to Hammer manager
+            mc.add([swipe, press, pan, slide, longpress]);
+            return (/** @type {?} */ (mc));
+        }
+        /**
+         * Creates a new recognizer, without affecting the default recognizers of HammerJS
+         * @private
+         * @param {?} base
+         * @param {?} options
+         * @param {...?} inheritances
          * @return {?}
          */
-        item => recognizer.recognizeWith(item)));
-        return recognizer;
+        _createRecognizer(base, options, ...inheritances) {
+            /** @type {?} */
+            let recognizer = new ((/** @type {?} */ (base.constructor)))(options);
+            inheritances.push(base);
+            inheritances.forEach((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => recognizer.recognizeWith(item)));
+            return recognizer;
+        }
     }
-}
-GestureConfig.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-GestureConfig.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_HAMMER_OPTIONS,] }] },
-    { type: MatCommonModule, decorators: [{ type: Optional }] }
-];
+    GestureConfig.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    GestureConfig.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_HAMMER_OPTIONS,] }] },
+        { type: MatCommonModule, decorators: [{ type: Optional }] }
+    ];
+    return GestureConfig;
+})();
 if (false) {
     /**
      * List of new event names to add to the gesture support list
@@ -1850,14 +1903,22 @@ if (false) {
  * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-class MatLine {
-}
-MatLine.decorators = [
-    { type: Directive, args: [{
-                selector: '[mat-line], [matLine]',
-                host: { 'class': 'mat-line' }
-            },] }
-];
+let MatLine = /** @class */ (() => {
+    /**
+     * Shared directive to count lines inside a text area, such as a list item.
+     * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
+     * counted by checking the query list's length.
+     */
+    class MatLine {
+    }
+    MatLine.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-line], [matLine]',
+                    host: { 'class': 'mat-line' }
+                },] }
+    ];
+    return MatLine;
+})();
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
@@ -1912,15 +1973,18 @@ class MatLineSetter {
         setLines(lines, element);
     }
 }
-class MatLineModule {
-}
-MatLineModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [MatLine, MatCommonModule],
-                declarations: [MatLine],
-            },] }
-];
+let MatLineModule = /** @class */ (() => {
+    class MatLineModule {
+    }
+    MatLineModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [MatLine, MatCommonModule],
+                    declarations: [MatLine],
+                },] }
+    ];
+    return MatLineModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -2498,154 +2562,157 @@ if (false) {
  * @type {?}
  */
 const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
-class MatRipple {
-    /**
-     * @param {?} _elementRef
-     * @param {?} ngZone
-     * @param {?} platform
-     * @param {?=} globalOptions
-     * @param {?=} _animationMode
-     */
-    constructor(_elementRef, ngZone, platform, globalOptions, _animationMode) {
-        this._elementRef = _elementRef;
-        this._animationMode = _animationMode;
+let MatRipple = /** @class */ (() => {
+    class MatRipple {
         /**
-         * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
-         * will be the distance from the center of the ripple to the furthest corner of the host element's
-         * bounding rectangle.
+         * @param {?} _elementRef
+         * @param {?} ngZone
+         * @param {?} platform
+         * @param {?=} globalOptions
+         * @param {?=} _animationMode
          */
-        this.radius = 0;
-        this._disabled = false;
+        constructor(_elementRef, ngZone, platform, globalOptions, _animationMode) {
+            this._elementRef = _elementRef;
+            this._animationMode = _animationMode;
+            /**
+             * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
+             * will be the distance from the center of the ripple to the furthest corner of the host element's
+             * bounding rectangle.
+             */
+            this.radius = 0;
+            this._disabled = false;
+            /**
+             * Whether ripple directive is initialized and the input bindings are set.
+             */
+            this._isInitialized = false;
+            this._globalOptions = globalOptions || {};
+            this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
+        }
         /**
-         * Whether ripple directive is initialized and the input bindings are set.
+         * Whether click events will not trigger the ripple. Ripples can be still launched manually
+         * by using the `launch()` method.
+         * @return {?}
          */
-        this._isInitialized = false;
-        this._globalOptions = globalOptions || {};
-        this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
-    }
-    /**
-     * Whether click events will not trigger the ripple. Ripples can be still launched manually
-     * by using the `launch()` method.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) {
-        this._disabled = value;
-        this._setupTriggerEventsIfEnabled();
-    }
-    /**
-     * The element that triggers the ripple when click events are received.
-     * Defaults to the directive's host element.
-     * @return {?}
-     */
-    get trigger() { return this._trigger || this._elementRef.nativeElement; }
-    /**
-     * @param {?} trigger
-     * @return {?}
-     */
-    set trigger(trigger) {
-        this._trigger = trigger;
-        this._setupTriggerEventsIfEnabled();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._isInitialized = true;
-        this._setupTriggerEventsIfEnabled();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._rippleRenderer._removeTriggerEvents();
-    }
-    /**
-     * Fades out all currently showing ripple elements.
-     * @return {?}
-     */
-    fadeOutAll() {
-        this._rippleRenderer.fadeOutAll();
-    }
-    /**
-     * Ripple configuration from the directive's input values.
-     * \@docs-private Implemented as part of RippleTarget
-     * @return {?}
-     */
-    get rippleConfig() {
-        return {
-            centered: this.centered,
-            radius: this.radius,
-            color: this.color,
-            animation: Object.assign(Object.assign(Object.assign({}, this._globalOptions.animation), (this._animationMode === 'NoopAnimations' ? { enterDuration: 0, exitDuration: 0 } : {})), this.animation),
-            terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
-        };
-    }
-    /**
-     * Whether ripples on pointer-down are disabled or not.
-     * \@docs-private Implemented as part of RippleTarget
-     * @return {?}
-     */
-    get rippleDisabled() {
-        return this.disabled || !!this._globalOptions.disabled;
-    }
-    /**
-     * Sets up the trigger event listeners if ripples are enabled.
-     * @private
-     * @return {?}
-     */
-    _setupTriggerEventsIfEnabled() {
-        if (!this.disabled && this._isInitialized) {
-            this._rippleRenderer.setupTriggerEvents(this.trigger);
+        get disabled() { return this._disabled; }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set disabled(value) {
+            this._disabled = value;
+            this._setupTriggerEventsIfEnabled();
+        }
+        /**
+         * The element that triggers the ripple when click events are received.
+         * Defaults to the directive's host element.
+         * @return {?}
+         */
+        get trigger() { return this._trigger || this._elementRef.nativeElement; }
+        /**
+         * @param {?} trigger
+         * @return {?}
+         */
+        set trigger(trigger) {
+            this._trigger = trigger;
+            this._setupTriggerEventsIfEnabled();
+        }
+        /**
+         * @return {?}
+         */
+        ngOnInit() {
+            this._isInitialized = true;
+            this._setupTriggerEventsIfEnabled();
+        }
+        /**
+         * @return {?}
+         */
+        ngOnDestroy() {
+            this._rippleRenderer._removeTriggerEvents();
+        }
+        /**
+         * Fades out all currently showing ripple elements.
+         * @return {?}
+         */
+        fadeOutAll() {
+            this._rippleRenderer.fadeOutAll();
+        }
+        /**
+         * Ripple configuration from the directive's input values.
+         * \@docs-private Implemented as part of RippleTarget
+         * @return {?}
+         */
+        get rippleConfig() {
+            return {
+                centered: this.centered,
+                radius: this.radius,
+                color: this.color,
+                animation: Object.assign(Object.assign(Object.assign({}, this._globalOptions.animation), (this._animationMode === 'NoopAnimations' ? { enterDuration: 0, exitDuration: 0 } : {})), this.animation),
+                terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
+            };
+        }
+        /**
+         * Whether ripples on pointer-down are disabled or not.
+         * \@docs-private Implemented as part of RippleTarget
+         * @return {?}
+         */
+        get rippleDisabled() {
+            return this.disabled || !!this._globalOptions.disabled;
+        }
+        /**
+         * Sets up the trigger event listeners if ripples are enabled.
+         * @private
+         * @return {?}
+         */
+        _setupTriggerEventsIfEnabled() {
+            if (!this.disabled && this._isInitialized) {
+                this._rippleRenderer.setupTriggerEvents(this.trigger);
+            }
+        }
+        /**
+         * Launches a manual ripple at the specified coordinated or just by the ripple config.
+         * @param {?} configOrX
+         * @param {?=} y
+         * @param {?=} config
+         * @return {?}
+         */
+        launch(configOrX, y = 0, config) {
+            if (typeof configOrX === 'number') {
+                return this._rippleRenderer.fadeInRipple(configOrX, y, Object.assign(Object.assign({}, this.rippleConfig), config));
+            }
+            else {
+                return this._rippleRenderer.fadeInRipple(0, 0, Object.assign(Object.assign({}, this.rippleConfig), configOrX));
+            }
         }
     }
-    /**
-     * Launches a manual ripple at the specified coordinated or just by the ripple config.
-     * @param {?} configOrX
-     * @param {?=} y
-     * @param {?=} config
-     * @return {?}
-     */
-    launch(configOrX, y = 0, config) {
-        if (typeof configOrX === 'number') {
-            return this._rippleRenderer.fadeInRipple(configOrX, y, Object.assign(Object.assign({}, this.rippleConfig), config));
-        }
-        else {
-            return this._rippleRenderer.fadeInRipple(0, 0, Object.assign(Object.assign({}, this.rippleConfig), configOrX));
-        }
-    }
-}
-MatRipple.decorators = [
-    { type: Directive, args: [{
-                selector: '[mat-ripple], [matRipple]',
-                exportAs: 'matRipple',
-                host: {
-                    'class': 'mat-ripple',
-                    '[class.mat-ripple-unbounded]': 'unbounded'
-                }
-            },] }
-];
-/** @nocollapse */
-MatRipple.ctorParameters = () => [
-    { type: ElementRef },
-    { type: NgZone },
-    { type: Platform },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
-];
-MatRipple.propDecorators = {
-    color: [{ type: Input, args: ['matRippleColor',] }],
-    unbounded: [{ type: Input, args: ['matRippleUnbounded',] }],
-    centered: [{ type: Input, args: ['matRippleCentered',] }],
-    radius: [{ type: Input, args: ['matRippleRadius',] }],
-    animation: [{ type: Input, args: ['matRippleAnimation',] }],
-    disabled: [{ type: Input, args: ['matRippleDisabled',] }],
-    trigger: [{ type: Input, args: ['matRippleTrigger',] }]
-};
+    MatRipple.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-ripple], [matRipple]',
+                    exportAs: 'matRipple',
+                    host: {
+                        'class': 'mat-ripple',
+                        '[class.mat-ripple-unbounded]': 'unbounded'
+                    }
+                },] }
+    ];
+    /** @nocollapse */
+    MatRipple.ctorParameters = () => [
+        { type: ElementRef },
+        { type: NgZone },
+        { type: Platform },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    ];
+    MatRipple.propDecorators = {
+        color: [{ type: Input, args: ['matRippleColor',] }],
+        unbounded: [{ type: Input, args: ['matRippleUnbounded',] }],
+        centered: [{ type: Input, args: ['matRippleCentered',] }],
+        radius: [{ type: Input, args: ['matRippleRadius',] }],
+        animation: [{ type: Input, args: ['matRippleAnimation',] }],
+        disabled: [{ type: Input, args: ['matRippleDisabled',] }],
+        trigger: [{ type: Input, args: ['matRippleTrigger',] }]
+    };
+    return MatRipple;
+})();
 if (false) {
     /**
      * Custom color for all ripples.
@@ -2722,15 +2789,18 @@ if (false) {
  * Generated from: src/material/core/ripple/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class MatRippleModule {
-}
-MatRippleModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [MatCommonModule, PlatformModule],
-                exports: [MatRipple, MatCommonModule],
-                declarations: [MatRipple],
-            },] }
-];
+let MatRippleModule = /** @class */ (() => {
+    class MatRippleModule {
+    }
+    MatRippleModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule, PlatformModule],
+                    exports: [MatRipple, MatCommonModule],
+                    declarations: [MatRipple],
+                },] }
+    ];
+    return MatRippleModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -2750,46 +2820,62 @@ MatRippleModule.decorators = [
  * of more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-class MatPseudoCheckbox {
+let MatPseudoCheckbox = /** @class */ (() => {
     /**
-     * @param {?=} _animationMode
+     * Component that shows a simplified checkbox without including any kind of "real" checkbox.
+     * Meant to be used when the checkbox is purely decorative and a large number of them will be
+     * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
+     * Note that theming is meant to be handled by the parent element, e.g.
+     * `mat-primary .mat-pseudo-checkbox`.
+     *
+     * Note that this component will be completely invisible to screen-reader users. This is *not*
+     * interchangeable with `<mat-checkbox>` and should *not* be used if the user would directly
+     * interact with the checkbox. The pseudo-checkbox should only be used as an implementation detail
+     * of more complex components that appropriately handle selected / checked state.
+     * \@docs-private
      */
-    constructor(_animationMode) {
-        this._animationMode = _animationMode;
+    class MatPseudoCheckbox {
         /**
-         * Display state of the checkbox.
+         * @param {?=} _animationMode
          */
-        this.state = 'unchecked';
-        /**
-         * Whether the checkbox is disabled.
-         */
-        this.disabled = false;
+        constructor(_animationMode) {
+            this._animationMode = _animationMode;
+            /**
+             * Display state of the checkbox.
+             */
+            this.state = 'unchecked';
+            /**
+             * Whether the checkbox is disabled.
+             */
+            this.disabled = false;
+        }
     }
-}
-MatPseudoCheckbox.decorators = [
-    { type: Component, args: [{
-                encapsulation: ViewEncapsulation.None,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                selector: 'mat-pseudo-checkbox',
-                template: '',
-                host: {
-                    'class': 'mat-pseudo-checkbox',
-                    '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                    '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                    '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                },
-                styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
-            }] }
-];
-/** @nocollapse */
-MatPseudoCheckbox.ctorParameters = () => [
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
-];
-MatPseudoCheckbox.propDecorators = {
-    state: [{ type: Input }],
-    disabled: [{ type: Input }]
-};
+    MatPseudoCheckbox.decorators = [
+        { type: Component, args: [{
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    selector: 'mat-pseudo-checkbox',
+                    template: '',
+                    host: {
+                        'class': 'mat-pseudo-checkbox',
+                        '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
+                        '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
+                        '[class.mat-pseudo-checkbox-disabled]': 'disabled',
+                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    },
+                    styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatPseudoCheckbox.ctorParameters = () => [
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    ];
+    MatPseudoCheckbox.propDecorators = {
+        state: [{ type: Input }],
+        disabled: [{ type: Input }]
+    };
+    return MatPseudoCheckbox;
+})();
 if (false) {
     /**
      * Display state of the checkbox.
@@ -2810,14 +2896,17 @@ if (false) {
  * Generated from: src/material/core/selection/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class MatPseudoCheckboxModule {
-}
-MatPseudoCheckboxModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [MatPseudoCheckbox],
-                declarations: [MatPseudoCheckbox]
-            },] }
-];
+let MatPseudoCheckboxModule = /** @class */ (() => {
+    class MatPseudoCheckboxModule {
+    }
+    MatPseudoCheckboxModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [MatPseudoCheckbox],
+                    declarations: [MatPseudoCheckbox]
+                },] }
+    ];
+    return MatPseudoCheckboxModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -2838,36 +2927,42 @@ let _uniqueOptgroupIdCounter = 0;
 /**
  * Component that is used to group instances of `mat-option`.
  */
-class MatOptgroup extends _MatOptgroupMixinBase {
-    constructor() {
-        super(...arguments);
-        /**
-         * Unique id for the underlying label.
-         */
-        this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
+let MatOptgroup = /** @class */ (() => {
+    /**
+     * Component that is used to group instances of `mat-option`.
+     */
+    class MatOptgroup extends _MatOptgroupMixinBase {
+        constructor() {
+            super(...arguments);
+            /**
+             * Unique id for the underlying label.
+             */
+            this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
+        }
     }
-}
-MatOptgroup.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-optgroup',
-                exportAs: 'matOptgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
-                encapsulation: ViewEncapsulation.None,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                inputs: ['disabled'],
-                host: {
-                    'class': 'mat-optgroup',
-                    'role': 'group',
-                    '[class.mat-optgroup-disabled]': 'disabled',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-labelledby]': '_labelId',
-                },
-                styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
-            }] }
-];
-MatOptgroup.propDecorators = {
-    label: [{ type: Input }]
-};
+    MatOptgroup.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    host: {
+                        'class': 'mat-optgroup',
+                        'role': 'group',
+                        '[class.mat-optgroup-disabled]': 'disabled',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-labelledby]': '_labelId',
+                    },
+                    styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
+                }] }
+    ];
+    MatOptgroup.propDecorators = {
+        label: [{ type: Input }]
+    };
+    return MatOptgroup;
+})();
 if (false) {
     /** @type {?} */
     MatOptgroup.ngAcceptInputType_disabled;
@@ -2940,267 +3035,273 @@ const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPON
 /**
  * Single option inside of a `<mat-select>` element.
  */
-class MatOption {
+let MatOption = /** @class */ (() => {
     /**
-     * @param {?} _element
-     * @param {?} _changeDetectorRef
-     * @param {?} _parent
-     * @param {?} group
+     * Single option inside of a `<mat-select>` element.
      */
-    constructor(_element, _changeDetectorRef, _parent, group) {
-        this._element = _element;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._parent = _parent;
-        this.group = group;
-        this._selected = false;
-        this._active = false;
-        this._disabled = false;
-        this._mostRecentViewValue = '';
+    class MatOption {
         /**
-         * The unique ID of the option.
+         * @param {?} _element
+         * @param {?} _changeDetectorRef
+         * @param {?} _parent
+         * @param {?} group
          */
-        this.id = `mat-option-${_uniqueIdCounter++}`;
-        /**
-         * Event emitted when the option is selected or deselected.
-         */
-        // tslint:disable-next-line:no-output-on-prefix
-        this.onSelectionChange = new EventEmitter();
-        /**
-         * Emits when the state of the option changes and any parents have to be notified.
-         */
-        this._stateChanges = new Subject();
-    }
-    /**
-     * Whether the wrapping component is in multiple selection mode.
-     * @return {?}
-     */
-    get multiple() { return this._parent && this._parent.multiple; }
-    /**
-     * Whether or not the option is currently selected.
-     * @return {?}
-     */
-    get selected() { return this._selected; }
-    /**
-     * Whether the option is disabled.
-     * @return {?}
-     */
-    get disabled() { return (this.group && this.group.disabled) || this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
-    /**
-     * Whether ripples for the option are disabled.
-     * @return {?}
-     */
-    get disableRipple() { return this._parent && this._parent.disableRipple; }
-    /**
-     * Whether or not the option is currently active and ready to be selected.
-     * An active option displays styles as if it is focused, but the
-     * focus is actually retained somewhere else. This comes in handy
-     * for components like autocomplete where focus must remain on the input.
-     * @return {?}
-     */
-    get active() {
-        return this._active;
-    }
-    /**
-     * The displayed value of the option. It is necessary to show the selected option in the
-     * select's trigger.
-     * @return {?}
-     */
-    get viewValue() {
-        // TODO(kara): Add input property alternative for node envs.
-        return (this._getHostElement().textContent || '').trim();
-    }
-    /**
-     * Selects the option.
-     * @return {?}
-     */
-    select() {
-        if (!this._selected) {
-            this._selected = true;
-            this._changeDetectorRef.markForCheck();
-            this._emitSelectionChangeEvent();
-        }
-    }
-    /**
-     * Deselects the option.
-     * @return {?}
-     */
-    deselect() {
-        if (this._selected) {
+        constructor(_element, _changeDetectorRef, _parent, group) {
+            this._element = _element;
+            this._changeDetectorRef = _changeDetectorRef;
+            this._parent = _parent;
+            this.group = group;
             this._selected = false;
-            this._changeDetectorRef.markForCheck();
-            this._emitSelectionChangeEvent();
-        }
-    }
-    /**
-     * Sets focus onto this option.
-     * @param {?=} _origin
-     * @param {?=} options
-     * @return {?}
-     */
-    focus(_origin, options) {
-        // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
-        // use `MatOption` in a `FocusKeyManager` and we need it to match `FocusableOption`.
-        /** @type {?} */
-        const element = this._getHostElement();
-        if (typeof element.focus === 'function') {
-            element.focus(options);
-        }
-    }
-    /**
-     * This method sets display styles on the option to make it appear
-     * active. This is used by the ActiveDescendantKeyManager so key
-     * events will display the proper options as active on arrow key events.
-     * @return {?}
-     */
-    setActiveStyles() {
-        if (!this._active) {
-            this._active = true;
-            this._changeDetectorRef.markForCheck();
-        }
-    }
-    /**
-     * This method removes display styles on the option that made it appear
-     * active. This is used by the ActiveDescendantKeyManager so key
-     * events will display the proper options as active on arrow key events.
-     * @return {?}
-     */
-    setInactiveStyles() {
-        if (this._active) {
             this._active = false;
-            this._changeDetectorRef.markForCheck();
+            this._disabled = false;
+            this._mostRecentViewValue = '';
+            /**
+             * The unique ID of the option.
+             */
+            this.id = `mat-option-${_uniqueIdCounter++}`;
+            /**
+             * Event emitted when the option is selected or deselected.
+             */
+            // tslint:disable-next-line:no-output-on-prefix
+            this.onSelectionChange = new EventEmitter();
+            /**
+             * Emits when the state of the option changes and any parents have to be notified.
+             */
+            this._stateChanges = new Subject();
         }
-    }
-    /**
-     * Gets the label to be used when determining whether the option should be focused.
-     * @return {?}
-     */
-    getLabel() {
-        return this.viewValue;
-    }
-    /**
-     * Ensures the option is selected when activated from the keyboard.
-     * @param {?} event
-     * @return {?}
-     */
-    _handleKeydown(event) {
-        if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
-            this._selectViaInteraction();
-            // Prevent the page from scrolling down and form submits.
-            event.preventDefault();
+        /**
+         * Whether the wrapping component is in multiple selection mode.
+         * @return {?}
+         */
+        get multiple() { return this._parent && this._parent.multiple; }
+        /**
+         * Whether or not the option is currently selected.
+         * @return {?}
+         */
+        get selected() { return this._selected; }
+        /**
+         * Whether the option is disabled.
+         * @return {?}
+         */
+        get disabled() { return (this.group && this.group.disabled) || this._disabled; }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+        /**
+         * Whether ripples for the option are disabled.
+         * @return {?}
+         */
+        get disableRipple() { return this._parent && this._parent.disableRipple; }
+        /**
+         * Whether or not the option is currently active and ready to be selected.
+         * An active option displays styles as if it is focused, but the
+         * focus is actually retained somewhere else. This comes in handy
+         * for components like autocomplete where focus must remain on the input.
+         * @return {?}
+         */
+        get active() {
+            return this._active;
         }
-    }
-    /**
-     * `Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.`
-     * @return {?}
-     */
-    _selectViaInteraction() {
-        if (!this.disabled) {
-            this._selected = this.multiple ? !this._selected : true;
-            this._changeDetectorRef.markForCheck();
-            this._emitSelectionChangeEvent(true);
+        /**
+         * The displayed value of the option. It is necessary to show the selected option in the
+         * select's trigger.
+         * @return {?}
+         */
+        get viewValue() {
+            // TODO(kara): Add input property alternative for node envs.
+            return (this._getHostElement().textContent || '').trim();
         }
-    }
-    /**
-     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
-     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
-     * attributes adds a significant amount of noise to screen-reader users without providing useful
-     * information.
-     * @return {?}
-     */
-    _getAriaSelected() {
-        return this.selected || (this.multiple ? false : null);
-    }
-    /**
-     * Returns the correct tabindex for the option depending on disabled state.
-     * @return {?}
-     */
-    _getTabIndex() {
-        return this.disabled ? '-1' : '0';
-    }
-    /**
-     * Gets the host DOM element.
-     * @return {?}
-     */
-    _getHostElement() {
-        return this._element.nativeElement;
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewChecked() {
-        // Since parent components could be using the option's label to display the selected values
-        // (e.g. `mat-select`) and they don't have a way of knowing if the option's label has changed
-        // we have to check for changes in the DOM ourselves and dispatch an event. These checks are
-        // relatively cheap, however we still limit them only to selected options in order to avoid
-        // hitting the DOM too often.
-        if (this._selected) {
-            /** @type {?} */
-            const viewValue = this.viewValue;
-            if (viewValue !== this._mostRecentViewValue) {
-                this._mostRecentViewValue = viewValue;
-                this._stateChanges.next();
+        /**
+         * Selects the option.
+         * @return {?}
+         */
+        select() {
+            if (!this._selected) {
+                this._selected = true;
+                this._changeDetectorRef.markForCheck();
+                this._emitSelectionChangeEvent();
             }
         }
+        /**
+         * Deselects the option.
+         * @return {?}
+         */
+        deselect() {
+            if (this._selected) {
+                this._selected = false;
+                this._changeDetectorRef.markForCheck();
+                this._emitSelectionChangeEvent();
+            }
+        }
+        /**
+         * Sets focus onto this option.
+         * @param {?=} _origin
+         * @param {?=} options
+         * @return {?}
+         */
+        focus(_origin, options) {
+            // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
+            // use `MatOption` in a `FocusKeyManager` and we need it to match `FocusableOption`.
+            /** @type {?} */
+            const element = this._getHostElement();
+            if (typeof element.focus === 'function') {
+                element.focus(options);
+            }
+        }
+        /**
+         * This method sets display styles on the option to make it appear
+         * active. This is used by the ActiveDescendantKeyManager so key
+         * events will display the proper options as active on arrow key events.
+         * @return {?}
+         */
+        setActiveStyles() {
+            if (!this._active) {
+                this._active = true;
+                this._changeDetectorRef.markForCheck();
+            }
+        }
+        /**
+         * This method removes display styles on the option that made it appear
+         * active. This is used by the ActiveDescendantKeyManager so key
+         * events will display the proper options as active on arrow key events.
+         * @return {?}
+         */
+        setInactiveStyles() {
+            if (this._active) {
+                this._active = false;
+                this._changeDetectorRef.markForCheck();
+            }
+        }
+        /**
+         * Gets the label to be used when determining whether the option should be focused.
+         * @return {?}
+         */
+        getLabel() {
+            return this.viewValue;
+        }
+        /**
+         * Ensures the option is selected when activated from the keyboard.
+         * @param {?} event
+         * @return {?}
+         */
+        _handleKeydown(event) {
+            if ((event.keyCode === ENTER || event.keyCode === SPACE) && !hasModifierKey(event)) {
+                this._selectViaInteraction();
+                // Prevent the page from scrolling down and form submits.
+                event.preventDefault();
+            }
+        }
+        /**
+         * `Selects the option while indicating the selection came from the user. Used to
+         * determine if the select's view -> model callback should be invoked.`
+         * @return {?}
+         */
+        _selectViaInteraction() {
+            if (!this.disabled) {
+                this._selected = this.multiple ? !this._selected : true;
+                this._changeDetectorRef.markForCheck();
+                this._emitSelectionChangeEvent(true);
+            }
+        }
+        /**
+         * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
+         * attribute from single-selection, unselected options. Including the `aria-selected="false"`
+         * attributes adds a significant amount of noise to screen-reader users without providing useful
+         * information.
+         * @return {?}
+         */
+        _getAriaSelected() {
+            return this.selected || (this.multiple ? false : null);
+        }
+        /**
+         * Returns the correct tabindex for the option depending on disabled state.
+         * @return {?}
+         */
+        _getTabIndex() {
+            return this.disabled ? '-1' : '0';
+        }
+        /**
+         * Gets the host DOM element.
+         * @return {?}
+         */
+        _getHostElement() {
+            return this._element.nativeElement;
+        }
+        /**
+         * @return {?}
+         */
+        ngAfterViewChecked() {
+            // Since parent components could be using the option's label to display the selected values
+            // (e.g. `mat-select`) and they don't have a way of knowing if the option's label has changed
+            // we have to check for changes in the DOM ourselves and dispatch an event. These checks are
+            // relatively cheap, however we still limit them only to selected options in order to avoid
+            // hitting the DOM too often.
+            if (this._selected) {
+                /** @type {?} */
+                const viewValue = this.viewValue;
+                if (viewValue !== this._mostRecentViewValue) {
+                    this._mostRecentViewValue = viewValue;
+                    this._stateChanges.next();
+                }
+            }
+        }
+        /**
+         * @return {?}
+         */
+        ngOnDestroy() {
+            this._stateChanges.complete();
+        }
+        /**
+         * Emits the selection change event.
+         * @private
+         * @param {?=} isUserInput
+         * @return {?}
+         */
+        _emitSelectionChangeEvent(isUserInput = false) {
+            this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
+        }
     }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._stateChanges.complete();
-    }
-    /**
-     * Emits the selection change event.
-     * @private
-     * @param {?=} isUserInput
-     * @return {?}
-     */
-    _emitSelectionChangeEvent(isUserInput = false) {
-        this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
-    }
-}
-MatOption.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-option',
-                exportAs: 'matOption',
-                host: {
-                    'role': 'option',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[class.mat-selected]': 'selected',
-                    '[class.mat-option-multiple]': 'multiple',
-                    '[class.mat-active]': 'active',
-                    '[id]': 'id',
-                    '[attr.aria-selected]': '_getAriaSelected()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[class.mat-option-disabled]': 'disabled',
-                    '(click)': '_selectViaInteraction()',
-                    '(keydown)': '_handleKeydown($event)',
-                    'class': 'mat-option mat-focus-indicator',
-                },
-                template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
-                encapsulation: ViewEncapsulation.None,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
-            }] }
-];
-/** @nocollapse */
-MatOption.ctorParameters = () => [
-    { type: ElementRef },
-    { type: ChangeDetectorRef },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
-    { type: MatOptgroup, decorators: [{ type: Optional }] }
-];
-MatOption.propDecorators = {
-    value: [{ type: Input }],
-    id: [{ type: Input }],
-    disabled: [{ type: Input }],
-    onSelectionChange: [{ type: Output }]
-};
+    MatOption.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-option',
+                    exportAs: 'matOption',
+                    host: {
+                        'role': 'option',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[class.mat-selected]': 'selected',
+                        '[class.mat-option-multiple]': 'multiple',
+                        '[class.mat-active]': 'active',
+                        '[id]': 'id',
+                        '[attr.aria-selected]': '_getAriaSelected()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[class.mat-option-disabled]': 'disabled',
+                        '(click)': '_selectViaInteraction()',
+                        '(keydown)': '_handleKeydown($event)',
+                        'class': 'mat-option mat-focus-indicator',
+                    },
+                    template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatOption.ctorParameters = () => [
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
+        { type: MatOptgroup, decorators: [{ type: Optional }] }
+    ];
+    MatOption.propDecorators = {
+        value: [{ type: Input }],
+        id: [{ type: Input }],
+        disabled: [{ type: Input }],
+        onSelectionChange: [{ type: Output }]
+    };
+    return MatOption;
+})();
 if (false) {
     /** @type {?} */
     MatOption.ngAcceptInputType_disabled;
@@ -3313,15 +3414,18 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
  * Generated from: src/material/core/option/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class MatOptionModule {
-}
-MatOptionModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [MatRippleModule, CommonModule, MatPseudoCheckboxModule],
-                exports: [MatOption, MatOptgroup],
-                declarations: [MatOption, MatOptgroup]
-            },] }
-];
+let MatOptionModule = /** @class */ (() => {
+    class MatOptionModule {
+    }
+    MatOptionModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatRippleModule, CommonModule, MatPseudoCheckboxModule],
+                    exports: [MatOption, MatOptgroup],
+                    declarations: [MatOption, MatOptgroup]
+                },] }
+    ];
+    return MatOptionModule;
+})();
 
 /**
  * @fileoverview added by tsickle

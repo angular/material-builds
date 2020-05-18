@@ -12,146 +12,160 @@ import { of } from 'rxjs';
  * A null icon registry that must be imported to allow disabling of custom
  * icons.
  */
-class FakeMatIconRegistry {
+let FakeMatIconRegistry = /** @class */ (() => {
+    // tslint:enable:no-any
     /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
+     * A null icon registry that must be imported to allow disabling of custom
+     * icons.
      */
-    addSvgIcon() {
-        return (/** @type {?} */ (this));
+    class FakeMatIconRegistry {
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIcon() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIconLiteral() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIconInNamespace() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIconLiteralInNamespace() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIconSet() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIconSetLiteral() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIconSetInNamespace() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        addSvgIconSetLiteralInNamespace() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        registerFontClassAlias() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @param {?} alias
+         * @return {?}
+         */
+        classNameForFontAlias(alias) {
+            return alias;
+        }
+        /**
+         * @return {?}
+         */
+        getDefaultFontSetClass() {
+            return 'material-icons';
+        }
+        /**
+         * @return {?}
+         */
+        getSvgIconFromUrl() {
+            return of(this._generateEmptySvg());
+        }
+        /**
+         * @return {?}
+         */
+        getNamedSvgIcon() {
+            return of(this._generateEmptySvg());
+        }
+        /**
+         * @template THIS
+         * @this {THIS}
+         * @return {THIS}
+         */
+        setDefaultFontSetClass() {
+            return (/** @type {?} */ (this));
+        }
+        /**
+         * @return {?}
+         */
+        ngOnDestroy() { }
+        /**
+         * @private
+         * @return {?}
+         */
+        _generateEmptySvg() {
+            /** @type {?} */
+            const emptySvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            emptySvg.classList.add('fake-testing-svg');
+            // Emulate real icon characteristics from `MatIconRegistry` so size remains consistent in tests.
+            emptySvg.setAttribute('fit', '');
+            emptySvg.setAttribute('height', '100%');
+            emptySvg.setAttribute('width', '100%');
+            emptySvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            emptySvg.setAttribute('focusable', 'false');
+            return emptySvg;
+        }
     }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    addSvgIconLiteral() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    addSvgIconInNamespace() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    addSvgIconLiteralInNamespace() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    addSvgIconSet() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    addSvgIconSetLiteral() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    addSvgIconSetInNamespace() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    addSvgIconSetLiteralInNamespace() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    registerFontClassAlias() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @param {?} alias
-     * @return {?}
-     */
-    classNameForFontAlias(alias) {
-        return alias;
-    }
-    /**
-     * @return {?}
-     */
-    getDefaultFontSetClass() {
-        return 'material-icons';
-    }
-    /**
-     * @return {?}
-     */
-    getSvgIconFromUrl() {
-        return of(this._generateEmptySvg());
-    }
-    /**
-     * @return {?}
-     */
-    getNamedSvgIcon() {
-        return of(this._generateEmptySvg());
-    }
-    /**
-     * @template THIS
-     * @this {THIS}
-     * @return {THIS}
-     */
-    setDefaultFontSetClass() {
-        return (/** @type {?} */ (this));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() { }
-    /**
-     * @private
-     * @return {?}
-     */
-    _generateEmptySvg() {
-        /** @type {?} */
-        const emptySvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        emptySvg.classList.add('fake-testing-svg');
-        // Emulate real icon characteristics from `MatIconRegistry` so size remains consistent in tests.
-        emptySvg.setAttribute('fit', '');
-        emptySvg.setAttribute('height', '100%');
-        emptySvg.setAttribute('width', '100%');
-        emptySvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-        emptySvg.setAttribute('focusable', 'false');
-        return emptySvg;
-    }
-}
-FakeMatIconRegistry.decorators = [
-    { type: Injectable }
-];
+    FakeMatIconRegistry.decorators = [
+        { type: Injectable }
+    ];
+    return FakeMatIconRegistry;
+})();
 /**
  * Import this module in tests to install the null icon registry.
  */
-class MatIconTestingModule {
-}
-MatIconTestingModule.decorators = [
-    { type: NgModule, args: [{
-                providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }]
-            },] }
-];
+let MatIconTestingModule = /** @class */ (() => {
+    /**
+     * Import this module in tests to install the null icon registry.
+     */
+    class MatIconTestingModule {
+    }
+    MatIconTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }]
+                },] }
+    ];
+    return MatIconTestingModule;
+})();
 
 /**
  * @fileoverview added by tsickle

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -5,35 +6,25 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-(function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define("@angular/material/schematics/ng-update/migrations/misc-ripples-v7/ripple-speed-factor", ["require", "exports"], factory);
-    }
-})(function (require, exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    /** Converts the specified speed factor into the exact static enter duration. */
-    function convertSpeedFactorToDuration(factor) {
-        // Based on the numeric speed factor value that only affected the `enterDuration` we can
-        // now calculate the exact `enterDuration`. 450ms is the enter duration without factor.
-        return 450 / (factor || 1);
-    }
-    exports.convertSpeedFactorToDuration = convertSpeedFactorToDuration;
-    /**
-     * Creates a runtime TypeScript expression that can be used in order to calculate the duration
-     * from the speed factor expression that couldn't be statically analyzed.
-     *
-     * @param speedFactorValue Speed factor expression that couldn't be statically analyzed.
-     */
-    function createSpeedFactorConvertExpression(speedFactorValue) {
-        // To be sure that the speed factor value expression is calculated properly, we need to add
-        // the according parenthesis.
-        return `450 / (${speedFactorValue})`;
-    }
-    exports.createSpeedFactorConvertExpression = createSpeedFactorConvertExpression;
-});
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmlwcGxlLXNwZWVkLWZhY3Rvci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9zY2hlbWF0aWNzL25nLXVwZGF0ZS9taWdyYXRpb25zL21pc2MtcmlwcGxlcy12Ny9yaXBwbGUtc3BlZWQtZmFjdG9yLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRzs7Ozs7Ozs7Ozs7O0lBRUgsZ0ZBQWdGO0lBQ2hGLFNBQWdCLDRCQUE0QixDQUFDLE1BQWM7UUFDekQsd0ZBQXdGO1FBQ3hGLHVGQUF1RjtRQUN2RixPQUFPLEdBQUcsR0FBRyxDQUFDLE1BQU0sSUFBSSxDQUFDLENBQUMsQ0FBQztJQUM3QixDQUFDO0lBSkQsb0VBSUM7SUFFRDs7Ozs7T0FLRztJQUNILFNBQWdCLGtDQUFrQyxDQUFDLGdCQUF3QjtRQUN6RSwyRkFBMkY7UUFDM0YsNkJBQTZCO1FBQzdCLE9BQU8sVUFBVSxnQkFBZ0IsR0FBRyxDQUFDO0lBQ3ZDLENBQUM7SUFKRCxnRkFJQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG4vKiogQ29udmVydHMgdGhlIHNwZWNpZmllZCBzcGVlZCBmYWN0b3IgaW50byB0aGUgZXhhY3Qgc3RhdGljIGVudGVyIGR1cmF0aW9uLiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGNvbnZlcnRTcGVlZEZhY3RvclRvRHVyYXRpb24oZmFjdG9yOiBudW1iZXIpIHtcbiAgLy8gQmFzZWQgb24gdGhlIG51bWVyaWMgc3BlZWQgZmFjdG9yIHZhbHVlIHRoYXQgb25seSBhZmZlY3RlZCB0aGUgYGVudGVyRHVyYXRpb25gIHdlIGNhblxuICAvLyBub3cgY2FsY3VsYXRlIHRoZSBleGFjdCBgZW50ZXJEdXJhdGlvbmAuIDQ1MG1zIGlzIHRoZSBlbnRlciBkdXJhdGlvbiB3aXRob3V0IGZhY3Rvci5cbiAgcmV0dXJuIDQ1MCAvIChmYWN0b3IgfHwgMSk7XG59XG5cbi8qKlxuICogQ3JlYXRlcyBhIHJ1bnRpbWUgVHlwZVNjcmlwdCBleHByZXNzaW9uIHRoYXQgY2FuIGJlIHVzZWQgaW4gb3JkZXIgdG8gY2FsY3VsYXRlIHRoZSBkdXJhdGlvblxuICogZnJvbSB0aGUgc3BlZWQgZmFjdG9yIGV4cHJlc3Npb24gdGhhdCBjb3VsZG4ndCBiZSBzdGF0aWNhbGx5IGFuYWx5emVkLlxuICpcbiAqIEBwYXJhbSBzcGVlZEZhY3RvclZhbHVlIFNwZWVkIGZhY3RvciBleHByZXNzaW9uIHRoYXQgY291bGRuJ3QgYmUgc3RhdGljYWxseSBhbmFseXplZC5cbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGNyZWF0ZVNwZWVkRmFjdG9yQ29udmVydEV4cHJlc3Npb24oc3BlZWRGYWN0b3JWYWx1ZTogc3RyaW5nKTogc3RyaW5nIHtcbiAgLy8gVG8gYmUgc3VyZSB0aGF0IHRoZSBzcGVlZCBmYWN0b3IgdmFsdWUgZXhwcmVzc2lvbiBpcyBjYWxjdWxhdGVkIHByb3Blcmx5LCB3ZSBuZWVkIHRvIGFkZFxuICAvLyB0aGUgYWNjb3JkaW5nIHBhcmVudGhlc2lzLlxuICByZXR1cm4gYDQ1MCAvICgke3NwZWVkRmFjdG9yVmFsdWV9KWA7XG59XG4iXX0=
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createSpeedFactorConvertExpression = exports.convertSpeedFactorToDuration = void 0;
+/** Converts the specified speed factor into the exact static enter duration. */
+function convertSpeedFactorToDuration(factor) {
+    // Based on the numeric speed factor value that only affected the `enterDuration` we can
+    // now calculate the exact `enterDuration`. 450ms is the enter duration without factor.
+    return 450 / (factor || 1);
+}
+exports.convertSpeedFactorToDuration = convertSpeedFactorToDuration;
+/**
+ * Creates a runtime TypeScript expression that can be used in order to calculate the duration
+ * from the speed factor expression that couldn't be statically analyzed.
+ *
+ * @param speedFactorValue Speed factor expression that couldn't be statically analyzed.
+ */
+function createSpeedFactorConvertExpression(speedFactorValue) {
+    // To be sure that the speed factor value expression is calculated properly, we need to add
+    // the according parenthesis.
+    return `450 / (${speedFactorValue})`;
+}
+exports.createSpeedFactorConvertExpression = createSpeedFactorConvertExpression;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmlwcGxlLXNwZWVkLWZhY3Rvci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9zY2hlbWF0aWNzL25nLXVwZGF0ZS9taWdyYXRpb25zL21pc2MtcmlwcGxlcy12Ny9yaXBwbGUtc3BlZWQtZmFjdG9yLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQTs7Ozs7O0dBTUc7OztBQUVILGdGQUFnRjtBQUNoRixTQUFnQiw0QkFBNEIsQ0FBQyxNQUFjO0lBQ3pELHdGQUF3RjtJQUN4Rix1RkFBdUY7SUFDdkYsT0FBTyxHQUFHLEdBQUcsQ0FBQyxNQUFNLElBQUksQ0FBQyxDQUFDLENBQUM7QUFDN0IsQ0FBQztBQUpELG9FQUlDO0FBRUQ7Ozs7O0dBS0c7QUFDSCxTQUFnQixrQ0FBa0MsQ0FBQyxnQkFBd0I7SUFDekUsMkZBQTJGO0lBQzNGLDZCQUE2QjtJQUM3QixPQUFPLFVBQVUsZ0JBQWdCLEdBQUcsQ0FBQztBQUN2QyxDQUFDO0FBSkQsZ0ZBSUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuLyoqIENvbnZlcnRzIHRoZSBzcGVjaWZpZWQgc3BlZWQgZmFjdG9yIGludG8gdGhlIGV4YWN0IHN0YXRpYyBlbnRlciBkdXJhdGlvbi4gKi9cbmV4cG9ydCBmdW5jdGlvbiBjb252ZXJ0U3BlZWRGYWN0b3JUb0R1cmF0aW9uKGZhY3RvcjogbnVtYmVyKSB7XG4gIC8vIEJhc2VkIG9uIHRoZSBudW1lcmljIHNwZWVkIGZhY3RvciB2YWx1ZSB0aGF0IG9ubHkgYWZmZWN0ZWQgdGhlIGBlbnRlckR1cmF0aW9uYCB3ZSBjYW5cbiAgLy8gbm93IGNhbGN1bGF0ZSB0aGUgZXhhY3QgYGVudGVyRHVyYXRpb25gLiA0NTBtcyBpcyB0aGUgZW50ZXIgZHVyYXRpb24gd2l0aG91dCBmYWN0b3IuXG4gIHJldHVybiA0NTAgLyAoZmFjdG9yIHx8IDEpO1xufVxuXG4vKipcbiAqIENyZWF0ZXMgYSBydW50aW1lIFR5cGVTY3JpcHQgZXhwcmVzc2lvbiB0aGF0IGNhbiBiZSB1c2VkIGluIG9yZGVyIHRvIGNhbGN1bGF0ZSB0aGUgZHVyYXRpb25cbiAqIGZyb20gdGhlIHNwZWVkIGZhY3RvciBleHByZXNzaW9uIHRoYXQgY291bGRuJ3QgYmUgc3RhdGljYWxseSBhbmFseXplZC5cbiAqXG4gKiBAcGFyYW0gc3BlZWRGYWN0b3JWYWx1ZSBTcGVlZCBmYWN0b3IgZXhwcmVzc2lvbiB0aGF0IGNvdWxkbid0IGJlIHN0YXRpY2FsbHkgYW5hbHl6ZWQuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBjcmVhdGVTcGVlZEZhY3RvckNvbnZlcnRFeHByZXNzaW9uKHNwZWVkRmFjdG9yVmFsdWU6IHN0cmluZyk6IHN0cmluZyB7XG4gIC8vIFRvIGJlIHN1cmUgdGhhdCB0aGUgc3BlZWQgZmFjdG9yIHZhbHVlIGV4cHJlc3Npb24gaXMgY2FsY3VsYXRlZCBwcm9wZXJseSwgd2UgbmVlZCB0byBhZGRcbiAgLy8gdGhlIGFjY29yZGluZyBwYXJlbnRoZXNpcy5cbiAgcmV0dXJuIGA0NTAgLyAoJHtzcGVlZEZhY3RvclZhbHVlfSlgO1xufVxuIl19

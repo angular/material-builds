@@ -160,274 +160,282 @@ const matBottomSheetAnimations = {
  * Internal component that wraps user-provided bottom sheet content.
  * \@docs-private
  */
-class MatBottomSheetContainer extends BasePortalOutlet {
+let MatBottomSheetContainer = /** @class */ (() => {
+    // TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
     /**
-     * @param {?} _elementRef
-     * @param {?} _changeDetectorRef
-     * @param {?} _focusTrapFactory
-     * @param {?} breakpointObserver
-     * @param {?} document
-     * @param {?} bottomSheetConfig
+     * Internal component that wraps user-provided bottom sheet content.
+     * \@docs-private
      */
-    constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document, bottomSheetConfig) {
-        super();
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._focusTrapFactory = _focusTrapFactory;
-        this.bottomSheetConfig = bottomSheetConfig;
+    class MatBottomSheetContainer extends BasePortalOutlet {
         /**
-         * The state of the bottom sheet animations.
+         * @param {?} _elementRef
+         * @param {?} _changeDetectorRef
+         * @param {?} _focusTrapFactory
+         * @param {?} breakpointObserver
+         * @param {?} document
+         * @param {?} bottomSheetConfig
          */
-        this._animationState = 'void';
+        constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document, bottomSheetConfig) {
+            super();
+            this._elementRef = _elementRef;
+            this._changeDetectorRef = _changeDetectorRef;
+            this._focusTrapFactory = _focusTrapFactory;
+            this.bottomSheetConfig = bottomSheetConfig;
+            /**
+             * The state of the bottom sheet animations.
+             */
+            this._animationState = 'void';
+            /**
+             * Emits whenever the state of the animation changes.
+             */
+            this._animationStateChanged = new EventEmitter();
+            /**
+             * Element that was focused before the bottom sheet was opened.
+             */
+            this._elementFocusedBeforeOpened = null;
+            /**
+             * Attaches a DOM portal to the bottom sheet container.
+             * @deprecated To be turned into a method.
+             * \@breaking-change 10.0.0
+             */
+            this.attachDomPortal = (/**
+             * @param {?} portal
+             * @return {?}
+             */
+            (portal) => {
+                this._validatePortalAttached();
+                this._setPanelClass();
+                this._savePreviouslyFocusedElement();
+                return this._portalOutlet.attachDomPortal(portal);
+            });
+            this._document = document;
+            this._breakpointSubscription = breakpointObserver
+                .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
+                .subscribe((/**
+             * @return {?}
+             */
+            () => {
+                this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(Breakpoints.Medium));
+                this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(Breakpoints.Large));
+                this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(Breakpoints.XLarge));
+            }));
+        }
         /**
-         * Emits whenever the state of the animation changes.
-         */
-        this._animationStateChanged = new EventEmitter();
-        /**
-         * Element that was focused before the bottom sheet was opened.
-         */
-        this._elementFocusedBeforeOpened = null;
-        /**
-         * Attaches a DOM portal to the bottom sheet container.
-         * @deprecated To be turned into a method.
-         * \@breaking-change 10.0.0
-         */
-        this.attachDomPortal = (/**
+         * Attach a component portal as content to this bottom sheet container.
+         * @template T
          * @param {?} portal
          * @return {?}
          */
-        (portal) => {
+        attachComponentPortal(portal) {
             this._validatePortalAttached();
             this._setPanelClass();
             this._savePreviouslyFocusedElement();
-            return this._portalOutlet.attachDomPortal(portal);
-        });
-        this._document = document;
-        this._breakpointSubscription = breakpointObserver
-            .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
-            .subscribe((/**
+            return this._portalOutlet.attachComponentPortal(portal);
+        }
+        /**
+         * Attach a template portal as content to this bottom sheet container.
+         * @template C
+         * @param {?} portal
          * @return {?}
          */
-        () => {
-            this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(Breakpoints.Medium));
-            this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(Breakpoints.Large));
-            this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(Breakpoints.XLarge));
-        }));
-    }
-    /**
-     * Attach a component portal as content to this bottom sheet container.
-     * @template T
-     * @param {?} portal
-     * @return {?}
-     */
-    attachComponentPortal(portal) {
-        this._validatePortalAttached();
-        this._setPanelClass();
-        this._savePreviouslyFocusedElement();
-        return this._portalOutlet.attachComponentPortal(portal);
-    }
-    /**
-     * Attach a template portal as content to this bottom sheet container.
-     * @template C
-     * @param {?} portal
-     * @return {?}
-     */
-    attachTemplatePortal(portal) {
-        this._validatePortalAttached();
-        this._setPanelClass();
-        this._savePreviouslyFocusedElement();
-        return this._portalOutlet.attachTemplatePortal(portal);
-    }
-    /**
-     * Begin animation of bottom sheet entrance into view.
-     * @return {?}
-     */
-    enter() {
-        if (!this._destroyed) {
-            this._animationState = 'visible';
-            this._changeDetectorRef.detectChanges();
+        attachTemplatePortal(portal) {
+            this._validatePortalAttached();
+            this._setPanelClass();
+            this._savePreviouslyFocusedElement();
+            return this._portalOutlet.attachTemplatePortal(portal);
         }
-    }
-    /**
-     * Begin animation of the bottom sheet exiting from view.
-     * @return {?}
-     */
-    exit() {
-        if (!this._destroyed) {
-            this._animationState = 'hidden';
-            this._changeDetectorRef.markForCheck();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._breakpointSubscription.unsubscribe();
-        this._destroyed = true;
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onAnimationDone(event) {
-        if (event.toState === 'hidden') {
-            this._restoreFocus();
-        }
-        else if (event.toState === 'visible') {
-            this._trapFocus();
-        }
-        this._animationStateChanged.emit(event);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    _onAnimationStart(event) {
-        this._animationStateChanged.emit(event);
-    }
-    /**
-     * @private
-     * @param {?} cssClass
-     * @param {?} add
-     * @return {?}
-     */
-    _toggleClass(cssClass, add) {
-        /** @type {?} */
-        const classList = this._elementRef.nativeElement.classList;
-        add ? classList.add(cssClass) : classList.remove(cssClass);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _validatePortalAttached() {
-        if (this._portalOutlet.hasAttached()) {
-            throw Error('Attempting to attach bottom sheet content after content is already attached');
-        }
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _setPanelClass() {
-        /** @type {?} */
-        const element = this._elementRef.nativeElement;
-        /** @type {?} */
-        const panelClass = this.bottomSheetConfig.panelClass;
-        if (Array.isArray(panelClass)) {
-            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-            panelClass.forEach((/**
-             * @param {?} cssClass
-             * @return {?}
-             */
-            cssClass => element.classList.add(cssClass)));
-        }
-        else if (panelClass) {
-            element.classList.add(panelClass);
-        }
-    }
-    /**
-     * Moves the focus inside the focus trap.
-     * @private
-     * @return {?}
-     */
-    _trapFocus() {
-        /** @type {?} */
-        const element = this._elementRef.nativeElement;
-        if (!this._focusTrap) {
-            this._focusTrap = this._focusTrapFactory.create(element);
-        }
-        if (this.bottomSheetConfig.autoFocus) {
-            this._focusTrap.focusInitialElementWhenReady();
-        }
-        else {
-            /** @type {?} */
-            const activeElement = this._document.activeElement;
-            // Otherwise ensure that focus is on the container. It's possible that a different
-            // component tried to move focus while the open animation was running. See:
-            // https://github.com/angular/components/issues/16215. Note that we only want to do this
-            // if the focus isn't inside the bottom sheet already, because it's possible that the
-            // consumer turned off `autoFocus` in order to move focus themselves.
-            if (activeElement !== element && !element.contains(activeElement)) {
-                element.focus();
+        /**
+         * Begin animation of bottom sheet entrance into view.
+         * @return {?}
+         */
+        enter() {
+            if (!this._destroyed) {
+                this._animationState = 'visible';
+                this._changeDetectorRef.detectChanges();
             }
         }
-    }
-    /**
-     * Restores focus to the element that was focused before the bottom sheet was opened.
-     * @private
-     * @return {?}
-     */
-    _restoreFocus() {
-        /** @type {?} */
-        const toFocus = this._elementFocusedBeforeOpened;
-        // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        if (this.bottomSheetConfig.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
+        /**
+         * Begin animation of the bottom sheet exiting from view.
+         * @return {?}
+         */
+        exit() {
+            if (!this._destroyed) {
+                this._animationState = 'hidden';
+                this._changeDetectorRef.markForCheck();
+            }
+        }
+        /**
+         * @return {?}
+         */
+        ngOnDestroy() {
+            this._breakpointSubscription.unsubscribe();
+            this._destroyed = true;
+        }
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        _onAnimationDone(event) {
+            if (event.toState === 'hidden') {
+                this._restoreFocus();
+            }
+            else if (event.toState === 'visible') {
+                this._trapFocus();
+            }
+            this._animationStateChanged.emit(event);
+        }
+        /**
+         * @param {?} event
+         * @return {?}
+         */
+        _onAnimationStart(event) {
+            this._animationStateChanged.emit(event);
+        }
+        /**
+         * @private
+         * @param {?} cssClass
+         * @param {?} add
+         * @return {?}
+         */
+        _toggleClass(cssClass, add) {
             /** @type {?} */
-            const activeElement = this._document.activeElement;
+            const classList = this._elementRef.nativeElement.classList;
+            add ? classList.add(cssClass) : classList.remove(cssClass);
+        }
+        /**
+         * @private
+         * @return {?}
+         */
+        _validatePortalAttached() {
+            if (this._portalOutlet.hasAttached()) {
+                throw Error('Attempting to attach bottom sheet content after content is already attached');
+            }
+        }
+        /**
+         * @private
+         * @return {?}
+         */
+        _setPanelClass() {
             /** @type {?} */
             const element = this._elementRef.nativeElement;
-            // Make sure that focus is still inside the bottom sheet or is on the body (usually because a
-            // non-focusable element like the backdrop was clicked) before moving it. It's possible that
-            // the consumer moved it themselves before the animation was done, in which case we shouldn't
-            // do anything.
-            if (!activeElement || activeElement === this._document.body || activeElement === element ||
-                element.contains(activeElement)) {
-                toFocus.focus();
+            /** @type {?} */
+            const panelClass = this.bottomSheetConfig.panelClass;
+            if (Array.isArray(panelClass)) {
+                // Note that we can't use a spread here, because IE doesn't support multiple arguments.
+                panelClass.forEach((/**
+                 * @param {?} cssClass
+                 * @return {?}
+                 */
+                cssClass => element.classList.add(cssClass)));
+            }
+            else if (panelClass) {
+                element.classList.add(panelClass);
             }
         }
-        if (this._focusTrap) {
-            this._focusTrap.destroy();
+        /**
+         * Moves the focus inside the focus trap.
+         * @private
+         * @return {?}
+         */
+        _trapFocus() {
+            /** @type {?} */
+            const element = this._elementRef.nativeElement;
+            if (!this._focusTrap) {
+                this._focusTrap = this._focusTrapFactory.create(element);
+            }
+            if (this.bottomSheetConfig.autoFocus) {
+                this._focusTrap.focusInitialElementWhenReady();
+            }
+            else {
+                /** @type {?} */
+                const activeElement = this._document.activeElement;
+                // Otherwise ensure that focus is on the container. It's possible that a different
+                // component tried to move focus while the open animation was running. See:
+                // https://github.com/angular/components/issues/16215. Note that we only want to do this
+                // if the focus isn't inside the bottom sheet already, because it's possible that the
+                // consumer turned off `autoFocus` in order to move focus themselves.
+                if (activeElement !== element && !element.contains(activeElement)) {
+                    element.focus();
+                }
+            }
+        }
+        /**
+         * Restores focus to the element that was focused before the bottom sheet was opened.
+         * @private
+         * @return {?}
+         */
+        _restoreFocus() {
+            /** @type {?} */
+            const toFocus = this._elementFocusedBeforeOpened;
+            // We need the extra check, because IE can set the `activeElement` to null in some cases.
+            if (this.bottomSheetConfig.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
+                /** @type {?} */
+                const activeElement = this._document.activeElement;
+                /** @type {?} */
+                const element = this._elementRef.nativeElement;
+                // Make sure that focus is still inside the bottom sheet or is on the body (usually because a
+                // non-focusable element like the backdrop was clicked) before moving it. It's possible that
+                // the consumer moved it themselves before the animation was done, in which case we shouldn't
+                // do anything.
+                if (!activeElement || activeElement === this._document.body || activeElement === element ||
+                    element.contains(activeElement)) {
+                    toFocus.focus();
+                }
+            }
+            if (this._focusTrap) {
+                this._focusTrap.destroy();
+            }
+        }
+        /**
+         * Saves a reference to the element that was focused before the bottom sheet was opened.
+         * @private
+         * @return {?}
+         */
+        _savePreviouslyFocusedElement() {
+            this._elementFocusedBeforeOpened = (/** @type {?} */ (this._document.activeElement));
+            // The `focus` method isn't available during server-side rendering.
+            if (this._elementRef.nativeElement.focus) {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                () => this._elementRef.nativeElement.focus()));
+            }
         }
     }
-    /**
-     * Saves a reference to the element that was focused before the bottom sheet was opened.
-     * @private
-     * @return {?}
-     */
-    _savePreviouslyFocusedElement() {
-        this._elementFocusedBeforeOpened = (/** @type {?} */ (this._document.activeElement));
-        // The `focus` method isn't available during server-side rendering.
-        if (this._elementRef.nativeElement.focus) {
-            Promise.resolve().then((/**
-             * @return {?}
-             */
-            () => this._elementRef.nativeElement.focus()));
-        }
-    }
-}
-MatBottomSheetContainer.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-bottom-sheet-container',
-                template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                animations: [matBottomSheetAnimations.bottomSheetState],
-                host: {
-                    'class': 'mat-bottom-sheet-container',
-                    'tabindex': '-1',
-                    'role': 'dialog',
-                    'aria-modal': 'true',
-                    '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
-                    '[@state]': '_animationState',
-                    '(@state.start)': '_onAnimationStart($event)',
-                    '(@state.done)': '_onAnimationDone($event)'
-                },
-                styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
-            }] }
-];
-/** @nocollapse */
-MatBottomSheetContainer.ctorParameters = () => [
-    { type: ElementRef },
-    { type: ChangeDetectorRef },
-    { type: FocusTrapFactory },
-    { type: BreakpointObserver },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
-    { type: MatBottomSheetConfig }
-];
-MatBottomSheetContainer.propDecorators = {
-    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
-};
+    MatBottomSheetContainer.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-bottom-sheet-container',
+                    template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    animations: [matBottomSheetAnimations.bottomSheetState],
+                    host: {
+                        'class': 'mat-bottom-sheet-container',
+                        'tabindex': '-1',
+                        'role': 'dialog',
+                        'aria-modal': 'true',
+                        '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
+                        '[@state]': '_animationState',
+                        '(@state.start)': '_onAnimationStart($event)',
+                        '(@state.done)': '_onAnimationDone($event)'
+                    },
+                    styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatBottomSheetContainer.ctorParameters = () => [
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: FocusTrapFactory },
+        { type: BreakpointObserver },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: MatBottomSheetConfig }
+    ];
+    MatBottomSheetContainer.propDecorators = {
+        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
+    };
+    return MatBottomSheetContainer;
+})();
 if (false) {
     /**
      * @type {?}
@@ -507,20 +515,23 @@ if (false) {
  * Generated from: src/material/bottom-sheet/bottom-sheet-module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class MatBottomSheetModule {
-}
-MatBottomSheetModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    OverlayModule,
-                    MatCommonModule,
-                    PortalModule,
-                ],
-                exports: [MatBottomSheetContainer, MatCommonModule],
-                declarations: [MatBottomSheetContainer],
-                entryComponents: [MatBottomSheetContainer],
-            },] }
-];
+let MatBottomSheetModule = /** @class */ (() => {
+    class MatBottomSheetModule {
+    }
+    MatBottomSheetModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        OverlayModule,
+                        MatCommonModule,
+                        PortalModule,
+                    ],
+                    exports: [MatBottomSheetContainer, MatCommonModule],
+                    declarations: [MatBottomSheetContainer],
+                    entryComponents: [MatBottomSheetContainer],
+                },] }
+    ];
+    return MatBottomSheetModule;
+})();
 
 /**
  * @fileoverview added by tsickle
@@ -725,195 +736,201 @@ const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-de
 /**
  * Service to trigger Material Design bottom sheets.
  */
-class MatBottomSheet {
+let MatBottomSheet = /** @class */ (() => {
     /**
-     * @param {?} _overlay
-     * @param {?} _injector
-     * @param {?} _parentBottomSheet
-     * @param {?=} _location
-     * @param {?=} _defaultOptions
+     * Service to trigger Material Design bottom sheets.
      */
-    constructor(_overlay, _injector, _parentBottomSheet, _location, _defaultOptions) {
-        this._overlay = _overlay;
-        this._injector = _injector;
-        this._parentBottomSheet = _parentBottomSheet;
-        this._location = _location;
-        this._defaultOptions = _defaultOptions;
-        this._bottomSheetRefAtThisLevel = null;
-    }
-    /**
-     * Reference to the currently opened bottom sheet.
-     * @return {?}
-     */
-    get _openedBottomSheetRef() {
-        /** @type {?} */
-        const parent = this._parentBottomSheet;
-        return parent ? parent._openedBottomSheetRef : this._bottomSheetRefAtThisLevel;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set _openedBottomSheetRef(value) {
-        if (this._parentBottomSheet) {
-            this._parentBottomSheet._openedBottomSheetRef = value;
+    class MatBottomSheet {
+        /**
+         * @param {?} _overlay
+         * @param {?} _injector
+         * @param {?} _parentBottomSheet
+         * @param {?=} _location
+         * @param {?=} _defaultOptions
+         */
+        constructor(_overlay, _injector, _parentBottomSheet, _location, _defaultOptions) {
+            this._overlay = _overlay;
+            this._injector = _injector;
+            this._parentBottomSheet = _parentBottomSheet;
+            this._location = _location;
+            this._defaultOptions = _defaultOptions;
+            this._bottomSheetRefAtThisLevel = null;
         }
-        else {
-            this._bottomSheetRefAtThisLevel = value;
-        }
-    }
-    /**
-     * @template T, D, R
-     * @param {?} componentOrTemplateRef
-     * @param {?=} config
-     * @return {?}
-     */
-    open(componentOrTemplateRef, config) {
-        /** @type {?} */
-        const _config = _applyConfigDefaults(this._defaultOptions || new MatBottomSheetConfig(), config);
-        /** @type {?} */
-        const overlayRef = this._createOverlay(_config);
-        /** @type {?} */
-        const container = this._attachContainer(overlayRef, _config);
-        /** @type {?} */
-        const ref = new MatBottomSheetRef(container, overlayRef, this._location);
-        if (componentOrTemplateRef instanceof TemplateRef) {
-            container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({
-                $implicit: _config.data,
-                bottomSheetRef: ref
-            }))));
-        }
-        else {
-            /** @type {?} */
-            const portal = new ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
-            /** @type {?} */
-            const contentRef = container.attachComponentPortal(portal);
-            ref.instance = contentRef.instance;
-        }
-        // When the bottom sheet is dismissed, clear the reference to it.
-        ref.afterDismissed().subscribe((/**
+        /**
+         * Reference to the currently opened bottom sheet.
          * @return {?}
          */
-        () => {
-            // Clear the bottom sheet ref if it hasn't already been replaced by a newer one.
-            if (this._openedBottomSheetRef == ref) {
-                this._openedBottomSheetRef = null;
+        get _openedBottomSheetRef() {
+            /** @type {?} */
+            const parent = this._parentBottomSheet;
+            return parent ? parent._openedBottomSheetRef : this._bottomSheetRefAtThisLevel;
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set _openedBottomSheetRef(value) {
+            if (this._parentBottomSheet) {
+                this._parentBottomSheet._openedBottomSheetRef = value;
             }
-        }));
-        if (this._openedBottomSheetRef) {
-            // If a bottom sheet is already in view, dismiss it and enter the
-            // new bottom sheet after exit animation is complete.
-            this._openedBottomSheetRef.afterDismissed().subscribe((/**
+            else {
+                this._bottomSheetRefAtThisLevel = value;
+            }
+        }
+        /**
+         * @template T, D, R
+         * @param {?} componentOrTemplateRef
+         * @param {?=} config
+         * @return {?}
+         */
+        open(componentOrTemplateRef, config) {
+            /** @type {?} */
+            const _config = _applyConfigDefaults(this._defaultOptions || new MatBottomSheetConfig(), config);
+            /** @type {?} */
+            const overlayRef = this._createOverlay(_config);
+            /** @type {?} */
+            const container = this._attachContainer(overlayRef, _config);
+            /** @type {?} */
+            const ref = new MatBottomSheetRef(container, overlayRef, this._location);
+            if (componentOrTemplateRef instanceof TemplateRef) {
+                container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, (/** @type {?} */ (null)), (/** @type {?} */ ({
+                    $implicit: _config.data,
+                    bottomSheetRef: ref
+                }))));
+            }
+            else {
+                /** @type {?} */
+                const portal = new ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
+                /** @type {?} */
+                const contentRef = container.attachComponentPortal(portal);
+                ref.instance = contentRef.instance;
+            }
+            // When the bottom sheet is dismissed, clear the reference to it.
+            ref.afterDismissed().subscribe((/**
              * @return {?}
              */
-            () => ref.containerInstance.enter()));
-            this._openedBottomSheetRef.dismiss();
+            () => {
+                // Clear the bottom sheet ref if it hasn't already been replaced by a newer one.
+                if (this._openedBottomSheetRef == ref) {
+                    this._openedBottomSheetRef = null;
+                }
+            }));
+            if (this._openedBottomSheetRef) {
+                // If a bottom sheet is already in view, dismiss it and enter the
+                // new bottom sheet after exit animation is complete.
+                this._openedBottomSheetRef.afterDismissed().subscribe((/**
+                 * @return {?}
+                 */
+                () => ref.containerInstance.enter()));
+                this._openedBottomSheetRef.dismiss();
+            }
+            else {
+                // If no bottom sheet is in view, enter the new bottom sheet.
+                ref.containerInstance.enter();
+            }
+            this._openedBottomSheetRef = ref;
+            return ref;
         }
-        else {
-            // If no bottom sheet is in view, enter the new bottom sheet.
-            ref.containerInstance.enter();
+        /**
+         * Dismisses the currently-visible bottom sheet.
+         * @template R
+         * @param {?=} result Data to pass to the bottom sheet instance.
+         * @return {?}
+         */
+        dismiss(result) {
+            if (this._openedBottomSheetRef) {
+                this._openedBottomSheetRef.dismiss(result);
+            }
         }
-        this._openedBottomSheetRef = ref;
-        return ref;
-    }
-    /**
-     * Dismisses the currently-visible bottom sheet.
-     * @template R
-     * @param {?=} result Data to pass to the bottom sheet instance.
-     * @return {?}
-     */
-    dismiss(result) {
-        if (this._openedBottomSheetRef) {
-            this._openedBottomSheetRef.dismiss(result);
+        /**
+         * @return {?}
+         */
+        ngOnDestroy() {
+            if (this._bottomSheetRefAtThisLevel) {
+                this._bottomSheetRefAtThisLevel.dismiss();
+            }
         }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        if (this._bottomSheetRefAtThisLevel) {
-            this._bottomSheetRefAtThisLevel.dismiss();
+        /**
+         * Attaches the bottom sheet container component to the overlay.
+         * @private
+         * @param {?} overlayRef
+         * @param {?} config
+         * @return {?}
+         */
+        _attachContainer(overlayRef, config) {
+            /** @type {?} */
+            const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+            /** @type {?} */
+            const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
+                [MatBottomSheetConfig, config]
+            ]));
+            /** @type {?} */
+            const containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
+            /** @type {?} */
+            const containerRef = overlayRef.attach(containerPortal);
+            return containerRef.instance;
         }
-    }
-    /**
-     * Attaches the bottom sheet container component to the overlay.
-     * @private
-     * @param {?} overlayRef
-     * @param {?} config
-     * @return {?}
-     */
-    _attachContainer(overlayRef, config) {
-        /** @type {?} */
-        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        /** @type {?} */
-        const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
-            [MatBottomSheetConfig, config]
-        ]));
-        /** @type {?} */
-        const containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
-        /** @type {?} */
-        const containerRef = overlayRef.attach(containerPortal);
-        return containerRef.instance;
-    }
-    /**
-     * Creates a new overlay and places it in the correct location.
-     * @private
-     * @param {?} config The user-specified bottom sheet config.
-     * @return {?}
-     */
-    _createOverlay(config) {
-        /** @type {?} */
-        const overlayConfig = new OverlayConfig({
-            direction: config.direction,
-            hasBackdrop: config.hasBackdrop,
-            disposeOnNavigation: config.closeOnNavigation,
-            maxWidth: '100%',
-            scrollStrategy: config.scrollStrategy || this._overlay.scrollStrategies.block(),
-            positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0')
-        });
-        if (config.backdropClass) {
-            overlayConfig.backdropClass = config.backdropClass;
-        }
-        return this._overlay.create(overlayConfig);
-    }
-    /**
-     * Creates an injector to be used inside of a bottom sheet component.
-     * @private
-     * @template T
-     * @param {?} config Config that was used to create the bottom sheet.
-     * @param {?} bottomSheetRef Reference to the bottom sheet.
-     * @return {?}
-     */
-    _createInjector(config, bottomSheetRef) {
-        /** @type {?} */
-        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        /** @type {?} */
-        const injectionTokens = new WeakMap([
-            [MatBottomSheetRef, bottomSheetRef],
-            [MAT_BOTTOM_SHEET_DATA, config.data]
-        ]);
-        if (config.direction &&
-            (!userInjector || !userInjector.get(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+        /**
+         * Creates a new overlay and places it in the correct location.
+         * @private
+         * @param {?} config The user-specified bottom sheet config.
+         * @return {?}
+         */
+        _createOverlay(config) {
+            /** @type {?} */
+            const overlayConfig = new OverlayConfig({
+                direction: config.direction,
+                hasBackdrop: config.hasBackdrop,
+                disposeOnNavigation: config.closeOnNavigation,
+                maxWidth: '100%',
+                scrollStrategy: config.scrollStrategy || this._overlay.scrollStrategies.block(),
+                positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0')
             });
+            if (config.backdropClass) {
+                overlayConfig.backdropClass = config.backdropClass;
+            }
+            return this._overlay.create(overlayConfig);
         }
-        return new PortalInjector(userInjector || this._injector, injectionTokens);
+        /**
+         * Creates an injector to be used inside of a bottom sheet component.
+         * @private
+         * @template T
+         * @param {?} config Config that was used to create the bottom sheet.
+         * @param {?} bottomSheetRef Reference to the bottom sheet.
+         * @return {?}
+         */
+        _createInjector(config, bottomSheetRef) {
+            /** @type {?} */
+            const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+            /** @type {?} */
+            const injectionTokens = new WeakMap([
+                [MatBottomSheetRef, bottomSheetRef],
+                [MAT_BOTTOM_SHEET_DATA, config.data]
+            ]);
+            if (config.direction &&
+                (!userInjector || !userInjector.get(Directionality, null))) {
+                injectionTokens.set(Directionality, {
+                    value: config.direction,
+                    change: of()
+                });
+            }
+            return new PortalInjector(userInjector || this._injector, injectionTokens);
+        }
     }
-}
-MatBottomSheet.decorators = [
-    { type: Injectable, args: [{ providedIn: MatBottomSheetModule },] }
-];
-/** @nocollapse */
-MatBottomSheet.ctorParameters = () => [
-    { type: Overlay },
-    { type: Injector },
-    { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf }] },
-    { type: Location, decorators: [{ type: Optional }] },
-    { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
-];
-/** @nocollapse */ MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    MatBottomSheet.decorators = [
+        { type: Injectable, args: [{ providedIn: MatBottomSheetModule },] }
+    ];
+    /** @nocollapse */
+    MatBottomSheet.ctorParameters = () => [
+        { type: Overlay },
+        { type: Injector },
+        { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf }] },
+        { type: Location, decorators: [{ type: Optional }] },
+        { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
+    ];
+    /** @nocollapse */ MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    return MatBottomSheet;
+})();
 if (false) {
     /**
      * @type {?}

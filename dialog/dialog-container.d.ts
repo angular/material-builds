@@ -61,7 +61,7 @@ export declare class MatDialogContainer extends BasePortalOutlet {
      * @deprecated To be turned into a method.
      * @breaking-change 10.0.0
      */
-    attachDomPortal: (portal: DomPortal<HTMLElement>) => void;
+    attachDomPortal: (portal: DomPortal) => void;
     /** Moves focus back into the dialog if it was moved out. */
     _recaptureFocus(): void;
     /** Moves the focus inside the focus trap. */

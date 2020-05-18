@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/// <amd-module name="@angular/material/schematics/ng-update/migrations/hammer-gestures-v9/hammer-gestures-migration" />
 import { SchematicContext, Tree } from '@angular-devkit/schematics';
 import { DevkitMigration, PostMigrationAction, ResolvedResource } from '@angular/cdk/schematics';
 import * as ts from 'typescript';

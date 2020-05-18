@@ -350,18 +350,18 @@
     }
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -417,10 +417,11 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -453,19 +454,28 @@
         }
     }
 
+    const __createBinding = Object.create ? (function(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    }) : (function(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    });
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
     }
 
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -534,16 +544,37 @@
         return cooked;
     };
 
+    const __setModuleDefault = Object.create ? (function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function(o, v) {
+        o["default"] = v;
+    };
+
     function __importStar(mod) {
         if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-        result.default = mod;
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
 
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
     }
 
     /**
@@ -807,7 +838,7 @@
                     this._init();
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatMonthView.prototype, "selected", {
@@ -822,7 +853,7 @@
                 }
                 this._setRanges(this._selected);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatMonthView.prototype, "minDate", {
@@ -831,7 +862,7 @@
             set: function (value) {
                 this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatMonthView.prototype, "maxDate", {
@@ -840,7 +871,7 @@
             set: function (value) {
                 this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatMonthView.prototype.ngAfterContentInit = function () {
@@ -1134,7 +1165,7 @@
                     this._init();
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatMultiYearView.prototype, "selected", {
@@ -1149,7 +1180,7 @@
                 }
                 this._setSelectedYear(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatMultiYearView.prototype, "minDate", {
@@ -1158,7 +1189,7 @@
             set: function (value) {
                 this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatMultiYearView.prototype, "maxDate", {
@@ -1167,7 +1198,7 @@
             set: function (value) {
                 this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatMultiYearView.prototype.ngAfterContentInit = function () {
@@ -1418,7 +1449,7 @@
                     this._init();
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatYearView.prototype, "selected", {
@@ -1433,7 +1464,7 @@
                 }
                 this._setSelectedMonth(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatYearView.prototype, "minDate", {
@@ -1442,7 +1473,7 @@
             set: function (value) {
                 this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatYearView.prototype, "maxDate", {
@@ -1451,7 +1482,7 @@
             set: function (value) {
                 this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatYearView.prototype.ngAfterContentInit = function () {
@@ -1680,7 +1711,7 @@
                 var maxYearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(maxYearOfPage, 0, 1));
                 return this._intl.formatYearRange(minYearName, maxYearName);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendarHeader.prototype, "periodButtonLabel", {
@@ -1688,7 +1719,7 @@
                 return this.calendar.currentView == 'month' ?
                     this._intl.switchToMultiYearViewLabel : this._intl.switchToMonthViewLabel;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendarHeader.prototype, "prevButtonLabel", {
@@ -1700,7 +1731,7 @@
                     'multi-year': this._intl.prevMultiYearLabel
                 }[this.calendar.currentView];
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendarHeader.prototype, "nextButtonLabel", {
@@ -1712,7 +1743,7 @@
                     'multi-year': this._intl.nextMultiYearLabel
                 }[this.calendar.currentView];
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /** Handles user clicks on the period label. */
@@ -1831,7 +1862,7 @@
             set: function (value) {
                 this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendar.prototype, "selected", {
@@ -1845,7 +1876,7 @@
                     this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendar.prototype, "minDate", {
@@ -1854,7 +1885,7 @@
             set: function (value) {
                 this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendar.prototype, "maxDate", {
@@ -1863,7 +1894,7 @@
             set: function (value) {
                 this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendar.prototype, "activeDate", {
@@ -1877,7 +1908,7 @@
                 this.stateChanges.next();
                 this._changeDetectorRef.markForCheck();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatCalendar.prototype, "currentView", {
@@ -1888,7 +1919,7 @@
                 this._moveFocusOnNextTick = true;
                 this._changeDetectorRef.markForCheck();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatCalendar.prototype.ngAfterContentInit = function () {
@@ -2237,7 +2268,7 @@
             set: function (value) {
                 this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerBase.prototype, "color", {
@@ -2249,7 +2280,7 @@
             set: function (value) {
                 this._color = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerBase.prototype, "touchUi", {
@@ -2261,7 +2292,7 @@
             set: function (value) {
                 this._touchUi = coercion.coerceBooleanProperty(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerBase.prototype, "disabled", {
@@ -2277,14 +2308,14 @@
                     this._disabledChange.next(newValue);
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerBase.prototype, "opened", {
             /** Whether the calendar is open. */
             get: function () { return this._opened; },
             set: function (value) { value ? this.open() : this.close(); },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerBase.prototype, "_minDate", {
@@ -2292,7 +2323,7 @@
             get: function () {
                 return this._datepickerInput && this._datepickerInput.min;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerBase.prototype, "_maxDate", {
@@ -2300,14 +2331,14 @@
             get: function () {
                 return this._datepickerInput && this._datepickerInput.max;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerBase.prototype, "_dateFilter", {
             get: function () {
                 return this._datepickerInput && this._datepickerInput.dateFilter;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatDatepickerBase.prototype.ngOnChanges = function (changes) {
@@ -2698,7 +2729,7 @@
                     this._valueChange.emit(value);
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerInputBase.prototype, "disabled", {
@@ -2722,7 +2753,7 @@
                     element.blur();
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /** Gets the base validator functions. */
@@ -2902,7 +2933,7 @@
                     this._registerModel(datepicker._registerInput(this));
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerInput.prototype, "min", {
@@ -2912,7 +2943,7 @@
                 this._min = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
                 this._validatorOnChange();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerInput.prototype, "max", {
@@ -2922,7 +2953,7 @@
                 this._max = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
                 this._validatorOnChange();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDatepickerInput.prototype, "dateFilter", {
@@ -2932,7 +2963,7 @@
                 this._dateFilter = value;
                 this._validatorOnChange();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
@@ -3058,7 +3089,7 @@
             set: function (value) {
                 this._disabled = coercion.coerceBooleanProperty(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MatDatepickerToggle.prototype.ngOnChanges = function (changes) {
@@ -3473,7 +3504,7 @@
             get: function () {
                 return this._model ? this._model.selection : null;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "shouldLabelFloat", {
@@ -3481,7 +3512,7 @@
             get: function () {
                 return this.focused || !this.empty;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "rangePicker", {
@@ -3494,7 +3525,7 @@
                     this._registerModel(this._model);
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "required", {
@@ -3503,7 +3534,7 @@
             set: function (value) {
                 this._required = coercion.coerceBooleanProperty(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "dateFilter", {
@@ -3513,7 +3544,7 @@
                 this._dateFilter = value;
                 this._revalidate();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "min", {
@@ -3523,7 +3554,7 @@
                 this._min = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
                 this._revalidate();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "max", {
@@ -3533,7 +3564,7 @@
                 this._max = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
                 this._revalidate();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "disabled", {
@@ -3550,7 +3581,7 @@
                     this._disabledChange.next(this.disabled);
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "errorState", {
@@ -3561,7 +3592,7 @@
                 }
                 return false;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(MatDateRangeInput.prototype, "empty", {
@@ -3571,7 +3602,7 @@
                 var endEmpty = this._endInput ? this._endInput.isEmpty() : false;
                 return startEmpty && endEmpty;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**

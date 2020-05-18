@@ -22,19 +22,22 @@ function getListItemPredicate(harnessType, options) {
         .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
 }
 /** Harness for interacting with a list subheader. */
-class MatSubheaderHarness extends ComponentHarness {
-    static with(options = {}) {
-        return new HarnessPredicate(MatSubheaderHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+let MatSubheaderHarness = /** @class */ (() => {
+    class MatSubheaderHarness extends ComponentHarness {
+        static with(options = {}) {
+            return new HarnessPredicate(MatSubheaderHarness, options)
+                .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        }
+        /** Gets the full text content of the list item (including text from any font icons). */
+        getText() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).text();
+            });
+        }
     }
-    /** Gets the full text content of the list item (including text from any font icons). */
-    getText() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).text();
-        });
-    }
-}
-MatSubheaderHarness.hostSelector = '[mat-subheader], [matSubheader]';
+    MatSubheaderHarness.hostSelector = '[mat-subheader], [matSubheader]';
+    return MatSubheaderHarness;
+})();
 /**
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
@@ -178,57 +181,63 @@ class MatListHarnessBase extends ComponentHarness {
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard mat-action-list in tests. */
-class MatActionListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatActionListItemHarness;
+let MatActionListHarness = /** @class */ (() => {
+    class MatActionListHarness extends MatListHarnessBase {
+        constructor() {
+            super(...arguments);
+            this._itemHarness = MatActionListItemHarness;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatActionListHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which action list instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return new HarnessPredicate(MatActionListHarness, options);
+        }
     }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatActionListHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which action list instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatActionListHarness, options);
-    }
-}
-/** The selector for the host element of a `MatActionList` instance. */
-MatActionListHarness.hostSelector = 'mat-action-list';
+    /** The selector for the host element of a `MatActionList` instance. */
+    MatActionListHarness.hostSelector = 'mat-action-list';
+    return MatActionListHarness;
+})();
 /** Harness for interacting with an action list item. */
-class MatActionListItemHarness extends MatListItemHarnessBase {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatActionListItemHarness` that
-     * meets certain criteria.
-     * @param options Options for filtering which action list item instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return getListItemPredicate(MatActionListItemHarness, options);
+let MatActionListItemHarness = /** @class */ (() => {
+    class MatActionListItemHarness extends MatListItemHarnessBase {
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatActionListItemHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which action list item instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return getListItemPredicate(MatActionListItemHarness, options);
+        }
+        /** Clicks on the action list item. */
+        click() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).click();
+            });
+        }
+        /** Focuses the action list item. */
+        focus() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).focus();
+            });
+        }
+        /** Blurs the action list item. */
+        blur() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).blur();
+            });
+        }
     }
-    /** Clicks on the action list item. */
-    click() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).click();
-        });
-    }
-    /** Focuses the action list item. */
-    focus() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).focus();
-        });
-    }
-    /** Blurs the action list item. */
-    blur() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).blur();
-        });
-    }
-}
-/** The selector for the host element of a `MatListItem` instance. */
-MatActionListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-    .map(selector => `${MatActionListHarness.hostSelector} ${selector}`)
-    .join(',');
+    /** The selector for the host element of a `MatListItem` instance. */
+    MatActionListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
+        .map(selector => `${MatActionListHarness.hostSelector} ${selector}`)
+        .join(',');
+    return MatActionListItemHarness;
+})();
 
 /**
  * @license
@@ -238,39 +247,53 @@ MatActionListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'b
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard mat-list in tests. */
-class MatListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatListItemHarness;
+let MatListHarness = /** @class */ (() => {
+    class MatListHarness extends MatListHarnessBase {
+        constructor() {
+            super(...arguments);
+            this._itemHarness = MatListItemHarness;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatListHarness` that meets certain
+         * criteria.
+         * @param options Options for filtering which list instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return new HarnessPredicate(MatListHarness, options);
+        }
     }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListHarness` that meets certain
-     * criteria.
-     * @param options Options for filtering which list instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatListHarness, options);
-    }
-}
-/** The selector for the host element of a `MatList` instance. */
-MatListHarness.hostSelector = 'mat-list';
+    /** The selector for the host element of a `MatList` instance. */
+    MatListHarness.hostSelector = 'mat-list';
+    return MatListHarness;
+})();
 /** Harness for interacting with a list item. */
-class MatListItemHarness extends MatListItemHarnessBase {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListItemHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which list item instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return getListItemPredicate(MatListItemHarness, options);
+let MatListItemHarness = /** @class */ (() => {
+    class MatListItemHarness extends MatListItemHarnessBase {
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatListItemHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which list item instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return getListItemPredicate(MatListItemHarness, options);
+        }
     }
-}
-/** The selector for the host element of a `MatListItem` instance. */
-MatListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-    .map(selector => `${MatListHarness.hostSelector} ${selector}`)
-    .join(',');
+    /** The selector for the host element of a `MatListItem` instance. */
+    MatListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
+        .map(selector => `${MatListHarness.hostSelector} ${selector}`)
+        .join(',');
+    return MatListItemHarness;
+})();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
 /**
  * @license
@@ -280,64 +303,70 @@ MatListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard mat-nav-list in tests. */
-class MatNavListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatNavListItemHarness;
+let MatNavListHarness = /** @class */ (() => {
+    class MatNavListHarness extends MatListHarnessBase {
+        constructor() {
+            super(...arguments);
+            this._itemHarness = MatNavListItemHarness;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatNavListHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which nav list instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return new HarnessPredicate(MatNavListHarness, options);
+        }
     }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which nav list instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatNavListHarness, options);
-    }
-}
-/** The selector for the host element of a `MatNavList` instance. */
-MatNavListHarness.hostSelector = 'mat-nav-list';
+    /** The selector for the host element of a `MatNavList` instance. */
+    MatNavListHarness.hostSelector = 'mat-nav-list';
+    return MatNavListHarness;
+})();
 /** Harness for interacting with a nav list item. */
-class MatNavListItemHarness extends MatListItemHarnessBase {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListItemHarness` that
-     * meets certain criteria.
-     * @param options Options for filtering which nav list item instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return getListItemPredicate(MatNavListItemHarness, options)
-            .addOption('href', options.href, (harness, href) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(harness.getHref(), href); }));
+let MatNavListItemHarness = /** @class */ (() => {
+    class MatNavListItemHarness extends MatListItemHarnessBase {
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatNavListItemHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which nav list item instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return getListItemPredicate(MatNavListItemHarness, options)
+                .addOption('href', options.href, (harness, href) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(harness.getHref(), href); }));
+        }
+        /** Gets the href for this nav list item. */
+        getHref() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).getAttribute('href');
+            });
+        }
+        /** Clicks on the nav list item. */
+        click() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).click();
+            });
+        }
+        /** Focuses the nav list item. */
+        focus() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).focus();
+            });
+        }
+        /** Blurs the nav list item. */
+        blur() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).blur();
+            });
+        }
     }
-    /** Gets the href for this nav list item. */
-    getHref() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).getAttribute('href');
-        });
-    }
-    /** Clicks on the nav list item. */
-    click() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).click();
-        });
-    }
-    /** Focuses the nav list item. */
-    focus() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).focus();
-        });
-    }
-    /** Blurs the nav list item. */
-    blur() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).blur();
-        });
-    }
-}
-/** The selector for the host element of a `MatListItem` instance. */
-MatNavListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-    .map(selector => `${MatNavListHarness.hostSelector} ${selector}`)
-    .join(',');
+    /** The selector for the host element of a `MatListItem` instance. */
+    MatNavListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
+        .map(selector => `${MatNavListHarness.hostSelector} ${selector}`)
+        .join(',');
+    return MatNavListItemHarness;
+})();
 
 /**
  * @license
@@ -347,136 +376,142 @@ MatNavListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'butt
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard mat-selection-list in tests. */
-class MatSelectionListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatListOptionHarness;
+let MatSelectionListHarness = /** @class */ (() => {
+    class MatSelectionListHarness extends MatListHarnessBase {
+        constructor() {
+            super(...arguments);
+            this._itemHarness = MatListOptionHarness;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatSelectionListHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which selection list instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return new HarnessPredicate(MatSelectionListHarness, options);
+        }
+        /** Whether the selection list is disabled. */
+        isDisabled() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield (yield this.host()).getAttribute('aria-disabled')) === 'true';
+            });
+        }
+        /**
+         * Selects all items matching any of the given filters.
+         * @param filters Filters that specify which items should be selected.
+         */
+        selectItems(...filters) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const items = yield this._getItems(filters);
+                yield Promise.all(items.map(item => item.select()));
+            });
+        }
+        /**
+         * Deselects all items matching any of the given filters.
+         * @param filters Filters that specify which items should be deselected.
+         */
+        deselectItems(...filters) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const items = yield this._getItems(filters);
+                yield Promise.all(items.map(item => item.deselect()));
+            });
+        }
+        /** Gets all items matching the given list of filters. */
+        _getItems(filters) {
+            return __awaiter(this, void 0, void 0, function* () {
+                if (!filters.length) {
+                    return this.getItems();
+                }
+                return [].concat(...yield Promise.all(filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))())));
+            });
+        }
     }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSelectionListHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which selection list instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatSelectionListHarness, options);
-    }
-    /** Whether the selection list is disabled. */
-    isDisabled() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.host()).getAttribute('aria-disabled')) === 'true';
-        });
-    }
-    /**
-     * Selects all items matching any of the given filters.
-     * @param filters Filters that specify which items should be selected.
-     */
-    selectItems(...filters) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const items = yield this._getItems(filters);
-            yield Promise.all(items.map(item => item.select()));
-        });
-    }
-    /**
-     * Deselects all items matching any of the given filters.
-     * @param filters Filters that specify which items should be deselected.
-     */
-    deselectItems(...filters) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const items = yield this._getItems(filters);
-            yield Promise.all(items.map(item => item.deselect()));
-        });
-    }
-    /** Gets all items matching the given list of filters. */
-    _getItems(filters) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!filters.length) {
-                return this.getItems();
-            }
-            return [].concat(...yield Promise.all(filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))())));
-        });
-    }
-}
-/** The selector for the host element of a `MatSelectionList` instance. */
-MatSelectionListHarness.hostSelector = 'mat-selection-list';
+    /** The selector for the host element of a `MatSelectionList` instance. */
+    MatSelectionListHarness.hostSelector = 'mat-selection-list';
+    return MatSelectionListHarness;
+})();
 /** Harness for interacting with a list option. */
-class MatListOptionHarness extends MatListItemHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemContent = this.locatorFor('.mat-list-item-content');
+let MatListOptionHarness = /** @class */ (() => {
+    class MatListOptionHarness extends MatListItemHarnessBase {
+        constructor() {
+            super(...arguments);
+            this._itemContent = this.locatorFor('.mat-list-item-content');
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatListOptionHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which list option instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        static with(options = {}) {
+            return getListItemPredicate(MatListOptionHarness, options)
+                .addOption('is selected', options.selected, (harness, selected) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isSelected()) === selected; }));
+        }
+        /** Gets the position of the checkbox relative to the list option content. */
+        getCheckboxPosition() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield (yield this._itemContent()).hasClass('mat-list-item-content-reverse')) ?
+                    'after' : 'before';
+            });
+        }
+        /** Whether the list option is selected. */
+        isSelected() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield (yield this.host()).getAttribute('aria-selected')) === 'true';
+            });
+        }
+        /** Whether the list option is disabled. */
+        isDisabled() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield (yield this.host()).getAttribute('aria-disabled')) === 'true';
+            });
+        }
+        /** Focuses the list option. */
+        focus() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).focus();
+            });
+        }
+        /** Blurs the list option. */
+        blur() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).blur();
+            });
+        }
+        /** Toggles the checked state of the checkbox. */
+        toggle() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).click();
+            });
+        }
+        /**
+         * Puts the list option in a checked state by toggling it if it is currently unchecked, or doing
+         * nothing if it is already checked.
+         */
+        select() {
+            return __awaiter(this, void 0, void 0, function* () {
+                if (!(yield this.isSelected())) {
+                    return this.toggle();
+                }
+            });
+        }
+        /**
+         * Puts the list option in an unchecked state by toggling it if it is currently checked, or doing
+         * nothing if it is already unchecked.
+         */
+        deselect() {
+            return __awaiter(this, void 0, void 0, function* () {
+                if (yield this.isSelected()) {
+                    return this.toggle();
+                }
+            });
+        }
     }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListOptionHarness` that
-     * meets certain criteria.
-     * @param options Options for filtering which list option instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return getListItemPredicate(MatListOptionHarness, options)
-            .addOption('is selected', options.selected, (harness, selected) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isSelected()) === selected; }));
-    }
-    /** Gets the position of the checkbox relative to the list option content. */
-    getCheckboxPosition() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this._itemContent()).hasClass('mat-list-item-content-reverse')) ?
-                'after' : 'before';
-        });
-    }
-    /** Whether the list option is selected. */
-    isSelected() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.host()).getAttribute('aria-selected')) === 'true';
-        });
-    }
-    /** Whether the list option is disabled. */
-    isDisabled() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.host()).getAttribute('aria-disabled')) === 'true';
-        });
-    }
-    /** Focuses the list option. */
-    focus() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).focus();
-        });
-    }
-    /** Blurs the list option. */
-    blur() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).blur();
-        });
-    }
-    /** Toggles the checked state of the checkbox. */
-    toggle() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).click();
-        });
-    }
-    /**
-     * Puts the list option in a checked state by toggling it if it is currently unchecked, or doing
-     * nothing if it is already checked.
-     */
-    select() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!(yield this.isSelected())) {
-                return this.toggle();
-            }
-        });
-    }
-    /**
-     * Puts the list option in an unchecked state by toggling it if it is currently checked, or doing
-     * nothing if it is already unchecked.
-     */
-    deselect() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (yield this.isSelected()) {
-                return this.toggle();
-            }
-        });
-    }
-}
-/** The selector for the host element of a `MatListOption` instance. */
-MatListOptionHarness.hostSelector = 'mat-list-option';
+    /** The selector for the host element of a `MatListOption` instance. */
+    MatListOptionHarness.hostSelector = 'mat-list-option';
+    return MatListOptionHarness;
+})();
 
 /**
  * @license
