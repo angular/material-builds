@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.0.0-next.1-sha-2d64ad72b');
+    var VERSION = new i0.Version('10.0.0-next.1-sha-b6358b2e3');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.0.0-next.1-sha-2d64ad72b');
+    var VERSION$1 = new i0.Version('10.0.0-next.1-sha-b6358b2e3');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -271,7 +271,7 @@
         }
     }
 
-    const __createBinding = Object.create ? (function(o, m, k, k2) {
+    var __createBinding = Object.create ? (function(o, m, k, k2) {
         if (k2 === undefined) k2 = k;
         Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
     }) : (function(o, m, k, k2) {
@@ -361,7 +361,7 @@
         return cooked;
     };
 
-    const __setModuleDefault = Object.create ? (function(o, v) {
+    var __setModuleDefault = Object.create ? (function(o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
     }) : function(o, v) {
         o["default"] = v;

@@ -281,7 +281,7 @@
         }
     }
 
-    const __createBinding = Object.create ? (function(o, m, k, k2) {
+    var __createBinding = Object.create ? (function(o, m, k, k2) {
         if (k2 === undefined) k2 = k;
         Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
     }) : (function(o, m, k, k2) {
@@ -371,7 +371,7 @@
         return cooked;
     };
 
-    const __setModuleDefault = Object.create ? (function(o, v) {
+    var __setModuleDefault = Object.create ? (function(o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
     }) : function(o, v) {
         o["default"] = v;
