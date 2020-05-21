@@ -388,8 +388,8 @@
         /** Moves focus back into the dialog if it was moved out. */
         MatDialogContainer.prototype._recaptureFocus = function () {
             if (!this._containsFocus()) {
-                var focusWasTrapped = this._focusTrap.focusInitialElement();
-                if (!focusWasTrapped) {
+                var focusContainer = !this._config.autoFocus || !this._focusTrap.focusInitialElement();
+                if (focusContainer) {
                     this._elementRef.nativeElement.focus();
                 }
             }
