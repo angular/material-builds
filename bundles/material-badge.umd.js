@@ -434,42 +434,62 @@
                 }
             }
         };
-        MatBadge.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[matBadge]',
-                        inputs: ['disabled: matBadgeDisabled'],
-                        host: {
-                            'class': 'mat-badge',
-                            '[class.mat-badge-overlap]': 'overlap',
-                            '[class.mat-badge-above]': 'isAbove()',
-                            '[class.mat-badge-below]': '!isAbove()',
-                            '[class.mat-badge-before]': '!isAfter()',
-                            '[class.mat-badge-after]': 'isAfter()',
-                            '[class.mat-badge-small]': 'size === "small"',
-                            '[class.mat-badge-medium]': 'size === "medium"',
-                            '[class.mat-badge-large]': 'size === "large"',
-                            '[class.mat-badge-hidden]': 'hidden || !_hasContent',
-                            '[class.mat-badge-disabled]': 'disabled',
-                        },
-                    },] }
-        ];
-        /** @nocollapse */
-        MatBadge.ctorParameters = function () { return [
-            { type: core.NgZone },
-            { type: core.ElementRef },
-            { type: a11y.AriaDescriber },
-            { type: core.Renderer2 },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatBadge.propDecorators = {
-            color: [{ type: core.Input, args: ['matBadgeColor',] }],
-            overlap: [{ type: core.Input, args: ['matBadgeOverlap',] }],
-            position: [{ type: core.Input, args: ['matBadgePosition',] }],
-            content: [{ type: core.Input, args: ['matBadge',] }],
-            description: [{ type: core.Input, args: ['matBadgeDescription',] }],
-            size: [{ type: core.Input, args: ['matBadgeSize',] }],
-            hidden: [{ type: core.Input, args: ['matBadgeHidden',] }]
-        };
+        __decorate([
+            core.Input('matBadgeColor'),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [Object])
+        ], MatBadge.prototype, "color", null);
+        __decorate([
+            core.Input('matBadgeOverlap'),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatBadge.prototype, "overlap", null);
+        __decorate([
+            core.Input('matBadgePosition'),
+            __metadata("design:type", String)
+        ], MatBadge.prototype, "position", void 0);
+        __decorate([
+            core.Input('matBadge'),
+            __metadata("design:type", String)
+        ], MatBadge.prototype, "content", void 0);
+        __decorate([
+            core.Input('matBadgeDescription'),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], MatBadge.prototype, "description", null);
+        __decorate([
+            core.Input('matBadgeSize'),
+            __metadata("design:type", String)
+        ], MatBadge.prototype, "size", void 0);
+        __decorate([
+            core.Input('matBadgeHidden'),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatBadge.prototype, "hidden", null);
+        MatBadge = __decorate([
+            core.Directive({
+                selector: '[matBadge]',
+                inputs: ['disabled: matBadgeDisabled'],
+                host: {
+                    'class': 'mat-badge',
+                    '[class.mat-badge-overlap]': 'overlap',
+                    '[class.mat-badge-above]': 'isAbove()',
+                    '[class.mat-badge-below]': '!isAbove()',
+                    '[class.mat-badge-before]': '!isAfter()',
+                    '[class.mat-badge-after]': 'isAfter()',
+                    '[class.mat-badge-small]': 'size === "small"',
+                    '[class.mat-badge-medium]': 'size === "medium"',
+                    '[class.mat-badge-large]': 'size === "large"',
+                    '[class.mat-badge-hidden]': 'hidden || !_hasContent',
+                    '[class.mat-badge-disabled]': 'disabled',
+                },
+            }),
+            __param(4, core.Optional()), __param(4, core.Inject(animations.ANIMATION_MODULE_TYPE)),
+            __metadata("design:paramtypes", [core.NgZone,
+                core.ElementRef,
+                a11y.AriaDescriber,
+                core.Renderer2, String])
+        ], MatBadge);
         return MatBadge;
     }(_MatBadgeMixinBase));
 
@@ -483,16 +503,16 @@
     var MatBadgeModule = /** @class */ (function () {
         function MatBadgeModule() {
         }
-        MatBadgeModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            a11y.A11yModule,
-                            core$1.MatCommonModule
-                        ],
-                        exports: [MatBadge, core$1.MatCommonModule],
-                        declarations: [MatBadge],
-                    },] }
-        ];
+        MatBadgeModule = __decorate([
+            core.NgModule({
+                imports: [
+                    a11y.A11yModule,
+                    core$1.MatCommonModule
+                ],
+                exports: [MatBadge, core$1.MatCommonModule],
+                declarations: [MatBadge],
+            })
+        ], MatBadgeModule);
         return MatBadgeModule;
     }());
 

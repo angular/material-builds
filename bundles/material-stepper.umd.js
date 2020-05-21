@@ -244,21 +244,14 @@
         function MatStepLabel() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatStepLabel.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: '[matStepLabel]',
-                    },] }
-        ];
+        MatStepLabel = __decorate([
+            i0.Directive({
+                selector: '[matStepLabel]',
+            })
+        ], MatStepLabel);
         return MatStepLabel;
     }(stepper.CdkStepLabel));
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Stepper data that is required for internationalization. */
     var MatStepperIntl = /** @class */ (function () {
         function MatStepperIntl() {
@@ -270,10 +263,10 @@
             /** Label that is rendered below optional steps. */
             this.optionalLabel = 'Optional';
         }
-        MatStepperIntl.decorators = [
-            { type: i0.Injectable, args: [{ providedIn: 'root' },] }
-        ];
         MatStepperIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+        MatStepperIntl = __decorate([
+            i0.Injectable({ providedIn: 'root' })
+        ], MatStepperIntl);
         return MatStepperIntl;
     }());
     /** @docs-private */
@@ -344,37 +337,59 @@
             }
             return state;
         };
-        MatStepHeader.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'mat-step-header',
-                        template: "<div class=\"mat-step-header-ripple\" matRipple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disableRipple\"></div>\n\n<div class=\"mat-step-icon-state-{{state}} mat-step-icon\" [class.mat-step-icon-selected]=\"selected\">\n  <div class=\"mat-step-icon-content\" [ngSwitch]=\"!!(iconOverrides && iconOverrides[state])\">\n    <ng-container\n      *ngSwitchCase=\"true\"\n      [ngTemplateOutlet]=\"iconOverrides[state]\"\n      [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container>\n    <ng-container *ngSwitchDefault [ngSwitch]=\"state\">\n      <span *ngSwitchCase=\"'number'\">{{_getDefaultTextForState(state)}}</span>\n      <mat-icon *ngSwitchDefault>{{_getDefaultTextForState(state)}}</mat-icon>\n    </ng-container>\n  </div>\n</div>\n<div class=\"mat-step-label\"\n     [class.mat-step-label-active]=\"active\"\n     [class.mat-step-label-selected]=\"selected\"\n     [class.mat-step-label-error]=\"state == 'error'\">\n  <!-- If there is a label template, use it. -->\n  <ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"_templateLabel()!.template\">\n  </ng-container>\n  <!-- If there is no label template, fall back to the text label. -->\n  <div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div>\n\n  <div class=\"mat-step-optional\" *ngIf=\"optional && state != 'error'\">{{_intl.optionalLabel}}</div>\n  <div class=\"mat-step-sub-label-error\" *ngIf=\"state == 'error'\">{{errorMessage}}</div>\n</div>\n\n",
-                        host: {
-                            'class': 'mat-step-header mat-focus-indicator',
-                            'role': 'tab',
-                        },
-                        encapsulation: i0.ViewEncapsulation.None,
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        styles: [".mat-step-header{overflow:hidden;outline:none;cursor:pointer;position:relative;box-sizing:content-box;-webkit-tap-highlight-color:transparent}.mat-step-optional,.mat-step-sub-label-error{font-size:12px}.mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative}.mat-step-icon-content,.mat-step-icon .mat-icon{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-icon-state-error .mat-icon{font-size:24px;height:24px;width:24px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header .mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        MatStepHeader.ctorParameters = function () { return [
-            { type: MatStepperIntl },
-            { type: a11y.FocusMonitor },
-            { type: i0.ElementRef },
-            { type: i0.ChangeDetectorRef }
-        ]; };
-        MatStepHeader.propDecorators = {
-            state: [{ type: i0.Input }],
-            label: [{ type: i0.Input }],
-            errorMessage: [{ type: i0.Input }],
-            iconOverrides: [{ type: i0.Input }],
-            index: [{ type: i0.Input }],
-            selected: [{ type: i0.Input }],
-            active: [{ type: i0.Input }],
-            optional: [{ type: i0.Input }],
-            disableRipple: [{ type: i0.Input }]
-        };
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", String)
+        ], MatStepHeader.prototype, "state", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Object)
+        ], MatStepHeader.prototype, "label", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", String)
+        ], MatStepHeader.prototype, "errorMessage", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Object)
+        ], MatStepHeader.prototype, "iconOverrides", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Number)
+        ], MatStepHeader.prototype, "index", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Boolean)
+        ], MatStepHeader.prototype, "selected", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Boolean)
+        ], MatStepHeader.prototype, "active", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Boolean)
+        ], MatStepHeader.prototype, "optional", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Boolean)
+        ], MatStepHeader.prototype, "disableRipple", void 0);
+        MatStepHeader = __decorate([
+            i0.Component({
+                selector: 'mat-step-header',
+                template: "<div class=\"mat-step-header-ripple\" matRipple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disableRipple\"></div>\n\n<div class=\"mat-step-icon-state-{{state}} mat-step-icon\" [class.mat-step-icon-selected]=\"selected\">\n  <div class=\"mat-step-icon-content\" [ngSwitch]=\"!!(iconOverrides && iconOverrides[state])\">\n    <ng-container\n      *ngSwitchCase=\"true\"\n      [ngTemplateOutlet]=\"iconOverrides[state]\"\n      [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container>\n    <ng-container *ngSwitchDefault [ngSwitch]=\"state\">\n      <span *ngSwitchCase=\"'number'\">{{_getDefaultTextForState(state)}}</span>\n      <mat-icon *ngSwitchDefault>{{_getDefaultTextForState(state)}}</mat-icon>\n    </ng-container>\n  </div>\n</div>\n<div class=\"mat-step-label\"\n     [class.mat-step-label-active]=\"active\"\n     [class.mat-step-label-selected]=\"selected\"\n     [class.mat-step-label-error]=\"state == 'error'\">\n  <!-- If there is a label template, use it. -->\n  <ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"_templateLabel()!.template\">\n  </ng-container>\n  <!-- If there is no label template, fall back to the text label. -->\n  <div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div>\n\n  <div class=\"mat-step-optional\" *ngIf=\"optional && state != 'error'\">{{_intl.optionalLabel}}</div>\n  <div class=\"mat-step-sub-label-error\" *ngIf=\"state == 'error'\">{{errorMessage}}</div>\n</div>\n\n",
+                host: {
+                    'class': 'mat-step-header mat-focus-indicator',
+                    'role': 'tab',
+                },
+                encapsulation: i0.ViewEncapsulation.None,
+                changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                styles: [".mat-step-header{overflow:hidden;outline:none;cursor:pointer;position:relative;box-sizing:content-box;-webkit-tap-highlight-color:transparent}.mat-step-optional,.mat-step-sub-label-error{font-size:12px}.mat-step-icon{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative}.mat-step-icon-content,.mat-step-icon .mat-icon{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-icon-state-error .mat-icon{font-size:24px;height:24px;width:24px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header .mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
+            }),
+            __metadata("design:paramtypes", [MatStepperIntl,
+                a11y.FocusMonitor,
+                i0.ElementRef,
+                i0.ChangeDetectorRef])
+        ], MatStepHeader);
         return MatStepHeader;
     }(stepper.CdkStepHeader));
 
@@ -420,18 +435,16 @@
         function MatStepperIcon(templateRef) {
             this.templateRef = templateRef;
         }
-        MatStepperIcon.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: 'ng-template[matStepperIcon]',
-                    },] }
-        ];
-        /** @nocollapse */
-        MatStepperIcon.ctorParameters = function () { return [
-            { type: i0.TemplateRef }
-        ]; };
-        MatStepperIcon.propDecorators = {
-            name: [{ type: i0.Input, args: ['matStepperIcon',] }]
-        };
+        __decorate([
+            i0.Input('matStepperIcon'),
+            __metadata("design:type", String)
+        ], MatStepperIcon.prototype, "name", void 0);
+        MatStepperIcon = __decorate([
+            i0.Directive({
+                selector: 'ng-template[matStepperIcon]',
+            }),
+            __metadata("design:paramtypes", [i0.TemplateRef])
+        ], MatStepperIcon);
         return MatStepperIcon;
     }());
 
@@ -450,6 +463,7 @@
             _this._errorStateMatcher = _errorStateMatcher;
             return _this;
         }
+        MatStep_1 = MatStep;
         /** Custom error state matcher that additionally checks for validity of interacted form. */
         MatStep.prototype.isErrorState = function (control, form) {
             var originalErrorState = this._errorStateMatcher.isErrorState(control, form);
@@ -459,28 +473,29 @@
             var customErrorState = !!(control && control.invalid && this.interacted);
             return originalErrorState || customErrorState;
         };
-        MatStep.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'mat-step',
-                        template: "<ng-template><ng-content></ng-content></ng-template>\n",
-                        providers: [
-                            { provide: core.ErrorStateMatcher, useExisting: MatStep },
-                            { provide: stepper.CdkStep, useExisting: MatStep },
-                        ],
-                        encapsulation: i0.ViewEncapsulation.None,
-                        exportAs: 'matStep',
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush
-                    }] }
-        ];
-        /** @nocollapse */
-        MatStep.ctorParameters = function () { return [
-            { type: MatStepper, decorators: [{ type: i0.Inject, args: [i0.forwardRef(function () { return MatStepper; }),] }] },
-            { type: core.ErrorStateMatcher, decorators: [{ type: i0.SkipSelf }] },
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
-        ]; };
-        MatStep.propDecorators = {
-            stepLabel: [{ type: i0.ContentChild, args: [MatStepLabel,] }]
-        };
+        var MatStep_1;
+        __decorate([
+            i0.ContentChild(MatStepLabel),
+            __metadata("design:type", MatStepLabel)
+        ], MatStep.prototype, "stepLabel", void 0);
+        MatStep = MatStep_1 = __decorate([
+            i0.Component({
+                selector: 'mat-step',
+                template: "<ng-template><ng-content></ng-content></ng-template>\n",
+                providers: [
+                    { provide: core.ErrorStateMatcher, useExisting: MatStep_1 },
+                    { provide: stepper.CdkStep, useExisting: MatStep_1 },
+                ],
+                encapsulation: i0.ViewEncapsulation.None,
+                exportAs: 'matStep',
+                changeDetection: i0.ChangeDetectionStrategy.OnPush
+            }),
+            __param(0, i0.Inject(i0.forwardRef(function () { return MatStepper; }))),
+            __param(1, i0.SkipSelf()),
+            __param(2, i0.Optional()), __param(2, i0.Inject(stepper.STEPPER_GLOBAL_OPTIONS)),
+            __metadata("design:paramtypes", [MatStepper,
+                core.ErrorStateMatcher, Object])
+        ], MatStep);
         return MatStep;
     }(stepper.CdkStep));
     var MatStepper = /** @class */ (function (_super) {
@@ -495,6 +510,7 @@
             _this._animationDone = new rxjs.Subject();
             return _this;
         }
+        MatStepper_1 = MatStepper;
         MatStepper.prototype.ngAfterContentInit = function () {
             var _this = this;
             this._icons.forEach(function (_a) {
@@ -515,16 +531,30 @@
                 }
             });
         };
-        MatStepper.decorators = [
-            { type: i0.Directive, args: [{ selector: '[matStepper]', providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }] },] }
-        ];
-        MatStepper.propDecorators = {
-            _stepHeader: [{ type: i0.ViewChildren, args: [MatStepHeader,] }],
-            _steps: [{ type: i0.ContentChildren, args: [MatStep, { descendants: true },] }],
-            _icons: [{ type: i0.ContentChildren, args: [MatStepperIcon, { descendants: true },] }],
-            animationDone: [{ type: i0.Output }],
-            disableRipple: [{ type: i0.Input }]
-        };
+        var MatStepper_1;
+        __decorate([
+            i0.ViewChildren(MatStepHeader),
+            __metadata("design:type", i0.QueryList)
+        ], MatStepper.prototype, "_stepHeader", void 0);
+        __decorate([
+            i0.ContentChildren(MatStep, { descendants: true }),
+            __metadata("design:type", i0.QueryList)
+        ], MatStepper.prototype, "_steps", void 0);
+        __decorate([
+            i0.ContentChildren(MatStepperIcon, { descendants: true }),
+            __metadata("design:type", i0.QueryList)
+        ], MatStepper.prototype, "_icons", void 0);
+        __decorate([
+            i0.Output(),
+            __metadata("design:type", i0.EventEmitter)
+        ], MatStepper.prototype, "animationDone", void 0);
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", Boolean)
+        ], MatStepper.prototype, "disableRipple", void 0);
+        MatStepper = MatStepper_1 = __decorate([
+            i0.Directive({ selector: '[matStepper]', providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper_1 }] })
+        ], MatStepper);
         return MatStepper;
     }(stepper.CdkStepper));
     var MatHorizontalStepper = /** @class */ (function (_super) {
@@ -535,32 +565,35 @@
             _this.labelPosition = 'end';
             return _this;
         }
-        MatHorizontalStepper.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'mat-horizontal-stepper',
-                        exportAs: 'matHorizontalStepper',
-                        template: "<div class=\"mat-horizontal-stepper-header-container\">\n  <ng-container *ngFor=\"let step of steps; let i = index; let isLast = last\">\n    <mat-step-header class=\"mat-horizontal-stepper-header\"\n                     (click)=\"step.select()\"\n                     (keydown)=\"_onKeydown($event)\"\n                     [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\"\n                     [id]=\"_getStepLabelId(i)\"\n                     [attr.aria-posinset]=\"i + 1\"\n                     [attr.aria-setsize]=\"steps.length\"\n                     [attr.aria-controls]=\"_getStepContentId(i)\"\n                     [attr.aria-selected]=\"selectedIndex == i\"\n                     [attr.aria-label]=\"step.ariaLabel || null\"\n                     [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\"\n                     [index]=\"i\"\n                     [state]=\"_getIndicatorType(i, step.state)\"\n                     [label]=\"step.stepLabel || step.label\"\n                     [selected]=\"selectedIndex === i\"\n                     [active]=\"step.completed || selectedIndex === i || !linear\"\n                     [optional]=\"step.optional\"\n                     [errorMessage]=\"step.errorMessage\"\n                     [iconOverrides]=\"_iconOverrides\"\n                     [disableRipple]=\"disableRipple\">\n    </mat-step-header>\n    <div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div>\n  </ng-container>\n</div>\n\n<div class=\"mat-horizontal-content-container\">\n  <div *ngFor=\"let step of steps; let i = index\"\n       [attr.tabindex]=\"selectedIndex === i ? 0 : null\"\n       class=\"mat-horizontal-stepper-content\" role=\"tabpanel\"\n       [@stepTransition]=\"_getAnimationDirection(i)\"\n       (@stepTransition.done)=\"_animationDone.next($event)\"\n       [id]=\"_getStepContentId(i)\"\n       [attr.aria-labelledby]=\"_getStepLabelId(i)\"\n       [attr.aria-expanded]=\"selectedIndex === i\">\n    <ng-container [ngTemplateOutlet]=\"step.content\"></ng-container>\n  </div>\n</div>\n",
-                        inputs: ['selectedIndex'],
-                        host: {
-                            'class': 'mat-stepper-horizontal',
-                            '[class.mat-stepper-label-position-end]': 'labelPosition == "end"',
-                            '[class.mat-stepper-label-position-bottom]': 'labelPosition == "bottom"',
-                            'aria-orientation': 'horizontal',
-                            'role': 'tablist',
-                        },
-                        animations: [matStepperAnimations.horizontalStepTransition],
-                        providers: [
-                            { provide: MatStepper, useExisting: MatHorizontalStepper },
-                            { provide: stepper.CdkStepper, useExisting: MatHorizontalStepper }
-                        ],
-                        encapsulation: i0.ViewEncapsulation.None,
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        styles: [".mat-stepper-vertical,.mat-stepper-horizontal{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{border-top-width:1px;border-top-style:solid;content:\"\";display:inline-block;height:0;position:absolute;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{outline:0}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:\"\";position:absolute;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden;outline:0}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}\n"]
-                    }] }
-        ];
-        MatHorizontalStepper.propDecorators = {
-            labelPosition: [{ type: i0.Input }]
-        };
+        MatHorizontalStepper_1 = MatHorizontalStepper;
+        var MatHorizontalStepper_1;
+        __decorate([
+            i0.Input(),
+            __metadata("design:type", String)
+        ], MatHorizontalStepper.prototype, "labelPosition", void 0);
+        MatHorizontalStepper = MatHorizontalStepper_1 = __decorate([
+            i0.Component({
+                selector: 'mat-horizontal-stepper',
+                exportAs: 'matHorizontalStepper',
+                template: "<div class=\"mat-horizontal-stepper-header-container\">\n  <ng-container *ngFor=\"let step of steps; let i = index; let isLast = last\">\n    <mat-step-header class=\"mat-horizontal-stepper-header\"\n                     (click)=\"step.select()\"\n                     (keydown)=\"_onKeydown($event)\"\n                     [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\"\n                     [id]=\"_getStepLabelId(i)\"\n                     [attr.aria-posinset]=\"i + 1\"\n                     [attr.aria-setsize]=\"steps.length\"\n                     [attr.aria-controls]=\"_getStepContentId(i)\"\n                     [attr.aria-selected]=\"selectedIndex == i\"\n                     [attr.aria-label]=\"step.ariaLabel || null\"\n                     [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\"\n                     [index]=\"i\"\n                     [state]=\"_getIndicatorType(i, step.state)\"\n                     [label]=\"step.stepLabel || step.label\"\n                     [selected]=\"selectedIndex === i\"\n                     [active]=\"step.completed || selectedIndex === i || !linear\"\n                     [optional]=\"step.optional\"\n                     [errorMessage]=\"step.errorMessage\"\n                     [iconOverrides]=\"_iconOverrides\"\n                     [disableRipple]=\"disableRipple\">\n    </mat-step-header>\n    <div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div>\n  </ng-container>\n</div>\n\n<div class=\"mat-horizontal-content-container\">\n  <div *ngFor=\"let step of steps; let i = index\"\n       [attr.tabindex]=\"selectedIndex === i ? 0 : null\"\n       class=\"mat-horizontal-stepper-content\" role=\"tabpanel\"\n       [@stepTransition]=\"_getAnimationDirection(i)\"\n       (@stepTransition.done)=\"_animationDone.next($event)\"\n       [id]=\"_getStepContentId(i)\"\n       [attr.aria-labelledby]=\"_getStepLabelId(i)\"\n       [attr.aria-expanded]=\"selectedIndex === i\">\n    <ng-container [ngTemplateOutlet]=\"step.content\"></ng-container>\n  </div>\n</div>\n",
+                inputs: ['selectedIndex'],
+                host: {
+                    'class': 'mat-stepper-horizontal',
+                    '[class.mat-stepper-label-position-end]': 'labelPosition == "end"',
+                    '[class.mat-stepper-label-position-bottom]': 'labelPosition == "bottom"',
+                    'aria-orientation': 'horizontal',
+                    'role': 'tablist',
+                },
+                animations: [matStepperAnimations.horizontalStepTransition],
+                providers: [
+                    { provide: MatStepper, useExisting: MatHorizontalStepper_1 },
+                    { provide: stepper.CdkStepper, useExisting: MatHorizontalStepper_1 }
+                ],
+                encapsulation: i0.ViewEncapsulation.None,
+                changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                styles: [".mat-stepper-vertical,.mat-stepper-horizontal{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{border-top-width:1px;border-top-style:solid;content:\"\";display:inline-block;height:0;position:absolute;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{outline:0}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:\"\";position:absolute;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden;outline:0}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}\n"]
+            })
+        ], MatHorizontalStepper);
         return MatHorizontalStepper;
     }(MatStepper));
     var MatVerticalStepper = /** @class */ (function (_super) {
@@ -572,34 +605,34 @@
             _this._orientation = 'vertical';
             return _this;
         }
-        MatVerticalStepper.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'mat-vertical-stepper',
-                        exportAs: 'matVerticalStepper',
-                        template: "<div class=\"mat-step\" *ngFor=\"let step of steps; let i = index; let isLast = last\">\n  <mat-step-header class=\"mat-vertical-stepper-header\"\n                   (click)=\"step.select()\"\n                   (keydown)=\"_onKeydown($event)\"\n                   [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\"\n                   [id]=\"_getStepLabelId(i)\"\n                   [attr.aria-posinset]=\"i + 1\"\n                   [attr.aria-setsize]=\"steps.length\"\n                   [attr.aria-controls]=\"_getStepContentId(i)\"\n                   [attr.aria-selected]=\"selectedIndex === i\"\n                   [attr.aria-label]=\"step.ariaLabel || null\"\n                   [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\"\n                   [index]=\"i\"\n                   [state]=\"_getIndicatorType(i, step.state)\"\n                   [label]=\"step.stepLabel || step.label\"\n                   [selected]=\"selectedIndex === i\"\n                   [active]=\"step.completed || selectedIndex === i || !linear\"\n                   [optional]=\"step.optional\"\n                   [errorMessage]=\"step.errorMessage\"\n                   [iconOverrides]=\"_iconOverrides\"\n                   [disableRipple]=\"disableRipple\">\n  </mat-step-header>\n\n  <div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\">\n    <div class=\"mat-vertical-stepper-content\" role=\"tabpanel\"\n         [attr.tabindex]=\"selectedIndex === i ? 0 : null\"\n         [@stepTransition]=\"_getAnimationDirection(i)\"\n         (@stepTransition.done)=\"_animationDone.next($event)\"\n         [id]=\"_getStepContentId(i)\"\n         [attr.aria-labelledby]=\"_getStepLabelId(i)\"\n         [attr.aria-expanded]=\"selectedIndex === i\">\n      <div class=\"mat-vertical-content\">\n        <ng-container [ngTemplateOutlet]=\"step.content\"></ng-container>\n      </div>\n    </div>\n  </div>\n</div>\n",
-                        inputs: ['selectedIndex'],
-                        host: {
-                            'class': 'mat-stepper-vertical',
-                            'aria-orientation': 'vertical',
-                            'role': 'tablist',
-                        },
-                        animations: [matStepperAnimations.verticalStepTransition],
-                        providers: [
-                            { provide: MatStepper, useExisting: MatVerticalStepper },
-                            { provide: stepper.CdkStepper, useExisting: MatVerticalStepper }
-                        ],
-                        encapsulation: i0.ViewEncapsulation.None,
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        styles: [".mat-stepper-vertical,.mat-stepper-horizontal{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{border-top-width:1px;border-top-style:solid;content:\"\";display:inline-block;height:0;position:absolute;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{outline:0}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:\"\";position:absolute;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden;outline:0}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        MatVerticalStepper.ctorParameters = function () { return [
-            { type: bidi.Directionality, decorators: [{ type: i0.Optional }] },
-            { type: i0.ChangeDetectorRef },
-            { type: i0.ElementRef },
-            { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
-        ]; };
+        MatVerticalStepper_1 = MatVerticalStepper;
+        var MatVerticalStepper_1;
+        MatVerticalStepper = MatVerticalStepper_1 = __decorate([
+            i0.Component({
+                selector: 'mat-vertical-stepper',
+                exportAs: 'matVerticalStepper',
+                template: "<div class=\"mat-step\" *ngFor=\"let step of steps; let i = index; let isLast = last\">\n  <mat-step-header class=\"mat-vertical-stepper-header\"\n                   (click)=\"step.select()\"\n                   (keydown)=\"_onKeydown($event)\"\n                   [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\"\n                   [id]=\"_getStepLabelId(i)\"\n                   [attr.aria-posinset]=\"i + 1\"\n                   [attr.aria-setsize]=\"steps.length\"\n                   [attr.aria-controls]=\"_getStepContentId(i)\"\n                   [attr.aria-selected]=\"selectedIndex === i\"\n                   [attr.aria-label]=\"step.ariaLabel || null\"\n                   [attr.aria-labelledby]=\"(!step.ariaLabel && step.ariaLabelledby) ? step.ariaLabelledby : null\"\n                   [index]=\"i\"\n                   [state]=\"_getIndicatorType(i, step.state)\"\n                   [label]=\"step.stepLabel || step.label\"\n                   [selected]=\"selectedIndex === i\"\n                   [active]=\"step.completed || selectedIndex === i || !linear\"\n                   [optional]=\"step.optional\"\n                   [errorMessage]=\"step.errorMessage\"\n                   [iconOverrides]=\"_iconOverrides\"\n                   [disableRipple]=\"disableRipple\">\n  </mat-step-header>\n\n  <div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\">\n    <div class=\"mat-vertical-stepper-content\" role=\"tabpanel\"\n         [attr.tabindex]=\"selectedIndex === i ? 0 : null\"\n         [@stepTransition]=\"_getAnimationDirection(i)\"\n         (@stepTransition.done)=\"_animationDone.next($event)\"\n         [id]=\"_getStepContentId(i)\"\n         [attr.aria-labelledby]=\"_getStepLabelId(i)\"\n         [attr.aria-expanded]=\"selectedIndex === i\">\n      <div class=\"mat-vertical-content\">\n        <ng-container [ngTemplateOutlet]=\"step.content\"></ng-container>\n      </div>\n    </div>\n  </div>\n</div>\n",
+                inputs: ['selectedIndex'],
+                host: {
+                    'class': 'mat-stepper-vertical',
+                    'aria-orientation': 'vertical',
+                    'role': 'tablist',
+                },
+                animations: [matStepperAnimations.verticalStepTransition],
+                providers: [
+                    { provide: MatStepper, useExisting: MatVerticalStepper_1 },
+                    { provide: stepper.CdkStepper, useExisting: MatVerticalStepper_1 }
+                ],
+                encapsulation: i0.ViewEncapsulation.None,
+                changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                styles: [".mat-stepper-vertical,.mat-stepper-horizontal{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container{align-items:flex-start}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-stepper-label-position-bottom .mat-stepper-horizontal-line{margin:0;min-width:0;position:relative}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before,.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{border-top-width:1px;border-top-style:solid;content:\"\";display:inline-block;height:0;position:absolute;width:calc(50% - 20px)}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:8px}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header{box-sizing:border-box;flex-direction:column;height:auto}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after{right:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before{left:0}[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:last-child::before,[dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:first-child::after{display:none}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-icon{margin-right:0;margin-left:0}.mat-stepper-label-position-bottom .mat-horizontal-stepper-header .mat-step-label{padding:16px 0 0 0;text-align:center;width:100%}.mat-vertical-stepper-header{display:flex;align-items:center;height:24px}.mat-vertical-stepper-header .mat-step-icon{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{outline:0}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:\"\";position:absolute;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden;outline:0}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}\n"]
+            }),
+            __param(0, i0.Optional()),
+            __param(3, i0.Inject(common.DOCUMENT)),
+            __metadata("design:paramtypes", [bidi.Directionality,
+                i0.ChangeDetectorRef,
+                i0.ElementRef, Object])
+        ], MatVerticalStepper);
         return MatVerticalStepper;
     }(MatStepper));
 
@@ -616,15 +649,15 @@
         function MatStepperNext() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatStepperNext.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: 'button[matStepperNext]',
-                        host: {
-                            '[type]': 'type',
-                        },
-                        inputs: ['type']
-                    },] }
-        ];
+        MatStepperNext = __decorate([
+            i0.Directive({
+                selector: 'button[matStepperNext]',
+                host: {
+                    '[type]': 'type',
+                },
+                inputs: ['type']
+            })
+        ], MatStepperNext);
         return MatStepperNext;
     }(stepper.CdkStepperNext));
     /** Button that moves to the previous step in a stepper workflow. */
@@ -633,15 +666,15 @@
         function MatStepperPrevious() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatStepperPrevious.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: 'button[matStepperPrevious]',
-                        host: {
-                            '[type]': 'type',
-                        },
-                        inputs: ['type']
-                    },] }
-        ];
+        MatStepperPrevious = __decorate([
+            i0.Directive({
+                selector: 'button[matStepperPrevious]',
+                host: {
+                    '[type]': 'type',
+                },
+                inputs: ['type']
+            })
+        ], MatStepperPrevious);
         return MatStepperPrevious;
     }(stepper.CdkStepperPrevious));
 
@@ -655,43 +688,43 @@
     var MatStepperModule = /** @class */ (function () {
         function MatStepperModule() {
         }
-        MatStepperModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [
-                            core.MatCommonModule,
-                            common.CommonModule,
-                            portal.PortalModule,
-                            button.MatButtonModule,
-                            stepper.CdkStepperModule,
-                            icon.MatIconModule,
-                            core.MatRippleModule,
-                        ],
-                        exports: [
-                            core.MatCommonModule,
-                            MatHorizontalStepper,
-                            MatVerticalStepper,
-                            MatStep,
-                            MatStepLabel,
-                            MatStepper,
-                            MatStepperNext,
-                            MatStepperPrevious,
-                            MatStepHeader,
-                            MatStepperIcon,
-                        ],
-                        declarations: [
-                            MatHorizontalStepper,
-                            MatVerticalStepper,
-                            MatStep,
-                            MatStepLabel,
-                            MatStepper,
-                            MatStepperNext,
-                            MatStepperPrevious,
-                            MatStepHeader,
-                            MatStepperIcon,
-                        ],
-                        providers: [MAT_STEPPER_INTL_PROVIDER, core.ErrorStateMatcher],
-                    },] }
-        ];
+        MatStepperModule = __decorate([
+            i0.NgModule({
+                imports: [
+                    core.MatCommonModule,
+                    common.CommonModule,
+                    portal.PortalModule,
+                    button.MatButtonModule,
+                    stepper.CdkStepperModule,
+                    icon.MatIconModule,
+                    core.MatRippleModule,
+                ],
+                exports: [
+                    core.MatCommonModule,
+                    MatHorizontalStepper,
+                    MatVerticalStepper,
+                    MatStep,
+                    MatStepLabel,
+                    MatStepper,
+                    MatStepperNext,
+                    MatStepperPrevious,
+                    MatStepHeader,
+                    MatStepperIcon,
+                ],
+                declarations: [
+                    MatHorizontalStepper,
+                    MatVerticalStepper,
+                    MatStep,
+                    MatStepLabel,
+                    MatStepper,
+                    MatStepperNext,
+                    MatStepperPrevious,
+                    MatStepHeader,
+                    MatStepperIcon,
+                ],
+                providers: [MAT_STEPPER_INTL_PROVIDER, core.ErrorStateMatcher],
+            })
+        ], MatStepperModule);
         return MatStepperModule;
     }());
 

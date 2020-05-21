@@ -251,13 +251,13 @@
     var MatToolbarRow = /** @class */ (function () {
         function MatToolbarRow() {
         }
-        MatToolbarRow.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-toolbar-row',
-                        exportAs: 'matToolbarRow',
-                        host: { 'class': 'mat-toolbar-row' },
-                    },] }
-        ];
+        MatToolbarRow = __decorate([
+            core.Directive({
+                selector: 'mat-toolbar-row',
+                exportAs: 'matToolbarRow',
+                host: { 'class': 'mat-toolbar-row' },
+            })
+        ], MatToolbarRow);
         return MatToolbarRow;
     }());
     var MatToolbar = /** @class */ (function (_super) {
@@ -295,31 +295,29 @@
                 throwToolbarMixedModesError();
             }
         };
-        MatToolbar.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-toolbar',
-                        exportAs: 'matToolbar',
-                        template: "<ng-content></ng-content>\n<ng-content select=\"mat-toolbar-row\"></ng-content>\n",
-                        inputs: ['color'],
-                        host: {
-                            'class': 'mat-toolbar',
-                            '[class.mat-toolbar-multiple-rows]': '_toolbarRows.length > 0',
-                            '[class.mat-toolbar-single-row]': '_toolbarRows.length === 0',
-                        },
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: [".cdk-high-contrast-active .mat-toolbar{outline:solid 1px}.mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        MatToolbar.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: platform.Platform },
-            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
-        ]; };
-        MatToolbar.propDecorators = {
-            _toolbarRows: [{ type: core.ContentChildren, args: [MatToolbarRow, { descendants: true },] }]
-        };
+        __decorate([
+            core.ContentChildren(MatToolbarRow, { descendants: true }),
+            __metadata("design:type", core.QueryList)
+        ], MatToolbar.prototype, "_toolbarRows", void 0);
+        MatToolbar = __decorate([
+            core.Component({
+                selector: 'mat-toolbar',
+                exportAs: 'matToolbar',
+                template: "<ng-content></ng-content>\n<ng-content select=\"mat-toolbar-row\"></ng-content>\n",
+                inputs: ['color'],
+                host: {
+                    'class': 'mat-toolbar',
+                    '[class.mat-toolbar-multiple-rows]': '_toolbarRows.length > 0',
+                    '[class.mat-toolbar-single-row]': '_toolbarRows.length === 0',
+                },
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                encapsulation: core.ViewEncapsulation.None,
+                styles: [".cdk-high-contrast-active .mat-toolbar{outline:solid 1px}.mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}\n"]
+            }),
+            __param(2, core.Inject(common.DOCUMENT)),
+            __metadata("design:paramtypes", [core.ElementRef,
+                platform.Platform, Object])
+        ], MatToolbar);
         return MatToolbar;
     }(_MatToolbarMixinBase));
     /**
@@ -342,13 +340,13 @@
     var MatToolbarModule = /** @class */ (function () {
         function MatToolbarModule() {
         }
-        MatToolbarModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [core$1.MatCommonModule],
-                        exports: [MatToolbar, MatToolbarRow, core$1.MatCommonModule],
-                        declarations: [MatToolbar, MatToolbarRow],
-                    },] }
-        ];
+        MatToolbarModule = __decorate([
+            core.NgModule({
+                imports: [core$1.MatCommonModule],
+                exports: [MatToolbar, MatToolbarRow, core$1.MatCommonModule],
+                declarations: [MatToolbar, MatToolbarRow],
+            })
+        ], MatToolbarModule);
         return MatToolbarModule;
     }());
 

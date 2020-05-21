@@ -478,42 +478,39 @@
             // view container is using OnPush change detection.
             this._changeDetectorRef.markForCheck();
         };
-        MatDialogContainer.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-dialog-container',
-                        template: "<ng-template cdkPortalOutlet></ng-template>\n",
-                        encapsulation: core.ViewEncapsulation.None,
-                        // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
-                        // tslint:disable-next-line:validate-decorators
-                        changeDetection: core.ChangeDetectionStrategy.Default,
-                        animations: [matDialogAnimations.dialogContainer],
-                        host: {
-                            'class': 'mat-dialog-container',
-                            'tabindex': '-1',
-                            'aria-modal': 'true',
-                            '[attr.id]': '_id',
-                            '[attr.role]': '_config.role',
-                            '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
-                            '[attr.aria-label]': '_config.ariaLabel',
-                            '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
-                            '[@dialogContainer]': '_state',
-                            '(@dialogContainer.start)': '_onAnimationStart($event)',
-                            '(@dialogContainer.done)': '_onAnimationDone($event)',
-                        },
-                        styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        MatDialogContainer.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: a11y.FocusTrapFactory },
-            { type: core.ChangeDetectorRef },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
-            { type: MatDialogConfig }
-        ]; };
-        MatDialogContainer.propDecorators = {
-            _portalOutlet: [{ type: core.ViewChild, args: [portal.CdkPortalOutlet, { static: true },] }]
-        };
+        __decorate([
+            core.ViewChild(portal.CdkPortalOutlet, { static: true }),
+            __metadata("design:type", portal.CdkPortalOutlet)
+        ], MatDialogContainer.prototype, "_portalOutlet", void 0);
+        MatDialogContainer = __decorate([
+            core.Component({
+                selector: 'mat-dialog-container',
+                template: "<ng-template cdkPortalOutlet></ng-template>\n",
+                encapsulation: core.ViewEncapsulation.None,
+                // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
+                // tslint:disable-next-line:validate-decorators
+                changeDetection: core.ChangeDetectionStrategy.Default,
+                animations: [matDialogAnimations.dialogContainer],
+                host: {
+                    'class': 'mat-dialog-container',
+                    'tabindex': '-1',
+                    'aria-modal': 'true',
+                    '[attr.id]': '_id',
+                    '[attr.role]': '_config.role',
+                    '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
+                    '[attr.aria-label]': '_config.ariaLabel',
+                    '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
+                    '[@dialogContainer]': '_state',
+                    '(@dialogContainer.start)': '_onAnimationStart($event)',
+                    '(@dialogContainer.done)': '_onAnimationDone($event)',
+                },
+                styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
+            }),
+            __param(3, core.Optional()), __param(3, core.Inject(common.DOCUMENT)),
+            __metadata("design:paramtypes", [core.ElementRef,
+                a11y.FocusTrapFactory,
+                core.ChangeDetectorRef, Object, MatDialogConfig])
+        ], MatDialogContainer);
         return MatDialogContainer;
     }(portal.BasePortalOutlet));
 
@@ -983,19 +980,18 @@
                 dialogs[i].close();
             }
         };
-        MatDialog.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        MatDialog.ctorParameters = function () { return [
-            { type: overlay.Overlay },
-            { type: core.Injector },
-            { type: common.Location, decorators: [{ type: core.Optional }] },
-            { type: MatDialogConfig, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
-            { type: MatDialog, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
-            { type: overlay.OverlayContainer }
-        ]; };
+        MatDialog = __decorate([
+            core.Injectable(),
+            __param(2, core.Optional()),
+            __param(3, core.Optional()), __param(3, core.Inject(MAT_DIALOG_DEFAULT_OPTIONS)),
+            __param(4, core.Inject(MAT_DIALOG_SCROLL_STRATEGY)),
+            __param(5, core.Optional()), __param(5, core.SkipSelf()),
+            __metadata("design:paramtypes", [overlay.Overlay,
+                core.Injector,
+                common.Location,
+                MatDialogConfig, Object, MatDialog,
+                overlay.OverlayContainer])
+        ], MatDialog);
         return MatDialog;
     }());
     /**
@@ -1044,29 +1040,37 @@
                 this.dialogResult = proxiedChange.currentValue;
             }
         };
-        MatDialogClose.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[mat-dialog-close], [matDialogClose]',
-                        exportAs: 'matDialogClose',
-                        host: {
-                            '(click)': 'dialogRef.close(dialogResult)',
-                            '[attr.aria-label]': 'ariaLabel || null',
-                            '[attr.type]': 'type',
-                        }
-                    },] }
-        ];
-        /** @nocollapse */
-        MatDialogClose.ctorParameters = function () { return [
-            { type: MatDialogRef, decorators: [{ type: core.Optional }] },
-            { type: core.ElementRef },
-            { type: MatDialog }
-        ]; };
-        MatDialogClose.propDecorators = {
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            type: [{ type: core.Input }],
-            dialogResult: [{ type: core.Input, args: ['mat-dialog-close',] }],
-            _matDialogClose: [{ type: core.Input, args: ['matDialogClose',] }]
-        };
+        __decorate([
+            core.Input('aria-label'),
+            __metadata("design:type", String)
+        ], MatDialogClose.prototype, "ariaLabel", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], MatDialogClose.prototype, "type", void 0);
+        __decorate([
+            core.Input('mat-dialog-close'),
+            __metadata("design:type", Object)
+        ], MatDialogClose.prototype, "dialogResult", void 0);
+        __decorate([
+            core.Input('matDialogClose'),
+            __metadata("design:type", Object)
+        ], MatDialogClose.prototype, "_matDialogClose", void 0);
+        MatDialogClose = __decorate([
+            core.Directive({
+                selector: '[mat-dialog-close], [matDialogClose]',
+                exportAs: 'matDialogClose',
+                host: {
+                    '(click)': 'dialogRef.close(dialogResult)',
+                    '[attr.aria-label]': 'ariaLabel || null',
+                    '[attr.type]': 'type',
+                }
+            }),
+            __param(0, core.Optional()),
+            __metadata("design:paramtypes", [MatDialogRef,
+                core.ElementRef,
+                MatDialog])
+        ], MatDialogClose);
         return MatDialogClose;
     }());
     /**
@@ -1093,25 +1097,24 @@
                 });
             }
         };
-        MatDialogTitle.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[mat-dialog-title], [matDialogTitle]',
-                        exportAs: 'matDialogTitle',
-                        host: {
-                            'class': 'mat-dialog-title',
-                            '[id]': 'id',
-                        },
-                    },] }
-        ];
-        /** @nocollapse */
-        MatDialogTitle.ctorParameters = function () { return [
-            { type: MatDialogRef, decorators: [{ type: core.Optional }] },
-            { type: core.ElementRef },
-            { type: MatDialog }
-        ]; };
-        MatDialogTitle.propDecorators = {
-            id: [{ type: core.Input }]
-        };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], MatDialogTitle.prototype, "id", void 0);
+        MatDialogTitle = __decorate([
+            core.Directive({
+                selector: '[mat-dialog-title], [matDialogTitle]',
+                exportAs: 'matDialogTitle',
+                host: {
+                    'class': 'mat-dialog-title',
+                    '[id]': 'id',
+                },
+            }),
+            __param(0, core.Optional()),
+            __metadata("design:paramtypes", [MatDialogRef,
+                core.ElementRef,
+                MatDialog])
+        ], MatDialogTitle);
         return MatDialogTitle;
     }());
     /**
@@ -1120,12 +1123,12 @@
     var MatDialogContent = /** @class */ (function () {
         function MatDialogContent() {
         }
-        MatDialogContent.decorators = [
-            { type: core.Directive, args: [{
-                        selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]",
-                        host: { 'class': 'mat-dialog-content' }
-                    },] }
-        ];
+        MatDialogContent = __decorate([
+            core.Directive({
+                selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]",
+                host: { 'class': 'mat-dialog-content' }
+            })
+        ], MatDialogContent);
         return MatDialogContent;
     }());
     /**
@@ -1135,12 +1138,12 @@
     var MatDialogActions = /** @class */ (function () {
         function MatDialogActions() {
         }
-        MatDialogActions.decorators = [
-            { type: core.Directive, args: [{
-                        selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]",
-                        host: { 'class': 'mat-dialog-actions' }
-                    },] }
-        ];
+        MatDialogActions = __decorate([
+            core.Directive({
+                selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]",
+                host: { 'class': 'mat-dialog-actions' }
+            })
+        ], MatDialogActions);
         return MatDialogActions;
     }());
     /**
@@ -1166,35 +1169,35 @@
     var MatDialogModule = /** @class */ (function () {
         function MatDialogModule() {
         }
-        MatDialogModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            overlay.OverlayModule,
-                            portal.PortalModule,
-                            core$1.MatCommonModule,
-                        ],
-                        exports: [
-                            MatDialogContainer,
-                            MatDialogClose,
-                            MatDialogTitle,
-                            MatDialogContent,
-                            MatDialogActions,
-                            core$1.MatCommonModule,
-                        ],
-                        declarations: [
-                            MatDialogContainer,
-                            MatDialogClose,
-                            MatDialogTitle,
-                            MatDialogActions,
-                            MatDialogContent,
-                        ],
-                        providers: [
-                            MatDialog,
-                            MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
-                        ],
-                        entryComponents: [MatDialogContainer],
-                    },] }
-        ];
+        MatDialogModule = __decorate([
+            core.NgModule({
+                imports: [
+                    overlay.OverlayModule,
+                    portal.PortalModule,
+                    core$1.MatCommonModule,
+                ],
+                exports: [
+                    MatDialogContainer,
+                    MatDialogClose,
+                    MatDialogTitle,
+                    MatDialogContent,
+                    MatDialogActions,
+                    core$1.MatCommonModule,
+                ],
+                declarations: [
+                    MatDialogContainer,
+                    MatDialogClose,
+                    MatDialogTitle,
+                    MatDialogActions,
+                    MatDialogContent,
+                ],
+                providers: [
+                    MatDialog,
+                    MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
+                ],
+                entryComponents: [MatDialogContainer],
+            })
+        ], MatDialogModule);
         return MatDialogModule;
     }());
 

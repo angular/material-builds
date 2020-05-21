@@ -273,25 +273,39 @@
             enumerable: false,
             configurable: true
         });
-        MatTextareaAutosize.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
-                        exportAs: 'matTextareaAutosize',
-                        inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
-                        host: {
-                            'class': 'cdk-textarea-autosize mat-autosize',
-                            // Textarea elements that have the directive applied should have a single row by default.
-                            // Browsers normally show two rows by default and therefore this limits the minRows binding.
-                            'rows': '1',
-                        },
-                    },] }
-        ];
-        MatTextareaAutosize.propDecorators = {
-            matAutosizeMinRows: [{ type: core.Input }],
-            matAutosizeMaxRows: [{ type: core.Input }],
-            matAutosize: [{ type: core.Input, args: ['mat-autosize',] }],
-            matTextareaAutosize: [{ type: core.Input }]
-        };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Number),
+            __metadata("design:paramtypes", [Number])
+        ], MatTextareaAutosize.prototype, "matAutosizeMinRows", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Number),
+            __metadata("design:paramtypes", [Number])
+        ], MatTextareaAutosize.prototype, "matAutosizeMaxRows", null);
+        __decorate([
+            core.Input('mat-autosize'),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatTextareaAutosize.prototype, "matAutosize", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatTextareaAutosize.prototype, "matTextareaAutosize", null);
+        MatTextareaAutosize = __decorate([
+            core.Directive({
+                selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
+                exportAs: 'matTextareaAutosize',
+                inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
+                host: {
+                    'class': 'cdk-textarea-autosize mat-autosize',
+                    // Textarea elements that have the directive applied should have a single row by default.
+                    // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                    'rows': '1',
+                },
+            })
+        ], MatTextareaAutosize);
         return MatTextareaAutosize;
     }(textField.CdkTextareaAutosize));
 
@@ -435,6 +449,7 @@
             }
             return _this;
         }
+        MatInput_1 = MatInput;
         Object.defineProperty(MatInput.prototype, "disabled", {
             /**
              * Implemented as part of MatFormFieldControl.
@@ -656,54 +671,93 @@
                 this.focus();
             }
         };
-        MatInput.decorators = [
-            { type: core.Directive, args: [{
-                        selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",
-                        exportAs: 'matInput',
-                        host: {
-                            /**
-                             * @breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-                             */
-                            'class': 'mat-input-element mat-form-field-autofill-control',
-                            '[class.mat-input-server]': '_isServer',
-                            // Native input properties that are overwritten by Angular inputs need to be synced with
-                            // the native input element. Otherwise property bindings for those don't work.
-                            '[attr.id]': 'id',
-                            '[attr.placeholder]': 'placeholder',
-                            '[disabled]': 'disabled',
-                            '[required]': 'required',
-                            '[attr.readonly]': 'readonly && !_isNativeSelect || null',
-                            '[attr.aria-describedby]': '_ariaDescribedby || null',
-                            '[attr.aria-invalid]': 'errorState',
-                            '[attr.aria-required]': 'required.toString()',
-                        },
-                        providers: [{ provide: formField.MatFormFieldControl, useExisting: MatInput }],
-                    },] }
-        ];
-        /** @nocollapse */
-        MatInput.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: platform.Platform },
-            { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self }] },
-            { type: forms.NgForm, decorators: [{ type: core.Optional }] },
-            { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
-            { type: core$1.ErrorStateMatcher },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
-            { type: textField.AutofillMonitor },
-            { type: core.NgZone }
-        ]; };
-        MatInput.propDecorators = {
-            disabled: [{ type: core.Input }],
-            id: [{ type: core.Input }],
-            placeholder: [{ type: core.Input }],
-            required: [{ type: core.Input }],
-            type: [{ type: core.Input }],
-            errorStateMatcher: [{ type: core.Input }],
-            value: [{ type: core.Input }],
-            readonly: [{ type: core.Input }],
-            _focusChanged: [{ type: core.HostListener, args: ['focus', ['true'],] }, { type: core.HostListener, args: ['blur', ['false'],] }],
-            _onInput: [{ type: core.HostListener, args: ['input',] }]
-        };
+        var MatInput_1;
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatInput.prototype, "disabled", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], MatInput.prototype, "id", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], MatInput.prototype, "placeholder", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatInput.prototype, "required", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], MatInput.prototype, "type", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", core$1.ErrorStateMatcher)
+        ], MatInput.prototype, "errorStateMatcher", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], MatInput.prototype, "value", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatInput.prototype, "readonly", null);
+        __decorate([
+            core.HostListener('focus', ['true']),
+            core.HostListener('blur', ['false']),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", [Boolean]),
+            __metadata("design:returntype", void 0)
+        ], MatInput.prototype, "_focusChanged", null);
+        __decorate([
+            core.HostListener('input'),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", []),
+            __metadata("design:returntype", void 0)
+        ], MatInput.prototype, "_onInput", null);
+        MatInput = MatInput_1 = __decorate([
+            core.Directive({
+                selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",
+                exportAs: 'matInput',
+                host: {
+                    /**
+                     * @breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                     */
+                    'class': 'mat-input-element mat-form-field-autofill-control',
+                    '[class.mat-input-server]': '_isServer',
+                    // Native input properties that are overwritten by Angular inputs need to be synced with
+                    // the native input element. Otherwise property bindings for those don't work.
+                    '[attr.id]': 'id',
+                    '[attr.placeholder]': 'placeholder',
+                    '[disabled]': 'disabled',
+                    '[required]': 'required',
+                    '[attr.readonly]': 'readonly && !_isNativeSelect || null',
+                    '[attr.aria-describedby]': '_ariaDescribedby || null',
+                    '[attr.aria-invalid]': 'errorState',
+                    '[attr.aria-required]': 'required.toString()',
+                },
+                providers: [{ provide: formField.MatFormFieldControl, useExisting: MatInput_1 }],
+            }),
+            __param(2, core.Optional()), __param(2, core.Self()),
+            __param(3, core.Optional()),
+            __param(4, core.Optional()),
+            __param(6, core.Optional()), __param(6, core.Self()), __param(6, core.Inject(MAT_INPUT_VALUE_ACCESSOR)),
+            __metadata("design:paramtypes", [core.ElementRef,
+                platform.Platform,
+                forms.NgControl,
+                forms.NgForm,
+                forms.FormGroupDirective,
+                core$1.ErrorStateMatcher, Object, textField.AutofillMonitor,
+                core.NgZone])
+        ], MatInput);
         return MatInput;
     }(_MatInputMixinBase));
 
@@ -717,24 +771,24 @@
     var MatInputModule = /** @class */ (function () {
         function MatInputModule() {
         }
-        MatInputModule.decorators = [
-            { type: core.NgModule, args: [{
-                        declarations: [MatInput, MatTextareaAutosize],
-                        imports: [
-                            textField.TextFieldModule,
-                            formField.MatFormFieldModule,
-                        ],
-                        exports: [
-                            textField.TextFieldModule,
-                            // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-                            // be used together with `MatFormField`.
-                            formField.MatFormFieldModule,
-                            MatInput,
-                            MatTextareaAutosize,
-                        ],
-                        providers: [core$1.ErrorStateMatcher],
-                    },] }
-        ];
+        MatInputModule = __decorate([
+            core.NgModule({
+                declarations: [MatInput, MatTextareaAutosize],
+                imports: [
+                    textField.TextFieldModule,
+                    formField.MatFormFieldModule,
+                ],
+                exports: [
+                    textField.TextFieldModule,
+                    // We re-export the `MatFormFieldModule` since `MatInput` will almost always
+                    // be used together with `MatFormField`.
+                    formField.MatFormFieldModule,
+                    MatInput,
+                    MatTextareaAutosize,
+                ],
+                providers: [core$1.ErrorStateMatcher],
+            })
+        ], MatInputModule);
         return MatInputModule;
     }());
 

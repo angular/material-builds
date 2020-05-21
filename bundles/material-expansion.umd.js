@@ -307,15 +307,12 @@
         function MatExpansionPanelContent(_template) {
             this._template = _template;
         }
-        MatExpansionPanelContent.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'ng-template[matExpansionPanelContent]'
-                    },] }
-        ];
-        /** @nocollapse */
-        MatExpansionPanelContent.ctorParameters = function () { return [
-            { type: core.TemplateRef }
-        ]; };
+        MatExpansionPanelContent = __decorate([
+            core.Directive({
+                selector: 'ng-template[matExpansionPanelContent]'
+            }),
+            __metadata("design:paramtypes", [core.TemplateRef])
+        ], MatExpansionPanelContent);
         return MatExpansionPanelContent;
     }());
 
@@ -449,61 +446,76 @@
             }
             return false;
         };
-        MatExpansionPanel.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-expansion-panel',
-                        exportAs: 'matExpansionPanel',
-                        template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content>\n<div class=\"mat-expansion-panel-content\"\n     role=\"region\"\n     [@bodyExpansion]=\"_getExpandedState()\"\n     (@bodyExpansion.done)=\"_bodyAnimationDone.next($event)\"\n     [attr.aria-labelledby]=\"_headerId\"\n     [id]=\"id\"\n     #body>\n  <div class=\"mat-expansion-panel-body\">\n    <ng-content></ng-content>\n    <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n  </div>\n  <ng-content select=\"mat-action-row\"></ng-content>\n</div>\n",
-                        encapsulation: core.ViewEncapsulation.None,
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        inputs: ['disabled', 'expanded'],
-                        outputs: ['opened', 'closed', 'expandedChange'],
-                        animations: [matExpansionAnimations.bodyExpansion],
-                        providers: [
-                            // Provide MatAccordion as undefined to prevent nested expansion panels from registering
-                            // to the same accordion.
-                            { provide: MAT_ACCORDION, useValue: ɵ0 },
-                        ],
-                        host: {
-                            'class': 'mat-expansion-panel',
-                            '[class.mat-expanded]': 'expanded',
-                            '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                            '[class.mat-expansion-panel-spacing]': '_hasSpacing()',
-                        },
-                        styles: [".mat-expansion-panel{box-sizing:content-box;display:block;margin:0;border-radius:4px;overflow:hidden;transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);position:relative}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:4px;border-top-left-radius:4px}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:4px;border-bottom-left-radius:4px}.cdk-high-contrast-active .mat-expansion-panel{outline:solid 1px}.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel,.mat-expansion-panel._mat-animation-noopable{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button-base,.mat-action-row button.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button-base,[dir=rtl] .mat-action-row button.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        MatExpansionPanel.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.SkipSelf }, { type: core.Inject, args: [MAT_ACCORDION,] }] },
-            { type: core.ChangeDetectorRef },
-            { type: collections.UniqueSelectionDispatcher },
-            { type: core.ViewContainerRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: core.Optional }] }
-        ]; };
-        MatExpansionPanel.propDecorators = {
-            hideToggle: [{ type: core.Input }],
-            togglePosition: [{ type: core.Input }],
-            afterExpand: [{ type: core.Output }],
-            afterCollapse: [{ type: core.Output }],
-            _lazyContent: [{ type: core.ContentChild, args: [MatExpansionPanelContent,] }],
-            _body: [{ type: core.ViewChild, args: ['body',] }]
-        };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatExpansionPanel.prototype, "hideToggle", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String),
+            __metadata("design:paramtypes", [String])
+        ], MatExpansionPanel.prototype, "togglePosition", null);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", Object)
+        ], MatExpansionPanel.prototype, "afterExpand", void 0);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", Object)
+        ], MatExpansionPanel.prototype, "afterCollapse", void 0);
+        __decorate([
+            core.ContentChild(MatExpansionPanelContent),
+            __metadata("design:type", MatExpansionPanelContent)
+        ], MatExpansionPanel.prototype, "_lazyContent", void 0);
+        __decorate([
+            core.ViewChild('body'),
+            __metadata("design:type", core.ElementRef)
+        ], MatExpansionPanel.prototype, "_body", void 0);
+        MatExpansionPanel = __decorate([
+            core.Component({
+                selector: 'mat-expansion-panel',
+                exportAs: 'matExpansionPanel',
+                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content>\n<div class=\"mat-expansion-panel-content\"\n     role=\"region\"\n     [@bodyExpansion]=\"_getExpandedState()\"\n     (@bodyExpansion.done)=\"_bodyAnimationDone.next($event)\"\n     [attr.aria-labelledby]=\"_headerId\"\n     [id]=\"id\"\n     #body>\n  <div class=\"mat-expansion-panel-body\">\n    <ng-content></ng-content>\n    <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n  </div>\n  <ng-content select=\"mat-action-row\"></ng-content>\n</div>\n",
+                encapsulation: core.ViewEncapsulation.None,
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                inputs: ['disabled', 'expanded'],
+                outputs: ['opened', 'closed', 'expandedChange'],
+                animations: [matExpansionAnimations.bodyExpansion],
+                providers: [
+                    // Provide MatAccordion as undefined to prevent nested expansion panels from registering
+                    // to the same accordion.
+                    { provide: MAT_ACCORDION, useValue: ɵ0 },
+                ],
+                host: {
+                    'class': 'mat-expansion-panel',
+                    '[class.mat-expanded]': 'expanded',
+                    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    '[class.mat-expansion-panel-spacing]': '_hasSpacing()',
+                },
+                styles: [".mat-expansion-panel{box-sizing:content-box;display:block;margin:0;border-radius:4px;overflow:hidden;transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);position:relative}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:4px;border-top-left-radius:4px}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:4px;border-bottom-left-radius:4px}.cdk-high-contrast-active .mat-expansion-panel{outline:solid 1px}.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel,.mat-expansion-panel._mat-animation-noopable{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button-base,.mat-action-row button.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button-base,[dir=rtl] .mat-action-row button.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
+            }),
+            __param(0, core.Optional()), __param(0, core.SkipSelf()), __param(0, core.Inject(MAT_ACCORDION)),
+            __param(4, core.Inject(common.DOCUMENT)),
+            __param(5, core.Optional()), __param(5, core.Inject(animations.ANIMATION_MODULE_TYPE)),
+            __param(6, core.Inject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS)), __param(6, core.Optional()),
+            __metadata("design:paramtypes", [Object, core.ChangeDetectorRef,
+                collections.UniqueSelectionDispatcher,
+                core.ViewContainerRef, Object, String, Object])
+        ], MatExpansionPanel);
         return MatExpansionPanel;
     }(accordion.CdkAccordionItem));
     var MatExpansionPanelActionRow = /** @class */ (function () {
         function MatExpansionPanelActionRow() {
         }
-        MatExpansionPanelActionRow.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-action-row',
-                        host: {
-                            class: 'mat-action-row'
-                        }
-                    },] }
-        ];
+        MatExpansionPanelActionRow = __decorate([
+            core.Directive({
+                selector: 'mat-action-row',
+                host: {
+                    class: 'mat-action-row'
+                }
+            })
+        ], MatExpansionPanelActionRow);
         return MatExpansionPanelActionRow;
     }());
 
@@ -636,47 +648,49 @@
             this._parentChangeSubscription.unsubscribe();
             this._focusMonitor.stopMonitoring(this._element);
         };
-        MatExpansionPanelHeader.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-expansion-panel-header',
-                        template: "<span class=\"mat-content\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n<span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\"\n      class=\"mat-expansion-indicator\"></span>\n",
-                        encapsulation: core.ViewEncapsulation.None,
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        animations: [
-                            matExpansionAnimations.indicatorRotate,
-                        ],
-                        host: {
-                            'class': 'mat-expansion-panel-header mat-focus-indicator',
-                            'role': 'button',
-                            '[attr.id]': 'panel._headerId',
-                            '[attr.tabindex]': 'disabled ? -1 : 0',
-                            '[attr.aria-controls]': '_getPanelId()',
-                            '[attr.aria-expanded]': '_isExpanded()',
-                            '[attr.aria-disabled]': 'panel.disabled',
-                            '[class.mat-expanded]': '_isExpanded()',
-                            '[class.mat-expansion-toggle-indicator-after]': "_getTogglePosition() === 'after'",
-                            '[class.mat-expansion-toggle-indicator-before]': "_getTogglePosition() === 'before'",
-                            '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                            '[style.height]': '_getHeaderHeight()',
-                            '(click)': '_toggle()',
-                            '(keydown)': '_keydown($event)',
-                        },
-                        styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;position:relative;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        MatExpansionPanelHeader.ctorParameters = function () { return [
-            { type: MatExpansionPanel, decorators: [{ type: core.Host }] },
-            { type: core.ElementRef },
-            { type: a11y.FocusMonitor },
-            { type: core.ChangeDetectorRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: core.Optional }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatExpansionPanelHeader.propDecorators = {
-            expandedHeight: [{ type: core.Input }],
-            collapsedHeight: [{ type: core.Input }]
-        };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], MatExpansionPanelHeader.prototype, "expandedHeight", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], MatExpansionPanelHeader.prototype, "collapsedHeight", void 0);
+        MatExpansionPanelHeader = __decorate([
+            core.Component({
+                selector: 'mat-expansion-panel-header',
+                template: "<span class=\"mat-content\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n<span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\"\n      class=\"mat-expansion-indicator\"></span>\n",
+                encapsulation: core.ViewEncapsulation.None,
+                changeDetection: core.ChangeDetectionStrategy.OnPush,
+                animations: [
+                    matExpansionAnimations.indicatorRotate,
+                ],
+                host: {
+                    'class': 'mat-expansion-panel-header mat-focus-indicator',
+                    'role': 'button',
+                    '[attr.id]': 'panel._headerId',
+                    '[attr.tabindex]': 'disabled ? -1 : 0',
+                    '[attr.aria-controls]': '_getPanelId()',
+                    '[attr.aria-expanded]': '_isExpanded()',
+                    '[attr.aria-disabled]': 'panel.disabled',
+                    '[class.mat-expanded]': '_isExpanded()',
+                    '[class.mat-expansion-toggle-indicator-after]': "_getTogglePosition() === 'after'",
+                    '[class.mat-expansion-toggle-indicator-before]': "_getTogglePosition() === 'before'",
+                    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    '[style.height]': '_getHeaderHeight()',
+                    '(click)': '_toggle()',
+                    '(keydown)': '_keydown($event)',
+                },
+                styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;position:relative;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}\n"]
+            }),
+            __param(0, core.Host()),
+            __param(4, core.Inject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS)), __param(4, core.Optional()),
+            __param(5, core.Optional()), __param(5, core.Inject(animations.ANIMATION_MODULE_TYPE)),
+            __metadata("design:paramtypes", [MatExpansionPanel,
+                core.ElementRef,
+                a11y.FocusMonitor,
+                core.ChangeDetectorRef, Object, String])
+        ], MatExpansionPanelHeader);
         return MatExpansionPanelHeader;
     }());
     /**
@@ -687,14 +701,14 @@
     var MatExpansionPanelDescription = /** @class */ (function () {
         function MatExpansionPanelDescription() {
         }
-        MatExpansionPanelDescription.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-panel-description',
-                        host: {
-                            class: 'mat-expansion-panel-header-description'
-                        }
-                    },] }
-        ];
+        MatExpansionPanelDescription = __decorate([
+            core.Directive({
+                selector: 'mat-panel-description',
+                host: {
+                    class: 'mat-expansion-panel-header-description'
+                }
+            })
+        ], MatExpansionPanelDescription);
         return MatExpansionPanelDescription;
     }());
     /**
@@ -705,14 +719,14 @@
     var MatExpansionPanelTitle = /** @class */ (function () {
         function MatExpansionPanelTitle() {
         }
-        MatExpansionPanelTitle.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-panel-title',
-                        host: {
-                            class: 'mat-expansion-panel-header-title'
-                        }
-                    },] }
-        ];
+        MatExpansionPanelTitle = __decorate([
+            core.Directive({
+                selector: 'mat-panel-title',
+                host: {
+                    class: 'mat-expansion-panel-header-title'
+                }
+            })
+        ], MatExpansionPanelTitle);
         return MatExpansionPanelTitle;
     }());
 
@@ -746,6 +760,7 @@
             _this.togglePosition = 'after';
             return _this;
         }
+        MatAccordion_1 = MatAccordion;
         Object.defineProperty(MatAccordion.prototype, "hideToggle", {
             /** Whether the expansion indicator should be hidden. */
             get: function () { return this._hideToggle; },
@@ -786,29 +801,41 @@
         MatAccordion.prototype._handleHeaderFocus = function (header) {
             this._keyManager.updateActiveItem(header);
         };
-        MatAccordion.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-accordion',
-                        exportAs: 'matAccordion',
-                        inputs: ['multi'],
-                        providers: [{
-                                provide: MAT_ACCORDION,
-                                useExisting: MatAccordion
-                            }],
-                        host: {
-                            class: 'mat-accordion',
-                            // Class binding which is only used by the test harness as there is no other
-                            // way for the harness to detect if multiple panel support is enabled.
-                            '[class.mat-accordion-multi]': 'this.multi',
-                        }
-                    },] }
-        ];
-        MatAccordion.propDecorators = {
-            _headers: [{ type: core.ContentChildren, args: [MatExpansionPanelHeader, { descendants: true },] }],
-            hideToggle: [{ type: core.Input }],
-            displayMode: [{ type: core.Input }],
-            togglePosition: [{ type: core.Input }]
-        };
+        var MatAccordion_1;
+        __decorate([
+            core.ContentChildren(MatExpansionPanelHeader, { descendants: true }),
+            __metadata("design:type", core.QueryList)
+        ], MatAccordion.prototype, "_headers", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean),
+            __metadata("design:paramtypes", [Boolean])
+        ], MatAccordion.prototype, "hideToggle", null);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], MatAccordion.prototype, "displayMode", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", String)
+        ], MatAccordion.prototype, "togglePosition", void 0);
+        MatAccordion = MatAccordion_1 = __decorate([
+            core.Directive({
+                selector: 'mat-accordion',
+                exportAs: 'matAccordion',
+                inputs: ['multi'],
+                providers: [{
+                        provide: MAT_ACCORDION,
+                        useExisting: MatAccordion_1
+                    }],
+                host: {
+                    class: 'mat-accordion',
+                    // Class binding which is only used by the test harness as there is no other
+                    // way for the harness to detect if multiple panel support is enabled.
+                    '[class.mat-accordion-multi]': 'this.multi',
+                }
+            })
+        ], MatAccordion);
         return MatAccordion;
     }(accordion.CdkAccordion));
 
@@ -822,29 +849,29 @@
     var MatExpansionModule = /** @class */ (function () {
         function MatExpansionModule() {
         }
-        MatExpansionModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [common.CommonModule, accordion.CdkAccordionModule, portal.PortalModule],
-                        exports: [
-                            MatAccordion,
-                            MatExpansionPanel,
-                            MatExpansionPanelActionRow,
-                            MatExpansionPanelHeader,
-                            MatExpansionPanelTitle,
-                            MatExpansionPanelDescription,
-                            MatExpansionPanelContent,
-                        ],
-                        declarations: [
-                            MatAccordion,
-                            MatExpansionPanel,
-                            MatExpansionPanelActionRow,
-                            MatExpansionPanelHeader,
-                            MatExpansionPanelTitle,
-                            MatExpansionPanelDescription,
-                            MatExpansionPanelContent,
-                        ],
-                    },] }
-        ];
+        MatExpansionModule = __decorate([
+            core.NgModule({
+                imports: [common.CommonModule, accordion.CdkAccordionModule, portal.PortalModule],
+                exports: [
+                    MatAccordion,
+                    MatExpansionPanel,
+                    MatExpansionPanelActionRow,
+                    MatExpansionPanelHeader,
+                    MatExpansionPanelTitle,
+                    MatExpansionPanelDescription,
+                    MatExpansionPanelContent,
+                ],
+                declarations: [
+                    MatAccordion,
+                    MatExpansionPanel,
+                    MatExpansionPanelActionRow,
+                    MatExpansionPanelHeader,
+                    MatExpansionPanelTitle,
+                    MatExpansionPanelDescription,
+                    MatExpansionPanelContent,
+                ],
+            })
+        ], MatExpansionModule);
         return MatExpansionModule;
     }());
 

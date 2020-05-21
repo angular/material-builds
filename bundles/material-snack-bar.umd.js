@@ -4,178 +4,6 @@
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.ng.material.button, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.a11y, global.ng.cdk.layout));
 }(this, (function (exports, i1, portal, common, i0, core, button, rxjs, operators, animations, i2, i3) { 'use strict';
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /** Maximum amount of milliseconds that can be passed into setTimeout. */
-    var MAX_TIMEOUT = Math.pow(2, 31) - 1;
-    /**
-     * Reference to a snack bar dispatched from the snack bar service.
-     */
-    var MatSnackBarRef = /** @class */ (function () {
-        function MatSnackBarRef(containerInstance, _overlayRef) {
-            var _this = this;
-            this._overlayRef = _overlayRef;
-            /** Subject for notifying the user that the snack bar has been dismissed. */
-            this._afterDismissed = new rxjs.Subject();
-            /** Subject for notifying the user that the snack bar has opened and appeared. */
-            this._afterOpened = new rxjs.Subject();
-            /** Subject for notifying the user that the snack bar action was called. */
-            this._onAction = new rxjs.Subject();
-            /** Whether the snack bar was dismissed using the action button. */
-            this._dismissedByAction = false;
-            this.containerInstance = containerInstance;
-            // Dismiss snackbar on action.
-            this.onAction().subscribe(function () { return _this.dismiss(); });
-            containerInstance._onExit.subscribe(function () { return _this._finishDismiss(); });
-        }
-        /** Dismisses the snack bar. */
-        MatSnackBarRef.prototype.dismiss = function () {
-            if (!this._afterDismissed.closed) {
-                this.containerInstance.exit();
-            }
-            clearTimeout(this._durationTimeoutId);
-        };
-        /** Marks the snackbar action clicked. */
-        MatSnackBarRef.prototype.dismissWithAction = function () {
-            if (!this._onAction.closed) {
-                this._dismissedByAction = true;
-                this._onAction.next();
-                this._onAction.complete();
-            }
-        };
-        /**
-         * Marks the snackbar action clicked.
-         * @deprecated Use `dismissWithAction` instead.
-         * @breaking-change 8.0.0
-         */
-        MatSnackBarRef.prototype.closeWithAction = function () {
-            this.dismissWithAction();
-        };
-        /** Dismisses the snack bar after some duration */
-        MatSnackBarRef.prototype._dismissAfter = function (duration) {
-            var _this = this;
-            // Note that we need to cap the duration to the maximum value for setTimeout, because
-            // it'll revert to 1 if somebody passes in something greater (e.g. `Infinity`). See #17234.
-            this._durationTimeoutId = setTimeout(function () { return _this.dismiss(); }, Math.min(duration, MAX_TIMEOUT));
-        };
-        /** Marks the snackbar as opened */
-        MatSnackBarRef.prototype._open = function () {
-            if (!this._afterOpened.closed) {
-                this._afterOpened.next();
-                this._afterOpened.complete();
-            }
-        };
-        /** Cleans up the DOM after closing. */
-        MatSnackBarRef.prototype._finishDismiss = function () {
-            this._overlayRef.dispose();
-            if (!this._onAction.closed) {
-                this._onAction.complete();
-            }
-            this._afterDismissed.next({ dismissedByAction: this._dismissedByAction });
-            this._afterDismissed.complete();
-            this._dismissedByAction = false;
-        };
-        /** Gets an observable that is notified when the snack bar is finished closing. */
-        MatSnackBarRef.prototype.afterDismissed = function () {
-            return this._afterDismissed.asObservable();
-        };
-        /** Gets an observable that is notified when the snack bar has opened and appeared. */
-        MatSnackBarRef.prototype.afterOpened = function () {
-            return this.containerInstance._onEnter;
-        };
-        /** Gets an observable that is notified when the snack bar action is called. */
-        MatSnackBarRef.prototype.onAction = function () {
-            return this._onAction.asObservable();
-        };
-        return MatSnackBarRef;
-    }());
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /** Injection token that can be used to access the data that was passed in to a snack bar. */
-    var MAT_SNACK_BAR_DATA = new i0.InjectionToken('MatSnackBarData');
-    /**
-     * Configuration used when opening a snack-bar.
-     */
-    var MatSnackBarConfig = /** @class */ (function () {
-        function MatSnackBarConfig() {
-            /** The politeness level for the MatAriaLiveAnnouncer announcement. */
-            this.politeness = 'assertive';
-            /**
-             * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
-             * component or template, the announcement message will default to the specified message.
-             */
-            this.announcementMessage = '';
-            /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
-            this.duration = 0;
-            /** Data being injected into the child component. */
-            this.data = null;
-            /** The horizontal position to place the snack bar. */
-            this.horizontalPosition = 'center';
-            /** The vertical position to place the snack bar. */
-            this.verticalPosition = 'bottom';
-        }
-        return MatSnackBarConfig;
-    }());
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
-     * A component used to open as the default snack bar, matching material spec.
-     * This should only be used internally by the snack bar service.
-     */
-    var SimpleSnackBar = /** @class */ (function () {
-        function SimpleSnackBar(snackBarRef, data) {
-            this.snackBarRef = snackBarRef;
-            this.data = data;
-        }
-        /** Performs the action on the snack bar. */
-        SimpleSnackBar.prototype.action = function () {
-            this.snackBarRef.dismissWithAction();
-        };
-        Object.defineProperty(SimpleSnackBar.prototype, "hasAction", {
-            /** If the action button should be shown. */
-            get: function () {
-                return !!this.data.action;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        SimpleSnackBar.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'simple-snack-bar',
-                        template: "<span>{{data.message}}</span>\n<div class=\"mat-simple-snackbar-action\"  *ngIf=\"hasAction\">\n  <button mat-button (click)=\"action()\">{{data.action}}</button>\n</div>\n",
-                        encapsulation: i0.ViewEncapsulation.None,
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        host: {
-                            'class': 'mat-simple-snackbar',
-                        },
-                        styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;align-items:center;line-height:20px;opacity:1}.mat-simple-snackbar-action{flex-shrink:0;margin:-8px -8px -8px 8px}.mat-simple-snackbar-action button{max-height:36px;min-width:0}[dir=rtl] .mat-simple-snackbar-action{margin-left:-8px;margin-right:8px}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        SimpleSnackBar.ctorParameters = function () { return [
-            { type: MatSnackBarRef },
-            { type: undefined, decorators: [{ type: i0.Inject, args: [MAT_SNACK_BAR_DATA,] }] }
-        ]; };
-        return SimpleSnackBar;
-    }());
-
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 
@@ -411,6 +239,175 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /** Maximum amount of milliseconds that can be passed into setTimeout. */
+    var MAX_TIMEOUT = Math.pow(2, 31) - 1;
+    /**
+     * Reference to a snack bar dispatched from the snack bar service.
+     */
+    var MatSnackBarRef = /** @class */ (function () {
+        function MatSnackBarRef(containerInstance, _overlayRef) {
+            var _this = this;
+            this._overlayRef = _overlayRef;
+            /** Subject for notifying the user that the snack bar has been dismissed. */
+            this._afterDismissed = new rxjs.Subject();
+            /** Subject for notifying the user that the snack bar has opened and appeared. */
+            this._afterOpened = new rxjs.Subject();
+            /** Subject for notifying the user that the snack bar action was called. */
+            this._onAction = new rxjs.Subject();
+            /** Whether the snack bar was dismissed using the action button. */
+            this._dismissedByAction = false;
+            this.containerInstance = containerInstance;
+            // Dismiss snackbar on action.
+            this.onAction().subscribe(function () { return _this.dismiss(); });
+            containerInstance._onExit.subscribe(function () { return _this._finishDismiss(); });
+        }
+        /** Dismisses the snack bar. */
+        MatSnackBarRef.prototype.dismiss = function () {
+            if (!this._afterDismissed.closed) {
+                this.containerInstance.exit();
+            }
+            clearTimeout(this._durationTimeoutId);
+        };
+        /** Marks the snackbar action clicked. */
+        MatSnackBarRef.prototype.dismissWithAction = function () {
+            if (!this._onAction.closed) {
+                this._dismissedByAction = true;
+                this._onAction.next();
+                this._onAction.complete();
+            }
+        };
+        /**
+         * Marks the snackbar action clicked.
+         * @deprecated Use `dismissWithAction` instead.
+         * @breaking-change 8.0.0
+         */
+        MatSnackBarRef.prototype.closeWithAction = function () {
+            this.dismissWithAction();
+        };
+        /** Dismisses the snack bar after some duration */
+        MatSnackBarRef.prototype._dismissAfter = function (duration) {
+            var _this = this;
+            // Note that we need to cap the duration to the maximum value for setTimeout, because
+            // it'll revert to 1 if somebody passes in something greater (e.g. `Infinity`). See #17234.
+            this._durationTimeoutId = setTimeout(function () { return _this.dismiss(); }, Math.min(duration, MAX_TIMEOUT));
+        };
+        /** Marks the snackbar as opened */
+        MatSnackBarRef.prototype._open = function () {
+            if (!this._afterOpened.closed) {
+                this._afterOpened.next();
+                this._afterOpened.complete();
+            }
+        };
+        /** Cleans up the DOM after closing. */
+        MatSnackBarRef.prototype._finishDismiss = function () {
+            this._overlayRef.dispose();
+            if (!this._onAction.closed) {
+                this._onAction.complete();
+            }
+            this._afterDismissed.next({ dismissedByAction: this._dismissedByAction });
+            this._afterDismissed.complete();
+            this._dismissedByAction = false;
+        };
+        /** Gets an observable that is notified when the snack bar is finished closing. */
+        MatSnackBarRef.prototype.afterDismissed = function () {
+            return this._afterDismissed.asObservable();
+        };
+        /** Gets an observable that is notified when the snack bar has opened and appeared. */
+        MatSnackBarRef.prototype.afterOpened = function () {
+            return this.containerInstance._onEnter;
+        };
+        /** Gets an observable that is notified when the snack bar action is called. */
+        MatSnackBarRef.prototype.onAction = function () {
+            return this._onAction.asObservable();
+        };
+        return MatSnackBarRef;
+    }());
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /** Injection token that can be used to access the data that was passed in to a snack bar. */
+    var MAT_SNACK_BAR_DATA = new i0.InjectionToken('MatSnackBarData');
+    /**
+     * Configuration used when opening a snack-bar.
+     */
+    var MatSnackBarConfig = /** @class */ (function () {
+        function MatSnackBarConfig() {
+            /** The politeness level for the MatAriaLiveAnnouncer announcement. */
+            this.politeness = 'assertive';
+            /**
+             * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
+             * component or template, the announcement message will default to the specified message.
+             */
+            this.announcementMessage = '';
+            /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
+            this.duration = 0;
+            /** Data being injected into the child component. */
+            this.data = null;
+            /** The horizontal position to place the snack bar. */
+            this.horizontalPosition = 'center';
+            /** The vertical position to place the snack bar. */
+            this.verticalPosition = 'bottom';
+        }
+        return MatSnackBarConfig;
+    }());
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * A component used to open as the default snack bar, matching material spec.
+     * This should only be used internally by the snack bar service.
+     */
+    var SimpleSnackBar = /** @class */ (function () {
+        function SimpleSnackBar(snackBarRef, data) {
+            this.snackBarRef = snackBarRef;
+            this.data = data;
+        }
+        /** Performs the action on the snack bar. */
+        SimpleSnackBar.prototype.action = function () {
+            this.snackBarRef.dismissWithAction();
+        };
+        Object.defineProperty(SimpleSnackBar.prototype, "hasAction", {
+            /** If the action button should be shown. */
+            get: function () {
+                return !!this.data.action;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        SimpleSnackBar = __decorate([
+            i0.Component({
+                selector: 'simple-snack-bar',
+                template: "<span>{{data.message}}</span>\n<div class=\"mat-simple-snackbar-action\"  *ngIf=\"hasAction\">\n  <button mat-button (click)=\"action()\">{{data.action}}</button>\n</div>\n",
+                encapsulation: i0.ViewEncapsulation.None,
+                changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                host: {
+                    'class': 'mat-simple-snackbar',
+                },
+                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;align-items:center;line-height:20px;opacity:1}.mat-simple-snackbar-action{flex-shrink:0;margin:-8px -8px -8px 8px}.mat-simple-snackbar-action button{max-height:36px;min-width:0}[dir=rtl] .mat-simple-snackbar-action{margin-left:-8px;margin-right:8px}\n"]
+            }),
+            __param(1, i0.Inject(MAT_SNACK_BAR_DATA)),
+            __metadata("design:paramtypes", [MatSnackBarRef, Object])
+        ], SimpleSnackBar);
+        return SimpleSnackBar;
+    }());
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /**
      * Animations used by the Material snack bar.
      * @docs-private
@@ -574,36 +571,34 @@
                 throw Error('Attempting to attach snack bar content after content is already attached');
             }
         };
-        MatSnackBarContainer.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'snack-bar-container',
-                        template: "<ng-template cdkPortalOutlet></ng-template>\n",
-                        // In Ivy embedded views will be change detected from their declaration place, rather than
-                        // where they were stamped out. This means that we can't have the snack bar container be OnPush,
-                        // because it might cause snack bars that were opened from a template not to be out of date.
-                        // tslint:disable-next-line:validate-decorators
-                        changeDetection: i0.ChangeDetectionStrategy.Default,
-                        encapsulation: i0.ViewEncapsulation.None,
-                        animations: [matSnackBarAnimations.snackBarState],
-                        host: {
-                            '[attr.role]': '_role',
-                            'class': 'mat-snack-bar-container',
-                            '[@state]': '_animationState',
-                            '(@state.done)': 'onAnimationEnd($event)'
-                        },
-                        styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}.cdk-high-contrast-active .mat-snack-bar-container{border:solid 1px}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}\n"]
-                    }] }
-        ];
-        /** @nocollapse */
-        MatSnackBarContainer.ctorParameters = function () { return [
-            { type: i0.NgZone },
-            { type: i0.ElementRef },
-            { type: i0.ChangeDetectorRef },
-            { type: MatSnackBarConfig }
-        ]; };
-        MatSnackBarContainer.propDecorators = {
-            _portalOutlet: [{ type: i0.ViewChild, args: [portal.CdkPortalOutlet, { static: true },] }]
-        };
+        __decorate([
+            i0.ViewChild(portal.CdkPortalOutlet, { static: true }),
+            __metadata("design:type", portal.CdkPortalOutlet)
+        ], MatSnackBarContainer.prototype, "_portalOutlet", void 0);
+        MatSnackBarContainer = __decorate([
+            i0.Component({
+                selector: 'snack-bar-container',
+                template: "<ng-template cdkPortalOutlet></ng-template>\n",
+                // In Ivy embedded views will be change detected from their declaration place, rather than
+                // where they were stamped out. This means that we can't have the snack bar container be OnPush,
+                // because it might cause snack bars that were opened from a template not to be out of date.
+                // tslint:disable-next-line:validate-decorators
+                changeDetection: i0.ChangeDetectionStrategy.Default,
+                encapsulation: i0.ViewEncapsulation.None,
+                animations: [matSnackBarAnimations.snackBarState],
+                host: {
+                    '[attr.role]': '_role',
+                    'class': 'mat-snack-bar-container',
+                    '[@state]': '_animationState',
+                    '(@state.done)': 'onAnimationEnd($event)'
+                },
+                styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}.cdk-high-contrast-active .mat-snack-bar-container{border:solid 1px}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}\n"]
+            }),
+            __metadata("design:paramtypes", [i0.NgZone,
+                i0.ElementRef,
+                i0.ChangeDetectorRef,
+                MatSnackBarConfig])
+        ], MatSnackBarContainer);
         return MatSnackBarContainer;
     }(portal.BasePortalOutlet));
 
@@ -617,20 +612,20 @@
     var MatSnackBarModule = /** @class */ (function () {
         function MatSnackBarModule() {
         }
-        MatSnackBarModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [
-                            i1.OverlayModule,
-                            portal.PortalModule,
-                            common.CommonModule,
-                            button.MatButtonModule,
-                            core.MatCommonModule,
-                        ],
-                        exports: [MatSnackBarContainer, core.MatCommonModule],
-                        declarations: [MatSnackBarContainer, SimpleSnackBar],
-                        entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    },] }
-        ];
+        MatSnackBarModule = __decorate([
+            i0.NgModule({
+                imports: [
+                    i1.OverlayModule,
+                    portal.PortalModule,
+                    common.CommonModule,
+                    button.MatButtonModule,
+                    core.MatCommonModule,
+                ],
+                exports: [MatSnackBarContainer, core.MatCommonModule],
+                declarations: [MatSnackBarContainer, SimpleSnackBar],
+                entryComponents: [MatSnackBarContainer, SimpleSnackBar],
+            })
+        ], MatSnackBarModule);
         return MatSnackBarModule;
     }());
 
@@ -854,19 +849,18 @@
                 [MAT_SNACK_BAR_DATA, config.data]
             ]));
         };
-        MatSnackBar.decorators = [
-            { type: i0.Injectable, args: [{ providedIn: MatSnackBarModule },] }
-        ];
-        /** @nocollapse */
-        MatSnackBar.ctorParameters = function () { return [
-            { type: i1.Overlay },
-            { type: i2.LiveAnnouncer },
-            { type: i0.Injector },
-            { type: i3.BreakpointObserver },
-            { type: MatSnackBar, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] },
-            { type: MatSnackBarConfig, decorators: [{ type: i0.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
-        ]; };
         MatSnackBar.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i2.LiveAnnouncer), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(i3.BreakpointObserver), i0.ɵɵinject(MatSnackBar, 12), i0.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+        MatSnackBar = __decorate([
+            i0.Injectable({ providedIn: MatSnackBarModule }),
+            __param(4, i0.Optional()), __param(4, i0.SkipSelf()),
+            __param(5, i0.Inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)),
+            __metadata("design:paramtypes", [i1.Overlay,
+                i2.LiveAnnouncer,
+                i0.Injector,
+                i3.BreakpointObserver,
+                MatSnackBar,
+                MatSnackBarConfig])
+        ], MatSnackBar);
         return MatSnackBar;
     }());
 
