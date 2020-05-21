@@ -38,8 +38,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _focusMonitor;
     private _changeDetectorRef;
     private _dir;
+    private _ngZone;
     _animationMode?: string | undefined;
-    private _ngZone?;
     /** Whether the slider is inverted. */
     get invert(): boolean;
     set invert(value: boolean);
@@ -168,10 +168,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     /** Keeps track of the last pointer event that was captured by the slider. */
     private _lastPointerEvent;
     /** Used to subscribe to global move and end events */
-    protected _document?: Document;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined, _ngZone?: NgZone | undefined, 
-    /** @breaking-change 11.0.0 make document required */
-    document?: any);
+    protected _document: Document;
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _ngZone: NgZone, _document: any, _animationMode?: string | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;
@@ -231,10 +229,6 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _focusHostElement;
     /** Blurs the native element. */
     private _blurHostElement;
-    /** Runs a callback inside of the NgZone, if possible. */
-    private _runInsideZone;
-    /** Runs a callback outside of the NgZone, if possible. */
-    private _runOutsizeZone;
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param value

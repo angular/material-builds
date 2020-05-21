@@ -1,5 +1,5 @@
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Attribute, Inject, NgZone, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Attribute, NgZone, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinColor, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -103,19 +103,17 @@ let MatSlider = /** @class */ (() => {
          * @param {?} _changeDetectorRef
          * @param {?} _dir
          * @param {?} tabIndex
+         * @param {?} _ngZone
+         * @param {?} _document
          * @param {?=} _animationMode
-         * @param {?=} _ngZone
-         * @param {?=} document
          */
-        constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _animationMode, _ngZone, 
-        /** @breaking-change 11.0.0 make document required */
-        document) {
+        constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
             super(elementRef);
             this._focusMonitor = _focusMonitor;
             this._changeDetectorRef = _changeDetectorRef;
             this._dir = _dir;
-            this._animationMode = _animationMode;
             this._ngZone = _ngZone;
+            this._animationMode = _animationMode;
             this._invert = false;
             this._max = 100;
             this._min = 0;
@@ -185,7 +183,7 @@ let MatSlider = /** @class */ (() => {
                 if (this.disabled || this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
                     return;
                 }
-                this._runInsideZone((/**
+                this._ngZone.run((/**
                  * @return {?}
                  */
                 () => {
@@ -269,9 +267,9 @@ let MatSlider = /** @class */ (() => {
                     this._pointerUp(this._lastPointerEvent);
                 }
             });
-            this._document = document;
+            this._document = _document;
             this.tabIndex = parseInt(tabIndex) || 0;
-            this._runOutsizeZone((/**
+            _ngZone.runOutsideAngular((/**
              * @return {?}
              */
             () => {
@@ -741,8 +739,7 @@ let MatSlider = /** @class */ (() => {
          * @return {?}
          */
         _getWindow() {
-            var _a;
-            return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+            return this._document.defaultView || window;
         }
         /**
          * Binds our global move and end events. They're bound at the document level and only while
@@ -757,18 +754,16 @@ let MatSlider = /** @class */ (() => {
             // drag cancel events where the user's pointer is outside the browser window.
             /** @type {?} */
             const document = this._document;
-            if (typeof document !== 'undefined' && document) {
-                /** @type {?} */
-                const isTouch = isTouchEvent(triggerEvent);
-                /** @type {?} */
-                const moveEventName = isTouch ? 'touchmove' : 'mousemove';
-                /** @type {?} */
-                const endEventName = isTouch ? 'touchend' : 'mouseup';
-                document.addEventListener(moveEventName, this._pointerMove, activeEventOptions);
-                document.addEventListener(endEventName, this._pointerUp, activeEventOptions);
-                if (isTouch) {
-                    document.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
-                }
+            /** @type {?} */
+            const isTouch = isTouchEvent(triggerEvent);
+            /** @type {?} */
+            const moveEventName = isTouch ? 'touchmove' : 'mousemove';
+            /** @type {?} */
+            const endEventName = isTouch ? 'touchend' : 'mouseup';
+            document.addEventListener(moveEventName, this._pointerMove, activeEventOptions);
+            document.addEventListener(endEventName, this._pointerUp, activeEventOptions);
+            if (isTouch) {
+                document.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
             }
             /** @type {?} */
             const window = this._getWindow();
@@ -784,13 +779,11 @@ let MatSlider = /** @class */ (() => {
         _removeGlobalEvents() {
             /** @type {?} */
             const document = this._document;
-            if (typeof document !== 'undefined' && document) {
-                document.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
-                document.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
-                document.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
-                document.removeEventListener('touchend', this._pointerUp, activeEventOptions);
-                document.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
-            }
+            document.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
+            document.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
+            document.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
+            document.removeEventListener('touchend', this._pointerUp, activeEventOptions);
+            document.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
             /** @type {?} */
             const window = this._getWindow();
             if (typeof window !== 'undefined' && window) {
@@ -962,26 +955,6 @@ let MatSlider = /** @class */ (() => {
             this._elementRef.nativeElement.blur();
         }
         /**
-         * Runs a callback inside of the NgZone, if possible.
-         * @private
-         * @param {?} fn
-         * @return {?}
-         */
-        _runInsideZone(fn) {
-            // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
-            this._ngZone ? this._ngZone.run(fn) : fn();
-        }
-        /**
-         * Runs a callback outside of the NgZone, if possible.
-         * @private
-         * @param {?} fn
-         * @return {?}
-         */
-        _runOutsizeZone(fn) {
-            // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
-            this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
-        }
-        /**
          * Sets the model value. Implemented as part of ControlValueAccessor.
          * @param {?} value
          * @return {?}
@@ -1067,9 +1040,9 @@ let MatSlider = /** @class */ (() => {
         { type: ChangeDetectorRef },
         { type: Directionality, decorators: [{ type: Optional }] },
         { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
         { type: NgZone },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ];
     MatSlider.propDecorators = {
         invert: [{ type: Input }],
@@ -1292,13 +1265,13 @@ if (false) {
      * @private
      */
     MatSlider.prototype._dir;
-    /** @type {?} */
-    MatSlider.prototype._animationMode;
     /**
      * @type {?}
      * @private
      */
     MatSlider.prototype._ngZone;
+    /** @type {?} */
+    MatSlider.prototype._animationMode;
 }
 /**
  * Returns whether an event is a touch event.

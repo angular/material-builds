@@ -282,19 +282,13 @@
      */
     var MatSlider = /** @class */ (function (_super) {
         __extends(MatSlider, _super);
-        function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
-        // @breaking-change 8.0.0 `_animationMode` parameter to be made required.
-        _animationMode, 
-        // @breaking-change 9.0.0 `_ngZone` parameter to be made required.
-        _ngZone, 
-        /** @breaking-change 11.0.0 make document required */
-        document) {
+        function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
             var _this = _super.call(this, elementRef) || this;
             _this._focusMonitor = _focusMonitor;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._dir = _dir;
-            _this._animationMode = _animationMode;
             _this._ngZone = _ngZone;
+            _this._animationMode = _animationMode;
             _this._invert = false;
             _this._max = 100;
             _this._min = 0;
@@ -340,7 +334,7 @@
                 if (_this.disabled || _this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
                     return;
                 }
-                _this._runInsideZone(function () {
+                _this._ngZone.run(function () {
                     var oldValue = _this.value;
                     var pointerPosition = getPointerPositionOnPage(event);
                     _this._isSliding = true;
@@ -401,9 +395,9 @@
                     _this._pointerUp(_this._lastPointerEvent);
                 }
             };
-            _this._document = document;
+            _this._document = _document;
             _this.tabIndex = parseInt(tabIndex) || 0;
-            _this._runOutsizeZone(function () {
+            _ngZone.runOutsideAngular(function () {
                 var element = elementRef.nativeElement;
                 element.addEventListener('mousedown', _this._pointerDown, activeEventOptions);
                 element.addEventListener('touchstart', _this._pointerDown, activeEventOptions);
@@ -795,8 +789,7 @@
         };
         /** Use defaultView of injected document if available or fallback to global window reference */
         MatSlider.prototype._getWindow = function () {
-            var _a;
-            return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
+            return this._document.defaultView || window;
         };
         /**
          * Binds our global move and end events. They're bound at the document level and only while
@@ -807,15 +800,13 @@
             // Note that we bind the events to the `document`, because it allows us to capture
             // drag cancel events where the user's pointer is outside the browser window.
             var document = this._document;
-            if (typeof document !== 'undefined' && document) {
-                var isTouch = isTouchEvent(triggerEvent);
-                var moveEventName = isTouch ? 'touchmove' : 'mousemove';
-                var endEventName = isTouch ? 'touchend' : 'mouseup';
-                document.addEventListener(moveEventName, this._pointerMove, activeEventOptions);
-                document.addEventListener(endEventName, this._pointerUp, activeEventOptions);
-                if (isTouch) {
-                    document.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
-                }
+            var isTouch = isTouchEvent(triggerEvent);
+            var moveEventName = isTouch ? 'touchmove' : 'mousemove';
+            var endEventName = isTouch ? 'touchend' : 'mouseup';
+            document.addEventListener(moveEventName, this._pointerMove, activeEventOptions);
+            document.addEventListener(endEventName, this._pointerUp, activeEventOptions);
+            if (isTouch) {
+                document.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
             }
             var window = this._getWindow();
             if (typeof window !== 'undefined' && window) {
@@ -825,13 +816,11 @@
         /** Removes any global event listeners that we may have added. */
         MatSlider.prototype._removeGlobalEvents = function () {
             var document = this._document;
-            if (typeof document !== 'undefined' && document) {
-                document.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
-                document.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
-                document.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
-                document.removeEventListener('touchend', this._pointerUp, activeEventOptions);
-                document.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
-            }
+            document.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
+            document.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
+            document.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
+            document.removeEventListener('touchend', this._pointerUp, activeEventOptions);
+            document.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
             var window = this._getWindow();
             if (typeof window !== 'undefined' && window) {
                 window.removeEventListener('blur', this._windowBlur);
@@ -939,16 +928,6 @@
         /** Blurs the native element. */
         MatSlider.prototype._blurHostElement = function () {
             this._elementRef.nativeElement.blur();
-        };
-        /** Runs a callback inside of the NgZone, if possible. */
-        MatSlider.prototype._runInsideZone = function (fn) {
-            // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
-            this._ngZone ? this._ngZone.run(fn) : fn();
-        };
-        /** Runs a callback outside of the NgZone, if possible. */
-        MatSlider.prototype._runOutsizeZone = function (fn) {
-            // @breaking-change 9.0.0 Remove this function once `_ngZone` is a required parameter.
-            this._ngZone ? this._ngZone.runOutsideAngular(fn) : fn();
         };
         /**
          * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -1085,12 +1064,12 @@
             }),
             __param(3, core.Optional()),
             __param(4, core.Attribute('tabindex')),
-            __param(5, core.Optional()), __param(5, core.Inject(animations.ANIMATION_MODULE_TYPE)),
-            __param(7, core.Optional()), __param(7, core.Inject(common.DOCUMENT)),
+            __param(6, core.Inject(common.DOCUMENT)),
+            __param(7, core.Optional()), __param(7, core.Inject(animations.ANIMATION_MODULE_TYPE)),
             __metadata("design:paramtypes", [core.ElementRef,
                 a11y.FocusMonitor,
                 core.ChangeDetectorRef,
-                bidi.Directionality, String, String, core.NgZone, Object])
+                bidi.Directionality, String, core.NgZone, Object, String])
         ], MatSlider);
         return MatSlider;
     }(_MatSliderMixinBase));
