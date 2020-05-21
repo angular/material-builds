@@ -1,20 +1,15 @@
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/dialog/public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-export { MatDialogModule } from './dialog-module';
-export { MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog } from './dialog';
-export { throwMatDialogContentAlreadyAttachedError, MatDialogContainer } from './dialog-container';
-export { MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions } from './dialog-content-directives';
-export { MatDialogConfig } from './dialog-config';
-export { MatDialogRef } from './dialog-ref';
-export { matDialogAnimations } from './dialog-animations';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9kaWFsb2cvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFRQSxnQ0FBYyxpQkFBaUIsQ0FBQztBQUNoQyx5TkFBYyxVQUFVLENBQUM7QUFDekIsOEVBQWMsb0JBQW9CLENBQUM7QUFDbkMsbUZBQWMsNkJBQTZCLENBQUM7QUFDNUMsZ0NBQWMsaUJBQWlCLENBQUM7QUFDaEMsNkJBQWMsY0FBYyxDQUFDO0FBQzdCLG9DQUFjLHFCQUFxQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vZGlhbG9nLW1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL2RpYWxvZyc7XG5leHBvcnQgKiBmcm9tICcuL2RpYWxvZy1jb250YWluZXInO1xuZXhwb3J0ICogZnJvbSAnLi9kaWFsb2ctY29udGVudC1kaXJlY3RpdmVzJztcbmV4cG9ydCAqIGZyb20gJy4vZGlhbG9nLWNvbmZpZyc7XG5leHBvcnQgKiBmcm9tICcuL2RpYWxvZy1yZWYnO1xuZXhwb3J0ICogZnJvbSAnLi9kaWFsb2ctYW5pbWF0aW9ucyc7XG4iXX0=
+export * from './dialog-module';
+export * from './dialog';
+export * from './dialog-container';
+export * from './dialog-content-directives';
+export * from './dialog-config';
+export * from './dialog-ref';
+export * from './dialog-animations';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9kaWFsb2cvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFFSCxjQUFjLGlCQUFpQixDQUFDO0FBQ2hDLGNBQWMsVUFBVSxDQUFDO0FBQ3pCLGNBQWMsb0JBQW9CLENBQUM7QUFDbkMsY0FBYyw2QkFBNkIsQ0FBQztBQUM1QyxjQUFjLGlCQUFpQixDQUFDO0FBQ2hDLGNBQWMsY0FBYyxDQUFDO0FBQzdCLGNBQWMscUJBQXFCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9kaWFsb2ctbW9kdWxlJztcbmV4cG9ydCAqIGZyb20gJy4vZGlhbG9nJztcbmV4cG9ydCAqIGZyb20gJy4vZGlhbG9nLWNvbnRhaW5lcic7XG5leHBvcnQgKiBmcm9tICcuL2RpYWxvZy1jb250ZW50LWRpcmVjdGl2ZXMnO1xuZXhwb3J0ICogZnJvbSAnLi9kaWFsb2ctY29uZmlnJztcbmV4cG9ydCAqIGZyb20gJy4vZGlhbG9nLXJlZic7XG5leHBvcnQgKiBmcm9tICcuL2RpYWxvZy1hbmltYXRpb25zJztcbiJdfQ==

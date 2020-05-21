@@ -1,39 +1,26 @@
-import { isDevMode, Directive, NgZone, ElementRef, Renderer2, Optional, Inject, Input, NgModule } from '@angular/core';
+import { __decorate, __metadata, __param } from 'tslib';
+import { isDevMode, Input, Directive, Optional, Inject, NgZone, ElementRef, Renderer2, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/badge/badge.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-/** @type {?} */
 let nextId = 0;
 // Boilerplate for applying mixins to MatBadge.
-/**
- * \@docs-private
- */
+/** @docs-private */
 class MatBadgeBase {
 }
-/** @type {?} */
 const _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
-/**
- * Directive to display a text badge.
- */
+/** Directive to display a text badge. */
 let MatBadge = /** @class */ (() => {
-    /**
-     * Directive to display a text badge.
-     */
-    class MatBadge extends _MatBadgeMixinBase {
-        /**
-         * @param {?} _ngZone
-         * @param {?} _elementRef
-         * @param {?} _ariaDescriber
-         * @param {?} _renderer
-         * @param {?=} _animationMode
-         */
+    let MatBadge = class MatBadge extends _MatBadgeMixinBase {
         constructor(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
             super();
             this._ngZone = _ngZone;
@@ -41,9 +28,7 @@ let MatBadge = /** @class */ (() => {
             this._ariaDescriber = _ariaDescriber;
             this._renderer = _renderer;
             this._animationMode = _animationMode;
-            /**
-             * Whether the badge has any content.
-             */
+            /** Whether the badge has any content. */
             this._hasContent = false;
             this._color = 'primary';
             this._overlap = true;
@@ -52,59 +37,32 @@ let MatBadge = /** @class */ (() => {
              * Accepts any combination of 'above'|'below' and 'before'|'after'
              */
             this.position = 'above after';
-            /**
-             * Size of the badge. Can be 'small', 'medium', or 'large'.
-             */
+            /** Size of the badge. Can be 'small', 'medium', or 'large'. */
             this.size = 'medium';
-            /**
-             * Unique id for the badge
-             */
+            /** Unique id for the badge */
             this._id = nextId++;
             if (isDevMode()) {
-                /** @type {?} */
                 const nativeElement = _elementRef.nativeElement;
                 if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
                     throw Error('matBadge must be attached to an element node.');
                 }
             }
         }
-        /**
-         * The color of the badge. Can be `primary`, `accent`, or `warn`.
-         * @return {?}
-         */
+        /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
         get color() { return this._color; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set color(value) {
             this._setColor(value);
             this._color = value;
         }
-        /**
-         * Whether the badge should overlap its contents or not
-         * @return {?}
-         */
+        /** Whether the badge should overlap its contents or not */
         get overlap() { return this._overlap; }
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set overlap(val) {
             this._overlap = coerceBooleanProperty(val);
         }
-        /**
-         * Message used to describe the decorated element via aria-describedby
-         * @return {?}
-         */
+        /** Message used to describe the decorated element via aria-describedby */
         get description() { return this._description; }
-        /**
-         * @param {?} newDescription
-         * @return {?}
-         */
         set description(newDescription) {
             if (newDescription !== this._description) {
-                /** @type {?} */
                 const badgeElement = this._badgeElement;
                 this._updateHostAriaDescription(newDescription, this._description);
                 this._description = newDescription;
@@ -114,51 +72,28 @@ let MatBadge = /** @class */ (() => {
                 }
             }
         }
-        /**
-         * Whether the badge is hidden.
-         * @return {?}
-         */
+        /** Whether the badge is hidden. */
         get hidden() { return this._hidden; }
-        /**
-         * @param {?} val
-         * @return {?}
-         */
         set hidden(val) {
             this._hidden = coerceBooleanProperty(val);
         }
-        /**
-         * Whether the badge is above the host or not
-         * @return {?}
-         */
+        /** Whether the badge is above the host or not */
         isAbove() {
             return this.position.indexOf('below') === -1;
         }
-        /**
-         * Whether the badge is after the host or not
-         * @return {?}
-         */
+        /** Whether the badge is after the host or not */
         isAfter() {
             return this.position.indexOf('before') === -1;
         }
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
         ngOnChanges(changes) {
-            /** @type {?} */
             const contentChange = changes['content'];
             if (contentChange) {
-                /** @type {?} */
                 const value = contentChange.currentValue;
                 this._hasContent = value != null && `${value}`.trim().length > 0;
                 this._updateTextContent();
             }
         }
-        /**
-         * @return {?}
-         */
         ngOnDestroy() {
-            /** @type {?} */
             const badgeElement = this._badgeElement;
             if (badgeElement) {
                 if (this.description) {
@@ -174,16 +109,11 @@ let MatBadge = /** @class */ (() => {
         /**
          * Gets the element into which the badge's content is being rendered.
          * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
-         * @return {?}
          */
         getBadgeElement() {
             return this._badgeElement;
         }
-        /**
-         * Injects a span element into the DOM with the content.
-         * @private
-         * @return {?}
-         */
+        /** Injects a span element into the DOM with the content. */
         _updateTextContent() {
             if (!this._badgeElement) {
                 this._badgeElement = this._createBadgeElement();
@@ -193,17 +123,10 @@ let MatBadge = /** @class */ (() => {
             }
             return this._badgeElement;
         }
-        /**
-         * Creates the badge element
-         * @private
-         * @return {?}
-         */
+        /** Creates the badge element */
         _createBadgeElement() {
-            /** @type {?} */
             const badgeElement = this._renderer.createElement('span');
-            /** @type {?} */
             const activeClass = 'mat-badge-active';
-            /** @type {?} */
             const contentClass = 'mat-badge-content';
             // Clear any existing badges which may have persisted from a server-side render.
             this._clearExistingBadges(contentClass);
@@ -219,33 +142,20 @@ let MatBadge = /** @class */ (() => {
             this._elementRef.nativeElement.appendChild(badgeElement);
             // animate in after insertion
             if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
-                this._ngZone.runOutsideAngular((/**
-                 * @return {?}
-                 */
-                () => {
-                    requestAnimationFrame((/**
-                     * @return {?}
-                     */
-                    () => {
+                this._ngZone.runOutsideAngular(() => {
+                    requestAnimationFrame(() => {
                         badgeElement.classList.add(activeClass);
-                    }));
-                }));
+                    });
+                });
             }
             else {
                 badgeElement.classList.add(activeClass);
             }
             return badgeElement;
         }
-        /**
-         * Sets the aria-label property on the element
-         * @private
-         * @param {?} newDescription
-         * @param {?} oldDescription
-         * @return {?}
-         */
+        /** Sets the aria-label property on the element */
         _updateHostAriaDescription(newDescription, oldDescription) {
             // ensure content available before setting label
-            /** @type {?} */
             const content = this._updateTextContent();
             if (oldDescription) {
                 this._ariaDescriber.removeDescription(content, oldDescription);
@@ -254,12 +164,7 @@ let MatBadge = /** @class */ (() => {
                 this._ariaDescriber.describe(content, newDescription);
             }
         }
-        /**
-         * Adds css theme class given the color to the component host
-         * @private
-         * @param {?} colorPalette
-         * @return {?}
-         */
+        /** Adds css theme class given the color to the component host */
         _setColor(colorPalette) {
             if (colorPalette !== this._color) {
                 if (this._color) {
@@ -270,175 +175,107 @@ let MatBadge = /** @class */ (() => {
                 }
             }
         }
-        /**
-         * Clears any existing badges that might be left over from server-side rendering.
-         * @private
-         * @param {?} cssClass
-         * @return {?}
-         */
+        /** Clears any existing badges that might be left over from server-side rendering. */
         _clearExistingBadges(cssClass) {
-            /** @type {?} */
             const element = this._elementRef.nativeElement;
-            /** @type {?} */
             let childCount = element.children.length;
             // Use a reverse while, because we'll be removing elements from the list as we're iterating.
             while (childCount--) {
-                /** @type {?} */
                 const currentChild = element.children[childCount];
                 if (currentChild.classList.contains(cssClass)) {
                     element.removeChild(currentChild);
                 }
             }
         }
-    }
-    MatBadge.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matBadge]',
-                    inputs: ['disabled: matBadgeDisabled'],
-                    host: {
-                        'class': 'mat-badge',
-                        '[class.mat-badge-overlap]': 'overlap',
-                        '[class.mat-badge-above]': 'isAbove()',
-                        '[class.mat-badge-below]': '!isAbove()',
-                        '[class.mat-badge-before]': '!isAfter()',
-                        '[class.mat-badge-after]': 'isAfter()',
-                        '[class.mat-badge-small]': 'size === "small"',
-                        '[class.mat-badge-medium]': 'size === "medium"',
-                        '[class.mat-badge-large]': 'size === "large"',
-                        '[class.mat-badge-hidden]': 'hidden || !_hasContent',
-                        '[class.mat-badge-disabled]': 'disabled',
-                    },
-                },] }
-    ];
-    /** @nocollapse */
-    MatBadge.ctorParameters = () => [
-        { type: NgZone },
-        { type: ElementRef },
-        { type: AriaDescriber },
-        { type: Renderer2 },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
-    ];
-    MatBadge.propDecorators = {
-        color: [{ type: Input, args: ['matBadgeColor',] }],
-        overlap: [{ type: Input, args: ['matBadgeOverlap',] }],
-        position: [{ type: Input, args: ['matBadgePosition',] }],
-        content: [{ type: Input, args: ['matBadge',] }],
-        description: [{ type: Input, args: ['matBadgeDescription',] }],
-        size: [{ type: Input, args: ['matBadgeSize',] }],
-        hidden: [{ type: Input, args: ['matBadgeHidden',] }]
     };
+    __decorate([
+        Input('matBadgeColor'),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], MatBadge.prototype, "color", null);
+    __decorate([
+        Input('matBadgeOverlap'),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], MatBadge.prototype, "overlap", null);
+    __decorate([
+        Input('matBadgePosition'),
+        __metadata("design:type", String)
+    ], MatBadge.prototype, "position", void 0);
+    __decorate([
+        Input('matBadge'),
+        __metadata("design:type", String)
+    ], MatBadge.prototype, "content", void 0);
+    __decorate([
+        Input('matBadgeDescription'),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], MatBadge.prototype, "description", null);
+    __decorate([
+        Input('matBadgeSize'),
+        __metadata("design:type", String)
+    ], MatBadge.prototype, "size", void 0);
+    __decorate([
+        Input('matBadgeHidden'),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], MatBadge.prototype, "hidden", null);
+    MatBadge = __decorate([
+        Directive({
+            selector: '[matBadge]',
+            inputs: ['disabled: matBadgeDisabled'],
+            host: {
+                'class': 'mat-badge',
+                '[class.mat-badge-overlap]': 'overlap',
+                '[class.mat-badge-above]': 'isAbove()',
+                '[class.mat-badge-below]': '!isAbove()',
+                '[class.mat-badge-before]': '!isAfter()',
+                '[class.mat-badge-after]': 'isAfter()',
+                '[class.mat-badge-small]': 'size === "small"',
+                '[class.mat-badge-medium]': 'size === "medium"',
+                '[class.mat-badge-large]': 'size === "large"',
+                '[class.mat-badge-hidden]': 'hidden || !_hasContent',
+                '[class.mat-badge-disabled]': 'disabled',
+            },
+        }),
+        __param(4, Optional()), __param(4, Inject(ANIMATION_MODULE_TYPE)),
+        __metadata("design:paramtypes", [NgZone,
+            ElementRef,
+            AriaDescriber,
+            Renderer2, String])
+    ], MatBadge);
     return MatBadge;
 })();
-if (false) {
-    /** @type {?} */
-    MatBadge.ngAcceptInputType_disabled;
-    /** @type {?} */
-    MatBadge.ngAcceptInputType_hidden;
-    /** @type {?} */
-    MatBadge.ngAcceptInputType_overlap;
-    /**
-     * Whether the badge has any content.
-     * @type {?}
-     */
-    MatBadge.prototype._hasContent;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._color;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._overlap;
-    /**
-     * Position the badge should reside.
-     * Accepts any combination of 'above'|'below' and 'before'|'after'
-     * @type {?}
-     */
-    MatBadge.prototype.position;
-    /**
-     * The content for the badge
-     * @type {?}
-     */
-    MatBadge.prototype.content;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._description;
-    /**
-     * Size of the badge. Can be 'small', 'medium', or 'large'.
-     * @type {?}
-     */
-    MatBadge.prototype.size;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._hidden;
-    /**
-     * Unique id for the badge
-     * @type {?}
-     */
-    MatBadge.prototype._id;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._badgeElement;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._ngZone;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._elementRef;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._ariaDescriber;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._renderer;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatBadge.prototype._animationMode;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/badge/badge-module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 let MatBadgeModule = /** @class */ (() => {
-    class MatBadgeModule {
-    }
-    MatBadgeModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        A11yModule,
-                        MatCommonModule
-                    ],
-                    exports: [MatBadge, MatCommonModule],
-                    declarations: [MatBadge],
-                },] }
-    ];
+    let MatBadgeModule = class MatBadgeModule {
+    };
+    MatBadgeModule = __decorate([
+        NgModule({
+            imports: [
+                A11yModule,
+                MatCommonModule
+            ],
+            exports: [MatBadge, MatCommonModule],
+            declarations: [MatBadge],
+        })
+    ], MatBadgeModule);
     return MatBadgeModule;
 })();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/badge/public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 
 /**

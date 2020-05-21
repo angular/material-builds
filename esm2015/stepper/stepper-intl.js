@@ -1,8 +1,4 @@
-/**
- * @fileoverview added by tsickle
- * Generated from: src/material/stepper/stepper-intl.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
+import { __decorate } from "tslib";
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -13,61 +9,34 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Subject } from 'rxjs';
 import * as i0 from "@angular/core";
-/**
- * Stepper data that is required for internationalization.
- */
+/** Stepper data that is required for internationalization. */
 let MatStepperIntl = /** @class */ (() => {
-    /**
-     * Stepper data that is required for internationalization.
-     */
-    class MatStepperIntl {
+    let MatStepperIntl = class MatStepperIntl {
         constructor() {
             /**
              * Stream that emits whenever the labels here are changed. Use this to notify
              * components if the labels have changed after initialization.
              */
             this.changes = new Subject();
-            /**
-             * Label that is rendered below optional steps.
-             */
+            /** Label that is rendered below optional steps. */
             this.optionalLabel = 'Optional';
         }
-    }
-    MatStepperIntl.decorators = [
-        { type: Injectable, args: [{ providedIn: 'root' },] }
-    ];
-    /** @nocollapse */ MatStepperIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+    };
+    MatStepperIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
+    MatStepperIntl = __decorate([
+        Injectable({ providedIn: 'root' })
+    ], MatStepperIntl);
     return MatStepperIntl;
 })();
 export { MatStepperIntl };
-if (false) {
-    /**
-     * Stream that emits whenever the labels here are changed. Use this to notify
-     * components if the labels have changed after initialization.
-     * @type {?}
-     */
-    MatStepperIntl.prototype.changes;
-    /**
-     * Label that is rendered below optional steps.
-     * @type {?}
-     */
-    MatStepperIntl.prototype.optionalLabel;
-}
-/**
- * \@docs-private
- * @param {?} parentIntl
- * @return {?}
- */
+/** @docs-private */
 export function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatStepperIntl();
 }
-/**
- * \@docs-private
- * @type {?}
- */
+/** @docs-private */
 export const MAT_STEPPER_INTL_PROVIDER = {
     provide: MatStepperIntl,
     deps: [[new Optional(), new SkipSelf(), MatStepperIntl]],
     useFactory: MAT_STEPPER_INTL_PROVIDER_FACTORY
 };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3RlcHBlci1pbnRsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vc3JjL21hdGVyaWFsL3N0ZXBwZXIvc3RlcHBlci1pbnRsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7OztBQVFBLE9BQU8sRUFBQyxVQUFVLEVBQUUsUUFBUSxFQUFFLFFBQVEsRUFBQyxNQUFNLGVBQWUsQ0FBQztBQUM3RCxPQUFPLEVBQUMsT0FBTyxFQUFDLE1BQU0sTUFBTSxDQUFDOzs7OztBQUk3Qjs7OztJQUFBLE1BQ2EsY0FBYztRQUQzQjs7Ozs7WUFNVyxZQUFPLEdBQWtCLElBQUksT0FBTyxFQUFRLENBQUM7Ozs7WUFHdEQsa0JBQWEsR0FBVyxVQUFVLENBQUM7U0FDcEM7OztnQkFWQSxVQUFVLFNBQUMsRUFBQyxVQUFVLEVBQUUsTUFBTSxFQUFDOzs7eUJBYmhDO0tBdUJDO1NBVFksY0FBYzs7Ozs7OztJQUt6QixpQ0FBc0Q7Ozs7O0lBR3RELHVDQUFtQzs7Ozs7OztBQUtyQyxNQUFNLFVBQVUsaUNBQWlDLENBQUMsVUFBMEI7SUFDMUUsT0FBTyxVQUFVLElBQUksSUFBSSxjQUFjLEVBQUUsQ0FBQztBQUM1QyxDQUFDOzs7OztBQUdELE1BQU0sT0FBTyx5QkFBeUIsR0FBRztJQUN2QyxPQUFPLEVBQUUsY0FBYztJQUN2QixJQUFJLEVBQUUsQ0FBQyxDQUFDLElBQUksUUFBUSxFQUFFLEVBQUUsSUFBSSxRQUFRLEVBQUUsRUFBRSxjQUFjLENBQUMsQ0FBQztJQUN4RCxVQUFVLEVBQUUsaUNBQWlDO0NBQzlDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7SW5qZWN0YWJsZSwgT3B0aW9uYWwsIFNraXBTZWxmfSBmcm9tICdAYW5ndWxhci9jb3JlJztcbmltcG9ydCB7U3ViamVjdH0gZnJvbSAncnhqcyc7XG5cblxuLyoqIFN0ZXBwZXIgZGF0YSB0aGF0IGlzIHJlcXVpcmVkIGZvciBpbnRlcm5hdGlvbmFsaXphdGlvbi4gKi9cbkBJbmplY3RhYmxlKHtwcm92aWRlZEluOiAncm9vdCd9KVxuZXhwb3J0IGNsYXNzIE1hdFN0ZXBwZXJJbnRsIHtcbiAgLyoqXG4gICAqIFN0cmVhbSB0aGF0IGVtaXRzIHdoZW5ldmVyIHRoZSBsYWJlbHMgaGVyZSBhcmUgY2hhbmdlZC4gVXNlIHRoaXMgdG8gbm90aWZ5XG4gICAqIGNvbXBvbmVudHMgaWYgdGhlIGxhYmVscyBoYXZlIGNoYW5nZWQgYWZ0ZXIgaW5pdGlhbGl6YXRpb24uXG4gICAqL1xuICByZWFkb25seSBjaGFuZ2VzOiBTdWJqZWN0PHZvaWQ+ID0gbmV3IFN1YmplY3Q8dm9pZD4oKTtcblxuICAvKiogTGFiZWwgdGhhdCBpcyByZW5kZXJlZCBiZWxvdyBvcHRpb25hbCBzdGVwcy4gKi9cbiAgb3B0aW9uYWxMYWJlbDogc3RyaW5nID0gJ09wdGlvbmFsJztcbn1cblxuXG4vKiogQGRvY3MtcHJpdmF0ZSAqL1xuZXhwb3J0IGZ1bmN0aW9uIE1BVF9TVEVQUEVSX0lOVExfUFJPVklERVJfRkFDVE9SWShwYXJlbnRJbnRsOiBNYXRTdGVwcGVySW50bCkge1xuICByZXR1cm4gcGFyZW50SW50bCB8fCBuZXcgTWF0U3RlcHBlckludGwoKTtcbn1cblxuLyoqIEBkb2NzLXByaXZhdGUgKi9cbmV4cG9ydCBjb25zdCBNQVRfU1RFUFBFUl9JTlRMX1BST1ZJREVSID0ge1xuICBwcm92aWRlOiBNYXRTdGVwcGVySW50bCxcbiAgZGVwczogW1tuZXcgT3B0aW9uYWwoKSwgbmV3IFNraXBTZWxmKCksIE1hdFN0ZXBwZXJJbnRsXV0sXG4gIHVzZUZhY3Rvcnk6IE1BVF9TVEVQUEVSX0lOVExfUFJPVklERVJfRkFDVE9SWVxufTtcbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3RlcHBlci1pbnRsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vc3JjL21hdGVyaWFsL3N0ZXBwZXIvc3RlcHBlci1pbnRsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQTs7Ozs7O0dBTUc7QUFFSCxPQUFPLEVBQUMsVUFBVSxFQUFFLFFBQVEsRUFBRSxRQUFRLEVBQUMsTUFBTSxlQUFlLENBQUM7QUFDN0QsT0FBTyxFQUFDLE9BQU8sRUFBQyxNQUFNLE1BQU0sQ0FBQzs7QUFHN0IsOERBQThEO0FBRTlEO0lBQUEsSUFBYSxjQUFjLEdBQTNCLE1BQWEsY0FBYztRQUEzQjtZQUNFOzs7ZUFHRztZQUNNLFlBQU8sR0FBa0IsSUFBSSxPQUFPLEVBQVEsQ0FBQztZQUV0RCxtREFBbUQ7WUFDbkQsa0JBQWEsR0FBVyxVQUFVLENBQUM7U0FDcEM7S0FBQSxDQUFBOztJQVRZLGNBQWM7UUFEMUIsVUFBVSxDQUFDLEVBQUMsVUFBVSxFQUFFLE1BQU0sRUFBQyxDQUFDO09BQ3BCLGNBQWMsQ0FTMUI7eUJBdkJEO0tBdUJDO1NBVFksY0FBYztBQVkzQixvQkFBb0I7QUFDcEIsTUFBTSxVQUFVLGlDQUFpQyxDQUFDLFVBQTBCO0lBQzFFLE9BQU8sVUFBVSxJQUFJLElBQUksY0FBYyxFQUFFLENBQUM7QUFDNUMsQ0FBQztBQUVELG9CQUFvQjtBQUNwQixNQUFNLENBQUMsTUFBTSx5QkFBeUIsR0FBRztJQUN2QyxPQUFPLEVBQUUsY0FBYztJQUN2QixJQUFJLEVBQUUsQ0FBQyxDQUFDLElBQUksUUFBUSxFQUFFLEVBQUUsSUFBSSxRQUFRLEVBQUUsRUFBRSxjQUFjLENBQUMsQ0FBQztJQUN4RCxVQUFVLEVBQUUsaUNBQWlDO0NBQzlDLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtJbmplY3RhYmxlLCBPcHRpb25hbCwgU2tpcFNlbGZ9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHtTdWJqZWN0fSBmcm9tICdyeGpzJztcblxuXG4vKiogU3RlcHBlciBkYXRhIHRoYXQgaXMgcmVxdWlyZWQgZm9yIGludGVybmF0aW9uYWxpemF0aW9uLiAqL1xuQEluamVjdGFibGUoe3Byb3ZpZGVkSW46ICdyb290J30pXG5leHBvcnQgY2xhc3MgTWF0U3RlcHBlckludGwge1xuICAvKipcbiAgICogU3RyZWFtIHRoYXQgZW1pdHMgd2hlbmV2ZXIgdGhlIGxhYmVscyBoZXJlIGFyZSBjaGFuZ2VkLiBVc2UgdGhpcyB0byBub3RpZnlcbiAgICogY29tcG9uZW50cyBpZiB0aGUgbGFiZWxzIGhhdmUgY2hhbmdlZCBhZnRlciBpbml0aWFsaXphdGlvbi5cbiAgICovXG4gIHJlYWRvbmx5IGNoYW5nZXM6IFN1YmplY3Q8dm9pZD4gPSBuZXcgU3ViamVjdDx2b2lkPigpO1xuXG4gIC8qKiBMYWJlbCB0aGF0IGlzIHJlbmRlcmVkIGJlbG93IG9wdGlvbmFsIHN0ZXBzLiAqL1xuICBvcHRpb25hbExhYmVsOiBzdHJpbmcgPSAnT3B0aW9uYWwnO1xufVxuXG5cbi8qKiBAZG9jcy1wcml2YXRlICovXG5leHBvcnQgZnVuY3Rpb24gTUFUX1NURVBQRVJfSU5UTF9QUk9WSURFUl9GQUNUT1JZKHBhcmVudEludGw6IE1hdFN0ZXBwZXJJbnRsKSB7XG4gIHJldHVybiBwYXJlbnRJbnRsIHx8IG5ldyBNYXRTdGVwcGVySW50bCgpO1xufVxuXG4vKiogQGRvY3MtcHJpdmF0ZSAqL1xuZXhwb3J0IGNvbnN0IE1BVF9TVEVQUEVSX0lOVExfUFJPVklERVIgPSB7XG4gIHByb3ZpZGU6IE1hdFN0ZXBwZXJJbnRsLFxuICBkZXBzOiBbW25ldyBPcHRpb25hbCgpLCBuZXcgU2tpcFNlbGYoKSwgTWF0U3RlcHBlckludGxdXSxcbiAgdXNlRmFjdG9yeTogTUFUX1NURVBQRVJfSU5UTF9QUk9WSURFUl9GQUNUT1JZXG59O1xuIl19

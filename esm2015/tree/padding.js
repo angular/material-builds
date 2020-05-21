@@ -1,8 +1,4 @@
-/**
- * @fileoverview added by tsickle
- * Generated from: src/material/tree/padding.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
+import { __decorate, __metadata } from "tslib";
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -14,38 +10,26 @@ import { CdkTreeNodePadding } from '@angular/cdk/tree';
 import { Directive, Input } from '@angular/core';
 /**
  * Wrapper for the CdkTree padding with Material design styles.
- * @template T
  */
 let MatTreeNodePadding = /** @class */ (() => {
-    /**
-     * Wrapper for the CdkTree padding with Material design styles.
-     * @template T
-     */
-    class MatTreeNodePadding extends CdkTreeNodePadding {
-    }
-    MatTreeNodePadding.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matTreeNodePadding]',
-                    providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
-                },] }
-    ];
-    MatTreeNodePadding.propDecorators = {
-        level: [{ type: Input, args: ['matTreeNodePadding',] }],
-        indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
+    var MatTreeNodePadding_1;
+    let MatTreeNodePadding = MatTreeNodePadding_1 = class MatTreeNodePadding extends CdkTreeNodePadding {
     };
+    __decorate([
+        Input('matTreeNodePadding'),
+        __metadata("design:type", Number)
+    ], MatTreeNodePadding.prototype, "level", void 0);
+    __decorate([
+        Input('matTreeNodePaddingIndent'),
+        __metadata("design:type", Number)
+    ], MatTreeNodePadding.prototype, "indent", void 0);
+    MatTreeNodePadding = MatTreeNodePadding_1 = __decorate([
+        Directive({
+            selector: '[matTreeNodePadding]',
+            providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding_1 }]
+        })
+    ], MatTreeNodePadding);
     return MatTreeNodePadding;
 })();
 export { MatTreeNodePadding };
-if (false) {
-    /**
-     * The level of depth of the tree node. The padding will be `level * indent` pixels.
-     * @type {?}
-     */
-    MatTreeNodePadding.prototype.level;
-    /**
-     * The indent for each level. Default number 40px from material design menu sub-menu spec.
-     * @type {?}
-     */
-    MatTreeNodePadding.prototype.indent;
-}
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGFkZGluZy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC90cmVlL3BhZGRpbmcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBT0EsT0FBTyxFQUFDLGtCQUFrQixFQUFDLE1BQU0sbUJBQW1CLENBQUM7QUFDckQsT0FBTyxFQUFDLFNBQVMsRUFBRSxLQUFLLEVBQUMsTUFBTSxlQUFlLENBQUM7Ozs7O0FBSy9DOzs7OztJQUFBLE1BSWEsa0JBQXNCLFNBQVEsa0JBQXFCOzs7Z0JBSi9ELFNBQVMsU0FBQztvQkFDVCxRQUFRLEVBQUUsc0JBQXNCO29CQUNoQyxTQUFTLEVBQUUsQ0FBQyxFQUFDLE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxXQUFXLEVBQUUsa0JBQWtCLEVBQUMsQ0FBQztpQkFDNUU7Ozt3QkFJRSxLQUFLLFNBQUMsb0JBQW9CO3lCQUcxQixLQUFLLFNBQUMsMEJBQTBCOztJQUNuQyx5QkFBQztLQUFBO1NBUFksa0JBQWtCOzs7Ozs7SUFHN0IsbUNBQTJDOzs7OztJQUczQyxvQ0FBa0QiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cbmltcG9ydCB7Q2RrVHJlZU5vZGVQYWRkaW5nfSBmcm9tICdAYW5ndWxhci9jZGsvdHJlZSc7XG5pbXBvcnQge0RpcmVjdGl2ZSwgSW5wdXR9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuXG4vKipcbiAqIFdyYXBwZXIgZm9yIHRoZSBDZGtUcmVlIHBhZGRpbmcgd2l0aCBNYXRlcmlhbCBkZXNpZ24gc3R5bGVzLlxuICovXG5ARGlyZWN0aXZlKHtcbiAgc2VsZWN0b3I6ICdbbWF0VHJlZU5vZGVQYWRkaW5nXScsXG4gIHByb3ZpZGVyczogW3twcm92aWRlOiBDZGtUcmVlTm9kZVBhZGRpbmcsIHVzZUV4aXN0aW5nOiBNYXRUcmVlTm9kZVBhZGRpbmd9XVxufSlcbmV4cG9ydCBjbGFzcyBNYXRUcmVlTm9kZVBhZGRpbmc8VD4gZXh0ZW5kcyBDZGtUcmVlTm9kZVBhZGRpbmc8VD4ge1xuXG4gIC8qKiBUaGUgbGV2ZWwgb2YgZGVwdGggb2YgdGhlIHRyZWUgbm9kZS4gVGhlIHBhZGRpbmcgd2lsbCBiZSBgbGV2ZWwgKiBpbmRlbnRgIHBpeGVscy4gKi9cbiAgQElucHV0KCdtYXRUcmVlTm9kZVBhZGRpbmcnKSBsZXZlbDogbnVtYmVyO1xuXG4gIC8qKiBUaGUgaW5kZW50IGZvciBlYWNoIGxldmVsLiBEZWZhdWx0IG51bWJlciA0MHB4IGZyb20gbWF0ZXJpYWwgZGVzaWduIG1lbnUgc3ViLW1lbnUgc3BlYy4gKi9cbiAgQElucHV0KCdtYXRUcmVlTm9kZVBhZGRpbmdJbmRlbnQnKSBpbmRlbnQ6IG51bWJlcjtcbn1cbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGFkZGluZy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC90cmVlL3BhZGRpbmcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBOzs7Ozs7R0FNRztBQUNILE9BQU8sRUFBQyxrQkFBa0IsRUFBQyxNQUFNLG1CQUFtQixDQUFDO0FBQ3JELE9BQU8sRUFBQyxTQUFTLEVBQUUsS0FBSyxFQUFDLE1BQU0sZUFBZSxDQUFDO0FBRS9DOztHQUVHO0FBS0g7O0lBQUEsSUFBYSxrQkFBa0IsMEJBQS9CLE1BQWEsa0JBQXNCLFNBQVEsa0JBQXFCO0tBTy9ELENBQUE7SUFKOEI7UUFBNUIsS0FBSyxDQUFDLG9CQUFvQixDQUFDOztxREFBZTtJQUdSO1FBQWxDLEtBQUssQ0FBQywwQkFBMEIsQ0FBQzs7c0RBQWdCO0lBTnZDLGtCQUFrQjtRQUo5QixTQUFTLENBQUM7WUFDVCxRQUFRLEVBQUUsc0JBQXNCO1lBQ2hDLFNBQVMsRUFBRSxDQUFDLEVBQUMsT0FBTyxFQUFFLGtCQUFrQixFQUFFLFdBQVcsRUFBRSxvQkFBa0IsRUFBQyxDQUFDO1NBQzVFLENBQUM7T0FDVyxrQkFBa0IsQ0FPOUI7SUFBRCx5QkFBQztLQUFBO1NBUFksa0JBQWtCIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5pbXBvcnQge0Nka1RyZWVOb2RlUGFkZGluZ30gZnJvbSAnQGFuZ3VsYXIvY2RrL3RyZWUnO1xuaW1wb3J0IHtEaXJlY3RpdmUsIElucHV0fSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuLyoqXG4gKiBXcmFwcGVyIGZvciB0aGUgQ2RrVHJlZSBwYWRkaW5nIHdpdGggTWF0ZXJpYWwgZGVzaWduIHN0eWxlcy5cbiAqL1xuQERpcmVjdGl2ZSh7XG4gIHNlbGVjdG9yOiAnW21hdFRyZWVOb2RlUGFkZGluZ10nLFxuICBwcm92aWRlcnM6IFt7cHJvdmlkZTogQ2RrVHJlZU5vZGVQYWRkaW5nLCB1c2VFeGlzdGluZzogTWF0VHJlZU5vZGVQYWRkaW5nfV1cbn0pXG5leHBvcnQgY2xhc3MgTWF0VHJlZU5vZGVQYWRkaW5nPFQ+IGV4dGVuZHMgQ2RrVHJlZU5vZGVQYWRkaW5nPFQ+IHtcblxuICAvKiogVGhlIGxldmVsIG9mIGRlcHRoIG9mIHRoZSB0cmVlIG5vZGUuIFRoZSBwYWRkaW5nIHdpbGwgYmUgYGxldmVsICogaW5kZW50YCBwaXhlbHMuICovXG4gIEBJbnB1dCgnbWF0VHJlZU5vZGVQYWRkaW5nJykgbGV2ZWw6IG51bWJlcjtcblxuICAvKiogVGhlIGluZGVudCBmb3IgZWFjaCBsZXZlbC4gRGVmYXVsdCBudW1iZXIgNDBweCBmcm9tIG1hdGVyaWFsIGRlc2lnbiBtZW51IHN1Yi1tZW51IHNwZWMuICovXG4gIEBJbnB1dCgnbWF0VHJlZU5vZGVQYWRkaW5nSW5kZW50JykgaW5kZW50OiBudW1iZXI7XG59XG4iXX0=

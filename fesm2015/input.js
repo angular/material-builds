@@ -1,5 +1,6 @@
+import { __decorate, __metadata, __param } from 'tslib';
 import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
-import { Directive, Input, InjectionToken, ElementRef, Optional, Self, Inject, NgZone, HostListener, NgModule } from '@angular/core';
+import { Input, Directive, InjectionToken, HostListener, Optional, Self, Inject, ElementRef, NgZone, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
@@ -8,86 +9,76 @@ import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-
 import { Subject } from 'rxjs';
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/input/autosize.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
- * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
- * \@breaking-change 8.0.0
+ * @deprecated Use `cdkTextareaAutosize` from `@angular/cdk/text-field` instead.
+ * @breaking-change 8.0.0
  */
 let MatTextareaAutosize = /** @class */ (() => {
-    /**
-     * Directive to automatically resize a textarea to fit its content.
-     * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
-     * \@breaking-change 8.0.0
-     */
-    class MatTextareaAutosize extends CdkTextareaAutosize {
-        /**
-         * @return {?}
-         */
+    let MatTextareaAutosize = class MatTextareaAutosize extends CdkTextareaAutosize {
         get matAutosizeMinRows() { return this.minRows; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set matAutosizeMinRows(value) { this.minRows = value; }
-        /**
-         * @return {?}
-         */
         get matAutosizeMaxRows() { return this.maxRows; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set matAutosizeMaxRows(value) { this.maxRows = value; }
-        /**
-         * @return {?}
-         */
         get matAutosize() { return this.enabled; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set matAutosize(value) { this.enabled = value; }
-        /**
-         * @return {?}
-         */
         get matTextareaAutosize() { return this.enabled; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set matTextareaAutosize(value) { this.enabled = value; }
-    }
-    MatTextareaAutosize.decorators = [
-        { type: Directive, args: [{
-                    selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
-                    exportAs: 'matTextareaAutosize',
-                    inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
-                    host: {
-                        'class': 'cdk-textarea-autosize mat-autosize',
-                        // Textarea elements that have the directive applied should have a single row by default.
-                        // Browsers normally show two rows by default and therefore this limits the minRows binding.
-                        'rows': '1',
-                    },
-                },] }
-    ];
-    MatTextareaAutosize.propDecorators = {
-        matAutosizeMinRows: [{ type: Input }],
-        matAutosizeMaxRows: [{ type: Input }],
-        matAutosize: [{ type: Input, args: ['mat-autosize',] }],
-        matTextareaAutosize: [{ type: Input }]
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Number),
+        __metadata("design:paramtypes", [Number])
+    ], MatTextareaAutosize.prototype, "matAutosizeMinRows", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Number),
+        __metadata("design:paramtypes", [Number])
+    ], MatTextareaAutosize.prototype, "matAutosizeMaxRows", null);
+    __decorate([
+        Input('mat-autosize'),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], MatTextareaAutosize.prototype, "matAutosize", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], MatTextareaAutosize.prototype, "matTextareaAutosize", null);
+    MatTextareaAutosize = __decorate([
+        Directive({
+            selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
+            exportAs: 'matTextareaAutosize',
+            inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
+            host: {
+                'class': 'cdk-textarea-autosize mat-autosize',
+                // Textarea elements that have the directive applied should have a single row by default.
+                // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                'rows': '1',
+            },
+        })
+    ], MatTextareaAutosize);
     return MatTextareaAutosize;
 })();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/input/input-errors.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
+/** @docs-private */
+function getMatInputUnsupportedTypeError(type) {
+    return Error(`Input type "${type}" isn't supported by matInput.`);
+}
+
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -96,35 +87,21 @@ let MatTextareaAutosize = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * \@docs-private
- * @param {?} type
- * @return {?}
- */
-function getMatInputUnsupportedTypeError(type) {
-    return Error(`Input type "${type}" isn't supported by matInput.`);
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/material/input/input-value-accessor.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
- * @type {?}
  */
 const MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/input/input.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-/** @type {?} */
 const MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
@@ -136,61 +113,27 @@ const MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-/** @type {?} */
 let nextUniqueId = 0;
 // Boilerplate for applying mixins to MatInput.
-/**
- * \@docs-private
- */
+/** @docs-private */
 class MatInputBase {
-    /**
-     * @param {?} _defaultErrorStateMatcher
-     * @param {?} _parentForm
-     * @param {?} _parentFormGroup
-     * @param {?} ngControl
-     */
-    constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
+    constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
+    /** @docs-private */
+    ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
     }
 }
-if (false) {
-    /** @type {?} */
-    MatInputBase.prototype._defaultErrorStateMatcher;
-    /** @type {?} */
-    MatInputBase.prototype._parentForm;
-    /** @type {?} */
-    MatInputBase.prototype._parentFormGroup;
-    /**
-     * \@docs-private
-     * @type {?}
-     */
-    MatInputBase.prototype.ngControl;
-}
-/** @type {?} */
 const _MatInputMixinBase = mixinErrorState(MatInputBase);
-/**
- * Directive that allows a native input to work inside a `MatFormField`.
- */
+/** Directive that allows a native input to work inside a `MatFormField`. */
 let MatInput = /** @class */ (() => {
-    /**
-     * Directive that allows a native input to work inside a `MatFormField`.
-     */
-    class MatInput extends _MatInputMixinBase {
-        /**
-         * @param {?} _elementRef
-         * @param {?} _platform
-         * @param {?} ngControl
-         * @param {?} _parentForm
-         * @param {?} _parentFormGroup
-         * @param {?} _defaultErrorStateMatcher
-         * @param {?} inputValueAccessor
-         * @param {?} _autofillMonitor
-         * @param {?} ngZone
-         */
-        constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
+    var MatInput_1;
+    let MatInput = MatInput_1 = class MatInput extends _MatInputMixinBase {
+        constructor(_elementRef, _platform, 
+        /** @docs-private */
+        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
             super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
             this._elementRef = _elementRef;
             this._platform = _platform;
@@ -199,22 +142,22 @@ let MatInput = /** @class */ (() => {
             this._uid = `mat-input-${nextUniqueId++}`;
             /**
              * Implemented as part of MatFormFieldControl.
-             * \@docs-private
+             * @docs-private
              */
             this.focused = false;
             /**
              * Implemented as part of MatFormFieldControl.
-             * \@docs-private
+             * @docs-private
              */
             this.stateChanges = new Subject();
             /**
              * Implemented as part of MatFormFieldControl.
-             * \@docs-private
+             * @docs-private
              */
             this.controlType = 'mat-input';
             /**
              * Implemented as part of MatFormFieldControl.
-             * \@docs-private
+             * @docs-private
              */
             this.autofilled = false;
             this._disabled = false;
@@ -228,14 +171,8 @@ let MatInput = /** @class */ (() => {
                 'month',
                 'time',
                 'week'
-            ].filter((/**
-             * @param {?} t
-             * @return {?}
-             */
-            t => getSupportedInputTypes().has(t)));
-            /** @type {?} */
+            ].filter(t => getSupportedInputTypes().has(t));
             const element = this._elementRef.nativeElement;
-            /** @type {?} */
             const nodeName = element.nodeName.toLowerCase();
             // If no input value accessor was explicitly specified, use the element as the input value
             // accessor.
@@ -247,17 +184,9 @@ let MatInput = /** @class */ (() => {
             // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
             // exists on iOS, we only bother to install the listener on iOS.
             if (_platform.IOS) {
-                ngZone.runOutsideAngular((/**
-                 * @return {?}
-                 */
-                () => {
-                    _elementRef.nativeElement.addEventListener('keyup', (/**
-                     * @param {?} event
-                     * @return {?}
-                     */
-                    (event) => {
-                        /** @type {?} */
-                        let el = (/** @type {?} */ (event.target));
+                ngZone.runOutsideAngular(() => {
+                    _elementRef.nativeElement.addEventListener('keyup', (event) => {
+                        let el = event.target;
                         if (!el.value && !el.selectionStart && !el.selectionEnd) {
                             // Note: Just setting `0, 0` doesn't fix the issue. Setting
                             // `1, 1` fixes it for the first time that you type text and
@@ -266,21 +195,20 @@ let MatInput = /** @class */ (() => {
                             el.setSelectionRange(1, 1);
                             el.setSelectionRange(0, 0);
                         }
-                    }));
-                }));
+                    });
+                });
             }
             this._isServer = !this._platform.isBrowser;
             this._isNativeSelect = nodeName === 'select';
             this._isTextarea = nodeName === 'textarea';
             if (this._isNativeSelect) {
-                this.controlType = ((/** @type {?} */ (element))).multiple ? 'mat-native-select-multiple' :
+                this.controlType = element.multiple ? 'mat-native-select-multiple' :
                     'mat-native-select';
             }
         }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
+         * @docs-private
          */
         get disabled() {
             if (this.ngControl && this.ngControl.disabled !== null) {
@@ -288,10 +216,6 @@ let MatInput = /** @class */ (() => {
             }
             return this._disabled;
         }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set disabled(value) {
             this._disabled = coerceBooleanProperty(value);
             // Browsers may not fire the blur event if the input is disabled too quickly.
@@ -303,35 +227,18 @@ let MatInput = /** @class */ (() => {
         }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
+         * @docs-private
          */
         get id() { return this._id; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set id(value) { this._id = value || this._uid; }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
+         * @docs-private
          */
         get required() { return this._required; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set required(value) { this._required = coerceBooleanProperty(value); }
-        /**
-         * Input type of the element.
-         * @return {?}
-         */
+        /** Input type of the element. */
         get type() { return this._type; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set type(value) {
             this._type = value || 'text';
             this._validateType();
@@ -339,68 +246,40 @@ let MatInput = /** @class */ (() => {
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
             if (!this._isTextarea && getSupportedInputTypes().has(this._type)) {
-                ((/** @type {?} */ (this._elementRef.nativeElement))).type = this._type;
+                this._elementRef.nativeElement.type = this._type;
             }
         }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
+         * @docs-private
          */
         get value() { return this._inputValueAccessor.value; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set value(value) {
             if (value !== this.value) {
                 this._inputValueAccessor.value = value;
                 this.stateChanges.next();
             }
         }
-        /**
-         * Whether the element is readonly.
-         * @return {?}
-         */
+        /** Whether the element is readonly. */
         get readonly() { return this._readonly; }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
         set readonly(value) { this._readonly = coerceBooleanProperty(value); }
-        /**
-         * @return {?}
-         */
         ngOnInit() {
             if (this._platform.isBrowser) {
-                this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe((/**
-                 * @param {?} event
-                 * @return {?}
-                 */
-                event => {
+                this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(event => {
                     this.autofilled = event.isAutofilled;
                     this.stateChanges.next();
-                }));
+                });
             }
         }
-        /**
-         * @return {?}
-         */
         ngOnChanges() {
             this.stateChanges.next();
         }
-        /**
-         * @return {?}
-         */
         ngOnDestroy() {
             this.stateChanges.complete();
             if (this._platform.isBrowser) {
                 this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
             }
         }
-        /**
-         * @return {?}
-         */
         ngDoCheck() {
             if (this.ngControl) {
                 // We need to re-evaluate this on every change detection cycle, because there are some
@@ -413,11 +292,7 @@ let MatInput = /** @class */ (() => {
             // updating the value using `emitEvent: false`).
             this._dirtyCheckNativeValue();
         }
-        /**
-         * Focuses the input.
-         * @param {?=} options
-         * @return {?}
-         */
+        /** Focuses the input. */
         focus(options) {
             this._elementRef.nativeElement.focus(options);
         }
@@ -425,11 +300,7 @@ let MatInput = /** @class */ (() => {
         // In Ivy the `host` bindings will be merged when this class is extended, whereas in
         // ViewEngine they're overwritten.
         // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-        /**
-         * Callback for the cases where the focused state of the input changes.
-         * @param {?} isFocused
-         * @return {?}
-         */
+        /** Callback for the cases where the focused state of the input changes. */
         // tslint:disable:no-host-decorator-in-concrete
         // tslint:enable:no-host-decorator-in-concrete
         _focusChanged(isFocused) {
@@ -443,9 +314,6 @@ let MatInput = /** @class */ (() => {
         // ViewEngine they're overwritten.
         // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
         // tslint:disable-next-line:no-host-decorator-in-concrete
-        /**
-         * @return {?}
-         */
         _onInput() {
             // This is a noop function and is used to let Angular know whenever the value changes.
             // Angular will run a new change detection each time the `input` event has been dispatched.
@@ -455,52 +323,33 @@ let MatInput = /** @class */ (() => {
             // Listening to the input event wouldn't be necessary when the input is using the
             // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
         }
-        /**
-         * Does some manual dirty checking on the native input `value` property.
-         * @protected
-         * @return {?}
-         */
+        /** Does some manual dirty checking on the native input `value` property. */
         _dirtyCheckNativeValue() {
-            /** @type {?} */
             const newValue = this._elementRef.nativeElement.value;
             if (this._previousNativeValue !== newValue) {
                 this._previousNativeValue = newValue;
                 this.stateChanges.next();
             }
         }
-        /**
-         * Make sure the input is a supported type.
-         * @protected
-         * @return {?}
-         */
+        /** Make sure the input is a supported type. */
         _validateType() {
             if (MAT_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
                 throw getMatInputUnsupportedTypeError(this._type);
             }
         }
-        /**
-         * Checks whether the input type is one of the types that are never empty.
-         * @protected
-         * @return {?}
-         */
+        /** Checks whether the input type is one of the types that are never empty. */
         _isNeverEmpty() {
             return this._neverEmptyInputTypes.indexOf(this._type) > -1;
         }
-        /**
-         * Checks whether the input is invalid based on the native validation.
-         * @protected
-         * @return {?}
-         */
+        /** Checks whether the input is invalid based on the native validation. */
         _isBadInput() {
             // The `validity` property won't be present on platform-server.
-            /** @type {?} */
-            let validity = ((/** @type {?} */ (this._elementRef.nativeElement))).validity;
+            let validity = this._elementRef.nativeElement.validity;
             return validity && validity.badInput;
         }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
+         * @docs-private
          */
         get empty() {
             return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput() &&
@@ -508,17 +357,14 @@ let MatInput = /** @class */ (() => {
         }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
+         * @docs-private
          */
         get shouldLabelFloat() {
             if (this._isNativeSelect) {
                 // For a single-selection `<select>`, the label should float when the selected option has
                 // a non-empty display value. For a `<select multiple>`, the label *always* floats to avoid
                 // overlapping the label with the options.
-                /** @type {?} */
-                const selectElement = (/** @type {?} */ (this._elementRef.nativeElement));
-                /** @type {?} */
+                const selectElement = this._elementRef.nativeElement;
                 const firstOption = selectElement.options[0];
                 // On most browsers the `selectedIndex` will always be 0, however on IE and Edge it'll be
                 // -1 if the `value` is set to something, that isn't in the list of options, at a later point.
@@ -531,17 +377,14 @@ let MatInput = /** @class */ (() => {
         }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @param {?} ids
-         * @return {?}
+         * @docs-private
          */
         setDescribedByIds(ids) {
             this._ariaDescribedby = ids.join(' ');
         }
         /**
          * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         * @return {?}
+         * @docs-private
          */
         onContainerClick() {
             // Do not re-focus the input element if the element is already focused. Otherwise it can happen
@@ -551,222 +394,134 @@ let MatInput = /** @class */ (() => {
                 this.focus();
             }
         }
-    }
-    MatInput.decorators = [
-        { type: Directive, args: [{
-                    selector: `input[matInput], textarea[matInput], select[matNativeControl],
-      input[matNativeControl], textarea[matNativeControl]`,
-                    exportAs: 'matInput',
-                    host: {
-                        /**
-                         * \@breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-                         */
-                        'class': 'mat-input-element mat-form-field-autofill-control',
-                        '[class.mat-input-server]': '_isServer',
-                        // Native input properties that are overwritten by Angular inputs need to be synced with
-                        // the native input element. Otherwise property bindings for those don't work.
-                        '[attr.id]': 'id',
-                        '[attr.placeholder]': 'placeholder',
-                        '[disabled]': 'disabled',
-                        '[required]': 'required',
-                        '[attr.readonly]': 'readonly && !_isNativeSelect || null',
-                        '[attr.aria-describedby]': '_ariaDescribedby || null',
-                        '[attr.aria-invalid]': 'errorState',
-                        '[attr.aria-required]': 'required.toString()',
-                    },
-                    providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
-                },] }
-    ];
-    /** @nocollapse */
-    MatInput.ctorParameters = () => [
-        { type: ElementRef },
-        { type: Platform },
-        { type: NgControl, decorators: [{ type: Optional }, { type: Self }] },
-        { type: NgForm, decorators: [{ type: Optional }] },
-        { type: FormGroupDirective, decorators: [{ type: Optional }] },
-        { type: ErrorStateMatcher },
-        { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
-        { type: AutofillMonitor },
-        { type: NgZone }
-    ];
-    MatInput.propDecorators = {
-        disabled: [{ type: Input }],
-        id: [{ type: Input }],
-        placeholder: [{ type: Input }],
-        required: [{ type: Input }],
-        type: [{ type: Input }],
-        errorStateMatcher: [{ type: Input }],
-        value: [{ type: Input }],
-        readonly: [{ type: Input }],
-        _focusChanged: [{ type: HostListener, args: ['focus', ['true'],] }, { type: HostListener, args: ['blur', ['false'],] }],
-        _onInput: [{ type: HostListener, args: ['input',] }]
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], MatInput.prototype, "disabled", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], MatInput.prototype, "id", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", String)
+    ], MatInput.prototype, "placeholder", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], MatInput.prototype, "required", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], MatInput.prototype, "type", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", ErrorStateMatcher)
+    ], MatInput.prototype, "errorStateMatcher", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], MatInput.prototype, "value", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], MatInput.prototype, "readonly", null);
+    __decorate([
+        HostListener('focus', ['true']),
+        HostListener('blur', ['false']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Boolean]),
+        __metadata("design:returntype", void 0)
+    ], MatInput.prototype, "_focusChanged", null);
+    __decorate([
+        HostListener('input'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], MatInput.prototype, "_onInput", null);
+    MatInput = MatInput_1 = __decorate([
+        Directive({
+            selector: `input[matInput], textarea[matInput], select[matNativeControl],
+      input[matNativeControl], textarea[matNativeControl]`,
+            exportAs: 'matInput',
+            host: {
+                /**
+                 * @breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                 */
+                'class': 'mat-input-element mat-form-field-autofill-control',
+                '[class.mat-input-server]': '_isServer',
+                // Native input properties that are overwritten by Angular inputs need to be synced with
+                // the native input element. Otherwise property bindings for those don't work.
+                '[attr.id]': 'id',
+                '[attr.placeholder]': 'placeholder',
+                '[disabled]': 'disabled',
+                '[required]': 'required',
+                '[attr.readonly]': 'readonly && !_isNativeSelect || null',
+                '[attr.aria-describedby]': '_ariaDescribedby || null',
+                '[attr.aria-invalid]': 'errorState',
+                '[attr.aria-required]': 'required.toString()',
+            },
+            providers: [{ provide: MatFormFieldControl, useExisting: MatInput_1 }],
+        }),
+        __param(2, Optional()), __param(2, Self()),
+        __param(3, Optional()),
+        __param(4, Optional()),
+        __param(6, Optional()), __param(6, Self()), __param(6, Inject(MAT_INPUT_VALUE_ACCESSOR)),
+        __metadata("design:paramtypes", [ElementRef,
+            Platform,
+            NgControl,
+            NgForm,
+            FormGroupDirective,
+            ErrorStateMatcher, Object, AutofillMonitor,
+            NgZone])
+    ], MatInput);
     return MatInput;
 })();
-if (false) {
-    /** @type {?} */
-    MatInput.ngAcceptInputType_disabled;
-    /** @type {?} */
-    MatInput.ngAcceptInputType_readonly;
-    /** @type {?} */
-    MatInput.ngAcceptInputType_required;
-    /** @type {?} */
-    MatInput.ngAcceptInputType_value;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._uid;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._previousNativeValue;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatInput.prototype._inputValueAccessor;
-    /**
-     * The aria-describedby attribute on the input for improved a11y.
-     * @type {?}
-     */
-    MatInput.prototype._ariaDescribedby;
-    /**
-     * Whether the component is being rendered on the server.
-     * @type {?}
-     */
-    MatInput.prototype._isServer;
-    /**
-     * Whether the component is a native html select.
-     * @type {?}
-     */
-    MatInput.prototype._isNativeSelect;
-    /**
-     * Whether the component is a textarea.
-     * @type {?}
-     */
-    MatInput.prototype._isTextarea;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * \@docs-private
-     * @type {?}
-     */
-    MatInput.prototype.focused;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * \@docs-private
-     * @type {?}
-     */
-    MatInput.prototype.stateChanges;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * \@docs-private
-     * @type {?}
-     */
-    MatInput.prototype.controlType;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * \@docs-private
-     * @type {?}
-     */
-    MatInput.prototype.autofilled;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._disabled;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._id;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * \@docs-private
-     * @type {?}
-     */
-    MatInput.prototype.placeholder;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._required;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._type;
-    /**
-     * An object used to control when error messages are shown.
-     * @type {?}
-     */
-    MatInput.prototype.errorStateMatcher;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatInput.prototype._readonly;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._neverEmptyInputTypes;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._elementRef;
-    /**
-     * @type {?}
-     * @protected
-     */
-    MatInput.prototype._platform;
-    /**
-     * \@docs-private
-     * @type {?}
-     */
-    MatInput.prototype.ngControl;
-    /**
-     * @type {?}
-     * @private
-     */
-    MatInput.prototype._autofillMonitor;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/input/input-module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 let MatInputModule = /** @class */ (() => {
-    class MatInputModule {
-    }
-    MatInputModule.decorators = [
-        { type: NgModule, args: [{
-                    declarations: [MatInput, MatTextareaAutosize],
-                    imports: [
-                        TextFieldModule,
-                        MatFormFieldModule,
-                    ],
-                    exports: [
-                        TextFieldModule,
-                        // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-                        // be used together with `MatFormField`.
-                        MatFormFieldModule,
-                        MatInput,
-                        MatTextareaAutosize,
-                    ],
-                    providers: [ErrorStateMatcher],
-                },] }
-    ];
+    let MatInputModule = class MatInputModule {
+    };
+    MatInputModule = __decorate([
+        NgModule({
+            declarations: [MatInput, MatTextareaAutosize],
+            imports: [
+                TextFieldModule,
+                MatFormFieldModule,
+            ],
+            exports: [
+                TextFieldModule,
+                // We re-export the `MatFormFieldModule` since `MatInput` will almost always
+                // be used together with `MatFormField`.
+                MatFormFieldModule,
+                MatInput,
+                MatTextareaAutosize,
+            ],
+            providers: [ErrorStateMatcher],
+        })
+    ], MatInputModule);
     return MatInputModule;
 })();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/material/input/public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 
 /**
