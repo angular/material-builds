@@ -373,8 +373,8 @@ class MatDialogContainer extends BasePortalOutlet {
     _recaptureFocus() {
         if (!this._containsFocus()) {
             /** @type {?} */
-            const focusWasTrapped = this._focusTrap.focusInitialElement();
-            if (!focusWasTrapped) {
+            const focusContainer = !this._config.autoFocus || !this._focusTrap.focusInitialElement();
+            if (focusContainer) {
                 this._elementRef.nativeElement.focus();
             }
         }
