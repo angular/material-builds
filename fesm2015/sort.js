@@ -316,12 +316,7 @@ const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  */
 let MatSortHeader = /** @class */ (() => {
     let MatSortHeader = class MatSortHeader extends _MatSortHeaderMixinBase {
-        constructor(_intl, changeDetectorRef, _sort, _columnDef, 
-        /**
-         * @deprecated _focusMonitor and _elementRef to become required parameters.
-         * @breaking-change 10.0.0
-         */
-        _focusMonitor, _elementRef) {
+        constructor(_intl, changeDetectorRef, _sort, _columnDef, _focusMonitor, _elementRef) {
             // Note that we use a string token for the `_columnDef`, because the value is provided both by
             // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
             // and we want to avoid having the sort header depending on the CDK table because
@@ -360,12 +355,10 @@ let MatSortHeader = /** @class */ (() => {
                 }
                 changeDetectorRef.markForCheck();
             });
-            if (_focusMonitor && _elementRef) {
-                // We use the focus monitor because we also want to style
-                // things differently based on the focus origin.
-                _focusMonitor.monitor(_elementRef, true)
-                    .subscribe(origin => this._setIndicatorHintVisible(!!origin));
-            }
+            // We use the focus monitor because we also want to style
+            // things differently based on the focus origin.
+            _focusMonitor.monitor(_elementRef, true)
+                .subscribe(origin => this._setIndicatorHintVisible(!!origin));
         }
         /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
         get disableClear() { return this._disableClear; }
@@ -380,10 +373,7 @@ let MatSortHeader = /** @class */ (() => {
             this._sort.register(this);
         }
         ngOnDestroy() {
-            // @breaking-change 10.0.0 Remove null check for _focusMonitor and _elementRef.
-            if (this._focusMonitor && this._elementRef) {
-                this._focusMonitor.stopMonitoring(this._elementRef);
-            }
+            this._focusMonitor.stopMonitoring(this._elementRef);
             this._sort.deregister(this);
             this._rerenderSubscription.unsubscribe();
         }

@@ -51,12 +51,8 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     _intl: MatSortHeaderIntl;
     _sort: MatSort;
     _columnDef: MatSortHeaderColumnDef;
-    /**
-     * @deprecated _focusMonitor and _elementRef to become required parameters.
-     * @breaking-change 10.0.0
-     */
-    private _focusMonitor?;
-    private _elementRef?;
+    private _focusMonitor;
+    private _elementRef;
     private _rerenderSubscription;
     /**
      * Flag set to true when the indicator should be displayed while the sort is not active. Used to
@@ -88,12 +84,7 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     get disableClear(): boolean;
     set disableClear(v: boolean);
     private _disableClear;
-    constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, 
-    /**
-     * @deprecated _focusMonitor and _elementRef to become required parameters.
-     * @breaking-change 10.0.0
-     */
-    _focusMonitor?: FocusMonitor | undefined, _elementRef?: ElementRef<HTMLElement> | undefined);
+    constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /**

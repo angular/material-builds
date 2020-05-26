@@ -553,12 +553,7 @@
      */
     var MatSortHeader = /** @class */ (function (_super) {
         __extends(MatSortHeader, _super);
-        function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef, 
-        /**
-         * @deprecated _focusMonitor and _elementRef to become required parameters.
-         * @breaking-change 10.0.0
-         */
-        _focusMonitor, _elementRef) {
+        function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef, _focusMonitor, _elementRef) {
             var _this = 
             // Note that we use a string token for the `_columnDef`, because the value is provided both by
             // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
@@ -598,12 +593,10 @@
                 }
                 changeDetectorRef.markForCheck();
             });
-            if (_focusMonitor && _elementRef) {
-                // We use the focus monitor because we also want to style
-                // things differently based on the focus origin.
-                _focusMonitor.monitor(_elementRef, true)
-                    .subscribe(function (origin) { return _this._setIndicatorHintVisible(!!origin); });
-            }
+            // We use the focus monitor because we also want to style
+            // things differently based on the focus origin.
+            _focusMonitor.monitor(_elementRef, true)
+                .subscribe(function (origin) { return _this._setIndicatorHintVisible(!!origin); });
             return _this;
         }
         Object.defineProperty(MatSortHeader.prototype, "disableClear", {
@@ -623,10 +616,7 @@
             this._sort.register(this);
         };
         MatSortHeader.prototype.ngOnDestroy = function () {
-            // @breaking-change 10.0.0 Remove null check for _focusMonitor and _elementRef.
-            if (this._focusMonitor && this._elementRef) {
-                this._focusMonitor.stopMonitoring(this._elementRef);
-            }
+            this._focusMonitor.stopMonitoring(this._elementRef);
             this._sort.deregister(this);
             this._rerenderSubscription.unsubscribe();
         };
