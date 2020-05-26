@@ -521,9 +521,7 @@
             'you\'re attempting to open it after the ngAfterContentInit hook.');
     }
     var MatAutocompleteTrigger = /** @class */ (function () {
-        function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, 
-        // @breaking-change 8.0.0 Make `_viewportRuler` required.
-        _viewportRuler) {
+        function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
             var _this = this;
             this._element = _element;
             this._overlay = _overlay;
@@ -955,13 +953,11 @@
                         event.preventDefault();
                     }
                 });
-                if (this._viewportRuler) {
-                    this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
-                        if (_this.panelOpen && overlayRef) {
-                            overlayRef.updateSize({ width: _this._getPanelWidth() });
-                        }
-                    });
-                }
+                this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
+                    if (_this.panelOpen && overlayRef) {
+                        overlayRef.updateSize({ width: _this._getPanelWidth() });
+                    }
+                });
             }
             else {
                 // Update the trigger, panel width and direction, in case anything has changed.

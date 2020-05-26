@@ -289,9 +289,7 @@ function getMatAutocompleteMissingPanelError() {
 }
 let MatAutocompleteTrigger = /** @class */ (() => {
     let MatAutocompleteTrigger = class MatAutocompleteTrigger {
-        constructor(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, 
-        // @breaking-change 8.0.0 Make `_viewportRuler` required.
-        _viewportRuler) {
+        constructor(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
             this._element = _element;
             this._overlay = _overlay;
             this._viewContainerRef = _viewContainerRef;
@@ -699,13 +697,11 @@ let MatAutocompleteTrigger = /** @class */ (() => {
                         event.preventDefault();
                     }
                 });
-                if (this._viewportRuler) {
-                    this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
-                        if (this.panelOpen && overlayRef) {
-                            overlayRef.updateSize({ width: this._getPanelWidth() });
-                        }
-                    });
-                }
+                this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
+                    if (this.panelOpen && overlayRef) {
+                        overlayRef.updateSize({ width: this._getPanelWidth() });
+                    }
+                });
             }
             else {
                 // Update the trigger, panel width and direction, in case anything has changed.

@@ -54,7 +54,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _dir;
     private _formField;
     private _document;
-    private _viewportRuler?;
+    private _viewportRuler;
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
@@ -115,7 +115,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      */
     get autocompleteDisabled(): boolean;
     set autocompleteDisabled(value: boolean);
-    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler);
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
