@@ -91,13 +91,7 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  */
 let MatTooltip = /** @class */ (() => {
     let MatTooltip = class MatTooltip {
-        constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
-        /**
-         * @deprecated _hammerLoader parameter to be removed.
-         * @breaking-change 9.0.0
-         */
-        // Note that we need to give Angular something to inject here so it doesn't throw.
-        _hammerLoader) {
+        constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
             this._overlay = _overlay;
             this._elementRef = _elementRef;
             this._scrollDispatcher = _scrollDispatcher;
@@ -527,7 +521,6 @@ let MatTooltip = /** @class */ (() => {
         __param(8, Inject(MAT_TOOLTIP_SCROLL_STRATEGY)),
         __param(9, Optional()),
         __param(10, Optional()), __param(10, Inject(MAT_TOOLTIP_DEFAULT_OPTIONS)),
-        __param(11, Inject(ElementRef)),
         __metadata("design:paramtypes", [Overlay,
             ElementRef,
             ScrollDispatcher,
@@ -535,7 +528,7 @@ let MatTooltip = /** @class */ (() => {
             NgZone,
             Platform,
             AriaDescriber,
-            FocusMonitor, Object, Directionality, Object, Object])
+            FocusMonitor, Object, Directionality, Object])
     ], MatTooltip);
     return MatTooltip;
 })();

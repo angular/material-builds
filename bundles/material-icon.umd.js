@@ -294,9 +294,7 @@
      * - Loads icons from URLs and extracts individual icons from icon sets.
      */
     var MatIconRegistry = /** @class */ (function () {
-        function MatIconRegistry(_httpClient, _sanitizer, document, 
-        // @breaking-change 9.0.0 _errorHandler parameter to be made required
-        _errorHandler) {
+        function MatIconRegistry(_httpClient, _sanitizer, document, _errorHandler) {
             this._httpClient = _httpClient;
             this._sanitizer = _sanitizer;
             this._errorHandler = _errorHandler;
@@ -524,13 +522,7 @@
                     // Swallow errors fetching individual URLs so the
                     // combined Observable won't necessarily fail.
                     var errorMessage = "Loading icon set URL: " + url + " failed: " + err.message;
-                    // @breaking-change 9.0.0 _errorHandler parameter to be made required
-                    if (_this._errorHandler) {
-                        _this._errorHandler.handleError(new Error(errorMessage));
-                    }
-                    else {
-                        console.error(errorMessage);
-                    }
+                    _this._errorHandler.handleError(new Error(errorMessage));
                     return rxjs.of(null);
                 }));
             });
@@ -738,19 +730,18 @@
             }
             return this;
         };
-        MatIconRegistry.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler, 8)); }, token: MatIconRegistry, providedIn: "root" });
+        MatIconRegistry.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
         MatIconRegistry = __decorate([
             i0.Injectable({ providedIn: 'root' }),
             __param(0, i0.Optional()),
             __param(2, i0.Optional()), __param(2, i0.Inject(i3.DOCUMENT)),
-            __param(3, i0.Optional()),
             __metadata("design:paramtypes", [i1.HttpClient,
                 i2.DomSanitizer, Object, i0.ErrorHandler])
         ], MatIconRegistry);
         return MatIconRegistry;
     }());
     /** @docs-private */
-    function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document, errorHandler) {
+    function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, errorHandler, document) {
         return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document, errorHandler);
     }
     /** @docs-private */
@@ -761,7 +752,7 @@
             [new i0.Optional(), new i0.SkipSelf(), MatIconRegistry],
             [new i0.Optional(), i1.HttpClient],
             i2.DomSanitizer,
-            [new i0.Optional(), i0.ErrorHandler],
+            i0.ErrorHandler,
             [new i0.Optional(), i3.DOCUMENT],
         ],
         useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
@@ -859,14 +850,7 @@
      */
     var MatIcon = /** @class */ (function (_super) {
         __extends(MatIcon, _super);
-        function MatIcon(elementRef, _iconRegistry, ariaHidden, 
-        /**
-         * @deprecated `location` parameter to be made required.
-         * @breaking-change 8.0.0
-         */
-        _location, 
-        // @breaking-change 9.0.0 _errorHandler parameter to be made required
-        _errorHandler) {
+        function MatIcon(elementRef, _iconRegistry, ariaHidden, _location, _errorHandler) {
             var _this = _super.call(this, elementRef) || this;
             _this._iconRegistry = _iconRegistry;
             _this._location = _location;
@@ -949,13 +933,7 @@
                         .pipe(operators.take(1))
                         .subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) {
                         var errorMessage = "Error retrieving icon " + namespace_1 + ":" + iconName_1 + "! " + err.message;
-                        // @breaking-change 9.0.0 _errorHandler parameter to be made required.
-                        if (_this._errorHandler) {
-                            _this._errorHandler.handleError(new Error(errorMessage));
-                        }
-                        else {
-                            console.error(errorMessage);
-                        }
+                        _this._errorHandler.handleError(new Error(errorMessage));
                     });
                 }
                 else if (svgIconChanges.previousValue) {
@@ -975,7 +953,7 @@
         };
         MatIcon.prototype.ngAfterViewChecked = function () {
             var cachedElements = this._elementsWithExternalReferences;
-            if (cachedElements && this._location && cachedElements.size) {
+            if (cachedElements && cachedElements.size) {
                 var newPath = this._location.getPathname();
                 // We need to check whether the URL has changed on each change detection since
                 // the browser doesn't have an API that will let us react on link clicks and
@@ -1009,12 +987,10 @@
             }
             // Note: we do this fix here, rather than the icon registry, because the
             // references have to point to the URL at the time that the icon was created.
-            if (this._location) {
-                var path = this._location.getPathname();
-                this._previousPath = path;
-                this._cacheChildrenWithExternalReferences(svg);
-                this._prependPathToReferences(path);
-            }
+            var path = this._location.getPathname();
+            this._previousPath = path;
+            this._cacheChildrenWithExternalReferences(svg);
+            this._prependPathToReferences(path);
             this._elementRef.nativeElement.appendChild(svg);
         };
         MatIcon.prototype._clearSvgElement = function () {
@@ -1147,8 +1123,7 @@
                 styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}\n"]
             }),
             __param(2, i0.Attribute('aria-hidden')),
-            __param(3, i0.Optional()), __param(3, i0.Inject(MAT_ICON_LOCATION)),
-            __param(4, i0.Optional()),
+            __param(3, i0.Inject(MAT_ICON_LOCATION)),
             __metadata("design:paramtypes", [i0.ElementRef, MatIconRegistry, String, Object, i0.ErrorHandler])
         ], MatIcon);
         return MatIcon;

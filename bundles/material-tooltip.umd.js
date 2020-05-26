@@ -307,13 +307,7 @@
      * https://material.io/design/components/tooltips.html
      */
     var MatTooltip = /** @class */ (function () {
-        function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
-        /**
-         * @deprecated _hammerLoader parameter to be removed.
-         * @breaking-change 9.0.0
-         */
-        // Note that we need to give Angular something to inject here so it doesn't throw.
-        _hammerLoader) {
+        function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
             var _this = this;
             this._overlay = _overlay;
             this._elementRef = _elementRef;
@@ -766,7 +760,6 @@
             __param(8, core.Inject(MAT_TOOLTIP_SCROLL_STRATEGY)),
             __param(9, core.Optional()),
             __param(10, core.Optional()), __param(10, core.Inject(MAT_TOOLTIP_DEFAULT_OPTIONS)),
-            __param(11, core.Inject(core.ElementRef)),
             __metadata("design:paramtypes", [overlay.Overlay,
                 core.ElementRef,
                 scrolling.ScrollDispatcher,
@@ -774,7 +767,7 @@
                 core.NgZone,
                 platform.Platform,
                 a11y.AriaDescriber,
-                a11y.FocusMonitor, Object, bidi.Directionality, Object, Object])
+                a11y.FocusMonitor, Object, bidi.Directionality, Object])
         ], MatTooltip);
         return MatTooltip;
     }());

@@ -59,12 +59,8 @@ export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
  */
 export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnInit, AfterViewChecked, CanColor, OnDestroy {
     private _iconRegistry;
-    /**
-     * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0
-     */
-    private _location?;
-    private readonly _errorHandler?;
+    private _location;
+    private readonly _errorHandler;
     /**
      * Whether the icon should be inlined, automatically sizing the icon to match the font size of
      * the element the icon is contained in.
@@ -90,12 +86,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _elementsWithExternalReferences?;
     /** Subscription to the current in-progress SVG icon request. */
     private _currentIconFetch;
-    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, 
-    /**
-     * @deprecated `location` parameter to be made required.
-     * @breaking-change 8.0.0
-     */
-    _location?: MatIconLocation | undefined, _errorHandler?: ErrorHandler | undefined);
+    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, _location: MatIconLocation, _errorHandler: ErrorHandler);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].

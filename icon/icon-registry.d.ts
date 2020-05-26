@@ -50,7 +50,7 @@ export interface IconOptions {
 export declare class MatIconRegistry implements OnDestroy {
     private _httpClient;
     private _sanitizer;
-    private readonly _errorHandler?;
+    private readonly _errorHandler;
     private _document;
     /**
      * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
@@ -73,7 +73,7 @@ export declare class MatIconRegistry implements OnDestroy {
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
     private _defaultFontSetClass;
-    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any, _errorHandler?: ErrorHandler | undefined);
+    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any, _errorHandler: ErrorHandler);
     /**
      * Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.
@@ -238,10 +238,10 @@ export declare class MatIconRegistry implements OnDestroy {
     private _addSvgIconSetConfig;
 }
 /** @docs-private */
-export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any, errorHandler?: ErrorHandler): MatIconRegistry;
+export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;
 /** @docs-private */
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MatIconRegistry;
-    deps: (Optional[] | typeof DomSanitizer)[];
+    deps: (Optional[] | typeof DomSanitizer | typeof ErrorHandler)[];
     useFactory: typeof ICON_REGISTRY_PROVIDER_FACTORY;
 };
