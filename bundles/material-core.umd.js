@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/common'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', '@angular/common', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.common, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.ng.platformBrowser, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
-}(this, (function (exports, i0, a11y, bidi, cdk, common, coercion, rxjs, platform, platformBrowser, operators, animations, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/common'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', '@angular/common', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.common, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
+}(this, (function (exports, i0, a11y, bidi, cdk, common, coercion, rxjs, platform, operators, animations, keycodes) { 'use strict';
 
     /**
      * @license
@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.0.0-next.1-sha-44accd652');
+    var VERSION = new i0.Version('10.0.0-next.1-sha-9e5fbd8ab');
 
     /**
      * @license
@@ -280,7 +280,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.0.0-next.1-sha-44accd652');
+    var VERSION$1 = new i0.Version('10.0.0-next.1-sha-9e5fbd8ab');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1120,127 +1120,6 @@
         ], ErrorStateMatcher);
         return ErrorStateMatcher;
     }());
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
-     * Injection token that can be used to provide options to the Hammerjs instance.
-     * More info at http://hammerjs.github.io/api/.
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 10.0.0
-     */
-    var MAT_HAMMER_OPTIONS = new i0.InjectionToken('MAT_HAMMER_OPTIONS');
-    var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
-        'longpress',
-        'slide',
-        'slidestart',
-        'slideend',
-        'slideright',
-        'slideleft'
-    ];
-    var ɵ0$2 = function () { }, ɵ1 = function () { };
-    /**
-     * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
-     * been loaded on the page.
-     */
-    var noopHammerInstance = {
-        on: ɵ0$2,
-        off: ɵ1,
-    };
-    /**
-     * Adjusts configuration of our gesture library, Hammer.
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 10.0.0
-     */
-    var GestureConfig = /** @class */ (function (_super) {
-        __extends(GestureConfig, _super);
-        function GestureConfig(_hammerOptions, _commonModule) {
-            var _this = _super.call(this) || this;
-            _this._hammerOptions = _hammerOptions;
-            /** List of new event names to add to the gesture support list */
-            _this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
-            return _this;
-        }
-        /**
-         * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
-         *
-         * Our gesture names come from the Material Design gestures spec:
-         * https://material.io/design/#gestures-touch-mechanics
-         *
-         * More information on default recognizers can be found in Hammer docs:
-         * http://hammerjs.github.io/recognizer-pan/
-         * http://hammerjs.github.io/recognizer-press/
-         *
-         * @param element Element to which to assign the new HammerJS gestures.
-         * @returns Newly-created HammerJS instance.
-         */
-        GestureConfig.prototype.buildHammer = function (element) {
-            var hammer = typeof window !== 'undefined' ? window.Hammer : null;
-            if (!hammer) {
-                // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
-                // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
-                // the lazy-loading of HammerJS via the HAMMER_LOADER token introduced in Angular 6.1.
-                // Because we can't depend on HAMMER_LOADER's existance until 7.0, we have to always set
-                // `this.events` to the set we support, instead of conditionally setting it to `[]` if
-                // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
-                // undefined).
-                // @breaking-change 8.0.0
-                return noopHammerInstance;
-            }
-            var mc = new hammer(element, this._hammerOptions || undefined);
-            // Default Hammer Recognizers.
-            var pan = new hammer.Pan();
-            var swipe = new hammer.Swipe();
-            var press = new hammer.Press();
-            // Notice that a HammerJS recognizer can only depend on one other recognizer once.
-            // Otherwise the previous `recognizeWith` will be dropped.
-            // TODO: Confirm threshold numbers with Material Design UX Team
-            var slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
-            var longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
-            // Overwrite the default `pan` event to use the swipe event.
-            pan.recognizeWith(swipe);
-            // Since the slide event threshold is set to zero, the slide recognizer can fire and
-            // accidentally reset the longpress recognizer. In order to make sure that the two
-            // recognizers can run simultaneously but don't affect each other, we allow the slide
-            // recognizer to recognize while a longpress is being processed.
-            // See: https://github.com/hammerjs/hammer.js/blob/master/src/manager.js#L123-L124
-            longpress.recognizeWith(slide);
-            // Add customized gestures to Hammer manager
-            mc.add([swipe, press, pan, slide, longpress]);
-            return mc;
-        };
-        /** Creates a new recognizer, without affecting the default recognizers of HammerJS */
-        GestureConfig.prototype._createRecognizer = function (base, options) {
-            var inheritances = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                inheritances[_i - 2] = arguments[_i];
-            }
-            var recognizer = new base.constructor(options);
-            inheritances.push(base);
-            inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
-            return recognizer;
-        };
-        GestureConfig = __decorate([
-            i0.Injectable(),
-            __param(0, i0.Optional()), __param(0, i0.Inject(MAT_HAMMER_OPTIONS)),
-            __param(1, i0.Optional()),
-            __metadata("design:paramtypes", [Object, MatCommonModule])
-        ], GestureConfig);
-        return GestureConfig;
-    }(platformBrowser.HammerGestureConfig));
 
     /**
      * @license
@@ -2268,7 +2147,6 @@
     exports.DateAdapter = DateAdapter;
     exports.ErrorStateMatcher = ErrorStateMatcher;
     exports.FEB = FEB;
-    exports.GestureConfig = GestureConfig;
     exports.JAN = JAN;
     exports.JUL = JUL;
     exports.JUN = JUN;
@@ -2278,7 +2156,6 @@
     exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
     exports.MAT_DATE_LOCALE_FACTORY = MAT_DATE_LOCALE_FACTORY;
     exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
-    exports.MAT_HAMMER_OPTIONS = MAT_HAMMER_OPTIONS;
     exports.MAT_LABEL_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
     exports.MAT_NATIVE_DATE_FORMATS = MAT_NATIVE_DATE_FORMATS;
     exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
@@ -2317,7 +2194,6 @@
     exports.mixinTabIndex = mixinTabIndex;
     exports.setLines = setLines;
     exports.ɵ0 = ɵ0$1;
-    exports.ɵ1 = ɵ1;
     exports.ɵangular_material_src_material_core_core_a = MATERIAL_SANITY_CHECKS_FACTORY;
 
     Object.defineProperty(exports, '__esModule', { value: true });
