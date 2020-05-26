@@ -520,6 +520,9 @@ let MatTooltip = /** @class */ (() => {
         Directive({
             selector: '[matTooltip]',
             exportAs: 'matTooltip',
+            host: {
+                'class': 'mat-tooltip-trigger'
+            }
         }),
         __param(8, Inject(MAT_TOOLTIP_SCROLL_STRATEGY)),
         __param(9, Optional()),

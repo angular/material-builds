@@ -759,6 +759,9 @@
             core.Directive({
                 selector: '[matTooltip]',
                 exportAs: 'matTooltip',
+                host: {
+                    'class': 'mat-tooltip-trigger'
+                }
             }),
             __param(8, core.Inject(MAT_TOOLTIP_SCROLL_STRATEGY)),
             __param(9, core.Optional()),

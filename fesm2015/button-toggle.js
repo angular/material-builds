@@ -28,12 +28,6 @@ const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     useExisting: forwardRef(() => MatButtonToggleGroup),
     multi: true
 };
-/**
- * @deprecated Use `MatButtonToggleGroup` instead.
- * @breaking-change 8.0.0
- */
-class MatButtonToggleGroupMultiple {
-}
 let _uniqueIdCounter = 0;
 /** Change event object emitted by MatButtonToggle. */
 class MatButtonToggleChange {
@@ -48,8 +42,7 @@ class MatButtonToggleChange {
 }
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
 let MatButtonToggleGroup = /** @class */ (() => {
-    var MatButtonToggleGroup_1;
-    let MatButtonToggleGroup = MatButtonToggleGroup_1 = class MatButtonToggleGroup {
+    let MatButtonToggleGroup = class MatButtonToggleGroup {
         constructor(_changeDetector, defaultOptions) {
             this._changeDetector = _changeDetector;
             this._vertical = false;
@@ -291,13 +284,10 @@ let MatButtonToggleGroup = /** @class */ (() => {
         Output(),
         __metadata("design:type", EventEmitter)
     ], MatButtonToggleGroup.prototype, "change", void 0);
-    MatButtonToggleGroup = MatButtonToggleGroup_1 = __decorate([
+    MatButtonToggleGroup = __decorate([
         Directive({
             selector: 'mat-button-toggle-group',
-            providers: [
-                MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
-                { provide: MatButtonToggleGroupMultiple, useExisting: MatButtonToggleGroup_1 },
-            ],
+            providers: [MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
             host: {
                 'role': 'group',
                 'class': 'mat-button-toggle-group',
@@ -320,9 +310,7 @@ const _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
 /** Single button inside of a toggle group. */
 let MatButtonToggle = /** @class */ (() => {
     let MatButtonToggle = class MatButtonToggle extends _MatButtonToggleMixinBase {
-        constructor(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, 
-        // @breaking-change 8.0.0 `defaultTabIndex` to be made a required parameter.
-        defaultTabIndex, defaultOptions) {
+        constructor(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, defaultTabIndex, defaultOptions) {
             super();
             this._changeDetectorRef = _changeDetectorRef;
             this._elementRef = _elementRef;
@@ -542,5 +530,5 @@ let MatButtonToggleModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleGroupMultiple, MatButtonToggleModule };
+export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleModule };
 //# sourceMappingURL=button-toggle.js.map

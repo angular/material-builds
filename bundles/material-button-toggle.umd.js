@@ -254,15 +254,6 @@
         useExisting: core.forwardRef(function () { return MatButtonToggleGroup; }),
         multi: true
     };
-    /**
-     * @deprecated Use `MatButtonToggleGroup` instead.
-     * @breaking-change 8.0.0
-     */
-    var MatButtonToggleGroupMultiple = /** @class */ (function () {
-        function MatButtonToggleGroupMultiple() {
-        }
-        return MatButtonToggleGroupMultiple;
-    }());
     var _uniqueIdCounter = 0;
     /** Change event object emitted by MatButtonToggle. */
     var MatButtonToggleChange = /** @class */ (function () {
@@ -302,7 +293,6 @@
             this.appearance =
                 defaultOptions && defaultOptions.appearance ? defaultOptions.appearance : 'standard';
         }
-        MatButtonToggleGroup_1 = MatButtonToggleGroup;
         Object.defineProperty(MatButtonToggleGroup.prototype, "name", {
             /** `name` attribute for the underlying `input` element. */
             get: function () { return this._name; },
@@ -504,7 +494,6 @@
             // it is used by Angular to sync up the two-way data binding.
             this.valueChange.emit(this.value);
         };
-        var MatButtonToggleGroup_1;
         __decorate([
             core.ContentChildren(core.forwardRef(function () { return MatButtonToggle; }), {
                 // Note that this would technically pick up toggles
@@ -550,13 +539,10 @@
             core.Output(),
             __metadata("design:type", core.EventEmitter)
         ], MatButtonToggleGroup.prototype, "change", void 0);
-        MatButtonToggleGroup = MatButtonToggleGroup_1 = __decorate([
+        MatButtonToggleGroup = __decorate([
             core.Directive({
                 selector: 'mat-button-toggle-group',
-                providers: [
-                    MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
-                    { provide: MatButtonToggleGroupMultiple, useExisting: MatButtonToggleGroup_1 },
-                ],
+                providers: [MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
                 host: {
                     'role': 'group',
                     'class': 'mat-button-toggle-group',
@@ -582,9 +568,7 @@
     /** Single button inside of a toggle group. */
     var MatButtonToggle = /** @class */ (function (_super) {
         __extends(MatButtonToggle, _super);
-        function MatButtonToggle(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, 
-        // @breaking-change 8.0.0 `defaultTabIndex` to be made a required parameter.
-        defaultTabIndex, defaultOptions) {
+        function MatButtonToggle(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, defaultTabIndex, defaultOptions) {
             var _this = _super.call(this) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._elementRef = _elementRef;
@@ -825,7 +809,6 @@
     exports.MatButtonToggle = MatButtonToggle;
     exports.MatButtonToggleChange = MatButtonToggleChange;
     exports.MatButtonToggleGroup = MatButtonToggleGroup;
-    exports.MatButtonToggleGroupMultiple = MatButtonToggleGroupMultiple;
     exports.MatButtonToggleModule = MatButtonToggleModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
