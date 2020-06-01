@@ -455,35 +455,38 @@
                 Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
             }
         };
-        __decorate([
-            i0.ViewChild(portal.CdkPortalOutlet, { static: true }),
-            __metadata("design:type", portal.CdkPortalOutlet)
-        ], MatBottomSheetContainer.prototype, "_portalOutlet", void 0);
-        MatBottomSheetContainer = __decorate([
-            i0.Component({
-                selector: 'mat-bottom-sheet-container',
-                template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
-                changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                encapsulation: i0.ViewEncapsulation.None,
-                animations: [matBottomSheetAnimations.bottomSheetState],
-                host: {
-                    'class': 'mat-bottom-sheet-container',
-                    'tabindex': '-1',
-                    'role': 'dialog',
-                    'aria-modal': 'true',
-                    '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
-                    '[@state]': '_animationState',
-                    '(@state.start)': '_onAnimationStart($event)',
-                    '(@state.done)': '_onAnimationDone($event)'
-                },
-                styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
-            }),
-            __param(4, i0.Optional()), __param(4, i0.Inject(i2.DOCUMENT)),
-            __metadata("design:paramtypes", [i0.ElementRef,
-                i0.ChangeDetectorRef,
-                a11y.FocusTrapFactory,
-                layout.BreakpointObserver, Object, MatBottomSheetConfig])
-        ], MatBottomSheetContainer);
+        MatBottomSheetContainer.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'mat-bottom-sheet-container',
+                        template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        encapsulation: i0.ViewEncapsulation.None,
+                        animations: [matBottomSheetAnimations.bottomSheetState],
+                        host: {
+                            'class': 'mat-bottom-sheet-container',
+                            'tabindex': '-1',
+                            'role': 'dialog',
+                            'aria-modal': 'true',
+                            '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
+                            '[@state]': '_animationState',
+                            '(@state.start)': '_onAnimationStart($event)',
+                            '(@state.done)': '_onAnimationDone($event)'
+                        },
+                        styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
+                    }] }
+        ];
+        /** @nocollapse */
+        MatBottomSheetContainer.ctorParameters = function () { return [
+            { type: i0.ElementRef },
+            { type: i0.ChangeDetectorRef },
+            { type: a11y.FocusTrapFactory },
+            { type: layout.BreakpointObserver },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [i2.DOCUMENT,] }] },
+            { type: MatBottomSheetConfig }
+        ]; };
+        MatBottomSheetContainer.propDecorators = {
+            _portalOutlet: [{ type: i0.ViewChild, args: [portal.CdkPortalOutlet, { static: true },] }]
+        };
         return MatBottomSheetContainer;
     }(portal.BasePortalOutlet));
 
@@ -497,18 +500,18 @@
     var MatBottomSheetModule = /** @class */ (function () {
         function MatBottomSheetModule() {
         }
-        MatBottomSheetModule = __decorate([
-            i0.NgModule({
-                imports: [
-                    i1.OverlayModule,
-                    core.MatCommonModule,
-                    portal.PortalModule,
-                ],
-                exports: [MatBottomSheetContainer, core.MatCommonModule],
-                declarations: [MatBottomSheetContainer],
-                entryComponents: [MatBottomSheetContainer],
-            })
-        ], MatBottomSheetModule);
+        MatBottomSheetModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [
+                            i1.OverlayModule,
+                            core.MatCommonModule,
+                            portal.PortalModule,
+                        ],
+                        exports: [MatBottomSheetContainer, core.MatCommonModule],
+                        declarations: [MatBottomSheetContainer],
+                        entryComponents: [MatBottomSheetContainer],
+                    },] }
+        ];
         return MatBottomSheetModule;
     }());
 
@@ -737,18 +740,18 @@
             }
             return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
         };
+        MatBottomSheet.decorators = [
+            { type: i0.Injectable, args: [{ providedIn: MatBottomSheetModule },] }
+        ];
+        /** @nocollapse */
+        MatBottomSheet.ctorParameters = function () { return [
+            { type: i1.Overlay },
+            { type: i0.Injector },
+            { type: MatBottomSheet, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] },
+            { type: i2.Location, decorators: [{ type: i0.Optional }] },
+            { type: MatBottomSheetConfig, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
+        ]; };
         MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(i2.Location, 8), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
-        MatBottomSheet = __decorate([
-            i0.Injectable({ providedIn: MatBottomSheetModule }),
-            __param(2, i0.Optional()), __param(2, i0.SkipSelf()),
-            __param(3, i0.Optional()),
-            __param(4, i0.Optional()), __param(4, i0.Inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS)),
-            __metadata("design:paramtypes", [i1.Overlay,
-                i0.Injector,
-                MatBottomSheet,
-                i2.Location,
-                MatBottomSheetConfig])
-        ], MatBottomSheet);
         return MatBottomSheet;
     }());
     /**

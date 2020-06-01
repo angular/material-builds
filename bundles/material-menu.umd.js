@@ -360,17 +360,21 @@
                 this._outlet.dispose();
             }
         };
-        MatMenuContent = __decorate([
-            core.Directive({
-                selector: 'ng-template[matMenuContent]'
-            }),
-            __param(5, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [core.TemplateRef,
-                core.ComponentFactoryResolver,
-                core.ApplicationRef,
-                core.Injector,
-                core.ViewContainerRef, Object, core.ChangeDetectorRef])
-        ], MatMenuContent);
+        MatMenuContent.decorators = [
+            { type: core.Directive, args: [{
+                        selector: 'ng-template[matMenuContent]'
+                    },] }
+        ];
+        /** @nocollapse */
+        MatMenuContent.ctorParameters = function () { return [
+            { type: core.TemplateRef },
+            { type: core.ComponentFactoryResolver },
+            { type: core.ApplicationRef },
+            { type: core.Injector },
+            { type: core.ViewContainerRef },
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: core.ChangeDetectorRef }
+        ]; };
         return MatMenuContent;
     }());
 
@@ -535,45 +539,38 @@
             }
             return output.trim();
         };
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], MatMenuItem.prototype, "role", void 0);
-        __decorate([
-            core.HostListener('click', ['$event']),
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", [Event]),
-            __metadata("design:returntype", void 0)
-        ], MatMenuItem.prototype, "_checkDisabled", null);
-        __decorate([
-            core.HostListener('mouseenter'),
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", []),
-            __metadata("design:returntype", void 0)
-        ], MatMenuItem.prototype, "_handleMouseEnter", null);
-        MatMenuItem = __decorate([
-            core.Component({
-                selector: '[mat-menu-item]',
-                exportAs: 'matMenuItem',
-                inputs: ['disabled', 'disableRipple'],
-                host: {
-                    '[attr.role]': 'role',
-                    '[class.mat-menu-item]': 'true',
-                    '[class.mat-menu-item-highlighted]': '_highlighted',
-                    '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.disabled]': 'disabled || null',
-                    'class': 'mat-focus-indicator',
-                },
-                changeDetection: core.ChangeDetectionStrategy.OnPush,
-                encapsulation: core.ViewEncapsulation.None,
-                template: "<ng-content></ng-content>\n<div class=\"mat-menu-ripple\" matRipple\n     [matRippleDisabled]=\"disableRipple || disabled\"\n     [matRippleTrigger]=\"_getHostElement()\">\n</div>\n"
-            }),
-            __param(1, core.Inject(common.DOCUMENT)),
-            __param(3, core.Inject(MAT_MENU_PANEL)), __param(3, core.Optional()),
-            __metadata("design:paramtypes", [core.ElementRef, Object, a11y.FocusMonitor, Object])
-        ], MatMenuItem);
+        MatMenuItem.decorators = [
+            { type: core.Component, args: [{
+                        selector: '[mat-menu-item]',
+                        exportAs: 'matMenuItem',
+                        inputs: ['disabled', 'disableRipple'],
+                        host: {
+                            '[attr.role]': 'role',
+                            '[class.mat-menu-item]': 'true',
+                            '[class.mat-menu-item-highlighted]': '_highlighted',
+                            '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
+                            '[attr.tabindex]': '_getTabIndex()',
+                            '[attr.aria-disabled]': 'disabled.toString()',
+                            '[attr.disabled]': 'disabled || null',
+                            'class': 'mat-focus-indicator',
+                        },
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        encapsulation: core.ViewEncapsulation.None,
+                        template: "<ng-content></ng-content>\n<div class=\"mat-menu-ripple\" matRipple\n     [matRippleDisabled]=\"disableRipple || disabled\"\n     [matRippleTrigger]=\"_getHostElement()\">\n</div>\n"
+                    }] }
+        ];
+        /** @nocollapse */
+        MatMenuItem.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: a11y.FocusMonitor },
+            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] }
+        ]; };
+        MatMenuItem.propDecorators = {
+            role: [{ type: core.Input }],
+            _checkDisabled: [{ type: core.HostListener, args: ['click', ['$event'],] }],
+            _handleMouseEnter: [{ type: core.HostListener, args: ['mouseenter',] }]
+        };
         return MatMenuItem;
     }(_MatMenuItemMixinBase));
 
@@ -919,84 +916,33 @@
                 _this._directDescendantItems.notifyOnChanges();
             });
         };
-        __decorate([
-            core.ContentChildren(MatMenuItem, { descendants: true }),
-            __metadata("design:type", core.QueryList)
-        ], _MatMenuBase.prototype, "_allItems", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], _MatMenuBase.prototype, "backdropClass", void 0);
-        __decorate([
-            core.Input('aria-label'),
-            __metadata("design:type", String)
-        ], _MatMenuBase.prototype, "ariaLabel", void 0);
-        __decorate([
-            core.Input('aria-labelledby'),
-            __metadata("design:type", String)
-        ], _MatMenuBase.prototype, "ariaLabelledby", void 0);
-        __decorate([
-            core.Input('aria-describedby'),
-            __metadata("design:type", String)
-        ], _MatMenuBase.prototype, "ariaDescribedby", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], _MatMenuBase.prototype, "xPosition", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], _MatMenuBase.prototype, "yPosition", null);
-        __decorate([
-            core.ViewChild(core.TemplateRef),
-            __metadata("design:type", core.TemplateRef)
-        ], _MatMenuBase.prototype, "templateRef", void 0);
-        __decorate([
-            core.ContentChildren(MatMenuItem, { descendants: false }),
-            __metadata("design:type", core.QueryList)
-        ], _MatMenuBase.prototype, "items", void 0);
-        __decorate([
-            core.ContentChild(MatMenuContent),
-            __metadata("design:type", MatMenuContent)
-        ], _MatMenuBase.prototype, "lazyContent", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], _MatMenuBase.prototype, "overlapTrigger", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], _MatMenuBase.prototype, "hasBackdrop", null);
-        __decorate([
-            core.Input('class'),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], _MatMenuBase.prototype, "panelClass", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], _MatMenuBase.prototype, "classList", null);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], _MatMenuBase.prototype, "closed", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], _MatMenuBase.prototype, "close", void 0);
-        _MatMenuBase = __decorate([
-            core.Directive()
-            // tslint:disable-next-line:class-name
-            ,
-            __param(2, core.Inject(MAT_MENU_DEFAULT_OPTIONS)),
-            __metadata("design:paramtypes", [core.ElementRef,
-                core.NgZone, Object])
-        ], _MatMenuBase);
+        _MatMenuBase.decorators = [
+            { type: core.Directive }
+        ];
+        /** @nocollapse */
+        _MatMenuBase.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: core.NgZone },
+            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
+        ]; };
+        _MatMenuBase.propDecorators = {
+            _allItems: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: true },] }],
+            backdropClass: [{ type: core.Input }],
+            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+            ariaDescribedby: [{ type: core.Input, args: ['aria-describedby',] }],
+            xPosition: [{ type: core.Input }],
+            yPosition: [{ type: core.Input }],
+            templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
+            items: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: false },] }],
+            lazyContent: [{ type: core.ContentChild, args: [MatMenuContent,] }],
+            overlapTrigger: [{ type: core.Input }],
+            hasBackdrop: [{ type: core.Input }],
+            panelClass: [{ type: core.Input, args: ['class',] }],
+            classList: [{ type: core.Input }],
+            closed: [{ type: core.Output }],
+            close: [{ type: core.Output }]
+        };
         return _MatMenuBase;
     }());
     /** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
@@ -1005,9 +951,9 @@
         function MatMenu() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatMenu = __decorate([
-            core.Directive()
-        ], MatMenu);
+        MatMenu.decorators = [
+            { type: core.Directive }
+        ];
         return MatMenu;
     }(_MatMenuBase));
     // Note on the weird inheritance setup: we need three classes, because the MDC-based menu has to
@@ -1026,30 +972,30 @@
         function _MatMenu(elementRef, ngZone, defaultOptions) {
             return _super.call(this, elementRef, ngZone, defaultOptions) || this;
         }
-        _MatMenu_1 = _MatMenu;
-        var _MatMenu_1;
-        _MatMenu = _MatMenu_1 = __decorate([
-            core.Component({
-                selector: 'mat-menu',
-                template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
-                changeDetection: core.ChangeDetectionStrategy.OnPush,
-                encapsulation: core.ViewEncapsulation.None,
-                exportAs: 'matMenu',
-                animations: [
-                    matMenuAnimations.transformMenu,
-                    matMenuAnimations.fadeInItems
-                ],
-                providers: [
-                    { provide: MAT_MENU_PANEL, useExisting: MatMenu },
-                    { provide: MatMenu, useExisting: _MatMenu_1 }
-                ],
-                styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}.cdk-high-contrast-active .mat-menu-panel{outline:solid 1px}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}.cdk-high-contrast-active .mat-menu-item.cdk-program-focused,.cdk-high-contrast-active .mat-menu-item.cdk-keyboard-focused,.cdk-high-contrast-active .mat-menu-item-highlighted{outline:dotted 1px}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:\"\";display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
-            })
-            // tslint:disable-next-line:class-name
-            ,
-            __param(2, core.Inject(MAT_MENU_DEFAULT_OPTIONS)),
-            __metadata("design:paramtypes", [core.ElementRef, core.NgZone, Object])
-        ], _MatMenu);
+        _MatMenu.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'mat-menu',
+                        template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        encapsulation: core.ViewEncapsulation.None,
+                        exportAs: 'matMenu',
+                        animations: [
+                            matMenuAnimations.transformMenu,
+                            matMenuAnimations.fadeInItems
+                        ],
+                        providers: [
+                            { provide: MAT_MENU_PANEL, useExisting: MatMenu },
+                            { provide: MatMenu, useExisting: _MatMenu }
+                        ],
+                        styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}.cdk-high-contrast-active .mat-menu-panel{outline:solid 1px}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}.cdk-high-contrast-active .mat-menu-item.cdk-program-focused,.cdk-high-contrast-active .mat-menu-item.cdk-keyboard-focused,.cdk-high-contrast-active .mat-menu-item-highlighted{outline:dotted 1px}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:\"\";display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
+                    }] }
+        ];
+        /** @nocollapse */
+        _MatMenu.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: core.NgZone },
+            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
+        ]; };
         return _MatMenu;
     }(MatMenu));
 
@@ -1506,65 +1452,42 @@
             }
             return this._portal;
         };
-        __decorate([
-            core.Input('mat-menu-trigger-for'),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", null);
-        __decorate([
-            core.Input('matMenuTriggerFor'),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], MatMenuTrigger.prototype, "menu", null);
-        __decorate([
-            core.Input('matMenuTriggerData'),
-            __metadata("design:type", Object)
-        ], MatMenuTrigger.prototype, "menuData", void 0);
-        __decorate([
-            core.Input('matMenuTriggerRestoreFocus'),
-            __metadata("design:type", Boolean)
-        ], MatMenuTrigger.prototype, "restoreFocus", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatMenuTrigger.prototype, "menuOpened", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatMenuTrigger.prototype, "onMenuOpen", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatMenuTrigger.prototype, "menuClosed", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatMenuTrigger.prototype, "onMenuClose", void 0);
-        MatMenuTrigger = __decorate([
-            core.Directive({
-                selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
-                host: {
-                    'class': 'mat-menu-trigger',
-                    'aria-haspopup': 'true',
-                    '[attr.aria-expanded]': 'menuOpen || null',
-                    '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
-                    '(mousedown)': '_handleMousedown($event)',
-                    '(keydown)': '_handleKeydown($event)',
-                    '(click)': '_handleClick($event)',
-                },
-                exportAs: 'matMenuTrigger'
-            }),
-            __param(3, core.Inject(MAT_MENU_SCROLL_STRATEGY)),
-            __param(4, core.Optional()),
-            __param(5, core.Optional()), __param(5, core.Self()),
-            __param(6, core.Optional()),
-            __metadata("design:paramtypes", [overlay.Overlay,
-                core.ElementRef,
-                core.ViewContainerRef, Object, MatMenu,
-                MatMenuItem,
-                bidi.Directionality,
-                a11y.FocusMonitor])
-        ], MatMenuTrigger);
+        MatMenuTrigger.decorators = [
+            { type: core.Directive, args: [{
+                        selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
+                        host: {
+                            'class': 'mat-menu-trigger',
+                            'aria-haspopup': 'true',
+                            '[attr.aria-expanded]': 'menuOpen || null',
+                            '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
+                            '(mousedown)': '_handleMousedown($event)',
+                            '(keydown)': '_handleKeydown($event)',
+                            '(click)': '_handleClick($event)',
+                        },
+                        exportAs: 'matMenuTrigger'
+                    },] }
+        ];
+        /** @nocollapse */
+        MatMenuTrigger.ctorParameters = function () { return [
+            { type: overlay.Overlay },
+            { type: core.ElementRef },
+            { type: core.ViewContainerRef },
+            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] }] },
+            { type: MatMenu, decorators: [{ type: core.Optional }] },
+            { type: MatMenuItem, decorators: [{ type: core.Optional }, { type: core.Self }] },
+            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+            { type: a11y.FocusMonitor }
+        ]; };
+        MatMenuTrigger.propDecorators = {
+            _deprecatedMatMenuTriggerFor: [{ type: core.Input, args: ['mat-menu-trigger-for',] }],
+            menu: [{ type: core.Input, args: ['matMenuTriggerFor',] }],
+            menuData: [{ type: core.Input, args: ['matMenuTriggerData',] }],
+            restoreFocus: [{ type: core.Input, args: ['matMenuTriggerRestoreFocus',] }],
+            menuOpened: [{ type: core.Output }],
+            onMenuOpen: [{ type: core.Output }],
+            menuClosed: [{ type: core.Output }],
+            onMenuClose: [{ type: core.Output }]
+        };
         return MatMenuTrigger;
     }());
 
@@ -1580,39 +1503,37 @@
      * to declare the menu-related directives.
      */
     var _MatMenuDirectivesModule = /** @class */ (function () {
-        // tslint:disable-next-line:class-name
         function _MatMenuDirectivesModule() {
         }
-        _MatMenuDirectivesModule = __decorate([
-            core.NgModule({
-                exports: [MatMenuTrigger, MatMenuContent, core$1.MatCommonModule],
-                declarations: [
-                    MatMenuTrigger,
-                    MatMenuContent,
-                ],
-                providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
-            })
-            // tslint:disable-next-line:class-name
-        ], _MatMenuDirectivesModule);
+        _MatMenuDirectivesModule.decorators = [
+            { type: core.NgModule, args: [{
+                        exports: [MatMenuTrigger, MatMenuContent, core$1.MatCommonModule],
+                        declarations: [
+                            MatMenuTrigger,
+                            MatMenuContent,
+                        ],
+                        providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                    },] }
+        ];
         return _MatMenuDirectivesModule;
     }());
     var MatMenuModule = /** @class */ (function () {
         function MatMenuModule() {
         }
-        MatMenuModule = __decorate([
-            core.NgModule({
-                imports: [
-                    common.CommonModule,
-                    core$1.MatCommonModule,
-                    core$1.MatRippleModule,
-                    overlay.OverlayModule,
-                    _MatMenuDirectivesModule,
-                ],
-                exports: [scrolling.CdkScrollableModule, core$1.MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
-                declarations: [_MatMenu, MatMenuItem],
-                providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
-            })
-        ], MatMenuModule);
+        MatMenuModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [
+                            common.CommonModule,
+                            core$1.MatCommonModule,
+                            core$1.MatRippleModule,
+                            overlay.OverlayModule,
+                            _MatMenuDirectivesModule,
+                        ],
+                        exports: [scrolling.CdkScrollableModule, core$1.MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
+                        declarations: [_MatMenu, MatMenuItem],
+                        providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                    },] }
+        ];
         return MatMenuModule;
     }());
 

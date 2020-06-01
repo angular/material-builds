@@ -1,5 +1,4 @@
-import { __decorate, __metadata, __param } from 'tslib';
-import { EventEmitter, isDevMode, Input, Output, Directive, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, ChangeDetectorRef, ElementRef, NgModule } from '@angular/core';
+import { EventEmitter, isDevMode, Directive, Input, Output, Injectable, ɵɵdefineInjectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, Inject, ElementRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -45,7 +44,7 @@ class MatSortBase {
 const _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
 let MatSort = /** @class */ (() => {
-    let MatSort = class MatSort extends _MatSortMixinBase {
+    class MatSort extends _MatSortMixinBase {
         constructor() {
             super(...arguments);
             /** Collection of all registered sortables that this directive manages. */
@@ -130,37 +129,22 @@ let MatSort = /** @class */ (() => {
         ngOnDestroy() {
             this._stateChanges.complete();
         }
+    }
+    MatSort.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matSort]',
+                    exportAs: 'matSort',
+                    host: { 'class': 'mat-sort' },
+                    inputs: ['disabled: matSortDisabled']
+                },] }
+    ];
+    MatSort.propDecorators = {
+        active: [{ type: Input, args: ['matSortActive',] }],
+        start: [{ type: Input, args: ['matSortStart',] }],
+        direction: [{ type: Input, args: ['matSortDirection',] }],
+        disableClear: [{ type: Input, args: ['matSortDisableClear',] }],
+        sortChange: [{ type: Output, args: ['matSortChange',] }]
     };
-    __decorate([
-        Input('matSortActive'),
-        __metadata("design:type", String)
-    ], MatSort.prototype, "active", void 0);
-    __decorate([
-        Input('matSortStart'),
-        __metadata("design:type", String)
-    ], MatSort.prototype, "start", void 0);
-    __decorate([
-        Input('matSortDirection'),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatSort.prototype, "direction", null);
-    __decorate([
-        Input('matSortDisableClear'),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatSort.prototype, "disableClear", null);
-    __decorate([
-        Output('matSortChange'),
-        __metadata("design:type", EventEmitter)
-    ], MatSort.prototype, "sortChange", void 0);
-    MatSort = __decorate([
-        Directive({
-            selector: '[matSort]',
-            exportAs: 'matSort',
-            host: { 'class': 'mat-sort' },
-            inputs: ['disabled: matSortDisabled']
-        })
-    ], MatSort);
     return MatSort;
 })();
 /** Returns the sort direction cycle to use given the provided parameters of order and clear. */
@@ -258,11 +242,18 @@ const matSortAnimations = {
 };
 
 /**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
  */
 let MatSortHeaderIntl = /** @class */ (() => {
-    let MatSortHeaderIntl = class MatSortHeaderIntl {
+    class MatSortHeaderIntl {
         constructor() {
             /**
              * Stream that emits whenever the labels here are changed. Use this to notify
@@ -274,11 +265,11 @@ let MatSortHeaderIntl = /** @class */ (() => {
                 return `Change sorting for ${id}`;
             };
         }
-    };
+    }
+    MatSortHeaderIntl.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root' },] }
+    ];
     MatSortHeaderIntl.ɵprov = ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
-    MatSortHeaderIntl = __decorate([
-        Injectable({ providedIn: 'root' })
-    ], MatSortHeaderIntl);
     return MatSortHeaderIntl;
 })();
 /** @docs-private */
@@ -315,7 +306,7 @@ const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  * column definition.
  */
 let MatSortHeader = /** @class */ (() => {
-    let MatSortHeader = class MatSortHeader extends _MatSortHeaderMixinBase {
+    class MatSortHeader extends _MatSortHeaderMixinBase {
         constructor(_intl, changeDetectorRef, _sort, _columnDef, _focusMonitor, _elementRef) {
             // Note that we use a string token for the `_columnDef`, because the value is provided both by
             // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
@@ -476,57 +467,49 @@ let MatSortHeader = /** @class */ (() => {
         _renderArrow() {
             return !this._isDisabled() || this._isSorted();
         }
+    }
+    MatSortHeader.decorators = [
+        { type: Component, args: [{
+                    selector: '[mat-sort-header]',
+                    exportAs: 'matSortHeader',
+                    template: "<div class=\"mat-sort-header-container\"\n     [class.mat-sort-header-sorted]=\"_isSorted()\"\n     [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\">\n  <button class=\"mat-sort-header-button mat-focus-indicator\" type=\"button\"\n          [attr.disabled]=\"_isDisabled() || null\"\n          [attr.aria-label]=\"_intl.sortButtonLabel(id)\">\n    <ng-content></ng-content>\n  </button>\n\n  <!-- Disable animations while a current animation is running -->\n  <div class=\"mat-sort-header-arrow\"\n       *ngIf=\"_renderArrow()\"\n       [@arrowOpacity]=\"_getArrowViewState()\"\n       [@arrowPosition]=\"_getArrowViewState()\"\n       [@allowChildren]=\"_getArrowDirectionState()\"\n       (@arrowPosition.start)=\"_disableViewStateAnimation = true\"\n       (@arrowPosition.done)=\"_disableViewStateAnimation = false\">\n    <div class=\"mat-sort-header-stem\"></div>\n    <div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\">\n      <div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-middle\"></div>\n    </div>\n  </div>\n</div>\n",
+                    host: {
+                        'class': 'mat-sort-header',
+                        '(click)': '_handleClick()',
+                        '(mouseenter)': '_setIndicatorHintVisible(true)',
+                        '(mouseleave)': '_setIndicatorHintVisible(false)',
+                        '[attr.aria-sort]': '_getAriaSortAttribute()',
+                        '[class.mat-sort-header-disabled]': '_isDisabled()',
+                    },
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    animations: [
+                        matSortAnimations.indicator,
+                        matSortAnimations.leftPointer,
+                        matSortAnimations.rightPointer,
+                        matSortAnimations.arrowOpacity,
+                        matSortAnimations.arrowPosition,
+                        matSortAnimations.allowChildren,
+                    ],
+                    styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor;position:relative}[mat-sort-header].cdk-keyboard-focused .mat-sort-header-button,[mat-sort-header].cdk-program-focused .mat-sort-header-button{border-bottom:solid 1px currentColor}.mat-sort-header-button::-moz-focus-inner{border:0}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.cdk-high-contrast-active .mat-sort-header-stem{width:0;border-left:solid 2px}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.cdk-high-contrast-active .mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}.cdk-high-contrast-active .mat-sort-header-pointer-left,.cdk-high-contrast-active .mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatSortHeader.ctorParameters = () => [
+        { type: MatSortHeaderIntl },
+        { type: ChangeDetectorRef },
+        { type: MatSort, decorators: [{ type: Optional }] },
+        { type: undefined, decorators: [{ type: Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: Optional }] },
+        { type: FocusMonitor },
+        { type: ElementRef }
+    ];
+    MatSortHeader.propDecorators = {
+        id: [{ type: Input, args: ['mat-sort-header',] }],
+        arrowPosition: [{ type: Input }],
+        start: [{ type: Input }],
+        disableClear: [{ type: Input }]
     };
-    __decorate([
-        Input('mat-sort-header'),
-        __metadata("design:type", String)
-    ], MatSortHeader.prototype, "id", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatSortHeader.prototype, "arrowPosition", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatSortHeader.prototype, "start", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Object])
-    ], MatSortHeader.prototype, "disableClear", null);
-    MatSortHeader = __decorate([
-        Component({
-            selector: '[mat-sort-header]',
-            exportAs: 'matSortHeader',
-            template: "<div class=\"mat-sort-header-container\"\n     [class.mat-sort-header-sorted]=\"_isSorted()\"\n     [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\">\n  <button class=\"mat-sort-header-button mat-focus-indicator\" type=\"button\"\n          [attr.disabled]=\"_isDisabled() || null\"\n          [attr.aria-label]=\"_intl.sortButtonLabel(id)\">\n    <ng-content></ng-content>\n  </button>\n\n  <!-- Disable animations while a current animation is running -->\n  <div class=\"mat-sort-header-arrow\"\n       *ngIf=\"_renderArrow()\"\n       [@arrowOpacity]=\"_getArrowViewState()\"\n       [@arrowPosition]=\"_getArrowViewState()\"\n       [@allowChildren]=\"_getArrowDirectionState()\"\n       (@arrowPosition.start)=\"_disableViewStateAnimation = true\"\n       (@arrowPosition.done)=\"_disableViewStateAnimation = false\">\n    <div class=\"mat-sort-header-stem\"></div>\n    <div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\">\n      <div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div>\n      <div class=\"mat-sort-header-pointer-middle\"></div>\n    </div>\n  </div>\n</div>\n",
-            host: {
-                'class': 'mat-sort-header',
-                '(click)': '_handleClick()',
-                '(mouseenter)': '_setIndicatorHintVisible(true)',
-                '(mouseleave)': '_setIndicatorHintVisible(false)',
-                '[attr.aria-sort]': '_getAriaSortAttribute()',
-                '[class.mat-sort-header-disabled]': '_isDisabled()',
-            },
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            inputs: ['disabled'],
-            animations: [
-                matSortAnimations.indicator,
-                matSortAnimations.leftPointer,
-                matSortAnimations.rightPointer,
-                matSortAnimations.arrowOpacity,
-                matSortAnimations.arrowPosition,
-                matSortAnimations.allowChildren,
-            ],
-            styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor;position:relative}[mat-sort-header].cdk-keyboard-focused .mat-sort-header-button,[mat-sort-header].cdk-program-focused .mat-sort-header-button{border-bottom:solid 1px currentColor}.mat-sort-header-button::-moz-focus-inner{border:0}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.cdk-high-contrast-active .mat-sort-header-stem{width:0;border-left:solid 2px}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.cdk-high-contrast-active .mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}.cdk-high-contrast-active .mat-sort-header-pointer-left,.cdk-high-contrast-active .mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}\n"]
-        }),
-        __param(2, Optional()),
-        __param(3, Inject('MAT_SORT_HEADER_COLUMN_DEF')), __param(3, Optional()),
-        __metadata("design:paramtypes", [MatSortHeaderIntl,
-            ChangeDetectorRef,
-            MatSort, Object, FocusMonitor,
-            ElementRef])
-    ], MatSortHeader);
     return MatSortHeader;
 })();
 
@@ -538,16 +521,16 @@ let MatSortHeader = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatSortModule = /** @class */ (() => {
-    let MatSortModule = class MatSortModule {
-    };
-    MatSortModule = __decorate([
-        NgModule({
-            imports: [CommonModule],
-            exports: [MatSort, MatSortHeader],
-            declarations: [MatSort, MatSortHeader],
-            providers: [MAT_SORT_HEADER_INTL_PROVIDER]
-        })
-    ], MatSortModule);
+    class MatSortModule {
+    }
+    MatSortModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule],
+                    exports: [MatSort, MatSortHeader],
+                    declarations: [MatSort, MatSortHeader],
+                    providers: [MAT_SORT_HEADER_INTL_PROVIDER]
+                },] }
+    ];
     return MatSortModule;
 })();
 

@@ -271,12 +271,12 @@
     var MatChipAvatar = /** @class */ (function () {
         function MatChipAvatar() {
         }
-        MatChipAvatar = __decorate([
-            core.Directive({
-                selector: 'mat-chip-avatar, [matChipAvatar]',
-                host: { 'class': 'mat-chip-avatar' }
-            })
-        ], MatChipAvatar);
+        MatChipAvatar.decorators = [
+            { type: core.Directive, args: [{
+                        selector: 'mat-chip-avatar, [matChipAvatar]',
+                        host: { 'class': 'mat-chip-avatar' }
+                    },] }
+        ];
         return MatChipAvatar;
     }());
     /**
@@ -286,12 +286,12 @@
     var MatChipTrailingIcon = /** @class */ (function () {
         function MatChipTrailingIcon() {
         }
-        MatChipTrailingIcon = __decorate([
-            core.Directive({
-                selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
-                host: { 'class': 'mat-chip-trailing-icon' }
-            })
-        ], MatChipTrailingIcon);
+        MatChipTrailingIcon.decorators = [
+            { type: core.Directive, args: [{
+                        selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
+                        host: { 'class': 'mat-chip-trailing-icon' }
+                    },] }
+        ];
         return MatChipTrailingIcon;
     }());
     /**
@@ -555,86 +555,54 @@
                 this._changeDetectorRef.markForCheck();
             }
         };
-        __decorate([
-            core.ContentChild(MatChipAvatar),
-            __metadata("design:type", MatChipAvatar)
-        ], MatChip.prototype, "avatar", void 0);
-        __decorate([
-            core.ContentChild(MatChipTrailingIcon),
-            __metadata("design:type", MatChipTrailingIcon)
-        ], MatChip.prototype, "trailingIcon", void 0);
-        __decorate([
-            core.ContentChild(core.forwardRef(function () { return MatChipRemove; })),
-            __metadata("design:type", MatChipRemove)
-        ], MatChip.prototype, "removeIcon", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChip.prototype, "selected", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], MatChip.prototype, "value", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChip.prototype, "selectable", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChip.prototype, "disabled", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChip.prototype, "removable", null);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatChip.prototype, "selectionChange", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatChip.prototype, "destroyed", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatChip.prototype, "removed", void 0);
-        MatChip = __decorate([
-            core.Directive({
-                selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-                inputs: ['color', 'disableRipple', 'tabIndex'],
-                exportAs: 'matChip',
-                host: {
-                    'class': 'mat-chip mat-focus-indicator',
-                    '[attr.tabindex]': 'disabled ? null : tabIndex',
-                    'role': 'option',
-                    '[class.mat-chip-selected]': 'selected',
-                    '[class.mat-chip-with-avatar]': 'avatar',
-                    '[class.mat-chip-with-trailing-icon]': 'trailingIcon || removeIcon',
-                    '[class.mat-chip-disabled]': 'disabled',
-                    '[class._mat-animation-noopable]': '_animationsDisabled',
-                    '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-selected]': 'ariaSelected',
-                    '(click)': '_handleClick($event)',
-                    '(keydown)': '_handleKeydown($event)',
-                    '(focus)': 'focus()',
-                    '(blur)': '_blur()',
-                },
-            }),
-            __param(3, core.Optional()), __param(3, core.Inject(core$1.MAT_RIPPLE_GLOBAL_OPTIONS)),
-            __param(4, core.Optional()), __param(4, core.Inject(animations.ANIMATION_MODULE_TYPE)),
-            __param(6, core.Attribute('tabindex')),
-            __param(7, core.Optional()), __param(7, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [core.ElementRef,
-                core.NgZone,
-                platform.Platform, Object, String, core.ChangeDetectorRef, String, Object])
-        ], MatChip);
+        MatChip.decorators = [
+            { type: core.Directive, args: [{
+                        selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
+                        inputs: ['color', 'disableRipple', 'tabIndex'],
+                        exportAs: 'matChip',
+                        host: {
+                            'class': 'mat-chip mat-focus-indicator',
+                            '[attr.tabindex]': 'disabled ? null : tabIndex',
+                            'role': 'option',
+                            '[class.mat-chip-selected]': 'selected',
+                            '[class.mat-chip-with-avatar]': 'avatar',
+                            '[class.mat-chip-with-trailing-icon]': 'trailingIcon || removeIcon',
+                            '[class.mat-chip-disabled]': 'disabled',
+                            '[class._mat-animation-noopable]': '_animationsDisabled',
+                            '[attr.disabled]': 'disabled || null',
+                            '[attr.aria-disabled]': 'disabled.toString()',
+                            '[attr.aria-selected]': 'ariaSelected',
+                            '(click)': '_handleClick($event)',
+                            '(keydown)': '_handleKeydown($event)',
+                            '(focus)': 'focus()',
+                            '(blur)': '_blur()',
+                        },
+                    },] }
+        ];
+        /** @nocollapse */
+        MatChip.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: core.NgZone },
+            { type: platform.Platform },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+            { type: core.ChangeDetectorRef },
+            { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
+        MatChip.propDecorators = {
+            avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],
+            trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon,] }],
+            removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] }],
+            selected: [{ type: core.Input }],
+            value: [{ type: core.Input }],
+            selectable: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            removable: [{ type: core.Input }],
+            selectionChange: [{ type: core.Output }],
+            destroyed: [{ type: core.Output }],
+            removed: [{ type: core.Output }]
+        };
         return MatChip;
     }(_MatChipMixinBase));
     /**
@@ -673,17 +641,20 @@
             // that the chip is being removed before the event bubbles up.
             event.stopPropagation();
         };
-        MatChipRemove = __decorate([
-            core.Directive({
-                selector: '[matChipRemove]',
-                host: {
-                    'class': 'mat-chip-remove mat-chip-trailing-icon',
-                    '(click)': '_handleClick($event)',
-                }
-            }),
-            __metadata("design:paramtypes", [MatChip,
-                core.ElementRef])
-        ], MatChipRemove);
+        MatChipRemove.decorators = [
+            { type: core.Directive, args: [{
+                        selector: '[matChipRemove]',
+                        host: {
+                            'class': 'mat-chip-remove mat-chip-trailing-icon',
+                            '(click)': '_handleClick($event)',
+                        }
+                    },] }
+        ];
+        /** @nocollapse */
+        MatChipRemove.ctorParameters = function () { return [
+            { type: MatChip },
+            { type: core.ElementRef }
+        ]; };
         return MatChipRemove;
     }());
 
@@ -791,7 +762,6 @@
             }
             return _this;
         }
-        MatChipList_1 = MatChipList;
         Object.defineProperty(MatChipList.prototype, "selected", {
             /** The array of selected chips inside chip list. */
             get: function () {
@@ -1399,111 +1369,64 @@
                 });
             }
         };
-        var MatChipList_1;
-        __decorate([
-            core.Input(),
-            __metadata("design:type", core$1.ErrorStateMatcher)
-        ], MatChipList.prototype, "errorStateMatcher", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChipList.prototype, "multiple", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", [Function])
-        ], MatChipList.prototype, "compareWith", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], MatChipList.prototype, "value", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChipList.prototype, "required", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], MatChipList.prototype, "placeholder", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChipList.prototype, "disabled", null);
-        __decorate([
-            core.Input('aria-orientation'),
-            __metadata("design:type", String)
-        ], MatChipList.prototype, "ariaOrientation", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChipList.prototype, "selectable", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Number),
-            __metadata("design:paramtypes", [Number])
-        ], MatChipList.prototype, "tabIndex", null);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatChipList.prototype, "change", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatChipList.prototype, "valueChange", void 0);
-        __decorate([
-            core.ContentChildren(MatChip, {
-                // We need to use `descendants: true`, because Ivy will no longer match
-                // indirect descendants if it's left as false.
-                descendants: true
-            }),
-            __metadata("design:type", core.QueryList)
-        ], MatChipList.prototype, "chips", void 0);
-        MatChipList = MatChipList_1 = __decorate([
-            core.Component({
-                selector: 'mat-chip-list',
-                template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
-                exportAs: 'matChipList',
-                host: {
-                    '[attr.tabindex]': 'disabled ? null : _tabIndex',
-                    '[attr.aria-describedby]': '_ariaDescribedby || null',
-                    '[attr.aria-required]': 'role ? required : null',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-invalid]': 'errorState',
-                    '[attr.aria-multiselectable]': 'multiple',
-                    '[attr.role]': 'role',
-                    '[class.mat-chip-list-disabled]': 'disabled',
-                    '[class.mat-chip-list-invalid]': 'errorState',
-                    '[class.mat-chip-list-required]': 'required',
-                    '[attr.aria-orientation]': 'ariaOrientation',
-                    'class': 'mat-chip-list',
-                    '(focus)': 'focus()',
-                    '(blur)': '_blur()',
-                    '(keydown)': '_keydown($event)',
-                    '[id]': '_uid',
-                },
-                providers: [{ provide: formField.MatFormFieldControl, useExisting: MatChipList_1 }],
-                encapsulation: core.ViewEncapsulation.None,
-                changeDetection: core.ChangeDetectionStrategy.OnPush,
-                styles: [".mat-chip{position:relative;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0);border:none;-webkit-appearance:none;-moz-appearance:none}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}._mat-animation-noopable.mat-standard-chip{transition:none;animation:none}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:\"\";pointer-events:none;transition:opacity 200ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:none}.mat-standard-chip:focus::after{opacity:.16}.cdk-high-contrast-active .mat-standard-chip{outline:solid 1px}.cdk-high-contrast-active .mat-standard-chip:focus{outline:dotted 2px}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit;overflow:hidden}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper input.mat-input-element,.mat-chip-list-wrapper .mat-standard-chip{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}\n"]
-            }),
-            __param(2, core.Optional()),
-            __param(3, core.Optional()),
-            __param(4, core.Optional()),
-            __param(6, core.Optional()), __param(6, core.Self()),
-            __metadata("design:paramtypes", [core.ElementRef,
-                core.ChangeDetectorRef,
-                bidi.Directionality,
-                forms.NgForm,
-                forms.FormGroupDirective,
-                core$1.ErrorStateMatcher,
-                forms.NgControl])
-        ], MatChipList);
+        MatChipList.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'mat-chip-list',
+                        template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
+                        exportAs: 'matChipList',
+                        host: {
+                            '[attr.tabindex]': 'disabled ? null : _tabIndex',
+                            '[attr.aria-describedby]': '_ariaDescribedby || null',
+                            '[attr.aria-required]': 'role ? required : null',
+                            '[attr.aria-disabled]': 'disabled.toString()',
+                            '[attr.aria-invalid]': 'errorState',
+                            '[attr.aria-multiselectable]': 'multiple',
+                            '[attr.role]': 'role',
+                            '[class.mat-chip-list-disabled]': 'disabled',
+                            '[class.mat-chip-list-invalid]': 'errorState',
+                            '[class.mat-chip-list-required]': 'required',
+                            '[attr.aria-orientation]': 'ariaOrientation',
+                            'class': 'mat-chip-list',
+                            '(focus)': 'focus()',
+                            '(blur)': '_blur()',
+                            '(keydown)': '_keydown($event)',
+                            '[id]': '_uid',
+                        },
+                        providers: [{ provide: formField.MatFormFieldControl, useExisting: MatChipList }],
+                        encapsulation: core.ViewEncapsulation.None,
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        styles: [".mat-chip{position:relative;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0);border:none;-webkit-appearance:none;-moz-appearance:none}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}._mat-animation-noopable.mat-standard-chip{transition:none;animation:none}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:\"\";pointer-events:none;transition:opacity 200ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:none}.mat-standard-chip:focus::after{opacity:.16}.cdk-high-contrast-active .mat-standard-chip{outline:solid 1px}.cdk-high-contrast-active .mat-standard-chip:focus{outline:dotted 2px}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit;overflow:hidden}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper input.mat-input-element,.mat-chip-list-wrapper .mat-standard-chip{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}\n"]
+                    }] }
+        ];
+        /** @nocollapse */
+        MatChipList.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: core.ChangeDetectorRef },
+            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+            { type: forms.NgForm, decorators: [{ type: core.Optional }] },
+            { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
+            { type: core$1.ErrorStateMatcher },
+            { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self }] }
+        ]; };
+        MatChipList.propDecorators = {
+            errorStateMatcher: [{ type: core.Input }],
+            multiple: [{ type: core.Input }],
+            compareWith: [{ type: core.Input }],
+            value: [{ type: core.Input }],
+            required: [{ type: core.Input }],
+            placeholder: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            ariaOrientation: [{ type: core.Input, args: ['aria-orientation',] }],
+            selectable: [{ type: core.Input }],
+            tabIndex: [{ type: core.Input }],
+            change: [{ type: core.Output }],
+            valueChange: [{ type: core.Output }],
+            chips: [{ type: core.ContentChildren, args: [MatChip, {
+                            // We need to use `descendants: true`, because Ivy will no longer match
+                            // indirect descendants if it's left as false.
+                            descendants: true
+                        },] }]
+        };
         return MatChipList;
     }(_MatChipListMixinBase));
 
@@ -1632,57 +1555,38 @@
             var keyCode = event.keyCode;
             return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
         };
-        __decorate([
-            core.Input('matChipInputFor'),
-            __metadata("design:type", MatChipList),
-            __metadata("design:paramtypes", [MatChipList])
-        ], MatChipInput.prototype, "chipList", null);
-        __decorate([
-            core.Input('matChipInputAddOnBlur'),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChipInput.prototype, "addOnBlur", null);
-        __decorate([
-            core.Input('matChipInputSeparatorKeyCodes'),
-            __metadata("design:type", Object)
-        ], MatChipInput.prototype, "separatorKeyCodes", void 0);
-        __decorate([
-            core.Output('matChipInputTokenEnd'),
-            __metadata("design:type", core.EventEmitter)
-        ], MatChipInput.prototype, "chipEnd", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], MatChipInput.prototype, "placeholder", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], MatChipInput.prototype, "id", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatChipInput.prototype, "disabled", null);
-        MatChipInput = __decorate([
-            core.Directive({
-                selector: 'input[matChipInputFor]',
-                exportAs: 'matChipInput, matChipInputFor',
-                host: {
-                    'class': 'mat-chip-input mat-input-element',
-                    '(keydown)': '_keydown($event)',
-                    '(blur)': '_blur()',
-                    '(focus)': '_focus()',
-                    '(input)': '_onInput()',
-                    '[id]': 'id',
-                    '[attr.disabled]': 'disabled || null',
-                    '[attr.placeholder]': 'placeholder || null',
-                    '[attr.aria-invalid]': '_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null',
-                    '[attr.aria-required]': '_chipList && _chipList.required || null',
-                }
-            }),
-            __param(1, core.Inject(MAT_CHIPS_DEFAULT_OPTIONS)),
-            __metadata("design:paramtypes", [core.ElementRef, Object])
-        ], MatChipInput);
+        MatChipInput.decorators = [
+            { type: core.Directive, args: [{
+                        selector: 'input[matChipInputFor]',
+                        exportAs: 'matChipInput, matChipInputFor',
+                        host: {
+                            'class': 'mat-chip-input mat-input-element',
+                            '(keydown)': '_keydown($event)',
+                            '(blur)': '_blur()',
+                            '(focus)': '_focus()',
+                            '(input)': '_onInput()',
+                            '[id]': 'id',
+                            '[attr.disabled]': 'disabled || null',
+                            '[attr.placeholder]': 'placeholder || null',
+                            '[attr.aria-invalid]': '_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null',
+                            '[attr.aria-required]': '_chipList && _chipList.required || null',
+                        }
+                    },] }
+        ];
+        /** @nocollapse */
+        MatChipInput.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] }] }
+        ]; };
+        MatChipInput.propDecorators = {
+            chipList: [{ type: core.Input, args: ['matChipInputFor',] }],
+            addOnBlur: [{ type: core.Input, args: ['matChipInputAddOnBlur',] }],
+            separatorKeyCodes: [{ type: core.Input, args: ['matChipInputSeparatorKeyCodes',] }],
+            chipEnd: [{ type: core.Output, args: ['matChipInputTokenEnd',] }],
+            placeholder: [{ type: core.Input }],
+            id: [{ type: core.Input }],
+            disabled: [{ type: core.Input }]
+        };
         return MatChipInput;
     }());
 
@@ -1707,19 +1611,19 @@
     var MatChipsModule = /** @class */ (function () {
         function MatChipsModule() {
         }
-        MatChipsModule = __decorate([
-            core.NgModule({
-                exports: CHIP_DECLARATIONS,
-                declarations: CHIP_DECLARATIONS,
-                providers: [
-                    core$1.ErrorStateMatcher,
-                    {
-                        provide: MAT_CHIPS_DEFAULT_OPTIONS,
-                        useValue: ɵ0
-                    }
-                ]
-            })
-        ], MatChipsModule);
+        MatChipsModule.decorators = [
+            { type: core.NgModule, args: [{
+                        exports: CHIP_DECLARATIONS,
+                        declarations: CHIP_DECLARATIONS,
+                        providers: [
+                            core$1.ErrorStateMatcher,
+                            {
+                                provide: MAT_CHIPS_DEFAULT_OPTIONS,
+                                useValue: ɵ0
+                            }
+                        ]
+                    },] }
+        ];
         return MatChipsModule;
     }());
 

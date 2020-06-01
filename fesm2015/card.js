@@ -1,4 +1,3 @@
-import { __decorate, __metadata, __param } from 'tslib';
 import { Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, NgModule } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { MatCommonModule } from '@angular/material/core';
@@ -15,14 +14,14 @@ import { MatCommonModule } from '@angular/material/core';
  * @docs-private
  */
 let MatCardContent = /** @class */ (() => {
-    let MatCardContent = class MatCardContent {
-    };
-    MatCardContent = __decorate([
-        Directive({
-            selector: 'mat-card-content, [mat-card-content], [matCardContent]',
-            host: { 'class': 'mat-card-content' }
-        })
-    ], MatCardContent);
+    class MatCardContent {
+    }
+    MatCardContent.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-card-content, [mat-card-content], [matCardContent]',
+                    host: { 'class': 'mat-card-content' }
+                },] }
+    ];
     return MatCardContent;
 })();
 /**
@@ -30,16 +29,16 @@ let MatCardContent = /** @class */ (() => {
  * @docs-private
  */
 let MatCardTitle = /** @class */ (() => {
-    let MatCardTitle = class MatCardTitle {
-    };
-    MatCardTitle = __decorate([
-        Directive({
-            selector: `mat-card-title, [mat-card-title], [matCardTitle]`,
-            host: {
-                'class': 'mat-card-title'
-            }
-        })
-    ], MatCardTitle);
+    class MatCardTitle {
+    }
+    MatCardTitle.decorators = [
+        { type: Directive, args: [{
+                    selector: `mat-card-title, [mat-card-title], [matCardTitle]`,
+                    host: {
+                        'class': 'mat-card-title'
+                    }
+                },] }
+    ];
     return MatCardTitle;
 })();
 /**
@@ -47,16 +46,16 @@ let MatCardTitle = /** @class */ (() => {
  * @docs-private
  */
 let MatCardSubtitle = /** @class */ (() => {
-    let MatCardSubtitle = class MatCardSubtitle {
-    };
-    MatCardSubtitle = __decorate([
-        Directive({
-            selector: `mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]`,
-            host: {
-                'class': 'mat-card-subtitle'
-            }
-        })
-    ], MatCardSubtitle);
+    class MatCardSubtitle {
+    }
+    MatCardSubtitle.decorators = [
+        { type: Directive, args: [{
+                    selector: `mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]`,
+                    host: {
+                        'class': 'mat-card-subtitle'
+                    }
+                },] }
+    ];
     return MatCardSubtitle;
 })();
 /**
@@ -64,26 +63,25 @@ let MatCardSubtitle = /** @class */ (() => {
  * @docs-private
  */
 let MatCardActions = /** @class */ (() => {
-    let MatCardActions = class MatCardActions {
+    class MatCardActions {
         constructor() {
             /** Position of the actions inside the card. */
             this.align = 'start';
         }
+    }
+    MatCardActions.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-card-actions',
+                    exportAs: 'matCardActions',
+                    host: {
+                        'class': 'mat-card-actions',
+                        '[class.mat-card-actions-align-end]': 'align === "end"',
+                    }
+                },] }
+    ];
+    MatCardActions.propDecorators = {
+        align: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatCardActions.prototype, "align", void 0);
-    MatCardActions = __decorate([
-        Directive({
-            selector: 'mat-card-actions',
-            exportAs: 'matCardActions',
-            host: {
-                'class': 'mat-card-actions',
-                '[class.mat-card-actions-align-end]': 'align === "end"',
-            }
-        })
-    ], MatCardActions);
     return MatCardActions;
 })();
 /**
@@ -91,14 +89,14 @@ let MatCardActions = /** @class */ (() => {
  * @docs-private
  */
 let MatCardFooter = /** @class */ (() => {
-    let MatCardFooter = class MatCardFooter {
-    };
-    MatCardFooter = __decorate([
-        Directive({
-            selector: 'mat-card-footer',
-            host: { 'class': 'mat-card-footer' }
-        })
-    ], MatCardFooter);
+    class MatCardFooter {
+    }
+    MatCardFooter.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-card-footer',
+                    host: { 'class': 'mat-card-footer' }
+                },] }
+    ];
     return MatCardFooter;
 })();
 /**
@@ -106,14 +104,14 @@ let MatCardFooter = /** @class */ (() => {
  * @docs-private
  */
 let MatCardImage = /** @class */ (() => {
-    let MatCardImage = class MatCardImage {
-    };
-    MatCardImage = __decorate([
-        Directive({
-            selector: '[mat-card-image], [matCardImage]',
-            host: { 'class': 'mat-card-image' }
-        })
-    ], MatCardImage);
+    class MatCardImage {
+    }
+    MatCardImage.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-card-image], [matCardImage]',
+                    host: { 'class': 'mat-card-image' }
+                },] }
+    ];
     return MatCardImage;
 })();
 /**
@@ -121,14 +119,14 @@ let MatCardImage = /** @class */ (() => {
  * @docs-private
  */
 let MatCardSmImage = /** @class */ (() => {
-    let MatCardSmImage = class MatCardSmImage {
-    };
-    MatCardSmImage = __decorate([
-        Directive({
-            selector: '[mat-card-sm-image], [matCardImageSmall]',
-            host: { 'class': 'mat-card-sm-image' }
-        })
-    ], MatCardSmImage);
+    class MatCardSmImage {
+    }
+    MatCardSmImage.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-card-sm-image], [matCardImageSmall]',
+                    host: { 'class': 'mat-card-sm-image' }
+                },] }
+    ];
     return MatCardSmImage;
 })();
 /**
@@ -136,14 +134,14 @@ let MatCardSmImage = /** @class */ (() => {
  * @docs-private
  */
 let MatCardMdImage = /** @class */ (() => {
-    let MatCardMdImage = class MatCardMdImage {
-    };
-    MatCardMdImage = __decorate([
-        Directive({
-            selector: '[mat-card-md-image], [matCardImageMedium]',
-            host: { 'class': 'mat-card-md-image' }
-        })
-    ], MatCardMdImage);
+    class MatCardMdImage {
+    }
+    MatCardMdImage.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-card-md-image], [matCardImageMedium]',
+                    host: { 'class': 'mat-card-md-image' }
+                },] }
+    ];
     return MatCardMdImage;
 })();
 /**
@@ -151,14 +149,14 @@ let MatCardMdImage = /** @class */ (() => {
  * @docs-private
  */
 let MatCardLgImage = /** @class */ (() => {
-    let MatCardLgImage = class MatCardLgImage {
-    };
-    MatCardLgImage = __decorate([
-        Directive({
-            selector: '[mat-card-lg-image], [matCardImageLarge]',
-            host: { 'class': 'mat-card-lg-image' }
-        })
-    ], MatCardLgImage);
+    class MatCardLgImage {
+    }
+    MatCardLgImage.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-card-lg-image], [matCardImageLarge]',
+                    host: { 'class': 'mat-card-lg-image' }
+                },] }
+    ];
     return MatCardLgImage;
 })();
 /**
@@ -166,14 +164,14 @@ let MatCardLgImage = /** @class */ (() => {
  * @docs-private
  */
 let MatCardXlImage = /** @class */ (() => {
-    let MatCardXlImage = class MatCardXlImage {
-    };
-    MatCardXlImage = __decorate([
-        Directive({
-            selector: '[mat-card-xl-image], [matCardImageXLarge]',
-            host: { 'class': 'mat-card-xl-image' }
-        })
-    ], MatCardXlImage);
+    class MatCardXlImage {
+    }
+    MatCardXlImage.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-card-xl-image], [matCardImageXLarge]',
+                    host: { 'class': 'mat-card-xl-image' }
+                },] }
+    ];
     return MatCardXlImage;
 })();
 /**
@@ -181,14 +179,14 @@ let MatCardXlImage = /** @class */ (() => {
  * @docs-private
  */
 let MatCardAvatar = /** @class */ (() => {
-    let MatCardAvatar = class MatCardAvatar {
-    };
-    MatCardAvatar = __decorate([
-        Directive({
-            selector: '[mat-card-avatar], [matCardAvatar]',
-            host: { 'class': 'mat-card-avatar' }
-        })
-    ], MatCardAvatar);
+    class MatCardAvatar {
+    }
+    MatCardAvatar.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-card-avatar], [matCardAvatar]',
+                    host: { 'class': 'mat-card-avatar' }
+                },] }
+    ];
     return MatCardAvatar;
 })();
 /**
@@ -203,28 +201,30 @@ let MatCardAvatar = /** @class */ (() => {
  * - mat-card-footer
  */
 let MatCard = /** @class */ (() => {
-    let MatCard = class MatCard {
+    class MatCard {
         // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
         constructor(_animationMode) {
             this._animationMode = _animationMode;
         }
-    };
-    MatCard = __decorate([
-        Component({
-            selector: 'mat-card',
-            exportAs: 'matCard',
-            template: "<ng-content></ng-content>\n<ng-content select=\"mat-card-footer\"></ng-content>\n",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            host: {
-                'class': 'mat-card mat-focus-indicator',
-                '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-            },
-            styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:block;position:relative;padding:16px;border-radius:4px}._mat-animation-noopable.mat-card{transition:none;animation:none}.mat-card .mat-divider-horizontal{position:absolute;left:0;width:100%}[dir=rtl] .mat-card .mat-divider-horizontal{left:auto;right:0}.mat-card .mat-divider-horizontal.mat-divider-inset{position:static;margin:0}[dir=rtl] .mat-card .mat-divider-horizontal.mat-divider-inset{margin-right:0}.cdk-high-contrast-active .mat-card{outline:solid 1px}.mat-card-actions,.mat-card-subtitle,.mat-card-content{display:block;margin-bottom:16px}.mat-card-title{display:block;margin-bottom:8px}.mat-card-actions{margin-left:-8px;margin-right:-8px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 32px);margin:0 -16px 16px -16px}.mat-card-footer{display:block;margin:0 -16px -16px -16px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button,.mat-card-actions .mat-stroked-button{margin:0 8px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header .mat-card-title{margin-bottom:12px}.mat-card-header-text{margin:0 16px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0;object-fit:cover}.mat-card-title-group{display:flex;justify-content:space-between}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-title-group>.mat-card-xl-image{margin:-8px 0 8px}@media(max-width: 599px){.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}}.mat-card>:first-child,.mat-card-content>:first-child{margin-top:0}.mat-card>:last-child:not(.mat-card-footer),.mat-card-content>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-16px;border-top-left-radius:inherit;border-top-right-radius:inherit}.mat-card>.mat-card-actions:last-child{margin-bottom:-8px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child,.mat-card-actions .mat-stroked-button:first-child{margin-left:0;margin-right:0}.mat-card-title:not(:first-child),.mat-card-subtitle:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}\n"]
-        }),
-        __param(0, Optional()), __param(0, Inject(ANIMATION_MODULE_TYPE)),
-        __metadata("design:paramtypes", [String])
-    ], MatCard);
+    }
+    MatCard.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-card',
+                    exportAs: 'matCard',
+                    template: "<ng-content></ng-content>\n<ng-content select=\"mat-card-footer\"></ng-content>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    host: {
+                        'class': 'mat-card mat-focus-indicator',
+                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    },
+                    styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:block;position:relative;padding:16px;border-radius:4px}._mat-animation-noopable.mat-card{transition:none;animation:none}.mat-card .mat-divider-horizontal{position:absolute;left:0;width:100%}[dir=rtl] .mat-card .mat-divider-horizontal{left:auto;right:0}.mat-card .mat-divider-horizontal.mat-divider-inset{position:static;margin:0}[dir=rtl] .mat-card .mat-divider-horizontal.mat-divider-inset{margin-right:0}.cdk-high-contrast-active .mat-card{outline:solid 1px}.mat-card-actions,.mat-card-subtitle,.mat-card-content{display:block;margin-bottom:16px}.mat-card-title{display:block;margin-bottom:8px}.mat-card-actions{margin-left:-8px;margin-right:-8px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 32px);margin:0 -16px 16px -16px}.mat-card-footer{display:block;margin:0 -16px -16px -16px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button,.mat-card-actions .mat-stroked-button{margin:0 8px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header .mat-card-title{margin-bottom:12px}.mat-card-header-text{margin:0 16px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0;object-fit:cover}.mat-card-title-group{display:flex;justify-content:space-between}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-title-group>.mat-card-xl-image{margin:-8px 0 8px}@media(max-width: 599px){.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}}.mat-card>:first-child,.mat-card-content>:first-child{margin-top:0}.mat-card>:last-child:not(.mat-card-footer),.mat-card-content>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-16px;border-top-left-radius:inherit;border-top-right-radius:inherit}.mat-card>.mat-card-actions:last-child{margin-bottom:-8px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child,.mat-card-actions .mat-stroked-button:first-child{margin-left:0;margin-right:0}.mat-card-title:not(:first-child),.mat-card-subtitle:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatCard.ctorParameters = () => [
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    ];
     return MatCard;
 })();
 /**
@@ -233,17 +233,17 @@ let MatCard = /** @class */ (() => {
  * @docs-private
  */
 let MatCardHeader = /** @class */ (() => {
-    let MatCardHeader = class MatCardHeader {
-    };
-    MatCardHeader = __decorate([
-        Component({
-            selector: 'mat-card-header',
-            template: "<ng-content select=\"[mat-card-avatar], [matCardAvatar]\"></ng-content>\n<div class=\"mat-card-header-text\">\n  <ng-content\n      select=\"mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]\"></ng-content>\n</div>\n<ng-content></ng-content>\n",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            host: { 'class': 'mat-card-header' }
-        })
-    ], MatCardHeader);
+    class MatCardHeader {
+    }
+    MatCardHeader.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-card-header',
+                    template: "<ng-content select=\"[mat-card-avatar], [matCardAvatar]\"></ng-content>\n<div class=\"mat-card-header-text\">\n  <ng-content\n      select=\"mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]\"></ng-content>\n</div>\n<ng-content></ng-content>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    host: { 'class': 'mat-card-header' }
+                }] }
+    ];
     return MatCardHeader;
 })();
 /**
@@ -252,17 +252,17 @@ let MatCardHeader = /** @class */ (() => {
  * @docs-private
  */
 let MatCardTitleGroup = /** @class */ (() => {
-    let MatCardTitleGroup = class MatCardTitleGroup {
-    };
-    MatCardTitleGroup = __decorate([
-        Component({
-            selector: 'mat-card-title-group',
-            template: "<div>\n  <ng-content\n      select=\"mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]\"></ng-content>\n</div>\n<ng-content select=\"img\"></ng-content>\n<ng-content></ng-content>\n",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            host: { 'class': 'mat-card-title-group' }
-        })
-    ], MatCardTitleGroup);
+    class MatCardTitleGroup {
+    }
+    MatCardTitleGroup.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-card-title-group',
+                    template: "<div>\n  <ng-content\n      select=\"mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]\"></ng-content>\n</div>\n<ng-content select=\"img\"></ng-content>\n<ng-content></ng-content>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    host: { 'class': 'mat-card-title-group' }
+                }] }
+    ];
     return MatCardTitleGroup;
 })();
 
@@ -274,35 +274,35 @@ let MatCardTitleGroup = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatCardModule = /** @class */ (() => {
-    let MatCardModule = class MatCardModule {
-    };
-    MatCardModule = __decorate([
-        NgModule({
-            imports: [MatCommonModule],
-            exports: [
-                MatCard,
-                MatCardHeader,
-                MatCardTitleGroup,
-                MatCardContent,
-                MatCardTitle,
-                MatCardSubtitle,
-                MatCardActions,
-                MatCardFooter,
-                MatCardSmImage,
-                MatCardMdImage,
-                MatCardLgImage,
-                MatCardImage,
-                MatCardXlImage,
-                MatCardAvatar,
-                MatCommonModule,
-            ],
-            declarations: [
-                MatCard, MatCardHeader, MatCardTitleGroup, MatCardContent, MatCardTitle, MatCardSubtitle,
-                MatCardActions, MatCardFooter, MatCardSmImage, MatCardMdImage, MatCardLgImage, MatCardImage,
-                MatCardXlImage, MatCardAvatar,
-            ],
-        })
-    ], MatCardModule);
+    class MatCardModule {
+    }
+    MatCardModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [
+                        MatCard,
+                        MatCardHeader,
+                        MatCardTitleGroup,
+                        MatCardContent,
+                        MatCardTitle,
+                        MatCardSubtitle,
+                        MatCardActions,
+                        MatCardFooter,
+                        MatCardSmImage,
+                        MatCardMdImage,
+                        MatCardLgImage,
+                        MatCardImage,
+                        MatCardXlImage,
+                        MatCardAvatar,
+                        MatCommonModule,
+                    ],
+                    declarations: [
+                        MatCard, MatCardHeader, MatCardTitleGroup, MatCardContent, MatCardTitle, MatCardSubtitle,
+                        MatCardActions, MatCardFooter, MatCardSmImage, MatCardMdImage, MatCardLgImage, MatCardImage,
+                        MatCardXlImage, MatCardAvatar,
+                    ],
+                },] }
+    ];
     return MatCardModule;
 })();
 

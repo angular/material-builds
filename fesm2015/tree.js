@@ -1,6 +1,5 @@
-import { __decorate, __metadata, __param } from 'tslib';
 import { CdkTreeNode, CdkTree, CdkTreeNodeDef, CdkNestedTreeNode, CDK_TREE_NODE_OUTLET_NODE, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
-import { Input, Directive, Attribute, ElementRef, IterableDiffers, Inject, Optional, ViewContainerRef, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { Directive, ElementRef, Attribute, Input, IterableDiffers, ViewContainerRef, Inject, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DataSource } from '@angular/cdk/collections';
@@ -19,8 +18,7 @@ const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
  * Wrapper for the CdkTree node with Material design styles.
  */
 let MatTreeNode = /** @class */ (() => {
-    var MatTreeNode_1;
-    let MatTreeNode = MatTreeNode_1 = class MatTreeNode extends _MatTreeNodeMixinBase {
+    class MatTreeNode extends _MatTreeNodeMixinBase {
         constructor(_elementRef, _tree, tabIndex) {
             super(_elementRef, _tree);
             this._elementRef = _elementRef;
@@ -28,58 +26,57 @@ let MatTreeNode = /** @class */ (() => {
             this.role = 'treeitem';
             this.tabIndex = Number(tabIndex) || 0;
         }
+    }
+    MatTreeNode.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-tree-node',
+                    exportAs: 'matTreeNode',
+                    inputs: ['disabled', 'tabIndex'],
+                    host: {
+                        '[attr.aria-expanded]': 'isExpanded',
+                        '[attr.aria-level]': 'role === "treeitem" ? level : null',
+                        '[attr.role]': 'role',
+                        'class': 'mat-tree-node'
+                    },
+                    providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }]
+                },] }
+    ];
+    /** @nocollapse */
+    MatTreeNode.ctorParameters = () => [
+        { type: ElementRef },
+        { type: CdkTree },
+        { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
+    ];
+    MatTreeNode.propDecorators = {
+        role: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatTreeNode.prototype, "role", void 0);
-    MatTreeNode = MatTreeNode_1 = __decorate([
-        Directive({
-            selector: 'mat-tree-node',
-            exportAs: 'matTreeNode',
-            inputs: ['disabled', 'tabIndex'],
-            host: {
-                '[attr.aria-expanded]': 'isExpanded',
-                '[attr.aria-level]': 'role === "treeitem" ? level : null',
-                '[attr.role]': 'role',
-                'class': 'mat-tree-node'
-            },
-            providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode_1 }]
-        }),
-        __param(2, Attribute('tabindex')),
-        __metadata("design:paramtypes", [ElementRef,
-            CdkTree, String])
-    ], MatTreeNode);
     return MatTreeNode;
 })();
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
  */
 let MatTreeNodeDef = /** @class */ (() => {
-    var MatTreeNodeDef_1;
-    let MatTreeNodeDef = MatTreeNodeDef_1 = class MatTreeNodeDef extends CdkTreeNodeDef {
+    class MatTreeNodeDef extends CdkTreeNodeDef {
+    }
+    MatTreeNodeDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matTreeNodeDef]',
+                    inputs: [
+                        'when: matTreeNodeDefWhen'
+                    ],
+                    providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
+                },] }
+    ];
+    MatTreeNodeDef.propDecorators = {
+        data: [{ type: Input, args: ['matTreeNode',] }]
     };
-    __decorate([
-        Input('matTreeNode'),
-        __metadata("design:type", Object)
-    ], MatTreeNodeDef.prototype, "data", void 0);
-    MatTreeNodeDef = MatTreeNodeDef_1 = __decorate([
-        Directive({
-            selector: '[matTreeNodeDef]',
-            inputs: [
-                'when: matTreeNodeDefWhen'
-            ],
-            providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef_1 }]
-        })
-    ], MatTreeNodeDef);
     return MatTreeNodeDef;
 })();
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  */
 let MatNestedTreeNode = /** @class */ (() => {
-    var MatNestedTreeNode_1;
-    let MatNestedTreeNode = MatNestedTreeNode_1 = class MatNestedTreeNode extends CdkNestedTreeNode {
+    class MatNestedTreeNode extends CdkNestedTreeNode {
         constructor(_elementRef, _tree, _differs, tabIndex) {
             super(_elementRef, _tree, _differs);
             this._elementRef = _elementRef;
@@ -106,91 +103,96 @@ let MatNestedTreeNode = /** @class */ (() => {
         ngOnDestroy() {
             super.ngOnDestroy();
         }
+    }
+    MatNestedTreeNode.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-nested-tree-node',
+                    exportAs: 'matNestedTreeNode',
+                    host: {
+                        '[attr.aria-expanded]': 'isExpanded',
+                        '[attr.role]': 'role',
+                        'class': 'mat-nested-tree-node',
+                    },
+                    providers: [
+                        { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
+                        { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
+                        { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
+                    ]
+                },] }
+    ];
+    /** @nocollapse */
+    MatNestedTreeNode.ctorParameters = () => [
+        { type: ElementRef },
+        { type: CdkTree },
+        { type: IterableDiffers },
+        { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
+    ];
+    MatNestedTreeNode.propDecorators = {
+        node: [{ type: Input, args: ['matNestedTreeNode',] }],
+        disabled: [{ type: Input }],
+        tabIndex: [{ type: Input }]
     };
-    __decorate([
-        Input('matNestedTreeNode'),
-        __metadata("design:type", Object)
-    ], MatNestedTreeNode.prototype, "node", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], MatNestedTreeNode.prototype, "disabled", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Number),
-        __metadata("design:paramtypes", [Number])
-    ], MatNestedTreeNode.prototype, "tabIndex", null);
-    MatNestedTreeNode = MatNestedTreeNode_1 = __decorate([
-        Directive({
-            selector: 'mat-nested-tree-node',
-            exportAs: 'matNestedTreeNode',
-            host: {
-                '[attr.aria-expanded]': 'isExpanded',
-                '[attr.role]': 'role',
-                'class': 'mat-nested-tree-node',
-            },
-            providers: [
-                { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode_1 },
-                { provide: CdkTreeNode, useExisting: MatNestedTreeNode_1 },
-                { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode_1 }
-            ]
-        }),
-        __param(3, Attribute('tabindex')),
-        __metadata("design:paramtypes", [ElementRef,
-            CdkTree,
-            IterableDiffers, String])
-    ], MatNestedTreeNode);
     return MatNestedTreeNode;
 })();
 
 /**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Wrapper for the CdkTree padding with Material design styles.
  */
 let MatTreeNodePadding = /** @class */ (() => {
-    var MatTreeNodePadding_1;
-    let MatTreeNodePadding = MatTreeNodePadding_1 = class MatTreeNodePadding extends CdkTreeNodePadding {
+    class MatTreeNodePadding extends CdkTreeNodePadding {
+    }
+    MatTreeNodePadding.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matTreeNodePadding]',
+                    providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
+                },] }
+    ];
+    MatTreeNodePadding.propDecorators = {
+        level: [{ type: Input, args: ['matTreeNodePadding',] }],
+        indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
     };
-    __decorate([
-        Input('matTreeNodePadding'),
-        __metadata("design:type", Number)
-    ], MatTreeNodePadding.prototype, "level", void 0);
-    __decorate([
-        Input('matTreeNodePaddingIndent'),
-        __metadata("design:type", Number)
-    ], MatTreeNodePadding.prototype, "indent", void 0);
-    MatTreeNodePadding = MatTreeNodePadding_1 = __decorate([
-        Directive({
-            selector: '[matTreeNodePadding]',
-            providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding_1 }]
-        })
-    ], MatTreeNodePadding);
     return MatTreeNodePadding;
 })();
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
  * inside the outlet.
  */
 let MatTreeNodeOutlet = /** @class */ (() => {
-    var MatTreeNodeOutlet_1;
-    let MatTreeNodeOutlet = MatTreeNodeOutlet_1 = class MatTreeNodeOutlet {
+    class MatTreeNodeOutlet {
         constructor(viewContainer, _node) {
             this.viewContainer = viewContainer;
             this._node = _node;
         }
-    };
-    MatTreeNodeOutlet = MatTreeNodeOutlet_1 = __decorate([
-        Directive({
-            selector: '[matTreeNodeOutlet]',
-            providers: [{
-                    provide: CdkTreeNodeOutlet,
-                    useExisting: MatTreeNodeOutlet_1
-                }]
-        }),
-        __param(1, Inject(CDK_TREE_NODE_OUTLET_NODE)), __param(1, Optional()),
-        __metadata("design:paramtypes", [ViewContainerRef, Object])
-    ], MatTreeNodeOutlet);
+    }
+    MatTreeNodeOutlet.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matTreeNodeOutlet]',
+                    providers: [{
+                            provide: CdkTreeNodeOutlet,
+                            useExisting: MatTreeNodeOutlet
+                        }]
+                },] }
+    ];
+    /** @nocollapse */
+    MatTreeNodeOutlet.ctorParameters = () => [
+        { type: ViewContainerRef },
+        { type: undefined, decorators: [{ type: Inject, args: [CDK_TREE_NODE_OUTLET_NODE,] }, { type: Optional }] }
+    ];
     return MatTreeNodeOutlet;
 })();
 
@@ -205,30 +207,28 @@ let MatTreeNodeOutlet = /** @class */ (() => {
  * Wrapper for the CdkTable with Material design styles.
  */
 let MatTree = /** @class */ (() => {
-    var MatTree_1;
-    let MatTree = MatTree_1 = class MatTree extends CdkTree {
+    class MatTree extends CdkTree {
+    }
+    MatTree.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-tree',
+                    exportAs: 'matTree',
+                    template: `<ng-container matTreeNodeOutlet></ng-container>`,
+                    host: {
+                        'class': 'mat-tree',
+                        'role': 'tree',
+                    },
+                    encapsulation: ViewEncapsulation.None,
+                    // See note on CdkTree for explanation on why this uses the default change detection strategy.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
+                    providers: [{ provide: CdkTree, useExisting: MatTree }],
+                    styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
+                }] }
+    ];
+    MatTree.propDecorators = {
+        _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]
     };
-    __decorate([
-        ViewChild(MatTreeNodeOutlet, { static: true }),
-        __metadata("design:type", MatTreeNodeOutlet)
-    ], MatTree.prototype, "_nodeOutlet", void 0);
-    MatTree = MatTree_1 = __decorate([
-        Component({
-            selector: 'mat-tree',
-            exportAs: 'matTree',
-            template: `<ng-container matTreeNodeOutlet></ng-container>`,
-            host: {
-                'class': 'mat-tree',
-                'role': 'tree',
-            },
-            encapsulation: ViewEncapsulation.None,
-            // See note on CdkTree for explanation on why this uses the default change detection strategy.
-            // tslint:disable-next-line:validate-decorators
-            changeDetection: ChangeDetectionStrategy.Default,
-            providers: [{ provide: CdkTree, useExisting: MatTree_1 }],
-            styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
-        })
-    ], MatTree);
     return MatTree;
 })();
 
@@ -243,23 +243,21 @@ let MatTree = /** @class */ (() => {
  * Wrapper for the CdkTree's toggle with Material design styles.
  */
 let MatTreeNodeToggle = /** @class */ (() => {
-    var MatTreeNodeToggle_1;
-    let MatTreeNodeToggle = MatTreeNodeToggle_1 = class MatTreeNodeToggle extends CdkTreeNodeToggle {
+    class MatTreeNodeToggle extends CdkTreeNodeToggle {
         constructor() {
             super(...arguments);
             this.recursive = false;
         }
+    }
+    MatTreeNodeToggle.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matTreeNodeToggle]',
+                    providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
+                },] }
+    ];
+    MatTreeNodeToggle.propDecorators = {
+        recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
     };
-    __decorate([
-        Input('matTreeNodeToggleRecursive'),
-        __metadata("design:type", Boolean)
-    ], MatTreeNodeToggle.prototype, "recursive", void 0);
-    MatTreeNodeToggle = MatTreeNodeToggle_1 = __decorate([
-        Directive({
-            selector: '[matTreeNodeToggle]',
-            providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle_1 }]
-        })
-    ], MatTreeNodeToggle);
     return MatTreeNodeToggle;
 })();
 
@@ -280,15 +278,15 @@ const MAT_TREE_DIRECTIVES = [
     MatTreeNodeOutlet
 ];
 let MatTreeModule = /** @class */ (() => {
-    let MatTreeModule = class MatTreeModule {
-    };
-    MatTreeModule = __decorate([
-        NgModule({
-            imports: [CdkTreeModule, MatCommonModule],
-            exports: [MatCommonModule, MAT_TREE_DIRECTIVES],
-            declarations: MAT_TREE_DIRECTIVES,
-        })
-    ], MatTreeModule);
+    class MatTreeModule {
+    }
+    MatTreeModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CdkTreeModule, MatCommonModule],
+                    exports: [MatCommonModule, MAT_TREE_DIRECTIVES],
+                    declarations: MAT_TREE_DIRECTIVES,
+                },] }
+    ];
     return MatTreeModule;
 })();
 

@@ -472,60 +472,32 @@
             this.disabled = isDisabled;
             this._changeDetector.markForCheck();
         };
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], MatRadioGroup.prototype, "change", void 0);
-        __decorate([
-            core.ContentChildren(core.forwardRef(function () { return MatRadioButton; }), { descendants: true }),
-            __metadata("design:type", core.QueryList)
-        ], MatRadioGroup.prototype, "_radios", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], MatRadioGroup.prototype, "color", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], MatRadioGroup.prototype, "name", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [Object])
-        ], MatRadioGroup.prototype, "labelPosition", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], MatRadioGroup.prototype, "value", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], MatRadioGroup.prototype, "selected", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Object])
-        ], MatRadioGroup.prototype, "disabled", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatRadioGroup.prototype, "required", null);
-        MatRadioGroup = __decorate([
-            core.Directive({
-                selector: 'mat-radio-group',
-                exportAs: 'matRadioGroup',
-                providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-                host: {
-                    'role': 'radiogroup',
-                    'class': 'mat-radio-group',
-                },
-            }),
-            __metadata("design:paramtypes", [core.ChangeDetectorRef])
-        ], MatRadioGroup);
+        MatRadioGroup.decorators = [
+            { type: core.Directive, args: [{
+                        selector: 'mat-radio-group',
+                        exportAs: 'matRadioGroup',
+                        providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
+                        host: {
+                            'role': 'radiogroup',
+                            'class': 'mat-radio-group',
+                        },
+                    },] }
+        ];
+        /** @nocollapse */
+        MatRadioGroup.ctorParameters = function () { return [
+            { type: core.ChangeDetectorRef }
+        ]; };
+        MatRadioGroup.propDecorators = {
+            change: [{ type: core.Output }],
+            _radios: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] }],
+            color: [{ type: core.Input }],
+            name: [{ type: core.Input }],
+            labelPosition: [{ type: core.Input }],
+            value: [{ type: core.Input }],
+            selected: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            required: [{ type: core.Input }]
+        };
         return MatRadioGroup;
     }());
     // Boilerplate for applying mixins to MatRadioButton.
@@ -752,77 +724,34 @@
                 this._changeDetector.markForCheck();
             }
         };
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], _MatRadioButtonBase.prototype, "id", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], _MatRadioButtonBase.prototype, "name", void 0);
-        __decorate([
-            core.Input('aria-label'),
-            __metadata("design:type", String)
-        ], _MatRadioButtonBase.prototype, "ariaLabel", void 0);
-        __decorate([
-            core.Input('aria-labelledby'),
-            __metadata("design:type", String)
-        ], _MatRadioButtonBase.prototype, "ariaLabelledby", void 0);
-        __decorate([
-            core.Input('aria-describedby'),
-            __metadata("design:type", String)
-        ], _MatRadioButtonBase.prototype, "ariaDescribedby", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], _MatRadioButtonBase.prototype, "checked", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], _MatRadioButtonBase.prototype, "value", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [Object])
-        ], _MatRadioButtonBase.prototype, "labelPosition", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], _MatRadioButtonBase.prototype, "disabled", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], _MatRadioButtonBase.prototype, "required", null);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], _MatRadioButtonBase.prototype, "color", null);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", core.EventEmitter)
-        ], _MatRadioButtonBase.prototype, "change", void 0);
-        __decorate([
-            core.ViewChild('input'),
-            __metadata("design:type", core.ElementRef)
-        ], _MatRadioButtonBase.prototype, "_inputElement", void 0);
-        _MatRadioButtonBase = __decorate([
-            core.Directive()
-            // tslint:disable-next-line:class-name
-            ,
-            __param(0, core.Optional()),
-            __param(5, core.Optional()), __param(5, core.Inject(animations.ANIMATION_MODULE_TYPE)),
-            __param(6, core.Optional()), __param(6, core.Inject(MAT_RADIO_DEFAULT_OPTIONS)),
-            __metadata("design:paramtypes", [MatRadioGroup,
-                core.ElementRef,
-                core.ChangeDetectorRef,
-                a11y.FocusMonitor,
-                collections.UniqueSelectionDispatcher, String, Object])
-        ], _MatRadioButtonBase);
+        _MatRadioButtonBase.decorators = [
+            { type: core.Directive }
+        ];
+        /** @nocollapse */
+        _MatRadioButtonBase.ctorParameters = function () { return [
+            { type: MatRadioGroup, decorators: [{ type: core.Optional }] },
+            { type: core.ElementRef },
+            { type: core.ChangeDetectorRef },
+            { type: a11y.FocusMonitor },
+            { type: collections.UniqueSelectionDispatcher },
+            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
+        ]; };
+        _MatRadioButtonBase.propDecorators = {
+            id: [{ type: core.Input }],
+            name: [{ type: core.Input }],
+            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+            ariaDescribedby: [{ type: core.Input, args: ['aria-describedby',] }],
+            checked: [{ type: core.Input }],
+            value: [{ type: core.Input }],
+            labelPosition: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            required: [{ type: core.Input }],
+            color: [{ type: core.Input }],
+            change: [{ type: core.Output }],
+            _inputElement: [{ type: core.ViewChild, args: ['input',] }]
+        };
         return _MatRadioButtonBase;
     }(_MatRadioButtonMixinBase));
     /**
@@ -833,36 +762,36 @@
         function MatRadioButton() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatRadioButton = __decorate([
-            core.Component({
-                selector: 'mat-radio-button',
-                template: "<!-- TODO(jelbourn): render the radio on either side of the content -->\n<!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. -->\n<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label>\n  <!-- The actual 'radio' part of the control. -->\n  <div class=\"mat-radio-container\">\n    <div class=\"mat-radio-outer-circle\"></div>\n    <div class=\"mat-radio-inner-circle\"></div>\n    <input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\"\n        [id]=\"inputId\"\n        [checked]=\"checked\"\n        [disabled]=\"disabled\"\n        [tabIndex]=\"tabIndex\"\n        [attr.name]=\"name\"\n        [attr.value]=\"value\"\n        [required]=\"required\"\n        [attr.aria-label]=\"ariaLabel\"\n        [attr.aria-labelledby]=\"ariaLabelledby\"\n        [attr.aria-describedby]=\"ariaDescribedby\"\n        (change)=\"_onInputChange($event)\"\n        (click)=\"_onInputClick($event)\">\n\n    <!-- The ripple comes after the input so that we can target it with a CSS\n         sibling selector when the input is focused. -->\n    <div mat-ripple class=\"mat-radio-ripple mat-focus-indicator\"\n         [matRippleTrigger]=\"label\"\n         [matRippleDisabled]=\"_isRippleDisabled()\"\n         [matRippleCentered]=\"true\"\n         [matRippleRadius]=\"20\"\n         [matRippleAnimation]=\"{enterDuration: 150}\">\n\n      <div class=\"mat-ripple-element mat-radio-persistent-ripple\"></div>\n    </div>\n  </div>\n\n  <!-- The label content for radio control. -->\n  <div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\">\n    <!-- Add an invisible span so JAWS can read the label -->\n    <span style=\"display:none\">&nbsp;</span>\n    <ng-content></ng-content>\n  </div>\n</label>\n",
-                inputs: ['disableRipple', 'tabIndex'],
-                encapsulation: core.ViewEncapsulation.None,
-                exportAs: 'matRadioButton',
-                host: {
-                    'class': 'mat-radio-button',
-                    '[class.mat-radio-checked]': 'checked',
-                    '[class.mat-radio-disabled]': 'disabled',
-                    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                    '[class.mat-primary]': 'color === "primary"',
-                    '[class.mat-accent]': 'color === "accent"',
-                    '[class.mat-warn]': 'color === "warn"',
-                    // Needs to be -1 so the `focus` event still fires.
-                    '[attr.tabindex]': '-1',
-                    '[attr.id]': 'id',
-                    '[attr.aria-label]': 'null',
-                    '[attr.aria-labelledby]': 'null',
-                    '[attr.aria-describedby]': 'null',
-                    // Note: under normal conditions focus shouldn't land on this element, however it may be
-                    // programmatically set, for example inside of a focus trap, in this case we want to forward
-                    // the focus to the native element.
-                    '(focus)': '_inputElement.nativeElement.focus()',
-                },
-                changeDetection: core.ChangeDetectionStrategy.OnPush,
-                styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent;outline:0}.mat-radio-label{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle;width:100%}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(0.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(0.5)}.cdk-high-contrast-active .mat-radio-checked .mat-radio-inner-circle{border:solid 10px}.mat-radio-label-content{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto;display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button:not(.mat-radio-disabled).cdk-keyboard-focused .mat-radio-persistent-ripple,.mat-radio-button:not(.mat-radio-disabled).cdk-program-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-persistent-ripple,.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple{opacity:0}@media(hover: none){.mat-radio-container:hover .mat-radio-persistent-ripple{display:none}}.mat-radio-input{bottom:0;left:50%}.cdk-high-contrast-active .mat-radio-disabled{opacity:.5}\n"]
-            })
-        ], MatRadioButton);
+        MatRadioButton.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'mat-radio-button',
+                        template: "<!-- TODO(jelbourn): render the radio on either side of the content -->\n<!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. -->\n<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label>\n  <!-- The actual 'radio' part of the control. -->\n  <div class=\"mat-radio-container\">\n    <div class=\"mat-radio-outer-circle\"></div>\n    <div class=\"mat-radio-inner-circle\"></div>\n    <input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\"\n        [id]=\"inputId\"\n        [checked]=\"checked\"\n        [disabled]=\"disabled\"\n        [tabIndex]=\"tabIndex\"\n        [attr.name]=\"name\"\n        [attr.value]=\"value\"\n        [required]=\"required\"\n        [attr.aria-label]=\"ariaLabel\"\n        [attr.aria-labelledby]=\"ariaLabelledby\"\n        [attr.aria-describedby]=\"ariaDescribedby\"\n        (change)=\"_onInputChange($event)\"\n        (click)=\"_onInputClick($event)\">\n\n    <!-- The ripple comes after the input so that we can target it with a CSS\n         sibling selector when the input is focused. -->\n    <div mat-ripple class=\"mat-radio-ripple mat-focus-indicator\"\n         [matRippleTrigger]=\"label\"\n         [matRippleDisabled]=\"_isRippleDisabled()\"\n         [matRippleCentered]=\"true\"\n         [matRippleRadius]=\"20\"\n         [matRippleAnimation]=\"{enterDuration: 150}\">\n\n      <div class=\"mat-ripple-element mat-radio-persistent-ripple\"></div>\n    </div>\n  </div>\n\n  <!-- The label content for radio control. -->\n  <div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\">\n    <!-- Add an invisible span so JAWS can read the label -->\n    <span style=\"display:none\">&nbsp;</span>\n    <ng-content></ng-content>\n  </div>\n</label>\n",
+                        inputs: ['disableRipple', 'tabIndex'],
+                        encapsulation: core.ViewEncapsulation.None,
+                        exportAs: 'matRadioButton',
+                        host: {
+                            'class': 'mat-radio-button',
+                            '[class.mat-radio-checked]': 'checked',
+                            '[class.mat-radio-disabled]': 'disabled',
+                            '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                            '[class.mat-primary]': 'color === "primary"',
+                            '[class.mat-accent]': 'color === "accent"',
+                            '[class.mat-warn]': 'color === "warn"',
+                            // Needs to be -1 so the `focus` event still fires.
+                            '[attr.tabindex]': '-1',
+                            '[attr.id]': 'id',
+                            '[attr.aria-label]': 'null',
+                            '[attr.aria-labelledby]': 'null',
+                            '[attr.aria-describedby]': 'null',
+                            // Note: under normal conditions focus shouldn't land on this element, however it may be
+                            // programmatically set, for example inside of a focus trap, in this case we want to forward
+                            // the focus to the native element.
+                            '(focus)': '_inputElement.nativeElement.focus()',
+                        },
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent;outline:0}.mat-radio-label{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle;width:100%}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(0.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(0.5)}.cdk-high-contrast-active .mat-radio-checked .mat-radio-inner-circle{border:solid 10px}.mat-radio-label-content{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto;display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button:not(.mat-radio-disabled).cdk-keyboard-focused .mat-radio-persistent-ripple,.mat-radio-button:not(.mat-radio-disabled).cdk-program-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-persistent-ripple,.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple{opacity:0}@media(hover: none){.mat-radio-container:hover .mat-radio-persistent-ripple{display:none}}.mat-radio-input{bottom:0;left:50%}.cdk-high-contrast-active .mat-radio-disabled{opacity:.5}\n"]
+                    }] }
+        ];
         return MatRadioButton;
     }(_MatRadioButtonBase));
 
@@ -876,13 +805,13 @@
     var MatRadioModule = /** @class */ (function () {
         function MatRadioModule() {
         }
-        MatRadioModule = __decorate([
-            core.NgModule({
-                imports: [core$1.MatRippleModule, core$1.MatCommonModule],
-                exports: [MatRadioGroup, MatRadioButton, core$1.MatCommonModule],
-                declarations: [MatRadioGroup, MatRadioButton],
-            })
-        ], MatRadioModule);
+        MatRadioModule.decorators = [
+            { type: core.NgModule, args: [{
+                        imports: [core$1.MatRippleModule, core$1.MatCommonModule],
+                        exports: [MatRadioGroup, MatRadioButton, core$1.MatCommonModule],
+                        declarations: [MatRadioGroup, MatRadioButton],
+                    },] }
+        ];
         return MatRadioModule;
     }());
 

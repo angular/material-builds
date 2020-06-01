@@ -1,8 +1,7 @@
-import { __decorate, __metadata, __param } from 'tslib';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { InjectionToken, EventEmitter, ViewChild, TemplateRef, ElementRef, ContentChildren, QueryList, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, ChangeDetectorRef, Directive, forwardRef, Optional, Host, ViewContainerRef, NgZone, NgModule } from '@angular/core';
-import { mixinDisableRipple, MatOption, MatOptgroup, MAT_OPTION_PARENT_COMPONENT, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { InjectionToken, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, ContentChildren, Input, Output, Directive, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
+import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -12,7 +11,7 @@ import { ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes'
 import { _getShadowRoot } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MAT_FORM_FIELD, MatFormField } from '@angular/material/form-field';
+import { MatFormField, MAT_FORM_FIELD } from '@angular/material/form-field';
 import { take, switchMap, filter, map, tap, delay } from 'rxjs/operators';
 
 /**
@@ -53,8 +52,7 @@ function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
     return { autoActiveFirstOption: false };
 }
 let MatAutocomplete = /** @class */ (() => {
-    var MatAutocomplete_1;
-    let MatAutocomplete = MatAutocomplete_1 = class MatAutocomplete extends _MatAutocompleteMixinBase {
+    class MatAutocomplete extends _MatAutocompleteMixinBase {
         constructor(_changeDetectorRef, _elementRef, defaults) {
             super();
             this._changeDetectorRef = _changeDetectorRef;
@@ -145,77 +143,44 @@ let MatAutocomplete = /** @class */ (() => {
             classList['mat-autocomplete-visible'] = this.showPanel;
             classList['mat-autocomplete-hidden'] = !this.showPanel;
         }
+    }
+    MatAutocomplete.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-autocomplete',
+                    template: "<ng-template>\n  <div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    exportAs: 'matAutocomplete',
+                    inputs: ['disableRipple'],
+                    host: {
+                        'class': 'mat-autocomplete'
+                    },
+                    providers: [
+                        { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }
+                    ],
+                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}.mat-autocomplete-panel-above .mat-autocomplete-panel{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}.mat-autocomplete-panel .mat-divider-horizontal{margin-top:-1px}.cdk-high-contrast-active .mat-autocomplete-panel{outline:solid 1px}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatAutocomplete.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: ElementRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
+    ];
+    MatAutocomplete.propDecorators = {
+        template: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
+        panel: [{ type: ViewChild, args: ['panel',] }],
+        options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
+        optionGroups: [{ type: ContentChildren, args: [MatOptgroup, { descendants: true },] }],
+        displayWith: [{ type: Input }],
+        autoActiveFirstOption: [{ type: Input }],
+        panelWidth: [{ type: Input }],
+        optionSelected: [{ type: Output }],
+        opened: [{ type: Output }],
+        closed: [{ type: Output }],
+        optionActivated: [{ type: Output }],
+        classList: [{ type: Input, args: ['class',] }]
     };
-    __decorate([
-        ViewChild(TemplateRef, { static: true }),
-        __metadata("design:type", TemplateRef)
-    ], MatAutocomplete.prototype, "template", void 0);
-    __decorate([
-        ViewChild('panel'),
-        __metadata("design:type", ElementRef)
-    ], MatAutocomplete.prototype, "panel", void 0);
-    __decorate([
-        ContentChildren(MatOption, { descendants: true }),
-        __metadata("design:type", QueryList)
-    ], MatAutocomplete.prototype, "options", void 0);
-    __decorate([
-        ContentChildren(MatOptgroup, { descendants: true }),
-        __metadata("design:type", QueryList)
-    ], MatAutocomplete.prototype, "optionGroups", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], MatAutocomplete.prototype, "displayWith", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatAutocomplete.prototype, "autoActiveFirstOption", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], MatAutocomplete.prototype, "panelWidth", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatAutocomplete.prototype, "optionSelected", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatAutocomplete.prototype, "opened", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatAutocomplete.prototype, "closed", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatAutocomplete.prototype, "optionActivated", void 0);
-    __decorate([
-        Input('class'),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatAutocomplete.prototype, "classList", null);
-    MatAutocomplete = MatAutocomplete_1 = __decorate([
-        Component({
-            selector: 'mat-autocomplete',
-            template: "<ng-template>\n  <div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            exportAs: 'matAutocomplete',
-            inputs: ['disableRipple'],
-            host: {
-                'class': 'mat-autocomplete'
-            },
-            providers: [
-                { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete_1 }
-            ],
-            styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}.mat-autocomplete-panel-above .mat-autocomplete-panel{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}.mat-autocomplete-panel .mat-divider-horizontal{margin-top:-1px}.cdk-high-contrast-active .mat-autocomplete-panel{outline:solid 1px}\n"]
-        }),
-        __param(2, Inject(MAT_AUTOCOMPLETE_DEFAULT_OPTIONS)),
-        __metadata("design:paramtypes", [ChangeDetectorRef,
-            ElementRef, Object])
-    ], MatAutocomplete);
     return MatAutocomplete;
 })();
 
@@ -231,23 +196,33 @@ let MatAutocomplete = /** @class */ (() => {
  * as a connection point for an autocomplete panel.
  */
 let MatAutocompleteOrigin = /** @class */ (() => {
-    let MatAutocompleteOrigin = class MatAutocompleteOrigin {
+    class MatAutocompleteOrigin {
         constructor(
         /** Reference to the element on which the directive is applied. */
         elementRef) {
             this.elementRef = elementRef;
         }
-    };
-    MatAutocompleteOrigin = __decorate([
-        Directive({
-            selector: '[matAutocompleteOrigin]',
-            exportAs: 'matAutocompleteOrigin',
-        }),
-        __metadata("design:paramtypes", [ElementRef])
-    ], MatAutocompleteOrigin);
+    }
+    MatAutocompleteOrigin.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matAutocompleteOrigin]',
+                    exportAs: 'matAutocompleteOrigin',
+                },] }
+    ];
+    /** @nocollapse */
+    MatAutocompleteOrigin.ctorParameters = () => [
+        { type: ElementRef }
+    ];
     return MatAutocompleteOrigin;
 })();
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the scrollTop of the panel. Because we are not
@@ -288,7 +263,7 @@ function getMatAutocompleteMissingPanelError() {
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
 let MatAutocompleteTrigger = /** @class */ (() => {
-    let MatAutocompleteTrigger = class MatAutocompleteTrigger {
+    class MatAutocompleteTrigger {
         constructor(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
             this._element = _element;
             this._overlay = _overlay;
@@ -796,60 +771,50 @@ let MatAutocompleteTrigger = /** @class */ (() => {
             var _a;
             return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
         }
+    }
+    MatAutocompleteTrigger.decorators = [
+        { type: Directive, args: [{
+                    selector: `input[matAutocomplete], textarea[matAutocomplete]`,
+                    host: {
+                        'class': 'mat-autocomplete-trigger',
+                        '[attr.autocomplete]': 'autocompleteAttribute',
+                        '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
+                        '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
+                        '[attr.aria-activedescendant]': '(panelOpen && activeOption) ? activeOption.id : null',
+                        '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
+                        '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
+                        '[attr.aria-haspopup]': '!autocompleteDisabled',
+                        // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
+                        // a little earlier. This avoids issues where IE delays the focusing of the input.
+                        '(focusin)': '_handleFocus()',
+                        '(blur)': '_onTouched()',
+                        '(input)': '_handleInput($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                    },
+                    exportAs: 'matAutocompleteTrigger',
+                    providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
+                },] }
+    ];
+    /** @nocollapse */
+    MatAutocompleteTrigger.ctorParameters = () => [
+        { type: ElementRef },
+        { type: Overlay },
+        { type: ViewContainerRef },
+        { type: NgZone },
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
+        { type: Directionality, decorators: [{ type: Optional }] },
+        { type: MatFormField, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD,] }, { type: Host }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: ViewportRuler }
+    ];
+    MatAutocompleteTrigger.propDecorators = {
+        autocomplete: [{ type: Input, args: ['matAutocomplete',] }],
+        position: [{ type: Input, args: ['matAutocompletePosition',] }],
+        connectedTo: [{ type: Input, args: ['matAutocompleteConnectedTo',] }],
+        autocompleteAttribute: [{ type: Input, args: ['autocomplete',] }],
+        autocompleteDisabled: [{ type: Input, args: ['matAutocompleteDisabled',] }]
     };
-    __decorate([
-        Input('matAutocomplete'),
-        __metadata("design:type", MatAutocomplete)
-    ], MatAutocompleteTrigger.prototype, "autocomplete", void 0);
-    __decorate([
-        Input('matAutocompletePosition'),
-        __metadata("design:type", String)
-    ], MatAutocompleteTrigger.prototype, "position", void 0);
-    __decorate([
-        Input('matAutocompleteConnectedTo'),
-        __metadata("design:type", MatAutocompleteOrigin)
-    ], MatAutocompleteTrigger.prototype, "connectedTo", void 0);
-    __decorate([
-        Input('autocomplete'),
-        __metadata("design:type", String)
-    ], MatAutocompleteTrigger.prototype, "autocompleteAttribute", void 0);
-    __decorate([
-        Input('matAutocompleteDisabled'),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatAutocompleteTrigger.prototype, "autocompleteDisabled", null);
-    MatAutocompleteTrigger = __decorate([
-        Directive({
-            selector: `input[matAutocomplete], textarea[matAutocomplete]`,
-            host: {
-                'class': 'mat-autocomplete-trigger',
-                '[attr.autocomplete]': 'autocompleteAttribute',
-                '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
-                '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
-                '[attr.aria-activedescendant]': '(panelOpen && activeOption) ? activeOption.id : null',
-                '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
-                '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
-                '[attr.aria-haspopup]': '!autocompleteDisabled',
-                // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
-                // a little earlier. This avoids issues where IE delays the focusing of the input.
-                '(focusin)': '_handleFocus()',
-                '(blur)': '_onTouched()',
-                '(input)': '_handleInput($event)',
-                '(keydown)': '_handleKeydown($event)',
-            },
-            exportAs: 'matAutocompleteTrigger',
-            providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
-        }),
-        __param(5, Inject(MAT_AUTOCOMPLETE_SCROLL_STRATEGY)),
-        __param(6, Optional()),
-        __param(7, Optional()), __param(7, Inject(MAT_FORM_FIELD)), __param(7, Host()),
-        __param(8, Optional()), __param(8, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [ElementRef, Overlay,
-            ViewContainerRef,
-            NgZone,
-            ChangeDetectorRef, Object, Directionality,
-            MatFormField, Object, ViewportRuler])
-    ], MatAutocompleteTrigger);
     return MatAutocompleteTrigger;
 })();
 
@@ -861,23 +826,23 @@ let MatAutocompleteTrigger = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatAutocompleteModule = /** @class */ (() => {
-    let MatAutocompleteModule = class MatAutocompleteModule {
-    };
-    MatAutocompleteModule = __decorate([
-        NgModule({
-            imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
-            exports: [
-                CdkScrollableModule,
-                MatAutocomplete,
-                MatOptionModule,
-                MatAutocompleteTrigger,
-                MatAutocompleteOrigin,
-                MatCommonModule
-            ],
-            declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
-            providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
-        })
-    ], MatAutocompleteModule);
+    class MatAutocompleteModule {
+    }
+    MatAutocompleteModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
+                    exports: [
+                        CdkScrollableModule,
+                        MatAutocomplete,
+                        MatOptionModule,
+                        MatAutocompleteTrigger,
+                        MatAutocompleteOrigin,
+                        MatCommonModule
+                    ],
+                    declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
+                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
+                },] }
+    ];
     return MatAutocompleteModule;
 })();
 

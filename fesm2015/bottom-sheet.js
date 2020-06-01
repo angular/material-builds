@@ -1,7 +1,6 @@
-import { __decorate, __metadata, __param } from 'tslib';
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { InjectionToken, EventEmitter, ViewChild, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Inject, ElementRef, ChangeDetectorRef, NgModule, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, SkipSelf, Injector } from '@angular/core';
+import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injectable, Injector, SkipSelf, ɵɵdefineInjectable, ɵɵinject, INJECTOR } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -84,7 +83,7 @@ const matBottomSheetAnimations = {
  * @docs-private
  */
 let MatBottomSheetContainer = /** @class */ (() => {
-    let MatBottomSheetContainer = class MatBottomSheetContainer extends BasePortalOutlet {
+    class MatBottomSheetContainer extends BasePortalOutlet {
         constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document, 
         /** The bottom sheet configuration. */
         bottomSheetConfig) {
@@ -232,36 +231,39 @@ let MatBottomSheetContainer = /** @class */ (() => {
                 Promise.resolve().then(() => this._elementRef.nativeElement.focus());
             }
         }
+    }
+    MatBottomSheetContainer.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-bottom-sheet-container',
+                    template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    animations: [matBottomSheetAnimations.bottomSheetState],
+                    host: {
+                        'class': 'mat-bottom-sheet-container',
+                        'tabindex': '-1',
+                        'role': 'dialog',
+                        'aria-modal': 'true',
+                        '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
+                        '[@state]': '_animationState',
+                        '(@state.start)': '_onAnimationStart($event)',
+                        '(@state.done)': '_onAnimationDone($event)'
+                    },
+                    styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatBottomSheetContainer.ctorParameters = () => [
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: FocusTrapFactory },
+        { type: BreakpointObserver },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: MatBottomSheetConfig }
+    ];
+    MatBottomSheetContainer.propDecorators = {
+        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
     };
-    __decorate([
-        ViewChild(CdkPortalOutlet, { static: true }),
-        __metadata("design:type", CdkPortalOutlet)
-    ], MatBottomSheetContainer.prototype, "_portalOutlet", void 0);
-    MatBottomSheetContainer = __decorate([
-        Component({
-            selector: 'mat-bottom-sheet-container',
-            template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            animations: [matBottomSheetAnimations.bottomSheetState],
-            host: {
-                'class': 'mat-bottom-sheet-container',
-                'tabindex': '-1',
-                'role': 'dialog',
-                'aria-modal': 'true',
-                '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
-                '[@state]': '_animationState',
-                '(@state.start)': '_onAnimationStart($event)',
-                '(@state.done)': '_onAnimationDone($event)'
-            },
-            styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
-        }),
-        __param(4, Optional()), __param(4, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [ElementRef,
-            ChangeDetectorRef,
-            FocusTrapFactory,
-            BreakpointObserver, Object, MatBottomSheetConfig])
-    ], MatBottomSheetContainer);
     return MatBottomSheetContainer;
 })();
 
@@ -273,20 +275,20 @@ let MatBottomSheetContainer = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatBottomSheetModule = /** @class */ (() => {
-    let MatBottomSheetModule = class MatBottomSheetModule {
-    };
-    MatBottomSheetModule = __decorate([
-        NgModule({
-            imports: [
-                OverlayModule,
-                MatCommonModule,
-                PortalModule,
-            ],
-            exports: [MatBottomSheetContainer, MatCommonModule],
-            declarations: [MatBottomSheetContainer],
-            entryComponents: [MatBottomSheetContainer],
-        })
-    ], MatBottomSheetModule);
+    class MatBottomSheetModule {
+    }
+    MatBottomSheetModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        OverlayModule,
+                        MatCommonModule,
+                        PortalModule,
+                    ],
+                    exports: [MatBottomSheetContainer, MatCommonModule],
+                    declarations: [MatBottomSheetContainer],
+                    entryComponents: [MatBottomSheetContainer],
+                },] }
+    ];
     return MatBottomSheetModule;
 })();
 
@@ -380,13 +382,20 @@ class MatBottomSheetRef {
     }
 }
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** Injection token that can be used to specify default bottom sheet options. */
 const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-default-options');
 /**
  * Service to trigger Material Design bottom sheets.
  */
 let MatBottomSheet = /** @class */ (() => {
-    let MatBottomSheet = class MatBottomSheet {
+    class MatBottomSheet {
         constructor(_overlay, _injector, _parentBottomSheet, _location, _defaultOptions) {
             this._overlay = _overlay;
             this._injector = _injector;
@@ -508,19 +517,19 @@ let MatBottomSheet = /** @class */ (() => {
             }
             return new PortalInjector(userInjector || this._injector, injectionTokens);
         }
-    };
+    }
+    MatBottomSheet.decorators = [
+        { type: Injectable, args: [{ providedIn: MatBottomSheetModule },] }
+    ];
+    /** @nocollapse */
+    MatBottomSheet.ctorParameters = () => [
+        { type: Overlay },
+        { type: Injector },
+        { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf }] },
+        { type: Location, decorators: [{ type: Optional }] },
+        { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
+    ];
     MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
-    MatBottomSheet = __decorate([
-        Injectable({ providedIn: MatBottomSheetModule }),
-        __param(2, Optional()), __param(2, SkipSelf()),
-        __param(3, Optional()),
-        __param(4, Optional()), __param(4, Inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS)),
-        __metadata("design:paramtypes", [Overlay,
-            Injector,
-            MatBottomSheet,
-            Location,
-            MatBottomSheetConfig])
-    ], MatBottomSheet);
     return MatBottomSheet;
 })();
 /**

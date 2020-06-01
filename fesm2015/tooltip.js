@@ -1,8 +1,7 @@
-import { __decorate, __metadata, __param } from 'tslib';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Input, Directive, Inject, Optional, ElementRef, ViewContainerRef, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgModule } from '@angular/core';
+import { InjectionToken, Directive, ElementRef, ViewContainerRef, NgZone, Inject, Optional, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatcher, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Directionality } from '@angular/cdk/bidi';
@@ -90,7 +89,7 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * https://material.io/design/components/tooltips.html
  */
 let MatTooltip = /** @class */ (() => {
-    let MatTooltip = class MatTooltip {
+    class MatTooltip {
         constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
             this._overlay = _overlay;
             this._elementRef = _elementRef;
@@ -477,59 +476,39 @@ let MatTooltip = /** @class */ (() => {
                 style.webkitTapHighlightColor = 'transparent';
             }
         }
+    }
+    MatTooltip.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matTooltip]',
+                    exportAs: 'matTooltip',
+                    host: {
+                        'class': 'mat-tooltip-trigger'
+                    }
+                },] }
+    ];
+    /** @nocollapse */
+    MatTooltip.ctorParameters = () => [
+        { type: Overlay },
+        { type: ElementRef },
+        { type: ScrollDispatcher },
+        { type: ViewContainerRef },
+        { type: NgZone },
+        { type: Platform },
+        { type: AriaDescriber },
+        { type: FocusMonitor },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
+        { type: Directionality, decorators: [{ type: Optional }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
+    ];
+    MatTooltip.propDecorators = {
+        position: [{ type: Input, args: ['matTooltipPosition',] }],
+        disabled: [{ type: Input, args: ['matTooltipDisabled',] }],
+        showDelay: [{ type: Input, args: ['matTooltipShowDelay',] }],
+        hideDelay: [{ type: Input, args: ['matTooltipHideDelay',] }],
+        touchGestures: [{ type: Input, args: ['matTooltipTouchGestures',] }],
+        message: [{ type: Input, args: ['matTooltip',] }],
+        tooltipClass: [{ type: Input, args: ['matTooltipClass',] }]
     };
-    __decorate([
-        Input('matTooltipPosition'),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatTooltip.prototype, "position", null);
-    __decorate([
-        Input('matTooltipDisabled'),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Object])
-    ], MatTooltip.prototype, "disabled", null);
-    __decorate([
-        Input('matTooltipShowDelay'),
-        __metadata("design:type", Number)
-    ], MatTooltip.prototype, "showDelay", void 0);
-    __decorate([
-        Input('matTooltipHideDelay'),
-        __metadata("design:type", Number)
-    ], MatTooltip.prototype, "hideDelay", void 0);
-    __decorate([
-        Input('matTooltipTouchGestures'),
-        __metadata("design:type", String)
-    ], MatTooltip.prototype, "touchGestures", void 0);
-    __decorate([
-        Input('matTooltip'),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatTooltip.prototype, "message", null);
-    __decorate([
-        Input('matTooltipClass'),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], MatTooltip.prototype, "tooltipClass", null);
-    MatTooltip = __decorate([
-        Directive({
-            selector: '[matTooltip]',
-            exportAs: 'matTooltip',
-            host: {
-                'class': 'mat-tooltip-trigger'
-            }
-        }),
-        __param(8, Inject(MAT_TOOLTIP_SCROLL_STRATEGY)),
-        __param(9, Optional()),
-        __param(10, Optional()), __param(10, Inject(MAT_TOOLTIP_DEFAULT_OPTIONS)),
-        __metadata("design:paramtypes", [Overlay,
-            ElementRef,
-            ScrollDispatcher,
-            ViewContainerRef,
-            NgZone,
-            Platform,
-            AriaDescriber,
-            FocusMonitor, Object, Directionality, Object])
-    ], MatTooltip);
     return MatTooltip;
 })();
 /**
@@ -537,7 +516,7 @@ let MatTooltip = /** @class */ (() => {
  * @docs-private
  */
 let TooltipComponent = /** @class */ (() => {
-    let TooltipComponent = class TooltipComponent {
+    class TooltipComponent {
         constructor(_changeDetectorRef, _breakpointObserver) {
             this._changeDetectorRef = _changeDetectorRef;
             this._breakpointObserver = _breakpointObserver;
@@ -629,26 +608,29 @@ let TooltipComponent = /** @class */ (() => {
         _markForCheck() {
             this._changeDetectorRef.markForCheck();
         }
-    };
-    TooltipComponent = __decorate([
-        Component({
-            selector: 'mat-tooltip-component',
-            template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            animations: [matTooltipAnimations.tooltipState],
-            host: {
-                // Forces the element to have a layout in IE and Edge. This fixes issues where the element
-                // won't be rendered if the animations are disabled or there is no web animations polyfill.
-                '[style.zoom]': '_visibility === "visible" ? 1 : null',
-                '(body:click)': 'this._handleBodyInteraction()',
-                'aria-hidden': 'true',
-            },
-            styles: [".mat-tooltip-panel{pointer-events:none !important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}\n"]
-        }),
-        __metadata("design:paramtypes", [ChangeDetectorRef,
-            BreakpointObserver])
-    ], TooltipComponent);
+    }
+    TooltipComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-tooltip-component',
+                    template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    animations: [matTooltipAnimations.tooltipState],
+                    host: {
+                        // Forces the element to have a layout in IE and Edge. This fixes issues where the element
+                        // won't be rendered if the animations are disabled or there is no web animations polyfill.
+                        '[style.zoom]': '_visibility === "visible" ? 1 : null',
+                        '(body:click)': 'this._handleBodyInteraction()',
+                        'aria-hidden': 'true',
+                    },
+                    styles: [".mat-tooltip-panel{pointer-events:none !important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    TooltipComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: BreakpointObserver }
+    ];
     return TooltipComponent;
 })();
 
@@ -660,22 +642,22 @@ let TooltipComponent = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatTooltipModule = /** @class */ (() => {
-    let MatTooltipModule = class MatTooltipModule {
-    };
-    MatTooltipModule = __decorate([
-        NgModule({
-            imports: [
-                A11yModule,
-                CommonModule,
-                OverlayModule,
-                MatCommonModule,
-            ],
-            exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule],
-            declarations: [MatTooltip, TooltipComponent],
-            entryComponents: [TooltipComponent],
-            providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]
-        })
-    ], MatTooltipModule);
+    class MatTooltipModule {
+    }
+    MatTooltipModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        A11yModule,
+                        CommonModule,
+                        OverlayModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule],
+                    declarations: [MatTooltip, TooltipComponent],
+                    entryComponents: [TooltipComponent],
+                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                },] }
+    ];
     return MatTooltipModule;
 })();
 

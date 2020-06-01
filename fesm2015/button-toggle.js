@@ -1,8 +1,7 @@
-import { __decorate, __metadata, __param } from 'tslib';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { InjectionToken, forwardRef, EventEmitter, ContentChildren, QueryList, Input, Output, Directive, Optional, Inject, ChangeDetectorRef, ViewChild, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Optional, Inject, ContentChildren, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Attribute, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 
@@ -42,7 +41,7 @@ class MatButtonToggleChange {
 }
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
 let MatButtonToggleGroup = /** @class */ (() => {
-    let MatButtonToggleGroup = class MatButtonToggleGroup {
+    class MatButtonToggleGroup {
         constructor(_changeDetector, defaultOptions) {
             this._changeDetector = _changeDetector;
             this._vertical = false;
@@ -238,68 +237,41 @@ let MatButtonToggleGroup = /** @class */ (() => {
             // it is used by Angular to sync up the two-way data binding.
             this.valueChange.emit(this.value);
         }
+    }
+    MatButtonToggleGroup.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-button-toggle-group',
+                    providers: [MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
+                    host: {
+                        'role': 'group',
+                        'class': 'mat-button-toggle-group',
+                        '[attr.aria-disabled]': 'disabled',
+                        '[class.mat-button-toggle-vertical]': 'vertical',
+                        '[class.mat-button-toggle-group-appearance-standard]': 'appearance === "standard"',
+                    },
+                    exportAs: 'matButtonToggleGroup',
+                },] }
+    ];
+    /** @nocollapse */
+    MatButtonToggleGroup.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS,] }] }
+    ];
+    MatButtonToggleGroup.propDecorators = {
+        _buttonToggles: [{ type: ContentChildren, args: [forwardRef(() => MatButtonToggle), {
+                        // Note that this would technically pick up toggles
+                        // from nested groups, but that's not a case that we support.
+                        descendants: true
+                    },] }],
+        appearance: [{ type: Input }],
+        name: [{ type: Input }],
+        vertical: [{ type: Input }],
+        value: [{ type: Input }],
+        valueChange: [{ type: Output }],
+        multiple: [{ type: Input }],
+        disabled: [{ type: Input }],
+        change: [{ type: Output }]
     };
-    __decorate([
-        ContentChildren(forwardRef(() => MatButtonToggle), {
-            // Note that this would technically pick up toggles
-            // from nested groups, but that's not a case that we support.
-            descendants: true
-        }),
-        __metadata("design:type", QueryList)
-    ], MatButtonToggleGroup.prototype, "_buttonToggles", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatButtonToggleGroup.prototype, "appearance", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatButtonToggleGroup.prototype, "name", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatButtonToggleGroup.prototype, "vertical", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], MatButtonToggleGroup.prototype, "value", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Object)
-    ], MatButtonToggleGroup.prototype, "valueChange", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatButtonToggleGroup.prototype, "multiple", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatButtonToggleGroup.prototype, "disabled", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatButtonToggleGroup.prototype, "change", void 0);
-    MatButtonToggleGroup = __decorate([
-        Directive({
-            selector: 'mat-button-toggle-group',
-            providers: [MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
-            host: {
-                'role': 'group',
-                'class': 'mat-button-toggle-group',
-                '[attr.aria-disabled]': 'disabled',
-                '[class.mat-button-toggle-vertical]': 'vertical',
-                '[class.mat-button-toggle-group-appearance-standard]': 'appearance === "standard"',
-            },
-            exportAs: 'matButtonToggleGroup',
-        }),
-        __param(1, Optional()), __param(1, Inject(MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, Object])
-    ], MatButtonToggleGroup);
     return MatButtonToggleGroup;
 })();
 // Boilerplate for applying mixins to the MatButtonToggle class.
@@ -309,7 +281,7 @@ class MatButtonToggleBase {
 const _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
 /** Single button inside of a toggle group. */
 let MatButtonToggle = /** @class */ (() => {
-    let MatButtonToggle = class MatButtonToggle extends _MatButtonToggleMixinBase {
+    class MatButtonToggle extends _MatButtonToggleMixinBase {
         constructor(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, defaultTabIndex, defaultOptions) {
             super();
             this._changeDetectorRef = _changeDetectorRef;
@@ -416,85 +388,53 @@ let MatButtonToggle = /** @class */ (() => {
             // Use `markForCheck` to explicit update button toggle's status.
             this._changeDetectorRef.markForCheck();
         }
+    }
+    MatButtonToggle.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-button-toggle',
+                    template: "<button #button class=\"mat-button-toggle-button mat-focus-indicator\"\n        type=\"button\"\n        [id]=\"buttonId\"\n        [attr.tabindex]=\"disabled ? -1 : tabIndex\"\n        [attr.aria-pressed]=\"checked\"\n        [disabled]=\"disabled || null\"\n        [attr.name]=\"name || null\"\n        [attr.aria-label]=\"ariaLabel\"\n        [attr.aria-labelledby]=\"ariaLabelledby\"\n        (click)=\"_onButtonClick()\">\n  <div class=\"mat-button-toggle-label-content\">\n    <ng-content></ng-content>\n  </div>\n</button>\n\n<div class=\"mat-button-toggle-focus-overlay\"></div>\n<div class=\"mat-button-toggle-ripple\" matRipple\n     [matRippleTrigger]=\"button\"\n     [matRippleDisabled]=\"this.disableRipple || this.disabled\">\n</div>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    exportAs: 'matButtonToggle',
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    inputs: ['disableRipple'],
+                    host: {
+                        '[class.mat-button-toggle-standalone]': '!buttonToggleGroup',
+                        '[class.mat-button-toggle-checked]': 'checked',
+                        '[class.mat-button-toggle-disabled]': 'disabled',
+                        '[class.mat-button-toggle-appearance-standard]': 'appearance === "standard"',
+                        'class': 'mat-button-toggle',
+                        // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
+                        // but can still receive focus from things like cdkFocusInitial.
+                        '[attr.tabindex]': '-1',
+                        '[attr.id]': 'id',
+                        '[attr.name]': 'null',
+                        '(focus)': 'focus()',
+                    },
+                    styles: [".mat-button-toggle-standalone,.mat-button-toggle-group{position:relative;display:inline-flex;flex-direction:row;white-space:nowrap;overflow:hidden;border-radius:2px;-webkit-tap-highlight-color:transparent}.cdk-high-contrast-active .mat-button-toggle-standalone,.cdk-high-contrast-active .mat-button-toggle-group{outline:solid 1px}.mat-button-toggle-standalone.mat-button-toggle-appearance-standard,.mat-button-toggle-group-appearance-standard{border-radius:4px}.cdk-high-contrast-active .mat-button-toggle-standalone.mat-button-toggle-appearance-standard,.cdk-high-contrast-active .mat-button-toggle-group-appearance-standard{outline:0}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle .mat-icon svg{vertical-align:top}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.cdk-high-contrast-active .mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:.5}.mat-button-toggle-appearance-standard:not(.mat-button-toggle-disabled):hover .mat-button-toggle-focus-overlay{opacity:.04}.mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.12}.cdk-high-contrast-active .mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.5}@media(hover: none){.mat-button-toggle-appearance-standard:not(.mat-button-toggle-disabled):hover .mat-button-toggle-focus-overlay{display:none}}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;position:relative}.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{padding:0 12px}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}.mat-button-toggle-checked .mat-button-toggle-focus-overlay{border-bottom:solid 36px}.cdk-high-contrast-active .mat-button-toggle-checked .mat-button-toggle-focus-overlay{opacity:.5;height:0}.cdk-high-contrast-active .mat-button-toggle-checked.mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay{border-bottom:solid 500px}.mat-button-toggle .mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-toggle-button{border:0;background:none;color:inherit;padding:0;margin:0;font:inherit;outline:none;width:100%;cursor:pointer}.mat-button-toggle-disabled .mat-button-toggle-button{cursor:default}.mat-button-toggle-button::-moz-focus-inner{border:0}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatButtonToggle.ctorParameters = () => [
+        { type: MatButtonToggleGroup, decorators: [{ type: Optional }] },
+        { type: ChangeDetectorRef },
+        { type: ElementRef },
+        { type: FocusMonitor },
+        { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS,] }] }
+    ];
+    MatButtonToggle.propDecorators = {
+        ariaLabel: [{ type: Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+        _buttonElement: [{ type: ViewChild, args: ['button',] }],
+        id: [{ type: Input }],
+        name: [{ type: Input }],
+        value: [{ type: Input }],
+        tabIndex: [{ type: Input }],
+        appearance: [{ type: Input }],
+        checked: [{ type: Input }],
+        disabled: [{ type: Input }],
+        change: [{ type: Output }]
     };
-    __decorate([
-        Input('aria-label'),
-        __metadata("design:type", String)
-    ], MatButtonToggle.prototype, "ariaLabel", void 0);
-    __decorate([
-        Input('aria-labelledby'),
-        __metadata("design:type", Object)
-    ], MatButtonToggle.prototype, "ariaLabelledby", void 0);
-    __decorate([
-        ViewChild('button'),
-        __metadata("design:type", ElementRef)
-    ], MatButtonToggle.prototype, "_buttonElement", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatButtonToggle.prototype, "id", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatButtonToggle.prototype, "name", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], MatButtonToggle.prototype, "value", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], MatButtonToggle.prototype, "tabIndex", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatButtonToggle.prototype, "appearance", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatButtonToggle.prototype, "checked", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatButtonToggle.prototype, "disabled", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatButtonToggle.prototype, "change", void 0);
-    MatButtonToggle = __decorate([
-        Component({
-            selector: 'mat-button-toggle',
-            template: "<button #button class=\"mat-button-toggle-button mat-focus-indicator\"\n        type=\"button\"\n        [id]=\"buttonId\"\n        [attr.tabindex]=\"disabled ? -1 : tabIndex\"\n        [attr.aria-pressed]=\"checked\"\n        [disabled]=\"disabled || null\"\n        [attr.name]=\"name || null\"\n        [attr.aria-label]=\"ariaLabel\"\n        [attr.aria-labelledby]=\"ariaLabelledby\"\n        (click)=\"_onButtonClick()\">\n  <div class=\"mat-button-toggle-label-content\">\n    <ng-content></ng-content>\n  </div>\n</button>\n\n<div class=\"mat-button-toggle-focus-overlay\"></div>\n<div class=\"mat-button-toggle-ripple\" matRipple\n     [matRippleTrigger]=\"button\"\n     [matRippleDisabled]=\"this.disableRipple || this.disabled\">\n</div>\n",
-            encapsulation: ViewEncapsulation.None,
-            exportAs: 'matButtonToggle',
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            inputs: ['disableRipple'],
-            host: {
-                '[class.mat-button-toggle-standalone]': '!buttonToggleGroup',
-                '[class.mat-button-toggle-checked]': 'checked',
-                '[class.mat-button-toggle-disabled]': 'disabled',
-                '[class.mat-button-toggle-appearance-standard]': 'appearance === "standard"',
-                'class': 'mat-button-toggle',
-                // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
-                // but can still receive focus from things like cdkFocusInitial.
-                '[attr.tabindex]': '-1',
-                '[attr.id]': 'id',
-                '[attr.name]': 'null',
-                '(focus)': 'focus()',
-            },
-            styles: [".mat-button-toggle-standalone,.mat-button-toggle-group{position:relative;display:inline-flex;flex-direction:row;white-space:nowrap;overflow:hidden;border-radius:2px;-webkit-tap-highlight-color:transparent}.cdk-high-contrast-active .mat-button-toggle-standalone,.cdk-high-contrast-active .mat-button-toggle-group{outline:solid 1px}.mat-button-toggle-standalone.mat-button-toggle-appearance-standard,.mat-button-toggle-group-appearance-standard{border-radius:4px}.cdk-high-contrast-active .mat-button-toggle-standalone.mat-button-toggle-appearance-standard,.cdk-high-contrast-active .mat-button-toggle-group-appearance-standard{outline:0}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle .mat-icon svg{vertical-align:top}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.cdk-high-contrast-active .mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:.5}.mat-button-toggle-appearance-standard:not(.mat-button-toggle-disabled):hover .mat-button-toggle-focus-overlay{opacity:.04}.mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.12}.cdk-high-contrast-active .mat-button-toggle-appearance-standard.cdk-keyboard-focused:not(.mat-button-toggle-disabled) .mat-button-toggle-focus-overlay{opacity:.5}@media(hover: none){.mat-button-toggle-appearance-standard:not(.mat-button-toggle-disabled):hover .mat-button-toggle-focus-overlay{display:none}}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;position:relative}.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{padding:0 12px}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}.mat-button-toggle-checked .mat-button-toggle-focus-overlay{border-bottom:solid 36px}.cdk-high-contrast-active .mat-button-toggle-checked .mat-button-toggle-focus-overlay{opacity:.5;height:0}.cdk-high-contrast-active .mat-button-toggle-checked.mat-button-toggle-appearance-standard .mat-button-toggle-focus-overlay{border-bottom:solid 500px}.mat-button-toggle .mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-toggle-button{border:0;background:none;color:inherit;padding:0;margin:0;font:inherit;outline:none;width:100%;cursor:pointer}.mat-button-toggle-disabled .mat-button-toggle-button{cursor:default}.mat-button-toggle-button::-moz-focus-inner{border:0}\n"]
-        }),
-        __param(0, Optional()),
-        __param(4, Attribute('tabindex')),
-        __param(5, Optional()), __param(5, Inject(MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS)),
-        __metadata("design:paramtypes", [MatButtonToggleGroup,
-            ChangeDetectorRef,
-            ElementRef,
-            FocusMonitor, String, Object])
-    ], MatButtonToggle);
     return MatButtonToggle;
 })();
 
@@ -506,15 +446,15 @@ let MatButtonToggle = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatButtonToggleModule = /** @class */ (() => {
-    let MatButtonToggleModule = class MatButtonToggleModule {
-    };
-    MatButtonToggleModule = __decorate([
-        NgModule({
-            imports: [MatCommonModule, MatRippleModule],
-            exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle],
-            declarations: [MatButtonToggleGroup, MatButtonToggle],
-        })
-    ], MatButtonToggleModule);
+    class MatButtonToggleModule {
+    }
+    MatButtonToggleModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule, MatRippleModule],
+                    exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle],
+                    declarations: [MatButtonToggleGroup, MatButtonToggle],
+                },] }
+    ];
     return MatButtonToggleModule;
 })();
 

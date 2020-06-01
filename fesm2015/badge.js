@@ -1,5 +1,4 @@
-import { __decorate, __metadata, __param } from 'tslib';
-import { isDevMode, Input, Directive, Optional, Inject, NgZone, ElementRef, Renderer2, NgModule } from '@angular/core';
+import { isDevMode, Directive, NgZone, ElementRef, Renderer2, Optional, Inject, Input, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -20,7 +19,7 @@ class MatBadgeBase {
 const _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
 /** Directive to display a text badge. */
 let MatBadge = /** @class */ (() => {
-    let MatBadge = class MatBadge extends _MatBadgeMixinBase {
+    class MatBadge extends _MatBadgeMixinBase {
         constructor(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
             super();
             this._ngZone = _ngZone;
@@ -187,63 +186,43 @@ let MatBadge = /** @class */ (() => {
                 }
             }
         }
+    }
+    MatBadge.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matBadge]',
+                    inputs: ['disabled: matBadgeDisabled'],
+                    host: {
+                        'class': 'mat-badge',
+                        '[class.mat-badge-overlap]': 'overlap',
+                        '[class.mat-badge-above]': 'isAbove()',
+                        '[class.mat-badge-below]': '!isAbove()',
+                        '[class.mat-badge-before]': '!isAfter()',
+                        '[class.mat-badge-after]': 'isAfter()',
+                        '[class.mat-badge-small]': 'size === "small"',
+                        '[class.mat-badge-medium]': 'size === "medium"',
+                        '[class.mat-badge-large]': 'size === "large"',
+                        '[class.mat-badge-hidden]': 'hidden || !_hasContent',
+                        '[class.mat-badge-disabled]': 'disabled',
+                    },
+                },] }
+    ];
+    /** @nocollapse */
+    MatBadge.ctorParameters = () => [
+        { type: NgZone },
+        { type: ElementRef },
+        { type: AriaDescriber },
+        { type: Renderer2 },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    ];
+    MatBadge.propDecorators = {
+        color: [{ type: Input, args: ['matBadgeColor',] }],
+        overlap: [{ type: Input, args: ['matBadgeOverlap',] }],
+        position: [{ type: Input, args: ['matBadgePosition',] }],
+        content: [{ type: Input, args: ['matBadge',] }],
+        description: [{ type: Input, args: ['matBadgeDescription',] }],
+        size: [{ type: Input, args: ['matBadgeSize',] }],
+        hidden: [{ type: Input, args: ['matBadgeHidden',] }]
     };
-    __decorate([
-        Input('matBadgeColor'),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], MatBadge.prototype, "color", null);
-    __decorate([
-        Input('matBadgeOverlap'),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatBadge.prototype, "overlap", null);
-    __decorate([
-        Input('matBadgePosition'),
-        __metadata("design:type", String)
-    ], MatBadge.prototype, "position", void 0);
-    __decorate([
-        Input('matBadge'),
-        __metadata("design:type", String)
-    ], MatBadge.prototype, "content", void 0);
-    __decorate([
-        Input('matBadgeDescription'),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatBadge.prototype, "description", null);
-    __decorate([
-        Input('matBadgeSize'),
-        __metadata("design:type", String)
-    ], MatBadge.prototype, "size", void 0);
-    __decorate([
-        Input('matBadgeHidden'),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatBadge.prototype, "hidden", null);
-    MatBadge = __decorate([
-        Directive({
-            selector: '[matBadge]',
-            inputs: ['disabled: matBadgeDisabled'],
-            host: {
-                'class': 'mat-badge',
-                '[class.mat-badge-overlap]': 'overlap',
-                '[class.mat-badge-above]': 'isAbove()',
-                '[class.mat-badge-below]': '!isAbove()',
-                '[class.mat-badge-before]': '!isAfter()',
-                '[class.mat-badge-after]': 'isAfter()',
-                '[class.mat-badge-small]': 'size === "small"',
-                '[class.mat-badge-medium]': 'size === "medium"',
-                '[class.mat-badge-large]': 'size === "large"',
-                '[class.mat-badge-hidden]': 'hidden || !_hasContent',
-                '[class.mat-badge-disabled]': 'disabled',
-            },
-        }),
-        __param(4, Optional()), __param(4, Inject(ANIMATION_MODULE_TYPE)),
-        __metadata("design:paramtypes", [NgZone,
-            ElementRef,
-            AriaDescriber,
-            Renderer2, String])
-    ], MatBadge);
     return MatBadge;
 })();
 
@@ -255,18 +234,18 @@ let MatBadge = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatBadgeModule = /** @class */ (() => {
-    let MatBadgeModule = class MatBadgeModule {
-    };
-    MatBadgeModule = __decorate([
-        NgModule({
-            imports: [
-                A11yModule,
-                MatCommonModule
-            ],
-            exports: [MatBadge, MatCommonModule],
-            declarations: [MatBadge],
-        })
-    ], MatBadgeModule);
+    class MatBadgeModule {
+    }
+    MatBadgeModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        A11yModule,
+                        MatCommonModule
+                    ],
+                    exports: [MatBadge, MatCommonModule],
+                    declarations: [MatBadge],
+                },] }
+    ];
     return MatBadgeModule;
 })();
 

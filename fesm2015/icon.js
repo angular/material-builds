@@ -1,5 +1,4 @@
-import { __decorate, __param, __metadata } from 'tslib';
-import { SecurityContext, ɵɵdefineInjectable, ɵɵinject, ErrorHandler, Injectable, Optional, Inject, SkipSelf, InjectionToken, inject, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, ElementRef, NgModule } from '@angular/core';
+import { SecurityContext, Injectable, Optional, Inject, ErrorHandler, ɵɵdefineInjectable, ɵɵinject, SkipSelf, InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Attribute, Input, NgModule } from '@angular/core';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
@@ -8,6 +7,13 @@ import { tap, map, catchError, finalize, share, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.
@@ -69,7 +75,7 @@ class SvgIconConfig {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 let MatIconRegistry = /** @class */ (() => {
-    let MatIconRegistry = class MatIconRegistry {
+    class MatIconRegistry {
         constructor(_httpClient, _sanitizer, document, _errorHandler) {
             this._httpClient = _httpClient;
             this._sanitizer = _sanitizer;
@@ -499,15 +505,18 @@ let MatIconRegistry = /** @class */ (() => {
             }
             return this;
         }
-    };
+    }
+    MatIconRegistry.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    /** @nocollapse */
+    MatIconRegistry.ctorParameters = () => [
+        { type: HttpClient, decorators: [{ type: Optional }] },
+        { type: DomSanitizer },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: ErrorHandler }
+    ];
     MatIconRegistry.ɵprov = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
-    MatIconRegistry = __decorate([
-        Injectable({ providedIn: 'root' }),
-        __param(0, Optional()),
-        __param(2, Optional()), __param(2, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [HttpClient,
-            DomSanitizer, Object, ErrorHandler])
-    ], MatIconRegistry);
     return MatIconRegistry;
 })();
 /** @docs-private */
@@ -618,7 +627,7 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
 let MatIcon = /** @class */ (() => {
-    let MatIcon = class MatIcon extends _MatIconMixinBase {
+    class MatIcon extends _MatIconMixinBase {
         constructor(elementRef, _iconRegistry, ariaHidden, _location, _errorHandler) {
             super(elementRef);
             this._iconRegistry = _iconRegistry;
@@ -839,46 +848,38 @@ let MatIcon = /** @class */ (() => {
                 });
             }
         }
+    }
+    MatIcon.decorators = [
+        { type: Component, args: [{
+                    template: '<ng-content></ng-content>',
+                    selector: 'mat-icon',
+                    exportAs: 'matIcon',
+                    inputs: ['color'],
+                    host: {
+                        'role': 'img',
+                        'class': 'mat-icon notranslate',
+                        '[class.mat-icon-inline]': 'inline',
+                        '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
+                    },
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatIcon.ctorParameters = () => [
+        { type: ElementRef },
+        { type: MatIconRegistry },
+        { type: String, decorators: [{ type: Attribute, args: ['aria-hidden',] }] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_ICON_LOCATION,] }] },
+        { type: ErrorHandler }
+    ];
+    MatIcon.propDecorators = {
+        inline: [{ type: Input }],
+        svgIcon: [{ type: Input }],
+        fontSet: [{ type: Input }],
+        fontIcon: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatIcon.prototype, "inline", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatIcon.prototype, "svgIcon", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatIcon.prototype, "fontSet", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatIcon.prototype, "fontIcon", null);
-    MatIcon = __decorate([
-        Component({
-            template: '<ng-content></ng-content>',
-            selector: 'mat-icon',
-            exportAs: 'matIcon',
-            inputs: ['color'],
-            host: {
-                'role': 'img',
-                'class': 'mat-icon notranslate',
-                '[class.mat-icon-inline]': 'inline',
-                '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
-            },
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}\n"]
-        }),
-        __param(2, Attribute('aria-hidden')),
-        __param(3, Inject(MAT_ICON_LOCATION)),
-        __metadata("design:paramtypes", [ElementRef, MatIconRegistry, String, Object, ErrorHandler])
-    ], MatIcon);
     return MatIcon;
 })();
 
@@ -890,15 +891,15 @@ let MatIcon = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatIconModule = /** @class */ (() => {
-    let MatIconModule = class MatIconModule {
-    };
-    MatIconModule = __decorate([
-        NgModule({
-            imports: [MatCommonModule],
-            exports: [MatIcon, MatCommonModule],
-            declarations: [MatIcon],
-        })
-    ], MatIconModule);
+    class MatIconModule {
+    }
+    MatIconModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [MatIcon, MatCommonModule],
+                    declarations: [MatIcon],
+                },] }
+    ];
     return MatIconModule;
 })();
 

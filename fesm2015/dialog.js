@@ -1,7 +1,6 @@
-import { __decorate, __metadata, __param } from 'tslib';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { EventEmitter, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, ElementRef, ChangeDetectorRef, InjectionToken, Injector, TemplateRef, Injectable, SkipSelf, Input, Directive, NgModule } from '@angular/core';
+import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, InjectionToken, Injector, TemplateRef, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT, Location } from '@angular/common';
@@ -109,7 +108,7 @@ function throwMatDialogContentAlreadyAttachedError() {
  * @docs-private
  */
 let MatDialogContainer = /** @class */ (() => {
-    let MatDialogContainer = class MatDialogContainer extends BasePortalOutlet {
+    class MatDialogContainer extends BasePortalOutlet {
         constructor(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, 
         /** The dialog configuration. */
         _config) {
@@ -254,40 +253,43 @@ let MatDialogContainer = /** @class */ (() => {
             // view container is using OnPush change detection.
             this._changeDetectorRef.markForCheck();
         }
+    }
+    MatDialogContainer.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-dialog-container',
+                    template: "<ng-template cdkPortalOutlet></ng-template>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
+                    animations: [matDialogAnimations.dialogContainer],
+                    host: {
+                        'class': 'mat-dialog-container',
+                        'tabindex': '-1',
+                        'aria-modal': 'true',
+                        '[attr.id]': '_id',
+                        '[attr.role]': '_config.role',
+                        '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
+                        '[attr.aria-label]': '_config.ariaLabel',
+                        '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
+                        '[@dialogContainer]': '_state',
+                        '(@dialogContainer.start)': '_onAnimationStart($event)',
+                        '(@dialogContainer.done)': '_onAnimationDone($event)',
+                    },
+                    styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatDialogContainer.ctorParameters = () => [
+        { type: ElementRef },
+        { type: FocusTrapFactory },
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: MatDialogConfig }
+    ];
+    MatDialogContainer.propDecorators = {
+        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
     };
-    __decorate([
-        ViewChild(CdkPortalOutlet, { static: true }),
-        __metadata("design:type", CdkPortalOutlet)
-    ], MatDialogContainer.prototype, "_portalOutlet", void 0);
-    MatDialogContainer = __decorate([
-        Component({
-            selector: 'mat-dialog-container',
-            template: "<ng-template cdkPortalOutlet></ng-template>\n",
-            encapsulation: ViewEncapsulation.None,
-            // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
-            // tslint:disable-next-line:validate-decorators
-            changeDetection: ChangeDetectionStrategy.Default,
-            animations: [matDialogAnimations.dialogContainer],
-            host: {
-                'class': 'mat-dialog-container',
-                'tabindex': '-1',
-                'aria-modal': 'true',
-                '[attr.id]': '_id',
-                '[attr.role]': '_config.role',
-                '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
-                '[attr.aria-label]': '_config.ariaLabel',
-                '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
-                '[@dialogContainer]': '_state',
-                '(@dialogContainer.start)': '_onAnimationStart($event)',
-                '(@dialogContainer.done)': '_onAnimationDone($event)',
-            },
-            styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
-        }),
-        __param(3, Optional()), __param(3, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [ElementRef,
-            FocusTrapFactory,
-            ChangeDetectorRef, Object, MatDialogConfig])
-    ], MatDialogContainer);
     return MatDialogContainer;
 })();
 
@@ -499,7 +501,7 @@ const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 let MatDialog = /** @class */ (() => {
-    let MatDialog = class MatDialog {
+    class MatDialog {
         constructor(_overlay, _injector, 
         /**
          * @deprecated `_location` parameter to be removed.
@@ -738,19 +740,20 @@ let MatDialog = /** @class */ (() => {
                 dialogs[i].close();
             }
         }
-    };
-    MatDialog = __decorate([
-        Injectable(),
-        __param(2, Optional()),
-        __param(3, Optional()), __param(3, Inject(MAT_DIALOG_DEFAULT_OPTIONS)),
-        __param(4, Inject(MAT_DIALOG_SCROLL_STRATEGY)),
-        __param(5, Optional()), __param(5, SkipSelf()),
-        __metadata("design:paramtypes", [Overlay,
-            Injector,
-            Location,
-            MatDialogConfig, Object, MatDialog,
-            OverlayContainer])
-    ], MatDialog);
+    }
+    MatDialog.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    MatDialog.ctorParameters = () => [
+        { type: Overlay },
+        { type: Injector },
+        { type: Location, decorators: [{ type: Optional }] },
+        { type: MatDialogConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
+        { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf }] },
+        { type: OverlayContainer }
+    ];
     return MatDialog;
 })();
 /**
@@ -776,7 +779,7 @@ let dialogElementUid = 0;
  * Button that will close the current dialog.
  */
 let MatDialogClose = /** @class */ (() => {
-    let MatDialogClose = class MatDialogClose {
+    class MatDialogClose {
         constructor(dialogRef, _elementRef, _dialog) {
             this.dialogRef = dialogRef;
             this._elementRef = _elementRef;
@@ -800,45 +803,37 @@ let MatDialogClose = /** @class */ (() => {
                 this.dialogResult = proxiedChange.currentValue;
             }
         }
+    }
+    MatDialogClose.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-dialog-close], [matDialogClose]',
+                    exportAs: 'matDialogClose',
+                    host: {
+                        '(click)': 'dialogRef.close(dialogResult)',
+                        '[attr.aria-label]': 'ariaLabel || null',
+                        '[attr.type]': 'type',
+                    }
+                },] }
+    ];
+    /** @nocollapse */
+    MatDialogClose.ctorParameters = () => [
+        { type: MatDialogRef, decorators: [{ type: Optional }] },
+        { type: ElementRef },
+        { type: MatDialog }
+    ];
+    MatDialogClose.propDecorators = {
+        ariaLabel: [{ type: Input, args: ['aria-label',] }],
+        type: [{ type: Input }],
+        dialogResult: [{ type: Input, args: ['mat-dialog-close',] }],
+        _matDialogClose: [{ type: Input, args: ['matDialogClose',] }]
     };
-    __decorate([
-        Input('aria-label'),
-        __metadata("design:type", String)
-    ], MatDialogClose.prototype, "ariaLabel", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatDialogClose.prototype, "type", void 0);
-    __decorate([
-        Input('mat-dialog-close'),
-        __metadata("design:type", Object)
-    ], MatDialogClose.prototype, "dialogResult", void 0);
-    __decorate([
-        Input('matDialogClose'),
-        __metadata("design:type", Object)
-    ], MatDialogClose.prototype, "_matDialogClose", void 0);
-    MatDialogClose = __decorate([
-        Directive({
-            selector: '[mat-dialog-close], [matDialogClose]',
-            exportAs: 'matDialogClose',
-            host: {
-                '(click)': 'dialogRef.close(dialogResult)',
-                '[attr.aria-label]': 'ariaLabel || null',
-                '[attr.type]': 'type',
-            }
-        }),
-        __param(0, Optional()),
-        __metadata("design:paramtypes", [MatDialogRef,
-            ElementRef,
-            MatDialog])
-    ], MatDialogClose);
     return MatDialogClose;
 })();
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
 let MatDialogTitle = /** @class */ (() => {
-    let MatDialogTitle = class MatDialogTitle {
+    class MatDialogTitle {
         constructor(_dialogRef, _elementRef, _dialog) {
             this._dialogRef = _dialogRef;
             this._elementRef = _elementRef;
@@ -858,39 +853,40 @@ let MatDialogTitle = /** @class */ (() => {
                 });
             }
         }
+    }
+    MatDialogTitle.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-dialog-title], [matDialogTitle]',
+                    exportAs: 'matDialogTitle',
+                    host: {
+                        'class': 'mat-dialog-title',
+                        '[id]': 'id',
+                    },
+                },] }
+    ];
+    /** @nocollapse */
+    MatDialogTitle.ctorParameters = () => [
+        { type: MatDialogRef, decorators: [{ type: Optional }] },
+        { type: ElementRef },
+        { type: MatDialog }
+    ];
+    MatDialogTitle.propDecorators = {
+        id: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatDialogTitle.prototype, "id", void 0);
-    MatDialogTitle = __decorate([
-        Directive({
-            selector: '[mat-dialog-title], [matDialogTitle]',
-            exportAs: 'matDialogTitle',
-            host: {
-                'class': 'mat-dialog-title',
-                '[id]': 'id',
-            },
-        }),
-        __param(0, Optional()),
-        __metadata("design:paramtypes", [MatDialogRef,
-            ElementRef,
-            MatDialog])
-    ], MatDialogTitle);
     return MatDialogTitle;
 })();
 /**
  * Scrollable content container of a dialog.
  */
 let MatDialogContent = /** @class */ (() => {
-    let MatDialogContent = class MatDialogContent {
-    };
-    MatDialogContent = __decorate([
-        Directive({
-            selector: `[mat-dialog-content], mat-dialog-content, [matDialogContent]`,
-            host: { 'class': 'mat-dialog-content' }
-        })
-    ], MatDialogContent);
+    class MatDialogContent {
+    }
+    MatDialogContent.decorators = [
+        { type: Directive, args: [{
+                    selector: `[mat-dialog-content], mat-dialog-content, [matDialogContent]`,
+                    host: { 'class': 'mat-dialog-content' }
+                },] }
+    ];
     return MatDialogContent;
 })();
 /**
@@ -898,14 +894,14 @@ let MatDialogContent = /** @class */ (() => {
  * Stays fixed to the bottom when scrolling.
  */
 let MatDialogActions = /** @class */ (() => {
-    let MatDialogActions = class MatDialogActions {
-    };
-    MatDialogActions = __decorate([
-        Directive({
-            selector: `[mat-dialog-actions], mat-dialog-actions, [matDialogActions]`,
-            host: { 'class': 'mat-dialog-actions' }
-        })
-    ], MatDialogActions);
+    class MatDialogActions {
+    }
+    MatDialogActions.decorators = [
+        { type: Directive, args: [{
+                    selector: `[mat-dialog-actions], mat-dialog-actions, [matDialogActions]`,
+                    host: { 'class': 'mat-dialog-actions' }
+                },] }
+    ];
     return MatDialogActions;
 })();
 /**
@@ -929,37 +925,37 @@ function getClosestDialog(element, openDialogs) {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatDialogModule = /** @class */ (() => {
-    let MatDialogModule = class MatDialogModule {
-    };
-    MatDialogModule = __decorate([
-        NgModule({
-            imports: [
-                OverlayModule,
-                PortalModule,
-                MatCommonModule,
-            ],
-            exports: [
-                MatDialogContainer,
-                MatDialogClose,
-                MatDialogTitle,
-                MatDialogContent,
-                MatDialogActions,
-                MatCommonModule,
-            ],
-            declarations: [
-                MatDialogContainer,
-                MatDialogClose,
-                MatDialogTitle,
-                MatDialogActions,
-                MatDialogContent,
-            ],
-            providers: [
-                MatDialog,
-                MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
-            ],
-            entryComponents: [MatDialogContainer],
-        })
-    ], MatDialogModule);
+    class MatDialogModule {
+    }
+    MatDialogModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        OverlayModule,
+                        PortalModule,
+                        MatCommonModule,
+                    ],
+                    exports: [
+                        MatDialogContainer,
+                        MatDialogClose,
+                        MatDialogTitle,
+                        MatDialogContent,
+                        MatDialogActions,
+                        MatCommonModule,
+                    ],
+                    declarations: [
+                        MatDialogContainer,
+                        MatDialogClose,
+                        MatDialogTitle,
+                        MatDialogActions,
+                        MatDialogContent,
+                    ],
+                    providers: [
+                        MatDialog,
+                        MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
+                    ],
+                    entryComponents: [MatDialogContainer],
+                },] }
+    ];
     return MatDialogModule;
 })();
 

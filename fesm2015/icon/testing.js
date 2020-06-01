@@ -1,4 +1,3 @@
-import { __decorate } from 'tslib';
 import { Injectable, NgModule } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { of } from 'rxjs';
@@ -16,7 +15,7 @@ import { of } from 'rxjs';
  * icons.
  */
 let FakeMatIconRegistry = /** @class */ (() => {
-    let FakeMatIconRegistry = class FakeMatIconRegistry {
+    class FakeMatIconRegistry {
         addSvgIcon() {
             return this;
         }
@@ -71,21 +70,21 @@ let FakeMatIconRegistry = /** @class */ (() => {
             emptySvg.setAttribute('focusable', 'false');
             return emptySvg;
         }
-    };
-    FakeMatIconRegistry = __decorate([
-        Injectable()
-    ], FakeMatIconRegistry);
+    }
+    FakeMatIconRegistry.decorators = [
+        { type: Injectable }
+    ];
     return FakeMatIconRegistry;
 })();
 /** Import this module in tests to install the null icon registry. */
 let MatIconTestingModule = /** @class */ (() => {
-    let MatIconTestingModule = class MatIconTestingModule {
-    };
-    MatIconTestingModule = __decorate([
-        NgModule({
-            providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }]
-        })
-    ], MatIconTestingModule);
+    class MatIconTestingModule {
+    }
+    MatIconTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }]
+                },] }
+    ];
     return MatIconTestingModule;
 })();
 

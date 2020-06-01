@@ -1,14 +1,13 @@
-import { __decorate, __param, __metadata } from 'tslib';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, forwardRef, ChangeDetectorRef, ElementRef, NgZone, EventEmitter, Input, HostBinding, Output, HostListener, Optional, QueryList, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, forwardRef, ElementRef, NgZone, EventEmitter, Optional, Input, HostBinding, Output, HostListener, QueryList, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { FocusTrapFactory, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
-import { Subject, fromEvent, Observable, merge } from 'rxjs';
+import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, takeUntil, distinctUntilChanged, map, take, startWith, debounceTime } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -67,7 +66,7 @@ function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
     return false;
 }
 let MatDrawerContent = /** @class */ (() => {
-    let MatDrawerContent = class MatDrawerContent extends CdkScrollable {
+    class MatDrawerContent extends CdkScrollable {
         constructor(_changeDetectorRef, _container, elementRef, scrollDispatcher, ngZone) {
             super(elementRef, scrollDispatcher, ngZone);
             this._changeDetectorRef = _changeDetectorRef;
@@ -78,33 +77,35 @@ let MatDrawerContent = /** @class */ (() => {
                 this._changeDetectorRef.markForCheck();
             });
         }
-    };
-    MatDrawerContent = __decorate([
-        Component({
-            selector: 'mat-drawer-content',
-            template: '<ng-content></ng-content>',
-            host: {
-                'class': 'mat-drawer-content',
-                '[style.margin-left.px]': '_container._contentMargins.left',
-                '[style.margin-right.px]': '_container._contentMargins.right',
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None
-        }),
-        __param(1, Inject(forwardRef(() => MatDrawerContainer))),
-        __metadata("design:paramtypes", [ChangeDetectorRef,
-            MatDrawerContainer,
-            ElementRef,
-            ScrollDispatcher,
-            NgZone])
-    ], MatDrawerContent);
+    }
+    MatDrawerContent.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-drawer-content',
+                    template: '<ng-content></ng-content>',
+                    host: {
+                        'class': 'mat-drawer-content',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None
+                }] }
+    ];
+    /** @nocollapse */
+    MatDrawerContent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatDrawerContainer),] }] },
+        { type: ElementRef },
+        { type: ScrollDispatcher },
+        { type: NgZone }
+    ];
     return MatDrawerContent;
 })();
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
 let MatDrawer = /** @class */ (() => {
-    let MatDrawer = class MatDrawer {
+    class MatDrawer {
         constructor(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc, 
         /**
          * @deprecated `_container` parameter to be made required.
@@ -360,104 +361,54 @@ let MatDrawer = /** @class */ (() => {
         _animationDoneListener(event) {
             this._animationEnd.next(event);
         }
+    }
+    MatDrawer.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-drawer',
+                    exportAs: 'matDrawer',
+                    template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    animations: [matDrawerAnimations.transformDrawer],
+                    host: {
+                        'class': 'mat-drawer',
+                        // must prevent the browser from aligning text based on value
+                        '[attr.align]': 'null',
+                        '[class.mat-drawer-end]': 'position === "end"',
+                        '[class.mat-drawer-over]': 'mode === "over"',
+                        '[class.mat-drawer-push]': 'mode === "push"',
+                        '[class.mat-drawer-side]': 'mode === "side"',
+                        '[class.mat-drawer-opened]': 'opened',
+                        'tabIndex': '-1',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None
+                }] }
+    ];
+    /** @nocollapse */
+    MatDrawer.ctorParameters = () => [
+        { type: ElementRef },
+        { type: FocusTrapFactory },
+        { type: FocusMonitor },
+        { type: Platform },
+        { type: NgZone },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: MatDrawerContainer, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DRAWER_CONTAINER,] }] }
+    ];
+    MatDrawer.propDecorators = {
+        position: [{ type: Input }],
+        mode: [{ type: Input }],
+        disableClose: [{ type: Input }],
+        autoFocus: [{ type: Input }],
+        opened: [{ type: Input }],
+        _animationState: [{ type: HostBinding, args: ['@transform',] }],
+        openedChange: [{ type: Output }],
+        _openedStream: [{ type: Output, args: ['opened',] }],
+        openedStart: [{ type: Output }],
+        _closedStream: [{ type: Output, args: ['closed',] }],
+        closedStart: [{ type: Output }],
+        onPositionChanged: [{ type: Output, args: ['positionChanged',] }],
+        _animationStartListener: [{ type: HostListener, args: ['@transform.start', ['$event'],] }],
+        _animationDoneListener: [{ type: HostListener, args: ['@transform.done', ['$event'],] }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatDrawer.prototype, "position", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], MatDrawer.prototype, "mode", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatDrawer.prototype, "disableClose", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatDrawer.prototype, "autoFocus", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatDrawer.prototype, "opened", null);
-    __decorate([
-        HostBinding('@transform'),
-        __metadata("design:type", String)
-    ], MatDrawer.prototype, "_animationState", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatDrawer.prototype, "openedChange", void 0);
-    __decorate([
-        Output('opened'),
-        __metadata("design:type", Observable),
-        __metadata("design:paramtypes", [])
-    ], MatDrawer.prototype, "_openedStream", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable),
-        __metadata("design:paramtypes", [])
-    ], MatDrawer.prototype, "openedStart", null);
-    __decorate([
-        Output('closed'),
-        __metadata("design:type", Observable),
-        __metadata("design:paramtypes", [])
-    ], MatDrawer.prototype, "_closedStream", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable),
-        __metadata("design:paramtypes", [])
-    ], MatDrawer.prototype, "closedStart", null);
-    __decorate([
-        Output('positionChanged'),
-        __metadata("design:type", EventEmitter)
-    ], MatDrawer.prototype, "onPositionChanged", void 0);
-    __decorate([
-        HostListener('@transform.start', ['$event']),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", void 0)
-    ], MatDrawer.prototype, "_animationStartListener", null);
-    __decorate([
-        HostListener('@transform.done', ['$event']),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", void 0)
-    ], MatDrawer.prototype, "_animationDoneListener", null);
-    MatDrawer = __decorate([
-        Component({
-            selector: 'mat-drawer',
-            exportAs: 'matDrawer',
-            template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-            animations: [matDrawerAnimations.transformDrawer],
-            host: {
-                'class': 'mat-drawer',
-                // must prevent the browser from aligning text based on value
-                '[attr.align]': 'null',
-                '[class.mat-drawer-end]': 'position === "end"',
-                '[class.mat-drawer-over]': 'mode === "over"',
-                '[class.mat-drawer-push]': 'mode === "push"',
-                '[class.mat-drawer-side]': 'mode === "side"',
-                '[class.mat-drawer-opened]': 'opened',
-                'tabIndex': '-1',
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None
-        }),
-        __param(5, Optional()), __param(5, Inject(DOCUMENT)),
-        __param(6, Optional()), __param(6, Inject(MAT_DRAWER_CONTAINER)),
-        __metadata("design:paramtypes", [ElementRef,
-            FocusTrapFactory,
-            FocusMonitor,
-            Platform,
-            NgZone, Object, MatDrawerContainer])
-    ], MatDrawer);
     return MatDrawer;
 })();
 /**
@@ -467,8 +418,7 @@ let MatDrawer = /** @class */ (() => {
  * and coordinates the backdrop and content styling.
  */
 let MatDrawerContainer = /** @class */ (() => {
-    var MatDrawerContainer_1;
-    let MatDrawerContainer = MatDrawerContainer_1 = class MatDrawerContainer {
+    class MatDrawerContainer {
         constructor(_dir, _element, _ngZone, _changeDetectorRef, viewportRuler, defaultAutosize = false, _animationMode) {
             this._dir = _dir;
             this._element = _element;
@@ -741,63 +691,47 @@ let MatDrawerContainer = /** @class */ (() => {
         _isDrawerOpen(drawer) {
             return drawer != null && drawer.opened;
         }
+    }
+    MatDrawerContainer.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-drawer-container',
+                    exportAs: 'matDrawerContainer',
+                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-drawer\"></ng-content>\n\n<ng-content select=\"mat-drawer-content\">\n</ng-content>\n<mat-drawer-content *ngIf=\"!_content\">\n  <ng-content></ng-content>\n</mat-drawer-content>\n",
+                    host: {
+                        'class': 'mat-drawer-container',
+                        '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    providers: [{
+                            provide: MAT_DRAWER_CONTAINER,
+                            useExisting: MatDrawerContainer
+                        }],
+                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-container-has-open{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-container.ng-animate-disabled .mat-drawer-backdrop,.mat-drawer-container.ng-animate-disabled .mat-drawer-content,.ng-animate-disabled .mat-drawer-container .mat-drawer-backdrop,.ng-animate-disabled .mat-drawer-container .mat-drawer-content{transition:none}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:background-color,visibility}.cdk-high-contrast-active .mat-drawer-backdrop{opacity:.5}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%, 0, 0)}.cdk-high-contrast-active .mat-drawer,.cdk-high-contrast-active [dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}.cdk-high-contrast-active [dir=rtl] .mat-drawer,.cdk-high-contrast-active .mat-drawer.mat-drawer-end{border-left:solid 1px currentColor;border-right:none}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer{transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%, 0, 0)}.mat-drawer-inner-container{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch}.mat-sidenav-fixed{position:fixed}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatDrawerContainer.ctorParameters = () => [
+        { type: Directionality, decorators: [{ type: Optional }] },
+        { type: ElementRef },
+        { type: NgZone },
+        { type: ChangeDetectorRef },
+        { type: ViewportRuler },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    ];
+    MatDrawerContainer.propDecorators = {
+        _allDrawers: [{ type: ContentChildren, args: [MatDrawer, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }],
+        _content: [{ type: ContentChild, args: [MatDrawerContent,] }],
+        _userContent: [{ type: ViewChild, args: [MatDrawerContent,] }],
+        autosize: [{ type: Input }],
+        hasBackdrop: [{ type: Input }],
+        backdropClick: [{ type: Output }]
     };
-    __decorate([
-        ContentChildren(MatDrawer, {
-            // We need to use `descendants: true`, because Ivy will no longer match
-            // indirect descendants if it's left as false.
-            descendants: true
-        }),
-        __metadata("design:type", QueryList)
-    ], MatDrawerContainer.prototype, "_allDrawers", void 0);
-    __decorate([
-        ContentChild(MatDrawerContent),
-        __metadata("design:type", MatDrawerContent)
-    ], MatDrawerContainer.prototype, "_content", void 0);
-    __decorate([
-        ViewChild(MatDrawerContent),
-        __metadata("design:type", MatDrawerContent)
-    ], MatDrawerContainer.prototype, "_userContent", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatDrawerContainer.prototype, "autosize", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], MatDrawerContainer.prototype, "hasBackdrop", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], MatDrawerContainer.prototype, "backdropClick", void 0);
-    MatDrawerContainer = MatDrawerContainer_1 = __decorate([
-        Component({
-            selector: 'mat-drawer-container',
-            exportAs: 'matDrawerContainer',
-            template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-drawer\"></ng-content>\n\n<ng-content select=\"mat-drawer-content\">\n</ng-content>\n<mat-drawer-content *ngIf=\"!_content\">\n  <ng-content></ng-content>\n</mat-drawer-content>\n",
-            host: {
-                'class': 'mat-drawer-container',
-                '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride',
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            providers: [{
-                    provide: MAT_DRAWER_CONTAINER,
-                    useExisting: MatDrawerContainer_1
-                }],
-            styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-container-has-open{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-container.ng-animate-disabled .mat-drawer-backdrop,.mat-drawer-container.ng-animate-disabled .mat-drawer-content,.ng-animate-disabled .mat-drawer-container .mat-drawer-backdrop,.ng-animate-disabled .mat-drawer-container .mat-drawer-content{transition:none}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:background-color,visibility}.cdk-high-contrast-active .mat-drawer-backdrop{opacity:.5}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%, 0, 0)}.cdk-high-contrast-active .mat-drawer,.cdk-high-contrast-active [dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}.cdk-high-contrast-active [dir=rtl] .mat-drawer,.cdk-high-contrast-active .mat-drawer.mat-drawer-end{border-left:solid 1px currentColor;border-right:none}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer{transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%, 0, 0)}.mat-drawer-inner-container{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch}.mat-sidenav-fixed{position:fixed}\n"]
-        }),
-        __param(0, Optional()),
-        __param(5, Inject(MAT_DRAWER_DEFAULT_AUTOSIZE)),
-        __param(6, Optional()), __param(6, Inject(ANIMATION_MODULE_TYPE)),
-        __metadata("design:paramtypes", [Directionality,
-            ElementRef,
-            NgZone,
-            ChangeDetectorRef,
-            ViewportRuler, Object, String])
-    ], MatDrawerContainer);
     return MatDrawerContainer;
 })();
 
@@ -809,34 +743,36 @@ let MatDrawerContainer = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatSidenavContent = /** @class */ (() => {
-    let MatSidenavContent = class MatSidenavContent extends MatDrawerContent {
+    class MatSidenavContent extends MatDrawerContent {
         constructor(changeDetectorRef, container, elementRef, scrollDispatcher, ngZone) {
             super(changeDetectorRef, container, elementRef, scrollDispatcher, ngZone);
         }
-    };
-    MatSidenavContent = __decorate([
-        Component({
-            selector: 'mat-sidenav-content',
-            template: '<ng-content></ng-content>',
-            host: {
-                'class': 'mat-drawer-content mat-sidenav-content',
-                '[style.margin-left.px]': '_container._contentMargins.left',
-                '[style.margin-right.px]': '_container._contentMargins.right',
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None
-        }),
-        __param(1, Inject(forwardRef(() => MatSidenavContainer))),
-        __metadata("design:paramtypes", [ChangeDetectorRef,
-            MatSidenavContainer,
-            ElementRef,
-            ScrollDispatcher,
-            NgZone])
-    ], MatSidenavContent);
+    }
+    MatSidenavContent.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-sidenav-content',
+                    template: '<ng-content></ng-content>',
+                    host: {
+                        'class': 'mat-drawer-content mat-sidenav-content',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None
+                }] }
+    ];
+    /** @nocollapse */
+    MatSidenavContent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatSidenavContainer),] }] },
+        { type: ElementRef },
+        { type: ScrollDispatcher },
+        { type: NgZone }
+    ];
     return MatSidenavContent;
 })();
 let MatSidenav = /** @class */ (() => {
-    let MatSidenav = class MatSidenav extends MatDrawer {
+    class MatSidenav extends MatDrawer {
         constructor() {
             super(...arguments);
             this._fixedInViewport = false;
@@ -858,116 +794,108 @@ let MatSidenav = /** @class */ (() => {
          */
         get fixedBottomGap() { return this._fixedBottomGap; }
         set fixedBottomGap(value) { this._fixedBottomGap = coerceNumberProperty(value); }
+    }
+    MatSidenav.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-sidenav',
+                    exportAs: 'matSidenav',
+                    template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    animations: [matDrawerAnimations.transformDrawer],
+                    host: {
+                        'class': 'mat-drawer mat-sidenav',
+                        'tabIndex': '-1',
+                        // must prevent the browser from aligning text based on value
+                        '[attr.align]': 'null',
+                        '[class.mat-drawer-end]': 'position === "end"',
+                        '[class.mat-drawer-over]': 'mode === "over"',
+                        '[class.mat-drawer-push]': 'mode === "push"',
+                        '[class.mat-drawer-side]': 'mode === "side"',
+                        '[class.mat-drawer-opened]': 'opened',
+                        '[class.mat-sidenav-fixed]': 'fixedInViewport',
+                        '[style.top.px]': 'fixedInViewport ? fixedTopGap : null',
+                        '[style.bottom.px]': 'fixedInViewport ? fixedBottomGap : null',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None
+                }] }
+    ];
+    MatSidenav.propDecorators = {
+        fixedInViewport: [{ type: Input }],
+        fixedTopGap: [{ type: Input }],
+        fixedBottomGap: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Object])
-    ], MatSidenav.prototype, "fixedInViewport", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Number),
-        __metadata("design:paramtypes", [Object])
-    ], MatSidenav.prototype, "fixedTopGap", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Number),
-        __metadata("design:paramtypes", [Object])
-    ], MatSidenav.prototype, "fixedBottomGap", null);
-    MatSidenav = __decorate([
-        Component({
-            selector: 'mat-sidenav',
-            exportAs: 'matSidenav',
-            template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-            animations: [matDrawerAnimations.transformDrawer],
-            host: {
-                'class': 'mat-drawer mat-sidenav',
-                'tabIndex': '-1',
-                // must prevent the browser from aligning text based on value
-                '[attr.align]': 'null',
-                '[class.mat-drawer-end]': 'position === "end"',
-                '[class.mat-drawer-over]': 'mode === "over"',
-                '[class.mat-drawer-push]': 'mode === "push"',
-                '[class.mat-drawer-side]': 'mode === "side"',
-                '[class.mat-drawer-opened]': 'opened',
-                '[class.mat-sidenav-fixed]': 'fixedInViewport',
-                '[style.top.px]': 'fixedInViewport ? fixedTopGap : null',
-                '[style.bottom.px]': 'fixedInViewport ? fixedBottomGap : null',
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None
-        })
-    ], MatSidenav);
     return MatSidenav;
 })();
 let MatSidenavContainer = /** @class */ (() => {
-    var MatSidenavContainer_1;
-    let MatSidenavContainer = MatSidenavContainer_1 = class MatSidenavContainer extends MatDrawerContainer {
+    class MatSidenavContainer extends MatDrawerContainer {
+    }
+    MatSidenavContainer.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-sidenav-container',
+                    exportAs: 'matSidenavContainer',
+                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-sidenav\"></ng-content>\n\n<ng-content select=\"mat-sidenav-content\">\n</ng-content>\n<mat-sidenav-content *ngIf=\"!_content\" cdkScrollable>\n  <ng-content></ng-content>\n</mat-sidenav-content>\n",
+                    host: {
+                        'class': 'mat-drawer-container mat-sidenav-container',
+                        '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    providers: [{
+                            provide: MAT_DRAWER_CONTAINER,
+                            useExisting: MatSidenavContainer
+                        }],
+                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-container-has-open{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-container.ng-animate-disabled .mat-drawer-backdrop,.mat-drawer-container.ng-animate-disabled .mat-drawer-content,.ng-animate-disabled .mat-drawer-container .mat-drawer-backdrop,.ng-animate-disabled .mat-drawer-container .mat-drawer-content{transition:none}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:background-color,visibility}.cdk-high-contrast-active .mat-drawer-backdrop{opacity:.5}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%, 0, 0)}.cdk-high-contrast-active .mat-drawer,.cdk-high-contrast-active [dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}.cdk-high-contrast-active [dir=rtl] .mat-drawer,.cdk-high-contrast-active .mat-drawer.mat-drawer-end{border-left:solid 1px currentColor;border-right:none}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer{transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%, 0, 0)}.mat-drawer-inner-container{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch}.mat-sidenav-fixed{position:fixed}\n"]
+                }] }
+    ];
+    MatSidenavContainer.propDecorators = {
+        _allDrawers: [{ type: ContentChildren, args: [MatSidenav, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }],
+        _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
     };
-    __decorate([
-        ContentChildren(MatSidenav, {
-            // We need to use `descendants: true`, because Ivy will no longer match
-            // indirect descendants if it's left as false.
-            descendants: true
-        }),
-        __metadata("design:type", QueryList)
-    ], MatSidenavContainer.prototype, "_allDrawers", void 0);
-    __decorate([
-        ContentChild(MatSidenavContent),
-        __metadata("design:type", MatSidenavContent)
-    ], MatSidenavContainer.prototype, "_content", void 0);
-    MatSidenavContainer = MatSidenavContainer_1 = __decorate([
-        Component({
-            selector: 'mat-sidenav-container',
-            exportAs: 'matSidenavContainer',
-            template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\"\n     [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div>\n\n<ng-content select=\"mat-sidenav\"></ng-content>\n\n<ng-content select=\"mat-sidenav-content\">\n</ng-content>\n<mat-sidenav-content *ngIf=\"!_content\" cdkScrollable>\n  <ng-content></ng-content>\n</mat-sidenav-content>\n",
-            host: {
-                'class': 'mat-drawer-container mat-sidenav-container',
-                '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride',
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            providers: [{
-                    provide: MAT_DRAWER_CONTAINER,
-                    useExisting: MatSidenavContainer_1
-                }],
-            styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-container-has-open{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-container.ng-animate-disabled .mat-drawer-backdrop,.mat-drawer-container.ng-animate-disabled .mat-drawer-content,.ng-animate-disabled .mat-drawer-container .mat-drawer-backdrop,.ng-animate-disabled .mat-drawer-container .mat-drawer-content{transition:none}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:background-color,visibility}.cdk-high-contrast-active .mat-drawer-backdrop{opacity:.5}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:400ms;transition-timing-function:cubic-bezier(0.25, 0.8, 0.25, 1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%, 0, 0)}.cdk-high-contrast-active .mat-drawer,.cdk-high-contrast-active [dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}.cdk-high-contrast-active [dir=rtl] .mat-drawer,.cdk-high-contrast-active .mat-drawer.mat-drawer-end{border-left:solid 1px currentColor;border-right:none}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer{transform:translate3d(100%, 0, 0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%, 0, 0)}.mat-drawer-inner-container{width:100%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch}.mat-sidenav-fixed{position:fixed}\n"]
-        })
-    ], MatSidenavContainer);
     return MatSidenavContainer;
 })();
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 let MatSidenavModule = /** @class */ (() => {
-    let MatSidenavModule = class MatSidenavModule {
-    };
-    MatSidenavModule = __decorate([
-        NgModule({
-            imports: [
-                CommonModule,
-                MatCommonModule,
-                PlatformModule,
-                CdkScrollableModule,
-            ],
-            exports: [
-                CdkScrollableModule,
-                MatCommonModule,
-                MatDrawer,
-                MatDrawerContainer,
-                MatDrawerContent,
-                MatSidenav,
-                MatSidenavContainer,
-                MatSidenavContent,
-            ],
-            declarations: [
-                MatDrawer,
-                MatDrawerContainer,
-                MatDrawerContent,
-                MatSidenav,
-                MatSidenavContainer,
-                MatSidenavContent,
-            ],
-        })
-    ], MatSidenavModule);
+    class MatSidenavModule {
+    }
+    MatSidenavModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        CommonModule,
+                        MatCommonModule,
+                        PlatformModule,
+                        CdkScrollableModule,
+                    ],
+                    exports: [
+                        CdkScrollableModule,
+                        MatCommonModule,
+                        MatDrawer,
+                        MatDrawerContainer,
+                        MatDrawerContent,
+                        MatSidenav,
+                        MatSidenavContainer,
+                        MatSidenavContent,
+                    ],
+                    declarations: [
+                        MatDrawer,
+                        MatDrawerContainer,
+                        MatDrawerContent,
+                        MatSidenav,
+                        MatSidenavContainer,
+                        MatSidenavContent,
+                    ],
+                },] }
+    ];
     return MatSidenavModule;
 })();
 

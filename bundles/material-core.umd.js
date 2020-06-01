@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.0.0-next.2-sha-d55458d81');
+    var VERSION = new i0.Version('10.0.0-next.2-sha-3c579b68b');
 
     /**
      * @license
@@ -39,6 +39,131 @@
         AnimationDurations.ENTERING = '225ms';
         AnimationDurations.EXITING = '195ms';
         return AnimationDurations;
+    }());
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    // Private version constant to circumvent test/build issues,
+    // i.e. avoid core to depend on the @angular/material primary entry-point
+    // Can be removed once the Material primary entry-point no longer
+    // re-exports all secondary entry-points
+    var VERSION$1 = new i0.Version('10.0.0-next.2-sha-3c579b68b');
+    /** @docs-private */
+    function MATERIAL_SANITY_CHECKS_FACTORY() {
+        return true;
+    }
+    /** Injection token that configures whether the Material sanity checks are enabled. */
+    var MATERIAL_SANITY_CHECKS = new i0.InjectionToken('mat-sanity-checks', {
+        providedIn: 'root',
+        factory: MATERIAL_SANITY_CHECKS_FACTORY,
+    });
+    /**
+     * Module that captures anything that should be loaded and/or run for *all* Angular Material
+     * components. This includes Bidi, etc.
+     *
+     * This module should be imported to each top-level component module (e.g., MatTabsModule).
+     */
+    var MatCommonModule = /** @class */ (function () {
+        function MatCommonModule(highContrastModeDetector, sanityChecks, 
+        /** @breaking-change 11.0.0 make document required */
+        document) {
+            /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
+            this._hasDoneGlobalChecks = false;
+            this._document = document;
+            // While A11yModule also does this, we repeat it here to avoid importing A11yModule
+            // in MatCommonModule.
+            highContrastModeDetector._applyBodyHighContrastModeCssClasses();
+            // Note that `_sanityChecks` is typed to `any`, because AoT
+            // throws an error if we use the `SanityChecks` type directly.
+            this._sanityChecks = sanityChecks;
+            if (!this._hasDoneGlobalChecks) {
+                this._checkDoctypeIsDefined();
+                this._checkThemeIsPresent();
+                this._checkCdkVersionMatch();
+                this._hasDoneGlobalChecks = true;
+            }
+        }
+        /** Access injected document if available or fallback to global document reference */
+        MatCommonModule.prototype._getDocument = function () {
+            var doc = this._document || document;
+            return typeof doc === 'object' && doc ? doc : null;
+        };
+        /** Use defaultView of injected document if available or fallback to global window reference */
+        MatCommonModule.prototype._getWindow = function () {
+            var doc = this._getDocument();
+            var win = (doc === null || doc === void 0 ? void 0 : doc.defaultView) || window;
+            return typeof win === 'object' && win ? win : null;
+        };
+        /** Whether any sanity checks are enabled. */
+        MatCommonModule.prototype._checksAreEnabled = function () {
+            return i0.isDevMode() && !this._isTestEnv();
+        };
+        /** Whether the code is running in tests. */
+        MatCommonModule.prototype._isTestEnv = function () {
+            var window = this._getWindow();
+            return window && (window.__karma__ || window.jasmine);
+        };
+        MatCommonModule.prototype._checkDoctypeIsDefined = function () {
+            var isEnabled = this._checksAreEnabled() &&
+                (this._sanityChecks === true || this._sanityChecks.doctype);
+            var document = this._getDocument();
+            if (isEnabled && document && !document.doctype) {
+                console.warn('Current document does not have a doctype. This may cause ' +
+                    'some Angular Material components not to behave as expected.');
+            }
+        };
+        MatCommonModule.prototype._checkThemeIsPresent = function () {
+            // We need to assert that the `body` is defined, because these checks run very early
+            // and the `body` won't be defined if the consumer put their scripts in the `head`.
+            var isDisabled = !this._checksAreEnabled() ||
+                (this._sanityChecks === false || !this._sanityChecks.theme);
+            var document = this._getDocument();
+            if (isDisabled || !document || !document.body ||
+                typeof getComputedStyle !== 'function') {
+                return;
+            }
+            var testElement = document.createElement('div');
+            testElement.classList.add('mat-theme-loaded-marker');
+            document.body.appendChild(testElement);
+            var computedStyle = getComputedStyle(testElement);
+            // In some situations the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
+                console.warn('Could not find Angular Material core theme. Most Material ' +
+                    'components may not work as expected. For more info refer ' +
+                    'to the theming guide: https://material.angular.io/guide/theming');
+            }
+            document.body.removeChild(testElement);
+        };
+        /** Checks whether the material version matches the cdk version */
+        MatCommonModule.prototype._checkCdkVersionMatch = function () {
+            var isEnabled = this._checksAreEnabled() &&
+                (this._sanityChecks === true || this._sanityChecks.version);
+            if (isEnabled && VERSION$1.full !== cdk.VERSION.full) {
+                console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
+                    'the Angular CDK version (' + cdk.VERSION.full + ').\n' +
+                    'Please ensure the versions of these two packages exactly match.');
+            }
+        };
+        MatCommonModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [bidi.BidiModule],
+                        exports: [bidi.BidiModule],
+                    },] }
+        ];
+        /** @nocollapse */
+        MatCommonModule.ctorParameters = function () { return [
+            { type: a11y.HighContrastModeDetector },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
+        return MatCommonModule;
     }());
 
     /*! *****************************************************************************
@@ -268,128 +393,6 @@
         privateMap.set(receiver, value);
         return value;
     }
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    // Private version constant to circumvent test/build issues,
-    // i.e. avoid core to depend on the @angular/material primary entry-point
-    // Can be removed once the Material primary entry-point no longer
-    // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.0.0-next.2-sha-d55458d81');
-    /** @docs-private */
-    function MATERIAL_SANITY_CHECKS_FACTORY() {
-        return true;
-    }
-    /** Injection token that configures whether the Material sanity checks are enabled. */
-    var MATERIAL_SANITY_CHECKS = new i0.InjectionToken('mat-sanity-checks', {
-        providedIn: 'root',
-        factory: MATERIAL_SANITY_CHECKS_FACTORY,
-    });
-    /**
-     * Module that captures anything that should be loaded and/or run for *all* Angular Material
-     * components. This includes Bidi, etc.
-     *
-     * This module should be imported to each top-level component module (e.g., MatTabsModule).
-     */
-    var MatCommonModule = /** @class */ (function () {
-        function MatCommonModule(highContrastModeDetector, sanityChecks, 
-        /** @breaking-change 11.0.0 make document required */
-        document) {
-            /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
-            this._hasDoneGlobalChecks = false;
-            this._document = document;
-            // While A11yModule also does this, we repeat it here to avoid importing A11yModule
-            // in MatCommonModule.
-            highContrastModeDetector._applyBodyHighContrastModeCssClasses();
-            // Note that `_sanityChecks` is typed to `any`, because AoT
-            // throws an error if we use the `SanityChecks` type directly.
-            this._sanityChecks = sanityChecks;
-            if (!this._hasDoneGlobalChecks) {
-                this._checkDoctypeIsDefined();
-                this._checkThemeIsPresent();
-                this._checkCdkVersionMatch();
-                this._hasDoneGlobalChecks = true;
-            }
-        }
-        /** Access injected document if available or fallback to global document reference */
-        MatCommonModule.prototype._getDocument = function () {
-            var doc = this._document || document;
-            return typeof doc === 'object' && doc ? doc : null;
-        };
-        /** Use defaultView of injected document if available or fallback to global window reference */
-        MatCommonModule.prototype._getWindow = function () {
-            var doc = this._getDocument();
-            var win = (doc === null || doc === void 0 ? void 0 : doc.defaultView) || window;
-            return typeof win === 'object' && win ? win : null;
-        };
-        /** Whether any sanity checks are enabled. */
-        MatCommonModule.prototype._checksAreEnabled = function () {
-            return i0.isDevMode() && !this._isTestEnv();
-        };
-        /** Whether the code is running in tests. */
-        MatCommonModule.prototype._isTestEnv = function () {
-            var window = this._getWindow();
-            return window && (window.__karma__ || window.jasmine);
-        };
-        MatCommonModule.prototype._checkDoctypeIsDefined = function () {
-            var isEnabled = this._checksAreEnabled() &&
-                (this._sanityChecks === true || this._sanityChecks.doctype);
-            var document = this._getDocument();
-            if (isEnabled && document && !document.doctype) {
-                console.warn('Current document does not have a doctype. This may cause ' +
-                    'some Angular Material components not to behave as expected.');
-            }
-        };
-        MatCommonModule.prototype._checkThemeIsPresent = function () {
-            // We need to assert that the `body` is defined, because these checks run very early
-            // and the `body` won't be defined if the consumer put their scripts in the `head`.
-            var isDisabled = !this._checksAreEnabled() ||
-                (this._sanityChecks === false || !this._sanityChecks.theme);
-            var document = this._getDocument();
-            if (isDisabled || !document || !document.body ||
-                typeof getComputedStyle !== 'function') {
-                return;
-            }
-            var testElement = document.createElement('div');
-            testElement.classList.add('mat-theme-loaded-marker');
-            document.body.appendChild(testElement);
-            var computedStyle = getComputedStyle(testElement);
-            // In some situations the computed style of the test element can be null. For example in
-            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
-            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-            if (computedStyle && computedStyle.display !== 'none') {
-                console.warn('Could not find Angular Material core theme. Most Material ' +
-                    'components may not work as expected. For more info refer ' +
-                    'to the theming guide: https://material.angular.io/guide/theming');
-            }
-            document.body.removeChild(testElement);
-        };
-        /** Checks whether the material version matches the cdk version */
-        MatCommonModule.prototype._checkCdkVersionMatch = function () {
-            var isEnabled = this._checksAreEnabled() &&
-                (this._sanityChecks === true || this._sanityChecks.version);
-            if (isEnabled && VERSION$1.full !== cdk.VERSION.full) {
-                console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
-                    'the Angular CDK version (' + cdk.VERSION.full + ').\n' +
-                    'Please ensure the versions of these two packages exactly match.');
-            }
-        };
-        MatCommonModule = __decorate([
-            i0.NgModule({
-                imports: [bidi.BidiModule],
-                exports: [bidi.BidiModule],
-            }),
-            __param(1, i0.Optional()), __param(1, i0.Inject(MATERIAL_SANITY_CHECKS)),
-            __param(2, i0.Optional()), __param(2, i0.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [a11y.HighContrastModeDetector, Object, Object])
-        ], MatCommonModule);
-        return MatCommonModule;
-    }());
 
     /**
      * @license
@@ -1035,11 +1038,14 @@
             var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
             return dtf.format(d);
         };
-        NativeDateAdapter = __decorate([
-            i0.Injectable(),
-            __param(0, i0.Optional()), __param(0, i0.Inject(MAT_DATE_LOCALE)),
-            __metadata("design:paramtypes", [String, platform.Platform])
-        ], NativeDateAdapter);
+        NativeDateAdapter.decorators = [
+            { type: i0.Injectable }
+        ];
+        /** @nocollapse */
+        NativeDateAdapter.ctorParameters = function () { return [
+            { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_DATE_LOCALE,] }] },
+            { type: platform.Platform }
+        ]; };
         return NativeDateAdapter;
     }(DateAdapter));
 
@@ -1072,29 +1078,36 @@
     var NativeDateModule = /** @class */ (function () {
         function NativeDateModule() {
         }
-        NativeDateModule = __decorate([
-            i0.NgModule({
-                imports: [platform.PlatformModule],
-                providers: [
-                    { provide: DateAdapter, useClass: NativeDateAdapter },
-                ],
-            })
-        ], NativeDateModule);
+        NativeDateModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [platform.PlatformModule],
+                        providers: [
+                            { provide: DateAdapter, useClass: NativeDateAdapter },
+                        ],
+                    },] }
+        ];
         return NativeDateModule;
     }());
     var ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
     var MatNativeDateModule = /** @class */ (function () {
         function MatNativeDateModule() {
         }
-        MatNativeDateModule = __decorate([
-            i0.NgModule({
-                imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
-            })
-        ], MatNativeDateModule);
+        MatNativeDateModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [NativeDateModule],
+                        providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
+                    },] }
+        ];
         return MatNativeDateModule;
     }());
 
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /** Error state matcher that matches when a control is invalid and dirty. */
     var ShowOnDirtyErrorStateMatcher = /** @class */ (function () {
         function ShowOnDirtyErrorStateMatcher() {
@@ -1102,9 +1115,9 @@
         ShowOnDirtyErrorStateMatcher.prototype.isErrorState = function (control, form) {
             return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
         };
-        ShowOnDirtyErrorStateMatcher = __decorate([
-            i0.Injectable()
-        ], ShowOnDirtyErrorStateMatcher);
+        ShowOnDirtyErrorStateMatcher.decorators = [
+            { type: i0.Injectable }
+        ];
         return ShowOnDirtyErrorStateMatcher;
     }());
     /** Provider that defines how form controls behave with regards to displaying error messages. */
@@ -1114,10 +1127,10 @@
         ErrorStateMatcher.prototype.isErrorState = function (control, form) {
             return !!(control && control.invalid && (control.touched || (form && form.submitted)));
         };
+        ErrorStateMatcher.decorators = [
+            { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+        ];
         ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
-        ErrorStateMatcher = __decorate([
-            i0.Injectable({ providedIn: 'root' })
-        ], ErrorStateMatcher);
         return ErrorStateMatcher;
     }());
 
@@ -1136,12 +1149,12 @@
     var MatLine = /** @class */ (function () {
         function MatLine() {
         }
-        MatLine = __decorate([
-            i0.Directive({
-                selector: '[mat-line], [matLine]',
-                host: { 'class': 'mat-line' }
-            })
-        ], MatLine);
+        MatLine.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[mat-line], [matLine]',
+                        host: { 'class': 'mat-line' }
+                    },] }
+        ];
         return MatLine;
     }());
     /**
@@ -1185,13 +1198,13 @@
     var MatLineModule = /** @class */ (function () {
         function MatLineModule() {
         }
-        MatLineModule = __decorate([
-            i0.NgModule({
-                imports: [MatCommonModule],
-                exports: [MatLine, MatCommonModule],
-                declarations: [MatLine],
-            })
-        ], MatLineModule);
+        MatLineModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [MatCommonModule],
+                        exports: [MatLine, MatCommonModule],
+                        declarations: [MatLine],
+                    },] }
+        ];
         return MatLineModule;
     }());
 
@@ -1584,51 +1597,33 @@
                 return this._rippleRenderer.fadeInRipple(0, 0, __assign(__assign({}, this.rippleConfig), configOrX));
             }
         };
-        __decorate([
-            i0.Input('matRippleColor'),
-            __metadata("design:type", String)
-        ], MatRipple.prototype, "color", void 0);
-        __decorate([
-            i0.Input('matRippleUnbounded'),
-            __metadata("design:type", Boolean)
-        ], MatRipple.prototype, "unbounded", void 0);
-        __decorate([
-            i0.Input('matRippleCentered'),
-            __metadata("design:type", Boolean)
-        ], MatRipple.prototype, "centered", void 0);
-        __decorate([
-            i0.Input('matRippleRadius'),
-            __metadata("design:type", Number)
-        ], MatRipple.prototype, "radius", void 0);
-        __decorate([
-            i0.Input('matRippleAnimation'),
-            __metadata("design:type", Object)
-        ], MatRipple.prototype, "animation", void 0);
-        __decorate([
-            i0.Input('matRippleDisabled'),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], MatRipple.prototype, "disabled", null);
-        __decorate([
-            i0.Input('matRippleTrigger'),
-            __metadata("design:type", HTMLElement),
-            __metadata("design:paramtypes", [HTMLElement])
-        ], MatRipple.prototype, "trigger", null);
-        MatRipple = __decorate([
-            i0.Directive({
-                selector: '[mat-ripple], [matRipple]',
-                exportAs: 'matRipple',
-                host: {
-                    'class': 'mat-ripple',
-                    '[class.mat-ripple-unbounded]': 'unbounded'
-                }
-            }),
-            __param(3, i0.Optional()), __param(3, i0.Inject(MAT_RIPPLE_GLOBAL_OPTIONS)),
-            __param(4, i0.Optional()), __param(4, i0.Inject(animations.ANIMATION_MODULE_TYPE)),
-            __metadata("design:paramtypes", [i0.ElementRef,
-                i0.NgZone,
-                platform.Platform, Object, String])
-        ], MatRipple);
+        MatRipple.decorators = [
+            { type: i0.Directive, args: [{
+                        selector: '[mat-ripple], [matRipple]',
+                        exportAs: 'matRipple',
+                        host: {
+                            'class': 'mat-ripple',
+                            '[class.mat-ripple-unbounded]': 'unbounded'
+                        }
+                    },] }
+        ];
+        /** @nocollapse */
+        MatRipple.ctorParameters = function () { return [
+            { type: i0.ElementRef },
+            { type: i0.NgZone },
+            { type: platform.Platform },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+            { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+        ]; };
+        MatRipple.propDecorators = {
+            color: [{ type: i0.Input, args: ['matRippleColor',] }],
+            unbounded: [{ type: i0.Input, args: ['matRippleUnbounded',] }],
+            centered: [{ type: i0.Input, args: ['matRippleCentered',] }],
+            radius: [{ type: i0.Input, args: ['matRippleRadius',] }],
+            animation: [{ type: i0.Input, args: ['matRippleAnimation',] }],
+            disabled: [{ type: i0.Input, args: ['matRippleDisabled',] }],
+            trigger: [{ type: i0.Input, args: ['matRippleTrigger',] }]
+        };
         return MatRipple;
     }());
 
@@ -1642,13 +1637,13 @@
     var MatRippleModule = /** @class */ (function () {
         function MatRippleModule() {
         }
-        MatRippleModule = __decorate([
-            i0.NgModule({
-                imports: [MatCommonModule, platform.PlatformModule],
-                exports: [MatRipple, MatCommonModule],
-                declarations: [MatRipple],
-            })
-        ], MatRippleModule);
+        MatRippleModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [MatCommonModule, platform.PlatformModule],
+                        exports: [MatRipple, MatCommonModule],
+                        declarations: [MatRipple],
+                    },] }
+        ];
         return MatRippleModule;
     }());
 
@@ -1680,32 +1675,30 @@
             /** Whether the checkbox is disabled. */
             this.disabled = false;
         }
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", String)
-        ], MatPseudoCheckbox.prototype, "state", void 0);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Boolean)
-        ], MatPseudoCheckbox.prototype, "disabled", void 0);
-        MatPseudoCheckbox = __decorate([
-            i0.Component({
-                encapsulation: i0.ViewEncapsulation.None,
-                changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                selector: 'mat-pseudo-checkbox',
-                template: '',
-                host: {
-                    'class': 'mat-pseudo-checkbox',
-                    '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                    '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                    '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                },
-                styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
-            }),
-            __param(0, i0.Optional()), __param(0, i0.Inject(animations.ANIMATION_MODULE_TYPE)),
-            __metadata("design:paramtypes", [String])
-        ], MatPseudoCheckbox);
+        MatPseudoCheckbox.decorators = [
+            { type: i0.Component, args: [{
+                        encapsulation: i0.ViewEncapsulation.None,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        selector: 'mat-pseudo-checkbox',
+                        template: '',
+                        host: {
+                            'class': 'mat-pseudo-checkbox',
+                            '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
+                            '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
+                            '[class.mat-pseudo-checkbox-disabled]': 'disabled',
+                            '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                        },
+                        styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
+                    }] }
+        ];
+        /** @nocollapse */
+        MatPseudoCheckbox.ctorParameters = function () { return [
+            { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+        ]; };
+        MatPseudoCheckbox.propDecorators = {
+            state: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }]
+        };
         return MatPseudoCheckbox;
     }());
 
@@ -1719,12 +1712,12 @@
     var MatPseudoCheckboxModule = /** @class */ (function () {
         function MatPseudoCheckboxModule() {
         }
-        MatPseudoCheckboxModule = __decorate([
-            i0.NgModule({
-                exports: [MatPseudoCheckbox],
-                declarations: [MatPseudoCheckbox]
-            })
-        ], MatPseudoCheckboxModule);
+        MatPseudoCheckboxModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        exports: [MatPseudoCheckbox],
+                        declarations: [MatPseudoCheckbox]
+                    },] }
+        ];
         return MatPseudoCheckboxModule;
     }());
 
@@ -1756,28 +1749,27 @@
             _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
             return _this;
         }
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", String)
-        ], MatOptgroup.prototype, "label", void 0);
-        MatOptgroup = __decorate([
-            i0.Component({
-                selector: 'mat-optgroup',
-                exportAs: 'matOptgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
-                encapsulation: i0.ViewEncapsulation.None,
-                changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                inputs: ['disabled'],
-                host: {
-                    'class': 'mat-optgroup',
-                    'role': 'group',
-                    '[class.mat-optgroup-disabled]': 'disabled',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-labelledby]': '_labelId',
-                },
-                styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
-            })
-        ], MatOptgroup);
+        MatOptgroup.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'mat-optgroup',
+                        exportAs: 'matOptgroup',
+                        template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
+                        encapsulation: i0.ViewEncapsulation.None,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        inputs: ['disabled'],
+                        host: {
+                            'class': 'mat-optgroup',
+                            'role': 'group',
+                            '[class.mat-optgroup-disabled]': 'disabled',
+                            '[attr.aria-disabled]': 'disabled.toString()',
+                            '[attr.aria-labelledby]': '_labelId',
+                        },
+                        styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
+                    }] }
+        ];
+        MatOptgroup.propDecorators = {
+            label: [{ type: i0.Input }]
+        };
         return MatOptgroup;
     }(_MatOptgroupMixinBase));
 
@@ -1990,51 +1982,43 @@
             if (isUserInput === void 0) { isUserInput = false; }
             this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
         };
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Object)
-        ], MatOption.prototype, "value", void 0);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", String)
-        ], MatOption.prototype, "id", void 0);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], MatOption.prototype, "disabled", null);
-        __decorate([
-            i0.Output(),
-            __metadata("design:type", Object)
-        ], MatOption.prototype, "onSelectionChange", void 0);
-        MatOption = __decorate([
-            i0.Component({
-                selector: 'mat-option',
-                exportAs: 'matOption',
-                host: {
-                    'role': 'option',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[class.mat-selected]': 'selected',
-                    '[class.mat-option-multiple]': 'multiple',
-                    '[class.mat-active]': 'active',
-                    '[id]': 'id',
-                    '[attr.aria-selected]': '_getAriaSelected()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[class.mat-option-disabled]': 'disabled',
-                    '(click)': '_selectViaInteraction()',
-                    '(keydown)': '_handleKeydown($event)',
-                    'class': 'mat-option mat-focus-indicator',
-                },
-                template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
-                encapsulation: i0.ViewEncapsulation.None,
-                changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
-            }),
-            __param(2, i0.Optional()), __param(2, i0.Inject(MAT_OPTION_PARENT_COMPONENT)),
-            __param(3, i0.Optional()),
-            __metadata("design:paramtypes", [i0.ElementRef,
-                i0.ChangeDetectorRef, Object, MatOptgroup])
-        ], MatOption);
+        MatOption.decorators = [
+            { type: i0.Component, args: [{
+                        selector: 'mat-option',
+                        exportAs: 'matOption',
+                        host: {
+                            'role': 'option',
+                            '[attr.tabindex]': '_getTabIndex()',
+                            '[class.mat-selected]': 'selected',
+                            '[class.mat-option-multiple]': 'multiple',
+                            '[class.mat-active]': 'active',
+                            '[id]': 'id',
+                            '[attr.aria-selected]': '_getAriaSelected()',
+                            '[attr.aria-disabled]': 'disabled.toString()',
+                            '[class.mat-option-disabled]': 'disabled',
+                            '(click)': '_selectViaInteraction()',
+                            '(keydown)': '_handleKeydown($event)',
+                            'class': 'mat-option mat-focus-indicator',
+                        },
+                        template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
+                        encapsulation: i0.ViewEncapsulation.None,
+                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                        styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
+                    }] }
+        ];
+        /** @nocollapse */
+        MatOption.ctorParameters = function () { return [
+            { type: i0.ElementRef },
+            { type: i0.ChangeDetectorRef },
+            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
+            { type: MatOptgroup, decorators: [{ type: i0.Optional }] }
+        ]; };
+        MatOption.propDecorators = {
+            value: [{ type: i0.Input }],
+            id: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            onSelectionChange: [{ type: i0.Output }]
+        };
         return MatOption;
     }());
     /**
@@ -2087,13 +2071,13 @@
     var MatOptionModule = /** @class */ (function () {
         function MatOptionModule() {
         }
-        MatOptionModule = __decorate([
-            i0.NgModule({
-                imports: [MatRippleModule, common.CommonModule, MatPseudoCheckboxModule],
-                exports: [MatOption, MatOptgroup],
-                declarations: [MatOption, MatOptgroup]
-            })
-        ], MatOptionModule);
+        MatOptionModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        imports: [MatRippleModule, common.CommonModule, MatPseudoCheckboxModule],
+                        exports: [MatOption, MatOptgroup],
+                        declarations: [MatOption, MatOptgroup]
+                    },] }
+        ];
         return MatOptionModule;
     }());
 

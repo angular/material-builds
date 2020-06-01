@@ -1,5 +1,4 @@
-import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, ɵɵdefineInjectable, Directive, Input, ElementRef, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
-import { __decorate, __param, __metadata } from 'tslib';
+import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, ɵɵdefineInjectable, Directive, ElementRef, NgZone, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, ChangeDetectorRef, Output } from '@angular/core';
 import { HighContrastModeDetector, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
@@ -19,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.0.0-next.2-sha-d55458d81');
+const VERSION = new Version('10.0.0-next.2-sha-3c579b68b');
 
 /**
  * @license
@@ -59,7 +58,7 @@ let AnimationDurations = /** @class */ (() => {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.0.0-next.2-sha-d55458d81');
+const VERSION$1 = new Version('10.0.0-next.2-sha-3c579b68b');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -76,7 +75,7 @@ const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 let MatCommonModule = /** @class */ (() => {
-    let MatCommonModule = class MatCommonModule {
+    class MatCommonModule {
         constructor(highContrastModeDetector, sanityChecks, 
         /** @breaking-change 11.0.0 make document required */
         document) {
@@ -159,16 +158,19 @@ let MatCommonModule = /** @class */ (() => {
                     'Please ensure the versions of these two packages exactly match.');
             }
         }
-    };
-    MatCommonModule = __decorate([
-        NgModule({
-            imports: [BidiModule],
-            exports: [BidiModule],
-        }),
-        __param(1, Optional()), __param(1, Inject(MATERIAL_SANITY_CHECKS)),
-        __param(2, Optional()), __param(2, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [HighContrastModeDetector, Object, Object])
-    ], MatCommonModule);
+    }
+    MatCommonModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [BidiModule],
+                    exports: [BidiModule],
+                },] }
+    ];
+    /** @nocollapse */
+    MatCommonModule.ctorParameters = () => [
+        { type: HighContrastModeDetector },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
+    ];
     return MatCommonModule;
 })();
 
@@ -535,7 +537,7 @@ function range(length, valueFunction) {
 }
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 let NativeDateAdapter = /** @class */ (() => {
-    let NativeDateAdapter = class NativeDateAdapter extends DateAdapter {
+    class NativeDateAdapter extends DateAdapter {
         constructor(matDateLocale, platform) {
             super();
             /**
@@ -746,12 +748,15 @@ let NativeDateAdapter = /** @class */ (() => {
             const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
             return dtf.format(d);
         }
-    };
-    NativeDateAdapter = __decorate([
-        Injectable(),
-        __param(0, Optional()), __param(0, Inject(MAT_DATE_LOCALE)),
-        __metadata("design:paramtypes", [String, Platform])
-    ], NativeDateAdapter);
+    }
+    NativeDateAdapter.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    NativeDateAdapter.ctorParameters = () => [
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] }] },
+        { type: Platform }
+    ];
     return NativeDateAdapter;
 })();
 
@@ -782,54 +787,61 @@ const MAT_NATIVE_DATE_FORMATS = {
  * found in the LICENSE file at https://angular.io/license
  */
 let NativeDateModule = /** @class */ (() => {
-    let NativeDateModule = class NativeDateModule {
-    };
-    NativeDateModule = __decorate([
-        NgModule({
-            imports: [PlatformModule],
-            providers: [
-                { provide: DateAdapter, useClass: NativeDateAdapter },
-            ],
-        })
-    ], NativeDateModule);
+    class NativeDateModule {
+    }
+    NativeDateModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [PlatformModule],
+                    providers: [
+                        { provide: DateAdapter, useClass: NativeDateAdapter },
+                    ],
+                },] }
+    ];
     return NativeDateModule;
 })();
 const ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
 let MatNativeDateModule = /** @class */ (() => {
-    let MatNativeDateModule = class MatNativeDateModule {
-    };
-    MatNativeDateModule = __decorate([
-        NgModule({
-            imports: [NativeDateModule],
-            providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
-        })
-    ], MatNativeDateModule);
+    class MatNativeDateModule {
+    }
+    MatNativeDateModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [NativeDateModule],
+                    providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
+                },] }
+    ];
     return MatNativeDateModule;
 })();
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** Error state matcher that matches when a control is invalid and dirty. */
 let ShowOnDirtyErrorStateMatcher = /** @class */ (() => {
-    let ShowOnDirtyErrorStateMatcher = class ShowOnDirtyErrorStateMatcher {
+    class ShowOnDirtyErrorStateMatcher {
         isErrorState(control, form) {
             return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
         }
-    };
-    ShowOnDirtyErrorStateMatcher = __decorate([
-        Injectable()
-    ], ShowOnDirtyErrorStateMatcher);
+    }
+    ShowOnDirtyErrorStateMatcher.decorators = [
+        { type: Injectable }
+    ];
     return ShowOnDirtyErrorStateMatcher;
 })();
 /** Provider that defines how form controls behave with regards to displaying error messages. */
 let ErrorStateMatcher = /** @class */ (() => {
-    let ErrorStateMatcher = class ErrorStateMatcher {
+    class ErrorStateMatcher {
         isErrorState(control, form) {
             return !!(control && control.invalid && (control.touched || (form && form.submitted)));
         }
-    };
+    }
+    ErrorStateMatcher.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root' },] }
+    ];
     ErrorStateMatcher.ɵprov = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
-    ErrorStateMatcher = __decorate([
-        Injectable({ providedIn: 'root' })
-    ], ErrorStateMatcher);
     return ErrorStateMatcher;
 })();
 
@@ -846,14 +858,14 @@ let ErrorStateMatcher = /** @class */ (() => {
  * counted by checking the query list's length.
  */
 let MatLine = /** @class */ (() => {
-    let MatLine = class MatLine {
-    };
-    MatLine = __decorate([
-        Directive({
-            selector: '[mat-line], [matLine]',
-            host: { 'class': 'mat-line' }
-        })
-    ], MatLine);
+    class MatLine {
+    }
+    MatLine.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-line], [matLine]',
+                    host: { 'class': 'mat-line' }
+                },] }
+    ];
     return MatLine;
 })();
 /**
@@ -892,15 +904,15 @@ class MatLineSetter {
     }
 }
 let MatLineModule = /** @class */ (() => {
-    let MatLineModule = class MatLineModule {
-    };
-    MatLineModule = __decorate([
-        NgModule({
-            imports: [MatCommonModule],
-            exports: [MatLine, MatCommonModule],
-            declarations: [MatLine],
-        })
-    ], MatLineModule);
+    class MatLineModule {
+    }
+    MatLineModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [MatLine, MatCommonModule],
+                    declarations: [MatLine],
+                },] }
+    ];
     return MatLineModule;
 })();
 
@@ -1190,7 +1202,7 @@ function distanceToFurthestCorner(x, y, rect) {
 /** Injection token that can be used to specify the global ripple options. */
 const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
 let MatRipple = /** @class */ (() => {
-    let MatRipple = class MatRipple {
+    class MatRipple {
         constructor(_elementRef, ngZone, platform, globalOptions, _animationMode) {
             this._elementRef = _elementRef;
             this._animationMode = _animationMode;
@@ -1270,52 +1282,34 @@ let MatRipple = /** @class */ (() => {
                 return this._rippleRenderer.fadeInRipple(0, 0, Object.assign(Object.assign({}, this.rippleConfig), configOrX));
             }
         }
+    }
+    MatRipple.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-ripple], [matRipple]',
+                    exportAs: 'matRipple',
+                    host: {
+                        'class': 'mat-ripple',
+                        '[class.mat-ripple-unbounded]': 'unbounded'
+                    }
+                },] }
+    ];
+    /** @nocollapse */
+    MatRipple.ctorParameters = () => [
+        { type: ElementRef },
+        { type: NgZone },
+        { type: Platform },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    ];
+    MatRipple.propDecorators = {
+        color: [{ type: Input, args: ['matRippleColor',] }],
+        unbounded: [{ type: Input, args: ['matRippleUnbounded',] }],
+        centered: [{ type: Input, args: ['matRippleCentered',] }],
+        radius: [{ type: Input, args: ['matRippleRadius',] }],
+        animation: [{ type: Input, args: ['matRippleAnimation',] }],
+        disabled: [{ type: Input, args: ['matRippleDisabled',] }],
+        trigger: [{ type: Input, args: ['matRippleTrigger',] }]
     };
-    __decorate([
-        Input('matRippleColor'),
-        __metadata("design:type", String)
-    ], MatRipple.prototype, "color", void 0);
-    __decorate([
-        Input('matRippleUnbounded'),
-        __metadata("design:type", Boolean)
-    ], MatRipple.prototype, "unbounded", void 0);
-    __decorate([
-        Input('matRippleCentered'),
-        __metadata("design:type", Boolean)
-    ], MatRipple.prototype, "centered", void 0);
-    __decorate([
-        Input('matRippleRadius'),
-        __metadata("design:type", Number)
-    ], MatRipple.prototype, "radius", void 0);
-    __decorate([
-        Input('matRippleAnimation'),
-        __metadata("design:type", Object)
-    ], MatRipple.prototype, "animation", void 0);
-    __decorate([
-        Input('matRippleDisabled'),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], MatRipple.prototype, "disabled", null);
-    __decorate([
-        Input('matRippleTrigger'),
-        __metadata("design:type", HTMLElement),
-        __metadata("design:paramtypes", [HTMLElement])
-    ], MatRipple.prototype, "trigger", null);
-    MatRipple = __decorate([
-        Directive({
-            selector: '[mat-ripple], [matRipple]',
-            exportAs: 'matRipple',
-            host: {
-                'class': 'mat-ripple',
-                '[class.mat-ripple-unbounded]': 'unbounded'
-            }
-        }),
-        __param(3, Optional()), __param(3, Inject(MAT_RIPPLE_GLOBAL_OPTIONS)),
-        __param(4, Optional()), __param(4, Inject(ANIMATION_MODULE_TYPE)),
-        __metadata("design:paramtypes", [ElementRef,
-            NgZone,
-            Platform, Object, String])
-    ], MatRipple);
     return MatRipple;
 })();
 
@@ -1327,15 +1321,15 @@ let MatRipple = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatRippleModule = /** @class */ (() => {
-    let MatRippleModule = class MatRippleModule {
-    };
-    MatRippleModule = __decorate([
-        NgModule({
-            imports: [MatCommonModule, PlatformModule],
-            exports: [MatRipple, MatCommonModule],
-            declarations: [MatRipple],
-        })
-    ], MatRippleModule);
+    class MatRippleModule {
+    }
+    MatRippleModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule, PlatformModule],
+                    exports: [MatRipple, MatCommonModule],
+                    declarations: [MatRipple],
+                },] }
+    ];
     return MatRippleModule;
 })();
 
@@ -1360,7 +1354,7 @@ let MatRippleModule = /** @class */ (() => {
  * @docs-private
  */
 let MatPseudoCheckbox = /** @class */ (() => {
-    let MatPseudoCheckbox = class MatPseudoCheckbox {
+    class MatPseudoCheckbox {
         constructor(_animationMode) {
             this._animationMode = _animationMode;
             /** Display state of the checkbox. */
@@ -1368,33 +1362,31 @@ let MatPseudoCheckbox = /** @class */ (() => {
             /** Whether the checkbox is disabled. */
             this.disabled = false;
         }
+    }
+    MatPseudoCheckbox.decorators = [
+        { type: Component, args: [{
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    selector: 'mat-pseudo-checkbox',
+                    template: '',
+                    host: {
+                        'class': 'mat-pseudo-checkbox',
+                        '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
+                        '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
+                        '[class.mat-pseudo-checkbox-disabled]': 'disabled',
+                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    },
+                    styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatPseudoCheckbox.ctorParameters = () => [
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    ];
+    MatPseudoCheckbox.propDecorators = {
+        state: [{ type: Input }],
+        disabled: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatPseudoCheckbox.prototype, "state", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean)
-    ], MatPseudoCheckbox.prototype, "disabled", void 0);
-    MatPseudoCheckbox = __decorate([
-        Component({
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            selector: 'mat-pseudo-checkbox',
-            template: '',
-            host: {
-                'class': 'mat-pseudo-checkbox',
-                '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-            },
-            styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
-        }),
-        __param(0, Optional()), __param(0, Inject(ANIMATION_MODULE_TYPE)),
-        __metadata("design:paramtypes", [String])
-    ], MatPseudoCheckbox);
     return MatPseudoCheckbox;
 })();
 
@@ -1406,14 +1398,14 @@ let MatPseudoCheckbox = /** @class */ (() => {
  * found in the LICENSE file at https://angular.io/license
  */
 let MatPseudoCheckboxModule = /** @class */ (() => {
-    let MatPseudoCheckboxModule = class MatPseudoCheckboxModule {
-    };
-    MatPseudoCheckboxModule = __decorate([
-        NgModule({
-            exports: [MatPseudoCheckbox],
-            declarations: [MatPseudoCheckbox]
-        })
-    ], MatPseudoCheckboxModule);
+    class MatPseudoCheckboxModule {
+    }
+    MatPseudoCheckboxModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [MatPseudoCheckbox],
+                    declarations: [MatPseudoCheckbox]
+                },] }
+    ];
     return MatPseudoCheckboxModule;
 })();
 
@@ -1435,35 +1427,34 @@ let _uniqueOptgroupIdCounter = 0;
  * Component that is used to group instances of `mat-option`.
  */
 let MatOptgroup = /** @class */ (() => {
-    let MatOptgroup = class MatOptgroup extends _MatOptgroupMixinBase {
+    class MatOptgroup extends _MatOptgroupMixinBase {
         constructor() {
             super(...arguments);
             /** Unique id for the underlying label. */
             this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
         }
+    }
+    MatOptgroup.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    host: {
+                        'class': 'mat-optgroup',
+                        'role': 'group',
+                        '[class.mat-optgroup-disabled]': 'disabled',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-labelledby]': '_labelId',
+                    },
+                    styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
+                }] }
+    ];
+    MatOptgroup.propDecorators = {
+        label: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatOptgroup.prototype, "label", void 0);
-    MatOptgroup = __decorate([
-        Component({
-            selector: 'mat-optgroup',
-            exportAs: 'matOptgroup',
-            template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            inputs: ['disabled'],
-            host: {
-                'class': 'mat-optgroup',
-                'role': 'group',
-                '[class.mat-optgroup-disabled]': 'disabled',
-                '[attr.aria-disabled]': 'disabled.toString()',
-                '[attr.aria-labelledby]': '_labelId',
-            },
-            styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
-        })
-    ], MatOptgroup);
     return MatOptgroup;
 })();
 
@@ -1498,7 +1489,7 @@ const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPON
  * Single option inside of a `<mat-select>` element.
  */
 let MatOption = /** @class */ (() => {
-    let MatOption = class MatOption {
+    class MatOption {
         constructor(_element, _changeDetectorRef, _parent, group) {
             this._element = _element;
             this._changeDetectorRef = _changeDetectorRef;
@@ -1650,52 +1641,44 @@ let MatOption = /** @class */ (() => {
         _emitSelectionChangeEvent(isUserInput = false) {
             this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
         }
+    }
+    MatOption.decorators = [
+        { type: Component, args: [{
+                    selector: 'mat-option',
+                    exportAs: 'matOption',
+                    host: {
+                        'role': 'option',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[class.mat-selected]': 'selected',
+                        '[class.mat-option-multiple]': 'multiple',
+                        '[class.mat-active]': 'active',
+                        '[id]': 'id',
+                        '[attr.aria-selected]': '_getAriaSelected()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[class.mat-option-disabled]': 'disabled',
+                        '(click)': '_selectViaInteraction()',
+                        '(keydown)': '_handleKeydown($event)',
+                        'class': 'mat-option mat-focus-indicator',
+                    },
+                    template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    MatOption.ctorParameters = () => [
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
+        { type: MatOptgroup, decorators: [{ type: Optional }] }
+    ];
+    MatOption.propDecorators = {
+        value: [{ type: Input }],
+        id: [{ type: Input }],
+        disabled: [{ type: Input }],
+        onSelectionChange: [{ type: Output }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], MatOption.prototype, "value", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], MatOption.prototype, "id", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], MatOption.prototype, "disabled", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Object)
-    ], MatOption.prototype, "onSelectionChange", void 0);
-    MatOption = __decorate([
-        Component({
-            selector: 'mat-option',
-            exportAs: 'matOption',
-            host: {
-                'role': 'option',
-                '[attr.tabindex]': '_getTabIndex()',
-                '[class.mat-selected]': 'selected',
-                '[class.mat-option-multiple]': 'multiple',
-                '[class.mat-active]': 'active',
-                '[id]': 'id',
-                '[attr.aria-selected]': '_getAriaSelected()',
-                '[attr.aria-disabled]': 'disabled.toString()',
-                '[class.mat-option-disabled]': 'disabled',
-                '(click)': '_selectViaInteraction()',
-                '(keydown)': '_handleKeydown($event)',
-                'class': 'mat-option mat-focus-indicator',
-            },
-            template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
-        }),
-        __param(2, Optional()), __param(2, Inject(MAT_OPTION_PARENT_COMPONENT)),
-        __param(3, Optional()),
-        __metadata("design:paramtypes", [ElementRef,
-            ChangeDetectorRef, Object, MatOptgroup])
-    ], MatOption);
     return MatOption;
 })();
 /**
@@ -1746,15 +1729,15 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
  * found in the LICENSE file at https://angular.io/license
  */
 let MatOptionModule = /** @class */ (() => {
-    let MatOptionModule = class MatOptionModule {
-    };
-    MatOptionModule = __decorate([
-        NgModule({
-            imports: [MatRippleModule, CommonModule, MatPseudoCheckboxModule],
-            exports: [MatOption, MatOptgroup],
-            declarations: [MatOption, MatOptgroup]
-        })
-    ], MatOptionModule);
+    class MatOptionModule {
+    }
+    MatOptionModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatRippleModule, CommonModule, MatPseudoCheckboxModule],
+                    exports: [MatOption, MatOptgroup],
+                    declarations: [MatOption, MatOptgroup]
+                },] }
+    ];
     return MatOptionModule;
 })();
 
