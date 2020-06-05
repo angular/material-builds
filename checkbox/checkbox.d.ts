@@ -73,6 +73,8 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
      */
     ariaLabelledby: string | null;
+    /** The 'aria-describedby' attribute is read after the element's label and field type. */
+    ariaDescribedby: string;
     private _uniqueId;
     /** A unique id for the checkbox input. If none is supplied, it will be auto-generated. */
     id: string;

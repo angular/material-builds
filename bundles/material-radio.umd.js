@@ -242,10 +242,11 @@
         return MatRadioChange;
     }());
     /**
-     * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
+     * Base class with all of the `MatRadioGroup` functionality.
+     * @docs-private
      */
-    var MatRadioGroup = /** @class */ (function () {
-        function MatRadioGroup(_changeDetector) {
+    var _MatRadioGroupBase = /** @class */ (function () {
+        function _MatRadioGroupBase(_changeDetector) {
             this._changeDetector = _changeDetector;
             /** Selected value for the radio group. */
             this._value = null;
@@ -275,7 +276,7 @@
              */
             this.change = new core.EventEmitter();
         }
-        Object.defineProperty(MatRadioGroup.prototype, "name", {
+        Object.defineProperty(_MatRadioGroupBase.prototype, "name", {
             /** Name of the radio button group. All radio buttons inside this group will use this name. */
             get: function () { return this._name; },
             set: function (value) {
@@ -285,7 +286,7 @@
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(MatRadioGroup.prototype, "labelPosition", {
+        Object.defineProperty(_MatRadioGroupBase.prototype, "labelPosition", {
             /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
             get: function () {
                 return this._labelPosition;
@@ -297,7 +298,7 @@
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(MatRadioGroup.prototype, "value", {
+        Object.defineProperty(_MatRadioGroupBase.prototype, "value", {
             /**
              * Value for the radio-group. Should equal the value of the selected radio button if there is
              * a corresponding radio button with a matching value. If there is not such a corresponding
@@ -316,12 +317,12 @@
             enumerable: true,
             configurable: true
         });
-        MatRadioGroup.prototype._checkSelectedRadioButton = function () {
+        _MatRadioGroupBase.prototype._checkSelectedRadioButton = function () {
             if (this._selected && !this._selected.checked) {
                 this._selected.checked = true;
             }
         };
-        Object.defineProperty(MatRadioGroup.prototype, "selected", {
+        Object.defineProperty(_MatRadioGroupBase.prototype, "selected", {
             /**
              * The currently selected radio button. If set to a new radio button, the radio group value
              * will be updated to match the new selected button.
@@ -335,7 +336,7 @@
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(MatRadioGroup.prototype, "disabled", {
+        Object.defineProperty(_MatRadioGroupBase.prototype, "disabled", {
             /** Whether the radio group is disabled */
             get: function () { return this._disabled; },
             set: function (value) {
@@ -345,7 +346,7 @@
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(MatRadioGroup.prototype, "required", {
+        Object.defineProperty(_MatRadioGroupBase.prototype, "required", {
             /** Whether the radio group is required */
             get: function () { return this._required; },
             set: function (value) {
@@ -359,7 +360,7 @@
          * Initialize properties once content children are available.
          * This allows us to propagate relevant attributes to associated buttons.
          */
-        MatRadioGroup.prototype.ngAfterContentInit = function () {
+        _MatRadioGroupBase.prototype.ngAfterContentInit = function () {
             // Mark this component as initialized in AfterContentInit because the initial value can
             // possibly be set by NgModel on MatRadioGroup, and it is possible that the OnInit of the
             // NgModel occurs *after* the OnInit of the MatRadioGroup.
@@ -369,12 +370,12 @@
          * Mark this group as being "touched" (for ngModel). Meant to be called by the contained
          * radio buttons upon their blur.
          */
-        MatRadioGroup.prototype._touch = function () {
+        _MatRadioGroupBase.prototype._touch = function () {
             if (this.onTouched) {
                 this.onTouched();
             }
         };
-        MatRadioGroup.prototype._updateRadioButtonNames = function () {
+        _MatRadioGroupBase.prototype._updateRadioButtonNames = function () {
             var _this = this;
             if (this._radios) {
                 this._radios.forEach(function (radio) {
@@ -384,7 +385,7 @@
             }
         };
         /** Updates the `selected` radio button from the internal _value state. */
-        MatRadioGroup.prototype._updateSelectedRadioFromValue = function () {
+        _MatRadioGroupBase.prototype._updateSelectedRadioFromValue = function () {
             var _this = this;
             // If the value already matches the selected radio, do nothing.
             var isAlreadySelected = this._selected !== null && this._selected.value === this._value;
@@ -399,12 +400,12 @@
             }
         };
         /** Dispatch change event with current selection and group value. */
-        MatRadioGroup.prototype._emitChangeEvent = function () {
+        _MatRadioGroupBase.prototype._emitChangeEvent = function () {
             if (this._isInitialized) {
                 this.change.emit(new MatRadioChange(this._selected, this._value));
             }
         };
-        MatRadioGroup.prototype._markRadiosForCheck = function () {
+        _MatRadioGroupBase.prototype._markRadiosForCheck = function () {
             if (this._radios) {
                 this._radios.forEach(function (radio) { return radio._markForCheck(); });
             }
@@ -413,7 +414,7 @@
          * Sets the model value. Implemented as part of ControlValueAccessor.
          * @param value
          */
-        MatRadioGroup.prototype.writeValue = function (value) {
+        _MatRadioGroupBase.prototype.writeValue = function (value) {
             this.value = value;
             this._changeDetector.markForCheck();
         };
@@ -422,7 +423,7 @@
          * Implemented as part of ControlValueAccessor.
          * @param fn Callback to be registered.
          */
-        MatRadioGroup.prototype.registerOnChange = function (fn) {
+        _MatRadioGroupBase.prototype.registerOnChange = function (fn) {
             this._controlValueAccessorChangeFn = fn;
         };
         /**
@@ -430,17 +431,44 @@
          * Implemented as part of ControlValueAccessor.
          * @param fn Callback to be registered.
          */
-        MatRadioGroup.prototype.registerOnTouched = function (fn) {
+        _MatRadioGroupBase.prototype.registerOnTouched = function (fn) {
             this.onTouched = fn;
         };
         /**
          * Sets the disabled state of the control. Implemented as a part of ControlValueAccessor.
          * @param isDisabled Whether the control should be disabled.
          */
-        MatRadioGroup.prototype.setDisabledState = function (isDisabled) {
+        _MatRadioGroupBase.prototype.setDisabledState = function (isDisabled) {
             this.disabled = isDisabled;
             this._changeDetector.markForCheck();
         };
+        _MatRadioGroupBase.decorators = [
+            { type: core.Directive }
+        ];
+        /** @nocollapse */
+        _MatRadioGroupBase.ctorParameters = function () { return [
+            { type: core.ChangeDetectorRef }
+        ]; };
+        _MatRadioGroupBase.propDecorators = {
+            change: [{ type: core.Output }],
+            color: [{ type: core.Input }],
+            name: [{ type: core.Input }],
+            labelPosition: [{ type: core.Input }],
+            value: [{ type: core.Input }],
+            selected: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            required: [{ type: core.Input }]
+        };
+        return _MatRadioGroupBase;
+    }());
+    /**
+     * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
+     */
+    var MatRadioGroup = /** @class */ (function (_super) {
+        __extends(MatRadioGroup, _super);
+        function MatRadioGroup() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
         MatRadioGroup.decorators = [
             { type: core.Directive, args: [{
                         selector: 'mat-radio-group',
@@ -452,23 +480,11 @@
                         },
                     },] }
         ];
-        /** @nocollapse */
-        MatRadioGroup.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef }
-        ]; };
         MatRadioGroup.propDecorators = {
-            change: [{ type: core.Output }],
-            _radios: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] }],
-            color: [{ type: core.Input }],
-            name: [{ type: core.Input }],
-            labelPosition: [{ type: core.Input }],
-            value: [{ type: core.Input }],
-            selected: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            required: [{ type: core.Input }]
+            _radios: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] }]
         };
         return MatRadioGroup;
-    }());
+    }(_MatRadioGroupBase));
     // Boilerplate for applying mixins to MatRadioButton.
     /** @docs-private */
     var MatRadioButtonBase = /** @class */ (function () {
@@ -698,7 +714,7 @@
         ];
         /** @nocollapse */
         _MatRadioButtonBase.ctorParameters = function () { return [
-            { type: MatRadioGroup, decorators: [{ type: core.Optional }] },
+            { type: _MatRadioGroupBase, decorators: [{ type: core.Optional }] },
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
             { type: a11y.FocusMonitor },
@@ -728,8 +744,8 @@
      */
     var MatRadioButton = /** @class */ (function (_super) {
         __extends(MatRadioButton, _super);
-        function MatRadioButton() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function MatRadioButton(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride) {
+            return _super.call(this, radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride) || this;
         }
         MatRadioButton.decorators = [
             { type: core.Component, args: [{
@@ -761,6 +777,16 @@
                         styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent;outline:0}.mat-radio-label{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle;width:100%}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(0.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(0.5)}.cdk-high-contrast-active .mat-radio-checked .mat-radio-inner-circle{border:solid 10px}.mat-radio-label-content{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto;display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button:not(.mat-radio-disabled).cdk-keyboard-focused .mat-radio-persistent-ripple,.mat-radio-button:not(.mat-radio-disabled).cdk-program-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-persistent-ripple,.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple{opacity:0}@media(hover: none){.mat-radio-container:hover .mat-radio-persistent-ripple{display:none}}.mat-radio-input{bottom:0;left:50%}.cdk-high-contrast-active .mat-radio-disabled{opacity:.5}\n"]
                     }] }
         ];
+        /** @nocollapse */
+        MatRadioButton.ctorParameters = function () { return [
+            { type: MatRadioGroup, decorators: [{ type: core.Optional }] },
+            { type: core.ElementRef },
+            { type: core.ChangeDetectorRef },
+            { type: a11y.FocusMonitor },
+            { type: collections.UniqueSelectionDispatcher },
+            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
+        ]; };
         return MatRadioButton;
     }(_MatRadioButtonBase));
 
@@ -804,6 +830,7 @@
     exports.MatRadioGroup = MatRadioGroup;
     exports.MatRadioModule = MatRadioModule;
     exports._MatRadioButtonBase = _MatRadioButtonBase;
+    exports._MatRadioGroupBase = _MatRadioGroupBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
