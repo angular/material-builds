@@ -56,9 +56,9 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     protected _getValueFromModel(modelValue: D | null): D | null;
     protected _assignValueToModel(value: D | null): void;
     /** Gets the input's minimum date. */
-    _getMinDate(): D | null;
+    protected _getMinDate(): D | null;
     /** Gets the input's maximum date. */
-    _getMaxDate(): D | null;
+    protected _getMaxDate(): D | null;
     /** Gets the input's date filtering function. */
     protected _getDateFilter(): DateFilterFn<D | null>;
     protected _outsideValueChanged: undefined;
