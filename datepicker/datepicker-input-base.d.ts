@@ -75,9 +75,9 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     /** Gets the base validator functions. */
     protected _getValidators(): ValidatorFn[];
     /** Gets the minimum date for the input. Used for validation. */
-    protected abstract _getMinDate(): D | null;
+    abstract _getMinDate(): D | null;
     /** Gets the maximum date for the input. Used for validation. */
-    protected abstract _getMaxDate(): D | null;
+    abstract _getMaxDate(): D | null;
     /** Gets the date filter function. Used for validation. */
     protected abstract _getDateFilter(): DateFilterFn<D> | undefined;
     /** Registers a date selection model with the input. */
