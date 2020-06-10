@@ -57,10 +57,12 @@ let MatButton = /** @class */ (() => {
             // wants to target all Material buttons. We do it here rather than `host` to ensure that
             // the class is applied to derived classes.
             elementRef.nativeElement.classList.add('mat-button-base');
-            this._focusMonitor.monitor(this._elementRef, true);
             if (this.isRoundButton) {
                 this.color = DEFAULT_ROUND_BUTTON_COLOR;
             }
+        }
+        ngAfterViewInit() {
+            this._focusMonitor.monitor(this._elementRef, true);
         }
         ngOnDestroy() {
             this._focusMonitor.stopMonitoring(this._elementRef);

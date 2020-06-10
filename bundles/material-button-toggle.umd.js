@@ -626,6 +626,8 @@
                     group._syncButtonToggle(this, this._checked);
                 }
             }
+        };
+        MatButtonToggle.prototype.ngAfterViewInit = function () {
             this._focusMonitor.monitor(this._elementRef, true);
         };
         MatButtonToggle.prototype.ngOnDestroy = function () {

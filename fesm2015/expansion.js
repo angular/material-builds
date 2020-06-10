@@ -316,11 +316,6 @@ let MatExpansionPanelHeader = /** @class */ (() => {
             panel.closed
                 .pipe(filter(() => panel._containsFocus()))
                 .subscribe(() => _focusMonitor.focusVia(_element, 'program'));
-            _focusMonitor.monitor(_element).subscribe(origin => {
-                if (origin && panel.accordion) {
-                    panel.accordion._handleHeaderFocus(this);
-                }
-            });
             if (defaultOptions) {
                 this.expandedHeight = defaultOptions.expandedHeight;
                 this.collapsedHeight = defaultOptions.collapsedHeight;
@@ -398,6 +393,13 @@ let MatExpansionPanelHeader = /** @class */ (() => {
          */
         focus(origin = 'program', options) {
             this._focusMonitor.focusVia(this._element, origin, options);
+        }
+        ngAfterViewInit() {
+            this._focusMonitor.monitor(this._element).subscribe(origin => {
+                if (origin && this.panel.accordion) {
+                    this.panel.accordion._handleHeaderFocus(this);
+                }
+            });
         }
         ngOnDestroy() {
             this._parentChangeSubscription.unsubscribe();

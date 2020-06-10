@@ -350,6 +350,8 @@ let MatButtonToggle = /** @class */ (() => {
                     group._syncButtonToggle(this, this._checked);
                 }
             }
+        }
+        ngAfterViewInit() {
             this._focusMonitor.monitor(this._elementRef, true);
         }
         ngOnDestroy() {

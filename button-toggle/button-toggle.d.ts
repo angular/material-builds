@@ -7,7 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, InjectionToken } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, InjectionToken, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 /** Acceptable types for a button toggle. */
@@ -137,7 +137,7 @@ declare class MatButtonToggleBase {
 }
 declare const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase;
 /** Single button inside of a toggle group. */
-export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, CanDisableRipple, OnDestroy {
+export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, AfterViewInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _focusMonitor;
@@ -182,6 +182,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     readonly change: EventEmitter<MatButtonToggleChange>;
     constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _focusMonitor: FocusMonitor, defaultTabIndex: string, defaultOptions?: MatButtonToggleDefaultOptions);
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(options?: FocusOptions): void;

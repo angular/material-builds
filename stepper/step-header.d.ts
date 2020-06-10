@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef, AfterViewInit } from '@angular/core';
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
 import { MatStepperIconContext } from './stepper-icon';
 import { CdkStepHeader, StepState } from '@angular/cdk/stepper';
-export declare class MatStepHeader extends CdkStepHeader implements OnDestroy {
+export declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDestroy {
     _intl: MatStepperIntl;
     private _focusMonitor;
     private _intlSubscription;
@@ -36,6 +36,7 @@ export declare class MatStepHeader extends CdkStepHeader implements OnDestroy {
     /** Whether the ripple should be disabled. */
     disableRipple: boolean;
     constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the step header. */
     focus(): void;

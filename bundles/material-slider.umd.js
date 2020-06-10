@@ -693,7 +693,7 @@
         MatSlider.prototype._getDirection = function () {
             return (this._dir && this._dir.value == 'rtl') ? 'rtl' : 'ltr';
         };
-        MatSlider.prototype.ngOnInit = function () {
+        MatSlider.prototype.ngAfterViewInit = function () {
             var _this = this;
             this._focusMonitor
                 .monitor(this._elementRef, true)

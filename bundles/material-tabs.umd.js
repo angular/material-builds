@@ -1904,7 +1904,6 @@
             if (animationMode === 'NoopAnimations') {
                 _this.rippleConfig.animation = { enterDuration: 0, exitDuration: 0 };
             }
-            _focusMonitor.monitor(elementRef);
             return _this;
         }
         Object.defineProperty(_MatTabLinkBase.prototype, "active", {
@@ -1933,6 +1932,9 @@
         });
         _MatTabLinkBase.prototype.focus = function () {
             this.elementRef.nativeElement.focus();
+        };
+        _MatTabLinkBase.prototype.ngAfterViewInit = function () {
+            this._focusMonitor.monitor(this.elementRef);
         };
         _MatTabLinkBase.prototype.ngOnDestroy = function () {
             this._focusMonitor.stopMonitoring(this.elementRef);

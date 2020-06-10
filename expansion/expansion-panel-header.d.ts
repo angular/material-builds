@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-panel';
 import { MatAccordionTogglePosition } from './accordion-base';
 /**
@@ -14,7 +14,7 @@ import { MatAccordionTogglePosition } from './accordion-base';
  *
  * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
-export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOption {
+export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy, FocusableOption {
     panel: MatExpansionPanel;
     private _element;
     private _focusMonitor;
@@ -56,6 +56,7 @@ export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOpti
      * @docs-private
      */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
 }
 /**

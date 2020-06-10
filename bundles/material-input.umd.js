@@ -516,7 +516,7 @@
             enumerable: false,
             configurable: true
         });
-        MatInput.prototype.ngOnInit = function () {
+        MatInput.prototype.ngAfterViewInit = function () {
             var _this = this;
             if (this._platform.isBrowser) {
                 this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(function (event) {

@@ -79,8 +79,10 @@ let MatStepHeader = /** @class */ (() => {
             super(_elementRef);
             this._intl = _intl;
             this._focusMonitor = _focusMonitor;
-            _focusMonitor.monitor(_elementRef, true);
             this._intlSubscription = _intl.changes.subscribe(() => changeDetectorRef.markForCheck());
+        }
+        ngAfterViewInit() {
+            this._focusMonitor.monitor(this._elementRef, true);
         }
         ngOnDestroy() {
             this._intlSubscription.unsubscribe();

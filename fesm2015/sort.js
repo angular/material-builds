@@ -346,10 +346,6 @@ let MatSortHeader = /** @class */ (() => {
                 }
                 changeDetectorRef.markForCheck();
             });
-            // We use the focus monitor because we also want to style
-            // things differently based on the focus origin.
-            _focusMonitor.monitor(_elementRef, true)
-                .subscribe(origin => this._setIndicatorHintVisible(!!origin));
         }
         /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
         get disableClear() { return this._disableClear; }
@@ -362,6 +358,12 @@ let MatSortHeader = /** @class */ (() => {
             this._updateArrowDirection();
             this._setAnimationTransitionState({ toState: this._isSorted() ? 'active' : this._arrowDirection });
             this._sort.register(this);
+        }
+        ngAfterViewInit() {
+            // We use the focus monitor because we also want to style
+            // things differently based on the focus origin.
+            this._focusMonitor.monitor(this._elementRef, true)
+                .subscribe(origin => this._setIndicatorHintVisible(!!origin));
         }
         ngOnDestroy() {
             this._focusMonitor.stopMonitoring(this._elementRef);

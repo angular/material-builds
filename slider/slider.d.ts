@@ -8,7 +8,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, NgZone } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 /**
@@ -34,7 +34,7 @@ declare const _MatSliderMixinBase: HasTabIndexCtor & CanColorCtor & CanDisableCt
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-export declare class MatSlider extends _MatSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable, CanColor, OnInit, HasTabIndex {
+export declare class MatSlider extends _MatSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable, CanColor, AfterViewInit, HasTabIndex {
     private _focusMonitor;
     private _changeDetectorRef;
     private _dir;
@@ -170,7 +170,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     /** Used to subscribe to global move and end events */
     protected _document: Document;
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _ngZone: NgZone, _document: any, _animationMode?: string | undefined);
-    ngOnInit(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;
     _onFocus(): void;

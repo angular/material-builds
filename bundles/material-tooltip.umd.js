@@ -365,17 +365,6 @@
                     this.touchGestures = _defaultOptions.touchGestures;
                 }
             }
-            _focusMonitor.monitor(_elementRef)
-                .pipe(operators.takeUntil(this._destroyed))
-                .subscribe(function (origin) {
-                // Note that the focus monitor runs outside the Angular zone.
-                if (!origin) {
-                    _ngZone.run(function () { return _this.hide(0); });
-                }
-                else if (origin === 'keyboard') {
-                    _ngZone.run(function () { return _this.show(); });
-                }
-            });
             _ngZone.runOutsideAngular(function () {
                 _elementRef.nativeElement.addEventListener('keydown', _this._handleKeydown);
             });
@@ -450,12 +439,21 @@
             enumerable: false,
             configurable: true
         });
-        /**
-         * Setup styling-specific things
-         */
-        MatTooltip.prototype.ngOnInit = function () {
-            // This needs to happen in `ngOnInit` so the initial values for all inputs have been set.
+        MatTooltip.prototype.ngAfterViewInit = function () {
+            var _this = this;
+            // This needs to happen after view init so the initial values for all inputs have been set.
             this._setupPointerEvents();
+            this._focusMonitor.monitor(this._elementRef)
+                .pipe(operators.takeUntil(this._destroyed))
+                .subscribe(function (origin) {
+                // Note that the focus monitor runs outside the Angular zone.
+                if (!origin) {
+                    _this._ngZone.run(function () { return _this.hide(0); });
+                }
+                else if (origin === 'keyboard') {
+                    _this._ngZone.run(function () { return _this.show(); });
+                }
+            });
         };
         /**
          * Dispose the tooltip when destroyed.
