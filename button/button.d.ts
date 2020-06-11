@@ -7,7 +7,7 @@
  */
 import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, OnDestroy } from '@angular/core';
+import { ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, CanColorCtor, CanDisableCtor, CanDisableRippleCtor, MatRipple } from '@angular/material/core';
 /** @docs-private */
 declare class MatButtonBase {
@@ -18,7 +18,7 @@ declare const _MatButtonMixinBase: CanDisableRippleCtor & CanDisableCtor & CanCo
 /**
  * Material design button.
  */
-export declare class MatButton extends _MatButtonMixinBase implements OnDestroy, CanDisable, CanColor, CanDisableRipple, FocusableOption {
+export declare class MatButton extends _MatButtonMixinBase implements AfterViewInit, OnDestroy, CanDisable, CanColor, CanDisableRipple, FocusableOption {
     private _focusMonitor;
     _animationMode: string;
     /** Whether the button is round. */
@@ -28,6 +28,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     /** Reference to the MatRipple instance of the button. */
     ripple: MatRipple;
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _animationMode: string);
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;

@@ -2055,9 +2055,7 @@ $mat-ripple-color-opacity: 0.1;
   }
 }
 
-@mixin _mat-option-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-option-density($config-or-theme) {}
 
 @mixin mat-option-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -2103,9 +2101,7 @@ $mat-ripple-color-opacity: 0.1;
   }
 }
 
-@mixin _mat-optgroup-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-optgroup-density($config-or-theme) {}
 
 @mixin mat-optgroup-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -2187,12 +2183,9 @@ $mat-ripple-color-opacity: 0.1;
   }
 }
 
-@mixin mat-pseudo-checkbox-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
-}
-@mixin _mat-pseudo-checkbox-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin mat-pseudo-checkbox-typography($config-or-theme) {}
+
+@mixin _mat-pseudo-checkbox-density($config-or-theme) {}
 
 @mixin mat-pseudo-checkbox-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -2400,13 +2393,9 @@ $mat-ripple-color-opacity: 0.1;
   }
 }
 
-@mixin mat-autocomplete-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
- }
+@mixin mat-autocomplete-typography($config-or-theme) {}
 
-@mixin _mat-autocomplete-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
- }
+@mixin _mat-autocomplete-density($config-or-theme) {}
 
 @mixin mat-autocomplete-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -2635,10 +2624,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   }
 }
 
-@mixin _mat-badge-density($config-or-theme) {
-
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-badge-density($config-or-theme) {}
 
 @mixin mat-badge-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -2684,9 +2670,7 @@ $mat-badge-large-size: $mat-badge-default-size + 6;
   }
 }
 
-@mixin _mat-bottom-sheet-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-bottom-sheet-density($config-or-theme) {}
 
 @mixin mat-bottom-sheet-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -2882,9 +2866,7 @@ $_mat-button-ripple-opacity: 0.1;
   }
 }
 
-@mixin _mat-button-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-button-density($config-or-theme) {}
 
 @mixin mat-button-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -3163,9 +3145,7 @@ $mat-button-toggle-standard-density-config: (
   }
 }
 
-@mixin _mat-card-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-card-density($config-or-theme) {}
 
 @mixin mat-card-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -3296,9 +3276,7 @@ $mat-button-toggle-standard-density-config: (
   }
 }
 
-@mixin _mat-checkbox-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-checkbox-density($config-or-theme) {}
 
 @mixin mat-checkbox-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -3421,9 +3399,7 @@ $mat-chip-remove-font-size: 18px;
   }
 }
 
-@mixin _mat-chips-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-chips-density($config-or-theme) {}
 
 @mixin mat-chips-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -3463,13 +3439,9 @@ $mat-chip-remove-font-size: 18px;
   }
 }
 
-@mixin mat-divider-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
-}
+@mixin mat-divider-typography($config-or-theme) {}
 
-@mixin _mat-divider-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-divider-density($config-or-theme) {}
 
 @mixin mat-divider-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -3541,9 +3513,7 @@ $mat-chip-remove-font-size: 18px;
   }
 }
 
-@mixin _mat-table-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-table-density($config-or-theme) {}
 
 @mixin mat-table-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -3786,9 +3756,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 }
 
-@mixin _mat-datepicker-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-datepicker-density($config-or-theme) {}
 
 @mixin mat-datepicker-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -3835,9 +3803,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 }
 
-@mixin _mat-dialog-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-dialog-density($config-or-theme) {}
 
 @mixin mat-dialog-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4058,9 +4024,7 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
 
 
 // Include this empty mixin for consistency with the other components.
-@mixin mat-grid-list-color($config-or-theme) {
-  $config: mat-get-color-config($config-or-theme);
- }
+@mixin mat-grid-list-color($config-or-theme) {}
 
 @mixin mat-grid-list-typography($config-or-theme) {
   $config: mat-get-typography-config($config-or-theme);
@@ -4071,9 +4035,7 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-@mixin _mat-grid-list-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-grid-list-density($config-or-theme) {}
 
 @mixin mat-grid-list-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4120,13 +4082,9 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-@mixin mat-icon-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
- }
+@mixin mat-icon-typography($config-or-theme) {}
 
-@mixin _mat-icon-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-icon-density($config-or-theme) {}
 
 @mixin mat-icon-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4285,9 +4243,7 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-@mixin _mat-input-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-input-density($config-or-theme) {}
 
 @mixin mat-input-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4404,9 +4360,7 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-@mixin _mat-list-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-list-density($config-or-theme) {}
 
 @mixin mat-list-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4481,9 +4435,7 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-@mixin _mat-menu-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-menu-density($config-or-theme) {}
 
 @mixin mat-menu-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4652,13 +4604,9 @@ $mat-paginator-density-config: (
   }
 }
 
-@mixin mat-progress-bar-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
- }
+@mixin mat-progress-bar-typography($config-or-theme) {}
 
-@mixin _mat-progress-bar-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-progress-bar-density($config-or-theme) {}
 
 @mixin mat-progress-bar-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4705,13 +4653,9 @@ $mat-paginator-density-config: (
   }
 }
 
-@mixin mat-progress-spinner-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
- }
+@mixin mat-progress-spinner-typography($config-or-theme) {}
 
-@mixin _mat-progress-spinner-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-progress-spinner-density($config-or-theme) {}
 
 @mixin mat-progress-spinner-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4809,9 +4753,7 @@ $mat-paginator-density-config: (
   }
 }
 
-@mixin _mat-radio-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-radio-density($config-or-theme) {}
 
 @mixin mat-radio-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -4912,9 +4854,7 @@ $mat-paginator-density-config: (
   }
 }
 
-@mixin _mat-select-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-select-density($config-or-theme) {}
 
 @mixin mat-select-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -5011,13 +4951,9 @@ $mat-paginator-density-config: (
   }
 }
 
-@mixin mat-sidenav-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
- }
+@mixin mat-sidenav-typography($config-or-theme) {}
 
-@mixin _mat-sidenav-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-sidenav-density($config-or-theme) {}
 
 @mixin mat-sidenav-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -5120,9 +5056,7 @@ $mat-paginator-density-config: (
   }
 }
 
-@mixin _mat-slide-toggle-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-slide-toggle-density($config-or-theme) {}
 
 @mixin mat-slide-toggle-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -5321,9 +5255,7 @@ $mat-paginator-density-config: (
   }
 }
 
-@mixin _mat-slider-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-slider-density($config-or-theme) {}
 
 @mixin mat-slider-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -5565,13 +5497,9 @@ $mat-step-header-icon-size: 16px;
   }
 }
 
-@mixin mat-sort-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
- }
+@mixin mat-sort-typography($config-or-theme) {}
 
-@mixin _mat-sort-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-sort-density($config-or-theme) {}
 
 @mixin mat-sort-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -5736,9 +5664,7 @@ $mat-step-header-icon-size: 16px;
   }
 }
 
-@mixin _mat-tabs-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-tabs-density($config-or-theme) {}
 
 @mixin mat-tabs-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -5949,9 +5875,7 @@ $mat-tooltip-handset-vertical-padding:
   }
 }
 
-@mixin _mat-tooltip-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-tooltip-density($config-or-theme) {}
 
 @mixin mat-tooltip-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -6017,9 +5941,7 @@ $mat-tooltip-handset-vertical-padding:
   }
 }
 
-@mixin _mat-snack-bar-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-snack-bar-density($config-or-theme) {}
 
 @mixin mat-snack-bar-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -6152,9 +6074,7 @@ $mat-form-field-fill-dedupe: 0;
   }
 }
 
-@mixin _mat-form-field-fill-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-form-field-fill-density($config-or-theme) {}
 
 @mixin mat-form-field-fill-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -6352,9 +6272,7 @@ $mat-form-field-legacy-dedupe: 0;
   }
 }
 
-@mixin _mat-form-field-legacy-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-form-field-legacy-density($config-or-theme) {}
 
 @mixin mat-form-field-legacy-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -6509,9 +6427,7 @@ $mat-form-field-outline-dedupe: 0;
   }
 }
 
-@mixin _mat-form-field-outline-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-form-field-outline-density($config-or-theme) {}
 
 @mixin mat-form-field-outline-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);
@@ -6560,13 +6476,9 @@ $mat-form-field-outline-dedupe: 0;
   }
 }
 
-@mixin mat-form-field-standard-typography($config-or-theme) {
-  $config: mat-get-typography-config($config-or-theme);
-}
+@mixin mat-form-field-standard-typography($config-or-theme) {}
 
-@mixin _mat-form-field-standard-density($config-or-theme) {
-  $density-scale: mat-get-density-config($config-or-theme);
-}
+@mixin _mat-form-field-standard-density($config-or-theme) {}
 
 @mixin mat-form-field-standard-theme($theme-or-color-config) {
   $theme: _mat-legacy-get-theme($theme-or-color-config);

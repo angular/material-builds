@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList, AfterViewInit } from '@angular/core';
 import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleTarget, ThemePalette } from '@angular/material/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusableOption } from '@angular/cdk/a11y';
@@ -68,7 +68,7 @@ declare class MatTabLinkMixinBase {
 }
 declare const _MatTabLinkMixinBase: HasTabIndexCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatTabLinkMixinBase;
 /** Base class with all of the `MatTabLink` functionality. */
-export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements OnDestroy, CanDisable, CanDisableRipple, HasTabIndex, RippleTarget, FocusableOption {
+export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements AfterViewInit, OnDestroy, CanDisable, CanDisableRipple, HasTabIndex, RippleTarget, FocusableOption {
     private _tabNavBar;
     elementRef: ElementRef;
     private _focusMonitor;
@@ -91,6 +91,7 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements OnD
     get rippleDisabled(): boolean;
     constructor(_tabNavBar: _MatTabNavBase, elementRef: ElementRef, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, _focusMonitor: FocusMonitor, animationMode?: string);
     focus(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;

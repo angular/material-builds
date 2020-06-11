@@ -12,11 +12,9 @@ import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChange
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, CanDisableRippleCtor, MatLine, ThemePalette } from '@angular/material/core';
 import { MatListAvatarCssMatStyler, MatListIconCssMatStyler } from './list';
-/** @docs-private */
 declare class MatSelectionListBase {
 }
 declare const _MatSelectionListMixinBase: CanDisableRippleCtor & typeof MatSelectionListBase;
-/** @docs-private */
 declare class MatListOptionBase {
 }
 declare const _MatListOptionMixinBase: CanDisableRippleCtor & typeof MatListOptionBase;

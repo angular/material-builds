@@ -352,19 +352,6 @@
                 _this.color = _this._options.color;
             }
             _this.tabIndex = parseInt(tabIndex) || 0;
-            _this._focusMonitor.monitor(elementRef, true).subscribe(function (focusOrigin) {
-                if (!focusOrigin) {
-                    // When a focused element becomes disabled, the browser *immediately* fires a blur event.
-                    // Angular does not expect events to be raised during change detection, so any state change
-                    // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
-                    // See https://github.com/angular/angular/issues/17793. To work around this, we defer
-                    // telling the form control it has been touched until the next tick.
-                    Promise.resolve().then(function () {
-                        _this._onTouched();
-                        _changeDetectorRef.markForCheck();
-                    });
-                }
-            });
             // TODO: Remove this after the `_clickAction` parameter is removed as an injection parameter.
             _this._clickAction = _this._clickAction || _this._options.clickAction;
             return _this;
@@ -383,6 +370,20 @@
             configurable: true
         });
         MatCheckbox.prototype.ngAfterViewInit = function () {
+            var _this = this;
+            this._focusMonitor.monitor(this._elementRef, true).subscribe(function (focusOrigin) {
+                if (!focusOrigin) {
+                    // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+                    // Angular does not expect events to be raised during change detection, so any state change
+                    // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+                    // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+                    // telling the form control it has been touched until the next tick.
+                    Promise.resolve().then(function () {
+                        _this._onTouched();
+                        _this._changeDetectorRef.markForCheck();
+                    });
+                }
+            });
             this._syncIndeterminate(this._indeterminate);
         };
         // TODO: Delete next major revision.

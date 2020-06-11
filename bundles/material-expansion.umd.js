@@ -544,11 +544,6 @@
             panel.closed
                 .pipe(operators.filter(function () { return panel._containsFocus(); }))
                 .subscribe(function () { return _focusMonitor.focusVia(_element, 'program'); });
-            _focusMonitor.monitor(_element).subscribe(function (origin) {
-                if (origin && panel.accordion) {
-                    panel.accordion._handleHeaderFocus(_this);
-                }
-            });
             if (defaultOptions) {
                 this.expandedHeight = defaultOptions.expandedHeight;
                 this.collapsedHeight = defaultOptions.collapsedHeight;
@@ -631,6 +626,14 @@
         MatExpansionPanelHeader.prototype.focus = function (origin, options) {
             if (origin === void 0) { origin = 'program'; }
             this._focusMonitor.focusVia(this._element, origin, options);
+        };
+        MatExpansionPanelHeader.prototype.ngAfterViewInit = function () {
+            var _this = this;
+            this._focusMonitor.monitor(this._element).subscribe(function (origin) {
+                if (origin && _this.panel.accordion) {
+                    _this.panel.accordion._handleHeaderFocus(_this);
+                }
+            });
         };
         MatExpansionPanelHeader.prototype.ngOnDestroy = function () {
             this._parentChangeSubscription.unsubscribe();

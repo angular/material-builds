@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, OnDestroy, OnInit, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { CanDisable, CanDisableCtor } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatSort, MatSortable } from './sort';
@@ -47,7 +47,7 @@ interface MatSortHeaderColumnDef {
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-export declare class MatSortHeader extends _MatSortHeaderMixinBase implements CanDisable, MatSortable, OnDestroy, OnInit {
+export declare class MatSortHeader extends _MatSortHeaderMixinBase implements CanDisable, MatSortable, OnDestroy, OnInit, AfterViewInit {
     _intl: MatSortHeaderIntl;
     _sort: MatSort;
     _columnDef: MatSortHeaderColumnDef;
@@ -86,6 +86,7 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     private _disableClear;
     constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>);
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**
      * Sets the "hint" state such that the arrow will be semi-transparently displayed as a hint to the

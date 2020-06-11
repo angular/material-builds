@@ -585,10 +585,6 @@
                 }
                 changeDetectorRef.markForCheck();
             });
-            // We use the focus monitor because we also want to style
-            // things differently based on the focus origin.
-            _focusMonitor.monitor(_elementRef, true)
-                .subscribe(function (origin) { return _this._setIndicatorHintVisible(!!origin); });
             return _this;
         }
         Object.defineProperty(MatSortHeader.prototype, "disableClear", {
@@ -606,6 +602,13 @@
             this._updateArrowDirection();
             this._setAnimationTransitionState({ toState: this._isSorted() ? 'active' : this._arrowDirection });
             this._sort.register(this);
+        };
+        MatSortHeader.prototype.ngAfterViewInit = function () {
+            var _this = this;
+            // We use the focus monitor because we also want to style
+            // things differently based on the focus origin.
+            this._focusMonitor.monitor(this._elementRef, true)
+                .subscribe(function (origin) { return _this._setIndicatorHintVisible(!!origin); });
         };
         MatSortHeader.prototype.ngOnDestroy = function () {
             this._focusMonitor.stopMonitoring(this._elementRef);

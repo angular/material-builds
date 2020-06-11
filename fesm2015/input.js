@@ -247,7 +247,7 @@ let MatInput = /** @class */ (() => {
         /** Whether the element is readonly. */
         get readonly() { return this._readonly; }
         set readonly(value) { this._readonly = coerceBooleanProperty(value); }
-        ngOnInit() {
+        ngAfterViewInit() {
             if (this._platform.isBrowser) {
                 this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(event => {
                     this.autofilled = event.isAutofilled;

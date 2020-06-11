@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AfterContentInit, ElementRef, QueryList, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList, OnChanges, OnDestroy, ChangeDetectorRef, InjectionToken } from '@angular/core';
 import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** @docs-private */
@@ -17,6 +17,18 @@ declare const _MatListMixinBase: CanDisableRippleCtor & CanDisableCtor & typeof 
 declare class MatListItemBase {
 }
 declare const _MatListItemMixinBase: CanDisableRippleCtor & typeof MatListItemBase;
+/**
+ * Injection token that can be used to inject instances of `MatList`. It serves as
+ * alternative token to the actual `MatList` class which could cause unnecessary
+ * retention of the class and its component metadata.
+ */
+export declare const MAT_LIST: InjectionToken<MatList>;
+/**
+ * Injection token that can be used to inject instances of `MatNavList`. It serves as
+ * alternative token to the actual `MatNavList` class which could cause unnecessary
+ * retention of the class and its component metadata.
+ */
+export declare const MAT_NAV_LIST: InjectionToken<MatNavList>;
 export declare class MatNavList extends _MatListMixinBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     /** Emits when the state of the list changes. */
     _stateChanges: Subject<void>;

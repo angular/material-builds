@@ -13,7 +13,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
-import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 /** Possible positions for a tooltip. */
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
@@ -61,7 +61,7 @@ export declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefault
  *
  * https://material.io/design/components/tooltips.html
  */
-export declare class MatTooltip implements OnDestroy, OnInit {
+export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _overlay;
     private _elementRef;
     private _scrollDispatcher;
@@ -122,10 +122,7 @@ export declare class MatTooltip implements OnDestroy, OnInit {
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
     constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
-    /**
-     * Setup styling-specific things
-     */
-    ngOnInit(): void;
+    ngAfterViewInit(): void;
     /**
      * Dispose the tooltip when destroyed.
      */

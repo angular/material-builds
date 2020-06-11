@@ -300,10 +300,12 @@
             var _this = _super.call(this, _elementRef) || this;
             _this._intl = _intl;
             _this._focusMonitor = _focusMonitor;
-            _focusMonitor.monitor(_elementRef, true);
             _this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
             return _this;
         }
+        MatStepHeader.prototype.ngAfterViewInit = function () {
+            this._focusMonitor.monitor(this._elementRef, true);
+        };
         MatStepHeader.prototype.ngOnDestroy = function () {
             this._intlSubscription.unsubscribe();
             this._focusMonitor.stopMonitoring(this._elementRef);

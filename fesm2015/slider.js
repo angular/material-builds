@@ -394,7 +394,7 @@ let MatSlider = /** @class */ (() => {
         _getDirection() {
             return (this._dir && this._dir.value == 'rtl') ? 'rtl' : 'ltr';
         }
-        ngOnInit() {
+        ngAfterViewInit() {
             this._focusMonitor
                 .monitor(this._elementRef, true)
                 .subscribe((origin) => {

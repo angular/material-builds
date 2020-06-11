@@ -8,7 +8,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
-import { DoCheck, ElementRef, NgZone, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { DoCheck, ElementRef, NgZone, OnChanges, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -26,7 +26,7 @@ declare class MatInputBase {
 }
 declare const _MatInputMixinBase: CanUpdateErrorStateCtor & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
-export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanUpdateErrorState {
+export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, AfterViewInit, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
     protected _platform: Platform;
     /** @docs-private */
@@ -109,7 +109,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, 
     /** @docs-private */
     ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone);
-    ngOnInit(): void;
+    ngAfterViewInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngDoCheck(): void;

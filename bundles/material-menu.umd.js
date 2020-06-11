@@ -459,12 +459,6 @@
             _this._highlighted = false;
             /** Whether the menu item acts as a trigger for a sub-menu. */
             _this._triggersSubmenu = false;
-            if (_focusMonitor) {
-                // Start monitoring the element so it gets the appropriate focused classes. We want
-                // to show the focus style for menu items only when the focus was not caused by a
-                // mouse or touch interaction.
-                _focusMonitor.monitor(_this._elementRef, false);
-            }
             if (_parentMenu && _parentMenu.addItem) {
                 _parentMenu.addItem(_this);
             }
@@ -481,6 +475,14 @@
                 this._getHostElement().focus(options);
             }
             this._focused.next(this);
+        };
+        MatMenuItem.prototype.ngAfterViewInit = function () {
+            if (this._focusMonitor) {
+                // Start monitoring the element so it gets the appropriate focused classes. We want
+                // to show the focus style for menu items only when the focus was not caused by a
+                // mouse or touch interaction.
+                this._focusMonitor.monitor(this._elementRef, false);
+            }
         };
         MatMenuItem.prototype.ngOnDestroy = function () {
             if (this._focusMonitor) {

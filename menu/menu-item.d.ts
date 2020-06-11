@@ -7,7 +7,7 @@
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, OnDestroy } from '@angular/core';
+import { ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatMenuPanel } from './menu-panel';
@@ -18,7 +18,7 @@ declare const _MatMenuItemMixinBase: CanDisableRippleCtor & CanDisableCtor & typ
 /**
  * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
-export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, OnDestroy {
+export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterViewInit, OnDestroy {
     private _elementRef;
     private _focusMonitor?;
     _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;
@@ -36,6 +36,7 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     constructor(_elementRef: ElementRef<HTMLElement>, document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined);
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Used to set the `tabindex`. */
     _getTabIndex(): string;

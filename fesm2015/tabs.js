@@ -1625,7 +1625,6 @@ let _MatTabLinkBase = /** @class */ (() => {
             if (animationMode === 'NoopAnimations') {
                 this.rippleConfig.animation = { enterDuration: 0, exitDuration: 0 };
             }
-            _focusMonitor.monitor(elementRef);
         }
         /** Whether the link is active. */
         get active() { return this._isActive; }
@@ -1645,6 +1644,9 @@ let _MatTabLinkBase = /** @class */ (() => {
         }
         focus() {
             this.elementRef.nativeElement.focus();
+        }
+        ngAfterViewInit() {
+            this._focusMonitor.monitor(this.elementRef);
         }
         ngOnDestroy() {
             this._focusMonitor.stopMonitoring(this.elementRef);
