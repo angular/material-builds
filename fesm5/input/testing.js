@@ -197,7 +197,13 @@ var MatInputHarness = /** @class */ (function (_super) {
                     case 3:
                         _a.sent();
                         _a.label = 4;
-                    case 4: return [2 /*return*/];
+                    case 4:
+                        if (!inputEl.setInputValue) return [3 /*break*/, 6];
+                        return [4 /*yield*/, inputEl.setInputValue(newValue)];
+                    case 5:
+                        _a.sent();
+                        _a.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });

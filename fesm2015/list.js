@@ -340,16 +340,10 @@ if (false) {
  * Generated from: src/material/list/selection-list.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/**
- * \@docs-private
- */
 class MatSelectionListBase {
 }
 /** @type {?} */
 const _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
-/**
- * \@docs-private
- */
 class MatListOptionBase {
 }
 /** @type {?} */

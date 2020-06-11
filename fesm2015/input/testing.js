@@ -115,6 +115,13 @@ class MatInputHarness extends MatFormFieldControlHarness {
             if (newValue) {
                 yield inputEl.sendKeys(newValue);
             }
+            // Some input types won't respond to key presses (e.g. `color`) so to be sure that the
+            // value is set, we also set the property after the keyboard sequence. Note that we don't
+            // want to do it before, because it can cause the value to be entered twice.
+            // @breaking-change 11.0.0 Remove non-null assertion once `setInputValue` is required.
+            if (inputEl.setInputValue) {
+                yield inputEl.setInputValue(newValue);
+            }
         });
     }
 }

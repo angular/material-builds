@@ -249,14 +249,12 @@ var MatListItem = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** @docs-private */
 var MatSelectionListBase = /** @class */ (function () {
     function MatSelectionListBase() {
     }
     return MatSelectionListBase;
 }());
 var _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
-/** @docs-private */
 var MatListOptionBase = /** @class */ (function () {
     function MatListOptionBase() {
     }
