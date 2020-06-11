@@ -621,6 +621,8 @@
             this._panelAnimationState = 'void';
             /** Emits whenever an animation on the menu completes. */
             this._animationDone = new rxjs.Subject();
+            /** Class or list of classes to be added to the overlay panel. */
+            this.overlayPanelClass = this._defaultOptions.overlayPanelClass || '';
             /** Class to be added to the backdrop element. */
             this.backdropClass = this._defaultOptions.backdropClass;
             this._overlapTrigger = this._defaultOptions.overlapTrigger;
@@ -1313,6 +1315,7 @@
                     .withLockedPosition()
                     .withTransformOriginOn('.mat-menu-panel, .mat-mdc-menu-panel'),
                 backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
+                panelClass: this.menu.overlayPanelClass,
                 scrollStrategy: this._scrollStrategy(),
                 direction: this._dir
             });

@@ -25,6 +25,8 @@ export interface MatMenuDefaultOptions {
     overlapTrigger: boolean;
     /** Class to be applied to the menu's backdrop. */
     backdropClass: string;
+    /** Class or list of classes to be applied to the menu's overlay panel. */
+    overlayPanelClass?: string | string[];
     /** Whether the menu has a backdrop. */
     hasBackdrop?: boolean;
 }
@@ -61,6 +63,8 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     parentMenu: MatMenuPanel | undefined;
     /** Layout direction of the menu. */
     direction: Direction;
+    /** Class or list of classes to be added to the overlay panel. */
+    overlayPanelClass: string | string[];
     /** Class to be added to the backdrop element. */
     backdropClass: string;
     /** aria-label for the menu panel. */
