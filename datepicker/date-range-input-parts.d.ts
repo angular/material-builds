@@ -55,6 +55,8 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     ngDoCheck(): void;
     /** Gets whether the input is empty. */
     isEmpty(): boolean;
+    /** Gets the placeholder of the input. */
+    _getPlaceholder(): string;
     /** Focuses the input. */
     focus(): void;
     /** Handles `input` events on the input element. */
