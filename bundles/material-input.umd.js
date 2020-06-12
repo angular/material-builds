@@ -680,7 +680,6 @@
                         providers: [{ provide: formField.MatFormFieldControl, useExisting: MatInput }],
                     },] }
         ];
-        /** @nocollapse */
         MatInput.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: platform.Platform },

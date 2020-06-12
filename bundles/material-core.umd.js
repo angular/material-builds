@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.0.0-rc.1-sha-34cd8eeb2');
+    var VERSION = new i0.Version('10.0.0-rc.1-sha-3fc101c91');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.0.0-rc.1-sha-34cd8eeb2');
+    var VERSION$1 = new i0.Version('10.0.0-rc.1-sha-3fc101c91');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -157,7 +157,6 @@
                         exports: [bidi.BidiModule],
                     },] }
         ];
-        /** @nocollapse */
         MatCommonModule.ctorParameters = function () { return [
             { type: a11y.HighContrastModeDetector },
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
@@ -1041,7 +1040,6 @@
         NativeDateAdapter.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         NativeDateAdapter.ctorParameters = function () { return [
             { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_DATE_LOCALE,] }] },
             { type: platform.Platform }
@@ -1127,10 +1125,10 @@
         ErrorStateMatcher.prototype.isErrorState = function (control, form) {
             return !!(control && control.invalid && (control.touched || (form && form.submitted)));
         };
+        ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
         ErrorStateMatcher.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
         return ErrorStateMatcher;
     }());
 
@@ -1607,7 +1605,6 @@
                         }
                     },] }
         ];
-        /** @nocollapse */
         MatRipple.ctorParameters = function () { return [
             { type: i0.ElementRef },
             { type: i0.NgZone },
@@ -1689,9 +1686,8 @@
                             '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                         },
                         styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatPseudoCheckbox.ctorParameters = function () { return [
             { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
         ]; };
@@ -1765,7 +1761,7 @@
                             '[attr.aria-labelledby]': '_labelId',
                         },
                         styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
-                    }] }
+                    },] }
         ];
         MatOptgroup.propDecorators = {
             label: [{ type: i0.Input }]
@@ -2004,9 +2000,8 @@
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatOption.ctorParameters = function () { return [
             { type: i0.ElementRef },
             { type: i0.ChangeDetectorRef },

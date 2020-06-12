@@ -1,7 +1,7 @@
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, NgZone, ElementRef, ChangeDetectorRef, ViewChild, NgModule, TemplateRef, Injectable, Injector, Optional, SkipSelf, ɵɵdefineInjectable, ɵɵinject, INJECTOR } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, NgZone, ElementRef, ChangeDetectorRef, ViewChild, NgModule, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, Injector, Optional, SkipSelf } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Subject } from 'rxjs';
@@ -166,9 +166,8 @@ let SimpleSnackBar = /** @class */ (() => {
                         'class': 'mat-simple-snackbar',
                     },
                     styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;align-items:center;line-height:20px;opacity:1}.mat-simple-snackbar-action{flex-shrink:0;margin:-8px -8px -8px 8px}.mat-simple-snackbar-action button{max-height:36px;min-width:0}[dir=rtl] .mat-simple-snackbar-action{margin-left:-8px;margin-right:8px}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     SimpleSnackBar.ctorParameters = () => [
         { type: MatSnackBarRef },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] }] }
@@ -363,9 +362,8 @@ let MatSnackBarContainer = /** @class */ (() => {
                         '(@state.done)': 'onAnimationEnd($event)'
                     },
                     styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}.cdk-high-contrast-active .mat-snack-bar-container{border:solid 1px}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     MatSnackBarContainer.ctorParameters = () => [
         { type: NgZone },
         { type: ElementRef },
@@ -628,10 +626,10 @@ let MatSnackBar = /** @class */ (() => {
             ]));
         }
     }
+    MatSnackBar.ɵprov = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     MatSnackBar.decorators = [
         { type: Injectable, args: [{ providedIn: MatSnackBarModule },] }
     ];
-    /** @nocollapse */
     MatSnackBar.ctorParameters = () => [
         { type: Overlay },
         { type: LiveAnnouncer },
@@ -640,7 +638,6 @@ let MatSnackBar = /** @class */ (() => {
         { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf }] },
         { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ];
-    MatSnackBar.ɵprov = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
 })();
 

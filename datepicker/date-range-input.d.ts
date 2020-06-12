@@ -34,11 +34,11 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     /** Name of the form control. */
     controlType: string;
     /**
-     * Implemented as a part of `MatFormFieldControl`, but not used.
+     * Implemented as a part of `MatFormFieldControl`.
      * Set the placeholder attribute on `matStartDate` and `matEndDate`.
      * @docs-private
      */
-    placeholder: string;
+    get placeholder(): string;
     /** The range picker that this input is associated with. */
     get rangePicker(): MatDateRangePicker<D>;
     set rangePicker(rangePicker: MatDateRangePicker<D>);
@@ -116,6 +116,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     _handleChildValueChange(): void;
     /** Opens the date range picker associated with the input. */
     _openDatepicker(): void;
+    /** Whether the separate text should be hidden. */
+    _shouldHideSeparator(): boolean;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

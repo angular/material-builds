@@ -453,7 +453,6 @@
                         },
                     },] }
         ];
-        /** @nocollapse */
         MatBadge.ctorParameters = function () { return [
             { type: core.NgZone },
             { type: core.ElementRef },

@@ -1,6 +1,6 @@
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injectable, Injector, SkipSelf, ɵɵdefineInjectable, ɵɵinject, INJECTOR } from '@angular/core';
+import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, Injector, SkipSelf } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -250,9 +250,8 @@ let MatBottomSheetContainer = /** @class */ (() => {
                         '(@state.done)': '_onAnimationDone($event)'
                     },
                     styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     MatBottomSheetContainer.ctorParameters = () => [
         { type: ElementRef },
         { type: ChangeDetectorRef },
@@ -518,10 +517,10 @@ let MatBottomSheet = /** @class */ (() => {
             return new PortalInjector(userInjector || this._injector, injectionTokens);
         }
     }
+    MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     MatBottomSheet.decorators = [
         { type: Injectable, args: [{ providedIn: MatBottomSheetModule },] }
     ];
-    /** @nocollapse */
     MatBottomSheet.ctorParameters = () => [
         { type: Overlay },
         { type: Injector },
@@ -529,7 +528,6 @@ let MatBottomSheet = /** @class */ (() => {
         { type: Location, decorators: [{ type: Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ];
-    MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 })();
 /**

@@ -365,7 +365,6 @@
                         selector: 'ng-template[matMenuContent]'
                     },] }
         ];
-        /** @nocollapse */
         MatMenuContent.ctorParameters = function () { return [
             { type: core.TemplateRef },
             { type: core.ComponentFactoryResolver },
@@ -559,9 +558,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         template: "<ng-content></ng-content>\n<div class=\"mat-menu-ripple\" matRipple\n     [matRippleDisabled]=\"disableRipple || disabled\"\n     [matRippleTrigger]=\"_getHostElement()\">\n</div>\n"
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatMenuItem.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
@@ -921,7 +919,6 @@
         _MatMenuBase.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         _MatMenuBase.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.NgZone },
@@ -990,9 +987,8 @@
                             { provide: MatMenu, useExisting: _MatMenu }
                         ],
                         styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}.cdk-high-contrast-active .mat-menu-panel{outline:solid 1px}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}.cdk-high-contrast-active .mat-menu-item.cdk-program-focused,.cdk-high-contrast-active .mat-menu-item.cdk-keyboard-focused,.cdk-high-contrast-active .mat-menu-item-highlighted{outline:dotted 1px}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:\"\";display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         _MatMenu.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.NgZone },
@@ -1469,7 +1465,6 @@
                         exportAs: 'matMenuTrigger'
                     },] }
         ];
-        /** @nocollapse */
         MatMenuTrigger.ctorParameters = function () { return [
             { type: overlay.Overlay },
             { type: core.ElementRef },

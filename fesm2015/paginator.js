@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Injectable, ɵɵdefineInjectable, Optional, SkipSelf, InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, Input, Output, NgModule } from '@angular/core';
+import { ɵɵdefineInjectable, Injectable, Optional, SkipSelf, InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, Input, Output, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -51,10 +51,10 @@ let MatPaginatorIntl = /** @class */ (() => {
             };
         }
     }
+    MatPaginatorIntl.ɵprov = ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     MatPaginatorIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    MatPaginatorIntl.ɵprov = ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 })();
 /** @docs-private */
@@ -291,9 +291,8 @@ let MatPaginator = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: [".mat-paginator{display:block}.mat-paginator-outer-container{display:flex}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;padding:0 8px;flex-wrap:wrap-reverse;width:100%}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}[dir=rtl] .mat-paginator-page-size{margin-right:0;margin-left:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-page-size-select.mat-form-field-appearance-outline{width:64px}.mat-paginator-page-size-select.mat-form-field-appearance-fill{width:64px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-range-actions{display:flex;align-items:center}.mat-paginator-icon{width:28px;fill:currentColor}[dir=rtl] .mat-paginator-icon{transform:rotate(180deg)}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     MatPaginator.ctorParameters = () => [
         { type: MatPaginatorIntl },
         { type: ChangeDetectorRef },

@@ -309,9 +309,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: [".cdk-high-contrast-active .mat-toolbar{outline:solid 1px}.mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatToolbar.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: platform.Platform },

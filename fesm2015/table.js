@@ -40,7 +40,7 @@ let MatTable = /** @class */ (() => {
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: ChangeDetectionStrategy.Default,
                     styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row,mat-footer-row{min-height:48px}mat-row,mat-header-row,mat-footer-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-row::after,mat-header-row::after,mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}mat-cell:first-of-type,mat-header-cell:first-of-type,mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] mat-cell:first-of-type,[dir=rtl] mat-header-cell:first-of-type,[dir=rtl] mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}mat-cell:last-of-type,mat-header-cell:last-of-type,mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] mat-cell:last-of-type,[dir=rtl] mat-header-cell:last-of-type,[dir=rtl] mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}mat-cell,mat-header-cell,mat-footer-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type,[dir=rtl] td.mat-cell:first-of-type,[dir=rtl] td.mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type,[dir=rtl] td.mat-cell:last-of-type,[dir=rtl] td.mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}\n"]
-                }] }
+                },] }
     ];
     return MatTable;
 })();
@@ -136,7 +136,6 @@ let MatHeaderCell = /** @class */ (() => {
                     },
                 },] }
     ];
-    /** @nocollapse */
     MatHeaderCell.ctorParameters = () => [
         { type: CdkColumnDef },
         { type: ElementRef }
@@ -160,7 +159,6 @@ let MatFooterCell = /** @class */ (() => {
                     },
                 },] }
     ];
-    /** @nocollapse */
     MatFooterCell.ctorParameters = () => [
         { type: CdkColumnDef },
         { type: ElementRef }
@@ -184,7 +182,6 @@ let MatCell = /** @class */ (() => {
                     },
                 },] }
     ];
-    /** @nocollapse */
     MatCell.ctorParameters = () => [
         { type: CdkColumnDef },
         { type: ElementRef }
@@ -266,7 +263,7 @@ let MatHeaderRow = /** @class */ (() => {
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matHeaderRow',
                     providers: [{ provide: CdkHeaderRow, useExisting: MatHeaderRow }]
-                }] }
+                },] }
     ];
     return MatHeaderRow;
 })();
@@ -288,7 +285,7 @@ let MatFooterRow = /** @class */ (() => {
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matFooterRow',
                     providers: [{ provide: CdkFooterRow, useExisting: MatFooterRow }]
-                }] }
+                },] }
     ];
     return MatFooterRow;
 })();
@@ -310,7 +307,7 @@ let MatRow = /** @class */ (() => {
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matRow',
                     providers: [{ provide: CdkRow, useExisting: MatRow }]
-                }] }
+                },] }
     ];
     return MatRow;
 })();
@@ -367,7 +364,7 @@ let MatTextColumn = /** @class */ (() => {
                     // an ExpressionChangedAfterItHasBeenCheckedError).
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: ChangeDetectionStrategy.Default
-                }] }
+                },] }
     ];
     return MatTextColumn;
 })();

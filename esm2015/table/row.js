@@ -77,7 +77,7 @@ let MatHeaderRow = /** @class */ (() => {
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matHeaderRow',
                     providers: [{ provide: CdkHeaderRow, useExisting: MatHeaderRow }]
-                }] }
+                },] }
     ];
     return MatHeaderRow;
 })();
@@ -100,7 +100,7 @@ let MatFooterRow = /** @class */ (() => {
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matFooterRow',
                     providers: [{ provide: CdkFooterRow, useExisting: MatFooterRow }]
-                }] }
+                },] }
     ];
     return MatFooterRow;
 })();
@@ -123,7 +123,7 @@ let MatRow = /** @class */ (() => {
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matRow',
                     providers: [{ provide: CdkRow, useExisting: MatRow }]
-                }] }
+                },] }
     ];
     return MatRow;
 })();

@@ -501,9 +501,8 @@
                             '(@dialogContainer.done)': '_onAnimationDone($event)',
                         },
                         styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatDialogContainer.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: a11y.FocusTrapFactory },
@@ -986,7 +985,6 @@
         MatDialog.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         MatDialog.ctorParameters = function () { return [
             { type: overlay.Overlay },
             { type: core.Injector },
@@ -1055,7 +1053,6 @@
                         }
                     },] }
         ];
-        /** @nocollapse */
         MatDialogClose.ctorParameters = function () { return [
             { type: MatDialogRef, decorators: [{ type: core.Optional }] },
             { type: core.ElementRef },
@@ -1103,7 +1100,6 @@
                         },
                     },] }
         ];
-        /** @nocollapse */
         MatDialogTitle.ctorParameters = function () { return [
             { type: MatDialogRef, decorators: [{ type: core.Optional }] },
             { type: core.ElementRef },
