@@ -473,9 +473,8 @@
                             '(@state.done)': '_onAnimationDone($event)'
                         },
                         styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatBottomSheetContainer.ctorParameters = function () { return [
             { type: i0.ElementRef },
             { type: i0.ChangeDetectorRef },
@@ -740,10 +739,10 @@
             }
             return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
         };
+        MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(i2.Location, 8), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
         MatBottomSheet.decorators = [
             { type: i0.Injectable, args: [{ providedIn: MatBottomSheetModule },] }
         ];
-        /** @nocollapse */
         MatBottomSheet.ctorParameters = function () { return [
             { type: i1.Overlay },
             { type: i0.Injector },
@@ -751,7 +750,6 @@
             { type: i2.Location, decorators: [{ type: i0.Optional }] },
             { type: MatBottomSheetConfig, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
         ]; };
-        MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(i2.Location, 8), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
         return MatBottomSheet;
     }());
     /**

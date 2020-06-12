@@ -23,7 +23,7 @@ let MatDatepicker = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     providers: [MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER]
-                }] }
+                },] }
     ];
     return MatDatepicker;
 })();

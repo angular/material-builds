@@ -267,7 +267,7 @@
                         // tslint:disable-next-line:validate-decorators
                         changeDetection: core.ChangeDetectionStrategy.Default,
                         styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row,mat-footer-row{min-height:48px}mat-row,mat-header-row,mat-footer-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-row::after,mat-header-row::after,mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}mat-cell:first-of-type,mat-header-cell:first-of-type,mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] mat-cell:first-of-type,[dir=rtl] mat-header-cell:first-of-type,[dir=rtl] mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}mat-cell:last-of-type,mat-header-cell:last-of-type,mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] mat-cell:last-of-type,[dir=rtl] mat-header-cell:last-of-type,[dir=rtl] mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}mat-cell,mat-header-cell,mat-footer-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type,[dir=rtl] td.mat-cell:first-of-type,[dir=rtl] td.mat-footer-cell:first-of-type{padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type,[dir=rtl] td.mat-cell:last-of-type,[dir=rtl] td.mat-footer-cell:last-of-type{padding-right:0;padding-left:24px}\n"]
-                    }] }
+                    },] }
         ];
         return MatTable;
     }(table.CdkTable));
@@ -371,7 +371,6 @@
                         },
                     },] }
         ];
-        /** @nocollapse */
         MatHeaderCell.ctorParameters = function () { return [
             { type: table.CdkColumnDef },
             { type: core.ElementRef }
@@ -395,7 +394,6 @@
                         },
                     },] }
         ];
-        /** @nocollapse */
         MatFooterCell.ctorParameters = function () { return [
             { type: table.CdkColumnDef },
             { type: core.ElementRef }
@@ -419,7 +417,6 @@
                         },
                     },] }
         ];
-        /** @nocollapse */
         MatCell.ctorParameters = function () { return [
             { type: table.CdkColumnDef },
             { type: core.ElementRef }
@@ -509,7 +506,7 @@
                         encapsulation: core.ViewEncapsulation.None,
                         exportAs: 'matHeaderRow',
                         providers: [{ provide: table.CdkHeaderRow, useExisting: MatHeaderRow }]
-                    }] }
+                    },] }
         ];
         return MatHeaderRow;
     }(table.CdkHeaderRow));
@@ -533,7 +530,7 @@
                         encapsulation: core.ViewEncapsulation.None,
                         exportAs: 'matFooterRow',
                         providers: [{ provide: table.CdkFooterRow, useExisting: MatFooterRow }]
-                    }] }
+                    },] }
         ];
         return MatFooterRow;
     }(table.CdkFooterRow));
@@ -557,7 +554,7 @@
                         encapsulation: core.ViewEncapsulation.None,
                         exportAs: 'matRow',
                         providers: [{ provide: table.CdkRow, useExisting: MatRow }]
-                    }] }
+                    },] }
         ];
         return MatRow;
     }(table.CdkRow));
@@ -609,7 +606,7 @@
                         // an ExpressionChangedAfterItHasBeenCheckedError).
                         // tslint:disable-next-line:validate-decorators
                         changeDetection: core.ChangeDetectionStrategy.Default
-                    }] }
+                    },] }
         ];
         return MatTextColumn;
     }(table.CdkTextColumn));

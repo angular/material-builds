@@ -41,7 +41,6 @@ let MatTreeNode = /** @class */ (() => {
                     providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }]
                 },] }
     ];
-    /** @nocollapse */
     MatTreeNode.ctorParameters = () => [
         { type: ElementRef },
         { type: CdkTree },
@@ -120,7 +119,6 @@ let MatNestedTreeNode = /** @class */ (() => {
                     ]
                 },] }
     ];
-    /** @nocollapse */
     MatNestedTreeNode.ctorParameters = () => [
         { type: ElementRef },
         { type: CdkTree },
@@ -188,7 +186,6 @@ let MatTreeNodeOutlet = /** @class */ (() => {
                         }]
                 },] }
     ];
-    /** @nocollapse */
     MatTreeNodeOutlet.ctorParameters = () => [
         { type: ViewContainerRef },
         { type: undefined, decorators: [{ type: Inject, args: [CDK_TREE_NODE_OUTLET_NODE,] }, { type: Optional }] }
@@ -224,7 +221,7 @@ let MatTree = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.Default,
                     providers: [{ provide: CdkTree, useExisting: MatTree }],
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
-                }] }
+                },] }
     ];
     MatTree.propDecorators = {
         _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]

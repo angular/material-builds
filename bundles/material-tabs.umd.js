@@ -82,7 +82,6 @@
                         },
                     },] }
         ];
-        /** @nocollapse */
         MatInkBar.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.NgZone },
@@ -335,7 +334,6 @@
         MatTabContent.decorators = [
             { type: core.Directive, args: [{ selector: '[matTabContent]' },] }
         ];
-        /** @nocollapse */
         MatTabContent.ctorParameters = function () { return [
             { type: core.TemplateRef }
         ]; };
@@ -459,9 +457,8 @@
                         changeDetection: core.ChangeDetectionStrategy.Default,
                         encapsulation: core.ViewEncapsulation.None,
                         exportAs: 'matTab'
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatTab.ctorParameters = function () { return [
             { type: core.ViewContainerRef },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TAB_GROUP,] }] }
@@ -564,7 +561,6 @@
                         selector: '[matTabBodyHost]'
                     },] }
         ];
-        /** @nocollapse */
         MatTabBodyPortal.ctorParameters = function () { return [
             { type: core.ComponentFactoryResolver },
             { type: core.ViewContainerRef },
@@ -684,7 +680,6 @@
         _MatTabBodyBase.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         _MatTabBodyBase.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
@@ -723,9 +718,8 @@
                             'class': 'mat-tab-body',
                         },
                         styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatTabBody.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
@@ -1021,7 +1015,6 @@
         _MatTabGroupBase.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         _MatTabGroupBase.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
@@ -1071,9 +1064,8 @@
                             '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
                         },
                         styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{padding:0 12px}}@media(max-width: 959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height 500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-tab-body-wrapper{transition:none;animation:none}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatTabGroup.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
@@ -1134,7 +1126,6 @@
                         }
                     },] }
         ];
-        /** @nocollapse */
         MatTabLabelWrapper.ctorParameters = function () { return [
             { type: core.ElementRef }
         ]; };
@@ -1623,7 +1614,6 @@
         MatPaginatedTabHeader.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         MatPaginatedTabHeader.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
@@ -1672,7 +1662,6 @@
         _MatTabHeaderBase.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         _MatTabHeaderBase.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
@@ -1716,9 +1705,8 @@
                             '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
                         },
                         styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-rtl .mat-tab-header-pagination-before,.mat-tab-header-pagination-after{padding-right:4px}.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:\"\";height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform 500ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.cdk-high-contrast-active .mat-ink-bar{outline:solid 2px;height:0}.mat-tab-labels{display:flex}[mat-align-tabs=center]>.mat-tab-header .mat-tab-labels{justify-content:center}[mat-align-tabs=end]>.mat-tab-header .mat-tab-labels{justify-content:flex-end}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}._mat-animation-noopable.mat-tab-list{transition:none;animation:none}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{min-width:72px}}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatTabHeader.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
@@ -1812,7 +1800,6 @@
         _MatTabNavBase.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         _MatTabNavBase.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
@@ -1860,9 +1847,8 @@
                         // tslint:disable-next-line:validate-decorators
                         changeDetection: core.ChangeDetectionStrategy.Default,
                         styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-rtl .mat-tab-header-pagination-before,.mat-tab-header-pagination-after{padding-right:4px}.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:\"\";height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform 500ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-tab-links{display:flex}[mat-align-tabs=center]>.mat-tab-link-container .mat-tab-links{justify-content:center}[mat-align-tabs=end]>.mat-tab-link-container .mat-tab-links{justify-content:flex-end}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.cdk-high-contrast-active .mat-ink-bar{outline:solid 2px;height:0}.mat-tab-link-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:none}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-link:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-link.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-link.mat-tab-disabled{opacity:.5}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-link{opacity:1}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media(max-width: 599px){.mat-tab-link{min-width:72px}}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatTabNav.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
@@ -1942,7 +1928,6 @@
         _MatTabLinkBase.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         _MatTabLinkBase.ctorParameters = function () { return [
             { type: _MatTabNavBase },
             { type: core.ElementRef },
@@ -1986,7 +1971,6 @@
                         }
                     },] }
         ];
-        /** @nocollapse */
         MatTabLink.ctorParameters = function () { return [
             { type: MatTabNav },
             { type: core.ElementRef },

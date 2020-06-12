@@ -206,7 +206,6 @@ let MatBadge = /** @class */ (() => {
                     },
                 },] }
     ];
-    /** @nocollapse */
     MatBadge.ctorParameters = () => [
         { type: NgZone },
         { type: ElementRef },

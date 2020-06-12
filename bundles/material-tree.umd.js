@@ -267,7 +267,6 @@
                         providers: [{ provide: tree.CdkTreeNode, useExisting: MatTreeNode }]
                     },] }
         ];
-        /** @nocollapse */
         MatTreeNode.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: tree.CdkTree },
@@ -356,7 +355,6 @@
                         ]
                     },] }
         ];
-        /** @nocollapse */
         MatNestedTreeNode.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: tree.CdkTree },
@@ -417,7 +415,6 @@
                             }]
                     },] }
         ];
-        /** @nocollapse */
         MatTreeNodeOutlet.ctorParameters = function () { return [
             { type: core.ViewContainerRef },
             { type: undefined, decorators: [{ type: core.Inject, args: [tree.CDK_TREE_NODE_OUTLET_NODE,] }, { type: core.Optional }] }
@@ -455,7 +452,7 @@
                         changeDetection: core.ChangeDetectionStrategy.Default,
                         providers: [{ provide: tree.CdkTree, useExisting: MatTree }],
                         styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
-                    }] }
+                    },] }
         ];
         MatTree.propDecorators = {
             _nodeOutlet: [{ type: core.ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]

@@ -58,10 +58,10 @@
         MatDatepickerIntl.prototype.formatYearRange = function (start, end) {
             return start + " \u2013 " + end;
         };
+        MatDatepickerIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
         MatDatepickerIntl.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        MatDatepickerIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
         return MatDatepickerIntl;
     }());
 
@@ -304,9 +304,8 @@
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.7142857143%;padding-right:4.7142857143%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:none;cursor:pointer}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-cell-preview{content:\"\";position:absolute;top:5%;left:0;z-index:0;box-sizing:border-box;height:90%;width:100%}.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-start::after,.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,.mat-calendar-body-comparison-start::after,.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:5%;width:95%;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,[dir=rtl] .mat-calendar-body-comparison-start::after,[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:0;border-radius:0;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,.mat-calendar-body-comparison-end::after,.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,[dir=rtl] .mat-calendar-body-comparison-end::after,[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{left:5%;border-radius:0;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after{width:90%}.mat-calendar-body-in-preview .mat-calendar-body-cell-preview{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:0;border-right:dashed 1px}.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:0;border-left:dashed 1px}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{top:5%;left:5%;z-index:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}.mat-calendar-body-cell-content.mat-focus-indicator{position:absolute}.cdk-high-contrast-active .mat-calendar-body-cell-content{border:none}.cdk-high-contrast-active .mat-datepicker-popup:not(:empty),.cdk-high-contrast-active .mat-calendar-body-selected{outline:solid 1px}.cdk-high-contrast-active .mat-calendar-body-today{outline:dotted 1px}.cdk-high-contrast-active .cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected),.cdk-high-contrast-active .cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){outline:dotted 2px}[dir=rtl] .mat-calendar-body-label{text-align:right}@media(hover: none){.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){background-color:transparent}}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatCalendarBody.ctorParameters = function () { return [
             { type: i0.ElementRef },
             { type: i0.NgZone }
@@ -626,7 +625,6 @@
         MatDateSelectionModel.decorators = [
             { type: i0.Directive }
         ];
-        /** @nocollapse */
         MatDateSelectionModel.ctorParameters = function () { return [
             { type: undefined },
             { type: core.DateAdapter }
@@ -660,7 +658,6 @@
         MatSingleDateSelectionModel.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         MatSingleDateSelectionModel.ctorParameters = function () { return [
             { type: core.DateAdapter }
         ]; };
@@ -717,7 +714,6 @@
         MatRangeDateSelectionModel.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         MatRangeDateSelectionModel.ctorParameters = function () { return [
             { type: core.DateAdapter }
         ]; };
@@ -784,7 +780,6 @@
         DefaultMatCalendarRangeStrategy.decorators = [
             { type: i0.Injectable }
         ];
-        /** @nocollapse */
         DefaultMatCalendarRangeStrategy.ctorParameters = function () { return [
             { type: core.DateAdapter }
         ]; };
@@ -1097,9 +1092,8 @@
                         exportAs: 'matMonthView',
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatMonthView.ctorParameters = function () { return [
             { type: i0.ChangeDetectorRef },
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [core.MAT_DATE_FORMATS,] }] },
@@ -1349,9 +1343,8 @@
                         exportAs: 'matMultiYearView',
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatMultiYearView.ctorParameters = function () { return [
             { type: i0.ChangeDetectorRef },
             { type: core.DateAdapter, decorators: [{ type: i0.Optional }] },
@@ -1651,9 +1644,8 @@
                         exportAs: 'matYearView',
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatYearView.ctorParameters = function () { return [
             { type: i0.ChangeDetectorRef },
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [core.MAT_DATE_FORMATS,] }] },
@@ -1794,9 +1786,8 @@
                         exportAs: 'matCalendarHeader',
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatCalendarHeader.ctorParameters = function () { return [
             { type: MatDatepickerIntl },
             { type: MatCalendar, decorators: [{ type: i0.Inject, args: [i0.forwardRef(function () { return MatCalendar; }),] }] },
@@ -2016,9 +2007,8 @@
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         providers: [MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER],
                         styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:none}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-controls .mat-icon-button:hover .mat-button-focus-overlay{opacity:.04}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-previous-button,.mat-calendar-next-button{position:relative}.mat-calendar-previous-button::after,.mat-calendar-next-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:\"\";margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-previous-button,[dir=rtl] .mat-calendar-next-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:\"\";position:absolute;top:0;left:-8px;right:-8px;height:1px}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatCalendar.ctorParameters = function () { return [
             { type: MatDatepickerIntl },
             { type: core.DateAdapter, decorators: [{ type: i0.Optional }] },
@@ -2199,9 +2189,8 @@
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         inputs: ['color'],
                         styles: [".mat-datepicker-content{display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatDatepickerContent.ctorParameters = function () { return [
             { type: i0.ElementRef },
             { type: i0.ChangeDetectorRef },
@@ -2567,7 +2556,6 @@
         MatDatepickerBase.decorators = [
             { type: i0.Directive }
         ];
-        /** @nocollapse */
         MatDatepickerBase.ctorParameters = function () { return [
             { type: dialog.MatDialog },
             { type: overlay.Overlay },
@@ -2623,7 +2611,7 @@
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         encapsulation: i0.ViewEncapsulation.None,
                         providers: [MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER]
-                    }] }
+                    },] }
         ];
         return MatDatepicker;
     }(MatDatepickerBase));
@@ -2882,7 +2870,6 @@
         MatDatepickerInputBase.decorators = [
             { type: i0.Directive }
         ];
-        /** @nocollapse */
         MatDatepickerInputBase.ctorParameters = function () { return [
             { type: i0.ElementRef },
             { type: core.DateAdapter, decorators: [{ type: i0.Optional }] },
@@ -3036,7 +3023,6 @@
                         exportAs: 'matDatepickerInput',
                     },] }
         ];
-        /** @nocollapse */
         MatDatepickerInput.ctorParameters = function () { return [
             { type: i0.ElementRef },
             { type: core.DateAdapter, decorators: [{ type: i0.Optional }] },
@@ -3138,9 +3124,8 @@
                         encapsulation: i0.ViewEncapsulation.None,
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         styles: [".mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-datepicker-toggle-default-icon{display:block;width:1.5em;height:1.5em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon{margin:auto}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatDatepickerToggle.ctorParameters = function () { return [
             { type: MatDatepickerIntl },
             { type: i0.ChangeDetectorRef },
@@ -3252,7 +3237,6 @@
         MatDateRangeInputPartBase.decorators = [
             { type: i0.Directive }
         ];
-        /** @nocollapse */
         MatDateRangeInputPartBase.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [MAT_DATE_RANGE_INPUT_PARENT,] }] },
             { type: i0.ElementRef },
@@ -3333,7 +3317,6 @@
                         ]
                     },] }
         ];
-        /** @nocollapse */
         MatStartDate.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [MAT_DATE_RANGE_INPUT_PARENT,] }] },
             { type: i0.ElementRef },
@@ -3406,7 +3389,6 @@
                         ]
                     },] }
         ];
-        /** @nocollapse */
         MatEndDate.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: i0.Inject, args: [MAT_DATE_RANGE_INPUT_PARENT,] }] },
             { type: i0.ElementRef },
@@ -3452,7 +3434,7 @@
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,
                         encapsulation: i0.ViewEncapsulation.None,
                         providers: [MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER]
-                    }] }
+                    },] }
         ];
         return MatDateRangePicker;
     }(MatDatepickerBase));
@@ -3719,9 +3701,8 @@
                             { provide: MAT_DATE_RANGE_INPUT_PARENT, useExisting: MatDateRangeInput },
                         ],
                         styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{margin:0 4px;transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-form-field-hide-placeholder .mat-date-range-input-separator{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:transparent;transition:none}.mat-date-range-input-inner{font:inherit;background:transparent;color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%}.mat-date-range-input-inner::-ms-clear,.mat-date-range-input-inner::-ms-reveal{display:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:transparent !important;-webkit-text-fill-color:transparent;transition:none}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:transparent !important;-webkit-text-fill-color:transparent;transition:none}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:transparent !important;-webkit-text-fill-color:transparent;transition:none}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:transparent !important;-webkit-text-fill-color:transparent;transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-date-range-input-start-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-start-wrapper .mat-date-range-input-inner{position:absolute;top:0;left:0}.mat-date-range-input-end-wrapper{flex-grow:1;max-width:calc(50% - 4px)}.mat-form-field-type-mat-date-range-input .mat-form-field-infix{width:200px}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         MatDateRangeInput.ctorParameters = function () { return [
             { type: i0.ChangeDetectorRef },
             { type: i0.ElementRef },

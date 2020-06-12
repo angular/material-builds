@@ -404,7 +404,6 @@ let MatInput = /** @class */ (() => {
                     providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
                 },] }
     ];
-    /** @nocollapse */
     MatInput.ctorParameters = () => [
         { type: ElementRef },
         { type: Platform },

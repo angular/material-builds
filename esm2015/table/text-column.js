@@ -40,7 +40,7 @@ let MatTextColumn = /** @class */ (() => {
                     // an ExpressionChangedAfterItHasBeenCheckedError).
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: ChangeDetectionStrategy.Default
-                }] }
+                },] }
     ];
     return MatTextColumn;
 })();

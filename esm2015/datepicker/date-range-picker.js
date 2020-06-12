@@ -31,7 +31,7 @@ let MatDateRangePicker = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     providers: [MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER]
-                }] }
+                },] }
     ];
     return MatDateRangePicker;
 })();

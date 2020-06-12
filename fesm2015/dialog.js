@@ -277,9 +277,8 @@ let MatDialogContainer = /** @class */ (() => {
                         '(@dialogContainer.done)': '_onAnimationDone($event)',
                     },
                     styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     MatDialogContainer.ctorParameters = () => [
         { type: ElementRef },
         { type: FocusTrapFactory },
@@ -744,7 +743,6 @@ let MatDialog = /** @class */ (() => {
     MatDialog.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     MatDialog.ctorParameters = () => [
         { type: Overlay },
         { type: Injector },
@@ -815,7 +813,6 @@ let MatDialogClose = /** @class */ (() => {
                     }
                 },] }
     ];
-    /** @nocollapse */
     MatDialogClose.ctorParameters = () => [
         { type: MatDialogRef, decorators: [{ type: Optional }] },
         { type: ElementRef },
@@ -864,7 +861,6 @@ let MatDialogTitle = /** @class */ (() => {
                     },
                 },] }
     ];
-    /** @nocollapse */
     MatDialogTitle.ctorParameters = () => [
         { type: MatDialogRef, decorators: [{ type: Optional }] },
         { type: ElementRef },
