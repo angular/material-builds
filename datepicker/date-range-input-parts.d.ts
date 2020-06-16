@@ -10,7 +10,7 @@ import { NgForm, FormGroupDirective, NgControl, ValidatorFn } from '@angular/for
 import { CanUpdateErrorState, CanUpdateErrorStateCtor, DateAdapter, MatDateFormats, ErrorStateMatcher } from '@angular/material/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
-import { DateRange, MatDateSelectionModel } from './date-selection-model';
+import { DateRange } from './date-selection-model';
 /** Parent component that should be wrapped around `MatStartDate` and `MatEndDate`. */
 export interface MatDateRangeInputParent<D> {
     id: string;
@@ -71,7 +71,6 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected _getDateFilter(): DateFilterFn<D>;
     protected _outsideValueChanged: () => void;
     protected _parentDisabled(): boolean;
-    _registerModel(model: MatDateSelectionModel<DateRange<D>, D>): void;
 }
 declare const _MatDateRangeInputBase: CanUpdateErrorStateCtor & typeof MatDateRangeInputPartBase;
 /** Input for entering the start date in a `mat-date-range-input`. */

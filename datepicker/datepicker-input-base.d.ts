@@ -55,7 +55,7 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     _disabledChange: EventEmitter<boolean>;
     _onTouched: () => void;
     _validatorOnChange: () => void;
-    private _cvaOnChange;
+    protected _cvaOnChange: (value: any) => void;
     private _valueChangesSubscription;
     private _localeSubscription;
     /**

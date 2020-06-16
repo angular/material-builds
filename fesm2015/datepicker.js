@@ -2866,14 +2866,6 @@ let MatDateRangeInputPartBase = /** @class */ (() => {
         _parentDisabled() {
             return this._rangeInput._groupDisabled;
         }
-        _registerModel(model) {
-            // The very first time the range inputs write their values, they don't know about the value
-            // of the opposite input. When this is combined with the fact that `NgModel` defers writing
-            // its value with a `Promise.resolve`, we can get into a situation where the first input
-            // resets the value of the second. We work around it by deferring the registration of
-            // the model, allowing the input enough time to assign the initial value.
-            Promise.resolve().then(() => super._registerModel(model));
-        }
     }
     MatDateRangeInputPartBase.decorators = [
         { type: Directive }
@@ -2918,6 +2910,7 @@ let MatStartDate = /** @class */ (() => {
             if (this._model) {
                 const range = new DateRange(value, this._model.selection.end);
                 this._model.updateSelection(range, this);
+                this._cvaOnChange(value);
             }
         }
         _formatValue(value) {
@@ -2994,10 +2987,11 @@ let MatEndDate = /** @class */ (() => {
             if (this._model) {
                 const range = new DateRange(this._model.selection.start, value);
                 this._model.updateSelection(range, this);
+                this._cvaOnChange(value);
             }
         }
         _onKeydown(event) {
-            // If the user is pressing backspace on an empty end input, focus focus back to the start.
+            // If the user is pressing backspace on an empty end input, move focus back to the start.
             if (event.keyCode === BACKSPACE && !this._elementRef.nativeElement.value) {
                 this._rangeInput._startInput.focus();
             }
