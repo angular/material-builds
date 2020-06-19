@@ -2372,7 +2372,7 @@ let MatDatepickerInputBase = /** @class */ (() => {
         }
         set value(value) {
             value = this._dateAdapter.deserialize(value);
-            this._lastValueValid = !value || this._dateAdapter.isValid(value);
+            this._lastValueValid = this._isValidValue(value);
             value = this._getValidDateOrNull(value);
             const oldDate = this.value;
             this._assignValue(value);
@@ -2415,6 +2415,7 @@ let MatDatepickerInputBase = /** @class */ (() => {
             this._valueChangesSubscription = this._model.selectionChanged.subscribe(event => {
                 if (event.source !== this) {
                     const value = this._getValueFromModel(event.selection);
+                    this._lastValueValid = this._isValidValue(value);
                     this._cvaOnChange(value);
                     this._onTouched();
                     this._formatValue(value);
@@ -2469,7 +2470,7 @@ let MatDatepickerInputBase = /** @class */ (() => {
         _onInput(value) {
             const lastValueWasValid = this._lastValueValid;
             let date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
-            this._lastValueValid = !date || this._dateAdapter.isValid(date);
+            this._lastValueValid = this._isValidValue(date);
             date = this._getValidDateOrNull(date);
             if (!this._dateAdapter.sameDate(date, this.value)) {
                 this._assignValue(date);
@@ -2515,6 +2516,10 @@ let MatDatepickerInputBase = /** @class */ (() => {
             else {
                 this._pendingValue = value;
             }
+        }
+        /** Whether a value is considered valid. */
+        _isValidValue(value) {
+            return !value || this._dateAdapter.isValid(value);
         }
         /**
          * Checks whether a parent control is disabled. This is in place so that it can be overridden
