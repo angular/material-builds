@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.0.0-rc.2-sha-31723b858');
+const VERSION = new Version('10.0.0-rc.2-sha-33aeea9a9');
 
 /**
  * @license
@@ -58,7 +58,7 @@ let AnimationDurations = /** @class */ (() => {
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.0.0-rc.2-sha-31723b858');
+const VERSION$1 = new Version('10.0.0-rc.2-sha-33aeea9a9');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;

@@ -2708,7 +2708,7 @@
             },
             set: function (value) {
                 value = this._dateAdapter.deserialize(value);
-                this._lastValueValid = !value || this._dateAdapter.isValid(value);
+                this._lastValueValid = this._isValidValue(value);
                 value = this._getValidDateOrNull(value);
                 var oldDate = this.value;
                 this._assignValue(value);
@@ -2759,6 +2759,7 @@
             this._valueChangesSubscription = this._model.selectionChanged.subscribe(function (event) {
                 if (event.source !== _this) {
                     var value = _this._getValueFromModel(event.selection);
+                    _this._lastValueValid = _this._isValidValue(value);
                     _this._cvaOnChange(value);
                     _this._onTouched();
                     _this._formatValue(value);
@@ -2813,7 +2814,7 @@
         MatDatepickerInputBase.prototype._onInput = function (value) {
             var lastValueWasValid = this._lastValueValid;
             var date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
-            this._lastValueValid = !date || this._dateAdapter.isValid(date);
+            this._lastValueValid = this._isValidValue(date);
             date = this._getValidDateOrNull(date);
             if (!this._dateAdapter.sameDate(date, this.value)) {
                 this._assignValue(date);
@@ -2859,6 +2860,10 @@
             else {
                 this._pendingValue = value;
             }
+        };
+        /** Whether a value is considered valid. */
+        MatDatepickerInputBase.prototype._isValidValue = function (value) {
+            return !value || this._dateAdapter.isValid(value);
         };
         /**
          * Checks whether a parent control is disabled. This is in place so that it can be overridden

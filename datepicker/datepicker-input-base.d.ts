@@ -122,6 +122,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     protected _getValidDateOrNull(obj: any): D | null;
     /** Assigns a value to the model. */
     private _assignValue;
+    /** Whether a value is considered valid. */
+    private _isValidValue;
     /**
      * Checks whether a parent control is disabled. This is in place so that it can be overridden
      * by inputs extending this one which can be placed inside of a group that can be disabled.
