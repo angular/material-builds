@@ -36,7 +36,7 @@ let MatBottomSheetContainer = /** @class */ (() => {
             /**
              * Attaches a DOM portal to the bottom sheet container.
              * @deprecated To be turned into a method.
-             * @breaking-change 10.0.0
+             * @breaking-change 10.0.0-sha-d3f287d65
              */
             this.attachDomPortal = (portal) => {
                 this._validatePortalAttached();

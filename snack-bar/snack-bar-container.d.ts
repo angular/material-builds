@@ -42,7 +42,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     /**
      * Attaches a DOM portal to the snack bar container.
      * @deprecated To be turned into a method.
-     * @breaking-change 10.0.0
+     * @breaking-change 10.0.0-sha-d3f287d65
      */
     attachDomPortal: (portal: DomPortal) => void;
     /** Handle end of animations, updating the state of the snackbar. */

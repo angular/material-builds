@@ -127,7 +127,7 @@ let MatDialogContainer = /** @class */ (() => {
              * Attaches a DOM portal to the dialog container.
              * @param portal Portal to be attached.
              * @deprecated To be turned into a method.
-             * @breaking-change 10.0.0
+             * @breaking-change 10.0.0-sha-d3f287d65
              */
             this.attachDomPortal = (portal) => {
                 if (this._portalOutlet.hasAttached()) {
@@ -504,7 +504,7 @@ let MatDialog = /** @class */ (() => {
         constructor(_overlay, _injector, 
         /**
          * @deprecated `_location` parameter to be removed.
-         * @breaking-change 10.0.0
+         * @breaking-change 10.0.0-sha-d3f287d65
          */
         _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
             this._overlay = _overlay;

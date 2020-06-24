@@ -254,7 +254,7 @@
     /**
      * Injection token that can be used to specify the checkbox click behavior.
      * @deprecated Injection token will be removed, use `MAT_CHECKBOX_DEFAULT_OPTIONS` instead.
-     * @breaking-change 10.0.0
+     * @breaking-change 10.0.0-sha-d3f287d65
      */
     var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
 
@@ -306,7 +306,7 @@
         /**
          * @deprecated `_clickAction` parameter to be removed, use
          * `MAT_CHECKBOX_DEFAULT_OPTIONS`
-         * @breaking-change 10.0.0
+         * @breaking-change 10.0.0-sha-d3f287d65
          */
         _clickAction, _animationMode, _options) {
             var _this = _super.call(this, elementRef) || this;
