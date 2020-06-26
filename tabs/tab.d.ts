@@ -24,7 +24,7 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     private _viewContainerRef;
     /**
      * @deprecated `_closestTabGroup` parameter to become required.
-     * @breaking-change 10.0.0-sha-d3f287d65
+     * @breaking-change 10.0.0-sha-952f57631
      */
     _closestTabGroup?: any;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
@@ -69,7 +69,7 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     constructor(_viewContainerRef: ViewContainerRef, 
     /**
      * @deprecated `_closestTabGroup` parameter to become required.
-     * @breaking-change 10.0.0-sha-d3f287d65
+     * @breaking-change 10.0.0-sha-952f57631
      */
     _closestTabGroup?: any);
     ngOnChanges(changes: SimpleChanges): void;
