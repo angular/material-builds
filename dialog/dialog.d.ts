@@ -55,7 +55,7 @@ export declare class MatDialog implements OnDestroy {
     constructor(_overlay: Overlay, _injector: Injector, 
     /**
      * @deprecated `_location` parameter to be removed.
-     * @breaking-change 10.0.0-sha-cf53a70b1
+     * @breaking-change 10.0.0-sha-27f52711c
      */
     _location: Location, _defaultOptions: MatDialogConfig, scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
     /**

@@ -46,7 +46,7 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     /**
      * Attaches a DOM portal to the bottom sheet container.
      * @deprecated To be turned into a method.
-     * @breaking-change 10.0.0-sha-cf53a70b1
+     * @breaking-change 10.0.0-sha-27f52711c
      */
     attachDomPortal: (portal: DomPortal) => void;
     /** Begin animation of bottom sheet entrance into view. */

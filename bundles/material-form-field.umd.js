@@ -801,7 +801,6 @@
          * appearance.
          */
         MatFormField.prototype.updateOutlineGap = function () {
-            var e_1, _a;
             var labelEl = this._label ? this._label.nativeElement : null;
             if (this.appearance !== 'outline' || !labelEl || !labelEl.children.length ||
                 !labelEl.textContent.trim()) {
@@ -836,20 +835,11 @@
                     return;
                 }
                 var containerStart = this._getStartEnd(containerRect);
-                var labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
+                var labelChildren = labelEl.children;
+                var labelStart = this._getStartEnd(labelChildren[0].getBoundingClientRect());
                 var labelWidth = 0;
-                try {
-                    for (var _b = __values(labelEl.children), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var child = _c.value;
-                        labelWidth += child.offsetWidth;
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                    }
-                    finally { if (e_1) throw e_1.error; }
+                for (var i = 0; i < labelChildren.length; i++) {
+                    labelWidth += labelChildren[i].offsetWidth;
                 }
                 startWidth = Math.abs(labelStart - containerStart) - outlineGapPadding;
                 gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;

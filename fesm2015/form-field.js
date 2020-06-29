@@ -580,10 +580,11 @@ let MatFormField = /** @class */ (() => {
                     return;
                 }
                 const containerStart = this._getStartEnd(containerRect);
-                const labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
+                const labelChildren = labelEl.children;
+                const labelStart = this._getStartEnd(labelChildren[0].getBoundingClientRect());
                 let labelWidth = 0;
-                for (const child of labelEl.children) {
-                    labelWidth += child.offsetWidth;
+                for (let i = 0; i < labelChildren.length; i++) {
+                    labelWidth += labelChildren[i].offsetWidth;
                 }
                 startWidth = Math.abs(labelStart - containerStart) - outlineGapPadding;
                 gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;

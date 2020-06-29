@@ -24,8 +24,6 @@ export interface MatDateRangeInputParent<D> {
     _startInput: MatDateRangeInputPartBase<D>;
     _endInput: MatDateRangeInputPartBase<D>;
     _groupDisabled: boolean;
-    _ariaDescribedBy: string | null;
-    _ariaLabelledBy: string | null;
     _handleChildValueChange: () => void;
     _openDatepicker: () => void;
 }
