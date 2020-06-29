@@ -7,25 +7,7 @@
  */
 import { ElementRef, NgZone } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { RippleRef } from './ripple-ref';
-export declare type RippleConfig = {
-    color?: string;
-    centered?: boolean;
-    radius?: number;
-    persistent?: boolean;
-    animation?: RippleAnimationConfig;
-    terminateOnPointerUp?: boolean;
-};
-/**
- * Interface that describes the configuration for the animation of a ripple.
- * There are two animation phases with different durations for the ripples.
- */
-export interface RippleAnimationConfig {
-    /** Duration in milliseconds for the enter animation (expansion from point of contact). */
-    enterDuration?: number;
-    /** Duration in milliseconds for the exit animation (fade-out). */
-    exitDuration?: number;
-}
+import { RippleRef, RippleConfig } from './ripple-ref';
 /**
  * Interface that describes the target for launching ripples.
  * It defines the ripple configuration and disabled state for interaction ripples.
