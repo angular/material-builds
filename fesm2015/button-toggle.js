@@ -18,6 +18,12 @@ import { mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/m
  */
 const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS');
 /**
+ * Injection token that can be used to reference instances of `MatButtonToggleGroup`.
+ * It serves as alternative token to the actual `MatButtonToggleGroup` class which
+ * could cause unnecessary retention of the class and its component metadata.
+ */
+const MAT_BUTTON_TOGGLE_GROUP = new InjectionToken('MatButtonToggleGroup');
+/**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * @docs-private
@@ -241,7 +247,10 @@ let MatButtonToggleGroup = /** @class */ (() => {
     MatButtonToggleGroup.decorators = [
         { type: Directive, args: [{
                     selector: 'mat-button-toggle-group',
-                    providers: [MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
+                    providers: [
+                        MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
+                        { provide: MAT_BUTTON_TOGGLE_GROUP, useExisting: MatButtonToggleGroup },
+                    ],
                     host: {
                         'role': 'group',
                         'class': 'mat-button-toggle-group',
@@ -414,7 +423,7 @@ let MatButtonToggle = /** @class */ (() => {
                 },] }
     ];
     MatButtonToggle.ctorParameters = () => [
-        { type: MatButtonToggleGroup, decorators: [{ type: Optional }] },
+        { type: MatButtonToggleGroup, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BUTTON_TOGGLE_GROUP,] }] },
         { type: ChangeDetectorRef },
         { type: ElementRef },
         { type: FocusMonitor },
@@ -469,5 +478,5 @@ let MatButtonToggleModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleModule };
+export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleModule };
 //# sourceMappingURL=button-toggle.js.map

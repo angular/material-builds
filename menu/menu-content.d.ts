@@ -5,8 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ApplicationRef, ChangeDetectorRef, ComponentFactoryResolver, Injector, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, ComponentFactoryResolver, InjectionToken, Injector, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
+/**
+ * Injection token that can be used to reference instances of `MatMenuContent`. It serves
+ * as alternative token to the actual `MatMenuContent` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+export declare const MAT_MENU_CONTENT: InjectionToken<MatMenuContent>;
 /**
  * Menu content that will be rendered lazily once the menu is opened.
  */

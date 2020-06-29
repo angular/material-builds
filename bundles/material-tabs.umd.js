@@ -326,13 +326,22 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /**
+     * Injection token that can be used to reference instances of `MatTabContent`. It serves as
+     * alternative token to the actual `MatTabContent` class which could cause unnecessary
+     * retention of the class and its directive metadata.
+     */
+    var MAT_TAB_CONTENT = new core.InjectionToken('MatTabContent');
     /** Decorates the `ng-template` tags and reads out the template from it. */
     var MatTabContent = /** @class */ (function () {
         function MatTabContent(template) {
             this.template = template;
         }
         MatTabContent.decorators = [
-            { type: core.Directive, args: [{ selector: '[matTabContent]' },] }
+            { type: core.Directive, args: [{
+                        selector: '[matTabContent]',
+                        providers: [{ provide: MAT_TAB_CONTENT, useExisting: MatTabContent }],
+                    },] }
         ];
         MatTabContent.ctorParameters = function () { return [
             { type: core.TemplateRef }
@@ -347,6 +356,12 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /**
+     * Injection token that can be used to reference instances of `MatTabLabel`. It serves as
+     * alternative token to the actual `MatTabLabel` class which could cause unnecessary
+     * retention of the class and its directive metadata.
+     */
+    var MAT_TAB_LABEL = new core.InjectionToken('MatTabLabel');
     /** Used to flag tab labels for use with the portal directive */
     var MatTabLabel = /** @class */ (function (_super) {
         __extends(MatTabLabel, _super);
@@ -356,6 +371,7 @@
         MatTabLabel.decorators = [
             { type: core.Directive, args: [{
                         selector: '[mat-tab-label], [matTabLabel]',
+                        providers: [{ provide: MAT_TAB_LABEL, useExisting: MatTabLabel }],
                     },] }
         ];
         return MatTabLabel;
@@ -415,6 +431,7 @@
             return _this;
         }
         Object.defineProperty(MatTab.prototype, "templateLabel", {
+            // TODO: Remove cast once https://github.com/angular/angular/pull/37506 is available.
             /** Content for the tab label given by `<ng-template mat-tab-label>`. */
             get: function () { return this._templateLabel; },
             set: function (value) {
@@ -464,8 +481,8 @@
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TAB_GROUP,] }] }
         ]; };
         MatTab.propDecorators = {
-            templateLabel: [{ type: core.ContentChild, args: [MatTabLabel,] }],
-            _explicitContent: [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef, static: true },] }],
+            templateLabel: [{ type: core.ContentChild, args: [MAT_TAB_LABEL,] }],
+            _explicitContent: [{ type: core.ContentChild, args: [MAT_TAB_CONTENT, { read: core.TemplateRef, static: true },] }],
             _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
             textLabel: [{ type: core.Input, args: ['label',] }],
             ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
@@ -2075,7 +2092,9 @@
     exports._MatTabNavBase = _MatTabNavBase;
     exports.matTabsAnimations = matTabsAnimations;
     exports.ɵangular_material_src_material_tabs_tabs_a = _MAT_INK_BAR_POSITIONER_FACTORY;
-    exports.ɵangular_material_src_material_tabs_tabs_b = MatPaginatedTabHeader;
+    exports.ɵangular_material_src_material_tabs_tabs_b = MAT_TAB_LABEL;
+    exports.ɵangular_material_src_material_tabs_tabs_c = MAT_TAB_CONTENT;
+    exports.ɵangular_material_src_material_tabs_tabs_d = MatPaginatedTabHeader;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

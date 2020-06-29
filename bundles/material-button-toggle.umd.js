@@ -245,6 +245,12 @@
      */
     var MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS');
     /**
+     * Injection token that can be used to reference instances of `MatButtonToggleGroup`.
+     * It serves as alternative token to the actual `MatButtonToggleGroup` class which
+     * could cause unnecessary retention of the class and its component metadata.
+     */
+    var MAT_BUTTON_TOGGLE_GROUP = new core.InjectionToken('MatButtonToggleGroup');
+    /**
      * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
      * This allows it to support [(ngModel)].
      * @docs-private
@@ -497,7 +503,10 @@
         MatButtonToggleGroup.decorators = [
             { type: core.Directive, args: [{
                         selector: 'mat-button-toggle-group',
-                        providers: [MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
+                        providers: [
+                            MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
+                            { provide: MAT_BUTTON_TOGGLE_GROUP, useExisting: MatButtonToggleGroup },
+                        ],
                         host: {
                             'role': 'group',
                             'class': 'mat-button-toggle-group',
@@ -689,7 +698,7 @@
                     },] }
         ];
         MatButtonToggle.ctorParameters = function () { return [
-            { type: MatButtonToggleGroup, decorators: [{ type: core.Optional }] },
+            { type: MatButtonToggleGroup, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_BUTTON_TOGGLE_GROUP,] }] },
             { type: core.ChangeDetectorRef },
             { type: core.ElementRef },
             { type: a11y.FocusMonitor },
@@ -745,6 +754,7 @@
      */
 
     exports.MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS;
+    exports.MAT_BUTTON_TOGGLE_GROUP = MAT_BUTTON_TOGGLE_GROUP;
     exports.MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR;
     exports.MatButtonToggle = MatButtonToggle;
     exports.MatButtonToggleChange = MatButtonToggleChange;

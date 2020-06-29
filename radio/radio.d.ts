@@ -35,6 +35,12 @@ export declare class MatRadioChange {
     value: any);
 }
 /**
+ * Injection token that can be used to inject instances of `MatRadioGroup`. It serves as
+ * alternative token to the actual `MatRadioGroup` class which could cause unnecessary
+ * retention of the class and its component metadata.
+ */
+export declare const MAT_RADIO_GROUP: InjectionToken<_MatRadioGroupBase<_MatRadioButtonBase>>;
+/**
  * Base class with all of the `MatRadioGroup` functionality.
  * @docs-private
  */

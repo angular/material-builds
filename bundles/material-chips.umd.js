@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/keycodes', '@angular/core', '@angular/material/core', '@angular/common', '@angular/cdk/coercion', '@angular/cdk/platform', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.ng.common, global.ng.cdk.coercion, global.ng.cdk.platform, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
-}(this, (function (exports, keycodes, core, core$1, common, coercion, platform, rxjs, operators, animations, a11y, bidi, collections, forms, formField) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/platform-browser/animations'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/keycodes', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/common', '@angular/platform-browser/animations', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.common, global.ng.platformBrowser.animations, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
+}(this, (function (exports, keycodes, core, core$1, coercion, platform, common, animations, rxjs, operators, a11y, bidi, collections, forms, formField) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -255,6 +255,24 @@
         }
         return MatChipSelectionChange;
     }());
+    /**
+     * Injection token that can be used to reference instances of `MatChipRemove`. It serves as
+     * alternative token to the actual `MatChipRemove` class which could cause unnecessary
+     * retention of the class and its directive metadata.
+     */
+    var MAT_CHIP_REMOVE = new core.InjectionToken('MatChipRemove');
+    /**
+     * Injection token that can be used to reference instances of `MatChipAvatar`. It serves as
+     * alternative token to the actual `MatChipAvatar` class which could cause unnecessary
+     * retention of the class and its directive metadata.
+     */
+    var MAT_CHIP_AVATAR = new core.InjectionToken('MatChipAvatar');
+    /**
+     * Injection token that can be used to reference instances of `MatChipTrailingIcon`. It serves as
+     * alternative token to the actual `MatChipTrailingIcon` class which could cause unnecessary
+     * retention of the class and its directive metadata.
+     */
+    var MAT_CHIP_TRAILING_ICON = new core.InjectionToken('MatChipTrailingIcon');
     // Boilerplate for applying mixins to MatChip.
     /** @docs-private */
     var MatChipBase = /** @class */ (function () {
@@ -274,7 +292,8 @@
         MatChipAvatar.decorators = [
             { type: core.Directive, args: [{
                         selector: 'mat-chip-avatar, [matChipAvatar]',
-                        host: { 'class': 'mat-chip-avatar' }
+                        host: { 'class': 'mat-chip-avatar' },
+                        providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatChipAvatar }]
                     },] }
         ];
         return MatChipAvatar;
@@ -289,7 +308,8 @@
         MatChipTrailingIcon.decorators = [
             { type: core.Directive, args: [{
                         selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
-                        host: { 'class': 'mat-chip-trailing-icon' }
+                        host: { 'class': 'mat-chip-trailing-icon' },
+                        providers: [{ provide: MAT_CHIP_TRAILING_ICON, useExisting: MatChipTrailingIcon }],
                     },] }
         ];
         return MatChipTrailingIcon;
@@ -590,9 +610,9 @@
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
         MatChip.propDecorators = {
-            avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],
-            trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon,] }],
-            removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] }],
+            avatar: [{ type: core.ContentChild, args: [MAT_CHIP_AVATAR,] }],
+            trailingIcon: [{ type: core.ContentChild, args: [MAT_CHIP_TRAILING_ICON,] }],
+            removeIcon: [{ type: core.ContentChild, args: [MAT_CHIP_REMOVE,] }],
             selected: [{ type: core.Input }],
             value: [{ type: core.Input }],
             selectable: [{ type: core.Input }],
@@ -646,7 +666,8 @@
                         host: {
                             'class': 'mat-chip-remove mat-chip-trailing-icon',
                             '(click)': '_handleClick($event)',
-                        }
+                        },
+                        providers: [{ provide: MAT_CHIP_REMOVE, useExisting: MatChipRemove }],
                     },] }
         ];
         MatChipRemove.ctorParameters = function () { return [
@@ -1636,6 +1657,9 @@
      */
 
     exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
+    exports.MAT_CHIP_AVATAR = MAT_CHIP_AVATAR;
+    exports.MAT_CHIP_REMOVE = MAT_CHIP_REMOVE;
+    exports.MAT_CHIP_TRAILING_ICON = MAT_CHIP_TRAILING_ICON;
     exports.MatChip = MatChip;
     exports.MatChipAvatar = MatChipAvatar;
     exports.MatChipInput = MatChipInput;

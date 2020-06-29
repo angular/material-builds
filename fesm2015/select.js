@@ -1,7 +1,7 @@
 import { Overlay, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { InjectionToken, Directive, EventEmitter, isDevMode, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, ElementRef, Optional, Inject, Self, Attribute, ViewChild, ContentChildren, Input, ContentChild, Output, NgModule } from '@angular/core';
-import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, ErrorStateMatcher, MatOption, MatOptgroup, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, ErrorStateMatcher, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField, MAT_FORM_FIELD, MatFormFieldModule } from '@angular/material/form-field';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
@@ -175,6 +175,12 @@ class MatSelectBase {
 }
 const _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
 /**
+ * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
+ * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_SELECT_TRIGGER = new InjectionToken('MatSelectTrigger');
+/**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 let MatSelectTrigger = /** @class */ (() => {
@@ -182,7 +188,8 @@ let MatSelectTrigger = /** @class */ (() => {
     }
     MatSelectTrigger.decorators = [
         { type: Directive, args: [{
-                    selector: 'mat-select-trigger'
+                    selector: 'mat-select-trigger',
+                    providers: [{ provide: MAT_SELECT_TRIGGER, useExisting: MatSelectTrigger }],
                 },] }
     ];
     return MatSelectTrigger;
@@ -1150,9 +1157,9 @@ let MatSelect = /** @class */ (() => {
         panel: [{ type: ViewChild, args: ['panel',] }],
         overlayDir: [{ type: ViewChild, args: [CdkConnectedOverlay,] }],
         options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
-        optionGroups: [{ type: ContentChildren, args: [MatOptgroup, { descendants: true },] }],
+        optionGroups: [{ type: ContentChildren, args: [MAT_OPTGROUP, { descendants: true },] }],
         panelClass: [{ type: Input }],
-        customTrigger: [{ type: ContentChild, args: [MatSelectTrigger,] }],
+        customTrigger: [{ type: ContentChild, args: [MAT_SELECT_TRIGGER,] }],
         placeholder: [{ type: Input }],
         required: [{ type: Input }],
         multiple: [{ type: Input }],
@@ -1219,5 +1226,5 @@ let MatSelectModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, matSelectAnimations };
+export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, matSelectAnimations };
 //# sourceMappingURL=select.js.map

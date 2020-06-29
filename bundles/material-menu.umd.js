@@ -302,6 +302,12 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /**
+     * Injection token that can be used to reference instances of `MatMenuContent`. It serves
+     * as alternative token to the actual `MatMenuContent` class which could cause unnecessary
+     * retention of the class and its directive metadata.
+     */
+    var MAT_MENU_CONTENT = new core.InjectionToken('MatMenuContent');
+    /**
      * Menu content that will be rendered lazily once the menu is opened.
      */
     var MatMenuContent = /** @class */ (function () {
@@ -362,7 +368,8 @@
         };
         MatMenuContent.decorators = [
             { type: core.Directive, args: [{
-                        selector: 'ng-template[matMenuContent]'
+                        selector: 'ng-template[matMenuContent]',
+                        providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatMenuContent }],
                     },] }
         ];
         MatMenuContent.ctorParameters = function () { return [
@@ -936,7 +943,7 @@
             yPosition: [{ type: core.Input }],
             templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
             items: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: false },] }],
-            lazyContent: [{ type: core.ContentChild, args: [MatMenuContent,] }],
+            lazyContent: [{ type: core.ContentChild, args: [MAT_MENU_CONTENT,] }],
             overlapTrigger: [{ type: core.Input }],
             hasBackdrop: [{ type: core.Input }],
             panelClass: [{ type: core.Input, args: ['class',] }],
@@ -1557,6 +1564,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_MENU_CONTENT = MAT_MENU_CONTENT;
     exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
     exports.MAT_MENU_PANEL = MAT_MENU_PANEL;
     exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;

@@ -1,4 +1,4 @@
-import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Output, Input, ContentChildren, Optional, ElementRef, Inject, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Output, Input, ContentChildren, ElementRef, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, NgModule } from '@angular/core';
 import { mixinDisableRipple, mixinTabIndex, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -45,6 +45,12 @@ class MatRadioChange {
         this.value = value;
     }
 }
+/**
+ * Injection token that can be used to inject instances of `MatRadioGroup`. It serves as
+ * alternative token to the actual `MatRadioGroup` class which could cause unnecessary
+ * retention of the class and its component metadata.
+ */
+const MAT_RADIO_GROUP = new InjectionToken('MatRadioGroup');
 /**
  * Base class with all of the `MatRadioGroup` functionality.
  * @docs-private
@@ -250,7 +256,10 @@ let MatRadioGroup = /** @class */ (() => {
         { type: Directive, args: [{
                     selector: 'mat-radio-group',
                     exportAs: 'matRadioGroup',
-                    providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
+                    providers: [
+                        MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
+                        { provide: MAT_RADIO_GROUP, useExisting: MatRadioGroup },
+                    ],
                     host: {
                         'role': 'radiogroup',
                         'class': 'mat-radio-group',
@@ -460,13 +469,13 @@ let _MatRadioButtonBase = /** @class */ (() => {
         { type: Directive }
     ];
     _MatRadioButtonBase.ctorParameters = () => [
-        { type: _MatRadioGroupBase, decorators: [{ type: Optional }] },
+        { type: _MatRadioGroupBase },
         { type: ElementRef },
         { type: ChangeDetectorRef },
         { type: FocusMonitor },
         { type: UniqueSelectionDispatcher },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
+        { type: String },
+        { type: undefined }
     ];
     _MatRadioButtonBase.propDecorators = {
         id: [{ type: Input }],
@@ -525,7 +534,7 @@ let MatRadioButton = /** @class */ (() => {
                 },] }
     ];
     MatRadioButton.ctorParameters = () => [
-        { type: MatRadioGroup, decorators: [{ type: Optional }] },
+        { type: MatRadioGroup, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RADIO_GROUP,] }] },
         { type: ElementRef },
         { type: ChangeDetectorRef },
         { type: FocusMonitor },
@@ -568,5 +577,5 @@ let MatRadioModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule, _MatRadioButtonBase, _MatRadioGroupBase };
+export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule, _MatRadioButtonBase, _MatRadioGroupBase };
 //# sourceMappingURL=radio.js.map

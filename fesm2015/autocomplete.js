@@ -1,7 +1,7 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { InjectionToken, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, ContentChildren, Input, Output, Directive, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
-import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroup, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -170,7 +170,7 @@ let MatAutocomplete = /** @class */ (() => {
         template: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
         panel: [{ type: ViewChild, args: ['panel',] }],
         options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
-        optionGroups: [{ type: ContentChildren, args: [MatOptgroup, { descendants: true },] }],
+        optionGroups: [{ type: ContentChildren, args: [MAT_OPTGROUP, { descendants: true },] }],
         displayWith: [{ type: Input }],
         autoActiveFirstOption: [{ type: Input }],
         panelWidth: [{ type: Input }],

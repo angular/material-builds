@@ -1,7 +1,7 @@
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UP_ARROW, DOWN_ARROW, END, hasModifierKey, HOME, RIGHT_ARROW, LEFT_ARROW, ESCAPE } from '@angular/cdk/keycodes';
-import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
+import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
 import { trigger, state, style, transition, group, query, animate } from '@angular/animations';
@@ -83,6 +83,12 @@ const transformMenu = matMenuAnimations.transformMenu;
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Injection token that can be used to reference instances of `MatMenuContent`. It serves
+ * as alternative token to the actual `MatMenuContent` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_MENU_CONTENT = new InjectionToken('MatMenuContent');
+/**
  * Menu content that will be rendered lazily once the menu is opened.
  */
 let MatMenuContent = /** @class */ (() => {
@@ -144,7 +150,8 @@ let MatMenuContent = /** @class */ (() => {
     }
     MatMenuContent.decorators = [
         { type: Directive, args: [{
-                    selector: 'ng-template[matMenuContent]'
+                    selector: 'ng-template[matMenuContent]',
+                    providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatMenuContent }],
                 },] }
     ];
     MatMenuContent.ctorParameters = () => [
@@ -690,7 +697,7 @@ let _MatMenuBase = /** @class */ (() => {
         yPosition: [{ type: Input }],
         templateRef: [{ type: ViewChild, args: [TemplateRef,] }],
         items: [{ type: ContentChildren, args: [MatMenuItem, { descendants: false },] }],
-        lazyContent: [{ type: ContentChild, args: [MatMenuContent,] }],
+        lazyContent: [{ type: ContentChild, args: [MAT_MENU_CONTENT,] }],
         overlapTrigger: [{ type: Input }],
         hasBackdrop: [{ type: Input }],
         panelClass: [{ type: Input, args: ['class',] }],
@@ -1288,5 +1295,5 @@ let MatMenuModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, _MatMenu, _MatMenuBase, _MatMenuDirectivesModule, fadeInItems, matMenuAnimations, transformMenu, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵangular_material_src_material_menu_menu_a, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵangular_material_src_material_menu_menu_b, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵangular_material_src_material_menu_menu_c };
+export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, _MatMenu, _MatMenuBase, _MatMenuDirectivesModule, fadeInItems, matMenuAnimations, transformMenu, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵangular_material_src_material_menu_menu_a, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵangular_material_src_material_menu_menu_b, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵangular_material_src_material_menu_menu_c };
 //# sourceMappingURL=menu.js.map

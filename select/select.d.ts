@@ -86,6 +86,12 @@ declare class MatSelectBase {
 }
 declare const _MatSelectMixinBase: CanDisableCtor & HasTabIndexCtor & CanDisableRippleCtor & CanUpdateErrorStateCtor & typeof MatSelectBase;
 /**
+ * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
+ * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
+/**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 export declare class MatSelectTrigger {

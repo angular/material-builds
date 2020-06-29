@@ -1,6 +1,6 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import { CommonModule } from '@angular/common';
-import { Directive, Input, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, NgZone, ViewChild, ContentChild, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, NgZone, ViewChild, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import { mixinColor, MAT_LABEL_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -18,6 +18,12 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
  * found in the LICENSE file at https://angular.io/license
  */
 let nextUniqueId = 0;
+/**
+ * Injection token that can be used to reference instances of `MatError`. It serves as
+ * alternative token to the actual `MatError` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_ERROR = new InjectionToken('MatError');
 /** Single error message to be shown underneath the form field. */
 let MatError = /** @class */ (() => {
     class MatError {
@@ -32,7 +38,8 @@ let MatError = /** @class */ (() => {
                         'class': 'mat-error',
                         'role': 'alert',
                         '[attr.id]': 'id',
-                    }
+                    },
+                    providers: [{ provide: MAT_ERROR, useExisting: MatError }],
                 },] }
     ];
     MatError.propDecorators = {
@@ -109,6 +116,15 @@ function getMatFormFieldMissingControlError() {
  * found in the LICENSE file at https://angular.io/license
  */
 let nextUniqueId$1 = 0;
+/**
+ * Injection token that can be used to reference instances of `MatHint`. It serves as
+ * alternative token to the actual `MatHint` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ *
+ * *Note*: This is not part of the public API as the MDC-based form-field will not
+ * need a lightweight token for `MatHint` and we want to reduce breaking changes.
+ */
+const _MAT_HINT = new InjectionToken('MatHint');
 /** Hint text to be shown underneath the form field control. */
 let MatHint = /** @class */ (() => {
     class MatHint {
@@ -128,7 +144,8 @@ let MatHint = /** @class */ (() => {
                         '[attr.id]': 'id',
                         // Remove align attribute to prevent it from interfering with layout.
                         '[attr.align]': 'null',
-                    }
+                    },
+                    providers: [{ provide: _MAT_HINT, useExisting: MatHint }],
                 },] }
     ];
     MatHint.propDecorators = {
@@ -188,6 +205,12 @@ let MatPlaceholder = /** @class */ (() => {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Injection token that can be used to reference instances of `MatPrefix`. It serves as
+ * alternative token to the actual `MatPrefix` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_PREFIX = new InjectionToken('MatPrefix');
 /** Prefix to be placed in front of the form field. */
 let MatPrefix = /** @class */ (() => {
     class MatPrefix {
@@ -195,6 +218,7 @@ let MatPrefix = /** @class */ (() => {
     MatPrefix.decorators = [
         { type: Directive, args: [{
                     selector: '[matPrefix]',
+                    providers: [{ provide: MAT_PREFIX, useExisting: MatPrefix }],
                 },] }
     ];
     return MatPrefix;
@@ -207,6 +231,12 @@ let MatPrefix = /** @class */ (() => {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Injection token that can be used to reference instances of `MatSuffix`. It serves as
+ * alternative token to the actual `MatSuffix` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_SUFFIX = new InjectionToken('MatSuffix');
 /** Suffix to be placed at the end of the form field. */
 let MatSuffix = /** @class */ (() => {
     class MatSuffix {
@@ -214,6 +244,7 @@ let MatSuffix = /** @class */ (() => {
     MatSuffix.decorators = [
         { type: Directive, args: [{
                     selector: '[matSuffix]',
+                    providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }],
                 },] }
     ];
     return MatSuffix;
@@ -679,10 +710,10 @@ let MatFormField = /** @class */ (() => {
         _labelChildNonStatic: [{ type: ContentChild, args: [MatLabel,] }],
         _labelChildStatic: [{ type: ContentChild, args: [MatLabel, { static: true },] }],
         _placeholderChild: [{ type: ContentChild, args: [MatPlaceholder,] }],
-        _errorChildren: [{ type: ContentChildren, args: [MatError, { descendants: true },] }],
-        _hintChildren: [{ type: ContentChildren, args: [MatHint, { descendants: true },] }],
-        _prefixChildren: [{ type: ContentChildren, args: [MatPrefix, { descendants: true },] }],
-        _suffixChildren: [{ type: ContentChildren, args: [MatSuffix, { descendants: true },] }]
+        _errorChildren: [{ type: ContentChildren, args: [MAT_ERROR, { descendants: true },] }],
+        _hintChildren: [{ type: ContentChildren, args: [_MAT_HINT, { descendants: true },] }],
+        _prefixChildren: [{ type: ContentChildren, args: [MAT_PREFIX, { descendants: true },] }],
+        _suffixChildren: [{ type: ContentChildren, args: [MAT_SUFFIX, { descendants: true },] }]
     };
     return MatFormField;
 })();
@@ -740,5 +771,5 @@ let MatFormFieldModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatError, MatFormField, MatFormFieldControl, MatFormFieldModule, MatHint, MatLabel, MatPlaceholder, MatPrefix, MatSuffix, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError, matFormFieldAnimations };
+export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatError, MatFormField, MatFormFieldControl, MatFormFieldModule, MatHint, MatLabel, MatPlaceholder, MatPrefix, MatSuffix, _MAT_HINT, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError, matFormFieldAnimations };
 //# sourceMappingURL=form-field.js.map

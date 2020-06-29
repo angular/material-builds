@@ -1,12 +1,12 @@
 import { SPACE, BACKSPACE, DELETE, HOME, END, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
-import { Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, Attribute, ContentChild, forwardRef, Input, Output, InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, Attribute, ContentChild, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinColor, mixinDisableRipple, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
-import { DOCUMENT } from '@angular/common';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, merge } from 'rxjs';
 import { take, takeUntil, startWith } from 'rxjs/operators';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -34,6 +34,24 @@ class MatChipSelectionChange {
         this.isUserInput = isUserInput;
     }
 }
+/**
+ * Injection token that can be used to reference instances of `MatChipRemove`. It serves as
+ * alternative token to the actual `MatChipRemove` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_CHIP_REMOVE = new InjectionToken('MatChipRemove');
+/**
+ * Injection token that can be used to reference instances of `MatChipAvatar`. It serves as
+ * alternative token to the actual `MatChipAvatar` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_CHIP_AVATAR = new InjectionToken('MatChipAvatar');
+/**
+ * Injection token that can be used to reference instances of `MatChipTrailingIcon`. It serves as
+ * alternative token to the actual `MatChipTrailingIcon` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_CHIP_TRAILING_ICON = new InjectionToken('MatChipTrailingIcon');
 // Boilerplate for applying mixins to MatChip.
 /** @docs-private */
 class MatChipBase {
@@ -52,7 +70,8 @@ let MatChipAvatar = /** @class */ (() => {
     MatChipAvatar.decorators = [
         { type: Directive, args: [{
                     selector: 'mat-chip-avatar, [matChipAvatar]',
-                    host: { 'class': 'mat-chip-avatar' }
+                    host: { 'class': 'mat-chip-avatar' },
+                    providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatChipAvatar }]
                 },] }
     ];
     return MatChipAvatar;
@@ -67,7 +86,8 @@ let MatChipTrailingIcon = /** @class */ (() => {
     MatChipTrailingIcon.decorators = [
         { type: Directive, args: [{
                     selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
-                    host: { 'class': 'mat-chip-trailing-icon' }
+                    host: { 'class': 'mat-chip-trailing-icon' },
+                    providers: [{ provide: MAT_CHIP_TRAILING_ICON, useExisting: MatChipTrailingIcon }],
                 },] }
     ];
     return MatChipTrailingIcon;
@@ -337,9 +357,9 @@ let MatChip = /** @class */ (() => {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
     ];
     MatChip.propDecorators = {
-        avatar: [{ type: ContentChild, args: [MatChipAvatar,] }],
-        trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon,] }],
-        removeIcon: [{ type: ContentChild, args: [forwardRef(() => MatChipRemove),] }],
+        avatar: [{ type: ContentChild, args: [MAT_CHIP_AVATAR,] }],
+        trailingIcon: [{ type: ContentChild, args: [MAT_CHIP_TRAILING_ICON,] }],
+        removeIcon: [{ type: ContentChild, args: [MAT_CHIP_REMOVE,] }],
         selected: [{ type: Input }],
         value: [{ type: Input }],
         selectable: [{ type: Input }],
@@ -395,7 +415,8 @@ let MatChipRemove = /** @class */ (() => {
                     host: {
                         'class': 'mat-chip-remove mat-chip-trailing-icon',
                         '(click)': '_handleClick($event)',
-                    }
+                    },
+                    providers: [{ provide: MAT_CHIP_REMOVE, useExisting: MatChipRemove }],
                 },] }
     ];
     MatChipRemove.ctorParameters = () => [
@@ -1282,5 +1303,5 @@ let MatChipsModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHIPS_DEFAULT_OPTIONS, MatChip, MatChipAvatar, MatChipInput, MatChipList, MatChipListChange, MatChipRemove, MatChipSelectionChange, MatChipTrailingIcon, MatChipsModule, ɵ0 };
+export { MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipInput, MatChipList, MatChipListChange, MatChipRemove, MatChipSelectionChange, MatChipTrailingIcon, MatChipsModule, ɵ0 };
 //# sourceMappingURL=chips.js.map

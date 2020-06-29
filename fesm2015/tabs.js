@@ -109,6 +109,12 @@ let MatInkBar = /** @class */ (() => {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Injection token that can be used to reference instances of `MatTabContent`. It serves as
+ * alternative token to the actual `MatTabContent` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_TAB_CONTENT = new InjectionToken('MatTabContent');
 /** Decorates the `ng-template` tags and reads out the template from it. */
 let MatTabContent = /** @class */ (() => {
     class MatTabContent {
@@ -117,7 +123,10 @@ let MatTabContent = /** @class */ (() => {
         }
     }
     MatTabContent.decorators = [
-        { type: Directive, args: [{ selector: '[matTabContent]' },] }
+        { type: Directive, args: [{
+                    selector: '[matTabContent]',
+                    providers: [{ provide: MAT_TAB_CONTENT, useExisting: MatTabContent }],
+                },] }
     ];
     MatTabContent.ctorParameters = () => [
         { type: TemplateRef }
@@ -132,6 +141,12 @@ let MatTabContent = /** @class */ (() => {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Injection token that can be used to reference instances of `MatTabLabel`. It serves as
+ * alternative token to the actual `MatTabLabel` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+const MAT_TAB_LABEL = new InjectionToken('MatTabLabel');
 /** Used to flag tab labels for use with the portal directive */
 let MatTabLabel = /** @class */ (() => {
     class MatTabLabel extends CdkPortal {
@@ -139,6 +154,7 @@ let MatTabLabel = /** @class */ (() => {
     MatTabLabel.decorators = [
         { type: Directive, args: [{
                     selector: '[mat-tab-label], [matTabLabel]',
+                    providers: [{ provide: MAT_TAB_LABEL, useExisting: MatTabLabel }],
                 },] }
     ];
     return MatTabLabel;
@@ -193,6 +209,7 @@ let MatTab = /** @class */ (() => {
              */
             this.isActive = false;
         }
+        // TODO: Remove cast once https://github.com/angular/angular/pull/37506 is available.
         /** Content for the tab label given by `<ng-template mat-tab-label>`. */
         get templateLabel() { return this._templateLabel; }
         set templateLabel(value) {
@@ -236,8 +253,8 @@ let MatTab = /** @class */ (() => {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TAB_GROUP,] }] }
     ];
     MatTab.propDecorators = {
-        templateLabel: [{ type: ContentChild, args: [MatTabLabel,] }],
-        _explicitContent: [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef, static: true },] }],
+        templateLabel: [{ type: ContentChild, args: [MAT_TAB_LABEL,] }],
+        _explicitContent: [{ type: ContentChild, args: [MAT_TAB_CONTENT, { read: TemplateRef, static: true },] }],
         _implicitContent: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
         textLabel: [{ type: Input, args: ['label',] }],
         ariaLabel: [{ type: Input, args: ['aria-label',] }],
@@ -1765,5 +1782,5 @@ let MatTabsModule = /** @class */ (() => {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_TABS_CONFIG, MAT_TAB_GROUP, MatInkBar, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MatTabBodyBase, _MatTabGroupBase, _MatTabHeaderBase, _MatTabLinkBase, _MatTabNavBase, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_b };
+export { MAT_TABS_CONFIG, MAT_TAB_GROUP, MatInkBar, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MatTabBodyBase, _MatTabGroupBase, _MatTabHeaderBase, _MatTabLinkBase, _MatTabNavBase, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MAT_TAB_LABEL as ɵangular_material_src_material_tabs_tabs_b, MAT_TAB_CONTENT as ɵangular_material_src_material_tabs_tabs_c, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_d };
 //# sourceMappingURL=tabs.js.map

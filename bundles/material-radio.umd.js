@@ -273,6 +273,12 @@
         return MatRadioChange;
     }());
     /**
+     * Injection token that can be used to inject instances of `MatRadioGroup`. It serves as
+     * alternative token to the actual `MatRadioGroup` class which could cause unnecessary
+     * retention of the class and its component metadata.
+     */
+    var MAT_RADIO_GROUP = new core.InjectionToken('MatRadioGroup');
+    /**
      * Base class with all of the `MatRadioGroup` functionality.
      * @docs-private
      */
@@ -503,7 +509,10 @@
             { type: core.Directive, args: [{
                         selector: 'mat-radio-group',
                         exportAs: 'matRadioGroup',
-                        providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
+                        providers: [
+                            MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
+                            { provide: MAT_RADIO_GROUP, useExisting: MatRadioGroup },
+                        ],
                         host: {
                             'role': 'radiogroup',
                             'class': 'mat-radio-group',
@@ -743,13 +752,13 @@
             { type: core.Directive }
         ];
         _MatRadioButtonBase.ctorParameters = function () { return [
-            { type: _MatRadioGroupBase, decorators: [{ type: core.Optional }] },
+            { type: _MatRadioGroupBase },
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
             { type: a11y.FocusMonitor },
             { type: collections.UniqueSelectionDispatcher },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
+            { type: String },
+            { type: undefined }
         ]; };
         _MatRadioButtonBase.propDecorators = {
             id: [{ type: core.Input }],
@@ -807,7 +816,7 @@
                     },] }
         ];
         MatRadioButton.ctorParameters = function () { return [
-            { type: MatRadioGroup, decorators: [{ type: core.Optional }] },
+            { type: MatRadioGroup, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RADIO_GROUP,] }] },
             { type: core.ElementRef },
             { type: core.ChangeDetectorRef },
             { type: a11y.FocusMonitor },
@@ -852,6 +861,7 @@
 
     exports.MAT_RADIO_DEFAULT_OPTIONS = MAT_RADIO_DEFAULT_OPTIONS;
     exports.MAT_RADIO_DEFAULT_OPTIONS_FACTORY = MAT_RADIO_DEFAULT_OPTIONS_FACTORY;
+    exports.MAT_RADIO_GROUP = MAT_RADIO_GROUP;
     exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
     exports.MatRadioButton = MatRadioButton;
     exports.MatRadioChange = MatRadioChange;

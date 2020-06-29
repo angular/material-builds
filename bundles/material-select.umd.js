@@ -395,6 +395,12 @@
     }());
     var _MatSelectMixinBase = core$1.mixinDisableRipple(core$1.mixinTabIndex(core$1.mixinDisabled(core$1.mixinErrorState(MatSelectBase))));
     /**
+     * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
+     * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary
+     * retention of the class and its directive metadata.
+     */
+    var MAT_SELECT_TRIGGER = new core.InjectionToken('MatSelectTrigger');
+    /**
      * Allows the user to customize the trigger that is displayed when the select has a value.
      */
     var MatSelectTrigger = /** @class */ (function () {
@@ -402,7 +408,8 @@
         }
         MatSelectTrigger.decorators = [
             { type: core.Directive, args: [{
-                        selector: 'mat-select-trigger'
+                        selector: 'mat-select-trigger',
+                        providers: [{ provide: MAT_SELECT_TRIGGER, useExisting: MatSelectTrigger }],
                     },] }
         ];
         return MatSelectTrigger;
@@ -1435,9 +1442,9 @@
             panel: [{ type: core.ViewChild, args: ['panel',] }],
             overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] }],
             options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }],
-            optionGroups: [{ type: core.ContentChildren, args: [core$1.MatOptgroup, { descendants: true },] }],
+            optionGroups: [{ type: core.ContentChildren, args: [core$1.MAT_OPTGROUP, { descendants: true },] }],
             panelClass: [{ type: core.Input }],
-            customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger,] }],
+            customTrigger: [{ type: core.ContentChild, args: [MAT_SELECT_TRIGGER,] }],
             placeholder: [{ type: core.Input }],
             required: [{ type: core.Input }],
             multiple: [{ type: core.Input }],
@@ -1508,6 +1515,7 @@
     exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
     exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
     exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
+    exports.MAT_SELECT_TRIGGER = MAT_SELECT_TRIGGER;
     exports.MatSelect = MatSelect;
     exports.MatSelectChange = MatSelectChange;
     exports.MatSelectModule = MatSelectModule;
