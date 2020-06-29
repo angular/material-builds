@@ -386,7 +386,7 @@
         function MatTab(_viewContainerRef, 
         /**
          * @deprecated `_closestTabGroup` parameter to become required.
-         * @breaking-change 10.0.0-sha-ad231390b
+         * @breaking-change 10.0.0
          */
         _closestTabGroup) {
             var _this = _super.call(this) || this;
@@ -919,7 +919,7 @@
                 .pipe(operators.startWith(this._allTabs))
                 .subscribe(function (tabs) {
                 _this._tabs.reset(tabs.filter(function (tab) {
-                    // @breaking-change 10.0.0-sha-ad231390b Remove null check for `_closestTabGroup`
+                    // @breaking-change 10.0.0 Remove null check for `_closestTabGroup`
                     // once it becomes a required parameter in MatTab.
                     return !tab._closestTabGroup || tab._closestTabGroup === _this;
                 }));

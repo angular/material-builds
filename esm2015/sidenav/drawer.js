@@ -75,7 +75,7 @@ let MatDrawer = /** @class */ (() => {
         constructor(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc, 
         /**
          * @deprecated `_container` parameter to be made required.
-         * @breaking-change 10.0.0-sha-ad231390b
+         * @breaking-change 10.0.0
          */
         _container) {
             this._elementRef = _elementRef;
@@ -481,7 +481,7 @@ let MatDrawerContainer = /** @class */ (() => {
             this._allDrawers.changes
                 .pipe(startWith(this._allDrawers), takeUntil(this._destroyed))
                 .subscribe((drawer) => {
-                // @breaking-change 10.0.0-sha-ad231390b Remove `_container` check once container parameter is required.
+                // @breaking-change 10.0.0 Remove `_container` check once container parameter is required.
                 this._drawers.reset(drawer.filter(item => !item._container || item._container === this));
                 this._drawers.notifyOnChanges();
             });

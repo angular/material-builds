@@ -18,7 +18,7 @@ const package_config_1 = require("./package-config");
  * Note that the fallback version range does not use caret, but tilde because that is
  * the default for Angular framework dependencies in CLI projects.
  */
-const fallbackMaterialVersionRange = `~10.0.0-sha-ad231390b`;
+const fallbackMaterialVersionRange = `~10.0.1-sha-55d50750e`;
 /**
  * Schematic factory entry-point for the `ng-add` schematic. The ng-add schematic will be
  * automatically executed if developers run `ng add @angular/material`.
@@ -33,7 +33,7 @@ function default_1(options) {
         // have the same version tag if possible.
         const ngCoreVersionTag = package_config_1.getPackageVersionFromPackageJson(host, '@angular/core');
         const materialVersionRange = package_config_1.getPackageVersionFromPackageJson(host, '@angular/material');
-        const angularDependencyVersion = ngCoreVersionTag || `^10.0.0-sha-ad231390b || ^11.0.0-0`;
+        const angularDependencyVersion = ngCoreVersionTag || `^10.0.0 || ^11.0.0-0`;
         // The CLI inserts `@angular/material` into the `package.json` before this schematic runs.
         // This means that we do not need to insert Angular Material into `package.json` files again.
         // In some cases though, it could happen that this schematic runs outside of the CLI `ng add`

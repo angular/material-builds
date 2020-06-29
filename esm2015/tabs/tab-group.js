@@ -160,7 +160,7 @@ let _MatTabGroupBase = /** @class */ (() => {
                 .pipe(startWith(this._allTabs))
                 .subscribe((tabs) => {
                 this._tabs.reset(tabs.filter(tab => {
-                    // @breaking-change 10.0.0-sha-ad231390b Remove null check for `_closestTabGroup`
+                    // @breaking-change 10.0.0 Remove null check for `_closestTabGroup`
                     // once it becomes a required parameter in MatTab.
                     return !tab._closestTabGroup || tab._closestTabGroup === this;
                 }));

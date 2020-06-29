@@ -28,7 +28,7 @@ function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY() {
 /**
  * Injection token that can be used to specify the checkbox click behavior.
  * @deprecated Injection token will be removed, use `MAT_CHECKBOX_DEFAULT_OPTIONS` instead.
- * @breaking-change 10.0.0-sha-ad231390b
+ * @breaking-change 10.0.0
  */
 const MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
 
@@ -76,7 +76,7 @@ let MatCheckbox = /** @class */ (() => {
         /**
          * @deprecated `_clickAction` parameter to be removed, use
          * `MAT_CHECKBOX_DEFAULT_OPTIONS`
-         * @breaking-change 10.0.0-sha-ad231390b
+         * @breaking-change 10.0.0
          */
         _clickAction, _animationMode, _options) {
             super(elementRef);

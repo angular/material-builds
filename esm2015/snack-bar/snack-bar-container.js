@@ -36,7 +36,7 @@ let MatSnackBarContainer = /** @class */ (() => {
             /**
              * Attaches a DOM portal to the snack bar container.
              * @deprecated To be turned into a method.
-             * @breaking-change 10.0.0-sha-ad231390b
+             * @breaking-change 10.0.0
              */
             this.attachDomPortal = (portal) => {
                 this._assertNotAttached();

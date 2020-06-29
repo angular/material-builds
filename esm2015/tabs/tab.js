@@ -26,7 +26,7 @@ let MatTab = /** @class */ (() => {
         constructor(_viewContainerRef, 
         /**
          * @deprecated `_closestTabGroup` parameter to become required.
-         * @breaking-change 10.0.0-sha-ad231390b
+         * @breaking-change 10.0.0
          */
         _closestTabGroup) {
             super();

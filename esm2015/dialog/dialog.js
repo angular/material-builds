@@ -43,7 +43,7 @@ let MatDialog = /** @class */ (() => {
         constructor(_overlay, _injector, 
         /**
          * @deprecated `_location` parameter to be removed.
-         * @breaking-change 10.0.0-sha-ad231390b
+         * @breaking-change 10.0.0
          */
         _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
             this._overlay = _overlay;
