@@ -377,7 +377,7 @@
                     }
                     _this._takeFocus();
                 }
-                else {
+                else if (_this._isFocusWithinDrawer()) {
                     _this._restoreFocus();
                 }
             });
@@ -516,25 +516,28 @@
             });
         };
         /**
-         * If focus is currently inside the drawer, restores it to where it was before the drawer
-         * opened.
+         * Restores focus to the element that was originally focused when the drawer opened.
+         * If no element was focused at that time, the focus will be restored to the drawer.
          */
         MatDrawer.prototype._restoreFocus = function () {
             if (!this.autoFocus) {
                 return;
             }
-            var activeEl = this._doc && this._doc.activeElement;
-            if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
-                // Note that we don't check via `instanceof HTMLElement` so that we can cover SVGs as well.
-                if (this._elementFocusedBeforeDrawerWasOpened) {
-                    this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, this._openedVia);
-                }
-                else {
-                    this._elementRef.nativeElement.blur();
-                }
+            // Note that we don't check via `instanceof HTMLElement` so that we can cover SVGs as well.
+            if (this._elementFocusedBeforeDrawerWasOpened) {
+                this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, this._openedVia);
+            }
+            else {
+                this._elementRef.nativeElement.blur();
             }
             this._elementFocusedBeforeDrawerWasOpened = null;
             this._openedVia = null;
+        };
+        /** Whether focus is currently within the drawer. */
+        MatDrawer.prototype._isFocusWithinDrawer = function () {
+            var _a;
+            var activeEl = (_a = this._doc) === null || _a === void 0 ? void 0 : _a.activeElement;
+            return !!activeEl && this._elementRef.nativeElement.contains(activeEl);
         };
         MatDrawer.prototype.ngAfterContentInit = function () {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
@@ -571,6 +574,13 @@
         MatDrawer.prototype.close = function () {
             return this.toggle(false);
         };
+        /** Closes the drawer with context that the backdrop was clicked. */
+        MatDrawer.prototype._closeViaBackdropClick = function () {
+            // If the drawer is closed upon a backdrop click, we always want to restore focus. We
+            // don't need to check whether focus is currently in the drawer, as clicking on the
+            // backdrop causes blurring of the active element.
+            return this._setOpen(/* isOpen */ false, /* restoreFocus */ true);
+        };
         /**
          * Toggle this drawer.
          * @param isOpen Whether the drawer should be open.
@@ -578,8 +588,20 @@
          * Used for focus management after the sidenav is closed.
          */
         MatDrawer.prototype.toggle = function (isOpen, openedVia) {
-            var _this = this;
             if (isOpen === void 0) { isOpen = !this.opened; }
+            // If the focus is currently inside the drawer content and we are closing the drawer,
+            // restore the focus to the initially focused element (when the drawer opened).
+            return this._setOpen(isOpen, /* restoreFocus */ !isOpen && this._isFocusWithinDrawer(), openedVia);
+        };
+        /**
+         * Toggles the opened state of the drawer.
+         * @param isOpen Whether the drawer should open or close.
+         * @param restoreFocus Whether focus should be restored on close.
+         * @param openedVia Focus origin that can be optionally set when opening a drawer. The
+         *   origin will be used later when focus is restored on drawer close.
+         */
+        MatDrawer.prototype._setOpen = function (isOpen, restoreFocus, openedVia) {
+            var _this = this;
             if (openedVia === void 0) { openedVia = 'program'; }
             this._opened = isOpen;
             if (isOpen) {
@@ -588,7 +610,9 @@
             }
             else {
                 this._animationState = 'void';
-                this._restoreFocus();
+                if (restoreFocus) {
+                    this._restoreFocus();
+                }
             }
             this._updateFocusTrapState();
             return new Promise(function (resolve) {
@@ -965,14 +989,14 @@
         };
         MatDrawerContainer.prototype._onBackdropClicked = function () {
             this.backdropClick.emit();
-            this._closeModalDrawer();
+            this._closeModalDrawersViaBackdrop();
         };
-        MatDrawerContainer.prototype._closeModalDrawer = function () {
+        MatDrawerContainer.prototype._closeModalDrawersViaBackdrop = function () {
             var _this = this;
             // Close all open drawers where closing is not disabled and the mode is not `side`.
             [this._start, this._end]
                 .filter(function (drawer) { return drawer && !drawer.disableClose && _this._canHaveBackdrop(drawer); })
-                .forEach(function (drawer) { return drawer.close(); });
+                .forEach(function (drawer) { return drawer._closeViaBackdropClick(); });
         };
         MatDrawerContainer.prototype._isShowingBackdrop = function () {
             return (this._isDrawerOpen(this._start) && this._canHaveBackdrop(this._start)) ||
