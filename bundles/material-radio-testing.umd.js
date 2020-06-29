@@ -653,6 +653,17 @@
                 });
             });
         };
+        /** Whether the radio-button is focused. */
+        MatRadioButtonHarness.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
         /**
          * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
          * or doing nothing if it is already checked.

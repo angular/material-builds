@@ -52,6 +52,8 @@ export declare class MatSliderHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the slider. */
     blur(): Promise<void>;
+    /** Whether the slider is focused. */
+    isFocused(): Promise<boolean>;
     /** Calculates the percentage of the given value. */
     private _calculatePercentage;
 }

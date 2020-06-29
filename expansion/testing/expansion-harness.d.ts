@@ -60,6 +60,8 @@ export declare class MatExpansionPanelHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the panel. */
     blur(): Promise<void>;
+    /** Whether the panel is focused. */
+    isFocused(): Promise<boolean>;
     /** Whether the panel has a toggle indicator displayed. */
     hasToggleIndicator(): Promise<boolean>;
     /** Gets the position of the toggle indicator. */

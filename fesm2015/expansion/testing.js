@@ -122,6 +122,12 @@ let MatExpansionPanelHarness = /** @class */ (() => {
                 return (yield this._header()).blur();
             });
         }
+        /** Whether the panel is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this._header()).isFocused();
+            });
+        }
         /** Whether the panel has a toggle indicator displayed. */
         hasToggleIndicator() {
             return __awaiter(this, void 0, void 0, function* () {

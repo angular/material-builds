@@ -58,6 +58,12 @@ let MatMenuHarness = /** @class */ (() => {
                 return (yield this.host()).blur();
             });
         }
+        /** Whether the menu is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
+            });
+        }
         /** Opens the menu. */
         open() {
             return __awaiter(this, void 0, void 0, function* () {
@@ -169,6 +175,12 @@ let MatMenuItemHarness = /** @class */ (() => {
         blur() {
             return __awaiter(this, void 0, void 0, function* () {
                 return (yield this.host()).blur();
+            });
+        }
+        /** Whether the menu item is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
             });
         }
         /** Clicks the menu item. */

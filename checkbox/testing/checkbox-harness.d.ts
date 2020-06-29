@@ -45,6 +45,8 @@ export declare class MatCheckboxHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the checkbox. */
     blur(): Promise<void>;
+    /** Whether the checkbox is focused. */
+    isFocused(): Promise<boolean>;
     /**
      * Toggles the checked state of the checkbox.
      *

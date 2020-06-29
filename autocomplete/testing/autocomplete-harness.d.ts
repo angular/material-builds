@@ -28,6 +28,8 @@ export declare class MatAutocompleteHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the autocomplete input. */
     blur(): Promise<void>;
+    /** Whether the autocomplete input is focused. */
+    isFocused(): Promise<boolean>;
     /** Enters text into the autocomplete. */
     enterText(value: string): Promise<void>;
     /** Gets the options inside the autocomplete panel. */

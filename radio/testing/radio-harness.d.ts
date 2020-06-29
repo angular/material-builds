@@ -86,6 +86,8 @@ export declare class MatRadioButtonHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the radio-button. */
     blur(): Promise<void>;
+    /** Whether the radio-button is focused. */
+    isFocused(): Promise<boolean>;
     /**
      * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
      * or doing nothing if it is already checked.

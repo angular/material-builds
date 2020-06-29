@@ -39,4 +39,6 @@ export declare class MatActionListItemHarness extends MatListItemHarnessBase {
     focus(): Promise<void>;
     /** Blurs the action list item. */
     blur(): Promise<void>;
+    /** Whether the action list item is focused. */
+    isFocused(): Promise<boolean>;
 }

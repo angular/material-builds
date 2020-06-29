@@ -231,6 +231,12 @@ let MatActionListItemHarness = /** @class */ (() => {
                 return (yield this.host()).blur();
             });
         }
+        /** Whether the action list item is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
+            });
+        }
     }
     /** The selector for the host element of a `MatListItem` instance. */
     MatActionListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
@@ -360,6 +366,12 @@ let MatNavListItemHarness = /** @class */ (() => {
                 return (yield this.host()).blur();
             });
         }
+        /** Whether the nav list item is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
+            });
+        }
     }
     /** The selector for the host element of a `MatListItem` instance. */
     MatNavListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
@@ -477,6 +489,12 @@ let MatListOptionHarness = /** @class */ (() => {
         blur() {
             return __awaiter(this, void 0, void 0, function* () {
                 return (yield this.host()).blur();
+            });
+        }
+        /** Whether the list option is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
             });
         }
         /** Toggles the checked state of the checkbox. */

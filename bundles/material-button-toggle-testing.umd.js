@@ -381,6 +381,17 @@
                 });
             });
         };
+        /** Whether the toggle is focused. */
+        MatButtonToggleHarness.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._button()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
         /** Toggle the checked state of the buttons toggle. */
         MatButtonToggleHarness.prototype.toggle = function () {
             return __awaiter(this, void 0, void 0, function () {

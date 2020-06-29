@@ -407,6 +407,17 @@
                 });
             });
         };
+        /** Whether the input is focused. */
+        MatInputHarness.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
         /**
          * Sets the value of the input. The value will be set by simulating
          * keypresses that correspond to the given value.

@@ -28,4 +28,6 @@ export declare class MatButtonHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the button. */
     blur(): Promise<void>;
+    /** Whether the button is focused. */
+    isFocused(): Promise<boolean>;
 }

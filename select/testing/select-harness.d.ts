@@ -39,6 +39,8 @@ export declare class MatSelectHarness extends MatFormFieldControlHarness {
     focus(): Promise<void>;
     /** Blurs the select and returns a void promise that indicates when the action is complete. */
     blur(): Promise<void>;
+    /** Whether the select is focused. */
+    isFocused(): Promise<boolean>;
     /** Gets the options inside the select panel. */
     getOptions(filter?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptionHarness[]>;
     /** Gets the groups of options inside the panel. */

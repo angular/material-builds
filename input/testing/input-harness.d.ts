@@ -47,6 +47,8 @@ export declare class MatInputHarness extends MatFormFieldControlHarness {
      * action is complete.
      */
     blur(): Promise<void>;
+    /** Whether the input is focused. */
+    isFocused(): Promise<boolean>;
     /**
      * Sets the value of the input. The value will be set by simulating
      * keypresses that correspond to the given value.

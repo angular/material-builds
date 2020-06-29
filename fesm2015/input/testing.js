@@ -102,6 +102,12 @@ let MatInputHarness = /** @class */ (() => {
                 return (yield this.host()).blur();
             });
         }
+        /** Whether the input is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
+            });
+        }
         /**
          * Sets the value of the input. The value will be set by simulating
          * keypresses that correspond to the given value.

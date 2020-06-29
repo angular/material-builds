@@ -436,6 +436,17 @@
                 });
             });
         };
+        /** Whether the panel is focused. */
+        MatExpansionPanelHarness.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._header()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
         /** Whether the panel has a toggle indicator displayed. */
         MatExpansionPanelHarness.prototype.hasToggleIndicator = function () {
             return __awaiter(this, void 0, void 0, function () {

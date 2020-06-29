@@ -41,4 +41,6 @@ export declare class MatNavListItemHarness extends MatListItemHarnessBase {
     focus(): Promise<void>;
     /** Blurs the nav list item. */
     blur(): Promise<void>;
+    /** Whether the nav list item is focused. */
+    isFocused(): Promise<boolean>;
 }

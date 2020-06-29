@@ -316,6 +316,17 @@
                 });
             });
         };
+        /** Whether the button is focused. */
+        MatButtonHarness.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
         // TODO(jelbourn) use a single class, like `.mat-button-base`
         /** The selector for the host element of a `MatButton` instance. */
         MatButtonHarness.hostSelector = [

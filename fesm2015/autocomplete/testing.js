@@ -52,6 +52,12 @@ let MatAutocompleteHarness = /** @class */ (() => {
                 return (yield this.host()).blur();
             });
         }
+        /** Whether the autocomplete input is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
+            });
+        }
         /** Enters text into the autocomplete. */
         enterText(value) {
             return __awaiter(this, void 0, void 0, function* () {

@@ -124,6 +124,12 @@ let MatSliderHarness = /** @class */ (() => {
                 return (yield this.host()).blur();
             });
         }
+        /** Whether the slider is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
+            });
+        }
         /** Calculates the percentage of the given value. */
         _calculatePercentage(value) {
             return __awaiter(this, void 0, void 0, function* () {

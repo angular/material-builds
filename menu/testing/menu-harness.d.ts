@@ -29,6 +29,8 @@ export declare class MatMenuHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the menu. */
     blur(): Promise<void>;
+    /** Whether the menu is focused. */
+    isFocused(): Promise<boolean>;
     /** Opens the menu. */
     open(): Promise<void>;
     /** Closes the menu. */
@@ -71,6 +73,8 @@ export declare class MatMenuItemHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the menu item. */
     blur(): Promise<void>;
+    /** Whether the menu item is focused. */
+    isFocused(): Promise<boolean>;
     /** Clicks the menu item. */
     click(): Promise<void>;
     /** Whether this item has a submenu. */

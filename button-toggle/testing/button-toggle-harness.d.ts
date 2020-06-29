@@ -39,6 +39,8 @@ export declare class MatButtonToggleHarness extends ComponentHarness {
     focus(): Promise<void>;
     /** Blurs the toggle. */
     blur(): Promise<void>;
+    /** Whether the toggle is focused. */
+    isFocused(): Promise<boolean>;
     /** Toggle the checked state of the buttons toggle. */
     toggle(): Promise<void>;
     /**

@@ -447,6 +447,17 @@
                 });
             });
         };
+        /** Whether the slider is focused. */
+        MatSliderHarness.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
         /** Calculates the percentage of the given value. */
         MatSliderHarness.prototype._calculatePercentage = function (value) {
             return __awaiter(this, void 0, void 0, function () {

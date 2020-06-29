@@ -78,6 +78,12 @@ let MatSelectHarness = /** @class */ (() => {
                 return (yield this.host()).blur();
             });
         }
+        /** Whether the select is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this.host()).isFocused();
+            });
+        }
         /** Gets the options inside the select panel. */
         getOptions(filter = {}) {
             return __awaiter(this, void 0, void 0, function* () {

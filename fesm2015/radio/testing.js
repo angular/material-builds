@@ -243,6 +243,12 @@ let MatRadioButtonHarness = /** @class */ (() => {
                 return (yield this._input()).blur();
             });
         }
+        /** Whether the radio-button is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this._input()).isFocused();
+            });
+        }
         /**
          * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
          * or doing nothing if it is already checked.

@@ -87,6 +87,12 @@ let MatButtonToggleHarness = /** @class */ (() => {
                 return (yield this._button()).blur();
             });
         }
+        /** Whether the toggle is focused. */
+        isFocused() {
+            return __awaiter(this, void 0, void 0, function* () {
+                return (yield this._button()).isFocused();
+            });
+        }
         /** Toggle the checked state of the buttons toggle. */
         toggle() {
             return __awaiter(this, void 0, void 0, function* () {
