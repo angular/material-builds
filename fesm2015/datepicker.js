@@ -3258,6 +3258,7 @@ let MatDateRangeInput = /** @class */ (() => {
         }
         /** Handles the value in one of the child inputs changing. */
         _handleChildValueChange() {
+            this.stateChanges.next();
             this._changeDetectorRef.markForCheck();
         }
         /** Opens the date range picker associated with the input. */

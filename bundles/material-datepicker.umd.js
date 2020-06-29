@@ -3668,6 +3668,7 @@
         };
         /** Handles the value in one of the child inputs changing. */
         MatDateRangeInput.prototype._handleChildValueChange = function () {
+            this.stateChanges.next();
             this._changeDetectorRef.markForCheck();
         };
         /** Opens the date range picker associated with the input. */
