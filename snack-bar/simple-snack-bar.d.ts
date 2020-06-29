@@ -7,21 +7,10 @@
  */
 import { MatSnackBarRef } from './snack-bar-ref';
 /**
- * Internal interface for a simple snack bar component..
- * @docs-private
- */
-export interface TextOnlySnackBar {
-    data: {
-        message: string;
-        action: string;
-    };
-    snackBarRef: MatSnackBarRef<TextOnlySnackBar>;
-}
-/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
-export declare class SimpleSnackBar implements TextOnlySnackBar {
+export declare class SimpleSnackBar {
     snackBarRef: MatSnackBarRef<SimpleSnackBar>;
     /** Data that was injected into the snack bar. */
     data: {

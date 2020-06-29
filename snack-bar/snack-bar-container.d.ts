@@ -11,23 +11,10 @@ import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, NgZone, O
 import { Observable, Subject } from 'rxjs';
 import { MatSnackBarConfig } from './snack-bar-config';
 /**
- * Internal interface for a snack bar container.
- * @docs-private
- */
-export interface SnackBarContainer {
-    snackBarConfig: MatSnackBarConfig;
-    _onExit: Subject<any>;
-    _onEnter: Subject<any>;
-    enter: () => void;
-    exit: () => Observable<void>;
-    attachTemplatePortal: <C>(portal: TemplatePortal<C>) => EmbeddedViewRef<C>;
-    attachComponentPortal: <T>(portal: ComponentPortal<T>) => ComponentRef<T>;
-}
-/**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
  */
-export declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy, SnackBarContainer {
+export declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy {
     private _ngZone;
     private _elementRef;
     private _changeDetectorRef;

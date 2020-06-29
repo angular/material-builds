@@ -11,39 +11,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /** Injection token that can be used to access the data that was passed in to a snack bar. */
-    var MAT_SNACK_BAR_DATA = new i0.InjectionToken('MatSnackBarData');
-    /**
-     * Configuration used when opening a snack-bar.
-     */
-    var MatSnackBarConfig = /** @class */ (function () {
-        function MatSnackBarConfig() {
-            /** The politeness level for the MatAriaLiveAnnouncer announcement. */
-            this.politeness = 'assertive';
-            /**
-             * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
-             * component or template, the announcement message will default to the specified message.
-             */
-            this.announcementMessage = '';
-            /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
-            this.duration = 0;
-            /** Data being injected into the child component. */
-            this.data = null;
-            /** The horizontal position to place the snack bar. */
-            this.horizontalPosition = 'center';
-            /** The vertical position to place the snack bar. */
-            this.verticalPosition = 'bottom';
-        }
-        return MatSnackBarConfig;
-    }());
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Maximum amount of milliseconds that can be passed into setTimeout. */
     var MAX_TIMEOUT = Math.pow(2, 31) - 1;
     /**
@@ -126,6 +93,39 @@
             return this._onAction.asObservable();
         };
         return MatSnackBarRef;
+    }());
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /** Injection token that can be used to access the data that was passed in to a snack bar. */
+    var MAT_SNACK_BAR_DATA = new i0.InjectionToken('MatSnackBarData');
+    /**
+     * Configuration used when opening a snack-bar.
+     */
+    var MatSnackBarConfig = /** @class */ (function () {
+        function MatSnackBarConfig() {
+            /** The politeness level for the MatAriaLiveAnnouncer announcement. */
+            this.politeness = 'assertive';
+            /**
+             * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
+             * component or template, the announcement message will default to the specified message.
+             */
+            this.announcementMessage = '';
+            /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
+            this.duration = 0;
+            /** Data being injected into the child component. */
+            this.data = null;
+            /** The horizontal position to place the snack bar. */
+            this.horizontalPosition = 'center';
+            /** The vertical position to place the snack bar. */
+            this.verticalPosition = 'bottom';
+        }
+        return MatSnackBarConfig;
     }());
 
     /**
@@ -658,12 +658,6 @@
              * via `_openedSnackBarRef`.
              */
             this._snackBarRefAtThisLevel = null;
-            /** The component that should be rendered as the snack bar's simple component. */
-            this.simpleSnackBarComponent = SimpleSnackBar;
-            /** The container component that attaches the provided template or component. */
-            this.snackBarContainerComponent = MatSnackBarContainer;
-            /** The CSS class to applie for handset mode. */
-            this.handsetCssClass = 'mat-snack-bar-handset';
         }
         Object.defineProperty(MatSnackBar.prototype, "_openedSnackBarRef", {
             /** Reference to the currently opened snackbar at *any* level. */
@@ -717,7 +711,7 @@
             if (!_config.announcementMessage) {
                 _config.announcementMessage = message;
             }
-            return this.openFromComponent(this.simpleSnackBarComponent, _config);
+            return this.openFromComponent(SimpleSnackBar, _config);
         };
         /**
          * Dismisses the currently-visible snack bar.
@@ -741,7 +735,7 @@
             var injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
                 [MatSnackBarConfig, config]
             ]));
-            var containerPortal = new portal.ComponentPortal(this.snackBarContainerComponent, config.viewContainerRef, injector);
+            var containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
             var containerRef = overlayRef.attach(containerPortal);
             containerRef.instance.snackBarConfig = config;
             return containerRef.instance;
@@ -750,7 +744,6 @@
          * Places a new component or a template as the content of the snack bar container.
          */
         MatSnackBar.prototype._attach = function (content, userConfig) {
-            var _this = this;
             var config = __assign(__assign(__assign({}, new MatSnackBarConfig()), this._defaultConfig), userConfig);
             var overlayRef = this._createOverlay(config);
             var container = this._attachSnackBarContainer(overlayRef, config);
@@ -774,7 +767,8 @@
             // fill the width of the screen for full width snackbars.
             this._breakpointObserver.observe(i3.Breakpoints.HandsetPortrait).pipe(operators.takeUntil(overlayRef.detachments())).subscribe(function (state) {
                 var classList = overlayRef.overlayElement.classList;
-                state.matches ? classList.add(_this.handsetCssClass) : classList.remove(_this.handsetCssClass);
+                var className = 'mat-snack-bar-handset';
+                state.matches ? classList.add(className) : classList.remove(className);
             });
             this._animateSnackBar(snackBarRef, config);
             this._openedSnackBarRef = snackBarRef;

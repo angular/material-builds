@@ -17,38 +17,6 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Injection token that can be used to access the data that was passed in to a snack bar. */
-const MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
-/**
- * Configuration used when opening a snack-bar.
- */
-class MatSnackBarConfig {
-    constructor() {
-        /** The politeness level for the MatAriaLiveAnnouncer announcement. */
-        this.politeness = 'assertive';
-        /**
-         * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
-         * component or template, the announcement message will default to the specified message.
-         */
-        this.announcementMessage = '';
-        /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
-        this.duration = 0;
-        /** Data being injected into the child component. */
-        this.data = null;
-        /** The horizontal position to place the snack bar. */
-        this.horizontalPosition = 'center';
-        /** The vertical position to place the snack bar. */
-        this.verticalPosition = 'bottom';
-    }
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
 const MAX_TIMEOUT = Math.pow(2, 31) - 1;
 /**
@@ -127,6 +95,38 @@ class MatSnackBarRef {
     /** Gets an observable that is notified when the snack bar action is called. */
     onAction() {
         return this._onAction.asObservable();
+    }
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Injection token that can be used to access the data that was passed in to a snack bar. */
+const MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
+/**
+ * Configuration used when opening a snack-bar.
+ */
+class MatSnackBarConfig {
+    constructor() {
+        /** The politeness level for the MatAriaLiveAnnouncer announcement. */
+        this.politeness = 'assertive';
+        /**
+         * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
+         * component or template, the announcement message will default to the specified message.
+         */
+        this.announcementMessage = '';
+        /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
+        this.duration = 0;
+        /** Data being injected into the child component. */
+        this.data = null;
+        /** The horizontal position to place the snack bar. */
+        this.horizontalPosition = 'center';
+        /** The vertical position to place the snack bar. */
+        this.verticalPosition = 'bottom';
     }
 }
 
@@ -437,12 +437,6 @@ let MatSnackBar = /** @class */ (() => {
              * via `_openedSnackBarRef`.
              */
             this._snackBarRefAtThisLevel = null;
-            /** The component that should be rendered as the snack bar's simple component. */
-            this.simpleSnackBarComponent = SimpleSnackBar;
-            /** The container component that attaches the provided template or component. */
-            this.snackBarContainerComponent = MatSnackBarContainer;
-            /** The CSS class to applie for handset mode. */
-            this.handsetCssClass = 'mat-snack-bar-handset';
         }
         /** Reference to the currently opened snackbar at *any* level. */
         get _openedSnackBarRef() {
@@ -491,7 +485,7 @@ let MatSnackBar = /** @class */ (() => {
             if (!_config.announcementMessage) {
                 _config.announcementMessage = message;
             }
-            return this.openFromComponent(this.simpleSnackBarComponent, _config);
+            return this.openFromComponent(SimpleSnackBar, _config);
         }
         /**
          * Dismisses the currently-visible snack bar.
@@ -515,7 +509,7 @@ let MatSnackBar = /** @class */ (() => {
             const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
                 [MatSnackBarConfig, config]
             ]));
-            const containerPortal = new ComponentPortal(this.snackBarContainerComponent, config.viewContainerRef, injector);
+            const containerPortal = new ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
             const containerRef = overlayRef.attach(containerPortal);
             containerRef.instance.snackBarConfig = config;
             return containerRef.instance;
@@ -547,7 +541,8 @@ let MatSnackBar = /** @class */ (() => {
             // fill the width of the screen for full width snackbars.
             this._breakpointObserver.observe(Breakpoints.HandsetPortrait).pipe(takeUntil(overlayRef.detachments())).subscribe(state => {
                 const classList = overlayRef.overlayElement.classList;
-                state.matches ? classList.add(this.handsetCssClass) : classList.remove(this.handsetCssClass);
+                const className = 'mat-snack-bar-handset';
+                state.matches ? classList.add(className) : classList.remove(className);
             });
             this._animateSnackBar(snackBarRef, config);
             this._openedSnackBarRef = snackBarRef;
