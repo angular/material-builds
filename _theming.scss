@@ -4213,11 +4213,11 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
-  .mat-form-field.mat-accent .mat-input-element {
+  .mat-accent .mat-input-element {
     caret-color: mat-color($accent, text);
   }
 
-  .mat-form-field.mat-warn .mat-input-element,
+  .mat-warn .mat-input-element,
   .mat-form-field-invalid .mat-input-element {
     caret-color: mat-color($warn, text);
   }

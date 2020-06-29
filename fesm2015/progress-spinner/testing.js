@@ -38,7 +38,7 @@ let MatProgressSpinnerHarness = /** @class */ (() => {
         }
     }
     /** The selector for the host element of a `MatProgressSpinner` instance. */
-    MatProgressSpinnerHarness.hostSelector = 'mat-progress-spinner,mat-spinner';
+    MatProgressSpinnerHarness.hostSelector = 'mat-progress-spinner';
     return MatProgressSpinnerHarness;
 })();
 

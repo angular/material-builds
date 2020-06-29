@@ -45,11 +45,11 @@
     }
   }
 
-  .mat-form-field.mat-accent .mat-input-element {
+  .mat-accent .mat-input-element {
     caret-color: mat-color($accent, text);
   }
 
-  .mat-form-field.mat-warn .mat-input-element,
+  .mat-warn .mat-input-element,
   .mat-form-field-invalid .mat-input-element {
     caret-color: mat-color($warn, text);
   }
