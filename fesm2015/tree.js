@@ -17,121 +17,112 @@ const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-let MatTreeNode = /** @class */ (() => {
-    class MatTreeNode extends _MatTreeNodeMixinBase {
-        constructor(_elementRef, _tree, tabIndex) {
-            super(_elementRef, _tree);
-            this._elementRef = _elementRef;
-            this._tree = _tree;
-            this.role = 'treeitem';
-            this.tabIndex = Number(tabIndex) || 0;
-        }
+class MatTreeNode extends _MatTreeNodeMixinBase {
+    constructor(_elementRef, _tree, tabIndex) {
+        super(_elementRef, _tree);
+        this._elementRef = _elementRef;
+        this._tree = _tree;
+        this.role = 'treeitem';
+        this.tabIndex = Number(tabIndex) || 0;
     }
-    MatTreeNode.decorators = [
-        { type: Directive, args: [{
-                    selector: 'mat-tree-node',
-                    exportAs: 'matTreeNode',
-                    inputs: ['disabled', 'tabIndex'],
-                    host: {
-                        '[attr.aria-expanded]': 'isExpanded',
-                        '[attr.aria-level]': 'role === "treeitem" ? level : null',
-                        '[attr.role]': 'role',
-                        'class': 'mat-tree-node'
-                    },
-                    providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }]
-                },] }
-    ];
-    MatTreeNode.ctorParameters = () => [
-        { type: ElementRef },
-        { type: CdkTree },
-        { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
-    ];
-    MatTreeNode.propDecorators = {
-        role: [{ type: Input }]
-    };
-    return MatTreeNode;
-})();
+}
+MatTreeNode.decorators = [
+    { type: Directive, args: [{
+                selector: 'mat-tree-node',
+                exportAs: 'matTreeNode',
+                inputs: ['disabled', 'tabIndex'],
+                host: {
+                    '[attr.aria-expanded]': 'isExpanded',
+                    '[attr.aria-level]': 'role === "treeitem" ? level : null',
+                    '[attr.role]': 'role',
+                    'class': 'mat-tree-node'
+                },
+                providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }]
+            },] }
+];
+MatTreeNode.ctorParameters = () => [
+    { type: ElementRef },
+    { type: CdkTree },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
+];
+MatTreeNode.propDecorators = {
+    role: [{ type: Input }]
+};
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
  */
-let MatTreeNodeDef = /** @class */ (() => {
-    class MatTreeNodeDef extends CdkTreeNodeDef {
-    }
-    MatTreeNodeDef.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matTreeNodeDef]',
-                    inputs: [
-                        'when: matTreeNodeDefWhen'
-                    ],
-                    providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
-                },] }
-    ];
-    MatTreeNodeDef.propDecorators = {
-        data: [{ type: Input, args: ['matTreeNode',] }]
-    };
-    return MatTreeNodeDef;
-})();
+class MatTreeNodeDef extends CdkTreeNodeDef {
+}
+MatTreeNodeDef.decorators = [
+    { type: Directive, args: [{
+                selector: '[matTreeNodeDef]',
+                inputs: [
+                    'when: matTreeNodeDefWhen'
+                ],
+                providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
+            },] }
+];
+MatTreeNodeDef.propDecorators = {
+    data: [{ type: Input, args: ['matTreeNode',] }]
+};
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  */
-let MatNestedTreeNode = /** @class */ (() => {
-    class MatNestedTreeNode extends CdkNestedTreeNode {
-        constructor(_elementRef, _tree, _differs, tabIndex) {
-            super(_elementRef, _tree, _differs);
-            this._elementRef = _elementRef;
-            this._tree = _tree;
-            this._differs = _differs;
-            this._disabled = false;
-            this.tabIndex = Number(tabIndex) || 0;
-        }
-        /** Whether the node is disabled. */
-        get disabled() { return this._disabled; }
-        set disabled(value) { this._disabled = coerceBooleanProperty(value); }
-        /** Tabindex for the node. */
-        get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
-        set tabIndex(value) {
-            // If the specified tabIndex value is null or undefined, fall back to the default value.
-            this._tabIndex = value != null ? value : 0;
-        }
-        // This is a workaround for https://github.com/angular/angular/issues/23091
-        // In aot mode, the lifecycle hooks from parent class are not called.
-        // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
-        ngAfterContentInit() {
-            super.ngAfterContentInit();
-        }
-        ngOnDestroy() {
-            super.ngOnDestroy();
-        }
+class MatNestedTreeNode extends CdkNestedTreeNode {
+    constructor(_elementRef, _tree, _differs, tabIndex) {
+        super(_elementRef, _tree, _differs);
+        this._elementRef = _elementRef;
+        this._tree = _tree;
+        this._differs = _differs;
+        this._disabled = false;
+        this.tabIndex = Number(tabIndex) || 0;
     }
-    MatNestedTreeNode.decorators = [
-        { type: Directive, args: [{
-                    selector: 'mat-nested-tree-node',
-                    exportAs: 'matNestedTreeNode',
-                    host: {
-                        '[attr.aria-expanded]': 'isExpanded',
-                        '[attr.role]': 'role',
-                        'class': 'mat-nested-tree-node',
-                    },
-                    providers: [
-                        { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
-                        { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
-                        { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
-                    ]
-                },] }
-    ];
-    MatNestedTreeNode.ctorParameters = () => [
-        { type: ElementRef },
-        { type: CdkTree },
-        { type: IterableDiffers },
-        { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
-    ];
-    MatNestedTreeNode.propDecorators = {
-        node: [{ type: Input, args: ['matNestedTreeNode',] }],
-        disabled: [{ type: Input }],
-        tabIndex: [{ type: Input }]
-    };
-    return MatNestedTreeNode;
-})();
+    /** Whether the node is disabled. */
+    get disabled() { return this._disabled; }
+    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    /** Tabindex for the node. */
+    get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
+    set tabIndex(value) {
+        // If the specified tabIndex value is null or undefined, fall back to the default value.
+        this._tabIndex = value != null ? value : 0;
+    }
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    ngAfterContentInit() {
+        super.ngAfterContentInit();
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+    }
+}
+MatNestedTreeNode.decorators = [
+    { type: Directive, args: [{
+                selector: 'mat-nested-tree-node',
+                exportAs: 'matNestedTreeNode',
+                host: {
+                    '[attr.aria-expanded]': 'isExpanded',
+                    '[attr.role]': 'role',
+                    'class': 'mat-nested-tree-node',
+                },
+                providers: [
+                    { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
+                    { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
+                    { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
+                ]
+            },] }
+];
+MatNestedTreeNode.ctorParameters = () => [
+    { type: ElementRef },
+    { type: CdkTree },
+    { type: IterableDiffers },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
+];
+MatNestedTreeNode.propDecorators = {
+    node: [{ type: Input, args: ['matNestedTreeNode',] }],
+    disabled: [{ type: Input }],
+    tabIndex: [{ type: Input }]
+};
 
 /**
  * @license
@@ -143,21 +134,18 @@ let MatNestedTreeNode = /** @class */ (() => {
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  */
-let MatTreeNodePadding = /** @class */ (() => {
-    class MatTreeNodePadding extends CdkTreeNodePadding {
-    }
-    MatTreeNodePadding.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matTreeNodePadding]',
-                    providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
-                },] }
-    ];
-    MatTreeNodePadding.propDecorators = {
-        level: [{ type: Input, args: ['matTreeNodePadding',] }],
-        indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
-    };
-    return MatTreeNodePadding;
-})();
+class MatTreeNodePadding extends CdkTreeNodePadding {
+}
+MatTreeNodePadding.decorators = [
+    { type: Directive, args: [{
+                selector: '[matTreeNodePadding]',
+                providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
+            },] }
+];
+MatTreeNodePadding.propDecorators = {
+    level: [{ type: Input, args: ['matTreeNodePadding',] }],
+    indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
+};
 
 /**
  * @license
@@ -170,28 +158,25 @@ let MatTreeNodePadding = /** @class */ (() => {
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
  * inside the outlet.
  */
-let MatTreeNodeOutlet = /** @class */ (() => {
-    class MatTreeNodeOutlet {
-        constructor(viewContainer, _node) {
-            this.viewContainer = viewContainer;
-            this._node = _node;
-        }
+class MatTreeNodeOutlet {
+    constructor(viewContainer, _node) {
+        this.viewContainer = viewContainer;
+        this._node = _node;
     }
-    MatTreeNodeOutlet.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matTreeNodeOutlet]',
-                    providers: [{
-                            provide: CdkTreeNodeOutlet,
-                            useExisting: MatTreeNodeOutlet
-                        }]
-                },] }
-    ];
-    MatTreeNodeOutlet.ctorParameters = () => [
-        { type: ViewContainerRef },
-        { type: undefined, decorators: [{ type: Inject, args: [CDK_TREE_NODE_OUTLET_NODE,] }, { type: Optional }] }
-    ];
-    return MatTreeNodeOutlet;
-})();
+}
+MatTreeNodeOutlet.decorators = [
+    { type: Directive, args: [{
+                selector: '[matTreeNodeOutlet]',
+                providers: [{
+                        provide: CdkTreeNodeOutlet,
+                        useExisting: MatTreeNodeOutlet
+                    }]
+            },] }
+];
+MatTreeNodeOutlet.ctorParameters = () => [
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Inject, args: [CDK_TREE_NODE_OUTLET_NODE,] }, { type: Optional }] }
+];
 
 /**
  * @license
@@ -203,31 +188,28 @@ let MatTreeNodeOutlet = /** @class */ (() => {
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
-let MatTree = /** @class */ (() => {
-    class MatTree extends CdkTree {
-    }
-    MatTree.decorators = [
-        { type: Component, args: [{
-                    selector: 'mat-tree',
-                    exportAs: 'matTree',
-                    template: `<ng-container matTreeNodeOutlet></ng-container>`,
-                    host: {
-                        'class': 'mat-tree',
-                        'role': 'tree',
-                    },
-                    encapsulation: ViewEncapsulation.None,
-                    // See note on CdkTree for explanation on why this uses the default change detection strategy.
-                    // tslint:disable-next-line:validate-decorators
-                    changeDetection: ChangeDetectionStrategy.Default,
-                    providers: [{ provide: CdkTree, useExisting: MatTree }],
-                    styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
-                },] }
-    ];
-    MatTree.propDecorators = {
-        _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]
-    };
-    return MatTree;
-})();
+class MatTree extends CdkTree {
+}
+MatTree.decorators = [
+    { type: Component, args: [{
+                selector: 'mat-tree',
+                exportAs: 'matTree',
+                template: `<ng-container matTreeNodeOutlet></ng-container>`,
+                host: {
+                    'class': 'mat-tree',
+                    'role': 'tree',
+                },
+                encapsulation: ViewEncapsulation.None,
+                // See note on CdkTree for explanation on why this uses the default change detection strategy.
+                // tslint:disable-next-line:validate-decorators
+                changeDetection: ChangeDetectionStrategy.Default,
+                providers: [{ provide: CdkTree, useExisting: MatTree }],
+                styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
+            },] }
+];
+MatTree.propDecorators = {
+    _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]
+};
 
 /**
  * @license
@@ -239,24 +221,21 @@ let MatTree = /** @class */ (() => {
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  */
-let MatTreeNodeToggle = /** @class */ (() => {
-    class MatTreeNodeToggle extends CdkTreeNodeToggle {
-        constructor() {
-            super(...arguments);
-            this.recursive = false;
-        }
+class MatTreeNodeToggle extends CdkTreeNodeToggle {
+    constructor() {
+        super(...arguments);
+        this.recursive = false;
     }
-    MatTreeNodeToggle.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matTreeNodeToggle]',
-                    providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
-                },] }
-    ];
-    MatTreeNodeToggle.propDecorators = {
-        recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
-    };
-    return MatTreeNodeToggle;
-})();
+}
+MatTreeNodeToggle.decorators = [
+    { type: Directive, args: [{
+                selector: '[matTreeNodeToggle]',
+                providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
+            },] }
+];
+MatTreeNodeToggle.propDecorators = {
+    recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
+};
 
 /**
  * @license
@@ -274,18 +253,15 @@ const MAT_TREE_DIRECTIVES = [
     MatTreeNode,
     MatTreeNodeOutlet
 ];
-let MatTreeModule = /** @class */ (() => {
-    class MatTreeModule {
-    }
-    MatTreeModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [CdkTreeModule, MatCommonModule],
-                    exports: [MatCommonModule, MAT_TREE_DIRECTIVES],
-                    declarations: MAT_TREE_DIRECTIVES,
-                },] }
-    ];
-    return MatTreeModule;
-})();
+class MatTreeModule {
+}
+MatTreeModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CdkTreeModule, MatCommonModule],
+                exports: [MatCommonModule, MAT_TREE_DIRECTIVES],
+                declarations: MAT_TREE_DIRECTIVES,
+            },] }
+];
 
 /**
  * @license

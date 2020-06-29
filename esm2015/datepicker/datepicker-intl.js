@@ -9,45 +9,41 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import * as i0 from "@angular/core";
 /** Datepicker data that requires internationalization. */
-let MatDatepickerIntl = /** @class */ (() => {
-    class MatDatepickerIntl {
-        constructor() {
-            /**
-             * Stream that emits whenever the labels here are changed. Use this to notify
-             * components if the labels have changed after initialization.
-             */
-            this.changes = new Subject();
-            /** A label for the calendar popup (used by screen readers). */
-            this.calendarLabel = 'Calendar';
-            /** A label for the button used to open the calendar popup (used by screen readers). */
-            this.openCalendarLabel = 'Open calendar';
-            /** A label for the previous month button (used by screen readers). */
-            this.prevMonthLabel = 'Previous month';
-            /** A label for the next month button (used by screen readers). */
-            this.nextMonthLabel = 'Next month';
-            /** A label for the previous year button (used by screen readers). */
-            this.prevYearLabel = 'Previous year';
-            /** A label for the next year button (used by screen readers). */
-            this.nextYearLabel = 'Next year';
-            /** A label for the previous multi-year button (used by screen readers). */
-            this.prevMultiYearLabel = 'Previous 20 years';
-            /** A label for the next multi-year button (used by screen readers). */
-            this.nextMultiYearLabel = 'Next 20 years';
-            /** A label for the 'switch to month view' button (used by screen readers). */
-            this.switchToMonthViewLabel = 'Choose date';
-            /** A label for the 'switch to year view' button (used by screen readers). */
-            this.switchToMultiYearViewLabel = 'Choose month and year';
-        }
-        /** Formats a range of years. */
-        formatYearRange(start, end) {
-            return `${start} \u2013 ${end}`;
-        }
+export class MatDatepickerIntl {
+    constructor() {
+        /**
+         * Stream that emits whenever the labels here are changed. Use this to notify
+         * components if the labels have changed after initialization.
+         */
+        this.changes = new Subject();
+        /** A label for the calendar popup (used by screen readers). */
+        this.calendarLabel = 'Calendar';
+        /** A label for the button used to open the calendar popup (used by screen readers). */
+        this.openCalendarLabel = 'Open calendar';
+        /** A label for the previous month button (used by screen readers). */
+        this.prevMonthLabel = 'Previous month';
+        /** A label for the next month button (used by screen readers). */
+        this.nextMonthLabel = 'Next month';
+        /** A label for the previous year button (used by screen readers). */
+        this.prevYearLabel = 'Previous year';
+        /** A label for the next year button (used by screen readers). */
+        this.nextYearLabel = 'Next year';
+        /** A label for the previous multi-year button (used by screen readers). */
+        this.prevMultiYearLabel = 'Previous 20 years';
+        /** A label for the next multi-year button (used by screen readers). */
+        this.nextMultiYearLabel = 'Next 20 years';
+        /** A label for the 'switch to month view' button (used by screen readers). */
+        this.switchToMonthViewLabel = 'Choose date';
+        /** A label for the 'switch to year view' button (used by screen readers). */
+        this.switchToMultiYearViewLabel = 'Choose month and year';
     }
-    MatDatepickerIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
-    MatDatepickerIntl.decorators = [
-        { type: Injectable, args: [{ providedIn: 'root' },] }
-    ];
-    return MatDatepickerIntl;
-})();
-export { MatDatepickerIntl };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGF0ZXBpY2tlci1pbnRsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vc3JjL21hdGVyaWFsL2RhdGVwaWNrZXIvZGF0ZXBpY2tlci1pbnRsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxVQUFVLEVBQUMsTUFBTSxlQUFlLENBQUM7QUFDekMsT0FBTyxFQUFDLE9BQU8sRUFBQyxNQUFNLE1BQU0sQ0FBQzs7QUFHN0IsMERBQTBEO0FBQzFEO0lBQUEsTUFDYSxpQkFBaUI7UUFEOUI7WUFFRTs7O2VBR0c7WUFDTSxZQUFPLEdBQWtCLElBQUksT0FBTyxFQUFRLENBQUM7WUFFdEQsK0RBQStEO1lBQy9ELGtCQUFhLEdBQVcsVUFBVSxDQUFDO1lBRW5DLHVGQUF1RjtZQUN2RixzQkFBaUIsR0FBVyxlQUFlLENBQUM7WUFFNUMsc0VBQXNFO1lBQ3RFLG1CQUFjLEdBQVcsZ0JBQWdCLENBQUM7WUFFMUMsa0VBQWtFO1lBQ2xFLG1CQUFjLEdBQVcsWUFBWSxDQUFDO1lBRXRDLHFFQUFxRTtZQUNyRSxrQkFBYSxHQUFXLGVBQWUsQ0FBQztZQUV4QyxpRUFBaUU7WUFDakUsa0JBQWEsR0FBVyxXQUFXLENBQUM7WUFFcEMsMkVBQTJFO1lBQzNFLHVCQUFrQixHQUFXLG1CQUFtQixDQUFDO1lBRWpELHVFQUF1RTtZQUN2RSx1QkFBa0IsR0FBVyxlQUFlLENBQUM7WUFFN0MsOEVBQThFO1lBQzlFLDJCQUFzQixHQUFXLGFBQWEsQ0FBQztZQUUvQyw2RUFBNkU7WUFDN0UsK0JBQTBCLEdBQVcsdUJBQXVCLENBQUM7U0FNOUQ7UUFKQyxnQ0FBZ0M7UUFDaEMsZUFBZSxDQUFDLEtBQWEsRUFBRSxHQUFXO1lBQ3hDLE9BQU8sR0FBRyxLQUFLLFdBQVcsR0FBRyxFQUFFLENBQUM7UUFDbEMsQ0FBQzs7OztnQkF6Q0YsVUFBVSxTQUFDLEVBQUMsVUFBVSxFQUFFLE1BQU0sRUFBQzs7NEJBYmhDO0tBdURDO1NBekNZLGlCQUFpQiIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge0luamVjdGFibGV9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHtTdWJqZWN0fSBmcm9tICdyeGpzJztcblxuXG4vKiogRGF0ZXBpY2tlciBkYXRhIHRoYXQgcmVxdWlyZXMgaW50ZXJuYXRpb25hbGl6YXRpb24uICovXG5ASW5qZWN0YWJsZSh7cHJvdmlkZWRJbjogJ3Jvb3QnfSlcbmV4cG9ydCBjbGFzcyBNYXREYXRlcGlja2VySW50bCB7XG4gIC8qKlxuICAgKiBTdHJlYW0gdGhhdCBlbWl0cyB3aGVuZXZlciB0aGUgbGFiZWxzIGhlcmUgYXJlIGNoYW5nZWQuIFVzZSB0aGlzIHRvIG5vdGlmeVxuICAgKiBjb21wb25lbnRzIGlmIHRoZSBsYWJlbHMgaGF2ZSBjaGFuZ2VkIGFmdGVyIGluaXRpYWxpemF0aW9uLlxuICAgKi9cbiAgcmVhZG9ubHkgY2hhbmdlczogU3ViamVjdDx2b2lkPiA9IG5ldyBTdWJqZWN0PHZvaWQ+KCk7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSBjYWxlbmRhciBwb3B1cCAodXNlZCBieSBzY3JlZW4gcmVhZGVycykuICovXG4gIGNhbGVuZGFyTGFiZWw6IHN0cmluZyA9ICdDYWxlbmRhcic7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSBidXR0b24gdXNlZCB0byBvcGVuIHRoZSBjYWxlbmRhciBwb3B1cCAodXNlZCBieSBzY3JlZW4gcmVhZGVycykuICovXG4gIG9wZW5DYWxlbmRhckxhYmVsOiBzdHJpbmcgPSAnT3BlbiBjYWxlbmRhcic7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSBwcmV2aW91cyBtb250aCBidXR0b24gKHVzZWQgYnkgc2NyZWVuIHJlYWRlcnMpLiAqL1xuICBwcmV2TW9udGhMYWJlbDogc3RyaW5nID0gJ1ByZXZpb3VzIG1vbnRoJztcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlIG5leHQgbW9udGggYnV0dG9uICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgbmV4dE1vbnRoTGFiZWw6IHN0cmluZyA9ICdOZXh0IG1vbnRoJztcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlIHByZXZpb3VzIHllYXIgYnV0dG9uICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgcHJldlllYXJMYWJlbDogc3RyaW5nID0gJ1ByZXZpb3VzIHllYXInO1xuXG4gIC8qKiBBIGxhYmVsIGZvciB0aGUgbmV4dCB5ZWFyIGJ1dHRvbiAodXNlZCBieSBzY3JlZW4gcmVhZGVycykuICovXG4gIG5leHRZZWFyTGFiZWw6IHN0cmluZyA9ICdOZXh0IHllYXInO1xuXG4gIC8qKiBBIGxhYmVsIGZvciB0aGUgcHJldmlvdXMgbXVsdGkteWVhciBidXR0b24gKHVzZWQgYnkgc2NyZWVuIHJlYWRlcnMpLiAqL1xuICBwcmV2TXVsdGlZZWFyTGFiZWw6IHN0cmluZyA9ICdQcmV2aW91cyAyMCB5ZWFycyc7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSBuZXh0IG11bHRpLXllYXIgYnV0dG9uICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgbmV4dE11bHRpWWVhckxhYmVsOiBzdHJpbmcgPSAnTmV4dCAyMCB5ZWFycyc7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSAnc3dpdGNoIHRvIG1vbnRoIHZpZXcnIGJ1dHRvbiAodXNlZCBieSBzY3JlZW4gcmVhZGVycykuICovXG4gIHN3aXRjaFRvTW9udGhWaWV3TGFiZWw6IHN0cmluZyA9ICdDaG9vc2UgZGF0ZSc7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSAnc3dpdGNoIHRvIHllYXIgdmlldycgYnV0dG9uICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgc3dpdGNoVG9NdWx0aVllYXJWaWV3TGFiZWw6IHN0cmluZyA9ICdDaG9vc2UgbW9udGggYW5kIHllYXInO1xuXG4gIC8qKiBGb3JtYXRzIGEgcmFuZ2Ugb2YgeWVhcnMuICovXG4gIGZvcm1hdFllYXJSYW5nZShzdGFydDogc3RyaW5nLCBlbmQ6IHN0cmluZyk6IHN0cmluZyB7XG4gICAgcmV0dXJuIGAke3N0YXJ0fSBcXHUyMDEzICR7ZW5kfWA7XG4gIH1cbn1cbiJdfQ==
+    /** Formats a range of years. */
+    formatYearRange(start, end) {
+        return `${start} \u2013 ${end}`;
+    }
+}
+MatDatepickerIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
+MatDatepickerIntl.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGF0ZXBpY2tlci1pbnRsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vc3JjL21hdGVyaWFsL2RhdGVwaWNrZXIvZGF0ZXBpY2tlci1pbnRsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxVQUFVLEVBQUMsTUFBTSxlQUFlLENBQUM7QUFDekMsT0FBTyxFQUFDLE9BQU8sRUFBQyxNQUFNLE1BQU0sQ0FBQzs7QUFHN0IsMERBQTBEO0FBRTFELE1BQU0sT0FBTyxpQkFBaUI7SUFEOUI7UUFFRTs7O1dBR0c7UUFDTSxZQUFPLEdBQWtCLElBQUksT0FBTyxFQUFRLENBQUM7UUFFdEQsK0RBQStEO1FBQy9ELGtCQUFhLEdBQVcsVUFBVSxDQUFDO1FBRW5DLHVGQUF1RjtRQUN2RixzQkFBaUIsR0FBVyxlQUFlLENBQUM7UUFFNUMsc0VBQXNFO1FBQ3RFLG1CQUFjLEdBQVcsZ0JBQWdCLENBQUM7UUFFMUMsa0VBQWtFO1FBQ2xFLG1CQUFjLEdBQVcsWUFBWSxDQUFDO1FBRXRDLHFFQUFxRTtRQUNyRSxrQkFBYSxHQUFXLGVBQWUsQ0FBQztRQUV4QyxpRUFBaUU7UUFDakUsa0JBQWEsR0FBVyxXQUFXLENBQUM7UUFFcEMsMkVBQTJFO1FBQzNFLHVCQUFrQixHQUFXLG1CQUFtQixDQUFDO1FBRWpELHVFQUF1RTtRQUN2RSx1QkFBa0IsR0FBVyxlQUFlLENBQUM7UUFFN0MsOEVBQThFO1FBQzlFLDJCQUFzQixHQUFXLGFBQWEsQ0FBQztRQUUvQyw2RUFBNkU7UUFDN0UsK0JBQTBCLEdBQVcsdUJBQXVCLENBQUM7S0FNOUQ7SUFKQyxnQ0FBZ0M7SUFDaEMsZUFBZSxDQUFDLEtBQWEsRUFBRSxHQUFXO1FBQ3hDLE9BQU8sR0FBRyxLQUFLLFdBQVcsR0FBRyxFQUFFLENBQUM7SUFDbEMsQ0FBQzs7OztZQXpDRixVQUFVLFNBQUMsRUFBQyxVQUFVLEVBQUUsTUFBTSxFQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7SW5qZWN0YWJsZX0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5pbXBvcnQge1N1YmplY3R9IGZyb20gJ3J4anMnO1xuXG5cbi8qKiBEYXRlcGlja2VyIGRhdGEgdGhhdCByZXF1aXJlcyBpbnRlcm5hdGlvbmFsaXphdGlvbi4gKi9cbkBJbmplY3RhYmxlKHtwcm92aWRlZEluOiAncm9vdCd9KVxuZXhwb3J0IGNsYXNzIE1hdERhdGVwaWNrZXJJbnRsIHtcbiAgLyoqXG4gICAqIFN0cmVhbSB0aGF0IGVtaXRzIHdoZW5ldmVyIHRoZSBsYWJlbHMgaGVyZSBhcmUgY2hhbmdlZC4gVXNlIHRoaXMgdG8gbm90aWZ5XG4gICAqIGNvbXBvbmVudHMgaWYgdGhlIGxhYmVscyBoYXZlIGNoYW5nZWQgYWZ0ZXIgaW5pdGlhbGl6YXRpb24uXG4gICAqL1xuICByZWFkb25seSBjaGFuZ2VzOiBTdWJqZWN0PHZvaWQ+ID0gbmV3IFN1YmplY3Q8dm9pZD4oKTtcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlIGNhbGVuZGFyIHBvcHVwICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgY2FsZW5kYXJMYWJlbDogc3RyaW5nID0gJ0NhbGVuZGFyJztcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlIGJ1dHRvbiB1c2VkIHRvIG9wZW4gdGhlIGNhbGVuZGFyIHBvcHVwICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgb3BlbkNhbGVuZGFyTGFiZWw6IHN0cmluZyA9ICdPcGVuIGNhbGVuZGFyJztcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlIHByZXZpb3VzIG1vbnRoIGJ1dHRvbiAodXNlZCBieSBzY3JlZW4gcmVhZGVycykuICovXG4gIHByZXZNb250aExhYmVsOiBzdHJpbmcgPSAnUHJldmlvdXMgbW9udGgnO1xuXG4gIC8qKiBBIGxhYmVsIGZvciB0aGUgbmV4dCBtb250aCBidXR0b24gKHVzZWQgYnkgc2NyZWVuIHJlYWRlcnMpLiAqL1xuICBuZXh0TW9udGhMYWJlbDogc3RyaW5nID0gJ05leHQgbW9udGgnO1xuXG4gIC8qKiBBIGxhYmVsIGZvciB0aGUgcHJldmlvdXMgeWVhciBidXR0b24gKHVzZWQgYnkgc2NyZWVuIHJlYWRlcnMpLiAqL1xuICBwcmV2WWVhckxhYmVsOiBzdHJpbmcgPSAnUHJldmlvdXMgeWVhcic7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSBuZXh0IHllYXIgYnV0dG9uICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgbmV4dFllYXJMYWJlbDogc3RyaW5nID0gJ05leHQgeWVhcic7XG5cbiAgLyoqIEEgbGFiZWwgZm9yIHRoZSBwcmV2aW91cyBtdWx0aS15ZWFyIGJ1dHRvbiAodXNlZCBieSBzY3JlZW4gcmVhZGVycykuICovXG4gIHByZXZNdWx0aVllYXJMYWJlbDogc3RyaW5nID0gJ1ByZXZpb3VzIDIwIHllYXJzJztcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlIG5leHQgbXVsdGkteWVhciBidXR0b24gKHVzZWQgYnkgc2NyZWVuIHJlYWRlcnMpLiAqL1xuICBuZXh0TXVsdGlZZWFyTGFiZWw6IHN0cmluZyA9ICdOZXh0IDIwIHllYXJzJztcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlICdzd2l0Y2ggdG8gbW9udGggdmlldycgYnV0dG9uICh1c2VkIGJ5IHNjcmVlbiByZWFkZXJzKS4gKi9cbiAgc3dpdGNoVG9Nb250aFZpZXdMYWJlbDogc3RyaW5nID0gJ0Nob29zZSBkYXRlJztcblxuICAvKiogQSBsYWJlbCBmb3IgdGhlICdzd2l0Y2ggdG8geWVhciB2aWV3JyBidXR0b24gKHVzZWQgYnkgc2NyZWVuIHJlYWRlcnMpLiAqL1xuICBzd2l0Y2hUb011bHRpWWVhclZpZXdMYWJlbDogc3RyaW5nID0gJ0Nob29zZSBtb250aCBhbmQgeWVhcic7XG5cbiAgLyoqIEZvcm1hdHMgYSByYW5nZSBvZiB5ZWFycy4gKi9cbiAgZm9ybWF0WWVhclJhbmdlKHN0YXJ0OiBzdHJpbmcsIGVuZDogc3RyaW5nKTogc3RyaW5nIHtcbiAgICByZXR1cm4gYCR7c3RhcnR9IFxcdTIwMTMgJHtlbmR9YDtcbiAgfVxufVxuIl19
