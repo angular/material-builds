@@ -10,7 +10,10 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, InjectionToken, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
-/** Acceptable types for a button toggle. */
+/**
+ * @deprecated No longer used.
+ * @breaking-change 11.0.0
+ */
 export declare type ToggleType = 'checkbox' | 'radio';
 /** Possible appearance styles for the button toggle. */
 export declare type MatButtonToggleAppearance = 'legacy' | 'standard';
@@ -152,8 +155,6 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
      * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
      */
     ariaLabelledby: string | null;
-    /** Type of the button toggle. Either 'radio' or 'checkbox'. */
-    _type: ToggleType;
     _buttonElement: ElementRef<HTMLButtonElement>;
     /** The parent button toggle group (exclusive selection). Optional. */
     buttonToggleGroup: MatButtonToggleGroup;

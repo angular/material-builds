@@ -464,7 +464,7 @@
             /**
              * Attaches a DOM portal to the snack bar container.
              * @deprecated To be turned into a method.
-             * @breaking-change 10.0.0-sha-952f57631
+             * @breaking-change 10.0.0-sha-cf53a70b1
              */
             _this.attachDomPortal = function (portal) {
                 _this._assertNotAttached();

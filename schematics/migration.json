@@ -22,7 +22,7 @@
       "factory": "./ng-update/index#updateToV9"
     },
     "migration-v10": {
-      "version": "10.0.0-sha-952f57631-0",
+      "version": "10.0.0-sha-cf53a70b1-0",
       "description": "Updates Angular Material to v10",
       "factory": "./ng-update/index#updateToV10"
     },

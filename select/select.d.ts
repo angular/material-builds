@@ -164,7 +164,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /**
      * Overlay pane containing the options.
      * @deprecated To be turned into a private API.
-     * @breaking-change 10.0.0-sha-952f57631
+     * @breaking-change 10.0.0-sha-cf53a70b1
      * @docs-private
      */
     overlayDir: CdkConnectedOverlay;

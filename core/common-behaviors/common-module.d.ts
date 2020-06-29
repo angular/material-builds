@@ -23,7 +23,7 @@ export interface GranularSanityChecks {
     version: boolean;
     /**
      * @deprecated No longer being used.
-     * @breaking-change 10.0.0-sha-952f57631
+     * @breaking-change 10.0.0-sha-cf53a70b1
      */
     hammer: boolean;
 }

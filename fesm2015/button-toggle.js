@@ -332,7 +332,6 @@ let MatButtonToggle = /** @class */ (() => {
         ngOnInit() {
             const group = this.buttonToggleGroup;
             this._isSingleSelector = group && !group.multiple;
-            this._type = this._isSingleSelector ? 'radio' : 'checkbox';
             this.id = this.id || `mat-button-toggle-${_uniqueIdCounter++}`;
             if (this._isSingleSelector) {
                 this.name = group.name;

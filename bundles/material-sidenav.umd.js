@@ -328,7 +328,7 @@
         function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc, 
         /**
          * @deprecated `_container` parameter to be made required.
-         * @breaking-change 10.0.0-sha-952f57631
+         * @breaking-change 10.0.0-sha-cf53a70b1
          */
         _container) {
             var _this = this;
@@ -775,7 +775,7 @@
             this._allDrawers.changes
                 .pipe(operators.startWith(this._allDrawers), operators.takeUntil(this._destroyed))
                 .subscribe(function (drawer) {
-                // @breaking-change 10.0.0-sha-952f57631 Remove `_container` check once container parameter is required.
+                // @breaking-change 10.0.0-sha-cf53a70b1 Remove `_container` check once container parameter is required.
                 _this._drawers.reset(drawer.filter(function (item) { return !item._container || item._container === _this; }));
                 _this._drawers.notifyOnChanges();
             });
