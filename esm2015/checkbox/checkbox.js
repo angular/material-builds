@@ -49,7 +49,7 @@ let MatCheckbox = /** @class */ (() => {
         /**
          * @deprecated `_clickAction` parameter to be removed, use
          * `MAT_CHECKBOX_DEFAULT_OPTIONS`
-         * @breaking-change 10.0.0-sha-27f52711c
+         * @breaking-change 10.0.0-sha-ad231390b
          */
         _clickAction, _animationMode, _options) {
             super(elementRef);

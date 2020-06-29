@@ -166,7 +166,7 @@ let MatTab = /** @class */ (() => {
         constructor(_viewContainerRef, 
         /**
          * @deprecated `_closestTabGroup` parameter to become required.
-         * @breaking-change 10.0.0-sha-27f52711c
+         * @breaking-change 10.0.0-sha-ad231390b
          */
         _closestTabGroup) {
             super();
@@ -663,7 +663,7 @@ let _MatTabGroupBase = /** @class */ (() => {
                 .pipe(startWith(this._allTabs))
                 .subscribe((tabs) => {
                 this._tabs.reset(tabs.filter(tab => {
-                    // @breaking-change 10.0.0-sha-27f52711c Remove null check for `_closestTabGroup`
+                    // @breaking-change 10.0.0-sha-ad231390b Remove null check for `_closestTabGroup`
                     // once it becomes a required parameter in MatTab.
                     return !tab._closestTabGroup || tab._closestTabGroup === this;
                 }));

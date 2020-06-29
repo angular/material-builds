@@ -323,7 +323,7 @@
             /**
              * Attaches a DOM portal to the bottom sheet container.
              * @deprecated To be turned into a method.
-             * @breaking-change 10.0.0-sha-27f52711c
+             * @breaking-change 10.0.0-sha-ad231390b
              */
             _this.attachDomPortal = function (portal) {
                 _this._validatePortalAttached();

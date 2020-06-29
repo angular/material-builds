@@ -44,7 +44,7 @@ let MatDialogContainer = /** @class */ (() => {
              * Attaches a DOM portal to the dialog container.
              * @param portal Portal to be attached.
              * @deprecated To be turned into a method.
-             * @breaking-change 10.0.0-sha-27f52711c
+             * @breaking-change 10.0.0-sha-ad231390b
              */
             this.attachDomPortal = (portal) => {
                 if (this._portalOutlet.hasAttached()) {

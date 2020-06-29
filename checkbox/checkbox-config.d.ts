@@ -27,6 +27,6 @@ export declare type MatCheckboxClickAction = 'noop' | 'check' | 'check-indetermi
 /**
  * Injection token that can be used to specify the checkbox click behavior.
  * @deprecated Injection token will be removed, use `MAT_CHECKBOX_DEFAULT_OPTIONS` instead.
- * @breaking-change 10.0.0-sha-27f52711c
+ * @breaking-change 10.0.0-sha-ad231390b
  */
 export declare const MAT_CHECKBOX_CLICK_ACTION: InjectionToken<MatCheckboxClickAction>;

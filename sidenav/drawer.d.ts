@@ -49,7 +49,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _doc;
     /**
      * @deprecated `_container` parameter to be made required.
-     * @breaking-change 10.0.0-sha-27f52711c
+     * @breaking-change 10.0.0-sha-ad231390b
      */
     _container?: MatDrawerContainer | undefined;
     private _focusTrap;
@@ -113,7 +113,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any, 
     /**
      * @deprecated `_container` parameter to be made required.
-     * @breaking-change 10.0.0-sha-27f52711c
+     * @breaking-change 10.0.0-sha-ad231390b
      */
     _container?: MatDrawerContainer | undefined);
     /**
