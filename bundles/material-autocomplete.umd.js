@@ -675,8 +675,10 @@
                 var clickTarget = (_this._isInsideShadowRoot && event.composedPath ? event.composedPath()[0] :
                     event.target);
                 var formField = _this._formField ? _this._formField._elementRef.nativeElement : null;
+                var customOrigin = _this.connectedTo ? _this.connectedTo.elementRef.nativeElement : null;
                 return _this._overlayAttached && clickTarget !== _this._element.nativeElement &&
                     (!formField || !formField.contains(clickTarget)) &&
+                    (!customOrigin || !customOrigin.contains(clickTarget)) &&
                     (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
             }));
         };

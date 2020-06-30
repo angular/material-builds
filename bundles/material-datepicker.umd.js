@@ -3469,8 +3469,6 @@
             this._groupDisabled = false;
             /** Value for the `aria-describedby` attribute of the inputs. */
             this._ariaDescribedBy = null;
-            /** Value for the `aria-labelledby` attribute of the inputs. */
-            this._ariaLabelledBy = null;
             /** Separator text to be shown between the inputs. */
             this.separator = '–';
             /** Start of the comparison range that should be shown in the calendar. */
@@ -3484,7 +3482,6 @@
             }
             // TODO(crisbeto): remove `as any` after #18206 lands.
             this.ngControl = control;
-            this._ariaLabelledBy = _formField ? _formField._labelId : null;
         }
         Object.defineProperty(MatDateRangeInput.prototype, "value", {
             /** Current value of the range input. */
@@ -3684,6 +3681,11 @@
         MatDateRangeInput.prototype._shouldHideSeparator = function () {
             return (!this._formField || this._formField._hideControlPlaceholder()) && this.empty;
         };
+        /** Gets the value for the `aria-labelledby` attribute of the inputs. */
+        MatDateRangeInput.prototype._getAriaLabelledby = function () {
+            var formField = this._formField;
+            return formField && formField._hasFloatingLabel() ? formField._labelId : null;
+        };
         /**
          * @param obj The object to check.
          * @returns The given object if it is both a date instance and valid, otherwise null.
@@ -3719,7 +3721,7 @@
                             '[class.mat-date-range-input-hide-placeholders]': '_shouldHidePlaceholders()',
                             '[attr.id]': 'null',
                             'role': 'group',
-                            '[attr.aria-labelledby]': '_ariaLabelledBy',
+                            '[attr.aria-labelledby]': '_getAriaLabelledby()',
                             '[attr.aria-describedby]': '_ariaDescribedBy',
                         },
                         changeDetection: i0.ChangeDetectionStrategy.OnPush,

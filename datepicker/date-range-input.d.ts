@@ -14,9 +14,9 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { MatStartDate, MatEndDate, MatDateRangeInputParent } from './date-range-input-parts';
 import { MatDatepickerControl } from './datepicker-base';
 import { DateFilterFn } from './datepicker-input-base';
-import { MatDateRangePicker } from './date-range-picker';
+import { MatDateRangePicker, MatDateRangePickerInput } from './date-range-picker';
 import { DateRange } from './date-selection-model';
-export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, AfterContentInit, OnDestroy {
+export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _dateAdapter;
@@ -69,8 +69,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     get empty(): boolean;
     /** Value for the `aria-describedby` attribute of the inputs. */
     _ariaDescribedBy: string | null;
-    /** Value for the `aria-labelledby` attribute of the inputs. */
-    _ariaLabelledBy: string | null;
     /** Date selection model currently registered with the input. */
     private _model;
     /** Separator text to be shown between the inputs. */
@@ -118,6 +116,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     _openDatepicker(): void;
     /** Whether the separate text should be hidden. */
     _shouldHideSeparator(): boolean;
+    /** Gets the value for the `aria-labelledby` attribute of the inputs. */
+    _getAriaLabelledby(): string | null;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
