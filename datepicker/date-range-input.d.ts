@@ -69,8 +69,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     get empty(): boolean;
     /** Value for the `aria-describedby` attribute of the inputs. */
     _ariaDescribedBy: string | null;
-    /** Value for the `aria-labelledby` attribute of the inputs. */
-    _ariaLabelledBy: string | null;
     /** Date selection model currently registered with the input. */
     private _model;
     /** Separator text to be shown between the inputs. */
@@ -118,6 +116,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     _openDatepicker(): void;
     /** Whether the separate text should be hidden. */
     _shouldHideSeparator(): boolean;
+    /** Gets the value for the `aria-labelledby` attribute of the inputs. */
+    _getAriaLabelledby(): string | null;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
