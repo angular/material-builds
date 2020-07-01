@@ -12,25 +12,22 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Harness for interacting with a `mat-divider`.
  * @dynamic
  */
-let MatDividerHarness = /** @class */ (() => {
-    class MatDividerHarness extends ComponentHarness {
-        static with(options = {}) {
-            return new HarnessPredicate(MatDividerHarness, options);
-        }
-        getOrientation() {
-            return __awaiter(this, void 0, void 0, function* () {
-                return (yield this.host()).getAttribute('aria-orientation');
-            });
-        }
-        isInset() {
-            return __awaiter(this, void 0, void 0, function* () {
-                return (yield this.host()).hasClass('mat-divider-inset');
-            });
-        }
+class MatDividerHarness extends ComponentHarness {
+    static with(options = {}) {
+        return new HarnessPredicate(MatDividerHarness, options);
     }
-    MatDividerHarness.hostSelector = 'mat-divider';
-    return MatDividerHarness;
-})();
+    getOrientation() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getAttribute('aria-orientation');
+        });
+    }
+    isInset() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).hasClass('mat-divider-inset');
+        });
+    }
+}
+MatDividerHarness.hostSelector = 'mat-divider';
 
 /**
  * @license
