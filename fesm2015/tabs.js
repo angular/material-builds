@@ -346,7 +346,6 @@ MatTabBodyPortal.ctorParameters = () => [
  * Base class with all of the `MatTabBody` functionality.
  * @docs-private
  */
-// tslint:disable-next-line:class-name
 class _MatTabBodyBase {
     constructor(_elementRef, _dir, changeDetectorRef) {
         this._elementRef = _elementRef;
@@ -530,7 +529,6 @@ const _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupMixinBase
  * Base class with all of the `MatTabGroupBase` functionality.
  * @docs-private
  */
-// tslint:disable-next-line:class-name
 class _MatTabGroupBase extends _MatTabGroupMixinBase {
     constructor(elementRef, _changeDetectorRef, defaultConfig, _animationMode) {
         super(elementRef);
@@ -1354,7 +1352,6 @@ MatPaginatedTabHeader.propDecorators = {
  * Base class with all of the `MatTabHeader` functionality.
  * @docs-private
  */
-// tslint:disable-next-line:class-name
 class _MatTabHeaderBase extends MatPaginatedTabHeader {
     constructor(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, 
     // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
@@ -1444,7 +1441,6 @@ MatTabHeader.propDecorators = {
  * Base class with all of the `MatTabNav` functionality.
  * @docs-private
  */
-// tslint:disable-next-line:class-name
 class _MatTabNavBase extends MatPaginatedTabHeader {
     constructor(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, 
     /**
@@ -1573,7 +1569,6 @@ class MatTabLinkMixinBase {
 }
 const _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkMixinBase)));
 /** Base class with all of the `MatTabLink` functionality. */
-// tslint:disable-next-line:class-name
 class _MatTabLinkBase extends _MatTabLinkMixinBase {
     constructor(_tabNavBar, elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
         super();

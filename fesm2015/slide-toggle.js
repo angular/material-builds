@@ -280,7 +280,6 @@ MatSlideToggleRequiredValidator.decorators = [
  * found in the LICENSE file at https://angular.io/license
  */
 /** This module is used by both original and MDC-based slide-toggle implementations. */
-// tslint:disable-next-line:class-name
 class _MatSlideToggleRequiredValidatorModule {
 }
 _MatSlideToggleRequiredValidatorModule.decorators = [

@@ -386,7 +386,6 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
 const MAT_MENU_BASE_ELEVATION = 4;
 let menuPanelUid = 0;
 /** Base class with all of the `MatMenu` functionality. */
-// tslint:disable-next-line:class-name
 class _MatMenuBase {
     constructor(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
@@ -716,7 +715,6 @@ MatMenu.decorators = [
 // * _MatMenu - the actual menu component implementation with the Angular metadata that should
 // be tree shaken away for MDC.
 /** @docs-public MatMenu */
-// tslint:disable-next-line:class-name
 class _MatMenu extends MatMenu {
     constructor(elementRef, ngZone, defaultOptions) {
         super(elementRef, ngZone, defaultOptions);
@@ -1224,7 +1222,6 @@ MatMenuTrigger.propDecorators = {
  * Used by both the current `MatMenuModule` and the MDC `MatMenuModule`
  * to declare the menu-related directives.
  */
-// tslint:disable-next-line:class-name
 class _MatMenuDirectivesModule {
 }
 _MatMenuDirectivesModule.decorators = [

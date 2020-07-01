@@ -55,7 +55,6 @@ const MAT_RADIO_GROUP = new InjectionToken('MatRadioGroup');
  * Base class with all of the `MatRadioGroup` functionality.
  * @docs-private
  */
-// tslint:disable-next-line:class-name
 class _MatRadioGroupBase {
     constructor(_changeDetector) {
         this._changeDetector = _changeDetector;
@@ -280,7 +279,6 @@ const _MatRadioButtonMixinBase = mixinDisableRipple(mixinTabIndex(MatRadioButton
  * Base class with all of the `MatRadioButton` functionality.
  * @docs-private
  */
-// tslint:disable-next-line:class-name
 class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
     constructor(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride) {
         super(elementRef);
