@@ -7,7 +7,7 @@
  */
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
-import { MatSnackBarContainer } from './snack-bar-container';
+import { _SnackBarContainer } from './snack-bar-container';
 /** Event that is emitted when a snack bar is dismissed. */
 export interface MatSnackBarDismiss {
     /** Whether the snack bar was dismissed using the action button. */
@@ -24,7 +24,7 @@ export declare class MatSnackBarRef<T> {
      * The instance of the component making up the content of the snack bar.
      * @docs-private
      */
-    containerInstance: MatSnackBarContainer;
+    containerInstance: _SnackBarContainer;
     /** Subject for notifying the user that the snack bar has been dismissed. */
     private readonly _afterDismissed;
     /** Subject for notifying the user that the snack bar has opened and appeared. */
@@ -38,7 +38,7 @@ export declare class MatSnackBarRef<T> {
     private _durationTimeoutId;
     /** Whether the snack bar was dismissed using the action button. */
     private _dismissedByAction;
-    constructor(containerInstance: MatSnackBarContainer, _overlayRef: OverlayRef);
+    constructor(containerInstance: _SnackBarContainer, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
     /** Marks the snackbar action clicked. */

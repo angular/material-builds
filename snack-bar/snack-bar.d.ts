@@ -9,9 +9,10 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { EmbeddedViewRef, InjectionToken, Injector, TemplateRef, OnDestroy } from '@angular/core';
-import { SimpleSnackBar } from './simple-snack-bar';
+import { EmbeddedViewRef, InjectionToken, Injector, TemplateRef, OnDestroy, Type } from '@angular/core';
+import { TextOnlySnackBar } from './simple-snack-bar';
 import { MatSnackBarConfig } from './snack-bar-config';
+import { _SnackBarContainer } from './snack-bar-container';
 import { MatSnackBarRef } from './snack-bar-ref';
 /** Injection token that can be used to specify default snack bar. */
 export declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;
@@ -33,6 +34,12 @@ export declare class MatSnackBar implements OnDestroy {
      * via `_openedSnackBarRef`.
      */
     private _snackBarRefAtThisLevel;
+    /** The component that should be rendered as the snack bar's simple component. */
+    protected simpleSnackBarComponent: Type<TextOnlySnackBar>;
+    /** The container component that attaches the provided template or component. */
+    protected snackBarContainerComponent: Type<_SnackBarContainer>;
+    /** The CSS class to applie for handset mode. */
+    protected handsetCssClass: string;
     /** Reference to the currently opened snackbar at *any* level. */
     get _openedSnackBarRef(): MatSnackBarRef<any> | null;
     set _openedSnackBarRef(value: MatSnackBarRef<any> | null);
@@ -59,7 +66,7 @@ export declare class MatSnackBar implements OnDestroy {
      * @param action The label for the snackbar action.
      * @param config Additional configuration options for the snackbar.
      */
-    open(message: string, action?: string, config?: MatSnackBarConfig): MatSnackBarRef<SimpleSnackBar>;
+    open(message: string, action?: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar>;
     /**
      * Dismisses the currently-visible snack bar.
      */
