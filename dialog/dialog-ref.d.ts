@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 import { DialogPosition } from './dialog-config';
@@ -89,3 +90,9 @@ export declare class MatDialogRef<T, R = any> {
     /** Fetches the position strategy object from the overlay ref. */
     private _getPositionStrategy;
 }
+/**
+ * Closes the dialog with the specified interaction type. This is currently not part of
+ * `MatDialogRef` as that would conflict with custom dialog ref mocks provided in tests.
+ * More details. See: https://github.com/angular/components/pull/9257#issuecomment-651342226.
+ */
+export declare function _closeDialogVia<R>(ref: MatDialogRef<R>, interactionType: FocusOrigin, result?: R): void;

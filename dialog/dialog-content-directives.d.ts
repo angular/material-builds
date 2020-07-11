@@ -25,6 +25,7 @@ export declare class MatDialogClose implements OnInit, OnChanges {
     constructor(dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
+    _onButtonClick(event: MouseEvent): void;
 }
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
