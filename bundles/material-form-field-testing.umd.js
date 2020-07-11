@@ -463,6 +463,8 @@
         /**
          * Gets a reference to the container element which contains all projected
          * prefixes of the form-field.
+         * @deprecated Use `getPrefixText` instead.
+         * @breaking-change 11.0.0
          */
         MatFormFieldHarness.prototype.getHarnessLoaderForPrefix = function () {
             return __awaiter(this, void 0, void 0, function () {
@@ -471,14 +473,44 @@
                 });
             });
         };
+        /** Gets the text inside the prefix element. */
+        MatFormFieldHarness.prototype.getPrefixText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var prefix;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._prefixContainer()];
+                        case 1:
+                            prefix = _a.sent();
+                            return [2 /*return*/, prefix ? prefix.text() : ''];
+                    }
+                });
+            });
+        };
         /**
          * Gets a reference to the container element which contains all projected
          * suffixes of the form-field.
+         * @deprecated Use `getSuffixText` instead.
+         * @breaking-change 11.0.0
          */
         MatFormFieldHarness.prototype.getHarnessLoaderForSuffix = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     return [2 /*return*/, this._suffixContainer()];
+                });
+            });
+        };
+        /** Gets the text inside the suffix element. */
+        MatFormFieldHarness.prototype.getSuffixText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var suffix;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._suffixContainer()];
+                        case 1:
+                            suffix = _a.sent();
+                            return [2 /*return*/, suffix ? suffix.text() : ''];
+                    }
                 });
             });
         };
