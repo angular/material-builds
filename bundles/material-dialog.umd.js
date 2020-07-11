@@ -334,14 +334,21 @@
         __extends(MatDialogContainer, _super);
         function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, 
         /** The dialog configuration. */
-        _config) {
+        _config, _focusMonitor) {
             var _this = _super.call(this) || this;
             _this._elementRef = _elementRef;
             _this._focusTrapFactory = _focusTrapFactory;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._config = _config;
+            _this._focusMonitor = _focusMonitor;
             /** Element that was focused before the dialog was opened. Save this to restore upon close. */
             _this._elementFocusedBeforeDialogWasOpened = null;
+            /**
+             * Type of interaction that led to the dialog being closed. This is used to determine
+             * whether the focus style will be applied when returning focus to its original location
+             * after the dialog is closed.
+             */
+            _this._closeInteractionType = null;
             /** State of the dialog animation. */
             _this._state = 'enter';
             /** Emits when an animation state changes. */
@@ -413,9 +420,10 @@
         };
         /** Restores focus to the element that was focused before the dialog opened. */
         MatDialogContainer.prototype._restoreFocus = function () {
-            var toFocus = this._elementFocusedBeforeDialogWasOpened;
+            var previousElement = this._elementFocusedBeforeDialogWasOpened;
             // We need the extra check, because IE can set the `activeElement` to null in some cases.
-            if (this._config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
+            if (this._config.restoreFocus && previousElement &&
+                typeof previousElement.focus === 'function') {
                 var activeElement = this._document.activeElement;
                 var element = this._elementRef.nativeElement;
                 // Make sure that focus is still inside the dialog or is on the body (usually because a
@@ -424,7 +432,13 @@
                 // do anything.
                 if (!activeElement || activeElement === this._document.body || activeElement === element ||
                     element.contains(activeElement)) {
-                    toFocus.focus();
+                    if (this._focusMonitor) {
+                        this._focusMonitor.focusVia(previousElement, this._closeInteractionType);
+                        this._closeInteractionType = null;
+                    }
+                    else {
+                        previousElement.focus();
+                    }
                 }
             }
             if (this._focusTrap) {
@@ -508,7 +522,8 @@
             { type: a11y.FocusTrapFactory },
             { type: core.ChangeDetectorRef },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
-            { type: MatDialogConfig }
+            { type: MatDialogConfig },
+            { type: a11y.FocusMonitor }
         ]; };
         MatDialogContainer.propDecorators = {
             _portalOutlet: [{ type: core.ViewChild, args: [portal.CdkPortalOutlet, { static: true },] }]
@@ -573,14 +588,14 @@
             }))
                 .subscribe(function (event) {
                 event.preventDefault();
-                _this.close();
+                _closeDialogVia(_this, 'keyboard');
             });
             _overlayRef.backdropClick().subscribe(function () {
                 if (_this.disableClose) {
                     _this._containerInstance._recaptureFocus();
                 }
                 else {
-                    _this.close();
+                    _closeDialogVia(_this, 'mouse');
                 }
             });
         }
@@ -698,6 +713,20 @@
         };
         return MatDialogRef;
     }());
+    /**
+     * Closes the dialog with the specified interaction type. This is currently not part of
+     * `MatDialogRef` as that would conflict with custom dialog ref mocks provided in tests.
+     * More details. See: https://github.com/angular/components/pull/9257#issuecomment-651342226.
+     */
+    // TODO: TODO: Move this back into `MatDialogRef` when we provide an official mock dialog ref.
+    function _closeDialogVia(ref, interactionType, result) {
+        // Some mock dialog ref instances in tests do not have the `_containerInstance` property.
+        // For those, we keep the behavior as is and do not deal with the interaction type.
+        if (ref._containerInstance !== undefined) {
+            ref._containerInstance._closeInteractionType = interactionType;
+        }
+        return ref.close(result);
+    }
 
     /**
      * @license
@@ -1042,12 +1071,19 @@
                 this.dialogResult = proxiedChange.currentValue;
             }
         };
+        MatDialogClose.prototype._onButtonClick = function (event) {
+            // Determinate the focus origin using the click event, because using the FocusMonitor will
+            // result in incorrect origins. Most of the time, close buttons will be auto focused in the
+            // dialog, and therefore clicking the button won't result in a focus change. This means that
+            // the FocusMonitor won't detect any origin change, and will always output `program`.
+            _closeDialogVia(this.dialogRef, event.screenX === 0 && event.screenY === 0 ? 'keyboard' : 'mouse', this.dialogResult);
+        };
         MatDialogClose.decorators = [
             { type: core.Directive, args: [{
                         selector: '[mat-dialog-close], [matDialogClose]',
                         exportAs: 'matDialogClose',
                         host: {
-                            '(click)': 'dialogRef.close(dialogResult)',
+                            '(click)': '_onButtonClick($event)',
                             '[attr.aria-label]': 'ariaLabel || null',
                             '[attr.type]': 'type',
                         }
@@ -1221,6 +1257,7 @@
     exports.MatDialogModule = MatDialogModule;
     exports.MatDialogRef = MatDialogRef;
     exports.MatDialogTitle = MatDialogTitle;
+    exports._closeDialogVia = _closeDialogVia;
     exports.matDialogAnimations = matDialogAnimations;
     exports.throwMatDialogContentAlreadyAttachedError = throwMatDialogContentAlreadyAttachedError;
 

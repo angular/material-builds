@@ -8,7 +8,7 @@
 import { ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal, DomPortal } from '@angular/cdk/portal';
-import { FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusOrigin, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatDialogConfig } from './dialog-config';
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -27,6 +27,7 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     private _changeDetectorRef;
     /** The dialog configuration. */
     _config: MatDialogConfig;
+    private _focusMonitor?;
     private _document;
     /** The portal outlet inside of this container into which the dialog content will be loaded. */
     _portalOutlet: CdkPortalOutlet;
@@ -34,6 +35,12 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     private _focusTrap;
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */
     private _elementFocusedBeforeDialogWasOpened;
+    /**
+     * Type of interaction that led to the dialog being closed. This is used to determine
+     * whether the focus style will be applied when returning focus to its original location
+     * after the dialog is closed.
+     */
+    _closeInteractionType: FocusOrigin | null;
     /** State of the dialog animation. */
     _state: 'void' | 'enter' | 'exit';
     /** Emits when an animation state changes. */
@@ -44,7 +51,7 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     _id: string;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any, 
     /** The dialog configuration. */
-    _config: MatDialogConfig);
+    _config: MatDialogConfig, _focusMonitor?: FocusMonitor | undefined);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.

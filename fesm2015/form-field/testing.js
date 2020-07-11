@@ -139,19 +139,37 @@ class MatFormFieldHarness extends ComponentHarness {
     /**
      * Gets a reference to the container element which contains all projected
      * prefixes of the form-field.
+     * @deprecated Use `getPrefixText` instead.
+     * @breaking-change 11.0.0
      */
     getHarnessLoaderForPrefix() {
         return __awaiter(this, void 0, void 0, function* () {
             return this._prefixContainer();
         });
     }
+    /** Gets the text inside the prefix element. */
+    getPrefixText() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prefix = yield this._prefixContainer();
+            return prefix ? prefix.text() : '';
+        });
+    }
     /**
      * Gets a reference to the container element which contains all projected
      * suffixes of the form-field.
+     * @deprecated Use `getSuffixText` instead.
+     * @breaking-change 11.0.0
      */
     getHarnessLoaderForSuffix() {
         return __awaiter(this, void 0, void 0, function* () {
             return this._suffixContainer();
+        });
+    }
+    /** Gets the text inside the suffix element. */
+    getSuffixText() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const suffix = yield this._suffixContainer();
+            return suffix ? suffix.text() : '';
         });
     }
     /**
