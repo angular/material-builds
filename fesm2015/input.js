@@ -4,7 +4,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 
 /**
@@ -113,12 +113,15 @@ const _MatInputMixinBase = mixinErrorState(MatInputBase);
 class MatInput extends _MatInputMixinBase {
     constructor(_elementRef, _platform, 
     /** @docs-private */
-    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
+    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
+    // @breaking-change 8.0.0 `_formField` parameter to be made required.
+    _formField) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._platform = _platform;
         this.ngControl = ngControl;
         this._autofillMonitor = _autofillMonitor;
+        this._formField = _formField;
         this._uid = `mat-input-${nextUniqueId++}`;
         /**
          * Implemented as part of MatFormFieldControl.
@@ -303,6 +306,15 @@ class MatInput extends _MatInputMixinBase {
         // Listening to the input event wouldn't be necessary when the input is using the
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
     }
+    /** Determines the value of the native `placeholder` attribute that should be used in the DOM. */
+    _getPlaceholderAttribute() {
+        // If we're hiding the native placeholder, it should also be cleared from the DOM, otherwise
+        // screen readers will read it out twice: once from the label and once from the attribute.
+        // TODO: can be removed once we get rid of the `legacy` style for the form field, because it's
+        // the only one that supports promoting the placeholder to a label.
+        const formField = this._formField;
+        return (!formField || !formField._hideControlPlaceholder()) ? this.placeholder : undefined;
+    }
     /** Does some manual dirty checking on the native input `value` property. */
     _dirtyCheckNativeValue() {
         const newValue = this._elementRef.nativeElement.value;
@@ -389,7 +401,10 @@ MatInput.decorators = [
                     // Native input properties that are overwritten by Angular inputs need to be synced with
                     // the native input element. Otherwise property bindings for those don't work.
                     '[attr.id]': 'id',
-                    '[attr.placeholder]': 'placeholder',
+                    '[attr.placeholder]': '_getPlaceholderAttribute()',
+                    // At the time of writing, we have a lot of customer tests that look up the input based on its
+                    // placeholder. Since we sometimes omit the placeholder attribute from the DOM to prevent screen
+                    // readers from reading it twice, we have to keep it somewhere in the DOM for the lookup.
                     '[attr.data-placeholder]': 'placeholder',
                     '[disabled]': 'disabled',
                     '[required]': 'required',
@@ -410,7 +425,8 @@ MatInput.ctorParameters = () => [
     { type: ErrorStateMatcher },
     { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
     { type: AutofillMonitor },
-    { type: NgZone }
+    { type: NgZone },
+    { type: MatFormField, decorators: [{ type: Optional }] }
 ];
 MatInput.propDecorators = {
     disabled: [{ type: Input }],

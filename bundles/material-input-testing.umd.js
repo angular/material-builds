@@ -353,13 +353,19 @@
         /** Gets the placeholder of the input. */
         MatInputHarness.prototype.getPlaceholder = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var host, _a, nativePlaceholder, fallback;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).getProperty('placeholder')];
-                        case 2: 
-                        // The "placeholder" property of the native input is never undefined.
-                        return [2 /*return*/, (_a.sent())];
+                        case 1:
+                            host = _b.sent();
+                            return [4 /*yield*/, Promise.all([
+                                    host.getProperty('placeholder'),
+                                    host.getAttribute('data-placeholder')
+                                ])];
+                        case 2:
+                            _a = __read.apply(void 0, [_b.sent(), 2]), nativePlaceholder = _a[0], fallback = _a[1];
+                            return [2 /*return*/, nativePlaceholder || fallback || ''];
                     }
                 });
             });

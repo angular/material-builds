@@ -11,7 +11,7 @@ import { AutofillMonitor } from '@angular/cdk/text-field';
 import { DoCheck, ElementRef, NgZone, OnChanges, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 /** @docs-private */
 declare class MatInputBase {
@@ -32,6 +32,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** @docs-private */
     ngControl: NgControl;
     private _autofillMonitor;
+    private _formField?;
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
@@ -108,7 +109,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, 
     /** @docs-private */
-    ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone);
+    ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone, _formField?: MatFormField | undefined);
     ngAfterViewInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
@@ -118,6 +119,8 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
+    /** Determines the value of the native `placeholder` attribute that should be used in the DOM. */
+    _getPlaceholderAttribute(): string | undefined;
     /** Does some manual dirty checking on the native input `value` property. */
     protected _dirtyCheckNativeValue(): void;
     /** Make sure the input is a supported type. */

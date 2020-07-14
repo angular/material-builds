@@ -361,12 +361,15 @@
         __extends(MatInput, _super);
         function MatInput(_elementRef, _platform, 
         /** @docs-private */
-        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
+        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
+        // @breaking-change 8.0.0 `_formField` parameter to be made required.
+        _formField) {
             var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._elementRef = _elementRef;
             _this._platform = _platform;
             _this.ngControl = ngControl;
             _this._autofillMonitor = _autofillMonitor;
+            _this._formField = _formField;
             _this._uid = "mat-input-" + nextUniqueId++;
             /**
              * Implemented as part of MatFormFieldControl.
@@ -577,6 +580,15 @@
             // Listening to the input event wouldn't be necessary when the input is using the
             // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
         };
+        /** Determines the value of the native `placeholder` attribute that should be used in the DOM. */
+        MatInput.prototype._getPlaceholderAttribute = function () {
+            // If we're hiding the native placeholder, it should also be cleared from the DOM, otherwise
+            // screen readers will read it out twice: once from the label and once from the attribute.
+            // TODO: can be removed once we get rid of the `legacy` style for the form field, because it's
+            // the only one that supports promoting the placeholder to a label.
+            var formField = this._formField;
+            return (!formField || !formField._hideControlPlaceholder()) ? this.placeholder : undefined;
+        };
         /** Does some manual dirty checking on the native input `value` property. */
         MatInput.prototype._dirtyCheckNativeValue = function () {
             var newValue = this._elementRef.nativeElement.value;
@@ -669,7 +681,10 @@
                             // Native input properties that are overwritten by Angular inputs need to be synced with
                             // the native input element. Otherwise property bindings for those don't work.
                             '[attr.id]': 'id',
-                            '[attr.placeholder]': 'placeholder',
+                            '[attr.placeholder]': '_getPlaceholderAttribute()',
+                            // At the time of writing, we have a lot of customer tests that look up the input based on its
+                            // placeholder. Since we sometimes omit the placeholder attribute from the DOM to prevent screen
+                            // readers from reading it twice, we have to keep it somewhere in the DOM for the lookup.
                             '[attr.data-placeholder]': 'placeholder',
                             '[disabled]': 'disabled',
                             '[required]': 'required',
@@ -690,7 +705,8 @@
             { type: core$1.ErrorStateMatcher },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
             { type: textField.AutofillMonitor },
-            { type: core.NgZone }
+            { type: core.NgZone },
+            { type: formField.MatFormField, decorators: [{ type: core.Optional }] }
         ]; };
         MatInput.propDecorators = {
             disabled: [{ type: core.Input }],

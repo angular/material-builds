@@ -888,7 +888,7 @@
              * @docs-private
              */
             get: function () {
-                return (!this._chipInput || this._chipInput.empty) && this.chips.length === 0;
+                return (!this._chipInput || this._chipInput.empty) && (!this.chips || this.chips.length === 0);
             },
             enumerable: false,
             configurable: true
@@ -1376,7 +1376,7 @@
         };
         /** Checks whether any of the chips is focused. */
         MatChipList.prototype._hasFocusedChip = function () {
-            return this.chips.some(function (chip) { return chip._hasFocus; });
+            return this.chips && this.chips.some(function (chip) { return chip._hasFocus; });
         };
         /** Syncs the list's state with the individual chips. */
         MatChipList.prototype._syncChipsState = function () {

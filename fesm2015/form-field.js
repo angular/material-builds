@@ -443,7 +443,8 @@ class MatFormField extends _MatFormFieldMixinBase {
         return !!this._labelChild;
     }
     _shouldLabelFloat() {
-        return this._canLabelFloat && (this._control.shouldLabelFloat || this._shouldAlwaysFloat);
+        return this._canLabelFloat &&
+            ((this._control && this._control.shouldLabelFloat) || this._shouldAlwaysFloat);
     }
     _hideControlPlaceholder() {
         // In the legacy appearance the placeholder is promoted to a label if no label is given.

@@ -718,7 +718,8 @@
             return !!this._labelChild;
         };
         MatFormField.prototype._shouldLabelFloat = function () {
-            return this._canLabelFloat && (this._control.shouldLabelFloat || this._shouldAlwaysFloat);
+            return this._canLabelFloat &&
+                ((this._control && this._control.shouldLabelFloat) || this._shouldAlwaysFloat);
         };
         MatFormField.prototype._hideControlPlaceholder = function () {
             // In the legacy appearance the placeholder is promoted to a label if no label is given.

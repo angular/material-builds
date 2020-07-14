@@ -584,7 +584,7 @@ class MatChipList extends _MatChipListMixinBase {
      * @docs-private
      */
     get empty() {
-        return (!this._chipInput || this._chipInput.empty) && this.chips.length === 0;
+        return (!this._chipInput || this._chipInput.empty) && (!this.chips || this.chips.length === 0);
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -1024,7 +1024,7 @@ class MatChipList extends _MatChipListMixinBase {
     }
     /** Checks whether any of the chips is focused. */
     _hasFocusedChip() {
-        return this.chips.some(chip => chip._hasFocus);
+        return this.chips && this.chips.some(chip => chip._hasFocus);
     }
     /** Syncs the list's state with the individual chips. */
     _syncChipsState() {

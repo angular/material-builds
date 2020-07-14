@@ -71,8 +71,12 @@ class MatInputHarness extends MatFormFieldControlHarness {
     /** Gets the placeholder of the input. */
     getPlaceholder() {
         return __awaiter(this, void 0, void 0, function* () {
-            // The "placeholder" property of the native input is never undefined.
-            return (yield (yield this.host()).getProperty('placeholder'));
+            const host = yield this.host();
+            const [nativePlaceholder, fallback] = yield Promise.all([
+                host.getProperty('placeholder'),
+                host.getAttribute('data-placeholder')
+            ]);
+            return nativePlaceholder || fallback || '';
         });
     }
     /** Gets the id of the input. */
