@@ -321,6 +321,7 @@
             this._defaultOptions = _defaultOptions;
             this._position = 'below';
             this._disabled = false;
+            this._viewInitialized = false;
             /** The default delay in ms before showing the tooltip after show is called */
             this.showDelay = this._defaultOptions.showDelay;
             /** The default delay in ms before hiding the tooltip after hide is called */
@@ -396,6 +397,9 @@
                 if (this._disabled) {
                     this.hide(0);
                 }
+                else {
+                    this._setupPointerEvents();
+                }
             },
             enumerable: false,
             configurable: true
@@ -405,13 +409,16 @@
             get: function () { return this._message; },
             set: function (value) {
                 var _this = this;
-                this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
+                if (this._message) {
+                    this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
+                }
                 // If the message is not a string (e.g. number), convert it to a string and trim it.
                 this._message = value != null ? ("" + value).trim() : '';
                 if (!this._message && this._isTooltipVisible()) {
                     this.hide(0);
                 }
                 else {
+                    this._setupPointerEvents();
                     this._updateTooltipMessage();
                     this._ngZone.runOutsideAngular(function () {
                         // The `AriaDescriber` has some functionality that avoids adding a description if it's the
@@ -442,6 +449,7 @@
         MatTooltip.prototype.ngAfterViewInit = function () {
             var _this = this;
             // This needs to happen after view init so the initial values for all inputs have been set.
+            this._viewInitialized = true;
             this._setupPointerEvents();
             this._focusMonitor.monitor(this._elementRef)
                 .pipe(operators.takeUntil(this._destroyed))
@@ -667,6 +675,11 @@
         /** Binds the pointer events to the tooltip trigger. */
         MatTooltip.prototype._setupPointerEvents = function () {
             var _this = this;
+            // Optimization: Defer hooking up events if there's no message or the tooltip is disabled.
+            if (this._disabled || !this.message || !this._viewInitialized ||
+                this._passiveListeners.size) {
+                return;
+            }
             // The mouse events shouldn't be bound on mobile devices, because they can prevent the
             // first tap from firing its click event or can cause the tooltip to open for clicks.
             if (!this._platform.IOS && !this._platform.ANDROID) {
