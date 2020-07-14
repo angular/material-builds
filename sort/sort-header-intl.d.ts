@@ -17,7 +17,11 @@ export declare class MatSortHeaderIntl {
      * components if the labels have changed after initialization.
      */
     readonly changes: Subject<void>;
-    /** ARIA label for the sorting button. */
+    /**
+     * ARIA label for the sorting button.
+     * @deprecated Not used anymore. To be removed.
+     * @breaking-change 8.0.0
+     */
     sortButtonLabel: (id: string) => string;
 }
 /** @docs-private */

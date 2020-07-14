@@ -244,7 +244,7 @@
         __extends(MatSortHeaderHarness, _super);
         function MatSortHeaderHarness() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this._button = _this.locatorFor('.mat-sort-header-button');
+            _this._container = _this.locatorFor('.mat-sort-header-container');
             return _this;
         }
         /**
@@ -264,7 +264,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._button()];
+                        case 0: return [4 /*yield*/, this._container()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
                     }
                 });
@@ -293,12 +293,16 @@
                 });
             });
         };
-        /** Gets the aria-label of the sort header. */
+        /**
+         * Gets the aria-label of the sort header.
+         * @deprecated The sort header no longer has an `aria-label`. This method will be removed.
+         * @breaking-change 11.0.0
+         */
         MatSortHeaderHarness.prototype.getAriaLabel = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._button()];
+                        case 0: return [4 /*yield*/, this._container()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
                     }
                 });
@@ -318,14 +322,10 @@
         /** Whether the sort header is disabled. */
         MatSortHeaderHarness.prototype.isDisabled = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var button;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._button()];
-                        case 1:
-                            button = _a.sent();
-                            return [4 /*yield*/, button.getAttribute('disabled')];
-                        case 2: return [2 /*return*/, (_a.sent()) != null];
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-sort-header-disabled')];
                     }
                 });
             });

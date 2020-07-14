@@ -11,7 +11,7 @@ import { SortHeaderHarnessFilters } from './sort-harness-filters';
 /** Harness for interacting with a standard Angular Material sort header in tests. */
 export declare class MatSortHeaderHarness extends ComponentHarness {
     static hostSelector: string;
-    private _button;
+    private _container;
     /**
      * Gets a `HarnessPredicate` that can be used to
      * search for a sort header with specific attributes.
@@ -21,7 +21,11 @@ export declare class MatSortHeaderHarness extends ComponentHarness {
     getLabel(): Promise<string>;
     /** Gets the sorting direction of the header. */
     getSortDirection(): Promise<SortDirection>;
-    /** Gets the aria-label of the sort header. */
+    /**
+     * Gets the aria-label of the sort header.
+     * @deprecated The sort header no longer has an `aria-label`. This method will be removed.
+     * @breaking-change 11.0.0
+     */
     getAriaLabel(): Promise<string | null>;
     /** Gets whether the sort header is currently being sorted by. */
     isActive(): Promise<boolean>;

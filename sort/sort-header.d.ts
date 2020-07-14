@@ -100,7 +100,9 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
      */
     _setAnimationTransitionState(viewState: ArrowViewStateTransition): void;
     /** Triggers the sort on this sort header and removes the indicator hint. */
+    _toggleOnInteraction(): void;
     _handleClick(): void;
+    _handleKeydown(event: KeyboardEvent): void;
     /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
     _isSorted(): boolean;
     /** Returns the animation state for the arrow direction (indicator and pointers). */
@@ -125,7 +127,7 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
      * says that the aria-sort property should only be present on one header at a time, so removing
      * ensures this is true.
      */
-    _getAriaSortAttribute(): "ascending" | "descending" | null;
+    _getAriaSortAttribute(): "none" | "ascending" | "descending";
     /** Whether the arrow inside the sort header should be rendered. */
     _renderArrow(): boolean;
     static ngAcceptInputType_disableClear: BooleanInput;
