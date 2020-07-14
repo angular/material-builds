@@ -298,50 +298,10 @@
                 });
             });
         };
-        MatCardHarness.prototype.getChildLoader = function (selector) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.locatorFactory.rootHarnessLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getChildLoader(selector)];
-                    }
-                });
-            });
-        };
-        MatCardHarness.prototype.getAllChildLoaders = function (selector) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.locatorFactory.rootHarnessLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAllChildLoaders(selector)];
-                    }
-                });
-            });
-        };
-        MatCardHarness.prototype.getHarness = function (query) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.locatorFactory.rootHarnessLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getHarness(query)];
-                    }
-                });
-            });
-        };
-        MatCardHarness.prototype.getAllHarnesses = function (query) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.locatorFactory.rootHarnessLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAllHarnesses(query)];
-                    }
-                });
-            });
-        };
         /** The selector for the host element of a `MatCard` instance. */
         MatCardHarness.hostSelector = 'mat-card';
         return MatCardHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
 
     /**
      * @license

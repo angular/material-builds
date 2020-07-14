@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, HarnessLoader, HarnessPredicate, HarnessQuery } from '@angular/cdk/testing';
+import { HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { CardHarnessFilters } from './card-harness-filters';
 /** Selectors for different sections of the mat-card that can container user content. */
 export declare const enum MatCardSection {
@@ -15,7 +15,7 @@ export declare const enum MatCardSection {
     FOOTER = ".mat-card-footer"
 }
 /** Harness for interacting with a standard mat-card in tests. */
-export declare class MatCardHarness extends ComponentHarness implements HarnessLoader {
+export declare class MatCardHarness extends ContentContainerComponentHarness<MatCardSection> {
     /** The selector for the host element of a `MatCard` instance. */
     static hostSelector: string;
     /**
@@ -33,8 +33,4 @@ export declare class MatCardHarness extends ComponentHarness implements HarnessL
     getTitleText(): Promise<string>;
     /** Gets the cards's subtitle text. */
     getSubtitleText(): Promise<string>;
-    getChildLoader(selector: string): Promise<HarnessLoader>;
-    getAllChildLoaders(selector: string): Promise<HarnessLoader[]>;
-    getHarness<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T>;
-    getAllHarnesses<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T[]>;
 }

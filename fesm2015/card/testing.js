@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -9,7 +9,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard mat-card in tests. */
-class MatCardHarness extends ComponentHarness {
+class MatCardHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
         this._title = this.locatorForOptional('.mat-card-title');
@@ -45,26 +45,6 @@ class MatCardHarness extends ComponentHarness {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             return (_b = (_a = (yield this._subtitle())) === null || _a === void 0 ? void 0 : _a.text()) !== null && _b !== void 0 ? _b : '';
-        });
-    }
-    getChildLoader(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.locatorFactory.rootHarnessLoader()).getChildLoader(selector);
-        });
-    }
-    getAllChildLoaders(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.locatorFactory.rootHarnessLoader()).getAllChildLoaders(selector);
-        });
-    }
-    getHarness(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.locatorFactory.rootHarnessLoader()).getHarness(query);
-        });
-    }
-    getAllHarnesses(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.locatorFactory.rootHarnessLoader()).getAllHarnesses(query);
         });
     }
 }
