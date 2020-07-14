@@ -79,6 +79,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _disabled;
     private _tooltipClass;
     private _scrollStrategy;
+    private _viewInitialized;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
