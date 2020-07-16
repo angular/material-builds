@@ -36,6 +36,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
+    private _previousPlaceholder;
     /** The aria-describedby attribute on the input for improved a11y. */
     _ariaDescribedby: string;
     /** Whether the component is being rendered on the server. */
@@ -119,8 +120,8 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
-    /** Determines the value of the native `placeholder` attribute that should be used in the DOM. */
-    _getPlaceholderAttribute(): string | undefined;
+    /** Does some manual dirty checking on the native input `placeholder` attribute. */
+    private _dirtyCheckPlaceholder;
     /** Does some manual dirty checking on the native input `value` property. */
     protected _dirtyCheckNativeValue(): void;
     /** Make sure the input is a supported type. */
