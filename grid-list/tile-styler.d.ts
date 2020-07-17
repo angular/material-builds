@@ -5,9 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { MatGridList } from './grid-list';
+import { QueryList } from '@angular/core';
 import { MatGridTile } from './grid-tile';
 import { TileCoordinator } from './tile-coordinator';
+/** Object that can be styled by the `TileStyler`. */
+export interface TileStyleTarget {
+    _setListStyle(style: [string, string | null] | null): void;
+    _tiles: QueryList<MatGridTile>;
+}
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
@@ -86,7 +91,7 @@ export declare abstract class TileStyler {
      * @param list Grid list that the styler was attached to.
      * @docs-private
      */
-    abstract reset(list: MatGridList): void;
+    abstract reset(list: TileStyleTarget): void;
 }
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
@@ -99,7 +104,7 @@ export declare class FixedTileStyler extends TileStyler {
     init(gutterSize: string, tracker: TileCoordinator, cols: number, direction: string): void;
     setRowStyles(tile: MatGridTile, rowIndex: number): void;
     getComputedHeight(): [string, string];
-    reset(list: MatGridList): void;
+    reset(list: TileStyleTarget): void;
 }
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
@@ -113,7 +118,7 @@ export declare class RatioTileStyler extends TileStyler {
     constructor(value: string);
     setRowStyles(tile: MatGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     getComputedHeight(): [string, string];
-    reset(list: MatGridList): void;
+    reset(list: TileStyleTarget): void;
     private _parseRatio;
 }
 /**
@@ -125,5 +130,5 @@ export declare class RatioTileStyler extends TileStyler {
  */
 export declare class FitTileStyler extends TileStyler {
     setRowStyles(tile: MatGridTile, rowIndex: number): void;
-    reset(list: MatGridList): void;
+    reset(list: TileStyleTarget): void;
 }
