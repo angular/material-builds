@@ -55,6 +55,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     private _model?;
     private _dateAdapter?;
     private _rangeSelectionStrategy?;
+    private _subscriptions;
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
     /** Reference to the datepicker that created the overlay. */
@@ -91,7 +92,7 @@ export interface MatDatepickerControl<D> {
     disabled: boolean;
     dateFilter: DateFilterFn<D>;
     getConnectedOverlayOrigin(): ElementRef;
-    _disabledChange: Observable<boolean>;
+    _stateChanges: Observable<void>;
 }
 /** Base class for a datepicker. */
 export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy, CanColor, OnChanges {
@@ -104,6 +105,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     private _document;
     private _model;
     private _scrollStrategy;
+    private _inputStateChanges;
     /** An input indicating the type of the custom header component for the calendar, if set. */
     calendarHeaderComponent: ComponentType<any>;
     /** The date to open the calendar to initially. */
@@ -170,8 +172,8 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     private _focusedElementBeforeOpen;
     /** The input element this datepicker is associated with. */
     _datepickerInput: C;
-    /** Emits when the datepicker is disabled. */
-    readonly _disabledChange: Subject<boolean>;
+    /** Emits when the datepicker's state changes. */
+    readonly _stateChanges: Subject<void>;
     constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any, _model: MatDateSelectionModel<S, D>);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;

@@ -6,10 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, AfterViewInit, OnChanges } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
-import { ExtractDateTypeFromSelection, MatDateSelectionModel } from './date-selection-model';
+import { Subject } from 'rxjs';
+import { ExtractDateTypeFromSelection, MatDateSelectionModel, DateSelectionModelChange } from './date-selection-model';
 /**
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
@@ -31,7 +32,7 @@ export declare class MatDatepickerInputEvent<D, S = unknown> {
 /** Function that can be used to filter out dates from a calendar. */
 export declare type DateFilterFn<D> = (date: D | null) => boolean;
 /** Base class for datepicker inputs. */
-export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelection<S>> implements ControlValueAccessor, AfterViewInit, OnDestroy, Validator {
+export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelection<S>> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy, Validator {
     protected _elementRef: ElementRef<HTMLInputElement>;
     _dateAdapter: DateAdapter<D>;
     private _dateFormats;
@@ -51,8 +52,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     readonly dateInput: EventEmitter<MatDatepickerInputEvent<D, S>>;
     /** Emits when the value changes (either due to user input or programmatic change). */
     _valueChange: EventEmitter<D | null>;
-    /** Emits when the disabled state has changed */
-    _disabledChange: EventEmitter<boolean>;
+    /** Emits when the internal state has changed */
+    _stateChanges: Subject<void>;
     _onTouched: () => void;
     _validatorOnChange: () => void;
     protected _cvaOnChange: (value: any) => void;
@@ -95,10 +96,13 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
      * from somewhere that's not the current datepicker input.
      */
     protected abstract _outsideValueChanged?: () => void;
+    /** Predicate that determines whether we're allowed to emit a particular change event. */
+    protected abstract _canEmitChangeEvent(event: DateSelectionModelChange<S>): boolean;
     /** Whether the last value set on the input was valid. */
     protected _lastValueValid: boolean;
     constructor(_elementRef: ElementRef<HTMLInputElement>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);
     ngAfterViewInit(): void;
+    ngOnChanges(): void;
     ngOnDestroy(): void;
     /** @docs-private */
     registerOnValidatorChange(fn: () => void): void;

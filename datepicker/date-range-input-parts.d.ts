@@ -10,7 +10,7 @@ import { NgForm, FormGroupDirective, NgControl, ValidatorFn } from '@angular/for
 import { CanUpdateErrorState, CanUpdateErrorStateCtor, DateAdapter, MatDateFormats, ErrorStateMatcher } from '@angular/material/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
-import { DateRange } from './date-selection-model';
+import { DateRange, DateSelectionModelChange } from './date-selection-model';
 /** Parent component that should be wrapped around `MatStartDate` and `MatEndDate`. */
 export interface MatDateRangeInputParent<D> {
     id: string;
@@ -79,6 +79,7 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _assignValueToModel(value: D | null): void;
+    protected _canEmitChangeEvent: (event: DateSelectionModelChange<DateRange<D>>) => boolean;
     protected _formatValue(value: D | null): void;
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
@@ -92,6 +93,7 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _assignValueToModel(value: D | null): void;
+    protected _canEmitChangeEvent: (event: DateSelectionModelChange<DateRange<D>>) => boolean;
     _onKeydown(event: KeyboardEvent): void;
     static ngAcceptInputType_disabled: BooleanInput;
 }

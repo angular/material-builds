@@ -2122,6 +2122,7 @@
             _this._model = _model;
             _this._dateAdapter = _dateAdapter;
             _this._rangeSelectionStrategy = _rangeSelectionStrategy;
+            _this._subscriptions = new rxjs.Subscription();
             /** Current state of the animation. */
             _this._animationState = 'enter';
             /** Emits when an animation has finished. */
@@ -2129,9 +2130,17 @@
             return _this;
         }
         MatDatepickerContent.prototype.ngAfterViewInit = function () {
+            var _this = this;
+            // @breaking-change 11.0.0 Remove null check for `_changeDetectorRef.
+            if (this._changeDetectorRef) {
+                this._subscriptions.add(this.datepicker._stateChanges.subscribe(function () {
+                    _this._changeDetectorRef.markForCheck();
+                }));
+            }
             this._calendar.focusActiveCell();
         };
         MatDatepickerContent.prototype.ngOnDestroy = function () {
+            this._subscriptions.unsubscribe();
             this._animationDone.complete();
         };
         MatDatepickerContent.prototype._handleUserSelection = function (event) {
@@ -2214,6 +2223,7 @@
             this._dir = _dir;
             this._document = _document;
             this._model = _model;
+            this._inputStateChanges = rxjs.Subscription.EMPTY;
             /** The view that the calendar should start in. */
             this.startView = 'month';
             this._touchUi = false;
@@ -2240,8 +2250,8 @@
             this.id = "mat-datepicker-" + datepickerUid++;
             /** The element that was focused before the datepicker was opened. */
             this._focusedElementBeforeOpen = null;
-            /** Emits when the datepicker is disabled. */
-            this._disabledChange = new rxjs.Subject();
+            /** Emits when the datepicker's state changes. */
+            this._stateChanges = new rxjs.Subject();
             if (!this._dateAdapter) {
                 throw createMissingDateImplError('DateAdapter');
             }
@@ -2294,7 +2304,7 @@
                 var newValue = coercion.coerceBooleanProperty(value);
                 if (newValue !== this._disabled) {
                     this._disabled = newValue;
-                    this._disabledChange.next(newValue);
+                    this._stateChanges.next(undefined);
                 }
             },
             enumerable: false,
@@ -2338,11 +2348,13 @@
                     this._popupRef.updatePosition();
                 }
             }
+            this._stateChanges.next(undefined);
         };
         MatDatepickerBase.prototype.ngOnDestroy = function () {
             this._destroyPopup();
             this.close();
-            this._disabledChange.complete();
+            this._inputStateChanges.unsubscribe();
+            this._stateChanges.complete();
         };
         /** Selects the given date */
         MatDatepickerBase.prototype.select = function (date) {
@@ -2362,10 +2374,14 @@
          * @returns Selection model that the input should hook itself up to.
          */
         MatDatepickerBase.prototype._registerInput = function (input) {
+            var _this = this;
             if (this._datepickerInput) {
                 throw Error('A MatDatepicker can only be associated with a single input.');
             }
+            this._inputStateChanges.unsubscribe();
             this._datepickerInput = input;
+            this._inputStateChanges =
+                input._stateChanges.subscribe(function () { return _this._stateChanges.next(undefined); });
             return this._model;
         };
         /** Open the calendar. */
@@ -2653,8 +2669,8 @@
             this.dateInput = new i0.EventEmitter();
             /** Emits when the value changes (either due to user input or programmatic change). */
             this._valueChange = new i0.EventEmitter();
-            /** Emits when the disabled state has changed */
-            this._disabledChange = new i0.EventEmitter();
+            /** Emits when the internal state has changed */
+            this._stateChanges = new rxjs.Subject();
             this._onTouched = function () { };
             this._validatorOnChange = function () { };
             this._cvaOnChange = function () { };
@@ -2728,7 +2744,7 @@
                 var element = this._elementRef.nativeElement;
                 if (this._disabled !== newValue) {
                     this._disabled = newValue;
-                    this._disabledChange.emit(newValue);
+                    this._stateChanges.next(undefined);
                 }
                 // We need to null check the `blur` method, because it's undefined during SSR.
                 // In Ivy static bindings are invoked earlier, before the element is attached to the DOM.
@@ -2763,8 +2779,13 @@
                     _this._cvaOnChange(value);
                     _this._onTouched();
                     _this._formatValue(value);
-                    _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                    _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    // Note that we can't wrap the entire block with this logic, because for the range inputs
+                    // we want to revalidate whenever either one of the inputs changes and we don't have a
+                    // good way of distinguishing it at the moment.
+                    if (_this._canEmitChangeEvent(event)) {
+                        _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                        _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    }
                     if (_this._outsideValueChanged) {
                         _this._outsideValueChanged();
                     }
@@ -2774,11 +2795,14 @@
         MatDatepickerInputBase.prototype.ngAfterViewInit = function () {
             this._isInitialized = true;
         };
+        MatDatepickerInputBase.prototype.ngOnChanges = function () {
+            this._stateChanges.next(undefined);
+        };
         MatDatepickerInputBase.prototype.ngOnDestroy = function () {
             this._valueChangesSubscription.unsubscribe();
             this._localeSubscription.unsubscribe();
             this._valueChange.complete();
-            this._disabledChange.complete();
+            this._stateChanges.complete();
         };
         /** @docs-private */
         MatDatepickerInputBase.prototype.registerOnValidatorChange = function (fn) {
@@ -3013,6 +3037,9 @@
         MatDatepickerInput.prototype._getDateFilter = function () {
             return this._dateFilter;
         };
+        MatDatepickerInput.prototype._canEmitChangeEvent = function () {
+            return true;
+        };
         MatDatepickerInput.decorators = [
             { type: i0.Directive, args: [{
                         selector: 'input[matDatepicker]',
@@ -3109,14 +3136,14 @@
         };
         MatDatepickerToggle.prototype._watchStateChanges = function () {
             var _this = this;
-            var datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs.of();
-            var inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
-                this.datepicker._datepickerInput._disabledChange : rxjs.of();
+            var datepickerStateChanged = this.datepicker ? this.datepicker._stateChanges : rxjs.of();
+            var inputStateChanged = this.datepicker && this.datepicker._datepickerInput ?
+                this.datepicker._datepickerInput._stateChanges : rxjs.of();
             var datepickerToggled = this.datepicker ?
                 rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
                 rxjs.of();
             this._stateChanges.unsubscribe();
-            this._stateChanges = rxjs.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            this._stateChanges = rxjs.merge(this._intl.changes, datepickerStateChanged, inputStateChanged, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         };
         MatDatepickerToggle.decorators = [
             { type: i0.Component, args: [{
@@ -3277,6 +3304,9 @@
                     null : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
             };
             _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._startValidator]));
+            _this._canEmitChangeEvent = function (event) {
+                return event.source !== _this._rangeInput._endInput;
+            };
             return _this;
         }
         MatStartDate.prototype._getValueFromModel = function (modelValue) {
@@ -3353,6 +3383,9 @@
                     null : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
             };
             _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._endValidator]));
+            _this._canEmitChangeEvent = function (event) {
+                return event.source !== _this._rangeInput._startInput;
+            };
             return _this;
         }
         MatEndDate.prototype._getValueFromModel = function (modelValue) {
@@ -3475,8 +3508,8 @@
             this.comparisonStart = null;
             /** End of the comparison range that should be shown in the calendar. */
             this.comparisonEnd = null;
-            /** Emits when the input's disabled state changes. */
-            this._disabledChange = new rxjs.Subject();
+            /** Emits when the input's state changes. */
+            this._stateChanges = new rxjs.Subject();
             if (!_dateAdapter) {
                 throw createMissingDateImplError('DateAdapter');
             }
@@ -3577,7 +3610,7 @@
                 var newValue = coercion.coerceBooleanProperty(value);
                 if (newValue !== this._groupDisabled) {
                     this._groupDisabled = newValue;
-                    this._disabledChange.next(this.disabled);
+                    this._stateChanges.next(undefined);
                 }
             },
             enumerable: false,
@@ -3638,13 +3671,16 @@
             }
             // We don't need to unsubscribe from this, because we
             // know that the input streams will be completed on destroy.
-            rxjs.merge(this._startInput._disabledChange, this._endInput._disabledChange).subscribe(function () {
-                _this._disabledChange.next(_this.disabled);
+            rxjs.merge(this._startInput.stateChanges, this._endInput.stateChanges).subscribe(function () {
+                _this._stateChanges.next(undefined);
             });
+        };
+        MatDateRangeInput.prototype.ngOnChanges = function () {
+            this._stateChanges.next(undefined);
         };
         MatDateRangeInput.prototype.ngOnDestroy = function () {
             this.stateChanges.complete();
-            this._disabledChange.unsubscribe();
+            this._stateChanges.unsubscribe();
         };
         /** Gets the date at which the calendar should start. */
         MatDateRangeInput.prototype.getStartValue = function () {
@@ -3668,7 +3704,7 @@
         };
         /** Handles the value in one of the child inputs changing. */
         MatDateRangeInput.prototype._handleChildValueChange = function () {
-            this.stateChanges.next();
+            this.stateChanges.next(undefined);
             this._changeDetectorRef.markForCheck();
         };
         /** Opens the date range picker associated with the input. */
