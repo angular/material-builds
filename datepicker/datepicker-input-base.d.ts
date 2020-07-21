@@ -9,7 +9,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
-import { ExtractDateTypeFromSelection, MatDateSelectionModel } from './date-selection-model';
+import { ExtractDateTypeFromSelection, MatDateSelectionModel, DateSelectionModelChange } from './date-selection-model';
 /**
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
@@ -95,6 +95,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
      * from somewhere that's not the current datepicker input.
      */
     protected abstract _outsideValueChanged?: () => void;
+    /** Predicate that determines whether we're allowed to emit a particular change event. */
+    protected abstract _canEmitChangeEvent(event: DateSelectionModelChange<S>): boolean;
     /** Whether the last value set on the input was valid. */
     protected _lastValueValid: boolean;
     constructor(_elementRef: ElementRef<HTMLInputElement>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);

@@ -2763,8 +2763,13 @@
                     _this._cvaOnChange(value);
                     _this._onTouched();
                     _this._formatValue(value);
-                    _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                    _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    // Note that we can't wrap the entire block with this logic, because for the range inputs
+                    // we want to revalidate whenever either one of the inputs changes and we don't have a
+                    // good way of distinguishing it at the moment.
+                    if (_this._canEmitChangeEvent(event)) {
+                        _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                        _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    }
                     if (_this._outsideValueChanged) {
                         _this._outsideValueChanged();
                     }
@@ -3012,6 +3017,9 @@
         /** Gets the input's date filtering function. */
         MatDatepickerInput.prototype._getDateFilter = function () {
             return this._dateFilter;
+        };
+        MatDatepickerInput.prototype._canEmitChangeEvent = function () {
+            return true;
         };
         MatDatepickerInput.decorators = [
             { type: i0.Directive, args: [{
@@ -3277,6 +3285,9 @@
                     null : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
             };
             _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._startValidator]));
+            _this._canEmitChangeEvent = function (event) {
+                return event.source !== _this._rangeInput._endInput;
+            };
             return _this;
         }
         MatStartDate.prototype._getValueFromModel = function (modelValue) {
@@ -3353,6 +3364,9 @@
                     null : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
             };
             _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._endValidator]));
+            _this._canEmitChangeEvent = function (event) {
+                return event.source !== _this._rangeInput._startInput;
+            };
             return _this;
         }
         MatEndDate.prototype._getValueFromModel = function (modelValue) {

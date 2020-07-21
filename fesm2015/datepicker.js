@@ -2376,8 +2376,13 @@ class MatDatepickerInputBase {
                 this._cvaOnChange(value);
                 this._onTouched();
                 this._formatValue(value);
-                this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-                this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+                // Note that we can't wrap the entire block with this logic, because for the range inputs
+                // we want to revalidate whenever either one of the inputs changes and we don't have a
+                // good way of distinguishing it at the moment.
+                if (this._canEmitChangeEvent(event)) {
+                    this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+                    this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+                }
                 if (this._outsideValueChanged) {
                     this._outsideValueChanged();
                 }
@@ -2606,6 +2611,9 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     /** Gets the input's date filtering function. */
     _getDateFilter() {
         return this._dateFilter;
+    }
+    _canEmitChangeEvent() {
+        return true;
     }
 }
 MatDatepickerInput.decorators = [
@@ -2856,6 +2864,9 @@ class MatStartDate extends _MatDateRangeInputBase {
                 null : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
         };
         this._validator = Validators.compose([...super._getValidators(), this._startValidator]);
+        this._canEmitChangeEvent = (event) => {
+            return event.source !== this._rangeInput._endInput;
+        };
     }
     _getValueFromModel(modelValue) {
         return modelValue.start;
@@ -2928,6 +2939,9 @@ class MatEndDate extends _MatDateRangeInputBase {
                 null : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
         };
         this._validator = Validators.compose([...super._getValidators(), this._endValidator]);
+        this._canEmitChangeEvent = (event) => {
+            return event.source !== this._rangeInput._startInput;
+        };
     }
     _getValueFromModel(modelValue) {
         return modelValue.end;
