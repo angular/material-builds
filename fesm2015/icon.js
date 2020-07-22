@@ -684,10 +684,18 @@ class MatIcon extends _MatIconMixinBase {
     ngOnChanges(changes) {
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
         const svgIconChanges = changes['svgIcon'];
+        this._svgNamespace = null;
+        this._svgName = null;
         if (svgIconChanges) {
             this._currentIconFetch.unsubscribe();
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
+                if (namespace) {
+                    this._svgNamespace = namespace;
+                }
+                if (iconName) {
+                    this._svgName = iconName;
+                }
                 this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName, namespace)
                     .pipe(take(1))
                     .subscribe(svg => this._setSvgElement(svg), (err) => {
@@ -853,6 +861,9 @@ MatIcon.decorators = [
                 host: {
                     'role': 'img',
                     'class': 'mat-icon notranslate',
+                    '[attr.data-mat-icon-type]': '_usingFontIcon() ? "font" : "svg"',
+                    '[attr.data-mat-icon-name]': '_svgName || fontIcon',
+                    '[attr.data-mat-icon-namespace]': '_svgNamespace || fontSet',
                     '[class.mat-icon-inline]': 'inline',
                     '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
                 },

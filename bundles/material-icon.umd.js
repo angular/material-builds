@@ -934,10 +934,18 @@
             var _this = this;
             // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
             var svgIconChanges = changes['svgIcon'];
+            this._svgNamespace = null;
+            this._svgName = null;
             if (svgIconChanges) {
                 this._currentIconFetch.unsubscribe();
                 if (this.svgIcon) {
                     var _a = __read(this._splitIconName(this.svgIcon), 2), namespace_1 = _a[0], iconName_1 = _a[1];
+                    if (namespace_1) {
+                        this._svgNamespace = namespace_1;
+                    }
+                    if (iconName_1) {
+                        this._svgName = iconName_1;
+                    }
                     this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
                         .pipe(operators.take(1))
                         .subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) {
@@ -1105,6 +1113,9 @@
                         host: {
                             'role': 'img',
                             'class': 'mat-icon notranslate',
+                            '[attr.data-mat-icon-type]': '_usingFontIcon() ? "font" : "svg"',
+                            '[attr.data-mat-icon-name]': '_svgName || fontIcon',
+                            '[attr.data-mat-icon-namespace]': '_svgNamespace || fontSet',
                             '[class.mat-icon-inline]': 'inline',
                             '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
                         },

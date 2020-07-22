@@ -80,6 +80,8 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _fontIcon;
     private _previousFontSetClass;
     private _previousFontIconClass;
+    _svgName: string | null;
+    _svgNamespace: string | null;
     /** Keeps track of the current page path. */
     private _previousPath?;
     /** Keeps track of the elements and attributes that we've prefixed with the current path. */
@@ -105,7 +107,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     ngOnInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
-    private _usingFontIcon;
+    _usingFontIcon(): boolean;
     private _setSvgElement;
     private _clearSvgElement;
     private _updateFontIconClasses;
