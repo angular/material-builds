@@ -1,7 +1,7 @@
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UP_ARROW, DOWN_ARROW, END, hasModifierKey, HOME, RIGHT_ARROW, LEFT_ARROW, ESCAPE } from '@angular/cdk/keycodes';
-import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
+import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, isDevMode, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
 import { trigger, state, style, transition, group, query, animate } from '@angular/animations';
@@ -198,6 +198,15 @@ function throwMatMenuInvalidPositionX() {
 function throwMatMenuInvalidPositionY() {
     throw Error(`yPosition value must be either 'above' or below'.
       Example: <mat-menu yPosition="above" #menu="matMenu"></mat-menu>`);
+}
+/**
+ * Throws an exception for the case when a menu is assigned
+ * to a trigger that is placed inside the same menu.
+ * @docs-private
+ */
+function throwMatMenuRecursiveError() {
+    throw Error(`matMenuTriggerFor: menu cannot contain its own trigger. Assign a menu that is ` +
+        `not a parent of the trigger or move the trigger outside of the menu.`);
 }
 
 /**
@@ -422,7 +431,7 @@ class _MatMenuBase {
     /** Position of the menu in the X axis. */
     get xPosition() { return this._xPosition; }
     set xPosition(value) {
-        if (value !== 'before' && value !== 'after') {
+        if (isDevMode() && value !== 'before' && value !== 'after') {
             throwMatMenuInvalidPositionX();
         }
         this._xPosition = value;
@@ -431,7 +440,7 @@ class _MatMenuBase {
     /** Position of the menu in the Y axis. */
     get yPosition() { return this._yPosition; }
     set yPosition(value) {
-        if (value !== 'above' && value !== 'below') {
+        if (isDevMode() && value !== 'above' && value !== 'below') {
             throwMatMenuInvalidPositionY();
         }
         this._yPosition = value;
@@ -841,6 +850,9 @@ class MatMenuTrigger {
         this._menu = menu;
         this._menuCloseSubscription.unsubscribe();
         if (menu) {
+            if (isDevMode() && menu === this._parentMenu) {
+                throwMatMenuRecursiveError();
+            }
             this._menuCloseSubscription = menu.close.asObservable().subscribe(reason => {
                 this._destroyMenu();
                 // If a click closed the menu, we should close the entire chain of nested menus.
@@ -1004,7 +1016,7 @@ class MatMenuTrigger {
      * matMenuTriggerFor. If not, an exception is thrown.
      */
     _checkMenu() {
-        if (!this.menu) {
+        if (isDevMode() && !this.menu) {
             throwMatMenuMissingError();
         }
     }

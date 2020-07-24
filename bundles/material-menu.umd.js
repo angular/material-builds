@@ -414,6 +414,15 @@
     function throwMatMenuInvalidPositionY() {
         throw Error("yPosition value must be either 'above' or below'.\n      Example: <mat-menu yPosition=\"above\" #menu=\"matMenu\"></mat-menu>");
     }
+    /**
+     * Throws an exception for the case when a menu is assigned
+     * to a trigger that is placed inside the same menu.
+     * @docs-private
+     */
+    function throwMatMenuRecursiveError() {
+        throw Error("matMenuTriggerFor: menu cannot contain its own trigger. Assign a menu that is " +
+            "not a parent of the trigger or move the trigger outside of the menu.");
+    }
 
     /**
      * @license
@@ -646,7 +655,7 @@
             /** Position of the menu in the X axis. */
             get: function () { return this._xPosition; },
             set: function (value) {
-                if (value !== 'before' && value !== 'after') {
+                if (core.isDevMode() && value !== 'before' && value !== 'after') {
                     throwMatMenuInvalidPositionX();
                 }
                 this._xPosition = value;
@@ -659,7 +668,7 @@
             /** Position of the menu in the Y axis. */
             get: function () { return this._yPosition; },
             set: function (value) {
-                if (value !== 'above' && value !== 'below') {
+                if (core.isDevMode() && value !== 'above' && value !== 'below') {
                     throwMatMenuInvalidPositionY();
                 }
                 this._yPosition = value;
@@ -1110,6 +1119,9 @@
                 this._menu = menu;
                 this._menuCloseSubscription.unsubscribe();
                 if (menu) {
+                    if (core.isDevMode() && menu === this._parentMenu) {
+                        throwMatMenuRecursiveError();
+                    }
                     this._menuCloseSubscription = menu.close.asObservable().subscribe(function (reason) {
                         _this._destroyMenu();
                         // If a click closed the menu, we should close the entire chain of nested menus.
@@ -1287,7 +1299,7 @@
          * matMenuTriggerFor. If not, an exception is thrown.
          */
         MatMenuTrigger.prototype._checkMenu = function () {
-            if (!this.menu) {
+            if (core.isDevMode() && !this.menu) {
                 throwMatMenuMissingError();
             }
         };
