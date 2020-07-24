@@ -22,3 +22,9 @@ export declare function throwMatMenuInvalidPositionX(): void;
  * @docs-private
  */
 export declare function throwMatMenuInvalidPositionY(): void;
+/**
+ * Throws an exception for the case when a menu is assigned
+ * to a trigger that is placed inside the same menu.
+ * @docs-private
+ */
+export declare function throwMatMenuRecursiveError(): void;
