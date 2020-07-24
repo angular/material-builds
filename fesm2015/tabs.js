@@ -1506,7 +1506,7 @@ _MatTabNavBase.ctorParameters = () => [
     { type: NgZone },
     { type: ChangeDetectorRef },
     { type: ViewportRuler },
-    { type: Platform, decorators: [{ type: Optional }] },
+    { type: Platform },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 _MatTabNavBase.propDecorators = {
@@ -1553,7 +1553,7 @@ MatTabNav.ctorParameters = () => [
     { type: NgZone },
     { type: ChangeDetectorRef },
     { type: ViewportRuler },
-    { type: Platform, decorators: [{ type: Optional }] },
+    { type: Platform },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatTabNav.propDecorators = {

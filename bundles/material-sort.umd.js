@@ -549,7 +549,10 @@
      */
     var MatSortHeader = /** @class */ (function (_super) {
         __extends(MatSortHeader, _super);
-        function MatSortHeader(_intl, changeDetectorRef, _sort, _columnDef, _focusMonitor, _elementRef) {
+        function MatSortHeader(_intl, changeDetectorRef, 
+        // `MatSort` is not optionally injected, but just asserted manually w/ better error.
+        // tslint:disable-next-line: lightweight-tokens
+        _sort, _columnDef, _focusMonitor, _elementRef) {
             var _this = 
             // Note that we use a string token for the `_columnDef`, because the value is provided both by
             // `material/table` and `cdk/table` and we can't have the CDK depending on Material,

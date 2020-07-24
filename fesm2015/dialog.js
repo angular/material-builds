@@ -800,7 +800,10 @@ let dialogElementUid = 0;
  * Button that will close the current dialog.
  */
 class MatDialogClose {
-    constructor(dialogRef, _elementRef, _dialog) {
+    constructor(
+    // The dialog title directive is always used in combination with a `MatDialogRef`.
+    // tslint:disable-next-line: lightweight-tokens
+    dialogRef, _elementRef, _dialog) {
         this.dialogRef = dialogRef;
         this._elementRef = _elementRef;
         this._dialog = _dialog;
@@ -857,7 +860,10 @@ MatDialogClose.propDecorators = {
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
 class MatDialogTitle {
-    constructor(_dialogRef, _elementRef, _dialog) {
+    constructor(
+    // The dialog title directive is always used in combination with a `MatDialogRef`.
+    // tslint:disable-next-line: lightweight-tokens
+    _dialogRef, _elementRef, _dialog) {
         this._dialogRef = _dialogRef;
         this._elementRef = _elementRef;
         this._dialog = _dialog;

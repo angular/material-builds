@@ -1032,7 +1032,13 @@
     // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
     /** Directive applied to an element that should trigger a `mat-menu`. */
     var MatMenuTrigger = /** @class */ (function () {
-        function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, _parentMenu, _menuItemInstance, _dir, 
+        function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, 
+        // `MatMenu` is always used in combination with a `MatMenuTrigger`.
+        // tslint:disable-next-line: lightweight-tokens
+        _parentMenu, 
+        // `MatMenuTrigger` is commonly used in combination with a `MatMenuItem`.
+        // tslint:disable-next-line: lightweight-tokens
+        _menuItemInstance, _dir, 
         // TODO(crisbeto): make the _focusMonitor required when doing breaking changes.
         // @breaking-change 8.0.0
         _focusMonitor) {

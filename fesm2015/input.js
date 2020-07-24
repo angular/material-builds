@@ -4,7 +4,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldControl, MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormField, MAT_FORM_FIELD, MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 
 /**
@@ -114,7 +114,8 @@ class MatInput extends _MatInputMixinBase {
     constructor(_elementRef, _platform, 
     /** @docs-private */
     ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
-    // @breaking-change 8.0.0 `_formField` parameter to be made required.
+    // TODO: Remove this once the legacy appearance has been removed. We only need
+    // to inject the form-field for determining whether the placeholder has been promoted.
     _formField) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
@@ -311,12 +312,12 @@ class MatInput extends _MatInputMixinBase {
     }
     /** Does some manual dirty checking on the native input `placeholder` attribute. */
     _dirtyCheckPlaceholder() {
+        var _a, _b;
         // If we're hiding the native placeholder, it should also be cleared from the DOM, otherwise
         // screen readers will read it out twice: once from the label and once from the attribute.
         // TODO: can be removed once we get rid of the `legacy` style for the form field, because it's
         // the only one that supports promoting the placeholder to a label.
-        const formField = this._formField;
-        const placeholder = (!formField || !formField._hideControlPlaceholder()) ? this.placeholder : null;
+        const placeholder = ((_b = (_a = this._formField) === null || _a === void 0 ? void 0 : _a._hideControlPlaceholder) === null || _b === void 0 ? void 0 : _b.call(_a)) ? null : this.placeholder;
         if (placeholder !== this._previousPlaceholder) {
             const element = this._elementRef.nativeElement;
             this._previousPlaceholder = placeholder;
@@ -434,7 +435,7 @@ MatInput.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
     { type: AutofillMonitor },
     { type: NgZone },
-    { type: MatFormField, decorators: [{ type: Optional }] }
+    { type: MatFormField, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD,] }] }
 ];
 MatInput.propDecorators = {
     disabled: [{ type: Input }],

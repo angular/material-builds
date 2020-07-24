@@ -362,7 +362,8 @@
         function MatInput(_elementRef, _platform, 
         /** @docs-private */
         ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
-        // @breaking-change 8.0.0 `_formField` parameter to be made required.
+        // TODO: Remove this once the legacy appearance has been removed. We only need
+        // to inject the form-field for determining whether the placeholder has been promoted.
         _formField) {
             var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._elementRef = _elementRef;
@@ -585,12 +586,12 @@
         };
         /** Does some manual dirty checking on the native input `placeholder` attribute. */
         MatInput.prototype._dirtyCheckPlaceholder = function () {
+            var _a, _b;
             // If we're hiding the native placeholder, it should also be cleared from the DOM, otherwise
             // screen readers will read it out twice: once from the label and once from the attribute.
             // TODO: can be removed once we get rid of the `legacy` style for the form field, because it's
             // the only one that supports promoting the placeholder to a label.
-            var formField = this._formField;
-            var placeholder = (!formField || !formField._hideControlPlaceholder()) ? this.placeholder : null;
+            var placeholder = ((_b = (_a = this._formField) === null || _a === void 0 ? void 0 : _a._hideControlPlaceholder) === null || _b === void 0 ? void 0 : _b.call(_a)) ? null : this.placeholder;
             if (placeholder !== this._previousPlaceholder) {
                 var element = this._elementRef.nativeElement;
                 this._previousPlaceholder = placeholder;
@@ -714,7 +715,7 @@
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
             { type: textField.AutofillMonitor },
             { type: core.NgZone },
-            { type: formField.MatFormField, decorators: [{ type: core.Optional }] }
+            { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Inject, args: [formField.MAT_FORM_FIELD,] }] }
         ]; };
         MatInput.propDecorators = {
             disabled: [{ type: core.Input }],

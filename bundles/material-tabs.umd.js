@@ -1823,7 +1823,7 @@
             { type: core.NgZone },
             { type: core.ChangeDetectorRef },
             { type: scrolling.ViewportRuler },
-            { type: platform.Platform, decorators: [{ type: core.Optional }] },
+            { type: platform.Platform },
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
         ]; };
         _MatTabNavBase.propDecorators = {
@@ -1872,7 +1872,7 @@
             { type: core.NgZone },
             { type: core.ChangeDetectorRef },
             { type: scrolling.ViewportRuler },
-            { type: platform.Platform, decorators: [{ type: core.Optional }] },
+            { type: platform.Platform },
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
         ]; };
         MatTabNav.propDecorators = {
