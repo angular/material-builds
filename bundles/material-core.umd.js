@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.1.0-sha-1b7ba0bf0');
+    var VERSION = new i0.Version('10.1.0-sha-333e60999');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.1.0-sha-1b7ba0bf0');
+    var VERSION$1 = new i0.Version('10.1.0-sha-333e60999');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -521,7 +521,7 @@
                 get: function () { return this.disabled ? -1 : this._tabIndex; },
                 set: function (value) {
                     // If the specified tabIndex value is null or undefined, fall back to the default value.
-                    this._tabIndex = value != null ? value : defaultTabIndex;
+                    this._tabIndex = value != null ? coercion.coerceNumberProperty(value) : defaultTabIndex;
                 },
                 enumerable: false,
                 configurable: true

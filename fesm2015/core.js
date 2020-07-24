@@ -3,7 +3,7 @@ import { HighContrastModeDetector, isFakeMousedownFromScreenReader } from '@angu
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { startWith } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.1.0-sha-1b7ba0bf0');
+const VERSION = new Version('10.1.0-sha-333e60999');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.1.0-sha-1b7ba0bf0');
+const VERSION$1 = new Version('10.1.0-sha-333e60999');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -251,7 +251,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
         get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
         set tabIndex(value) {
             // If the specified tabIndex value is null or undefined, fall back to the default value.
-            this._tabIndex = value != null ? value : defaultTabIndex;
+            this._tabIndex = value != null ? coerceNumberProperty(value) : defaultTabIndex;
         }
     };
 }

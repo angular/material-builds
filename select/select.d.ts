@@ -414,5 +414,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     static ngAcceptInputType_typeaheadDebounceInterval: NumberInput;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_tabIndex: NumberInput;
 }
 export {};

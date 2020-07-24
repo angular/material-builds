@@ -10,7 +10,7 @@ import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList, AfterViewInit } from '@angular/core';
 import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleTarget, ThemePalette } from '@angular/material/core';
-import { BooleanInput } from '@angular/cdk/coercion';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusableOption } from '@angular/cdk/a11y';
 import { MatInkBar } from '../ink-bar';
 import { MatPaginatedTabHeader, MatPaginatedTabHeaderItem } from '../paginated-tab-header';
@@ -95,6 +95,7 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_tabIndex: NumberInput;
 }
 /**
  * Link inside of a `mat-tab-nav-bar`.

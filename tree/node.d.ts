@@ -8,7 +8,7 @@
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
 import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy } from '@angular/core';
 import { CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
-import { BooleanInput } from '@angular/cdk/coercion';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 declare const _MatTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof CdkTreeNode;
 /**
  * Wrapper for the CdkTree node with Material design styles.
@@ -19,6 +19,7 @@ export declare class MatTreeNode<T> extends _MatTreeNodeMixinBase<T> implements 
     role: 'treeitem' | 'group';
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, tabIndex: string);
     static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_tabIndex: NumberInput;
 }
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
