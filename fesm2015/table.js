@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
-import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, _CoalescedStyleScheduler, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
@@ -32,7 +32,8 @@ MatTable.decorators = [
                 },
                 providers: [
                     { provide: CdkTable, useExisting: MatTable },
-                    { provide: CDK_TABLE, useExisting: MatTable }
+                    { provide: CDK_TABLE, useExisting: MatTable },
+                    _CoalescedStyleScheduler,
                 ],
                 encapsulation: ViewEncapsulation.None,
                 // See note on CdkTable for explanation on why this uses the default change detection strategy.
