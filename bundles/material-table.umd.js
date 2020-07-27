@@ -260,7 +260,8 @@
                         },
                         providers: [
                             { provide: table.CdkTable, useExisting: MatTable },
-                            { provide: table.CDK_TABLE, useExisting: MatTable }
+                            { provide: table.CDK_TABLE, useExisting: MatTable },
+                            table._CoalescedStyleScheduler,
                         ],
                         encapsulation: core.ViewEncapsulation.None,
                         // See note on CdkTable for explanation on why this uses the default change detection strategy.
