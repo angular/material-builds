@@ -80,6 +80,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _tooltipClass;
     private _scrollStrategy;
     private _viewInitialized;
+    private _pointerExitEventsInitialized;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
@@ -117,7 +118,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
         [key: string]: any;
     });
     /** Manually-bound passive event listeners. */
-    private _passiveListeners;
+    private readonly _passiveListeners;
     /** Timer started at the last `touchstart` event. */
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
@@ -167,7 +168,10 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     /** Inverts an overlay position. */
     private _invertPosition;
     /** Binds the pointer events to the tooltip trigger. */
-    private _setupPointerEvents;
+    private _setupPointerEnterEventsIfNeeded;
+    private _setupPointerExitEventsIfNeeded;
+    private _addListeners;
+    private _platformSupportsMouseEvents;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
     static ngAcceptInputType_disabled: BooleanInput;
