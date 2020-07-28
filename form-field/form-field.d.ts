@@ -87,9 +87,9 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     /** Override for the logic that disables the label animation in certain cases. */
     private _showAlwaysAnimate;
     /** Whether the floating label should always float or not. */
-    get _shouldAlwaysFloat(): boolean;
+    _shouldAlwaysFloat(): boolean;
     /** Whether the label can float or not. */
-    get _canLabelFloat(): boolean;
+    _canLabelFloat(): boolean;
     /** State of the mat-hint and mat-error animations. */
     _subscriptAnimationState: string;
     /** Text for the form field hint. */
@@ -126,7 +126,6 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _explicitFormFieldControl;
     _labelChildNonStatic: MatLabel;
     _labelChildStatic: MatLabel;
-    get _labelChild(): MatLabel;
     _placeholderChild: MatPlaceholder;
     _errorChildren: QueryList<MatError>;
     _hintChildren: QueryList<MatHint>;

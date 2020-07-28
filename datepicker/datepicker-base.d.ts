@@ -158,10 +158,10 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     /** The id for the datepicker calendar. */
     id: string;
     /** The minimum selectable date. */
-    get _minDate(): D | null;
+    _getMinDate(): D | null;
     /** The maximum selectable date. */
-    get _maxDate(): D | null;
-    get _dateFilter(): DateFilterFn<D>;
+    _getMaxDate(): D | null;
+    _getDateFilter(): DateFilterFn<D>;
     /** A reference to the overlay when the calendar is opened as a popup. */
     private _popupRef;
     /** A reference to the dialog when the calendar is opened as a dialog. */
