@@ -550,144 +550,115 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatSlider.prototype, "_invertAxis", {
-            /**
-             * Whether the axis of the slider is inverted.
-             * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
-             */
-            get: function () {
-                // Standard non-inverted mode for a vertical slider should be dragging the thumb from bottom to
-                // top. However from a y-axis standpoint this is inverted.
-                return this.vertical ? !this.invert : this.invert;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatSlider.prototype, "_isMinValue", {
-            /** Whether the slider is at its minimum value. */
-            get: function () {
-                return this.percent === 0;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatSlider.prototype, "_thumbGap", {
-            /**
-             * The amount of space to leave between the slider thumb and the track fill & track background
-             * elements.
-             */
-            get: function () {
-                if (this.disabled) {
-                    return DISABLED_THUMB_GAP;
+        /**
+         * Whether the axis of the slider is inverted.
+         * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
+         */
+        MatSlider.prototype._shouldInvertAxis = function () {
+            // Standard non-inverted mode for a vertical slider should be dragging the thumb from bottom to
+            // top. However from a y-axis standpoint this is inverted.
+            return this.vertical ? !this.invert : this.invert;
+        };
+        /** Whether the slider is at its minimum value. */
+        MatSlider.prototype._isMinValue = function () {
+            return this.percent === 0;
+        };
+        /**
+         * The amount of space to leave between the slider thumb and the track fill & track background
+         * elements.
+         */
+        MatSlider.prototype._getThumbGap = function () {
+            if (this.disabled) {
+                return DISABLED_THUMB_GAP;
+            }
+            if (this._isMinValue() && !this.thumbLabel) {
+                return this._isActive ? MIN_VALUE_ACTIVE_THUMB_GAP : MIN_VALUE_NONACTIVE_THUMB_GAP;
+            }
+            return 0;
+        };
+        /** CSS styles for the track background element. */
+        MatSlider.prototype._getTrackBackgroundStyles = function () {
+            var axis = this.vertical ? 'Y' : 'X';
+            var scale = this.vertical ? "1, " + (1 - this.percent) + ", 1" : 1 - this.percent + ", 1, 1";
+            var sign = this._shouldInvertMouseCoords() ? '-' : '';
+            return {
+                // scale3d avoids some rendering issues in Chrome. See #12071.
+                transform: "translate" + axis + "(" + sign + this._getThumbGap() + "px) scale3d(" + scale + ")"
+            };
+        };
+        /** CSS styles for the track fill element. */
+        MatSlider.prototype._getTrackFillStyles = function () {
+            var percent = this.percent;
+            var axis = this.vertical ? 'Y' : 'X';
+            var scale = this.vertical ? "1, " + percent + ", 1" : percent + ", 1, 1";
+            var sign = this._shouldInvertMouseCoords() ? '' : '-';
+            return {
+                // scale3d avoids some rendering issues in Chrome. See #12071.
+                transform: "translate" + axis + "(" + sign + this._getThumbGap() + "px) scale3d(" + scale + ")",
+                // iOS Safari has a bug where it won't re-render elements which start of as `scale(0)` until
+                // something forces a style recalculation on it. Since we'll end up with `scale(0)` when
+                // the value of the slider is 0, we can easily get into this situation. We force a
+                // recalculation by changing the element's `display` when it goes from 0 to any other value.
+                display: percent === 0 ? 'none' : ''
+            };
+        };
+        /** CSS styles for the ticks container element. */
+        MatSlider.prototype._getTicksContainerStyles = function () {
+            var axis = this.vertical ? 'Y' : 'X';
+            // For a horizontal slider in RTL languages we push the ticks container off the left edge
+            // instead of the right edge to avoid causing a horizontal scrollbar to appear.
+            var sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
+            var offset = this._tickIntervalPercent / 2 * 100;
+            return {
+                'transform': "translate" + axis + "(" + sign + offset + "%)"
+            };
+        };
+        /** CSS styles for the ticks element. */
+        MatSlider.prototype._getTicksStyles = function () {
+            var tickSize = this._tickIntervalPercent * 100;
+            var backgroundSize = this.vertical ? "2px " + tickSize + "%" : tickSize + "% 2px";
+            var axis = this.vertical ? 'Y' : 'X';
+            // Depending on the direction we pushed the ticks container, push the ticks the opposite
+            // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
+            // ticks 180 degrees so we're really cutting off the end edge abd not the start.
+            var sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
+            var rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
+            var styles = {
+                'backgroundSize': backgroundSize,
+                // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
+                'transform': "translateZ(0) translate" + axis + "(" + sign + tickSize / 2 + "%)" + rotate
+            };
+            if (this._isMinValue() && this._getThumbGap()) {
+                var shouldInvertAxis = this._shouldInvertAxis();
+                var side = void 0;
+                if (this.vertical) {
+                    side = shouldInvertAxis ? 'Bottom' : 'Top';
                 }
-                if (this._isMinValue && !this.thumbLabel) {
-                    return this._isActive ? MIN_VALUE_ACTIVE_THUMB_GAP : MIN_VALUE_NONACTIVE_THUMB_GAP;
+                else {
+                    side = shouldInvertAxis ? 'Right' : 'Left';
                 }
-                return 0;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatSlider.prototype, "_trackBackgroundStyles", {
-            /** CSS styles for the track background element. */
-            get: function () {
-                var axis = this.vertical ? 'Y' : 'X';
-                var scale = this.vertical ? "1, " + (1 - this.percent) + ", 1" : 1 - this.percent + ", 1, 1";
-                var sign = this._shouldInvertMouseCoords() ? '-' : '';
-                return {
-                    // scale3d avoids some rendering issues in Chrome. See #12071.
-                    transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")"
-                };
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatSlider.prototype, "_trackFillStyles", {
-            /** CSS styles for the track fill element. */
-            get: function () {
-                var percent = this.percent;
-                var axis = this.vertical ? 'Y' : 'X';
-                var scale = this.vertical ? "1, " + percent + ", 1" : percent + ", 1, 1";
-                var sign = this._shouldInvertMouseCoords() ? '' : '-';
-                return {
-                    // scale3d avoids some rendering issues in Chrome. See #12071.
-                    transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")",
-                    // iOS Safari has a bug where it won't re-render elements which start of as `scale(0)` until
-                    // something forces a style recalculation on it. Since we'll end up with `scale(0)` when
-                    // the value of the slider is 0, we can easily get into this situation. We force a
-                    // recalculation by changing the element's `display` when it goes from 0 to any other value.
-                    display: percent === 0 ? 'none' : ''
-                };
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatSlider.prototype, "_ticksContainerStyles", {
-            /** CSS styles for the ticks container element. */
-            get: function () {
-                var axis = this.vertical ? 'Y' : 'X';
-                // For a horizontal slider in RTL languages we push the ticks container off the left edge
-                // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-                var sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
-                var offset = this._tickIntervalPercent / 2 * 100;
-                return {
-                    'transform': "translate" + axis + "(" + sign + offset + "%)"
-                };
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatSlider.prototype, "_ticksStyles", {
-            /** CSS styles for the ticks element. */
-            get: function () {
-                var tickSize = this._tickIntervalPercent * 100;
-                var backgroundSize = this.vertical ? "2px " + tickSize + "%" : tickSize + "% 2px";
-                var axis = this.vertical ? 'Y' : 'X';
-                // Depending on the direction we pushed the ticks container, push the ticks the opposite
-                // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
-                // ticks 180 degrees so we're really cutting off the end edge abd not the start.
-                var sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
-                var rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
-                var styles = {
-                    'backgroundSize': backgroundSize,
-                    // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
-                    'transform': "translateZ(0) translate" + axis + "(" + sign + tickSize / 2 + "%)" + rotate
-                };
-                if (this._isMinValue && this._thumbGap) {
-                    var side = void 0;
-                    if (this.vertical) {
-                        side = this._invertAxis ? 'Bottom' : 'Top';
-                    }
-                    else {
-                        side = this._invertAxis ? 'Right' : 'Left';
-                    }
-                    styles["padding" + side] = this._thumbGap + "px";
-                }
-                return styles;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatSlider.prototype, "_thumbContainerStyles", {
-            get: function () {
-                var axis = this.vertical ? 'Y' : 'X';
-                // For a horizontal slider in RTL languages we push the thumb container off the left edge
-                // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-                var invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
-                var offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
-                return {
-                    'transform': "translate" + axis + "(-" + offset + "%)"
-                };
-            },
-            enumerable: false,
-            configurable: true
-        });
+                styles["padding" + side] = this._getThumbGap() + "px";
+            }
+            return styles;
+        };
+        MatSlider.prototype._getThumbContainerStyles = function () {
+            var shouldInvertAxis = this._shouldInvertAxis();
+            var axis = this.vertical ? 'Y' : 'X';
+            // For a horizontal slider in RTL languages we push the thumb container off the left edge
+            // instead of the right edge to avoid causing a horizontal scrollbar to appear.
+            var invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !shouldInvertAxis : shouldInvertAxis;
+            var offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
+            return {
+                'transform': "translate" + axis + "(-" + offset + "%)"
+            };
+        };
         /**
          * Whether mouse events should be converted to a slider position by calculating their distance
          * from the right or bottom edge of the slider as opposed to the top or left.
          */
         MatSlider.prototype._shouldInvertMouseCoords = function () {
-            return (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
+            var shouldInvertAxis = this._shouldInvertAxis();
+            return (this._getDirection() == 'rtl' && !this.vertical) ? !shouldInvertAxis : shouldInvertAxis;
         };
         /** The language direction for this slider element. */
         MatSlider.prototype._getDirection = function () {
@@ -985,18 +956,18 @@
                             '[class.mat-slider-disabled]': 'disabled',
                             '[class.mat-slider-has-ticks]': 'tickInterval',
                             '[class.mat-slider-horizontal]': '!vertical',
-                            '[class.mat-slider-axis-inverted]': '_invertAxis',
+                            '[class.mat-slider-axis-inverted]': '_shouldInvertAxis()',
                             // Class binding which is only used by the test harness as there is no other
                             // way for the harness to detect if mouse coordinates need to be inverted.
                             '[class.mat-slider-invert-mouse-coords]': '_shouldInvertMouseCoords()',
                             '[class.mat-slider-sliding]': '_isSliding',
                             '[class.mat-slider-thumb-label-showing]': 'thumbLabel',
                             '[class.mat-slider-vertical]': 'vertical',
-                            '[class.mat-slider-min-value]': '_isMinValue',
-                            '[class.mat-slider-hide-last-tick]': 'disabled || _isMinValue && _thumbGap && _invertAxis',
+                            '[class.mat-slider-min-value]': '_isMinValue()',
+                            '[class.mat-slider-hide-last-tick]': 'disabled || _isMinValue() && _getThumbGap() && _shouldInvertAxis()',
                             '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                         },
-                        template: "<div class=\"mat-slider-wrapper\" #sliderWrapper>\n  <div class=\"mat-slider-track-wrapper\">\n    <div class=\"mat-slider-track-background\" [ngStyle]=\"_trackBackgroundStyles\"></div>\n    <div class=\"mat-slider-track-fill\" [ngStyle]=\"_trackFillStyles\"></div>\n  </div>\n  <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_ticksContainerStyles\">\n    <div class=\"mat-slider-ticks\" [ngStyle]=\"_ticksStyles\"></div>\n  </div>\n  <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_thumbContainerStyles\">\n    <div class=\"mat-slider-focus-ring\"></div>\n    <div class=\"mat-slider-thumb\"></div>\n    <div class=\"mat-slider-thumb-label\">\n      <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span>\n    </div>\n  </div>\n</div>\n",
+                        template: "<div class=\"mat-slider-wrapper\" #sliderWrapper>\n  <div class=\"mat-slider-track-wrapper\">\n    <div class=\"mat-slider-track-background\" [ngStyle]=\"_getTrackBackgroundStyles()\"></div>\n    <div class=\"mat-slider-track-fill\" [ngStyle]=\"_getTrackFillStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_getTicksContainerStyles()\">\n    <div class=\"mat-slider-ticks\" [ngStyle]=\"_getTicksStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_getThumbContainerStyles()\">\n    <div class=\"mat-slider-focus-ring\"></div>\n    <div class=\"mat-slider-thumb\"></div>\n    <div class=\"mat-slider-thumb-label\">\n      <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span>\n    </div>\n  </div>\n</div>\n",
                         inputs: ['disabled', 'color', 'tabIndex'],
                         encapsulation: core.ViewEncapsulation.None,
                         changeDetection: core.ChangeDetectionStrategy.OnPush,

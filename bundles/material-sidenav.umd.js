@@ -360,6 +360,10 @@
             this.openedChange = 
             // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
             new core.EventEmitter(/* isAsync */ true);
+            /** Event emitted when the drawer has been opened. */
+            this._openedStream = this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
+            /** Event emitted when the drawer has been closed. */
+            this._closedStream = this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
             /** Emits when the component is destroyed. */
             this._destroyed = new rxjs.Subject();
             /** Event emitted when the drawer's position changes. */
@@ -466,26 +470,10 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatDrawer.prototype, "_openedStream", {
-            /** Event emitted when the drawer has been opened. */
-            get: function () {
-                return this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(MatDrawer.prototype, "openedStart", {
             /** Event emitted when the drawer has started opening. */
             get: function () {
                 return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), operators.map(function () { }));
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatDrawer.prototype, "_closedStream", {
-            /** Event emitted when the drawer has been closed. */
-            get: function () {
-                return this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
             },
             enumerable: false,
             configurable: true
@@ -619,13 +607,9 @@
                 _this.openedChange.pipe(operators.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
             });
         };
-        Object.defineProperty(MatDrawer.prototype, "_width", {
-            get: function () {
-                return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
-            },
-            enumerable: false,
-            configurable: true
-        });
+        MatDrawer.prototype._getWidth = function () {
+            return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
+        };
         /** Updates the enabled state of the focus trap. */
         MatDrawer.prototype._updateFocusTrapState = function () {
             if (this._focusTrap) {
@@ -851,20 +835,20 @@
             var right = 0;
             if (this._left && this._left.opened) {
                 if (this._left.mode == 'side') {
-                    left += this._left._width;
+                    left += this._left._getWidth();
                 }
                 else if (this._left.mode == 'push') {
-                    var width = this._left._width;
+                    var width = this._left._getWidth();
                     left += width;
                     right -= width;
                 }
             }
             if (this._right && this._right.opened) {
                 if (this._right.mode == 'side') {
-                    right += this._right._width;
+                    right += this._right._getWidth();
                 }
                 else if (this._right.mode == 'push') {
-                    var width = this._right._width;
+                    var width = this._right._getWidth();
                     right += width;
                     left -= width;
                 }

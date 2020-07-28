@@ -72,15 +72,15 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     constructor(_elementRef: ElementRef<HTMLElement>, platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
     ngOnInit(): void;
     /** The radius of the spinner, adjusted for stroke width. */
-    get _circleRadius(): number;
+    _getCircleRadius(): number;
     /** The view box of the spinner's svg element. */
-    get _viewBox(): string;
+    _getViewBox(): string;
     /** The stroke circumference of the svg circle. */
-    get _strokeCircumference(): number;
+    _getStrokeCircumference(): number;
     /** The dash offset of the svg circle. */
-    get _strokeDashOffset(): number | null;
+    _getStrokeDashOffset(): number | null;
     /** Stroke width of the circle in percent. */
-    get _circleStrokeWidth(): number;
+    _getCircleStrokeWidth(): number;
     /** Dynamically generates a style tag containing the correct animation for this diameter. */
     private _attachStyleNode;
     /** Generates animation styles adjusted for the spinner's diameter. */

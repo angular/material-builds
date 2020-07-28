@@ -46,7 +46,7 @@ export declare class MatDialog implements OnDestroy {
     get openDialogs(): MatDialogRef<any>[];
     /** Stream that emits when a dialog has been opened. */
     get afterOpened(): Subject<MatDialogRef<any>>;
-    get _afterAllClosed(): Subject<void>;
+    _getAfterAllClosed(): Subject<void>;
     /**
      * Stream that emits when all open dialog have finished closing.
      * Will emit on subscribe if there are no open dialogs to begin with.

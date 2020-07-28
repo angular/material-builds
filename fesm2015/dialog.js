@@ -547,8 +547,8 @@ class MatDialog {
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
         this.afterAllClosed = defer(() => this.openDialogs.length ?
-            this._afterAllClosed :
-            this._afterAllClosed.pipe(startWith(undefined)));
+            this._getAfterAllClosed() :
+            this._getAfterAllClosed().pipe(startWith(undefined)));
         this._scrollStrategy = scrollStrategy;
     }
     /** Keeps track of the currently-open dialogs. */
@@ -559,9 +559,9 @@ class MatDialog {
     get afterOpened() {
         return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
     }
-    get _afterAllClosed() {
+    _getAfterAllClosed() {
         const parent = this._parentDialog;
-        return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
+        return parent ? parent._getAfterAllClosed() : this._afterAllClosedAtThisLevel;
     }
     /**
      * Opens a modal dialog containing the given component.
@@ -729,7 +729,7 @@ class MatDialog {
                     }
                 });
                 this._ariaHiddenElements.clear();
-                this._afterAllClosed.next();
+                this._getAfterAllClosed().next();
             }
         }
     }

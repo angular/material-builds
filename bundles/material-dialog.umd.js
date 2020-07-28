@@ -781,8 +781,8 @@
              * Will emit on subscribe if there are no open dialogs to begin with.
              */
             this.afterAllClosed = rxjs.defer(function () { return _this.openDialogs.length ?
-                _this._afterAllClosed :
-                _this._afterAllClosed.pipe(operators.startWith(undefined)); });
+                _this._getAfterAllClosed() :
+                _this._getAfterAllClosed().pipe(operators.startWith(undefined)); });
             this._scrollStrategy = scrollStrategy;
         }
         Object.defineProperty(MatDialog.prototype, "openDialogs", {
@@ -801,14 +801,10 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatDialog.prototype, "_afterAllClosed", {
-            get: function () {
-                var parent = this._parentDialog;
-                return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
-            },
-            enumerable: false,
-            configurable: true
-        });
+        MatDialog.prototype._getAfterAllClosed = function () {
+            var parent = this._parentDialog;
+            return parent ? parent._getAfterAllClosed() : this._afterAllClosedAtThisLevel;
+        };
         /**
          * Opens a modal dialog containing the given component.
          * @param componentOrTemplateRef Type of the component to load into the dialog,
@@ -976,7 +972,7 @@
                         }
                     });
                     this._ariaHiddenElements.clear();
-                    this._afterAllClosed.next();
+                    this._getAfterAllClosed().next();
                 }
             }
         };

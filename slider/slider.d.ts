@@ -116,31 +116,31 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * Whether the axis of the slider is inverted.
      * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
      */
-    get _invertAxis(): boolean;
+    _shouldInvertAxis(): boolean;
     /** Whether the slider is at its minimum value. */
-    get _isMinValue(): boolean;
+    _isMinValue(): boolean;
     /**
      * The amount of space to leave between the slider thumb and the track fill & track background
      * elements.
      */
-    get _thumbGap(): 7 | 10 | 0;
+    _getThumbGap(): 7 | 10 | 0;
     /** CSS styles for the track background element. */
-    get _trackBackgroundStyles(): {
+    _getTrackBackgroundStyles(): {
         [key: string]: string;
     };
     /** CSS styles for the track fill element. */
-    get _trackFillStyles(): {
+    _getTrackFillStyles(): {
         [key: string]: string;
     };
     /** CSS styles for the ticks container element. */
-    get _ticksContainerStyles(): {
+    _getTicksContainerStyles(): {
         [key: string]: string;
     };
     /** CSS styles for the ticks element. */
-    get _ticksStyles(): {
+    _getTicksStyles(): {
         [key: string]: string;
     };
-    get _thumbContainerStyles(): {
+    _getThumbContainerStyles(): {
         [key: string]: string;
     };
     /** The size of a tick interval as a percentage of the size of the track. */

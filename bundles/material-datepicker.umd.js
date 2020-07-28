@@ -2182,7 +2182,7 @@
         MatDatepickerContent.decorators = [
             { type: i0.Component, args: [{
                         selector: 'mat-datepicker-content',
-                        template: "<mat-calendar cdkTrapFocus\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._minDate\"\n    [maxDate]=\"datepicker._maxDate\"\n    [dateFilter]=\"datepicker._dateFilter\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\">\n</mat-calendar>\n",
+                        template: "<mat-calendar cdkTrapFocus\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\">\n</mat-calendar>\n",
                         host: {
                             'class': 'mat-datepicker-content',
                             '[@transformPanel]': '_animationState',
@@ -2317,29 +2317,17 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatDatepickerBase.prototype, "_minDate", {
-            /** The minimum selectable date. */
-            get: function () {
-                return this._datepickerInput && this._datepickerInput.min;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatDatepickerBase.prototype, "_maxDate", {
-            /** The maximum selectable date. */
-            get: function () {
-                return this._datepickerInput && this._datepickerInput.max;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatDatepickerBase.prototype, "_dateFilter", {
-            get: function () {
-                return this._datepickerInput && this._datepickerInput.dateFilter;
-            },
-            enumerable: false,
-            configurable: true
-        });
+        /** The minimum selectable date. */
+        MatDatepickerBase.prototype._getMinDate = function () {
+            return this._datepickerInput && this._datepickerInput.min;
+        };
+        /** The maximum selectable date. */
+        MatDatepickerBase.prototype._getMaxDate = function () {
+            return this._datepickerInput && this._datepickerInput.max;
+        };
+        MatDatepickerBase.prototype._getDateFilter = function () {
+            return this._datepickerInput && this._datepickerInput.dateFilter;
+        };
         MatDatepickerBase.prototype.ngOnChanges = function (changes) {
             var positionChange = changes['xPosition'] || changes['yPosition'];
             if (positionChange && !positionChange.firstChange && this._popupRef) {

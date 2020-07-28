@@ -322,6 +322,7 @@
             this._position = 'below';
             this._disabled = false;
             this._viewInitialized = false;
+            this._pointerExitEventsInitialized = false;
             /** The default delay in ms before showing the tooltip after show is called */
             this.showDelay = this._defaultOptions.showDelay;
             /** The default delay in ms before hiding the tooltip after hide is called */
@@ -343,7 +344,7 @@
             this.touchGestures = 'auto';
             this._message = '';
             /** Manually-bound passive event listeners. */
-            this._passiveListeners = new Map();
+            this._passiveListeners = [];
             /** Emits when the component is destroyed. */
             this._destroyed = new rxjs.Subject();
             /**
@@ -398,7 +399,7 @@
                     this.hide(0);
                 }
                 else {
-                    this._setupPointerEvents();
+                    this._setupPointerEnterEventsIfNeeded();
                 }
             },
             enumerable: false,
@@ -409,16 +410,14 @@
             get: function () { return this._message; },
             set: function (value) {
                 var _this = this;
-                if (this._message) {
-                    this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
-                }
+                this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
                 // If the message is not a string (e.g. number), convert it to a string and trim it.
                 this._message = value != null ? ("" + value).trim() : '';
                 if (!this._message && this._isTooltipVisible()) {
                     this.hide(0);
                 }
                 else {
-                    this._setupPointerEvents();
+                    this._setupPointerEnterEventsIfNeeded();
                     this._updateTooltipMessage();
                     this._ngZone.runOutsideAngular(function () {
                         // The `AriaDescriber` has some functionality that avoids adding a description if it's the
@@ -450,7 +449,7 @@
             var _this = this;
             // This needs to happen after view init so the initial values for all inputs have been set.
             this._viewInitialized = true;
-            this._setupPointerEvents();
+            this._setupPointerEnterEventsIfNeeded();
             this._focusMonitor.monitor(this._elementRef)
                 .pipe(operators.takeUntil(this._destroyed))
                 .subscribe(function (origin) {
@@ -475,10 +474,11 @@
             }
             // Clean up the event listeners set in the constructor
             nativeElement.removeEventListener('keydown', this._handleKeydown);
-            this._passiveListeners.forEach(function (listener, event) {
+            this._passiveListeners.forEach(function (_a) {
+                var _b = __read(_a, 2), event = _b[0], listener = _b[1];
                 nativeElement.removeEventListener(event, listener, passiveListenerOptions);
             });
-            this._passiveListeners.clear();
+            this._passiveListeners.length = 0;
             this._destroyed.next();
             this._destroyed.complete();
             this._ariaDescriber.removeDescription(nativeElement, this.message);
@@ -673,19 +673,45 @@
             return { x: x, y: y };
         };
         /** Binds the pointer events to the tooltip trigger. */
-        MatTooltip.prototype._setupPointerEvents = function () {
+        MatTooltip.prototype._setupPointerEnterEventsIfNeeded = function () {
             var _this = this;
             // Optimization: Defer hooking up events if there's no message or the tooltip is disabled.
             if (this._disabled || !this.message || !this._viewInitialized ||
-                this._passiveListeners.size) {
+                this._passiveListeners.length) {
                 return;
             }
             // The mouse events shouldn't be bound on mobile devices, because they can prevent the
             // first tap from firing its click event or can cause the tooltip to open for clicks.
-            if (!this._platform.IOS && !this._platform.ANDROID) {
+            if (this._platformSupportsMouseEvents()) {
                 this._passiveListeners
-                    .set('mouseenter', function () { return _this.show(); })
-                    .set('mouseleave', function () { return _this.hide(); });
+                    .push(['mouseenter', function () {
+                        _this._setupPointerExitEventsIfNeeded();
+                        _this.show();
+                    }]);
+            }
+            else if (this.touchGestures !== 'off') {
+                this._disableNativeGesturesIfNecessary();
+                this._passiveListeners
+                    .push(['touchstart', function () {
+                        // Note that it's important that we don't `preventDefault` here,
+                        // because it can prevent click events from firing on the element.
+                        _this._setupPointerExitEventsIfNeeded();
+                        clearTimeout(_this._touchstartTimeout);
+                        _this._touchstartTimeout = setTimeout(function () { return _this.show(); }, LONGPRESS_DELAY);
+                    }]);
+            }
+            this._addListeners(this._passiveListeners);
+        };
+        MatTooltip.prototype._setupPointerExitEventsIfNeeded = function () {
+            var _a;
+            var _this = this;
+            if (this._pointerExitEventsInitialized) {
+                return;
+            }
+            this._pointerExitEventsInitialized = true;
+            var exitListeners = [];
+            if (this._platformSupportsMouseEvents()) {
+                exitListeners.push(['mouseleave', function () { return _this.hide(); }]);
             }
             else if (this.touchGestures !== 'off') {
                 this._disableNativeGesturesIfNecessary();
@@ -693,26 +719,27 @@
                     clearTimeout(_this._touchstartTimeout);
                     _this.hide(_this._defaultOptions.touchendHideDelay);
                 };
-                this._passiveListeners
-                    .set('touchend', touchendListener)
-                    .set('touchcancel', touchendListener)
-                    .set('touchstart', function () {
-                    // Note that it's important that we don't `preventDefault` here,
-                    // because it can prevent click events from firing on the element.
-                    clearTimeout(_this._touchstartTimeout);
-                    _this._touchstartTimeout = setTimeout(function () { return _this.show(); }, LONGPRESS_DELAY);
-                });
+                exitListeners.push(['touchend', touchendListener], ['touchcancel', touchendListener]);
             }
-            this._passiveListeners.forEach(function (listener, event) {
+            this._addListeners(exitListeners);
+            (_a = this._passiveListeners).push.apply(_a, __spread(exitListeners));
+        };
+        MatTooltip.prototype._addListeners = function (listeners) {
+            var _this = this;
+            listeners.forEach(function (_a) {
+                var _b = __read(_a, 2), event = _b[0], listener = _b[1];
                 _this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
             });
         };
+        MatTooltip.prototype._platformSupportsMouseEvents = function () {
+            return !this._platform.IOS && !this._platform.ANDROID;
+        };
         /** Disables the native browser gestures, based on how the tooltip has been configured. */
         MatTooltip.prototype._disableNativeGesturesIfNecessary = function () {
-            var element = this._elementRef.nativeElement;
-            var style = element.style;
             var gestures = this.touchGestures;
             if (gestures !== 'off') {
+                var element = this._elementRef.nativeElement;
+                var style = element.style;
                 // If gestures are set to `auto`, we don't disable text selection on inputs and
                 // textareas, because it prevents the user from typing into them on iOS Safari.
                 if (gestures === 'on' || (element.nodeName !== 'INPUT' && element.nodeName !== 'TEXTAREA')) {

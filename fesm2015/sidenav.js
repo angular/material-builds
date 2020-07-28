@@ -8,7 +8,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, fromEvent, merge } from 'rxjs';
-import { filter, takeUntil, distinctUntilChanged, map, take, startWith, debounceTime } from 'rxjs/operators';
+import { filter, map, takeUntil, distinctUntilChanged, take, startWith, debounceTime } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
@@ -135,6 +135,10 @@ class MatDrawer {
         this.openedChange = 
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new EventEmitter(/* isAsync */ true);
+        /** Event emitted when the drawer has been opened. */
+        this._openedStream = this.openedChange.pipe(filter(o => o), map(() => { }));
+        /** Event emitted when the drawer has been closed. */
+        this._closedStream = this.openedChange.pipe(filter(o => !o), map(() => { }));
         /** Emits when the component is destroyed. */
         this._destroyed = new Subject();
         /** Event emitted when the drawer's position changes. */
@@ -221,17 +225,9 @@ class MatDrawer {
      */
     get opened() { return this._opened; }
     set opened(value) { this.toggle(coerceBooleanProperty(value)); }
-    /** Event emitted when the drawer has been opened. */
-    get _openedStream() {
-        return this.openedChange.pipe(filter(o => o), map(() => { }));
-    }
     /** Event emitted when the drawer has started opening. */
     get openedStart() {
         return this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState.indexOf('open') === 0), map(() => { }));
-    }
-    /** Event emitted when the drawer has been closed. */
-    get _closedStream() {
-        return this.openedChange.pipe(filter(o => !o), map(() => { }));
     }
     /** Event emitted when the drawer has started closing. */
     get closedStart() {
@@ -354,7 +350,7 @@ class MatDrawer {
             this.openedChange.pipe(take(1)).subscribe(open => resolve(open ? 'open' : 'close'));
         });
     }
-    get _width() {
+    _getWidth() {
         return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
     }
     /** Updates the enabled state of the focus trap. */
@@ -557,20 +553,20 @@ class MatDrawerContainer {
         let right = 0;
         if (this._left && this._left.opened) {
             if (this._left.mode == 'side') {
-                left += this._left._width;
+                left += this._left._getWidth();
             }
             else if (this._left.mode == 'push') {
-                const width = this._left._width;
+                const width = this._left._getWidth();
                 left += width;
                 right -= width;
             }
         }
         if (this._right && this._right.opened) {
             if (this._right.mode == 'side') {
-                right += this._right._width;
+                right += this._right._getWidth();
             }
             else if (this._right.mode == 'push') {
-                const width = this._right._width;
+                const width = this._right._getWidth();
                 right += width;
                 left -= width;
             }
