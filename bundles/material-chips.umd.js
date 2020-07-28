@@ -1028,6 +1028,9 @@
         /** Associates an HTML input element with this chip list. */
         MatChipList.prototype.registerInput = function (inputElement) {
             this._chipInput = inputElement;
+            // We use this attribute to match the chip list to its input in test harnesses.
+            // Set the attribute directly here to avoid "changed after checked" errors.
+            this._elementRef.nativeElement.setAttribute('data-mat-chip-input', inputElement.id);
         };
         /**
          * Implemented as part of MatFormFieldControl.
