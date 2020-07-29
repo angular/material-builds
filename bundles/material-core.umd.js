@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.1.1-sha-62e217c02');
+    var VERSION = new i0.Version('10.1.1-sha-3d0f82775');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.1.1-sha-62e217c02');
+    var VERSION$1 = new i0.Version('10.1.1-sha-3d0f82775');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1734,6 +1734,22 @@
     var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
     // Counter for unique group ids.
     var _uniqueOptgroupIdCounter = 0;
+    var _MatOptgroupBase = /** @class */ (function (_super) {
+        __extends(_MatOptgroupBase, _super);
+        function _MatOptgroupBase() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            /** Unique id for the underlying label. */
+            _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
+            return _this;
+        }
+        _MatOptgroupBase.decorators = [
+            { type: i0.Directive }
+        ];
+        _MatOptgroupBase.propDecorators = {
+            label: [{ type: i0.Input }]
+        };
+        return _MatOptgroupBase;
+    }(_MatOptgroupMixinBase));
     /**
      * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
      * alternative token to the actual `MatOptgroup` class which could cause unnecessary
@@ -1746,10 +1762,7 @@
     var MatOptgroup = /** @class */ (function (_super) {
         __extends(MatOptgroup, _super);
         function MatOptgroup() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            /** Unique id for the underlying label. */
-            _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         MatOptgroup.decorators = [
             { type: i0.Component, args: [{
@@ -1770,11 +1783,8 @@
                         styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
                     },] }
         ];
-        MatOptgroup.propDecorators = {
-            label: [{ type: i0.Input }]
-        };
         return MatOptgroup;
-    }(_MatOptgroupMixinBase));
+    }(_MatOptgroupBase));
 
     /**
      * @license
@@ -1805,11 +1815,8 @@
      * Injection token used to provide the parent component to options.
      */
     var MAT_OPTION_PARENT_COMPONENT = new i0.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
-    /**
-     * Single option inside of a `<mat-select>` element.
-     */
-    var MatOption = /** @class */ (function () {
-        function MatOption(_element, _changeDetectorRef, _parent, group) {
+    var _MatOptionBase = /** @class */ (function () {
+        function _MatOptionBase(_element, _changeDetectorRef, _parent, group) {
             this._element = _element;
             this._changeDetectorRef = _changeDetectorRef;
             this._parent = _parent;
@@ -1826,32 +1833,32 @@
             /** Emits when the state of the option changes and any parents have to be notified. */
             this._stateChanges = new rxjs.Subject();
         }
-        Object.defineProperty(MatOption.prototype, "multiple", {
+        Object.defineProperty(_MatOptionBase.prototype, "multiple", {
             /** Whether the wrapping component is in multiple selection mode. */
             get: function () { return this._parent && this._parent.multiple; },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatOption.prototype, "selected", {
+        Object.defineProperty(_MatOptionBase.prototype, "selected", {
             /** Whether or not the option is currently selected. */
             get: function () { return this._selected; },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatOption.prototype, "disabled", {
+        Object.defineProperty(_MatOptionBase.prototype, "disabled", {
             /** Whether the option is disabled. */
             get: function () { return (this.group && this.group.disabled) || this._disabled; },
             set: function (value) { this._disabled = coercion.coerceBooleanProperty(value); },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatOption.prototype, "disableRipple", {
+        Object.defineProperty(_MatOptionBase.prototype, "disableRipple", {
             /** Whether ripples for the option are disabled. */
             get: function () { return this._parent && this._parent.disableRipple; },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatOption.prototype, "active", {
+        Object.defineProperty(_MatOptionBase.prototype, "active", {
             /**
              * Whether or not the option is currently active and ready to be selected.
              * An active option displays styles as if it is focused, but the
@@ -1864,7 +1871,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatOption.prototype, "viewValue", {
+        Object.defineProperty(_MatOptionBase.prototype, "viewValue", {
             /**
              * The displayed value of the option. It is necessary to show the selected option in the
              * select's trigger.
@@ -1877,7 +1884,7 @@
             configurable: true
         });
         /** Selects the option. */
-        MatOption.prototype.select = function () {
+        _MatOptionBase.prototype.select = function () {
             if (!this._selected) {
                 this._selected = true;
                 this._changeDetectorRef.markForCheck();
@@ -1885,7 +1892,7 @@
             }
         };
         /** Deselects the option. */
-        MatOption.prototype.deselect = function () {
+        _MatOptionBase.prototype.deselect = function () {
             if (this._selected) {
                 this._selected = false;
                 this._changeDetectorRef.markForCheck();
@@ -1893,7 +1900,7 @@
             }
         };
         /** Sets focus onto this option. */
-        MatOption.prototype.focus = function (_origin, options) {
+        _MatOptionBase.prototype.focus = function (_origin, options) {
             // Note that we aren't using `_origin`, but we need to keep it because some internal consumers
             // use `MatOption` in a `FocusKeyManager` and we need it to match `FocusableOption`.
             var element = this._getHostElement();
@@ -1906,7 +1913,7 @@
          * active. This is used by the ActiveDescendantKeyManager so key
          * events will display the proper options as active on arrow key events.
          */
-        MatOption.prototype.setActiveStyles = function () {
+        _MatOptionBase.prototype.setActiveStyles = function () {
             if (!this._active) {
                 this._active = true;
                 this._changeDetectorRef.markForCheck();
@@ -1917,18 +1924,18 @@
          * active. This is used by the ActiveDescendantKeyManager so key
          * events will display the proper options as active on arrow key events.
          */
-        MatOption.prototype.setInactiveStyles = function () {
+        _MatOptionBase.prototype.setInactiveStyles = function () {
             if (this._active) {
                 this._active = false;
                 this._changeDetectorRef.markForCheck();
             }
         };
         /** Gets the label to be used when determining whether the option should be focused. */
-        MatOption.prototype.getLabel = function () {
+        _MatOptionBase.prototype.getLabel = function () {
             return this.viewValue;
         };
         /** Ensures the option is selected when activated from the keyboard. */
-        MatOption.prototype._handleKeydown = function (event) {
+        _MatOptionBase.prototype._handleKeydown = function (event) {
             if ((event.keyCode === keycodes.ENTER || event.keyCode === keycodes.SPACE) && !keycodes.hasModifierKey(event)) {
                 this._selectViaInteraction();
                 // Prevent the page from scrolling down and form submits.
@@ -1939,7 +1946,7 @@
          * `Selects the option while indicating the selection came from the user. Used to
          * determine if the select's view -> model callback should be invoked.`
          */
-        MatOption.prototype._selectViaInteraction = function () {
+        _MatOptionBase.prototype._selectViaInteraction = function () {
             if (!this.disabled) {
                 this._selected = this.multiple ? !this._selected : true;
                 this._changeDetectorRef.markForCheck();
@@ -1952,18 +1959,18 @@
          * attributes adds a significant amount of noise to screen-reader users without providing useful
          * information.
          */
-        MatOption.prototype._getAriaSelected = function () {
+        _MatOptionBase.prototype._getAriaSelected = function () {
             return this.selected || (this.multiple ? false : null);
         };
         /** Returns the correct tabindex for the option depending on disabled state. */
-        MatOption.prototype._getTabIndex = function () {
+        _MatOptionBase.prototype._getTabIndex = function () {
             return this.disabled ? '-1' : '0';
         };
         /** Gets the host DOM element. */
-        MatOption.prototype._getHostElement = function () {
+        _MatOptionBase.prototype._getHostElement = function () {
             return this._element.nativeElement;
         };
-        MatOption.prototype.ngAfterViewChecked = function () {
+        _MatOptionBase.prototype.ngAfterViewChecked = function () {
             // Since parent components could be using the option's label to display the selected values
             // (e.g. `mat-select`) and they don't have a way of knowing if the option's label has changed
             // we have to check for changes in the DOM ourselves and dispatch an event. These checks are
@@ -1977,14 +1984,39 @@
                 }
             }
         };
-        MatOption.prototype.ngOnDestroy = function () {
+        _MatOptionBase.prototype.ngOnDestroy = function () {
             this._stateChanges.complete();
         };
         /** Emits the selection change event. */
-        MatOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
+        _MatOptionBase.prototype._emitSelectionChangeEvent = function (isUserInput) {
             if (isUserInput === void 0) { isUserInput = false; }
             this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
         };
+        _MatOptionBase.decorators = [
+            { type: i0.Directive }
+        ];
+        _MatOptionBase.ctorParameters = function () { return [
+            { type: i0.ElementRef },
+            { type: i0.ChangeDetectorRef },
+            { type: undefined },
+            { type: _MatOptgroupBase }
+        ]; };
+        _MatOptionBase.propDecorators = {
+            value: [{ type: i0.Input }],
+            id: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            onSelectionChange: [{ type: i0.Output }]
+        };
+        return _MatOptionBase;
+    }());
+    /**
+     * Single option inside of a `<mat-select>` element.
+     */
+    var MatOption = /** @class */ (function (_super) {
+        __extends(MatOption, _super);
+        function MatOption(element, changeDetectorRef, parent, group) {
+            return _super.call(this, element, changeDetectorRef, parent, group) || this;
+        }
         MatOption.decorators = [
             { type: i0.Component, args: [{
                         selector: 'mat-option',
@@ -2015,14 +2047,8 @@
             { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
             { type: MatOptgroup, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_OPTGROUP,] }] }
         ]; };
-        MatOption.propDecorators = {
-            value: [{ type: i0.Input }],
-            id: [{ type: i0.Input }],
-            disabled: [{ type: i0.Input }],
-            onSelectionChange: [{ type: i0.Output }]
-        };
         return MatOption;
-    }());
+    }(_MatOptionBase));
     /**
      * Counts the amount of option group labels that precede the specified option.
      * @param optionIndex Index of the option at which to start counting.
@@ -2170,6 +2196,8 @@
     exports.SEP = SEP;
     exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
     exports.VERSION = VERSION;
+    exports._MatOptgroupBase = _MatOptgroupBase;
+    exports._MatOptionBase = _MatOptionBase;
     exports._countGroupLabelsBeforeOption = _countGroupLabelsBeforeOption;
     exports._getOptionScrollPosition = _getOptionScrollPosition;
     exports.defaultRippleAnimationConfig = defaultRippleAnimationConfig;
