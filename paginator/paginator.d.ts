@@ -9,6 +9,7 @@ import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, InjectionToken } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
 import { HasInitialized, HasInitializedCtor, ThemePalette, CanDisableCtor, CanDisable } from '@angular/material/core';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -36,6 +37,8 @@ export interface MatPaginatorDefaultOptions {
     hidePageSize?: boolean;
     /** Whether to show the first/last buttons UI to the user. */
     showFirstLastButtons?: boolean;
+    /** The default form-field appearance to apply to the page size options selector. */
+    formFieldAppearance?: MatFormFieldAppearance;
 }
 /** Injection token that can be used to provide the default options for the paginator module. */
 export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
@@ -83,6 +86,8 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
     readonly page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
     _displayedPageSizeOptions: number[];
+    /** If set, styles the "page size" form field with the designated style. */
+    _formFieldAppearance?: MatFormFieldAppearance;
     constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
     ngOnInit(): void;
     ngOnDestroy(): void;
