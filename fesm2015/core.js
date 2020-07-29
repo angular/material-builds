@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.2.0-next.0-sha-f0e56f01a');
+const VERSION = new Version('10.2.0-next.0-sha-d1607cbb8');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.2.0-next.0-sha-f0e56f01a');
+const VERSION$1 = new Version('10.2.0-next.0-sha-d1607cbb8');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1386,6 +1386,20 @@ class MatOptgroupBase {
 const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 let _uniqueOptgroupIdCounter = 0;
+// tslint:disable-next-line:class-name
+class _MatOptgroupBase extends _MatOptgroupMixinBase {
+    constructor() {
+        super(...arguments);
+        /** Unique id for the underlying label. */
+        this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
+    }
+}
+_MatOptgroupBase.decorators = [
+    { type: Directive }
+];
+_MatOptgroupBase.propDecorators = {
+    label: [{ type: Input }]
+};
 /**
  * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
  * alternative token to the actual `MatOptgroup` class which could cause unnecessary
@@ -1395,12 +1409,7 @@ const MAT_OPTGROUP = new InjectionToken('MatOptgroup');
 /**
  * Component that is used to group instances of `mat-option`.
  */
-class MatOptgroup extends _MatOptgroupMixinBase {
-    constructor() {
-        super(...arguments);
-        /** Unique id for the underlying label. */
-        this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
-    }
+class MatOptgroup extends _MatOptgroupBase {
 }
 MatOptgroup.decorators = [
     { type: Component, args: [{
@@ -1421,9 +1430,6 @@ MatOptgroup.decorators = [
                 styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
             },] }
 ];
-MatOptgroup.propDecorators = {
-    label: [{ type: Input }]
-};
 
 /**
  * @license
@@ -1452,10 +1458,8 @@ class MatOptionSelectionChange {
  * Injection token used to provide the parent component to options.
  */
 const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
-/**
- * Single option inside of a `<mat-select>` element.
- */
-class MatOption {
+// tslint:disable-next-line:class-name
+class _MatOptionBase {
     constructor(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
@@ -1608,6 +1612,29 @@ class MatOption {
         this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     }
 }
+_MatOptionBase.decorators = [
+    { type: Directive }
+];
+_MatOptionBase.ctorParameters = () => [
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: undefined },
+    { type: _MatOptgroupBase }
+];
+_MatOptionBase.propDecorators = {
+    value: [{ type: Input }],
+    id: [{ type: Input }],
+    disabled: [{ type: Input }],
+    onSelectionChange: [{ type: Output }]
+};
+/**
+ * Single option inside of a `<mat-select>` element.
+ */
+class MatOption extends _MatOptionBase {
+    constructor(element, changeDetectorRef, parent, group) {
+        super(element, changeDetectorRef, parent, group);
+    }
+}
 MatOption.decorators = [
     { type: Component, args: [{
                 selector: 'mat-option',
@@ -1638,12 +1665,6 @@ MatOption.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
     { type: MatOptgroup, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTGROUP,] }] }
 ];
-MatOption.propDecorators = {
-    value: [{ type: Input }],
-    id: [{ type: Input }],
-    disabled: [{ type: Input }],
-    onSelectionChange: [{ type: Output }]
-};
 /**
  * Counts the amount of option group labels that precede the specified option.
  * @param optionIndex Index of the option at which to start counting.
@@ -1743,5 +1764,5 @@ const JAN = 0, FEB = 1, MAR = 2, APR = 3, MAY = 4, JUN = 5, JUL = 6, AUG = 7, SE
  * Generated bundle index. Do not edit.
  */
 
-export { APR, AUG, AnimationCurves, AnimationDurations, DEC, DateAdapter, ErrorStateMatcher, FEB, JAN, JUL, JUN, MAR, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE_PROVIDER, MAT_LABEL_GLOBAL_OPTIONS, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MAY, MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NOV, NativeDateAdapter, NativeDateModule, OCT, RippleRef, RippleRenderer, SEP, ShowOnDirtyErrorStateMatcher, VERSION, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines, ɵ0$1 as ɵ0, MATERIAL_SANITY_CHECKS_FACTORY as ɵangular_material_src_material_core_core_a };
+export { APR, AUG, AnimationCurves, AnimationDurations, DEC, DateAdapter, ErrorStateMatcher, FEB, JAN, JUL, JUN, MAR, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE_PROVIDER, MAT_LABEL_GLOBAL_OPTIONS, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MAY, MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NOV, NativeDateAdapter, NativeDateModule, OCT, RippleRef, RippleRenderer, SEP, ShowOnDirtyErrorStateMatcher, VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines, ɵ0$1 as ɵ0, MATERIAL_SANITY_CHECKS_FACTORY as ɵangular_material_src_material_core_core_a };
 //# sourceMappingURL=core.js.map

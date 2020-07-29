@@ -12,6 +12,13 @@ import { CanDisable, CanDisableCtor } from '../common-behaviors/disabled';
 declare class MatOptgroupBase {
 }
 declare const _MatOptgroupMixinBase: CanDisableCtor & typeof MatOptgroupBase;
+export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements CanDisable {
+    /** Label for the option group. */
+    label: string;
+    /** Unique id for the underlying label. */
+    _labelId: string;
+    static ngAcceptInputType_disabled: BooleanInput;
+}
 /**
  * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
  * alternative token to the actual `MatOptgroup` class which could cause unnecessary
@@ -21,11 +28,6 @@ export declare const MAT_OPTGROUP: InjectionToken<MatOptgroup>;
 /**
  * Component that is used to group instances of `mat-option`.
  */
-export declare class MatOptgroup extends _MatOptgroupMixinBase implements CanDisable {
-    /** Label for the option group. */
-    label: string;
-    /** Unique id for the underlying label. */
-    _labelId: string;
-    static ngAcceptInputType_disabled: BooleanInput;
+export declare class MatOptgroup extends _MatOptgroupBase {
 }
 export {};

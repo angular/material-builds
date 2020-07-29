@@ -9,7 +9,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList } from '@angular/core';
 import { FocusOptions, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
-import { MatOptgroup } from './optgroup';
+import { MatOptgroup, _MatOptgroupBase } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
     /** Reference to the option that emitted the event. */
@@ -35,14 +35,11 @@ export interface MatOptionParentComponent {
  * Injection token used to provide the parent component to options.
  */
 export declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParentComponent>;
-/**
- * Single option inside of a `<mat-select>` element.
- */
-export declare class MatOption implements FocusableOption, AfterViewChecked, OnDestroy {
+export declare class _MatOptionBase implements FocusableOption, AfterViewChecked, OnDestroy {
     private _element;
     private _changeDetectorRef;
     private _parent;
-    readonly group: MatOptgroup;
+    readonly group: _MatOptgroupBase;
     private _selected;
     private _active;
     private _disabled;
@@ -64,7 +61,7 @@ export declare class MatOption implements FocusableOption, AfterViewChecked, OnD
     readonly onSelectionChange: EventEmitter<MatOptionSelectionChange>;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
-    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
+    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: _MatOptgroupBase);
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the
@@ -120,6 +117,12 @@ export declare class MatOption implements FocusableOption, AfterViewChecked, OnD
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
     static ngAcceptInputType_disabled: BooleanInput;
+}
+/**
+ * Single option inside of a `<mat-select>` element.
+ */
+export declare class MatOption extends _MatOptionBase {
+    constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatOptgroup);
 }
 /**
  * Counts the amount of option group labels that precede the specified option.
