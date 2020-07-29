@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}), global.ng.core, global.ng.cdk.table, global.ng.material.core, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, core, table, core$1, coercion, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/cdk/collections'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/cdk/collections', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}), global.ng.core, global.ng.cdk.table, global.ng.cdk.collections, global.ng.material.core, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, core, table, collections, core$1, coercion, rxjs, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -259,6 +259,9 @@
                             'class': 'mat-table',
                         },
                         providers: [
+                            // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
+                            //  is only included in the build if used.
+                            { provide: collections._VIEW_REPEATER_STRATEGY, useClass: collections._DisposeViewRepeaterStrategy },
                             { provide: table.CdkTable, useExisting: MatTable },
                             { provide: table.CDK_TABLE, useExisting: MatTable },
                             table._CoalescedStyleScheduler,

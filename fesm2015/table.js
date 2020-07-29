@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
 import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, _CoalescedStyleScheduler, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { _VIEW_REPEATER_STRATEGY, _DisposeViewRepeaterStrategy } from '@angular/cdk/collections';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
@@ -31,6 +32,9 @@ MatTable.decorators = [
                     'class': 'mat-table',
                 },
                 providers: [
+                    // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
+                    //  is only included in the build if used.
+                    { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
                     { provide: CdkTable, useExisting: MatTable },
                     { provide: CDK_TABLE, useExisting: MatTable },
                     _CoalescedStyleScheduler,
