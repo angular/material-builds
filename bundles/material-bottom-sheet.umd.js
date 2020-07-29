@@ -694,9 +694,10 @@
          */
         MatBottomSheet.prototype._attachContainer = function (overlayRef, config) {
             var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-            var injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
-                [MatBottomSheetConfig, config]
-            ]));
+            var injector = i0.Injector.create({
+                parent: userInjector || this._injector,
+                providers: [{ provide: MatBottomSheetConfig, useValue: config }]
+            });
             var containerPortal = new portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
             var containerRef = overlayRef.attach(containerPortal);
             return containerRef.instance;
@@ -726,18 +727,18 @@
          */
         MatBottomSheet.prototype._createInjector = function (config, bottomSheetRef) {
             var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-            var injectionTokens = new WeakMap([
-                [MatBottomSheetRef, bottomSheetRef],
-                [MAT_BOTTOM_SHEET_DATA, config.data]
-            ]);
+            var providers = [
+                { provide: MatBottomSheetRef, useValue: bottomSheetRef },
+                { provide: MAT_BOTTOM_SHEET_DATA, useValue: config.data }
+            ];
             if (config.direction &&
                 (!userInjector || !userInjector.get(bidi.Directionality, null))) {
-                injectionTokens.set(bidi.Directionality, {
-                    value: config.direction,
-                    change: rxjs.of()
+                providers.push({
+                    provide: bidi.Directionality,
+                    useValue: { value: config.direction, change: rxjs.of() }
                 });
             }
-            return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
+            return i0.Injector.create({ parent: userInjector || this._injector, providers: providers });
         };
         MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(i2.Location, 8), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
         MatBottomSheet.decorators = [

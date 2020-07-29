@@ -1,7 +1,7 @@
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
-import { BasePortalOutlet, CdkPortalOutlet, PortalModule, PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, NgZone, ElementRef, ChangeDetectorRef, ViewChild, NgModule, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, Injector, Optional, SkipSelf } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, NgZone, ElementRef, ChangeDetectorRef, ViewChild, NgModule, Injector, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, Optional, SkipSelf } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Subject } from 'rxjs';
@@ -504,9 +504,10 @@ class MatSnackBar {
      */
     _attachSnackBarContainer(overlayRef, config) {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
-            [MatSnackBarConfig, config]
-        ]));
+        const injector = Injector.create({
+            parent: userInjector || this._injector,
+            providers: [{ provide: MatSnackBarConfig, useValue: config }]
+        });
         const containerPortal = new ComponentPortal(this.snackBarContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
@@ -617,10 +618,13 @@ class MatSnackBar {
      */
     _createInjector(config, snackBarRef) {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        return new PortalInjector(userInjector || this._injector, new WeakMap([
-            [MatSnackBarRef, snackBarRef],
-            [MAT_SNACK_BAR_DATA, config.data]
-        ]));
+        return Injector.create({
+            parent: userInjector || this._injector,
+            providers: [
+                { provide: MatSnackBarRef, useValue: snackBarRef },
+                { provide: MAT_SNACK_BAR_DATA, useValue: config.data }
+            ]
+        });
     }
 }
 MatSnackBar.ɵprov = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });

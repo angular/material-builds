@@ -1,6 +1,6 @@
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
-import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, Injector, SkipSelf } from '@angular/core';
+import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
+import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, SkipSelf } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -464,9 +464,10 @@ class MatBottomSheet {
      */
     _attachContainer(overlayRef, config) {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
-            [MatBottomSheetConfig, config]
-        ]));
+        const injector = Injector.create({
+            parent: userInjector || this._injector,
+            providers: [{ provide: MatBottomSheetConfig, useValue: config }]
+        });
         const containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
         const containerRef = overlayRef.attach(containerPortal);
         return containerRef.instance;
@@ -496,18 +497,18 @@ class MatBottomSheet {
      */
     _createInjector(config, bottomSheetRef) {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const injectionTokens = new WeakMap([
-            [MatBottomSheetRef, bottomSheetRef],
-            [MAT_BOTTOM_SHEET_DATA, config.data]
-        ]);
+        const providers = [
+            { provide: MatBottomSheetRef, useValue: bottomSheetRef },
+            { provide: MAT_BOTTOM_SHEET_DATA, useValue: config.data }
+        ];
         if (config.direction &&
             (!userInjector || !userInjector.get(Directionality, null))) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
+            providers.push({
+                provide: Directionality,
+                useValue: { value: config.direction, change: of() }
             });
         }
-        return new PortalInjector(userInjector || this._injector, injectionTokens);
+        return Injector.create({ parent: userInjector || this._injector, providers });
     }
 }
 MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });

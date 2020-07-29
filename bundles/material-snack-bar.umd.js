@@ -740,9 +740,10 @@
          */
         MatSnackBar.prototype._attachSnackBarContainer = function (overlayRef, config) {
             var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-            var injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
-                [MatSnackBarConfig, config]
-            ]));
+            var injector = i0.Injector.create({
+                parent: userInjector || this._injector,
+                providers: [{ provide: MatSnackBarConfig, useValue: config }]
+            });
             var containerPortal = new portal.ComponentPortal(this.snackBarContainerComponent, config.viewContainerRef, injector);
             var containerRef = overlayRef.attach(containerPortal);
             containerRef.instance.snackBarConfig = config;
@@ -855,10 +856,13 @@
          */
         MatSnackBar.prototype._createInjector = function (config, snackBarRef) {
             var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-            return new portal.PortalInjector(userInjector || this._injector, new WeakMap([
-                [MatSnackBarRef, snackBarRef],
-                [MAT_SNACK_BAR_DATA, config.data]
-            ]));
+            return i0.Injector.create({
+                parent: userInjector || this._injector,
+                providers: [
+                    { provide: MatSnackBarRef, useValue: snackBarRef },
+                    { provide: MAT_SNACK_BAR_DATA, useValue: config.data }
+                ]
+            });
         };
         MatSnackBar.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i2.LiveAnnouncer), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(i3.BreakpointObserver), i0.ɵɵinject(MatSnackBar, 12), i0.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
         MatSnackBar.decorators = [
