@@ -801,8 +801,11 @@
                 }
                 _this._changeDetectorRef.markForCheck();
             });
-            this._doCheckSubject.pipe(operators.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
-            operators.takeUntil(this._destroyed)).subscribe(function () { return _this.updateContentMargins(); });
+            // Avoid hitting the NgZone through the debounce timeout.
+            this._ngZone.runOutsideAngular(function () {
+                _this._doCheckSubject.pipe(operators.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
+                operators.takeUntil(_this._destroyed)).subscribe(function () { return _this.updateContentMargins(); });
+            });
         };
         MatDrawerContainer.prototype.ngOnDestroy = function () {
             this._contentMarginChanges.complete();
