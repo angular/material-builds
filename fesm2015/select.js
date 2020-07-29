@@ -352,7 +352,9 @@ class MatSelect extends _MatSelectMixinBase {
     get value() { return this._value; }
     set value(newValue) {
         if (newValue !== this._value) {
-            this.writeValue(newValue);
+            if (this.options) {
+                this._setSelectionByValue(newValue);
+            }
             this._value = newValue;
         }
     }
@@ -468,9 +470,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @param value New value to be written to the model.
      */
     writeValue(value) {
-        if (this.options) {
-            this._setSelectionByValue(value);
-        }
+        this.value = value;
     }
     /**
      * Saves a callback function to be invoked when the select's value
@@ -758,7 +758,9 @@ class MatSelect extends _MatSelectMixinBase {
         if (option.value == null && !this._multiple) {
             option.deselect();
             this._selectionModel.clear();
-            this._propagateChanges(option.value);
+            if (this.value != null) {
+                this._propagateChanges(option.value);
+            }
         }
         else {
             if (wasSelected !== option.selected) {

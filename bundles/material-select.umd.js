@@ -602,7 +602,9 @@
             get: function () { return this._value; },
             set: function (newValue) {
                 if (newValue !== this._value) {
-                    this.writeValue(newValue);
+                    if (this.options) {
+                        this._setSelectionByValue(newValue);
+                    }
                     this._value = newValue;
                 }
             },
@@ -732,9 +734,7 @@
          * @param value New value to be written to the model.
          */
         MatSelect.prototype.writeValue = function (value) {
-            if (this.options) {
-                this._setSelectionByValue(value);
-            }
+            this.value = value;
         };
         /**
          * Saves a callback function to be invoked when the select's value
@@ -1043,7 +1043,9 @@
             if (option.value == null && !this._multiple) {
                 option.deselect();
                 this._selectionModel.clear();
-                this._propagateChanges(option.value);
+                if (this.value != null) {
+                    this._propagateChanges(option.value);
+                }
             }
             else {
                 if (wasSelected !== option.selected) {
