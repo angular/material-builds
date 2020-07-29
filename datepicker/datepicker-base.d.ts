@@ -205,11 +205,6 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     private _destroyPopup;
     /** Sets the positions of the datepicker in dropdown mode based on the current configuration. */
     private _setConnectedPositions;
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    private _getValidDateOrNull;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_touchUi: BooleanInput;
 }

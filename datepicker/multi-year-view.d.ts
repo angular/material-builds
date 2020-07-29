@@ -69,11 +69,6 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     private _createCellForYear;
     /** Whether the given year is enabled. */
     private _shouldEnableYear;
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
     /** Sets the currently-highlighted year based on a model value. */

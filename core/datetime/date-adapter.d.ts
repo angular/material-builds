@@ -173,6 +173,13 @@ export declare abstract class DateAdapter<D> {
      */
     abstract invalid(): D;
     /**
+     * Given a potential date object, returns that same date object if it is
+     * a valid date, or `null` if it's not a valid date.
+     * @param obj The object to check.
+     * @returns A date or `null`.
+     */
+    getValidDateOrNull(obj: unknown): D | null;
+    /**
      * Attempts to deserialize a value to a valid date object. This is different from parsing in that
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
      * string). The default implementation does not allow any deserialization, it simply checks that

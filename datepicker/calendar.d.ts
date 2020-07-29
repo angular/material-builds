@@ -146,11 +146,6 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     _monthSelectedInYearView(normalizedMonth: D): void;
     /** Handles year/month selection in the multi-year/year views. */
     _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    private _getValidDateOrNull;
     /** Returns the component instance that corresponds to the current calendar view. */
     private _getCurrentViewComponent;
 }

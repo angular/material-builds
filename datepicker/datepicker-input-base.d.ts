@@ -119,11 +119,6 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     _onBlur(): void;
     /** Formats a value and sets it on the input element. */
     protected _formatValue(value: D | null): void;
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    protected _getValidDateOrNull(obj: any): D | null;
     /** Assigns a value to the model. */
     private _assignValue;
     /** Whether a value is considered valid. */

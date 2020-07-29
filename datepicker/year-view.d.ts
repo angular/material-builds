@@ -87,11 +87,6 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
      * just the month and year of this.minDate
      */
     private _isYearAndMonthBeforeMinDate;
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
     /** Sets the currently-selected month based on a model value. */

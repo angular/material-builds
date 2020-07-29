@@ -119,11 +119,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     _shouldHideSeparator(): boolean;
     /** Gets the value for the `aria-labelledby` attribute of the inputs. */
     _getAriaLabelledby(): string | null;
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    private _getValidDateOrNull;
     /** Re-runs the validators on the start/end inputs. */
     private _revalidate;
     /** Registers the current date selection model with the start/end inputs. */

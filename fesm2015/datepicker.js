@@ -596,7 +596,7 @@ class MatMonthView {
     get activeDate() { return this._activeDate; }
     set activeDate(value) {
         const oldActiveDate = this._activeDate;
-        const validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+        const validDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
         this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
         if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
             this._init();
@@ -609,19 +609,19 @@ class MatMonthView {
             this._selected = value;
         }
         else {
-            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+            this._selected = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         }
         this._setRanges(this._selected);
     }
     /** The minimum selectable date. */
     get minDate() { return this._minDate; }
     set minDate(value) {
-        this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /** The maximum selectable date. */
     get maxDate() { return this._maxDate; }
     set maxDate(value) {
-        this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     ngAfterContentInit() {
         this._rerenderSubscription = this._dateAdapter.localeChanges
@@ -812,13 +812,6 @@ class MatMonthView {
         }
         return null;
     }
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    _getValidDateOrNull(obj) {
-        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
-    }
     /** Determines whether the user has the RTL layout direction. */
     _isRtl() {
         return this._dir && this._dir.value === 'rtl';
@@ -903,7 +896,7 @@ class MatMultiYearView {
     get activeDate() { return this._activeDate; }
     set activeDate(value) {
         let oldActiveDate = this._activeDate;
-        const validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+        const validDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
         this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
         if (!isSameMultiYearView(this._dateAdapter, oldActiveDate, this._activeDate, this.minDate, this.maxDate)) {
             this._init();
@@ -916,19 +909,19 @@ class MatMultiYearView {
             this._selected = value;
         }
         else {
-            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+            this._selected = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         }
         this._setSelectedYear(value);
     }
     /** The minimum selectable date. */
     get minDate() { return this._minDate; }
     set minDate(value) {
-        this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /** The maximum selectable date. */
     get maxDate() { return this._maxDate; }
     set maxDate(value) {
-        this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     ngAfterContentInit() {
         this._rerenderSubscription = this._dateAdapter.localeChanges
@@ -1045,13 +1038,6 @@ class MatMultiYearView {
         }
         return false;
     }
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    _getValidDateOrNull(obj) {
-        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
-    }
     /** Determines whether the user has the RTL layout direction. */
     _isRtl() {
         return this._dir && this._dir.value === 'rtl';
@@ -1167,7 +1153,7 @@ class MatYearView {
     get activeDate() { return this._activeDate; }
     set activeDate(value) {
         let oldActiveDate = this._activeDate;
-        const validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+        const validDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
         this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
         if (this._dateAdapter.getYear(oldActiveDate) !== this._dateAdapter.getYear(this._activeDate)) {
             this._init();
@@ -1180,19 +1166,19 @@ class MatYearView {
             this._selected = value;
         }
         else {
-            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+            this._selected = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         }
         this._setSelectedMonth(value);
     }
     /** The minimum selectable date. */
     get minDate() { return this._minDate; }
     set minDate(value) {
-        this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /** The maximum selectable date. */
     get maxDate() { return this._maxDate; }
     set maxDate(value) {
-        this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     ngAfterContentInit() {
         this._rerenderSubscription = this._dateAdapter.localeChanges
@@ -1329,13 +1315,6 @@ class MatYearView {
             return year < minYear || (year === minYear && month < minMonth);
         }
         return false;
-    }
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    _getValidDateOrNull(obj) {
-        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     }
     /** Determines whether the user has the RTL layout direction. */
     _isRtl() {
@@ -1545,7 +1524,7 @@ class MatCalendar {
     /** A date representing the period (month or year) to start the calendar in. */
     get startAt() { return this._startAt; }
     set startAt(value) {
-        this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /** The currently selected date. */
     get selected() { return this._selected; }
@@ -1554,18 +1533,18 @@ class MatCalendar {
             this._selected = value;
         }
         else {
-            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+            this._selected = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         }
     }
     /** The minimum selectable date. */
     get minDate() { return this._minDate; }
     set minDate(value) {
-        this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /** The maximum selectable date. */
     get maxDate() { return this._maxDate; }
     set maxDate(value) {
-        this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /**
      * The current active date. This determines which time period is shown and which date is
@@ -1654,13 +1633,6 @@ class MatCalendar {
     _goToDateInView(date, view) {
         this.activeDate = date;
         this.currentView = view;
-    }
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    _getValidDateOrNull(obj) {
-        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     }
     /** Returns the component instance that corresponds to the current calendar view. */
     _getCurrentViewComponent() {
@@ -1929,7 +1901,7 @@ class MatDatepickerBase {
         return this._startAt || (this._datepickerInput ? this._datepickerInput.getStartValue() : null);
     }
     set startAt(value) {
-        this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /** Color palette to use on the datepicker's calendar. */
     get color() {
@@ -2190,13 +2162,6 @@ class MatDatepickerBase {
             }
         ]);
     }
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    _getValidDateOrNull(obj) {
-        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
-    }
 }
 MatDatepickerBase.decorators = [
     { type: Directive }
@@ -2303,14 +2268,14 @@ class MatDatepickerInputBase {
         };
         /** The form control validator for the date filter. */
         this._filterValidator = (control) => {
-            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             const dateFilter = this._getDateFilter();
             return !dateFilter || !controlValue || dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
         };
         /** The form control validator for the min date. */
         this._minValidator = (control) => {
-            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             const min = this._getMinDate();
             return (!min || !controlValue ||
                 this._dateAdapter.compareDate(min, controlValue) <= 0) ?
@@ -2318,7 +2283,7 @@ class MatDatepickerInputBase {
         };
         /** The form control validator for the max date. */
         this._maxValidator = (control) => {
-            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             const max = this._getMaxDate();
             return (!max || !controlValue ||
                 this._dateAdapter.compareDate(max, controlValue) >= 0) ?
@@ -2344,7 +2309,7 @@ class MatDatepickerInputBase {
     set value(value) {
         value = this._dateAdapter.deserialize(value);
         this._lastValueValid = this._isValidValue(value);
-        value = this._getValidDateOrNull(value);
+        value = this._dateAdapter.getValidDateOrNull(value);
         const oldDate = this.value;
         this._assignValue(value);
         this._formatValue(value);
@@ -2450,7 +2415,7 @@ class MatDatepickerInputBase {
         const lastValueWasValid = this._lastValueValid;
         let date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = this._isValidValue(date);
-        date = this._getValidDateOrNull(date);
+        date = this._dateAdapter.getValidDateOrNull(date);
         if (!this._dateAdapter.sameDate(date, this.value)) {
             this._assignValue(date);
             this._cvaOnChange(date);
@@ -2483,13 +2448,6 @@ class MatDatepickerInputBase {
     _formatValue(value) {
         this._elementRef.nativeElement.value =
             value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
-    }
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    _getValidDateOrNull(obj) {
-        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     }
     /** Assigns a value to the model. */
     _assignValue(value) {
@@ -2566,13 +2524,13 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     /** The minimum valid date. */
     get min() { return this._min; }
     set min(value) {
-        this._min = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         this._validatorOnChange();
     }
     /** The maximum valid date. */
     get max() { return this._max; }
     set max(value) {
-        this._max = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         this._validatorOnChange();
     }
     /** Function that can be used to filter out dates within the datepicker. */
@@ -2874,7 +2832,7 @@ class MatStartDate extends _MatDateRangeInputBase {
         super(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats);
         /** Validator that checks that the start date isn't after the end date. */
         this._startValidator = (control) => {
-            const start = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const start = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             const end = this._model ? this._model.selection.end : null;
             return (!start || !end ||
                 this._dateAdapter.compareDate(start, end) <= 0) ?
@@ -2949,7 +2907,7 @@ class MatEndDate extends _MatDateRangeInputBase {
         super(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats);
         /** Validator that checks that the end date isn't before the start date. */
         this._endValidator = (control) => {
-            const end = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const end = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             const start = this._model ? this._model.selection.start : null;
             return (!end || !start ||
                 this._dateAdapter.compareDate(end, start) >= 0) ?
@@ -3124,13 +3082,13 @@ class MatDateRangeInput {
     /** The minimum valid date. */
     get min() { return this._min; }
     set min(value) {
-        this._min = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         this._revalidate();
     }
     /** The maximum valid date. */
     get max() { return this._max; }
     set max(value) {
-        this._max = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         this._revalidate();
     }
     /** Whether the input is disabled. */
@@ -3242,13 +3200,6 @@ class MatDateRangeInput {
     _getAriaLabelledby() {
         const formField = this._formField;
         return formField && formField._hasFloatingLabel() ? formField._labelId : null;
-    }
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    _getValidDateOrNull(obj) {
-        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     }
     /** Re-runs the validators on the start/end inputs. */
     _revalidate() {

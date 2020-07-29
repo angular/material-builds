@@ -111,11 +111,6 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     private _hasSameMonthAndYear;
     /** Gets the value that will be used to one cell to another. */
     private _getCellCompareValue;
-    /**
-     * @param obj The object to check.
-     * @returns The given object if it is both a date instance and valid, otherwise null.
-     */
-    private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
     private _isRtl;
     /** Sets the current range based on a model value. */
