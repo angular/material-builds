@@ -96,8 +96,8 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     get hintLabel(): string;
     set hintLabel(value: string);
     private _hintLabel;
-    _hintLabelId: string;
-    _labelId: string;
+    readonly _hintLabelId: string;
+    readonly _labelId: string;
     /**
      * Whether the label should always float, never float or float as the user types.
      *
@@ -132,6 +132,10 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform: Platform, _ngZone: NgZone, _animationMode: string);
+    /**
+     * Gets the id of the label element. If no label is present, returns `null`.
+     */
+    getLabelId(): string | null;
     /**
      * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.

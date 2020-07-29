@@ -530,7 +530,7 @@
             _this._hintLabel = '';
             // Unique id for the hint label.
             _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
-            // Unique id for the internal form field label.
+            // Unique id for the label element.
             _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
             _this._labelOptions = labelOptions ? labelOptions : {};
             _this.floatLabel = _this._getDefaultFloatLabelState();
@@ -612,6 +612,12 @@
             enumerable: false,
             configurable: true
         });
+        /**
+         * Gets the id of the label element. If no label is present, returns `null`.
+         */
+        MatFormField.prototype.getLabelId = function () {
+            return this._hasFloatingLabel() ? this._labelId : null;
+        };
         /**
          * Gets an ElementRef for the element that a overlay attached to the form-field should be
          * positioned relative to.
