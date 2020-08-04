@@ -1,13 +1,13 @@
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, InjectionToken, Injector, TemplateRef, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
+import { EventEmitter, Directive, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, Injector, TemplateRef, Type, Injectable, SkipSelf, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT, Location } from '@angular/common';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FocusTrapFactory, FocusMonitor } from '@angular/cdk/a11y';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /**
@@ -103,11 +103,11 @@ function throwMatDialogContentAlreadyAttachedError() {
     throw Error('Attempting to attach dialog content after content is already attached');
 }
 /**
- * Internal component that wraps user-provided dialog content.
- * Animation is based on https://material.io/guidelines/motion/choreography.html.
- * @docs-private
+ * Base class for the `MatDialogContainer`. The base class does not implement
+ * animations as these are left to implementers of the dialog container.
  */
-class MatDialogContainer extends BasePortalOutlet {
+// tslint:disable-next-line:class-name
+class _MatDialogContainerBase extends BasePortalOutlet {
     constructor(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, 
     /** The dialog configuration. */
     _config, _focusMonitor) {
@@ -117,6 +117,8 @@ class MatDialogContainer extends BasePortalOutlet {
         this._changeDetectorRef = _changeDetectorRef;
         this._config = _config;
         this._focusMonitor = _focusMonitor;
+        /** Emits when an animation state changes. */
+        this._animationStateChanged = new EventEmitter();
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
         /**
@@ -125,10 +127,6 @@ class MatDialogContainer extends BasePortalOutlet {
          * after the dialog is closed.
          */
         this._closeInteractionType = null;
-        /** State of the dialog animation. */
-        this._state = 'enter';
-        /** Emits when an animation state changes. */
-        this._animationStateChanged = new EventEmitter();
         /**
          * Attaches a DOM portal to the dialog container.
          * @param portal Portal to be attached.
@@ -139,11 +137,20 @@ class MatDialogContainer extends BasePortalOutlet {
             if (this._portalOutlet.hasAttached()) {
                 throwMatDialogContentAlreadyAttachedError();
             }
-            this._setupFocusTrap();
             return this._portalOutlet.attachDomPortal(portal);
         };
         this._ariaLabelledBy = _config.ariaLabelledBy || null;
         this._document = _document;
+    }
+    /** Initializes the dialog container with the attached content. */
+    _initializeWithAttachedContent() {
+        this._setupFocusTrap();
+        // Save the previously focused element. This element will be re-focused
+        // when the dialog closes.
+        this._capturePreviouslyFocusedElement();
+        // Move focus onto the dialog immediately in order to prevent the user
+        // from accidentally opening multiple dialogs at the same time.
+        this._focusDialogContainer();
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -153,7 +160,6 @@ class MatDialogContainer extends BasePortalOutlet {
         if (this._portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
         }
-        this._setupFocusTrap();
         return this._portalOutlet.attachComponentPortal(portal);
     }
     /**
@@ -164,7 +170,6 @@ class MatDialogContainer extends BasePortalOutlet {
         if (this._portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
         }
-        this._setupFocusTrap();
         return this._portalOutlet.attachTemplatePortal(portal);
     }
     /** Moves focus back into the dialog if it was moved out. */
@@ -220,23 +225,21 @@ class MatDialogContainer extends BasePortalOutlet {
             this._focusTrap.destroy();
         }
     }
-    /**
-     * Sets up the focus trand and saves a reference to the
-     * element that was focused before the dialog was opened.
-     */
+    /** Sets up the focus trap. */
     _setupFocusTrap() {
-        if (!this._focusTrap) {
-            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-        }
+        this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+    }
+    /** Captures the element that was focused before the dialog was opened. */
+    _capturePreviouslyFocusedElement() {
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = this._document.activeElement;
-            // Note that there is no focus method when rendering on the server.
-            if (this._elementRef.nativeElement.focus) {
-                // Move focus onto the dialog immediately in order to prevent the user from accidentally
-                // opening multiple dialogs at the same time. Needs to be async, because the element
-                // may not be focusable immediately.
-                Promise.resolve().then(() => this._elementRef.nativeElement.focus());
-            }
+        }
+    }
+    /** Focuses the dialog container. */
+    _focusDialogContainer() {
+        // Note that there is no focus method when rendering on the server.
+        if (this._elementRef.nativeElement.focus) {
+            this._elementRef.nativeElement.focus();
         }
     }
     /** Returns whether focus is inside the dialog. */
@@ -245,19 +248,51 @@ class MatDialogContainer extends BasePortalOutlet {
         const activeElement = this._document.activeElement;
         return element === activeElement || element.contains(activeElement);
     }
+}
+_MatDialogContainerBase.decorators = [
+    { type: Directive }
+];
+_MatDialogContainerBase.ctorParameters = () => [
+    { type: ElementRef },
+    { type: FocusTrapFactory },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+    { type: MatDialogConfig },
+    { type: FocusMonitor }
+];
+_MatDialogContainerBase.propDecorators = {
+    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
+};
+/**
+ * Internal component that wraps user-provided dialog content.
+ * Animation is based on https://material.io/guidelines/motion/choreography.html.
+ * @docs-private
+ */
+class MatDialogContainer extends _MatDialogContainerBase {
+    constructor() {
+        super(...arguments);
+        /** State of the dialog animation. */
+        this._state = 'enter';
+    }
     /** Callback, invoked whenever an animation on the host completes. */
-    _onAnimationDone(event) {
-        if (event.toState === 'enter') {
+    _onAnimationDone({ toState, totalTime }) {
+        if (toState === 'enter') {
             this._trapFocus();
+            this._animationStateChanged.next({ state: 'opened', totalTime });
         }
-        else if (event.toState === 'exit') {
+        else if (toState === 'exit') {
             this._restoreFocus();
+            this._animationStateChanged.next({ state: 'closed', totalTime });
         }
-        this._animationStateChanged.emit(event);
     }
     /** Callback, invoked when an animation on the host starts. */
-    _onAnimationStart(event) {
-        this._animationStateChanged.emit(event);
+    _onAnimationStart({ toState, totalTime }) {
+        if (toState === 'enter') {
+            this._animationStateChanged.next({ state: 'opening', totalTime });
+        }
+        else if (toState === 'exit') {
+            this._animationStateChanged.next({ state: 'closing', totalTime });
+        }
     }
     /** Starts the dialog exit animation. */
     _startExitAnimation() {
@@ -280,7 +315,7 @@ MatDialogContainer.decorators = [
                     'class': 'mat-dialog-container',
                     'tabindex': '-1',
                     'aria-modal': 'true',
-                    '[attr.id]': '_id',
+                    '[id]': '_id',
                     '[attr.role]': '_config.role',
                     '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
                     '[attr.aria-label]': '_config.ariaLabel',
@@ -292,17 +327,6 @@ MatDialogContainer.decorators = [
                 styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
             },] }
 ];
-MatDialogContainer.ctorParameters = () => [
-    { type: ElementRef },
-    { type: FocusTrapFactory },
-    { type: ChangeDetectorRef },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
-    { type: MatDialogConfig },
-    { type: FocusMonitor }
-];
-MatDialogContainer.propDecorators = {
-    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet, { static: true },] }]
-};
 
 /**
  * @license
@@ -335,13 +359,13 @@ class MatDialogRef {
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'enter'), take(1))
+        _containerInstance._animationStateChanged.pipe(filter(event => event.state === 'opened'), take(1))
             .subscribe(() => {
             this._afterOpened.next();
             this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'exit'), take(1)).subscribe(() => {
+        _containerInstance._animationStateChanged.pipe(filter(event => event.state === 'closed'), take(1)).subscribe(() => {
             clearTimeout(this._closeFallbackTimeout);
             this._finishDialogClose();
         });
@@ -377,7 +401,7 @@ class MatDialogRef {
     close(dialogResult) {
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1))
+        this._containerInstance._animationStateChanged.pipe(filter(event => event.state === 'closing'), take(1))
             .subscribe(event => {
             this._beforeClosed.next(dialogResult);
             this._beforeClosed.complete();
@@ -389,8 +413,8 @@ class MatDialogRef {
             // vast majority of cases the timeout will have been cleared before it has the chance to fire.
             this._closeFallbackTimeout = setTimeout(() => this._finishDialogClose(), event.totalTime + 100);
         });
-        this._containerInstance._startExitAnimation();
         this._state = 1 /* CLOSING */;
+        this._containerInstance._startExitAnimation();
     }
     /**
      * Gets an observable that is notified when the dialog is finished opening.
@@ -523,20 +547,20 @@ const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
- * Service to open Material Design modal dialogs.
+ * Base class for dialog services. The base dialog service allows
+ * for arbitrary dialog refs and dialog container components.
  */
-class MatDialog {
-    constructor(_overlay, _injector, 
-    /**
-     * @deprecated `_location` parameter to be removed.
-     * @breaking-change 10.0.0
-     */
-    _location, _defaultOptions, scrollStrategy, _parentDialog, _overlayContainer) {
+// tslint:disable-next-line:class-name
+class _MatDialogBase {
+    constructor(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._defaultOptions = _defaultOptions;
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
+        this._dialogRefConstructor = _dialogRefConstructor;
+        this._dialogContainerType = _dialogContainerType;
+        this._dialogDataToken = _dialogDataToken;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenedAtThisLevel = new Subject();
@@ -585,6 +609,8 @@ class MatDialog {
         this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
         this.afterOpened.next(dialogRef);
+        // Notify the dialog container that the content has been attached.
+        dialogContainer._initializeWithAttachedContent();
         return dialogRef;
     }
     /**
@@ -640,7 +666,7 @@ class MatDialog {
         return state;
     }
     /**
-     * Attaches an MatDialogContainer to a dialog's already-created overlay.
+     * Attaches a dialog container to a dialog's already-created overlay.
      * @param overlay Reference to the dialog's underlying overlay.
      * @param config The dialog configuration.
      * @returns A promise resolving to a ComponentRef for the attached container.
@@ -651,15 +677,15 @@ class MatDialog {
             parent: userInjector || this._injector,
             providers: [{ provide: MatDialogConfig, useValue: config }]
         });
-        const containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector, config.componentFactoryResolver);
+        const containerPortal = new ComponentPortal(this._dialogContainerType, config.viewContainerRef, injector, config.componentFactoryResolver);
         const containerRef = overlay.attach(containerPortal);
         return containerRef.instance;
     }
     /**
-     * Attaches the user-provided component to the already-created MatDialogContainer.
+     * Attaches the user-provided component to the already-created dialog container.
      * @param componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
-     * @param dialogContainer Reference to the wrapping MatDialogContainer.
+     * @param dialogContainer Reference to the wrapping dialog container.
      * @param overlayRef Reference to the overlay in which the dialog resides.
      * @param config The dialog configuration.
      * @returns A promise resolving to the MatDialogRef that should be returned to the user.
@@ -667,7 +693,7 @@ class MatDialog {
     _attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        const dialogRef = new MatDialogRef(overlayRef, dialogContainer, config.id);
+        const dialogRef = new this._dialogRefConstructor(overlayRef, dialogContainer, config.id);
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null, { $implicit: config.data, dialogRef }));
         }
@@ -686,19 +712,19 @@ class MatDialog {
      * of a dialog to close itself and, optionally, to return a value.
      * @param config Config object that is used to construct the dialog.
      * @param dialogRef Reference to the dialog.
-     * @param container Dialog container element that wraps all of the contents.
+     * @param dialogContainer Dialog container element that wraps all of the contents.
      * @returns The custom injector that can be used inside the dialog.
      */
     _createInjector(config, dialogRef, dialogContainer) {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
-        // content are created out of the same ViewContainerRef and as such, are siblings for injector
-        // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
-        // added to the injection tokens.
+        // The dialog container should be provided as the dialog container and the dialog's
+        // content are created out of the same `ViewContainerRef` and as such, are siblings
+        // for injector purposes. To allow the hierarchy that is expected, the dialog
+        // container is explicitly provided in the injector.
         const providers = [
-            { provide: MatDialogContainer, useValue: dialogContainer },
-            { provide: MAT_DIALOG_DATA, useValue: config.data },
-            { provide: MatDialogRef, useValue: dialogRef }
+            { provide: this._dialogContainerType, useValue: dialogContainer },
+            { provide: this._dialogDataToken, useValue: config.data },
+            { provide: this._dialogRefConstructor, useValue: dialogRef }
         ];
         if (config.direction &&
             (!userInjector || !userInjector.get(Directionality, null))) {
@@ -763,6 +789,33 @@ class MatDialog {
             // they'll be removed from the list instantaneously.
             dialogs[i].close();
         }
+    }
+}
+_MatDialogBase.decorators = [
+    { type: Directive }
+];
+_MatDialogBase.ctorParameters = () => [
+    { type: Overlay },
+    { type: Injector },
+    { type: undefined },
+    { type: undefined },
+    { type: OverlayContainer },
+    { type: undefined },
+    { type: Type },
+    { type: Type },
+    { type: InjectionToken }
+];
+/**
+ * Service to open Material Design modal dialogs.
+ */
+class MatDialog extends _MatDialogBase {
+    constructor(overlay, injector, 
+    /**
+     * @deprecated `_location` parameter to be removed.
+     * @breaking-change 10.0.0
+     */
+    location, defaultOptions, scrollStrategy, parentDialog, overlayContainer) {
+        super(overlay, injector, defaultOptions, parentDialog, overlayContainer, scrollStrategy, MatDialogRef, MatDialogContainer, MAT_DIALOG_DATA);
     }
 }
 MatDialog.decorators = [
@@ -988,5 +1041,5 @@ MatDialogModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle, _closeDialogVia, matDialogAnimations, throwMatDialogContentAlreadyAttachedError };
+export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle, _MatDialogBase, _MatDialogContainerBase, _closeDialogVia, matDialogAnimations, throwMatDialogContentAlreadyAttachedError };
 //# sourceMappingURL=dialog.js.map

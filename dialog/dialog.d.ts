@@ -8,9 +8,10 @@
 import { Overlay, OverlayContainer, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
-import { InjectionToken, Injector, OnDestroy, TemplateRef } from '@angular/core';
+import { InjectionToken, Injector, OnDestroy, TemplateRef, Type } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatDialogConfig } from './dialog-config';
+import { MatDialogContainer, _MatDialogContainerBase } from './dialog-container';
 import { MatDialogRef } from './dialog-ref';
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 export declare const MAT_DIALOG_DATA: InjectionToken<any>;
@@ -29,14 +30,18 @@ export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {
     useFactory: typeof MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
 /**
- * Service to open Material Design modal dialogs.
+ * Base class for dialog services. The base dialog service allows
+ * for arbitrary dialog refs and dialog container components.
  */
-export declare class MatDialog implements OnDestroy {
+export declare abstract class _MatDialogBase<C extends _MatDialogContainerBase> implements OnDestroy {
     private _overlay;
     private _injector;
     private _defaultOptions;
     private _parentDialog;
     private _overlayContainer;
+    private _dialogRefConstructor;
+    private _dialogContainerType;
+    private _dialogDataToken;
     private _openDialogsAtThisLevel;
     private readonly _afterAllClosedAtThisLevel;
     private readonly _afterOpenedAtThisLevel;
@@ -52,12 +57,7 @@ export declare class MatDialog implements OnDestroy {
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     readonly afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, 
-    /**
-     * @deprecated `_location` parameter to be removed.
-     * @breaking-change 10.0.0
-     */
-    _location: Location, _defaultOptions: MatDialogConfig, scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
+    constructor(_overlay: Overlay, _injector: Injector, _defaultOptions: MatDialogConfig | undefined, _parentDialog: _MatDialogBase<C> | undefined, _overlayContainer: OverlayContainer, scrollStrategy: any, _dialogRefConstructor: Type<MatDialogRef<any>>, _dialogContainerType: Type<C>, _dialogDataToken: InjectionToken<any>);
     /**
      * Opens a modal dialog containing the given component.
      * @param componentOrTemplateRef Type of the component to load into the dialog,
@@ -89,17 +89,17 @@ export declare class MatDialog implements OnDestroy {
      */
     private _getOverlayConfig;
     /**
-     * Attaches an MatDialogContainer to a dialog's already-created overlay.
+     * Attaches a dialog container to a dialog's already-created overlay.
      * @param overlay Reference to the dialog's underlying overlay.
      * @param config The dialog configuration.
      * @returns A promise resolving to a ComponentRef for the attached container.
      */
     private _attachDialogContainer;
     /**
-     * Attaches the user-provided component to the already-created MatDialogContainer.
+     * Attaches the user-provided component to the already-created dialog container.
      * @param componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
-     * @param dialogContainer Reference to the wrapping MatDialogContainer.
+     * @param dialogContainer Reference to the wrapping dialog container.
      * @param overlayRef Reference to the overlay in which the dialog resides.
      * @param config The dialog configuration.
      * @returns A promise resolving to the MatDialogRef that should be returned to the user.
@@ -110,7 +110,7 @@ export declare class MatDialog implements OnDestroy {
      * of a dialog to close itself and, optionally, to return a value.
      * @param config Config object that is used to construct the dialog.
      * @param dialogRef Reference to the dialog.
-     * @param container Dialog container element that wraps all of the contents.
+     * @param dialogContainer Dialog container element that wraps all of the contents.
      * @returns The custom injector that can be used inside the dialog.
      */
     private _createInjector;
@@ -125,4 +125,15 @@ export declare class MatDialog implements OnDestroy {
     private _hideNonDialogContentFromAssistiveTechnology;
     /** Closes all of the dialogs in an array. */
     private _closeDialogs;
+}
+/**
+ * Service to open Material Design modal dialogs.
+ */
+export declare class MatDialog extends _MatDialogBase<MatDialogContainer> {
+    constructor(overlay: Overlay, injector: Injector, 
+    /**
+     * @deprecated `_location` parameter to be removed.
+     * @breaking-change 10.0.0
+     */
+    location: Location, defaultOptions: MatDialogConfig, scrollStrategy: any, parentDialog: MatDialog, overlayContainer: OverlayContainer);
 }

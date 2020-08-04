@@ -9,7 +9,7 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 import { DialogPosition } from './dialog-config';
-import { MatDialogContainer } from './dialog-container';
+import { _MatDialogContainerBase } from './dialog-container';
 /** Possible states of the lifecycle of a dialog. */
 export declare const enum MatDialogState {
     OPEN = 0,
@@ -21,7 +21,7 @@ export declare const enum MatDialogState {
  */
 export declare class MatDialogRef<T, R = any> {
     private _overlayRef;
-    _containerInstance: MatDialogContainer;
+    _containerInstance: _MatDialogContainerBase;
     readonly id: string;
     /** The instance of component opened into the dialog. */
     componentInstance: T;
@@ -39,7 +39,7 @@ export declare class MatDialogRef<T, R = any> {
     private _closeFallbackTimeout;
     /** Current state of the dialog. */
     private _state;
-    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, id?: string);
+    constructor(_overlayRef: OverlayRef, _containerInstance: _MatDialogContainerBase, id?: string);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.
