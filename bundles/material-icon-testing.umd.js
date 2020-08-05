@@ -73,22 +73,22 @@
             emptySvg.setAttribute('focusable', 'false');
             return emptySvg;
         };
-        FakeMatIconRegistry.decorators = [
-            { type: core.Injectable }
-        ];
         return FakeMatIconRegistry;
     }());
+    FakeMatIconRegistry.decorators = [
+        { type: core.Injectable }
+    ];
     /** Import this module in tests to install the null icon registry. */
     var MatIconTestingModule = /** @class */ (function () {
         function MatIconTestingModule() {
         }
-        MatIconTestingModule.decorators = [
-            { type: core.NgModule, args: [{
-                        providers: [{ provide: icon.MatIconRegistry, useClass: FakeMatIconRegistry }]
-                    },] }
-        ];
         return MatIconTestingModule;
     }());
+    MatIconTestingModule.decorators = [
+        { type: core.NgModule, args: [{
+                    providers: [{ provide: icon.MatIconRegistry, useClass: FakeMatIconRegistry }]
+                },] }
+    ];
 
     /**
      * @license

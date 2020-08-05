@@ -73,23 +73,23 @@
             inkBar.style.left = positions.left;
             inkBar.style.width = positions.width;
         };
-        MatInkBar.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-ink-bar',
-                        host: {
-                            'class': 'mat-ink-bar',
-                            '[class._mat-animation-noopable]': "_animationMode === 'NoopAnimations'",
-                        },
-                    },] }
-        ];
-        MatInkBar.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.NgZone },
-            { type: undefined, decorators: [{ type: core.Inject, args: [_MAT_INK_BAR_POSITIONER,] }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
         return MatInkBar;
     }());
+    MatInkBar.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'mat-ink-bar',
+                    host: {
+                        'class': 'mat-ink-bar',
+                        '[class._mat-animation-noopable]': "_animationMode === 'NoopAnimations'",
+                    },
+                },] }
+    ];
+    MatInkBar.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [_MAT_INK_BAR_POSITIONER,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -106,35 +106,36 @@
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
         return extendStatics(d, b);
     };
-
     function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
-
-    var __assign = function() {
+    var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
             }
             return t;
         };
         return __assign.apply(this, arguments);
     };
-
     function __rest(s, e) {
         var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+                t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
             for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
@@ -142,175 +143,247 @@
             }
         return t;
     }
-
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+            r = Reflect.decorate(decorators, target, key, desc);
+        else
+            for (var i = decorators.length - 1; i >= 0; i--)
+                if (d = decorators[i])
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
-
     function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
+        return function (target, key) { decorator(target, key, paramIndex); };
     }
-
     function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+            return Reflect.metadata(metadataKey, metadataValue);
     }
-
     function __awaiter(thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
             function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
-
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
                 }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-
-    var __createBinding = Object.create ? (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-    }) : (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
         o[k2] = m[k];
     });
-
     function __exportStar(m, exports) {
-        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+        for (var p in m)
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
-
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
+        if (m)
+            return m.call(o);
+        if (o && typeof o.length === "number")
+            return {
+                next: function () {
+                    if (o && i >= o.length)
+                        o = void 0;
+                    return { value: o && o[i++], done: !o };
+                }
+            };
         throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
-
     function __read(o, n) {
         var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
+        if (!m)
+            return o;
         var i = m.call(o), r, ar = [], e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
         }
-        catch (error) { e = { error: error }; }
+        catch (error) {
+            e = { error: error };
+        }
         finally {
             try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
             }
-            finally { if (e) throw e.error; }
+            finally {
+                if (e)
+                    throw e.error;
+            }
         }
         return ar;
     }
-
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+            s += arguments[i].length;
         for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
                 r[k] = a[j];
         return r;
-    };
-
+    }
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
-
     function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function verb(n) { if (g[n])
+            i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try {
+            step(g[n](v));
+        }
+        catch (e) {
+            settle(q[0][3], e);
+        } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
         function fulfill(value) { resume("next", value); }
         function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+        function settle(f, v) { if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]); }
     }
-
     function __asyncDelegator(o) {
         var i, p;
         return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
         function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
-
     function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var m = o[Symbol.asyncIterator], i;
         return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
     }
-
     function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
         return cooked;
-    };
-
-    var __setModuleDefault = Object.create ? (function(o, v) {
+    }
+    ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
+    }) : function (o, v) {
         o["default"] = v;
     };
-
     function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
+        if (mod && mod.__esModule)
+            return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        if (mod != null)
+            for (var k in mod)
+                if (Object.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
     }
-
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-
     function __classPrivateFieldGet(receiver, privateMap) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to get private field on non-instance");
         }
         return privateMap.get(receiver);
     }
-
     function __classPrivateFieldSet(receiver, privateMap, value) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to set private field on non-instance");
@@ -337,25 +410,18 @@
         function MatTabContent(template) {
             this.template = template;
         }
-        MatTabContent.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[matTabContent]',
-                        providers: [{ provide: MAT_TAB_CONTENT, useExisting: MatTabContent }],
-                    },] }
-        ];
-        MatTabContent.ctorParameters = function () { return [
-            { type: core.TemplateRef }
-        ]; };
         return MatTabContent;
     }());
+    MatTabContent.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[matTabContent]',
+                    providers: [{ provide: MAT_TAB_CONTENT, useExisting: MatTabContent }],
+                },] }
+    ];
+    MatTabContent.ctorParameters = function () { return [
+        { type: core.TemplateRef }
+    ]; };
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /**
      * Injection token that can be used to reference instances of `MatTabLabel`. It serves as
      * alternative token to the actual `MatTabLabel` class which could cause unnecessary
@@ -368,22 +434,15 @@
         function MatTabLabel() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatTabLabel.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[mat-tab-label], [matTabLabel]',
-                        providers: [{ provide: MAT_TAB_LABEL, useExisting: MatTabLabel }],
-                    },] }
-        ];
         return MatTabLabel;
     }(portal.CdkPortal));
+    MatTabLabel.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[mat-tab-label], [matTabLabel]',
+                    providers: [{ provide: MAT_TAB_LABEL, useExisting: MatTabLabel }],
+                },] }
+    ];
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     // Boilerplate for applying mixins to MatTab.
     /** @docs-private */
     var MatTabBase = /** @class */ (function () {
@@ -465,31 +524,31 @@
         MatTab.prototype.ngOnInit = function () {
             this._contentPortal = new portal.TemplatePortal(this._explicitContent || this._implicitContent, this._viewContainerRef);
         };
-        MatTab.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-tab',
-                        template: "<!-- Create a template for the content of the <mat-tab> so that we can grab a reference to this\n    TemplateRef and use it in a Portal to render the tab content in the appropriate place in the\n    tab-group. -->\n<ng-template><ng-content></ng-content></ng-template>\n",
-                        inputs: ['disabled'],
-                        // tslint:disable-next-line:validate-decorators
-                        changeDetection: core.ChangeDetectionStrategy.Default,
-                        encapsulation: core.ViewEncapsulation.None,
-                        exportAs: 'matTab'
-                    },] }
-        ];
-        MatTab.ctorParameters = function () { return [
-            { type: core.ViewContainerRef },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TAB_GROUP,] }] }
-        ]; };
-        MatTab.propDecorators = {
-            templateLabel: [{ type: core.ContentChild, args: [MAT_TAB_LABEL,] }],
-            _explicitContent: [{ type: core.ContentChild, args: [MAT_TAB_CONTENT, { read: core.TemplateRef, static: true },] }],
-            _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
-            textLabel: [{ type: core.Input, args: ['label',] }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }]
-        };
         return MatTab;
     }(_MatTabMixinBase));
+    MatTab.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'mat-tab',
+                    template: "<!-- Create a template for the content of the <mat-tab> so that we can grab a reference to this\n    TemplateRef and use it in a Portal to render the tab content in the appropriate place in the\n    tab-group. -->\n<ng-template><ng-content></ng-content></ng-template>\n",
+                    inputs: ['disabled'],
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
+                    encapsulation: core.ViewEncapsulation.None,
+                    exportAs: 'matTab'
+                },] }
+    ];
+    MatTab.ctorParameters = function () { return [
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TAB_GROUP,] }] }
+    ]; };
+    MatTab.propDecorators = {
+        templateLabel: [{ type: core.ContentChild, args: [MAT_TAB_LABEL,] }],
+        _explicitContent: [{ type: core.ContentChild, args: [MAT_TAB_CONTENT, { read: core.TemplateRef, static: true },] }],
+        _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
+        textLabel: [{ type: core.Input, args: ['label',] }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }]
+    };
 
     /**
      * @license
@@ -525,13 +584,6 @@
         ])
     };
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /**
      * The portal host directive for the contents of the tab.
      * @docs-private
@@ -573,19 +625,19 @@
             this._centeringSub.unsubscribe();
             this._leavingSub.unsubscribe();
         };
-        MatTabBodyPortal.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[matTabBodyHost]'
-                    },] }
-        ];
-        MatTabBodyPortal.ctorParameters = function () { return [
-            { type: core.ComponentFactoryResolver },
-            { type: core.ViewContainerRef },
-            { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatTabBody; }),] }] },
-            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
-        ]; };
         return MatTabBodyPortal;
     }(portal.CdkPortalOutlet));
+    MatTabBodyPortal.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[matTabBodyHost]'
+                },] }
+    ];
+    MatTabBodyPortal.ctorParameters = function () { return [
+        { type: core.ComponentFactoryResolver },
+        { type: core.ViewContainerRef },
+        { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatTabBody; }),] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+    ]; };
     /**
      * Base class with all of the `MatTabBody` functionality.
      * @docs-private
@@ -694,26 +746,26 @@
             }
             return 'right-origin-center';
         };
-        _MatTabBodyBase.decorators = [
-            { type: core.Directive }
-        ];
-        _MatTabBodyBase.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: core.ChangeDetectorRef }
-        ]; };
-        _MatTabBodyBase.propDecorators = {
-            _onCentering: [{ type: core.Output }],
-            _beforeCentering: [{ type: core.Output }],
-            _afterLeavingCenter: [{ type: core.Output }],
-            _onCentered: [{ type: core.Output }],
-            _content: [{ type: core.Input, args: ['content',] }],
-            origin: [{ type: core.Input }],
-            animationDuration: [{ type: core.Input }],
-            position: [{ type: core.Input }]
-        };
         return _MatTabBodyBase;
     }());
+    _MatTabBodyBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatTabBodyBase.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.ChangeDetectorRef }
+    ]; };
+    _MatTabBodyBase.propDecorators = {
+        _onCentering: [{ type: core.Output }],
+        _beforeCentering: [{ type: core.Output }],
+        _afterLeavingCenter: [{ type: core.Output }],
+        _onCentered: [{ type: core.Output }],
+        _content: [{ type: core.Input, args: ['content',] }],
+        origin: [{ type: core.Input }],
+        animationDuration: [{ type: core.Input }],
+        position: [{ type: core.Input }]
+    };
     /**
      * Wrapper for the contents of a tab.
      * @docs-private
@@ -723,30 +775,30 @@
         function MatTabBody(elementRef, dir, changeDetectorRef) {
             return _super.call(this, elementRef, dir, changeDetectorRef) || this;
         }
-        MatTabBody.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-tab-body',
-                        template: "<div class=\"mat-tab-body-content\" #content\n     [@translateTab]=\"{\n        value: _position,\n        params: {animationDuration: animationDuration}\n     }\"\n     (@translateTab.start)=\"_onTranslateTabStarted($event)\"\n     (@translateTab.done)=\"_translateTabComplete.next($event)\">\n  <ng-template matTabBodyHost></ng-template>\n</div>\n",
-                        encapsulation: core.ViewEncapsulation.None,
-                        // tslint:disable-next-line:validate-decorators
-                        changeDetection: core.ChangeDetectionStrategy.Default,
-                        animations: [matTabsAnimations.translateTab],
-                        host: {
-                            'class': 'mat-tab-body',
-                        },
-                        styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}\n"]
-                    },] }
-        ];
-        MatTabBody.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: core.ChangeDetectorRef }
-        ]; };
-        MatTabBody.propDecorators = {
-            _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }]
-        };
         return MatTabBody;
     }(_MatTabBodyBase));
+    MatTabBody.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'mat-tab-body',
+                    template: "<div class=\"mat-tab-body-content\" #content\n     [@translateTab]=\"{\n        value: _position,\n        params: {animationDuration: animationDuration}\n     }\"\n     (@translateTab.start)=\"_onTranslateTabStarted($event)\"\n     (@translateTab.done)=\"_translateTabComplete.next($event)\">\n  <ng-template matTabBodyHost></ng-template>\n</div>\n",
+                    encapsulation: core.ViewEncapsulation.None,
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
+                    animations: [matTabsAnimations.translateTab],
+                    host: {
+                        'class': 'mat-tab-body',
+                    },
+                    styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}\n"]
+                },] }
+    ];
+    MatTabBody.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.ChangeDetectorRef }
+    ]; };
+    MatTabBody.propDecorators = {
+        _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }]
+    };
 
     /**
      * @license
@@ -758,13 +810,6 @@
     /** Injection token that can be used to provide the default options the tabs module. */
     var MAT_TABS_CONFIG = new core.InjectionToken('MAT_TABS_CONFIG');
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Used to generate unique ID's for each tab component */
     var nextId = 0;
     /** A simple change event emitted on focus or selection changes. */
@@ -1029,29 +1074,29 @@
             }
             return this.selectedIndex === idx ? 0 : -1;
         };
-        _MatTabGroupBase.decorators = [
-            { type: core.Directive }
-        ];
-        _MatTabGroupBase.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.ChangeDetectorRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TABS_CONFIG,] }, { type: core.Optional }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        _MatTabGroupBase.propDecorators = {
-            dynamicHeight: [{ type: core.Input }],
-            selectedIndex: [{ type: core.Input }],
-            headerPosition: [{ type: core.Input }],
-            animationDuration: [{ type: core.Input }],
-            disablePagination: [{ type: core.Input }],
-            backgroundColor: [{ type: core.Input }],
-            selectedIndexChange: [{ type: core.Output }],
-            focusChange: [{ type: core.Output }],
-            animationDone: [{ type: core.Output }],
-            selectedTabChange: [{ type: core.Output }]
-        };
         return _MatTabGroupBase;
     }(_MatTabGroupMixinBase));
+    _MatTabGroupBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatTabGroupBase.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TABS_CONFIG,] }, { type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    _MatTabGroupBase.propDecorators = {
+        dynamicHeight: [{ type: core.Input }],
+        selectedIndex: [{ type: core.Input }],
+        headerPosition: [{ type: core.Input }],
+        animationDuration: [{ type: core.Input }],
+        disablePagination: [{ type: core.Input }],
+        backgroundColor: [{ type: core.Input }],
+        selectedIndexChange: [{ type: core.Output }],
+        focusChange: [{ type: core.Output }],
+        animationDone: [{ type: core.Output }],
+        selectedTabChange: [{ type: core.Output }]
+    };
     /**
      * Material design tab-group component. Supports basic tab pairs (label + content) and includes
      * animated ink-bar, keyboard navigation, and screen reader.
@@ -1062,48 +1107,41 @@
         function MatTabGroup(elementRef, changeDetectorRef, defaultConfig, animationMode) {
             return _super.call(this, elementRef, changeDetectorRef, defaultConfig, animationMode) || this;
         }
-        MatTabGroup.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-tab-group',
-                        exportAs: 'matTabGroup',
-                        template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex || 0\"\n               [disableRipple]=\"disableRipple\"\n               [disablePagination]=\"disablePagination\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label mat-focus-indicator\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex == i\"\n               [content]=\"tab.content!\"\n               [position]=\"tab.position!\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n",
-                        encapsulation: core.ViewEncapsulation.None,
-                        // tslint:disable-next-line:validate-decorators
-                        changeDetection: core.ChangeDetectionStrategy.Default,
-                        inputs: ['color', 'disableRipple'],
-                        providers: [{
-                                provide: MAT_TAB_GROUP,
-                                useExisting: MatTabGroup
-                            }],
-                        host: {
-                            'class': 'mat-tab-group',
-                            '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
-                            '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
-                        },
-                        styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{padding:0 12px}}@media(max-width: 959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height 500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-tab-body-wrapper{transition:none;animation:none}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}\n"]
-                    },] }
-        ];
-        MatTabGroup.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.ChangeDetectorRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TABS_CONFIG,] }, { type: core.Optional }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatTabGroup.propDecorators = {
-            _allTabs: [{ type: core.ContentChildren, args: [MatTab, { descendants: true },] }],
-            _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper',] }],
-            _tabHeader: [{ type: core.ViewChild, args: ['tabHeader',] }]
-        };
         return MatTabGroup;
     }(_MatTabGroupBase));
+    MatTabGroup.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'mat-tab-group',
+                    exportAs: 'matTabGroup',
+                    template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex || 0\"\n               [disableRipple]=\"disableRipple\"\n               [disablePagination]=\"disablePagination\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label mat-focus-indicator\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex == i\"\n               [content]=\"tab.content!\"\n               [position]=\"tab.position!\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n",
+                    encapsulation: core.ViewEncapsulation.None,
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
+                    inputs: ['color', 'disableRipple'],
+                    providers: [{
+                            provide: MAT_TAB_GROUP,
+                            useExisting: MatTabGroup
+                        }],
+                    host: {
+                        'class': 'mat-tab-group',
+                        '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
+                        '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
+                    },
+                    styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{padding:0 12px}}@media(max-width: 959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height 500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-tab-body-wrapper{transition:none;animation:none}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}\n"]
+                },] }
+    ];
+    MatTabGroup.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TABS_CONFIG,] }, { type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    MatTabGroup.propDecorators = {
+        _allTabs: [{ type: core.ContentChildren, args: [MatTab, { descendants: true },] }],
+        _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper',] }],
+        _tabHeader: [{ type: core.ViewChild, args: ['tabHeader',] }]
+    };
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     // Boilerplate for applying mixins to MatTabLabelWrapper.
     /** @docs-private */
     var MatTabLabelWrapperBase = /** @class */ (function () {
@@ -1133,21 +1171,21 @@
         MatTabLabelWrapper.prototype.getOffsetWidth = function () {
             return this.elementRef.nativeElement.offsetWidth;
         };
-        MatTabLabelWrapper.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[matTabLabelWrapper]',
-                        inputs: ['disabled'],
-                        host: {
-                            '[class.mat-tab-disabled]': 'disabled',
-                            '[attr.aria-disabled]': '!!disabled',
-                        }
-                    },] }
-        ];
-        MatTabLabelWrapper.ctorParameters = function () { return [
-            { type: core.ElementRef }
-        ]; };
         return MatTabLabelWrapper;
     }(_MatTabLabelWrapperMixinBase));
+    MatTabLabelWrapper.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[matTabLabelWrapper]',
+                    inputs: ['disabled'],
+                    host: {
+                        '[class.mat-tab-disabled]': 'disabled',
+                        '[attr.aria-disabled]': '!!disabled',
+                    }
+                },] }
+    ];
+    MatTabLabelWrapper.ctorParameters = function () { return [
+        { type: core.ElementRef }
+    ]; };
 
     /**
      * @license
@@ -1628,31 +1666,24 @@
             this._checkScrollingControls();
             return { maxScrollDistance: maxScrollDistance, distance: this._scrollDistance };
         };
-        MatPaginatedTabHeader.decorators = [
-            { type: core.Directive }
-        ];
-        MatPaginatedTabHeader.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.ChangeDetectorRef },
-            { type: scrolling.ViewportRuler },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: core.NgZone },
-            { type: platform.Platform },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatPaginatedTabHeader.propDecorators = {
-            disablePagination: [{ type: core.Input }]
-        };
         return MatPaginatedTabHeader;
     }());
+    MatPaginatedTabHeader.decorators = [
+        { type: core.Directive }
+    ];
+    MatPaginatedTabHeader.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    MatPaginatedTabHeader.propDecorators = {
+        disablePagination: [{ type: core.Input }]
+    };
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /**
      * Base class with all of the `MatTabHeader` functionality.
      * @docs-private
@@ -1676,23 +1707,23 @@
         _MatTabHeaderBase.prototype._itemSelected = function (event) {
             event.preventDefault();
         };
-        _MatTabHeaderBase.decorators = [
-            { type: core.Directive }
-        ];
-        _MatTabHeaderBase.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.ChangeDetectorRef },
-            { type: scrolling.ViewportRuler },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: core.NgZone },
-            { type: platform.Platform },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        _MatTabHeaderBase.propDecorators = {
-            disableRipple: [{ type: core.Input }]
-        };
         return _MatTabHeaderBase;
     }(MatPaginatedTabHeader));
+    _MatTabHeaderBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatTabHeaderBase.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    _MatTabHeaderBase.propDecorators = {
+        disableRipple: [{ type: core.Input }]
+    };
     /**
      * The header of the tab group which displays a list of all the tabs in the tab group. Includes
      * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -1707,42 +1738,42 @@
         animationMode) {
             return _super.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) || this;
         }
-        MatTabHeader.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-tab-header',
-                        template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\"\n     #previousPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\"\n     (click)=\"_handlePaginatorClick('before')\"\n     (mousedown)=\"_handlePaginatorPress('before', $event)\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n\n<div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\">\n  <div\n    #tabList\n    class=\"mat-tab-list\"\n    [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n    role=\"tablist\"\n    (cdkObserveContent)=\"_onContentChanges()\">\n    <div class=\"mat-tab-labels\">\n      <ng-content></ng-content>\n    </div>\n    <mat-ink-bar></mat-ink-bar>\n  </div>\n</div>\n\n<div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\"\n     #nextPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\"\n     (mousedown)=\"_handlePaginatorPress('after', $event)\"\n     (click)=\"_handlePaginatorClick('after')\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n",
-                        inputs: ['selectedIndex'],
-                        outputs: ['selectFocusedIndex', 'indexFocused'],
-                        encapsulation: core.ViewEncapsulation.None,
-                        // tslint:disable-next-line:validate-decorators
-                        changeDetection: core.ChangeDetectionStrategy.Default,
-                        host: {
-                            'class': 'mat-tab-header',
-                            '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
-                            '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
-                        },
-                        styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-rtl .mat-tab-header-pagination-before,.mat-tab-header-pagination-after{padding-right:4px}.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:\"\";height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform 500ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.cdk-high-contrast-active .mat-ink-bar{outline:solid 2px;height:0}.mat-tab-labels{display:flex}[mat-align-tabs=center]>.mat-tab-header .mat-tab-labels{justify-content:center}[mat-align-tabs=end]>.mat-tab-header .mat-tab-labels{justify-content:flex-end}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}._mat-animation-noopable.mat-tab-list{transition:none;animation:none}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{min-width:72px}}\n"]
-                    },] }
-        ];
-        MatTabHeader.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.ChangeDetectorRef },
-            { type: scrolling.ViewportRuler },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: core.NgZone },
-            { type: platform.Platform },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatTabHeader.propDecorators = {
-            _items: [{ type: core.ContentChildren, args: [MatTabLabelWrapper, { descendants: false },] }],
-            _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
-            _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
-            _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
-            _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
-            _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }]
-        };
         return MatTabHeader;
     }(_MatTabHeaderBase));
+    MatTabHeader.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'mat-tab-header',
+                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\"\n     #previousPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\"\n     (click)=\"_handlePaginatorClick('before')\"\n     (mousedown)=\"_handlePaginatorPress('before', $event)\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n\n<div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\">\n  <div\n    #tabList\n    class=\"mat-tab-list\"\n    [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n    role=\"tablist\"\n    (cdkObserveContent)=\"_onContentChanges()\">\n    <div class=\"mat-tab-labels\">\n      <ng-content></ng-content>\n    </div>\n    <mat-ink-bar></mat-ink-bar>\n  </div>\n</div>\n\n<div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\"\n     #nextPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\"\n     (mousedown)=\"_handlePaginatorPress('after', $event)\"\n     (click)=\"_handlePaginatorClick('after')\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n",
+                    inputs: ['selectedIndex'],
+                    outputs: ['selectFocusedIndex', 'indexFocused'],
+                    encapsulation: core.ViewEncapsulation.None,
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
+                    host: {
+                        'class': 'mat-tab-header',
+                        '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+                        '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
+                    },
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-rtl .mat-tab-header-pagination-before,.mat-tab-header-pagination-after{padding-right:4px}.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:\"\";height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform 500ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.cdk-high-contrast-active .mat-ink-bar{outline:solid 2px;height:0}.mat-tab-labels{display:flex}[mat-align-tabs=center]>.mat-tab-header .mat-tab-labels{justify-content:center}[mat-align-tabs=end]>.mat-tab-header .mat-tab-labels{justify-content:flex-end}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}._mat-animation-noopable.mat-tab-list{transition:none;animation:none}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{min-width:72px}}\n"]
+                },] }
+    ];
+    MatTabHeader.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    MatTabHeader.propDecorators = {
+        _items: [{ type: core.ContentChildren, args: [MatTabLabelWrapper, { descendants: false },] }],
+        _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
+        _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
+        _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
+        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
+        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }]
+    };
 
     /**
      * Base class with all of the `MatTabNav` functionality.
@@ -1814,25 +1845,25 @@
             this.selectedIndex = -1;
             this._inkBar.hide();
         };
-        _MatTabNavBase.decorators = [
-            { type: core.Directive }
-        ];
-        _MatTabNavBase.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: core.NgZone },
-            { type: core.ChangeDetectorRef },
-            { type: scrolling.ViewportRuler },
-            { type: platform.Platform, decorators: [{ type: core.Optional }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        _MatTabNavBase.propDecorators = {
-            backgroundColor: [{ type: core.Input }],
-            disableRipple: [{ type: core.Input }],
-            color: [{ type: core.Input }]
-        };
         return _MatTabNavBase;
     }(MatPaginatedTabHeader));
+    _MatTabNavBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatTabNavBase.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
+        { type: platform.Platform, decorators: [{ type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    _MatTabNavBase.propDecorators = {
+        backgroundColor: [{ type: core.Input }],
+        disableRipple: [{ type: core.Input }],
+        color: [{ type: core.Input }]
+    };
     /**
      * Navigation component matching the styles of the tab group header.
      * Provides anchored navigation with animated ink bar.
@@ -1846,45 +1877,45 @@
         platform, animationMode) {
             return _super.call(this, elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode) || this;
         }
-        MatTabNav.decorators = [
-            { type: core.Component, args: [{
-                        selector: '[mat-tab-nav-bar]',
-                        exportAs: 'matTabNavBar, matTabNav',
-                        inputs: ['color'],
-                        template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\"\n     #previousPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\"\n     (click)=\"_handlePaginatorClick('before')\"\n     (mousedown)=\"_handlePaginatorPress('before', $event)\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n\n<div class=\"mat-tab-link-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\">\n  <div\n    class=\"mat-tab-list\"\n    [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n    #tabList\n    (cdkObserveContent)=\"_onContentChanges()\">\n    <div class=\"mat-tab-links\">\n      <ng-content></ng-content>\n    </div>\n    <mat-ink-bar></mat-ink-bar>\n  </div>\n</div>\n\n<div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\"\n     #nextPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\"\n     (mousedown)=\"_handlePaginatorPress('after', $event)\"\n     (click)=\"_handlePaginatorClick('after')\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n",
-                        host: {
-                            'class': 'mat-tab-nav-bar mat-tab-header',
-                            '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
-                            '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
-                            '[class.mat-primary]': 'color !== "warn" && color !== "accent"',
-                            '[class.mat-accent]': 'color === "accent"',
-                            '[class.mat-warn]': 'color === "warn"',
-                        },
-                        encapsulation: core.ViewEncapsulation.None,
-                        // tslint:disable-next-line:validate-decorators
-                        changeDetection: core.ChangeDetectionStrategy.Default,
-                        styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-rtl .mat-tab-header-pagination-before,.mat-tab-header-pagination-after{padding-right:4px}.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:\"\";height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform 500ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-tab-links{display:flex}[mat-align-tabs=center]>.mat-tab-link-container .mat-tab-links{justify-content:center}[mat-align-tabs=end]>.mat-tab-link-container .mat-tab-links{justify-content:flex-end}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.cdk-high-contrast-active .mat-ink-bar{outline:solid 2px;height:0}.mat-tab-link-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:none}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-link:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-link.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-link.mat-tab-disabled{opacity:.5}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-link{opacity:1}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media(max-width: 599px){.mat-tab-link{min-width:72px}}\n"]
-                    },] }
-        ];
-        MatTabNav.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: core.NgZone },
-            { type: core.ChangeDetectorRef },
-            { type: scrolling.ViewportRuler },
-            { type: platform.Platform, decorators: [{ type: core.Optional }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatTabNav.propDecorators = {
-            _items: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatTabLink; }), { descendants: true },] }],
-            _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
-            _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
-            _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
-            _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
-            _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }]
-        };
         return MatTabNav;
     }(_MatTabNavBase));
+    MatTabNav.decorators = [
+        { type: core.Component, args: [{
+                    selector: '[mat-tab-nav-bar]',
+                    exportAs: 'matTabNavBar, matTabNav',
+                    inputs: ['color'],
+                    template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\"\n     #previousPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\"\n     (click)=\"_handlePaginatorClick('before')\"\n     (mousedown)=\"_handlePaginatorPress('before', $event)\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n\n<div class=\"mat-tab-link-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\">\n  <div\n    class=\"mat-tab-list\"\n    [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n    #tabList\n    (cdkObserveContent)=\"_onContentChanges()\">\n    <div class=\"mat-tab-links\">\n      <ng-content></ng-content>\n    </div>\n    <mat-ink-bar></mat-ink-bar>\n  </div>\n</div>\n\n<div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\"\n     #nextPaginator\n     aria-hidden=\"true\"\n     mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\"\n     [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\"\n     (mousedown)=\"_handlePaginatorPress('after', $event)\"\n     (click)=\"_handlePaginatorClick('after')\"\n     (touchend)=\"_stopInterval()\">\n  <div class=\"mat-tab-header-pagination-chevron\"></div>\n</div>\n",
+                    host: {
+                        'class': 'mat-tab-nav-bar mat-tab-header',
+                        '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+                        '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
+                        '[class.mat-primary]': 'color !== "warn" && color !== "accent"',
+                        '[class.mat-accent]': 'color === "accent"',
+                        '[class.mat-warn]': 'color === "warn"',
+                    },
+                    encapsulation: core.ViewEncapsulation.None,
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: core.ChangeDetectionStrategy.Default,
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-header-pagination{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2;-webkit-tap-highlight-color:transparent;touch-action:none}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-rtl .mat-tab-header-pagination-before,.mat-tab-header-pagination-after{padding-right:4px}.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:\"\";height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-list{flex-grow:1;position:relative;transition:transform 500ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-tab-links{display:flex}[mat-align-tabs=center]>.mat-tab-link-container .mat-tab-links{justify-content:center}[mat-align-tabs=end]>.mat-tab-link-container .mat-tab-links{justify-content:flex-end}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-ink-bar{transition:none;animation:none}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.cdk-high-contrast-active .mat-ink-bar{outline:solid 2px;height:0}.mat-tab-link-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}.mat-tab-link:focus{outline:none}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-link:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-link.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-link.mat-tab-disabled{opacity:.5}.mat-tab-link .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-link{opacity:1}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}.mat-tab-link.mat-tab-disabled{pointer-events:none}@media(max-width: 599px){.mat-tab-link{min-width:72px}}\n"]
+                },] }
+    ];
+    MatTabNav.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
+        { type: platform.Platform, decorators: [{ type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    MatTabNav.propDecorators = {
+        _items: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatTabLink; }), { descendants: true },] }],
+        _inkBar: [{ type: core.ViewChild, args: [MatInkBar, { static: true },] }],
+        _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer', { static: true },] }],
+        _tabList: [{ type: core.ViewChild, args: ['tabList', { static: true },] }],
+        _nextPaginator: [{ type: core.ViewChild, args: ['nextPaginator',] }],
+        _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }]
+    };
     // Boilerplate for applying mixins to MatTabLink.
     var MatTabLinkMixinBase = /** @class */ (function () {
         function MatTabLinkMixinBase() {
@@ -1942,22 +1973,22 @@
         _MatTabLinkBase.prototype.ngOnDestroy = function () {
             this._focusMonitor.stopMonitoring(this.elementRef);
         };
-        _MatTabLinkBase.decorators = [
-            { type: core.Directive }
-        ];
-        _MatTabLinkBase.ctorParameters = function () { return [
-            { type: _MatTabNavBase },
-            { type: core.ElementRef },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-            { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
-            { type: a11y.FocusMonitor },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        _MatTabLinkBase.propDecorators = {
-            active: [{ type: core.Input }]
-        };
         return _MatTabLinkBase;
     }(_MatTabLinkMixinBase));
+    _MatTabLinkBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatTabLinkBase.ctorParameters = function () { return [
+        { type: _MatTabNavBase },
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: a11y.FocusMonitor },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    _MatTabLinkBase.propDecorators = {
+        active: [{ type: core.Input }]
+    };
     /**
      * Link inside of a `mat-tab-nav-bar`.
      */
@@ -1973,33 +2004,33 @@
             _super.prototype.ngOnDestroy.call(this);
             this._tabLinkRipple._removeTriggerEvents();
         };
-        MatTabLink.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[mat-tab-link], [matTabLink]',
-                        exportAs: 'matTabLink',
-                        inputs: ['disabled', 'disableRipple', 'tabIndex'],
-                        host: {
-                            'class': 'mat-tab-link mat-focus-indicator',
-                            '[attr.aria-current]': 'active ? "page" : null',
-                            '[attr.aria-disabled]': 'disabled',
-                            '[attr.tabIndex]': 'tabIndex',
-                            '[class.mat-tab-disabled]': 'disabled',
-                            '[class.mat-tab-label-active]': 'active',
-                        }
-                    },] }
-        ];
-        MatTabLink.ctorParameters = function () { return [
-            { type: MatTabNav },
-            { type: core.ElementRef },
-            { type: core.NgZone },
-            { type: platform.Platform },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-            { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
-            { type: a11y.FocusMonitor },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
         return MatTabLink;
     }(_MatTabLinkBase));
+    MatTabLink.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[mat-tab-link], [matTabLink]',
+                    exportAs: 'matTabLink',
+                    inputs: ['disabled', 'disableRipple', 'tabIndex'],
+                    host: {
+                        'class': 'mat-tab-link mat-focus-indicator',
+                        '[attr.aria-current]': 'active ? "page" : null',
+                        '[attr.aria-disabled]': 'disabled',
+                        '[attr.tabIndex]': 'tabIndex',
+                        '[class.mat-tab-disabled]': 'disabled',
+                        '[class.mat-tab-label-active]': 'active',
+                    }
+                },] }
+    ];
+    MatTabLink.ctorParameters = function () { return [
+        { type: MatTabNav },
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: a11y.FocusMonitor },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
 
     /**
      * @license
@@ -2011,43 +2042,43 @@
     var MatTabsModule = /** @class */ (function () {
         function MatTabsModule() {
         }
-        MatTabsModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            common.CommonModule,
-                            core$1.MatCommonModule,
-                            portal.PortalModule,
-                            core$1.MatRippleModule,
-                            observers.ObserversModule,
-                            a11y.A11yModule,
-                        ],
-                        // Don't export all components because some are only to be used internally.
-                        exports: [
-                            core$1.MatCommonModule,
-                            MatTabGroup,
-                            MatTabLabel,
-                            MatTab,
-                            MatTabNav,
-                            MatTabLink,
-                            MatTabContent,
-                        ],
-                        declarations: [
-                            MatTabGroup,
-                            MatTabLabel,
-                            MatTab,
-                            MatInkBar,
-                            MatTabLabelWrapper,
-                            MatTabNav,
-                            MatTabLink,
-                            MatTabBody,
-                            MatTabBodyPortal,
-                            MatTabHeader,
-                            MatTabContent,
-                        ],
-                    },] }
-        ];
         return MatTabsModule;
     }());
+    MatTabsModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule,
+                        core$1.MatCommonModule,
+                        portal.PortalModule,
+                        core$1.MatRippleModule,
+                        observers.ObserversModule,
+                        a11y.A11yModule,
+                    ],
+                    // Don't export all components because some are only to be used internally.
+                    exports: [
+                        core$1.MatCommonModule,
+                        MatTabGroup,
+                        MatTabLabel,
+                        MatTab,
+                        MatTabNav,
+                        MatTabLink,
+                        MatTabContent,
+                    ],
+                    declarations: [
+                        MatTabGroup,
+                        MatTabLabel,
+                        MatTab,
+                        MatInkBar,
+                        MatTabLabelWrapper,
+                        MatTabNav,
+                        MatTabLink,
+                        MatTabBody,
+                        MatTabBodyPortal,
+                        MatTabHeader,
+                        MatTabContent,
+                    ],
+                },] }
+    ];
 
     /**
      * @license

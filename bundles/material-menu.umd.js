@@ -19,35 +19,36 @@
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
         return extendStatics(d, b);
     };
-
     function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
-
-    var __assign = function() {
+    var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
             }
             return t;
         };
         return __assign.apply(this, arguments);
     };
-
     function __rest(s, e) {
         var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+                t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
             for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
@@ -55,175 +56,247 @@
             }
         return t;
     }
-
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+            r = Reflect.decorate(decorators, target, key, desc);
+        else
+            for (var i = decorators.length - 1; i >= 0; i--)
+                if (d = decorators[i])
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
-
     function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
+        return function (target, key) { decorator(target, key, paramIndex); };
     }
-
     function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+            return Reflect.metadata(metadataKey, metadataValue);
     }
-
     function __awaiter(thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
             function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
-
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
                 }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-
-    var __createBinding = Object.create ? (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-    }) : (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
         o[k2] = m[k];
     });
-
     function __exportStar(m, exports) {
-        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+        for (var p in m)
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
-
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
+        if (m)
+            return m.call(o);
+        if (o && typeof o.length === "number")
+            return {
+                next: function () {
+                    if (o && i >= o.length)
+                        o = void 0;
+                    return { value: o && o[i++], done: !o };
+                }
+            };
         throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
-
     function __read(o, n) {
         var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
+        if (!m)
+            return o;
         var i = m.call(o), r, ar = [], e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
         }
-        catch (error) { e = { error: error }; }
+        catch (error) {
+            e = { error: error };
+        }
         finally {
             try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
             }
-            finally { if (e) throw e.error; }
+            finally {
+                if (e)
+                    throw e.error;
+            }
         }
         return ar;
     }
-
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+            s += arguments[i].length;
         for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
                 r[k] = a[j];
         return r;
-    };
-
+    }
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
-
     function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function verb(n) { if (g[n])
+            i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try {
+            step(g[n](v));
+        }
+        catch (e) {
+            settle(q[0][3], e);
+        } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
         function fulfill(value) { resume("next", value); }
         function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+        function settle(f, v) { if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]); }
     }
-
     function __asyncDelegator(o) {
         var i, p;
         return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
         function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
-
     function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var m = o[Symbol.asyncIterator], i;
         return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
     }
-
     function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
         return cooked;
-    };
-
-    var __setModuleDefault = Object.create ? (function(o, v) {
+    }
+    ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
+    }) : function (o, v) {
         o["default"] = v;
     };
-
     function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
+        if (mod && mod.__esModule)
+            return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        if (mod != null)
+            for (var k in mod)
+                if (Object.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
     }
-
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-
     function __classPrivateFieldGet(receiver, privateMap) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to get private field on non-instance");
         }
         return privateMap.get(receiver);
     }
-
     function __classPrivateFieldSet(receiver, privateMap, value) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to set private field on non-instance");
@@ -366,23 +439,23 @@
                 this._outlet.dispose();
             }
         };
-        MatMenuContent.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'ng-template[matMenuContent]',
-                        providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatMenuContent }],
-                    },] }
-        ];
-        MatMenuContent.ctorParameters = function () { return [
-            { type: core.TemplateRef },
-            { type: core.ComponentFactoryResolver },
-            { type: core.ApplicationRef },
-            { type: core.Injector },
-            { type: core.ViewContainerRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
-            { type: core.ChangeDetectorRef }
-        ]; };
         return MatMenuContent;
     }());
+    MatMenuContent.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'ng-template[matMenuContent]',
+                    providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatMenuContent }],
+                },] }
+    ];
+    MatMenuContent.ctorParameters = function () { return [
+        { type: core.TemplateRef },
+        { type: core.ComponentFactoryResolver },
+        { type: core.ApplicationRef },
+        { type: core.Injector },
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: core.ChangeDetectorRef }
+    ]; };
 
     /**
      * @license
@@ -437,13 +510,6 @@
      */
     var MAT_MENU_PANEL = new core.InjectionToken('MAT_MENU_PANEL');
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     // Boilerplate for applying mixins to MatMenuItem.
     /** @docs-private */
     var MatMenuItemBase = /** @class */ (function () {
@@ -544,11 +610,11 @@
             var textNodeType = this._document ? this._document.TEXT_NODE : 3;
             var output = '';
             if (element.childNodes) {
-                var length_1 = element.childNodes.length;
+                var length = element.childNodes.length;
                 // Go through all the top-level text nodes and extract their text.
                 // We skip anything that's not a text node to prevent the text from
                 // being thrown off by something like an icon.
-                for (var i = 0; i < length_1; i++) {
+                for (var i = 0; i < length; i++) {
                     if (element.childNodes[i].nodeType === textNodeType) {
                         output += element.childNodes[i].textContent;
                     }
@@ -556,47 +622,40 @@
             }
             return output.trim();
         };
-        MatMenuItem.decorators = [
-            { type: core.Component, args: [{
-                        selector: '[mat-menu-item]',
-                        exportAs: 'matMenuItem',
-                        inputs: ['disabled', 'disableRipple'],
-                        host: {
-                            '[attr.role]': 'role',
-                            '[class.mat-menu-item]': 'true',
-                            '[class.mat-menu-item-highlighted]': '_highlighted',
-                            '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
-                            '[attr.tabindex]': '_getTabIndex()',
-                            '[attr.aria-disabled]': 'disabled.toString()',
-                            '[attr.disabled]': 'disabled || null',
-                            'class': 'mat-focus-indicator',
-                        },
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        template: "<ng-content></ng-content>\n<div class=\"mat-menu-ripple\" matRipple\n     [matRippleDisabled]=\"disableRipple || disabled\"\n     [matRippleTrigger]=\"_getHostElement()\">\n</div>\n"
-                    },] }
-        ];
-        MatMenuItem.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
-            { type: a11y.FocusMonitor },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] }
-        ]; };
-        MatMenuItem.propDecorators = {
-            role: [{ type: core.Input }],
-            _checkDisabled: [{ type: core.HostListener, args: ['click', ['$event'],] }],
-            _handleMouseEnter: [{ type: core.HostListener, args: ['mouseenter',] }]
-        };
         return MatMenuItem;
     }(_MatMenuItemMixinBase));
+    MatMenuItem.decorators = [
+        { type: core.Component, args: [{
+                    selector: '[mat-menu-item]',
+                    exportAs: 'matMenuItem',
+                    inputs: ['disabled', 'disableRipple'],
+                    host: {
+                        '[attr.role]': 'role',
+                        '[class.mat-menu-item]': 'true',
+                        '[class.mat-menu-item-highlighted]': '_highlighted',
+                        '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.disabled]': 'disabled || null',
+                        'class': 'mat-focus-indicator',
+                    },
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    template: "<ng-content></ng-content>\n<div class=\"mat-menu-ripple\" matRipple\n     [matRippleDisabled]=\"disableRipple || disabled\"\n     [matRippleTrigger]=\"_getHostElement()\">\n</div>\n"
+                },] }
+    ];
+    MatMenuItem.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: a11y.FocusMonitor },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] }
+    ]; };
+    MatMenuItem.propDecorators = {
+        role: [{ type: core.Input }],
+        _checkDisabled: [{ type: core.HostListener, args: ['click', ['$event'],] }],
+        _handleMouseEnter: [{ type: core.HostListener, args: ['mouseenter',] }]
+    };
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Injection token to be used to override the default options for `mat-menu`. */
     var MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
         providedIn: 'root',
@@ -934,45 +993,45 @@
                 _this._directDescendantItems.notifyOnChanges();
             });
         };
-        _MatMenuBase.decorators = [
-            { type: core.Directive }
-        ];
-        _MatMenuBase.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.NgZone },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
-        ]; };
-        _MatMenuBase.propDecorators = {
-            _allItems: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: true },] }],
-            backdropClass: [{ type: core.Input }],
-            ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
-            ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
-            ariaDescribedby: [{ type: core.Input, args: ['aria-describedby',] }],
-            xPosition: [{ type: core.Input }],
-            yPosition: [{ type: core.Input }],
-            templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
-            items: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: false },] }],
-            lazyContent: [{ type: core.ContentChild, args: [MAT_MENU_CONTENT,] }],
-            overlapTrigger: [{ type: core.Input }],
-            hasBackdrop: [{ type: core.Input }],
-            panelClass: [{ type: core.Input, args: ['class',] }],
-            classList: [{ type: core.Input }],
-            closed: [{ type: core.Output }],
-            close: [{ type: core.Output }]
-        };
         return _MatMenuBase;
     }());
+    _MatMenuBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatMenuBase.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
+    ]; };
+    _MatMenuBase.propDecorators = {
+        _allItems: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: true },] }],
+        backdropClass: [{ type: core.Input }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        ariaDescribedby: [{ type: core.Input, args: ['aria-describedby',] }],
+        xPosition: [{ type: core.Input }],
+        yPosition: [{ type: core.Input }],
+        templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
+        items: [{ type: core.ContentChildren, args: [MatMenuItem, { descendants: false },] }],
+        lazyContent: [{ type: core.ContentChild, args: [MAT_MENU_CONTENT,] }],
+        overlapTrigger: [{ type: core.Input }],
+        hasBackdrop: [{ type: core.Input }],
+        panelClass: [{ type: core.Input, args: ['class',] }],
+        classList: [{ type: core.Input }],
+        closed: [{ type: core.Output }],
+        close: [{ type: core.Output }]
+    };
     /** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
     var MatMenu = /** @class */ (function (_super) {
         __extends(MatMenu, _super);
         function MatMenu() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatMenu.decorators = [
-            { type: core.Directive }
-        ];
         return MatMenu;
     }(_MatMenuBase));
+    MatMenu.decorators = [
+        { type: core.Directive }
+    ];
     // Note on the weird inheritance setup: we need three classes, because the MDC-based menu has to
     // extend `MatMenu`, however keeping a reference to it will cause the inlined template and styles
     // to be retained as well. The MDC menu also has to provide itself as a `MatMenu` in order for
@@ -989,39 +1048,32 @@
         function _MatMenu(elementRef, ngZone, defaultOptions) {
             return _super.call(this, elementRef, ngZone, defaultOptions) || this;
         }
-        _MatMenu.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-menu',
-                        template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        exportAs: 'matMenu',
-                        animations: [
-                            matMenuAnimations.transformMenu,
-                            matMenuAnimations.fadeInItems
-                        ],
-                        providers: [
-                            { provide: MAT_MENU_PANEL, useExisting: MatMenu },
-                            { provide: MatMenu, useExisting: _MatMenu }
-                        ],
-                        styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}.cdk-high-contrast-active .mat-menu-panel{outline:solid 1px}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}.cdk-high-contrast-active .mat-menu-item.cdk-program-focused,.cdk-high-contrast-active .mat-menu-item.cdk-keyboard-focused,.cdk-high-contrast-active .mat-menu-item-highlighted{outline:dotted 1px}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:\"\";display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
-                    },] }
-        ];
-        _MatMenu.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.NgZone },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
-        ]; };
         return _MatMenu;
     }(MatMenu));
+    _MatMenu.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'mat-menu',
+                    template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    exportAs: 'matMenu',
+                    animations: [
+                        matMenuAnimations.transformMenu,
+                        matMenuAnimations.fadeInItems
+                    ],
+                    providers: [
+                        { provide: MAT_MENU_PANEL, useExisting: MatMenu },
+                        { provide: MatMenu, useExisting: _MatMenu }
+                    ],
+                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}.cdk-high-contrast-active .mat-menu-panel{outline:solid 1px}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}.cdk-high-contrast-active .mat-menu-item.cdk-program-focused,.cdk-high-contrast-active .mat-menu-item.cdk-keyboard-focused,.cdk-high-contrast-active .mat-menu-item-highlighted{outline:dotted 1px}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:\"\";display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
+                },] }
+    ];
+    _MatMenu.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
+    ]; };
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Injection token that determines the scroll handling while the menu is open. */
     var MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
     /** @docs-private */
@@ -1472,43 +1524,43 @@
             }
             return this._portal;
         };
-        MatMenuTrigger.decorators = [
-            { type: core.Directive, args: [{
-                        selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
-                        host: {
-                            'class': 'mat-menu-trigger',
-                            'aria-haspopup': 'true',
-                            '[attr.aria-expanded]': 'menuOpen || null',
-                            '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
-                            '(mousedown)': '_handleMousedown($event)',
-                            '(keydown)': '_handleKeydown($event)',
-                            '(click)': '_handleClick($event)',
-                        },
-                        exportAs: 'matMenuTrigger'
-                    },] }
-        ];
-        MatMenuTrigger.ctorParameters = function () { return [
-            { type: overlay.Overlay },
-            { type: core.ElementRef },
-            { type: core.ViewContainerRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] }] },
-            { type: MatMenu, decorators: [{ type: core.Optional }] },
-            { type: MatMenuItem, decorators: [{ type: core.Optional }, { type: core.Self }] },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: a11y.FocusMonitor }
-        ]; };
-        MatMenuTrigger.propDecorators = {
-            _deprecatedMatMenuTriggerFor: [{ type: core.Input, args: ['mat-menu-trigger-for',] }],
-            menu: [{ type: core.Input, args: ['matMenuTriggerFor',] }],
-            menuData: [{ type: core.Input, args: ['matMenuTriggerData',] }],
-            restoreFocus: [{ type: core.Input, args: ['matMenuTriggerRestoreFocus',] }],
-            menuOpened: [{ type: core.Output }],
-            onMenuOpen: [{ type: core.Output }],
-            menuClosed: [{ type: core.Output }],
-            onMenuClose: [{ type: core.Output }]
-        };
         return MatMenuTrigger;
     }());
+    MatMenuTrigger.decorators = [
+        { type: core.Directive, args: [{
+                    selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
+                    host: {
+                        'class': 'mat-menu-trigger',
+                        'aria-haspopup': 'true',
+                        '[attr.aria-expanded]': 'menuOpen || null',
+                        '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
+                        '(mousedown)': '_handleMousedown($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                        '(click)': '_handleClick($event)',
+                    },
+                    exportAs: 'matMenuTrigger'
+                },] }
+    ];
+    MatMenuTrigger.ctorParameters = function () { return [
+        { type: overlay.Overlay },
+        { type: core.ElementRef },
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] }] },
+        { type: MatMenu, decorators: [{ type: core.Optional }] },
+        { type: MatMenuItem, decorators: [{ type: core.Optional }, { type: core.Self }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: a11y.FocusMonitor }
+    ]; };
+    MatMenuTrigger.propDecorators = {
+        _deprecatedMatMenuTriggerFor: [{ type: core.Input, args: ['mat-menu-trigger-for',] }],
+        menu: [{ type: core.Input, args: ['matMenuTriggerFor',] }],
+        menuData: [{ type: core.Input, args: ['matMenuTriggerData',] }],
+        restoreFocus: [{ type: core.Input, args: ['matMenuTriggerRestoreFocus',] }],
+        menuOpened: [{ type: core.Output }],
+        onMenuOpen: [{ type: core.Output }],
+        menuClosed: [{ type: core.Output }],
+        onMenuClose: [{ type: core.Output }]
+    };
 
     /**
      * @license
@@ -1524,37 +1576,37 @@
     var _MatMenuDirectivesModule = /** @class */ (function () {
         function _MatMenuDirectivesModule() {
         }
-        _MatMenuDirectivesModule.decorators = [
-            { type: core.NgModule, args: [{
-                        exports: [MatMenuTrigger, MatMenuContent, core$1.MatCommonModule],
-                        declarations: [
-                            MatMenuTrigger,
-                            MatMenuContent,
-                        ],
-                        providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
-                    },] }
-        ];
         return _MatMenuDirectivesModule;
     }());
+    _MatMenuDirectivesModule.decorators = [
+        { type: core.NgModule, args: [{
+                    exports: [MatMenuTrigger, MatMenuContent, core$1.MatCommonModule],
+                    declarations: [
+                        MatMenuTrigger,
+                        MatMenuContent,
+                    ],
+                    providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                },] }
+    ];
     var MatMenuModule = /** @class */ (function () {
         function MatMenuModule() {
         }
-        MatMenuModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            common.CommonModule,
-                            core$1.MatCommonModule,
-                            core$1.MatRippleModule,
-                            overlay.OverlayModule,
-                            _MatMenuDirectivesModule,
-                        ],
-                        exports: [scrolling.CdkScrollableModule, core$1.MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
-                        declarations: [_MatMenu, MatMenuItem],
-                        providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
-                    },] }
-        ];
         return MatMenuModule;
     }());
+    MatMenuModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule,
+                        core$1.MatCommonModule,
+                        core$1.MatRippleModule,
+                        overlay.OverlayModule,
+                        _MatMenuDirectivesModule,
+                    ],
+                    exports: [scrolling.CdkScrollableModule, core$1.MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
+                    declarations: [_MatMenu, MatMenuItem],
+                    providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                },] }
+    ];
 
     /**
      * @license
