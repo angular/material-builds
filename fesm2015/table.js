@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, ElementRef, NgModule } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, Input, NgModule } from '@angular/core';
 import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, _CoalescedStyleScheduler, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
@@ -91,6 +91,16 @@ MatFooterCellDef.decorators = [
  * Defines a set of cells available for a table column.
  */
 class MatColumnDef extends CdkColumnDef {
+    /**
+     * Add "mat-column-" prefix in addition to "cdk-column-" prefix.
+     * In the future, this will only add "mat-column-" and columnCssClassName
+     * will change from type string[] to string.
+     * @docs-private
+     */
+    _updateColumnCssClassName() {
+        super._updateColumnCssClassName();
+        this._columnCssClassName.push(`mat-column-${this.cssClassFriendlyName}`);
+    }
 }
 MatColumnDef.decorators = [
     { type: Directive, args: [{
@@ -107,10 +117,6 @@ MatColumnDef.propDecorators = {
 };
 /** Header cell template container that adds the right classes and role. */
 class MatHeaderCell extends CdkHeaderCell {
-    constructor(columnDef, elementRef) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
-    }
 }
 MatHeaderCell.decorators = [
     { type: Directive, args: [{
@@ -121,16 +127,8 @@ MatHeaderCell.decorators = [
                 },
             },] }
 ];
-MatHeaderCell.ctorParameters = () => [
-    { type: CdkColumnDef },
-    { type: ElementRef }
-];
 /** Footer cell template container that adds the right classes and role. */
 class MatFooterCell extends CdkFooterCell {
-    constructor(columnDef, elementRef) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
-    }
 }
 MatFooterCell.decorators = [
     { type: Directive, args: [{
@@ -141,16 +139,8 @@ MatFooterCell.decorators = [
                 },
             },] }
 ];
-MatFooterCell.ctorParameters = () => [
-    { type: CdkColumnDef },
-    { type: ElementRef }
-];
 /** Cell template container that adds the right classes and role. */
 class MatCell extends CdkCell {
-    constructor(columnDef, elementRef) {
-        super(columnDef, elementRef);
-        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
-    }
 }
 MatCell.decorators = [
     { type: Directive, args: [{
@@ -160,10 +150,6 @@ MatCell.decorators = [
                     'role': 'gridcell',
                 },
             },] }
-];
-MatCell.ctorParameters = () => [
-    { type: CdkColumnDef },
-    { type: ElementRef }
 ];
 
 /**

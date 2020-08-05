@@ -340,6 +340,16 @@
         function MatColumnDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        /**
+         * Add "mat-column-" prefix in addition to "cdk-column-" prefix.
+         * In the future, this will only add "mat-column-" and columnCssClassName
+         * will change from type string[] to string.
+         * @docs-private
+         */
+        MatColumnDef.prototype._updateColumnCssClassName = function () {
+            _super.prototype._updateColumnCssClassName.call(this);
+            this._columnCssClassName.push("mat-column-" + this.cssClassFriendlyName);
+        };
         MatColumnDef.decorators = [
             { type: core.Directive, args: [{
                         selector: '[matColumnDef]',
@@ -358,10 +368,8 @@
     /** Header cell template container that adds the right classes and role. */
     var MatHeaderCell = /** @class */ (function (_super) {
         __extends(MatHeaderCell, _super);
-        function MatHeaderCell(columnDef, elementRef) {
-            var _this = _super.call(this, columnDef, elementRef) || this;
-            elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
-            return _this;
+        function MatHeaderCell() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         MatHeaderCell.decorators = [
             { type: core.Directive, args: [{
@@ -372,19 +380,13 @@
                         },
                     },] }
         ];
-        MatHeaderCell.ctorParameters = function () { return [
-            { type: table.CdkColumnDef },
-            { type: core.ElementRef }
-        ]; };
         return MatHeaderCell;
     }(table.CdkHeaderCell));
     /** Footer cell template container that adds the right classes and role. */
     var MatFooterCell = /** @class */ (function (_super) {
         __extends(MatFooterCell, _super);
-        function MatFooterCell(columnDef, elementRef) {
-            var _this = _super.call(this, columnDef, elementRef) || this;
-            elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
-            return _this;
+        function MatFooterCell() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         MatFooterCell.decorators = [
             { type: core.Directive, args: [{
@@ -395,19 +397,13 @@
                         },
                     },] }
         ];
-        MatFooterCell.ctorParameters = function () { return [
-            { type: table.CdkColumnDef },
-            { type: core.ElementRef }
-        ]; };
         return MatFooterCell;
     }(table.CdkFooterCell));
     /** Cell template container that adds the right classes and role. */
     var MatCell = /** @class */ (function (_super) {
         __extends(MatCell, _super);
-        function MatCell(columnDef, elementRef) {
-            var _this = _super.call(this, columnDef, elementRef) || this;
-            elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
-            return _this;
+        function MatCell() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         MatCell.decorators = [
             { type: core.Directive, args: [{
@@ -418,10 +414,6 @@
                         },
                     },] }
         ];
-        MatCell.ctorParameters = function () { return [
-            { type: table.CdkColumnDef },
-            { type: core.ElementRef }
-        ]; };
         return MatCell;
     }(table.CdkCell));
 
