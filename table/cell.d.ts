@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef } from '@angular/core';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
 /**
  * Cell definition for the mat-table.
@@ -33,17 +32,21 @@ export declare class MatFooterCellDef extends CdkFooterCellDef {
 export declare class MatColumnDef extends CdkColumnDef {
     /** Unique name for this column. */
     name: string;
+    /**
+     * Add "mat-column-" prefix in addition to "cdk-column-" prefix.
+     * In the future, this will only add "mat-column-" and columnCssClassName
+     * will change from type string[] to string.
+     * @docs-private
+     */
+    protected _updateColumnCssClassName(): void;
     static ngAcceptInputType_sticky: BooleanInput;
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>);
 }
 /** Footer cell template container that adds the right classes and role. */
 export declare class MatFooterCell extends CdkFooterCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef);
 }
 /** Cell template container that adds the right classes and role. */
 export declare class MatCell extends CdkCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>);
 }
