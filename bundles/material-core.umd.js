@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.2.0-next.0-sha-fbfe4cb0a');
+    var VERSION = new i0.Version('10.2.0-next.0-sha-afa29cffc');
 
     /**
      * @license
@@ -25,21 +25,21 @@
     var AnimationCurves = /** @class */ (function () {
         function AnimationCurves() {
         }
-        AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
-        AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
-        AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
-        AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
         return AnimationCurves;
     }());
+    AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
+    AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
+    AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
+    AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
     /** @docs-private */
     var AnimationDurations = /** @class */ (function () {
         function AnimationDurations() {
         }
-        AnimationDurations.COMPLEX = '375ms';
-        AnimationDurations.ENTERING = '225ms';
-        AnimationDurations.EXITING = '195ms';
         return AnimationDurations;
     }());
+    AnimationDurations.COMPLEX = '375ms';
+    AnimationDurations.ENTERING = '225ms';
+    AnimationDurations.EXITING = '195ms';
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-fbfe4cb0a');
+    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-afa29cffc');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -151,19 +151,19 @@
                     'Please ensure the versions of these two packages exactly match.');
             }
         };
-        MatCommonModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [bidi.BidiModule],
-                        exports: [bidi.BidiModule],
-                    },] }
-        ];
-        MatCommonModule.ctorParameters = function () { return [
-            { type: a11y.HighContrastModeDetector },
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [common.DOCUMENT,] }] }
-        ]; };
         return MatCommonModule;
     }());
+    MatCommonModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [bidi.BidiModule],
+                    exports: [bidi.BidiModule],
+                },] }
+    ];
+    MatCommonModule.ctorParameters = function () { return [
+        { type: a11y.HighContrastModeDetector },
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [common.DOCUMENT,] }] }
+    ]; };
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -180,35 +180,36 @@
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
         return extendStatics(d, b);
     };
-
     function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
-
-    var __assign = function() {
+    var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
             }
             return t;
         };
         return __assign.apply(this, arguments);
     };
-
     function __rest(s, e) {
         var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+                t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
             for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
@@ -216,175 +217,247 @@
             }
         return t;
     }
-
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+            r = Reflect.decorate(decorators, target, key, desc);
+        else
+            for (var i = decorators.length - 1; i >= 0; i--)
+                if (d = decorators[i])
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
-
     function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
+        return function (target, key) { decorator(target, key, paramIndex); };
     }
-
     function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+            return Reflect.metadata(metadataKey, metadataValue);
     }
-
     function __awaiter(thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
             function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
-
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
                 }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-
-    var __createBinding = Object.create ? (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-    }) : (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
         o[k2] = m[k];
     });
-
     function __exportStar(m, exports) {
-        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+        for (var p in m)
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
-
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
+        if (m)
+            return m.call(o);
+        if (o && typeof o.length === "number")
+            return {
+                next: function () {
+                    if (o && i >= o.length)
+                        o = void 0;
+                    return { value: o && o[i++], done: !o };
+                }
+            };
         throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
-
     function __read(o, n) {
         var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
+        if (!m)
+            return o;
         var i = m.call(o), r, ar = [], e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
         }
-        catch (error) { e = { error: error }; }
+        catch (error) {
+            e = { error: error };
+        }
         finally {
             try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
             }
-            finally { if (e) throw e.error; }
+            finally {
+                if (e)
+                    throw e.error;
+            }
         }
         return ar;
     }
-
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+            s += arguments[i].length;
         for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
                 r[k] = a[j];
         return r;
-    };
-
+    }
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
-
     function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function verb(n) { if (g[n])
+            i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try {
+            step(g[n](v));
+        }
+        catch (e) {
+            settle(q[0][3], e);
+        } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
         function fulfill(value) { resume("next", value); }
         function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+        function settle(f, v) { if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]); }
     }
-
     function __asyncDelegator(o) {
         var i, p;
         return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
         function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
-
     function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var m = o[Symbol.asyncIterator], i;
         return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
     }
-
     function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
         return cooked;
-    };
-
-    var __setModuleDefault = Object.create ? (function(o, v) {
+    }
+    ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
+    }) : function (o, v) {
         o["default"] = v;
     };
-
     function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
+        if (mod && mod.__esModule)
+            return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        if (mod != null)
+            for (var k in mod)
+                if (Object.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
     }
-
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-
     function __classPrivateFieldGet(receiver, privateMap) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to get private field on non-instance");
         }
         return privateMap.get(receiver);
     }
-
     function __classPrivateFieldSet(receiver, privateMap, value) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to set private field on non-instance");
@@ -393,13 +466,6 @@
         return value;
     }
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Mixin to augment a directive with a `disabled` property. */
     function mixinDisabled(base) {
         return /** @class */ (function (_super) {
@@ -465,13 +531,6 @@
         }(base));
     }
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Mixin to augment a directive with a `disableRipple` property. */
     function mixinDisableRipple(base) {
         return /** @class */ (function (_super) {
@@ -496,13 +555,6 @@
         }(base));
     }
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Mixin to augment a directive with a `tabIndex` property. */
     function mixinTabIndex(base, defaultTabIndex) {
         if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
@@ -530,13 +582,6 @@
         }(base));
     }
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /**
      * Mixin to augment a directive with updateErrorState method.
      * For component with `errorState` and need to update `errorState`.
@@ -574,13 +619,6 @@
         }(base));
     }
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Mixin to augment a directive with an initialized property that will emits when ngOnInit ends. */
     function mixinInitialized(base) {
         return /** @class */ (function (_super) {
@@ -774,13 +812,6 @@
      */
     var MAT_DATE_FORMATS = new i0.InjectionToken('mat-date-formats');
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     // TODO(mmalerba): Remove when we no longer support safari 9.
     /** Whether the browser supports the Intl API. */
     var SUPPORTS_INTL_API;
@@ -866,9 +897,7 @@
             var _this = this;
             if (SUPPORTS_INTL_API) {
                 var dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
-                return range(12, function (i) {
-                    return _this._stripDirectionalityCharacters(_this._format(dtf_1, new Date(2017, i, 1)));
-                });
+                return range(12, function (i) { return _this._stripDirectionalityCharacters(_this._format(dtf_1, new Date(2017, i, 1))); });
             }
             return DEFAULT_MONTH_NAMES[style];
         };
@@ -943,7 +972,7 @@
                     date = this.clone(date);
                     date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
                 }
-                displayFormat = __assign(__assign({}, displayFormat), { timeZone: 'utc' });
+                displayFormat = Object.assign(Object.assign({}, displayFormat), { timeZone: 'utc' });
                 var dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
                 return this._stripDirectionalityCharacters(this._format(dtf, date));
             }
@@ -1046,15 +1075,15 @@
             var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
             return dtf.format(d);
         };
-        NativeDateAdapter.decorators = [
-            { type: i0.Injectable }
-        ];
-        NativeDateAdapter.ctorParameters = function () { return [
-            { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_DATE_LOCALE,] }] },
-            { type: platform.Platform }
-        ]; };
         return NativeDateAdapter;
     }(DateAdapter));
+    NativeDateAdapter.decorators = [
+        { type: i0.Injectable }
+    ];
+    NativeDateAdapter.ctorParameters = function () { return [
+        { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_DATE_LOCALE,] }] },
+        { type: platform.Platform }
+    ]; };
 
     /**
      * @license
@@ -1085,28 +1114,28 @@
     var NativeDateModule = /** @class */ (function () {
         function NativeDateModule() {
         }
-        NativeDateModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [platform.PlatformModule],
-                        providers: [
-                            { provide: DateAdapter, useClass: NativeDateAdapter },
-                        ],
-                    },] }
-        ];
         return NativeDateModule;
     }());
+    NativeDateModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [platform.PlatformModule],
+                    providers: [
+                        { provide: DateAdapter, useClass: NativeDateAdapter },
+                    ],
+                },] }
+    ];
     var ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
     var MatNativeDateModule = /** @class */ (function () {
         function MatNativeDateModule() {
         }
-        MatNativeDateModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [NativeDateModule],
-                        providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
-                    },] }
-        ];
         return MatNativeDateModule;
     }());
+    MatNativeDateModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [NativeDateModule],
+                    providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
+                },] }
+    ];
 
     /**
      * @license
@@ -1122,11 +1151,11 @@
         ShowOnDirtyErrorStateMatcher.prototype.isErrorState = function (control, form) {
             return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
         };
-        ShowOnDirtyErrorStateMatcher.decorators = [
-            { type: i0.Injectable }
-        ];
         return ShowOnDirtyErrorStateMatcher;
     }());
+    ShowOnDirtyErrorStateMatcher.decorators = [
+        { type: i0.Injectable }
+    ];
     /** Provider that defines how form controls behave with regards to displaying error messages. */
     var ErrorStateMatcher = /** @class */ (function () {
         function ErrorStateMatcher() {
@@ -1134,12 +1163,12 @@
         ErrorStateMatcher.prototype.isErrorState = function (control, form) {
             return !!(control && control.invalid && (control.touched || (form && form.submitted)));
         };
-        ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
-        ErrorStateMatcher.decorators = [
-            { type: i0.Injectable, args: [{ providedIn: 'root' },] }
-        ];
         return ErrorStateMatcher;
     }());
+    ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    ErrorStateMatcher.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
 
     /**
      * @license
@@ -1156,14 +1185,14 @@
     var MatLine = /** @class */ (function () {
         function MatLine() {
         }
-        MatLine.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: '[mat-line], [matLine]',
-                        host: { 'class': 'mat-line' }
-                    },] }
-        ];
         return MatLine;
     }());
+    MatLine.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[mat-line], [matLine]',
+                    host: { 'class': 'mat-line' }
+                },] }
+    ];
     /**
      * Helper that takes a query list of lines and sets the correct class on the host.
      * @docs-private
@@ -1205,15 +1234,15 @@
     var MatLineModule = /** @class */ (function () {
         function MatLineModule() {
         }
-        MatLineModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [MatCommonModule],
-                        exports: [MatLine, MatCommonModule],
-                        declarations: [MatLine],
-                    },] }
-        ];
         return MatLineModule;
     }());
+    MatLineModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [MatLine, MatCommonModule],
+                    declarations: [MatLine],
+                },] }
+    ];
 
     /**
      * @license
@@ -1296,7 +1325,7 @@
             if (config === void 0) { config = {}; }
             var containerRect = this._containerRect =
                 this._containerRect || this._containerElement.getBoundingClientRect();
-            var animationConfig = __assign(__assign({}, defaultRippleAnimationConfig), config.animation);
+            var animationConfig = Object.assign(Object.assign({}, defaultRippleAnimationConfig), config.animation);
             if (config.centered) {
                 x = containerRect.left + containerRect.width / 2;
                 y = containerRect.top + containerRect.height / 2;
@@ -1360,7 +1389,7 @@
                 return;
             }
             var rippleEl = rippleRef.element;
-            var animationConfig = __assign(__assign({}, defaultRippleAnimationConfig), rippleRef.config.animation);
+            var animationConfig = Object.assign(Object.assign({}, defaultRippleAnimationConfig), rippleRef.config.animation);
             rippleEl.style.transitionDuration = animationConfig.exitDuration + "ms";
             rippleEl.style.opacity = '0';
             rippleRef.state = 2 /* FADING_OUT */;
@@ -1570,7 +1599,7 @@
                     centered: this.centered,
                     radius: this.radius,
                     color: this.color,
-                    animation: __assign(__assign(__assign({}, this._globalOptions.animation), (this._animationMode === 'NoopAnimations' ? { enterDuration: 0, exitDuration: 0 } : {})), this.animation),
+                    animation: Object.assign(Object.assign(Object.assign({}, this._globalOptions.animation), (this._animationMode === 'NoopAnimations' ? { enterDuration: 0, exitDuration: 0 } : {})), this.animation),
                     terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
                 };
             },
@@ -1598,40 +1627,40 @@
         MatRipple.prototype.launch = function (configOrX, y, config) {
             if (y === void 0) { y = 0; }
             if (typeof configOrX === 'number') {
-                return this._rippleRenderer.fadeInRipple(configOrX, y, __assign(__assign({}, this.rippleConfig), config));
+                return this._rippleRenderer.fadeInRipple(configOrX, y, Object.assign(Object.assign({}, this.rippleConfig), config));
             }
             else {
-                return this._rippleRenderer.fadeInRipple(0, 0, __assign(__assign({}, this.rippleConfig), configOrX));
+                return this._rippleRenderer.fadeInRipple(0, 0, Object.assign(Object.assign({}, this.rippleConfig), configOrX));
             }
-        };
-        MatRipple.decorators = [
-            { type: i0.Directive, args: [{
-                        selector: '[mat-ripple], [matRipple]',
-                        exportAs: 'matRipple',
-                        host: {
-                            'class': 'mat-ripple',
-                            '[class.mat-ripple-unbounded]': 'unbounded'
-                        }
-                    },] }
-        ];
-        MatRipple.ctorParameters = function () { return [
-            { type: i0.ElementRef },
-            { type: i0.NgZone },
-            { type: platform.Platform },
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-            { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatRipple.propDecorators = {
-            color: [{ type: i0.Input, args: ['matRippleColor',] }],
-            unbounded: [{ type: i0.Input, args: ['matRippleUnbounded',] }],
-            centered: [{ type: i0.Input, args: ['matRippleCentered',] }],
-            radius: [{ type: i0.Input, args: ['matRippleRadius',] }],
-            animation: [{ type: i0.Input, args: ['matRippleAnimation',] }],
-            disabled: [{ type: i0.Input, args: ['matRippleDisabled',] }],
-            trigger: [{ type: i0.Input, args: ['matRippleTrigger',] }]
         };
         return MatRipple;
     }());
+    MatRipple.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[mat-ripple], [matRipple]',
+                    exportAs: 'matRipple',
+                    host: {
+                        'class': 'mat-ripple',
+                        '[class.mat-ripple-unbounded]': 'unbounded'
+                    }
+                },] }
+    ];
+    MatRipple.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: i0.NgZone },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    MatRipple.propDecorators = {
+        color: [{ type: i0.Input, args: ['matRippleColor',] }],
+        unbounded: [{ type: i0.Input, args: ['matRippleUnbounded',] }],
+        centered: [{ type: i0.Input, args: ['matRippleCentered',] }],
+        radius: [{ type: i0.Input, args: ['matRippleRadius',] }],
+        animation: [{ type: i0.Input, args: ['matRippleAnimation',] }],
+        disabled: [{ type: i0.Input, args: ['matRippleDisabled',] }],
+        trigger: [{ type: i0.Input, args: ['matRippleTrigger',] }]
+    };
 
     /**
      * @license
@@ -1643,15 +1672,15 @@
     var MatRippleModule = /** @class */ (function () {
         function MatRippleModule() {
         }
-        MatRippleModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [MatCommonModule, platform.PlatformModule],
-                        exports: [MatRipple, MatCommonModule],
-                        declarations: [MatRipple],
-                    },] }
-        ];
         return MatRippleModule;
     }());
+    MatRippleModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [MatCommonModule, platform.PlatformModule],
+                    exports: [MatRipple, MatCommonModule],
+                    declarations: [MatRipple],
+                },] }
+    ];
 
     /**
      * @license
@@ -1681,31 +1710,31 @@
             /** Whether the checkbox is disabled. */
             this.disabled = false;
         }
-        MatPseudoCheckbox.decorators = [
-            { type: i0.Component, args: [{
-                        encapsulation: i0.ViewEncapsulation.None,
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        selector: 'mat-pseudo-checkbox',
-                        template: '',
-                        host: {
-                            'class': 'mat-pseudo-checkbox',
-                            '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                            '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                            '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                            '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                        },
-                        styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
-                    },] }
-        ];
-        MatPseudoCheckbox.ctorParameters = function () { return [
-            { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
-        ]; };
-        MatPseudoCheckbox.propDecorators = {
-            state: [{ type: i0.Input }],
-            disabled: [{ type: i0.Input }]
-        };
         return MatPseudoCheckbox;
     }());
+    MatPseudoCheckbox.decorators = [
+        { type: i0.Component, args: [{
+                    encapsulation: i0.ViewEncapsulation.None,
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    selector: 'mat-pseudo-checkbox',
+                    template: '',
+                    host: {
+                        'class': 'mat-pseudo-checkbox',
+                        '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
+                        '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
+                        '[class.mat-pseudo-checkbox-disabled]': 'disabled',
+                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                    },
+                    styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"]
+                },] }
+    ];
+    MatPseudoCheckbox.ctorParameters = function () { return [
+        { type: String, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+    ]; };
+    MatPseudoCheckbox.propDecorators = {
+        state: [{ type: i0.Input }],
+        disabled: [{ type: i0.Input }]
+    };
 
     /**
      * @license
@@ -1717,22 +1746,15 @@
     var MatPseudoCheckboxModule = /** @class */ (function () {
         function MatPseudoCheckboxModule() {
         }
-        MatPseudoCheckboxModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        exports: [MatPseudoCheckbox],
-                        declarations: [MatPseudoCheckbox]
-                    },] }
-        ];
         return MatPseudoCheckboxModule;
     }());
+    MatPseudoCheckboxModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    exports: [MatPseudoCheckbox],
+                    declarations: [MatPseudoCheckbox]
+                },] }
+    ];
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     // Boilerplate for applying mixins to MatOptgroup.
     /** @docs-private */
     var MatOptgroupBase = /** @class */ (function () {
@@ -1743,22 +1765,23 @@
     var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
     // Counter for unique group ids.
     var _uniqueOptgroupIdCounter = 0;
+    // tslint:disable-next-line:class-name
     var _MatOptgroupBase = /** @class */ (function (_super) {
         __extends(_MatOptgroupBase, _super);
         function _MatOptgroupBase() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.apply(this, __spread(arguments)) || this;
             /** Unique id for the underlying label. */
             _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
             return _this;
         }
-        _MatOptgroupBase.decorators = [
-            { type: i0.Directive }
-        ];
-        _MatOptgroupBase.propDecorators = {
-            label: [{ type: i0.Input }]
-        };
         return _MatOptgroupBase;
     }(_MatOptgroupMixinBase));
+    _MatOptgroupBase.decorators = [
+        { type: i0.Directive }
+    ];
+    _MatOptgroupBase.propDecorators = {
+        label: [{ type: i0.Input }]
+    };
     /**
      * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
      * alternative token to the actual `MatOptgroup` class which could cause unnecessary
@@ -1773,35 +1796,28 @@
         function MatOptgroup() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        MatOptgroup.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'mat-optgroup',
-                        exportAs: 'matOptgroup',
-                        template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
-                        encapsulation: i0.ViewEncapsulation.None,
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        inputs: ['disabled'],
-                        host: {
-                            'class': 'mat-optgroup',
-                            'role': 'group',
-                            '[class.mat-optgroup-disabled]': 'disabled',
-                            '[attr.aria-disabled]': 'disabled.toString()',
-                            '[attr.aria-labelledby]': '_labelId',
-                        },
-                        providers: [{ provide: MAT_OPTGROUP, useExisting: MatOptgroup }],
-                        styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
-                    },] }
-        ];
         return MatOptgroup;
     }(_MatOptgroupBase));
+    MatOptgroup.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></label>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n",
+                    encapsulation: i0.ViewEncapsulation.None,
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    host: {
+                        'class': 'mat-optgroup',
+                        'role': 'group',
+                        '[class.mat-optgroup-disabled]': 'disabled',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-labelledby]': '_labelId',
+                    },
+                    providers: [{ provide: MAT_OPTGROUP, useExisting: MatOptgroup }],
+                    styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
+                },] }
+    ];
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /**
      * Option IDs need to be unique across components, so this counter exists outside of
      * the component definition.
@@ -1824,6 +1840,7 @@
      * Injection token used to provide the parent component to options.
      */
     var MAT_OPTION_PARENT_COMPONENT = new i0.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+    // tslint:disable-next-line:class-name
     var _MatOptionBase = /** @class */ (function () {
         function _MatOptionBase(_element, _changeDetectorRef, _parent, group) {
             this._element = _element;
@@ -2001,23 +2018,23 @@
             if (isUserInput === void 0) { isUserInput = false; }
             this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
         };
-        _MatOptionBase.decorators = [
-            { type: i0.Directive }
-        ];
-        _MatOptionBase.ctorParameters = function () { return [
-            { type: i0.ElementRef },
-            { type: i0.ChangeDetectorRef },
-            { type: undefined },
-            { type: _MatOptgroupBase }
-        ]; };
-        _MatOptionBase.propDecorators = {
-            value: [{ type: i0.Input }],
-            id: [{ type: i0.Input }],
-            disabled: [{ type: i0.Input }],
-            onSelectionChange: [{ type: i0.Output }]
-        };
         return _MatOptionBase;
     }());
+    _MatOptionBase.decorators = [
+        { type: i0.Directive }
+    ];
+    _MatOptionBase.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: i0.ChangeDetectorRef },
+        { type: undefined },
+        { type: _MatOptgroupBase }
+    ]; };
+    _MatOptionBase.propDecorators = {
+        value: [{ type: i0.Input }],
+        id: [{ type: i0.Input }],
+        disabled: [{ type: i0.Input }],
+        onSelectionChange: [{ type: i0.Output }]
+    };
     /**
      * Single option inside of a `<mat-select>` element.
      */
@@ -2026,38 +2043,38 @@
         function MatOption(element, changeDetectorRef, parent, group) {
             return _super.call(this, element, changeDetectorRef, parent, group) || this;
         }
-        MatOption.decorators = [
-            { type: i0.Component, args: [{
-                        selector: 'mat-option',
-                        exportAs: 'matOption',
-                        host: {
-                            'role': 'option',
-                            '[attr.tabindex]': '_getTabIndex()',
-                            '[class.mat-selected]': 'selected',
-                            '[class.mat-option-multiple]': 'multiple',
-                            '[class.mat-active]': 'active',
-                            '[id]': 'id',
-                            '[attr.aria-selected]': '_getAriaSelected()',
-                            '[attr.aria-disabled]': 'disabled.toString()',
-                            '[class.mat-option-disabled]': 'disabled',
-                            '(click)': '_selectViaInteraction()',
-                            '(keydown)': '_handleKeydown($event)',
-                            'class': 'mat-option mat-focus-indicator',
-                        },
-                        template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
-                        encapsulation: i0.ViewEncapsulation.None,
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                        styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
-                    },] }
-        ];
-        MatOption.ctorParameters = function () { return [
-            { type: i0.ElementRef },
-            { type: i0.ChangeDetectorRef },
-            { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
-            { type: MatOptgroup, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_OPTGROUP,] }] }
-        ]; };
         return MatOption;
     }(_MatOptionBase));
+    MatOption.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'mat-option',
+                    exportAs: 'matOption',
+                    host: {
+                        'role': 'option',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[class.mat-selected]': 'selected',
+                        '[class.mat-option-multiple]': 'multiple',
+                        '[class.mat-active]': 'active',
+                        '[id]': 'id',
+                        '[attr.aria-selected]': '_getAriaSelected()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[class.mat-option-disabled]': 'disabled',
+                        '(click)': '_selectViaInteraction()',
+                        '(keydown)': '_handleKeydown($event)',
+                        'class': 'mat-option mat-focus-indicator',
+                    },
+                    template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
+                    encapsulation: i0.ViewEncapsulation.None,
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]
+                },] }
+    ];
+    MatOption.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: i0.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
+        { type: MatOptgroup, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_OPTGROUP,] }] }
+    ]; };
     /**
      * Counts the amount of option group labels that precede the specified option.
      * @param optionIndex Index of the option at which to start counting.
@@ -2108,15 +2125,15 @@
     var MatOptionModule = /** @class */ (function () {
         function MatOptionModule() {
         }
-        MatOptionModule.decorators = [
-            { type: i0.NgModule, args: [{
-                        imports: [MatRippleModule, common.CommonModule, MatPseudoCheckboxModule],
-                        exports: [MatOption, MatOptgroup],
-                        declarations: [MatOption, MatOptgroup]
-                    },] }
-        ];
         return MatOptionModule;
     }());
+    MatOptionModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [MatRippleModule, common.CommonModule, MatPseudoCheckboxModule],
+                    exports: [MatOption, MatOptgroup],
+                    declarations: [MatOption, MatOptgroup]
+                },] }
+    ];
 
     /**
      * @license

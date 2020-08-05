@@ -19,35 +19,36 @@
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
         return extendStatics(d, b);
     };
-
     function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
-
-    var __assign = function() {
+    var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
             }
             return t;
         };
         return __assign.apply(this, arguments);
     };
-
     function __rest(s, e) {
         var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+                t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
             for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
@@ -55,175 +56,247 @@
             }
         return t;
     }
-
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+            r = Reflect.decorate(decorators, target, key, desc);
+        else
+            for (var i = decorators.length - 1; i >= 0; i--)
+                if (d = decorators[i])
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
-
     function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
+        return function (target, key) { decorator(target, key, paramIndex); };
     }
-
     function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+            return Reflect.metadata(metadataKey, metadataValue);
     }
-
     function __awaiter(thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
             function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
-
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
                 }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-
-    var __createBinding = Object.create ? (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-    }) : (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
         o[k2] = m[k];
     });
-
     function __exportStar(m, exports) {
-        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+        for (var p in m)
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
-
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
+        if (m)
+            return m.call(o);
+        if (o && typeof o.length === "number")
+            return {
+                next: function () {
+                    if (o && i >= o.length)
+                        o = void 0;
+                    return { value: o && o[i++], done: !o };
+                }
+            };
         throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
-
     function __read(o, n) {
         var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
+        if (!m)
+            return o;
         var i = m.call(o), r, ar = [], e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
         }
-        catch (error) { e = { error: error }; }
+        catch (error) {
+            e = { error: error };
+        }
         finally {
             try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
             }
-            finally { if (e) throw e.error; }
+            finally {
+                if (e)
+                    throw e.error;
+            }
         }
         return ar;
     }
-
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+            s += arguments[i].length;
         for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
                 r[k] = a[j];
         return r;
-    };
-
+    }
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
-
     function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function verb(n) { if (g[n])
+            i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try {
+            step(g[n](v));
+        }
+        catch (e) {
+            settle(q[0][3], e);
+        } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
         function fulfill(value) { resume("next", value); }
         function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+        function settle(f, v) { if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]); }
     }
-
     function __asyncDelegator(o) {
         var i, p;
         return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
         function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
-
     function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var m = o[Symbol.asyncIterator], i;
         return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
     }
-
     function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
         return cooked;
-    };
-
-    var __setModuleDefault = Object.create ? (function(o, v) {
+    }
+    ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
+    }) : function (o, v) {
         o["default"] = v;
     };
-
     function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
+        if (mod && mod.__esModule)
+            return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        if (mod != null)
+            for (var k in mod)
+                if (Object.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
     }
-
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-
     function __classPrivateFieldGet(receiver, privateMap) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to get private field on non-instance");
         }
         return privateMap.get(receiver);
     }
-
     function __classPrivateFieldSet(receiver, privateMap, value) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to set private field on non-instance");
@@ -232,13 +305,6 @@
         return value;
     }
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     /** Event object emitted by MatChip when selected or deselected. */
     var MatChipSelectionChange = /** @class */ (function () {
         function MatChipSelectionChange(
@@ -289,15 +355,15 @@
     var MatChipAvatar = /** @class */ (function () {
         function MatChipAvatar() {
         }
-        MatChipAvatar.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-chip-avatar, [matChipAvatar]',
-                        host: { 'class': 'mat-chip-avatar' },
-                        providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatChipAvatar }]
-                    },] }
-        ];
         return MatChipAvatar;
     }());
+    MatChipAvatar.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'mat-chip-avatar, [matChipAvatar]',
+                    host: { 'class': 'mat-chip-avatar' },
+                    providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatChipAvatar }]
+                },] }
+    ];
     /**
      * Dummy directive to add CSS class to chip trailing icon.
      * @docs-private
@@ -305,15 +371,15 @@
     var MatChipTrailingIcon = /** @class */ (function () {
         function MatChipTrailingIcon() {
         }
-        MatChipTrailingIcon.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
-                        host: { 'class': 'mat-chip-trailing-icon' },
-                        providers: [{ provide: MAT_CHIP_TRAILING_ICON, useExisting: MatChipTrailingIcon }],
-                    },] }
-        ];
         return MatChipTrailingIcon;
     }());
+    MatChipTrailingIcon.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
+                    host: { 'class': 'mat-chip-trailing-icon' },
+                    providers: [{ provide: MAT_CHIP_TRAILING_ICON, useExisting: MatChipTrailingIcon }],
+                },] }
+    ];
     /**
      * Material design styled Chip component. Used inside the MatChipList component.
      */
@@ -575,55 +641,55 @@
                 this._changeDetectorRef.markForCheck();
             }
         };
-        MatChip.decorators = [
-            { type: core.Directive, args: [{
-                        selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-                        inputs: ['color', 'disableRipple', 'tabIndex'],
-                        exportAs: 'matChip',
-                        host: {
-                            'class': 'mat-chip mat-focus-indicator',
-                            '[attr.tabindex]': 'disabled ? null : tabIndex',
-                            'role': 'option',
-                            '[class.mat-chip-selected]': 'selected',
-                            '[class.mat-chip-with-avatar]': 'avatar',
-                            '[class.mat-chip-with-trailing-icon]': 'trailingIcon || removeIcon',
-                            '[class.mat-chip-disabled]': 'disabled',
-                            '[class._mat-animation-noopable]': '_animationsDisabled',
-                            '[attr.disabled]': 'disabled || null',
-                            '[attr.aria-disabled]': 'disabled.toString()',
-                            '[attr.aria-selected]': 'ariaSelected',
-                            '(click)': '_handleClick($event)',
-                            '(keydown)': '_handleKeydown($event)',
-                            '(focus)': 'focus()',
-                            '(blur)': '_blur()',
-                        },
-                    },] }
-        ];
-        MatChip.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.NgZone },
-            { type: platform.Platform },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-            { type: core.ChangeDetectorRef },
-            { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
-        ]; };
-        MatChip.propDecorators = {
-            avatar: [{ type: core.ContentChild, args: [MAT_CHIP_AVATAR,] }],
-            trailingIcon: [{ type: core.ContentChild, args: [MAT_CHIP_TRAILING_ICON,] }],
-            removeIcon: [{ type: core.ContentChild, args: [MAT_CHIP_REMOVE,] }],
-            selected: [{ type: core.Input }],
-            value: [{ type: core.Input }],
-            selectable: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            removable: [{ type: core.Input }],
-            selectionChange: [{ type: core.Output }],
-            destroyed: [{ type: core.Output }],
-            removed: [{ type: core.Output }]
-        };
         return MatChip;
     }(_MatChipMixinBase));
+    MatChip.decorators = [
+        { type: core.Directive, args: [{
+                    selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
+                    inputs: ['color', 'disableRipple', 'tabIndex'],
+                    exportAs: 'matChip',
+                    host: {
+                        'class': 'mat-chip mat-focus-indicator',
+                        '[attr.tabindex]': 'disabled ? null : tabIndex',
+                        'role': 'option',
+                        '[class.mat-chip-selected]': 'selected',
+                        '[class.mat-chip-with-avatar]': 'avatar',
+                        '[class.mat-chip-with-trailing-icon]': 'trailingIcon || removeIcon',
+                        '[class.mat-chip-disabled]': 'disabled',
+                        '[class._mat-animation-noopable]': '_animationsDisabled',
+                        '[attr.disabled]': 'disabled || null',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-selected]': 'ariaSelected',
+                        '(click)': '_handleClick($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                        '(focus)': 'focus()',
+                        '(blur)': '_blur()',
+                    },
+                },] }
+    ];
+    MatChip.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: core.ChangeDetectorRef },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
+    ]; };
+    MatChip.propDecorators = {
+        avatar: [{ type: core.ContentChild, args: [MAT_CHIP_AVATAR,] }],
+        trailingIcon: [{ type: core.ContentChild, args: [MAT_CHIP_TRAILING_ICON,] }],
+        removeIcon: [{ type: core.ContentChild, args: [MAT_CHIP_REMOVE,] }],
+        selected: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        selectable: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        removable: [{ type: core.Input }],
+        selectionChange: [{ type: core.Output }],
+        destroyed: [{ type: core.Output }],
+        removed: [{ type: core.Output }]
+    };
     /**
      * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
      * available at https://material.io/icons/#ic_cancel.
@@ -660,22 +726,22 @@
             // that the chip is being removed before the event bubbles up.
             event.stopPropagation();
         };
-        MatChipRemove.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[matChipRemove]',
-                        host: {
-                            'class': 'mat-chip-remove mat-chip-trailing-icon',
-                            '(click)': '_handleClick($event)',
-                        },
-                        providers: [{ provide: MAT_CHIP_REMOVE, useExisting: MatChipRemove }],
-                    },] }
-        ];
-        MatChipRemove.ctorParameters = function () { return [
-            { type: MatChip },
-            { type: core.ElementRef }
-        ]; };
         return MatChipRemove;
     }());
+    MatChipRemove.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[matChipRemove]',
+                    host: {
+                        'class': 'mat-chip-remove mat-chip-trailing-icon',
+                        '(click)': '_handleClick($event)',
+                    },
+                    providers: [{ provide: MAT_CHIP_REMOVE, useExisting: MatChipRemove }],
+                },] }
+    ];
+    MatChipRemove.ctorParameters = function () { return [
+        { type: MatChip },
+        { type: core.ElementRef }
+    ]; };
 
     /**
      * @license
@@ -694,6 +760,158 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    // Increasing integer for generating unique ids.
+    var nextUniqueId = 0;
+    /**
+     * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
+     * May be placed inside or outside of an `<mat-chip-list>`.
+     */
+    var MatChipInput = /** @class */ (function () {
+        function MatChipInput(_elementRef, _defaultOptions) {
+            this._elementRef = _elementRef;
+            this._defaultOptions = _defaultOptions;
+            /** Whether the control is focused. */
+            this.focused = false;
+            this._addOnBlur = false;
+            /**
+             * The list of key codes that will trigger a chipEnd event.
+             *
+             * Defaults to `[ENTER]`.
+             */
+            this.separatorKeyCodes = this._defaultOptions.separatorKeyCodes;
+            /** Emitted when a chip is to be added. */
+            this.chipEnd = new core.EventEmitter();
+            /** The input's placeholder text. */
+            this.placeholder = '';
+            /** Unique id for the input. */
+            this.id = "mat-chip-list-input-" + nextUniqueId++;
+            this._disabled = false;
+            this._inputElement = this._elementRef.nativeElement;
+        }
+        Object.defineProperty(MatChipInput.prototype, "chipList", {
+            /** Register input for chip list */
+            set: function (value) {
+                if (value) {
+                    this._chipList = value;
+                    this._chipList.registerInput(this);
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MatChipInput.prototype, "addOnBlur", {
+            /**
+             * Whether or not the chipEnd event will be emitted when the input is blurred.
+             */
+            get: function () { return this._addOnBlur; },
+            set: function (value) { this._addOnBlur = coercion.coerceBooleanProperty(value); },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MatChipInput.prototype, "disabled", {
+            /** Whether the input is disabled. */
+            get: function () { return this._disabled || (this._chipList && this._chipList.disabled); },
+            set: function (value) { this._disabled = coercion.coerceBooleanProperty(value); },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MatChipInput.prototype, "empty", {
+            /** Whether the input is empty. */
+            get: function () { return !this._inputElement.value; },
+            enumerable: false,
+            configurable: true
+        });
+        MatChipInput.prototype.ngOnChanges = function () {
+            this._chipList.stateChanges.next();
+        };
+        /** Utility method to make host definition/tests more clear. */
+        MatChipInput.prototype._keydown = function (event) {
+            // Allow the user's focus to escape when they're tabbing forward. Note that we don't
+            // want to do this when going backwards, because focus should go back to the first chip.
+            if (event && event.keyCode === keycodes.TAB && !keycodes.hasModifierKey(event, 'shiftKey')) {
+                this._chipList._allowFocusEscape();
+            }
+            this._emitChipEnd(event);
+        };
+        /** Checks to see if the blur should emit the (chipEnd) event. */
+        MatChipInput.prototype._blur = function () {
+            if (this.addOnBlur) {
+                this._emitChipEnd();
+            }
+            this.focused = false;
+            // Blur the chip list if it is not focused
+            if (!this._chipList.focused) {
+                this._chipList._blur();
+            }
+            this._chipList.stateChanges.next();
+        };
+        MatChipInput.prototype._focus = function () {
+            this.focused = true;
+            this._chipList.stateChanges.next();
+        };
+        /** Checks to see if the (chipEnd) event needs to be emitted. */
+        MatChipInput.prototype._emitChipEnd = function (event) {
+            if (!this._inputElement.value && !!event) {
+                this._chipList._keydown(event);
+            }
+            if (!event || this._isSeparatorKey(event)) {
+                this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
+                if (event) {
+                    event.preventDefault();
+                }
+            }
+        };
+        MatChipInput.prototype._onInput = function () {
+            // Let chip list know whenever the value changes.
+            this._chipList.stateChanges.next();
+        };
+        /** Focuses the input. */
+        MatChipInput.prototype.focus = function (options) {
+            this._inputElement.focus(options);
+        };
+        /** Checks whether a keycode is one of the configured separators. */
+        MatChipInput.prototype._isSeparatorKey = function (event) {
+            if (keycodes.hasModifierKey(event)) {
+                return false;
+            }
+            var separators = this.separatorKeyCodes;
+            var keyCode = event.keyCode;
+            return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
+        };
+        return MatChipInput;
+    }());
+    MatChipInput.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'input[matChipInputFor]',
+                    exportAs: 'matChipInput, matChipInputFor',
+                    host: {
+                        'class': 'mat-chip-input mat-input-element',
+                        '(keydown)': '_keydown($event)',
+                        '(blur)': '_blur()',
+                        '(focus)': '_focus()',
+                        '(input)': '_onInput()',
+                        '[id]': 'id',
+                        '[attr.disabled]': 'disabled || null',
+                        '[attr.placeholder]': 'placeholder || null',
+                        '[attr.aria-invalid]': '_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null',
+                        '[attr.aria-required]': '_chipList && _chipList.required || null',
+                    }
+                },] }
+    ];
+    MatChipInput.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] }] }
+    ]; };
+    MatChipInput.propDecorators = {
+        chipList: [{ type: core.Input, args: ['matChipInputFor',] }],
+        addOnBlur: [{ type: core.Input, args: ['matChipInputAddOnBlur',] }],
+        separatorKeyCodes: [{ type: core.Input, args: ['matChipInputSeparatorKeyCodes',] }],
+        chipEnd: [{ type: core.Output, args: ['matChipInputTokenEnd',] }],
+        placeholder: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        disabled: [{ type: core.Input }]
+    };
+
     // Boilerplate for applying mixins to MatChipList.
     /** @docs-private */
     var MatChipListBase = /** @class */ (function () {
@@ -709,7 +927,7 @@
     }());
     var _MatChipListMixinBase = core$1.mixinErrorState(MatChipListBase);
     // Increasing integer for generating unique ids for chip-list components.
-    var nextUniqueId = 0;
+    var nextUniqueId$1 = 0;
     /** Change event object that is emitted when the chip list value has changed. */
     var MatChipListChange = /** @class */ (function () {
         function MatChipListChange(
@@ -749,7 +967,7 @@
             /** Subject that emits when the component has been destroyed. */
             _this._destroyed = new rxjs.Subject();
             /** Uid of the chip list */
-            _this._uid = "mat-chip-list-" + nextUniqueId++;
+            _this._uid = "mat-chip-list-" + nextUniqueId$1++;
             /** Tab index for the chip list. */
             _this._tabIndex = 0;
             /**
@@ -1391,224 +1609,65 @@
                 });
             }
         };
-        MatChipList.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'mat-chip-list',
-                        template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
-                        exportAs: 'matChipList',
-                        host: {
-                            '[attr.tabindex]': 'disabled ? null : _tabIndex',
-                            '[attr.aria-describedby]': '_ariaDescribedby || null',
-                            '[attr.aria-required]': 'role ? required : null',
-                            '[attr.aria-disabled]': 'disabled.toString()',
-                            '[attr.aria-invalid]': 'errorState',
-                            '[attr.aria-multiselectable]': 'multiple',
-                            '[attr.role]': 'role',
-                            '[class.mat-chip-list-disabled]': 'disabled',
-                            '[class.mat-chip-list-invalid]': 'errorState',
-                            '[class.mat-chip-list-required]': 'required',
-                            '[attr.aria-orientation]': 'ariaOrientation',
-                            'class': 'mat-chip-list',
-                            '(focus)': 'focus()',
-                            '(blur)': '_blur()',
-                            '(keydown)': '_keydown($event)',
-                            '[id]': '_uid',
-                        },
-                        providers: [{ provide: formField.MatFormFieldControl, useExisting: MatChipList }],
-                        encapsulation: core.ViewEncapsulation.None,
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        styles: [".mat-chip{position:relative;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0);border:none;-webkit-appearance:none;-moz-appearance:none}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}._mat-animation-noopable.mat-standard-chip{transition:none;animation:none}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:\"\";pointer-events:none;transition:opacity 200ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:none}.mat-standard-chip:focus::after{opacity:.16}.cdk-high-contrast-active .mat-standard-chip{outline:solid 1px}.cdk-high-contrast-active .mat-standard-chip:focus{outline:dotted 2px}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit;overflow:hidden}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper input.mat-input-element,.mat-chip-list-wrapper .mat-standard-chip{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}\n"]
-                    },] }
-        ];
-        MatChipList.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.ChangeDetectorRef },
-            { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-            { type: forms.NgForm, decorators: [{ type: core.Optional }] },
-            { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
-            { type: core$1.ErrorStateMatcher },
-            { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self }] }
-        ]; };
-        MatChipList.propDecorators = {
-            errorStateMatcher: [{ type: core.Input }],
-            multiple: [{ type: core.Input }],
-            compareWith: [{ type: core.Input }],
-            value: [{ type: core.Input }],
-            required: [{ type: core.Input }],
-            placeholder: [{ type: core.Input }],
-            disabled: [{ type: core.Input }],
-            ariaOrientation: [{ type: core.Input, args: ['aria-orientation',] }],
-            selectable: [{ type: core.Input }],
-            tabIndex: [{ type: core.Input }],
-            change: [{ type: core.Output }],
-            valueChange: [{ type: core.Output }],
-            chips: [{ type: core.ContentChildren, args: [MatChip, {
-                            // We need to use `descendants: true`, because Ivy will no longer match
-                            // indirect descendants if it's left as false.
-                            descendants: true
-                        },] }]
-        };
         return MatChipList;
     }(_MatChipListMixinBase));
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    // Increasing integer for generating unique ids.
-    var nextUniqueId$1 = 0;
-    /**
-     * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
-     * May be placed inside or outside of an `<mat-chip-list>`.
-     */
-    var MatChipInput = /** @class */ (function () {
-        function MatChipInput(_elementRef, _defaultOptions) {
-            this._elementRef = _elementRef;
-            this._defaultOptions = _defaultOptions;
-            /** Whether the control is focused. */
-            this.focused = false;
-            this._addOnBlur = false;
-            /**
-             * The list of key codes that will trigger a chipEnd event.
-             *
-             * Defaults to `[ENTER]`.
-             */
-            this.separatorKeyCodes = this._defaultOptions.separatorKeyCodes;
-            /** Emitted when a chip is to be added. */
-            this.chipEnd = new core.EventEmitter();
-            /** The input's placeholder text. */
-            this.placeholder = '';
-            /** Unique id for the input. */
-            this.id = "mat-chip-list-input-" + nextUniqueId$1++;
-            this._disabled = false;
-            this._inputElement = this._elementRef.nativeElement;
-        }
-        Object.defineProperty(MatChipInput.prototype, "chipList", {
-            /** Register input for chip list */
-            set: function (value) {
-                if (value) {
-                    this._chipList = value;
-                    this._chipList.registerInput(this);
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatChipInput.prototype, "addOnBlur", {
-            /**
-             * Whether or not the chipEnd event will be emitted when the input is blurred.
-             */
-            get: function () { return this._addOnBlur; },
-            set: function (value) { this._addOnBlur = coercion.coerceBooleanProperty(value); },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatChipInput.prototype, "disabled", {
-            /** Whether the input is disabled. */
-            get: function () { return this._disabled || (this._chipList && this._chipList.disabled); },
-            set: function (value) { this._disabled = coercion.coerceBooleanProperty(value); },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatChipInput.prototype, "empty", {
-            /** Whether the input is empty. */
-            get: function () { return !this._inputElement.value; },
-            enumerable: false,
-            configurable: true
-        });
-        MatChipInput.prototype.ngOnChanges = function () {
-            this._chipList.stateChanges.next();
-        };
-        /** Utility method to make host definition/tests more clear. */
-        MatChipInput.prototype._keydown = function (event) {
-            // Allow the user's focus to escape when they're tabbing forward. Note that we don't
-            // want to do this when going backwards, because focus should go back to the first chip.
-            if (event && event.keyCode === keycodes.TAB && !keycodes.hasModifierKey(event, 'shiftKey')) {
-                this._chipList._allowFocusEscape();
-            }
-            this._emitChipEnd(event);
-        };
-        /** Checks to see if the blur should emit the (chipEnd) event. */
-        MatChipInput.prototype._blur = function () {
-            if (this.addOnBlur) {
-                this._emitChipEnd();
-            }
-            this.focused = false;
-            // Blur the chip list if it is not focused
-            if (!this._chipList.focused) {
-                this._chipList._blur();
-            }
-            this._chipList.stateChanges.next();
-        };
-        MatChipInput.prototype._focus = function () {
-            this.focused = true;
-            this._chipList.stateChanges.next();
-        };
-        /** Checks to see if the (chipEnd) event needs to be emitted. */
-        MatChipInput.prototype._emitChipEnd = function (event) {
-            if (!this._inputElement.value && !!event) {
-                this._chipList._keydown(event);
-            }
-            if (!event || this._isSeparatorKey(event)) {
-                this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
-                if (event) {
-                    event.preventDefault();
-                }
-            }
-        };
-        MatChipInput.prototype._onInput = function () {
-            // Let chip list know whenever the value changes.
-            this._chipList.stateChanges.next();
-        };
-        /** Focuses the input. */
-        MatChipInput.prototype.focus = function (options) {
-            this._inputElement.focus(options);
-        };
-        /** Checks whether a keycode is one of the configured separators. */
-        MatChipInput.prototype._isSeparatorKey = function (event) {
-            if (keycodes.hasModifierKey(event)) {
-                return false;
-            }
-            var separators = this.separatorKeyCodes;
-            var keyCode = event.keyCode;
-            return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
-        };
-        MatChipInput.decorators = [
-            { type: core.Directive, args: [{
-                        selector: 'input[matChipInputFor]',
-                        exportAs: 'matChipInput, matChipInputFor',
-                        host: {
-                            'class': 'mat-chip-input mat-input-element',
-                            '(keydown)': '_keydown($event)',
-                            '(blur)': '_blur()',
-                            '(focus)': '_focus()',
-                            '(input)': '_onInput()',
-                            '[id]': 'id',
-                            '[attr.disabled]': 'disabled || null',
-                            '[attr.placeholder]': 'placeholder || null',
-                            '[attr.aria-invalid]': '_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null',
-                            '[attr.aria-required]': '_chipList && _chipList.required || null',
-                        }
-                    },] }
-        ];
-        MatChipInput.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: undefined, decorators: [{ type: core.Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] }] }
-        ]; };
-        MatChipInput.propDecorators = {
-            chipList: [{ type: core.Input, args: ['matChipInputFor',] }],
-            addOnBlur: [{ type: core.Input, args: ['matChipInputAddOnBlur',] }],
-            separatorKeyCodes: [{ type: core.Input, args: ['matChipInputSeparatorKeyCodes',] }],
-            chipEnd: [{ type: core.Output, args: ['matChipInputTokenEnd',] }],
-            placeholder: [{ type: core.Input }],
-            id: [{ type: core.Input }],
-            disabled: [{ type: core.Input }]
-        };
-        return MatChipInput;
-    }());
+    MatChipList.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'mat-chip-list',
+                    template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
+                    exportAs: 'matChipList',
+                    host: {
+                        '[attr.tabindex]': 'disabled ? null : _tabIndex',
+                        '[attr.aria-describedby]': '_ariaDescribedby || null',
+                        '[attr.aria-required]': 'role ? required : null',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-invalid]': 'errorState',
+                        '[attr.aria-multiselectable]': 'multiple',
+                        '[attr.role]': 'role',
+                        '[class.mat-chip-list-disabled]': 'disabled',
+                        '[class.mat-chip-list-invalid]': 'errorState',
+                        '[class.mat-chip-list-required]': 'required',
+                        '[attr.aria-orientation]': 'ariaOrientation',
+                        'class': 'mat-chip-list',
+                        '(focus)': 'focus()',
+                        '(blur)': '_blur()',
+                        '(keydown)': '_keydown($event)',
+                        '[id]': '_uid',
+                    },
+                    providers: [{ provide: formField.MatFormFieldControl, useExisting: MatChipList }],
+                    encapsulation: core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    styles: [".mat-chip{position:relative;box-sizing:border-box;-webkit-tap-highlight-color:transparent;transform:translateZ(0);border:none;-webkit-appearance:none;-moz-appearance:none}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;padding:7px 12px;border-radius:16px;align-items:center;cursor:default;min-height:32px;height:1px}._mat-animation-noopable.mat-standard-chip{transition:none;animation:none}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip::after{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:inherit;opacity:0;content:\"\";pointer-events:none;transition:opacity 200ms cubic-bezier(0.35, 0, 0.25, 1)}.mat-standard-chip:hover::after{opacity:.12}.mat-standard-chip:focus{outline:none}.mat-standard-chip:focus::after{opacity:.16}.cdk-high-contrast-active .mat-standard-chip{outline:solid 1px}.cdk-high-contrast-active .mat-standard-chip:focus{outline:dotted 2px}.mat-standard-chip.mat-chip-disabled::after{opacity:0}.mat-standard-chip.mat-chip-disabled .mat-chip-remove,.mat-standard-chip.mat-chip-disabled .mat-chip-trailing-icon{cursor:default}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:8px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:8px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:8px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:8px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:24px;height:24px;margin-right:8px;margin-left:4px}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:4px}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:8px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:8px;margin-left:0}.mat-chip-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit;overflow:hidden}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper input.mat-input-element,.mat-chip-list-wrapper .mat-standard-chip{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:4px;flex:1 0 150px}\n"]
+                },] }
+    ];
+    MatChipList.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional }] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
+        { type: core$1.ErrorStateMatcher },
+        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self }] }
+    ]; };
+    MatChipList.propDecorators = {
+        errorStateMatcher: [{ type: core.Input }],
+        multiple: [{ type: core.Input }],
+        compareWith: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        placeholder: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        ariaOrientation: [{ type: core.Input, args: ['aria-orientation',] }],
+        selectable: [{ type: core.Input }],
+        tabIndex: [{ type: core.Input }],
+        change: [{ type: core.Output }],
+        valueChange: [{ type: core.Output }],
+        chips: [{ type: core.ContentChildren, args: [MatChip, {
+                        // We need to use `descendants: true`, because Ivy will no longer match
+                        // indirect descendants if it's left as false.
+                        descendants: true
+                    },] }]
+    };
 
     /**
      * @license
@@ -1631,21 +1690,21 @@
     var MatChipsModule = /** @class */ (function () {
         function MatChipsModule() {
         }
-        MatChipsModule.decorators = [
-            { type: core.NgModule, args: [{
-                        exports: CHIP_DECLARATIONS,
-                        declarations: CHIP_DECLARATIONS,
-                        providers: [
-                            core$1.ErrorStateMatcher,
-                            {
-                                provide: MAT_CHIPS_DEFAULT_OPTIONS,
-                                useValue: ɵ0
-                            }
-                        ]
-                    },] }
-        ];
         return MatChipsModule;
     }());
+    MatChipsModule.decorators = [
+        { type: core.NgModule, args: [{
+                    exports: CHIP_DECLARATIONS,
+                    declarations: CHIP_DECLARATIONS,
+                    providers: [
+                        core$1.ErrorStateMatcher,
+                        {
+                            provide: MAT_CHIPS_DEFAULT_OPTIONS,
+                            useValue: ɵ0
+                        }
+                    ]
+                },] }
+    ];
 
     /**
      * @license
