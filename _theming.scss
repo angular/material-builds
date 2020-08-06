@@ -4170,6 +4170,11 @@ $mat-expansion-panel-header-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-backface-visibility: $value;
   backface-visibility: $value;
 }
+
+@mixin position-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
 /* stylelint-enable */
 
 
