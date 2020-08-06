@@ -328,7 +328,7 @@
                     inputs: ['disabled', 'tabIndex'],
                     host: {
                         '[attr.aria-expanded]': 'isExpanded',
-                        '[attr.aria-level]': 'role === "treeitem" ? level : null',
+                        '[attr.aria-level]': 'level + 1',
                         '[attr.role]': 'role',
                         'class': 'mat-tree-node'
                     },
