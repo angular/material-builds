@@ -28,8 +28,10 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher {
 export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
     _stepHeader: QueryList<MatStepHeader>;
-    /** Steps that the stepper holds. */
+    /** Full list of steps inside the stepper, including inside nested steppers. */
     _steps: QueryList<MatStep>;
+    /** Steps that belong to the current stepper, excluding ones from nested steppers. */
+    readonly steps: QueryList<MatStep>;
     /** Custom icon overrides passed in by the consumer. */
     _icons: QueryList<MatStepperIcon>;
     /** Event emitted when the current step is done transitioning in. */

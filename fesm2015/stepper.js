@@ -1,7 +1,7 @@
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkStepLabel, CdkStepHeader, CdkStep, STEPPER_GLOBAL_OPTIONS, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { Directive, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Input, TemplateRef, Inject, forwardRef, ContentChild, EventEmitter, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
+import { Directive, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Input, TemplateRef, Inject, forwardRef, ContentChild, QueryList, EventEmitter, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -251,6 +251,8 @@ MatStep.propDecorators = {
 class MatStepper extends CdkStepper {
     constructor() {
         super(...arguments);
+        /** Steps that belong to the current stepper, excluding ones from nested steppers. */
+        this.steps = new QueryList();
         /** Event emitted when the current step is done transitioning in. */
         this.animationDone = new EventEmitter();
         /** Consumer-specified template-refs to be used to override the header icons. */
@@ -259,9 +261,10 @@ class MatStepper extends CdkStepper {
         this._animationDone = new Subject();
     }
     ngAfterContentInit() {
+        super.ngAfterContentInit();
         this._icons.forEach(({ name, templateRef }) => this._iconOverrides[name] = templateRef);
         // Mark the component for change detection whenever the content children query changes
-        this._steps.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
+        this.steps.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
             this._stateChanged();
         });
         this._animationDone.pipe(
