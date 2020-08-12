@@ -538,6 +538,8 @@
         __extends(MatStepper, _super);
         function MatStepper() {
             var _this = _super.apply(this, __spread(arguments)) || this;
+            /** Steps that belong to the current stepper, excluding ones from nested steppers. */
+            _this.steps = new i0.QueryList();
             /** Event emitted when the current step is done transitioning in. */
             _this.animationDone = new i0.EventEmitter();
             /** Consumer-specified template-refs to be used to override the header icons. */
@@ -548,12 +550,13 @@
         }
         MatStepper.prototype.ngAfterContentInit = function () {
             var _this = this;
+            _super.prototype.ngAfterContentInit.call(this);
             this._icons.forEach(function (_a) {
                 var name = _a.name, templateRef = _a.templateRef;
                 return _this._iconOverrides[name] = templateRef;
             });
             // Mark the component for change detection whenever the content children query changes
-            this._steps.changes.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
+            this.steps.changes.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
                 _this._stateChanged();
             });
             this._animationDone.pipe(
