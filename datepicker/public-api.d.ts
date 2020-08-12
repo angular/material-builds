@@ -9,7 +9,7 @@ export * from './datepicker-module';
 export * from './calendar';
 export * from './calendar-body';
 export * from './datepicker';
-export * from './date-range-selection-strategy';
+export { MAT_DATE_RANGE_SELECTION_STRATEGY, MatDateRangeSelectionStrategy, DefaultMatCalendarRangeStrategy, } from './date-range-selection-strategy';
 export * from './datepicker-animations';
 export { MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MatDatepickerContent, DatepickerDropdownPositionX, DatepickerDropdownPositionY, } from './datepicker-base';
 export { MatDatepickerInputEvent, DateFilterFn } from './datepicker-input-base';

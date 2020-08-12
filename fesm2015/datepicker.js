@@ -570,6 +570,16 @@ DefaultMatCalendarRangeStrategy.decorators = [
 DefaultMatCalendarRangeStrategy.ctorParameters = () => [
     { type: DateAdapter }
 ];
+/** @docs-private */
+function MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY(parent, adapter) {
+    return parent || new DefaultMatCalendarRangeStrategy(adapter);
+}
+/** @docs-private */
+const MAT_CALENDAR_RANGE_STRATEGY_PROVIDER = {
+    provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+    deps: [[new Optional(), new SkipSelf(), MAT_DATE_RANGE_SELECTION_STRATEGY], DateAdapter],
+    useFactory: MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY,
+};
 
 /**
  * @license
@@ -3012,7 +3022,10 @@ MatDateRangePicker.decorators = [
                 exportAs: 'matDateRangePicker',
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
-                providers: [MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER]
+                providers: [
+                    MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER,
+                    MAT_CALENDAR_RANGE_STRATEGY_PROVIDER,
+                ]
             },] }
 ];
 
@@ -3334,11 +3347,7 @@ MatDatepickerModule.decorators = [
                 ],
                 providers: [
                     MatDatepickerIntl,
-                    MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
-                    {
-                        provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
-                        useClass: DefaultMatCalendarRangeStrategy
-                    }
+                    MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER
                 ],
                 entryComponents: [
                     MatDatepickerContent,
@@ -3359,5 +3368,5 @@ MatDatepickerModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { DateRange, DefaultMatCalendarRangeStrategy, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_DATEPICKER_VALIDATORS, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATE_RANGE_SELECTION_STRATEGY, MAT_RANGE_DATE_SELECTION_MODEL_FACTORY, MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER, MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY, MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER, MatCalendar, MatCalendarBody, MatCalendarCell, MatCalendarHeader, MatDateRangeInput, MatDateRangePicker, MatDateSelectionModel, MatDatepicker, MatDatepickerContent, MatDatepickerInput, MatDatepickerInputEvent, MatDatepickerIntl, MatDatepickerModule, MatDatepickerToggle, MatDatepickerToggleIcon, MatEndDate, MatMonthView, MatMultiYearView, MatRangeDateSelectionModel, MatSingleDateSelectionModel, MatStartDate, MatYearView, matDatepickerAnimations, yearsPerPage, yearsPerRow, MatDatepickerBase as ɵangular_material_src_material_datepicker_datepicker_a, MatDatepickerInputBase as ɵangular_material_src_material_datepicker_datepicker_b, MAT_DATE_RANGE_INPUT_PARENT as ɵangular_material_src_material_datepicker_datepicker_c };
+export { DateRange, DefaultMatCalendarRangeStrategy, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_DATEPICKER_VALIDATORS, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATE_RANGE_SELECTION_STRATEGY, MAT_RANGE_DATE_SELECTION_MODEL_FACTORY, MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER, MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY, MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER, MatCalendar, MatCalendarBody, MatCalendarCell, MatCalendarHeader, MatDateRangeInput, MatDateRangePicker, MatDateSelectionModel, MatDatepicker, MatDatepickerContent, MatDatepickerInput, MatDatepickerInputEvent, MatDatepickerIntl, MatDatepickerModule, MatDatepickerToggle, MatDatepickerToggleIcon, MatEndDate, MatMonthView, MatMultiYearView, MatRangeDateSelectionModel, MatSingleDateSelectionModel, MatStartDate, MatYearView, matDatepickerAnimations, yearsPerPage, yearsPerRow, MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY as ɵangular_material_src_material_datepicker_datepicker_a, MAT_CALENDAR_RANGE_STRATEGY_PROVIDER as ɵangular_material_src_material_datepicker_datepicker_b, MatDatepickerBase as ɵangular_material_src_material_datepicker_datepicker_c, MatDatepickerInputBase as ɵangular_material_src_material_datepicker_datepicker_d, MAT_DATE_RANGE_INPUT_PARENT as ɵangular_material_src_material_datepicker_datepicker_e };
 //# sourceMappingURL=datepicker.js.map

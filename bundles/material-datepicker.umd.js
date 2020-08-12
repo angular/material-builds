@@ -866,6 +866,16 @@
     DefaultMatCalendarRangeStrategy.ctorParameters = function () { return [
         { type: core.DateAdapter }
     ]; };
+    /** @docs-private */
+    function MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY(parent, adapter) {
+        return parent || new DefaultMatCalendarRangeStrategy(adapter);
+    }
+    /** @docs-private */
+    var MAT_CALENDAR_RANGE_STRATEGY_PROVIDER = {
+        provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+        deps: [[new i0.Optional(), new i0.SkipSelf(), MAT_DATE_RANGE_SELECTION_STRATEGY], core.DateAdapter],
+        useFactory: MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY,
+    };
 
     /**
      * @license
@@ -3773,7 +3783,10 @@
                     exportAs: 'matDateRangePicker',
                     changeDetection: i0.ChangeDetectionStrategy.OnPush,
                     encapsulation: i0.ViewEncapsulation.None,
-                    providers: [MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER]
+                    providers: [
+                        MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER,
+                        MAT_CALENDAR_RANGE_STRATEGY_PROVIDER,
+                    ]
                 },] }
     ];
 
@@ -3836,11 +3849,7 @@
                     ],
                     providers: [
                         MatDatepickerIntl,
-                        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
-                        {
-                            provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
-                            useClass: DefaultMatCalendarRangeStrategy
-                        }
+                        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER
                     ],
                     entryComponents: [
                         MatDatepickerContent,
@@ -3898,9 +3907,11 @@
     exports.matDatepickerAnimations = matDatepickerAnimations;
     exports.yearsPerPage = yearsPerPage;
     exports.yearsPerRow = yearsPerRow;
-    exports.ɵangular_material_src_material_datepicker_datepicker_a = MatDatepickerBase;
-    exports.ɵangular_material_src_material_datepicker_datepicker_b = MatDatepickerInputBase;
-    exports.ɵangular_material_src_material_datepicker_datepicker_c = MAT_DATE_RANGE_INPUT_PARENT;
+    exports.ɵangular_material_src_material_datepicker_datepicker_a = MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY;
+    exports.ɵangular_material_src_material_datepicker_datepicker_b = MAT_CALENDAR_RANGE_STRATEGY_PROVIDER;
+    exports.ɵangular_material_src_material_datepicker_datepicker_c = MatDatepickerBase;
+    exports.ɵangular_material_src_material_datepicker_datepicker_d = MatDatepickerInputBase;
+    exports.ɵangular_material_src_material_datepicker_datepicker_e = MAT_DATE_RANGE_INPUT_PARENT;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, FactoryProvider } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange } from './date-selection-model';
 /** Injection token used to customize the date range selection behavior. */
@@ -39,3 +39,7 @@ export declare class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeS
     selectionFinished(date: D, currentRange: DateRange<D>): DateRange<D>;
     createPreview(activeDate: D | null, currentRange: DateRange<D>): DateRange<D>;
 }
+/** @docs-private */
+export declare function MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY(parent: MatDateRangeSelectionStrategy<unknown>, adapter: DateAdapter<unknown>): MatDateRangeSelectionStrategy<unknown>;
+/** @docs-private */
+export declare const MAT_CALENDAR_RANGE_STRATEGY_PROVIDER: FactoryProvider;
