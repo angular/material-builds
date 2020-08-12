@@ -395,7 +395,6 @@
      * Base class for the `MatDialogContainer`. The base class does not implement
      * animations as these are left to implementers of the dialog container.
      */
-    // tslint:disable-next-line:class-name
     var _MatDialogContainerBase = /** @class */ (function (_super) {
         __extends(_MatDialogContainerBase, _super);
         function _MatDialogContainerBase(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, 
@@ -846,7 +845,6 @@
      * Base class for dialog services. The base dialog service allows
      * for arbitrary dialog refs and dialog container components.
      */
-    // tslint:disable-next-line:class-name
     var _MatDialogBase = /** @class */ (function () {
         function _MatDialogBase(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken) {
             var _this = this;

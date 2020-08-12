@@ -106,7 +106,6 @@ function throwMatDialogContentAlreadyAttachedError() {
  * Base class for the `MatDialogContainer`. The base class does not implement
  * animations as these are left to implementers of the dialog container.
  */
-// tslint:disable-next-line:class-name
 class _MatDialogContainerBase extends BasePortalOutlet {
     constructor(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, 
     /** The dialog configuration. */
@@ -550,7 +549,6 @@ const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Base class for dialog services. The base dialog service allows
  * for arbitrary dialog refs and dialog container components.
  */
-// tslint:disable-next-line:class-name
 class _MatDialogBase {
     constructor(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken) {
         this._overlay = _overlay;

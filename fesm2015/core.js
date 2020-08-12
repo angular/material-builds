@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.2.0-next.0-sha-8050e7ee5');
+const VERSION = new Version('10.2.0-next.0-sha-3828b7e2e');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.2.0-next.0-sha-8050e7ee5');
+const VERSION$1 = new Version('10.2.0-next.0-sha-3828b7e2e');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1386,7 +1386,6 @@ class MatOptgroupBase {
 const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 let _uniqueOptgroupIdCounter = 0;
-// tslint:disable-next-line:class-name
 class _MatOptgroupBase extends _MatOptgroupMixinBase {
     constructor() {
         super(...arguments);
@@ -1458,7 +1457,6 @@ class MatOptionSelectionChange {
  * Injection token used to provide the parent component to options.
  */
 const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
-// tslint:disable-next-line:class-name
 class _MatOptionBase {
     constructor(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
