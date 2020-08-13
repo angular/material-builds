@@ -339,9 +339,10 @@
     function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
         return { autoActiveFirstOption: false };
     }
-    var MatAutocomplete = /** @class */ (function (_super) {
-        __extends(MatAutocomplete, _super);
-        function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
+    /** Base class with all of the `MatAutocomplete` functionality. */
+    var _MatAutocompleteBase = /** @class */ (function (_super) {
+        __extends(_MatAutocompleteBase, _super);
+        function _MatAutocompleteBase(_changeDetectorRef, _elementRef, defaults) {
             var _this = _super.call(this) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._elementRef = _elementRef;
@@ -365,13 +366,13 @@
             _this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
             return _this;
         }
-        Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
+        Object.defineProperty(_MatAutocompleteBase.prototype, "isOpen", {
             /** Whether the autocomplete panel is open. */
             get: function () { return this._isOpen && this.showPanel; },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatAutocomplete.prototype, "autoActiveFirstOption", {
+        Object.defineProperty(_MatAutocompleteBase.prototype, "autoActiveFirstOption", {
             /**
              * Whether the first option should be highlighted when the autocomplete panel is opened.
              * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
@@ -383,7 +384,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatAutocomplete.prototype, "classList", {
+        Object.defineProperty(_MatAutocompleteBase.prototype, "classList", {
             /**
              * Takes classes set on the host mat-autocomplete element and applies them to the panel
              * inside the overlay container to allow for easy styling.
@@ -404,7 +405,7 @@
             enumerable: false,
             configurable: true
         });
-        MatAutocomplete.prototype.ngAfterContentInit = function () {
+        _MatAutocompleteBase.prototype.ngAfterContentInit = function () {
             var _this = this;
             this._keyManager = new a11y.ActiveDescendantKeyManager(this.options).withWrap();
             this._activeOptionChanges = this._keyManager.change.subscribe(function (index) {
@@ -413,40 +414,70 @@
             // Set the initial visibility state.
             this._setVisibility();
         };
-        MatAutocomplete.prototype.ngOnDestroy = function () {
+        _MatAutocompleteBase.prototype.ngOnDestroy = function () {
             this._activeOptionChanges.unsubscribe();
         };
         /**
          * Sets the panel scrollTop. This allows us to manually scroll to display options
          * above or below the fold, as they are not actually being focused when active.
          */
-        MatAutocomplete.prototype._setScrollTop = function (scrollTop) {
+        _MatAutocompleteBase.prototype._setScrollTop = function (scrollTop) {
             if (this.panel) {
                 this.panel.nativeElement.scrollTop = scrollTop;
             }
         };
         /** Returns the panel's scrollTop. */
-        MatAutocomplete.prototype._getScrollTop = function () {
+        _MatAutocompleteBase.prototype._getScrollTop = function () {
             return this.panel ? this.panel.nativeElement.scrollTop : 0;
         };
         /** Panel should hide itself when the option list is empty. */
-        MatAutocomplete.prototype._setVisibility = function () {
+        _MatAutocompleteBase.prototype._setVisibility = function () {
             this.showPanel = !!this.options.length;
             this._setVisibilityClasses(this._classList);
             this._changeDetectorRef.markForCheck();
         };
         /** Emits the `select` event. */
-        MatAutocomplete.prototype._emitSelectEvent = function (option) {
+        _MatAutocompleteBase.prototype._emitSelectEvent = function (option) {
             var event = new MatAutocompleteSelectedEvent(this, option);
             this.optionSelected.emit(event);
         };
         /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
-        MatAutocomplete.prototype._setVisibilityClasses = function (classList) {
-            classList['mat-autocomplete-visible'] = this.showPanel;
-            classList['mat-autocomplete-hidden'] = !this.showPanel;
+        _MatAutocompleteBase.prototype._setVisibilityClasses = function (classList) {
+            classList[this._visibleClass] = this.showPanel;
+            classList[this._hiddenClass] = !this.showPanel;
         };
-        return MatAutocomplete;
+        return _MatAutocompleteBase;
     }(_MatAutocompleteMixinBase));
+    _MatAutocompleteBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatAutocompleteBase.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
+    ]; };
+    _MatAutocompleteBase.propDecorators = {
+        template: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
+        panel: [{ type: core.ViewChild, args: ['panel',] }],
+        displayWith: [{ type: core.Input }],
+        autoActiveFirstOption: [{ type: core.Input }],
+        panelWidth: [{ type: core.Input }],
+        optionSelected: [{ type: core.Output }],
+        opened: [{ type: core.Output }],
+        closed: [{ type: core.Output }],
+        optionActivated: [{ type: core.Output }],
+        classList: [{ type: core.Input, args: ['class',] }]
+    };
+    var MatAutocomplete = /** @class */ (function (_super) {
+        __extends(MatAutocomplete, _super);
+        function MatAutocomplete() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._visibleClass = 'mat-autocomplete-visible';
+            _this._hiddenClass = 'mat-autocomplete-hidden';
+            return _this;
+        }
+        return MatAutocomplete;
+    }(_MatAutocompleteBase));
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-autocomplete',
@@ -464,24 +495,9 @@
                     styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}.mat-autocomplete-panel-above .mat-autocomplete-panel{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}.mat-autocomplete-panel .mat-divider-horizontal{margin-top:-1px}.cdk-high-contrast-active .mat-autocomplete-panel{outline:solid 1px}\n"]
                 },] }
     ];
-    MatAutocomplete.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef },
-        { type: core.ElementRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
-    ]; };
     MatAutocomplete.propDecorators = {
-        template: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
-        panel: [{ type: core.ViewChild, args: ['panel',] }],
-        options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }],
         optionGroups: [{ type: core.ContentChildren, args: [core$1.MAT_OPTGROUP, { descendants: true },] }],
-        displayWith: [{ type: core.Input }],
-        autoActiveFirstOption: [{ type: core.Input }],
-        panelWidth: [{ type: core.Input }],
-        optionSelected: [{ type: core.Output }],
-        opened: [{ type: core.Output }],
-        closed: [{ type: core.Output }],
-        optionActivated: [{ type: core.Output }],
-        classList: [{ type: core.Input, args: ['class',] }]
+        options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }]
     };
 
     /**
@@ -523,8 +539,9 @@
             'Make sure that the id passed to the `matAutocomplete` is correct and that ' +
             'you\'re attempting to open it after the ngAfterContentInit hook.');
     }
-    var MatAutocompleteTrigger = /** @class */ (function () {
-        function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
+    /** Base class with all of the `MatAutocompleteTrigger` functionality. */
+    var _MatAutocompleteTriggerBase = /** @class */ (function () {
+        function _MatAutocompleteTriggerBase(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
             var _this = this;
             this._element = _element;
             this._overlay = _overlay;
@@ -591,7 +608,7 @@
             });
             this._scrollStrategy = scrollStrategy;
         }
-        Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
+        Object.defineProperty(_MatAutocompleteTriggerBase.prototype, "autocompleteDisabled", {
             /**
              * Whether the autocomplete is disabled. When disabled, the element will
              * act as a regular input and the user won't be able to open the panel.
@@ -603,14 +620,14 @@
             enumerable: false,
             configurable: true
         });
-        MatAutocompleteTrigger.prototype.ngAfterViewInit = function () {
+        _MatAutocompleteTriggerBase.prototype.ngAfterViewInit = function () {
             var _this = this;
             var window = this._getWindow();
             if (typeof window !== 'undefined') {
                 this._zone.runOutsideAngular(function () { return window.addEventListener('blur', _this._windowBlurHandler); });
             }
         };
-        MatAutocompleteTrigger.prototype.ngOnChanges = function (changes) {
+        _MatAutocompleteTriggerBase.prototype.ngOnChanges = function (changes) {
             if (changes['position'] && this._positionStrategy) {
                 this._setStrategyPositions(this._positionStrategy);
                 if (this.panelOpen) {
@@ -618,7 +635,7 @@
                 }
             }
         };
-        MatAutocompleteTrigger.prototype.ngOnDestroy = function () {
+        _MatAutocompleteTriggerBase.prototype.ngOnDestroy = function () {
             var window = this._getWindow();
             if (typeof window !== 'undefined') {
                 window.removeEventListener('blur', this._windowBlurHandler);
@@ -628,7 +645,7 @@
             this._destroyPanel();
             this._closeKeyEventStream.complete();
         };
-        Object.defineProperty(MatAutocompleteTrigger.prototype, "panelOpen", {
+        Object.defineProperty(_MatAutocompleteTriggerBase.prototype, "panelOpen", {
             /** Whether or not the autocomplete panel is open. */
             get: function () {
                 return this._overlayAttached && this.autocomplete.showPanel;
@@ -637,12 +654,12 @@
             configurable: true
         });
         /** Opens the autocomplete suggestion panel. */
-        MatAutocompleteTrigger.prototype.openPanel = function () {
+        _MatAutocompleteTriggerBase.prototype.openPanel = function () {
             this._attachOverlay();
             this._floatLabel();
         };
         /** Closes the autocomplete suggestion panel. */
-        MatAutocompleteTrigger.prototype.closePanel = function () {
+        _MatAutocompleteTriggerBase.prototype.closePanel = function () {
             this._resetLabel();
             if (!this._overlayAttached) {
                 return;
@@ -670,12 +687,12 @@
          * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
          * within the viewport.
          */
-        MatAutocompleteTrigger.prototype.updatePosition = function () {
+        _MatAutocompleteTriggerBase.prototype.updatePosition = function () {
             if (this._overlayAttached) {
                 this._overlayRef.updatePosition();
             }
         };
-        Object.defineProperty(MatAutocompleteTrigger.prototype, "panelClosingActions", {
+        Object.defineProperty(_MatAutocompleteTriggerBase.prototype, "panelClosingActions", {
             /**
              * A stream of actions that should close the autocomplete panel, including
              * when an option is selected, on blur, and when TAB is pressed.
@@ -691,7 +708,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatAutocompleteTrigger.prototype, "activeOption", {
+        Object.defineProperty(_MatAutocompleteTriggerBase.prototype, "activeOption", {
             /** The currently active option, coerced to MatOption type. */
             get: function () {
                 if (this.autocomplete && this.autocomplete._keyManager) {
@@ -703,7 +720,7 @@
             configurable: true
         });
         /** Stream of clicks outside of the autocomplete panel. */
-        MatAutocompleteTrigger.prototype._getOutsideClickStream = function () {
+        _MatAutocompleteTriggerBase.prototype._getOutsideClickStream = function () {
             var _this = this;
             return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
                 .pipe(operators.filter(function (event) {
@@ -720,23 +737,23 @@
             }));
         };
         // Implemented as part of ControlValueAccessor.
-        MatAutocompleteTrigger.prototype.writeValue = function (value) {
+        _MatAutocompleteTriggerBase.prototype.writeValue = function (value) {
             var _this = this;
             Promise.resolve(null).then(function () { return _this._setTriggerValue(value); });
         };
         // Implemented as part of ControlValueAccessor.
-        MatAutocompleteTrigger.prototype.registerOnChange = function (fn) {
+        _MatAutocompleteTriggerBase.prototype.registerOnChange = function (fn) {
             this._onChange = fn;
         };
         // Implemented as part of ControlValueAccessor.
-        MatAutocompleteTrigger.prototype.registerOnTouched = function (fn) {
+        _MatAutocompleteTriggerBase.prototype.registerOnTouched = function (fn) {
             this._onTouched = fn;
         };
         // Implemented as part of ControlValueAccessor.
-        MatAutocompleteTrigger.prototype.setDisabledState = function (isDisabled) {
+        _MatAutocompleteTriggerBase.prototype.setDisabledState = function (isDisabled) {
             this._element.nativeElement.disabled = isDisabled;
         };
-        MatAutocompleteTrigger.prototype._handleKeydown = function (event) {
+        _MatAutocompleteTriggerBase.prototype._handleKeydown = function (event) {
             var keyCode = event.keyCode;
             // Prevent the default action on all escape key presses. This is here primarily to bring IE
             // in line with other browsers. By default, pressing escape on IE will cause it to revert
@@ -760,11 +777,11 @@
                     this.openPanel();
                 }
                 if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
-                    this._scrollToOption();
+                    this._scrollToOption(this.autocomplete._keyManager.activeItemIndex || 0);
                 }
             }
         };
-        MatAutocompleteTrigger.prototype._handleInput = function (event) {
+        _MatAutocompleteTriggerBase.prototype._handleInput = function (event) {
             var target = event.target;
             var value = target.value;
             // Based on `NumberValueAccessor` from forms.
@@ -784,7 +801,7 @@
                 }
             }
         };
-        MatAutocompleteTrigger.prototype._handleFocus = function () {
+        _MatAutocompleteTriggerBase.prototype._handleFocus = function () {
             if (!this._canOpenOnNextFocus) {
                 this._canOpenOnNextFocus = true;
             }
@@ -800,7 +817,7 @@
          * This method manually floats the label until the panel can be closed.
          * @param shouldAnimate Whether the label should be animated when it is floated.
          */
-        MatAutocompleteTrigger.prototype._floatLabel = function (shouldAnimate) {
+        _MatAutocompleteTriggerBase.prototype._floatLabel = function (shouldAnimate) {
             if (shouldAnimate === void 0) { shouldAnimate = false; }
             if (this._formField && this._formField.floatLabel === 'auto') {
                 if (shouldAnimate) {
@@ -813,40 +830,17 @@
             }
         };
         /** If the label has been manually elevated, return it to its normal state. */
-        MatAutocompleteTrigger.prototype._resetLabel = function () {
+        _MatAutocompleteTriggerBase.prototype._resetLabel = function () {
             if (this._manuallyFloatingLabel) {
                 this._formField.floatLabel = 'auto';
                 this._manuallyFloatingLabel = false;
             }
         };
         /**
-         * Given that we are not actually focusing active options, we must manually adjust scroll
-         * to reveal options below the fold. First, we find the offset of the option from the top
-         * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
-         * the panel height + the option height, so the active option will be just visible at the
-         * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
-         * will become the offset. If that offset is visible within the panel already, the scrollTop is
-         * not adjusted.
-         */
-        MatAutocompleteTrigger.prototype._scrollToOption = function () {
-            var index = this.autocomplete._keyManager.activeItemIndex || 0;
-            var labelCount = core$1._countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-            if (index === 0 && labelCount === 1) {
-                // If we've got one group label before the option and we're at the top option,
-                // scroll the list to the top. This is better UX than scrolling the list to the
-                // top of the option, because it allows the user to read the top group's label.
-                this.autocomplete._setScrollTop(0);
-            }
-            else {
-                var newScrollPosition = core$1._getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
-                this.autocomplete._setScrollTop(newScrollPosition);
-            }
-        };
-        /**
          * This method listens to a stream of panel closing actions and resets the
          * stream every time the option list changes.
          */
-        MatAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
+        _MatAutocompleteTriggerBase.prototype._subscribeToClosingActions = function () {
             var _this = this;
             var firstStable = this._zone.onStable.asObservable().pipe(operators.take(1));
             var optionChanges = this.autocomplete.options.changes.pipe(operators.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
@@ -880,14 +874,14 @@
                 .subscribe(function (event) { return _this._setValueAndClose(event); });
         };
         /** Destroys the autocomplete suggestion panel. */
-        MatAutocompleteTrigger.prototype._destroyPanel = function () {
+        _MatAutocompleteTriggerBase.prototype._destroyPanel = function () {
             if (this._overlayRef) {
                 this.closePanel();
                 this._overlayRef.dispose();
                 this._overlayRef = null;
             }
         };
-        MatAutocompleteTrigger.prototype._setTriggerValue = function (value) {
+        _MatAutocompleteTriggerBase.prototype._setTriggerValue = function (value) {
             var toDisplay = this.autocomplete && this.autocomplete.displayWith ?
                 this.autocomplete.displayWith(value) :
                 value;
@@ -909,7 +903,7 @@
          * control to that value. It will also mark the control as dirty if this interaction
          * stemmed from the user.
          */
-        MatAutocompleteTrigger.prototype._setValueAndClose = function (event) {
+        _MatAutocompleteTriggerBase.prototype._setValueAndClose = function (event) {
             if (event && event.source) {
                 this._clearPreviousSelectedOption(event.source);
                 this._setTriggerValue(event.source.value);
@@ -922,14 +916,14 @@
         /**
          * Clear any previous selected option and emit a selection change event for this option
          */
-        MatAutocompleteTrigger.prototype._clearPreviousSelectedOption = function (skip) {
+        _MatAutocompleteTriggerBase.prototype._clearPreviousSelectedOption = function (skip) {
             this.autocomplete.options.forEach(function (option) {
                 if (option != skip && option.selected) {
                     option.deselect();
                 }
             });
         };
-        MatAutocompleteTrigger.prototype._attachOverlay = function () {
+        _MatAutocompleteTriggerBase.prototype._attachOverlay = function () {
             var _this = this;
             if (!this.autocomplete) {
                 throw getMatAutocompleteMissingPanelError();
@@ -982,7 +976,7 @@
                 this.autocomplete.opened.emit();
             }
         };
-        MatAutocompleteTrigger.prototype._getOverlayConfig = function () {
+        _MatAutocompleteTriggerBase.prototype._getOverlayConfig = function () {
             return new overlay.OverlayConfig({
                 positionStrategy: this._getOverlayPosition(),
                 scrollStrategy: this._scrollStrategy(),
@@ -990,7 +984,7 @@
                 direction: this._dir
             });
         };
-        MatAutocompleteTrigger.prototype._getOverlayPosition = function () {
+        _MatAutocompleteTriggerBase.prototype._getOverlayPosition = function () {
             var strategy = this._overlay.position()
                 .flexibleConnectedTo(this._getConnectedElement())
                 .withFlexibleDimensions(false)
@@ -1000,7 +994,7 @@
             return strategy;
         };
         /** Sets the positions on a position strategy based on the directive's input state. */
-        MatAutocompleteTrigger.prototype._setStrategyPositions = function (positionStrategy) {
+        _MatAutocompleteTriggerBase.prototype._setStrategyPositions = function (positionStrategy) {
             // Note that we provide horizontal fallback positions, even though by default the dropdown
             // width matches the input, because consumers can override the width. See #18854.
             var belowPositions = [
@@ -1010,7 +1004,7 @@
             // The overlay edge connected to the trigger should have squared corners, while
             // the opposite end has rounded corners. We apply a CSS class to swap the
             // border-radius based on the overlay position.
-            var panelClass = 'mat-autocomplete-panel-above';
+            var panelClass = this._aboveClass;
             var abovePositions = [
                 { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', panelClass: panelClass },
                 { originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'bottom', panelClass: panelClass }
@@ -1027,38 +1021,89 @@
             }
             positionStrategy.withPositions(positions);
         };
-        MatAutocompleteTrigger.prototype._getConnectedElement = function () {
+        _MatAutocompleteTriggerBase.prototype._getConnectedElement = function () {
             if (this.connectedTo) {
                 return this.connectedTo.elementRef;
             }
             return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
         };
-        MatAutocompleteTrigger.prototype._getPanelWidth = function () {
+        _MatAutocompleteTriggerBase.prototype._getPanelWidth = function () {
             return this.autocomplete.panelWidth || this._getHostWidth();
         };
         /** Returns the width of the input element, so the panel width can match it. */
-        MatAutocompleteTrigger.prototype._getHostWidth = function () {
+        _MatAutocompleteTriggerBase.prototype._getHostWidth = function () {
             return this._getConnectedElement().nativeElement.getBoundingClientRect().width;
         };
         /**
          * Resets the active item to -1 so arrow events will activate the
          * correct options, or to 0 if the consumer opted into it.
          */
-        MatAutocompleteTrigger.prototype._resetActiveItem = function () {
+        _MatAutocompleteTriggerBase.prototype._resetActiveItem = function () {
             this.autocomplete._keyManager.setActiveItem(this.autocomplete.autoActiveFirstOption ? 0 : -1);
         };
         /** Determines whether the panel can be opened. */
-        MatAutocompleteTrigger.prototype._canOpen = function () {
+        _MatAutocompleteTriggerBase.prototype._canOpen = function () {
             var element = this._element.nativeElement;
             return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
         };
         /** Use defaultView of injected document if available or fallback to global window reference */
-        MatAutocompleteTrigger.prototype._getWindow = function () {
+        _MatAutocompleteTriggerBase.prototype._getWindow = function () {
             var _a;
             return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
         };
-        return MatAutocompleteTrigger;
+        return _MatAutocompleteTriggerBase;
     }());
+    _MatAutocompleteTriggerBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatAutocompleteTriggerBase.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: overlay.Overlay },
+        { type: core.ViewContainerRef },
+        { type: core.NgZone },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Inject, args: [formField.MAT_FORM_FIELD,] }, { type: core.Host }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: scrolling.ViewportRuler }
+    ]; };
+    _MatAutocompleteTriggerBase.propDecorators = {
+        autocomplete: [{ type: core.Input, args: ['matAutocomplete',] }],
+        position: [{ type: core.Input, args: ['matAutocompletePosition',] }],
+        connectedTo: [{ type: core.Input, args: ['matAutocompleteConnectedTo',] }],
+        autocompleteAttribute: [{ type: core.Input, args: ['autocomplete',] }],
+        autocompleteDisabled: [{ type: core.Input, args: ['matAutocompleteDisabled',] }]
+    };
+    var MatAutocompleteTrigger = /** @class */ (function (_super) {
+        __extends(MatAutocompleteTrigger, _super);
+        function MatAutocompleteTrigger() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._aboveClass = 'mat-autocomplete-panel-above';
+            return _this;
+        }
+        MatAutocompleteTrigger.prototype._scrollToOption = function (index) {
+            // Given that we are not actually focusing active options, we must manually adjust scroll
+            // to reveal options below the fold. First, we find the offset of the option from the top
+            // of the panel. If that offset is below the fold, the new scrollTop will be the offset -
+            // the panel height + the option height, so the active option will be just visible at the
+            // bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
+            // will become the offset. If that offset is visible within the panel already, the scrollTop is
+            // not adjusted.
+            var labelCount = core$1._countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
+            if (index === 0 && labelCount === 1) {
+                // If we've got one group label before the option and we're at the top option,
+                // scroll the list to the top. This is better UX than scrolling the list to the
+                // top of the option, because it allows the user to read the top group's label.
+                this.autocomplete._setScrollTop(0);
+            }
+            else {
+                var newScrollPosition = core$1._getOptionScrollPosition((index + labelCount) * AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
+                this.autocomplete._setScrollTop(newScrollPosition);
+            }
+        };
+        return MatAutocompleteTrigger;
+    }(_MatAutocompleteTriggerBase));
     MatAutocompleteTrigger.decorators = [
         { type: core.Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
@@ -1082,54 +1127,39 @@
                     providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
                 },] }
     ];
-    MatAutocompleteTrigger.ctorParameters = function () { return [
-        { type: core.ElementRef },
-        { type: overlay.Overlay },
-        { type: core.ViewContainerRef },
-        { type: core.NgZone },
-        { type: core.ChangeDetectorRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-        { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Inject, args: [formField.MAT_FORM_FIELD,] }, { type: core.Host }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
-        { type: scrolling.ViewportRuler }
-    ]; };
-    MatAutocompleteTrigger.propDecorators = {
-        autocomplete: [{ type: core.Input, args: ['matAutocomplete',] }],
-        position: [{ type: core.Input, args: ['matAutocompletePosition',] }],
-        connectedTo: [{ type: core.Input, args: ['matAutocompleteConnectedTo',] }],
-        autocompleteAttribute: [{ type: core.Input, args: ['autocomplete',] }],
-        autocompleteDisabled: [{ type: core.Input, args: ['matAutocompleteDisabled',] }]
-    };
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
-     * Directive applied to an element to make it usable
-     * as a connection point for an autocomplete panel.
-     */
-    var MatAutocompleteOrigin = /** @class */ (function () {
-        function MatAutocompleteOrigin(
+    /** Base class containing all of the functionality for `MatAutocompleteOrigin`. */
+    var _MatAutocompleteOriginBase = /** @class */ (function () {
+        function _MatAutocompleteOriginBase(
         /** Reference to the element on which the directive is applied. */
         elementRef) {
             this.elementRef = elementRef;
         }
-        return MatAutocompleteOrigin;
+        return _MatAutocompleteOriginBase;
     }());
+    _MatAutocompleteOriginBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatAutocompleteOriginBase.ctorParameters = function () { return [
+        { type: core.ElementRef }
+    ]; };
+    /**
+     * Directive applied to an element to make it usable
+     * as a connection point for an autocomplete panel.
+     */
+    var MatAutocompleteOrigin = /** @class */ (function (_super) {
+        __extends(MatAutocompleteOrigin, _super);
+        function MatAutocompleteOrigin() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return MatAutocompleteOrigin;
+    }(_MatAutocompleteOriginBase));
     MatAutocompleteOrigin.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matAutocompleteOrigin]',
                     exportAs: 'matAutocompleteOrigin',
                 },] }
     ];
-    MatAutocompleteOrigin.ctorParameters = function () { return [
-        { type: core.ElementRef }
-    ]; };
 
     /**
      * @license
@@ -1145,14 +1175,19 @@
     }());
     MatAutocompleteModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [core$1.MatOptionModule, overlay.OverlayModule, core$1.MatCommonModule, common.CommonModule],
-                    exports: [
-                        scrolling.CdkScrollableModule,
-                        MatAutocomplete,
+                    imports: [
+                        overlay.OverlayModule,
                         core$1.MatOptionModule,
+                        core$1.MatCommonModule,
+                        common.CommonModule
+                    ],
+                    exports: [
+                        MatAutocomplete,
                         MatAutocompleteTrigger,
                         MatAutocompleteOrigin,
-                        core$1.MatCommonModule
+                        scrolling.CdkScrollableModule,
+                        core$1.MatOptionModule,
+                        core$1.MatCommonModule,
                     ],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
                     providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
@@ -1184,6 +1219,9 @@
     exports.MatAutocompleteOrigin = MatAutocompleteOrigin;
     exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
     exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
+    exports._MatAutocompleteBase = _MatAutocompleteBase;
+    exports._MatAutocompleteOriginBase = _MatAutocompleteOriginBase;
+    exports._MatAutocompleteTriggerBase = _MatAutocompleteTriggerBase;
     exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 
     Object.defineProperty(exports, '__esModule', { value: true });

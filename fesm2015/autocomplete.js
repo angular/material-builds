@@ -1,7 +1,7 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { InjectionToken, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, ContentChildren, Input, Output, Directive, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
-import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { InjectionToken, EventEmitter, Directive, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
+import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MAT_OPTGROUP, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -51,7 +51,8 @@ const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-de
 function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
     return { autoActiveFirstOption: false };
 }
-class MatAutocomplete extends _MatAutocompleteMixinBase {
+/** Base class with all of the `MatAutocomplete` functionality. */
+class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
     constructor(_changeDetectorRef, _elementRef, defaults) {
         super();
         this._changeDetectorRef = _changeDetectorRef;
@@ -139,8 +140,35 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
     }
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     _setVisibilityClasses(classList) {
-        classList['mat-autocomplete-visible'] = this.showPanel;
-        classList['mat-autocomplete-hidden'] = !this.showPanel;
+        classList[this._visibleClass] = this.showPanel;
+        classList[this._hiddenClass] = !this.showPanel;
+    }
+}
+_MatAutocompleteBase.decorators = [
+    { type: Directive }
+];
+_MatAutocompleteBase.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: ElementRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
+];
+_MatAutocompleteBase.propDecorators = {
+    template: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
+    panel: [{ type: ViewChild, args: ['panel',] }],
+    displayWith: [{ type: Input }],
+    autoActiveFirstOption: [{ type: Input }],
+    panelWidth: [{ type: Input }],
+    optionSelected: [{ type: Output }],
+    opened: [{ type: Output }],
+    closed: [{ type: Output }],
+    optionActivated: [{ type: Output }],
+    classList: [{ type: Input, args: ['class',] }]
+};
+class MatAutocomplete extends _MatAutocompleteBase {
+    constructor() {
+        super(...arguments);
+        this._visibleClass = 'mat-autocomplete-visible';
+        this._hiddenClass = 'mat-autocomplete-hidden';
     }
 }
 MatAutocomplete.decorators = [
@@ -160,24 +188,9 @@ MatAutocomplete.decorators = [
                 styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}.mat-autocomplete-panel-above .mat-autocomplete-panel{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}.mat-autocomplete-panel .mat-divider-horizontal{margin-top:-1px}.cdk-high-contrast-active .mat-autocomplete-panel{outline:solid 1px}\n"]
             },] }
 ];
-MatAutocomplete.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: ElementRef },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
-];
 MatAutocomplete.propDecorators = {
-    template: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],
-    panel: [{ type: ViewChild, args: ['panel',] }],
-    options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
     optionGroups: [{ type: ContentChildren, args: [MAT_OPTGROUP, { descendants: true },] }],
-    displayWith: [{ type: Input }],
-    autoActiveFirstOption: [{ type: Input }],
-    panelWidth: [{ type: Input }],
-    optionSelected: [{ type: Output }],
-    opened: [{ type: Output }],
-    closed: [{ type: Output }],
-    optionActivated: [{ type: Output }],
-    classList: [{ type: Input, args: ['class',] }]
+    options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }]
 };
 
 /**
@@ -187,25 +200,31 @@ MatAutocomplete.propDecorators = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Directive applied to an element to make it usable
- * as a connection point for an autocomplete panel.
- */
-class MatAutocompleteOrigin {
+/** Base class containing all of the functionality for `MatAutocompleteOrigin`. */
+class _MatAutocompleteOriginBase {
     constructor(
     /** Reference to the element on which the directive is applied. */
     elementRef) {
         this.elementRef = elementRef;
     }
 }
+_MatAutocompleteOriginBase.decorators = [
+    { type: Directive }
+];
+_MatAutocompleteOriginBase.ctorParameters = () => [
+    { type: ElementRef }
+];
+/**
+ * Directive applied to an element to make it usable
+ * as a connection point for an autocomplete panel.
+ */
+class MatAutocompleteOrigin extends _MatAutocompleteOriginBase {
+}
 MatAutocompleteOrigin.decorators = [
     { type: Directive, args: [{
                 selector: '[matAutocompleteOrigin]',
                 exportAs: 'matAutocompleteOrigin',
             },] }
-];
-MatAutocompleteOrigin.ctorParameters = () => [
-    { type: ElementRef }
 ];
 
 /**
@@ -254,7 +273,8 @@ function getMatAutocompleteMissingPanelError() {
         'Make sure that the id passed to the `matAutocomplete` is correct and that ' +
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
-class MatAutocompleteTrigger {
+/** Base class with all of the `MatAutocompleteTrigger` functionality. */
+class _MatAutocompleteTriggerBase {
     constructor(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
         this._element = _element;
         this._overlay = _overlay;
@@ -470,7 +490,7 @@ class MatAutocompleteTrigger {
                 this.openPanel();
             }
             if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
-                this._scrollToOption();
+                this._scrollToOption(this.autocomplete._keyManager.activeItemIndex || 0);
             }
         }
     }
@@ -526,29 +546,6 @@ class MatAutocompleteTrigger {
         if (this._manuallyFloatingLabel) {
             this._formField.floatLabel = 'auto';
             this._manuallyFloatingLabel = false;
-        }
-    }
-    /**
-     * Given that we are not actually focusing active options, we must manually adjust scroll
-     * to reveal options below the fold. First, we find the offset of the option from the top
-     * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
-     * the panel height + the option height, so the active option will be just visible at the
-     * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
-     * will become the offset. If that offset is visible within the panel already, the scrollTop is
-     * not adjusted.
-     */
-    _scrollToOption() {
-        const index = this.autocomplete._keyManager.activeItemIndex || 0;
-        const labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-        if (index === 0 && labelCount === 1) {
-            // If we've got one group label before the option and we're at the top option,
-            // scroll the list to the top. This is better UX than scrolling the list to the
-            // top of the option, because it allows the user to read the top group's label.
-            this.autocomplete._setScrollTop(0);
-        }
-        else {
-            const newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
-            this.autocomplete._setScrollTop(newScrollPosition);
         }
     }
     /**
@@ -717,7 +714,7 @@ class MatAutocompleteTrigger {
         // The overlay edge connected to the trigger should have squared corners, while
         // the opposite end has rounded corners. We apply a CSS class to swap the
         // border-radius based on the overlay position.
-        const panelClass = 'mat-autocomplete-panel-above';
+        const panelClass = this._aboveClass;
         const abovePositions = [
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', panelClass },
             { originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'bottom', panelClass }
@@ -765,6 +762,54 @@ class MatAutocompleteTrigger {
         return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
     }
 }
+_MatAutocompleteTriggerBase.decorators = [
+    { type: Directive }
+];
+_MatAutocompleteTriggerBase.ctorParameters = () => [
+    { type: ElementRef },
+    { type: Overlay },
+    { type: ViewContainerRef },
+    { type: NgZone },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: MatFormField, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD,] }, { type: Host }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+    { type: ViewportRuler }
+];
+_MatAutocompleteTriggerBase.propDecorators = {
+    autocomplete: [{ type: Input, args: ['matAutocomplete',] }],
+    position: [{ type: Input, args: ['matAutocompletePosition',] }],
+    connectedTo: [{ type: Input, args: ['matAutocompleteConnectedTo',] }],
+    autocompleteAttribute: [{ type: Input, args: ['autocomplete',] }],
+    autocompleteDisabled: [{ type: Input, args: ['matAutocompleteDisabled',] }]
+};
+class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
+    constructor() {
+        super(...arguments);
+        this._aboveClass = 'mat-autocomplete-panel-above';
+    }
+    _scrollToOption(index) {
+        // Given that we are not actually focusing active options, we must manually adjust scroll
+        // to reveal options below the fold. First, we find the offset of the option from the top
+        // of the panel. If that offset is below the fold, the new scrollTop will be the offset -
+        // the panel height + the option height, so the active option will be just visible at the
+        // bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
+        // will become the offset. If that offset is visible within the panel already, the scrollTop is
+        // not adjusted.
+        const labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
+        if (index === 0 && labelCount === 1) {
+            // If we've got one group label before the option and we're at the top option,
+            // scroll the list to the top. This is better UX than scrolling the list to the
+            // top of the option, because it allows the user to read the top group's label.
+            this.autocomplete._setScrollTop(0);
+        }
+        else {
+            const newScrollPosition = _getOptionScrollPosition((index + labelCount) * AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
+            this.autocomplete._setScrollTop(newScrollPosition);
+        }
+    }
+}
 MatAutocompleteTrigger.decorators = [
     { type: Directive, args: [{
                 selector: `input[matAutocomplete], textarea[matAutocomplete]`,
@@ -788,25 +833,6 @@ MatAutocompleteTrigger.decorators = [
                 providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
             },] }
 ];
-MatAutocompleteTrigger.ctorParameters = () => [
-    { type: ElementRef },
-    { type: Overlay },
-    { type: ViewContainerRef },
-    { type: NgZone },
-    { type: ChangeDetectorRef },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
-    { type: Directionality, decorators: [{ type: Optional }] },
-    { type: MatFormField, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD,] }, { type: Host }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
-    { type: ViewportRuler }
-];
-MatAutocompleteTrigger.propDecorators = {
-    autocomplete: [{ type: Input, args: ['matAutocomplete',] }],
-    position: [{ type: Input, args: ['matAutocompletePosition',] }],
-    connectedTo: [{ type: Input, args: ['matAutocompleteConnectedTo',] }],
-    autocompleteAttribute: [{ type: Input, args: ['autocomplete',] }],
-    autocompleteDisabled: [{ type: Input, args: ['matAutocompleteDisabled',] }]
-};
 
 /**
  * @license
@@ -819,14 +845,19 @@ class MatAutocompleteModule {
 }
 MatAutocompleteModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
-                exports: [
-                    CdkScrollableModule,
-                    MatAutocomplete,
+                imports: [
+                    OverlayModule,
                     MatOptionModule,
+                    MatCommonModule,
+                    CommonModule
+                ],
+                exports: [
+                    MatAutocomplete,
                     MatAutocompleteTrigger,
                     MatAutocompleteOrigin,
-                    MatCommonModule
+                    CdkScrollableModule,
+                    MatOptionModule,
+                    MatCommonModule,
                 ],
                 declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
                 providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
@@ -845,5 +876,5 @@ MatAutocompleteModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, getMatAutocompleteMissingPanelError };
+export { AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, _MatAutocompleteBase, _MatAutocompleteOriginBase, _MatAutocompleteTriggerBase, getMatAutocompleteMissingPanelError };
 //# sourceMappingURL=autocomplete.js.map

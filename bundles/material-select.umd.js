@@ -1186,7 +1186,8 @@
         MatSelect.prototype._scrollActiveOptionIntoView = function () {
             var activeOptionIndex = this._keyManager.activeItemIndex || 0;
             var labelCount = core$1._countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
-            this.panel.nativeElement.scrollTop = core$1._getOptionScrollPosition(activeOptionIndex + labelCount, this._getItemHeight(), this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
+            var itemHeight = this._getItemHeight();
+            this.panel.nativeElement.scrollTop = core$1._getOptionScrollPosition((activeOptionIndex + labelCount) * itemHeight, itemHeight, this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
         };
         /** Focuses the select element. */
         MatSelect.prototype.focus = function (options) {

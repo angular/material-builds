@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.2.0-next.0-sha-cb8de6195');
+    var VERSION = new i0.Version('10.2.0-next.0-sha-c8f03c760');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-cb8de6195');
+    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-c8f03c760');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -2096,14 +2096,13 @@
     }
     /**
      * Determines the position to which to scroll a panel in order for an option to be into view.
-     * @param optionIndex Index of the option to be scrolled into the view.
+     * @param optionOffset Offset of the option from the top of the panel.
      * @param optionHeight Height of the options.
      * @param currentScrollPosition Current scroll position of the panel.
      * @param panelHeight Height of the panel.
      * @docs-private
      */
-    function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPosition, panelHeight) {
-        var optionOffset = optionIndex * optionHeight;
+    function _getOptionScrollPosition(optionOffset, optionHeight, currentScrollPosition, panelHeight) {
         if (optionOffset < currentScrollPosition) {
             return optionOffset;
         }

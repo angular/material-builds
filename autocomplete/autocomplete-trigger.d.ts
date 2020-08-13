@@ -14,8 +14,8 @@ import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { MatAutocomplete } from './autocomplete';
-import { MatAutocompleteOrigin } from './autocomplete-origin';
+import { _MatAutocompleteBase } from './autocomplete';
+import { _MatAutocompleteOriginBase } from './autocomplete-origin';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the scrollTop of the panel. Because we are not
@@ -45,7 +45,8 @@ export declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
  * @docs-private
  */
 export declare function getMatAutocompleteMissingPanelError(): Error;
-export declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+/** Base class with all of the `MatAutocompleteTrigger` functionality. */
+export declare abstract class _MatAutocompleteTriggerBase implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     private _element;
     private _overlay;
     private _viewContainerRef;
@@ -90,7 +91,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     /** `View -> model callback called when autocomplete has been touched` */
     _onTouched: () => void;
     /** The autocomplete panel to be attached to this trigger. */
-    autocomplete: MatAutocomplete;
+    autocomplete: _MatAutocompleteBase;
     /**
      * Position of the autocomplete panel relative to the trigger element. A position of `auto`
      * will render the panel underneath the trigger if there is enough space for it to fit in
@@ -103,7 +104,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      * Reference relative to which to position the autocomplete panel.
      * Defaults to the autocomplete trigger element.
      */
-    connectedTo: MatAutocompleteOrigin;
+    connectedTo: _MatAutocompleteOriginBase;
     /**
      * `autocomplete` attribute to be set on the input element.
      * @docs-private
@@ -116,6 +117,10 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     get autocompleteDisabled(): boolean;
     set autocompleteDisabled(value: boolean);
     constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler);
+    /** Scrolls to an option at a particular index. */
+    protected abstract _scrollToOption(index: number): void;
+    /** Class to apply to the panel when it's above the input. */
+    protected abstract _aboveClass: string;
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
@@ -159,16 +164,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     /** If the label has been manually elevated, return it to its normal state. */
     private _resetLabel;
     /**
-     * Given that we are not actually focusing active options, we must manually adjust scroll
-     * to reveal options below the fold. First, we find the offset of the option from the top
-     * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
-     * the panel height + the option height, so the active option will be just visible at the
-     * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
-     * will become the offset. If that offset is visible within the panel already, the scrollTop is
-     * not adjusted.
-     */
-    private _scrollToOption;
-    /**
      * This method listens to a stream of panel closing actions and resets the
      * stream every time the option list changes.
      */
@@ -205,4 +200,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     /** Use defaultView of injected document if available or fallback to global window reference */
     private _getWindow;
     static ngAcceptInputType_autocompleteDisabled: BooleanInput;
+}
+export declare class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
+    protected _aboveClass: string;
+    protected _scrollToOption(index: number): void;
 }

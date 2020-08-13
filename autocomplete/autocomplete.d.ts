@@ -8,25 +8,25 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef, OnDestroy } from '@angular/core';
-import { CanDisableRipple, CanDisableRippleCtor, MatOptgroup, MatOption } from '@angular/material/core';
+import { CanDisableRipple, CanDisableRippleCtor, _MatOptgroupBase, _MatOptionBase, MatOption, MatOptgroup } from '@angular/material/core';
 /** Event object that is emitted when an autocomplete option is selected. */
 export declare class MatAutocompleteSelectedEvent {
     /** Reference to the autocomplete panel that emitted the event. */
-    source: MatAutocomplete;
+    source: _MatAutocompleteBase;
     /** Option that was selected. */
-    option: MatOption;
+    option: _MatOptionBase;
     constructor(
     /** Reference to the autocomplete panel that emitted the event. */
-    source: MatAutocomplete, 
+    source: _MatAutocompleteBase, 
     /** Option that was selected. */
-    option: MatOption);
+    option: _MatOptionBase);
 }
 /** Event object that is emitted when an autocomplete option is activated. */
 export interface MatAutocompleteActivatedEvent {
     /** Reference to the autocomplete panel that emitted the event. */
-    source: MatAutocomplete;
+    source: _MatAutocompleteBase;
     /** Option that was selected. */
-    option: MatOption | null;
+    option: _MatOptionBase | null;
 }
 /** @docs-private */
 declare class MatAutocompleteBase {
@@ -41,12 +41,17 @@ export interface MatAutocompleteDefaultOptions {
 export declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
 /** @docs-private */
 export declare function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): MatAutocompleteDefaultOptions;
-export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
+/** Base class with all of the `MatAutocomplete` functionality. */
+export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _activeOptionChanges;
+    /** Class to apply to the panel when it's visible. */
+    protected abstract _visibleClass: string;
+    /** Class to apply to the panel when it's hidden. */
+    protected abstract _hiddenClass: string;
     /** Manages active item in option list based on key events. */
-    _keyManager: ActiveDescendantKeyManager<MatOption>;
+    _keyManager: ActiveDescendantKeyManager<_MatOptionBase>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
     /** Whether the autocomplete panel is open. */
@@ -57,9 +62,9 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     /** Element for the panel containing the autocomplete options. */
     panel: ElementRef;
     /** @docs-private */
-    options: QueryList<MatOption>;
+    abstract options: QueryList<_MatOptionBase>;
     /** @docs-private */
-    optionGroups: QueryList<MatOptgroup>;
+    abstract optionGroups: QueryList<_MatOptgroupBase>;
     /** Function that maps an option's control value to its display value in the trigger. */
     displayWith: ((value: any) => string) | null;
     /**
@@ -105,10 +110,16 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     /** Panel should hide itself when the option list is empty. */
     _setVisibility(): void;
     /** Emits the `select` event. */
-    _emitSelectEvent(option: MatOption): void;
+    _emitSelectEvent(option: _MatOptionBase): void;
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
     static ngAcceptInputType_autoActiveFirstOption: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+}
+export declare class MatAutocomplete extends _MatAutocompleteBase {
+    optionGroups: QueryList<MatOptgroup>;
+    options: QueryList<MatOption>;
+    protected _visibleClass: string;
+    protected _hiddenClass: string;
 }
 export {};

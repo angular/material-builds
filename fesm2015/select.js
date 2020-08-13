@@ -834,7 +834,8 @@ class MatSelect extends _MatSelectMixinBase {
     _scrollActiveOptionIntoView() {
         const activeOptionIndex = this._keyManager.activeItemIndex || 0;
         const labelCount = _countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
-        this.panel.nativeElement.scrollTop = _getOptionScrollPosition(activeOptionIndex + labelCount, this._getItemHeight(), this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
+        const itemHeight = this._getItemHeight();
+        this.panel.nativeElement.scrollTop = _getOptionScrollPosition((activeOptionIndex + labelCount) * itemHeight, itemHeight, this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
     }
     /** Focuses the select element. */
     focus(options) {
