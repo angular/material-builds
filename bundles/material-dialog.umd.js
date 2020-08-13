@@ -585,7 +585,7 @@
             if (toState === 'enter') {
                 this._animationStateChanged.next({ state: 'opening', totalTime: totalTime });
             }
-            else if (toState === 'exit') {
+            else if (toState === 'exit' || toState === 'void') {
                 this._animationStateChanged.next({ state: 'closing', totalTime: totalTime });
             }
         };
