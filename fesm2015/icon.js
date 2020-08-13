@@ -55,16 +55,10 @@ function getMatIconFailedToSanitizeLiteralError(literal) {
  * @docs-private
  */
 class SvgIconConfig {
-    constructor(data, options) {
+    constructor(url, svgText, options) {
+        this.url = url;
+        this.svgText = svgText;
         this.options = options;
-        // Note that we can't use `instanceof SVGElement` here,
-        // because it'll break during server-side rendering.
-        if (!!data.nodeName) {
-            this.svgElement = data;
-        }
-        else {
-            this.url = data;
-        }
     }
 }
 /**
@@ -125,7 +119,7 @@ class MatIconRegistry {
      * @param url
      */
     addSvgIconInNamespace(namespace, iconName, url, options) {
-        return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url, options));
+        return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url, null, options));
     }
     /**
      * Registers an icon using an HTML string in the specified namespace.
@@ -134,12 +128,11 @@ class MatIconRegistry {
      * @param literal SVG source of the icon.
      */
     addSvgIconLiteralInNamespace(namespace, iconName, literal, options) {
-        const sanitizedLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
-        if (!sanitizedLiteral) {
+        const cleanLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
+        if (!cleanLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
-        const svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral, options);
-        return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement, options));
+        return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig('', cleanLiteral, options));
     }
     /**
      * Registers an icon set by URL in the default namespace.
@@ -161,7 +154,7 @@ class MatIconRegistry {
      * @param url
      */
     addSvgIconSetInNamespace(namespace, url, options) {
-        return this._addSvgIconSetConfig(namespace, new SvgIconConfig(url, options));
+        return this._addSvgIconSetConfig(namespace, new SvgIconConfig(url, null, options));
     }
     /**
      * Registers an icon set using an HTML string in the specified namespace.
@@ -169,12 +162,11 @@ class MatIconRegistry {
      * @param literal SVG source of the icon set.
      */
     addSvgIconSetLiteralInNamespace(namespace, literal, options) {
-        const sanitizedLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
-        if (!sanitizedLiteral) {
+        const cleanLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
+        if (!cleanLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
-        const svgElement = this._svgElementFromString(sanitizedLiteral);
-        return this._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement, options));
+        return this._addSvgIconSetConfig(namespace, new SvgIconConfig('', cleanLiteral, options));
     }
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
@@ -229,7 +221,7 @@ class MatIconRegistry {
         if (cachedIcon) {
             return of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(tap(svg => this._cachedIconsByUrl.set(url, svg)), map(svg => cloneSvg(svg)));
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl, null)).pipe(tap(svg => this._cachedIconsByUrl.set(url, svg)), map(svg => cloneSvg(svg)));
     }
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -262,13 +254,13 @@ class MatIconRegistry {
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
      */
     _getSvgFromConfig(config) {
-        if (config.svgElement) {
+        if (config.svgText) {
             // We already have the SVG element for this icon, return a copy.
-            return of(cloneSvg(config.svgElement));
+            return of(cloneSvg(this._svgElementFromConfig(config)));
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config).pipe(tap(svg => config.svgElement = svg), map(svg => cloneSvg(svg)));
+            return this._loadSvgIconFromConfig(config).pipe(map(svg => cloneSvg(svg)));
         }
     }
     /**
@@ -292,7 +284,7 @@ class MatIconRegistry {
         // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
         // fetched, fetch them now and look for iconName in the results.
         const iconSetFetchRequests = iconSetConfigs
-            .filter(iconSetConfig => !iconSetConfig.svgElement)
+            .filter(iconSetConfig => !iconSetConfig.svgText)
             .map(iconSetConfig => {
             return this._loadSvgIconSetFromConfig(iconSetConfig).pipe(catchError((err) => {
                 const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
@@ -322,8 +314,13 @@ class MatIconRegistry {
         // Iterate backwards, so icon sets added later have precedence.
         for (let i = iconSetConfigs.length - 1; i >= 0; i--) {
             const config = iconSetConfigs[i];
-            if (config.svgElement) {
-                const foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName, config.options);
+            // Parsing the icon set's text into an SVG element can be expensive. We can avoid some of
+            // the parsing by doing a quick check using `indexOf` to see if there's any chance for the
+            // icon to be in the set. This won't be 100% accurate, but it should help us avoid at least
+            // some of the parsing.
+            if (config.svgText && config.svgText.indexOf(iconName) > -1) {
+                const svg = this._svgElementFromConfig(config);
+                const foundIcon = this._extractSvgIconFromSet(svg, iconName, config.options);
                 if (foundIcon) {
                     return foundIcon;
                 }
@@ -336,34 +333,17 @@ class MatIconRegistry {
      * from it.
      */
     _loadSvgIconFromConfig(config) {
-        return this._fetchIcon(config)
-            .pipe(map(svgText => this._createSvgElementForSingleIcon(svgText, config.options)));
+        return this._fetchIcon(config).pipe(tap(svgText => config.svgText = svgText), map(() => this._svgElementFromConfig(config)));
     }
     /**
-     * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
-     * from it.
+     * Loads the content of the icon set URL specified in the
+     * SvgIconConfig and attaches it to the config.
      */
     _loadSvgIconSetFromConfig(config) {
-        // If the SVG for this icon set has already been parsed, do nothing.
-        if (config.svgElement) {
-            return of(config.svgElement);
+        if (config.svgText) {
+            return of(null);
         }
-        return this._fetchIcon(config).pipe(map(svgText => {
-            // It is possible that the icon set was parsed and cached by an earlier request, so parsing
-            // only needs to occur if the cache is yet unset.
-            if (!config.svgElement) {
-                config.svgElement = this._svgElementFromString(svgText);
-            }
-            return config.svgElement;
-        }));
-    }
-    /**
-     * Creates a DOM element from the given SVG string, and adds default attributes.
-     */
-    _createSvgElementForSingleIcon(responseText, options) {
-        const svg = this._svgElementFromString(responseText);
-        this._setSvgAttributes(svg, options);
-        return svg;
+        return this._fetchIcon(config).pipe(tap(svgText => config.svgText = svgText));
     }
     /**
      * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
@@ -473,8 +453,6 @@ class MatIconRegistry {
         if (inProgressFetch) {
             return inProgressFetch;
         }
-        // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
-        // Observable. Figure out why and fix it.
         const req = this._httpClient.get(url, { responseType: 'text', withCredentials }).pipe(finalize(() => this._inProgressUrlFetches.delete(url)), share());
         this._inProgressUrlFetches.set(url, req);
         return req;
@@ -503,6 +481,15 @@ class MatIconRegistry {
             this._iconSetConfigs.set(namespace, [config]);
         }
         return this;
+    }
+    /** Parses a config's text into an SVG element. */
+    _svgElementFromConfig(config) {
+        if (!config.svgElement) {
+            const svg = this._svgElementFromString(config.svgText);
+            this._setSvgAttributes(svg, config.options);
+            config.svgElement = svg;
+        }
+        return config.svgElement;
     }
 }
 MatIconRegistry.ɵprov = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
