@@ -34,7 +34,7 @@ class MatSubheaderHarness extends ComponentHarness {
         });
     }
 }
-MatSubheaderHarness.hostSelector = '[mat-subheader], [matSubheader]';
+MatSubheaderHarness.hostSelector = '.mat-subheader';
 /**
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
@@ -194,7 +194,7 @@ class MatActionListHarness extends MatListHarnessBase {
     }
 }
 /** The selector for the host element of a `MatActionList` instance. */
-MatActionListHarness.hostSelector = 'mat-action-list';
+MatActionListHarness.hostSelector = 'mat-action-list.mat-list';
 /** Harness for interacting with an action list item. */
 class MatActionListItemHarness extends MatListItemHarnessBase {
     /**
@@ -260,7 +260,7 @@ class MatListHarness extends MatListHarnessBase {
     }
 }
 /** The selector for the host element of a `MatList` instance. */
-MatListHarness.hostSelector = 'mat-list';
+MatListHarness.hostSelector = '.mat-list:not(mat-action-list):not(mat-nav-list):not(mat-selection-list)';
 /** Harness for interacting with a list item. */
 class MatListItemHarness extends MatListItemHarnessBase {
     /**
@@ -310,7 +310,7 @@ class MatNavListHarness extends MatListHarnessBase {
     }
 }
 /** The selector for the host element of a `MatNavList` instance. */
-MatNavListHarness.hostSelector = 'mat-nav-list';
+MatNavListHarness.hostSelector = '.mat-nav-list';
 /** Harness for interacting with a nav list item. */
 class MatNavListItemHarness extends MatListItemHarnessBase {
     /**
@@ -418,7 +418,7 @@ class MatSelectionListHarness extends MatListHarnessBase {
     }
 }
 /** The selector for the host element of a `MatSelectionList` instance. */
-MatSelectionListHarness.hostSelector = 'mat-selection-list';
+MatSelectionListHarness.hostSelector = '.mat-selection-list';
 /** Harness for interacting with a list option. */
 class MatListOptionHarness extends MatListItemHarnessBase {
     constructor() {
@@ -502,7 +502,7 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     }
 }
 /** The selector for the host element of a `MatListOption` instance. */
-MatListOptionHarness.hostSelector = 'mat-list-option';
+MatListOptionHarness.hostSelector = '.mat-list-option';
 
 /**
  * @license

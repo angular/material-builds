@@ -44,7 +44,7 @@ class MatToolbarHarness extends ContentContainerComponentHarness {
         });
     }
 }
-MatToolbarHarness.hostSelector = 'mat-toolbar';
+MatToolbarHarness.hostSelector = '.mat-toolbar';
 
 /**
  * @license

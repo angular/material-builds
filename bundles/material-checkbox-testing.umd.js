@@ -571,7 +571,7 @@
         return MatCheckboxHarness;
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatCheckbox` instance. */
-    MatCheckboxHarness.hostSelector = 'mat-checkbox';
+    MatCheckboxHarness.hostSelector = '.mat-checkbox';
 
     /**
      * @license

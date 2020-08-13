@@ -122,7 +122,7 @@ class MatButtonToggleHarness extends ComponentHarness {
     }
 }
 /** The selector for the host element of a `MatButton` instance. */
-MatButtonToggleHarness.hostSelector = 'mat-button-toggle';
+MatButtonToggleHarness.hostSelector = '.mat-button-toggle';
 
 /**
  * @license
@@ -181,7 +181,7 @@ class MatButtonToggleGroupHarness extends ComponentHarness {
     }
 }
 /** The selector for the host element of a `MatButton` instance. */
-MatButtonToggleGroupHarness.hostSelector = 'mat-button-toggle-group';
+MatButtonToggleGroupHarness.hostSelector = '.mat-button-toggle-group';
 
 /**
  * @license

@@ -340,7 +340,7 @@
         };
         return MatDividerHarness;
     }(testing.ComponentHarness));
-    MatDividerHarness.hostSelector = 'mat-divider';
+    MatDividerHarness.hostSelector = '.mat-divider';
 
     /**
      * @license

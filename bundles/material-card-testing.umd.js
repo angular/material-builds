@@ -365,7 +365,7 @@
         return MatCardHarness;
     }(testing.ContentContainerComponentHarness));
     /** The selector for the host element of a `MatCard` instance. */
-    MatCardHarness.hostSelector = 'mat-card';
+    MatCardHarness.hostSelector = '.mat-card';
 
     /**
      * @license

@@ -27,7 +27,7 @@ class MatDividerHarness extends ComponentHarness {
         });
     }
 }
-MatDividerHarness.hostSelector = 'mat-divider';
+MatDividerHarness.hostSelector = '.mat-divider';
 
 /**
  * @license

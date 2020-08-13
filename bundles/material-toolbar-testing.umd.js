@@ -362,7 +362,7 @@
         };
         return MatToolbarHarness;
     }(testing.ContentContainerComponentHarness));
-    MatToolbarHarness.hostSelector = 'mat-toolbar';
+    MatToolbarHarness.hostSelector = '.mat-toolbar';
 
     /**
      * @license
