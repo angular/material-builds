@@ -170,6 +170,8 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     private _popupComponentRef;
     /** The element that was focused before the datepicker was opened. */
     private _focusedElementBeforeOpen;
+    /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
+    private _backdropHarnessClass;
     /** The input element this datepicker is associated with. */
     _datepickerInput: C;
     /** Emits when the datepicker's state changes. */

@@ -653,6 +653,12 @@ class MatMonthView {
             .pipe(startWith(null))
             .subscribe(() => this._init());
     }
+    ngOnChanges(changes) {
+        const comparisonChange = changes['comparisonStart'] || changes['comparisonEnd'];
+        if (comparisonChange && !comparisonChange.firstChange) {
+            this._setRanges(this.selected);
+        }
+    }
     ngOnDestroy() {
         this._rerenderSubscription.unsubscribe();
     }
@@ -1912,6 +1918,8 @@ class MatDatepickerBase {
         this.id = `mat-datepicker-${datepickerUid++}`;
         /** The element that was focused before the datepicker was opened. */
         this._focusedElementBeforeOpen = null;
+        /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
+        this._backdropHarnessClass = `${this.id}-backdrop`;
         /** Emits when the datepicker's state changes. */
         this._stateChanges = new Subject();
         if (!this._dateAdapter) {
@@ -2082,6 +2090,7 @@ class MatDatepickerBase {
             // datepicker dialog behaves consistently even if the user changed the defaults.
             hasBackdrop: true,
             disableClose: false,
+            backdropClass: ['cdk-overlay-dark-backdrop', this._backdropHarnessClass],
             width: '',
             height: '',
             minWidth: '',
@@ -2129,7 +2138,7 @@ class MatDatepickerBase {
         const overlayConfig = new OverlayConfig({
             positionStrategy: this._setConnectedPositions(positionStrategy),
             hasBackdrop: true,
-            backdropClass: 'mat-overlay-transparent-backdrop',
+            backdropClass: ['mat-overlay-transparent-backdrop', this._backdropHarnessClass],
             direction: this._dir,
             scrollStrategy: this._scrollStrategy(),
             panelClass: 'mat-datepicker-popup',
@@ -2625,10 +2634,14 @@ MatDatepickerInput.decorators = [
                     { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
                 ],
                 host: {
+                    'class': 'mat-datepicker-input',
                     '[attr.aria-haspopup]': '_datepicker ? "dialog" : null',
                     '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
                     '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
                     '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
+                    // Used by the test harness to tie this input to its calendar. We can't depend on
+                    // `aria-owns` for this, because it's only defined while the calendar is open.
+                    '[attr.data-mat-calendar]': '_datepicker ? _datepicker.id : null',
                     '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
                     '(change)': '_onChange()',
@@ -2724,6 +2737,8 @@ MatDatepickerToggle.decorators = [
                     '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                     '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
                     '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
+                    // Used by the test harness to tie this toggle to its datepicker.
+                    '[attr.data-mat-calendar]': 'datepicker ? datepicker.id : null',
                     '(focus)': '_button.focus()',
                 },
                 exportAs: 'matDatepickerToggle',
@@ -2894,7 +2909,7 @@ MatStartDate.decorators = [
     { type: Directive, args: [{
                 selector: 'input[matStartDate]',
                 host: {
-                    'class': 'mat-date-range-input-inner',
+                    'class': 'mat-start-date mat-date-range-input-inner',
                     '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
                     '(change)': '_onChange()',
@@ -2965,7 +2980,7 @@ MatEndDate.decorators = [
     { type: Directive, args: [{
                 selector: 'input[matEndDate]',
                 host: {
-                    'class': 'mat-date-range-input-inner',
+                    'class': 'mat-end-date mat-date-range-input-inner',
                     '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
                     '(change)': '_onChange()',
@@ -3256,10 +3271,14 @@ MatDateRangeInput.decorators = [
                 host: {
                     'class': 'mat-date-range-input',
                     '[class.mat-date-range-input-hide-placeholders]': '_shouldHidePlaceholders()',
+                    '[class.mat-date-range-input-required]': 'required',
                     '[attr.id]': 'null',
                     'role': 'group',
                     '[attr.aria-labelledby]': '_getAriaLabelledby()',
                     '[attr.aria-describedby]': '_ariaDescribedBy',
+                    // Used by the test harness to tie this input to its calendar. We can't depend on
+                    // `aria-owns` for this, because it's only defined while the calendar is open.
+                    '[attr.data-mat-calendar]': 'rangePicker ? rangePicker.id : null',
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,

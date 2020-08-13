@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatCalendarBody, MatCalendarCell, MatCalendarCellCssClasses, MatCalendarUserEvent } from './calendar-body';
@@ -15,7 +15,7 @@ import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
  * An internal component used to display a single month in the datepicker.
  * @docs-private
  */
-export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
+export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
     private _changeDetectorRef;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
@@ -85,6 +85,7 @@ export declare class MatMonthView<D> implements AfterContentInit, OnDestroy {
     }[];
     constructor(_changeDetectorRef: ChangeDetectorRef, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined, _rangeStrategy?: MatDateRangeSelectionStrategy<D> | undefined);
     ngAfterContentInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Handles when a new date is selected. */
     _dateSelected(event: MatCalendarUserEvent<number>): void;
