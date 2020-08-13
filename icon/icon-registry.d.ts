@@ -192,14 +192,10 @@ export declare class MatIconRegistry implements OnDestroy {
      */
     private _loadSvgIconFromConfig;
     /**
-     * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
-     * from it.
+     * Loads the content of the icon set URL specified in the
+     * SvgIconConfig and attaches it to the config.
      */
     private _loadSvgIconSetFromConfig;
-    /**
-     * Creates a DOM element from the given SVG string, and adds default attributes.
-     */
-    private _createSvgElementForSingleIcon;
     /**
      * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
@@ -236,6 +232,8 @@ export declare class MatIconRegistry implements OnDestroy {
      * @param config Config to be registered.
      */
     private _addSvgIconSetConfig;
+    /** Parses a config's text into an SVG element. */
+    private _svgElementFromConfig;
 }
 /** @docs-private */
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;

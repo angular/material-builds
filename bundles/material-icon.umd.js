@@ -353,16 +353,10 @@
      * @docs-private
      */
     var SvgIconConfig = /** @class */ (function () {
-        function SvgIconConfig(data, options) {
+        function SvgIconConfig(url, svgText, options) {
+            this.url = url;
+            this.svgText = svgText;
             this.options = options;
-            // Note that we can't use `instanceof SVGElement` here,
-            // because it'll break during server-side rendering.
-            if (!!data.nodeName) {
-                this.svgElement = data;
-            }
-            else {
-                this.url = data;
-            }
         }
         return SvgIconConfig;
     }());
@@ -424,7 +418,7 @@
          * @param url
          */
         MatIconRegistry.prototype.addSvgIconInNamespace = function (namespace, iconName, url, options) {
-            return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url, options));
+            return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url, null, options));
         };
         /**
          * Registers an icon using an HTML string in the specified namespace.
@@ -433,12 +427,11 @@
          * @param literal SVG source of the icon.
          */
         MatIconRegistry.prototype.addSvgIconLiteralInNamespace = function (namespace, iconName, literal, options) {
-            var sanitizedLiteral = this._sanitizer.sanitize(i0.SecurityContext.HTML, literal);
-            if (!sanitizedLiteral) {
+            var cleanLiteral = this._sanitizer.sanitize(i0.SecurityContext.HTML, literal);
+            if (!cleanLiteral) {
                 throw getMatIconFailedToSanitizeLiteralError(literal);
             }
-            var svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral, options);
-            return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement, options));
+            return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig('', cleanLiteral, options));
         };
         /**
          * Registers an icon set by URL in the default namespace.
@@ -460,7 +453,7 @@
          * @param url
          */
         MatIconRegistry.prototype.addSvgIconSetInNamespace = function (namespace, url, options) {
-            return this._addSvgIconSetConfig(namespace, new SvgIconConfig(url, options));
+            return this._addSvgIconSetConfig(namespace, new SvgIconConfig(url, null, options));
         };
         /**
          * Registers an icon set using an HTML string in the specified namespace.
@@ -468,12 +461,11 @@
          * @param literal SVG source of the icon set.
          */
         MatIconRegistry.prototype.addSvgIconSetLiteralInNamespace = function (namespace, literal, options) {
-            var sanitizedLiteral = this._sanitizer.sanitize(i0.SecurityContext.HTML, literal);
-            if (!sanitizedLiteral) {
+            var cleanLiteral = this._sanitizer.sanitize(i0.SecurityContext.HTML, literal);
+            if (!cleanLiteral) {
                 throw getMatIconFailedToSanitizeLiteralError(literal);
             }
-            var svgElement = this._svgElementFromString(sanitizedLiteral);
-            return this._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement, options));
+            return this._addSvgIconSetConfig(namespace, new SvgIconConfig('', cleanLiteral, options));
         };
         /**
          * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
@@ -530,7 +522,7 @@
             if (cachedIcon) {
                 return rxjs.of(cloneSvg(cachedIcon));
             }
-            return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(operators.tap(function (svg) { return _this._cachedIconsByUrl.set(url, svg); }), operators.map(function (svg) { return cloneSvg(svg); }));
+            return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl, null)).pipe(operators.tap(function (svg) { return _this._cachedIconsByUrl.set(url, svg); }), operators.map(function (svg) { return cloneSvg(svg); }));
         };
         /**
          * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -564,13 +556,13 @@
          * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
          */
         MatIconRegistry.prototype._getSvgFromConfig = function (config) {
-            if (config.svgElement) {
+            if (config.svgText) {
                 // We already have the SVG element for this icon, return a copy.
-                return rxjs.of(cloneSvg(config.svgElement));
+                return rxjs.of(cloneSvg(this._svgElementFromConfig(config)));
             }
             else {
                 // Fetch the icon from the config's URL, cache it, and return a copy.
-                return this._loadSvgIconFromConfig(config).pipe(operators.tap(function (svg) { return config.svgElement = svg; }), operators.map(function (svg) { return cloneSvg(svg); }));
+                return this._loadSvgIconFromConfig(config).pipe(operators.map(function (svg) { return cloneSvg(svg); }));
             }
         };
         /**
@@ -595,7 +587,7 @@
             // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
             // fetched, fetch them now and look for iconName in the results.
             var iconSetFetchRequests = iconSetConfigs
-                .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
+                .filter(function (iconSetConfig) { return !iconSetConfig.svgText; })
                 .map(function (iconSetConfig) {
                 return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(operators.catchError(function (err) {
                     var url = _this._sanitizer.sanitize(i0.SecurityContext.RESOURCE_URL, iconSetConfig.url);
@@ -625,8 +617,13 @@
             // Iterate backwards, so icon sets added later have precedence.
             for (var i = iconSetConfigs.length - 1; i >= 0; i--) {
                 var config = iconSetConfigs[i];
-                if (config.svgElement) {
-                    var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName, config.options);
+                // Parsing the icon set's text into an SVG element can be expensive. We can avoid some of
+                // the parsing by doing a quick check using `indexOf` to see if there's any chance for the
+                // icon to be in the set. This won't be 100% accurate, but it should help us avoid at least
+                // some of the parsing.
+                if (config.svgText && config.svgText.indexOf(iconName) > -1) {
+                    var svg = this._svgElementFromConfig(config);
+                    var foundIcon = this._extractSvgIconFromSet(svg, iconName, config.options);
                     if (foundIcon) {
                         return foundIcon;
                     }
@@ -640,35 +637,17 @@
          */
         MatIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
             var _this = this;
-            return this._fetchIcon(config)
-                .pipe(operators.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText, config.options); }));
+            return this._fetchIcon(config).pipe(operators.tap(function (svgText) { return config.svgText = svgText; }), operators.map(function () { return _this._svgElementFromConfig(config); }));
         };
         /**
-         * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
-         * from it.
+         * Loads the content of the icon set URL specified in the
+         * SvgIconConfig and attaches it to the config.
          */
         MatIconRegistry.prototype._loadSvgIconSetFromConfig = function (config) {
-            var _this = this;
-            // If the SVG for this icon set has already been parsed, do nothing.
-            if (config.svgElement) {
-                return rxjs.of(config.svgElement);
+            if (config.svgText) {
+                return rxjs.of(null);
             }
-            return this._fetchIcon(config).pipe(operators.map(function (svgText) {
-                // It is possible that the icon set was parsed and cached by an earlier request, so parsing
-                // only needs to occur if the cache is yet unset.
-                if (!config.svgElement) {
-                    config.svgElement = _this._svgElementFromString(svgText);
-                }
-                return config.svgElement;
-            }));
-        };
-        /**
-         * Creates a DOM element from the given SVG string, and adds default attributes.
-         */
-        MatIconRegistry.prototype._createSvgElementForSingleIcon = function (responseText, options) {
-            var svg = this._svgElementFromString(responseText);
-            this._setSvgAttributes(svg, options);
-            return svg;
+            return this._fetchIcon(config).pipe(operators.tap(function (svgText) { return config.svgText = svgText; }));
         };
         /**
          * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
@@ -779,8 +758,6 @@
             if (inProgressFetch) {
                 return inProgressFetch;
             }
-            // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
-            // Observable. Figure out why and fix it.
             var req = this._httpClient.get(url, { responseType: 'text', withCredentials: withCredentials }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
             this._inProgressUrlFetches.set(url, req);
             return req;
@@ -809,6 +786,15 @@
                 this._iconSetConfigs.set(namespace, [config]);
             }
             return this;
+        };
+        /** Parses a config's text into an SVG element. */
+        MatIconRegistry.prototype._svgElementFromConfig = function (config) {
+            if (!config.svgElement) {
+                var svg = this._svgElementFromString(config.svgText);
+                this._setSvgAttributes(svg, config.options);
+                config.svgElement = svg;
+            }
+            return config.svgElement;
         };
         return MatIconRegistry;
     }());
