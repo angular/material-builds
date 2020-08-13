@@ -352,7 +352,7 @@
         return MatProgressBarHarness;
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatProgressBar` instance. */
-    MatProgressBarHarness.hostSelector = 'mat-progress-bar';
+    MatProgressBarHarness.hostSelector = '.mat-progress-bar';
 
     /**
      * @license

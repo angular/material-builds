@@ -571,7 +571,7 @@
         return MatRadioGroupHarness;
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatRadioGroup` instance. */
-    MatRadioGroupHarness.hostSelector = 'mat-radio-group';
+    MatRadioGroupHarness.hostSelector = '.mat-radio-group';
     /** Harness for interacting with a standard mat-radio-button in tests. */
     var MatRadioButtonHarness = /** @class */ (function (_super) {
         __extends(MatRadioButtonHarness, _super);
@@ -751,7 +751,7 @@
         return MatRadioButtonHarness;
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatRadioButton` instance. */
-    MatRadioButtonHarness.hostSelector = 'mat-radio-button';
+    MatRadioButtonHarness.hostSelector = '.mat-radio-button';
 
     /**
      * @license

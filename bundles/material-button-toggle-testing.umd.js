@@ -512,7 +512,7 @@
         return MatButtonToggleHarness;
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatButton` instance. */
-    MatButtonToggleHarness.hostSelector = 'mat-button-toggle';
+    MatButtonToggleHarness.hostSelector = '.mat-button-toggle';
 
     /**
      * @license
@@ -592,7 +592,7 @@
         return MatButtonToggleGroupHarness;
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatButton` instance. */
-    MatButtonToggleGroupHarness.hostSelector = 'mat-button-toggle-group';
+    MatButtonToggleGroupHarness.hostSelector = '.mat-button-toggle-group';
 
     /**
      * @license

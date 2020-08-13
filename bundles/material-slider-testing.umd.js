@@ -541,7 +541,7 @@
         return MatSliderHarness;
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatSlider` instance. */
-    MatSliderHarness.hostSelector = 'mat-slider';
+    MatSliderHarness.hostSelector = '.mat-slider';
 
     /**
      * @license

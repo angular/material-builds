@@ -131,7 +131,7 @@ class MatSlideToggleHarness extends ComponentHarness {
     }
 }
 /** The selector for the host element of a `MatSlideToggle` instance. */
-MatSlideToggleHarness.hostSelector = 'mat-slide-toggle';
+MatSlideToggleHarness.hostSelector = '.mat-slide-toggle';
 
 /**
  * @license
