@@ -11,6 +11,8 @@ import { ElementRef } from '@angular/core';
 export interface CanColor {
     /** Theme color palette for the component. */
     color: ThemePalette;
+    /** Default color to fall back to if no value is set. */
+    defaultColor: ThemePalette | undefined;
 }
 /** @docs-private */
 export declare type CanColorCtor = Constructor<CanColor>;

@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.2.0-next.0-sha-90d6b70d8');
+    var VERSION = new i0.Version('10.2.0-next.0-sha-c4b760483');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-90d6b70d8');
+    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-c4b760483');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -506,6 +506,7 @@
                     args[_i] = arguments[_i];
                 }
                 var _this = _super.apply(this, __spread(args)) || this;
+                _this.defaultColor = defaultColor;
                 // Set the default color that can be specified from the mixin.
                 _this.color = defaultColor;
                 return _this;
@@ -513,7 +514,7 @@
             Object.defineProperty(class_1.prototype, "color", {
                 get: function () { return this._color; },
                 set: function (value) {
-                    var colorPalette = value || defaultColor;
+                    var colorPalette = value || this.defaultColor;
                     if (colorPalette !== this._color) {
                         if (this._color) {
                             this._elementRef.nativeElement.classList.remove("mat-" + this._color);
@@ -567,13 +568,14 @@
                 }
                 var _this = _super.apply(this, __spread(args)) || this;
                 _this._tabIndex = defaultTabIndex;
+                _this.defaultTabIndex = defaultTabIndex;
                 return _this;
             }
             Object.defineProperty(class_1.prototype, "tabIndex", {
                 get: function () { return this.disabled ? -1 : this._tabIndex; },
                 set: function (value) {
                     // If the specified tabIndex value is null or undefined, fall back to the default value.
-                    this._tabIndex = value != null ? coercion.coerceNumberProperty(value) : defaultTabIndex;
+                    this._tabIndex = value != null ? coercion.coerceNumberProperty(value) : this.defaultTabIndex;
                 },
                 enumerable: false,
                 configurable: true

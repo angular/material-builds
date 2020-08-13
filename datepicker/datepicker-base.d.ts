@@ -95,7 +95,7 @@ export interface MatDatepickerControl<D> {
     _stateChanges: Observable<void>;
 }
 /** Base class for a datepicker. */
-export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy, CanColor, OnChanges {
+export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy, OnChanges {
     private _dialog;
     private _overlay;
     private _ngZone;

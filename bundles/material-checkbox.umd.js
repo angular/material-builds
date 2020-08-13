@@ -415,7 +415,7 @@
             _this._indeterminate = false;
             _this._options = _this._options || {};
             if (_this._options.color) {
-                _this.color = _this._options.color;
+                _this.color = _this.defaultColor = _this._options.color;
             }
             _this.tabIndex = parseInt(tabIndex) || 0;
             // TODO: Remove this after the `_clickAction` parameter is removed as an injection parameter.

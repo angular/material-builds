@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.2.0-next.0-sha-90d6b70d8');
+const VERSION = new Version('10.2.0-next.0-sha-c4b760483');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.2.0-next.0-sha-90d6b70d8');
+const VERSION$1 = new Version('10.2.0-next.0-sha-c4b760483');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -195,12 +195,13 @@ function mixinColor(base, defaultColor) {
     return class extends base {
         constructor(...args) {
             super(...args);
+            this.defaultColor = defaultColor;
             // Set the default color that can be specified from the mixin.
             this.color = defaultColor;
         }
         get color() { return this._color; }
         set color(value) {
-            const colorPalette = value || defaultColor;
+            const colorPalette = value || this.defaultColor;
             if (colorPalette !== this._color) {
                 if (this._color) {
                     this._elementRef.nativeElement.classList.remove(`mat-${this._color}`);
@@ -247,11 +248,12 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
         constructor(...args) {
             super(...args);
             this._tabIndex = defaultTabIndex;
+            this.defaultTabIndex = defaultTabIndex;
         }
         get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
         set tabIndex(value) {
             // If the specified tabIndex value is null or undefined, fall back to the default value.
-            this._tabIndex = value != null ? coerceNumberProperty(value) : defaultTabIndex;
+            this._tabIndex = value != null ? coerceNumberProperty(value) : this.defaultTabIndex;
         }
     };
 }

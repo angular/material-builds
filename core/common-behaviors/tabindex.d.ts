@@ -11,6 +11,8 @@ import { CanDisable } from './disabled';
 export interface HasTabIndex {
     /** Tabindex of the component. */
     tabIndex: number;
+    /** Tabindex to which to fall back to if no value is set. */
+    defaultTabIndex: number;
 }
 /** @docs-private */
 export declare type HasTabIndexCtor = Constructor<HasTabIndex>;

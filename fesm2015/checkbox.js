@@ -118,7 +118,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._indeterminate = false;
         this._options = this._options || {};
         if (this._options.color) {
-            this.color = this._options.color;
+            this.color = this.defaultColor = this._options.color;
         }
         this.tabIndex = parseInt(tabIndex) || 0;
         // TODO: Remove this after the `_clickAction` parameter is removed as an injection parameter.
