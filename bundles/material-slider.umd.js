@@ -411,12 +411,10 @@
                     _this._bindGlobalEvents(event);
                     _this._focusHostElement();
                     _this._updateValueFromPosition(pointerPosition);
-                    _this._valueOnSlideStart = _this.value;
-                    _this._pointerPositionOnStart = pointerPosition;
+                    _this._valueOnSlideStart = oldValue;
                     // Emit a change and input event if the value changed.
                     if (oldValue != _this.value) {
                         _this._emitInputEvent();
-                        _this._emitChangeEvent();
                     }
                 });
             };
@@ -440,17 +438,13 @@
             /** Called when the user has lifted their pointer. Bound on the document level. */
             _this._pointerUp = function (event) {
                 if (_this._isSliding) {
-                    var pointerPositionOnStart = _this._pointerPositionOnStart;
-                    var currentPointerPosition = getPointerPositionOnPage(event);
                     event.preventDefault();
                     _this._removeGlobalEvents();
-                    _this._valueOnSlideStart = _this._pointerPositionOnStart = _this._lastPointerEvent = null;
                     _this._isSliding = false;
-                    if (_this._valueOnSlideStart != _this.value && !_this.disabled &&
-                        pointerPositionOnStart && (pointerPositionOnStart.x !== currentPointerPosition.x ||
-                        pointerPositionOnStart.y !== currentPointerPosition.y)) {
+                    if (_this._valueOnSlideStart != _this.value && !_this.disabled) {
                         _this._emitChangeEvent();
                     }
+                    _this._valueOnSlideStart = _this._lastPointerEvent = null;
                 }
             };
             /** Called when the window has lost focus. */
