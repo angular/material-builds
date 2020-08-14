@@ -154,8 +154,6 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _dirChangeSubscription;
     /** The value of the slider when the slide start event fires. */
     private _valueOnSlideStart;
-    /** Position of the pointer when the dragging started. */
-    private _pointerPositionOnStart;
     /** Reference to the inner slider wrapper element. */
     private _sliderWrapper;
     /**
