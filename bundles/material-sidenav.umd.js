@@ -435,8 +435,12 @@
                 new core.EventEmitter(/* isAsync */ true);
             /** Event emitted when the drawer has been opened. */
             this._openedStream = this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
+            /** Event emitted when the drawer has started opening. */
+            this.openedStart = this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), operators.mapTo(undefined));
             /** Event emitted when the drawer has been closed. */
             this._closedStream = this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
+            /** Event emitted when the drawer has started closing. */
+            this.closedStart = this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), operators.mapTo(undefined));
             /** Emits when the component is destroyed. */
             this._destroyed = new rxjs.Subject();
             /** Event emitted when the drawer's position changes. */
@@ -540,22 +544,6 @@
              */
             get: function () { return this._opened; },
             set: function (value) { this.toggle(coercion.coerceBooleanProperty(value)); },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatDrawer.prototype, "openedStart", {
-            /** Event emitted when the drawer has started opening. */
-            get: function () {
-                return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), operators.map(function () { }));
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatDrawer.prototype, "closedStart", {
-            /** Event emitted when the drawer has started closing. */
-            get: function () {
-                return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), operators.map(function () { }));
-            },
             enumerable: false,
             configurable: true
         });
@@ -983,7 +971,7 @@
             // NOTE: We need to wait for the microtask queue to be empty before validating,
             // since both drawers may be swapping positions at the same time.
             drawer.onPositionChanged.pipe(operators.takeUntil(this._drawers.changes)).subscribe(function () {
-                _this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
+                _this._ngZone.onMicrotaskEmpty.pipe(operators.take(1)).subscribe(function () {
                     _this._validateDrawers();
                 });
             });

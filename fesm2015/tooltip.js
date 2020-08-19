@@ -395,7 +395,7 @@ class MatTooltip {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1), takeUntil(this._destroyed)).subscribe(() => {
+            this._ngZone.onMicrotaskEmpty.pipe(take(1), takeUntil(this._destroyed)).subscribe(() => {
                 if (this._tooltipInstance) {
                     this._overlayRef.updatePosition();
                 }
@@ -596,7 +596,7 @@ class TooltipComponent {
     }
     /** Returns an observable that notifies when the tooltip has been hidden from view. */
     afterHidden() {
-        return this._onHide.asObservable();
+        return this._onHide;
     }
     /** Whether the tooltip is being displayed. */
     isVisible() {

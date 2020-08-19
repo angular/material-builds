@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.1.3-sha-90f043443');
+const VERSION = new Version('10.1.3-sha-89b05a863');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.1.3-sha-90f043443');
+const VERSION$1 = new Version('10.1.3-sha-89b05a863');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -385,9 +385,9 @@ const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE
 class DateAdapter {
     constructor() {
         this._localeChanges = new Subject();
+        /** A stream that emits when the locale changes. */
+        this.localeChanges = this._localeChanges;
     }
-    /** A stream that emits when the locale changes. */
-    get localeChanges() { return this._localeChanges; }
     /**
      * Attempts to deserialize a value to a valid date object. This is different from parsing in that
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601

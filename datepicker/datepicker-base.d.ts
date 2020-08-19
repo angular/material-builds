@@ -211,6 +211,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
      */
     private _getValidDateOrNull;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_opened: BooleanInput;
     static ngAcceptInputType_touchUi: BooleanInput;
 }
 export {};

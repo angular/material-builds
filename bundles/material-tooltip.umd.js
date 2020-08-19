@@ -711,7 +711,7 @@
             if (this._tooltipInstance) {
                 this._tooltipInstance.message = this.message;
                 this._tooltipInstance._markForCheck();
-                this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe(function () {
+                this._ngZone.onMicrotaskEmpty.pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe(function () {
                     if (_this._tooltipInstance) {
                         _this._overlayRef.updatePosition();
                     }
@@ -920,7 +920,7 @@
         };
         /** Returns an observable that notifies when the tooltip has been hidden from view. */
         TooltipComponent.prototype.afterHidden = function () {
-            return this._onHide.asObservable();
+            return this._onHide;
         };
         /** Whether the tooltip is being displayed. */
         TooltipComponent.prototype.isVisible = function () {

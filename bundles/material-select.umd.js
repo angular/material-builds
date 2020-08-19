@@ -557,7 +557,6 @@
                     return options.changes.pipe(operators.startWith(options), operators.switchMap(function () { return rxjs.merge.apply(void 0, __spread(options.map(function (option) { return option.onSelectionChange; }))); }));
                 }
                 return _this._ngZone.onStable
-                    .asObservable()
                     .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelectionChanges; }));
             });
             /** Event emitted when the select panel has been toggled. */
@@ -777,7 +776,7 @@
             this._highlightCorrectOption();
             this._changeDetectorRef.markForCheck();
             // Set the font size on the panel element once it exists.
-            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+            this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () {
                 if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                     _this.overlayDir.overlayRef.overlayElement) {
                     _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";

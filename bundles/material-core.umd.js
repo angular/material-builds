@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.1.3-sha-90f043443');
+    var VERSION = new i0.Version('10.1.3-sha-89b05a863');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.1.3-sha-90f043443');
+    var VERSION$1 = new i0.Version('10.1.3-sha-89b05a863');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -711,13 +711,9 @@
     var DateAdapter = /** @class */ (function () {
         function DateAdapter() {
             this._localeChanges = new rxjs.Subject();
-        }
-        Object.defineProperty(DateAdapter.prototype, "localeChanges", {
             /** A stream that emits when the locale changes. */
-            get: function () { return this._localeChanges; },
-            enumerable: false,
-            configurable: true
-        });
+            this.localeChanges = this._localeChanges;
+        }
         /**
          * Attempts to deserialize a value to a valid date object. This is different from parsing in that
          * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601

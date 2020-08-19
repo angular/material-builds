@@ -355,11 +355,11 @@ class MatBottomSheetRef {
     }
     /** Gets an observable that is notified when the bottom sheet is finished closing. */
     afterDismissed() {
-        return this._afterDismissed.asObservable();
+        return this._afterDismissed;
     }
     /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
     afterOpened() {
-        return this._afterOpened.asObservable();
+        return this._afterOpened;
     }
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.

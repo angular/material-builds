@@ -267,7 +267,6 @@ class MatSelect extends _MatSelectMixinBase {
                 return options.changes.pipe(startWith(options), switchMap(() => merge(...options.map(option => option.onSelectionChange))));
             }
             return this._ngZone.onStable
-                .asObservable()
                 .pipe(take(1), switchMap(() => this.optionSelectionChanges));
         });
         /** Event emitted when the select panel has been toggled. */
@@ -447,7 +446,7 @@ class MatSelect extends _MatSelectMixinBase {
         this._highlightCorrectOption();
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
             if (this._triggerFontSize && this.overlayDir.overlayRef &&
                 this.overlayDir.overlayRef.overlayElement) {
                 this.overlayDir.overlayRef.overlayElement.style.fontSize = `${this._triggerFontSize}px`;

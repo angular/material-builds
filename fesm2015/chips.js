@@ -292,7 +292,6 @@ class MatChip extends _MatChipMixinBase {
         // that moves focus not the next item. To work around the issue, we defer marking the chip
         // as not focused until the next time the zone stabilizes.
         this._ngZone.onStable
-            .asObservable()
             .pipe(take(1))
             .subscribe(() => {
             this._ngZone.run(() => {

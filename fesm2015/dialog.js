@@ -396,19 +396,19 @@ class MatDialogRef {
      * Gets an observable that is notified when the dialog is finished opening.
      */
     afterOpened() {
-        return this._afterOpened.asObservable();
+        return this._afterOpened;
     }
     /**
      * Gets an observable that is notified when the dialog is finished closing.
      */
     afterClosed() {
-        return this._afterClosed.asObservable();
+        return this._afterClosed;
     }
     /**
      * Gets an observable that is notified when the dialog has started closing.
      */
     beforeClosed() {
-        return this._beforeClosed.asObservable();
+        return this._beforeClosed;
     }
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.

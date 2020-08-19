@@ -208,7 +208,7 @@ class MatCalendarBody {
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(movePreview = true) {
         this._ngZone.runOutsideAngular(() => {
-            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+            this._ngZone.onStable.pipe(take(1)).subscribe(() => {
                 const activeCell = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
                 if (activeCell) {
                     if (!movePreview) {
@@ -395,7 +395,7 @@ class MatDateSelectionModel {
         this._adapter = _adapter;
         this._selectionChanged = new Subject();
         /** Emits when the selection has changed. */
-        this.selectionChanged = this._selectionChanged.asObservable();
+        this.selectionChanged = this._selectionChanged;
         this.selection = selection;
     }
     /**
@@ -1986,7 +1986,9 @@ class MatDatepickerBase {
     }
     /** Whether the calendar is open. */
     get opened() { return this._opened; }
-    set opened(value) { value ? this.open() : this.close(); }
+    set opened(value) {
+        coerceBooleanProperty(value) ? this.open() : this.close();
+    }
     /** The minimum selectable date. */
     _getMinDate() {
         return this._datepickerInput && this._datepickerInput.min;
@@ -2137,7 +2139,7 @@ class MatDatepickerBase {
         this._popupComponentRef = this._popupRef.attach(portal);
         this._forwardContentValues(this._popupComponentRef.instance);
         // Update the position once the calendar has rendered.
-        this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
             this._popupRef.updatePosition();
         });
     }

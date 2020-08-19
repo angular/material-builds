@@ -618,7 +618,6 @@
             // that moves focus not the next item. To work around the issue, we defer marking the chip
             // as not focused until the next time the zone stabilizes.
             this._ngZone.onStable
-                .asObservable()
                 .pipe(operators.take(1))
                 .subscribe(function () {
                 _this._ngZone.run(function () {

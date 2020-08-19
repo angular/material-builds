@@ -708,7 +708,7 @@
             // in order to avoid throwing users into an infinite loop
             // if `zone-patch-rxjs` is included.
             this._ngZone.runOutsideAngular(function () {
-                _this._ngZone.onStable.asObservable().pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
+                _this._ngZone.onStable.pipe(operators.takeUntil(_this._destroyed)).subscribe(function () {
                     if (_this._outlineGapCalculationNeededOnStable) {
                         _this.updateOutlineGap();
                     }
