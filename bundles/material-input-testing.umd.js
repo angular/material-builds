@@ -318,25 +318,14 @@
          * @return a `HarnessPredicate` configured with the given options.
          */
         MatInputHarness.with = function (options) {
-            var _this = this;
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatInputHarness, options)
-                .addOption('value', options.value, function (harness, value) { return __awaiter(_this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, harness.getValue()];
-                        case 1: return [2 /*return*/, (_a.sent()) === value];
-                    }
-                });
-            }); })
-                .addOption('placeholder', options.placeholder, function (harness, placeholder) { return __awaiter(_this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, harness.getPlaceholder()];
-                        case 1: return [2 /*return*/, (_a.sent()) === placeholder];
-                    }
-                });
-            }); });
+                .addOption('value', options.value, function (harness, value) {
+                return testing.HarnessPredicate.stringMatches(harness.getValue(), value);
+            })
+                .addOption('placeholder', options.placeholder, function (harness, placeholder) {
+                return testing.HarnessPredicate.stringMatches(harness.getPlaceholder(), placeholder);
+            });
         };
         /** Whether the input is disabled. */
         MatInputHarness.prototype.isDisabled = function () {
