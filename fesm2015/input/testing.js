@@ -19,12 +19,12 @@ class MatInputHarness extends MatFormFieldControlHarness {
      */
     static with(options = {}) {
         return new HarnessPredicate(MatInputHarness, options)
-            .addOption('value', options.value, (harness, value) => __awaiter(this, void 0, void 0, function* () {
-            return (yield harness.getValue()) === value;
-        }))
-            .addOption('placeholder', options.placeholder, (harness, placeholder) => __awaiter(this, void 0, void 0, function* () {
-            return (yield harness.getPlaceholder()) === placeholder;
-        }));
+            .addOption('value', options.value, (harness, value) => {
+            return HarnessPredicate.stringMatches(harness.getValue(), value);
+        })
+            .addOption('placeholder', options.placeholder, (harness, placeholder) => {
+            return HarnessPredicate.stringMatches(harness.getPlaceholder(), placeholder);
+        });
     }
     /** Whether the input is disabled. */
     isDisabled() {
