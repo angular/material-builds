@@ -565,7 +565,7 @@ class _MatMenuBase {
     focusFirstItem(origin = 'program') {
         // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
         if (this.lazyContent) {
-            this._ngZone.onStable.asObservable()
+            this._ngZone.onStable
                 .pipe(take(1))
                 .subscribe(() => this._focusFirstItem(origin));
         }
@@ -859,7 +859,7 @@ class MatMenuTrigger {
             if (isDevMode() && menu === this._parentMenu) {
                 throwMatMenuRecursiveError();
             }
-            this._menuCloseSubscription = menu.close.asObservable().subscribe(reason => {
+            this._menuCloseSubscription = menu.close.subscribe((reason) => {
                 this._destroyMenu();
                 // If a click closed the menu, we should close the entire chain of nested menus.
                 if ((reason === 'click' || reason === 'tab') && this._parentMenu) {

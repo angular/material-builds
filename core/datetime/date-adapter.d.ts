@@ -25,9 +25,9 @@ export declare const MAT_DATE_LOCALE_PROVIDER: {
 export declare abstract class DateAdapter<D> {
     /** The locale to use for all dates. */
     protected locale: any;
-    /** A stream that emits when the locale changes. */
-    get localeChanges(): Observable<void>;
     protected _localeChanges: Subject<void>;
+    /** A stream that emits when the locale changes. */
+    readonly localeChanges: Observable<void>;
     /**
      * Gets the year component of the given date.
      * @param date The date to extract the year from.

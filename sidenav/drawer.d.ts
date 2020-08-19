@@ -96,11 +96,11 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Event emitted when the drawer has been opened. */
     _openedStream: Observable<void>;
     /** Event emitted when the drawer has started opening. */
-    get openedStart(): Observable<void>;
+    readonly openedStart: Observable<void>;
     /** Event emitted when the drawer has been closed. */
     _closedStream: Observable<void>;
     /** Event emitted when the drawer has started closing. */
-    get closedStart(): Observable<void>;
+    readonly closedStart: Observable<void>;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
     /** Event emitted when the drawer's position changes. */

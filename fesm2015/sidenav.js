@@ -8,7 +8,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, fromEvent, merge } from 'rxjs';
-import { filter, map, takeUntil, distinctUntilChanged, take, startWith, debounceTime } from 'rxjs/operators';
+import { filter, map, mapTo, takeUntil, distinctUntilChanged, take, startWith, debounceTime } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
@@ -137,8 +137,12 @@ class MatDrawer {
         new EventEmitter(/* isAsync */ true);
         /** Event emitted when the drawer has been opened. */
         this._openedStream = this.openedChange.pipe(filter(o => o), map(() => { }));
+        /** Event emitted when the drawer has started opening. */
+        this.openedStart = this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState.indexOf('open') === 0), mapTo(undefined));
         /** Event emitted when the drawer has been closed. */
         this._closedStream = this.openedChange.pipe(filter(o => !o), map(() => { }));
+        /** Event emitted when the drawer has started closing. */
+        this.closedStart = this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState === 'void'), mapTo(undefined));
         /** Emits when the component is destroyed. */
         this._destroyed = new Subject();
         /** Event emitted when the drawer's position changes. */
@@ -225,14 +229,6 @@ class MatDrawer {
      */
     get opened() { return this._opened; }
     set opened(value) { this.toggle(coerceBooleanProperty(value)); }
-    /** Event emitted when the drawer has started opening. */
-    get openedStart() {
-        return this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState.indexOf('open') === 0), map(() => { }));
-    }
-    /** Event emitted when the drawer has started closing. */
-    get closedStart() {
-        return this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState === 'void'), map(() => { }));
-    }
     /**
      * Moves focus into the drawer. Note that this works even if
      * the focus trap is disabled in `side` mode.
@@ -625,7 +621,7 @@ class MatDrawerContainer {
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
         drawer.onPositionChanged.pipe(takeUntil(this._drawers.changes)).subscribe(() => {
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
+            this._ngZone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
                 this._validateDrawers();
             });
         });

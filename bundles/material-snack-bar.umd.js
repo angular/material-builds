@@ -115,7 +115,7 @@
         };
         /** Gets an observable that is notified when the snack bar is finished closing. */
         MatSnackBarRef.prototype.afterDismissed = function () {
-            return this._afterDismissed.asObservable();
+            return this._afterDismissed;
         };
         /** Gets an observable that is notified when the snack bar has opened and appeared. */
         MatSnackBarRef.prototype.afterOpened = function () {
@@ -123,7 +123,7 @@
         };
         /** Gets an observable that is notified when the snack bar action is called. */
         MatSnackBarRef.prototype.onAction = function () {
-            return this._onAction.asObservable();
+            return this._onAction;
         };
         return MatSnackBarRef;
     }());
@@ -608,7 +608,7 @@
          */
         MatSnackBarContainer.prototype._completeExit = function () {
             var _this = this;
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.pipe(operators.take(1)).subscribe(function () {
                 _this._onExit.next();
                 _this._onExit.complete();
             });

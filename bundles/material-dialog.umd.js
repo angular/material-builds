@@ -719,19 +719,19 @@
          * Gets an observable that is notified when the dialog is finished opening.
          */
         MatDialogRef.prototype.afterOpened = function () {
-            return this._afterOpened.asObservable();
+            return this._afterOpened;
         };
         /**
          * Gets an observable that is notified when the dialog is finished closing.
          */
         MatDialogRef.prototype.afterClosed = function () {
-            return this._afterClosed.asObservable();
+            return this._afterClosed;
         };
         /**
          * Gets an observable that is notified when the dialog has started closing.
          */
         MatDialogRef.prototype.beforeClosed = function () {
-            return this._beforeClosed.asObservable();
+            return this._beforeClosed;
         };
         /**
          * Gets an observable that emits when the overlay's backdrop has been clicked.

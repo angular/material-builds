@@ -118,7 +118,7 @@ class MatSnackBarRef {
     }
     /** Gets an observable that is notified when the snack bar is finished closing. */
     afterDismissed() {
-        return this._afterDismissed.asObservable();
+        return this._afterDismissed;
     }
     /** Gets an observable that is notified when the snack bar has opened and appeared. */
     afterOpened() {
@@ -126,7 +126,7 @@ class MatSnackBarRef {
     }
     /** Gets an observable that is notified when the snack bar action is called. */
     onAction() {
-        return this._onAction.asObservable();
+        return this._onAction;
     }
 }
 
@@ -308,7 +308,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
      * errors where we end up removing an element which is in the middle of an animation.
      */
     _completeExit() {
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
+        this._ngZone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
             this._onExit.next();
             this._onExit.complete();
         });

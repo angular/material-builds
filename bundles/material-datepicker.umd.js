@@ -202,7 +202,7 @@
             var _this = this;
             if (movePreview === void 0) { movePreview = true; }
             this._ngZone.runOutsideAngular(function () {
-                _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+                _this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () {
                     var activeCell = _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
                     if (activeCell) {
                         if (!movePreview) {
@@ -685,7 +685,7 @@
             this._adapter = _adapter;
             this._selectionChanged = new rxjs.Subject();
             /** Emits when the selection has changed. */
-            this.selectionChanged = this._selectionChanged.asObservable();
+            this.selectionChanged = this._selectionChanged;
             this.selection = selection;
         }
         /**
@@ -2536,7 +2536,7 @@
             this._popupComponentRef = this._popupRef.attach(portal$1);
             this._forwardContentValues(this._popupComponentRef.instance);
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
+            this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () {
                 _this._popupRef.updatePosition();
             });
         };

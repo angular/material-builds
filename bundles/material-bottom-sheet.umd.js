@@ -652,11 +652,11 @@
         };
         /** Gets an observable that is notified when the bottom sheet is finished closing. */
         MatBottomSheetRef.prototype.afterDismissed = function () {
-            return this._afterDismissed.asObservable();
+            return this._afterDismissed;
         };
         /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
         MatBottomSheetRef.prototype.afterOpened = function () {
-            return this._afterOpened.asObservable();
+            return this._afterOpened;
         };
         /**
          * Gets an observable that emits when the overlay's backdrop has been clicked.

@@ -603,7 +603,6 @@
                 // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
                 // Return a stream that we'll replace with the real one once everything is in place.
                 return _this._zone.onStable
-                    .asObservable()
                     .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelections; }));
             });
             this._scrollStrategy = scrollStrategy;
@@ -842,7 +841,7 @@
          */
         _MatAutocompleteTriggerBase.prototype._subscribeToClosingActions = function () {
             var _this = this;
-            var firstStable = this._zone.onStable.asObservable().pipe(operators.take(1));
+            var firstStable = this._zone.onStable.pipe(operators.take(1));
             var optionChanges = this.autocomplete.options.changes.pipe(operators.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
             // Defer emitting to the stream until the next tick, because changing
             // bindings in here will cause "changed after checked" errors.
