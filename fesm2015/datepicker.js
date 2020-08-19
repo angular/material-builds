@@ -807,7 +807,7 @@ class MatMonthView {
             const date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
             const enabled = this._shouldEnableDate(date);
             const ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
-            const cellClasses = this.dateClass ? this.dateClass(date) : undefined;
+            const cellClasses = this.dateClass ? this.dateClass(date, 'month') : undefined;
             this._weeks[this._weeks.length - 1].push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled, cellClasses, this._getCellCompareValue(date), date));
         }
     }
@@ -1045,8 +1045,10 @@ class MatMultiYearView {
     }
     /** Creates an MatCalendarCell for the given year. */
     _createCellForYear(year) {
-        let yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
-        return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
+        const date = this._dateAdapter.createDate(year, 0, 1);
+        const yearName = this._dateAdapter.getYearName(date);
+        const cellClasses = this.dateClass ? this.dateClass(date, 'multi-year') : undefined;
+        return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year), cellClasses);
     }
     /** Whether the given year is enabled. */
     _shouldEnableYear(year) {
@@ -1107,6 +1109,7 @@ MatMultiYearView.propDecorators = {
     minDate: [{ type: Input }],
     maxDate: [{ type: Input }],
     dateFilter: [{ type: Input }],
+    dateClass: [{ type: Input }],
     selectedChange: [{ type: Output }],
     yearSelected: [{ type: Output }],
     activeDateChange: [{ type: Output }],
@@ -1300,8 +1303,10 @@ class MatYearView {
     }
     /** Creates an MatCalendarCell for the given month. */
     _createCellForMonth(month, monthName) {
-        let ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
-        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
+        const date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        const ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.monthYearA11yLabel);
+        const cellClasses = this.dateClass ? this.dateClass(date, 'year') : undefined;
+        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month), cellClasses);
     }
     /** Whether the given month is enabled. */
     _shouldEnableMonth(month) {
@@ -1383,6 +1388,7 @@ MatYearView.propDecorators = {
     minDate: [{ type: Input }],
     maxDate: [{ type: Input }],
     dateFilter: [{ type: Input }],
+    dateClass: [{ type: Input }],
     selectedChange: [{ type: Output }],
     monthSelected: [{ type: Output }],
     activeDateChange: [{ type: Output }],
@@ -1673,7 +1679,7 @@ class MatCalendar {
 MatCalendar.decorators = [
     { type: Component, args: [{
                 selector: 'mat-calendar',
-                template: "<ng-template [cdkPortalOutlet]=\"_calendarHeaderPortal\"></ng-template>\n\n<div class=\"mat-calendar-content\" [ngSwitch]=\"currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\">\n  <mat-month-view\n      *ngSwitchCase=\"'month'\"\n      [(activeDate)]=\"activeDate\"\n      [selected]=\"selected\"\n      [dateFilter]=\"dateFilter\"\n      [maxDate]=\"maxDate\"\n      [minDate]=\"minDate\"\n      [dateClass]=\"dateClass\"\n      [comparisonStart]=\"comparisonStart\"\n      [comparisonEnd]=\"comparisonEnd\"\n      (_userSelection)=\"_dateSelected($event)\">\n  </mat-month-view>\n\n  <mat-year-view\n      *ngSwitchCase=\"'year'\"\n      [(activeDate)]=\"activeDate\"\n      [selected]=\"selected\"\n      [dateFilter]=\"dateFilter\"\n      [maxDate]=\"maxDate\"\n      [minDate]=\"minDate\"\n      (monthSelected)=\"_monthSelectedInYearView($event)\"\n      (selectedChange)=\"_goToDateInView($event, 'month')\">\n  </mat-year-view>\n\n  <mat-multi-year-view\n      *ngSwitchCase=\"'multi-year'\"\n      [(activeDate)]=\"activeDate\"\n      [selected]=\"selected\"\n      [dateFilter]=\"dateFilter\"\n      [maxDate]=\"maxDate\"\n      [minDate]=\"minDate\"\n      (yearSelected)=\"_yearSelectedInMultiYearView($event)\"\n      (selectedChange)=\"_goToDateInView($event, 'year')\">\n  </mat-multi-year-view>\n</div>\n",
+                template: "<ng-template [cdkPortalOutlet]=\"_calendarHeaderPortal\"></ng-template>\n\n<div class=\"mat-calendar-content\" [ngSwitch]=\"currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\">\n  <mat-month-view\n      *ngSwitchCase=\"'month'\"\n      [(activeDate)]=\"activeDate\"\n      [selected]=\"selected\"\n      [dateFilter]=\"dateFilter\"\n      [maxDate]=\"maxDate\"\n      [minDate]=\"minDate\"\n      [dateClass]=\"dateClass\"\n      [comparisonStart]=\"comparisonStart\"\n      [comparisonEnd]=\"comparisonEnd\"\n      (_userSelection)=\"_dateSelected($event)\">\n  </mat-month-view>\n\n  <mat-year-view\n      *ngSwitchCase=\"'year'\"\n      [(activeDate)]=\"activeDate\"\n      [selected]=\"selected\"\n      [dateFilter]=\"dateFilter\"\n      [maxDate]=\"maxDate\"\n      [minDate]=\"minDate\"\n      [dateClass]=\"dateClass\"\n      (monthSelected)=\"_monthSelectedInYearView($event)\"\n      (selectedChange)=\"_goToDateInView($event, 'month')\">\n  </mat-year-view>\n\n  <mat-multi-year-view\n      *ngSwitchCase=\"'multi-year'\"\n      [(activeDate)]=\"activeDate\"\n      [selected]=\"selected\"\n      [dateFilter]=\"dateFilter\"\n      [maxDate]=\"maxDate\"\n      [minDate]=\"minDate\"\n      [dateClass]=\"dateClass\"\n      (yearSelected)=\"_yearSelectedInMultiYearView($event)\"\n      (selectedChange)=\"_goToDateInView($event, 'year')\">\n  </mat-multi-year-view>\n</div>\n",
                 host: {
                     'class': 'mat-calendar',
                 },

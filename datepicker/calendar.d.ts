@@ -9,7 +9,7 @@ import { ComponentType, Portal } from '@angular/cdk/portal';
 import { AfterContentInit, AfterViewChecked, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Subject } from 'rxjs';
-import { MatCalendarCellCssClasses, MatCalendarUserEvent } from './calendar-body';
+import { MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';
@@ -87,7 +87,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     /** Function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Function that can be used to add custom CSS classes to dates. */
-    dateClass: (date: D) => MatCalendarCellCssClasses;
+    dateClass: MatCalendarCellClassFunction<D>;
     /** Start of the comparison range. */
     comparisonStart: D | null;
     /** End of the comparison range. */

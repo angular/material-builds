@@ -8,7 +8,7 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarBody, MatCalendarCell, MatCalendarCellCssClasses, MatCalendarUserEvent } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell, MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { DateRange } from './date-selection-model';
 import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
 /**
@@ -43,7 +43,7 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     /** Function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Function that can be used to add custom CSS classes to dates. */
-    dateClass: (date: D) => MatCalendarCellCssClasses;
+    dateClass: MatCalendarCellClassFunction<D>;
     /** Start of the comparison range. */
     comparisonStart: D | null;
     /** End of the comparison range. */

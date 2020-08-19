@@ -14,7 +14,7 @@ import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/mate
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, Observable } from 'rxjs';
 import { MatCalendar } from './calendar';
-import { MatCalendarCellCssClasses, MatCalendarUserEvent } from './calendar-body';
+import { MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { DateFilterFn } from './datepicker-input-base';
 import { ExtractDateTypeFromSelection, MatDateSelectionModel, DateRange } from './date-selection-model';
 import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
@@ -146,7 +146,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     /** Classes to be passed to the date picker panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[];
     /** Function that can be used to add custom CSS classes to dates. */
-    dateClass: (date: D) => MatCalendarCellCssClasses;
+    dateClass: MatCalendarCellClassFunction<D>;
     /** Emits when the datepicker has been opened. */
     openedStream: EventEmitter<void>;
     /** Emits when the datepicker has been closed. */

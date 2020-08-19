@@ -8,7 +8,7 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarBody, MatCalendarCell, MatCalendarUserEvent } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell, MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { DateRange } from './date-selection-model';
 /**
  * An internal component used to display a single year in the datepicker.
@@ -38,6 +38,8 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     private _maxDate;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
+    /** Function that can be used to add custom CSS classes to date cells. */
+    dateClass: MatCalendarCellClassFunction<D>;
     /** Emits when a new month is selected. */
     readonly selectedChange: EventEmitter<D>;
     /** Emits the selected month. This doesn't imply a change on the selected date */
