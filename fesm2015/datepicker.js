@@ -1966,7 +1966,9 @@ class MatDatepickerBase {
     }
     /** Whether the calendar is open. */
     get opened() { return this._opened; }
-    set opened(value) { value ? this.open() : this.close(); }
+    set opened(value) {
+        coerceBooleanProperty(value) ? this.open() : this.close();
+    }
     /** The minimum selectable date. */
     _getMinDate() {
         return this._datepickerInput && this._datepickerInput.min;

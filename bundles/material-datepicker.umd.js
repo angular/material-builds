@@ -2377,7 +2377,9 @@
         Object.defineProperty(MatDatepickerBase.prototype, "opened", {
             /** Whether the calendar is open. */
             get: function () { return this._opened; },
-            set: function (value) { value ? this.open() : this.close(); },
+            set: function (value) {
+                coercion.coerceBooleanProperty(value) ? this.open() : this.close();
+            },
             enumerable: false,
             configurable: true
         });

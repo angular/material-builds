@@ -208,6 +208,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     /** Sets the positions of the datepicker in dropdown mode based on the current configuration. */
     private _setConnectedPositions;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_opened: BooleanInput;
     static ngAcceptInputType_touchUi: BooleanInput;
 }
 export {};
