@@ -112,8 +112,6 @@ let uniqueId = 0;
 const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new InjectionToken('MAT_EXPANSION_PANEL_DEFAULT_OPTIONS');
 const ɵ0 = undefined;
 /**
- * `<mat-expansion-panel>`
- *
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MatAccordion directive attached.
  */
@@ -257,6 +255,9 @@ MatExpansionPanel.propDecorators = {
     _lazyContent: [{ type: ContentChild, args: [MatExpansionPanelContent,] }],
     _body: [{ type: ViewChild, args: ['body',] }]
 };
+/**
+ * Actions of a `<mat-expansion-panel>`.
+ */
 class MatExpansionPanelActionRow {
 }
 MatExpansionPanelActionRow.decorators = [
@@ -276,9 +277,7 @@ MatExpansionPanelActionRow.decorators = [
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * `<mat-expansion-panel-header>`
- *
- * This component corresponds to the header element of an `<mat-expansion-panel>`.
+ * Header element of a `<mat-expansion-panel>`.
  */
 class MatExpansionPanelHeader {
     constructor(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions, _animationMode) {
@@ -435,9 +434,7 @@ MatExpansionPanelHeader.propDecorators = {
     collapsedHeight: [{ type: Input }]
 };
 /**
- * `<mat-panel-description>`
- *
- * This directive is to be used inside of the MatExpansionPanelHeader component.
+ * Description element of a `<mat-expansion-panel-header>`.
  */
 class MatExpansionPanelDescription {
 }
@@ -450,9 +447,7 @@ MatExpansionPanelDescription.decorators = [
             },] }
 ];
 /**
- * `<mat-panel-title>`
- *
- * This directive is to be used inside of the MatExpansionPanelHeader component.
+ * Title element of a `<mat-expansion-panel-header>`.
  */
 class MatExpansionPanelTitle {
 }

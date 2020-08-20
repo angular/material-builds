@@ -10,10 +10,10 @@ import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AfterContentInit, ChangeDetectorRef, EventEmitter, ElementRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, InjectionToken } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatExpansionPanelContent } from './expansion-panel-content';
 import { MatAccordionBase, MatAccordionTogglePosition } from './accordion-base';
+import { MatExpansionPanelContent } from './expansion-panel-content';
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
 /**
@@ -34,8 +34,6 @@ export interface MatExpansionPanelDefaultOptions {
  */
 export declare const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS: InjectionToken<MatExpansionPanelDefaultOptions>;
 /**
- * `<mat-expansion-panel>`
- *
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MatAccordion directive attached.
  */
@@ -89,5 +87,8 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     static ngAcceptInputType_expanded: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
 }
+/**
+ * Actions of a `<mat-expansion-panel>`.
+ */
 export declare class MatExpansionPanelActionRow {
 }
