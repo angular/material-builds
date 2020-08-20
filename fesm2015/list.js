@@ -285,7 +285,9 @@ class MatListOption extends _MatListOptionMixinBase {
     /** Value of the option */
     get value() { return this._value; }
     set value(newValue) {
-        if (this.selected && newValue !== this.value && this._inputsInitialized) {
+        if (this.selected &&
+            !this.selectionList.compareWith(newValue, this.value) &&
+            this._inputsInitialized) {
             this.selected = false;
         }
         this._value = newValue;
