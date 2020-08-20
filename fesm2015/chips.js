@@ -1198,12 +1198,7 @@ class MatChipInput {
     }
     /** Checks whether a keycode is one of the configured separators. */
     _isSeparatorKey(event) {
-        if (hasModifierKey(event)) {
-            return false;
-        }
-        const separators = this.separatorKeyCodes;
-        const keyCode = event.keyCode;
-        return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
+        return !hasModifierKey(event) && new Set(this.separatorKeyCodes).has(event.keyCode);
     }
 }
 MatChipInput.decorators = [

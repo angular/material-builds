@@ -40,7 +40,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
      *
      * Defaults to `[ENTER]`.
      */
-    separatorKeyCodes: number[] | Set<number>;
+    separatorKeyCodes: readonly number[] | ReadonlySet<number>;
     /** Emitted when a chip is to be added. */
     chipEnd: EventEmitter<MatChipInputEvent>;
     /** The input's placeholder text. */

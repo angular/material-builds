@@ -870,12 +870,7 @@
         };
         /** Checks whether a keycode is one of the configured separators. */
         MatChipInput.prototype._isSeparatorKey = function (event) {
-            if (keycodes.hasModifierKey(event)) {
-                return false;
-            }
-            var separators = this.separatorKeyCodes;
-            var keyCode = event.keyCode;
-            return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
+            return !keycodes.hasModifierKey(event) && new Set(this.separatorKeyCodes).has(event.keyCode);
         };
         return MatChipInput;
     }());
