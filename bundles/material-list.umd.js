@@ -469,7 +469,7 @@
             _this._disabled = false;
             _this._isInteractiveList = !!(navList || (list && list._getListType() === 'action-list'));
             _this._list = navList || list;
-            // If no type attributed is specified for <button>, set it to "button".
+            // If no type attribute is specified for <button>, set it to "button".
             // If a type attribute is already specified, do nothing.
             var element = _this._getHostElement();
             if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
