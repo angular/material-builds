@@ -21,9 +21,17 @@ import { _MatAutocompleteOriginBase } from './autocomplete-origin';
  * to properly calculate the scrollTop of the panel. Because we are not
  * actually focusing the active item, scroll must be handled manually.
  */
-/** The height of each autocomplete option. */
+/**
+ * The height of each autocomplete option.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 11.0.0
+ */
 export declare const AUTOCOMPLETE_OPTION_HEIGHT = 48;
-/** The total height of the autocomplete panel. */
+/**
+ * The total height of the autocomplete panel.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 11.0.0
+ */
 export declare const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /** Injection token that determines the scroll handling while the autocomplete panel is open. */
 export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
@@ -117,8 +125,6 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     get autocompleteDisabled(): boolean;
     set autocompleteDisabled(value: boolean);
     constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler);
-    /** Scrolls to an option at a particular index. */
-    protected abstract _scrollToOption(index: number): void;
     /** Class to apply to the panel when it's above the input. */
     protected abstract _aboveClass: string;
     ngAfterViewInit(): void;
@@ -199,9 +205,10 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _canOpen;
     /** Use defaultView of injected document if available or fallback to global window reference */
     private _getWindow;
+    /** Scrolls to a particular option in the list. */
+    private _scrollToOption;
     static ngAcceptInputType_autocompleteDisabled: BooleanInput;
 }
 export declare class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     protected _aboveClass: string;
-    protected _scrollToOption(index: number): void;
 }

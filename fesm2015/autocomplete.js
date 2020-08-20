@@ -239,9 +239,17 @@ MatAutocompleteOrigin.decorators = [
  * to properly calculate the scrollTop of the panel. Because we are not
  * actually focusing the active item, scroll must be handled manually.
  */
-/** The height of each autocomplete option. */
+/**
+ * The height of each autocomplete option.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 11.0.0
+ */
 const AUTOCOMPLETE_OPTION_HEIGHT = 48;
-/** The total height of the autocomplete panel. */
+/**
+ * The total height of the autocomplete panel.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 11.0.0
+ */
 const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /** Injection token that determines the scroll handling while the autocomplete panel is open. */
 const MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy');
@@ -760,6 +768,32 @@ class _MatAutocompleteTriggerBase {
         var _a;
         return ((_a = this._document) === null || _a === void 0 ? void 0 : _a.defaultView) || window;
     }
+    /** Scrolls to a particular option in the list. */
+    _scrollToOption(index) {
+        // Given that we are not actually focusing active options, we must manually adjust scroll
+        // to reveal options below the fold. First, we find the offset of the option from the top
+        // of the panel. If that offset is below the fold, the new scrollTop will be the offset -
+        // the panel height + the option height, so the active option will be just visible at the
+        // bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
+        // will become the offset. If that offset is visible within the panel already, the scrollTop is
+        // not adjusted.
+        const autocomplete = this.autocomplete;
+        const labelCount = _countGroupLabelsBeforeOption(index, autocomplete.options, autocomplete.optionGroups);
+        if (index === 0 && labelCount === 1) {
+            // If we've got one group label before the option and we're at the top option,
+            // scroll the list to the top. This is better UX than scrolling the list to the
+            // top of the option, because it allows the user to read the top group's label.
+            autocomplete._setScrollTop(0);
+        }
+        else {
+            const option = autocomplete.options.toArray()[index];
+            if (option) {
+                const element = option._getHostElement();
+                const newScrollPosition = _getOptionScrollPosition(element.offsetTop, element.offsetHeight, autocomplete._getScrollTop(), autocomplete.panel.nativeElement.offsetHeight);
+                autocomplete._setScrollTop(newScrollPosition);
+            }
+        }
+    }
 }
 _MatAutocompleteTriggerBase.decorators = [
     { type: Directive }
@@ -787,26 +821,6 @@ class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     constructor() {
         super(...arguments);
         this._aboveClass = 'mat-autocomplete-panel-above';
-    }
-    _scrollToOption(index) {
-        // Given that we are not actually focusing active options, we must manually adjust scroll
-        // to reveal options below the fold. First, we find the offset of the option from the top
-        // of the panel. If that offset is below the fold, the new scrollTop will be the offset -
-        // the panel height + the option height, so the active option will be just visible at the
-        // bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
-        // will become the offset. If that offset is visible within the panel already, the scrollTop is
-        // not adjusted.
-        const labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-        if (index === 0 && labelCount === 1) {
-            // If we've got one group label before the option and we're at the top option,
-            // scroll the list to the top. This is better UX than scrolling the list to the
-            // top of the option, because it allows the user to read the top group's label.
-            this.autocomplete._setScrollTop(0);
-        }
-        else {
-            const newScrollPosition = _getOptionScrollPosition((index + labelCount) * AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
-            this.autocomplete._setScrollTop(newScrollPosition);
-        }
     }
 }
 MatAutocompleteTrigger.decorators = [
