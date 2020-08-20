@@ -432,7 +432,7 @@
                 this._badgeElement = this._createBadgeElement();
             }
             else {
-                this._badgeElement.textContent = this.content;
+                this._badgeElement.textContent = this._stringifyContent();
             }
             return this._badgeElement;
         };
@@ -445,7 +445,7 @@
             this._clearExistingBadges(contentClass);
             badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
             badgeElement.classList.add(contentClass);
-            badgeElement.textContent = this.content;
+            badgeElement.textContent = this._stringifyContent();
             if (this._animationMode === 'NoopAnimations') {
                 badgeElement.classList.add('_mat-animation-noopable');
             }
@@ -480,11 +480,12 @@
         /** Adds css theme class given the color to the component host */
         MatBadge.prototype._setColor = function (colorPalette) {
             if (colorPalette !== this._color) {
+                var classList = this._elementRef.nativeElement.classList;
                 if (this._color) {
-                    this._elementRef.nativeElement.classList.remove("mat-badge-" + this._color);
+                    classList.remove("mat-badge-" + this._color);
                 }
                 if (colorPalette) {
-                    this._elementRef.nativeElement.classList.add("mat-badge-" + colorPalette);
+                    classList.add("mat-badge-" + colorPalette);
                 }
             }
         };
@@ -499,6 +500,13 @@
                     element.removeChild(currentChild);
                 }
             }
+        };
+        /** Gets the string representation of the badge content. */
+        MatBadge.prototype._stringifyContent = function () {
+            // Convert null and undefined to an empty string which is consistent
+            // with how Angular handles them in inside template interpolations.
+            var content = this.content;
+            return content == null ? '' : "" + content;
         };
         return MatBadge;
     }(_MatBadgeMixinBase));
