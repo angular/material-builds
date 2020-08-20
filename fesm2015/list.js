@@ -4,7 +4,7 @@ import { mixinDisabled, mixinDisableRipple, setLines, MatLine, MatLineModule, Ma
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
 import { takeUntil, startWith } from 'rxjs/operators';
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { hasModifierKey, A, END, HOME, ENTER, SPACE, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -460,10 +460,13 @@ MatListOption.propDecorators = {
 class MatSelectionList extends _MatSelectionListMixinBase {
     constructor(_element, 
     // @breaking-change 11.0.0 Remove `tabIndex` parameter.
-    tabIndex, _changeDetector) {
+    tabIndex, _changeDetector, 
+    // @breaking-change 11.0.0 `_focusMonitor` parameter to become required.
+    _focusMonitor) {
         super();
         this._element = _element;
         this._changeDetector = _changeDetector;
+        this._focusMonitor = _focusMonitor;
         this._multiple = true;
         this._contentInitialized = false;
         /** Emits a change event whenever the selected state of an option changes. */
@@ -516,6 +519,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         }
     }
     ngAfterContentInit() {
+        var _a;
         this._contentInitialized = true;
         this._keyManager = new FocusKeyManager(this.options)
             .withWrap()
@@ -548,6 +552,20 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 }
             }
         });
+        // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
+        (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.monitor(this._element).pipe(takeUntil(this._destroyed)).subscribe(origin => {
+            if (origin === 'keyboard' || origin === 'program') {
+                const activeIndex = this._keyManager.activeItemIndex;
+                if (!activeIndex || activeIndex === -1) {
+                    // If there is no active index, set focus to the first option.
+                    this._keyManager.setFirstItemActive();
+                }
+                else {
+                    // Otherwise, set focus to the active option.
+                    this._keyManager.setActiveItem(activeIndex);
+                }
+            }
+        });
     }
     ngOnChanges(changes) {
         const disableRippleChanges = changes['disableRipple'];
@@ -558,6 +576,9 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         }
     }
     ngOnDestroy() {
+        var _a;
+        // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
+        (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.stopMonitoring(this._element);
         this._destroyed.next();
         this._destroyed.complete();
         this._isDestroyed = true;
@@ -648,21 +669,6 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     /** Emits a change event if the selected state of an option changed. */
     _emitChangeEvent(option) {
         this.selectionChange.emit(new MatSelectionListChange(this, option));
-    }
-    /**
-     * When the selection list is focused, we want to move focus to an option within the list. Do this
-     * by setting the appropriate option to be active.
-     */
-    _onFocus() {
-        const activeIndex = this._keyManager.activeItemIndex;
-        if (!activeIndex || (activeIndex === -1)) {
-            // If there is no active index, set focus to the first option.
-            this._keyManager.setFirstItemActive();
-        }
-        else {
-            // Otherwise, set focus to the active option.
-            this._keyManager.setActiveItem(activeIndex);
-        }
     }
     /** Implemented as part of ControlValueAccessor. */
     writeValue(values) {
@@ -774,7 +780,6 @@ MatSelectionList.decorators = [
                 host: {
                     'role': 'listbox',
                     'class': 'mat-selection-list mat-list-base',
-                    '(focus)': '_onFocus()',
                     '(keydown)': '_keydown($event)',
                     '[attr.aria-multiselectable]': 'multiple',
                     '[attr.aria-disabled]': 'disabled.toString()',
@@ -790,7 +795,8 @@ MatSelectionList.decorators = [
 MatSelectionList.ctorParameters = () => [
     { type: ElementRef },
     { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
-    { type: ChangeDetectorRef }
+    { type: ChangeDetectorRef },
+    { type: FocusMonitor }
 ];
 MatSelectionList.propDecorators = {
     options: [{ type: ContentChildren, args: [MatListOption, { descendants: true },] }],

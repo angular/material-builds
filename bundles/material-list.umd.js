@@ -798,10 +798,13 @@
         __extends(MatSelectionList, _super);
         function MatSelectionList(_element, 
         // @breaking-change 11.0.0 Remove `tabIndex` parameter.
-        tabIndex, _changeDetector) {
+        tabIndex, _changeDetector, 
+        // @breaking-change 11.0.0 `_focusMonitor` parameter to become required.
+        _focusMonitor) {
             var _this = _super.call(this) || this;
             _this._element = _element;
             _this._changeDetector = _changeDetector;
+            _this._focusMonitor = _focusMonitor;
             _this._multiple = true;
             _this._contentInitialized = false;
             /** Emits a change event whenever the selected state of an option changes. */
@@ -864,6 +867,7 @@
         });
         MatSelectionList.prototype.ngAfterContentInit = function () {
             var _this = this;
+            var _a;
             this._contentInitialized = true;
             this._keyManager = new a11y.FocusKeyManager(this.options)
                 .withWrap()
@@ -885,35 +889,49 @@
             });
             // Sync external changes to the model back to the options.
             this.selectedOptions.changed.pipe(operators.takeUntil(this._destroyed)).subscribe(function (event) {
-                var e_1, _a, e_2, _b;
+                var e_1, _b, e_2, _c;
                 if (event.added) {
                     try {
-                        for (var _c = __values(event.added), _d = _c.next(); !_d.done; _d = _c.next()) {
-                            var item = _d.value;
+                        for (var _d = __values(event.added), _e = _d.next(); !_e.done; _e = _d.next()) {
+                            var item = _e.value;
                             item.selected = true;
                         }
                     }
                     catch (e_1_1) { e_1 = { error: e_1_1 }; }
                     finally {
                         try {
-                            if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+                            if (_e && !_e.done && (_b = _d.return)) _b.call(_d);
                         }
                         finally { if (e_1) throw e_1.error; }
                     }
                 }
                 if (event.removed) {
                     try {
-                        for (var _e = __values(event.removed), _f = _e.next(); !_f.done; _f = _e.next()) {
-                            var item = _f.value;
+                        for (var _f = __values(event.removed), _g = _f.next(); !_g.done; _g = _f.next()) {
+                            var item = _g.value;
                             item.selected = false;
                         }
                     }
                     catch (e_2_1) { e_2 = { error: e_2_1 }; }
                     finally {
                         try {
-                            if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
+                            if (_g && !_g.done && (_c = _f.return)) _c.call(_f);
                         }
                         finally { if (e_2) throw e_2.error; }
+                    }
+                }
+            });
+            // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
+            (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.monitor(this._element).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
+                if (origin === 'keyboard' || origin === 'program') {
+                    var activeIndex = _this._keyManager.activeItemIndex;
+                    if (!activeIndex || activeIndex === -1) {
+                        // If there is no active index, set focus to the first option.
+                        _this._keyManager.setFirstItemActive();
+                    }
+                    else {
+                        // Otherwise, set focus to the active option.
+                        _this._keyManager.setActiveItem(activeIndex);
                     }
                 }
             });
@@ -927,6 +945,9 @@
             }
         };
         MatSelectionList.prototype.ngOnDestroy = function () {
+            var _a;
+            // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
+            (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.stopMonitoring(this._element);
             this._destroyed.next();
             this._destroyed.complete();
             this._isDestroyed = true;
@@ -1017,21 +1038,6 @@
         /** Emits a change event if the selected state of an option changed. */
         MatSelectionList.prototype._emitChangeEvent = function (option) {
             this.selectionChange.emit(new MatSelectionListChange(this, option));
-        };
-        /**
-         * When the selection list is focused, we want to move focus to an option within the list. Do this
-         * by setting the appropriate option to be active.
-         */
-        MatSelectionList.prototype._onFocus = function () {
-            var activeIndex = this._keyManager.activeItemIndex;
-            if (!activeIndex || (activeIndex === -1)) {
-                // If there is no active index, set focus to the first option.
-                this._keyManager.setFirstItemActive();
-            }
-            else {
-                // Otherwise, set focus to the active option.
-                this._keyManager.setActiveItem(activeIndex);
-            }
         };
         /** Implemented as part of ControlValueAccessor. */
         MatSelectionList.prototype.writeValue = function (values) {
@@ -1146,7 +1152,6 @@
                     host: {
                         'role': 'listbox',
                         'class': 'mat-selection-list mat-list-base',
-                        '(focus)': '_onFocus()',
                         '(keydown)': '_keydown($event)',
                         '[attr.aria-multiselectable]': 'multiple',
                         '[attr.aria-disabled]': 'disabled.toString()',
@@ -1162,7 +1167,8 @@
     MatSelectionList.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
-        { type: core.ChangeDetectorRef }
+        { type: core.ChangeDetectorRef },
+        { type: a11y.FocusMonitor }
     ]; };
     MatSelectionList.propDecorators = {
         options: [{ type: core.ContentChildren, args: [MatListOption, { descendants: true },] }],

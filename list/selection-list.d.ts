@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusableOption, FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
@@ -111,6 +111,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
 export declare class MatSelectionList extends _MatSelectionListMixinBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
     private _changeDetector;
+    private _focusMonitor?;
     private _multiple;
     private _contentInitialized;
     /** The FocusKeyManager which handles focus. */
@@ -153,7 +154,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     _onTouched: () => void;
     /** Whether the list has been destroyed. */
     private _isDestroyed;
-    constructor(_element: ElementRef<HTMLElement>, tabIndex: string, _changeDetector: ChangeDetectorRef);
+    constructor(_element: ElementRef<HTMLElement>, tabIndex: string, _changeDetector: ChangeDetectorRef, _focusMonitor?: FocusMonitor | undefined);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
@@ -176,11 +177,6 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     _reportValueChange(): void;
     /** Emits a change event if the selected state of an option changed. */
     _emitChangeEvent(option: MatListOption): void;
-    /**
-     * When the selection list is focused, we want to move focus to an option within the list. Do this
-     * by setting the appropriate option to be active.
-     */
-    _onFocus(): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(values: string[]): void;
     /** Implemented as a part of ControlValueAccessor. */
