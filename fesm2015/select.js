@@ -8,7 +8,7 @@ import { ActiveDescendantKeyManager, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, A } from '@angular/cdk/keycodes';
 import { NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, take, filter, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -550,13 +550,7 @@ class MatSelect extends _MatSelectMixinBase {
         }
         else if (!this.multiple) {
             const previouslySelectedOption = this.selected;
-            if (keyCode === HOME || keyCode === END) {
-                keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
-                event.preventDefault();
-            }
-            else {
-                manager.onKeydown(event);
-            }
+            manager.onKeydown(event);
             const selectedOption = this.selected;
             // Since the value has changed, we need to announce it ourselves.
             if (selectedOption && previouslySelectedOption !== selectedOption) {
@@ -572,11 +566,7 @@ class MatSelect extends _MatSelectMixinBase {
         const keyCode = event.keyCode;
         const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
         const isTyping = manager.isTyping();
-        if (keyCode === HOME || keyCode === END) {
-            event.preventDefault();
-            keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
-        }
-        else if (isArrowKey && event.altKey) {
+        if (isArrowKey && event.altKey) {
             // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
             this.close();
@@ -708,6 +698,7 @@ class MatSelect extends _MatSelectMixinBase {
             .withTypeAhead(this._typeaheadDebounceInterval)
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
+            .withHomeAndEnd()
             .withAllowedModifierKeys(['shiftKey']);
         this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {
             if (this.panelOpen) {

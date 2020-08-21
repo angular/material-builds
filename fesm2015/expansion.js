@@ -4,8 +4,8 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
-import { ENTER, hasModifierKey, SPACE, HOME, END } from '@angular/cdk/keycodes';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
+import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -498,27 +498,11 @@ class MatAccordion extends CdkAccordion {
             this._ownHeaders.reset(headers.filter(header => header.panel.accordion === this));
             this._ownHeaders.notifyOnChanges();
         });
-        this._keyManager = new FocusKeyManager(this._ownHeaders).withWrap();
+        this._keyManager = new FocusKeyManager(this._ownHeaders).withWrap().withHomeAndEnd();
     }
     /** Handles keyboard events coming in from the panel headers. */
     _handleHeaderKeydown(event) {
-        const { keyCode } = event;
-        const manager = this._keyManager;
-        if (keyCode === HOME) {
-            if (!hasModifierKey(event)) {
-                manager.setFirstItemActive();
-                event.preventDefault();
-            }
-        }
-        else if (keyCode === END) {
-            if (!hasModifierKey(event)) {
-                manager.setLastItemActive();
-                event.preventDefault();
-            }
-        }
-        else {
-            this._keyManager.onKeydown(event);
-        }
+        this._keyManager.onKeydown(event);
     }
     _handleHeaderFocus(header) {
         this._keyManager.updateActiveItem(header);

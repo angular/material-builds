@@ -12,7 +12,7 @@ import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
-import { hasModifierKey, SPACE, ENTER, END, HOME } from '@angular/cdk/keycodes';
+import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 
 /**
  * @license
@@ -971,6 +971,7 @@ class MatPaginatedTabHeader {
         };
         this._keyManager = new FocusKeyManager(this._items)
             .withHorizontalOrientation(this._getLayoutDirection())
+            .withHomeAndEnd()
             .withWrap();
         this._keyManager.updateActiveItem(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
@@ -1027,14 +1028,6 @@ class MatPaginatedTabHeader {
             return;
         }
         switch (event.keyCode) {
-            case HOME:
-                this._keyManager.setFirstItemActive();
-                event.preventDefault();
-                break;
-            case END:
-                this._keyManager.setLastItemActive();
-                event.preventDefault();
-                break;
             case ENTER:
             case SPACE:
                 if (this.focusIndex !== this.selectedIndex) {

@@ -800,7 +800,10 @@
         _MatMenuBase.prototype.ngAfterContentInit = function () {
             var _this = this;
             this._updateDirectDescendants();
-            this._keyManager = new a11y.FocusKeyManager(this._directDescendantItems).withWrap().withTypeAhead();
+            this._keyManager = new a11y.FocusKeyManager(this._directDescendantItems)
+                .withWrap()
+                .withTypeAhead()
+                .withHomeAndEnd();
             this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.closed.emit('tab'); });
             // If a user manually (programatically) focuses a menu item, we need to reflect that focus
             // change back to the key manager. Note that we don't need to unsubscribe here because _focused
@@ -851,13 +854,6 @@
                 case keycodes.RIGHT_ARROW:
                     if (this.parentMenu && this.direction === 'rtl') {
                         this.closed.emit('keydown');
-                    }
-                    break;
-                case keycodes.HOME:
-                case keycodes.END:
-                    if (!keycodes.hasModifierKey(event)) {
-                        keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
-                        event.preventDefault();
                     }
                     break;
                 default:

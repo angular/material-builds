@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/accordion'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/collections')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/cdk/accordion', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/platform-browser/animations', 'rxjs', '@angular/animations', '@angular/cdk/collections'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.cdk.coercion, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs.operators, global.ng.platformBrowser.animations, global.rxjs, global.ng.animations, global.ng.cdk.collections));
-}(this, (function (exports, accordion, portal, common, core, coercion, a11y, keycodes, operators, animations, rxjs, animations$1, collections) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/accordion'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('rxjs/operators'), require('@angular/cdk/keycodes'), require('@angular/platform-browser/animations'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/collections')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/cdk/accordion', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/a11y', 'rxjs/operators', '@angular/cdk/keycodes', '@angular/platform-browser/animations', 'rxjs', '@angular/animations', '@angular/cdk/collections'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.cdk.coercion, global.ng.cdk.a11y, global.rxjs.operators, global.ng.cdk.keycodes, global.ng.platformBrowser.animations, global.rxjs, global.ng.animations, global.ng.cdk.collections));
+}(this, (function (exports, accordion, portal, common, core, coercion, a11y, operators, keycodes, animations, rxjs, animations$1, collections) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -815,27 +815,11 @@
                 _this._ownHeaders.reset(headers.filter(function (header) { return header.panel.accordion === _this; }));
                 _this._ownHeaders.notifyOnChanges();
             });
-            this._keyManager = new a11y.FocusKeyManager(this._ownHeaders).withWrap();
+            this._keyManager = new a11y.FocusKeyManager(this._ownHeaders).withWrap().withHomeAndEnd();
         };
         /** Handles keyboard events coming in from the panel headers. */
         MatAccordion.prototype._handleHeaderKeydown = function (event) {
-            var keyCode = event.keyCode;
-            var manager = this._keyManager;
-            if (keyCode === keycodes.HOME) {
-                if (!keycodes.hasModifierKey(event)) {
-                    manager.setFirstItemActive();
-                    event.preventDefault();
-                }
-            }
-            else if (keyCode === keycodes.END) {
-                if (!keycodes.hasModifierKey(event)) {
-                    manager.setLastItemActive();
-                    event.preventDefault();
-                }
-            }
-            else {
-                this._keyManager.onKeydown(event);
-            }
+            this._keyManager.onKeydown(event);
         };
         MatAccordion.prototype._handleHeaderFocus = function (header) {
             this._keyManager.updateActiveItem(header);

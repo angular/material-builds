@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, startWith } from 'rxjs/operators';
 import { FocusKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { hasModifierKey, A, END, HOME, ENTER, SPACE, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
+import { hasModifierKey, A, ENTER, SPACE, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -526,6 +526,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         this._keyManager = new FocusKeyManager(this.options)
             .withWrap()
             .withTypeAhead()
+            .withHomeAndEnd()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
             // screenreader users, that allows reading the different options of the list.
             .skipPredicate(() => false)
@@ -630,13 +631,6 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 if (!hasModifier && !manager.isTyping()) {
                     this._toggleFocusedOption();
                     // Always prevent space from scrolling the page since the list has focus
-                    event.preventDefault();
-                }
-                break;
-            case HOME:
-            case END:
-                if (!hasModifier) {
-                    keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                     event.preventDefault();
                 }
                 break;

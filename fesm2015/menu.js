@@ -1,6 +1,6 @@
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { UP_ARROW, DOWN_ARROW, END, hasModifierKey, HOME, RIGHT_ARROW, LEFT_ARROW, ESCAPE } from '@angular/cdk/keycodes';
+import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
@@ -492,7 +492,10 @@ class _MatMenuBase {
     }
     ngAfterContentInit() {
         this._updateDirectDescendants();
-        this._keyManager = new FocusKeyManager(this._directDescendantItems).withWrap().withTypeAhead();
+        this._keyManager = new FocusKeyManager(this._directDescendantItems)
+            .withWrap()
+            .withTypeAhead()
+            .withHomeAndEnd();
         this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.closed.emit('tab'));
         // If a user manually (programatically) focuses a menu item, we need to reflect that focus
         // change back to the key manager. Note that we don't need to unsubscribe here because _focused
@@ -543,13 +546,6 @@ class _MatMenuBase {
             case RIGHT_ARROW:
                 if (this.parentMenu && this.direction === 'rtl') {
                     this.closed.emit('keydown');
-                }
-                break;
-            case HOME:
-            case END:
-                if (!hasModifierKey(event)) {
-                    keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
-                    event.preventDefault();
                 }
                 break;
             default:

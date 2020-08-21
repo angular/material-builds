@@ -1,4 +1,4 @@
-import { SPACE, BACKSPACE, DELETE, HOME, END, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
+import { SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
 import { InjectionToken, Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, Attribute, ContentChild, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
 import { mixinTabIndex, mixinColor, mixinDisableRipple, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -634,6 +634,7 @@ class MatChipList extends _MatChipListMixinBase {
         this._keyManager = new FocusKeyManager(this.chips)
             .withWrap()
             .withVerticalOrientation()
+            .withHomeAndEnd()
             .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
         if (this._dir) {
             this._dir.change
@@ -762,17 +763,7 @@ class MatChipList extends _MatChipListMixinBase {
             event.preventDefault();
         }
         else if (target && target.classList.contains('mat-chip')) {
-            if (event.keyCode === HOME) {
-                this._keyManager.setFirstItemActive();
-                event.preventDefault();
-            }
-            else if (event.keyCode === END) {
-                this._keyManager.setLastItemActive();
-                event.preventDefault();
-            }
-            else {
-                this._keyManager.onKeydown(event);
-            }
+            this._keyManager.onKeydown(event);
             this.stateChanges.next();
         }
     }

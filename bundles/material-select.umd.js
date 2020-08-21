@@ -892,13 +892,7 @@
             }
             else if (!this.multiple) {
                 var previouslySelectedOption = this.selected;
-                if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
-                    keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
-                    event.preventDefault();
-                }
-                else {
-                    manager.onKeydown(event);
-                }
+                manager.onKeydown(event);
                 var selectedOption = this.selected;
                 // Since the value has changed, we need to announce it ourselves.
                 if (selectedOption && previouslySelectedOption !== selectedOption) {
@@ -914,11 +908,7 @@
             var keyCode = event.keyCode;
             var isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW;
             var isTyping = manager.isTyping();
-            if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
-                event.preventDefault();
-                keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
-            }
-            else if (isArrowKey && event.altKey) {
+            if (isArrowKey && event.altKey) {
                 // Close the select on ALT + arrow key to match the native <select>
                 event.preventDefault();
                 this.close();
@@ -1059,6 +1049,7 @@
                 .withTypeAhead(this._typeaheadDebounceInterval)
                 .withVerticalOrientation()
                 .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
+                .withHomeAndEnd()
                 .withAllowedModifierKeys(['shiftKey']);
             this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
                 if (_this.panelOpen) {

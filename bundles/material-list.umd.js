@@ -874,6 +874,7 @@
             this._keyManager = new a11y.FocusKeyManager(this.options)
                 .withWrap()
                 .withTypeAhead()
+                .withHomeAndEnd()
                 // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
                 // screenreader users, that allows reading the different options of the list.
                 .skipPredicate(function () { return false; })
@@ -999,13 +1000,6 @@
                     if (!hasModifier && !manager.isTyping()) {
                         this._toggleFocusedOption();
                         // Always prevent space from scrolling the page since the list has focus
-                        event.preventDefault();
-                    }
-                    break;
-                case keycodes.HOME:
-                case keycodes.END:
-                    if (!hasModifier) {
-                        keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                         event.preventDefault();
                     }
                     break;

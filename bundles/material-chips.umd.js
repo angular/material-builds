@@ -1188,6 +1188,7 @@
             this._keyManager = new a11y.FocusKeyManager(this.chips)
                 .withWrap()
                 .withVerticalOrientation()
+                .withHomeAndEnd()
                 .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
             if (this._dir) {
                 this._dir.change
@@ -1316,17 +1317,7 @@
                 event.preventDefault();
             }
             else if (target && target.classList.contains('mat-chip')) {
-                if (event.keyCode === keycodes.HOME) {
-                    this._keyManager.setFirstItemActive();
-                    event.preventDefault();
-                }
-                else if (event.keyCode === keycodes.END) {
-                    this._keyManager.setLastItemActive();
-                    event.preventDefault();
-                }
-                else {
-                    this._keyManager.onKeydown(event);
-                }
+                this._keyManager.onKeydown(event);
                 this.stateChanges.next();
             }
         };

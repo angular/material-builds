@@ -1303,6 +1303,7 @@
             };
             this._keyManager = new a11y.FocusKeyManager(this._items)
                 .withHorizontalOrientation(this._getLayoutDirection())
+                .withHomeAndEnd()
                 .withWrap();
             this._keyManager.updateActiveItem(0);
             // Defer the first call in order to allow for slower browsers to lay out the elements.
@@ -1359,14 +1360,6 @@
                 return;
             }
             switch (event.keyCode) {
-                case keycodes.HOME:
-                    this._keyManager.setFirstItemActive();
-                    event.preventDefault();
-                    break;
-                case keycodes.END:
-                    this._keyManager.setLastItemActive();
-                    event.preventDefault();
-                    break;
                 case keycodes.ENTER:
                 case keycodes.SPACE:
                     if (this.focusIndex !== this.selectedIndex) {
