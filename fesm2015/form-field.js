@@ -528,6 +528,9 @@ class MatFormField extends _MatFormFieldMixinBase {
     _syncDescribedByIds() {
         if (this._control) {
             let ids = [];
+            if (this._control.userAriaDescribedBy) {
+                ids.push(...this._control.userAriaDescribedBy.split(' '));
+            }
             if (this._getDisplayedMessages() === 'hint') {
                 const startHint = this._hintChildren ?
                     this._hintChildren.find(hint => hint.align === 'start') : null;
@@ -544,7 +547,7 @@ class MatFormField extends _MatFormFieldMixinBase {
                 }
             }
             else if (this._errorChildren) {
-                ids = this._errorChildren.map(error => error.id);
+                ids.push(...this._errorChildren.map(error => error.id));
             }
             this._control.setDescribedByIds(ids);
         }

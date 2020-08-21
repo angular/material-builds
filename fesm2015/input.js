@@ -383,7 +383,12 @@ class MatInput extends _MatInputMixinBase {
      * @docs-private
      */
     setDescribedByIds(ids) {
-        this._ariaDescribedby = ids.join(' ');
+        if (ids.length) {
+            this._elementRef.nativeElement.setAttribute('aria-describedby', ids.join(' '));
+        }
+        else {
+            this._elementRef.nativeElement.removeAttribute('aria-describedby');
+        }
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -419,7 +424,6 @@ MatInput.decorators = [
                     '[disabled]': 'disabled',
                     '[required]': 'required',
                     '[attr.readonly]': 'readonly && !_isNativeSelect || null',
-                    '[attr.aria-describedby]': '_ariaDescribedby || null',
                     '[attr.aria-invalid]': 'errorState',
                     '[attr.aria-required]': 'required.toString()',
                 },
@@ -445,6 +449,7 @@ MatInput.propDecorators = {
     required: [{ type: Input }],
     type: [{ type: Input }],
     errorStateMatcher: [{ type: Input }],
+    userAriaDescribedBy: [{ type: Input, args: ['aria-describedby',] }],
     value: [{ type: Input }],
     readonly: [{ type: Input }],
     _focusChanged: [{ type: HostListener, args: ['focus', ['true'],] }, { type: HostListener, args: ['blur', ['false'],] }],

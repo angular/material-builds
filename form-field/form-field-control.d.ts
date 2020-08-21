@@ -45,6 +45,11 @@ export declare abstract class MatFormFieldControl<T> {
      * control it is assumed to be false.
      */
     readonly autofilled?: boolean;
+    /**
+     * Value of `aria-describedby` that should be merged with the described-by ids
+     * which are set by the form-field.
+     */
+    readonly userAriaDescribedBy?: string;
     /** Sets the list of element IDs that currently describe this control. */
     abstract setDescribedByIds(ids: string[]): void;
     /** Handles a click on the control's container. */

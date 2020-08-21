@@ -8,7 +8,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
-import { DoCheck, ElementRef, NgZone, OnChanges, OnDestroy, AfterViewInit } from '@angular/core';
+import { AfterViewInit, DoCheck, ElementRef, NgZone, OnChanges, OnDestroy } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
@@ -37,8 +37,6 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _previousNativeValue: any;
     private _inputValueAccessor;
     private _previousPlaceholder;
-    /** The aria-describedby attribute on the input for improved a11y. */
-    _ariaDescribedby: string;
     /** Whether the component is being rendered on the server. */
     readonly _isServer: boolean;
     /** Whether the component is a native html select. */
@@ -97,6 +95,11 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _type: string;
     /** An object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    userAriaDescribedBy: string;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

@@ -859,6 +859,9 @@
         MatFormField.prototype._syncDescribedByIds = function () {
             if (this._control) {
                 var ids = [];
+                if (this._control.userAriaDescribedBy) {
+                    ids.push.apply(ids, __spread(this._control.userAriaDescribedBy.split(' ')));
+                }
                 if (this._getDisplayedMessages() === 'hint') {
                     var startHint = this._hintChildren ?
                         this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
@@ -875,7 +878,7 @@
                     }
                 }
                 else if (this._errorChildren) {
-                    ids = this._errorChildren.map(function (error) { return error.id; });
+                    ids.push.apply(ids, __spread(this._errorChildren.map(function (error) { return error.id; })));
                 }
                 this._control.setDescribedByIds(ids);
             }

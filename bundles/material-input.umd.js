@@ -724,7 +724,12 @@
          * @docs-private
          */
         MatInput.prototype.setDescribedByIds = function (ids) {
-            this._ariaDescribedby = ids.join(' ');
+            if (ids.length) {
+                this._elementRef.nativeElement.setAttribute('aria-describedby', ids.join(' '));
+            }
+            else {
+                this._elementRef.nativeElement.removeAttribute('aria-describedby');
+            }
         };
         /**
          * Implemented as part of MatFormFieldControl.
@@ -760,7 +765,6 @@
                         '[disabled]': 'disabled',
                         '[required]': 'required',
                         '[attr.readonly]': 'readonly && !_isNativeSelect || null',
-                        '[attr.aria-describedby]': '_ariaDescribedby || null',
                         '[attr.aria-invalid]': 'errorState',
                         '[attr.aria-required]': 'required.toString()',
                     },
@@ -786,6 +790,7 @@
         required: [{ type: core.Input }],
         type: [{ type: core.Input }],
         errorStateMatcher: [{ type: core.Input }],
+        userAriaDescribedBy: [{ type: core.Input, args: ['aria-describedby',] }],
         value: [{ type: core.Input }],
         readonly: [{ type: core.Input }],
         _focusChanged: [{ type: core.HostListener, args: ['focus', ['true'],] }, { type: core.HostListener, args: ['blur', ['false'],] }],
