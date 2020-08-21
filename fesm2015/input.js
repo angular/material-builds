@@ -335,7 +335,8 @@ class MatInput extends _MatInputMixinBase {
     }
     /** Make sure the input is a supported type. */
     _validateType() {
-        if (MAT_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
+        if (MAT_INPUT_INVALID_TYPES.indexOf(this._type) > -1 &&
+            (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getMatInputUnsupportedTypeError(this._type);
         }
     }

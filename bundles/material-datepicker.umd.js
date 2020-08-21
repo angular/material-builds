@@ -903,11 +903,13 @@
             this._userSelection = new i0.EventEmitter();
             /** Emits when any date is activated. */
             this.activeDateChange = new i0.EventEmitter();
-            if (!this._dateAdapter) {
-                throw createMissingDateImplError('DateAdapter');
-            }
-            if (!this._dateFormats) {
-                throw createMissingDateImplError('MAT_DATE_FORMATS');
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                if (!this._dateAdapter) {
+                    throw createMissingDateImplError('DateAdapter');
+                }
+                if (!this._dateFormats) {
+                    throw createMissingDateImplError('MAT_DATE_FORMATS');
+                }
             }
             this._activeDate = this._dateAdapter.today();
         }
@@ -1233,7 +1235,7 @@
             this.yearSelected = new i0.EventEmitter();
             /** Emits when any date is activated. */
             this.activeDateChange = new i0.EventEmitter();
-            if (!this._dateAdapter) {
+            if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw createMissingDateImplError('DateAdapter');
             }
             this._activeDate = this._dateAdapter.today();
@@ -1509,11 +1511,13 @@
             this.monthSelected = new i0.EventEmitter();
             /** Emits when any date is activated. */
             this.activeDateChange = new i0.EventEmitter();
-            if (!this._dateAdapter) {
-                throw createMissingDateImplError('DateAdapter');
-            }
-            if (!this._dateFormats) {
-                throw createMissingDateImplError('MAT_DATE_FORMATS');
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                if (!this._dateAdapter) {
+                    throw createMissingDateImplError('DateAdapter');
+                }
+                if (!this._dateFormats) {
+                    throw createMissingDateImplError('MAT_DATE_FORMATS');
+                }
             }
             this._activeDate = this._dateAdapter.today();
         }
@@ -1918,11 +1922,13 @@
              * Emits whenever there is a state change that the header may need to respond to.
              */
             this.stateChanges = new rxjs.Subject();
-            if (!this._dateAdapter) {
-                throw createMissingDateImplError('DateAdapter');
-            }
-            if (!this._dateFormats) {
-                throw createMissingDateImplError('MAT_DATE_FORMATS');
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                if (!this._dateAdapter) {
+                    throw createMissingDateImplError('DateAdapter');
+                }
+                if (!this._dateFormats) {
+                    throw createMissingDateImplError('MAT_DATE_FORMATS');
+                }
             }
             this._intlChanges = _intl.changes.subscribe(function () {
                 _changeDetectorRef.markForCheck();
@@ -2322,7 +2328,7 @@
             this._backdropHarnessClass = this.id + "-backdrop";
             /** Emits when the datepicker's state changes. */
             this._stateChanges = new rxjs.Subject();
-            if (!this._dateAdapter) {
+            if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw createMissingDateImplError('DateAdapter');
             }
             this._scrollStrategy = scrollStrategy;
@@ -2435,7 +2441,7 @@
          */
         MatDatepickerBase.prototype._registerInput = function (input) {
             var _this = this;
-            if (this._datepickerInput) {
+            if (this._datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('A MatDatepicker can only be associated with a single input.');
             }
             this._inputStateChanges.unsubscribe();
@@ -2449,7 +2455,7 @@
             if (this._opened || this.disabled) {
                 return;
             }
-            if (!this._datepickerInput) {
+            if (!this._datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('Attempted to open an MatDatepicker with no associated input.');
             }
             if (this._document) {
@@ -2753,11 +2759,13 @@
             };
             /** Whether the last value set on the input was valid. */
             this._lastValueValid = false;
-            if (!this._dateAdapter) {
-                throw createMissingDateImplError('DateAdapter');
-            }
-            if (!this._dateFormats) {
-                throw createMissingDateImplError('MAT_DATE_FORMATS');
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                if (!this._dateAdapter) {
+                    throw createMissingDateImplError('DateAdapter');
+                }
+                if (!this._dateFormats) {
+                    throw createMissingDateImplError('MAT_DATE_FORMATS');
+                }
             }
             // Update the displayed date when the locale changes.
             this._localeSubscription = _dateAdapter.localeChanges.subscribe(function () {
@@ -3505,7 +3513,7 @@
             this.comparisonEnd = null;
             /** Emits when the input's state changes. */
             this._stateChanges = new rxjs.Subject();
-            if (!_dateAdapter) {
+            if (!_dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw createMissingDateImplError('DateAdapter');
             }
             // TODO(crisbeto): remove `as any` after #18206 lands.
@@ -3655,11 +3663,13 @@
         };
         MatDateRangeInput.prototype.ngAfterContentInit = function () {
             var _this = this;
-            if (!this._startInput) {
-                throw Error('mat-date-range-input must contain a matStartDate input');
-            }
-            if (!this._endInput) {
-                throw Error('mat-date-range-input must contain a matEndDate input');
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                if (!this._startInput) {
+                    throw Error('mat-date-range-input must contain a matStartDate input');
+                }
+                if (!this._endInput) {
+                    throw Error('mat-date-range-input must contain a matEndDate input');
+                }
             }
             if (this._model) {
                 this._registerModel(this._model);

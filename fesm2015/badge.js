@@ -1,4 +1,4 @@
-import { isDevMode, Directive, NgZone, ElementRef, Renderer2, Optional, Inject, Input, NgModule } from '@angular/core';
+import { Directive, NgZone, ElementRef, Renderer2, Optional, Inject, Input, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -39,7 +39,7 @@ class MatBadge extends _MatBadgeMixinBase {
         this.size = 'medium';
         /** Unique id for the badge */
         this._id = nextId++;
-        if (isDevMode()) {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
             const nativeElement = _elementRef.nativeElement;
             if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
                 throw Error('matBadge must be attached to an element node.');

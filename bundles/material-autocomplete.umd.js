@@ -932,7 +932,7 @@
         };
         _MatAutocompleteTriggerBase.prototype._attachOverlay = function () {
             var _this = this;
-            if (!this.autocomplete) {
+            if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatAutocompleteMissingPanelError();
             }
             // We want to resolve this once, as late as possible so that we can be

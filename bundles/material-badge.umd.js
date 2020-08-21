@@ -337,7 +337,7 @@
             _this.size = 'medium';
             /** Unique id for the badge */
             _this._id = nextId++;
-            if (core.isDevMode()) {
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 var nativeElement = _elementRef.nativeElement;
                 if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
                     throw Error('matBadge must be attached to an element node.');

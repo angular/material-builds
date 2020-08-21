@@ -714,7 +714,8 @@
             /** Position of the menu in the X axis. */
             get: function () { return this._xPosition; },
             set: function (value) {
-                if (core.isDevMode() && value !== 'before' && value !== 'after') {
+                if (value !== 'before' && value !== 'after' &&
+                    (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throwMatMenuInvalidPositionX();
                 }
                 this._xPosition = value;
@@ -727,7 +728,7 @@
             /** Position of the menu in the Y axis. */
             get: function () { return this._yPosition; },
             set: function (value) {
-                if (core.isDevMode() && value !== 'above' && value !== 'below') {
+                if (value !== 'above' && value !== 'below' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throwMatMenuInvalidPositionY();
                 }
                 this._yPosition = value;
@@ -1177,7 +1178,7 @@
                 this._menu = menu;
                 this._menuCloseSubscription.unsubscribe();
                 if (menu) {
-                    if (core.isDevMode() && menu === this._parentMenu) {
+                    if (menu === this._parentMenu && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                         throwMatMenuRecursiveError();
                     }
                     this._menuCloseSubscription = menu.close.subscribe(function (reason) {
@@ -1357,7 +1358,7 @@
          * matMenuTriggerFor. If not, an exception is thrown.
          */
         MatMenuTrigger.prototype._checkMenu = function () {
-            if (core.isDevMode() && !this.menu) {
+            if (!this.menu && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throwMatMenuMissingError();
             }
         };

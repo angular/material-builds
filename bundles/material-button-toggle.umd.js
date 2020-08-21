@@ -530,7 +530,7 @@
                 return;
             }
             if (this.multiple && value) {
-                if (!Array.isArray(value)) {
+                if (!Array.isArray(value) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throw Error('Value must be an array in multiple-selection mode.');
                 }
                 this._clearSelection();

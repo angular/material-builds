@@ -1,6 +1,6 @@
 import { Overlay, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Directive, EventEmitter, isDevMode, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, ElementRef, Optional, Inject, Self, Attribute, ViewChild, ContentChildren, Input, ContentChild, Output, NgModule } from '@angular/core';
+import { InjectionToken, Directive, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, ElementRef, Optional, Inject, Self, Attribute, ViewChild, ContentChildren, Input, ContentChild, Output, NgModule } from '@angular/core';
 import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, ErrorStateMatcher, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField, MAT_FORM_FIELD, MatFormFieldModule } from '@angular/material/form-field';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -321,7 +321,7 @@ class MatSelect extends _MatSelectMixinBase {
     /** Whether the user should be allowed to select multiple options. */
     get multiple() { return this._multiple; }
     set multiple(value) {
-        if (this._selectionModel) {
+        if (this._selectionModel && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getMatSelectDynamicMultipleError();
         }
         this._multiple = coerceBooleanProperty(value);
@@ -338,7 +338,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     get compareWith() { return this._compareWith; }
     set compareWith(fn) {
-        if (typeof fn !== 'function') {
+        if (typeof fn !== 'function' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getMatSelectNonFunctionValueError();
         }
         this._compareWith = fn;
@@ -656,7 +656,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _setSelectionByValue(value) {
         if (this.multiple && value) {
-            if (!Array.isArray(value)) {
+            if (!Array.isArray(value) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatSelectNonArrayValueError();
             }
             this._selectionModel.clear();
@@ -690,7 +690,7 @@ class MatSelect extends _MatSelectMixinBase {
                 return option.value != null && this._compareWith(option.value, value);
             }
             catch (error) {
-                if (isDevMode()) {
+                if (typeof ngDevMode === 'undefined' || ngDevMode) {
                     // Notify developers of errors in their comparator.
                     console.warn(error);
                 }

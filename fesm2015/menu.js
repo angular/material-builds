@@ -1,7 +1,7 @@
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UP_ARROW, DOWN_ARROW, END, hasModifierKey, HOME, RIGHT_ARROW, LEFT_ARROW, ESCAPE } from '@angular/cdk/keycodes';
-import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, isDevMode, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
+import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
 import { trigger, state, style, transition, group, query, animate } from '@angular/animations';
@@ -431,7 +431,8 @@ class _MatMenuBase {
     /** Position of the menu in the X axis. */
     get xPosition() { return this._xPosition; }
     set xPosition(value) {
-        if (isDevMode() && value !== 'before' && value !== 'after') {
+        if (value !== 'before' && value !== 'after' &&
+            (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throwMatMenuInvalidPositionX();
         }
         this._xPosition = value;
@@ -440,7 +441,7 @@ class _MatMenuBase {
     /** Position of the menu in the Y axis. */
     get yPosition() { return this._yPosition; }
     set yPosition(value) {
-        if (isDevMode() && value !== 'above' && value !== 'below') {
+        if (value !== 'above' && value !== 'below' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throwMatMenuInvalidPositionY();
         }
         this._yPosition = value;
@@ -856,7 +857,7 @@ class MatMenuTrigger {
         this._menu = menu;
         this._menuCloseSubscription.unsubscribe();
         if (menu) {
-            if (isDevMode() && menu === this._parentMenu) {
+            if (menu === this._parentMenu && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throwMatMenuRecursiveError();
             }
             this._menuCloseSubscription = menu.close.subscribe((reason) => {
@@ -1022,7 +1023,7 @@ class MatMenuTrigger {
      * matMenuTriggerFor. If not, an exception is thrown.
      */
     _checkMenu() {
-        if (isDevMode() && !this.menu) {
+        if (!this.menu && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throwMatMenuMissingError();
         }
     }

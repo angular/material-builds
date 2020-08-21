@@ -196,7 +196,7 @@ class TileCoordinator {
     }
     /** Finds the next available space large enough to fit the tile. */
     _findMatchingGap(tileCols) {
-        if (tileCols > this.tracker.length) {
+        if (tileCols > this.tracker.length && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`mat-grid-list: tile with colspan ${tileCols} is wider than ` +
                 `grid with cols="${this.tracker.length}".`);
         }
@@ -402,7 +402,8 @@ class FixedTileStyler extends TileStyler {
     init(gutterSize, tracker, cols, direction) {
         super.init(gutterSize, tracker, cols, direction);
         this.fixedRowHeight = normalizeUnits(this.fixedRowHeight);
-        if (!cssCalcAllowedValue.test(this.fixedRowHeight)) {
+        if (!cssCalcAllowedValue.test(this.fixedRowHeight) &&
+            (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`Invalid value "${this.fixedRowHeight}" set as rowHeight.`);
         }
     }
@@ -458,7 +459,7 @@ class RatioTileStyler extends TileStyler {
     }
     _parseRatio(value) {
         const ratioParts = value.split(':');
-        if (ratioParts.length !== 2) {
+        if (ratioParts.length !== 2 && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`mat-grid-list: invalid ratio given for row-height: "${value}"`);
         }
         this.rowHeightRatio = parseFloat(ratioParts[0]) / parseFloat(ratioParts[1]);
@@ -548,7 +549,7 @@ class MatGridList {
     }
     /** Throw a friendly error if cols property is missing */
     _checkCols() {
-        if (!this.cols) {
+        if (!this.cols && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`mat-grid-list: must pass in number of columns. ` +
                 `Example: <mat-grid-list cols="3">`);
         }

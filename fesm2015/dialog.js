@@ -133,7 +133,7 @@ class _MatDialogContainerBase extends BasePortalOutlet {
          * @breaking-change 10.0.0
          */
         this.attachDomPortal = (portal) => {
-            if (this._portalOutlet.hasAttached()) {
+            if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throwMatDialogContentAlreadyAttachedError();
             }
             return this._portalOutlet.attachDomPortal(portal);
@@ -156,7 +156,7 @@ class _MatDialogContainerBase extends BasePortalOutlet {
      * @param portal Portal to be attached as the dialog content.
      */
     attachComponentPortal(portal) {
-        if (this._portalOutlet.hasAttached()) {
+        if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throwMatDialogContentAlreadyAttachedError();
         }
         return this._portalOutlet.attachComponentPortal(portal);
@@ -166,7 +166,7 @@ class _MatDialogContainerBase extends BasePortalOutlet {
      * @param portal Portal to be attached as the dialog content.
      */
     attachTemplatePortal(portal) {
-        if (this._portalOutlet.hasAttached()) {
+        if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throwMatDialogContentAlreadyAttachedError();
         }
         return this._portalOutlet.attachTemplatePortal(portal);
@@ -594,7 +594,8 @@ class _MatDialogBase {
      */
     open(componentOrTemplateRef, config) {
         config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
-        if (config.id && this.getDialogById(config.id)) {
+        if (config.id && this.getDialogById(config.id) &&
+            (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
         }
         const overlayRef = this._createOverlay(config);

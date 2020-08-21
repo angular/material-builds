@@ -1005,13 +1005,13 @@
             // Ensure that we have at most one start and one end drawer.
             this._drawers.forEach(function (drawer) {
                 if (drawer.position == 'end') {
-                    if (_this._end != null) {
+                    if (_this._end != null && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                         throwMatDuplicatedDrawerError('end');
                     }
                     _this._end = drawer;
                 }
                 else {
-                    if (_this._start != null) {
+                    if (_this._start != null && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                         throwMatDuplicatedDrawerError('start');
                     }
                     _this._start = drawer;

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, Inject, ContentChildren, ContentChild, Input, forwardRef, ViewChild, EventEmitter, isDevMode, Attribute, Output, NgModule } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, Inject, ContentChildren, ContentChild, Input, forwardRef, ViewChild, EventEmitter, Attribute, Output, NgModule } from '@angular/core';
 import { mixinDisabled, mixinDisableRipple, setLines, MatLine, MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
@@ -513,7 +513,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     set multiple(value) {
         const newValue = coerceBooleanProperty(value);
         if (newValue !== this._multiple) {
-            if (isDevMode() && this._contentInitialized) {
+            if (this._contentInitialized && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw new Error('Cannot change `multiple` mode of mat-selection-list after initialization.');
             }
             this._multiple = newValue;

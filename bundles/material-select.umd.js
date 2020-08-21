@@ -625,7 +625,7 @@
             /** Whether the user should be allowed to select multiple options. */
             get: function () { return this._multiple; },
             set: function (value) {
-                if (this._selectionModel) {
+                if (this._selectionModel && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throw getMatSelectDynamicMultipleError();
                 }
                 this._multiple = coercion.coerceBooleanProperty(value);
@@ -650,7 +650,7 @@
              */
             get: function () { return this._compareWith; },
             set: function (fn) {
-                if (typeof fn !== 'function') {
+                if (typeof fn !== 'function' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throw getMatSelectNonFunctionValueError();
                 }
                 this._compareWith = fn;
@@ -1005,7 +1005,7 @@
         MatSelect.prototype._setSelectionByValue = function (value) {
             var _this = this;
             if (this.multiple && value) {
-                if (!Array.isArray(value)) {
+                if (!Array.isArray(value) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throw getMatSelectNonArrayValueError();
                 }
                 this._selectionModel.clear();
@@ -1040,7 +1040,7 @@
                     return option.value != null && _this._compareWith(option.value, value);
                 }
                 catch (error) {
-                    if (core.isDevMode()) {
+                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
                         // Notify developers of errors in their comparator.
                         console.warn(error);
                     }

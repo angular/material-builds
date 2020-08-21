@@ -349,7 +349,7 @@ class MatTooltip {
             (position == 'left' && !isLtr)) {
             originPosition = { originX: 'end', originY: 'center' };
         }
-        else {
+        else if (typeof ngDevMode === 'undefined' || ngDevMode) {
             throw getMatTooltipInvalidPositionError(position);
         }
         const { x, y } = this._invertPosition(originPosition.originX, originPosition.originY);
@@ -379,7 +379,7 @@ class MatTooltip {
             (position == 'left' && !isLtr)) {
             overlayPosition = { overlayX: 'start', overlayY: 'center' };
         }
-        else {
+        else if (typeof ngDevMode === 'undefined' || ngDevMode) {
             throw getMatTooltipInvalidPositionError(position);
         }
         const { x, y } = this._invertPosition(overlayPosition.overlayX, overlayPosition.overlayY);

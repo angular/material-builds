@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.2.0-next.0-sha-f343dedb1');
+const VERSION = new Version('10.2.0-next.0-sha-79e4d283e');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.2.0-next.0-sha-f343dedb1');
+const VERSION$1 = new Version('10.2.0-next.0-sha-79e4d283e');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -101,6 +101,10 @@ class MatCommonModule {
     }
     /** Whether any sanity checks are enabled. */
     _checksAreEnabled() {
+        // TODO(crisbeto): we can't use `ngDevMode` here yet, because ViewEngine apps might not support
+        // it. Since these checks can have performance implications and they aren't tree shakeable
+        // in their current form, we can leave the `isDevMode` check in for now.
+        // tslint:disable-next-line:ban
         return isDevMode() && !this._isTestEnv();
     }
     /** Whether the code is running in tests. */
@@ -336,7 +340,7 @@ function mixinInitialized(base) {
          * @docs-private
          */
         _markInitialized() {
-            if (this._isInitialized) {
+            if (this._isInitialized && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('This directive has already been marked as initialized and ' +
                     'should not be called twice.');
             }
@@ -608,17 +612,19 @@ class NativeDateAdapter extends DateAdapter {
         return new Date(date.getTime());
     }
     createDate(year, month, date) {
-        // Check for invalid month and date (except upper bound on date which we have to check after
-        // creating the Date).
-        if (month < 0 || month > 11) {
-            throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
-        }
-        if (date < 1) {
-            throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            // Check for invalid month and date (except upper bound on date which we have to check after
+            // creating the Date).
+            if (month < 0 || month > 11) {
+                throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
+            }
+            if (date < 1) {
+                throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
+            }
         }
         let result = this._createDateWithOverflow(year, month, date);
         // Check that the date wasn't above the upper bound for the month, causing the month to overflow
-        if (result.getMonth() != month) {
+        if (result.getMonth() != month && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`Invalid date "${date}" for month with index "${month}".`);
         }
         return result;

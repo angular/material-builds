@@ -857,7 +857,7 @@
             set: function (value) {
                 var newValue = coercion.coerceBooleanProperty(value);
                 if (newValue !== this._multiple) {
-                    if (core.isDevMode() && this._contentInitialized) {
+                    if (this._contentInitialized && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                         throw new Error('Cannot change `multiple` mode of mat-selection-list after initialization.');
                     }
                     this._multiple = newValue;

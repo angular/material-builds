@@ -456,7 +456,7 @@
             add ? classList.add(cssClass) : classList.remove(cssClass);
         };
         MatBottomSheetContainer.prototype._validatePortalAttached = function () {
-            if (this._portalOutlet.hasAttached()) {
+            if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('Attempting to attach bottom sheet content after content is already attached');
             }
         };

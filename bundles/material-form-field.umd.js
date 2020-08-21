@@ -813,7 +813,8 @@
          * or child element with the `mat-placeholder` directive).
          */
         MatFormField.prototype._validatePlaceholders = function () {
-            if (this._control.placeholder && this._placeholderChild) {
+            if (this._control.placeholder && this._placeholderChild &&
+                (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatFormFieldPlaceholderConflictError();
             }
         };
@@ -828,7 +829,7 @@
          */
         MatFormField.prototype._validateHints = function () {
             var _this = this;
-            if (this._hintChildren) {
+            if (this._hintChildren && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 var startHint_1;
                 var endHint_1;
                 this._hintChildren.forEach(function (hint) {
@@ -881,7 +882,7 @@
         };
         /** Throws an error if the form field's control is missing. */
         MatFormField.prototype._validateControlChild = function () {
-            if (!this._control) {
+            if (!this._control && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatFormFieldMissingControlError();
             }
         };

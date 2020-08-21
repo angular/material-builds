@@ -1,4 +1,4 @@
-import { Directive, isDevMode, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Inject, ContentChildren, NgModule } from '@angular/core';
+import { Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Inject, ContentChildren, NgModule } from '@angular/core';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
@@ -35,27 +35,25 @@ class MatToolbar extends _MatToolbarMixinBase {
         this._document = document;
     }
     ngAfterViewInit() {
-        if (!isDevMode() || !this._platform.isBrowser) {
-            return;
+        if (this._platform.isBrowser) {
+            this._checkToolbarMixedModes();
+            this._toolbarRows.changes.subscribe(() => this._checkToolbarMixedModes());
         }
-        this._checkToolbarMixedModes();
-        this._toolbarRows.changes.subscribe(() => this._checkToolbarMixedModes());
     }
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
      */
     _checkToolbarMixedModes() {
-        if (!this._toolbarRows.length) {
-            return;
-        }
-        // Check if there are any other DOM nodes that can display content but aren't inside of
-        // a <mat-toolbar-row> element.
-        const isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
-            .filter(node => !(node.classList && node.classList.contains('mat-toolbar-row')))
-            .filter(node => node.nodeType !== (this._document ? this._document.COMMENT_NODE : 8))
-            .some(node => !!(node.textContent && node.textContent.trim()));
-        if (isCombinedUsage) {
-            throwToolbarMixedModesError();
+        if (this._toolbarRows.length && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            // Check if there are any other DOM nodes that can display content but aren't inside of
+            // a <mat-toolbar-row> element.
+            const isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
+                .filter(node => !(node.classList && node.classList.contains('mat-toolbar-row')))
+                .filter(node => node.nodeType !== (this._document ? this._document.COMMENT_NODE : 8))
+                .some(node => !!(node.textContent && node.textContent.trim()));
+            if (isCombinedUsage) {
+                throwToolbarMixedModesError();
+            }
         }
     }
 }

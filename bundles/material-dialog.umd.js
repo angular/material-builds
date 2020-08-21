@@ -423,7 +423,7 @@
              * @breaking-change 10.0.0
              */
             _this.attachDomPortal = function (portal) {
-                if (_this._portalOutlet.hasAttached()) {
+                if (_this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throwMatDialogContentAlreadyAttachedError();
                 }
                 return _this._portalOutlet.attachDomPortal(portal);
@@ -447,7 +447,7 @@
          * @param portal Portal to be attached as the dialog content.
          */
         _MatDialogContainerBase.prototype.attachComponentPortal = function (portal) {
-            if (this._portalOutlet.hasAttached()) {
+            if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throwMatDialogContentAlreadyAttachedError();
             }
             return this._portalOutlet.attachComponentPortal(portal);
@@ -457,7 +457,7 @@
          * @param portal Portal to be attached as the dialog content.
          */
         _MatDialogContainerBase.prototype.attachTemplatePortal = function (portal) {
-            if (this._portalOutlet.hasAttached()) {
+            if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throwMatDialogContentAlreadyAttachedError();
             }
             return this._portalOutlet.attachTemplatePortal(portal);
@@ -900,7 +900,8 @@
         _MatDialogBase.prototype.open = function (componentOrTemplateRef, config) {
             var _this = this;
             config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
-            if (config.id && this.getDialogById(config.id)) {
+            if (config.id && this.getDialogById(config.id) &&
+                (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
             }
             var overlayRef = this._createOverlay(config);

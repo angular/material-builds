@@ -664,7 +664,7 @@
                 (position == 'left' && !isLtr)) {
                 originPosition = { originX: 'end', originY: 'center' };
             }
-            else {
+            else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw getMatTooltipInvalidPositionError(position);
             }
             var _a = this._invertPosition(originPosition.originX, originPosition.originY), x = _a.x, y = _a.y;
@@ -694,7 +694,7 @@
                 (position == 'left' && !isLtr)) {
                 overlayPosition = { overlayX: 'start', overlayY: 'center' };
             }
-            else {
+            else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw getMatTooltipInvalidPositionError(position);
             }
             var _a = this._invertPosition(overlayPosition.overlayX, overlayPosition.overlayY), x = _a.x, y = _a.y;

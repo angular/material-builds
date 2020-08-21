@@ -642,7 +642,7 @@ class _MatAutocompleteTriggerBase {
         });
     }
     _attachOverlay() {
-        if (!this.autocomplete) {
+        if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getMatAutocompleteMissingPanelError();
         }
         // We want to resolve this once, as late as possible so that we can be

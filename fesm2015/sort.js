@@ -1,4 +1,4 @@
-import { EventEmitter, isDevMode, Directive, Input, Output, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, Inject, ElementRef, NgModule } from '@angular/core';
+import { EventEmitter, Directive, Input, Output, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, Inject, ElementRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -63,7 +63,8 @@ class MatSort extends _MatSortMixinBase {
     /** The sort direction of the currently active MatSortable. */
     get direction() { return this._direction; }
     set direction(direction) {
-        if (isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
+        if (direction && direction !== 'asc' && direction !== 'desc' &&
+            (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getSortInvalidDirectionError(direction);
         }
         this._direction = direction;
@@ -79,11 +80,13 @@ class MatSort extends _MatSortMixinBase {
      * collection of MatSortables.
      */
     register(sortable) {
-        if (!sortable.id) {
-            throw getSortHeaderMissingIdError();
-        }
-        if (this.sortables.has(sortable.id)) {
-            throw getSortDuplicateSortableIdError(sortable.id);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            if (!sortable.id) {
+                throw getSortHeaderMissingIdError();
+            }
+            if (this.sortables.has(sortable.id)) {
+                throw getSortDuplicateSortableIdError(sortable.id);
+            }
         }
         this.sortables.set(sortable.id, sortable);
     }
@@ -332,7 +335,7 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
         this._disableViewStateAnimation = false;
         /** Sets the position of the arrow that displays when sorted. */
         this.arrowPosition = 'after';
-        if (!_sort) {
+        if (!_sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getSortHeaderNotContainedWithinSortError();
         }
         this._rerenderSubscription = merge(_sort.sortChange, _sort._stateChanges, _intl.changes)

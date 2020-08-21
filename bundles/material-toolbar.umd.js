@@ -337,28 +337,26 @@
         }
         MatToolbar.prototype.ngAfterViewInit = function () {
             var _this = this;
-            if (!core.isDevMode() || !this._platform.isBrowser) {
-                return;
+            if (this._platform.isBrowser) {
+                this._checkToolbarMixedModes();
+                this._toolbarRows.changes.subscribe(function () { return _this._checkToolbarMixedModes(); });
             }
-            this._checkToolbarMixedModes();
-            this._toolbarRows.changes.subscribe(function () { return _this._checkToolbarMixedModes(); });
         };
         /**
          * Throws an exception when developers are attempting to combine the different toolbar row modes.
          */
         MatToolbar.prototype._checkToolbarMixedModes = function () {
             var _this = this;
-            if (!this._toolbarRows.length) {
-                return;
-            }
-            // Check if there are any other DOM nodes that can display content but aren't inside of
-            // a <mat-toolbar-row> element.
-            var isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
-                .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
-                .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
-                .some(function (node) { return !!(node.textContent && node.textContent.trim()); });
-            if (isCombinedUsage) {
-                throwToolbarMixedModesError();
+            if (this._toolbarRows.length && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+                // Check if there are any other DOM nodes that can display content but aren't inside of
+                // a <mat-toolbar-row> element.
+                var isCombinedUsage = Array.from(this._elementRef.nativeElement.childNodes)
+                    .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
+                    .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
+                    .some(function (node) { return !!(node.textContent && node.textContent.trim()); });
+                if (isCombinedUsage) {
+                    throwToolbarMixedModesError();
+                }
             }
         };
         return MatToolbar;

@@ -360,7 +360,8 @@
             /** The sort direction of the currently active MatSortable. */
             get: function () { return this._direction; },
             set: function (direction) {
-                if (i0.isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
+                if (direction && direction !== 'asc' && direction !== 'desc' &&
+                    (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throw getSortInvalidDirectionError(direction);
                 }
                 this._direction = direction;
@@ -383,11 +384,13 @@
          * collection of MatSortables.
          */
         MatSort.prototype.register = function (sortable) {
-            if (!sortable.id) {
-                throw getSortHeaderMissingIdError();
-            }
-            if (this.sortables.has(sortable.id)) {
-                throw getSortDuplicateSortableIdError(sortable.id);
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                if (!sortable.id) {
+                    throw getSortHeaderMissingIdError();
+                }
+                if (this.sortables.has(sortable.id)) {
+                    throw getSortDuplicateSortableIdError(sortable.id);
+                }
             }
             this.sortables.set(sortable.id, sortable);
         };
@@ -636,7 +639,7 @@
             _this._disableViewStateAnimation = false;
             /** Sets the position of the arrow that displays when sorted. */
             _this.arrowPosition = 'after';
-            if (!_sort) {
+            if (!_sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getSortHeaderNotContainedWithinSortError();
             }
             _this._rerenderSubscription = rxjs.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
