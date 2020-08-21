@@ -770,6 +770,19 @@
                 return data.sort(function (a, b) {
                     var valueA = _this.sortingDataAccessor(a, active);
                     var valueB = _this.sortingDataAccessor(b, active);
+                    // If there are data in the column that can be converted to a number,
+                    // it must be ensured that the rest of the data
+                    // is of the same type so as not to order incorrectly.
+                    var valueAType = typeof valueA;
+                    var valueBType = typeof valueB;
+                    if (valueAType !== valueBType) {
+                        if (valueAType === 'number') {
+                            valueA += '';
+                        }
+                        if (valueBType === 'number') {
+                            valueB += '';
+                        }
+                    }
                     // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
                     // one value exists while the other doesn't. In this case, existing value should come last.
                     // This avoids inconsistent results when comparing values to undefined/null.
