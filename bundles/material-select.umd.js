@@ -503,6 +503,8 @@
             _this._compareWith = function (o1, o2) { return o1 === o2; };
             /** Unique id for this input. */
             _this._uid = "mat-select-" + nextUniqueId++;
+            /** Current `ariar-labelledby` value for the select trigger. */
+            _this._triggerAriaLabelledBy = null;
             /** Emits whenever the component is destroyed. */
             _this._destroy = new rxjs.Subject();
             /** The cached font-size of the trigger element. */
@@ -511,8 +513,7 @@
             _this._onChange = function () { };
             /** `View -> model callback called when select has been touched` */
             _this._onTouched = function () { };
-            /** The IDs of child options to be passed to the aria-owns attribute. */
-            _this._optionIds = '';
+            _this._valueId = "mat-select-value-" + nextUniqueId++;
             /** The value of the select panel's transform-origin property. */
             _this._transformOrigin = 'top';
             /** Emits when the panel element is finished transforming in. */
@@ -737,6 +738,20 @@
             });
         };
         MatSelect.prototype.ngDoCheck = function () {
+            var newAriaLabelledby = this._getTriggerAriaLabelledby();
+            // We have to manage setting the `aria-labelledby` ourselves, because part of its value
+            // is computed as a result of a content query which can cause this binding to trigger a
+            // "changed after checked" error.
+            if (newAriaLabelledby !== this._triggerAriaLabelledBy) {
+                var element = this._elementRef.nativeElement;
+                this._triggerAriaLabelledBy = newAriaLabelledby;
+                if (newAriaLabelledby) {
+                    element.setAttribute('aria-labelledby', newAriaLabelledby);
+                }
+                else {
+                    element.removeAttribute('aria-labelledby');
+                }
+            }
             if (this.ngControl) {
                 this.updateErrorState();
             }
@@ -1091,7 +1106,6 @@
                 _this._changeDetectorRef.markForCheck();
                 _this.stateChanges.next();
             });
-            this._setOptionIds();
         };
         /** Invoked when an option is clicked. */
         MatSelect.prototype._onSelect = function (option, isUserInput) {
@@ -1153,10 +1167,6 @@
             this._onChange(valueToEmit);
             this.selectionChange.emit(new MatSelectChange(this, valueToEmit));
             this._changeDetectorRef.markForCheck();
-        };
-        /** Records option IDs to pass to the aria-owns property. */
-        MatSelect.prototype._setOptionIds = function () {
-            this._optionIds = this.options.map(function (option) { return option.id; }).join(' ');
         };
         /**
          * Highlights the selected item. If no option is selected, it will highlight
@@ -1228,24 +1238,13 @@
             var optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
             return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
         };
-        /** Returns the aria-label of the select component. */
-        MatSelect.prototype._getAriaLabel = function () {
-            // If an ariaLabelledby value has been set by the consumer, the select should not overwrite the
-            // `aria-labelledby` value by setting the ariaLabel to the placeholder.
-            return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
-        };
-        /** Returns the aria-labelledby of the select component. */
-        MatSelect.prototype._getAriaLabelledby = function () {
-            if (this.ariaLabelledby) {
-                return this.ariaLabelledby;
-            }
-            // Note: we use `_getAriaLabel` here, because we want to check whether there's a
-            // computed label. `this.ariaLabel` is only the user-specified label.
-            if (!this._parentFormField || !this._parentFormField._hasFloatingLabel() ||
-                this._getAriaLabel()) {
+        /** Gets the aria-labelledby for the select panel. */
+        MatSelect.prototype._getPanelAriaLabelledby = function () {
+            if (this.ariaLabel) {
                 return null;
             }
-            return this._parentFormField.getLabelId();
+            var labelId = this._getLabelId();
+            return this.ariaLabelledby ? labelId + ' ' + this.ariaLabelledby : labelId;
         };
         /** Determines the `aria-activedescendant` to be set on the host. */
         MatSelect.prototype._getAriaActiveDescendant = function () {
@@ -1253,6 +1252,11 @@
                 return this._keyManager.activeItem.id;
             }
             return null;
+        };
+        /** Gets the ID of the element that is labelling the select. */
+        MatSelect.prototype._getLabelId = function () {
+            var _a;
+            return ((_a = this._parentFormField) === null || _a === void 0 ? void 0 : _a.getLabelId()) || '';
         };
         /**
          * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
@@ -1413,6 +1417,17 @@
         MatSelect.prototype._getItemHeight = function () {
             return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
         };
+        /** Gets the aria-labelledby of the select component trigger. */
+        MatSelect.prototype._getTriggerAriaLabelledby = function () {
+            if (this.ariaLabel) {
+                return null;
+            }
+            var value = this._getLabelId() + ' ' + this._valueId;
+            if (this.ariaLabelledby) {
+                value += ' ' + this.ariaLabelledby;
+            }
+            return value;
+        };
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private
@@ -1445,28 +1460,34 @@
         { type: core.Component, args: [{
                     selector: 'mat-select',
                     exportAs: 'matSelect',
-                    template: "<div cdk-overlay-origin\n     class=\"mat-select-trigger\"\n     aria-hidden=\"true\"\n     (click)=\"toggle()\"\n     #origin=\"cdkOverlayOrigin\"\n     #trigger>\n  <div class=\"mat-select-value\" [ngSwitch]=\"empty\">\n    <span class=\"mat-select-placeholder\" *ngSwitchCase=\"true\">{{placeholder || '\\u00A0'}}</span>\n    <span class=\"mat-select-value-text\" *ngSwitchCase=\"false\" [ngSwitch]=\"!!customTrigger\">\n      <span *ngSwitchDefault>{{triggerValue || '\\u00A0'}}</span>\n      <ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content>\n    </span>\n  </div>\n\n  <div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div>\n</div>\n\n<ng-template\n  cdk-connected-overlay\n  cdkConnectedOverlayLockPosition\n  cdkConnectedOverlayHasBackdrop\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  [cdkConnectedOverlayScrollStrategy]=\"_scrollStrategy\"\n  [cdkConnectedOverlayOrigin]=\"origin\"\n  [cdkConnectedOverlayOpen]=\"panelOpen\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayMinWidth]=\"_triggerRect?.width!\"\n  [cdkConnectedOverlayOffsetY]=\"_offsetY\"\n  (backdropClick)=\"close()\"\n  (attach)=\"_onAttached()\"\n  (detach)=\"close()\">\n  <div class=\"mat-select-panel-wrap\" [@transformPanelWrap]>\n    <div\n      #panel\n      [attr.id]=\"id + '-panel'\"\n      class=\"mat-select-panel {{ _getPanelTheme() }}\"\n      [ngClass]=\"panelClass\"\n      [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\"\n      (@transformPanel.done)=\"_panelDoneAnimatingStream.next($event.toState)\"\n      [style.transformOrigin]=\"_transformOrigin\"\n      [style.font-size.px]=\"_triggerFontSize\"\n      (keydown)=\"_handleKeydown($event)\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
+                    template: "<div cdk-overlay-origin\n     class=\"mat-select-trigger\"\n     (click)=\"toggle()\"\n     #origin=\"cdkOverlayOrigin\"\n     #trigger>\n  <div class=\"mat-select-value\" [ngSwitch]=\"empty\" [attr.id]=\"_valueId\">\n    <span class=\"mat-select-placeholder\" *ngSwitchCase=\"true\">{{placeholder || '\\u00A0'}}</span>\n    <span class=\"mat-select-value-text\" *ngSwitchCase=\"false\" [ngSwitch]=\"!!customTrigger\">\n      <span *ngSwitchDefault>{{triggerValue || '\\u00A0'}}</span>\n      <ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content>\n    </span>\n  </div>\n\n  <div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div>\n</div>\n\n<ng-template\n  cdk-connected-overlay\n  cdkConnectedOverlayLockPosition\n  cdkConnectedOverlayHasBackdrop\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  [cdkConnectedOverlayScrollStrategy]=\"_scrollStrategy\"\n  [cdkConnectedOverlayOrigin]=\"origin\"\n  [cdkConnectedOverlayOpen]=\"panelOpen\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayMinWidth]=\"_triggerRect?.width!\"\n  [cdkConnectedOverlayOffsetY]=\"_offsetY\"\n  (backdropClick)=\"close()\"\n  (attach)=\"_onAttached()\"\n  (detach)=\"close()\">\n  <div class=\"mat-select-panel-wrap\" [@transformPanelWrap]>\n    <div\n      #panel\n      role=\"listbox\"\n      tabindex=\"-1\"\n      class=\"mat-select-panel {{ _getPanelTheme() }}\"\n      [attr.id]=\"id + '-panel'\"\n      [attr.aria-multiselectable]=\"multiple\"\n      [attr.aria-label]=\"ariaLabel || null\"\n      [attr.aria-labelledby]=\"_getPanelAriaLabelledby()\"\n      [ngClass]=\"panelClass\"\n      [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\"\n      (@transformPanel.done)=\"_panelDoneAnimatingStream.next($event.toState)\"\n      [style.transformOrigin]=\"_transformOrigin\"\n      [style.font-size.px]=\"_triggerFontSize\"\n      (keydown)=\"_handleKeydown($event)\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
                     inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: {
-                        'role': 'listbox',
+                        'role': 'combobox',
+                        'aria-autocomplete': 'none',
+                        // TODO(crisbeto): the value for aria-haspopup should be `listbox`, but currently it's difficult
+                        // to sync into g3, because of an outdated automated a11y check which flags it as an invalid
+                        // value. At some point we should try to switch it back to being `listbox`. When doing the
+                        // MDC-based `mat-select`, we can get away with starting it off as `listbox`.
+                        'aria-haspopup': 'true',
+                        'class': 'mat-select',
                         '[attr.id]': 'id',
                         '[attr.tabindex]': 'tabIndex',
-                        '[attr.aria-label]': '_getAriaLabel()',
-                        '[attr.aria-labelledby]': '_getAriaLabelledby()',
+                        '[attr.aria-controls]': 'panelOpen ? id + "-panel" : null',
+                        '[attr.aria-expanded]': 'panelOpen',
+                        '[attr.aria-label]': 'ariaLabel || null',
                         '[attr.aria-required]': 'required.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.aria-invalid]': 'errorState',
-                        '[attr.aria-owns]': 'panelOpen ? _optionIds : null',
-                        '[attr.aria-multiselectable]': 'multiple',
                         '[attr.aria-describedby]': '_ariaDescribedby || null',
                         '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
                         '[class.mat-select-disabled]': 'disabled',
                         '[class.mat-select-invalid]': 'errorState',
                         '[class.mat-select-required]': 'required',
                         '[class.mat-select-empty]': 'empty',
-                        'class': 'mat-select',
+                        '[class.mat-select-multiple]': 'multiple',
                         '(keydown)': '_handleKeydown($event)',
                         '(focus)': '_onFocus()',
                         '(blur)': '_onBlur()',

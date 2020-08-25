@@ -374,14 +374,10 @@
         /** Gets a boolean promise indicating if the select is in multi-selection mode. */
         MatSelectHarness.prototype.isMultiple = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var ariaMultiselectable;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1:
-                            ariaMultiselectable = (_a.sent()).getAttribute('aria-multiselectable');
-                            return [4 /*yield*/, ariaMultiselectable];
-                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-select-multiple')];
                     }
                 });
             });

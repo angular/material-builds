@@ -119,6 +119,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _compareWith;
     /** Unique id for this input. */
     private _uid;
+    /** Current `ariar-labelledby` value for the select trigger. */
+    private _triggerAriaLabelledBy;
     /** Emits whenever the component is destroyed. */
     private readonly _destroy;
     /** The last measured value for the trigger's client bounding rect. */
@@ -135,8 +137,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _onChange: (value: any) => void;
     /** `View -> model callback called when select has been touched` */
     _onTouched: () => void;
-    /** The IDs of child options to be passed to the aria-owns attribute. */
-    _optionIds: string;
+    _valueId: string;
     /** The value of the select panel's transform-origin property. */
     _transformOrigin: string;
     /** Emits when the panel element is finished transforming in. */
@@ -333,8 +334,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _sortValues;
     /** Emits change event to set the model value. */
     private _propagateChanges;
-    /** Records option IDs to pass to the aria-owns property. */
-    private _setOptionIds;
     /**
      * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
@@ -356,12 +355,12 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * scroll position to the min or max scroll positions respectively.
      */
     _calculateOverlayScroll(selectedIndex: number, scrollBuffer: number, maxScroll: number): number;
-    /** Returns the aria-label of the select component. */
-    _getAriaLabel(): string | null;
-    /** Returns the aria-labelledby of the select component. */
-    _getAriaLabelledby(): string | null;
+    /** Gets the aria-labelledby for the select panel. */
+    _getPanelAriaLabelledby(): string | null;
     /** Determines the `aria-activedescendant` to be set on the host. */
     _getAriaActiveDescendant(): string | null;
+    /** Gets the ID of the element that is labelling the select. */
+    private _getLabelId;
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text when
@@ -393,6 +392,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _getItemCount;
     /** Calculates the height of the select's options. */
     private _getItemHeight;
+    /** Gets the aria-labelledby of the select component trigger. */
+    private _getTriggerAriaLabelledby;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
