@@ -129,7 +129,8 @@ class MatIconRegistry {
      */
     addSvgIconLiteralInNamespace(namespace, iconName, literal, options) {
         const cleanLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
-        if (!cleanLiteral && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+        // TODO: add an ngDevMode check
+        if (!cleanLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
         return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig('', cleanLiteral, options));
@@ -163,7 +164,7 @@ class MatIconRegistry {
      */
     addSvgIconSetLiteralInNamespace(namespace, literal, options) {
         const cleanLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
-        if (!cleanLiteral && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+        if (!cleanLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
         return this._addSvgIconSetConfig(namespace, new SvgIconConfig('', cleanLiteral, options));
@@ -299,7 +300,8 @@ class MatIconRegistry {
         // cached SVG element (unless the request failed), and we can check again for the icon.
         return forkJoin(iconSetFetchRequests).pipe(map(() => {
             const foundIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
-            if (!foundIcon && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            // TODO: add an ngDevMode check
+            if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
             }
             return foundIcon;
@@ -389,7 +391,8 @@ class MatIconRegistry {
         const div = this._document.createElement('DIV');
         div.innerHTML = str;
         const svg = div.querySelector('svg');
-        if (!svg && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+        // TODO: add an ngDevMode check
+        if (!svg) {
             throw Error('<svg> tag not found');
         }
         return svg;
@@ -439,11 +442,13 @@ class MatIconRegistry {
         if (!this._httpClient) {
             throw getMatIconNoHttpProviderError();
         }
-        if (safeUrl == null && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+        // TODO: add an ngDevMode check
+        if (safeUrl == null) {
             throw Error(`Cannot fetch icon from URL "${safeUrl}".`);
         }
         const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
-        if (!url && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+        // TODO: add an ngDevMode check
+        if (!url) {
             throw getMatIconFailedToSanitizeUrlError(safeUrl);
         }
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
@@ -665,11 +670,7 @@ class MatIcon extends _MatIconMixinBase {
         switch (parts.length) {
             case 1: return ['', parts[0]]; // Use default namespace.
             case 2: return parts;
-            default:
-                if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                    throw Error(`Invalid icon name: "${iconName}"`);
-                }
-                return ['', ''];
+            default: throw Error(`Invalid icon name: "${iconName}"`); // TODO: add an ngDevMode check
         }
     }
     ngOnChanges(changes) {

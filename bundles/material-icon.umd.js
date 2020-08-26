@@ -428,7 +428,8 @@
          */
         MatIconRegistry.prototype.addSvgIconLiteralInNamespace = function (namespace, iconName, literal, options) {
             var cleanLiteral = this._sanitizer.sanitize(i0.SecurityContext.HTML, literal);
-            if (!cleanLiteral && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            // TODO: add an ngDevMode check
+            if (!cleanLiteral) {
                 throw getMatIconFailedToSanitizeLiteralError(literal);
             }
             return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig('', cleanLiteral, options));
@@ -462,7 +463,7 @@
          */
         MatIconRegistry.prototype.addSvgIconSetLiteralInNamespace = function (namespace, literal, options) {
             var cleanLiteral = this._sanitizer.sanitize(i0.SecurityContext.HTML, literal);
-            if (!cleanLiteral && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            if (!cleanLiteral) {
                 throw getMatIconFailedToSanitizeLiteralError(literal);
             }
             return this._addSvgIconSetConfig(namespace, new SvgIconConfig('', cleanLiteral, options));
@@ -602,7 +603,8 @@
             // cached SVG element (unless the request failed), and we can check again for the icon.
             return rxjs.forkJoin(iconSetFetchRequests).pipe(operators.map(function () {
                 var foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
-                if (!foundIcon && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+                // TODO: add an ngDevMode check
+                if (!foundIcon) {
                     throw getMatIconNameNotFoundError(name);
                 }
                 return foundIcon;
@@ -693,7 +695,8 @@
             var div = this._document.createElement('DIV');
             div.innerHTML = str;
             var svg = div.querySelector('svg');
-            if (!svg && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            // TODO: add an ngDevMode check
+            if (!svg) {
                 throw Error('<svg> tag not found');
             }
             return svg;
@@ -744,11 +747,13 @@
             if (!this._httpClient) {
                 throw getMatIconNoHttpProviderError();
             }
-            if (safeUrl == null && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            // TODO: add an ngDevMode check
+            if (safeUrl == null) {
                 throw Error("Cannot fetch icon from URL \"" + safeUrl + "\".");
             }
             var url = this._sanitizer.sanitize(i0.SecurityContext.RESOURCE_URL, safeUrl);
-            if (!url && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            // TODO: add an ngDevMode check
+            if (!url) {
                 throw getMatIconFailedToSanitizeUrlError(safeUrl);
             }
             // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
@@ -979,11 +984,7 @@
             switch (parts.length) {
                 case 1: return ['', parts[0]]; // Use default namespace.
                 case 2: return parts;
-                default:
-                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                        throw Error("Invalid icon name: \"" + iconName + "\"");
-                    }
-                    return ['', ''];
+                default: throw Error("Invalid icon name: \"" + iconName + "\""); // TODO: add an ngDevMode check
             }
         };
         MatIcon.prototype.ngOnChanges = function (changes) {
