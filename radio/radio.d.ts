@@ -153,9 +153,9 @@ export declare class MatRadioGroup extends _MatRadioGroupBase<MatRadioButton> {
     _radios: QueryList<MatRadioButton>;
 }
 /** @docs-private */
-declare class MatRadioButtonBase {
+declare abstract class MatRadioButtonBase {
     _elementRef: ElementRef;
-    disabled: boolean;
+    abstract disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
 declare const _MatRadioButtonMixinBase: CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;

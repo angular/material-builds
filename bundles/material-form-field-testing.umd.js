@@ -693,14 +693,6 @@
      * found in the LICENSE file at https://angular.io/license
      */
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-
     Object.keys(control).forEach(function (k) {
         if (k !== 'default') Object.defineProperty(exports, k, {
             enumerable: true,

@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.2.0-next.0-sha-6103b74e8');
+const VERSION = new Version('10.2.0-next.0-sha-f33210cfe');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.2.0-next.0-sha-6103b74e8');
+const VERSION$1 = new Version('10.2.0-next.0-sha-f33210cfe');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -228,7 +228,7 @@ function mixinColor(base, defaultColor) {
  */
 /** Mixin to augment a directive with a `disableRipple` property. */
 function mixinDisableRipple(base) {
-    return class extends base {
+    class Mixin extends base {
         constructor(...args) {
             super(...args);
             this._disableRipple = false;
@@ -236,7 +236,11 @@ function mixinDisableRipple(base) {
         /** Whether the ripple effect is disabled or not. */
         get disableRipple() { return this._disableRipple; }
         set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
-    };
+    }
+    // Since we don't directly extend from `base` with it's original types, and we instruct
+    // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
+    // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
+    return Mixin;
 }
 
 /**
@@ -248,7 +252,9 @@ function mixinDisableRipple(base) {
  */
 /** Mixin to augment a directive with a `tabIndex` property. */
 function mixinTabIndex(base, defaultTabIndex = 0) {
-    return class extends base {
+    // Note: We cast `base` to `unknown` and then `Constructor`. It could be an abstract class,
+    // but given we `extend` it from another class, we can assume a constructor being accessible.
+    class Mixin extends base {
         constructor(...args) {
             super(...args);
             this._tabIndex = defaultTabIndex;
@@ -259,7 +265,11 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
             // If the specified tabIndex value is null or undefined, fall back to the default value.
             this._tabIndex = value != null ? coerceNumberProperty(value) : this.defaultTabIndex;
         }
-    };
+    }
+    // Since we don't directly extend from `base` with it's original types, and we instruct
+    // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
+    // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
+    return Mixin;
 }
 
 /**

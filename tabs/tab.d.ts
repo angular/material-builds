@@ -30,7 +30,7 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     get templateLabel(): MatTabLabel;
     set templateLabel(value: MatTabLabel);
-    private _templateLabel;
+    protected _templateLabel: MatTabLabel;
     /**
      * Template provided in the tab content that will be used if present, used to enable lazy-loading
      */
@@ -75,6 +75,13 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     ngOnInit(): void;
+    /**
+     * This has been extracted to a util because of TS 4 and VE.
+     * View Engine doesn't support property rename inheritance.
+     * TS 4.0 doesn't allow properties to override accessors or vice-versa.
+     * @docs-private
+     */
+    protected _setTemplateLabelInput(value: MatTabLabel): void;
     static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

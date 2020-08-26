@@ -493,15 +493,7 @@
             // TODO: Remove cast once https://github.com/angular/angular/pull/37506 is available.
             /** Content for the tab label given by `<ng-template mat-tab-label>`. */
             get: function () { return this._templateLabel; },
-            set: function (value) {
-                // Only update the templateLabel via query if there is actually
-                // a MatTabLabel found. This works around an issue where a user may have
-                // manually set `templateLabel` during creation mode, which would then get clobbered
-                // by `undefined` when this query resolves.
-                if (value) {
-                    this._templateLabel = value;
-                }
-            },
+            set: function (value) { this._setTemplateLabelInput(value); },
             enumerable: false,
             configurable: true
         });
@@ -523,6 +515,21 @@
         };
         MatTab.prototype.ngOnInit = function () {
             this._contentPortal = new portal.TemplatePortal(this._explicitContent || this._implicitContent, this._viewContainerRef);
+        };
+        /**
+         * This has been extracted to a util because of TS 4 and VE.
+         * View Engine doesn't support property rename inheritance.
+         * TS 4.0 doesn't allow properties to override accessors or vice-versa.
+         * @docs-private
+         */
+        MatTab.prototype._setTemplateLabelInput = function (value) {
+            // Only update the templateLabel via query if there is actually
+            // a MatTabLabel found. This works around an issue where a user may have
+            // manually set `templateLabel` during creation mode, which would then get clobbered
+            // by `undefined` when this query resolves.
+            if (value) {
+                this._templateLabel = value;
+            }
         };
         return MatTab;
     }(_MatTabMixinBase));

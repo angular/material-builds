@@ -383,14 +383,6 @@
     /** The selector for the host element of a `MatDrawer` instance. */
     MatDrawerHarness.hostSelector = '.mat-drawer';
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-
     /** Harness for interacting with a standard mat-sidenav in tests. */
     var MatSidenavHarness = /** @class */ (function (_super) {
         __extends(MatSidenavHarness, _super);

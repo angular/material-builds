@@ -695,14 +695,6 @@
         .map(function (selector) { return MatListHarness.hostSelector + " " + selector; })
         .join(',');
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-
     /** Harness for interacting with a standard mat-nav-list in tests. */
     var MatNavListHarness = /** @class */ (function (_super) {
         __extends(MatNavListHarness, _super);

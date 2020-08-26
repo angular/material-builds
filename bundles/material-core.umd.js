@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('10.2.0-next.0-sha-6103b74e8');
+    var VERSION = new i0.Version('10.2.0-next.0-sha-f33210cfe');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-6103b74e8');
+    var VERSION$1 = new i0.Version('10.2.0-next.0-sha-f33210cfe');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -538,9 +538,9 @@
 
     /** Mixin to augment a directive with a `disableRipple` property. */
     function mixinDisableRipple(base) {
-        return /** @class */ (function (_super) {
-            __extends(class_1, _super);
-            function class_1() {
+        var Mixin = /** @class */ (function (_super) {
+            __extends(Mixin, _super);
+            function Mixin() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
@@ -549,23 +549,29 @@
                 _this._disableRipple = false;
                 return _this;
             }
-            Object.defineProperty(class_1.prototype, "disableRipple", {
+            Object.defineProperty(Mixin.prototype, "disableRipple", {
                 /** Whether the ripple effect is disabled or not. */
                 get: function () { return this._disableRipple; },
                 set: function (value) { this._disableRipple = coercion.coerceBooleanProperty(value); },
                 enumerable: false,
                 configurable: true
             });
-            return class_1;
+            return Mixin;
         }(base));
+        // Since we don't directly extend from `base` with it's original types, and we instruct
+        // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
+        // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
+        return Mixin;
     }
 
     /** Mixin to augment a directive with a `tabIndex` property. */
     function mixinTabIndex(base, defaultTabIndex) {
         if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
-        return /** @class */ (function (_super) {
-            __extends(class_1, _super);
-            function class_1() {
+        // Note: We cast `base` to `unknown` and then `Constructor`. It could be an abstract class,
+        // but given we `extend` it from another class, we can assume a constructor being accessible.
+        var Mixin = /** @class */ (function (_super) {
+            __extends(Mixin, _super);
+            function Mixin() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
@@ -575,7 +581,7 @@
                 _this.defaultTabIndex = defaultTabIndex;
                 return _this;
             }
-            Object.defineProperty(class_1.prototype, "tabIndex", {
+            Object.defineProperty(Mixin.prototype, "tabIndex", {
                 get: function () { return this.disabled ? -1 : this._tabIndex; },
                 set: function (value) {
                     // If the specified tabIndex value is null or undefined, fall back to the default value.
@@ -584,8 +590,12 @@
                 enumerable: false,
                 configurable: true
             });
-            return class_1;
+            return Mixin;
         }(base));
+        // Since we don't directly extend from `base` with it's original types, and we instruct
+        // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
+        // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
+        return Mixin;
     }
 
     /**

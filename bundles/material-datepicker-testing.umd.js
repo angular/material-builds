@@ -4,14 +4,6 @@
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}, global.ng.material.datepicker.testing = {}), global.ng.cdk.testing, global.ng.cdk.coercion));
 }(this, (function (exports, testing, coercion) { 'use strict';
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 

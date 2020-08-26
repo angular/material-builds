@@ -31,7 +31,8 @@ export declare class MatFooterCellDef extends CdkFooterCellDef {
  */
 export declare class MatColumnDef extends CdkColumnDef {
     /** Unique name for this column. */
-    name: string;
+    get name(): string;
+    set name(name: string);
     /**
      * Add "mat-column-" prefix in addition to "cdk-column-" prefix.
      * In the future, this will only add "mat-column-" and columnCssClassName

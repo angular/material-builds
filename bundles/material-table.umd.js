@@ -404,6 +404,13 @@
         function MatColumnDef() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Object.defineProperty(MatColumnDef.prototype, "name", {
+            /** Unique name for this column. */
+            get: function () { return this._name; },
+            set: function (name) { this._setNameInput(name); },
+            enumerable: false,
+            configurable: true
+        });
         /**
          * Add "mat-column-" prefix in addition to "cdk-column-" prefix.
          * In the future, this will only add "mat-column-" and columnCssClassName

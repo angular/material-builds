@@ -514,14 +514,6 @@
     /** The selector for the host element of a `MatButton` instance. */
     MatButtonToggleHarness.hostSelector = '.mat-button-toggle';
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-
     /** Harness for interacting with a standard mat-button-toggle in tests. */
     var MatButtonToggleGroupHarness = /** @class */ (function (_super) {
         __extends(MatButtonToggleGroupHarness, _super);
@@ -593,14 +585,6 @@
     }(testing.ComponentHarness));
     /** The selector for the host element of a `MatButton` instance. */
     MatButtonToggleGroupHarness.hostSelector = '.mat-button-toggle-group';
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
 
     /**
      * @license

@@ -97,6 +97,9 @@ MatFooterCellDef.decorators = [
  * Defines a set of cells available for a table column.
  */
 class MatColumnDef extends CdkColumnDef {
+    /** Unique name for this column. */
+    get name() { return this._name; }
+    set name(name) { this._setNameInput(name); }
     /**
      * Add "mat-column-" prefix in addition to "cdk-column-" prefix.
      * In the future, this will only add "mat-column-" and columnCssClassName

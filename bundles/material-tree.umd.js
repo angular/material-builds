@@ -443,6 +443,20 @@
         function MatTreeNodePadding() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Object.defineProperty(MatTreeNodePadding.prototype, "level", {
+            /** The level of depth of the tree node. The padding will be `level * indent` pixels. */
+            get: function () { return this._level; },
+            set: function (value) { this._setLevelInput(value); },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(MatTreeNodePadding.prototype, "indent", {
+            /** The indent for each level. Default number 40px from material design menu sub-menu spec. */
+            get: function () { return this._indent; },
+            set: function (indent) { this._setIndentInput(indent); },
+            enumerable: false,
+            configurable: true
+        });
         return MatTreeNodePadding;
     }(tree.CdkTreeNodePadding));
     MatTreeNodePadding.decorators = [
@@ -522,13 +536,22 @@
     /**
      * Wrapper for the CdkTree's toggle with Material design styles.
      */
+    // tslint:disable-next-line: coercion-types
     var MatTreeNodeToggle = /** @class */ (function (_super) {
         __extends(MatTreeNodeToggle, _super);
         function MatTreeNodeToggle() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this.recursive = false;
-            return _this;
+            return _super !== null && _super.apply(this, arguments) || this;
         }
+        Object.defineProperty(MatTreeNodeToggle.prototype, "recursive", {
+            get: function () { return this._recursive; },
+            set: function (value) {
+                // TODO: when we remove support for ViewEngine, change this setter to an input
+                // alias in the decorator metadata.
+                this._recursive = coercion.coerceBooleanProperty(value);
+            },
+            enumerable: false,
+            configurable: true
+        });
         return MatTreeNodeToggle;
     }(tree.CdkTreeNodeToggle));
     MatTreeNodeToggle.decorators = [

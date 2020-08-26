@@ -135,6 +135,12 @@ MatNestedTreeNode.propDecorators = {
  * Wrapper for the CdkTree padding with Material design styles.
  */
 class MatTreeNodePadding extends CdkTreeNodePadding {
+    /** The level of depth of the tree node. The padding will be `level * indent` pixels. */
+    get level() { return this._level; }
+    set level(value) { this._setLevelInput(value); }
+    /** The indent for each level. Default number 40px from material design menu sub-menu spec. */
+    get indent() { return this._indent; }
+    set indent(indent) { this._setIndentInput(indent); }
 }
 MatTreeNodePadding.decorators = [
     { type: Directive, args: [{
@@ -221,10 +227,13 @@ MatTree.propDecorators = {
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  */
+// tslint:disable-next-line: coercion-types
 class MatTreeNodeToggle extends CdkTreeNodeToggle {
-    constructor() {
-        super(...arguments);
-        this.recursive = false;
+    get recursive() { return this._recursive; }
+    set recursive(value) {
+        // TODO: when we remove support for ViewEngine, change this setter to an input
+        // alias in the decorator metadata.
+        this._recursive = coerceBooleanProperty(value);
     }
 }
 MatTreeNodeToggle.decorators = [
