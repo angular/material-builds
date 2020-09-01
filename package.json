@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "11.0.0-next.0-sha-4f1238f84",
+  "version": "11.0.0-next.0-sha-781594826",
   "description": "Angular Material",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "homepage": "https://github.com/angular/components#readme",
   "peerDependencies": {
     "@angular/animations": "^10.0.0 || ^11.0.0-0",
-    "@angular/cdk": "11.0.0-next.0-sha-4f1238f84",
+    "@angular/cdk": "11.0.0-next.0-sha-781594826",
     "@angular/core": "^10.0.0 || ^11.0.0-0",
     "@angular/common": "^10.0.0 || ^11.0.0-0",
     "@angular/forms": "^10.0.0 || ^11.0.0-0"
