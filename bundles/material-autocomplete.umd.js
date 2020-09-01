@@ -549,7 +549,7 @@
     }
     /** Base class with all of the `MatAutocompleteTrigger` functionality. */
     var _MatAutocompleteTriggerBase = /** @class */ (function () {
-        function _MatAutocompleteTriggerBase(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler) {
+        function _MatAutocompleteTriggerBase(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, scrollStrategy, _dir, _formField, _document, _viewportRuler, _defaults) {
             var _this = this;
             this._element = _element;
             this._overlay = _overlay;
@@ -560,6 +560,7 @@
             this._formField = _formField;
             this._document = _document;
             this._viewportRuler = _viewportRuler;
+            this._defaults = _defaults;
             this._componentDestroyed = false;
             this._autocompleteDisabled = false;
             /** Whether or not the label state is being overridden. */
@@ -984,11 +985,13 @@
             }
         };
         _MatAutocompleteTriggerBase.prototype._getOverlayConfig = function () {
+            var _a;
             return new overlay.OverlayConfig({
                 positionStrategy: this._getOverlayPosition(),
                 scrollStrategy: this._scrollStrategy(),
                 width: this._getPanelWidth(),
-                direction: this._dir
+                direction: this._dir,
+                panelClass: (_a = this._defaults) === null || _a === void 0 ? void 0 : _a.overlayPanelClass,
             });
         };
         _MatAutocompleteTriggerBase.prototype._getOverlayPosition = function () {
@@ -1099,7 +1102,8 @@
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
         { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Inject, args: [formField.MAT_FORM_FIELD,] }, { type: core.Host }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
-        { type: scrolling.ViewportRuler }
+        { type: scrolling.ViewportRuler },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
     ]; };
     _MatAutocompleteTriggerBase.propDecorators = {
         autocomplete: [{ type: core.Input, args: ['matAutocomplete',] }],

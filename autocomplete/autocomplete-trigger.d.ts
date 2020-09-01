@@ -14,7 +14,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { _MatAutocompleteBase } from './autocomplete';
+import { _MatAutocompleteBase, MatAutocompleteDefaultOptions } from './autocomplete';
 import { _MatAutocompleteOriginBase } from './autocomplete-origin';
 /**
  * The following style constants are necessary to save here in order
@@ -64,6 +64,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _formField;
     private _document;
     private _viewportRuler;
+    private _defaults?;
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
@@ -124,7 +125,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      */
     get autocompleteDisabled(): boolean;
     set autocompleteDisabled(value: boolean);
-    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | undefined);
     /** Class to apply to the panel when it's above the input. */
     protected abstract _aboveClass: string;
     ngAfterViewInit(): void;
