@@ -508,13 +508,13 @@
     /**
      * The height of each autocomplete option.
      * @deprecated No longer being used. To be removed.
-     * @breaking-change 11.0.0
+     * @breaking-change 12.0.0
      */
     var AUTOCOMPLETE_OPTION_HEIGHT = 48;
     /**
      * The total height of the autocomplete panel.
      * @deprecated No longer being used. To be removed.
-     * @breaking-change 11.0.0
+     * @breaking-change 12.0.0
      */
     var AUTOCOMPLETE_PANEL_HEIGHT = 256;
     /** Injection token that determines the scroll handling while the autocomplete panel is open. */
