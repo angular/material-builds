@@ -385,13 +385,7 @@
      */
     var MatChip = /** @class */ (function (_super) {
         __extends(MatChip, _super);
-        function MatChip(_elementRef, _ngZone, platform, globalRippleOptions, 
-        // @breaking-change 8.0.0 `animationMode` parameter to become required.
-        animationMode, 
-        // @breaking-change 9.0.0 `_changeDetectorRef` parameter to become required.
-        _changeDetectorRef, tabIndex, 
-        // @breaking-change 11.0.0 `_document` parameter to become required.
-        _document) {
+        function MatChip(_elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
             var _this = _super.call(this, _elementRef) || this;
             _this._elementRef = _elementRef;
             _this._ngZone = _ngZone;
@@ -422,7 +416,7 @@
             // Dynamically create the ripple target, append it within the chip, and use it as the
             // chip's ripple target. Adding the class '.mat-chip-ripple' ensures that it will have
             // the proper styles.
-            _this._chipRippleTarget = (_document || document).createElement('div');
+            _this._chipRippleTarget = _document.createElement('div');
             _this._chipRippleTarget.classList.add('mat-chip-ripple');
             _this._elementRef.nativeElement.appendChild(_this._chipRippleTarget);
             _this._chipRipple = new core$1.RippleRenderer(_this, _ngZone, _this._chipRippleTarget, platform);
@@ -533,7 +527,7 @@
             if (!this._selected) {
                 this._selected = true;
                 this._dispatchSelectionChange();
-                this._markForCheck();
+                this._changeDetectorRef.markForCheck();
             }
         };
         /** Deselects the chip. */
@@ -541,7 +535,7 @@
             if (this._selected) {
                 this._selected = false;
                 this._dispatchSelectionChange();
-                this._markForCheck();
+                this._changeDetectorRef.markForCheck();
             }
         };
         /** Select this chip and emit selected event */
@@ -549,7 +543,7 @@
             if (!this._selected) {
                 this._selected = true;
                 this._dispatchSelectionChange(true);
-                this._markForCheck();
+                this._changeDetectorRef.markForCheck();
             }
         };
         /** Toggles the current selected state of this chip. */
@@ -557,7 +551,7 @@
             if (isUserInput === void 0) { isUserInput = false; }
             this._selected = !this.selected;
             this._dispatchSelectionChange(isUserInput);
-            this._markForCheck();
+            this._changeDetectorRef.markForCheck();
             return this.selected;
         };
         /** Allows for programmatic focusing of the chip. */
@@ -634,12 +628,6 @@
                 selected: this._selected
             });
         };
-        MatChip.prototype._markForCheck = function () {
-            // @breaking-change 9.0.0 Remove this method once the _changeDetectorRef is a required param.
-            if (this._changeDetectorRef) {
-                this._changeDetectorRef.markForCheck();
-            }
-        };
         return MatChip;
     }(_MatChipMixinBase));
     MatChip.decorators = [
@@ -671,10 +659,10 @@
         { type: core.NgZone },
         { type: platform.Platform },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
         { type: core.ChangeDetectorRef },
-        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatChip.propDecorators = {
         avatar: [{ type: core.ContentChild, args: [MAT_CHIP_AVATAR,] }],
@@ -703,12 +691,9 @@
      * styles to properly center the icon within the chip.
      */
     var MatChipRemove = /** @class */ (function () {
-        function MatChipRemove(_parentChip, 
-        // @breaking-change 11.0.0 `elementRef` parameter to be made required.
-        elementRef) {
+        function MatChipRemove(_parentChip, elementRef) {
             this._parentChip = _parentChip;
-            // @breaking-change 11.0.0 Remove null check for `elementRef`.
-            if (elementRef && elementRef.nativeElement.nodeName === 'BUTTON') {
+            if (elementRef.nativeElement.nodeName === 'BUTTON') {
                 elementRef.nativeElement.setAttribute('type', 'button');
             }
         }
