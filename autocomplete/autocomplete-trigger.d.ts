@@ -14,7 +14,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
-import { _MatAutocompleteBase, MatAutocompleteDefaultOptions } from './autocomplete';
+import { _MatAutocompleteBase } from './autocomplete';
 import { _MatAutocompleteOriginBase } from './autocomplete-origin';
 /**
  * The following style constants are necessary to save here in order
@@ -24,13 +24,13 @@ import { _MatAutocompleteOriginBase } from './autocomplete-origin';
 /**
  * The height of each autocomplete option.
  * @deprecated No longer being used. To be removed.
- * @breaking-change 12.0.0
+ * @breaking-change 11.0.0
  */
 export declare const AUTOCOMPLETE_OPTION_HEIGHT = 48;
 /**
  * The total height of the autocomplete panel.
  * @deprecated No longer being used. To be removed.
- * @breaking-change 12.0.0
+ * @breaking-change 11.0.0
  */
 export declare const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /** Injection token that determines the scroll handling while the autocomplete panel is open. */
@@ -64,7 +64,6 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _formField;
     private _document;
     private _viewportRuler;
-    private _defaults?;
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
@@ -125,7 +124,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      */
     get autocompleteDisabled(): boolean;
     set autocompleteDisabled(value: boolean);
-    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | undefined);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler);
     /** Class to apply to the panel when it's above the input. */
     protected abstract _aboveClass: string;
     ngAfterViewInit(): void;

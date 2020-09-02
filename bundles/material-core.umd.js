@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('11.0.0-next.0-sha-d9875872b');
+    var VERSION = new i0.Version('10.2.0-rc.0-sha-9094de847');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('11.0.0-next.0-sha-d9875872b');
+    var VERSION$1 = new i0.Version('10.2.0-rc.0-sha-9094de847');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -2168,15 +2168,38 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /**
+     * When constructing a Date, the month is zero-based. This can be confusing, since people are
+     * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+     * @docs-private
+     * @breaking-change 8.0.0 Remove this with V8 since it was only targeted for testing.
+     */
+    var JAN = 0, FEB = 1, MAR = 2, APR = 3, MAY = 4, JUN = 5, JUL = 6, AUG = 7, SEP = 8, OCT = 9, NOV = 10, DEC = 11;
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
 
     /**
      * Generated bundle index. Do not edit.
      */
 
+    exports.APR = APR;
+    exports.AUG = AUG;
     exports.AnimationCurves = AnimationCurves;
     exports.AnimationDurations = AnimationDurations;
+    exports.DEC = DEC;
     exports.DateAdapter = DateAdapter;
     exports.ErrorStateMatcher = ErrorStateMatcher;
+    exports.FEB = FEB;
+    exports.JAN = JAN;
+    exports.JUL = JUL;
+    exports.JUN = JUN;
+    exports.MAR = MAR;
     exports.MATERIAL_SANITY_CHECKS = MATERIAL_SANITY_CHECKS;
     exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
     exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
@@ -2187,6 +2210,7 @@
     exports.MAT_OPTGROUP = MAT_OPTGROUP;
     exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
     exports.MAT_RIPPLE_GLOBAL_OPTIONS = MAT_RIPPLE_GLOBAL_OPTIONS;
+    exports.MAY = MAY;
     exports.MatCommonModule = MatCommonModule;
     exports.MatLine = MatLine;
     exports.MatLineModule = MatLineModule;
@@ -2200,10 +2224,13 @@
     exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
     exports.MatRipple = MatRipple;
     exports.MatRippleModule = MatRippleModule;
+    exports.NOV = NOV;
     exports.NativeDateAdapter = NativeDateAdapter;
     exports.NativeDateModule = NativeDateModule;
+    exports.OCT = OCT;
     exports.RippleRef = RippleRef;
     exports.RippleRenderer = RippleRenderer;
+    exports.SEP = SEP;
     exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
     exports.VERSION = VERSION;
     exports._MatOptgroupBase = _MatOptgroupBase;

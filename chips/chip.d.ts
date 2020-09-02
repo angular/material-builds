@@ -75,7 +75,7 @@ export declare class MatChipTrailingIcon {
 export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisableRipple, RippleTarget, HasTabIndex {
     _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
-    private _changeDetectorRef;
+    private _changeDetectorRef?;
     /** Reference to the RippleRenderer for the chip. */
     private _chipRipple;
     /**
@@ -151,7 +151,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     readonly removed: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
     get ariaSelected(): string | null;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, _changeDetectorRef: ChangeDetectorRef, _document: any, animationMode?: string, tabIndex?: string);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, animationMode?: string, _changeDetectorRef?: ChangeDetectorRef | undefined, tabIndex?: string, _document?: any);
     _addHostClassName(): void;
     ngOnDestroy(): void;
     /** Selects the chip. */
@@ -177,6 +177,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _handleKeydown(event: KeyboardEvent): void;
     _blur(): void;
     private _dispatchSelectionChange;
+    private _markForCheck;
     static ngAcceptInputType_selected: BooleanInput;
     static ngAcceptInputType_selectable: BooleanInput;
     static ngAcceptInputType_removable: BooleanInput;
@@ -199,7 +200,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
  */
 export declare class MatChipRemove {
     protected _parentChip: MatChip;
-    constructor(_parentChip: MatChip, elementRef: ElementRef<HTMLElement>);
+    constructor(_parentChip: MatChip, elementRef?: ElementRef<HTMLElement>);
     /** Calls the parent chip's public `remove()` method if applicable. */
     _handleClick(event: Event): void;
 }

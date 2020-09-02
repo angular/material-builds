@@ -90,7 +90,13 @@ MatChipTrailingIcon.decorators = [
  * Material design styled Chip component. Used inside the MatChipList component.
  */
 class MatChip extends _MatChipMixinBase {
-    constructor(_elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
+    constructor(_elementRef, _ngZone, platform, globalRippleOptions, 
+    // @breaking-change 8.0.0 `animationMode` parameter to become required.
+    animationMode, 
+    // @breaking-change 9.0.0 `_changeDetectorRef` parameter to become required.
+    _changeDetectorRef, tabIndex, 
+    // @breaking-change 11.0.0 `_document` parameter to become required.
+    _document) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -121,7 +127,7 @@ class MatChip extends _MatChipMixinBase {
         // Dynamically create the ripple target, append it within the chip, and use it as the
         // chip's ripple target. Adding the class '.mat-chip-ripple' ensures that it will have
         // the proper styles.
-        this._chipRippleTarget = _document.createElement('div');
+        this._chipRippleTarget = (_document || document).createElement('div');
         this._chipRippleTarget.classList.add('mat-chip-ripple');
         this._elementRef.nativeElement.appendChild(this._chipRippleTarget);
         this._chipRipple = new RippleRenderer(this, _ngZone, this._chipRippleTarget, platform);
@@ -203,7 +209,7 @@ class MatChip extends _MatChipMixinBase {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange();
-            this._changeDetectorRef.markForCheck();
+            this._markForCheck();
         }
     }
     /** Deselects the chip. */
@@ -211,7 +217,7 @@ class MatChip extends _MatChipMixinBase {
         if (this._selected) {
             this._selected = false;
             this._dispatchSelectionChange();
-            this._changeDetectorRef.markForCheck();
+            this._markForCheck();
         }
     }
     /** Select this chip and emit selected event */
@@ -219,14 +225,14 @@ class MatChip extends _MatChipMixinBase {
         if (!this._selected) {
             this._selected = true;
             this._dispatchSelectionChange(true);
-            this._changeDetectorRef.markForCheck();
+            this._markForCheck();
         }
     }
     /** Toggles the current selected state of this chip. */
     toggleSelected(isUserInput = false) {
         this._selected = !this.selected;
         this._dispatchSelectionChange(isUserInput);
-        this._changeDetectorRef.markForCheck();
+        this._markForCheck();
         return this.selected;
     }
     /** Allows for programmatic focusing of the chip. */
@@ -301,6 +307,12 @@ class MatChip extends _MatChipMixinBase {
             selected: this._selected
         });
     }
+    _markForCheck() {
+        // @breaking-change 9.0.0 Remove this method once the _changeDetectorRef is a required param.
+        if (this._changeDetectorRef) {
+            this._changeDetectorRef.markForCheck();
+        }
+    }
 }
 MatChip.decorators = [
     { type: Directive, args: [{
@@ -331,10 +343,10 @@ MatChip.ctorParameters = () => [
     { type: NgZone },
     { type: Platform },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
-    { type: ChangeDetectorRef },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
+    { type: ChangeDetectorRef },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
 ];
 MatChip.propDecorators = {
     avatar: [{ type: ContentChild, args: [MAT_CHIP_AVATAR,] }],
@@ -363,9 +375,12 @@ MatChip.propDecorators = {
  * styles to properly center the icon within the chip.
  */
 class MatChipRemove {
-    constructor(_parentChip, elementRef) {
+    constructor(_parentChip, 
+    // @breaking-change 11.0.0 `elementRef` parameter to be made required.
+    elementRef) {
         this._parentChip = _parentChip;
-        if (elementRef.nativeElement.nodeName === 'BUTTON') {
+        // @breaking-change 11.0.0 Remove null check for `elementRef`.
+        if (elementRef && elementRef.nativeElement.nodeName === 'BUTTON') {
             elementRef.nativeElement.setAttribute('type', 'button');
         }
     }
