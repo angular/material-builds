@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, EventEmitter, OnDestroy, AfterViewInit, OnChanges } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Subject } from 'rxjs';
@@ -53,7 +53,7 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     /** Emits when the value changes (either due to user input or programmatic change). */
     _valueChange: EventEmitter<D | null>;
     /** Emits when the internal state has changed */
-    _stateChanges: Subject<void>;
+    stateChanges: Subject<void>;
     _onTouched: () => void;
     _validatorOnChange: () => void;
     protected _cvaOnChange: (value: any) => void;
@@ -102,7 +102,7 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     protected _lastValueValid: boolean;
     constructor(_elementRef: ElementRef<HTMLInputElement>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);
     ngAfterViewInit(): void;
-    ngOnChanges(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** @docs-private */
     registerOnValidatorChange(fn: () => void): void;
@@ -131,3 +131,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     static ngAcceptInputType_value: any;
     static ngAcceptInputType_disabled: BooleanInput;
 }
+/**
+ * Checks whether the `SimpleChanges` object from an `ngOnChanges`
+ * callback has any changes, accounting for date objects.
+ */
+export declare function dateInputsHaveChanged(changes: SimpleChanges, adapter: DateAdapter<unknown>): boolean;
