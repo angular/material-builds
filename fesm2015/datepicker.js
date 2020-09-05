@@ -2032,7 +2032,7 @@ class MatDatepickerBase {
         this._inputStateChanges.unsubscribe();
         this._datepickerInput = input;
         this._inputStateChanges =
-            input._stateChanges.subscribe(() => this._stateChanges.next(undefined));
+            input.stateChanges.subscribe(() => this._stateChanges.next(undefined));
         return this._model;
     }
     /** Open the calendar. */
@@ -2303,7 +2303,7 @@ class MatDatepickerInputBase {
         /** Emits when the value changes (either due to user input or programmatic change). */
         this._valueChange = new EventEmitter();
         /** Emits when the internal state has changed */
-        this._stateChanges = new Subject();
+        this.stateChanges = new Subject();
         this._onTouched = () => { };
         this._validatorOnChange = () => { };
         this._cvaOnChange = () => { };
@@ -2374,7 +2374,7 @@ class MatDatepickerInputBase {
         const element = this._elementRef.nativeElement;
         if (this._disabled !== newValue) {
             this._disabled = newValue;
-            this._stateChanges.next(undefined);
+            this.stateChanges.next(undefined);
         }
         // We need to null check the `blur` method, because it's undefined during SSR.
         // In Ivy static bindings are invoked earlier, before the element is attached to the DOM.
@@ -2421,14 +2421,16 @@ class MatDatepickerInputBase {
     ngAfterViewInit() {
         this._isInitialized = true;
     }
-    ngOnChanges() {
-        this._stateChanges.next(undefined);
+    ngOnChanges(changes) {
+        if (dateInputsHaveChanged(changes, this._dateAdapter)) {
+            this.stateChanges.next(undefined);
+        }
     }
     ngOnDestroy() {
         this._valueChangesSubscription.unsubscribe();
         this._localeSubscription.unsubscribe();
         this._valueChange.complete();
-        this._stateChanges.complete();
+        this.stateChanges.complete();
     }
     /** @docs-private */
     registerOnValidatorChange(fn) {
@@ -2537,6 +2539,25 @@ MatDatepickerInputBase.propDecorators = {
     dateChange: [{ type: Output }],
     dateInput: [{ type: Output }]
 };
+/**
+ * Checks whether the `SimpleChanges` object from an `ngOnChanges`
+ * callback has any changes, accounting for date objects.
+ */
+function dateInputsHaveChanged(changes, adapter) {
+    const keys = Object.keys(changes);
+    for (let key of keys) {
+        const { previousValue, currentValue } = changes[key];
+        if (adapter.isDateInstance(previousValue) && adapter.isDateInstance(currentValue)) {
+            if (!adapter.sameDate(previousValue, currentValue)) {
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+    return false;
+}
 
 /**
  * @license
@@ -2574,14 +2595,20 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     /** The minimum valid date. */
     get min() { return this._min; }
     set min(value) {
-        this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-        this._validatorOnChange();
+        const validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+        if (!this._dateAdapter.sameDate(validValue, this._min)) {
+            this._min = validValue;
+            this._validatorOnChange();
+        }
     }
     /** The maximum valid date. */
     get max() { return this._max; }
     set max(value) {
-        this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-        this._validatorOnChange();
+        const validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+        if (!this._dateAdapter.sameDate(validValue, this._max)) {
+            this._max = validValue;
+            this._validatorOnChange();
+        }
     }
     /** Function that can be used to filter out dates within the datepicker. */
     get dateFilter() { return this._dateFilter; }
@@ -2733,7 +2760,7 @@ class MatDatepickerToggle {
     _watchStateChanges() {
         const datepickerStateChanged = this.datepicker ? this.datepicker._stateChanges : of();
         const inputStateChanged = this.datepicker && this.datepicker._datepickerInput ?
-            this.datepicker._datepickerInput._stateChanges : of();
+            this.datepicker._datepickerInput.stateChanges : of();
         const datepickerToggled = this.datepicker ?
             merge(this.datepicker.openedStream, this.datepicker.closedStream) :
             of();
@@ -3074,8 +3101,6 @@ class MatDateRangeInput {
         this._elementRef = _elementRef;
         this._dateAdapter = _dateAdapter;
         this._formField = _formField;
-        /** Emits when the input's state has changed. */
-        this.stateChanges = new Subject();
         /** Unique ID for the input. */
         this.id = `mat-date-range-input-${nextUniqueId++}`;
         /** Whether the control is focused. */
@@ -3091,8 +3116,8 @@ class MatDateRangeInput {
         this.comparisonStart = null;
         /** End of the comparison range that should be shown in the calendar. */
         this.comparisonEnd = null;
-        /** Emits when the input's state changes. */
-        this._stateChanges = new Subject();
+        /** Emits when the input's state has changed. */
+        this.stateChanges = new Subject();
         if (!_dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -3141,14 +3166,20 @@ class MatDateRangeInput {
     /** The minimum valid date. */
     get min() { return this._min; }
     set min(value) {
-        this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-        this._revalidate();
+        const validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+        if (!this._dateAdapter.sameDate(validValue, this._min)) {
+            this._min = validValue;
+            this._revalidate();
+        }
     }
     /** The maximum valid date. */
     get max() { return this._max; }
     set max(value) {
-        this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-        this._revalidate();
+        const validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+        if (!this._dateAdapter.sameDate(validValue, this._max)) {
+            this._max = validValue;
+            this._revalidate();
+        }
     }
     /** Whether the input is disabled. */
     get disabled() {
@@ -3160,7 +3191,7 @@ class MatDateRangeInput {
         const newValue = coerceBooleanProperty(value);
         if (newValue !== this._groupDisabled) {
             this._groupDisabled = newValue;
-            this._stateChanges.next(undefined);
+            this.stateChanges.next(undefined);
         }
     }
     /** Whether the input is in an error state. */
@@ -3212,15 +3243,16 @@ class MatDateRangeInput {
         // We don't need to unsubscribe from this, because we
         // know that the input streams will be completed on destroy.
         merge(this._startInput.stateChanges, this._endInput.stateChanges).subscribe(() => {
-            this._stateChanges.next(undefined);
+            this.stateChanges.next(undefined);
         });
     }
-    ngOnChanges() {
-        this._stateChanges.next(undefined);
+    ngOnChanges(changes) {
+        if (dateInputsHaveChanged(changes, this._dateAdapter)) {
+            this.stateChanges.next(undefined);
+        }
     }
     ngOnDestroy() {
         this.stateChanges.complete();
-        this._stateChanges.unsubscribe();
     }
     /** Gets the date at which the calendar should start. */
     getStartValue() {

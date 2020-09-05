@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { OnDestroy, AfterContentInit, ChangeDetectorRef, ElementRef, OnChanges } from '@angular/core';
+import { OnDestroy, AfterContentInit, ChangeDetectorRef, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
 import { ThemePalette, DateAdapter } from '@angular/material/core';
 import { NgControl, ControlContainer } from '@angular/forms';
@@ -23,8 +23,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _formField?;
     /** Current value of the range input. */
     get value(): DateRange<D> | null;
-    /** Emits when the input's state has changed. */
-    stateChanges: Subject<void>;
     /** Unique ID for the input. */
     id: string;
     /** Whether the control is focused. */
@@ -85,8 +83,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
      * @docs-private
      */
     ngControl: NgControl | null;
-    /** Emits when the input's state changes. */
-    _stateChanges: Subject<void>;
+    /** Emits when the input's state has changed. */
+    stateChanges: Subject<void>;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: MatFormField | undefined);
     /**
      * Implemented as a part of `MatFormFieldControl`.
@@ -99,7 +97,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
      */
     onContainerClick(): void;
     ngAfterContentInit(): void;
-    ngOnChanges(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Gets the date at which the calendar should start. */
     getStartValue(): D | null;

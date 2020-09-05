@@ -2447,7 +2447,7 @@
             this._inputStateChanges.unsubscribe();
             this._datepickerInput = input;
             this._inputStateChanges =
-                input._stateChanges.subscribe(function () { return _this._stateChanges.next(undefined); });
+                input.stateChanges.subscribe(function () { return _this._stateChanges.next(undefined); });
             return this._model;
         };
         /** Open the calendar. */
@@ -2686,13 +2686,6 @@
     ];
 
     /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
      * An event used for datepicker input and change events. We don't always have access to a native
      * input or change event because the event may have been triggered by the user clicking on the
      * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
@@ -2723,7 +2716,7 @@
             /** Emits when the value changes (either due to user input or programmatic change). */
             this._valueChange = new i0.EventEmitter();
             /** Emits when the internal state has changed */
-            this._stateChanges = new rxjs.Subject();
+            this.stateChanges = new rxjs.Subject();
             this._onTouched = function () { };
             this._validatorOnChange = function () { };
             this._cvaOnChange = function () { };
@@ -2799,7 +2792,7 @@
                 var element = this._elementRef.nativeElement;
                 if (this._disabled !== newValue) {
                     this._disabled = newValue;
-                    this._stateChanges.next(undefined);
+                    this.stateChanges.next(undefined);
                 }
                 // We need to null check the `blur` method, because it's undefined during SSR.
                 // In Ivy static bindings are invoked earlier, before the element is attached to the DOM.
@@ -2850,14 +2843,16 @@
         MatDatepickerInputBase.prototype.ngAfterViewInit = function () {
             this._isInitialized = true;
         };
-        MatDatepickerInputBase.prototype.ngOnChanges = function () {
-            this._stateChanges.next(undefined);
+        MatDatepickerInputBase.prototype.ngOnChanges = function (changes) {
+            if (dateInputsHaveChanged(changes, this._dateAdapter)) {
+                this.stateChanges.next(undefined);
+            }
         };
         MatDatepickerInputBase.prototype.ngOnDestroy = function () {
             this._valueChangesSubscription.unsubscribe();
             this._localeSubscription.unsubscribe();
             this._valueChange.complete();
-            this._stateChanges.complete();
+            this.stateChanges.complete();
         };
         /** @docs-private */
         MatDatepickerInputBase.prototype.registerOnValidatorChange = function (fn) {
@@ -2967,6 +2962,36 @@
         dateChange: [{ type: i0.Output }],
         dateInput: [{ type: i0.Output }]
     };
+    /**
+     * Checks whether the `SimpleChanges` object from an `ngOnChanges`
+     * callback has any changes, accounting for date objects.
+     */
+    function dateInputsHaveChanged(changes, adapter) {
+        var e_1, _a;
+        var keys = Object.keys(changes);
+        try {
+            for (var keys_1 = __values(keys), keys_1_1 = keys_1.next(); !keys_1_1.done; keys_1_1 = keys_1.next()) {
+                var key = keys_1_1.value;
+                var _b = changes[key], previousValue = _b.previousValue, currentValue = _b.currentValue;
+                if (adapter.isDateInstance(previousValue) && adapter.isDateInstance(currentValue)) {
+                    if (!adapter.sameDate(previousValue, currentValue)) {
+                        return true;
+                    }
+                }
+                else {
+                    return true;
+                }
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (keys_1_1 && !keys_1_1.done && (_a = keys_1.return)) _a.call(keys_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return false;
+    }
 
     /** @docs-private */
     var MAT_DATEPICKER_VALUE_ACCESSOR = {
@@ -3004,8 +3029,11 @@
             /** The minimum valid date. */
             get: function () { return this._min; },
             set: function (value) {
-                this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-                this._validatorOnChange();
+                var validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+                if (!this._dateAdapter.sameDate(validValue, this._min)) {
+                    this._min = validValue;
+                    this._validatorOnChange();
+                }
             },
             enumerable: false,
             configurable: true
@@ -3014,8 +3042,11 @@
             /** The maximum valid date. */
             get: function () { return this._max; },
             set: function (value) {
-                this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-                this._validatorOnChange();
+                var validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+                if (!this._dateAdapter.sameDate(validValue, this._max)) {
+                    this._max = validValue;
+                    this._validatorOnChange();
+                }
             },
             enumerable: false,
             configurable: true
@@ -3183,7 +3214,7 @@
             var _this = this;
             var datepickerStateChanged = this.datepicker ? this.datepicker._stateChanges : rxjs.of();
             var inputStateChanged = this.datepicker && this.datepicker._datepickerInput ?
-                this.datepicker._datepickerInput._stateChanges : rxjs.of();
+                this.datepicker._datepickerInput.stateChanges : rxjs.of();
             var datepickerToggled = this.datepicker ?
                 rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
                 rxjs.of();
@@ -3494,8 +3525,6 @@
             this._elementRef = _elementRef;
             this._dateAdapter = _dateAdapter;
             this._formField = _formField;
-            /** Emits when the input's state has changed. */
-            this.stateChanges = new rxjs.Subject();
             /** Unique ID for the input. */
             this.id = "mat-date-range-input-" + nextUniqueId++;
             /** Whether the control is focused. */
@@ -3511,8 +3540,8 @@
             this.comparisonStart = null;
             /** End of the comparison range that should be shown in the calendar. */
             this.comparisonEnd = null;
-            /** Emits when the input's state changes. */
-            this._stateChanges = new rxjs.Subject();
+            /** Emits when the input's state has changed. */
+            this.stateChanges = new rxjs.Subject();
             if (!_dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw createMissingDateImplError('DateAdapter');
             }
@@ -3586,8 +3615,11 @@
             /** The minimum valid date. */
             get: function () { return this._min; },
             set: function (value) {
-                this._min = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-                this._revalidate();
+                var validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+                if (!this._dateAdapter.sameDate(validValue, this._min)) {
+                    this._min = validValue;
+                    this._revalidate();
+                }
             },
             enumerable: false,
             configurable: true
@@ -3596,8 +3628,11 @@
             /** The maximum valid date. */
             get: function () { return this._max; },
             set: function (value) {
-                this._max = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-                this._revalidate();
+                var validValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
+                if (!this._dateAdapter.sameDate(validValue, this._max)) {
+                    this._max = validValue;
+                    this._revalidate();
+                }
             },
             enumerable: false,
             configurable: true
@@ -3613,7 +3648,7 @@
                 var newValue = coercion.coerceBooleanProperty(value);
                 if (newValue !== this._groupDisabled) {
                     this._groupDisabled = newValue;
-                    this._stateChanges.next(undefined);
+                    this.stateChanges.next(undefined);
                 }
             },
             enumerable: false,
@@ -3677,15 +3712,16 @@
             // We don't need to unsubscribe from this, because we
             // know that the input streams will be completed on destroy.
             rxjs.merge(this._startInput.stateChanges, this._endInput.stateChanges).subscribe(function () {
-                _this._stateChanges.next(undefined);
+                _this.stateChanges.next(undefined);
             });
         };
-        MatDateRangeInput.prototype.ngOnChanges = function () {
-            this._stateChanges.next(undefined);
+        MatDateRangeInput.prototype.ngOnChanges = function (changes) {
+            if (dateInputsHaveChanged(changes, this._dateAdapter)) {
+                this.stateChanges.next(undefined);
+            }
         };
         MatDateRangeInput.prototype.ngOnDestroy = function () {
             this.stateChanges.complete();
-            this._stateChanges.unsubscribe();
         };
         /** Gets the date at which the calendar should start. */
         MatDateRangeInput.prototype.getStartValue = function () {

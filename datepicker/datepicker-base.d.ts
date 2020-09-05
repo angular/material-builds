@@ -92,7 +92,7 @@ export interface MatDatepickerControl<D> {
     disabled: boolean;
     dateFilter: DateFilterFn<D>;
     getConnectedOverlayOrigin(): ElementRef;
-    _stateChanges: Observable<void>;
+    stateChanges: Observable<void>;
 }
 /** Base class for a datepicker. */
 export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy, OnChanges {
