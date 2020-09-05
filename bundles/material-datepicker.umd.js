@@ -1901,10 +1901,7 @@
             this._moveFocusOnNextTick = false;
             /** Whether the calendar should be started in month or year view. */
             this.startView = 'month';
-            /**
-             * Emits when the currently selected date changes.
-             * @breaking-change 11.0.0 Emitted value to change to `D | null`.
-             */
+            /** Emits when the currently selected date changes. */
             this.selectedChange = new i0.EventEmitter();
             /**
              * Emits the year chosen in multiyear view.
@@ -2053,8 +2050,6 @@
             var date = event.value;
             if (this.selected instanceof DateRange ||
                 (date && !this._dateAdapter.sameDate(date, this.selected))) {
-                // @breaking-change 11.0.0 remove non-null assertion
-                // once the `selectedChange` is allowed to be null.
                 this.selectedChange.emit(date);
             }
             this._userSelection.emit(event);
@@ -2184,13 +2179,7 @@
      */
     var MatDatepickerContent = /** @class */ (function (_super) {
         __extends(MatDatepickerContent, _super);
-        function MatDatepickerContent(elementRef, 
-        /**
-         * @deprecated `_changeDetectorRef`, `_model` and `_rangeSelectionStrategy`
-         * parameters to become required.
-         * @breaking-change 11.0.0
-         */
-        _changeDetectorRef, _model, _dateAdapter, _rangeSelectionStrategy) {
+        function MatDatepickerContent(elementRef, _changeDetectorRef, _model, _dateAdapter, _rangeSelectionStrategy) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._model = _model;
@@ -2205,12 +2194,9 @@
         }
         MatDatepickerContent.prototype.ngAfterViewInit = function () {
             var _this = this;
-            // @breaking-change 11.0.0 Remove null check for `_changeDetectorRef.
-            if (this._changeDetectorRef) {
-                this._subscriptions.add(this.datepicker._stateChanges.subscribe(function () {
-                    _this._changeDetectorRef.markForCheck();
-                }));
-            }
+            this._subscriptions.add(this.datepicker._stateChanges.subscribe(function () {
+                _this._changeDetectorRef.markForCheck();
+            }));
             this._calendar.focusActiveCell();
         };
         MatDatepickerContent.prototype.ngOnDestroy = function () {
@@ -2218,25 +2204,21 @@
             this._animationDone.complete();
         };
         MatDatepickerContent.prototype._handleUserSelection = function (event) {
-            // @breaking-change 11.0.0 Remove null checks for _model,
-            // _rangeSelectionStrategy and _dateAdapter.
-            if (this._model && this._dateAdapter) {
-                var selection = this._model.selection;
-                var value = event.value;
-                var isRange = selection instanceof DateRange;
-                // If we're selecting a range and we have a selection strategy, always pass the value through
-                // there. Otherwise don't assign null values to the model, unless we're selecting a range.
-                // A null value when picking a range means that the user cancelled the selection (e.g. by
-                // pressing escape), whereas when selecting a single value it means that the value didn't
-                // change. This isn't very intuitive, but it's here for backwards-compatibility.
-                if (isRange && this._rangeSelectionStrategy) {
-                    var newSelection = this._rangeSelectionStrategy.selectionFinished(value, selection, event.event);
-                    this._model.updateSelection(newSelection, this);
-                }
-                else if (value && (isRange ||
-                    !this._dateAdapter.sameDate(value, selection))) {
-                    this._model.add(value);
-                }
+            var selection = this._model.selection;
+            var value = event.value;
+            var isRange = selection instanceof DateRange;
+            // If we're selecting a range and we have a selection strategy, always pass the value through
+            // there. Otherwise don't assign null values to the model, unless we're selecting a range.
+            // A null value when picking a range means that the user cancelled the selection (e.g. by
+            // pressing escape), whereas when selecting a single value it means that the value didn't
+            // change. This isn't very intuitive, but it's here for backwards-compatibility.
+            if (isRange && this._rangeSelectionStrategy) {
+                var newSelection = this._rangeSelectionStrategy.selectionFinished(value, selection, event.event);
+                this._model.updateSelection(newSelection, this);
+            }
+            else if (value && (isRange ||
+                !this._dateAdapter.sameDate(value, selection))) {
+                this._model.add(value);
             }
             if (!this._model || this._model.isComplete()) {
                 this.datepicker.close();
@@ -2244,14 +2226,10 @@
         };
         MatDatepickerContent.prototype._startExitAnimation = function () {
             this._animationState = 'void';
-            // @breaking-change 11.0.0 Remove null check for `_changeDetectorRef`.
-            if (this._changeDetectorRef) {
-                this._changeDetectorRef.markForCheck();
-            }
+            this._changeDetectorRef.markForCheck();
         };
         MatDatepickerContent.prototype._getSelected = function () {
-            // @breaking-change 11.0.0 Remove null check for `_model`.
-            return this._model ? this._model.selection : null;
+            return this._model.selection;
         };
         return MatDatepickerContent;
     }(_MatDatepickerContentMixinBase));
@@ -3075,13 +3053,6 @@
         /** Gets the value at which the calendar should start. */
         MatDatepickerInput.prototype.getStartValue = function () {
             return this.value;
-        };
-        /**
-         * @deprecated
-         * @breaking-change 8.0.0 Use `getConnectedOverlayOrigin` instead
-         */
-        MatDatepickerInput.prototype.getPopupConnectionElementRef = function () {
-            return this.getConnectedOverlayOrigin();
         };
         /** Opens the associated datepicker. */
         MatDatepickerInput.prototype._openPopup = function () {

@@ -46,15 +46,10 @@ declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepicke
  * @docs-private
  */
 export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> extends _MatDatepickerContentMixinBase implements AfterViewInit, OnDestroy, CanColor {
-    /**
-     * @deprecated `_changeDetectorRef`, `_model` and `_rangeSelectionStrategy`
-     * parameters to become required.
-     * @breaking-change 11.0.0
-     */
-    private _changeDetectorRef?;
-    private _model?;
-    private _dateAdapter?;
-    private _rangeSelectionStrategy?;
+    private _changeDetectorRef;
+    private _model;
+    private _dateAdapter;
+    private _rangeSelectionStrategy;
     private _subscriptions;
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
@@ -70,13 +65,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _animationState: 'enter' | 'void';
     /** Emits when an animation has finished. */
     _animationDone: Subject<void>;
-    constructor(elementRef: ElementRef, 
-    /**
-     * @deprecated `_changeDetectorRef`, `_model` and `_rangeSelectionStrategy`
-     * parameters to become required.
-     * @breaking-change 11.0.0
-     */
-    _changeDetectorRef?: ChangeDetectorRef | undefined, _model?: MatDateSelectionModel<S, D> | undefined, _dateAdapter?: DateAdapter<D> | undefined, _rangeSelectionStrategy?: MatDateRangeSelectionStrategy<D> | undefined);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _model: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;

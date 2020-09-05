@@ -46,11 +46,6 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     getThemePalette(): ThemePalette;
     /** Gets the value at which the calendar should start. */
     getStartValue(): D | null;
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0 Use `getConnectedOverlayOrigin` instead
-     */
-    getPopupConnectionElementRef(): ElementRef;
     /** Opens the associated datepicker. */
     protected _openPopup(): void;
     protected _getValueFromModel(modelValue: D | null): D | null;

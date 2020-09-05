@@ -1530,10 +1530,7 @@ class MatCalendar {
         this._moveFocusOnNextTick = false;
         /** Whether the calendar should be started in month or year view. */
         this.startView = 'month';
-        /**
-         * Emits when the currently selected date changes.
-         * @breaking-change 11.0.0 Emitted value to change to `D | null`.
-         */
+        /** Emits when the currently selected date changes. */
         this.selectedChange = new EventEmitter();
         /**
          * Emits the year chosen in multiyear view.
@@ -1658,8 +1655,6 @@ class MatCalendar {
         const date = event.value;
         if (this.selected instanceof DateRange ||
             (date && !this._dateAdapter.sameDate(date, this.selected))) {
-            // @breaking-change 11.0.0 remove non-null assertion
-            // once the `selectedChange` is allowed to be null.
             this.selectedChange.emit(date);
         }
         this._userSelection.emit(event);
@@ -1793,13 +1788,7 @@ const _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
  * @docs-private
  */
 class MatDatepickerContent extends _MatDatepickerContentMixinBase {
-    constructor(elementRef, 
-    /**
-     * @deprecated `_changeDetectorRef`, `_model` and `_rangeSelectionStrategy`
-     * parameters to become required.
-     * @breaking-change 11.0.0
-     */
-    _changeDetectorRef, _model, _dateAdapter, _rangeSelectionStrategy) {
+    constructor(elementRef, _changeDetectorRef, _model, _dateAdapter, _rangeSelectionStrategy) {
         super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;
         this._model = _model;
@@ -1812,12 +1801,9 @@ class MatDatepickerContent extends _MatDatepickerContentMixinBase {
         this._animationDone = new Subject();
     }
     ngAfterViewInit() {
-        // @breaking-change 11.0.0 Remove null check for `_changeDetectorRef.
-        if (this._changeDetectorRef) {
-            this._subscriptions.add(this.datepicker._stateChanges.subscribe(() => {
-                this._changeDetectorRef.markForCheck();
-            }));
-        }
+        this._subscriptions.add(this.datepicker._stateChanges.subscribe(() => {
+            this._changeDetectorRef.markForCheck();
+        }));
         this._calendar.focusActiveCell();
     }
     ngOnDestroy() {
@@ -1825,25 +1811,21 @@ class MatDatepickerContent extends _MatDatepickerContentMixinBase {
         this._animationDone.complete();
     }
     _handleUserSelection(event) {
-        // @breaking-change 11.0.0 Remove null checks for _model,
-        // _rangeSelectionStrategy and _dateAdapter.
-        if (this._model && this._dateAdapter) {
-            const selection = this._model.selection;
-            const value = event.value;
-            const isRange = selection instanceof DateRange;
-            // If we're selecting a range and we have a selection strategy, always pass the value through
-            // there. Otherwise don't assign null values to the model, unless we're selecting a range.
-            // A null value when picking a range means that the user cancelled the selection (e.g. by
-            // pressing escape), whereas when selecting a single value it means that the value didn't
-            // change. This isn't very intuitive, but it's here for backwards-compatibility.
-            if (isRange && this._rangeSelectionStrategy) {
-                const newSelection = this._rangeSelectionStrategy.selectionFinished(value, selection, event.event);
-                this._model.updateSelection(newSelection, this);
-            }
-            else if (value && (isRange ||
-                !this._dateAdapter.sameDate(value, selection))) {
-                this._model.add(value);
-            }
+        const selection = this._model.selection;
+        const value = event.value;
+        const isRange = selection instanceof DateRange;
+        // If we're selecting a range and we have a selection strategy, always pass the value through
+        // there. Otherwise don't assign null values to the model, unless we're selecting a range.
+        // A null value when picking a range means that the user cancelled the selection (e.g. by
+        // pressing escape), whereas when selecting a single value it means that the value didn't
+        // change. This isn't very intuitive, but it's here for backwards-compatibility.
+        if (isRange && this._rangeSelectionStrategy) {
+            const newSelection = this._rangeSelectionStrategy.selectionFinished(value, selection, event.event);
+            this._model.updateSelection(newSelection, this);
+        }
+        else if (value && (isRange ||
+            !this._dateAdapter.sameDate(value, selection))) {
+            this._model.add(value);
         }
         if (!this._model || this._model.isComplete()) {
             this.datepicker.close();
@@ -1851,14 +1833,10 @@ class MatDatepickerContent extends _MatDatepickerContentMixinBase {
     }
     _startExitAnimation() {
         this._animationState = 'void';
-        // @breaking-change 11.0.0 Remove null check for `_changeDetectorRef`.
-        if (this._changeDetectorRef) {
-            this._changeDetectorRef.markForCheck();
-        }
+        this._changeDetectorRef.markForCheck();
     }
     _getSelected() {
-        // @breaking-change 11.0.0 Remove null check for `_model`.
-        return this._model ? this._model.selection : null;
+        return this._model.selection;
     }
 }
 MatDatepickerContent.decorators = [
@@ -2630,13 +2608,6 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     /** Gets the value at which the calendar should start. */
     getStartValue() {
         return this.value;
-    }
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0 Use `getConnectedOverlayOrigin` instead
-     */
-    getPopupConnectionElementRef() {
-        return this.getConnectedOverlayOrigin();
     }
     /** Opens the associated datepicker. */
     _openPopup() {

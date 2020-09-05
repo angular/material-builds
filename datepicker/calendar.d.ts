@@ -92,11 +92,8 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     comparisonStart: D | null;
     /** End of the comparison range. */
     comparisonEnd: D | null;
-    /**
-     * Emits when the currently selected date changes.
-     * @breaking-change 11.0.0 Emitted value to change to `D | null`.
-     */
-    readonly selectedChange: EventEmitter<D>;
+    /** Emits when the currently selected date changes. */
+    readonly selectedChange: EventEmitter<D | null>;
     /**
      * Emits the year chosen in multiyear view.
      * This doesn't imply a change on the selected date.
