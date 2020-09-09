@@ -332,12 +332,10 @@
                 opacity: 0,
                 transform: 'scale(0.8)'
             })),
-            animations.transition('void => enter', animations.group([
-                animations.query('.mat-menu-content, .mat-mdc-menu-content', animations.animate('100ms linear', animations.style({
-                    opacity: 1
-                }))),
-                animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.style({ transform: 'scale(1)' })),
-            ])),
+            animations.transition('void => enter', animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.style({
+                opacity: 1,
+                transform: 'scale(1)'
+            }))),
             animations.transition('* => void', animations.animate('100ms 25ms linear', animations.style({ opacity: 0 })))
         ]),
         /**

@@ -4,7 +4,7 @@ import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey }
 import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
-import { trigger, state, style, transition, group, query, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { mixinDisableRipple, mixinDisabled, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -40,12 +40,10 @@ const matMenuAnimations = {
             opacity: 0,
             transform: 'scale(0.8)'
         })),
-        transition('void => enter', group([
-            query('.mat-menu-content, .mat-mdc-menu-content', animate('100ms linear', style({
-                opacity: 1
-            }))),
-            animate('120ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'scale(1)' })),
-        ])),
+        transition('void => enter', animate('120ms cubic-bezier(0, 0, 0.2, 1)', style({
+            opacity: 1,
+            transform: 'scale(1)'
+        }))),
         transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 })))
     ]),
     /**
