@@ -6,18 +6,20 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
-import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy } from '@angular/core';
+import { AfterContentInit, DoCheck, ElementRef, IterableDiffers, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 declare const _MatTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof CdkTreeNode;
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-export declare class MatTreeNode<T> extends _MatTreeNodeMixinBase<T> implements CanDisable, HasTabIndex {
+export declare class MatTreeNode<T> extends _MatTreeNodeMixinBase<T> implements CanDisable, DoCheck, HasTabIndex, OnInit, OnDestroy {
     protected _elementRef: ElementRef<HTMLElement>;
     protected _tree: CdkTree<T>;
-    role: 'treeitem' | 'group';
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, tabIndex: string);
+    ngOnInit(): void;
+    ngDoCheck(): void;
+    ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_tabIndex: NumberInput;
 }
@@ -30,7 +32,7 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  */
-export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implements AfterContentInit, OnDestroy {
+export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implements AfterContentInit, DoCheck, OnDestroy, OnInit {
     protected _elementRef: ElementRef<HTMLElement>;
     protected _tree: CdkTree<T>;
     protected _differs: IterableDiffers;
@@ -44,6 +46,8 @@ export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implement
     set tabIndex(value: number);
     private _tabIndex;
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
+    ngOnInit(): void;
+    ngDoCheck(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;

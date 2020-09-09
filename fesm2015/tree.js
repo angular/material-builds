@@ -22,21 +22,30 @@ class MatTreeNode extends _MatTreeNodeMixinBase {
         super(_elementRef, _tree);
         this._elementRef = _elementRef;
         this._tree = _tree;
-        this.role = 'treeitem';
         this.tabIndex = Number(tabIndex) || 0;
+        // The classes are directly added here instead of in the host property because classes on
+        // the host property are not inherited with View Engine. It is not set as a @HostBinding because
+        // it is not set by the time it's children nodes try to read the class from it.
+        // TODO: move to host after View Engine deprecation
+        this._elementRef.nativeElement.classList.add('mat-tree-node');
+    }
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    ngOnInit() {
+        super.ngOnInit();
+    }
+    ngDoCheck() {
+        super.ngDoCheck();
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
     }
 }
 MatTreeNode.decorators = [
     { type: Directive, args: [{
                 selector: 'mat-tree-node',
                 exportAs: 'matTreeNode',
-                inputs: ['disabled', 'tabIndex'],
-                host: {
-                    '[attr.aria-expanded]': 'isExpanded',
-                    '[attr.aria-level]': 'level + 1',
-                    '[attr.role]': 'role',
-                    'class': 'mat-tree-node'
-                },
+                inputs: ['role', 'disabled', 'tabIndex'],
                 providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }]
             },] }
 ];
@@ -45,9 +54,6 @@ MatTreeNode.ctorParameters = () => [
     { type: CdkTree },
     { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
-MatTreeNode.propDecorators = {
-    role: [{ type: Input }]
-};
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
  */
@@ -76,6 +82,11 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
         this._differs = _differs;
         this._disabled = false;
         this.tabIndex = Number(tabIndex) || 0;
+        // The classes are directly added here instead of in the host property because classes on
+        // the host property are not inherited with View Engine. It is not set as a @HostBinding because
+        // it is not set by the time it's children nodes try to read the class from it.
+        // TODO: move to host after View Engine deprecation
+        this._elementRef.nativeElement.classList.add('mat-nested-tree-node');
     }
     /** Whether the node is disabled. */
     get disabled() { return this._disabled; }
@@ -89,6 +100,12 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
     // This is a workaround for https://github.com/angular/angular/issues/23091
     // In aot mode, the lifecycle hooks from parent class are not called.
     // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    ngOnInit() {
+        super.ngOnInit();
+    }
+    ngDoCheck() {
+        super.ngDoCheck();
+    }
     ngAfterContentInit() {
         super.ngAfterContentInit();
     }
@@ -100,11 +117,7 @@ MatNestedTreeNode.decorators = [
     { type: Directive, args: [{
                 selector: 'mat-nested-tree-node',
                 exportAs: 'matNestedTreeNode',
-                host: {
-                    '[attr.aria-expanded]': 'isExpanded',
-                    '[attr.role]': 'role',
-                    'class': 'mat-nested-tree-node',
-                },
+                inputs: ['role', 'disabled', 'tabIndex'],
                 providers: [
                     { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
                     { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
@@ -202,7 +215,14 @@ MatTree.decorators = [
                 exportAs: 'matTree',
                 template: `<ng-container matTreeNodeOutlet></ng-container>`,
                 host: {
-                    'class': 'mat-tree',
+                    // The 'cdk-tree' class needs to be included here because classes set in the host in the
+                    // parent class are not inherited with View Engine. The 'cdk-tree' class in CdkTreeNode has
+                    // to be set in the host because:
+                    // if it is set as a @HostBinding it is not set by the time the tree nodes try to read the
+                    // class from it.
+                    // the ElementRef is not available in the constructor so the class can't be applied directly
+                    // without a breaking constructor change.
+                    'class': 'mat-tree cdk-tree',
                     'role': 'tree',
                 },
                 encapsulation: ViewEncapsulation.None,
