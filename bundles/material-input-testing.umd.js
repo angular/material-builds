@@ -517,6 +517,250 @@
     // For more details. See: https://github.com/angular/components/pull/18221.
     MatInputHarness.hostSelector = '[matInput], input[matNativeControl], textarea[matNativeControl]';
 
+    /** Harness for interacting with a native `option` in tests. */
+    var MatNativeOptionHarness = /** @class */ (function (_super) {
+        __extends(MatNativeOptionHarness, _super);
+        function MatNativeOptionHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatNativeOptionHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which option instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatNativeOptionHarness.with = function (options) {
+            var _this = this;
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatNativeOptionHarness, options)
+                .addOption('text', options.text, function (harness, title) { return __awaiter(_this, void 0, void 0, function () { var _a, _b; return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = testing.HarnessPredicate).stringMatches;
+                        return [4 /*yield*/, harness.getText()];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent(), title])];
+                }
+            }); }); })
+                .addOption('index', options.index, function (harness, index) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, harness.getIndex()];
+                    case 1: return [2 /*return*/, (_a.sent()) === index];
+                }
+            }); }); })
+                .addOption('isSelected', options.isSelected, function (harness, isSelected) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, harness.isSelected()];
+                    case 1: return [2 /*return*/, (_a.sent()) === isSelected];
+                }
+            }); }); });
+        };
+        /** Gets the option's label text. */
+        MatNativeOptionHarness.prototype.getText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('label')];
+                    }
+                });
+            });
+        };
+        /** Index of the option within the native `select` element. */
+        MatNativeOptionHarness.prototype.getIndex = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('index')];
+                    }
+                });
+            });
+        };
+        /** Gets whether the option is disabled. */
+        MatNativeOptionHarness.prototype.isDisabled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('disabled')];
+                    }
+                });
+            });
+        };
+        /** Gets whether the option is selected. */
+        MatNativeOptionHarness.prototype.isSelected = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('selected')];
+                    }
+                });
+            });
+        };
+        return MatNativeOptionHarness;
+    }(testing.ComponentHarness));
+    /** Selector used to locate option instances. */
+    MatNativeOptionHarness.hostSelector = 'select[matNativeControl] option';
+
+    /** Harness for interacting with a native `select` in tests. */
+    var MatNativeSelectHarness = /** @class */ (function (_super) {
+        __extends(MatNativeSelectHarness, _super);
+        function MatNativeSelectHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatNativeSelectHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which select instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatNativeSelectHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatNativeSelectHarness, options);
+        };
+        /** Gets a boolean promise indicating if the select is disabled. */
+        MatNativeSelectHarness.prototype.isDisabled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('disabled')];
+                    }
+                });
+            });
+        };
+        /** Gets a boolean promise indicating if the select is required. */
+        MatNativeSelectHarness.prototype.isRequired = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('required')];
+                    }
+                });
+            });
+        };
+        /** Gets a boolean promise indicating if the select is in multi-selection mode. */
+        MatNativeSelectHarness.prototype.isMultiple = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('multiple')];
+                    }
+                });
+            });
+        };
+        /** Gets the name of the select. */
+        MatNativeSelectHarness.prototype.getName = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).getProperty('name')];
+                        case 2: 
+                        // The "name" property of the native select is never undefined.
+                        return [2 /*return*/, (_a.sent())];
+                    }
+                });
+            });
+        };
+        /** Gets the id of the select. */
+        MatNativeSelectHarness.prototype.getId = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).getProperty('id')];
+                        case 2: 
+                        // We're guaranteed to have an id, because the `matNativeControl` always assigns one.
+                        return [2 /*return*/, (_a.sent())];
+                    }
+                });
+            });
+        };
+        /** Focuses the select and returns a void promise that indicates when the action is complete. */
+        MatNativeSelectHarness.prototype.focus = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).focus()];
+                    }
+                });
+            });
+        };
+        /** Blurs the select and returns a void promise that indicates when the action is complete. */
+        MatNativeSelectHarness.prototype.blur = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).blur()];
+                    }
+                });
+            });
+        };
+        /** Whether the select is focused. */
+        MatNativeSelectHarness.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
+        /** Gets the options inside the select panel. */
+        MatNativeSelectHarness.prototype.getOptions = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForAll(MatNativeOptionHarness.with(filter))()];
+                });
+            });
+        };
+        /**
+         * Selects the options that match the passed-in filter. If the select is in multi-selection
+         * mode all options will be clicked, otherwise the harness will pick the first matching option.
+         */
+        MatNativeSelectHarness.prototype.selectOptions = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                var _a, isMultiple, options, _b, host, optionIndexes;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, Promise.all([this.isMultiple(), this.getOptions(filter)])];
+                        case 1:
+                            _a = __read.apply(void 0, [_c.sent(), 2]), isMultiple = _a[0], options = _a[1];
+                            if (options.length === 0) {
+                                throw Error('Select does not have options matching the specified filter');
+                            }
+                            return [4 /*yield*/, Promise.all([
+                                    this.host(),
+                                    Promise.all(options.slice(0, isMultiple ? undefined : 1).map(function (option) { return option.getIndex(); }))
+                                ])];
+                        case 2:
+                            _b = __read.apply(void 0, [_c.sent(), 2]), host = _b[0], optionIndexes = _b[1];
+                            // @breaking-change 12.0.0 Error can be removed once `selectOptions` is a required method.
+                            if (!host.selectOptions) {
+                                throw Error('TestElement implementation does not support the selectOptions ' +
+                                    'method which is required for this function.');
+                            }
+                            return [4 /*yield*/, host.selectOptions.apply(host, __spread(optionIndexes))];
+                        case 3:
+                            _c.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        return MatNativeSelectHarness;
+    }(control.MatFormFieldControlHarness));
+    MatNativeSelectHarness.hostSelector = 'select[matNativeControl]';
+
     /**
      * @license
      * Copyright Google LLC All Rights Reserved.
@@ -534,6 +778,8 @@
      */
 
     exports.MatInputHarness = MatInputHarness;
+    exports.MatNativeOptionHarness = MatNativeOptionHarness;
+    exports.MatNativeSelectHarness = MatNativeSelectHarness;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

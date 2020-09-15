@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
 /**
@@ -155,6 +155,146 @@ MatInputHarness.hostSelector = '[matInput], input[matNativeControl], textarea[ma
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Harness for interacting with a native `option` in tests. */
+class MatNativeOptionHarness extends ComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatNativeOptionHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which option instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatNativeOptionHarness, options)
+            .addOption('text', options.text, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getText(), title); }))
+            .addOption('index', options.index, (harness, index) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getIndex()) === index; }))
+            .addOption('isSelected', options.isSelected, (harness, isSelected) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isSelected()) === isSelected; }));
+    }
+    /** Gets the option's label text. */
+    getText() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getProperty('label');
+        });
+    }
+    /** Index of the option within the native `select` element. */
+    getIndex() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getProperty('index');
+        });
+    }
+    /** Gets whether the option is disabled. */
+    isDisabled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getProperty('disabled');
+        });
+    }
+    /** Gets whether the option is selected. */
+    isSelected() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getProperty('selected');
+        });
+    }
+}
+/** Selector used to locate option instances. */
+MatNativeOptionHarness.hostSelector = 'select[matNativeControl] option';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Harness for interacting with a native `select` in tests. */
+class MatNativeSelectHarness extends MatFormFieldControlHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatNativeSelectHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which select instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatNativeSelectHarness, options);
+    }
+    /** Gets a boolean promise indicating if the select is disabled. */
+    isDisabled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getProperty('disabled');
+        });
+    }
+    /** Gets a boolean promise indicating if the select is required. */
+    isRequired() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getProperty('required');
+        });
+    }
+    /** Gets a boolean promise indicating if the select is in multi-selection mode. */
+    isMultiple() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).getProperty('multiple');
+        });
+    }
+    /** Gets the name of the select. */
+    getName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            // The "name" property of the native select is never undefined.
+            return (yield (yield this.host()).getProperty('name'));
+        });
+    }
+    /** Gets the id of the select. */
+    getId() {
+        return __awaiter(this, void 0, void 0, function* () {
+            // We're guaranteed to have an id, because the `matNativeControl` always assigns one.
+            return (yield (yield this.host()).getProperty('id'));
+        });
+    }
+    /** Focuses the select and returns a void promise that indicates when the action is complete. */
+    focus() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).focus();
+        });
+    }
+    /** Blurs the select and returns a void promise that indicates when the action is complete. */
+    blur() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).blur();
+        });
+    }
+    /** Whether the select is focused. */
+    isFocused() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).isFocused();
+        });
+    }
+    /** Gets the options inside the select panel. */
+    getOptions(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.locatorForAll(MatNativeOptionHarness.with(filter))();
+        });
+    }
+    /**
+     * Selects the options that match the passed-in filter. If the select is in multi-selection
+     * mode all options will be clicked, otherwise the harness will pick the first matching option.
+     */
+    selectOptions(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [isMultiple, options] = yield Promise.all([this.isMultiple(), this.getOptions(filter)]);
+            if (options.length === 0) {
+                throw Error('Select does not have options matching the specified filter');
+            }
+            const [host, optionIndexes] = yield Promise.all([
+                this.host(),
+                Promise.all(options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex()))
+            ]);
+            // @breaking-change 12.0.0 Error can be removed once `selectOptions` is a required method.
+            if (!host.selectOptions) {
+                throw Error('TestElement implementation does not support the selectOptions ' +
+                    'method which is required for this function.');
+            }
+            yield host.selectOptions(...optionIndexes);
+        });
+    }
+}
+MatNativeSelectHarness.hostSelector = 'select[matNativeControl]';
 
 /**
  * @license
@@ -164,5 +304,21 @@ MatInputHarness.hostSelector = '[matInput], input[matNativeControl], textarea[ma
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatInputHarness };
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+export { MatInputHarness, MatNativeOptionHarness, MatNativeSelectHarness };
 //# sourceMappingURL=testing.js.map
