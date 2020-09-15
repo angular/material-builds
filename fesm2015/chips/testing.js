@@ -51,7 +51,9 @@ class MatChipHarness extends ComponentHarness {
     /** Gets the text of the chip. */
     getText() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).text();
+            return (yield this.host()).text({
+                exclude: '.mat-chip-avatar, .mat-chip-trailing-icon, .mat-icon'
+            });
         });
     }
     /** Whether the chip is selected. */
