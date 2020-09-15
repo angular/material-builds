@@ -350,9 +350,9 @@
         __extends(MatListItemHarnessBase, _super);
         function MatListItemHarnessBase() {
             var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._lines = _this.locatorForAll('[mat-line], [matLine]');
-            _this._avatar = _this.locatorForOptional('[mat-list-avatar], [matListAvatar]');
-            _this._icon = _this.locatorForOptional('[mat-list-icon], [matListIcon]');
+            _this._lines = _this.locatorForAll('.mat-line');
+            _this._avatar = _this.locatorForOptional('.mat-list-avatar');
+            _this._icon = _this.locatorForOptional('.mat-list-icon');
             return _this;
         }
         /** Gets the full text content of the list item (including text from any font icons). */
@@ -646,9 +646,7 @@
         return MatActionListItemHarness;
     }(MatListItemHarnessBase));
     /** The selector for the host element of a `MatListItem` instance. */
-    MatActionListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-        .map(function (selector) { return MatActionListHarness.hostSelector + " " + selector; })
-        .join(',');
+    MatActionListItemHarness.hostSelector = MatActionListHarness.hostSelector + " .mat-list-item";
 
     /** Harness for interacting with a standard mat-list in tests. */
     var MatListHarness = /** @class */ (function (_super) {
@@ -671,7 +669,7 @@
         return MatListHarness;
     }(MatListHarnessBase));
     /** The selector for the host element of a `MatList` instance. */
-    MatListHarness.hostSelector = '.mat-list:not(mat-action-list):not(mat-nav-list):not(mat-selection-list)';
+    MatListHarness.hostSelector = '.mat-list:not(mat-action-list)';
     /** Harness for interacting with a list item. */
     var MatListItemHarness = /** @class */ (function (_super) {
         __extends(MatListItemHarness, _super);
@@ -691,9 +689,7 @@
         return MatListItemHarness;
     }(MatListItemHarnessBase));
     /** The selector for the host element of a `MatListItem` instance. */
-    MatListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-        .map(function (selector) { return MatListHarness.hostSelector + " " + selector; })
-        .join(',');
+    MatListItemHarness.hostSelector = MatListHarness.hostSelector + " .mat-list-item";
 
     /** Harness for interacting with a standard mat-nav-list in tests. */
     var MatNavListHarness = /** @class */ (function (_super) {
@@ -795,9 +791,7 @@
         return MatNavListItemHarness;
     }(MatListItemHarnessBase));
     /** The selector for the host element of a `MatListItem` instance. */
-    MatNavListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-        .map(function (selector) { return MatNavListHarness.hostSelector + " " + selector; })
-        .join(',');
+    MatNavListItemHarness.hostSelector = MatNavListHarness.hostSelector + " .mat-list-item";
 
     /** Harness for interacting with a standard mat-selection-list in tests. */
     var MatSelectionListHarness = /** @class */ (function (_super) {
