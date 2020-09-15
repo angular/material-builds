@@ -42,9 +42,9 @@ MatSubheaderHarness.hostSelector = '.mat-subheader';
 class MatListItemHarnessBase extends ComponentHarness {
     constructor() {
         super(...arguments);
-        this._lines = this.locatorForAll('[mat-line], [matLine]');
-        this._avatar = this.locatorForOptional('[mat-list-avatar], [matListAvatar]');
-        this._icon = this.locatorForOptional('[mat-list-icon], [matListIcon]');
+        this._lines = this.locatorForAll('.mat-line');
+        this._avatar = this.locatorForOptional('.mat-list-avatar');
+        this._icon = this.locatorForOptional('.mat-list-icon');
     }
     /** Gets the full text content of the list item (including text from any font icons). */
     getText() {
@@ -232,9 +232,7 @@ class MatActionListItemHarness extends MatListItemHarnessBase {
     }
 }
 /** The selector for the host element of a `MatListItem` instance. */
-MatActionListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-    .map(selector => `${MatActionListHarness.hostSelector} ${selector}`)
-    .join(',');
+MatActionListItemHarness.hostSelector = `${MatActionListHarness.hostSelector} .mat-list-item`;
 
 /**
  * @license
@@ -260,7 +258,7 @@ class MatListHarness extends MatListHarnessBase {
     }
 }
 /** The selector for the host element of a `MatList` instance. */
-MatListHarness.hostSelector = '.mat-list:not(mat-action-list):not(mat-nav-list):not(mat-selection-list)';
+MatListHarness.hostSelector = '.mat-list:not(mat-action-list)';
 /** Harness for interacting with a list item. */
 class MatListItemHarness extends MatListItemHarnessBase {
     /**
@@ -274,9 +272,7 @@ class MatListItemHarness extends MatListItemHarnessBase {
     }
 }
 /** The selector for the host element of a `MatListItem` instance. */
-MatListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-    .map(selector => `${MatListHarness.hostSelector} ${selector}`)
-    .join(',');
+MatListItemHarness.hostSelector = `${MatListHarness.hostSelector} .mat-list-item`;
 
 /**
  * @license
@@ -355,9 +351,7 @@ class MatNavListItemHarness extends MatListItemHarnessBase {
     }
 }
 /** The selector for the host element of a `MatListItem` instance. */
-MatNavListItemHarness.hostSelector = ['mat-list-item', 'a[mat-list-item]', 'button[mat-list-item]']
-    .map(selector => `${MatNavListHarness.hostSelector} ${selector}`)
-    .join(',');
+MatNavListItemHarness.hostSelector = `${MatNavListHarness.hostSelector} .mat-list-item`;
 
 /**
  * @license
