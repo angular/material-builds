@@ -607,7 +607,7 @@
      */
     var _MatRadioButtonBase = /** @class */ (function (_super) {
         __extends(_MatRadioButtonBase, _super);
-        function _MatRadioButtonBase(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride, tabIndex) {
+        function _MatRadioButtonBase(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetector = _changeDetector;
             _this._focusMonitor = _focusMonitor;
@@ -632,9 +632,6 @@
             // Assertions. Ideally these should be stripped out by the compiler.
             // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
             _this.radioGroup = radioGroup;
-            if (tabIndex) {
-                _this.tabIndex = coercion.coerceNumberProperty(tabIndex, 0);
-            }
             _this._removeUniqueSelectionListener =
                 _radioDispatcher.listen(function (id, name) {
                     if (id !== _this.id && name === _this.name) {
@@ -829,8 +826,7 @@
         { type: a11y.FocusMonitor },
         { type: collections.UniqueSelectionDispatcher },
         { type: String },
-        { type: undefined },
-        { type: String }
+        { type: undefined }
     ]; };
     _MatRadioButtonBase.propDecorators = {
         id: [{ type: core.Input }],
@@ -852,8 +848,8 @@
      */
     var MatRadioButton = /** @class */ (function (_super) {
         __extends(MatRadioButton, _super);
-        function MatRadioButton(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride, tabIndex) {
-            return _super.call(this, radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride, tabIndex) || this;
+        function MatRadioButton(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride) {
+            return _super.call(this, radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride) || this;
         }
         return MatRadioButton;
     }(_MatRadioButtonBase));
@@ -894,8 +890,7 @@
         { type: a11y.FocusMonitor },
         { type: collections.UniqueSelectionDispatcher },
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] },
-        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
     ]; };
 
     /**

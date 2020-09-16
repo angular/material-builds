@@ -1913,10 +1913,6 @@
              * This doesn't imply a change on the selected date.
              */
             this.monthSelected = new i0.EventEmitter();
-            /**
-             * Emits when the current view changes.
-             */
-            this.viewChanged = new i0.EventEmitter(true);
             /** Emits when any date is selected. */
             this._userSelection = new i0.EventEmitter();
             /**
@@ -1995,13 +1991,9 @@
             /** Whether the calendar is in month view. */
             get: function () { return this._currentView; },
             set: function (value) {
-                var viewChangedResult = this._currentView !== value ? value : null;
                 this._currentView = value;
                 this._moveFocusOnNextTick = true;
                 this._changeDetectorRef.markForCheck();
-                if (viewChangedResult) {
-                    this.viewChanged.emit(viewChangedResult);
-                }
             },
             enumerable: false,
             configurable: true
@@ -2115,7 +2107,6 @@
         selectedChange: [{ type: i0.Output }],
         yearSelected: [{ type: i0.Output }],
         monthSelected: [{ type: i0.Output }],
-        viewChanged: [{ type: i0.Output }],
         _userSelection: [{ type: i0.Output }],
         monthView: [{ type: i0.ViewChild, args: [MatMonthView,] }],
         yearView: [{ type: i0.ViewChild, args: [MatYearView,] }],
@@ -2245,7 +2236,7 @@
     MatDatepickerContent.decorators = [
         { type: i0.Component, args: [{
                     selector: 'mat-datepicker-content',
-                    template: "<mat-calendar cdkTrapFocus\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\">\n</mat-calendar>\n",
+                    template: "<mat-calendar cdkTrapFocus\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\">\n</mat-calendar>\n",
                     host: {
                         'class': 'mat-datepicker-content',
                         '[@transformPanel]': '_animationState',
@@ -2302,10 +2293,6 @@
              * This doesn't imply a change on the selected date.
              */
             this.monthSelected = new i0.EventEmitter();
-            /**
-             * Emits when the current view changes.
-             */
-            this.viewChanged = new i0.EventEmitter(true);
             /** Emits when the datepicker has been opened. */
             this.openedStream = new i0.EventEmitter();
             /** Emits when the datepicker has been closed. */
@@ -2424,10 +2411,6 @@
         /** Emits selected month in year view */
         MatDatepickerBase.prototype._selectMonth = function (normalizedMonth) {
             this.monthSelected.emit(normalizedMonth);
-        };
-        /** Emits changed view */
-        MatDatepickerBase.prototype._viewChanged = function (view) {
-            this.viewChanged.emit(view);
         };
         /**
          * Register an input with this datepicker.
@@ -2651,7 +2634,6 @@
         yPosition: [{ type: i0.Input }],
         yearSelected: [{ type: i0.Output }],
         monthSelected: [{ type: i0.Output }],
-        viewChanged: [{ type: i0.Output }],
         panelClass: [{ type: i0.Input }],
         dateClass: [{ type: i0.Input }],
         openedStream: [{ type: i0.Output, args: ['opened',] }],

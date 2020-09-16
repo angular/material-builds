@@ -4,7 +4,7 @@ import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewE
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, merge, of } from 'rxjs';
@@ -296,7 +296,9 @@ MatBottomSheetModule.decorators = [
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  */
 class MatBottomSheetRef {
-    constructor(containerInstance, _overlayRef) {
+    constructor(containerInstance, _overlayRef, 
+    // @breaking-change 8.0.0 `_location` parameter to be removed.
+    _location) {
         this._overlayRef = _overlayRef;
         /** Subject for notifying the user that the bottom sheet has been dismissed. */
         this._afterDismissed = new Subject();
@@ -386,10 +388,11 @@ const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-de
  * Service to trigger Material Design bottom sheets.
  */
 class MatBottomSheet {
-    constructor(_overlay, _injector, _parentBottomSheet, _defaultOptions) {
+    constructor(_overlay, _injector, _parentBottomSheet, _location, _defaultOptions) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._parentBottomSheet = _parentBottomSheet;
+        this._location = _location;
         this._defaultOptions = _defaultOptions;
         this._bottomSheetRefAtThisLevel = null;
     }
@@ -410,7 +413,7 @@ class MatBottomSheet {
         const _config = _applyConfigDefaults(this._defaultOptions || new MatBottomSheetConfig(), config);
         const overlayRef = this._createOverlay(_config);
         const container = this._attachContainer(overlayRef, _config);
-        const ref = new MatBottomSheetRef(container, overlayRef);
+        const ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof TemplateRef) {
             container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null, {
                 $implicit: _config.data,
@@ -508,7 +511,7 @@ class MatBottomSheet {
         return Injector.create({ parent: userInjector || this._injector, providers });
     }
 }
-MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(Location, 8), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
 MatBottomSheet.decorators = [
     { type: Injectable, args: [{ providedIn: MatBottomSheetModule },] }
 ];
@@ -516,6 +519,7 @@ MatBottomSheet.ctorParameters = () => [
     { type: Overlay },
     { type: Injector },
     { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf }] },
+    { type: Location, decorators: [{ type: Optional }] },
     { type: MatBottomSheetConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
 ];
 /**

@@ -13,7 +13,7 @@ import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDest
 import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, Observable } from 'rxjs';
-import { MatCalendar, MatCalendarView } from './calendar';
+import { MatCalendar } from './calendar';
 import { MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { DateFilterFn } from './datepicker-input-base';
 import { ExtractDateTypeFromSelection, MatDateSelectionModel, DateRange } from './date-selection-model';
@@ -132,10 +132,6 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
      * This doesn't imply a change on the selected date.
      */
     readonly monthSelected: EventEmitter<D>;
-    /**
-     * Emits when the current view changes.
-     */
-    readonly viewChanged: EventEmitter<MatCalendarView>;
     /** Classes to be passed to the date picker panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[];
     /** Function that can be used to add custom CSS classes to dates. */
@@ -178,8 +174,6 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     _selectYear(normalizedYear: D): void;
     /** Emits selected month in year view */
     _selectMonth(normalizedMonth: D): void;
-    /** Emits changed view */
-    _viewChanged(view: MatCalendarView): void;
     /**
      * Register an input with this datepicker.
      * @param input The datepicker input to register with this datepicker.

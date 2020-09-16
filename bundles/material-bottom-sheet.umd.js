@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/layout', '@angular/animations', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.layout, global.ng.animations, global.ng.common, global.ng.cdk.a11y, global.ng.cdk.bidi, global.rxjs, global.ng.cdk.keycodes, global.rxjs.operators));
-}(this, (function (exports, i1, portal, i0, core, layout, animations, common, a11y, bidi, rxjs, keycodes, operators) { 'use strict';
+}(this, (function (exports, i1, portal, i0, core, layout, animations, i2, a11y, bidi, rxjs, keycodes, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -548,7 +548,7 @@
         { type: i0.ChangeDetectorRef },
         { type: a11y.FocusTrapFactory },
         { type: layout.BreakpointObserver },
-        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [common.DOCUMENT,] }] },
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [i2.DOCUMENT,] }] },
         { type: MatBottomSheetConfig }
     ]; };
     MatBottomSheetContainer.propDecorators = {
@@ -591,7 +591,9 @@
      * Reference to a bottom sheet dispatched from the bottom sheet service.
      */
     var MatBottomSheetRef = /** @class */ (function () {
-        function MatBottomSheetRef(containerInstance, _overlayRef) {
+        function MatBottomSheetRef(containerInstance, _overlayRef, 
+        // @breaking-change 8.0.0 `_location` parameter to be removed.
+        _location) {
             var _this = this;
             this._overlayRef = _overlayRef;
             /** Subject for notifying the user that the bottom sheet has been dismissed. */
@@ -684,10 +686,11 @@
      * Service to trigger Material Design bottom sheets.
      */
     var MatBottomSheet = /** @class */ (function () {
-        function MatBottomSheet(_overlay, _injector, _parentBottomSheet, _defaultOptions) {
+        function MatBottomSheet(_overlay, _injector, _parentBottomSheet, _location, _defaultOptions) {
             this._overlay = _overlay;
             this._injector = _injector;
             this._parentBottomSheet = _parentBottomSheet;
+            this._location = _location;
             this._defaultOptions = _defaultOptions;
             this._bottomSheetRefAtThisLevel = null;
         }
@@ -713,7 +716,7 @@
             var _config = _applyConfigDefaults(this._defaultOptions || new MatBottomSheetConfig(), config);
             var overlayRef = this._createOverlay(_config);
             var container = this._attachContainer(overlayRef, _config);
-            var ref = new MatBottomSheetRef(container, overlayRef);
+            var ref = new MatBottomSheetRef(container, overlayRef, this._location);
             if (componentOrTemplateRef instanceof i0.TemplateRef) {
                 container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, null, {
                     $implicit: _config.data,
@@ -812,7 +815,7 @@
         };
         return MatBottomSheet;
     }());
-    MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(i2.Location, 8), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     MatBottomSheet.decorators = [
         { type: i0.Injectable, args: [{ providedIn: MatBottomSheetModule },] }
     ];
@@ -820,6 +823,7 @@
         { type: i1.Overlay },
         { type: i0.Injector },
         { type: MatBottomSheet, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] },
+        { type: i2.Location, decorators: [{ type: i0.Optional }] },
         { type: MatBottomSheetConfig, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,] }] }
     ]; };
     /**
