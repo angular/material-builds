@@ -104,6 +104,10 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
      * This doesn't imply a change on the selected date.
      */
     readonly monthSelected: EventEmitter<D>;
+    /**
+     * Emits when the current view changes.
+     */
+    readonly viewChanged: EventEmitter<MatCalendarView>;
     /** Emits when any date is selected. */
     readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
     /** Reference to the current month view component. */
