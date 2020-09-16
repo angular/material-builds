@@ -11,7 +11,13 @@ import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
 import { MatStepperIconContext } from './stepper-icon';
 import { CdkStepHeader, StepState } from '@angular/cdk/stepper';
-export declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDestroy {
+import { CanColorCtor, CanColor } from '@angular/material/core';
+/** @docs-private */
+declare class MatStepHeaderBase extends CdkStepHeader {
+    constructor(elementRef: ElementRef);
+}
+declare const _MatStepHeaderMixinBase: CanColorCtor & typeof MatStepHeaderBase;
+export declare class MatStepHeader extends _MatStepHeaderMixinBase implements AfterViewInit, OnDestroy, CanColor {
     _intl: MatStepperIntl;
     private _focusMonitor;
     private _intlSubscription;
@@ -50,3 +56,4 @@ export declare class MatStepHeader extends CdkStepHeader implements AfterViewIni
     _getIconContext(): MatStepperIconContext;
     _getDefaultTextForState(state: StepState): string;
 }
+export {};

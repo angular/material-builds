@@ -11,7 +11,7 @@ import { CdkStep, CdkStepper, StepperOptions } from '@angular/cdk/stepper';
 import { AnimationEvent } from '@angular/animations';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, TemplateRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, ThemePalette } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
@@ -20,6 +20,8 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     private _errorStateMatcher;
     /** Content for step label given by `<ng-template matStepLabel>`. */
     stepLabel: MatStepLabel;
+    /** Theme color for the particular step. */
+    color: ThemePalette;
     /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
     constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, stepperOptions?: StepperOptions);
     /** Custom error state matcher that additionally checks for validity of interacted form. */
@@ -38,6 +40,8 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     readonly animationDone: EventEmitter<void>;
     /** Whether ripples should be disabled for the step headers. */
     disableRipple: boolean;
+    /** Theme color for all of the steps in stepper. */
+    color: ThemePalette;
     /** Consumer-specified template-refs to be used to override the header icons. */
     _iconOverrides: {
         [key: string]: TemplateRef<MatStepperIconContext>;
