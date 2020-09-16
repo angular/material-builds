@@ -199,7 +199,6 @@ class MatTab extends _MatTabMixinBase {
          */
         this.isActive = false;
     }
-    // TODO: Remove cast once https://github.com/angular/angular/pull/37506 is available.
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     get templateLabel() { return this._templateLabel; }
     set templateLabel(value) { this._setTemplateLabelInput(value); }
@@ -980,7 +979,7 @@ class MatPaginatedTabHeader {
             .withHorizontalOrientation(this._getLayoutDirection())
             .withHomeAndEnd()
             .withWrap();
-        this._keyManager.updateActiveItem(0);
+        this._keyManager.updateActiveItem(this._selectedIndex);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();

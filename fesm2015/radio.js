@@ -1,7 +1,7 @@
-import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Output, Input, ContentChildren, ElementRef, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, EventEmitter, Directive, ChangeDetectorRef, Output, Input, ContentChildren, ElementRef, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Attribute, NgModule } from '@angular/core';
 import { mixinDisableRipple, mixinTabIndex, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -280,7 +280,7 @@ const _MatRadioButtonMixinBase = mixinDisableRipple(mixinTabIndex(MatRadioButton
  * @docs-private
  */
 class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
-    constructor(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride) {
+    constructor(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher, _animationMode, _providerOverride, tabIndex) {
         super(elementRef);
         this._changeDetector = _changeDetector;
         this._focusMonitor = _focusMonitor;
@@ -305,6 +305,9 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         this.radioGroup = radioGroup;
+        if (tabIndex) {
+            this.tabIndex = coerceNumberProperty(tabIndex, 0);
+        }
         this._removeUniqueSelectionListener =
             _radioDispatcher.listen((id, name) => {
                 if (id !== this.id && name === this.name) {
@@ -468,7 +471,8 @@ _MatRadioButtonBase.ctorParameters = () => [
     { type: FocusMonitor },
     { type: UniqueSelectionDispatcher },
     { type: String },
-    { type: undefined }
+    { type: undefined },
+    { type: String }
 ];
 _MatRadioButtonBase.propDecorators = {
     id: [{ type: Input }],
@@ -489,8 +493,8 @@ _MatRadioButtonBase.propDecorators = {
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
 class MatRadioButton extends _MatRadioButtonBase {
-    constructor(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride) {
-        super(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride);
+    constructor(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride, tabIndex) {
+        super(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride, tabIndex);
     }
 }
 MatRadioButton.decorators = [
@@ -530,7 +534,8 @@ MatRadioButton.ctorParameters = () => [
     { type: FocusMonitor },
     { type: UniqueSelectionDispatcher },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RADIO_DEFAULT_OPTIONS,] }] },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 
 /**
