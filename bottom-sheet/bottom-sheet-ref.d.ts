@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Location } from '@angular/common';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 import { MatBottomSheetContainer } from './bottom-sheet-container';
@@ -31,7 +30,7 @@ export declare class MatBottomSheetRef<T = any, R = any> {
     private _result;
     /** Handle to the timeout that's running as a fallback in case the exit animation doesn't fire. */
     private _closeFallbackTimeout;
-    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef, _location?: Location);
+    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef);
     /**
      * Dismisses the bottom sheet.
      * @param result Data to be passed back to the bottom sheet opener.
