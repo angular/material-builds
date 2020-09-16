@@ -490,7 +490,6 @@
             return _this;
         }
         Object.defineProperty(MatTab.prototype, "templateLabel", {
-            // TODO: Remove cast once https://github.com/angular/angular/pull/37506 is available.
             /** Content for the tab label given by `<ng-template mat-tab-label>`. */
             get: function () { return this._templateLabel; },
             set: function (value) { this._setTemplateLabelInput(value); },

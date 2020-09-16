@@ -199,7 +199,6 @@ class MatTab extends _MatTabMixinBase {
          */
         this.isActive = false;
     }
-    // TODO: Remove cast once https://github.com/angular/angular/pull/37506 is available.
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     get templateLabel() { return this._templateLabel; }
     set templateLabel(value) { this._setTemplateLabelInput(value); }
