@@ -489,6 +489,60 @@
                 });
             });
         };
+        MatMenuHarness.prototype.getChildLoader = function (selector) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._getPanelLoader()];
+                        case 1: return [2 /*return*/, (_a.sent()).getChildLoader(selector)];
+                    }
+                });
+            });
+        };
+        MatMenuHarness.prototype.getAllChildLoaders = function (selector) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._getPanelLoader()];
+                        case 1: return [2 /*return*/, (_a.sent()).getAllChildLoaders(selector)];
+                    }
+                });
+            });
+        };
+        MatMenuHarness.prototype.getHarness = function (query) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._getPanelLoader()];
+                        case 1: return [2 /*return*/, (_a.sent()).getHarness(query)];
+                    }
+                });
+            });
+        };
+        MatMenuHarness.prototype.getAllHarnesses = function (query) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._getPanelLoader()];
+                        case 1: return [2 /*return*/, (_a.sent()).getAllHarnesses(query)];
+                    }
+                });
+            });
+        };
+        /** Gets the element id for the content of the current step. */
+        MatMenuHarness.prototype._getPanelLoader = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var panelId;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._getPanelId()];
+                        case 1:
+                            panelId = _a.sent();
+                            return [2 /*return*/, this.documentRootLocatorFactory().harnessLoaderFor("#" + panelId)];
+                    }
+                });
+            });
+        };
         /** Gets the menu panel associated with this menu. */
         MatMenuHarness.prototype._getMenuPanel = function () {
             return __awaiter(this, void 0, void 0, function () {
@@ -519,7 +573,7 @@
             });
         };
         return MatMenuHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     /** The selector for the host element of a `MatMenu` instance. */
     MatMenuHarness.hostSelector = '.mat-menu-trigger';
     /** Harness for interacting with a standard mat-menu-item in tests. */
@@ -644,7 +698,7 @@
             });
         };
         return MatMenuItemHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     /** The selector for the host element of a `MatMenuItem` instance. */
     MatMenuItemHarness.hostSelector = '.mat-menu-item';
 

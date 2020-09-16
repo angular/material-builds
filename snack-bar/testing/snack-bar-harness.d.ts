@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { SnackBarHarnessFilters } from './snack-bar-harness-filters';
 /** Harness for interacting with a standard mat-snack-bar in tests. */
-export declare class MatSnackBarHarness extends ComponentHarness {
+export declare class MatSnackBarHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;
     private _simpleSnackBar;

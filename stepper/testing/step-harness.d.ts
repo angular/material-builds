@@ -47,7 +47,7 @@ export declare class MatStepHarness extends ContentContainerComponentHarness<str
     getAllChildLoaders(selector: string): Promise<HarnessLoader[]>;
     getHarness<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T>;
     getAllHarnesses<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T[]>;
-    /** Gets the element id for the content of the current step. */
+    /** Gets the harness loader for the content of the current step. */
     private _getContentLoader;
     /**
      * Gets the state of the step. Note that we have a `StepState` which we could use to type the

@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -204,7 +204,7 @@ function getCellTextByColumnName(harness) {
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard mat-table in tests. */
-class MatTableHarness extends ComponentHarness {
+class MatTableHarness extends ContentContainerComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table with specific attributes.
      * @param options Options for narrowing the search

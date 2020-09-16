@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -9,7 +9,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard Angular Material tab-label in tests. */
-class MatTabHarness extends ComponentHarness {
+class MatTabHarness extends ContentContainerComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTabHarness` that meets
      * certain criteria.
@@ -69,11 +69,33 @@ class MatTabHarness extends ComponentHarness {
     /**
      * Gets a `HarnessLoader` that can be used to load harnesses for components within the tab's
      * content area.
+     * @deprecated Use `getHarness` or `getChildLoader` instead.
+     * @breaking-change 12.0.0
      */
     getHarnessLoaderForContent() {
         return __awaiter(this, void 0, void 0, function* () {
             const contentId = yield this._getContentId();
             return this.documentRootLocatorFactory().harnessLoaderFor(`#${contentId}`);
+        });
+    }
+    getChildLoader(selector) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.getHarnessLoaderForContent()).getChildLoader(selector);
+        });
+    }
+    getAllChildLoaders(selector) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.getHarnessLoaderForContent()).getAllChildLoaders(selector);
+        });
+    }
+    getHarness(query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.getHarnessLoaderForContent()).getHarness(query);
+        });
+    }
+    getAllHarnesses(query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.getHarnessLoaderForContent()).getAllHarnesses(query);
         });
     }
     /** Gets the element id for the content of the current tab. */

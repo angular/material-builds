@@ -401,7 +401,7 @@
             });
         };
         return MatDialogHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     // Developers can provide a custom component or template for the
     // dialog. The canonical dialog parent is the "MatDialogContainer".
     /** The selector for the host element of a `MatDialog` instance. */

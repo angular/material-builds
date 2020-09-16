@@ -502,7 +502,7 @@
                 });
             });
         };
-        /** Gets the element id for the content of the current step. */
+        /** Gets the harness loader for the content of the current step. */
         MatStepHarness.prototype._getContentLoader = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var contentId;

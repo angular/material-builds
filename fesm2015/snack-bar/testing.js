@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -9,7 +9,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard mat-snack-bar in tests. */
-class MatSnackBarHarness extends ComponentHarness {
+class MatSnackBarHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
         this._simpleSnackBar = this.locatorForOptional('.mat-simple-snackbar');

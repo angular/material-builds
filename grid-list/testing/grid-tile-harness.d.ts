@@ -5,10 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { GridTileHarnessFilters } from './grid-list-harness-filters';
+/** Selectors for the various `mat-grid-tile` sections that may contain user content. */
+export declare const enum MatGridTileSection {
+    HEADER = ".mat-grid-tile-header",
+    FOOTER = ".mat-grid-tile-footer"
+}
 /** Harness for interacting with a standard `MatGridTitle` in tests. */
-export declare class MatGridTileHarness extends ComponentHarness {
+export declare class MatGridTileHarness extends ContentContainerComponentHarness<MatGridTileSection> {
     /** The selector for the host element of a `MatGridTile` instance. */
     static hostSelector: string;
     /**

@@ -305,10 +305,7 @@
         return value;
     }
 
-    /**
-     * Harness for interacting with a standard MatBottomSheet in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard MatBottomSheet in tests. */
     var MatBottomSheetHarness = /** @class */ (function (_super) {
         __extends(MatBottomSheetHarness, _super);
         function MatBottomSheetHarness() {
@@ -353,7 +350,7 @@
             });
         };
         return MatBottomSheetHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     // Developers can provide a custom component or template for the
     // bottom sheet. The canonical parent is the ".mat-bottom-sheet-container".
     MatBottomSheetHarness.hostSelector = '.mat-bottom-sheet-container';

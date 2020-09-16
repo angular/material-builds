@@ -305,17 +305,16 @@
         return value;
     }
 
-    var EXPANSION_PANEL_CONTENT_SELECTOR = '.mat-expansion-panel-content';
     /** Harness for interacting with a standard mat-expansion-panel in tests. */
     var MatExpansionPanelHarness = /** @class */ (function (_super) {
         __extends(MatExpansionPanelHarness, _super);
         function MatExpansionPanelHarness() {
             var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._header = _this.locatorFor('.mat-expansion-panel-header');
-            _this._title = _this.locatorForOptional('.mat-expansion-panel-header-title');
-            _this._description = _this.locatorForOptional('.mat-expansion-panel-header-description');
+            _this._header = _this.locatorFor(".mat-expansion-panel-header" /* HEADER */);
+            _this._title = _this.locatorForOptional(".mat-expansion-panel-header-title" /* TITLE */);
+            _this._description = _this.locatorForOptional(".mat-expansion-panel-header-description" /* DESCRIPTION */);
             _this._expansionIndicator = _this.locatorForOptional('.mat-expansion-indicator');
-            _this._content = _this.locatorFor(EXPANSION_PANEL_CONTENT_SELECTOR);
+            _this._content = _this.locatorFor(".mat-expansion-panel-content" /* CONTENT */);
             return _this;
         }
         /**
@@ -470,11 +469,14 @@
         /**
          * Gets a `HarnessLoader` that can be used to load harnesses for
          * components within the panel's content area.
+         * @deprecated Use either `getChildLoader(MatExpansionPanelSection.CONTENT)`, `getHarness` or
+         *    `getAllHarnesses` instead.
+         * @breaking-change 12.0.0
          */
         MatExpansionPanelHarness.prototype.getHarnessLoaderForContent = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    return [2 /*return*/, this.locatorFactory.harnessLoaderFor(EXPANSION_PANEL_CONTENT_SELECTOR)];
+                    return [2 /*return*/, this.getChildLoader(".mat-expansion-panel-content" /* CONTENT */)];
                 });
             });
         };
@@ -540,7 +542,7 @@
             });
         };
         return MatExpansionPanelHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     MatExpansionPanelHarness.hostSelector = '.mat-expansion-panel';
 
     /** Harness for interacting with a standard mat-accordion in tests. */

@@ -481,7 +481,7 @@
             });
         };
         return MatSnackBarHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     // Developers can provide a custom component or template for the
     // snackbar. The canonical snack-bar parent is the "MatSnackBarContainer".
     /** The selector for the host element of a `MatSnackBar` instance. */

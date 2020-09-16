@@ -104,7 +104,7 @@ class MatStepHarness extends ContentContainerComponentHarness {
             return (yield this._getContentLoader()).getAllHarnesses(query);
         });
     }
-    /** Gets the element id for the content of the current step. */
+    /** Gets the harness loader for the content of the current step. */
     _getContentLoader() {
         return __awaiter(this, void 0, void 0, function* () {
             const contentId = yield (yield this.host()).getAttribute('aria-controls');

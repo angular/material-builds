@@ -419,6 +419,8 @@
         /**
          * Gets a `HarnessLoader` that can be used to load harnesses for components within the tab's
          * content area.
+         * @deprecated Use `getHarness` or `getChildLoader` instead.
+         * @breaking-change 12.0.0
          */
         MatTabHarness.prototype.getHarnessLoaderForContent = function () {
             return __awaiter(this, void 0, void 0, function () {
@@ -429,6 +431,46 @@
                         case 1:
                             contentId = _a.sent();
                             return [2 /*return*/, this.documentRootLocatorFactory().harnessLoaderFor("#" + contentId)];
+                    }
+                });
+            });
+        };
+        MatTabHarness.prototype.getChildLoader = function (selector) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getHarnessLoaderForContent()];
+                        case 1: return [2 /*return*/, (_a.sent()).getChildLoader(selector)];
+                    }
+                });
+            });
+        };
+        MatTabHarness.prototype.getAllChildLoaders = function (selector) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getHarnessLoaderForContent()];
+                        case 1: return [2 /*return*/, (_a.sent()).getAllChildLoaders(selector)];
+                    }
+                });
+            });
+        };
+        MatTabHarness.prototype.getHarness = function (query) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getHarnessLoaderForContent()];
+                        case 1: return [2 /*return*/, (_a.sent()).getHarness(query)];
+                    }
+                });
+            });
+        };
+        MatTabHarness.prototype.getAllHarnesses = function (query) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getHarnessLoaderForContent()];
+                        case 1: return [2 /*return*/, (_a.sent()).getAllHarnesses(query)];
                     }
                 });
             });
@@ -451,7 +493,7 @@
             });
         };
         return MatTabHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     /** The selector for the host element of a `MatTab` instance. */
     MatTabHarness.hostSelector = '.mat-tab-label';
 

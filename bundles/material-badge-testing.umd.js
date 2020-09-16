@@ -305,10 +305,7 @@
         return value;
     }
 
-    /**
-     * Harness for interacting with a standard Material badge in tests.
-     * @dynamic
-     */
+    /** Harness for interacting with a standard Material badge in tests. */
     var MatBadgeHarness = /** @class */ (function (_super) {
         __extends(MatBadgeHarness, _super);
         function MatBadgeHarness() {

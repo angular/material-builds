@@ -310,8 +310,8 @@
         __extends(MatGridTileHarness, _super);
         function MatGridTileHarness() {
             var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._header = _this.locatorForOptional('.mat-grid-tile-header');
-            _this._footer = _this.locatorForOptional('.mat-grid-tile-footer');
+            _this._header = _this.locatorForOptional(".mat-grid-tile-header" /* HEADER */);
+            _this._footer = _this.locatorForOptional(".mat-grid-tile-footer" /* FOOTER */);
             _this._avatar = _this.locatorForOptional('.mat-grid-avatar');
             return _this;
         }
@@ -419,7 +419,7 @@
             });
         };
         return MatGridTileHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     /** The selector for the host element of a `MatGridTile` instance. */
     MatGridTileHarness.hostSelector = '.mat-grid-tile';
 

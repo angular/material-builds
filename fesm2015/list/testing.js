@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { HarnessPredicate, ComponentHarness, ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { MatDividerHarness } from '@angular/material/divider/testing';
 
 /**
@@ -39,7 +39,7 @@ MatSubheaderHarness.hostSelector = '.mat-subheader';
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
  */
-class MatListItemHarnessBase extends ComponentHarness {
+class MatListItemHarnessBase extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
         this._lines = this.locatorForAll('.mat-line');
@@ -70,10 +70,14 @@ class MatListItemHarnessBase extends ComponentHarness {
             return !!(yield this._icon());
         });
     }
-    /** Gets a `HarnessLoader` used to get harnesses within the list item's content. */
+    /**
+     * Gets a `HarnessLoader` used to get harnesses within the list item's content.
+     * @deprecated Use `getChildLoader(MatListItemSection.CONTENT)` or `getHarness` instead.
+     * @breaking-change 12.0.0
+     */
     getHarnessLoaderForContent() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorFactory.harnessLoaderFor('.mat-list-item-content');
+            return this.getChildLoader(".mat-list-item-content" /* CONTENT */);
         });
     }
 }
