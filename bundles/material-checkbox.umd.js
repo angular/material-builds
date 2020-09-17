@@ -324,12 +324,6 @@
             clickAction: 'check-indeterminate',
         };
     }
-    /**
-     * Injection token that can be used to specify the checkbox click behavior.
-     * @deprecated Injection token will be removed, use `MAT_CHECKBOX_DEFAULT_OPTIONS` instead.
-     * @breaking-change 10.0.0
-     */
-    var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
 
     // Increasing integer for generating unique ids for checkbox components.
     var nextUniqueId = 0;
@@ -368,18 +362,11 @@
      */
     var MatCheckbox = /** @class */ (function (_super) {
         __extends(MatCheckbox, _super);
-        function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, 
-        /**
-         * @deprecated `_clickAction` parameter to be removed, use
-         * `MAT_CHECKBOX_DEFAULT_OPTIONS`
-         * @breaking-change 10.0.0
-         */
-        _clickAction, _animationMode, _options) {
+        function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _animationMode, _options) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._focusMonitor = _focusMonitor;
             _this._ngZone = _ngZone;
-            _this._clickAction = _clickAction;
             _this._animationMode = _animationMode;
             _this._options = _options;
             /**
@@ -418,8 +405,6 @@
                 _this.color = _this.defaultColor = _this._options.color;
             }
             _this.tabIndex = parseInt(tabIndex) || 0;
-            // TODO: Remove this after the `_clickAction` parameter is removed as an injection parameter.
-            _this._clickAction = _this._clickAction || _this._options.clickAction;
             return _this;
         }
         Object.defineProperty(MatCheckbox.prototype, "inputId", {
@@ -588,6 +573,8 @@
          */
         MatCheckbox.prototype._onInputClick = function (event) {
             var _this = this;
+            var _a;
+            var clickAction = (_a = this._options) === null || _a === void 0 ? void 0 : _a.clickAction;
             // We have to stop propagation for click events on the visual hidden input element.
             // By default, when a user clicks on a label element, a generated click event will be
             // dispatched on the associated input element. Since we are using a label element as our
@@ -597,9 +584,9 @@
             // Preventing bubbling for the second event will solve that issue.
             event.stopPropagation();
             // If resetIndeterminate is false, and the current state is indeterminate, do nothing on click
-            if (!this.disabled && this._clickAction !== 'noop') {
+            if (!this.disabled && clickAction !== 'noop') {
                 // When user manually click on the checkbox, `indeterminate` is set to false.
-                if (this.indeterminate && this._clickAction !== 'check') {
+                if (this.indeterminate && clickAction !== 'check') {
                     Promise.resolve().then(function () {
                         _this._indeterminate = false;
                         _this.indeterminateChange.emit(_this._indeterminate);
@@ -612,7 +599,7 @@
                 // we don't want to trigger a change event, when the `checked` variable changes for example.
                 this._emitChangeEvent();
             }
-            else if (!this.disabled && this._clickAction === 'noop') {
+            else if (!this.disabled && clickAction === 'noop') {
                 // Reset native input when clicked with noop. The native checkbox becomes checked after
                 // click, reset it to be align with `checked` value of `mat-checkbox`.
                 this._inputElement.nativeElement.checked = this.checked;
@@ -709,7 +696,6 @@
         { type: a11y.FocusMonitor },
         { type: core.NgZone },
         { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] }] },
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_DEFAULT_OPTIONS,] }] }
     ]; };
@@ -802,7 +788,6 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
     exports.MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR;
     exports.MAT_CHECKBOX_DEFAULT_OPTIONS = MAT_CHECKBOX_DEFAULT_OPTIONS;
     exports.MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY;

@@ -10,7 +10,7 @@ import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
-import { MatCheckboxClickAction, MatCheckboxDefaultOptions } from './checkbox-config';
+import { MatCheckboxDefaultOptions } from './checkbox-config';
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -56,12 +56,6 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _changeDetectorRef;
     private _focusMonitor;
     private _ngZone;
-    /**
-     * @deprecated `_clickAction` parameter to be removed, use
-     * `MAT_CHECKBOX_DEFAULT_OPTIONS`
-     * @breaking-change 10.0.0
-     */
-    private _clickAction;
     _animationMode?: string | undefined;
     private _options?;
     /**
@@ -106,13 +100,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _currentAnimationClass;
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
-    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, 
-    /**
-     * @deprecated `_clickAction` parameter to be removed, use
-     * `MAT_CHECKBOX_DEFAULT_OPTIONS`
-     * @breaking-change 10.0.0
-     */
-    _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
+    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
     ngAfterViewInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
