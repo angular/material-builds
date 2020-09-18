@@ -13,7 +13,7 @@ import { CdkConnectedOverlay, ConnectedPosition, Overlay, ScrollStrategy } from 
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher, HasTabIndex, HasTabIndexCtor, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
+import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher, HasTabIndex, HasTabIndexCtor, MatOptgroup, MatOption, MatOptionSelectionChange, _MatOptionBase } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
 /**
@@ -21,13 +21,29 @@ import { Observable, Subject } from 'rxjs';
  * to properly calculate the alignment of the selected option over
  * the trigger element.
  */
-/** The max height of the select's overlay panel */
+/**
+ * The max height of the select's overlay panel.
+ * @deprecated To be turned into a private variable.
+ * @breaking-change 12.0.0
+ */
 export declare const SELECT_PANEL_MAX_HEIGHT = 256;
-/** The panel's padding on the x-axis */
+/**
+ * The panel's padding on the x-axis.
+ * @deprecated To be turned into a private variable.
+ * @breaking-change 12.0.0
+ */
 export declare const SELECT_PANEL_PADDING_X = 16;
-/** The panel's x axis padding if it is indented (e.g. there is an option group). */
+/**
+ * The panel's x axis padding if it is indented (e.g. there is an option group).
+ * @deprecated To be turned into a private variable.
+ * @breaking-change 12.0.0
+ */
 export declare const SELECT_PANEL_INDENT_PADDING_X: number;
-/** The height of the select items in `em` units. */
+/**
+ * The height of the select items in `em` units.
+ * @deprecated To be turned into a private variable.
+ * @breaking-change 12.0.0
+ */
 export declare const SELECT_ITEM_HEIGHT_EM = 3;
 /**
  * Distance between the panel edge and the option text in
@@ -37,11 +53,17 @@ export declare const SELECT_ITEM_HEIGHT_EM = 3;
  * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
+ *
+ * @deprecated To be turned into a private variable.
+ * @breaking-change 12.0.0
  */
 export declare const SELECT_MULTIPLE_PANEL_PADDING_X: number;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
+ *
+ * @deprecated To be turned into a private variable.
+ * @breaking-change 12.0.0
  */
 export declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
 /** Injection token that determines the scroll handling while a select is open. */
@@ -96,25 +118,38 @@ export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
  */
 export declare class MatSelectTrigger {
 }
-export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
-    private _viewportRuler;
-    private _changeDetectorRef;
-    private _ngZone;
+/** Base class with all of the `MatSelect` functionality. */
+export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
+    protected _viewportRuler: ViewportRuler;
+    protected _changeDetectorRef: ChangeDetectorRef;
+    protected _ngZone: NgZone;
     private _dir;
-    private _parentFormField;
+    protected _parentFormField: MatFormField;
     ngControl: NgControl;
     private _liveAnnouncer;
+    /** All of the defined select options. */
+    abstract options: QueryList<_MatOptionBase>;
+    /** All of the defined groups of options. */
+    abstract optionGroups: QueryList<MatOptgroup>;
+    /** User-supplied override of the trigger element. */
+    abstract customTrigger: {};
+    /**
+     * This position config ensures that the top "start" corner of the overlay
+     * is aligned with with the top "start" of the origin by default (overlapping
+     * the trigger completely). If the panel cannot fit below the trigger, it
+     * will fall back to a position above the trigger.
+     */
+    abstract _positions: ConnectedPosition[];
+    /** Scrolls a particular option into the view. */
+    protected abstract _scrollOptionIntoView(index: number): void;
+    /** Called when the panel has been opened and the overlay has settled on its final position. */
+    protected abstract _positioningSettled(): void;
+    /** Creates a change event object that should be emitted by the select. */
+    protected abstract _getChangeEvent(value: any): C;
+    /** Factory function used to create a scroll strategy for this select. */
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
     private _panelOpen;
-    /** Whether filling out the select is required in the form. */
-    private _required;
-    /** The scroll position of the overlay panel, calculated to center the selected option. */
-    private _scrollTop;
-    /** The placeholder displayed in the trigger of the select. */
-    private _placeholder;
-    /** Whether the component is in multiple selection mode. */
-    private _multiple;
     /** Comparison function to specify which option is displayed. Defaults to object equality. */
     private _compareWith;
     /** Unique id for this input. */
@@ -122,13 +157,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Current `ariar-labelledby` value for the select trigger. */
     private _triggerAriaLabelledBy;
     /** Emits whenever the component is destroyed. */
-    private readonly _destroy;
-    /** The last measured value for the trigger's client bounding rect. */
-    _triggerRect: ClientRect;
+    protected readonly _destroy: Subject<void>;
     /** The aria-describedby attribute on the select for improved a11y. */
     _ariaDescribedby: string;
-    /** The cached font-size of the trigger element. */
-    _triggerFontSize: number;
     /** Deals with the selection logic. */
     _selectionModel: SelectionModel<MatOption>;
     /** Manages keyboard events for options in the panel. */
@@ -137,28 +168,12 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _onChange: (value: any) => void;
     /** `View -> model callback called when select has been touched` */
     _onTouched: () => void;
+    /** ID for the DOM node containing the select's value. */
     _valueId: string;
-    /** The value of the select panel's transform-origin property. */
-    _transformOrigin: string;
     /** Emits when the panel element is finished transforming in. */
     _panelDoneAnimatingStream: Subject<string>;
     /** Strategy that will be used to handle scrolling while the select panel is open. */
     _scrollStrategy: ScrollStrategy;
-    /**
-     * The y-offset of the overlay panel in relation to the trigger's top start corner.
-     * This must be adjusted to align the selected option text over the trigger text.
-     * when the panel opens. Will change based on the y-position of the selected option.
-     */
-    _offsetY: number;
-    /**
-     * This position config ensures that the top "start" corner of the overlay
-     * is aligned with with the top "start" of the origin by default (overlapping
-     * the trigger completely). If the panel cannot fit below the trigger, it
-     * will fall back to a position above the trigger.
-     */
-    _positions: ConnectedPosition[];
-    /** Whether the component is disabling centering of the active option over the trigger. */
-    private _disableOptionCentering;
     /** Whether the select is focused. */
     get focused(): boolean;
     private _focused;
@@ -175,28 +190,26 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     overlayDir: CdkConnectedOverlay;
-    /** All of the defined select options. */
-    options: QueryList<MatOption>;
-    /** All of the defined groups of options. */
-    optionGroups: QueryList<MatOptgroup>;
     /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[] | Set<string> | {
         [key: string]: any;
     };
-    /** User-supplied override of the trigger element. */
-    customTrigger: MatSelectTrigger;
     /** Placeholder to be shown if no value has been selected. */
     get placeholder(): string;
     set placeholder(value: string);
+    private _placeholder;
     /** Whether the component is required. */
     get required(): boolean;
     set required(value: boolean);
+    private _required;
     /** Whether the user should be allowed to select multiple options. */
     get multiple(): boolean;
     set multiple(value: boolean);
+    private _multiple;
     /** Whether to center the active option over the trigger. */
     get disableOptionCentering(): boolean;
     set disableOptionCentering(value: boolean);
+    private _disableOptionCentering;
     /**
      * Function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean
@@ -236,7 +249,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Event emitted when the select has been closed. */
     readonly _closedStream: Observable<void>;
     /** Event emitted when the selected value has been changed by the user. */
-    readonly selectionChange: EventEmitter<MatSelectChange>;
+    readonly selectionChange: EventEmitter<C>;
     /**
      * Event that emits whenever the raw value of the select changes. This is here primarily
      * to facilitate the two-way binding for the `value` input.
@@ -339,14 +352,62 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * the first item instead.
      */
     private _highlightCorrectOption;
-    /** Scrolls the active option into view. */
-    private _scrollActiveOptionIntoView;
+    /** Whether the panel is allowed to open. */
+    protected _canOpen(): boolean;
     /** Focuses the select element. */
     focus(options?: FocusOptions): void;
-    /** Gets the index of the provided option in the option list. */
-    private _getOptionIndex;
-    /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
-    private _calculateOverlayPosition;
+    /** Gets the aria-labelledby for the select panel. */
+    _getPanelAriaLabelledby(): string | null;
+    /** Determines the `aria-activedescendant` to be set on the host. */
+    _getAriaActiveDescendant(): string | null;
+    /** Gets the ID of the element that is labelling the select. */
+    private _getLabelId;
+    /** Gets the aria-labelledby of the select component trigger. */
+    private _getTriggerAriaLabelledby;
+    /** Called when the overlay panel is done animating. */
+    protected _panelDoneAnimating(isOpen: boolean): void;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    setDescribedByIds(ids: string[]): void;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    onContainerClick(): void;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get shouldLabelFloat(): boolean;
+    static ngAcceptInputType_required: BooleanInput;
+    static ngAcceptInputType_multiple: BooleanInput;
+    static ngAcceptInputType_disableOptionCentering: BooleanInput;
+    static ngAcceptInputType_typeaheadDebounceInterval: NumberInput;
+    static ngAcceptInputType_disabled: BooleanInput;
+    static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_tabIndex: NumberInput;
+}
+export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
+    /** The scroll position of the overlay panel, calculated to center the selected option. */
+    private _scrollTop;
+    /** The last measured value for the trigger's client bounding rect. */
+    _triggerRect: ClientRect;
+    /** The cached font-size of the trigger element. */
+    _triggerFontSize: number;
+    /** The value of the select panel's transform-origin property. */
+    _transformOrigin: string;
+    /**
+     * The y-offset of the overlay panel in relation to the trigger's top start corner.
+     * This must be adjusted to align the selected option text over the trigger text.
+     * when the panel opens. Will change based on the y-position of the selected option.
+     */
+    _offsetY: number;
+    options: QueryList<MatOption>;
+    optionGroups: QueryList<MatOptgroup>;
+    customTrigger: MatSelectTrigger;
+    _positions: ConnectedPosition[];
     /**
      * Calculates the scroll position of the select's overlay panel.
      *
@@ -355,12 +416,13 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * scroll position to the min or max scroll positions respectively.
      */
     _calculateOverlayScroll(selectedIndex: number, scrollBuffer: number, maxScroll: number): number;
-    /** Gets the aria-labelledby for the select panel. */
-    _getPanelAriaLabelledby(): string | null;
-    /** Determines the `aria-activedescendant` to be set on the host. */
-    _getAriaActiveDescendant(): string | null;
-    /** Gets the ID of the element that is labelling the select. */
-    private _getLabelId;
+    ngOnInit(): void;
+    open(): void;
+    /** Scrolls the active option into view. */
+    protected _scrollOptionIntoView(index: number): void;
+    protected _positioningSettled(): void;
+    protected _panelDoneAnimating(isOpen: boolean): void;
+    protected _getChangeEvent(value: any): MatSelectChange;
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text when
@@ -386,35 +448,13 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _adjustPanelUp;
     /** Adjusts the overlay panel down to fit in the viewport. */
     private _adjustPanelDown;
+    /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
+    private _calculateOverlayPosition;
     /** Sets the transform origin point based on the selected option. */
     private _getOriginBasedOnOption;
-    /** Calculates the amount of items in the select. This includes options and group labels. */
-    private _getItemCount;
     /** Calculates the height of the select's options. */
     private _getItemHeight;
-    /** Gets the aria-labelledby of the select component trigger. */
-    private _getTriggerAriaLabelledby;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    setDescribedByIds(ids: string[]): void;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    onContainerClick(): void;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    get shouldLabelFloat(): boolean;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_multiple: BooleanInput;
-    static ngAcceptInputType_disableOptionCentering: BooleanInput;
-    static ngAcceptInputType_typeaheadDebounceInterval: NumberInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
+    /** Calculates the amount of items in the select. This includes options and group labels. */
+    private _getItemCount;
 }
 export {};

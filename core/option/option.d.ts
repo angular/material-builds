@@ -13,12 +13,12 @@ import { MatOptgroup, _MatOptgroupBase } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
     /** Reference to the option that emitted the event. */
-    source: MatOption;
+    source: _MatOptionBase;
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput: boolean;
     constructor(
     /** Reference to the option that emitted the event. */
-    source: MatOption, 
+    source: _MatOptionBase, 
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput?: boolean);
 }
