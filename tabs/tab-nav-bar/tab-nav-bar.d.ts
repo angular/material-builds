@@ -33,18 +33,11 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     private _disableRipple;
     /** Theme color of the nav bar. */
     color: ThemePalette;
-    constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, 
-    /**
-     * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
-     */
-    platform?: Platform, animationMode?: string);
+    constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
     protected _itemSelected(): void;
     ngAfterContentInit(): void;
-    /**
-     * Notifies the component that the active link has been changed.
-     * @breaking-change 8.0.0 `element` parameter to be removed.
-     */
-    updateActiveLink(_element?: ElementRef): void;
+    /** Notifies the component that the active link has been changed. */
+    updateActiveLink(): void;
 }
 /**
  * Navigation component matching the styles of the tab group header.
@@ -57,11 +50,7 @@ export declare class MatTabNav extends _MatTabNavBase {
     _tabList: ElementRef;
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
-    constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, 
-    /**
-     * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
-     */
-    platform?: Platform, animationMode?: string);
+    constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
     static ngAcceptInputType_disableRipple: BooleanInput;
 }
 declare class MatTabLinkMixinBase {
