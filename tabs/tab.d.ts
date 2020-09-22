@@ -22,7 +22,11 @@ declare const _MatTabMixinBase: CanDisableCtor & typeof MatTabBase;
 export declare const MAT_TAB_GROUP: InjectionToken<any>;
 export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
-    _closestTabGroup: any;
+    /**
+     * @deprecated `_closestTabGroup` parameter to become required.
+     * @breaking-change 10.0.0
+     */
+    _closestTabGroup?: any;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     get templateLabel(): MatTabLabel;
     set templateLabel(value: MatTabLabel);
@@ -62,7 +66,12 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
      * Whether the tab is currently active.
      */
     isActive: boolean;
-    constructor(_viewContainerRef: ViewContainerRef, _closestTabGroup: any);
+    constructor(_viewContainerRef: ViewContainerRef, 
+    /**
+     * @deprecated `_closestTabGroup` parameter to become required.
+     * @breaking-change 10.0.0
+     */
+    _closestTabGroup?: any);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     ngOnInit(): void;
