@@ -101,12 +101,7 @@ MatDrawerContent.ctorParameters = () => [
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
 class MatDrawer {
-    constructor(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc, 
-    /**
-     * @deprecated `_container` parameter to be made required.
-     * @breaking-change 10.0.0
-     */
-    _container) {
+    constructor(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc, _container) {
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
@@ -498,7 +493,6 @@ class MatDrawerContainer {
         this._allDrawers.changes
             .pipe(startWith(this._allDrawers), takeUntil(this._destroyed))
             .subscribe((drawer) => {
-            // @breaking-change 10.0.0 Remove `_container` check once container parameter is required.
             this._drawers.reset(drawer.filter(item => !item._container || item._container === this));
             this._drawers.notifyOnChanges();
         });
