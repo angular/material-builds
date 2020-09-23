@@ -47,10 +47,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _platform;
     private _ngZone;
     private _doc;
-    /**
-     * @deprecated `_container` parameter to be made required.
-     * @breaking-change 10.0.0
-     */
     _container?: MatDrawerContainer | undefined;
     private _focusTrap;
     private _elementFocusedBeforeDrawerWasOpened;
@@ -110,12 +106,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * to know when to when the mode changes so it can adapt the margins on the content.
      */
     readonly _modeChanged: Subject<void>;
-    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any, 
-    /**
-     * @deprecated `_container` parameter to be made required.
-     * @breaking-change 10.0.0
-     */
-    _container?: MatDrawerContainer | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any, _container?: MatDrawerContainer | undefined);
     /**
      * Moves focus into the drawer. Note that this works even if
      * the focus trap is disabled in `side` mode.
