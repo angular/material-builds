@@ -18,6 +18,14 @@ export declare class MatButtonHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: ButtonHarnessFilters): HarnessPredicate<MatButtonHarness>;
+    /**
+     * Clicks the button at the given position relative to its top-left.
+     * @param relativeX The relative x position of the click.
+     * @param relativeY The relative y position of the click.
+     */
+    click(relativeX: number, relativeY: number): Promise<void>;
+    /** Clicks the button at its center. */
+    click(location: 'center'): Promise<void>;
     /** Clicks the button. */
     click(): Promise<void>;
     /** Whether the button is disabled. */

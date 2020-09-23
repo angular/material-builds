@@ -21,10 +21,9 @@ class MatButtonHarness extends ComponentHarness {
         return new HarnessPredicate(MatButtonHarness, options)
             .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
-    /** Clicks the button. */
-    click() {
+    click(...args) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).click();
+            return (yield this.host()).click(...args);
         });
     }
     /** Whether the button is disabled. */

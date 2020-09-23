@@ -322,13 +322,17 @@
             return new testing.HarnessPredicate(MatButtonHarness, options)
                 .addOption('text', options.text, function (harness, text) { return testing.HarnessPredicate.stringMatches(harness.getText(), text); });
         };
-        /** Clicks the button. */
         MatButtonHarness.prototype.click = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).click()];
+                        case 1: return [2 /*return*/, (_a = (_b.sent())).click.apply(_a, __spread(args))];
                     }
                 });
             });
