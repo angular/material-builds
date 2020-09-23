@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { SnackBarHarnessFilters } from './snack-bar-harness-filters';
 /** Harness for interacting with a standard mat-snack-bar in tests. */
@@ -12,6 +13,7 @@ export declare class MatSnackBarHarness extends ContentContainerComponentHarness
     /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;
     private _simpleSnackBar;
+    private _simpleSnackBarLiveRegion;
     private _simpleSnackBarMessage;
     private _simpleSnackBarActionButton;
     /**
@@ -24,8 +26,14 @@ export declare class MatSnackBarHarness extends ContentContainerComponentHarness
     /**
      * Gets the role of the snack-bar. The role of a snack-bar is determined based
      * on the ARIA politeness specified in the snack-bar config.
+     * @deprecated @breaking-change 13.0.0 Use `getAriaLive` instead.
      */
     getRole(): Promise<'alert' | 'status' | null>;
+    /**
+     * Gets the aria-live of the snack-bar's live region. The aria-live of a snack-bar is
+     * determined based on the ARIA politeness specified in the snack-bar config.
+     */
+    getAriaLive(): Promise<AriaLivePoliteness>;
     /**
      * Whether the snack-bar has an action. Method cannot be used for snack-bar's with custom content.
      */

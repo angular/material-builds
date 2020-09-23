@@ -13,6 +13,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
         this._simpleSnackBar = this.locatorForOptional('.mat-simple-snackbar');
+        this._simpleSnackBarLiveRegion = this.locatorFor('[aria-live]');
         this._simpleSnackBarMessage = this.locatorFor('.mat-simple-snackbar > span');
         this._simpleSnackBarActionButton = this.locatorForOptional('.mat-simple-snackbar-action > button');
     }
@@ -28,10 +29,21 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     /**
      * Gets the role of the snack-bar. The role of a snack-bar is determined based
      * on the ARIA politeness specified in the snack-bar config.
+     * @deprecated @breaking-change 13.0.0 Use `getAriaLive` instead.
      */
     getRole() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).getAttribute('role');
+        });
+    }
+    /**
+     * Gets the aria-live of the snack-bar's live region. The aria-live of a snack-bar is
+     * determined based on the ARIA politeness specified in the snack-bar config.
+     */
+    getAriaLive() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this._simpleSnackBarLiveRegion())
+                .getAttribute('aria-live');
         });
     }
     /**

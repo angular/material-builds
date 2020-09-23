@@ -311,6 +311,7 @@
         function MatSnackBarHarness() {
             var _this = _super.apply(this, __spread(arguments)) || this;
             _this._simpleSnackBar = _this.locatorForOptional('.mat-simple-snackbar');
+            _this._simpleSnackBarLiveRegion = _this.locatorFor('[aria-live]');
             _this._simpleSnackBarMessage = _this.locatorFor('.mat-simple-snackbar > span');
             _this._simpleSnackBarActionButton = _this.locatorForOptional('.mat-simple-snackbar-action > button');
             return _this;
@@ -328,6 +329,7 @@
         /**
          * Gets the role of the snack-bar. The role of a snack-bar is determined based
          * on the ARIA politeness specified in the snack-bar config.
+         * @deprecated @breaking-change 13.0.0 Use `getAriaLive` instead.
          */
         MatSnackBarHarness.prototype.getRole = function () {
             return __awaiter(this, void 0, void 0, function () {
@@ -335,6 +337,21 @@
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('role')];
+                    }
+                });
+            });
+        };
+        /**
+         * Gets the aria-live of the snack-bar's live region. The aria-live of a snack-bar is
+         * determined based on the ARIA politeness specified in the snack-bar config.
+         */
+        MatSnackBarHarness.prototype.getAriaLive = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._simpleSnackBarLiveRegion()];
+                        case 1: return [2 /*return*/, (_a.sent())
+                                .getAttribute('aria-live')];
                     }
                 });
             });
