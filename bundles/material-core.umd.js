@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('11.0.0-next.0-sha-d87ae3c91');
+    var VERSION = new i0.Version('11.0.0-next.0-sha-e99ca0ac9');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('11.0.0-next.0-sha-d87ae3c91');
+    var VERSION$1 = new i0.Version('11.0.0-next.0-sha-e99ca0ac9');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -69,9 +69,7 @@
      * This module should be imported to each top-level component module (e.g., MatTabsModule).
      */
     var MatCommonModule = /** @class */ (function () {
-        function MatCommonModule(highContrastModeDetector, sanityChecks, 
-        /** @breaking-change 11.0.0 make document required */
-        document) {
+        function MatCommonModule(highContrastModeDetector, sanityChecks, document) {
             /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
             this._hasDoneGlobalChecks = false;
             this._document = document;
@@ -88,15 +86,9 @@
                 this._hasDoneGlobalChecks = true;
             }
         }
-        /** Access injected document if available or fallback to global document reference */
-        MatCommonModule.prototype._getDocument = function () {
-            var doc = this._document || document;
-            return typeof doc === 'object' && doc ? doc : null;
-        };
         /** Use defaultView of injected document if available or fallback to global window reference */
         MatCommonModule.prototype._getWindow = function () {
-            var doc = this._getDocument();
-            var win = (doc === null || doc === void 0 ? void 0 : doc.defaultView) || window;
+            var win = this._document.defaultView || window;
             return typeof win === 'object' && win ? win : null;
         };
         /** Whether any sanity checks are enabled. */
@@ -115,8 +107,7 @@
         MatCommonModule.prototype._checkDoctypeIsDefined = function () {
             var isEnabled = this._checksAreEnabled() &&
                 (this._sanityChecks === true || this._sanityChecks.doctype);
-            var document = this._getDocument();
-            if (isEnabled && document && !document.doctype) {
+            if (isEnabled && !this._document.doctype) {
                 console.warn('Current document does not have a doctype. This may cause ' +
                     'some Angular Material components not to behave as expected.');
             }
@@ -126,14 +117,12 @@
             // and the `body` won't be defined if the consumer put their scripts in the `head`.
             var isDisabled = !this._checksAreEnabled() ||
                 (this._sanityChecks === false || !this._sanityChecks.theme);
-            var document = this._getDocument();
-            if (isDisabled || !document || !document.body ||
-                typeof getComputedStyle !== 'function') {
+            if (isDisabled || !this._document.body || typeof getComputedStyle !== 'function') {
                 return;
             }
-            var testElement = document.createElement('div');
+            var testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
-            document.body.appendChild(testElement);
+            this._document.body.appendChild(testElement);
             var computedStyle = getComputedStyle(testElement);
             // In some situations the computed style of the test element can be null. For example in
             // Firefox, the computed style is null if an application is running inside of a hidden iframe.
@@ -143,7 +132,7 @@
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
             }
-            document.body.removeChild(testElement);
+            this._document.body.removeChild(testElement);
         };
         /** Checks whether the material version matches the cdk version */
         MatCommonModule.prototype._checkCdkVersionMatch = function () {
@@ -166,7 +155,7 @@
     MatCommonModule.ctorParameters = function () { return [
         { type: a11y.HighContrastModeDetector },
         { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [common.DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
     ]; };
 
     /*! *****************************************************************************
@@ -716,13 +705,6 @@
     function MAT_DATE_LOCALE_FACTORY() {
         return i0.inject(i0.LOCALE_ID);
     }
-    /**
-     * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
-     * If you are importing and providing this in your code you can simply remove it.
-     * @deprecated
-     * @breaking-change 8.0.0
-     */
-    var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: i0.LOCALE_ID };
     /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
     var DateAdapter = /** @class */ (function () {
         function DateAdapter() {
@@ -1233,18 +1215,6 @@
         var classList = element.nativeElement.classList;
         isAdd ? classList.add(className) : classList.remove(className);
     }
-    /**
-     * Helper that takes a query list of lines and sets the correct class on the host.
-     * @docs-private
-     * @deprecated Use `setLines` instead.
-     * @breaking-change 8.0.0
-     */
-    var MatLineSetter = /** @class */ (function () {
-        function MatLineSetter(lines, element) {
-            setLines(lines, element);
-        }
-        return MatLineSetter;
-    }());
     var MatLineModule = /** @class */ (function () {
         function MatLineModule() {
         }
@@ -2153,21 +2123,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /**
-     * InjectionToken that can be used to specify the global label options.
-     * @deprecated Use `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token from
-     *     `@angular/material/form-field` instead.
-     * @breaking-change 11.0.0
-     */
-    var MAT_LABEL_GLOBAL_OPTIONS = new i0.InjectionToken('mat-label-global-options');
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
 
     /**
      * Generated bundle index. Do not edit.
@@ -2181,8 +2136,6 @@
     exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
     exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
     exports.MAT_DATE_LOCALE_FACTORY = MAT_DATE_LOCALE_FACTORY;
-    exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
-    exports.MAT_LABEL_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
     exports.MAT_NATIVE_DATE_FORMATS = MAT_NATIVE_DATE_FORMATS;
     exports.MAT_OPTGROUP = MAT_OPTGROUP;
     exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
@@ -2190,7 +2143,6 @@
     exports.MatCommonModule = MatCommonModule;
     exports.MatLine = MatLine;
     exports.MatLineModule = MatLineModule;
-    exports.MatLineSetter = MatLineSetter;
     exports.MatNativeDateModule = MatNativeDateModule;
     exports.MatOptgroup = MatOptgroup;
     exports.MatOption = MatOption;

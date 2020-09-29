@@ -11,16 +11,6 @@ import { Observable, Subject } from 'rxjs';
 export declare const MAT_DATE_LOCALE: InjectionToken<string>;
 /** @docs-private */
 export declare function MAT_DATE_LOCALE_FACTORY(): string;
-/**
- * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
- * If you are importing and providing this in your code you can simply remove it.
- * @deprecated
- * @breaking-change 8.0.0
- */
-export declare const MAT_DATE_LOCALE_PROVIDER: {
-    provide: InjectionToken<string>;
-    useExisting: InjectionToken<string>;
-};
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
 export declare abstract class DateAdapter<D> {
     /** The locale to use for all dates. */

@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList, OnDestroy } from '@angular/core';
-import { CanColor, CanColorCtor, LabelOptions } from '@angular/material/core';
+import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
 import { MatHint } from './hint';
@@ -67,7 +67,6 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _defaults;
     private _platform;
     private _ngZone;
-    private _labelOptions;
     /**
      * Whether the outline gap needs to be calculated
      * immediately on the next change detection run.
@@ -131,7 +130,12 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform: Platform, _ngZone: NgZone, _animationMode: string);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
+    /**
+     * @deprecated `_labelOptions` parameter no longer being used. To be removed.
+     * @breaking-change 12.0.0
+     */
+    _labelOptions: any, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform: Platform, _ngZone: NgZone, _animationMode: string);
     /**
      * Gets the id of the label element. If no label is present, returns `null`.
      */

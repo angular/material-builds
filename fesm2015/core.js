@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('11.0.0-next.0-sha-d87ae3c91');
+const VERSION = new Version('11.0.0-next.0-sha-e99ca0ac9');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('11.0.0-next.0-sha-d87ae3c91');
+const VERSION$1 = new Version('11.0.0-next.0-sha-e99ca0ac9');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -69,9 +69,7 @@ const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 class MatCommonModule {
-    constructor(highContrastModeDetector, sanityChecks, 
-    /** @breaking-change 11.0.0 make document required */
-    document) {
+    constructor(highContrastModeDetector, sanityChecks, document) {
         /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
         this._hasDoneGlobalChecks = false;
         this._document = document;
@@ -88,15 +86,9 @@ class MatCommonModule {
             this._hasDoneGlobalChecks = true;
         }
     }
-    /** Access injected document if available or fallback to global document reference */
-    _getDocument() {
-        const doc = this._document || document;
-        return typeof doc === 'object' && doc ? doc : null;
-    }
     /** Use defaultView of injected document if available or fallback to global window reference */
     _getWindow() {
-        const doc = this._getDocument();
-        const win = (doc === null || doc === void 0 ? void 0 : doc.defaultView) || window;
+        const win = this._document.defaultView || window;
         return typeof win === 'object' && win ? win : null;
     }
     /** Whether any sanity checks are enabled. */
@@ -115,8 +107,7 @@ class MatCommonModule {
     _checkDoctypeIsDefined() {
         const isEnabled = this._checksAreEnabled() &&
             (this._sanityChecks === true || this._sanityChecks.doctype);
-        const document = this._getDocument();
-        if (isEnabled && document && !document.doctype) {
+        if (isEnabled && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -126,14 +117,12 @@ class MatCommonModule {
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
         const isDisabled = !this._checksAreEnabled() ||
             (this._sanityChecks === false || !this._sanityChecks.theme);
-        const document = this._getDocument();
-        if (isDisabled || !document || !document.body ||
-            typeof getComputedStyle !== 'function') {
+        if (isDisabled || !this._document.body || typeof getComputedStyle !== 'function') {
             return;
         }
-        const testElement = document.createElement('div');
+        const testElement = this._document.createElement('div');
         testElement.classList.add('mat-theme-loaded-marker');
-        document.body.appendChild(testElement);
+        this._document.body.appendChild(testElement);
         const computedStyle = getComputedStyle(testElement);
         // In some situations the computed style of the test element can be null. For example in
         // Firefox, the computed style is null if an application is running inside of a hidden iframe.
@@ -143,7 +132,7 @@ class MatCommonModule {
                 'components may not work as expected. For more info refer ' +
                 'to the theming guide: https://material.angular.io/guide/theming');
         }
-        document.body.removeChild(testElement);
+        this._document.body.removeChild(testElement);
     }
     /** Checks whether the material version matches the cdk version */
     _checkCdkVersionMatch() {
@@ -165,7 +154,7 @@ MatCommonModule.decorators = [
 MatCommonModule.ctorParameters = () => [
     { type: HighContrastModeDetector },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -390,13 +379,6 @@ const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
 function MAT_DATE_LOCALE_FACTORY() {
     return inject(LOCALE_ID);
 }
-/**
- * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
- * If you are importing and providing this in your code you can simply remove it.
- * @deprecated
- * @breaking-change 8.0.0
- */
-const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
 class DateAdapter {
     constructor() {
@@ -889,17 +871,6 @@ function setLines(lines, element, prefix = 'mat') {
 function setClass(element, className, isAdd) {
     const classList = element.nativeElement.classList;
     isAdd ? classList.add(className) : classList.remove(className);
-}
-/**
- * Helper that takes a query list of lines and sets the correct class on the host.
- * @docs-private
- * @deprecated Use `setLines` instead.
- * @breaking-change 8.0.0
- */
-class MatLineSetter {
-    constructor(lines, element) {
-        setLines(lines, element);
-    }
 }
 class MatLineModule {
 }
@@ -1744,25 +1715,10 @@ MatOptionModule.decorators = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * InjectionToken that can be used to specify the global label options.
- * @deprecated Use `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token from
- *     `@angular/material/form-field` instead.
- * @breaking-change 11.0.0
- */
-const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE_PROVIDER, MAT_LABEL_GLOBAL_OPTIONS, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines, ɵ0$1 as ɵ0, MATERIAL_SANITY_CHECKS_FACTORY as ɵangular_material_src_material_core_core_a };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines, ɵ0$1 as ɵ0, MATERIAL_SANITY_CHECKS_FACTORY as ɵangular_material_src_material_core_core_a };
 //# sourceMappingURL=core.js.map

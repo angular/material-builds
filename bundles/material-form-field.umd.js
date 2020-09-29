@@ -573,7 +573,13 @@
     /** Container for form controls that applies Material Design styling and behavior. */
     var MatFormField = /** @class */ (function (_super) {
         __extends(MatFormField, _super);
-        function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
+        function MatFormField(_elementRef, _changeDetectorRef, 
+        /**
+         * @deprecated `_labelOptions` parameter no longer being used. To be removed.
+         * @breaking-change 12.0.0
+         */
+        // Use `ElementRef` here so Angular has something to inject.
+        _labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
             var _this = _super.call(this, _elementRef) || this;
             _this._elementRef = _elementRef;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -598,7 +604,6 @@
             _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
             // Unique id for the label element.
             _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
-            _this._labelOptions = labelOptions ? labelOptions : {};
             _this.floatLabel = _this._getDefaultFloatLabelState();
             _this._animationsEnabled = _animationMode !== 'NoopAnimations';
             // Set the default through here so we invoke the setter on the first run.
@@ -850,7 +855,7 @@
         };
         /** Gets the default float label state. */
         MatFormField.prototype._getDefaultFloatLabelState = function () {
-            return (this._defaults && this._defaults.floatLabel) || this._labelOptions.float || 'auto';
+            return (this._defaults && this._defaults.floatLabel) || 'auto';
         };
         /**
          * Sets the list of element IDs that describe the child control. This allows the control to update
@@ -1010,7 +1015,7 @@
     MatFormField.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: core.ChangeDetectorRef },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_LABEL_GLOBAL_OPTIONS,] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [core.ElementRef,] }] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] }] },
         { type: platform.Platform },

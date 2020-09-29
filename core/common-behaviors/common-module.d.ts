@@ -21,11 +21,6 @@ export interface GranularSanityChecks {
     doctype: boolean;
     theme: boolean;
     version: boolean;
-    /**
-     * @deprecated No longer being used.
-     * @breaking-change 10.0.0
-     */
-    hammer: boolean;
 }
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
@@ -39,12 +34,8 @@ export declare class MatCommonModule {
     /** Configured sanity checks. */
     private _sanityChecks;
     /** Used to reference correct document/window */
-    protected _document?: Document;
-    constructor(highContrastModeDetector: HighContrastModeDetector, sanityChecks: any, 
-    /** @breaking-change 11.0.0 make document required */
-    document?: any);
-    /** Access injected document if available or fallback to global document reference */
-    private _getDocument;
+    protected _document: Document;
+    constructor(highContrastModeDetector: HighContrastModeDetector, sanityChecks: any, document: any);
     /** Use defaultView of injected document if available or fallback to global window reference */
     private _getWindow;
     /** Whether any sanity checks are enabled. */

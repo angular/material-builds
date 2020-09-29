@@ -1,7 +1,7 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Optional, Inject, NgZone, ViewChild, ContentChild, ContentChildren, NgModule } from '@angular/core';
-import { mixinColor, MAT_LABEL_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
+import { InjectionToken, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Inject, Optional, NgZone, ViewChild, ContentChild, ContentChildren, NgModule } from '@angular/core';
+import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, merge, fromEvent } from 'rxjs';
@@ -266,7 +266,13 @@ const MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAUL
 const MAT_FORM_FIELD = new InjectionToken('MatFormField');
 /** Container for form controls that applies Material Design styling and behavior. */
 class MatFormField extends _MatFormFieldMixinBase {
-    constructor(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
+    constructor(_elementRef, _changeDetectorRef, 
+    /**
+     * @deprecated `_labelOptions` parameter no longer being used. To be removed.
+     * @breaking-change 12.0.0
+     */
+    // Use `ElementRef` here so Angular has something to inject.
+    _labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
@@ -291,7 +297,6 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._hintLabelId = `mat-hint-${nextUniqueId$2++}`;
         // Unique id for the label element.
         this._labelId = `mat-form-field-label-${nextUniqueId$2++}`;
-        this._labelOptions = labelOptions ? labelOptions : {};
         this.floatLabel = this._getDefaultFloatLabelState();
         this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
@@ -519,7 +524,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     }
     /** Gets the default float label state. */
     _getDefaultFloatLabelState() {
-        return (this._defaults && this._defaults.floatLabel) || this._labelOptions.float || 'auto';
+        return (this._defaults && this._defaults.floatLabel) || 'auto';
     }
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
@@ -678,7 +683,7 @@ MatFormField.decorators = [
 MatFormField.ctorParameters = () => [
     { type: ElementRef },
     { type: ChangeDetectorRef },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [ElementRef,] }] },
     { type: Directionality, decorators: [{ type: Optional }] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] }] },
     { type: Platform },
