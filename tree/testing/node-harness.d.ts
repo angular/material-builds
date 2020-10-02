@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { TreeNodeHarnessFilters } from './tree-harness-filters';
 /** Harness for interacting with a standard Angular Material tree node. */
-export declare class MatTreeNodeHarness extends ComponentHarness {
+export declare class MatTreeNodeHarness extends ContentContainerComponentHarness<string> {
     /** The selector of the host element of a `MatTreeNode` instance. */
     static hostSelector: string;
     _toggle: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement | null>;

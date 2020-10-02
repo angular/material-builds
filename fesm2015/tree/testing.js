@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 
 /**
@@ -10,7 +10,7 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard Angular Material tree node. */
-class MatTreeNodeHarness extends ComponentHarness {
+class MatTreeNodeHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
         this._toggle = this.locatorForOptional('[matTreeNodeToggle]');

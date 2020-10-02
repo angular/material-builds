@@ -430,7 +430,7 @@
             });
         };
         return MatTreeNodeHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     /** The selector of the host element of a `MatTreeNode` instance. */
     MatTreeNodeHarness.hostSelector = '.mat-tree-node, .mat-nested-tree-node';
     function getNodePredicate(type, options) {
