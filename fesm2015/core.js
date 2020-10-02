@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('10.2.3-sha-c5fd98af4');
+const VERSION = new Version('10.2.3-sha-2e00875d3');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('10.2.3-sha-c5fd98af4');
+const VERSION$1 = new Version('10.2.3-sha-2e00875d3');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -723,13 +723,7 @@ class NativeDateAdapter extends DateAdapter {
     }
     /** Creates a date but allows the month and date to overflow. */
     _createDateWithOverflow(year, month, date) {
-        const result = new Date(year, month, date);
-        // We need to correct for the fact that JS native Date treats years in range [0, 99] as
-        // abbreviations for 19xx.
-        if (year >= 0 && year < 100) {
-            result.setFullYear(this.getYear(result) - 1900);
-        }
-        return result;
+        return this._correctYear(new Date(year, month, date), year);
     }
     /**
      * Pads a number to make it two digits.
@@ -761,8 +755,19 @@ class NativeDateAdapter extends DateAdapter {
      * @returns A Date object with its UTC representation based on the passed in date info
      */
     _format(dtf, date) {
-        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
-        return dtf.format(d);
+        const year = date.getFullYear();
+        const d = new Date(Date.UTC(year, date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+        return dtf.format(this._correctYear(d, year));
+    }
+    /**
+     * Corrects the year of a date, accounting for the fact that JS
+     * native Date treats years between 0 and 99 as abbreviations for 19xx.
+     */
+    _correctYear(date, intendedYear) {
+        if (intendedYear >= 0 && intendedYear < 100) {
+            date.setFullYear(this.getYear(date) - 1900);
+        }
+        return date;
     }
 }
 NativeDateAdapter.decorators = [
