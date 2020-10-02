@@ -489,48 +489,7 @@
                 });
             });
         };
-        MatMenuHarness.prototype.getChildLoader = function (selector) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._getPanelLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getChildLoader(selector)];
-                    }
-                });
-            });
-        };
-        MatMenuHarness.prototype.getAllChildLoaders = function (selector) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._getPanelLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAllChildLoaders(selector)];
-                    }
-                });
-            });
-        };
-        MatMenuHarness.prototype.getHarness = function (query) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._getPanelLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getHarness(query)];
-                    }
-                });
-            });
-        };
-        MatMenuHarness.prototype.getAllHarnesses = function (query) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._getPanelLoader()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAllHarnesses(query)];
-                    }
-                });
-            });
-        };
-        /** Gets the element id for the content of the current step. */
-        MatMenuHarness.prototype._getPanelLoader = function () {
+        MatMenuHarness.prototype.getRootHarnessLoader = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var panelId;
                 return __generator(this, function (_a) {

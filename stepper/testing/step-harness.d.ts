@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ContentContainerComponentHarness, HarnessPredicate, HarnessLoader, ComponentHarness, HarnessQuery } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, HarnessLoader } from '@angular/cdk/testing';
 import { StepHarnessFilters } from './step-harness-filters';
 /** Harness for interacting with a standard Angular Material step in tests. */
 export declare class MatStepHarness extends ContentContainerComponentHarness<string> {
@@ -43,12 +43,7 @@ export declare class MatStepHarness extends ContentContainerComponentHarness<str
      * if the stepper doesn't allow it (e.g. if there are validation errors).
      */
     select(): Promise<void>;
-    getChildLoader(selector: string): Promise<HarnessLoader>;
-    getAllChildLoaders(selector: string): Promise<HarnessLoader[]>;
-    getHarness<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T>;
-    getAllHarnesses<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T[]>;
-    /** Gets the harness loader for the content of the current step. */
-    private _getContentLoader;
+    protected getRootHarnessLoader(): Promise<HarnessLoader>;
     /**
      * Gets the state of the step. Note that we have a `StepState` which we could use to type the
      * return value, but it's basically the same as `string`, because the type has `| string`.

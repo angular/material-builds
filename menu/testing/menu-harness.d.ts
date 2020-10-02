@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, ContentContainerComponentHarness, HarnessLoader, HarnessPredicate, HarnessQuery } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessLoader, HarnessPredicate } from '@angular/cdk/testing';
 import { MenuHarnessFilters, MenuItemHarnessFilters } from './menu-harness-filters';
 /** Harness for interacting with a standard mat-menu in tests. */
 export declare class MatMenuHarness extends ContentContainerComponentHarness<string> {
@@ -49,12 +49,7 @@ export declare class MatMenuHarness extends ContentContainerComponentHarness<str
      *     `subItemFilters` will be clicked.
      */
     clickItem(itemFilter: Omit<MenuItemHarnessFilters, 'ancestor'>, ...subItemFilters: Omit<MenuItemHarnessFilters, 'ancestor'>[]): Promise<void>;
-    getChildLoader(selector: string): Promise<HarnessLoader>;
-    getAllChildLoaders(selector: string): Promise<HarnessLoader[]>;
-    getHarness<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T>;
-    getAllHarnesses<T extends ComponentHarness>(query: HarnessQuery<T>): Promise<T[]>;
-    /** Gets the element id for the content of the current step. */
-    private _getPanelLoader;
+    protected getRootHarnessLoader(): Promise<HarnessLoader>;
     /** Gets the menu panel associated with this menu. */
     private _getMenuPanel;
     /** Gets the id of the menu panel associated with this menu. */

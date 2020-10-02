@@ -118,28 +118,7 @@ class MatMenuHarness extends ContentContainerComponentHarness {
             return menu.clickItem(...subItemFilters);
         });
     }
-    getChildLoader(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getPanelLoader()).getChildLoader(selector);
-        });
-    }
-    getAllChildLoaders(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getPanelLoader()).getAllChildLoaders(selector);
-        });
-    }
-    getHarness(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getPanelLoader()).getHarness(query);
-        });
-    }
-    getAllHarnesses(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getPanelLoader()).getAllHarnesses(query);
-        });
-    }
-    /** Gets the element id for the content of the current step. */
-    _getPanelLoader() {
+    getRootHarnessLoader() {
         return __awaiter(this, void 0, void 0, function* () {
             const panelId = yield this._getPanelId();
             return this.documentRootLocatorFactory().harnessLoaderFor(`#${panelId}`);

@@ -84,28 +84,7 @@ class MatStepHarness extends ContentContainerComponentHarness {
             yield (yield this.host()).click();
         });
     }
-    getChildLoader(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getContentLoader()).getChildLoader(selector);
-        });
-    }
-    getAllChildLoaders(selector) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getContentLoader()).getAllChildLoaders(selector);
-        });
-    }
-    getHarness(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getContentLoader()).getHarness(query);
-        });
-    }
-    getAllHarnesses(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._getContentLoader()).getAllHarnesses(query);
-        });
-    }
-    /** Gets the harness loader for the content of the current step. */
-    _getContentLoader() {
+    getRootHarnessLoader() {
         return __awaiter(this, void 0, void 0, function* () {
             const contentId = yield (yield this.host()).getAttribute('aria-controls');
             return this.documentRootLocatorFactory().harnessLoaderFor(`#${contentId}`);
