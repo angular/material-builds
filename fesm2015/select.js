@@ -617,16 +617,16 @@ class _MatSelectBase extends _MatSelectMixinBase {
      * found with the designated value, the select trigger is cleared.
      */
     _setSelectionByValue(value) {
+        this._selectionModel.selected.forEach(option => option.setInactiveStyles());
+        this._selectionModel.clear();
         if (this.multiple && value) {
             if (!Array.isArray(value) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatSelectNonArrayValueError();
             }
-            this._selectionModel.clear();
             value.forEach((currentValue) => this._selectValue(currentValue));
             this._sortValues();
         }
         else {
-            this._selectionModel.clear();
             const correspondingOption = this._selectValue(value);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.

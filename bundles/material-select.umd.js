@@ -965,16 +965,16 @@
          */
         _MatSelectBase.prototype._setSelectionByValue = function (value) {
             var _this = this;
+            this._selectionModel.selected.forEach(function (option) { return option.setInactiveStyles(); });
+            this._selectionModel.clear();
             if (this.multiple && value) {
                 if (!Array.isArray(value) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                     throw getMatSelectNonArrayValueError();
                 }
-                this._selectionModel.clear();
                 value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
                 this._sortValues();
             }
             else {
-                this._selectionModel.clear();
                 var correspondingOption = this._selectValue(value);
                 // Shift focus to the active item. Note that we shouldn't do this in multiple
                 // mode, because we don't know what option the user interacted with last.
