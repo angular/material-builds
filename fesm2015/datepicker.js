@@ -11,7 +11,7 @@ import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
 import { take, startWith, filter } from 'rxjs/operators';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, NgControl, NgForm, FormGroupDirective, ControlContainer } from '@angular/forms';
 import { MatFormField, MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-field';
@@ -1967,6 +1967,14 @@ class MatDatepickerBase {
             this._stateChanges.next(undefined);
         }
     }
+    /**
+     * Classes to be passed to the date picker panel.
+     * Supports string and string array values, similar to `ngClass`.
+     */
+    get panelClass() { return this._panelClass; }
+    set panelClass(value) {
+        this._panelClass = coerceStringArray(value);
+    }
     /** Whether the calendar is open. */
     get opened() { return this._opened; }
     set opened(value) {
@@ -2232,10 +2240,10 @@ MatDatepickerBase.propDecorators = {
     yearSelected: [{ type: Output }],
     monthSelected: [{ type: Output }],
     viewChanged: [{ type: Output }],
-    panelClass: [{ type: Input }],
     dateClass: [{ type: Input }],
     openedStream: [{ type: Output, args: ['opened',] }],
     closedStream: [{ type: Output, args: ['closed',] }],
+    panelClass: [{ type: Input }],
     opened: [{ type: Input }]
 };
 

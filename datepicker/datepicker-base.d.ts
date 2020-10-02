@@ -136,14 +136,19 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
      * Emits when the current view changes.
      */
     readonly viewChanged: EventEmitter<MatCalendarView>;
-    /** Classes to be passed to the date picker panel. Supports the same syntax as `ngClass`. */
-    panelClass: string | string[];
     /** Function that can be used to add custom CSS classes to dates. */
     dateClass: MatCalendarCellClassFunction<D>;
     /** Emits when the datepicker has been opened. */
     openedStream: EventEmitter<void>;
     /** Emits when the datepicker has been closed. */
     closedStream: EventEmitter<void>;
+    /**
+     * Classes to be passed to the date picker panel.
+     * Supports string and string array values, similar to `ngClass`.
+     */
+    get panelClass(): string | string[];
+    set panelClass(value: string | string[]);
+    private _panelClass;
     /** Whether the calendar is open. */
     get opened(): boolean;
     set opened(value: boolean);

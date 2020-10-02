@@ -1,5 +1,5 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import { InjectionToken, EventEmitter, Directive, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
 import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MAT_OPTGROUP, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
@@ -92,8 +92,8 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
      */
     set classList(value) {
         if (value && value.length) {
-            this._classList = value.split(' ').reduce((classList, className) => {
-                classList[className.trim()] = true;
+            this._classList = coerceStringArray(value).reduce((classList, className) => {
+                classList[className] = true;
                 return classList;
             }, {});
         }

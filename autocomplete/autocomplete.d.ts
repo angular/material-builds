@@ -93,7 +93,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
      * inside the overlay container to allow for easy styling.
      */
-    set classList(value: string);
+    set classList(value: string | string[]);
     _classList: {
         [key: string]: boolean;
     };

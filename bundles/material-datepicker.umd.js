@@ -2377,6 +2377,18 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(MatDatepickerBase.prototype, "panelClass", {
+            /**
+             * Classes to be passed to the date picker panel.
+             * Supports string and string array values, similar to `ngClass`.
+             */
+            get: function () { return this._panelClass; },
+            set: function (value) {
+                this._panelClass = coercion.coerceStringArray(value);
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(MatDatepickerBase.prototype, "opened", {
             /** Whether the calendar is open. */
             get: function () { return this._opened; },
@@ -2652,10 +2664,10 @@
         yearSelected: [{ type: i0.Output }],
         monthSelected: [{ type: i0.Output }],
         viewChanged: [{ type: i0.Output }],
-        panelClass: [{ type: i0.Input }],
         dateClass: [{ type: i0.Input }],
         openedStream: [{ type: i0.Output, args: ['opened',] }],
         closedStream: [{ type: i0.Output, args: ['closed',] }],
+        panelClass: [{ type: i0.Input }],
         opened: [{ type: i0.Input }]
     };
 

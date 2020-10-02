@@ -391,8 +391,8 @@
              */
             set: function (value) {
                 if (value && value.length) {
-                    this._classList = value.split(' ').reduce(function (classList, className) {
-                        classList[className.trim()] = true;
+                    this._classList = coercion.coerceStringArray(value).reduce(function (classList, className) {
+                        classList[className] = true;
                         return classList;
                     }, {});
                 }

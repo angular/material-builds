@@ -398,7 +398,7 @@
             });
         };
         return MatButtonHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     // TODO(jelbourn) use a single class, like `.mat-button-base`
     /** The selector for the host element of a `MatButton` instance. */
     MatButtonHarness.hostSelector = [
