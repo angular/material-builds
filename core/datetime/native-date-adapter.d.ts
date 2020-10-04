@@ -80,9 +80,4 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns A Date object with its UTC representation based on the passed in date info
      */
     private _format;
-    /**
-     * Corrects the year of a date, accounting for the fact that JS
-     * native Date treats years between 0 and 99 as abbreviations for 19xx.
-     */
-    private _correctYear;
 }
