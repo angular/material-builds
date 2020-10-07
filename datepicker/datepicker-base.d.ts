@@ -18,6 +18,7 @@ import { MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-b
 import { DateFilterFn } from './datepicker-input-base';
 import { ExtractDateTypeFromSelection, MatDateSelectionModel, DateRange } from './date-selection-model';
 import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
+import { MatDatepickerIntl } from './datepicker-intl';
 /** Injection token that determines the scroll handling while the calendar is open. */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -65,7 +66,16 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _animationState: 'enter' | 'void';
     /** Emits when an animation has finished. */
     _animationDone: Subject<void>;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _model: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>);
+    /** Text for the close button. */
+    _closeButtonText: string;
+    /** Whether the close button currently has focus. */
+    _closeButtonFocused: boolean;
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _model: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, 
+    /**
+     * @deprecated `intl` argument to become required.
+     * @breaking-change 12.0.0
+     */
+    intl?: MatDatepickerIntl);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;

@@ -37,6 +37,8 @@
             this.calendarLabel = 'Calendar';
             /** A label for the button used to open the calendar popup (used by screen readers). */
             this.openCalendarLabel = 'Open calendar';
+            /** Label for the button used to close the calendar popup. */
+            this.closeCalendarLabel = 'Close calendar';
             /** A label for the previous month button (used by screen readers). */
             this.prevMonthLabel = 'Previous month';
             /** A label for the next month button (used by screen readers). */
@@ -2188,7 +2190,12 @@
      */
     var MatDatepickerContent = /** @class */ (function (_super) {
         __extends(MatDatepickerContent, _super);
-        function MatDatepickerContent(elementRef, _changeDetectorRef, _model, _dateAdapter, _rangeSelectionStrategy) {
+        function MatDatepickerContent(elementRef, _changeDetectorRef, _model, _dateAdapter, _rangeSelectionStrategy, 
+        /**
+         * @deprecated `intl` argument to become required.
+         * @breaking-change 12.0.0
+         */
+        intl) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._model = _model;
@@ -2199,6 +2206,8 @@
             _this._animationState = 'enter';
             /** Emits when an animation has finished. */
             _this._animationDone = new rxjs.Subject();
+            // @breaking-change 12.0.0 Remove fallback for `intl`.
+            _this._closeButtonText = (intl === null || intl === void 0 ? void 0 : intl.closeCalendarLabel) || 'Close calendar';
             return _this;
         }
         MatDatepickerContent.prototype.ngAfterViewInit = function () {
@@ -2245,7 +2254,7 @@
     MatDatepickerContent.decorators = [
         { type: i0.Component, args: [{
                     selector: 'mat-datepicker-content',
-                    template: "<mat-calendar cdkTrapFocus\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\">\n</mat-calendar>\n",
+                    template: "<div cdkTrapFocus>\n  <mat-calendar\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\"></mat-calendar>\n\n  <!-- Invisible close button for screen reader users. -->\n  <button\n    type=\"button\"\n    mat-raised-button\n    color=\"primary\"\n    class=\"mat-datepicker-close-button\"\n    [class.cdk-visually-hidden]=\"!_closeButtonFocused\"\n    (focus)=\"_closeButtonFocused = true\"\n    (blur)=\"_closeButtonFocused = false\"\n    (click)=\"datepicker.close()\">{{ _closeButtonText }}</button>\n</div>\n",
                     host: {
                         'class': 'mat-datepicker-content',
                         '[@transformPanel]': '_animationState',
@@ -2260,7 +2269,7 @@
                     encapsulation: i0.ViewEncapsulation.None,
                     changeDetection: i0.ChangeDetectionStrategy.OnPush,
                     inputs: ['color'],
-                    styles: [".mat-datepicker-content{display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}\n"]
+                    styles: [".mat-datepicker-content{display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}.mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}\n"]
                 },] }
     ];
     MatDatepickerContent.ctorParameters = function () { return [
@@ -2268,7 +2277,8 @@
         { type: i0.ChangeDetectorRef },
         { type: MatDateSelectionModel },
         { type: core.DateAdapter },
-        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_DATE_RANGE_SELECTION_STRATEGY,] }] }
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_DATE_RANGE_SELECTION_STRATEGY,] }] },
+        { type: MatDatepickerIntl }
     ]; };
     MatDatepickerContent.propDecorators = {
         _calendar: [{ type: i0.ViewChild, args: [MatCalendar,] }]
