@@ -8,7 +8,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { DateAdapter, MAT_DATE_FORMATS, mixinColor, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
-import { ESCAPE, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
+import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
 import { take, startWith, filter } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
@@ -733,7 +733,7 @@ class MatMonthView {
                 return;
             case ESCAPE:
                 // Abort the current range selection if the user presses escape mid-selection.
-                if (this._previewEnd != null) {
+                if (this._previewEnd != null && !hasModifierKey(event)) {
                     this._previewStart = this._previewEnd = null;
                     this.selectedChange.emit(null);
                     this._userSelection.emit({ value: null, event });
@@ -2174,8 +2174,8 @@ class MatDatepickerBase {
         this._popupRef.overlayElement.setAttribute('role', 'dialog');
         merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter(event => {
             // Closing on alt + up is only valid when there's an input associated with the datepicker.
-            return event.keyCode === ESCAPE ||
-                (this._datepickerInput && event.altKey && event.keyCode === UP_ARROW);
+            return (event.keyCode === ESCAPE && !hasModifierKey(event)) || (this._datepickerInput &&
+                hasModifierKey(event, 'altKey') && event.keyCode === UP_ARROW);
         }))).subscribe(event => {
             if (event) {
                 event.preventDefault();

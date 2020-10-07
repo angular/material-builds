@@ -1046,7 +1046,7 @@
                     return;
                 case keycodes.ESCAPE:
                     // Abort the current range selection if the user presses escape mid-selection.
-                    if (this._previewEnd != null) {
+                    if (this._previewEnd != null && !keycodes.hasModifierKey(event)) {
                         this._previewStart = this._previewEnd = null;
                         this.selectedChange.emit(null);
                         this._userSelection.emit({ value: null, event: event });
@@ -2597,8 +2597,8 @@
             this._popupRef.overlayElement.setAttribute('role', 'dialog');
             rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) {
                 // Closing on alt + up is only valid when there's an input associated with the datepicker.
-                return event.keyCode === keycodes.ESCAPE ||
-                    (_this._datepickerInput && event.altKey && event.keyCode === keycodes.UP_ARROW);
+                return (event.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) || (_this._datepickerInput &&
+                    keycodes.hasModifierKey(event, 'altKey') && event.keyCode === keycodes.UP_ARROW);
             }))).subscribe(function (event) {
                 if (event) {
                     event.preventDefault();
