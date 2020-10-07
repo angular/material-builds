@@ -72,10 +72,12 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
 }
 declare const _MatDateRangeInputBase: CanUpdateErrorStateCtor & typeof MatDateRangeInputPartBase;
 /** Input for entering the start date in a `mat-date-range-input`. */
-export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
+export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
     /** Validator that checks that the start date isn't after the end date. */
     private _startValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
+    ngOnInit(): void;
+    ngDoCheck(): void;
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _assignValueToModel(value: D | null): void;
@@ -86,10 +88,12 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     static ngAcceptInputType_disabled: BooleanInput;
 }
 /** Input for entering the end date in a `mat-date-range-input`. */
-export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
+export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
     /** Validator that checks that the end date isn't before the start date. */
     private _endValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
+    ngOnInit(): void;
+    ngDoCheck(): void;
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _assignValueToModel(value: D | null): void;

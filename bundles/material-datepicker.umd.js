@@ -3381,6 +3381,24 @@
             };
             return _this;
         }
+        MatStartDate.prototype.ngOnInit = function () {
+            // Normally this happens automatically, but it seems to break if not added explicitly when all
+            // of the criteria below are met:
+            // 1) The class extends a TS mixin.
+            // 2) The application is running in ViewEngine.
+            // 3) The application is being transpiled through tsickle.
+            // This can be removed once google3 is completely migrated to Ivy.
+            _super.prototype.ngOnInit.call(this);
+        };
+        MatStartDate.prototype.ngDoCheck = function () {
+            // Normally this happens automatically, but it seems to break if not added explicitly when all
+            // of the criteria below are met:
+            // 1) The class extends a TS mixin.
+            // 2) The application is running in ViewEngine.
+            // 3) The application is being transpiled through tsickle.
+            // This can be removed once google3 is completely migrated to Ivy.
+            _super.prototype.ngDoCheck.call(this);
+        };
         MatStartDate.prototype._getValueFromModel = function (modelValue) {
             return modelValue.start;
         };
@@ -3460,6 +3478,24 @@
             };
             return _this;
         }
+        MatEndDate.prototype.ngOnInit = function () {
+            // Normally this happens automatically, but it seems to break if not added explicitly when all
+            // of the criteria below are met:
+            // 1) The class extends a TS mixin.
+            // 2) The application is running in ViewEngine.
+            // 3) The application is being transpiled through tsickle.
+            // This can be removed once google3 is completely migrated to Ivy.
+            _super.prototype.ngOnInit.call(this);
+        };
+        MatEndDate.prototype.ngDoCheck = function () {
+            // Normally this happens automatically, but it seems to break if not added explicitly when all
+            // of the criteria below are met:
+            // 1) The class extends a TS mixin.
+            // 2) The application is running in ViewEngine.
+            // 3) The application is being transpiled through tsickle.
+            // This can be removed once google3 is completely migrated to Ivy.
+            _super.prototype.ngDoCheck.call(this);
+        };
         MatEndDate.prototype._getValueFromModel = function (modelValue) {
             return modelValue.end;
         };
