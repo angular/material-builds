@@ -1016,36 +1016,15 @@
         closed: [{ type: core.Output }],
         close: [{ type: core.Output }]
     };
-    /** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
+    /** @docs-public MatMenu */
     var MatMenu = /** @class */ (function (_super) {
         __extends(MatMenu, _super);
-        function MatMenu() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function MatMenu(elementRef, ngZone, defaultOptions) {
+            return _super.call(this, elementRef, ngZone, defaultOptions) || this;
         }
         return MatMenu;
     }(_MatMenuBase));
     MatMenu.decorators = [
-        { type: core.Directive }
-    ];
-    // Note on the weird inheritance setup: we need three classes, because the MDC-based menu has to
-    // extend `MatMenu`, however keeping a reference to it will cause the inlined template and styles
-    // to be retained as well. The MDC menu also has to provide itself as a `MatMenu` in order for
-    // queries and DI to work correctly, while still not referencing the actual menu class.
-    // Class responsibility is split up as follows:
-    // * _MatMenuBase - provides all the functionality without any of the Angular metadata.
-    // * MatMenu - keeps the same name symbol name as the current menu and
-    // is used as a provider for DI and query purposes.
-    // * _MatMenu - the actual menu component implementation with the Angular metadata that should
-    // be tree shaken away for MDC.
-    /** @docs-public MatMenu */
-    var _MatMenu = /** @class */ (function (_super) {
-        __extends(_MatMenu, _super);
-        function _MatMenu(elementRef, ngZone, defaultOptions) {
-            return _super.call(this, elementRef, ngZone, defaultOptions) || this;
-        }
-        return _MatMenu;
-    }(MatMenu));
-    _MatMenu.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-menu',
                     template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n",
@@ -1058,12 +1037,11 @@
                     ],
                     providers: [
                         { provide: MAT_MENU_PANEL, useExisting: MatMenu },
-                        { provide: MatMenu, useExisting: _MatMenu }
                     ],
                     styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}.cdk-high-contrast-active .mat-menu-panel{outline:solid 1px}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}.cdk-high-contrast-active .mat-menu-item.cdk-program-focused,.cdk-high-contrast-active .mat-menu-item.cdk-keyboard-focused,.cdk-high-contrast-active .mat-menu-item-highlighted{outline:dotted 1px}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:\"\";display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"]
                 },] }
     ];
-    _MatMenu.ctorParameters = function () { return [
+    MatMenu.ctorParameters = function () { return [
         { type: core.ElementRef },
         { type: core.NgZone },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
@@ -1088,10 +1066,7 @@
     // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
     /** Directive applied to an element that should trigger a `mat-menu`. */
     var MatMenuTrigger = /** @class */ (function () {
-        function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, 
-        // `MatMenu` is always used in combination with a `MatMenuTrigger`.
-        // tslint:disable-next-line: lightweight-tokens
-        _parentMenu, 
+        function MatMenuTrigger(_overlay, _element, _viewContainerRef, scrollStrategy, parentMenu, 
         // `MatMenuTrigger` is commonly used in combination with a `MatMenuItem`.
         // tslint:disable-next-line: lightweight-tokens
         _menuItemInstance, _dir, 
@@ -1102,7 +1077,6 @@
             this._overlay = _overlay;
             this._element = _element;
             this._viewContainerRef = _viewContainerRef;
-            this._parentMenu = _parentMenu;
             this._menuItemInstance = _menuItemInstance;
             this._dir = _dir;
             this._focusMonitor = _focusMonitor;
@@ -1143,11 +1117,12 @@
              */
             // tslint:disable-next-line:no-output-on-prefix
             this.onMenuClose = this.menuClosed;
+            this._scrollStrategy = scrollStrategy;
+            this._parentMaterialMenu = parentMenu instanceof _MatMenuBase ? parentMenu : undefined;
             _element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
             if (_menuItemInstance) {
                 _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
             }
-            this._scrollStrategy = scrollStrategy;
         }
         Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
             /**
@@ -1172,14 +1147,14 @@
                 this._menu = menu;
                 this._menuCloseSubscription.unsubscribe();
                 if (menu) {
-                    if (menu === this._parentMenu && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+                    if (menu === this._parentMaterialMenu && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                         throwMatMenuRecursiveError();
                     }
                     this._menuCloseSubscription = menu.close.subscribe(function (reason) {
                         _this._destroyMenu();
                         // If a click closed the menu, we should close the entire chain of nested menus.
-                        if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
-                            _this._parentMenu.closed.emit(reason);
+                        if ((reason === 'click' || reason === 'tab') && _this._parentMaterialMenu) {
+                            _this._parentMaterialMenu.closed.emit(reason);
                         }
                     });
                 }
@@ -1219,7 +1194,7 @@
         });
         /** Whether the menu triggers a sub-menu or a top-level one. */
         MatMenuTrigger.prototype.triggersSubmenu = function () {
-            return !!(this._menuItemInstance && this._parentMenu);
+            return !!(this._menuItemInstance && this._parentMaterialMenu);
         };
         /** Toggles the menu between the open and closed states. */
         MatMenuTrigger.prototype.toggleMenu = function () {
@@ -1243,7 +1218,7 @@
             }
             this._closingActionsSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
             this._initMenu();
-            if (this.menu instanceof MatMenu) {
+            if (this.menu instanceof _MatMenuBase) {
                 this.menu._startAnimation();
             }
         };
@@ -1274,7 +1249,7 @@
             this._closingActionsSubscription.unsubscribe();
             this._overlayRef.detach();
             this._restoreFocus();
-            if (menu instanceof MatMenu) {
+            if (menu instanceof _MatMenuBase) {
                 menu._resetAnimation();
                 if (menu.lazyContent) {
                     // Wait for the exit animation to finish before detaching the content.
@@ -1304,7 +1279,7 @@
          * the menu was opened via the keyboard.
          */
         MatMenuTrigger.prototype._initMenu = function () {
-            this.menu.parentMenu = this.triggersSubmenu() ? this._parentMenu : undefined;
+            this.menu.parentMenu = this.triggersSubmenu() ? this._parentMaterialMenu : undefined;
             this.menu.direction = this.dir;
             this._setMenuElevation();
             this._setIsMenuOpen(true);
@@ -1449,8 +1424,8 @@
             var _this = this;
             var backdrop = this._overlayRef.backdropClick();
             var detachments = this._overlayRef.detachments();
-            var parentClose = this._parentMenu ? this._parentMenu.closed : rxjs.of();
-            var hover = this._parentMenu ? this._parentMenu._hovered().pipe(operators.filter(function (active) { return active !== _this._menuItemInstance; }), operators.filter(function () { return _this._menuOpen; })) : rxjs.of();
+            var parentClose = this._parentMaterialMenu ? this._parentMaterialMenu.closed : rxjs.of();
+            var hover = this._parentMaterialMenu ? this._parentMaterialMenu._hovered().pipe(operators.filter(function (active) { return active !== _this._menuItemInstance; }), operators.filter(function () { return _this._menuOpen; })) : rxjs.of();
             return rxjs.merge(backdrop, parentClose, hover, detachments);
         };
         /** Handles mouse presses on the trigger. */
@@ -1490,10 +1465,10 @@
         MatMenuTrigger.prototype._handleHover = function () {
             var _this = this;
             // Subscribe to changes in the hovered item in order to toggle the panel.
-            if (!this.triggersSubmenu()) {
+            if (!this.triggersSubmenu() || !this._parentMaterialMenu) {
                 return;
             }
-            this._hoverSubscription = this._parentMenu._hovered()
+            this._hoverSubscription = this._parentMaterialMenu._hovered()
                 // Since we might have multiple competing triggers for the same menu (e.g. a sub-menu
                 // with different data and triggers), we have to delay it by a tick to ensure that
                 // it won't be closed immediately after it is opened.
@@ -1503,11 +1478,11 @@
                 // If the same menu is used between multiple triggers, it might still be animating
                 // while the new trigger tries to re-open it. Wait for the animation to finish
                 // before doing so. Also interrupt if the user moves to another item.
-                if (_this.menu instanceof MatMenu && _this.menu._isAnimating) {
+                if (_this.menu instanceof _MatMenuBase && _this.menu._isAnimating) {
                     // We need the `delay(0)` here in order to avoid
                     // 'changed after checked' errors in some cases. See #12194.
                     _this.menu._animationDone
-                        .pipe(operators.take(1), operators.delay(0, rxjs.asapScheduler), operators.takeUntil(_this._parentMenu._hovered()))
+                        .pipe(operators.take(1), operators.delay(0, rxjs.asapScheduler), operators.takeUntil(_this._parentMaterialMenu._hovered()))
                         .subscribe(function () { return _this.openMenu(); });
                 }
                 else {
@@ -1547,7 +1522,7 @@
         { type: core.ElementRef },
         { type: core.ViewContainerRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] }] },
-        { type: MatMenu, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] },
         { type: MatMenuItem, decorators: [{ type: core.Optional }, { type: core.Self }] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
         { type: a11y.FocusMonitor }
@@ -1603,8 +1578,8 @@
                         overlay.OverlayModule,
                         _MatMenuDirectivesModule,
                     ],
-                    exports: [scrolling.CdkScrollableModule, core$1.MatCommonModule, _MatMenu, MatMenuItem, _MatMenuDirectivesModule],
-                    declarations: [_MatMenu, MatMenuItem],
+                    exports: [scrolling.CdkScrollableModule, core$1.MatCommonModule, MatMenu, MatMenuItem, _MatMenuDirectivesModule],
+                    declarations: [MatMenu, MatMenuItem],
                     providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                 },] }
     ];
@@ -1630,7 +1605,6 @@
     exports.MatMenuItem = MatMenuItem;
     exports.MatMenuModule = MatMenuModule;
     exports.MatMenuTrigger = MatMenuTrigger;
-    exports._MatMenu = _MatMenu;
     exports._MatMenuBase = _MatMenuBase;
     exports._MatMenuDirectivesModule = _MatMenuDirectivesModule;
     exports.fadeInItems = fadeInItems;

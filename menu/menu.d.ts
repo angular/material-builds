@@ -187,10 +187,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     static ngAcceptInputType_overlapTrigger: BooleanInput;
     static ngAcceptInputType_hasBackdrop: BooleanInput;
 }
-/** @docs-private We show the "_MatMenu" class as "MatMenu" in the docs. */
-export declare class MatMenu extends _MatMenuBase {
-}
 /** @docs-public MatMenu */
-export declare class _MatMenu extends MatMenu {
+export declare class MatMenu extends _MatMenuBase {
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
 }

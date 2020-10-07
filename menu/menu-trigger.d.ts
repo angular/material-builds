@@ -9,7 +9,6 @@ import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, ViewContainerRef } from '@angular/core';
-import { MatMenu } from './menu';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 /** Injection token that determines the scroll handling while the menu is open. */
@@ -29,7 +28,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _overlay;
     private _element;
     private _viewContainerRef;
-    private _parentMenu;
     private _menuItemInstance;
     private _dir;
     private _focusMonitor?;
@@ -40,6 +38,11 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _hoverSubscription;
     private _menuCloseSubscription;
     private _scrollStrategy;
+    /**
+     * We're specifically looking for a `MatMenu` here since the generic `MatMenuPanel`
+     * interface lacks some functionality around nested menus and animations.
+     */
+    private _parentMaterialMenu;
     /**
      * Handles touch start events on the trigger.
      * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
@@ -80,7 +83,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * @breaking-change 8.0.0
      */
     readonly onMenuClose: EventEmitter<void>;
-    constructor(_overlay: Overlay, _element: ElementRef<HTMLElement>, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);
+    constructor(_overlay: Overlay, _element: ElementRef<HTMLElement>, _viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
