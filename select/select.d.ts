@@ -76,6 +76,8 @@ export interface MatSelectConfig {
     disableOptionCentering?: boolean;
     /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
     typeaheadDebounceInterval?: number;
+    /** Class or list of classes to be applied to the menu's overlay panel. */
+    overlayPanelClass?: string | string[];
 }
 /** Injection token that can be used to provide the default options the select module. */
 export declare const MAT_SELECT_CONFIG: InjectionToken<MatSelectConfig>;
@@ -127,6 +129,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     protected _parentFormField: MatFormField;
     ngControl: NgControl;
     private _liveAnnouncer;
+    private _defaultOptions?;
     /** All of the defined select options. */
     abstract options: QueryList<_MatOptionBase>;
     /** All of the defined groups of options. */
@@ -174,6 +177,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     _panelDoneAnimatingStream: Subject<string>;
     /** Strategy that will be used to handle scrolling while the select panel is open. */
     _scrollStrategy: ScrollStrategy;
+    _overlayPanelClass: string | string[];
     /** Whether the select is focused. */
     get focused(): boolean;
     private _focused;
@@ -256,7 +260,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, defaults?: MatSelectConfig);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
