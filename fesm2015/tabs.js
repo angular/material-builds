@@ -114,7 +114,8 @@ MatInkBar.ctorParameters = () => [
 const MAT_TAB_CONTENT = new InjectionToken('MatTabContent');
 /** Decorates the `ng-template` tags and reads out the template from it. */
 class MatTabContent {
-    constructor(template) {
+    constructor(
+    /** Content for the tab. */ template) {
         this.template = template;
     }
 }
@@ -1533,7 +1534,8 @@ class MatTabLinkMixinBase {
 const _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkMixinBase)));
 /** Base class with all of the `MatTabLink` functionality. */
 class _MatTabLinkBase extends _MatTabLinkMixinBase {
-    constructor(_tabNavBar, elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
+    constructor(_tabNavBar, 
+    /** @docs-private */ elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
         super();
         this._tabNavBar = _tabNavBar;
         this.elementRef = elementRef;
@@ -1549,7 +1551,8 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
     /** Whether the link is active. */
     get active() { return this._isActive; }
     set active(value) {
-        if (value !== this._isActive) {
+        const newValue = coerceBooleanProperty(value);
+        if (newValue !== this._isActive) {
             this._isActive = value;
             this._tabNavBar.updateActiveLink();
         }
@@ -1562,6 +1565,7 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
         return this.disabled || this.disableRipple || this._tabNavBar.disableRipple ||
             !!this.rippleConfig.disabled;
     }
+    /** Focuses the tab link. */
     focus() {
         this.elementRef.nativeElement.focus();
     }
