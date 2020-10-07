@@ -2926,6 +2926,24 @@ class MatStartDate extends _MatDateRangeInputBase {
             return event.source !== this._rangeInput._endInput;
         };
     }
+    ngOnInit() {
+        // Normally this happens automatically, but it seems to break if not added explicitly when all
+        // of the criteria below are met:
+        // 1) The class extends a TS mixin.
+        // 2) The application is running in ViewEngine.
+        // 3) The application is being transpiled through tsickle.
+        // This can be removed once google3 is completely migrated to Ivy.
+        super.ngOnInit();
+    }
+    ngDoCheck() {
+        // Normally this happens automatically, but it seems to break if not added explicitly when all
+        // of the criteria below are met:
+        // 1) The class extends a TS mixin.
+        // 2) The application is running in ViewEngine.
+        // 3) The application is being transpiled through tsickle.
+        // This can be removed once google3 is completely migrated to Ivy.
+        super.ngDoCheck();
+    }
     _getValueFromModel(modelValue) {
         return modelValue.start;
     }
@@ -3000,6 +3018,24 @@ class MatEndDate extends _MatDateRangeInputBase {
         this._canEmitChangeEvent = (event) => {
             return event.source !== this._rangeInput._startInput;
         };
+    }
+    ngOnInit() {
+        // Normally this happens automatically, but it seems to break if not added explicitly when all
+        // of the criteria below are met:
+        // 1) The class extends a TS mixin.
+        // 2) The application is running in ViewEngine.
+        // 3) The application is being transpiled through tsickle.
+        // This can be removed once google3 is completely migrated to Ivy.
+        super.ngOnInit();
+    }
+    ngDoCheck() {
+        // Normally this happens automatically, but it seems to break if not added explicitly when all
+        // of the criteria below are met:
+        // 1) The class extends a TS mixin.
+        // 2) The application is running in ViewEngine.
+        // 3) The application is being transpiled through tsickle.
+        // This can be removed once google3 is completely migrated to Ivy.
+        super.ngDoCheck();
     }
     _getValueFromModel(modelValue) {
         return modelValue.end;

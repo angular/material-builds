@@ -14,6 +14,7 @@ import { InjectionToken, TemplateRef } from '@angular/core';
 export declare const MAT_TAB_CONTENT: InjectionToken<MatTabContent>;
 /** Decorates the `ng-template` tags and reads out the template from it. */
 export declare class MatTabContent {
-    template: TemplateRef<any>;
-    constructor(template: TemplateRef<any>);
+    /** Content for the tab. */ template: TemplateRef<any>;
+    constructor(
+    /** Content for the tab. */ template: TemplateRef<any>);
 }

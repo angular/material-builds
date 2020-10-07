@@ -407,7 +407,8 @@
     var MAT_TAB_CONTENT = new core.InjectionToken('MatTabContent');
     /** Decorates the `ng-template` tags and reads out the template from it. */
     var MatTabContent = /** @class */ (function () {
-        function MatTabContent(template) {
+        function MatTabContent(
+        /** Content for the tab. */ template) {
             this.template = template;
         }
         return MatTabContent;
@@ -1925,7 +1926,8 @@
     /** Base class with all of the `MatTabLink` functionality. */
     var _MatTabLinkBase = /** @class */ (function (_super) {
         __extends(_MatTabLinkBase, _super);
-        function _MatTabLinkBase(_tabNavBar, elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
+        function _MatTabLinkBase(_tabNavBar, 
+        /** @docs-private */ elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
             var _this = _super.call(this) || this;
             _this._tabNavBar = _tabNavBar;
             _this.elementRef = elementRef;
@@ -1943,7 +1945,8 @@
             /** Whether the link is active. */
             get: function () { return this._isActive; },
             set: function (value) {
-                if (value !== this._isActive) {
+                var newValue = coercion.coerceBooleanProperty(value);
+                if (newValue !== this._isActive) {
                     this._isActive = value;
                     this._tabNavBar.updateActiveLink(this.elementRef);
                 }
@@ -1963,6 +1966,7 @@
             enumerable: false,
             configurable: true
         });
+        /** Focuses the tab link. */
         _MatTabLinkBase.prototype.focus = function () {
             this.elementRef.nativeElement.focus();
         };

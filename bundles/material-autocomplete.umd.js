@@ -766,7 +766,7 @@
             // in line with other browsers. By default, pressing escape on IE will cause it to revert
             // the input value to the one that it had on focus, however it won't dispatch any events
             // which means that the model value will be out of sync with the view.
-            if (keyCode === keycodes.ESCAPE) {
+            if (keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) {
                 event.preventDefault();
             }
             if (this.activeOption && keyCode === keycodes.ENTER && this.panelOpen) {
@@ -925,7 +925,7 @@
          */
         _MatAutocompleteTriggerBase.prototype._clearPreviousSelectedOption = function (skip) {
             this.autocomplete.options.forEach(function (option) {
-                if (option != skip && option.selected) {
+                if (option !== skip && option.selected) {
                     option.deselect();
                 }
             });
@@ -950,7 +950,8 @@
                 overlayRef.keydownEvents().subscribe(function (event) {
                     // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
                     // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-                    if (event.keyCode === keycodes.ESCAPE || (event.keyCode === keycodes.UP_ARROW && event.altKey)) {
+                    if ((event.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) ||
+                        (event.keyCode === keycodes.UP_ARROW && keycodes.hasModifierKey(event, 'altKey'))) {
                         _this._resetActiveItem();
                         _this._closeKeyEventStream.next();
                         // We need to stop propagation, otherwise the event will eventually

@@ -7,7 +7,7 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Directionality } from '@angular/cdk/bidi';
-import { ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
+import { ESCAPE, hasModifierKey, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { _getShadowRoot } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -479,7 +479,7 @@ class _MatAutocompleteTriggerBase {
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
         // which means that the model value will be out of sync with the view.
-        if (keyCode === ESCAPE) {
+        if (keyCode === ESCAPE && !hasModifierKey(event)) {
             event.preventDefault();
         }
         if (this.activeOption && keyCode === ENTER && this.panelOpen) {
@@ -636,7 +636,7 @@ class _MatAutocompleteTriggerBase {
      */
     _clearPreviousSelectedOption(skip) {
         this.autocomplete.options.forEach(option => {
-            if (option != skip && option.selected) {
+            if (option !== skip && option.selected) {
                 option.deselect();
             }
         });
@@ -660,7 +660,8 @@ class _MatAutocompleteTriggerBase {
             overlayRef.keydownEvents().subscribe(event => {
                 // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
                 // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-                if (event.keyCode === ESCAPE || (event.keyCode === UP_ARROW && event.altKey)) {
+                if ((event.keyCode === ESCAPE && !hasModifierKey(event)) ||
+                    (event.keyCode === UP_ARROW && hasModifierKey(event, 'altKey'))) {
                     this._resetActiveItem();
                     this._closeKeyEventStream.next();
                     // We need to stop propagation, otherwise the event will eventually
