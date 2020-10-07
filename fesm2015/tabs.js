@@ -541,7 +541,6 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         this._tabsSubscription = Subscription.EMPTY;
         /** Subscription to changes in the tab labels. */
         this._tabLabelSubscription = Subscription.EMPTY;
-        this._dynamicHeight = false;
         this._selectedIndex = null;
         /** Position of the tab header. */
         this.headerPosition = 'above';
@@ -558,6 +557,8 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
             defaultConfig.animationDuration : '500ms';
         this.disablePagination = defaultConfig && defaultConfig.disablePagination != null ?
             defaultConfig.disablePagination : false;
+        this.dynamicHeight = defaultConfig && defaultConfig.dynamicHeight != null ?
+            defaultConfig.dynamicHeight : false;
     }
     /** Whether the tab group should grow to the size of the active tab. */
     get dynamicHeight() { return this._dynamicHeight; }

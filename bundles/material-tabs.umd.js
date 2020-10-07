@@ -844,7 +844,6 @@
             _this._tabsSubscription = rxjs.Subscription.EMPTY;
             /** Subscription to changes in the tab labels. */
             _this._tabLabelSubscription = rxjs.Subscription.EMPTY;
-            _this._dynamicHeight = false;
             _this._selectedIndex = null;
             /** Position of the tab header. */
             _this.headerPosition = 'above';
@@ -861,6 +860,8 @@
                 defaultConfig.animationDuration : '500ms';
             _this.disablePagination = defaultConfig && defaultConfig.disablePagination != null ?
                 defaultConfig.disablePagination : false;
+            _this.dynamicHeight = defaultConfig && defaultConfig.dynamicHeight != null ?
+                defaultConfig.dynamicHeight : false;
             return _this;
         }
         Object.defineProperty(_MatTabGroupBase.prototype, "dynamicHeight", {
