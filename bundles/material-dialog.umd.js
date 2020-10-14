@@ -890,13 +890,6 @@
             var parent = this._parentDialog;
             return parent ? parent._getAfterAllClosed() : this._afterAllClosedAtThisLevel;
         };
-        /**
-         * Opens a modal dialog containing the given component.
-         * @param componentOrTemplateRef Type of the component to load into the dialog,
-         *     or a TemplateRef to instantiate as the dialog content.
-         * @param config Extra configuration options.
-         * @returns Reference to the newly-opened dialog.
-         */
         _MatDialogBase.prototype.open = function (componentOrTemplateRef, config) {
             var _this = this;
             config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
