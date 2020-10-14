@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 
 /**
@@ -105,6 +105,105 @@ class MatTreeHarness extends ComponentHarness {
         return __awaiter(this, void 0, void 0, function* () {
             return this.locatorForAll(MatTreeNodeHarness.with(filter))();
         });
+    }
+    /**
+     * Gets an object representation for the visible tree structure
+     * If a node is under an unexpanded node it will not be included.
+     * Eg.
+     * Tree (all nodes expanded):
+     * `
+     * <mat-tree>
+     *   <mat-tree-node>Node 1<mat-tree-node>
+     *   <mat-nested-tree-node>
+     *     Node 2
+     *     <mat-nested-tree-node>
+     *       Node 2.1
+     *       <mat-tree-node>
+     *         Node 2.1.1
+     *       <mat-tree-node>
+     *     <mat-nested-tree-node>
+     *     <mat-tree-node>
+     *       Node 2.2
+     *     <mat-tree-node>
+     *   <mat-nested-tree-node>
+     * </mat-tree>`
+     *
+     * Tree structure:
+     * {
+     *  children: [
+     *    {
+     *      text: 'Node 1',
+     *      children: [
+     *        {
+     *          text: 'Node 2',
+     *          children: [
+     *            {
+     *              text: 'Node 2.1',
+     *              children: [{text: 'Node 2.1.1'}]
+     *            },
+     *            {text: 'Node 2.2'}
+     *          ]
+     *        }
+     *      ]
+     *    }
+     *  ]
+     * };
+     */
+    getTreeStructure() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const nodes = yield this.getNodes();
+            const nodeInformation = yield parallel(() => nodes.map(node => {
+                return Promise.all([node.getLevel(), node.getText(), node.isExpanded()]);
+            }));
+            return this._getTreeStructure(nodeInformation, 1, true);
+        });
+    }
+    /**
+     * Recursively collect the structured text of the tree nodes.
+     * @param nodes A list of tree nodes
+     * @param level The level of nodes that are being accounted for during this iteration
+     * @param parentExpanded Whether the parent of the first node in param nodes is expanded
+     */
+    _getTreeStructure(nodes, level, parentExpanded) {
+        var _a, _b, _c;
+        const result = {};
+        for (let i = 0; i < nodes.length; i++) {
+            const [nodeLevel, text, expanded] = nodes[i];
+            const nextNodeLevel = (_b = (_a = nodes[i + 1]) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : -1;
+            // Return the accumulated value for the current level once we reach a shallower level node
+            if (nodeLevel < level) {
+                return result;
+            }
+            // Skip deeper level nodes during this iteration, they will be picked up in a later iteration
+            if (nodeLevel > level) {
+                continue;
+            }
+            // Only add to representation if it is visible (parent is expanded)
+            if (parentExpanded) {
+                // Collect the data under this node according to the following rules:
+                // 1. If the next node in the list is a sibling of the current node add it to the child list
+                // 2. If the next node is a child of the current node, get the sub-tree structure for the
+                //    child and add it under this node
+                // 3. If the next node has a shallower level, we've reached the end of the child nodes for
+                //    the current parent.
+                if (nextNodeLevel === level) {
+                    this._addChildToNode(result, { text });
+                }
+                else if (nextNodeLevel > level) {
+                    let children = (_c = this._getTreeStructure(nodes.slice(i + 1), nextNodeLevel, expanded)) === null || _c === void 0 ? void 0 : _c.children;
+                    let child = children ? { text, children } : { text };
+                    this._addChildToNode(result, child);
+                }
+                else {
+                    this._addChildToNode(result, { text });
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+    _addChildToNode(result, child) {
+        result.children ? result.children.push(child) : result.children = [child];
     }
 }
 /** The selector for the host element of a `MatTableHarness` instance. */

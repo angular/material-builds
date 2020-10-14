@@ -476,10 +476,118 @@
         MatTreeHarness.prototype.getNodes = function (filter) {
             if (filter === void 0) { filter = {}; }
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
+                return __generator(this, function (_d) {
                     return [2 /*return*/, this.locatorForAll(MatTreeNodeHarness.with(filter))()];
                 });
             });
+        };
+        /**
+         * Gets an object representation for the visible tree structure
+         * If a node is under an unexpanded node it will not be included.
+         * Eg.
+         * Tree (all nodes expanded):
+         * `
+         * <mat-tree>
+         *   <mat-tree-node>Node 1<mat-tree-node>
+         *   <mat-nested-tree-node>
+         *     Node 2
+         *     <mat-nested-tree-node>
+         *       Node 2.1
+         *       <mat-tree-node>
+         *         Node 2.1.1
+         *       <mat-tree-node>
+         *     <mat-nested-tree-node>
+         *     <mat-tree-node>
+         *       Node 2.2
+         *     <mat-tree-node>
+         *   <mat-nested-tree-node>
+         * </mat-tree>`
+         *
+         * Tree structure:
+         * {
+         *  children: [
+         *    {
+         *      text: 'Node 1',
+         *      children: [
+         *        {
+         *          text: 'Node 2',
+         *          children: [
+         *            {
+         *              text: 'Node 2.1',
+         *              children: [{text: 'Node 2.1.1'}]
+         *            },
+         *            {text: 'Node 2.2'}
+         *          ]
+         *        }
+         *      ]
+         *    }
+         *  ]
+         * };
+         */
+        MatTreeHarness.prototype.getTreeStructure = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var nodes, nodeInformation;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
+                        case 0: return [4 /*yield*/, this.getNodes()];
+                        case 1:
+                            nodes = _d.sent();
+                            return [4 /*yield*/, testing.parallel(function () { return nodes.map(function (node) {
+                                    return Promise.all([node.getLevel(), node.getText(), node.isExpanded()]);
+                                }); })];
+                        case 2:
+                            nodeInformation = _d.sent();
+                            return [2 /*return*/, this._getTreeStructure(nodeInformation, 1, true)];
+                    }
+                });
+            });
+        };
+        /**
+         * Recursively collect the structured text of the tree nodes.
+         * @param nodes A list of tree nodes
+         * @param level The level of nodes that are being accounted for during this iteration
+         * @param parentExpanded Whether the parent of the first node in param nodes is expanded
+         */
+        MatTreeHarness.prototype._getTreeStructure = function (nodes, level, parentExpanded) {
+            var _a, _b, _c;
+            var result = {};
+            for (var i = 0; i < nodes.length; i++) {
+                var _d = __read(nodes[i], 3), nodeLevel = _d[0], text = _d[1], expanded = _d[2];
+                var nextNodeLevel = (_b = (_a = nodes[i + 1]) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : -1;
+                // Return the accumulated value for the current level once we reach a shallower level node
+                if (nodeLevel < level) {
+                    return result;
+                }
+                // Skip deeper level nodes during this iteration, they will be picked up in a later iteration
+                if (nodeLevel > level) {
+                    continue;
+                }
+                // Only add to representation if it is visible (parent is expanded)
+                if (parentExpanded) {
+                    // Collect the data under this node according to the following rules:
+                    // 1. If the next node in the list is a sibling of the current node add it to the child list
+                    // 2. If the next node is a child of the current node, get the sub-tree structure for the
+                    //    child and add it under this node
+                    // 3. If the next node has a shallower level, we've reached the end of the child nodes for
+                    //    the current parent.
+                    if (nextNodeLevel === level) {
+                        this._addChildToNode(result, { text: text });
+                    }
+                    else if (nextNodeLevel > level) {
+                        var children = (_c = this._getTreeStructure(nodes.slice(i + 1), nextNodeLevel, expanded)) === null || _c === void 0 ? void 0 : _c.children;
+                        var child = children ? { text: text, children: children } : { text: text };
+                        this._addChildToNode(result, child);
+                    }
+                    else {
+                        this._addChildToNode(result, { text: text });
+                        return result;
+                    }
+                }
+            }
+            return result;
+        };
+        MatTreeHarness.prototype._addChildToNode = function (result, child) {
+            result.children ? result.children.push(child) : result.children = [child];
         };
         return MatTreeHarness;
     }(testing.ComponentHarness));
