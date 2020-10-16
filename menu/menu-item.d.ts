@@ -24,7 +24,6 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;
     /** ARIA role for the menu item. */
     role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
-    private _document;
     /** Stream that emits when the menu item is hovered. */
     readonly _hovered: Subject<MatMenuItem>;
     /** Stream that emits when the menu item is focused. */
@@ -33,7 +32,12 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, 
+    /**
+     * @deprecated `_document` parameter is no longer being used and will be removed.
+     * @breaking-change 12.0.0
+     */
+    _document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined);
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;

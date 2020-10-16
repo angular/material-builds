@@ -523,7 +523,12 @@
      */
     var MatMenuItem = /** @class */ (function (_super) {
         __extends(MatMenuItem, _super);
-        function MatMenuItem(_elementRef, document, _focusMonitor, _parentMenu) {
+        function MatMenuItem(_elementRef, 
+        /**
+         * @deprecated `_document` parameter is no longer being used and will be removed.
+         * @breaking-change 12.0.0
+         */
+        _document, _focusMonitor, _parentMenu) {
             var _this = 
             // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
             _super.call(this) || this;
@@ -543,7 +548,6 @@
             if (_parentMenu && _parentMenu.addItem) {
                 _parentMenu.addItem(_this);
             }
-            _this._document = document;
             return _this;
         }
         /** Focuses the menu item. */
@@ -606,21 +610,15 @@
         };
         /** Gets the label to be used when determining whether the option should be focused. */
         MatMenuItem.prototype.getLabel = function () {
-            var element = this._elementRef.nativeElement;
-            var textNodeType = this._document ? this._document.TEXT_NODE : 3;
-            var output = '';
-            if (element.childNodes) {
-                var length = element.childNodes.length;
-                // Go through all the top-level text nodes and extract their text.
-                // We skip anything that's not a text node to prevent the text from
-                // being thrown off by something like an icon.
-                for (var i = 0; i < length; i++) {
-                    if (element.childNodes[i].nodeType === textNodeType) {
-                        output += element.childNodes[i].textContent;
-                    }
-                }
+            var _a, _b;
+            var clone = this._elementRef.nativeElement.cloneNode(true);
+            var icons = clone.querySelectorAll('mat-icon, .material-icons');
+            // Strip away icons so they don't show up in the text.
+            for (var i = 0; i < icons.length; i++) {
+                var icon = icons[i];
+                (_a = icon.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(icon);
             }
-            return output.trim();
+            return ((_b = clone.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || '';
         };
         return MatMenuItem;
     }(_MatMenuItemMixinBase));

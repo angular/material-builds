@@ -238,7 +238,12 @@ const _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase))
  * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
 class MatMenuItem extends _MatMenuItemMixinBase {
-    constructor(_elementRef, document, _focusMonitor, _parentMenu) {
+    constructor(_elementRef, 
+    /**
+     * @deprecated `_document` parameter is no longer being used and will be removed.
+     * @breaking-change 12.0.0
+     */
+    _document, _focusMonitor, _parentMenu) {
         // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
         super();
         this._elementRef = _elementRef;
@@ -257,7 +262,6 @@ class MatMenuItem extends _MatMenuItemMixinBase {
         if (_parentMenu && _parentMenu.addItem) {
             _parentMenu.addItem(this);
         }
-        this._document = document;
     }
     /** Focuses the menu item. */
     focus(origin = 'program', options) {
@@ -318,21 +322,15 @@ class MatMenuItem extends _MatMenuItemMixinBase {
     }
     /** Gets the label to be used when determining whether the option should be focused. */
     getLabel() {
-        const element = this._elementRef.nativeElement;
-        const textNodeType = this._document ? this._document.TEXT_NODE : 3;
-        let output = '';
-        if (element.childNodes) {
-            const length = element.childNodes.length;
-            // Go through all the top-level text nodes and extract their text.
-            // We skip anything that's not a text node to prevent the text from
-            // being thrown off by something like an icon.
-            for (let i = 0; i < length; i++) {
-                if (element.childNodes[i].nodeType === textNodeType) {
-                    output += element.childNodes[i].textContent;
-                }
-            }
+        var _a, _b;
+        const clone = this._elementRef.nativeElement.cloneNode(true);
+        const icons = clone.querySelectorAll('mat-icon, .material-icons');
+        // Strip away icons so they don't show up in the text.
+        for (let i = 0; i < icons.length; i++) {
+            const icon = icons[i];
+            (_a = icon.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(icon);
         }
-        return output.trim();
+        return ((_b = clone.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || '';
     }
 }
 MatMenuItem.decorators = [
