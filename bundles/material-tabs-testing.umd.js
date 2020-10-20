@@ -558,6 +558,161 @@
     /** The selector for the host element of a `MatTabGroup` instance. */
     MatTabGroupHarness.hostSelector = '.mat-tab-group';
 
+    /** Harness for interacting with a standard Angular Material tab link in tests. */
+    var MatTabLinkHarness = /** @class */ (function (_super) {
+        __extends(MatTabLinkHarness, _super);
+        function MatTabLinkHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatTabLinkHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which tab link instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatTabLinkHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatTabLinkHarness, options)
+                .addOption('label', options.label, function (harness, label) { return testing.HarnessPredicate.stringMatches(harness.getLabel(), label); });
+        };
+        /** Gets the label of the link. */
+        MatTabLinkHarness.prototype.getLabel = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).text()];
+                    }
+                });
+            });
+        };
+        /** Whether the link is active. */
+        MatTabLinkHarness.prototype.isActive = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var host;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1:
+                            host = _a.sent();
+                            return [2 /*return*/, host.hasClass('mat-tab-label-active')];
+                    }
+                });
+            });
+        };
+        /** Whether the link is disabled. */
+        MatTabLinkHarness.prototype.isDisabled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var host;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1:
+                            host = _a.sent();
+                            return [2 /*return*/, host.hasClass('mat-tab-disabled')];
+                    }
+                });
+            });
+        };
+        /** Clicks on the link. */
+        MatTabLinkHarness.prototype.click = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).click()];
+                        case 2:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        return MatTabLinkHarness;
+    }(testing.ComponentHarness));
+    /** The selector for the host element of a `MatTabLink` instance. */
+    MatTabLinkHarness.hostSelector = '.mat-tab-link';
+
+    /** Harness for interacting with a standard mat-tab-nav-bar in tests. */
+    var MatTabNavBarHarness = /** @class */ (function (_super) {
+        __extends(MatTabNavBarHarness, _super);
+        function MatTabNavBarHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavBar` that meets
+         * certain criteria.
+         * @param options Options for filtering which tab nav bar instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatTabNavBarHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatTabNavBarHarness, options);
+        };
+        /**
+         * Gets the list of links in the nav bar.
+         * @param filter Optionally filters which links are included.
+         */
+        MatTabNavBarHarness.prototype.getLinks = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForAll(MatTabLinkHarness.with(filter))()];
+                });
+            });
+        };
+        /** Gets the active link in the nav bar. */
+        MatTabNavBarHarness.prototype.getActiveLink = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var links, isActive, i;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getLinks()];
+                        case 1:
+                            links = _a.sent();
+                            return [4 /*yield*/, Promise.all(links.map(function (t) { return t.isActive(); }))];
+                        case 2:
+                            isActive = _a.sent();
+                            for (i = 0; i < links.length; i++) {
+                                if (isActive[i]) {
+                                    return [2 /*return*/, links[i]];
+                                }
+                            }
+                            throw new Error('No active link could be found.');
+                    }
+                });
+            });
+        };
+        /**
+         * Clicks a link inside the nav bar.
+         * @param filter An optional filter to apply to the child link. The first link matching the filter
+         *     will be clicked.
+         */
+        MatTabNavBarHarness.prototype.clickLink = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                var tabs;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getLinks(filter)];
+                        case 1:
+                            tabs = _a.sent();
+                            if (!tabs.length) {
+                                throw Error("Cannot find mat-tab-link matching filter " + JSON.stringify(filter));
+                            }
+                            return [4 /*yield*/, tabs[0].click()];
+                        case 2:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        return MatTabNavBarHarness;
+    }(testing.ComponentHarness));
+    /** The selector for the host element of a `MatTabNavBar` instance. */
+    MatTabNavBarHarness.hostSelector = '.mat-tab-nav-bar';
+
     /**
      * @license
      * Copyright Google LLC All Rights Reserved.
@@ -576,6 +731,8 @@
 
     exports.MatTabGroupHarness = MatTabGroupHarness;
     exports.MatTabHarness = MatTabHarness;
+    exports.MatTabLinkHarness = MatTabLinkHarness;
+    exports.MatTabNavBarHarness = MatTabNavBarHarness;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

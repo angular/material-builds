@@ -164,6 +164,105 @@ MatTabGroupHarness.hostSelector = '.mat-tab-group';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Harness for interacting with a standard Angular Material tab link in tests. */
+class MatTabLinkHarness extends ComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabLinkHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab link instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatTabLinkHarness, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
+    }
+    /** Gets the label of the link. */
+    getLabel() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).text();
+        });
+    }
+    /** Whether the link is active. */
+    isActive() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const host = yield this.host();
+            return host.hasClass('mat-tab-label-active');
+        });
+    }
+    /** Whether the link is disabled. */
+    isDisabled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const host = yield this.host();
+            return host.hasClass('mat-tab-disabled');
+        });
+    }
+    /** Clicks on the link. */
+    click() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield (yield this.host()).click();
+        });
+    }
+}
+/** The selector for the host element of a `MatTabLink` instance. */
+MatTabLinkHarness.hostSelector = '.mat-tab-link';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Harness for interacting with a standard mat-tab-nav-bar in tests. */
+class MatTabNavBarHarness extends ComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavBar` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab nav bar instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatTabNavBarHarness, options);
+    }
+    /**
+     * Gets the list of links in the nav bar.
+     * @param filter Optionally filters which links are included.
+     */
+    getLinks(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.locatorForAll(MatTabLinkHarness.with(filter))();
+        });
+    }
+    /** Gets the active link in the nav bar. */
+    getActiveLink() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const links = yield this.getLinks();
+            const isActive = yield Promise.all(links.map(t => t.isActive()));
+            for (let i = 0; i < links.length; i++) {
+                if (isActive[i]) {
+                    return links[i];
+                }
+            }
+            throw new Error('No active link could be found.');
+        });
+    }
+    /**
+     * Clicks a link inside the nav bar.
+     * @param filter An optional filter to apply to the child link. The first link matching the filter
+     *     will be clicked.
+     */
+    clickLink(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tabs = yield this.getLinks(filter);
+            if (!tabs.length) {
+                throw Error(`Cannot find mat-tab-link matching filter ${JSON.stringify(filter)}`);
+            }
+            yield tabs[0].click();
+        });
+    }
+}
+/** The selector for the host element of a `MatTabNavBar` instance. */
+MatTabNavBarHarness.hostSelector = '.mat-tab-nav-bar';
 
 /**
  * @license
@@ -173,5 +272,13 @@ MatTabGroupHarness.hostSelector = '.mat-tab-group';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatTabGroupHarness, MatTabHarness };
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+export { MatTabGroupHarness, MatTabHarness, MatTabLinkHarness, MatTabNavBarHarness };
 //# sourceMappingURL=testing.js.map
