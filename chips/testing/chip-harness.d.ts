@@ -21,15 +21,31 @@ export declare class MatChipHarness extends ComponentHarness {
     static with(options?: ChipHarnessFilters): HarnessPredicate<MatChipHarness>;
     /** Gets the text of the chip. */
     getText(): Promise<string>;
-    /** Whether the chip is selected. */
+    /**
+     * Whether the chip is selected.
+     * @deprecated Will be moved into separate selection-specific harness.
+     * @breaking-change 12.0.0
+     */
     isSelected(): Promise<boolean>;
     /** Whether the chip is disabled. */
     isDisabled(): Promise<boolean>;
-    /** Selects the given chip. Only applies if it's selectable. */
+    /**
+     * Selects the given chip. Only applies if it's selectable.
+     * @deprecated Will be moved into separate selection-specific harness.
+     * @breaking-change 12.0.0
+     */
     select(): Promise<void>;
-    /** Deselects the given chip. Only applies if it's selectable. */
+    /**
+     * Deselects the given chip. Only applies if it's selectable.
+     * @deprecated Will be moved into separate selection-specific harness.
+     * @breaking-change 12.0.0
+     */
     deselect(): Promise<void>;
-    /** Toggles the selected state of the given chip. Only applies if it's selectable. */
+    /**
+     * Toggles the selected state of the given chip. Only applies if it's selectable.
+     * @deprecated Will be moved into separate selection-specific harness.
+     * @breaking-change 12.0.0
+     */
     toggle(): Promise<void>;
     /** Removes the given chip. Only applies if it's removable. */
     remove(): Promise<void>;
