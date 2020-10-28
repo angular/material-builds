@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AfterViewChecked, ElementRef, ErrorHandler, InjectionToken, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, ElementRef, ErrorHandler, InjectionToken, OnDestroy, OnInit } from '@angular/core';
 import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
@@ -57,7 +57,7 @@ export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
  *   Example:
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
-export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnInit, AfterViewChecked, CanColor, OnDestroy {
+export declare class MatIcon extends _MatIconMixinBase implements OnInit, AfterViewChecked, CanColor, OnDestroy {
     private _iconRegistry;
     private _location;
     private readonly _errorHandler;
@@ -69,7 +69,9 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     set inline(inline: boolean);
     private _inline;
     /** Name of the icon in the SVG icon set. */
-    svgIcon: string;
+    get svgIcon(): string;
+    set svgIcon(value: string);
+    private _svgIcon;
     /** Font set that the icon is a part of. */
     get fontSet(): string;
     set fontSet(value: string);
@@ -103,7 +105,6 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      *   'a:b:c' -> (throws Error)`
      */
     private _splitIconName;
-    ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
@@ -128,6 +129,8 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      * references that we need to prefix with the current path.
      */
     private _cacheChildrenWithExternalReferences;
+    /** Sets a new SVG icon with a particular name. */
+    private _updateSvgIcon;
     static ngAcceptInputType_inline: BooleanInput;
 }
 export {};

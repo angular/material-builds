@@ -945,11 +945,32 @@
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(MatIcon.prototype, "svgIcon", {
+            /** Name of the icon in the SVG icon set. */
+            get: function () { return this._svgIcon; },
+            set: function (value) {
+                if (value !== this._svgIcon) {
+                    if (value) {
+                        this._updateSvgIcon(value);
+                    }
+                    else if (this._svgIcon) {
+                        this._clearSvgElement();
+                    }
+                    this._svgIcon = value;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(MatIcon.prototype, "fontSet", {
             /** Font set that the icon is a part of. */
             get: function () { return this._fontSet; },
             set: function (value) {
-                this._fontSet = this._cleanupFontValue(value);
+                var newValue = this._cleanupFontValue(value);
+                if (newValue !== this._fontSet) {
+                    this._fontSet = newValue;
+                    this._updateFontIconClasses();
+                }
             },
             enumerable: false,
             configurable: true
@@ -958,7 +979,11 @@
             /** Name of an icon within a font set. */
             get: function () { return this._fontIcon; },
             set: function (value) {
-                this._fontIcon = this._cleanupFontValue(value);
+                var newValue = this._cleanupFontValue(value);
+                if (newValue !== this._fontIcon) {
+                    this._fontIcon = newValue;
+                    this._updateFontIconClasses();
+                }
             },
             enumerable: false,
             configurable: true
@@ -987,43 +1012,10 @@
                 default: throw Error("Invalid icon name: \"" + iconName + "\""); // TODO: add an ngDevMode check
             }
         };
-        MatIcon.prototype.ngOnChanges = function (changes) {
-            var _this = this;
-            // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-            var svgIconChanges = changes['svgIcon'];
-            this._svgNamespace = null;
-            this._svgName = null;
-            if (svgIconChanges) {
-                this._currentIconFetch.unsubscribe();
-                if (this.svgIcon) {
-                    var _a = __read(this._splitIconName(this.svgIcon), 2), namespace_1 = _a[0], iconName_1 = _a[1];
-                    if (namespace_1) {
-                        this._svgNamespace = namespace_1;
-                    }
-                    if (iconName_1) {
-                        this._svgName = iconName_1;
-                    }
-                    this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
-                        .pipe(operators.take(1))
-                        .subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) {
-                        var errorMessage = "Error retrieving icon " + namespace_1 + ":" + iconName_1 + "! " + err.message;
-                        _this._errorHandler.handleError(new Error(errorMessage));
-                    });
-                }
-                else if (svgIconChanges.previousValue) {
-                    this._clearSvgElement();
-                }
-            }
-            if (this._usingFontIcon()) {
-                this._updateFontIconClasses();
-            }
-        };
         MatIcon.prototype.ngOnInit = function () {
             // Update font classes because ngOnChanges won't be called if none of the inputs are present,
             // e.g. <mat-icon>arrow</mat-icon> In this case we need to add a CSS class for the default font.
-            if (this._usingFontIcon()) {
-                this._updateFontIconClasses();
-            }
+            this._updateFontIconClasses();
         };
         MatIcon.prototype.ngAfterViewChecked = function () {
             var cachedElements = this._elementsWithExternalReferences;
@@ -1159,6 +1151,28 @@
             };
             for (var i = 0; i < elementsWithFuncIri.length; i++) {
                 _loop_1(i);
+            }
+        };
+        /** Sets a new SVG icon with a particular name. */
+        MatIcon.prototype._updateSvgIcon = function (rawName) {
+            var _this = this;
+            this._svgNamespace = null;
+            this._svgName = null;
+            this._currentIconFetch.unsubscribe();
+            if (rawName) {
+                var _a = __read(this._splitIconName(rawName), 2), namespace_1 = _a[0], iconName_1 = _a[1];
+                if (namespace_1) {
+                    this._svgNamespace = namespace_1;
+                }
+                if (iconName_1) {
+                    this._svgName = iconName_1;
+                }
+                this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName_1, namespace_1)
+                    .pipe(operators.take(1))
+                    .subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) {
+                    var errorMessage = "Error retrieving icon " + namespace_1 + ":" + iconName_1 + "! " + err.message;
+                    _this._errorHandler.handleError(new Error(errorMessage));
+                });
             }
         };
         return MatIcon;
