@@ -29,7 +29,8 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     /**
      * Gets the role of the snack-bar. The role of a snack-bar is determined based
      * on the ARIA politeness specified in the snack-bar config.
-     * @deprecated @breaking-change 13.0.0 Use `getAriaLive` instead.
+     * @deprecated Use `getAriaLive` instead.
+     * @breaking-change 13.0.0
      */
     getRole() {
         return __awaiter(this, void 0, void 0, function* () {
