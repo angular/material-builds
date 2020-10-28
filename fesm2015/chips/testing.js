@@ -35,7 +35,7 @@ MatChipRemoveHarness.hostSelector = '.mat-chip-remove';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Angular Material chip in tests. */
+/** Harness for interacting with a standard selectable Angular Material chip in tests. */
 class MatChipHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipHarness` that meets
@@ -58,7 +58,7 @@ class MatChipHarness extends ComponentHarness {
     }
     /**
      * Whether the chip is selected.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.isSelected` instead.
      * @breaking-change 12.0.0
      */
     isSelected() {
@@ -74,7 +74,7 @@ class MatChipHarness extends ComponentHarness {
     }
     /**
      * Selects the given chip. Only applies if it's selectable.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.select` instead.
      * @breaking-change 12.0.0
      */
     select() {
@@ -86,7 +86,7 @@ class MatChipHarness extends ComponentHarness {
     }
     /**
      * Deselects the given chip. Only applies if it's selectable.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.deselect` instead.
      * @breaking-change 12.0.0
      */
     deselect() {
@@ -98,7 +98,7 @@ class MatChipHarness extends ComponentHarness {
     }
     /**
      * Toggles the selected state of the given chip. Only applies if it's selectable.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.toggle` instead.
      * @breaking-change 12.0.0
      */
     toggle() {
@@ -231,17 +231,8 @@ MatChipInputHarness.hostSelector = '.mat-chip-input';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard chip list in tests. */
-class MatChipListHarness extends ComponentHarness {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatChipListHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which chip list instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatChipListHarness, options);
-    }
+/** Base class for chip list harnesses. */
+class _MatChipListHarnessBase extends ComponentHarness {
     /** Gets whether the chip list is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -273,6 +264,18 @@ class MatChipListHarness extends ComponentHarness {
             return orientation === 'vertical' ? 'vertical' : 'horizontal';
         });
     }
+}
+/** Harness for interacting with a standard chip list in tests. */
+class MatChipListHarness extends _MatChipListHarnessBase {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatChipListHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which chip list instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatChipListHarness, options);
+    }
     /**
      * Gets the list of chips inside the chip list.
      * @param filter Optionally filters which chips are included.
@@ -286,14 +289,14 @@ class MatChipListHarness extends ComponentHarness {
      * Selects a chip inside the chip list.
      * @param filter An optional filter to apply to the child chips.
      *    All the chips matching the filter will be selected.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipListboxHarness.selectChips` instead.
      * @breaking-change 12.0.0
      */
     selectChips(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             const chips = yield this.getChips(filter);
             if (!chips.length) {
-                throw Error(`Cannot find mat-chip matching filter ${JSON.stringify(filter)}`);
+                throw Error(`Cannot find chip matching filter ${JSON.stringify(filter)}`);
             }
             yield Promise.all(chips.map(chip => chip.select()));
         });
@@ -323,6 +326,94 @@ MatChipListHarness.hostSelector = '.mat-chip-list';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+class MatChipOptionHarness extends MatChipHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatChipOptionHarness`
+     * that meets certain criteria.
+     * @param options Options for filtering which chip instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatChipOptionHarness, options)
+            .addOption('text', options.text, (harness, label) => HarnessPredicate.stringMatches(harness.getText(), label))
+            .addOption('selected', options.selected, (harness, selected) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isSelected()) === selected; }));
+    }
+    /** Whether the chip is selected. */
+    isSelected() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).hasClass('mat-chip-selected');
+        });
+    }
+    /** Selects the given chip. Only applies if it's selectable. */
+    select() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!(yield this.isSelected())) {
+                yield this.toggle();
+            }
+        });
+    }
+    /** Deselects the given chip. Only applies if it's selectable. */
+    deselect() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (yield this.isSelected()) {
+                yield this.toggle();
+            }
+        });
+    }
+    /** Toggles the selected state of the given chip. */
+    toggle() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).sendKeys(' ');
+        });
+    }
+}
+/** The selector for the host element of a selectable chip instance. */
+MatChipOptionHarness.hostSelector = '.mat-chip';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Harness for interacting with a standard selectable chip list in tests. */
+class MatChipListboxHarness extends _MatChipListHarnessBase {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatChipListHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which chip list instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatChipListboxHarness, options);
+    }
+    /**
+     * Gets the list of chips inside the chip list.
+     * @param filter Optionally filters which chips are included.
+     */
+    getChips(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.locatorForAll(MatChipOptionHarness.with(filter))();
+        });
+    }
+    /**
+     * Selects a chip inside the chip list.
+     * @param filter An optional filter to apply to the child chips.
+     *    All the chips matching the filter will be selected.
+     */
+    selectChips(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const chips = yield this.getChips(filter);
+            if (!chips.length) {
+                throw Error(`Cannot find chip matching filter ${JSON.stringify(filter)}`);
+            }
+            yield Promise.all(chips.map(chip => chip.select()));
+        });
+    }
+}
+/** The selector for the host element of a `MatChipList` instance. */
+MatChipListboxHarness.hostSelector = '.mat-chip-list';
 
 /**
  * @license
@@ -332,5 +423,13 @@ MatChipListHarness.hostSelector = '.mat-chip-list';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatChipHarness, MatChipInputHarness, MatChipListHarness, MatChipRemoveHarness };
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+export { MatChipHarness, MatChipInputHarness, MatChipListHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness };
 //# sourceMappingURL=testing.js.map

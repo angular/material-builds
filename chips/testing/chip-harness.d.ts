@@ -8,7 +8,7 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { ChipHarnessFilters, ChipRemoveHarnessFilters } from './chip-harness-filters';
 import { MatChipRemoveHarness } from './chip-remove-harness';
-/** Harness for interacting with a standard Angular Material chip in tests. */
+/** Harness for interacting with a standard selectable Angular Material chip in tests. */
 export declare class MatChipHarness extends ComponentHarness {
     /** The selector for the host element of a `MatChip` instance. */
     static hostSelector: string;
@@ -23,7 +23,7 @@ export declare class MatChipHarness extends ComponentHarness {
     getText(): Promise<string>;
     /**
      * Whether the chip is selected.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.isSelected` instead.
      * @breaking-change 12.0.0
      */
     isSelected(): Promise<boolean>;
@@ -31,19 +31,19 @@ export declare class MatChipHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
     /**
      * Selects the given chip. Only applies if it's selectable.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.select` instead.
      * @breaking-change 12.0.0
      */
     select(): Promise<void>;
     /**
      * Deselects the given chip. Only applies if it's selectable.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.deselect` instead.
      * @breaking-change 12.0.0
      */
     deselect(): Promise<void>;
     /**
      * Toggles the selected state of the given chip. Only applies if it's selectable.
-     * @deprecated Will be moved into separate selection-specific harness.
+     * @deprecated Use `MatChipOptionHarness.toggle` instead.
      * @breaking-change 12.0.0
      */
     toggle(): Promise<void>;

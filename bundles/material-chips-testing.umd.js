@@ -336,7 +336,7 @@
     }(testing.ComponentHarness));
     MatChipRemoveHarness.hostSelector = '.mat-chip-remove';
 
-    /** Harness for interacting with a standard Angular Material chip in tests. */
+    /** Harness for interacting with a standard selectable Angular Material chip in tests. */
     var MatChipHarness = /** @class */ (function (_super) {
         __extends(MatChipHarness, _super);
         function MatChipHarness() {
@@ -375,7 +375,7 @@
         };
         /**
          * Whether the chip is selected.
-         * @deprecated Will be moved into separate selection-specific harness.
+         * @deprecated Use `MatChipOptionHarness.isSelected` instead.
          * @breaking-change 12.0.0
          */
         MatChipHarness.prototype.isSelected = function () {
@@ -401,7 +401,7 @@
         };
         /**
          * Selects the given chip. Only applies if it's selectable.
-         * @deprecated Will be moved into separate selection-specific harness.
+         * @deprecated Use `MatChipOptionHarness.select` instead.
          * @breaking-change 12.0.0
          */
         MatChipHarness.prototype.select = function () {
@@ -422,7 +422,7 @@
         };
         /**
          * Deselects the given chip. Only applies if it's selectable.
-         * @deprecated Will be moved into separate selection-specific harness.
+         * @deprecated Use `MatChipOptionHarness.deselect` instead.
          * @breaking-change 12.0.0
          */
         MatChipHarness.prototype.deselect = function () {
@@ -443,7 +443,7 @@
         };
         /**
          * Toggles the selected state of the given chip. Only applies if it's selectable.
-         * @deprecated Will be moved into separate selection-specific harness.
+         * @deprecated Use `MatChipOptionHarness.toggle` instead.
          * @breaking-change 12.0.0
          */
         MatChipHarness.prototype.toggle = function () {
@@ -650,6 +650,77 @@
     }(testing.ComponentHarness));
     MatChipInputHarness.hostSelector = '.mat-chip-input';
 
+    /** Base class for chip list harnesses. */
+    var _MatChipListHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatChipListHarnessBase, _super);
+        function _MatChipListHarnessBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /** Gets whether the chip list is disabled. */
+        _MatChipListHarnessBase.prototype.isDisabled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-disabled')];
+                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
+                    }
+                });
+            });
+        };
+        /** Gets whether the chip list is required. */
+        _MatChipListHarnessBase.prototype.isRequired = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-required')];
+                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
+                    }
+                });
+            });
+        };
+        /** Gets whether the chip list is invalid. */
+        _MatChipListHarnessBase.prototype.isInvalid = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-invalid')];
+                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
+                    }
+                });
+            });
+        };
+        /** Gets whether the chip list is in multi selection mode. */
+        _MatChipListHarnessBase.prototype.isMultiple = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-multiselectable')];
+                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
+                    }
+                });
+            });
+        };
+        /** Gets whether the orientation of the chip list. */
+        _MatChipListHarnessBase.prototype.getOrientation = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var orientation;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-orientation')];
+                        case 2:
+                            orientation = _a.sent();
+                            return [2 /*return*/, orientation === 'vertical' ? 'vertical' : 'horizontal'];
+                    }
+                });
+            });
+        };
+        return _MatChipListHarnessBase;
+    }(testing.ComponentHarness));
     /** Harness for interacting with a standard chip list in tests. */
     var MatChipListHarness = /** @class */ (function (_super) {
         __extends(MatChipListHarness, _super);
@@ -665,69 +736,6 @@
         MatChipListHarness.with = function (options) {
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatChipListHarness, options);
-        };
-        /** Gets whether the chip list is disabled. */
-        MatChipListHarness.prototype.isDisabled = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-disabled')];
-                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
-                    }
-                });
-            });
-        };
-        /** Gets whether the chip list is required. */
-        MatChipListHarness.prototype.isRequired = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-required')];
-                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
-                    }
-                });
-            });
-        };
-        /** Gets whether the chip list is invalid. */
-        MatChipListHarness.prototype.isInvalid = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-invalid')];
-                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
-                    }
-                });
-            });
-        };
-        /** Gets whether the chip list is in multi selection mode. */
-        MatChipListHarness.prototype.isMultiple = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-multiselectable')];
-                        case 2: return [2 /*return*/, (_a.sent()) === 'true'];
-                    }
-                });
-            });
-        };
-        /** Gets whether the orientation of the chip list. */
-        MatChipListHarness.prototype.getOrientation = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var orientation;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('aria-orientation')];
-                        case 2:
-                            orientation = _a.sent();
-                            return [2 /*return*/, orientation === 'vertical' ? 'vertical' : 'horizontal'];
-                    }
-                });
-            });
         };
         /**
          * Gets the list of chips inside the chip list.
@@ -745,7 +753,7 @@
          * Selects a chip inside the chip list.
          * @param filter An optional filter to apply to the child chips.
          *    All the chips matching the filter will be selected.
-         * @deprecated Will be moved into separate selection-specific harness.
+         * @deprecated Use `MatChipListboxHarness.selectChips` instead.
          * @breaking-change 12.0.0
          */
         MatChipListHarness.prototype.selectChips = function (filter) {
@@ -758,7 +766,7 @@
                         case 1:
                             chips = _a.sent();
                             if (!chips.length) {
-                                throw Error("Cannot find mat-chip matching filter " + JSON.stringify(filter));
+                                throw Error("Cannot find chip matching filter " + JSON.stringify(filter));
                             }
                             return [4 /*yield*/, Promise.all(chips.map(function (chip) { return chip.select(); }))];
                         case 2:
@@ -791,9 +799,151 @@
             });
         };
         return MatChipListHarness;
-    }(testing.ComponentHarness));
+    }(_MatChipListHarnessBase));
     /** The selector for the host element of a `MatChipList` instance. */
     MatChipListHarness.hostSelector = '.mat-chip-list';
+
+    var MatChipOptionHarness = /** @class */ (function (_super) {
+        __extends(MatChipOptionHarness, _super);
+        function MatChipOptionHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatChipOptionHarness`
+         * that meets certain criteria.
+         * @param options Options for filtering which chip instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatChipOptionHarness.with = function (options) {
+            var _this = this;
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatChipOptionHarness, options)
+                .addOption('text', options.text, function (harness, label) { return testing.HarnessPredicate.stringMatches(harness.getText(), label); })
+                .addOption('selected', options.selected, function (harness, selected) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, harness.isSelected()];
+                    case 1: return [2 /*return*/, (_a.sent()) === selected];
+                }
+            }); }); });
+        };
+        /** Whether the chip is selected. */
+        MatChipOptionHarness.prototype.isSelected = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-chip-selected')];
+                    }
+                });
+            });
+        };
+        /** Selects the given chip. Only applies if it's selectable. */
+        MatChipOptionHarness.prototype.select = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.isSelected()];
+                        case 1:
+                            if (!!(_a.sent())) return [3 /*break*/, 3];
+                            return [4 /*yield*/, this.toggle()];
+                        case 2:
+                            _a.sent();
+                            _a.label = 3;
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        /** Deselects the given chip. Only applies if it's selectable. */
+        MatChipOptionHarness.prototype.deselect = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.isSelected()];
+                        case 1:
+                            if (!_a.sent()) return [3 /*break*/, 3];
+                            return [4 /*yield*/, this.toggle()];
+                        case 2:
+                            _a.sent();
+                            _a.label = 3;
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        /** Toggles the selected state of the given chip. */
+        MatChipOptionHarness.prototype.toggle = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).sendKeys(' ')];
+                    }
+                });
+            });
+        };
+        return MatChipOptionHarness;
+    }(MatChipHarness));
+    /** The selector for the host element of a selectable chip instance. */
+    MatChipOptionHarness.hostSelector = '.mat-chip';
+
+    /** Harness for interacting with a standard selectable chip list in tests. */
+    var MatChipListboxHarness = /** @class */ (function (_super) {
+        __extends(MatChipListboxHarness, _super);
+        function MatChipListboxHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatChipListHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which chip list instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatChipListboxHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatChipListboxHarness, options);
+        };
+        /**
+         * Gets the list of chips inside the chip list.
+         * @param filter Optionally filters which chips are included.
+         */
+        MatChipListboxHarness.prototype.getChips = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForAll(MatChipOptionHarness.with(filter))()];
+                });
+            });
+        };
+        /**
+         * Selects a chip inside the chip list.
+         * @param filter An optional filter to apply to the child chips.
+         *    All the chips matching the filter will be selected.
+         */
+        MatChipListboxHarness.prototype.selectChips = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                var chips;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getChips(filter)];
+                        case 1:
+                            chips = _a.sent();
+                            if (!chips.length) {
+                                throw Error("Cannot find chip matching filter " + JSON.stringify(filter));
+                            }
+                            return [4 /*yield*/, Promise.all(chips.map(function (chip) { return chip.select(); }))];
+                        case 2:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        return MatChipListboxHarness;
+    }(_MatChipListHarnessBase));
+    /** The selector for the host element of a `MatChipList` instance. */
+    MatChipListboxHarness.hostSelector = '.mat-chip-list';
 
     /**
      * @license
@@ -814,6 +964,8 @@
     exports.MatChipHarness = MatChipHarness;
     exports.MatChipInputHarness = MatChipInputHarness;
     exports.MatChipListHarness = MatChipListHarness;
+    exports.MatChipListboxHarness = MatChipListboxHarness;
+    exports.MatChipOptionHarness = MatChipOptionHarness;
     exports.MatChipRemoveHarness = MatChipRemoveHarness;
 
     Object.defineProperty(exports, '__esModule', { value: true });
