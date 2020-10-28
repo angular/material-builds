@@ -305,6 +305,8 @@
         return value;
     }
 
+    var iconSelector = '.mat-list-icon';
+    var avatarSelector = '.mat-list-avatar';
     /**
      * Gets a `HarnessPredicate` that applies the given `BaseListItemHarnessFilters` to the given
      * list item harness.
@@ -351,8 +353,8 @@
         function MatListItemHarnessBase() {
             var _this = _super.apply(this, __spread(arguments)) || this;
             _this._lines = _this.locatorForAll('.mat-line');
-            _this._avatar = _this.locatorForOptional('.mat-list-avatar');
-            _this._icon = _this.locatorForOptional('.mat-list-icon');
+            _this._avatar = _this.locatorForOptional(avatarSelector);
+            _this._icon = _this.locatorForOptional(iconSelector);
             return _this;
         }
         /** Gets the full text content of the list item (including text from any font icons). */
@@ -361,7 +363,7 @@
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
+                        case 1: return [2 /*return*/, (_a.sent()).text({ exclude: iconSelector + ", " + avatarSelector })];
                     }
                 });
             });

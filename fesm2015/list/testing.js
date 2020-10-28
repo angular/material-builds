@@ -9,6 +9,8 @@ import { MatDividerHarness } from '@angular/material/divider/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+const iconSelector = '.mat-list-icon';
+const avatarSelector = '.mat-list-avatar';
 /**
  * Gets a `HarnessPredicate` that applies the given `BaseListItemHarnessFilters` to the given
  * list item harness.
@@ -43,13 +45,13 @@ class MatListItemHarnessBase extends ComponentHarness {
     constructor() {
         super(...arguments);
         this._lines = this.locatorForAll('.mat-line');
-        this._avatar = this.locatorForOptional('.mat-list-avatar');
-        this._icon = this.locatorForOptional('.mat-list-icon');
+        this._avatar = this.locatorForOptional(avatarSelector);
+        this._icon = this.locatorForOptional(iconSelector);
     }
     /** Gets the full text content of the list item (including text from any font icons). */
     getText() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).text();
+            return (yield this.host()).text({ exclude: `${iconSelector}, ${avatarSelector}` });
         });
     }
     /** Gets the lines of text (`mat-line` elements) in this nav list item. */

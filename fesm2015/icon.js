@@ -639,15 +639,36 @@ class MatIcon extends _MatIconMixinBase {
     set inline(inline) {
         this._inline = coerceBooleanProperty(inline);
     }
+    /** Name of the icon in the SVG icon set. */
+    get svgIcon() { return this._svgIcon; }
+    set svgIcon(value) {
+        if (value !== this._svgIcon) {
+            if (value) {
+                this._updateSvgIcon(value);
+            }
+            else if (this._svgIcon) {
+                this._clearSvgElement();
+            }
+            this._svgIcon = value;
+        }
+    }
     /** Font set that the icon is a part of. */
     get fontSet() { return this._fontSet; }
     set fontSet(value) {
-        this._fontSet = this._cleanupFontValue(value);
+        const newValue = this._cleanupFontValue(value);
+        if (newValue !== this._fontSet) {
+            this._fontSet = newValue;
+            this._updateFontIconClasses();
+        }
     }
     /** Name of an icon within a font set. */
     get fontIcon() { return this._fontIcon; }
     set fontIcon(value) {
-        this._fontIcon = this._cleanupFontValue(value);
+        const newValue = this._cleanupFontValue(value);
+        if (newValue !== this._fontIcon) {
+            this._fontIcon = newValue;
+            this._updateFontIconClasses();
+        }
     }
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
@@ -673,42 +694,10 @@ class MatIcon extends _MatIconMixinBase {
             default: throw Error(`Invalid icon name: "${iconName}"`); // TODO: add an ngDevMode check
         }
     }
-    ngOnChanges(changes) {
-        // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        const svgIconChanges = changes['svgIcon'];
-        this._svgNamespace = null;
-        this._svgName = null;
-        if (svgIconChanges) {
-            this._currentIconFetch.unsubscribe();
-            if (this.svgIcon) {
-                const [namespace, iconName] = this._splitIconName(this.svgIcon);
-                if (namespace) {
-                    this._svgNamespace = namespace;
-                }
-                if (iconName) {
-                    this._svgName = iconName;
-                }
-                this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName, namespace)
-                    .pipe(take(1))
-                    .subscribe(svg => this._setSvgElement(svg), (err) => {
-                    const errorMessage = `Error retrieving icon ${namespace}:${iconName}! ${err.message}`;
-                    this._errorHandler.handleError(new Error(errorMessage));
-                });
-            }
-            else if (svgIconChanges.previousValue) {
-                this._clearSvgElement();
-            }
-        }
-        if (this._usingFontIcon()) {
-            this._updateFontIconClasses();
-        }
-    }
     ngOnInit() {
         // Update font classes because ngOnChanges won't be called if none of the inputs are present,
         // e.g. <mat-icon>arrow</mat-icon> In this case we need to add a CSS class for the default font.
-        if (this._usingFontIcon()) {
-            this._updateFontIconClasses();
-        }
+        this._updateFontIconClasses();
     }
     ngAfterViewChecked() {
         const cachedElements = this._elementsWithExternalReferences;
@@ -840,6 +829,27 @@ class MatIcon extends _MatIconMixinBase {
                     }
                     attributes.push({ name: attr, value: match[1] });
                 }
+            });
+        }
+    }
+    /** Sets a new SVG icon with a particular name. */
+    _updateSvgIcon(rawName) {
+        this._svgNamespace = null;
+        this._svgName = null;
+        this._currentIconFetch.unsubscribe();
+        if (rawName) {
+            const [namespace, iconName] = this._splitIconName(rawName);
+            if (namespace) {
+                this._svgNamespace = namespace;
+            }
+            if (iconName) {
+                this._svgName = iconName;
+            }
+            this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName, namespace)
+                .pipe(take(1))
+                .subscribe(svg => this._setSvgElement(svg), (err) => {
+                const errorMessage = `Error retrieving icon ${namespace}:${iconName}! ${err.message}`;
+                this._errorHandler.handleError(new Error(errorMessage));
             });
         }
     }
