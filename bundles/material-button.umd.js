@@ -377,8 +377,12 @@
         };
         /** Focuses the button. */
         MatButton.prototype.focus = function (origin, options) {
-            if (origin === void 0) { origin = 'program'; }
-            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
+            if (origin) {
+                this._focusMonitor.focusVia(this._getHostElement(), origin, options);
+            }
+            else {
+                this._getHostElement().focus(options);
+            }
         };
         MatButton.prototype._getHostElement = function () {
             return this._elementRef.nativeElement;

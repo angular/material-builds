@@ -67,8 +67,13 @@ class MatButton extends _MatButtonMixinBase {
         this._focusMonitor.stopMonitoring(this._elementRef);
     }
     /** Focuses the button. */
-    focus(origin = 'program', options) {
-        this._focusMonitor.focusVia(this._getHostElement(), origin, options);
+    focus(origin, options) {
+        if (origin) {
+            this._focusMonitor.focusVia(this._getHostElement(), origin, options);
+        }
+        else {
+            this._getHostElement().focus(options);
+        }
     }
     _getHostElement() {
         return this._elementRef.nativeElement;
