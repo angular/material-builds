@@ -287,8 +287,13 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         }
     }
     /** Focuses the checkbox. */
-    focus(origin = 'keyboard', options) {
-        this._focusMonitor.focusVia(this._inputElement, origin, options);
+    focus(origin, options) {
+        if (origin) {
+            this._focusMonitor.focusVia(this._inputElement, origin, options);
+        }
+        else {
+            this._inputElement.nativeElement.focus(options);
+        }
     }
     _onInteractionEvent(event) {
         // We always have to stop propagation on the change event.

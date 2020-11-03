@@ -608,8 +608,12 @@
         };
         /** Focuses the checkbox. */
         MatCheckbox.prototype.focus = function (origin, options) {
-            if (origin === void 0) { origin = 'keyboard'; }
-            this._focusMonitor.focusVia(this._inputElement, origin, options);
+            if (origin) {
+                this._focusMonitor.focusVia(this._inputElement, origin, options);
+            }
+            else {
+                this._inputElement.nativeElement.focus(options);
+            }
         };
         MatCheckbox.prototype._onInteractionEvent = function (event) {
             // We always have to stop propagation on the change event.
