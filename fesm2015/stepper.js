@@ -90,8 +90,13 @@ class MatStepHeader extends _MatStepHeaderMixinBase {
         this._focusMonitor.stopMonitoring(this._elementRef);
     }
     /** Focuses the step header. */
-    focus() {
-        this._focusMonitor.focusVia(this._elementRef, 'program');
+    focus(origin, options) {
+        if (origin) {
+            this._focusMonitor.focusVia(this._elementRef, origin, options);
+        }
+        else {
+            this._elementRef.nativeElement.focus(options);
+        }
     }
     /** Returns string label of given step if it is a text label. */
     _stringLabel() {

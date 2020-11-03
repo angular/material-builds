@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef, AfterViewInit } from '@angular/core';
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
@@ -45,7 +45,7 @@ export declare class MatStepHeader extends _MatStepHeaderMixinBase implements Af
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the step header. */
-    focus(): void;
+    focus(origin?: FocusOrigin, options?: FocusOptions): void;
     /** Returns string label of given step if it is a text label. */
     _stringLabel(): string | null;
     /** Returns MatStepLabel if the label of given step is a template label. */

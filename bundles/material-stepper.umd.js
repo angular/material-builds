@@ -380,8 +380,13 @@
             this._focusMonitor.stopMonitoring(this._elementRef);
         };
         /** Focuses the step header. */
-        MatStepHeader.prototype.focus = function () {
-            this._focusMonitor.focusVia(this._elementRef, 'program');
+        MatStepHeader.prototype.focus = function (origin, options) {
+            if (origin) {
+                this._focusMonitor.focusVia(this._elementRef, origin, options);
+            }
+            else {
+                this._elementRef.nativeElement.focus(options);
+            }
         };
         /** Returns string label of given step if it is a text label. */
         MatStepHeader.prototype._stringLabel = function () {
