@@ -378,8 +378,13 @@ class MatExpansionPanelHeader {
      * @param origin Origin of the action that triggered the focus.
      * @docs-private
      */
-    focus(origin = 'program', options) {
-        this._focusMonitor.focusVia(this._element, origin, options);
+    focus(origin, options) {
+        if (origin) {
+            this._focusMonitor.focusVia(this._element, origin, options);
+        }
+        else {
+            this._element.nativeElement.focus(options);
+        }
     }
     ngAfterViewInit() {
         this._focusMonitor.monitor(this._element).subscribe(origin => {

@@ -687,8 +687,12 @@
          * @docs-private
          */
         MatExpansionPanelHeader.prototype.focus = function (origin, options) {
-            if (origin === void 0) { origin = 'program'; }
-            this._focusMonitor.focusVia(this._element, origin, options);
+            if (origin) {
+                this._focusMonitor.focusVia(this._element, origin, options);
+            }
+            else {
+                this._element.nativeElement.focus(options);
+            }
         };
         MatExpansionPanelHeader.prototype.ngAfterViewInit = function () {
             var _this = this;
