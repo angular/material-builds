@@ -398,8 +398,9 @@
         });
         /** Gets the current transform value for the progress bar's primary indicator. */
         MatProgressBar.prototype._primaryTransform = function () {
+            // We use a 3d transform to work around some rendering issues in iOS Safari. See #19328.
             var scale = this.value / 100;
-            return { transform: "scaleX(" + scale + ")" };
+            return { transform: "scale3d(" + scale + ", 1, 1)" };
         };
         /**
          * Gets the current transform value for the progress bar's buffer indicator. Only used if the
@@ -407,8 +408,9 @@
          */
         MatProgressBar.prototype._bufferTransform = function () {
             if (this.mode === 'buffer') {
+                // We use a 3d transform to work around some rendering issues in iOS Safari. See #19328.
                 var scale = this.bufferValue / 100;
-                return { transform: "scaleX(" + scale + ")" };
+                return { transform: "scale3d(" + scale + ", 1, 1)" };
             }
             return null;
         };

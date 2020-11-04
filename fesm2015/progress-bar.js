@@ -95,8 +95,9 @@ class MatProgressBar extends _MatProgressBarMixinBase {
     set bufferValue(v) { this._bufferValue = clamp(v || 0); }
     /** Gets the current transform value for the progress bar's primary indicator. */
     _primaryTransform() {
+        // We use a 3d transform to work around some rendering issues in iOS Safari. See #19328.
         const scale = this.value / 100;
-        return { transform: `scaleX(${scale})` };
+        return { transform: `scale3d(${scale}, 1, 1)` };
     }
     /**
      * Gets the current transform value for the progress bar's buffer indicator. Only used if the
@@ -104,8 +105,9 @@ class MatProgressBar extends _MatProgressBarMixinBase {
      */
     _bufferTransform() {
         if (this.mode === 'buffer') {
+            // We use a 3d transform to work around some rendering issues in iOS Safari. See #19328.
             const scale = this.bufferValue / 100;
-            return { transform: `scaleX(${scale})` };
+            return { transform: `scale3d(${scale}, 1, 1)` };
         }
         return null;
     }
