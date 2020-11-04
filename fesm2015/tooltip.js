@@ -1,6 +1,6 @@
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
-import { CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, ViewContainerRef, NgZone, Inject, Optional, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatcher, CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -89,7 +89,9 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * https://material.io/design/components/tooltips.html
  */
 class MatTooltip {
-    constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
+    constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
+    /** @breaking-change 11.0.0 _document argument to become required. */
+    _document) {
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
@@ -467,7 +469,7 @@ class MatTooltip {
         this._pointerExitEventsInitialized = true;
         const exitListeners = [];
         if (this._platformSupportsMouseEvents()) {
-            exitListeners.push(['mouseleave', () => this.hide()]);
+            exitListeners.push(['mouseleave', () => this.hide()], ['wheel', event => this._wheelListener(event)]);
         }
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
@@ -487,6 +489,22 @@ class MatTooltip {
     }
     _platformSupportsMouseEvents() {
         return !this._platform.IOS && !this._platform.ANDROID;
+    }
+    /** Listener for the `wheel` event on the element. */
+    _wheelListener(event) {
+        if (this._isTooltipVisible()) {
+            // @breaking-change 11.0.0 Remove `|| document` once the document is a required param.
+            const doc = this._document || document;
+            const elementUnderPointer = doc.elementFromPoint(event.clientX, event.clientY);
+            const element = this._elementRef.nativeElement;
+            // On non-touch devices we depend on the `mouseleave` event to close the tooltip, but it
+            // won't fire if the user scrolls away using the wheel without moving their cursor. We
+            // work around it by finding the element under the user's cursor and closing the tooltip
+            // if it's not the trigger.
+            if (elementUnderPointer !== element && !element.contains(elementUnderPointer)) {
+                this.hide();
+            }
+        }
     }
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     _disableNativeGesturesIfNecessary() {
@@ -530,7 +548,8 @@ MatTooltip.ctorParameters = () => [
     { type: FocusMonitor },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
     { type: Directionality, decorators: [{ type: Optional }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 MatTooltip.propDecorators = {
     position: [{ type: Input, args: ['matTooltipPosition',] }],

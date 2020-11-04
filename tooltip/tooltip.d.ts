@@ -119,11 +119,18 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     });
     /** Manually-bound passive event listeners. */
     private readonly _passiveListeners;
+    /**
+     * Reference to the current document.
+     * @breaking-change 11.0.0 Remove `| null` typing for `document`.
+     */
+    private _document;
     /** Timer started at the last `touchstart` event. */
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
+    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, 
+    /** @breaking-change 11.0.0 _document argument to become required. */
+    _document: any);
     ngAfterViewInit(): void;
     /**
      * Dispose the tooltip when destroyed.
@@ -172,6 +179,8 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _setupPointerExitEventsIfNeeded;
     private _addListeners;
     private _platformSupportsMouseEvents;
+    /** Listener for the `wheel` event on the element. */
+    private _wheelListener;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
     static ngAcceptInputType_disabled: BooleanInput;

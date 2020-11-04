@@ -380,7 +380,9 @@
      * https://material.io/design/components/tooltips.html
      */
     var MatTooltip = /** @class */ (function () {
-        function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions) {
+        function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
+        /** @breaking-change 11.0.0 _document argument to become required. */
+        _document) {
             var _this = this;
             this._overlay = _overlay;
             this._elementRef = _elementRef;
@@ -786,7 +788,7 @@
             this._pointerExitEventsInitialized = true;
             var exitListeners = [];
             if (this._platformSupportsMouseEvents()) {
-                exitListeners.push(['mouseleave', function () { return _this.hide(); }]);
+                exitListeners.push(['mouseleave', function () { return _this.hide(); }], ['wheel', function (event) { return _this._wheelListener(event); }]);
             }
             else if (this.touchGestures !== 'off') {
                 this._disableNativeGesturesIfNecessary();
@@ -808,6 +810,22 @@
         };
         MatTooltip.prototype._platformSupportsMouseEvents = function () {
             return !this._platform.IOS && !this._platform.ANDROID;
+        };
+        /** Listener for the `wheel` event on the element. */
+        MatTooltip.prototype._wheelListener = function (event) {
+            if (this._isTooltipVisible()) {
+                // @breaking-change 11.0.0 Remove `|| document` once the document is a required param.
+                var doc = this._document || document;
+                var elementUnderPointer = doc.elementFromPoint(event.clientX, event.clientY);
+                var element = this._elementRef.nativeElement;
+                // On non-touch devices we depend on the `mouseleave` event to close the tooltip, but it
+                // won't fire if the user scrolls away using the wheel without moving their cursor. We
+                // work around it by finding the element under the user's cursor and closing the tooltip
+                // if it's not the trigger.
+                if (elementUnderPointer !== element && !element.contains(elementUnderPointer)) {
+                    this.hide();
+                }
+            }
         };
         /** Disables the native browser gestures, based on how the tooltip has been configured. */
         MatTooltip.prototype._disableNativeGesturesIfNecessary = function () {
@@ -852,7 +870,8 @@
         { type: a11y.FocusMonitor },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     MatTooltip.propDecorators = {
         position: [{ type: core.Input, args: ['matTooltipPosition',] }],
