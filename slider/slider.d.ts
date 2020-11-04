@@ -77,6 +77,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * for them to fit into the slider thumb.
      */
     displayWith: (value: number) => string | number;
+    /** Text corresponding to the slider's value. Used primarily for improved accessibility. */
+    valueText: string;
     /** Whether the slider is vertical. */
     get vertical(): boolean;
     set vertical(value: boolean);
