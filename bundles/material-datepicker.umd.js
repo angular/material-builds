@@ -2212,7 +2212,7 @@
         }
         MatDatepickerContent.prototype.ngAfterViewInit = function () {
             var _this = this;
-            this._subscriptions.add(this.datepicker._stateChanges.subscribe(function () {
+            this._subscriptions.add(this.datepicker.stateChanges.subscribe(function () {
                 _this._changeDetectorRef.markForCheck();
             }));
             this._calendar.focusActiveCell();
@@ -2328,7 +2328,7 @@
             /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
             this._backdropHarnessClass = this.id + "-backdrop";
             /** Emits when the datepicker's state changes. */
-            this._stateChanges = new rxjs.Subject();
+            this.stateChanges = new rxjs.Subject();
             if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw createMissingDateImplError('DateAdapter');
             }
@@ -2339,7 +2339,7 @@
             get: function () {
                 // If an explicit startAt is set we start there, otherwise we start at whatever the currently
                 // selected value is.
-                return this._startAt || (this._datepickerInput ? this._datepickerInput.getStartValue() : null);
+                return this._startAt || (this.datepickerInput ? this.datepickerInput.getStartValue() : null);
             },
             set: function (value) {
                 this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
@@ -2351,7 +2351,7 @@
             /** Color palette to use on the datepicker's calendar. */
             get: function () {
                 return this._color ||
-                    (this._datepickerInput ? this._datepickerInput.getThemePalette() : undefined);
+                    (this.datepickerInput ? this.datepickerInput.getThemePalette() : undefined);
             },
             set: function (value) {
                 this._color = value;
@@ -2374,14 +2374,14 @@
         Object.defineProperty(MatDatepickerBase.prototype, "disabled", {
             /** Whether the datepicker pop-up should be disabled. */
             get: function () {
-                return this._disabled === undefined && this._datepickerInput ?
-                    this._datepickerInput.disabled : !!this._disabled;
+                return this._disabled === undefined && this.datepickerInput ?
+                    this.datepickerInput.disabled : !!this._disabled;
             },
             set: function (value) {
                 var newValue = coercion.coerceBooleanProperty(value);
                 if (newValue !== this._disabled) {
                     this._disabled = newValue;
-                    this._stateChanges.next(undefined);
+                    this.stateChanges.next(undefined);
                 }
             },
             enumerable: false,
@@ -2410,14 +2410,14 @@
         });
         /** The minimum selectable date. */
         MatDatepickerBase.prototype._getMinDate = function () {
-            return this._datepickerInput && this._datepickerInput.min;
+            return this.datepickerInput && this.datepickerInput.min;
         };
         /** The maximum selectable date. */
         MatDatepickerBase.prototype._getMaxDate = function () {
-            return this._datepickerInput && this._datepickerInput.max;
+            return this.datepickerInput && this.datepickerInput.max;
         };
         MatDatepickerBase.prototype._getDateFilter = function () {
-            return this._datepickerInput && this._datepickerInput.dateFilter;
+            return this.datepickerInput && this.datepickerInput.dateFilter;
         };
         MatDatepickerBase.prototype.ngOnChanges = function (changes) {
             var positionChange = changes['xPosition'] || changes['yPosition'];
@@ -2427,13 +2427,13 @@
                     this._popupRef.updatePosition();
                 }
             }
-            this._stateChanges.next(undefined);
+            this.stateChanges.next(undefined);
         };
         MatDatepickerBase.prototype.ngOnDestroy = function () {
             this._destroyPopup();
             this.close();
             this._inputStateChanges.unsubscribe();
-            this._stateChanges.complete();
+            this.stateChanges.complete();
         };
         /** Selects the given date */
         MatDatepickerBase.prototype.select = function (date) {
@@ -2456,15 +2456,15 @@
          * @param input The datepicker input to register with this datepicker.
          * @returns Selection model that the input should hook itself up to.
          */
-        MatDatepickerBase.prototype._registerInput = function (input) {
+        MatDatepickerBase.prototype.registerInput = function (input) {
             var _this = this;
-            if (this._datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            if (this.datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('A MatDatepicker can only be associated with a single input.');
             }
             this._inputStateChanges.unsubscribe();
-            this._datepickerInput = input;
+            this.datepickerInput = input;
             this._inputStateChanges =
-                input.stateChanges.subscribe(function () { return _this._stateChanges.next(undefined); });
+                input.stateChanges.subscribe(function () { return _this.stateChanges.next(undefined); });
             return this._model;
         };
         /** Open the calendar. */
@@ -2472,7 +2472,7 @@
             if (this._opened || this.disabled) {
                 return;
             }
-            if (!this._datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            if (!this.datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('Attempted to open an MatDatepicker with no associated input.');
             }
             if (this._document) {
@@ -2580,7 +2580,7 @@
         MatDatepickerBase.prototype._createPopup = function () {
             var _this = this;
             var positionStrategy = this._overlay.position()
-                .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
+                .flexibleConnectedTo(this.datepickerInput.getConnectedOverlayOrigin())
                 .withTransformOriginOn('.mat-datepicker-content')
                 .withFlexibleDimensions(false)
                 .withViewportMargin(8)
@@ -2597,7 +2597,7 @@
             this._popupRef.overlayElement.setAttribute('role', 'dialog');
             rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) {
                 // Closing on alt + up is only valid when there's an input associated with the datepicker.
-                return (event.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) || (_this._datepickerInput &&
+                return (event.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) || (_this.datepickerInput &&
                     keycodes.hasModifierKey(event, 'altKey') && event.keyCode === keycodes.UP_ARROW);
             }))).subscribe(function (event) {
                 if (event) {
@@ -3037,7 +3037,7 @@
             set: function (datepicker) {
                 if (datepicker) {
                     this._datepicker = datepicker;
-                    this._registerModel(datepicker._registerInput(this));
+                    this._registerModel(datepicker.registerInput(this));
                 }
             },
             enumerable: false,
@@ -3223,9 +3223,9 @@
         };
         MatDatepickerToggle.prototype._watchStateChanges = function () {
             var _this = this;
-            var datepickerStateChanged = this.datepicker ? this.datepicker._stateChanges : rxjs.of();
-            var inputStateChanged = this.datepicker && this.datepicker._datepickerInput ?
-                this.datepicker._datepickerInput.stateChanges : rxjs.of();
+            var datepickerStateChanged = this.datepicker ? this.datepicker.stateChanges : rxjs.of();
+            var inputStateChanged = this.datepicker && this.datepicker.datepickerInput ?
+                this.datepicker.datepickerInput.stateChanges : rxjs.of();
             var datepickerToggled = this.datepicker ?
                 rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
                 rxjs.of();
@@ -3631,7 +3631,7 @@
             get: function () { return this._rangePicker; },
             set: function (rangePicker) {
                 if (rangePicker) {
-                    this._model = rangePicker._registerInput(this);
+                    this._model = rangePicker.registerInput(this);
                     this._rangePicker = rangePicker;
                     this._registerModel(this._model);
                 }
@@ -3888,7 +3888,7 @@
         }
         MatDateRangePicker.prototype._forwardContentValues = function (instance) {
             _super.prototype._forwardContentValues.call(this, instance);
-            var input = this._datepickerInput;
+            var input = this.datepickerInput;
             if (input) {
                 instance.comparisonStart = input.comparisonStart;
                 instance.comparisonEnd = input.comparisonEnd;

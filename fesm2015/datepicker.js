@@ -1819,7 +1819,7 @@ class MatDatepickerContent extends _MatDatepickerContentMixinBase {
         this._closeButtonText = (intl === null || intl === void 0 ? void 0 : intl.closeCalendarLabel) || 'Close calendar';
     }
     ngAfterViewInit() {
-        this._subscriptions.add(this.datepicker._stateChanges.subscribe(() => {
+        this._subscriptions.add(this.datepicker.stateChanges.subscribe(() => {
             this._changeDetectorRef.markForCheck();
         }));
         this._calendar.focusActiveCell();
@@ -1934,7 +1934,7 @@ class MatDatepickerBase {
         /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
         this._backdropHarnessClass = `${this.id}-backdrop`;
         /** Emits when the datepicker's state changes. */
-        this._stateChanges = new Subject();
+        this.stateChanges = new Subject();
         if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -1944,7 +1944,7 @@ class MatDatepickerBase {
     get startAt() {
         // If an explicit startAt is set we start there, otherwise we start at whatever the currently
         // selected value is.
-        return this._startAt || (this._datepickerInput ? this._datepickerInput.getStartValue() : null);
+        return this._startAt || (this.datepickerInput ? this.datepickerInput.getStartValue() : null);
     }
     set startAt(value) {
         this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
@@ -1952,7 +1952,7 @@ class MatDatepickerBase {
     /** Color palette to use on the datepicker's calendar. */
     get color() {
         return this._color ||
-            (this._datepickerInput ? this._datepickerInput.getThemePalette() : undefined);
+            (this.datepickerInput ? this.datepickerInput.getThemePalette() : undefined);
     }
     set color(value) {
         this._color = value;
@@ -1967,14 +1967,14 @@ class MatDatepickerBase {
     }
     /** Whether the datepicker pop-up should be disabled. */
     get disabled() {
-        return this._disabled === undefined && this._datepickerInput ?
-            this._datepickerInput.disabled : !!this._disabled;
+        return this._disabled === undefined && this.datepickerInput ?
+            this.datepickerInput.disabled : !!this._disabled;
     }
     set disabled(value) {
         const newValue = coerceBooleanProperty(value);
         if (newValue !== this._disabled) {
             this._disabled = newValue;
-            this._stateChanges.next(undefined);
+            this.stateChanges.next(undefined);
         }
     }
     /**
@@ -1992,14 +1992,14 @@ class MatDatepickerBase {
     }
     /** The minimum selectable date. */
     _getMinDate() {
-        return this._datepickerInput && this._datepickerInput.min;
+        return this.datepickerInput && this.datepickerInput.min;
     }
     /** The maximum selectable date. */
     _getMaxDate() {
-        return this._datepickerInput && this._datepickerInput.max;
+        return this.datepickerInput && this.datepickerInput.max;
     }
     _getDateFilter() {
-        return this._datepickerInput && this._datepickerInput.dateFilter;
+        return this.datepickerInput && this.datepickerInput.dateFilter;
     }
     ngOnChanges(changes) {
         const positionChange = changes['xPosition'] || changes['yPosition'];
@@ -2009,13 +2009,13 @@ class MatDatepickerBase {
                 this._popupRef.updatePosition();
             }
         }
-        this._stateChanges.next(undefined);
+        this.stateChanges.next(undefined);
     }
     ngOnDestroy() {
         this._destroyPopup();
         this.close();
         this._inputStateChanges.unsubscribe();
-        this._stateChanges.complete();
+        this.stateChanges.complete();
     }
     /** Selects the given date */
     select(date) {
@@ -2038,14 +2038,14 @@ class MatDatepickerBase {
      * @param input The datepicker input to register with this datepicker.
      * @returns Selection model that the input should hook itself up to.
      */
-    _registerInput(input) {
-        if (this._datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+    registerInput(input) {
+        if (this.datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error('A MatDatepicker can only be associated with a single input.');
         }
         this._inputStateChanges.unsubscribe();
-        this._datepickerInput = input;
+        this.datepickerInput = input;
         this._inputStateChanges =
-            input.stateChanges.subscribe(() => this._stateChanges.next(undefined));
+            input.stateChanges.subscribe(() => this.stateChanges.next(undefined));
         return this._model;
     }
     /** Open the calendar. */
@@ -2053,7 +2053,7 @@ class MatDatepickerBase {
         if (this._opened || this.disabled) {
             return;
         }
-        if (!this._datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+        if (!this.datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error('Attempted to open an MatDatepicker with no associated input.');
         }
         if (this._document) {
@@ -2157,7 +2157,7 @@ class MatDatepickerBase {
     /** Create the popup. */
     _createPopup() {
         const positionStrategy = this._overlay.position()
-            .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
+            .flexibleConnectedTo(this.datepickerInput.getConnectedOverlayOrigin())
             .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
@@ -2174,7 +2174,7 @@ class MatDatepickerBase {
         this._popupRef.overlayElement.setAttribute('role', 'dialog');
         merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter(event => {
             // Closing on alt + up is only valid when there's an input associated with the datepicker.
-            return (event.keyCode === ESCAPE && !hasModifierKey(event)) || (this._datepickerInput &&
+            return (event.keyCode === ESCAPE && !hasModifierKey(event)) || (this.datepickerInput &&
                 hasModifierKey(event, 'altKey') && event.keyCode === UP_ARROW);
         }))).subscribe(event => {
             if (event) {
@@ -2603,7 +2603,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     set matDatepicker(datepicker) {
         if (datepicker) {
             this._datepicker = datepicker;
-            this._registerModel(datepicker._registerInput(this));
+            this._registerModel(datepicker.registerInput(this));
         }
     }
     /** The minimum valid date. */
@@ -2765,9 +2765,9 @@ class MatDatepickerToggle {
         }
     }
     _watchStateChanges() {
-        const datepickerStateChanged = this.datepicker ? this.datepicker._stateChanges : of();
-        const inputStateChanged = this.datepicker && this.datepicker._datepickerInput ?
-            this.datepicker._datepickerInput.stateChanges : of();
+        const datepickerStateChanged = this.datepicker ? this.datepicker.stateChanges : of();
+        const inputStateChanged = this.datepicker && this.datepicker.datepickerInput ?
+            this.datepicker.datepickerInput.stateChanges : of();
         const datepickerToggled = this.datepicker ?
             merge(this.datepicker.openedStream, this.datepicker.closedStream) :
             of();
@@ -3102,41 +3102,6 @@ MatEndDate.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
-// template reference variables (e.g. #d vs #d="matDateRangePicker"). We can change this to a
-// directive if angular adds support for `exportAs: '$implicit'` on directives.
-/** Component responsible for managing the date range picker popup/dialog. */
-class MatDateRangePicker extends MatDatepickerBase {
-    _forwardContentValues(instance) {
-        super._forwardContentValues(instance);
-        const input = this._datepickerInput;
-        if (input) {
-            instance.comparisonStart = input.comparisonStart;
-            instance.comparisonEnd = input.comparisonEnd;
-        }
-    }
-}
-MatDateRangePicker.decorators = [
-    { type: Component, args: [{
-                selector: 'mat-date-range-picker',
-                template: '',
-                exportAs: 'matDateRangePicker',
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                providers: [
-                    MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER,
-                    MAT_CALENDAR_RANGE_STRATEGY_PROVIDER,
-                ]
-            },] }
-];
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 let nextUniqueId = 0;
 class MatDateRangeInput {
     constructor(_changeDetectorRef, _elementRef, control, _dateAdapter, _formField) {
@@ -3190,7 +3155,7 @@ class MatDateRangeInput {
     get rangePicker() { return this._rangePicker; }
     set rangePicker(rangePicker) {
         if (rangePicker) {
-            this._model = rangePicker._registerInput(this);
+            this._model = rangePicker.registerInput(this);
             this._rangePicker = rangePicker;
             this._registerModel(this._model);
         }
@@ -3402,6 +3367,41 @@ MatDateRangeInput.propDecorators = {
     _startInput: [{ type: ContentChild, args: [MatStartDate,] }],
     _endInput: [{ type: ContentChild, args: [MatEndDate,] }]
 };
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
+// template reference variables (e.g. #d vs #d="matDateRangePicker"). We can change this to a
+// directive if angular adds support for `exportAs: '$implicit'` on directives.
+/** Component responsible for managing the date range picker popup/dialog. */
+class MatDateRangePicker extends MatDatepickerBase {
+    _forwardContentValues(instance) {
+        super._forwardContentValues(instance);
+        const input = this.datepickerInput;
+        if (input) {
+            instance.comparisonStart = input.comparisonStart;
+            instance.comparisonEnd = input.comparisonEnd;
+        }
+    }
+}
+MatDateRangePicker.decorators = [
+    { type: Component, args: [{
+                selector: 'mat-date-range-picker',
+                template: '',
+                exportAs: 'matDateRangePicker',
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                providers: [
+                    MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER,
+                    MAT_CALENDAR_RANGE_STRATEGY_PROVIDER,
+                ]
+            },] }
+];
 
 /**
  * @license

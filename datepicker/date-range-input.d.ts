@@ -12,9 +12,9 @@ import { NgControl, ControlContainer } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { MatStartDate, MatEndDate, MatDateRangeInputParent } from './date-range-input-parts';
-import { MatDatepickerControl } from './datepicker-base';
+import { MatDatepickerControl, MatDatepickerPanel } from './datepicker-base';
 import { DateFilterFn } from './datepicker-input-base';
-import { MatDateRangePicker, MatDateRangePickerInput } from './date-range-picker';
+import { MatDateRangePickerInput } from './date-range-picker';
 import { DateRange } from './date-selection-model';
 export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
     private _changeDetectorRef;
@@ -38,8 +38,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
      */
     get placeholder(): string;
     /** The range picker that this input is associated with. */
-    get rangePicker(): MatDateRangePicker<D>;
-    set rangePicker(rangePicker: MatDateRangePicker<D>);
+    get rangePicker(): MatDatepickerPanel<MatDatepickerControl<D>, DateRange<D>, D>;
+    set rangePicker(rangePicker: MatDatepickerPanel<MatDatepickerControl<D>, DateRange<D>, D>);
     private _rangePicker;
     /** Whether the input is required. */
     get required(): boolean;

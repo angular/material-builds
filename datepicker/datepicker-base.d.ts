@@ -93,8 +93,31 @@ export interface MatDatepickerControl<D> {
     getConnectedOverlayOrigin(): ElementRef;
     stateChanges: Observable<void>;
 }
+/** A datepicker that can be attached to a {@link MatDatepickerControl}. */
+export interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> {
+    /** Stream that emits whenever the date picker is closed. */
+    closedStream: EventEmitter<void>;
+    /** Color palette to use on the datepicker's calendar. */
+    color: ThemePalette;
+    /** The input element the datepicker is associated with. */
+    datepickerInput: C;
+    /** Whether the datepicker pop-up should be disabled. */
+    disabled: boolean;
+    /** The id for the datepicker's calendar. */
+    id: string;
+    /** Whether the datepicker is open. */
+    opened: boolean;
+    /** Stream that emits whenever the date picker is opened. */
+    openedStream: EventEmitter<void>;
+    /** Emits when the datepicker's state changes. */
+    stateChanges: Subject<void>;
+    /** Opens the datepicker. */
+    open(): void;
+    /** Register an input with the datepicker. */
+    registerInput(input: C): MatDateSelectionModel<S, D>;
+}
 /** Base class for a datepicker. */
-export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy, OnChanges {
+export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements MatDatepickerPanel<C, S, D>, OnDestroy, OnChanges {
     private _dialog;
     private _overlay;
     private _ngZone;
@@ -181,9 +204,9 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
     private _backdropHarnessClass;
     /** The input element this datepicker is associated with. */
-    _datepickerInput: C;
+    datepickerInput: C;
     /** Emits when the datepicker's state changes. */
-    readonly _stateChanges: Subject<void>;
+    readonly stateChanges: Subject<void>;
     constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any, _model: MatDateSelectionModel<S, D>);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
@@ -200,7 +223,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
      * @param input The datepicker input to register with this datepicker.
      * @returns Selection model that the input should hook itself up to.
      */
-    _registerInput(input: C): MatDateSelectionModel<S, D>;
+    registerInput(input: C): MatDateSelectionModel<S, D>;
     /** Open the calendar. */
     open(): void;
     /** Close the calendar. */

@@ -9,9 +9,8 @@ import { ElementRef } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
 import { DateAdapter, MatDateFormats, ThemePalette } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
-import { MatDatepicker } from './datepicker';
 import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
-import { MatDatepickerControl } from './datepicker-base';
+import { MatDatepickerControl, MatDatepickerPanel } from './datepicker-base';
 /** @docs-private */
 export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
 /** @docs-private */
@@ -20,8 +19,8 @@ export declare const MAT_DATEPICKER_VALIDATORS: any;
 export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null> {
     private _formField;
     /** The datepicker that this input is associated with. */
-    set matDatepicker(datepicker: MatDatepicker<D>);
-    _datepicker: MatDatepicker<D>;
+    set matDatepicker(datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>);
+    _datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>;
     /** The minimum valid date. */
     get min(): D | null;
     set min(value: D | null);
