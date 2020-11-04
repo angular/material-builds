@@ -550,8 +550,7 @@
         }
         /** Focuses the menu item. */
         MatMenuItem.prototype.focus = function (origin, options) {
-            if (origin === void 0) { origin = 'program'; }
-            if (this._focusMonitor) {
+            if (this._focusMonitor && origin) {
                 this._focusMonitor.focusVia(this._getHostElement(), origin, options);
             }
             else {
@@ -1229,8 +1228,7 @@
          * @param origin Source of the menu trigger's focus.
          */
         MatMenuTrigger.prototype.focus = function (origin, options) {
-            if (origin === void 0) { origin = 'program'; }
-            if (this._focusMonitor) {
+            if (this._focusMonitor && origin) {
                 this._focusMonitor.focusVia(this._element, origin, options);
             }
             else {
