@@ -11,6 +11,8 @@ import { OptionHarnessFilters } from './option-harness-filters';
 export declare class MatOptionHarness extends ComponentHarness {
     /** Selector used to locate option instances. */
     static hostSelector: string;
+    /** Element containing the option's text. */
+    private _text;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatOptionsHarness` that meets
      * certain criteria.

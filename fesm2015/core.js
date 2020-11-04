@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('11.1.0-next.0-sha-9f4415efa');
+const VERSION = new Version('11.1.0-next.0-sha-3866761c9');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('11.1.0-next.0-sha-9f4415efa');
+const VERSION$1 = new Version('11.1.0-next.0-sha-3866761c9');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1371,6 +1371,37 @@ MatPseudoCheckboxModule.decorators = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Injection token used to provide the parent component to options.
+ */
+const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Notes on the accessibility pattern used for `mat-optgroup`.
+// The option group has two different "modes": regular and inert. The regular mode uses the
+// recommended a11y pattern which has `role="group"` on the group element with `aria-labelledby`
+// pointing to the label. This works for `mat-select`, but it seems to hit a bug for autocomplete
+// under VoiceOver where the group doesn't get read out at all. The bug appears to be that if
+// there's __any__ a11y-related attribute on the group (e.g. `role` or `aria-labelledby`),
+// VoiceOver on Safari won't read it out.
+// We've introduced the `inert` mode as a workaround. Under this mode, all a11y attributes are
+// removed from the group, and we get the screen reader to read out the group label by mirroring it
+// inside an invisible element in the option. This is sub-optimal, because the screen reader will
+// repeat the group label on each navigation, whereas the default pattern only reads the group when
+// the user enters a new group. The following alternate approaches were considered:
+// 1. Reading out the group label using the `LiveAnnouncer` solves the problem, but we can't control
+//    when the text will be read out so sometimes it comes in too late or never if the user
+//    navigates quickly.
+// 2. `<mat-option aria-describedby="groupLabel"` - This works on Safari, but VoiceOver in Chrome
+//    won't read out the description at all.
+// 3. `<mat-option aria-labelledby="optionLabel groupLabel"` - This works on Chrome, but Safari
+//     doesn't read out the text at all. Furthermore, on
 // Boilerplate for applying mixins to MatOptgroup.
 /** @docs-private */
 class MatOptgroupBase {
@@ -1379,14 +1410,19 @@ const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 let _uniqueOptgroupIdCounter = 0;
 class _MatOptgroupBase extends _MatOptgroupMixinBase {
-    constructor() {
-        super(...arguments);
+    constructor(parent) {
+        var _a;
+        super();
         /** Unique id for the underlying label. */
         this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
+        this._inert = (_a = parent === null || parent === void 0 ? void 0 : parent.inertGroups) !== null && _a !== void 0 ? _a : false;
     }
 }
 _MatOptgroupBase.decorators = [
     { type: Directive }
+];
+_MatOptgroupBase.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }, { type: Optional }] }
 ];
 _MatOptgroupBase.propDecorators = {
     label: [{ type: Input }]
@@ -1412,10 +1448,10 @@ MatOptgroup.decorators = [
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-optgroup',
-                    'role': 'group',
+                    '[attr.role]': '_inert ? null : "group"',
+                    '[attr.aria-disabled]': '_inert ? null : disabled.toString()',
+                    '[attr.aria-labelledby]': '_inert ? null : _labelId',
                     '[class.mat-optgroup-disabled]': 'disabled',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-labelledby]': '_labelId',
                 },
                 providers: [{ provide: MAT_OPTGROUP, useExisting: MatOptgroup }],
                 styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"]
@@ -1445,10 +1481,6 @@ class MatOptionSelectionChange {
         this.isUserInput = isUserInput;
     }
 }
-/**
- * Injection token used to provide the parent component to options.
- */
-const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 class _MatOptionBase {
     constructor(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
@@ -1643,7 +1675,7 @@ MatOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option mat-focus-indicator',
                 },
-                template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
+                template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<!-- See a11y notes inside optgroup.ts for context behind this element. -->\n<span class=\"cdk-visually-hidden\" *ngIf=\"group && group._inert\">({{ group.label }})</span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.cdk-high-contrast-active .mat-option .mat-option-ripple{opacity:.5}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"]

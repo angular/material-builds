@@ -7,6 +7,7 @@
  */
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
+import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef, OnDestroy } from '@angular/core';
 import { CanDisableRipple, CanDisableRippleCtor, _MatOptgroupBase, _MatOptionBase, MatOption, MatOptgroup } from '@angular/material/core';
 /** Event object that is emitted when an autocomplete option is selected. */
@@ -99,7 +100,12 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     };
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, defaults: MatAutocompleteDefaultOptions);
+    /**
+     * Tells any descendant `mat-optgroup` to use the inert a11y pattern.
+     * @docs-private
+     */
+    readonly inertGroups: boolean;
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, defaults: MatAutocompleteDefaultOptions, platform?: Platform);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**

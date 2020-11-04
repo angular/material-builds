@@ -8,6 +8,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { InjectionToken } from '@angular/core';
 import { CanDisable, CanDisableCtor } from '../common-behaviors/disabled';
+import { MatOptionParentComponent } from './option-parent';
 /** @docs-private */
 declare class MatOptgroupBase {
 }
@@ -17,6 +18,9 @@ export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements C
     label: string;
     /** Unique id for the underlying label. */
     _labelId: string;
+    /** Whether the group is in inert a11y mode. */
+    _inert: boolean;
+    constructor(parent?: MatOptionParentComponent);
     static ngAcceptInputType_disabled: BooleanInput;
 }
 /**

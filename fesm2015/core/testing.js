@@ -10,6 +10,11 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  */
 /** Harness for interacting with a `mat-option` in tests. */
 class MatOptionHarness extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        /** Element containing the option's text. */
+        this._text = this.locatorFor('.mat-option-text');
+    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatOptionsHarness` that meets
      * certain criteria.
@@ -30,7 +35,7 @@ class MatOptionHarness extends ComponentHarness {
     /** Gets the option's label text. */
     getText() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).text();
+            return (yield this._text()).text();
         });
     }
     /** Gets whether the option is disabled. */

@@ -1,5 +1,6 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
+import { Platform, _getShadowRoot } from '@angular/cdk/platform';
 import { InjectionToken, EventEmitter, Directive, ChangeDetectorRef, ElementRef, Inject, ViewChild, TemplateRef, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, forwardRef, ViewContainerRef, NgZone, Optional, Host, NgModule } from '@angular/core';
 import { mixinDisableRipple, MAT_OPTION_PARENT_COMPONENT, MAT_OPTGROUP, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
@@ -8,7 +9,6 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Directionality } from '@angular/cdk/bidi';
 import { ESCAPE, hasModifierKey, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
-import { _getShadowRoot } from '@angular/cdk/platform';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField, MAT_FORM_FIELD } from '@angular/material/form-field';
@@ -53,7 +53,7 @@ function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
 }
 /** Base class with all of the `MatAutocomplete` functionality. */
 class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
-    constructor(_changeDetectorRef, _elementRef, defaults) {
+    constructor(_changeDetectorRef, _elementRef, defaults, platform) {
         super();
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
@@ -74,6 +74,11 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         this._classList = {};
         /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
         this.id = `mat-autocomplete-${_uniqueAutocompleteIdCounter++}`;
+        // TODO(crisbeto): the problem that the `inertGroups` option resolves is only present on
+        // Safari using VoiceOver. We should occasionally check back to see whether the bug
+        // wasn't resolved in VoiceOver, and if it has, we can remove this and the `inertGroups`
+        // option altogether.
+        this.inertGroups = (platform === null || platform === void 0 ? void 0 : platform.SAFARI) || false;
         this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
     }
     /** Whether the autocomplete panel is open. */
@@ -150,7 +155,8 @@ _MatAutocompleteBase.decorators = [
 _MatAutocompleteBase.ctorParameters = () => [
     { type: ChangeDetectorRef },
     { type: ElementRef },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] },
+    { type: Platform }
 ];
 _MatAutocompleteBase.propDecorators = {
     template: [{ type: ViewChild, args: [TemplateRef, { static: true },] }],

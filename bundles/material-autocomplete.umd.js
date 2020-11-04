@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', 'rxjs', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/forms', '@angular/material/form-field', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}), global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.core, global.ng.material.core, global.rxjs, global.ng.common, global.ng.cdk.overlay, global.ng.cdk.scrolling, global.ng.cdk.bidi, global.ng.cdk.keycodes, global.ng.cdk.platform, global.ng.cdk.portal, global.ng.forms, global.ng.material.formField, global.rxjs.operators));
-}(this, (function (exports, a11y, coercion, core, core$1, rxjs, common, overlay, scrolling, bidi, keycodes, platform, portal, forms, formField, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/core', '@angular/material/core', 'rxjs', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/portal', '@angular/forms', '@angular/material/form-field', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}), global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.core, global.ng.material.core, global.rxjs, global.ng.common, global.ng.cdk.overlay, global.ng.cdk.scrolling, global.ng.cdk.bidi, global.ng.cdk.keycodes, global.ng.cdk.portal, global.ng.forms, global.ng.material.formField, global.rxjs.operators));
+}(this, (function (exports, a11y, coercion, platform, core, core$1, rxjs, common, overlay, scrolling, bidi, keycodes, portal, forms, formField, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -342,7 +342,7 @@
     /** Base class with all of the `MatAutocomplete` functionality. */
     var _MatAutocompleteBase = /** @class */ (function (_super) {
         __extends(_MatAutocompleteBase, _super);
-        function _MatAutocompleteBase(_changeDetectorRef, _elementRef, defaults) {
+        function _MatAutocompleteBase(_changeDetectorRef, _elementRef, defaults, platform) {
             var _this = _super.call(this) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._elementRef = _elementRef;
@@ -363,6 +363,11 @@
             _this._classList = {};
             /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
             _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+            // TODO(crisbeto): the problem that the `inertGroups` option resolves is only present on
+            // Safari using VoiceOver. We should occasionally check back to see whether the bug
+            // wasn't resolved in VoiceOver, and if it has, we can remove this and the `inertGroups`
+            // option altogether.
+            _this.inertGroups = (platform === null || platform === void 0 ? void 0 : platform.SAFARI) || false;
             _this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
             return _this;
         }
@@ -454,7 +459,8 @@
     _MatAutocompleteBase.ctorParameters = function () { return [
         { type: core.ChangeDetectorRef },
         { type: core.ElementRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] },
+        { type: platform.Platform }
     ]; };
     _MatAutocompleteBase.propDecorators = {
         template: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],

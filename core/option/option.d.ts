@@ -6,10 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { FocusOptions, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import { MatOptgroup, _MatOptgroupBase } from './optgroup';
+import { MatOptionParentComponent } from './option-parent';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
     /** Reference to the option that emitted the event. */
@@ -22,19 +23,6 @@ export declare class MatOptionSelectionChange {
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput?: boolean);
 }
-/**
- * Describes a parent component that manages a list of options.
- * Contains properties that the options can inherit.
- * @docs-private
- */
-export interface MatOptionParentComponent {
-    disableRipple?: boolean;
-    multiple?: boolean;
-}
-/**
- * Injection token used to provide the parent component to options.
- */
-export declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParentComponent>;
 export declare class _MatOptionBase implements FocusableOption, AfterViewChecked, OnDestroy {
     private _element;
     private _changeDetectorRef;

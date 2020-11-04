@@ -309,7 +309,10 @@
     var MatOptionHarness = /** @class */ (function (_super) {
         __extends(MatOptionHarness, _super);
         function MatOptionHarness() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            /** Element containing the option's text. */
+            _this._text = _this.locatorFor('.mat-option-text');
+            return _this;
         }
         /**
          * Gets a `HarnessPredicate` that can be used to search for a `MatOptionsHarness` that meets
@@ -352,7 +355,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
+                        case 0: return [4 /*yield*/, this._text()];
                         case 1: return [2 /*return*/, (_a.sent()).text()];
                     }
                 });
