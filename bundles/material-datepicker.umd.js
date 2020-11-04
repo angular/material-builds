@@ -3452,7 +3452,10 @@
                     providers: [
                         { provide: forms.NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
                         { provide: forms.NG_VALIDATORS, useExisting: MatStartDate, multi: true }
-                    ]
+                    ],
+                    // These need to be specified explicitly, because some tooling doesn't
+                    // seem to pick them up from the base class. See #20932.
+                    outputs: ['dateChange', 'dateInput']
                 },] }
     ];
     MatStartDate.ctorParameters = function () { return [
@@ -3544,7 +3547,10 @@
                     providers: [
                         { provide: forms.NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
                         { provide: forms.NG_VALIDATORS, useExisting: MatEndDate, multi: true }
-                    ]
+                    ],
+                    // These need to be specified explicitly, because some tooling doesn't
+                    // seem to pick them up from the base class. See #20932.
+                    outputs: ['dateChange', 'dateInput']
                 },] }
     ];
     MatEndDate.ctorParameters = function () { return [
