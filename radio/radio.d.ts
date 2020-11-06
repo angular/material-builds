@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, OnInit, QueryList } from '@angular/core';
@@ -224,7 +224,7 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     _inputElement: ElementRef<HTMLInputElement>;
     constructor(radioGroup: _MatRadioGroupBase<_MatRadioButtonBase>, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, _animationMode?: string | undefined, _providerOverride?: MatRadioDefaultOptions | undefined, tabIndex?: string);
     /** Focuses the radio button. */
-    focus(options?: FocusOptions): void;
+    focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /**
      * Marks the radio button as needing checking for change detection.
      * This method is exposed because the parent radio group will directly

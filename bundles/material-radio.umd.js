@@ -739,8 +739,13 @@
             configurable: true
         });
         /** Focuses the radio button. */
-        _MatRadioButtonBase.prototype.focus = function (options) {
-            this._focusMonitor.focusVia(this._inputElement, 'keyboard', options);
+        _MatRadioButtonBase.prototype.focus = function (options, origin) {
+            if (origin) {
+                this._focusMonitor.focusVia(this._inputElement, origin, options);
+            }
+            else {
+                this._inputElement.nativeElement.focus(options);
+            }
         };
         /**
          * Marks the radio button as needing checking for change detection.

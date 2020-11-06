@@ -383,8 +383,13 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
     /** ID of the native input element inside `<mat-radio-button>` */
     get inputId() { return `${this.id || this._uniqueId}-input`; }
     /** Focuses the radio button. */
-    focus(options) {
-        this._focusMonitor.focusVia(this._inputElement, 'keyboard', options);
+    focus(options, origin) {
+        if (origin) {
+            this._focusMonitor.focusVia(this._inputElement, origin, options);
+        }
+        else {
+            this._inputElement.nativeElement.focus(options);
+        }
     }
     /**
      * Marks the radio button as needing checking for change detection.
