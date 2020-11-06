@@ -170,8 +170,13 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this._changeDetectorRef.markForCheck();
     }
     /** Focuses the slide-toggle. */
-    focus(options) {
-        this._focusMonitor.focusVia(this._inputElement, 'keyboard', options);
+    focus(options, origin) {
+        if (origin) {
+            this._focusMonitor.focusVia(this._inputElement, origin, options);
+        }
+        else {
+            this._inputElement.nativeElement.focus(options);
+        }
     }
     /** Toggles the checked state of the slide-toggle. */
     toggle() {

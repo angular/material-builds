@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
@@ -90,7 +90,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
     /** Focuses the slide-toggle. */
-    focus(options?: FocusOptions): void;
+    focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /** Toggles the checked state of the slide-toggle. */
     toggle(): void;
     /**

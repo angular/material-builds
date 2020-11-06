@@ -479,8 +479,13 @@
             this._changeDetectorRef.markForCheck();
         };
         /** Focuses the slide-toggle. */
-        MatSlideToggle.prototype.focus = function (options) {
-            this._focusMonitor.focusVia(this._inputElement, 'keyboard', options);
+        MatSlideToggle.prototype.focus = function (options, origin) {
+            if (origin) {
+                this._focusMonitor.focusVia(this._inputElement, origin, options);
+            }
+            else {
+                this._inputElement.nativeElement.focus(options);
+            }
         };
         /** Toggles the checked state of the slide-toggle. */
         MatSlideToggle.prototype.toggle = function () {
