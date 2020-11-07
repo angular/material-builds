@@ -758,6 +758,8 @@
                         // Always reset the tabindex to -1 so it doesn't conflict with the one on the `button`,
                         // but can still receive focus from things like cdkFocusInitial.
                         '[attr.tabindex]': '-1',
+                        '[attr.aria-label]': 'null',
+                        '[attr.aria-labelledby]': 'null',
                         '[attr.id]': 'id',
                         '[attr.name]': 'null',
                         '(focus)': 'focus()',
