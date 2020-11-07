@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { MatListOptionCheckboxPosition } from '@angular/material/list';
 import { MatListHarnessBase } from './list-harness-base';
 import { ListItemHarnessFilters, ListOptionHarnessFilters, SelectionListHarnessFilters } from './list-harness-filters';
 import { MatListItemHarnessBase } from './list-item-harness-base';
@@ -49,7 +50,7 @@ export declare class MatListOptionHarness extends MatListItemHarnessBase {
     static with(options?: ListOptionHarnessFilters): HarnessPredicate<MatListOptionHarness>;
     private _itemContent;
     /** Gets the position of the checkbox relative to the list option content. */
-    getCheckboxPosition(): Promise<'before' | 'after'>;
+    getCheckboxPosition(): Promise<MatListOptionCheckboxPosition>;
     /** Whether the list option is selected. */
     isSelected(): Promise<boolean>;
     /** Whether the list option is disabled. */

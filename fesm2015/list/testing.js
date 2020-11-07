@@ -48,7 +48,7 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
         this._avatar = this.locatorForOptional(avatarSelector);
         this._icon = this.locatorForOptional(iconSelector);
     }
-    /** Gets the full text content of the list item (including text from any font icons). */
+    /** Gets the full text content of the list item. */
     getText() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).text({ exclude: `${iconSelector}, ${avatarSelector}` });
@@ -125,7 +125,7 @@ class MatListHarnessBase extends ComponentHarness {
                     if (currentSection.heading !== undefined || currentSection.items.length) {
                         listSections.push(currentSection);
                     }
-                    currentSection = { heading: yield itemOrSubheader.getText(), items: [] };
+                    currentSection = { heading: itemOrSubheader.getText(), items: [] };
                 }
                 else {
                     currentSection.items.push(itemOrSubheader);
@@ -135,7 +135,8 @@ class MatListHarnessBase extends ComponentHarness {
                 !listSections.length) {
                 listSections.push(currentSection);
             }
-            return listSections;
+            // Concurrently wait for all sections to resolve their heading if present.
+            return Promise.all(listSections.map((s) => __awaiter(this, void 0, void 0, function* () { return ({ items: s.items, heading: yield s.heading }); })));
         });
     }
     /**
@@ -413,7 +414,8 @@ class MatSelectionListHarness extends MatListHarnessBase {
             if (!filters.length) {
                 return this.getItems();
             }
-            return [].concat(...yield Promise.all(filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))())));
+            const matches = yield Promise.all(filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))()));
+            return matches.reduce((result, current) => [...result, ...current], []);
         });
     }
 }

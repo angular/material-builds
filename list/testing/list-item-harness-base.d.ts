@@ -31,11 +31,11 @@ export declare const enum MatListItemSection {
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
  */
-export declare class MatListItemHarnessBase extends ContentContainerComponentHarness<MatListItemSection> {
+export declare abstract class MatListItemHarnessBase extends ContentContainerComponentHarness<MatListItemSection> {
     private _lines;
     private _avatar;
     private _icon;
-    /** Gets the full text content of the list item (including text from any font icons). */
+    /** Gets the full text content of the list item. */
     getText(): Promise<string>;
     /** Gets the lines of text (`mat-line` elements) in this nav list item. */
     getLinesText(): Promise<string[]>;

@@ -357,7 +357,7 @@
             _this._icon = _this.locatorForOptional(iconSelector);
             return _this;
         }
-        /** Gets the full text content of the list item (including text from any font icons). */
+        /** Gets the full text content of the list item. */
         MatListItemHarnessBase.prototype.getText = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
@@ -451,56 +451,51 @@
          */
         MatListHarnessBase.prototype.getItemsGroupedBySubheader = function (filters) {
             return __awaiter(this, void 0, void 0, function () {
-                var listSections, currentSection, itemsAndSubheaders, itemsAndSubheaders_1, itemsAndSubheaders_1_1, itemOrSubheader, _a, e_1_1;
-                var e_1, _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
+                var listSections, currentSection, itemsAndSubheaders, itemsAndSubheaders_1, itemsAndSubheaders_1_1, itemOrSubheader;
+                var e_1, _a;
+                var _this = this;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
                             listSections = [];
                             currentSection = { items: [] };
                             return [4 /*yield*/, this.getItemsWithSubheadersAndDividers({ item: filters, divider: false })];
                         case 1:
-                            itemsAndSubheaders = _c.sent();
-                            _c.label = 2;
-                        case 2:
-                            _c.trys.push([2, 8, 9, 10]);
-                            itemsAndSubheaders_1 = __values(itemsAndSubheaders), itemsAndSubheaders_1_1 = itemsAndSubheaders_1.next();
-                            _c.label = 3;
-                        case 3:
-                            if (!!itemsAndSubheaders_1_1.done) return [3 /*break*/, 7];
-                            itemOrSubheader = itemsAndSubheaders_1_1.value;
-                            if (!(itemOrSubheader instanceof MatSubheaderHarness)) return [3 /*break*/, 5];
-                            if (currentSection.heading !== undefined || currentSection.items.length) {
-                                listSections.push(currentSection);
-                            }
-                            _a = {};
-                            return [4 /*yield*/, itemOrSubheader.getText()];
-                        case 4:
-                            currentSection = (_a.heading = _c.sent(), _a.items = [], _a);
-                            return [3 /*break*/, 6];
-                        case 5:
-                            currentSection.items.push(itemOrSubheader);
-                            _c.label = 6;
-                        case 6:
-                            itemsAndSubheaders_1_1 = itemsAndSubheaders_1.next();
-                            return [3 /*break*/, 3];
-                        case 7: return [3 /*break*/, 10];
-                        case 8:
-                            e_1_1 = _c.sent();
-                            e_1 = { error: e_1_1 };
-                            return [3 /*break*/, 10];
-                        case 9:
+                            itemsAndSubheaders = _b.sent();
                             try {
-                                if (itemsAndSubheaders_1_1 && !itemsAndSubheaders_1_1.done && (_b = itemsAndSubheaders_1.return)) _b.call(itemsAndSubheaders_1);
+                                for (itemsAndSubheaders_1 = __values(itemsAndSubheaders), itemsAndSubheaders_1_1 = itemsAndSubheaders_1.next(); !itemsAndSubheaders_1_1.done; itemsAndSubheaders_1_1 = itemsAndSubheaders_1.next()) {
+                                    itemOrSubheader = itemsAndSubheaders_1_1.value;
+                                    if (itemOrSubheader instanceof MatSubheaderHarness) {
+                                        if (currentSection.heading !== undefined || currentSection.items.length) {
+                                            listSections.push(currentSection);
+                                        }
+                                        currentSection = { heading: itemOrSubheader.getText(), items: [] };
+                                    }
+                                    else {
+                                        currentSection.items.push(itemOrSubheader);
+                                    }
+                                }
                             }
-                            finally { if (e_1) throw e_1.error; }
-                            return [7 /*endfinally*/];
-                        case 10:
+                            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                            finally {
+                                try {
+                                    if (itemsAndSubheaders_1_1 && !itemsAndSubheaders_1_1.done && (_a = itemsAndSubheaders_1.return)) _a.call(itemsAndSubheaders_1);
+                                }
+                                finally { if (e_1) throw e_1.error; }
+                            }
                             if (currentSection.heading !== undefined || currentSection.items.length ||
                                 !listSections.length) {
                                 listSections.push(currentSection);
                             }
-                            return [2 /*return*/, listSections];
+                            // Concurrently wait for all sections to resolve their heading if present.
+                            return [2 /*return*/, Promise.all(listSections.map(function (s) { return __awaiter(_this, void 0, void 0, function () { var _a; return __generator(this, function (_b) {
+                                    switch (_b.label) {
+                                        case 0:
+                                            _a = { items: s.items };
+                                            return [4 /*yield*/, s.heading];
+                                        case 1: return [2 /*return*/, (_a.heading = _b.sent(), _a)];
+                                    }
+                                }); }); }))];
                     }
                 });
             });
@@ -880,18 +875,18 @@
         /** Gets all items matching the given list of filters. */
         MatSelectionListHarness.prototype._getItems = function (filters) {
             return __awaiter(this, void 0, void 0, function () {
-                var _a, _b, _c;
+                var matches;
                 var _this = this;
-                return __generator(this, function (_d) {
-                    switch (_d.label) {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
                         case 0:
                             if (!filters.length) {
                                 return [2 /*return*/, this.getItems()];
                             }
-                            _b = (_a = [].concat).apply;
-                            _c = [[]];
                             return [4 /*yield*/, Promise.all(filters.map(function (filter) { return _this.locatorForAll(MatListOptionHarness.with(filter))(); }))];
-                        case 1: return [2 /*return*/, _b.apply(_a, _c.concat([__spread.apply(void 0, [_d.sent()])]))];
+                        case 1:
+                            matches = _a.sent();
+                            return [2 /*return*/, matches.reduce(function (result, current) { return __spread(result, current); }, [])];
                     }
                 });
             });
