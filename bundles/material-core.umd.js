@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('11.0.0-rc.2-sha-0cd3671af');
+    var VERSION = new i0.Version('11.0.0-rc.2-sha-bc43bf63f');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('11.0.0-rc.2-sha-0cd3671af');
+    var VERSION$1 = new i0.Version('11.0.0-rc.2-sha-bc43bf63f');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -177,7 +177,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (Object.prototype.hasOwnProperty.call(b, p))
+                if (b.hasOwnProperty(p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -324,10 +324,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, o) {
+    function __exportStar(m, exports) {
         for (var p in m)
-            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
-                __createBinding(o, m, p);
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -437,7 +437,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                if (Object.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
