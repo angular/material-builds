@@ -23,7 +23,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (Object.prototype.hasOwnProperty.call(b, p))
+                if (b.hasOwnProperty(p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -170,10 +170,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, o) {
+    function __exportStar(m, exports) {
         for (var p in m)
-            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
-                __createBinding(o, m, p);
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -283,7 +283,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                if (Object.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
