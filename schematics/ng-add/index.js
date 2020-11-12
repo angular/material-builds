@@ -18,7 +18,7 @@ const package_config_1 = require("./package-config");
  * Note that the fallback version range does not use caret, but tilde because that is
  * the default for Angular framework dependencies in CLI projects.
  */
-const fallbackMaterialVersionRange = `~11.0.0-rc.4-sha-478e5780e`;
+const fallbackMaterialVersionRange = `~11.0.0-rc.4-sha-7ca2af0d8`;
 /**
  * Schematic factory entry-point for the `ng-add` schematic. The ng-add schematic will be
  * automatically executed if developers run `ng add @angular/material`.
