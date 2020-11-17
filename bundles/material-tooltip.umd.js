@@ -485,7 +485,7 @@
             get: function () { return this._message; },
             set: function (value) {
                 var _this = this;
-                this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
+                this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message, 'tooltip');
                 // If the message is not a string (e.g. number), convert it to a string and trim it.
                 // Must convert with `String(value)`, not `${value}`, otherwise Closure Compiler optimises
                 // away the string-conversion: https://github.com/angular/components/issues/20684
@@ -502,7 +502,7 @@
                         // has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
                         // issue by deferring the description by a tick so Angular has time to set the `aria-label`.
                         Promise.resolve().then(function () {
-                            _this._ariaDescriber.describe(_this._elementRef.nativeElement, _this.message);
+                            _this._ariaDescriber.describe(_this._elementRef.nativeElement, _this.message, 'tooltip');
                         });
                     });
                 }
@@ -558,7 +558,7 @@
             this._passiveListeners.length = 0;
             this._destroyed.next();
             this._destroyed.complete();
-            this._ariaDescriber.removeDescription(nativeElement, this.message);
+            this._ariaDescriber.removeDescription(nativeElement, this.message, 'tooltip');
             this._focusMonitor.stopMonitoring(nativeElement);
         };
         /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
