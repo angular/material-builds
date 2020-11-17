@@ -432,7 +432,8 @@
              * @docs-private
              */
             get: function () {
-                return this.disabled || this.disableRipple || !!this.rippleConfig.disabled;
+                return this.disabled || this.disableRipple || this._animationsDisabled ||
+                    !!this.rippleConfig.disabled;
             },
             enumerable: false,
             configurable: true

@@ -35,6 +35,8 @@ function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY() {
  */
 // Increasing integer for generating unique ids for checkbox components.
 let nextUniqueId = 0;
+// Default checkbox configuration.
+const defaults = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY();
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -103,10 +105,8 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._checked = false;
         this._disabled = false;
         this._indeterminate = false;
-        this._options = this._options || {};
-        if (this._options.color) {
-            this.color = this.defaultColor = this._options.color;
-        }
+        this._options = this._options || defaults;
+        this.color = this.defaultColor = this._options.color || defaults.color;
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /** Returns the unique id for the visual hidden input. */

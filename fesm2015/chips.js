@@ -135,7 +135,8 @@ class MatChip extends _MatChipMixinBase {
      * @docs-private
      */
     get rippleDisabled() {
-        return this.disabled || this.disableRipple || !!this.rippleConfig.disabled;
+        return this.disabled || this.disableRipple || this._animationsDisabled ||
+            !!this.rippleConfig.disabled;
     }
     /** Whether the chip is selected. */
     get selected() { return this._selected; }
