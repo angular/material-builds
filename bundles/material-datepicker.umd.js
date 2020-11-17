@@ -1069,8 +1069,9 @@
         MatMonthView.prototype._init = function () {
             this._setRanges(this.selected);
             this._todayDate = this._getCellCompareValue(this._dateAdapter.today());
-            this._monthLabel =
-                this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
+            this._monthLabel = this._dateFormats.display.monthLabel
+                ? this._dateAdapter.format(this.activeDate, this._dateFormats.display.monthLabel)
+                : this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
                     .toLocaleUpperCase();
             var firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
             this._firstWeekOffset =

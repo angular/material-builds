@@ -12,6 +12,7 @@ export declare type MatDateFormats = {
     };
     display: {
         dateInput: any;
+        monthLabel?: any;
         monthYearLabel: any;
         dateA11yLabel: any;
         monthYearA11yLabel: any;
