@@ -1940,7 +1940,7 @@ $mat-ripple-color-opacity: 0.1;
 // Mixin that ensures focus indicator host elements are positioned so that the focus indicator
 // pseudo element within is positioned relative to the host. Private mixin included within
 // `mat-core`.
-@mixin _mat-strong-focus-indicators-positioning() {
+@mixin mat-private-strong-focus-indicators-positioning() {
   .mat-focus-indicator {
     position: relative;
   }
@@ -2920,79 +2920,6 @@ $_mat-button-ripple-opacity: 0.1;
 
 
 
-// Note that this file is called `private`, because the APIs in it aren't public yet.
-// Once they're made available, the code should be moved out into an `index.scss`.
-
-// Taken from mat-density with small modifications to not rely on the new Sass module
-// system, and to support arbitrary properties in a density configuration.
-// https://github.com/material-components/material-components-web/blob/master/packages/mdc-density
-
-$_mat-density-interval: 4px !default;
-$_mat-density-minimum-scale: minimum !default;
-$_mat-density-maximum-scale: maximum !default;
-$_mat-density-supported-scales: (default, minimum, maximum) !default;
-$_mat-density-default-scale: 0 !default;
-
-// Whether density should be generated at root. This will be temporarily set to `true`
-// whenever density styles for legacy themes are generated.
-$mat-private-density-generate-at-root: false;
-// Whether density styles should be generated. This will be temporarily set to `false` if
-// duplicate density styles for a legacy theme would be generated. For legacy themes,
-// we always generate the default density **only once** at root.
-$mat-private-density-generate-styles: true;
-
-// Mixin that can be used to wrap density styles of given components. The mixin will
-// move the density styles to root if the `$mat-private-density-generate-at-root` global variable
-// is set. If `$mat-private-density-generate-styles` is set to `false`, generation of density
-// styles wrapped in this mixin is skipped. This mixin exists to improve backwards compatibility
-// of the new theming API where density styles are included as part of themes. Previously,
-// density styles of components were part of their base styles. With the new API, they are
-// part of the theming system. The `<..>-theme` mixins generate density by default unless
-// the density configuration is explicitly specified as per new API. This means, that projects
-// using `<..>-theme` mixins for separate themes (like `.dark-theme`) will cause duplicate
-// density styles. This is breaking as it increases specificity of density styles. This mixin
-// provides an API to control generation of density styles so that we can ensure they are only
-// created *once* and at root.
-@mixin mat-private-density-legacy-compatibility() {
-  @if $mat-private-density-generate-styles and $mat-private-density-generate-at-root {
-    @at-root {
-      @content;
-    }
-  }
-  @else if $mat-private-density-generate-styles {
-    @content;
-  }
-}
-
-@function mat-private-density-prop-value($density-config, $density-scale, $property-name) {
-  @if (type-of($density-scale) == 'string' and
-      index($list: $_mat-density-supported-scales, $value: $density-scale) == null) {
-    @error 'mat-density: Supported density scales #{$_mat-density-supported-scales}, '  +
-      'but received #{$density-scale}.';
-  }
-
-  $value: null;
-  $property-scale-map: map-get($density-config, $property-name);
-
-  @if map-has-key($property-scale-map, $density-scale) {
-    $value: map-get($property-scale-map, $density-scale);
-  }
-  @else {
-    $value: map-get($property-scale-map, default) + $density-scale * $_mat-density-interval;
-  }
-
-  $min-value: map-get($property-scale-map, $_mat-density-minimum-scale);
-  $max-value: map-get($property-scale-map, $_mat-density-maximum-scale);
-
-  @if ($value < $min-value or $value > $max-value) {
-    @error 'mat-density: #{$property-name} must be between #{$min-value} and ' +
-      '#{$max-value} (inclusive), but received #{$value}.';
-  }
-
-  @return $value;
-}
-
-
 // Includes all of the density styles.
 @mixin angular-material-density($config-or-theme) {
   // In case a theme object has been passed instead of a configuration for
@@ -3894,6 +3821,77 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 }
 
+// Note that this file is called `private`, because the APIs in it aren't public yet.
+// Once they're made available, the code should be moved out into an `index.scss`.
+
+// Taken from mat-density with small modifications to not rely on the new Sass module
+// system, and to support arbitrary properties in a density configuration.
+// https://github.com/material-components/material-components-web/blob/master/packages/mdc-density
+
+$_mat-density-interval: 4px !default;
+$_mat-density-minimum-scale: minimum !default;
+$_mat-density-maximum-scale: maximum !default;
+$_mat-density-supported-scales: (default, minimum, maximum) !default;
+$_mat-density-default-scale: 0 !default;
+
+// Whether density should be generated at root. This will be temporarily set to `true`
+// whenever density styles for legacy themes are generated.
+$mat-private-density-generate-at-root: false;
+// Whether density styles should be generated. This will be temporarily set to `false` if
+// duplicate density styles for a legacy theme would be generated. For legacy themes,
+// we always generate the default density **only once** at root.
+$mat-private-density-generate-styles: true;
+
+// Mixin that can be used to wrap density styles of given components. The mixin will
+// move the density styles to root if the `$mat-private-density-generate-at-root` global variable
+// is set. If `$mat-private-density-generate-styles` is set to `false`, generation of density
+// styles wrapped in this mixin is skipped. This mixin exists to improve backwards compatibility
+// of the new theming API where density styles are included as part of themes. Previously,
+// density styles of components were part of their base styles. With the new API, they are
+// part of the theming system. The `<..>-theme` mixins generate density by default unless
+// the density configuration is explicitly specified as per new API. This means, that projects
+// using `<..>-theme` mixins for separate themes (like `.dark-theme`) will cause duplicate
+// density styles. This is breaking as it increases specificity of density styles. This mixin
+// provides an API to control generation of density styles so that we can ensure they are only
+// created *once* and at root.
+@mixin mat-private-density-legacy-compatibility() {
+  @if $mat-private-density-generate-styles and $mat-private-density-generate-at-root {
+    @at-root {
+      @content;
+    }
+  }
+  @else if $mat-private-density-generate-styles {
+    @content;
+  }
+}
+
+@function mat-private-density-prop-value($density-config, $density-scale, $property-name) {
+  @if (type-of($density-scale) == 'string' and
+      index($list: $_mat-density-supported-scales, $value: $density-scale) == null) {
+    @error 'mat-density: Supported density scales #{$_mat-density-supported-scales}, '  +
+      'but received #{$density-scale}.';
+  }
+
+  $value: null;
+  $property-scale-map: map-get($density-config, $property-name);
+
+  @if map-has-key($property-scale-map, $density-scale) {
+    $value: map-get($property-scale-map, $density-scale);
+  }
+  @else {
+    $value: map-get($property-scale-map, default) + $density-scale * $_mat-density-interval;
+  }
+
+  $min-value: map-get($property-scale-map, $_mat-density-minimum-scale);
+  $max-value: map-get($property-scale-map, $_mat-density-maximum-scale);
+
+  @if ($value < $min-value or $value > $max-value) {
+    @error 'mat-density: #{$property-name} must be between #{$min-value} and ' +
+      '#{$max-value} (inclusive), but received #{$value}.';
+  }
+
+  @return $value;
+}
 
 
 
@@ -6176,7 +6174,7 @@ $mat-form-field-fill-dedupe: 0;
   }
 }
 
-@mixin _mat-form-field-fill-density($config-or-theme) {}
+@mixin mat-private-form-field-fill-density($config-or-theme) {}
 
 @mixin mat-form-field-fill-theme($theme-or-color-config) {
   $theme: mat-private-legacy-get-theme($theme-or-color-config);
@@ -6189,7 +6187,7 @@ $mat-form-field-fill-dedupe: 0;
       @include mat-form-field-fill-color($color);
     }
     @if $density != null {
-      @include _mat-form-field-fill-density($density);
+      @include mat-private-form-field-fill-density($density);
     }
     @if $typography != null {
       @include mat-form-field-fill-typography($typography);
@@ -6374,7 +6372,7 @@ $mat-form-field-legacy-dedupe: 0;
   }
 }
 
-@mixin _mat-form-field-legacy-density($config-or-theme) {}
+@mixin mat-private-form-field-legacy-density($config-or-theme) {}
 
 @mixin mat-form-field-legacy-theme($theme-or-color-config) {
   $theme: mat-private-legacy-get-theme($theme-or-color-config);
@@ -6387,7 +6385,7 @@ $mat-form-field-legacy-dedupe: 0;
       @include mat-form-field-legacy-color($color);
     }
     @if $density != null {
-      @include _mat-form-field-legacy-density($density);
+      @include mat-private-form-field-legacy-density($density);
     }
     @if $typography != null {
       @include mat-form-field-legacy-typography($typography);
@@ -6529,7 +6527,7 @@ $mat-form-field-outline-dedupe: 0;
   }
 }
 
-@mixin _mat-form-field-outline-density($config-or-theme) {}
+@mixin mat-private-form-field-outline-density($config-or-theme) {}
 
 @mixin mat-form-field-outline-theme($theme-or-color-config) {
   $theme: mat-private-legacy-get-theme($theme-or-color-config);
@@ -6542,7 +6540,7 @@ $mat-form-field-outline-dedupe: 0;
       @include mat-form-field-outline-color($color);
     }
     @if $density != null {
-      @include _mat-form-field-outline-density($density);
+      @include mat-private-form-field-outline-density($density);
     }
     @if $typography != null {
       @include mat-form-field-outline-typography($typography);
@@ -6580,7 +6578,7 @@ $mat-form-field-outline-dedupe: 0;
 
 @mixin mat-form-field-standard-typography($config-or-theme) {}
 
-@mixin _mat-form-field-standard-density($config-or-theme) {}
+@mixin mat-private-form-field-standard-density($config-or-theme) {}
 
 @mixin mat-form-field-standard-theme($theme-or-color-config) {
   $theme: mat-private-legacy-get-theme($theme-or-color-config);
@@ -6593,7 +6591,7 @@ $mat-form-field-outline-dedupe: 0;
       @include mat-form-field-standard-color($color);
     }
     @if $density != null {
-      @include _mat-form-field-standard-density($density);
+      @include mat-private-form-field-standard-density($density);
     }
     @if $typography != null {
       @include mat-form-field-standard-typography($typography);
@@ -6833,10 +6831,10 @@ $mat-form-field-dedupe: 0;
 
 @mixin _mat-form-field-density($config-or-theme) {
   $density-scale: mat-get-density-config($config-or-theme);
-  @include _mat-form-field-legacy-density($density-scale);
-  @include _mat-form-field-standard-density($density-scale);
-  @include _mat-form-field-fill-density($density-scale);
-  @include _mat-form-field-outline-density($density-scale);
+  @include mat-private-form-field-legacy-density($density-scale);
+  @include mat-private-form-field-standard-density($density-scale);
+  @include mat-private-form-field-fill-density($density-scale);
+  @include mat-private-form-field-outline-density($density-scale);
 }
 
 @mixin mat-form-field-theme($theme-or-color-config) {
@@ -7004,7 +7002,7 @@ $mat-tree-density-config: (
   @include cdk-overlay();
   @include cdk-text-field();
 
-  @include _mat-strong-focus-indicators-positioning();
+  @include mat-private-strong-focus-indicators-positioning();
   @include _mat-mdc-core();
 }
 
