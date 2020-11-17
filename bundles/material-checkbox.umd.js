@@ -327,6 +327,8 @@
 
     // Increasing integer for generating unique ids for checkbox components.
     var nextUniqueId = 0;
+    // Default checkbox configuration.
+    var defaults = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY();
     /**
      * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
      * This allows it to support [(ngModel)].
@@ -400,10 +402,8 @@
             _this._checked = false;
             _this._disabled = false;
             _this._indeterminate = false;
-            _this._options = _this._options || {};
-            if (_this._options.color) {
-                _this.color = _this.defaultColor = _this._options.color;
-            }
+            _this._options = _this._options || defaults;
+            _this.color = _this.defaultColor = _this._options.color || defaults.color;
             _this.tabIndex = parseInt(tabIndex) || 0;
             return _this;
         }
