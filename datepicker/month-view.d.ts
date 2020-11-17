@@ -16,7 +16,7 @@ import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
  * @docs-private
  */
 export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
-    private _changeDetectorRef;
+    readonly _changeDetectorRef: ChangeDetectorRef;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
