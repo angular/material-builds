@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, TestKey, parallel } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -298,7 +298,7 @@ class MatChipListHarness extends _MatChipListHarnessBase {
             if (!chips.length) {
                 throw Error(`Cannot find chip matching filter ${JSON.stringify(filter)}`);
             }
-            yield Promise.all(chips.map(chip => chip.select()));
+            yield parallel(() => chips.map(chip => chip.select()));
         });
     }
     /**
@@ -408,7 +408,7 @@ class MatChipListboxHarness extends _MatChipListHarnessBase {
             if (!chips.length) {
                 throw Error(`Cannot find chip matching filter ${JSON.stringify(filter)}`);
             }
-            yield Promise.all(chips.map(chip => chip.select()));
+            yield parallel(() => chips.map(chip => chip.select()));
         });
     }
 }

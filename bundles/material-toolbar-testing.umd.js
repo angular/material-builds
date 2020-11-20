@@ -350,12 +350,13 @@
         MatToolbarHarness.prototype.getRowsAsText = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var rows;
+                var _this = this;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._getRows()];
                         case 1:
                             rows = _a.sent();
-                            return [2 /*return*/, Promise.all(rows.length ? rows.map(function (r) { return r.text(); }) : [this._getText()])];
+                            return [2 /*return*/, testing.parallel(function () { return rows.length ? rows.map(function (r) { return r.text(); }) : [_this._getText()]; })];
                     }
                 });
             });

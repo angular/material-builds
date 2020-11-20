@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
@@ -40,7 +40,7 @@ class MatSliderHarness extends ComponentHarness {
      */
     getDisplayValue() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [host, textLabel] = yield Promise.all([this.host(), this._textLabel()]);
+            const [host, textLabel] = yield parallel(() => [this.host(), this._textLabel()]);
             if (yield host.hasClass('mat-slider-thumb-label-showing')) {
                 return textLabel.text();
             }
@@ -95,7 +95,7 @@ class MatSliderHarness extends ComponentHarness {
      */
     setValue(value) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [sliderEl, wrapperEl, orientation] = yield Promise.all([this.host(), this._wrapper(), this.getOrientation()]);
+            const [sliderEl, wrapperEl, orientation] = yield parallel(() => [this.host(), this._wrapper(), this.getOrientation()]);
             let percentage = yield this._calculatePercentage(value);
             const { height, width } = yield wrapperEl.getDimensions();
             const isVertical = orientation === 'vertical';
@@ -132,7 +132,7 @@ class MatSliderHarness extends ComponentHarness {
     /** Calculates the percentage of the given value. */
     _calculatePercentage(value) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [min, max] = yield Promise.all([this.getMinValue(), this.getMaxValue()]);
+            const [min, max] = yield parallel(() => [this.getMinValue(), this.getMaxValue()]);
             return (value - min) / (max - min);
         });
     }

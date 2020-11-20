@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 import { ɵTileCoordinator } from '@angular/material/grid-list';
 
 /**
@@ -126,9 +126,10 @@ class MatGridListHarness extends ComponentHarness {
      */
     getTileAtPosition({ row, column }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [tileHarnesses, columns] = yield Promise.all([this.getTiles(), this.getColumns()]);
-            const tileSpans = tileHarnesses.map(t => Promise.all([t.getColspan(), t.getRowspan()]));
-            const tiles = (yield Promise.all(tileSpans)).map(([colspan, rowspan]) => ({ colspan, rowspan }));
+            const [tileHarnesses, columns] = yield parallel(() => [this.getTiles(), this.getColumns()]);
+            const tileSpans = tileHarnesses.map(t => parallel(() => [t.getColspan(), t.getRowspan()]));
+            const tiles = (yield parallel(() => tileSpans))
+                .map(([colspan, rowspan]) => ({ colspan, rowspan }));
             // Update the tile coordinator to reflect the current column amount and
             // rendered tiles. We update upon every call of this method since we do not
             // know if tiles have been added, removed or updated (in terms of rowspan/colspan).

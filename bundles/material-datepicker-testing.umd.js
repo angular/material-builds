@@ -889,9 +889,10 @@
         DatepickerTriggerHarnessBase.prototype.openCalendar = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, isDisabled, hasCalendar;
+                var _this = this;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
-                        case 0: return [4 /*yield*/, Promise.all([this.isDisabled(), this.hasCalendar()])];
+                        case 0: return [4 /*yield*/, testing.parallel(function () { return [_this.isDisabled(), _this.hasCalendar()]; })];
                         case 1:
                             _a = __read.apply(void 0, [_b.sent(), 2]), isDisabled = _a[0], hasCalendar = _a[1];
                             if (!isDisabled && hasCalendar) {
@@ -1030,9 +1031,10 @@
         MatDatepickerInputHarness.prototype.openCalendar = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, isDisabled, hasCalendar, host;
+                var _this = this;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
-                        case 0: return [4 /*yield*/, Promise.all([this.isDisabled(), this.hasCalendar()])];
+                        case 0: return [4 /*yield*/, testing.parallel(function () { return [_this.isDisabled(), _this.hasCalendar()]; })];
                         case 1:
                             _a = __read.apply(void 0, [_b.sent(), 2]), isDisabled = _a[0], hasCalendar = _a[1];
                             if (!(!isDisabled && hasCalendar)) return [3 /*break*/, 3];
@@ -1213,13 +1215,14 @@
         MatDateRangeInputHarness.prototype.getValue = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, start, end, separator;
+                var _this = this;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
-                        case 0: return [4 /*yield*/, Promise.all([
-                                this.getStartInput().then(function (input) { return input.getValue(); }),
-                                this.getEndInput().then(function (input) { return input.getValue(); }),
-                                this.getSeparator()
-                            ])];
+                        case 0: return [4 /*yield*/, testing.parallel(function () { return [
+                                _this.getStartInput().then(function (input) { return input.getValue(); }),
+                                _this.getEndInput().then(function (input) { return input.getValue(); }),
+                                _this.getSeparator()
+                            ]; })];
                         case 1:
                             _a = __read.apply(void 0, [_b.sent(), 3]), start = _a[0], end = _a[1], separator = _a[2];
                             return [2 /*return*/, start + ("" + (end ? " " + separator + " " + end : ''))];
@@ -1260,12 +1263,13 @@
         MatDateRangeInputHarness.prototype.isDisabled = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, startDisabled, endDisabled;
+                var _this = this;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
-                        case 0: return [4 /*yield*/, Promise.all([
-                                this.getStartInput().then(function (input) { return input.isDisabled(); }),
-                                this.getEndInput().then(function (input) { return input.isDisabled(); })
-                            ])];
+                        case 0: return [4 /*yield*/, testing.parallel(function () { return [
+                                _this.getStartInput().then(function (input) { return input.isDisabled(); }),
+                                _this.getEndInput().then(function (input) { return input.isDisabled(); })
+                            ]; })];
                         case 1:
                             _a = __read.apply(void 0, [_b.sent(), 2]), startDisabled = _a[0], endDisabled = _a[1];
                             return [2 /*return*/, startDisabled && endDisabled];

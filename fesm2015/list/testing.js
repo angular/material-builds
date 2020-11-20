@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { HarnessPredicate, ComponentHarness, ContentContainerComponentHarness } from '@angular/cdk/testing';
+import { HarnessPredicate, ComponentHarness, ContentContainerComponentHarness, parallel } from '@angular/cdk/testing';
 import { MatDividerHarness } from '@angular/material/divider/testing';
 
 /**
@@ -57,7 +57,8 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
     /** Gets the lines of text (`mat-line` elements) in this nav list item. */
     getLinesText() {
         return __awaiter(this, void 0, void 0, function* () {
-            return Promise.all((yield this._lines()).map(l => l.text()));
+            const lines = yield this._lines();
+            return parallel(() => lines.map(l => l.text()));
         });
     }
     /** Whether this list item has an avatar. */
@@ -136,7 +137,7 @@ class MatListHarnessBase extends ComponentHarness {
                 listSections.push(currentSection);
             }
             // Concurrently wait for all sections to resolve their heading if present.
-            return Promise.all(listSections.map((s) => __awaiter(this, void 0, void 0, function* () { return ({ items: s.items, heading: yield s.heading }); })));
+            return parallel(() => listSections.map((s) => __awaiter(this, void 0, void 0, function* () { return ({ items: s.items, heading: yield s.heading }); })));
         });
     }
     /**
@@ -395,7 +396,7 @@ class MatSelectionListHarness extends MatListHarnessBase {
     selectItems(...filters) {
         return __awaiter(this, void 0, void 0, function* () {
             const items = yield this._getItems(filters);
-            yield Promise.all(items.map(item => item.select()));
+            yield parallel(() => items.map(item => item.select()));
         });
     }
     /**
@@ -405,7 +406,7 @@ class MatSelectionListHarness extends MatListHarnessBase {
     deselectItems(...filters) {
         return __awaiter(this, void 0, void 0, function* () {
             const items = yield this._getItems(filters);
-            yield Promise.all(items.map(item => item.deselect()));
+            yield parallel(() => items.map(item => item.deselect()));
         });
     }
     /** Gets all items matching the given list of filters. */
@@ -414,7 +415,9 @@ class MatSelectionListHarness extends MatListHarnessBase {
             if (!filters.length) {
                 return this.getItems();
             }
-            const matches = yield Promise.all(filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))()));
+            const matches = yield parallel(() => {
+                return filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))());
+            });
             return matches.reduce((result, current) => [...result, ...current], []);
         });
     }

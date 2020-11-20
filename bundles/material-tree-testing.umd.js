@@ -533,7 +533,7 @@
                         case 1:
                             nodes = _d.sent();
                             return [4 /*yield*/, testing.parallel(function () { return nodes.map(function (node) {
-                                    return Promise.all([node.getLevel(), node.getText(), node.isExpanded()]);
+                                    return testing.parallel(function () { return [node.getLevel(), node.getText(), node.isExpanded()]; });
                                 }); })];
                         case 2:
                             nodeInformation = _d.sent();

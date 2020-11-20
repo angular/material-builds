@@ -153,7 +153,7 @@ class MatTreeHarness extends ComponentHarness {
         return __awaiter(this, void 0, void 0, function* () {
             const nodes = yield this.getNodes();
             const nodeInformation = yield parallel(() => nodes.map(node => {
-                return Promise.all([node.getLevel(), node.getText(), node.isExpanded()]);
+                return parallel(() => [node.getLevel(), node.getText(), node.isExpanded()]);
             }));
             return this._getTreeStructure(nodeInformation, 1, true);
         });

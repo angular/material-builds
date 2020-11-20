@@ -515,7 +515,7 @@
                         case 0: return [4 /*yield*/, this.getTabs()];
                         case 1:
                             tabs = _a.sent();
-                            return [4 /*yield*/, Promise.all(tabs.map(function (t) { return t.isSelected(); }))];
+                            return [4 /*yield*/, testing.parallel(function () { return tabs.map(function (t) { return t.isSelected(); }); })];
                         case 2:
                             isSelected = _a.sent();
                             for (i = 0; i < tabs.length; i++) {
@@ -670,7 +670,7 @@
                         case 0: return [4 /*yield*/, this.getLinks()];
                         case 1:
                             links = _a.sent();
-                            return [4 /*yield*/, Promise.all(links.map(function (t) { return t.isActive(); }))];
+                            return [4 /*yield*/, testing.parallel(function () { return links.map(function (t) { return t.isActive(); }); })];
                         case 2:
                             isActive = _a.sent();
                             for (i = 0; i < links.length; i++) {

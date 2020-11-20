@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -91,7 +91,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
             // We consider the snackbar dismissed if it's not in the DOM. We can assert that the
             // element isn't in the DOM by seeing that its width and height are zero.
             const host = yield this.host();
-            const [exit, dimensions] = yield Promise.all([
+            const [exit, dimensions] = yield parallel(() => [
                 // The snackbar container is marked with the "exit" attribute after it has been dismissed
                 // but before the animation has finished (after which it's removed from the DOM).
                 host.getAttribute('mat-exit'),

@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -130,7 +130,7 @@ class MatTabGroupHarness extends ComponentHarness {
     getSelectedTab() {
         return __awaiter(this, void 0, void 0, function* () {
             const tabs = yield this.getTabs();
-            const isSelected = yield Promise.all(tabs.map(t => t.isSelected()));
+            const isSelected = yield parallel(() => tabs.map(t => t.isSelected()));
             for (let i = 0; i < tabs.length; i++) {
                 if (isSelected[i]) {
                     return tabs[i];
@@ -237,7 +237,7 @@ class MatTabNavBarHarness extends ComponentHarness {
     getActiveLink() {
         return __awaiter(this, void 0, void 0, function* () {
             const links = yield this.getLinks();
-            const isActive = yield Promise.all(links.map(t => t.isActive()));
+            const isActive = yield parallel(() => links.map(t => t.isActive()));
             for (let i = 0; i < links.length; i++) {
                 if (isActive[i]) {
                     return links[i];

@@ -414,10 +414,10 @@
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
                             host = _b.sent();
-                            return [4 /*yield*/, Promise.all([
+                            return [4 /*yield*/, testing.parallel(function () { return [
                                     host.getProperty('placeholder'),
                                     host.getAttribute('data-placeholder')
-                                ])];
+                                ]; })];
                         case 2:
                             _a = __read.apply(void 0, [_b.sent(), 2]), nativePlaceholder = _a[0], fallback = _a[1];
                             return [2 /*return*/, nativePlaceholder || fallback || ''];
@@ -730,18 +730,21 @@
             if (filter === void 0) { filter = {}; }
             return __awaiter(this, void 0, void 0, function () {
                 var _a, isMultiple, options, _b, host, optionIndexes;
+                var _this = this;
                 return __generator(this, function (_c) {
                     switch (_c.label) {
-                        case 0: return [4 /*yield*/, Promise.all([this.isMultiple(), this.getOptions(filter)])];
+                        case 0: return [4 /*yield*/, testing.parallel(function () {
+                                return [_this.isMultiple(), _this.getOptions(filter)];
+                            })];
                         case 1:
                             _a = __read.apply(void 0, [_c.sent(), 2]), isMultiple = _a[0], options = _a[1];
                             if (options.length === 0) {
                                 throw Error('Select does not have options matching the specified filter');
                             }
-                            return [4 /*yield*/, Promise.all([
-                                    this.host(),
-                                    Promise.all(options.slice(0, isMultiple ? undefined : 1).map(function (option) { return option.getIndex(); }))
-                                ])];
+                            return [4 /*yield*/, testing.parallel(function () { return [
+                                    _this.host(),
+                                    testing.parallel(function () { return options.slice(0, isMultiple ? undefined : 1).map(function (option) { return option.getIndex(); }); })
+                                ]; })];
                         case 2:
                             _b = __read.apply(void 0, [_c.sent(), 2]), host = _b[0], optionIndexes = _b[1];
                             // @breaking-change 12.0.0 Error can be removed once `selectOptions` is a required method.

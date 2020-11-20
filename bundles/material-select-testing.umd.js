@@ -502,19 +502,22 @@
             if (filter === void 0) { filter = {}; }
             return __awaiter(this, void 0, void 0, function () {
                 var _a, isMultiple, options;
+                var _this = this;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this.open()];
                         case 1:
                             _b.sent();
-                            return [4 /*yield*/, Promise.all([this.isMultiple(), this.getOptions(filter)])];
+                            return [4 /*yield*/, testing.parallel(function () {
+                                    return [_this.isMultiple(), _this.getOptions(filter)];
+                                })];
                         case 2:
                             _a = __read.apply(void 0, [_b.sent(), 2]), isMultiple = _a[0], options = _a[1];
                             if (options.length === 0) {
                                 throw Error('Select does not have options matching the specified filter');
                             }
                             if (!isMultiple) return [3 /*break*/, 4];
-                            return [4 /*yield*/, Promise.all(options.map(function (option) { return option.click(); }))];
+                            return [4 /*yield*/, testing.parallel(function () { return options.map(function (option) { return option.click(); }); })];
                         case 3:
                             _b.sent();
                             return [3 /*break*/, 6];

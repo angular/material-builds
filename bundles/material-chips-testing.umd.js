@@ -768,7 +768,7 @@
                             if (!chips.length) {
                                 throw Error("Cannot find chip matching filter " + JSON.stringify(filter));
                             }
-                            return [4 /*yield*/, Promise.all(chips.map(function (chip) { return chip.select(); }))];
+                            return [4 /*yield*/, testing.parallel(function () { return chips.map(function (chip) { return chip.select(); }); })];
                         case 2:
                             _a.sent();
                             return [2 /*return*/];
@@ -932,7 +932,7 @@
                             if (!chips.length) {
                                 throw Error("Cannot find chip matching filter " + JSON.stringify(filter));
                             }
-                            return [4 /*yield*/, Promise.all(chips.map(function (chip) { return chip.select(); }))];
+                            return [4 /*yield*/, testing.parallel(function () { return chips.map(function (chip) { return chip.select(); }); })];
                         case 2:
                             _a.sent();
                             return [2 /*return*/];

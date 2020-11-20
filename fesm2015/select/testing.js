@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
@@ -115,12 +115,14 @@ class MatSelectHarness extends MatFormFieldControlHarness {
     clickOptions(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.open();
-            const [isMultiple, options] = yield Promise.all([this.isMultiple(), this.getOptions(filter)]);
+            const [isMultiple, options] = yield parallel(() => {
+                return [this.isMultiple(), this.getOptions(filter)];
+            });
             if (options.length === 0) {
                 throw Error('Select does not have options matching the specified filter');
             }
             if (isMultiple) {
-                yield Promise.all(options.map(option => option.click()));
+                yield parallel(() => options.map(option => option.click()));
             }
             else {
                 yield options[0].click();

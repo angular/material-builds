@@ -371,13 +371,13 @@
         /** Gets the lines of text (`mat-line` elements) in this nav list item. */
         MatListItemHarnessBase.prototype.getLinesText = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var _a, _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
-                        case 0:
-                            _b = (_a = Promise).all;
-                            return [4 /*yield*/, this._lines()];
-                        case 1: return [2 /*return*/, _b.apply(_a, [(_c.sent()).map(function (l) { return l.text(); })])];
+                var lines;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._lines()];
+                        case 1:
+                            lines = _a.sent();
+                            return [2 /*return*/, testing.parallel(function () { return lines.map(function (l) { return l.text(); }); })];
                     }
                 });
             });
@@ -488,14 +488,14 @@
                                 listSections.push(currentSection);
                             }
                             // Concurrently wait for all sections to resolve their heading if present.
-                            return [2 /*return*/, Promise.all(listSections.map(function (s) { return __awaiter(_this, void 0, void 0, function () { var _a; return __generator(this, function (_b) {
+                            return [2 /*return*/, testing.parallel(function () { return listSections.map(function (s) { return __awaiter(_this, void 0, void 0, function () { var _a; return __generator(this, function (_b) {
                                     switch (_b.label) {
                                         case 0:
                                             _a = { items: s.items };
                                             return [4 /*yield*/, s.heading];
                                         case 1: return [2 /*return*/, (_a.heading = _b.sent(), _a)];
                                     }
-                                }); }); }))];
+                                }); }); }); })];
                     }
                 });
             });
@@ -840,7 +840,7 @@
                         case 0: return [4 /*yield*/, this._getItems(filters)];
                         case 1:
                             items = _a.sent();
-                            return [4 /*yield*/, Promise.all(items.map(function (item) { return item.select(); }))];
+                            return [4 /*yield*/, testing.parallel(function () { return items.map(function (item) { return item.select(); }); })];
                         case 2:
                             _a.sent();
                             return [2 /*return*/];
@@ -864,7 +864,7 @@
                         case 0: return [4 /*yield*/, this._getItems(filters)];
                         case 1:
                             items = _a.sent();
-                            return [4 /*yield*/, Promise.all(items.map(function (item) { return item.deselect(); }))];
+                            return [4 /*yield*/, testing.parallel(function () { return items.map(function (item) { return item.deselect(); }); })];
                         case 2:
                             _a.sent();
                             return [2 /*return*/];
@@ -883,7 +883,9 @@
                             if (!filters.length) {
                                 return [2 /*return*/, this.getItems()];
                             }
-                            return [4 /*yield*/, Promise.all(filters.map(function (filter) { return _this.locatorForAll(MatListOptionHarness.with(filter))(); }))];
+                            return [4 /*yield*/, testing.parallel(function () {
+                                    return filters.map(function (filter) { return _this.locatorForAll(MatListOptionHarness.with(filter))(); });
+                                })];
                         case 1:
                             matches = _a.sent();
                             return [2 /*return*/, matches.reduce(function (result, current) { return __spread(result, current); }, [])];

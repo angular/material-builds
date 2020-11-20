@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -40,7 +40,7 @@ class MatToolbarHarness extends ContentContainerComponentHarness {
     getRowsAsText() {
         return __awaiter(this, void 0, void 0, function* () {
             const rows = yield this._getRows();
-            return Promise.all(rows.length ? rows.map(r => r.text()) : [this._getText()]);
+            return parallel(() => rows.length ? rows.map(r => r.text()) : [this._getText()]);
         });
     }
 }

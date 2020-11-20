@@ -482,15 +482,17 @@
             var row = _a.row, column = _a.column;
             return __awaiter(this, void 0, void 0, function () {
                 var _a, tileHarnesses, columns, tileSpans, tiles, i, position, _b, rowspan, colspan;
+                var _this = this;
                 return __generator(this, function (_c) {
                     switch (_c.label) {
-                        case 0: return [4 /*yield*/, Promise.all([this.getTiles(), this.getColumns()])];
+                        case 0: return [4 /*yield*/, testing.parallel(function () { return [_this.getTiles(), _this.getColumns()]; })];
                         case 1:
                             _a = __read.apply(void 0, [_c.sent(), 2]), tileHarnesses = _a[0], columns = _a[1];
-                            tileSpans = tileHarnesses.map(function (t) { return Promise.all([t.getColspan(), t.getRowspan()]); });
-                            return [4 /*yield*/, Promise.all(tileSpans)];
+                            tileSpans = tileHarnesses.map(function (t) { return testing.parallel(function () { return [t.getColspan(), t.getRowspan()]; }); });
+                            return [4 /*yield*/, testing.parallel(function () { return tileSpans; })];
                         case 2:
-                            tiles = (_c.sent()).map(function (_a) {
+                            tiles = (_c.sent())
+                                .map(function (_a) {
                                 var _b = __read(_a, 2), colspan = _b[0], rowspan = _b[1];
                                 return ({ colspan: colspan, rowspan: rowspan });
                             });

@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { HarnessPredicate, parallel, ComponentHarness } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
 /**
@@ -72,7 +72,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
     getPlaceholder() {
         return __awaiter(this, void 0, void 0, function* () {
             const host = yield this.host();
-            const [nativePlaceholder, fallback] = yield Promise.all([
+            const [nativePlaceholder, fallback] = yield parallel(() => [
                 host.getProperty('placeholder'),
                 host.getAttribute('data-placeholder')
             ]);
@@ -277,13 +277,15 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
      */
     selectOptions(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [isMultiple, options] = yield Promise.all([this.isMultiple(), this.getOptions(filter)]);
+            const [isMultiple, options] = yield parallel(() => {
+                return [this.isMultiple(), this.getOptions(filter)];
+            });
             if (options.length === 0) {
                 throw Error('Select does not have options matching the specified filter');
             }
-            const [host, optionIndexes] = yield Promise.all([
+            const [host, optionIndexes] = yield parallel(() => [
                 this.host(),
-                Promise.all(options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex()))
+                parallel(() => options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex()))
             ]);
             // @breaking-change 12.0.0 Error can be removed once `selectOptions` is a required method.
             if (!host.selectOptions) {

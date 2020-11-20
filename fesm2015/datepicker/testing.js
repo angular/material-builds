@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { HarnessPredicate, ComponentHarness, TestKey } from '@angular/cdk/testing';
+import { HarnessPredicate, ComponentHarness, parallel, TestKey } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
@@ -391,7 +391,7 @@ class DatepickerTriggerHarnessBase extends ComponentHarness {
     /** Opens the calendar if the trigger is enabled and it has a calendar. */
     openCalendar() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [isDisabled, hasCalendar] = yield Promise.all([this.isDisabled(), this.hasCalendar()]);
+            const [isDisabled, hasCalendar] = yield parallel(() => [this.isDisabled(), this.hasCalendar()]);
             if (!isDisabled && hasCalendar) {
                 return this._openCalendar();
             }
@@ -482,7 +482,7 @@ class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase {
     /** Opens the calendar associated with the input. */
     openCalendar() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [isDisabled, hasCalendar] = yield Promise.all([this.isDisabled(), this.hasCalendar()]);
+            const [isDisabled, hasCalendar] = yield parallel(() => [this.isDisabled(), this.hasCalendar()]);
             if (!isDisabled && hasCalendar) {
                 // Alt + down arrow is the combination for opening the calendar with the keyboard.
                 const host = yield this.host();
@@ -610,7 +610,7 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     /** Gets the combined value of the start and end inputs, including the separator. */
     getValue() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [start, end, separator] = yield Promise.all([
+            const [start, end, separator] = yield parallel(() => [
                 this.getStartInput().then(input => input.getValue()),
                 this.getEndInput().then(input => input.getValue()),
                 this.getSeparator()
@@ -642,7 +642,7 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
             // We consider the input as disabled if both of the sub-inputs are disabled.
-            const [startDisabled, endDisabled] = yield Promise.all([
+            const [startDisabled, endDisabled] = yield parallel(() => [
                 this.getStartInput().then(input => input.isDisabled()),
                 this.getEndInput().then(input => input.isDisabled())
             ]);

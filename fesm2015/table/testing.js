@@ -1,5 +1,5 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, parallel, ContentContainerComponentHarness } from '@angular/cdk/testing';
 
 /**
  * @license
@@ -181,15 +181,15 @@ MatFooterRowHarness.hostSelector = '.mat-footer-row';
 function getCellTextByIndex(harness, filter) {
     return __awaiter(this, void 0, void 0, function* () {
         const cells = yield harness.getCells(filter);
-        return Promise.all(cells.map(cell => cell.getText()));
+        return parallel(() => cells.map(cell => cell.getText()));
     });
 }
 function getCellTextByColumnName(harness) {
     return __awaiter(this, void 0, void 0, function* () {
         const output = {};
         const cells = yield harness.getCells();
-        const cellsData = yield Promise.all(cells.map(cell => {
-            return Promise.all([cell.getColumnName(), cell.getText()]);
+        const cellsData = yield parallel(() => cells.map(cell => {
+            return parallel(() => [cell.getColumnName(), cell.getText()]);
         }));
         cellsData.forEach(([columnName, text]) => output[columnName] = text);
         return output;
@@ -235,22 +235,22 @@ class MatTableHarness extends ContentContainerComponentHarness {
     getCellTextByIndex() {
         return __awaiter(this, void 0, void 0, function* () {
             const rows = yield this.getRows();
-            return Promise.all(rows.map(row => row.getCellTextByIndex()));
+            return parallel(() => rows.map(row => row.getCellTextByIndex()));
         });
     }
     /** Gets the text inside the entire table organized by columns. */
     getCellTextByColumnName() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [headerRows, footerRows, dataRows] = yield Promise.all([
+            const [headerRows, footerRows, dataRows] = yield parallel(() => [
                 this.getHeaderRows(),
                 this.getFooterRows(),
                 this.getRows()
             ]);
             const text = {};
-            const [headerData, footerData, rowsData] = yield Promise.all([
-                Promise.all(headerRows.map(row => row.getCellTextByColumnName())),
-                Promise.all(footerRows.map(row => row.getCellTextByColumnName())),
-                Promise.all(dataRows.map(row => row.getCellTextByColumnName())),
+            const [headerData, footerData, rowsData] = yield parallel(() => [
+                parallel(() => headerRows.map(row => row.getCellTextByColumnName())),
+                parallel(() => footerRows.map(row => row.getCellTextByColumnName())),
+                parallel(() => dataRows.map(row => row.getCellTextByColumnName())),
             ]);
             rowsData.forEach(data => {
                 Object.keys(data).forEach(columnName => {

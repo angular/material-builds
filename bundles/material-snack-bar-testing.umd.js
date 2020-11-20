@@ -435,12 +435,12 @@
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
                             host = _b.sent();
-                            return [4 /*yield*/, Promise.all([
+                            return [4 /*yield*/, testing.parallel(function () { return [
                                     // The snackbar container is marked with the "exit" attribute after it has been dismissed
                                     // but before the animation has finished (after which it's removed from the DOM).
                                     host.getAttribute('mat-exit'),
                                     host.getDimensions(),
-                                ])];
+                                ]; })];
                         case 2:
                             _a = __read.apply(void 0, [_b.sent(), 2]), exit = _a[0], dimensions = _a[1];
                             return [2 /*return*/, exit != null || (!!dimensions && dimensions.height === 0 && dimensions.width === 0)];

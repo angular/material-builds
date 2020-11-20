@@ -550,7 +550,7 @@
                     case 0: return [4 /*yield*/, harness.getCells(filter)];
                     case 1:
                         cells = _a.sent();
-                        return [2 /*return*/, Promise.all(cells.map(function (cell) { return cell.getText(); }))];
+                        return [2 /*return*/, testing.parallel(function () { return cells.map(function (cell) { return cell.getText(); }); })];
                 }
             });
         });
@@ -565,9 +565,9 @@
                         return [4 /*yield*/, harness.getCells()];
                     case 1:
                         cells = _a.sent();
-                        return [4 /*yield*/, Promise.all(cells.map(function (cell) {
-                                return Promise.all([cell.getColumnName(), cell.getText()]);
-                            }))];
+                        return [4 /*yield*/, testing.parallel(function () { return cells.map(function (cell) {
+                                return testing.parallel(function () { return [cell.getColumnName(), cell.getText()]; });
+                            }); })];
                     case 2:
                         cellsData = _a.sent();
                         cellsData.forEach(function (_a) {
@@ -631,7 +631,7 @@
                         case 0: return [4 /*yield*/, this.getRows()];
                         case 1:
                             rows = _a.sent();
-                            return [2 /*return*/, Promise.all(rows.map(function (row) { return row.getCellTextByIndex(); }))];
+                            return [2 /*return*/, testing.parallel(function () { return rows.map(function (row) { return row.getCellTextByIndex(); }); })];
                     }
                 });
             });
@@ -640,21 +640,22 @@
         MatTableHarness.prototype.getCellTextByColumnName = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, headerRows, footerRows, dataRows, text, _b, headerData, footerData, rowsData;
+                var _this = this;
                 return __generator(this, function (_c) {
                     switch (_c.label) {
-                        case 0: return [4 /*yield*/, Promise.all([
-                                this.getHeaderRows(),
-                                this.getFooterRows(),
-                                this.getRows()
-                            ])];
+                        case 0: return [4 /*yield*/, testing.parallel(function () { return [
+                                _this.getHeaderRows(),
+                                _this.getFooterRows(),
+                                _this.getRows()
+                            ]; })];
                         case 1:
                             _a = __read.apply(void 0, [_c.sent(), 3]), headerRows = _a[0], footerRows = _a[1], dataRows = _a[2];
                             text = {};
-                            return [4 /*yield*/, Promise.all([
-                                    Promise.all(headerRows.map(function (row) { return row.getCellTextByColumnName(); })),
-                                    Promise.all(footerRows.map(function (row) { return row.getCellTextByColumnName(); })),
-                                    Promise.all(dataRows.map(function (row) { return row.getCellTextByColumnName(); })),
-                                ])];
+                            return [4 /*yield*/, testing.parallel(function () { return [
+                                    testing.parallel(function () { return headerRows.map(function (row) { return row.getCellTextByColumnName(); }); }),
+                                    testing.parallel(function () { return footerRows.map(function (row) { return row.getCellTextByColumnName(); }); }),
+                                    testing.parallel(function () { return dataRows.map(function (row) { return row.getCellTextByColumnName(); }); }),
+                                ]; })];
                         case 2:
                             _b = __read.apply(void 0, [_c.sent(), 3]), headerData = _b[0], footerData = _b[1], rowsData = _b[2];
                             rowsData.forEach(function (data) {
