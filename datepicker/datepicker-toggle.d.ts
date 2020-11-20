@@ -21,6 +21,8 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     datepicker: MatDatepickerPanel<MatDatepickerControl<any>, D>;
     /** Tabindex for the toggle. */
     tabIndex: number | null;
+    /** Screenreader label for the button. */
+    ariaLabel: string;
     /** Whether the toggle button is disabled. */
     get disabled(): boolean;
     set disabled(value: boolean);
