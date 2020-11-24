@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/material/core')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip', '@angular/cdk/coercion', 'rxjs', '@angular/material/core'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}), global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.select, global.ng.material.tooltip, global.ng.cdk.coercion, global.rxjs, global.ng.material.core));
-}(this, (function (exports, common, i0, button, select, tooltip, coercion, rxjs, core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip'), require('@angular/cdk/coercion'), require('rxjs')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/common', '@angular/core', '@angular/material/core', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip', '@angular/cdk/coercion', 'rxjs'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}), global.ng.common, global.ng.core, global.ng.material.core, global.ng.material.button, global.ng.material.select, global.ng.material.tooltip, global.ng.cdk.coercion, global.rxjs));
+}(this, (function (exports, common, i0, core, button, select, tooltip, coercion, rxjs) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -672,6 +672,7 @@
                         button.MatButtonModule,
                         select.MatSelectModule,
                         tooltip.MatTooltipModule,
+                        core.MatCommonModule,
                     ],
                     exports: [MatPaginator],
                     declarations: [MatPaginator],

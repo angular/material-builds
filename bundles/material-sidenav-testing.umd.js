@@ -305,6 +305,67 @@
         return value;
     }
 
+    /**
+     * Base class for the drawer harness functionality.
+     * @docs-private
+     */
+    var MatDrawerHarnessBase = /** @class */ (function (_super) {
+        __extends(MatDrawerHarnessBase, _super);
+        function MatDrawerHarnessBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /** Whether the drawer is open. */
+        MatDrawerHarnessBase.prototype.isOpen = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-drawer-opened')];
+                    }
+                });
+            });
+        };
+        /** Gets the position of the drawer inside its container. */
+        MatDrawerHarnessBase.prototype.getPosition = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var host;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1:
+                            host = _a.sent();
+                            return [4 /*yield*/, host.hasClass('mat-drawer-end')];
+                        case 2: return [2 /*return*/, (_a.sent()) ? 'end' : 'start'];
+                    }
+                });
+            });
+        };
+        /** Gets the mode that the drawer is in. */
+        MatDrawerHarnessBase.prototype.getMode = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var host;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1:
+                            host = _a.sent();
+                            return [4 /*yield*/, host.hasClass('mat-drawer-push')];
+                        case 2:
+                            if (_a.sent()) {
+                                return [2 /*return*/, 'push'];
+                            }
+                            return [4 /*yield*/, host.hasClass('mat-drawer-side')];
+                        case 3:
+                            if (_a.sent()) {
+                                return [2 /*return*/, 'side'];
+                            }
+                            return [2 /*return*/, 'over'];
+                    }
+                });
+            });
+        };
+        return MatDrawerHarnessBase;
+    }(testing.ContentContainerComponentHarness));
     /** Harness for interacting with a standard mat-drawer in tests. */
     var MatDrawerHarness = /** @class */ (function (_super) {
         __extends(MatDrawerHarness, _super);
@@ -328,60 +389,93 @@
                 }
             }); }); });
         };
-        /** Whether the drawer is open. */
-        MatDrawerHarness.prototype.isOpen = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-drawer-opened')];
-                    }
-                });
-            });
-        };
-        /** Gets the position of the drawer inside its container. */
-        MatDrawerHarness.prototype.getPosition = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var host;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1:
-                            host = _a.sent();
-                            return [4 /*yield*/, host.hasClass('mat-drawer-end')];
-                        case 2: return [2 /*return*/, (_a.sent()) ? 'end' : 'start'];
-                    }
-                });
-            });
-        };
-        /** Gets the mode that the drawer is in. */
-        MatDrawerHarness.prototype.getMode = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var host;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1:
-                            host = _a.sent();
-                            return [4 /*yield*/, host.hasClass('mat-drawer-push')];
-                        case 2:
-                            if (_a.sent()) {
-                                return [2 /*return*/, 'push'];
-                            }
-                            return [4 /*yield*/, host.hasClass('mat-drawer-side')];
-                        case 3:
-                            if (_a.sent()) {
-                                return [2 /*return*/, 'side'];
-                            }
-                            return [2 /*return*/, 'over'];
-                    }
-                });
-            });
-        };
         return MatDrawerHarness;
-    }(testing.ContentContainerComponentHarness));
+    }(MatDrawerHarnessBase));
     /** The selector for the host element of a `MatDrawer` instance. */
     MatDrawerHarness.hostSelector = '.mat-drawer';
+
+    /** Harness for interacting with a standard mat-drawer-content in tests. */
+    var MatDrawerContentHarness = /** @class */ (function (_super) {
+        __extends(MatDrawerContentHarness, _super);
+        function MatDrawerContentHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerContentHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which drawer content instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatDrawerContentHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatDrawerContentHarness, options);
+        };
+        return MatDrawerContentHarness;
+    }(testing.ContentContainerComponentHarness));
+    /** The selector for the host element of a `MatDrawerContent` instance. */
+    MatDrawerContentHarness.hostSelector = '.mat-drawer-content';
+
+    /** Harness for interacting with a standard mat-drawer-container in tests. */
+    var MatDrawerContainerHarness = /** @class */ (function (_super) {
+        __extends(MatDrawerContainerHarness, _super);
+        function MatDrawerContainerHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerContainerHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which container instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatDrawerContainerHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatDrawerContainerHarness, options);
+        };
+        /**
+         * Gets drawers that match particular criteria within the container.
+         * @param filter Optionally filters which chips are included.
+         */
+        MatDrawerContainerHarness.prototype.getDrawers = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForAll(MatDrawerHarness.with(filter))()];
+                });
+            });
+        };
+        /** Gets the element that has the container's content. */
+        MatDrawerContainerHarness.prototype.getContent = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorFor(MatDrawerContentHarness)()];
+                });
+            });
+        };
+        return MatDrawerContainerHarness;
+    }(testing.ContentContainerComponentHarness));
+    /** The selector for the host element of a `MatDrawerContainer` instance. */
+    MatDrawerContainerHarness.hostSelector = '.mat-drawer-container';
+
+    /** Harness for interacting with a standard mat-sidenav-content in tests. */
+    var MatSidenavContentHarness = /** @class */ (function (_super) {
+        __extends(MatSidenavContentHarness, _super);
+        function MatSidenavContentHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavContentHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which sidenav content instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatSidenavContentHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatSidenavContentHarness, options);
+        };
+        return MatSidenavContentHarness;
+    }(testing.ContentContainerComponentHarness));
+    /** The selector for the host element of a `MatSidenavContent` instance. */
+    MatSidenavContentHarness.hostSelector = '.mat-sidenav-content';
 
     /** Harness for interacting with a standard mat-sidenav in tests. */
     var MatSidenavHarness = /** @class */ (function (_super) {
@@ -398,7 +492,7 @@
         MatSidenavHarness.with = function (options) {
             var _this = this;
             if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatDrawerHarness, options)
+            return new testing.HarnessPredicate(MatSidenavHarness, options)
                 .addOption('position', options.position, function (harness, position) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, harness.getPosition()];
@@ -418,17 +512,50 @@
             });
         };
         return MatSidenavHarness;
-    }(MatDrawerHarness));
+    }(MatDrawerHarnessBase));
     /** The selector for the host element of a `MatSidenav` instance. */
     MatSidenavHarness.hostSelector = '.mat-sidenav';
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
+    /** Harness for interacting with a standard mat-sidenav-container in tests. */
+    var MatSidenavContainerHarness = /** @class */ (function (_super) {
+        __extends(MatSidenavContainerHarness, _super);
+        function MatSidenavContainerHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavContainerHarness` that
+         * meets certain criteria.
+         * @param options Options for filtering which container instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatSidenavContainerHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatSidenavContainerHarness, options);
+        };
+        /**
+         * Gets sidenavs that match particular criteria within the container.
+         * @param filter Optionally filters which chips are included.
+         */
+        MatSidenavContainerHarness.prototype.getSidenavs = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForAll(MatSidenavHarness.with(filter))()];
+                });
+            });
+        };
+        /** Gets the element that has the container's content. */
+        MatSidenavContainerHarness.prototype.getContent = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorFor(MatSidenavContentHarness)()];
+                });
+            });
+        };
+        return MatSidenavContainerHarness;
+    }(testing.ContentContainerComponentHarness));
+    /** The selector for the host element of a `MatSidenavContainer` instance. */
+    MatSidenavContainerHarness.hostSelector = '.mat-sidenav-container';
 
     /**
      * @license
@@ -438,7 +565,19 @@
      * found in the LICENSE file at https://angular.io/license
      */
 
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+
+    exports.MatDrawerContainerHarness = MatDrawerContainerHarness;
+    exports.MatDrawerContentHarness = MatDrawerContentHarness;
     exports.MatDrawerHarness = MatDrawerHarness;
+    exports.MatSidenavContainerHarness = MatSidenavContainerHarness;
+    exports.MatSidenavContentHarness = MatSidenavContentHarness;
     exports.MatSidenavHarness = MatSidenavHarness;
 
     Object.defineProperty(exports, '__esModule', { value: true });

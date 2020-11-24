@@ -850,7 +850,7 @@
     }());
     MatSortModule.decorators = [
         { type: i0.NgModule, args: [{
-                    imports: [common.CommonModule],
+                    imports: [common.CommonModule, core.MatCommonModule],
                     exports: [MatSort, MatSortHeader],
                     declarations: [MatSort, MatSortHeader],
                     providers: [MAT_SORT_HEADER_INTL_PROVIDER]

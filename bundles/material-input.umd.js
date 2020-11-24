@@ -815,6 +815,7 @@
                     imports: [
                         textField.TextFieldModule,
                         formField.MatFormFieldModule,
+                        core$1.MatCommonModule,
                     ],
                     exports: [
                         textField.TextFieldModule,
