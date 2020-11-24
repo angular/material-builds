@@ -3,7 +3,7 @@ import { Directive, Input, InjectionToken, ElementRef, Optional, Self, Inject, N
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
-import { mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { mixinErrorState, ErrorStateMatcher, MatCommonModule } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField, MAT_FORM_FIELD, MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 
@@ -471,6 +471,7 @@ MatInputModule.decorators = [
                 imports: [
                     TextFieldModule,
                     MatFormFieldModule,
+                    MatCommonModule,
                 ],
                 exports: [
                     TextFieldModule,

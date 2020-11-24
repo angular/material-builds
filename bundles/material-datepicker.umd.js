@@ -3939,6 +3939,7 @@
                         overlay.OverlayModule,
                         a11y.A11yModule,
                         portal.PortalModule,
+                        core.MatCommonModule,
                     ],
                     exports: [
                         scrolling.CdkScrollableModule,

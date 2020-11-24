@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ɵɵdefineInjectable, Injectable, Optional, SkipSelf, InjectionToken, EventEmitter, Directive, ChangeDetectorRef, Input, Output, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
+import { mixinDisabled, mixinInitialized, MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
-import { mixinDisabled, mixinInitialized } from '@angular/material/core';
 
 /**
  * @license
@@ -341,6 +341,7 @@ MatPaginatorModule.decorators = [
                     MatButtonModule,
                     MatSelectModule,
                     MatTooltipModule,
+                    MatCommonModule,
                 ],
                 exports: [MatPaginator],
                 declarations: [MatPaginator],

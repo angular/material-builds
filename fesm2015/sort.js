@@ -1,6 +1,6 @@
 import { EventEmitter, Directive, Input, Output, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, Inject, ElementRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves } from '@angular/material/core';
+import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
@@ -536,7 +536,7 @@ class MatSortModule {
 }
 MatSortModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule],
+                imports: [CommonModule, MatCommonModule],
                 exports: [MatSort, MatSortHeader],
                 declarations: [MatSort, MatSortHeader],
                 providers: [MAT_SORT_HEADER_INTL_PROVIDER]

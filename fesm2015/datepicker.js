@@ -6,7 +6,7 @@ import { ɵɵdefineInjectable, Injectable, EventEmitter, Component, ViewEncapsul
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
-import { DateAdapter, MAT_DATE_FORMATS, mixinColor, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, mixinColor, ErrorStateMatcher, mixinErrorState, MatCommonModule } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
@@ -3429,6 +3429,7 @@ MatDatepickerModule.decorators = [
                     OverlayModule,
                     A11yModule,
                     PortalModule,
+                    MatCommonModule,
                 ],
                 exports: [
                     CdkScrollableModule,
