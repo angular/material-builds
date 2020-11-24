@@ -7,8 +7,20 @@
  */
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { DrawerHarnessFilters } from './drawer-harness-filters';
+/**
+ * Base class for the drawer harness functionality.
+ * @docs-private
+ */
+export declare class MatDrawerHarnessBase extends ContentContainerComponentHarness<string> {
+    /** Whether the drawer is open. */
+    isOpen(): Promise<boolean>;
+    /** Gets the position of the drawer inside its container. */
+    getPosition(): Promise<'start' | 'end'>;
+    /** Gets the mode that the drawer is in. */
+    getMode(): Promise<'over' | 'push' | 'side'>;
+}
 /** Harness for interacting with a standard mat-drawer in tests. */
-export declare class MatDrawerHarness extends ContentContainerComponentHarness<string> {
+export declare class MatDrawerHarness extends MatDrawerHarnessBase {
     /** The selector for the host element of a `MatDrawer` instance. */
     static hostSelector: string;
     /**
@@ -18,10 +30,4 @@ export declare class MatDrawerHarness extends ContentContainerComponentHarness<s
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: DrawerHarnessFilters): HarnessPredicate<MatDrawerHarness>;
-    /** Whether the drawer is open. */
-    isOpen(): Promise<boolean>;
-    /** Gets the position of the drawer inside its container. */
-    getPosition(): Promise<'start' | 'end'>;
-    /** Gets the mode that the drawer is in. */
-    getMode(): Promise<'over' | 'push' | 'side'>;
 }

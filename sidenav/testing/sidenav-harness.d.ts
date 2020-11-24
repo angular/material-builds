@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatDrawerHarness } from './drawer-harness';
+import { MatDrawerHarnessBase } from './drawer-harness';
 import { DrawerHarnessFilters } from './drawer-harness-filters';
 /** Harness for interacting with a standard mat-sidenav in tests. */
-export declare class MatSidenavHarness extends MatDrawerHarness {
+export declare class MatSidenavHarness extends MatDrawerHarnessBase {
     /** The selector for the host element of a `MatSidenav` instance. */
     static hostSelector: string;
     /**
@@ -18,7 +18,7 @@ export declare class MatSidenavHarness extends MatDrawerHarness {
      * @param options Options for filtering which sidenav instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: DrawerHarnessFilters): HarnessPredicate<MatDrawerHarness>;
+    static with(options?: DrawerHarnessFilters): HarnessPredicate<MatSidenavHarness>;
     /** Whether the sidenav is fixed in the viewport. */
     isFixedInViewport(): Promise<boolean>;
 }

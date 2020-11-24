@@ -128,6 +128,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
      * by inputs extending this one which can be placed inside of a group that can be disabled.
      */
     protected _parentDisabled(): boolean;
+    /** Gets whether a value matches the current date filter. */
+    _matchesFilter(value: D | null): boolean;
     static ngAcceptInputType_value: any;
     static ngAcceptInputType_disabled: BooleanInput;
 }

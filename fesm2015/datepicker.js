@@ -2332,8 +2332,7 @@ class MatDatepickerInputBase {
         /** The form control validator for the date filter. */
         this._filterValidator = (control) => {
             const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-            const dateFilter = this._getDateFilter();
-            return !dateFilter || !controlValue || dateFilter(controlValue) ?
+            return !controlValue || this._matchesFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
         };
         /** The form control validator for the min date. */
@@ -2539,6 +2538,11 @@ class MatDatepickerInputBase {
     _parentDisabled() {
         return false;
     }
+    /** Gets whether a value matches the current date filter. */
+    _matchesFilter(value) {
+        const filter = this._getDateFilter();
+        return !filter || filter(value);
+    }
 }
 MatDatepickerInputBase.decorators = [
     { type: Directive }
@@ -2628,8 +2632,11 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     /** Function that can be used to filter out dates within the datepicker. */
     get dateFilter() { return this._dateFilter; }
     set dateFilter(value) {
+        const wasMatchingValue = this._matchesFilter(this.value);
         this._dateFilter = value;
-        this._validatorOnChange();
+        if (this._matchesFilter(this.value) !== wasMatchingValue) {
+            this._validatorOnChange();
+        }
     }
     /**
      * Gets the element that the datepicker popup should be connected to.
@@ -3176,8 +3183,17 @@ class MatDateRangeInput {
     /** Function that can be used to filter out dates within the date range picker. */
     get dateFilter() { return this._dateFilter; }
     set dateFilter(value) {
+        const start = this._startInput;
+        const end = this._endInput;
+        const wasMatchingStart = start && start._matchesFilter(start.value);
+        const wasMatchingEnd = end && end._matchesFilter(start.value);
         this._dateFilter = value;
-        this._revalidate();
+        if (start && start._matchesFilter(start.value) !== wasMatchingStart) {
+            start._validatorOnChange();
+        }
+        if (end && end._matchesFilter(end.value) !== wasMatchingEnd) {
+            end._validatorOnChange();
+        }
     }
     /** The minimum valid date. */
     get min() { return this._min; }

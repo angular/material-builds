@@ -631,6 +631,7 @@
                 },] }
     ];
 
+    var _MAT_TEXT_COLUMN_TEMPLATE = "\n  <ng-container matColumnDef>\n    <th mat-header-cell *matHeaderCellDef [style.text-align]=\"justify\">\n      {{headerText}}\n    </th>\n    <td mat-cell *matCellDef=\"let data\" [style.text-align]=\"justify\">\n      {{dataAccessor(data, name)}}\n    </td>\n  </ng-container>\n";
     /**
      * Column that simply shows text content for the header and row cells. Assumes that the table
      * is using the native table implementation (`<table>`).
@@ -650,7 +651,7 @@
     MatTextColumn.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-text-column',
-                    template: "\n    <ng-container matColumnDef>\n      <th mat-header-cell *matHeaderCellDef [style.text-align]=\"justify\">\n        {{headerText}}\n      </th>\n      <td mat-cell *matCellDef=\"let data\" [style.text-align]=\"justify\">\n        {{dataAccessor(data, name)}}\n      </td>\n    </ng-container>\n  ",
+                    template: _MAT_TEXT_COLUMN_TEMPLATE,
                     encapsulation: core.ViewEncapsulation.None,
                     // Change detection is intentionally not set to OnPush. This component's template will be provided
                     // to the table to be inserted into its view. This is problematic when change detection runs since
@@ -712,22 +713,10 @@
      * flaky browser support and the value not being defined in Closure's typings.
      */
     var MAX_SAFE_INTEGER = 9007199254740991;
-    /**
-     * Data source that accepts a client-side data array and includes native support of filtering,
-     * sorting (using MatSort), and pagination (using MatPaginator).
-     *
-     * Allows for sort customization by overriding sortingDataAccessor, which defines how data
-     * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
-     * which defines how row data is converted to a string for filter matching.
-     *
-     * **Note:** This class is meant to be a simple data source to help you get started. As such
-     * it isn't equipped to handle some more advanced cases like robust i18n support or server-side
-     * interactions. If your app needs to support more advanced use cases, consider implementing your
-     * own `DataSource`.
-     */
-    var MatTableDataSource = /** @class */ (function (_super) {
-        __extends(MatTableDataSource, _super);
-        function MatTableDataSource(initialData) {
+    /** Shared base class with MDC-based implementation. */
+    var _MatTableDataSource = /** @class */ (function (_super) {
+        __extends(_MatTableDataSource, _super);
+        function _MatTableDataSource(initialData) {
             if (initialData === void 0) { initialData = []; }
             var _this = _super.call(this) || this;
             /** Stream emitting render data to the table (depends on ordered data changes). */
@@ -843,14 +832,14 @@
             _this._updateChangeSubscription();
             return _this;
         }
-        Object.defineProperty(MatTableDataSource.prototype, "data", {
+        Object.defineProperty(_MatTableDataSource.prototype, "data", {
             /** Array of data that should be rendered by the table, where each object represents one row. */
             get: function () { return this._data.value; },
             set: function (data) { this._data.next(data); },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatTableDataSource.prototype, "filter", {
+        Object.defineProperty(_MatTableDataSource.prototype, "filter", {
             /**
              * Filter term that should be used to filter out objects from the data array. To override how
              * data objects match to this filter string, provide a custom function for filterPredicate.
@@ -860,7 +849,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatTableDataSource.prototype, "sort", {
+        Object.defineProperty(_MatTableDataSource.prototype, "sort", {
             /**
              * Instance of the MatSort directive used by the table to control its sorting. Sort changes
              * emitted by the MatSort will trigger an update to the table's rendered data.
@@ -873,7 +862,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatTableDataSource.prototype, "paginator", {
+        Object.defineProperty(_MatTableDataSource.prototype, "paginator", {
             /**
              * Instance of the MatPaginator component used by the table to control what page of the data is
              * displayed. Page changes emitted by the MatPaginator will trigger an update to the
@@ -897,7 +886,7 @@
          * changes occur, process the current state of the filter, sort, and pagination along with
          * the provided base data and send it to the table for rendering.
          */
-        MatTableDataSource.prototype._updateChangeSubscription = function () {
+        _MatTableDataSource.prototype._updateChangeSubscription = function () {
             var _this = this;
             // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
             // The events should emit whenever the component emits a change or initializes, or if no
@@ -939,7 +928,7 @@
          * the result of the filterTermAccessor function. If no filter is set, returns the data array
          * as provided.
          */
-        MatTableDataSource.prototype._filterData = function (data) {
+        _MatTableDataSource.prototype._filterData = function (data) {
             var _this = this;
             // If there is a filter string, filter out data that does not contain it.
             // Each data object is converted to a string using the function defined by filterTermAccessor.
@@ -956,7 +945,7 @@
          * data array as provided. Uses the default data accessor for data lookup, unless a
          * sortDataAccessor function is defined.
          */
-        MatTableDataSource.prototype._orderData = function (data) {
+        _MatTableDataSource.prototype._orderData = function (data) {
             // If there is no active sort or direction, return the data without trying to sort.
             if (!this.sort) {
                 return data;
@@ -967,7 +956,7 @@
          * Returns a paged slice of the provided data array according to the provided MatPaginator's page
          * index and length. If there is no paginator provided, returns the data array as provided.
          */
-        MatTableDataSource.prototype._pageData = function (data) {
+        _MatTableDataSource.prototype._pageData = function (data) {
             if (!this.paginator) {
                 return data;
             }
@@ -979,7 +968,7 @@
          * index does not exceed the paginator's last page. Values are changed in a resolved promise to
          * guard against making property changes within a round of change detection.
          */
-        MatTableDataSource.prototype._updatePaginator = function (filteredDataLength) {
+        _MatTableDataSource.prototype._updatePaginator = function (filteredDataLength) {
             var _this = this;
             Promise.resolve().then(function () {
                 var paginator = _this.paginator;
@@ -1004,14 +993,34 @@
          * Used by the MatTable. Called when it connects to the data source.
          * @docs-private
          */
-        MatTableDataSource.prototype.connect = function () { return this._renderData; };
+        _MatTableDataSource.prototype.connect = function () { return this._renderData; };
         /**
          * Used by the MatTable. Called when it is destroyed. No-op.
          * @docs-private
          */
-        MatTableDataSource.prototype.disconnect = function () { };
-        return MatTableDataSource;
+        _MatTableDataSource.prototype.disconnect = function () { };
+        return _MatTableDataSource;
     }(table.DataSource));
+    /**
+     * Data source that accepts a client-side data array and includes native support of filtering,
+     * sorting (using MatSort), and pagination (using MatPaginator).
+     *
+     * Allows for sort customization by overriding sortingDataAccessor, which defines how data
+     * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
+     * which defines how row data is converted to a string for filter matching.
+     *
+     * **Note:** This class is meant to be a simple data source to help you get started. As such
+     * it isn't equipped to handle some more advanced cases like robust i18n support or server-side
+     * interactions. If your app needs to support more advanced use cases, consider implementing your
+     * own `DataSource`.
+     */
+    var MatTableDataSource = /** @class */ (function (_super) {
+        __extends(MatTableDataSource, _super);
+        function MatTableDataSource() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return MatTableDataSource;
+    }(_MatTableDataSource));
 
     /**
      * @license
@@ -1043,6 +1052,8 @@
     exports.MatTableDataSource = MatTableDataSource;
     exports.MatTableModule = MatTableModule;
     exports.MatTextColumn = MatTextColumn;
+    exports._MAT_TEXT_COLUMN_TEMPLATE = _MAT_TEXT_COLUMN_TEMPLATE;
+    exports._MatTableDataSource = _MatTableDataSource;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
