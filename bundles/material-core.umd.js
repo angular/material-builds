@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('11.0.1-sha-03b054fc1');
+    var VERSION = new i0.Version('11.0.1-sha-aac43009a');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('11.0.1-sha-03b054fc1');
+    var VERSION$1 = new i0.Version('11.0.1-sha-aac43009a');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1737,6 +1737,7 @@
     }());
     MatPseudoCheckboxModule.decorators = [
         { type: i0.NgModule, args: [{
+                    imports: [MatCommonModule],
                     exports: [MatPseudoCheckbox],
                     declarations: [MatPseudoCheckbox]
                 },] }
@@ -2113,7 +2114,7 @@
     }());
     MatOptionModule.decorators = [
         { type: i0.NgModule, args: [{
-                    imports: [MatRippleModule, common.CommonModule, MatPseudoCheckboxModule],
+                    imports: [MatRippleModule, common.CommonModule, MatCommonModule, MatPseudoCheckboxModule],
                     exports: [MatOption, MatOptgroup],
                     declarations: [MatOption, MatOptgroup]
                 },] }

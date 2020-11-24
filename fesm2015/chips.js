@@ -1,6 +1,6 @@
 import { SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, ENTER } from '@angular/cdk/keycodes';
 import { InjectionToken, Directive, EventEmitter, ElementRef, NgZone, Optional, Inject, ChangeDetectorRef, Attribute, ContentChild, Input, Output, Component, ViewEncapsulation, ChangeDetectionStrategy, Self, ContentChildren, NgModule } from '@angular/core';
-import { mixinTabIndex, mixinColor, mixinDisableRipple, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { mixinTabIndex, mixinColor, mixinDisableRipple, RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, ErrorStateMatcher, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
@@ -1232,6 +1232,7 @@ class MatChipsModule {
 }
 MatChipsModule.decorators = [
     { type: NgModule, args: [{
+                imports: [MatCommonModule],
                 exports: CHIP_DECLARATIONS,
                 declarations: CHIP_DECLARATIONS,
                 providers: [

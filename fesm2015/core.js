@@ -18,7 +18,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('11.0.1-sha-03b054fc1');
+const VERSION = new Version('11.0.1-sha-aac43009a');
 
 /**
  * @license
@@ -52,7 +52,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('11.0.1-sha-03b054fc1');
+const VERSION$1 = new Version('11.0.1-sha-aac43009a');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1359,6 +1359,7 @@ class MatPseudoCheckboxModule {
 }
 MatPseudoCheckboxModule.decorators = [
     { type: NgModule, args: [{
+                imports: [MatCommonModule],
                 exports: [MatPseudoCheckbox],
                 declarations: [MatPseudoCheckbox]
             },] }
@@ -1705,7 +1706,7 @@ class MatOptionModule {
 }
 MatOptionModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatRippleModule, CommonModule, MatPseudoCheckboxModule],
+                imports: [MatRippleModule, CommonModule, MatCommonModule, MatPseudoCheckboxModule],
                 exports: [MatOption, MatOptgroup],
                 declarations: [MatOption, MatOptgroup]
             },] }

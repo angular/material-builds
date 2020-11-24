@@ -2748,8 +2748,7 @@
             /** The form control validator for the date filter. */
             this._filterValidator = function (control) {
                 var controlValue = _this._dateAdapter.getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
-                var dateFilter = _this._getDateFilter();
-                return !dateFilter || !controlValue || dateFilter(controlValue) ?
+                return !controlValue || _this._matchesFilter(controlValue) ?
                     null : { 'matDatepickerFilter': true };
             };
             /** The form control validator for the min date. */
@@ -2964,6 +2963,11 @@
         MatDatepickerInputBase.prototype._parentDisabled = function () {
             return false;
         };
+        /** Gets whether a value matches the current date filter. */
+        MatDatepickerInputBase.prototype._matchesFilter = function (value) {
+            var filter = this._getDateFilter();
+            return !filter || filter(value);
+        };
         return MatDatepickerInputBase;
     }());
     MatDatepickerInputBase.decorators = [
@@ -3073,8 +3077,11 @@
             /** Function that can be used to filter out dates within the datepicker. */
             get: function () { return this._dateFilter; },
             set: function (value) {
+                var wasMatchingValue = this._matchesFilter(this.value);
                 this._dateFilter = value;
-                this._validatorOnChange();
+                if (this._matchesFilter(this.value) !== wasMatchingValue) {
+                    this._validatorOnChange();
+                }
             },
             enumerable: false,
             configurable: true
@@ -3658,8 +3665,17 @@
             /** Function that can be used to filter out dates within the date range picker. */
             get: function () { return this._dateFilter; },
             set: function (value) {
+                var start = this._startInput;
+                var end = this._endInput;
+                var wasMatchingStart = start && start._matchesFilter(start.value);
+                var wasMatchingEnd = end && end._matchesFilter(start.value);
                 this._dateFilter = value;
-                this._revalidate();
+                if (start && start._matchesFilter(start.value) !== wasMatchingStart) {
+                    start._validatorOnChange();
+                }
+                if (end && end._matchesFilter(end.value) !== wasMatchingEnd) {
+                    end._validatorOnChange();
+                }
             },
             enumerable: false,
             configurable: true
@@ -3937,6 +3953,7 @@
                         overlay.OverlayModule,
                         a11y.A11yModule,
                         portal.PortalModule,
+                        core.MatCommonModule,
                     ],
                     exports: [
                         scrolling.CdkScrollableModule,

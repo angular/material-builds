@@ -1665,6 +1665,7 @@
     }());
     MatChipsModule.decorators = [
         { type: core.NgModule, args: [{
+                    imports: [core$1.MatCommonModule],
                     exports: CHIP_DECLARATIONS,
                     declarations: CHIP_DECLARATIONS,
                     providers: [

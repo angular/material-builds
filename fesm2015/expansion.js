@@ -2,6 +2,7 @@ import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
@@ -543,7 +544,7 @@ class MatExpansionModule {
 }
 MatExpansionModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, CdkAccordionModule, PortalModule],
+                imports: [CommonModule, MatCommonModule, CdkAccordionModule, PortalModule],
                 exports: [
                     MatAccordion,
                     MatExpansionPanel,
