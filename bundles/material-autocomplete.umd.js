@@ -441,6 +441,13 @@
             var event = new MatAutocompleteSelectedEvent(this, option);
             this.optionSelected.emit(event);
         };
+        /** Gets the aria-labelledby for the autocomplete panel. */
+        _MatAutocompleteBase.prototype._getPanelAriaLabelledby = function (labelId) {
+            if (this.ariaLabel) {
+                return null;
+            }
+            return this.ariaLabelledby ? labelId + ' ' + this.ariaLabelledby : labelId;
+        };
         /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
         _MatAutocompleteBase.prototype._setVisibilityClasses = function (classList) {
             classList[this._visibleClass] = this.showPanel;
@@ -459,6 +466,8 @@
     _MatAutocompleteBase.propDecorators = {
         template: [{ type: core.ViewChild, args: [core.TemplateRef, { static: true },] }],
         panel: [{ type: core.ViewChild, args: ['panel',] }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
         displayWith: [{ type: core.Input }],
         autoActiveFirstOption: [{ type: core.Input }],
         panelWidth: [{ type: core.Input }],
@@ -481,7 +490,7 @@
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-autocomplete',
-                    template: "<ng-template>\n  <div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n",
+                    template: "<ng-template let-formFieldId=\"id\">\n  <div class=\"mat-autocomplete-panel\"\n       role=\"listbox\"\n       [id]=\"id\"\n       [attr.aria-label]=\"ariaLabel || null\"\n       [attr.aria-labelledby]=\"_getPanelAriaLabelledby(formFieldId)\"\n       [ngClass]=\"_classList\"\n       #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n",
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
@@ -933,6 +942,7 @@
         };
         _MatAutocompleteTriggerBase.prototype._attachOverlay = function () {
             var _this = this;
+            var _a;
             if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatAutocompleteMissingPanelError();
             }
@@ -943,7 +953,7 @@
             }
             var overlayRef = this._overlayRef;
             if (!overlayRef) {
-                this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef);
+                this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef, { id: (_a = this._formField) === null || _a === void 0 ? void 0 : _a._labelId });
                 overlayRef = this._overlay.create(this._getOverlayConfig());
                 this._overlayRef = overlayRef;
                 // Use the `keydownEvents` in order to take advantage of

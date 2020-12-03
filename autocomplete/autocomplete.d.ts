@@ -67,6 +67,10 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     abstract options: QueryList<_MatOptionBase>;
     /** @docs-private */
     abstract optionGroups: QueryList<_MatOptgroupBase>;
+    /** Aria label of the select. If not specified, the placeholder will be used as label. */
+    ariaLabel: string;
+    /** Input that can be used to specify the `aria-labelledby` attribute. */
+    ariaLabelledby: string;
     /** Function that maps an option's control value to its display value in the trigger. */
     displayWith: ((value: any) => string) | null;
     /**
@@ -113,6 +117,8 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     _setVisibility(): void;
     /** Emits the `select` event. */
     _emitSelectEvent(option: _MatOptionBase): void;
+    /** Gets the aria-labelledby for the autocomplete panel. */
+    _getPanelAriaLabelledby(labelId: string): string | null;
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
     static ngAcceptInputType_autoActiveFirstOption: BooleanInput;
