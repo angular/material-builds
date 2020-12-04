@@ -527,7 +527,11 @@
         { type: i0.Component, args: [{
                     selector: 'mat-bottom-sheet-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>\r\n",
-                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    // In Ivy embedded views will be change detected from their declaration place, rather than where
+                    // they were stamped out. This means that we can't have the bottom sheet container be OnPush,
+                    // because it might cause the sheets that were opened from a template not to be out of date.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: i0.ChangeDetectionStrategy.Default,
                     encapsulation: i0.ViewEncapsulation.None,
                     animations: [matBottomSheetAnimations.bottomSheetState],
                     host: {
