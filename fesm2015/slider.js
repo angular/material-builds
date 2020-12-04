@@ -237,7 +237,7 @@ class MatSlider extends _MatSliderMixinBase {
             let value = coerceNumberProperty(v);
             // While incrementing by a decimal we can end up with values like 33.300000000000004.
             // Truncate it to ensure that it matches the label and to make it easier to work with.
-            if (this._roundToDecimal) {
+            if (this._roundToDecimal && value !== this.min && value !== this.max) {
                 value = parseFloat(value.toFixed(this._roundToDecimal));
             }
             this._value = value;
