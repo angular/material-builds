@@ -761,6 +761,9 @@
             if (this.radioGroup) {
                 // If the radio is inside a radio group, determine if it should be checked
                 this.checked = this.radioGroup.value === this._value;
+                if (this.checked) {
+                    this.radioGroup.selected = this;
+                }
                 // Copy name from parent radio group
                 this.name = this.radioGroup.name;
             }
