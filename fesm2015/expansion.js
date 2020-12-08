@@ -513,6 +513,10 @@ class MatAccordion extends CdkAccordion {
     _handleHeaderFocus(header) {
         this._keyManager.updateActiveItem(header);
     }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+        this._ownHeaders.destroy();
+    }
 }
 MatAccordion.decorators = [
     { type: Directive, args: [{

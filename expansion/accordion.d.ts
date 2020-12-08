@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { QueryList, AfterContentInit } from '@angular/core';
+import { QueryList, AfterContentInit, OnDestroy } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { MatAccordionBase, MatAccordionDisplayMode, MatAccordionTogglePosition } from './accordion-base';
@@ -13,7 +13,7 @@ import { MatExpansionPanelHeader } from './expansion-panel-header';
 /**
  * Directive for a Material Design Accordion.
  */
-export declare class MatAccordion extends CdkAccordion implements MatAccordionBase, AfterContentInit {
+export declare class MatAccordion extends CdkAccordion implements MatAccordionBase, AfterContentInit, OnDestroy {
     private _keyManager;
     /** Headers belonging to this accordion. */
     private _ownHeaders;
@@ -38,5 +38,6 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     /** Handles keyboard events coming in from the panel headers. */
     _handleHeaderKeydown(event: KeyboardEvent): void;
     _handleHeaderFocus(header: MatExpansionPanelHeader): void;
+    ngOnDestroy(): void;
     static ngAcceptInputType_hideToggle: BooleanInput;
 }
