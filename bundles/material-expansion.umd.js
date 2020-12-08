@@ -824,6 +824,10 @@
         MatAccordion.prototype._handleHeaderFocus = function (header) {
             this._keyManager.updateActiveItem(header);
         };
+        MatAccordion.prototype.ngOnDestroy = function () {
+            _super.prototype.ngOnDestroy.call(this);
+            this._ownHeaders.destroy();
+        };
         return MatAccordion;
     }(accordion.CdkAccordion));
     MatAccordion.decorators = [

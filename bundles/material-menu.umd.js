@@ -1029,6 +1029,11 @@
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matMenu',
+                    host: {
+                        '[attr.aria-label]': 'null',
+                        '[attr.aria-labelledby]': 'null',
+                        '[attr.aria-describedby]': 'null',
+                    },
                     animations: [
                         matMenuAnimations.transformMenu,
                         matMenuAnimations.fadeInItems
