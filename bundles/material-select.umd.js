@@ -507,7 +507,7 @@
         __extends(_MatSelectBase, _super);
         function _MatSelectBase(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _defaultOptions) {
             var _this = this;
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c;
             _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._viewportRuler = _viewportRuler;
             _this._changeDetectorRef = _changeDetectorRef;
@@ -544,7 +544,6 @@
             _this._disableOptionCentering = (_c = (_b = _this._defaultOptions) === null || _b === void 0 ? void 0 : _b.disableOptionCentering) !== null && _c !== void 0 ? _c : false;
             /** Aria label of the select. If not specified, the placeholder will be used as label. */
             _this.ariaLabel = '';
-            _this._typeaheadDebounceInterval = (_e = (_d = _this._defaultOptions) === null || _d === void 0 ? void 0 : _d.typeaheadDebounceInterval) !== null && _e !== void 0 ? _e : 0;
             /** Combined stream of all of the child options' change events. */
             _this.optionSelectionChanges = rxjs.defer(function () {
                 var options = _this.options;
@@ -572,6 +571,11 @@
                 // Note: we provide the value accessor through here, instead of
                 // the `providers` to avoid running into a circular import.
                 _this.ngControl.valueAccessor = _this;
+            }
+            // Note that we only want to set this when the defaults pass it in, otherwise it should
+            // stay as `undefined` so that it falls back to the default in the key manager.
+            if ((_defaultOptions === null || _defaultOptions === void 0 ? void 0 : _defaultOptions.typeaheadDebounceInterval) != null) {
+                _this._typeaheadDebounceInterval = _defaultOptions.typeaheadDebounceInterval;
             }
             _this._scrollStrategyFactory = scrollStrategyFactory;
             _this._scrollStrategy = _this._scrollStrategyFactory();

@@ -216,7 +216,7 @@ MatSelectTrigger.decorators = [
 /** Base class with all of the `MatSelect` functionality. */
 class _MatSelectBase extends _MatSelectMixinBase {
     constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _defaultOptions) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c;
         super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
@@ -253,7 +253,6 @@ class _MatSelectBase extends _MatSelectMixinBase {
         this._disableOptionCentering = (_c = (_b = this._defaultOptions) === null || _b === void 0 ? void 0 : _b.disableOptionCentering) !== null && _c !== void 0 ? _c : false;
         /** Aria label of the select. If not specified, the placeholder will be used as label. */
         this.ariaLabel = '';
-        this._typeaheadDebounceInterval = (_e = (_d = this._defaultOptions) === null || _d === void 0 ? void 0 : _d.typeaheadDebounceInterval) !== null && _e !== void 0 ? _e : 0;
         /** Combined stream of all of the child options' change events. */
         this.optionSelectionChanges = defer(() => {
             const options = this.options;
@@ -281,6 +280,11 @@ class _MatSelectBase extends _MatSelectMixinBase {
             // Note: we provide the value accessor through here, instead of
             // the `providers` to avoid running into a circular import.
             this.ngControl.valueAccessor = this;
+        }
+        // Note that we only want to set this when the defaults pass it in, otherwise it should
+        // stay as `undefined` so that it falls back to the default in the key manager.
+        if ((_defaultOptions === null || _defaultOptions === void 0 ? void 0 : _defaultOptions.typeaheadDebounceInterval) != null) {
+            this._typeaheadDebounceInterval = _defaultOptions.typeaheadDebounceInterval;
         }
         this._scrollStrategyFactory = scrollStrategyFactory;
         this._scrollStrategy = this._scrollStrategyFactory();
