@@ -26,6 +26,7 @@ export declare class MatCalendarHeader<D> {
     calendar: MatCalendar<D>;
     private _dateAdapter;
     private _dateFormats;
+    _buttonDescriptionId: string;
     constructor(_intl: MatDatepickerIntl, calendar: MatCalendar<D>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
     /** The label for the current calendar view. */
     get periodButtonText(): string;
