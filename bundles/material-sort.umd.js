@@ -611,7 +611,7 @@
      */
     var MatSortHeader = /** @class */ (function (_super) {
         __extends(MatSortHeader, _super);
-        function MatSortHeader(_intl, changeDetectorRef, 
+        function MatSortHeader(_intl, _changeDetectorRef, 
         // `MatSort` is not optionally injected, but just asserted manually w/ better error.
         // tslint:disable-next-line: lightweight-tokens
         _sort, _columnDef, _focusMonitor, _elementRef) {
@@ -622,6 +622,7 @@
             // of this single reference.
             _super.call(this) || this;
             _this._intl = _intl;
+            _this._changeDetectorRef = _changeDetectorRef;
             _this._sort = _sort;
             _this._columnDef = _columnDef;
             _this._focusMonitor = _focusMonitor;
@@ -652,7 +653,7 @@
                     _this._disableViewStateAnimation = false;
                     _this._setAnimationTransitionState({ fromState: 'active', toState: _this._arrowDirection });
                 }
-                changeDetectorRef.markForCheck();
+                _changeDetectorRef.markForCheck();
             });
             return _this;
         }
@@ -676,8 +677,13 @@
             var _this = this;
             // We use the focus monitor because we also want to style
             // things differently based on the focus origin.
-            this._focusMonitor.monitor(this._elementRef, true)
-                .subscribe(function (origin) { return _this._setIndicatorHintVisible(!!origin); });
+            this._focusMonitor.monitor(this._elementRef, true).subscribe(function (origin) {
+                var newState = !!origin;
+                if (newState !== _this._showIndicatorHint) {
+                    _this._setIndicatorHintVisible(newState);
+                    _this._changeDetectorRef.markForCheck();
+                }
+            });
         };
         MatSortHeader.prototype.ngOnDestroy = function () {
             this._focusMonitor.stopMonitoring(this._elementRef);
