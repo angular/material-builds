@@ -30,7 +30,7 @@ export declare class _MatTableDataSource<T, P extends Paginator> extends DataSou
      * Subscription to the changes that should trigger an update to the table's rendered rows, such
      * as filtering, sorting, pagination, or base data changes.
      */
-    _renderChangesSubscription: Subscription;
+    _renderChangesSubscription: Subscription | null;
     /**
      * The filtered set of data that has been matched by the filter string, or all the data if there
      * is no filter. Useful for knowing the set of data the table represents.
@@ -134,7 +134,7 @@ export declare class _MatTableDataSource<T, P extends Paginator> extends DataSou
      */
     connect(): BehaviorSubject<T[]>;
     /**
-     * Used by the MatTable. Called when it is destroyed. No-op.
+     * Used by the MatTable. Called when it disconnects from the data source.
      * @docs-private
      */
     disconnect(): void;

@@ -3,7 +3,7 @@ import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _C
 import { _VIEW_REPEATER_STRATEGY, _DisposeViewRepeaterStrategy } from '@angular/cdk/collections';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { BehaviorSubject, Subject, Subscription, merge, of, combineLatest } from 'rxjs';
+import { BehaviorSubject, Subject, merge, of, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -387,7 +387,7 @@ class _MatTableDataSource extends DataSource {
          * Subscription to the changes that should trigger an update to the table's rendered rows, such
          * as filtering, sorting, pagination, or base data changes.
          */
-        this._renderChangesSubscription = Subscription.EMPTY;
+        this._renderChangesSubscription = null;
         /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
@@ -528,6 +528,7 @@ class _MatTableDataSource extends DataSource {
      * the provided base data and send it to the table for rendering.
      */
     _updateChangeSubscription() {
+        var _a;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // The events should emit whenever the component emits a change or initializes, or if no
         // component is provided, a stream with just a null event should be provided.
@@ -551,7 +552,7 @@ class _MatTableDataSource extends DataSource {
         const paginatedData = combineLatest([orderedData, pageChange])
             .pipe(map(([data]) => this._pageData(data)));
         // Watched for paged data changes and send the result to the table to render.
-        this._renderChangesSubscription.unsubscribe();
+        (_a = this._renderChangesSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
         this._renderChangesSubscription = paginatedData.subscribe(data => this._renderData.next(data));
     }
     /**
@@ -622,12 +623,21 @@ class _MatTableDataSource extends DataSource {
      * Used by the MatTable. Called when it connects to the data source.
      * @docs-private
      */
-    connect() { return this._renderData; }
+    connect() {
+        if (!this._renderChangesSubscription) {
+            this._updateChangeSubscription();
+        }
+        return this._renderData;
+    }
     /**
-     * Used by the MatTable. Called when it is destroyed. No-op.
+     * Used by the MatTable. Called when it disconnects from the data source.
      * @docs-private
      */
-    disconnect() { }
+    disconnect() {
+        var _a;
+        (_a = this._renderChangesSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
+        this._renderChangesSubscription = null;
+    }
 }
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,

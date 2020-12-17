@@ -729,7 +729,7 @@
              * Subscription to the changes that should trigger an update to the table's rendered rows, such
              * as filtering, sorting, pagination, or base data changes.
              */
-            _this._renderChangesSubscription = rxjs.Subscription.EMPTY;
+            _this._renderChangesSubscription = null;
             /**
              * Data accessor function that is used for accessing data properties for sorting through
              * the default sortData function.
@@ -888,6 +888,7 @@
          */
         _MatTableDataSource.prototype._updateChangeSubscription = function () {
             var _this = this;
+            var _a;
             // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
             // The events should emit whenever the component emits a change or initializes, or if no
             // component is provided, a stream with just a null event should be provided.
@@ -903,24 +904,24 @@
             var dataStream = this._data;
             // Watch for base data or filter changes to provide a filtered set of data.
             var filteredData = rxjs.combineLatest([dataStream, this._filter])
-                .pipe(operators.map(function (_a) {
-                var _b = __read(_a, 1), data = _b[0];
+                .pipe(operators.map(function (_b) {
+                var _c = __read(_b, 1), data = _c[0];
                 return _this._filterData(data);
             }));
             // Watch for filtered data or sort changes to provide an ordered set of data.
             var orderedData = rxjs.combineLatest([filteredData, sortChange])
-                .pipe(operators.map(function (_a) {
-                var _b = __read(_a, 1), data = _b[0];
+                .pipe(operators.map(function (_b) {
+                var _c = __read(_b, 1), data = _c[0];
                 return _this._orderData(data);
             }));
             // Watch for ordered data or page changes to provide a paged set of data.
             var paginatedData = rxjs.combineLatest([orderedData, pageChange])
-                .pipe(operators.map(function (_a) {
-                var _b = __read(_a, 1), data = _b[0];
+                .pipe(operators.map(function (_b) {
+                var _c = __read(_b, 1), data = _c[0];
                 return _this._pageData(data);
             }));
             // Watched for paged data changes and send the result to the table to render.
-            this._renderChangesSubscription.unsubscribe();
+            (_a = this._renderChangesSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
             this._renderChangesSubscription = paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
         };
         /**
@@ -993,12 +994,21 @@
          * Used by the MatTable. Called when it connects to the data source.
          * @docs-private
          */
-        _MatTableDataSource.prototype.connect = function () { return this._renderData; };
+        _MatTableDataSource.prototype.connect = function () {
+            if (!this._renderChangesSubscription) {
+                this._updateChangeSubscription();
+            }
+            return this._renderData;
+        };
         /**
-         * Used by the MatTable. Called when it is destroyed. No-op.
+         * Used by the MatTable. Called when it disconnects from the data source.
          * @docs-private
          */
-        _MatTableDataSource.prototype.disconnect = function () { };
+        _MatTableDataSource.prototype.disconnect = function () {
+            var _a;
+            (_a = this._renderChangesSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
+            this._renderChangesSubscription = null;
+        };
         return _MatTableDataSource;
     }(table.DataSource));
     /**
