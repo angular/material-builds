@@ -308,7 +308,7 @@ const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  * column definition.
  */
 class MatSortHeader extends _MatSortHeaderMixinBase {
-    constructor(_intl, changeDetectorRef, 
+    constructor(_intl, _changeDetectorRef, 
     // `MatSort` is not optionally injected, but just asserted manually w/ better error.
     // tslint:disable-next-line: lightweight-tokens
     _sort, _columnDef, _focusMonitor, _elementRef) {
@@ -318,6 +318,7 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
         // of this single reference.
         super();
         this._intl = _intl;
+        this._changeDetectorRef = _changeDetectorRef;
         this._sort = _sort;
         this._columnDef = _columnDef;
         this._focusMonitor = _focusMonitor;
@@ -348,7 +349,7 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
                 this._disableViewStateAnimation = false;
                 this._setAnimationTransitionState({ fromState: 'active', toState: this._arrowDirection });
             }
-            changeDetectorRef.markForCheck();
+            _changeDetectorRef.markForCheck();
         });
     }
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
@@ -366,8 +367,13 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
     ngAfterViewInit() {
         // We use the focus monitor because we also want to style
         // things differently based on the focus origin.
-        this._focusMonitor.monitor(this._elementRef, true)
-            .subscribe(origin => this._setIndicatorHintVisible(!!origin));
+        this._focusMonitor.monitor(this._elementRef, true).subscribe(origin => {
+            const newState = !!origin;
+            if (newState !== this._showIndicatorHint) {
+                this._setIndicatorHintVisible(newState);
+                this._changeDetectorRef.markForCheck();
+            }
+        });
     }
     ngOnDestroy() {
         this._focusMonitor.stopMonitoring(this._elementRef);
