@@ -1446,8 +1446,13 @@
         /** Handles key presses on the trigger. */
         MatMenuTrigger.prototype._handleKeydown = function (event) {
             var keyCode = event.keyCode;
+            // Pressing enter on the trigger will trigger the click handler later.
+            if (keyCode === keycodes.ENTER || keyCode === keycodes.SPACE) {
+                this._openedBy = 'keyboard';
+            }
             if (this.triggersSubmenu() && ((keyCode === keycodes.RIGHT_ARROW && this.dir === 'ltr') ||
                 (keyCode === keycodes.LEFT_ARROW && this.dir === 'rtl'))) {
+                this._openedBy = 'keyboard';
                 this.openMenu();
             }
         };
