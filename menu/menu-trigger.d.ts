@@ -48,7 +48,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
      */
     private _handleTouchStart;
-    _openedBy: 'mouse' | 'touch' | null;
+    _openedBy: Exclude<FocusOrigin, 'program'>;
     /**
      * @deprecated
      * @breaking-change 8.0.0

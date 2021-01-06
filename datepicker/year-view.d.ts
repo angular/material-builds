@@ -15,7 +15,7 @@ import { DateRange } from './date-selection-model';
  * @docs-private
  */
 export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
-    private _changeDetectorRef;
+    readonly _changeDetectorRef: ChangeDetectorRef;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
     private _dir?;
