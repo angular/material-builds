@@ -13,10 +13,10 @@ declare const _MatTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof C
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-export declare class MatTreeNode<T> extends _MatTreeNodeMixinBase<T> implements CanDisable, DoCheck, HasTabIndex, OnInit, OnDestroy {
+export declare class MatTreeNode<T, K = T> extends _MatTreeNodeMixinBase<T, K> implements CanDisable, DoCheck, HasTabIndex, OnInit, OnDestroy {
     protected _elementRef: ElementRef<HTMLElement>;
-    protected _tree: CdkTree<T>;
-    constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, tabIndex: string);
+    protected _tree: CdkTree<T, K>;
+    constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T, K>, tabIndex: string);
     ngOnInit(): void;
     ngDoCheck(): void;
     ngOnDestroy(): void;
@@ -32,9 +32,9 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  */
-export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implements AfterContentInit, DoCheck, OnDestroy, OnInit {
+export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K> implements AfterContentInit, DoCheck, OnDestroy, OnInit {
     protected _elementRef: ElementRef<HTMLElement>;
-    protected _tree: CdkTree<T>;
+    protected _tree: CdkTree<T, K>;
     protected _differs: IterableDiffers;
     node: T;
     /** Whether the node is disabled. */
@@ -45,7 +45,7 @@ export declare class MatNestedTreeNode<T> extends CdkNestedTreeNode<T> implement
     get tabIndex(): number;
     set tabIndex(value: number);
     private _tabIndex;
-    constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
+    constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T, K>, _differs: IterableDiffers, tabIndex: string);
     ngOnInit(): void;
     ngDoCheck(): void;
     ngAfterContentInit(): void;
