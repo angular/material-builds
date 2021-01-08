@@ -67,8 +67,9 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     _getMaxDate(): D | null;
     /** Gets the date filter function from the range input. */
     protected _getDateFilter(): DateFilterFn<D>;
-    protected _outsideValueChanged: () => void;
     protected _parentDisabled(): boolean;
+    protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
+    protected _assignValueProgrammatically(value: D | null): void;
 }
 declare const _MatDateRangeInputBase: CanUpdateErrorStateCtor & typeof MatDateRangeInputPartBase;
 /** Input for entering the start date in a `mat-date-range-input`. */
@@ -81,7 +82,6 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _assignValueToModel(value: D | null): void;
-    protected _canEmitChangeEvent: (event: DateSelectionModelChange<DateRange<D>>) => boolean;
     protected _formatValue(value: D | null): void;
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
@@ -97,7 +97,6 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _assignValueToModel(value: D | null): void;
-    protected _canEmitChangeEvent: (event: DateSelectionModelChange<DateRange<D>>) => boolean;
     _onKeydown(event: KeyboardEvent): void;
     static ngAcceptInputType_disabled: BooleanInput;
 }

@@ -2737,8 +2737,6 @@
             this.dateChange = new i0.EventEmitter();
             /** Emits when an `input` event is fired on this `<input>`. */
             this.dateInput = new i0.EventEmitter();
-            /** Emits when the value changes (either due to user input or programmatic change). */
-            this._valueChange = new i0.EventEmitter();
             /** Emits when the internal state has changed */
             this.stateChanges = new rxjs.Subject();
             this._onTouched = function () { };
@@ -2785,7 +2783,7 @@
             }
             // Update the displayed date when the locale changes.
             this._localeSubscription = _dateAdapter.localeChanges.subscribe(function () {
-                _this.value = _this.value;
+                _this._assignValueProgrammatically(_this.value);
             });
         }
         Object.defineProperty(MatDatepickerInputBase.prototype, "value", {
@@ -2794,15 +2792,7 @@
                 return this._model ? this._getValueFromModel(this._model.selection) : this._pendingValue;
             },
             set: function (value) {
-                value = this._dateAdapter.deserialize(value);
-                this._lastValueValid = this._isValidValue(value);
-                value = this._dateAdapter.getValidDateOrNull(value);
-                var oldDate = this.value;
-                this._assignValue(value);
-                this._formatValue(value);
-                if (!this._dateAdapter.sameDate(oldDate, value)) {
-                    this._valueChange.emit(value);
-                }
+                this._assignValueProgrammatically(value);
             },
             enumerable: false,
             configurable: true
@@ -2844,22 +2834,14 @@
                 this._assignValue(this._pendingValue);
             }
             this._valueChangesSubscription = this._model.selectionChanged.subscribe(function (event) {
-                if (event.source !== _this) {
+                if (_this._shouldHandleChangeEvent(event)) {
                     var value = _this._getValueFromModel(event.selection);
                     _this._lastValueValid = _this._isValidValue(value);
                     _this._cvaOnChange(value);
                     _this._onTouched();
                     _this._formatValue(value);
-                    // Note that we can't wrap the entire block with this logic, because for the range inputs
-                    // we want to revalidate whenever either one of the inputs changes and we don't have a
-                    // good way of distinguishing it at the moment.
-                    if (_this._canEmitChangeEvent(event)) {
-                        _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                        _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                    }
-                    if (_this._outsideValueChanged) {
-                        _this._outsideValueChanged();
-                    }
+                    _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
                 }
             });
         };
@@ -2874,7 +2856,6 @@
         MatDatepickerInputBase.prototype.ngOnDestroy = function () {
             this._valueChangesSubscription.unsubscribe();
             this._localeSubscription.unsubscribe();
-            this._valueChange.complete();
             this.stateChanges.complete();
         };
         /** @docs-private */
@@ -2887,7 +2868,7 @@
         };
         // Implemented as part of ControlValueAccessor.
         MatDatepickerInputBase.prototype.writeValue = function (value) {
-            this.value = value;
+            this._assignValueProgrammatically(value);
         };
         // Implemented as part of ControlValueAccessor.
         MatDatepickerInputBase.prototype.registerOnChange = function (fn) {
@@ -2916,7 +2897,6 @@
             if (!this._dateAdapter.sameDate(date, this.value)) {
                 this._assignValue(date);
                 this._cvaOnChange(date);
-                this._valueChange.emit(date);
                 this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
             }
             else {
@@ -2968,6 +2948,14 @@
          */
         MatDatepickerInputBase.prototype._parentDisabled = function () {
             return false;
+        };
+        /** Programmatically assigns a value to the input. */
+        MatDatepickerInputBase.prototype._assignValueProgrammatically = function (value) {
+            value = this._dateAdapter.deserialize(value);
+            this._lastValueValid = this._isValidValue(value);
+            value = this._dateAdapter.getValidDateOrNull(value);
+            this._assignValue(value);
+            this._formatValue(value);
         };
         /** Gets whether a value matches the current date filter. */
         MatDatepickerInputBase.prototype._matchesFilter = function (value) {
@@ -3133,8 +3121,8 @@
         MatDatepickerInput.prototype._getDateFilter = function () {
             return this._dateFilter;
         };
-        MatDatepickerInput.prototype._canEmitChangeEvent = function () {
-            return true;
+        MatDatepickerInput.prototype._shouldHandleChangeEvent = function (event) {
+            return event.source !== this;
         };
         return MatDatepickerInput;
     }(MatDatepickerInputBase));
@@ -3301,11 +3289,6 @@
             _this._injector = _injector;
             _this._parentForm = _parentForm;
             _this._parentFormGroup = _parentFormGroup;
-            _this._outsideValueChanged = function () {
-                // Whenever the value changes outside the input we need to revalidate, because
-                // the validation state of each of the inputs depends on the other one.
-                _this._validatorOnChange();
-            };
             return _this;
         }
         MatDateRangeInputPartBase.prototype.ngOnInit = function () {
@@ -3364,6 +3347,16 @@
         MatDateRangeInputPartBase.prototype._parentDisabled = function () {
             return this._rangeInput._groupDisabled;
         };
+        MatDateRangeInputPartBase.prototype._shouldHandleChangeEvent = function (_a) {
+            var source = _a.source;
+            return source !== this._rangeInput._startInput && source !== this._rangeInput._endInput;
+        };
+        MatDateRangeInputPartBase.prototype._assignValueProgrammatically = function (value) {
+            _super.prototype._assignValueProgrammatically.call(this, value);
+            var opposite = (this === this._rangeInput._startInput ? this._rangeInput._endInput :
+                this._rangeInput._startInput);
+            opposite === null || opposite === void 0 ? void 0 : opposite._validatorOnChange();
+        };
         return MatDateRangeInputPartBase;
     }(MatDatepickerInputBase));
     MatDateRangeInputPartBase.decorators = [
@@ -3400,9 +3393,6 @@
                     null : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
             };
             _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._startValidator]));
-            _this._canEmitChangeEvent = function (event) {
-                return event.source !== _this._rangeInput._endInput;
-            };
             return _this;
         }
         MatStartDate.prototype.ngOnInit = function () {
@@ -3430,7 +3420,6 @@
             if (this._model) {
                 var range = new DateRange(value, this._model.selection.end);
                 this._model.updateSelection(range, this);
-                this._cvaOnChange(value);
             }
         };
         MatStartDate.prototype._formatValue = function (value) {
@@ -3500,9 +3489,6 @@
                     null : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
             };
             _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._endValidator]));
-            _this._canEmitChangeEvent = function (event) {
-                return event.source !== _this._rangeInput._startInput;
-            };
             return _this;
         }
         MatEndDate.prototype.ngOnInit = function () {
@@ -3530,7 +3516,6 @@
             if (this._model) {
                 var range = new DateRange(this._model.selection.start, value);
                 this._model.updateSelection(range, this);
-                this._cvaOnChange(value);
             }
         };
         MatEndDate.prototype._onKeydown = function (event) {

@@ -2320,8 +2320,6 @@ class MatDatepickerInputBase {
         this.dateChange = new EventEmitter();
         /** Emits when an `input` event is fired on this `<input>`. */
         this.dateInput = new EventEmitter();
-        /** Emits when the value changes (either due to user input or programmatic change). */
-        this._valueChange = new EventEmitter();
         /** Emits when the internal state has changed */
         this.stateChanges = new Subject();
         this._onTouched = () => { };
@@ -2368,7 +2366,7 @@ class MatDatepickerInputBase {
         }
         // Update the displayed date when the locale changes.
         this._localeSubscription = _dateAdapter.localeChanges.subscribe(() => {
-            this.value = this.value;
+            this._assignValueProgrammatically(this.value);
         });
     }
     /** The value of the input. */
@@ -2376,15 +2374,7 @@ class MatDatepickerInputBase {
         return this._model ? this._getValueFromModel(this._model.selection) : this._pendingValue;
     }
     set value(value) {
-        value = this._dateAdapter.deserialize(value);
-        this._lastValueValid = this._isValidValue(value);
-        value = this._dateAdapter.getValidDateOrNull(value);
-        const oldDate = this.value;
-        this._assignValue(value);
-        this._formatValue(value);
-        if (!this._dateAdapter.sameDate(oldDate, value)) {
-            this._valueChange.emit(value);
-        }
+        this._assignValueProgrammatically(value);
     }
     /** Whether the datepicker-input is disabled. */
     get disabled() { return !!this._disabled || this._parentDisabled(); }
@@ -2418,22 +2408,14 @@ class MatDatepickerInputBase {
             this._assignValue(this._pendingValue);
         }
         this._valueChangesSubscription = this._model.selectionChanged.subscribe(event => {
-            if (event.source !== this) {
+            if (this._shouldHandleChangeEvent(event)) {
                 const value = this._getValueFromModel(event.selection);
                 this._lastValueValid = this._isValidValue(value);
                 this._cvaOnChange(value);
                 this._onTouched();
                 this._formatValue(value);
-                // Note that we can't wrap the entire block with this logic, because for the range inputs
-                // we want to revalidate whenever either one of the inputs changes and we don't have a
-                // good way of distinguishing it at the moment.
-                if (this._canEmitChangeEvent(event)) {
-                    this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-                    this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-                }
-                if (this._outsideValueChanged) {
-                    this._outsideValueChanged();
-                }
+                this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+                this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
             }
         });
     }
@@ -2448,7 +2430,6 @@ class MatDatepickerInputBase {
     ngOnDestroy() {
         this._valueChangesSubscription.unsubscribe();
         this._localeSubscription.unsubscribe();
-        this._valueChange.complete();
         this.stateChanges.complete();
     }
     /** @docs-private */
@@ -2461,7 +2442,7 @@ class MatDatepickerInputBase {
     }
     // Implemented as part of ControlValueAccessor.
     writeValue(value) {
-        this.value = value;
+        this._assignValueProgrammatically(value);
     }
     // Implemented as part of ControlValueAccessor.
     registerOnChange(fn) {
@@ -2490,7 +2471,6 @@ class MatDatepickerInputBase {
         if (!this._dateAdapter.sameDate(date, this.value)) {
             this._assignValue(date);
             this._cvaOnChange(date);
-            this._valueChange.emit(date);
             this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
         }
         else {
@@ -2542,6 +2522,14 @@ class MatDatepickerInputBase {
      */
     _parentDisabled() {
         return false;
+    }
+    /** Programmatically assigns a value to the input. */
+    _assignValueProgrammatically(value) {
+        value = this._dateAdapter.deserialize(value);
+        this._lastValueValid = this._isValidValue(value);
+        value = this._dateAdapter.getValidDateOrNull(value);
+        this._assignValue(value);
+        this._formatValue(value);
     }
     /** Gets whether a value matches the current date filter. */
     _matchesFilter(value) {
@@ -2684,8 +2672,8 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     _getDateFilter() {
         return this._dateFilter;
     }
-    _canEmitChangeEvent() {
-        return true;
+    _shouldHandleChangeEvent(event) {
+        return event.source !== this;
     }
 }
 MatDatepickerInput.decorators = [
@@ -2848,11 +2836,6 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         this._injector = _injector;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
-        this._outsideValueChanged = () => {
-            // Whenever the value changes outside the input we need to revalidate, because
-            // the validation state of each of the inputs depends on the other one.
-            this._validatorOnChange();
-        };
     }
     ngOnInit() {
         // We need the date input to provide itself as a `ControlValueAccessor` and a `Validator`, while
@@ -2910,6 +2893,15 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
     _parentDisabled() {
         return this._rangeInput._groupDisabled;
     }
+    _shouldHandleChangeEvent({ source }) {
+        return source !== this._rangeInput._startInput && source !== this._rangeInput._endInput;
+    }
+    _assignValueProgrammatically(value) {
+        super._assignValueProgrammatically(value);
+        const opposite = (this === this._rangeInput._startInput ? this._rangeInput._endInput :
+            this._rangeInput._startInput);
+        opposite === null || opposite === void 0 ? void 0 : opposite._validatorOnChange();
+    }
 }
 MatDateRangeInputPartBase.decorators = [
     { type: Directive }
@@ -2943,9 +2935,6 @@ class MatStartDate extends _MatDateRangeInputBase {
                 null : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
         };
         this._validator = Validators.compose([...super._getValidators(), this._startValidator]);
-        this._canEmitChangeEvent = (event) => {
-            return event.source !== this._rangeInput._endInput;
-        };
     }
     ngOnInit() {
         // Normally this happens automatically, but it seems to break if not added explicitly when all
@@ -2972,7 +2961,6 @@ class MatStartDate extends _MatDateRangeInputBase {
         if (this._model) {
             const range = new DateRange(value, this._model.selection.end);
             this._model.updateSelection(range, this);
-            this._cvaOnChange(value);
         }
     }
     _formatValue(value) {
@@ -3039,9 +3027,6 @@ class MatEndDate extends _MatDateRangeInputBase {
                 null : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
         };
         this._validator = Validators.compose([...super._getValidators(), this._endValidator]);
-        this._canEmitChangeEvent = (event) => {
-            return event.source !== this._rangeInput._startInput;
-        };
     }
     ngOnInit() {
         // Normally this happens automatically, but it seems to break if not added explicitly when all
@@ -3068,7 +3053,6 @@ class MatEndDate extends _MatDateRangeInputBase {
         if (this._model) {
             const range = new DateRange(this._model.selection.start, value);
             this._model.updateSelection(range, this);
-            this._cvaOnChange(value);
         }
     }
     _onKeydown(event) {

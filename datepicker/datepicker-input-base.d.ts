@@ -50,13 +50,11 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     readonly dateChange: EventEmitter<MatDatepickerInputEvent<D, S>>;
     /** Emits when an `input` event is fired on this `<input>`. */
     readonly dateInput: EventEmitter<MatDatepickerInputEvent<D, S>>;
-    /** Emits when the value changes (either due to user input or programmatic change). */
-    _valueChange: EventEmitter<D | null>;
     /** Emits when the internal state has changed */
     stateChanges: Subject<void>;
     _onTouched: () => void;
     _validatorOnChange: () => void;
-    protected _cvaOnChange: (value: any) => void;
+    private _cvaOnChange;
     private _valueChangesSubscription;
     private _localeSubscription;
     /**
@@ -91,13 +89,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     protected abstract _getValueFromModel(modelValue: S): D | null;
     /** Combined form control validator for this input. */
     protected abstract _validator: ValidatorFn | null;
-    /**
-     * Callback that'll be invoked when the selection model is changed
-     * from somewhere that's not the current datepicker input.
-     */
-    protected abstract _outsideValueChanged?: () => void;
-    /** Predicate that determines whether we're allowed to emit a particular change event. */
-    protected abstract _canEmitChangeEvent(event: DateSelectionModelChange<S>): boolean;
+    /** Predicate that determines whether the input should handle a particular change event. */
+    protected abstract _shouldHandleChangeEvent(event: DateSelectionModelChange<S>): boolean;
     /** Whether the last value set on the input was valid. */
     protected _lastValueValid: boolean;
     constructor(_elementRef: ElementRef<HTMLInputElement>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);
@@ -128,6 +121,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
      * by inputs extending this one which can be placed inside of a group that can be disabled.
      */
     protected _parentDisabled(): boolean;
+    /** Programmatically assigns a value to the input. */
+    protected _assignValueProgrammatically(value: D | null): void;
     /** Gets whether a value matches the current date filter. */
     _matchesFilter(value: D | null): boolean;
     static ngAcceptInputType_value: any;
