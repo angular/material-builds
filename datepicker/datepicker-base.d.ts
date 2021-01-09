@@ -8,8 +8,8 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { ComponentType } from '@angular/cdk/portal';
-import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { ComponentType, TemplatePortal } from '@angular/cdk/portal';
+import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, Observable } from 'rxjs';
@@ -46,12 +46,13 @@ declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepicke
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> extends _MatDatepickerContentMixinBase implements AfterViewInit, OnDestroy, CanColor {
+export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> extends _MatDatepickerContentMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor {
     private _changeDetectorRef;
-    private _model;
+    private _globalModel;
     private _dateAdapter;
     private _rangeSelectionStrategy;
     private _subscriptions;
+    private _model;
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
     /** Reference to the datepicker that created the overlay. */
@@ -70,17 +71,22 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _closeButtonText: string;
     /** Whether the close button currently has focus. */
     _closeButtonFocused: boolean;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _model: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, 
+    /** Portal with projected action buttons. */
+    _actionsPortal: TemplatePortal | null;
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, 
     /**
      * @deprecated `intl` argument to become required.
      * @breaking-change 12.0.0
      */
     intl?: MatDatepickerIntl);
+    ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;
     _startExitAnimation(): void;
     _getSelected(): D | DateRange<D> | null;
+    /** Applies the current pending selection to the global model. */
+    _applyPendingSelection(): void;
 }
 /** Form control that can be associated with a datepicker. */
 export interface MatDatepickerControl<D> {
@@ -203,6 +209,8 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     private _focusedElementBeforeOpen;
     /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
     private _backdropHarnessClass;
+    /** Currently-registered actions portal. */
+    private _actionsPortal;
     /** The input element this datepicker is associated with. */
     datepickerInput: C;
     /** Emits when the datepicker's state changes. */
@@ -224,10 +232,22 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
      * @returns Selection model that the input should hook itself up to.
      */
     registerInput(input: C): MatDateSelectionModel<S, D>;
+    /**
+     * Registers a portal containing action buttons with the datepicker.
+     * @param portal Portal to be registered.
+     */
+    registerActions(portal: TemplatePortal): void;
+    /**
+     * Removes a portal containing action buttons from the datepicker.
+     * @param portal Portal to be removed.
+     */
+    removeActions(portal: TemplatePortal): void;
     /** Open the calendar. */
     open(): void;
     /** Close the calendar. */
     close(): void;
+    /** Applies the current pending selection on the popup to the model. */
+    _applyPendingSelection(): void;
     /** Open the calendar as a dialog. */
     private _openAsDialog;
     /** Open the calendar as a popup. */

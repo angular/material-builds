@@ -705,6 +705,17 @@
         MatDateSelectionModel.prototype._isValidDateInstance = function (date) {
             return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
         };
+        /**
+         * Clones the selection model.
+         * @deprecated To be turned into an abstract method.
+         * @breaking-change 12.0.0
+         */
+        MatDateSelectionModel.prototype.clone = function () {
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                throw Error('Not implemented');
+            }
+            return null;
+        };
         return MatDateSelectionModel;
     }());
     MatDateSelectionModel.decorators = [
@@ -737,6 +748,12 @@
          */
         MatSingleDateSelectionModel.prototype.isComplete = function () {
             return this.selection != null;
+        };
+        /** Clones the selection model. */
+        MatSingleDateSelectionModel.prototype.clone = function () {
+            var clone = new MatSingleDateSelectionModel(this._adapter);
+            clone.updateSelection(this.selection, this);
+            return clone;
         };
         return MatSingleDateSelectionModel;
     }(MatDateSelectionModel));
@@ -793,6 +810,12 @@
          */
         MatRangeDateSelectionModel.prototype.isComplete = function () {
             return this.selection.start != null && this.selection.end != null;
+        };
+        /** Clones the selection model. */
+        MatRangeDateSelectionModel.prototype.clone = function () {
+            var clone = new MatRangeDateSelectionModel(this._adapter);
+            clone.updateSelection(this.selection, this);
+            return clone;
         };
         return MatRangeDateSelectionModel;
     }(MatDateSelectionModel));
@@ -2194,7 +2217,7 @@
      */
     var MatDatepickerContent = /** @class */ (function (_super) {
         __extends(MatDatepickerContent, _super);
-        function MatDatepickerContent(elementRef, _changeDetectorRef, _model, _dateAdapter, _rangeSelectionStrategy, 
+        function MatDatepickerContent(elementRef, _changeDetectorRef, _globalModel, _dateAdapter, _rangeSelectionStrategy, 
         /**
          * @deprecated `intl` argument to become required.
          * @breaking-change 12.0.0
@@ -2202,7 +2225,7 @@
         intl) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
-            _this._model = _model;
+            _this._globalModel = _globalModel;
             _this._dateAdapter = _dateAdapter;
             _this._rangeSelectionStrategy = _rangeSelectionStrategy;
             _this._subscriptions = new rxjs.Subscription();
@@ -2210,10 +2233,18 @@
             _this._animationState = 'enter';
             /** Emits when an animation has finished. */
             _this._animationDone = new rxjs.Subject();
+            /** Portal with projected action buttons. */
+            _this._actionsPortal = null;
             // @breaking-change 12.0.0 Remove fallback for `intl`.
             _this._closeButtonText = (intl === null || intl === void 0 ? void 0 : intl.closeCalendarLabel) || 'Close calendar';
             return _this;
         }
+        MatDatepickerContent.prototype.ngOnInit = function () {
+            // If we have actions, clone the model so that we have the ability to cancel the selection,
+            // otherwise update the global model directly. Note that we want to assign this as soon as
+            // possible, but `_actionsPortal` isn't available in the constructor so we do it in `ngOnInit`.
+            this._model = this._actionsPortal ? this._globalModel.clone() : this._globalModel;
+        };
         MatDatepickerContent.prototype.ngAfterViewInit = function () {
             var _this = this;
             this._subscriptions.add(this.datepicker.stateChanges.subscribe(function () {
@@ -2242,7 +2273,8 @@
                 !this._dateAdapter.sameDate(value, selection))) {
                 this._model.add(value);
             }
-            if (!this._model || this._model.isComplete()) {
+            // Delegate closing the popup to the actions.
+            if ((!this._model || this._model.isComplete()) && !this._actionsPortal) {
                 this.datepicker.close();
             }
         };
@@ -2253,12 +2285,18 @@
         MatDatepickerContent.prototype._getSelected = function () {
             return this._model.selection;
         };
+        /** Applies the current pending selection to the global model. */
+        MatDatepickerContent.prototype._applyPendingSelection = function () {
+            if (this._model !== this._globalModel) {
+                this._globalModel.updateSelection(this._model.selection, this);
+            }
+        };
         return MatDatepickerContent;
     }(_MatDatepickerContentMixinBase));
     MatDatepickerContent.decorators = [
         { type: i0.Component, args: [{
                     selector: 'mat-datepicker-content',
-                    template: "<div cdkTrapFocus>\n  <mat-calendar\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\"></mat-calendar>\n\n  <!-- Invisible close button for screen reader users. -->\n  <button\n    type=\"button\"\n    mat-raised-button\n    [color]=\"color || 'primary'\"\n    class=\"mat-datepicker-close-button\"\n    [class.cdk-visually-hidden]=\"!_closeButtonFocused\"\n    (focus)=\"_closeButtonFocused = true\"\n    (blur)=\"_closeButtonFocused = false\"\n    (click)=\"datepicker.close()\">{{ _closeButtonText }}</button>\n</div>\n",
+                    template: "<div\n  cdkTrapFocus\n  class=\"mat-datepicker-content-container\"\n  [class.mat-datepicker-content-container-with-actions]=\"_actionsPortal\">\n  <mat-calendar\n    [id]=\"datepicker.id\"\n    [ngClass]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\"></mat-calendar>\n\n  <ng-template [cdkPortalOutlet]=\"_actionsPortal\"></ng-template>\n\n  <!-- Invisible close button for screen reader users. -->\n  <button\n    type=\"button\"\n    mat-raised-button\n    [color]=\"color || 'primary'\"\n    class=\"mat-datepicker-close-button\"\n    [class.cdk-visually-hidden]=\"!_closeButtonFocused\"\n    (focus)=\"_closeButtonFocused = true\"\n    (blur)=\"_closeButtonFocused = false\"\n    (click)=\"datepicker.close()\">{{ _closeButtonText }}</button>\n</div>\n",
                     host: {
                         'class': 'mat-datepicker-content',
                         '[@transformPanel]': '_animationState',
@@ -2273,7 +2311,7 @@
                     encapsulation: i0.ViewEncapsulation.None,
                     changeDetection: i0.ChangeDetectionStrategy.OnPush,
                     inputs: ['color'],
-                    styles: [".mat-datepicker-content{display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.mat-datepicker-content-touch{display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}\n"]
+                    styles: [".mat-datepicker-content{display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.mat-datepicker-content-container{display:flex;flex-direction:column;justify-content:space-between}.mat-datepicker-content-touch{display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-datepicker-content-container{min-height:312px;max-height:788px;min-width:250px;max-width:750px}.mat-datepicker-content-touch .mat-calendar{width:100%;height:auto}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-datepicker-content-container{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-datepicker-content-container{width:80vw;height:100vw}.mat-datepicker-content-touch .mat-datepicker-content-container-with-actions{height:115vw}}\n"]
                 },] }
     ];
     MatDatepickerContent.ctorParameters = function () { return [
@@ -2471,6 +2509,25 @@
                 input.stateChanges.subscribe(function () { return _this.stateChanges.next(undefined); });
             return this._model;
         };
+        /**
+         * Registers a portal containing action buttons with the datepicker.
+         * @param portal Portal to be registered.
+         */
+        MatDatepickerBase.prototype.registerActions = function (portal) {
+            if (this._actionsPortal && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+                throw Error('A MatDatepicker can only be associated with a single actions row.');
+            }
+            this._actionsPortal = portal;
+        };
+        /**
+         * Removes a portal containing action buttons from the datepicker.
+         * @param portal Portal to be removed.
+         */
+        MatDatepickerBase.prototype.removeActions = function (portal) {
+            if (portal === this._actionsPortal) {
+                this._actionsPortal = null;
+            }
+        };
         /** Open the calendar. */
         MatDatepickerBase.prototype.open = function () {
             if (this._opened || this.disabled) {
@@ -2523,6 +2580,12 @@
             else {
                 completeClose();
             }
+        };
+        /** Applies the current pending selection on the popup to the model. */
+        MatDatepickerBase.prototype._applyPendingSelection = function () {
+            var _a, _b;
+            var instance = ((_a = this._popupComponentRef) === null || _a === void 0 ? void 0 : _a.instance) || ((_b = this._dialogRef) === null || _b === void 0 ? void 0 : _b.componentInstance);
+            instance === null || instance === void 0 ? void 0 : instance._applyPendingSelection();
         };
         /** Open the calendar as a dialog. */
         MatDatepickerBase.prototype._openAsDialog = function () {
@@ -2581,6 +2644,7 @@
         MatDatepickerBase.prototype._forwardContentValues = function (instance) {
             instance.datepicker = this;
             instance.color = this.color;
+            instance._actionsPortal = this._actionsPortal;
         };
         /** Create the popup. */
         MatDatepickerBase.prototype._createPopup = function () {
@@ -2705,7 +2769,10 @@
                     exportAs: 'matDatepicker',
                     changeDetection: i0.ChangeDetectionStrategy.OnPush,
                     encapsulation: i0.ViewEncapsulation.None,
-                    providers: [MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER]
+                    providers: [
+                        MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER,
+                        { provide: MatDatepickerBase, useExisting: MatDatepicker },
+                    ]
                 },] }
     ];
 
@@ -3920,9 +3987,93 @@
                     providers: [
                         MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER,
                         MAT_CALENDAR_RANGE_STRATEGY_PROVIDER,
+                        { provide: MatDatepickerBase, useExisting: MatDateRangePicker },
                     ]
                 },] }
     ];
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /** Button that will close the datepicker and assign the current selection to the data model. */
+    var MatDatepickerApply = /** @class */ (function () {
+        function MatDatepickerApply(_datepicker) {
+            this._datepicker = _datepicker;
+        }
+        MatDatepickerApply.prototype._applySelection = function () {
+            this._datepicker._applyPendingSelection();
+            this._datepicker.close();
+        };
+        return MatDatepickerApply;
+    }());
+    MatDatepickerApply.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[matDatepickerApply], [matDateRangePickerApply]',
+                    host: { '(click)': '_applySelection()' }
+                },] }
+    ];
+    MatDatepickerApply.ctorParameters = function () { return [
+        { type: MatDatepickerBase }
+    ]; };
+    /** Button that will close the datepicker and discard the current selection. */
+    var MatDatepickerCancel = /** @class */ (function () {
+        function MatDatepickerCancel(_datepicker) {
+            this._datepicker = _datepicker;
+        }
+        return MatDatepickerCancel;
+    }());
+    MatDatepickerCancel.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[matDatepickerCancel], [matDateRangePickerCancel]',
+                    host: { '(click)': '_datepicker.close()' }
+                },] }
+    ];
+    MatDatepickerCancel.ctorParameters = function () { return [
+        { type: MatDatepickerBase }
+    ]; };
+    /**
+     * Container that can be used to project a row of action buttons
+     * to the bottom of a datepicker or date range picker.
+     */
+    var MatDatepickerActions = /** @class */ (function () {
+        function MatDatepickerActions(_datepicker, _viewContainerRef) {
+            this._datepicker = _datepicker;
+            this._viewContainerRef = _viewContainerRef;
+        }
+        MatDatepickerActions.prototype.ngAfterViewInit = function () {
+            this._portal = new portal.TemplatePortal(this._template, this._viewContainerRef);
+            this._datepicker.registerActions(this._portal);
+        };
+        MatDatepickerActions.prototype.ngOnDestroy = function () {
+            var _a;
+            this._datepicker.removeActions(this._portal);
+            // Needs to be null checked since we initialize it in `ngAfterViewInit`.
+            if (this._portal && this._portal.isAttached) {
+                (_a = this._portal) === null || _a === void 0 ? void 0 : _a.detach();
+            }
+        };
+        return MatDatepickerActions;
+    }());
+    MatDatepickerActions.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'mat-datepicker-actions, mat-date-range-picker-actions',
+                    template: "\n    <ng-template>\n      <div class=\"mat-datepicker-actions\">\n        <ng-content></ng-content>\n      </div>\n    </ng-template>\n  ",
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    encapsulation: i0.ViewEncapsulation.None,
+                    styles: [".mat-datepicker-actions{display:flex;justify-content:flex-end;align-items:center;padding:0 8px 8px 8px}.mat-datepicker-actions .mat-button-base+.mat-button-base{margin-left:8px}[dir=rtl] .mat-datepicker-actions .mat-button-base+.mat-button-base{margin-left:0;margin-right:8px}\n"]
+                },] }
+    ];
+    MatDatepickerActions.ctorParameters = function () { return [
+        { type: MatDatepickerBase },
+        { type: i0.ViewContainerRef }
+    ]; };
+    MatDatepickerActions.propDecorators = {
+        _template: [{ type: i0.ViewChild, args: [i0.TemplateRef,] }]
+    };
 
     /**
      * @license
@@ -3964,6 +4115,9 @@
                         MatStartDate,
                         MatEndDate,
                         MatDateRangePicker,
+                        MatDatepickerActions,
+                        MatDatepickerCancel,
+                        MatDatepickerApply
                     ],
                     declarations: [
                         MatCalendar,
@@ -3981,6 +4135,9 @@
                         MatStartDate,
                         MatEndDate,
                         MatDateRangePicker,
+                        MatDatepickerActions,
+                        MatDatepickerCancel,
+                        MatDatepickerApply
                     ],
                     providers: [
                         MatDatepickerIntl,
@@ -4025,6 +4182,9 @@
     exports.MatDateRangePicker = MatDateRangePicker;
     exports.MatDateSelectionModel = MatDateSelectionModel;
     exports.MatDatepicker = MatDatepicker;
+    exports.MatDatepickerActions = MatDatepickerActions;
+    exports.MatDatepickerApply = MatDatepickerApply;
+    exports.MatDatepickerCancel = MatDatepickerCancel;
     exports.MatDatepickerContent = MatDatepickerContent;
     exports.MatDatepickerInput = MatDatepickerInput;
     exports.MatDatepickerInputEvent = MatDatepickerInputEvent;
