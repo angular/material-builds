@@ -1029,6 +1029,7 @@ class MatMenuTrigger {
             positionStrategy: this._overlay.position()
                 .flexibleConnectedTo(this._element)
                 .withLockedPosition()
+                .withGrowAfterOpen()
                 .withTransformOriginOn('.mat-menu-panel, .mat-mdc-menu-panel'),
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             panelClass: this.menu.overlayPanelClass,
