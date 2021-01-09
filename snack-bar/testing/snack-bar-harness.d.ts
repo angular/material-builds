@@ -12,10 +12,10 @@ import { SnackBarHarnessFilters } from './snack-bar-harness-filters';
 export declare class MatSnackBarHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;
-    private _simpleSnackBar;
+    protected _messageSelector: string;
+    protected _simpleSnackBarSelector: string;
+    protected _actionButtonSelector: string;
     private _simpleSnackBarLiveRegion;
-    private _simpleSnackBarMessage;
-    private _simpleSnackBarActionButton;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
      * certain criteria.
@@ -67,4 +67,6 @@ export declare class MatSnackBarHarness extends ContentContainerComponentHarness
     private _assertSimpleSnackBarWithAction;
     /** Whether the snack-bar is using the default content template. */
     private _isSimpleSnackBar;
+    /** Gets the simple snack bar action button. */
+    private _getSimpleSnackBarActionButton;
 }

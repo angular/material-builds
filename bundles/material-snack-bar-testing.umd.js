@@ -310,10 +310,10 @@
         __extends(MatSnackBarHarness, _super);
         function MatSnackBarHarness() {
             var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._simpleSnackBar = _this.locatorForOptional('.mat-simple-snackbar');
+            _this._messageSelector = '.mat-simple-snackbar > span';
+            _this._simpleSnackBarSelector = '.mat-simple-snackbar';
+            _this._actionButtonSelector = '.mat-simple-snackbar-action > button';
             _this._simpleSnackBarLiveRegion = _this.locatorFor('[aria-live]');
-            _this._simpleSnackBarMessage = _this.locatorFor('.mat-simple-snackbar > span');
-            _this._simpleSnackBarActionButton = _this.locatorForOptional('.mat-simple-snackbar-action > button');
             return _this;
         }
         /**
@@ -367,7 +367,7 @@
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this._simpleSnackBarActionButton()];
+                            return [4 /*yield*/, this._getSimpleSnackBarActionButton()];
                         case 2: return [2 /*return*/, (_a.sent()) !== null];
                     }
                 });
@@ -384,7 +384,7 @@
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBarWithAction()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this._simpleSnackBarActionButton()];
+                            return [4 /*yield*/, this._getSimpleSnackBarActionButton()];
                         case 2: return [2 /*return*/, (_a.sent()).text()];
                     }
                 });
@@ -401,7 +401,7 @@
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBarWithAction()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this._simpleSnackBarActionButton()];
+                            return [4 /*yield*/, this._getSimpleSnackBarActionButton()];
                         case 2: return [4 /*yield*/, (_a.sent()).click()];
                         case 3:
                             _a.sent();
@@ -420,7 +420,7 @@
                         case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this._simpleSnackBarMessage()];
+                            return [4 /*yield*/, this.locatorFor(this._messageSelector)()];
                         case 2: return [2 /*return*/, (_a.sent()).text()];
                     }
                 });
@@ -492,9 +492,17 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._simpleSnackBar()];
+                        case 0: return [4 /*yield*/, this.locatorForOptional(this._simpleSnackBarSelector)()];
                         case 1: return [2 /*return*/, (_a.sent()) !== null];
                     }
+                });
+            });
+        };
+        /** Gets the simple snack bar action button. */
+        MatSnackBarHarness.prototype._getSimpleSnackBarActionButton = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForOptional(this._actionButtonSelector)()];
                 });
             });
         };

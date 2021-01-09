@@ -12,10 +12,10 @@ import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@a
 class MatSnackBarHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._simpleSnackBar = this.locatorForOptional('.mat-simple-snackbar');
+        this._messageSelector = '.mat-simple-snackbar > span';
+        this._simpleSnackBarSelector = '.mat-simple-snackbar';
+        this._actionButtonSelector = '.mat-simple-snackbar-action > button';
         this._simpleSnackBarLiveRegion = this.locatorFor('[aria-live]');
-        this._simpleSnackBarMessage = this.locatorFor('.mat-simple-snackbar > span');
-        this._simpleSnackBarActionButton = this.locatorForOptional('.mat-simple-snackbar-action > button');
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
@@ -53,7 +53,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     hasAction() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBar();
-            return (yield this._simpleSnackBarActionButton()) !== null;
+            return (yield this._getSimpleSnackBarActionButton()) !== null;
         });
     }
     /**
@@ -63,7 +63,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     getActionDescription() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBarWithAction();
-            return (yield this._simpleSnackBarActionButton()).text();
+            return (yield this._getSimpleSnackBarActionButton()).text();
         });
     }
     /**
@@ -73,7 +73,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     dismissWithAction() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBarWithAction();
-            yield (yield this._simpleSnackBarActionButton()).click();
+            yield (yield this._getSimpleSnackBarActionButton()).click();
         });
     }
     /**
@@ -82,7 +82,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     getMessage() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this._assertSimpleSnackBar();
-            return (yield this._simpleSnackBarMessage()).text();
+            return (yield this.locatorFor(this._messageSelector)()).text();
         });
     }
     /** Gets whether the snack-bar has been dismissed. */
@@ -126,7 +126,13 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
     /** Whether the snack-bar is using the default content template. */
     _isSimpleSnackBar() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._simpleSnackBar()) !== null;
+            return (yield this.locatorForOptional(this._simpleSnackBarSelector)()) !== null;
+        });
+    }
+    /** Gets the simple snack bar action button. */
+    _getSimpleSnackBarActionButton() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.locatorForOptional(this._actionButtonSelector)();
         });
     }
 }
