@@ -41,6 +41,16 @@ export interface IconOptions {
     withCredentials?: boolean;
 }
 /**
+ * Function that will be invoked by the icon registry when trying to resolve the
+ * URL from which to fetch an icon. The returned URL will be used to make a request for the icon.
+ */
+export declare type IconResolver = (name: string, namespace: string) => (SafeResourceUrl | SafeResourceUrlWithIconOptions | null);
+/** Object that specifies a URL from which to fetch an icon and the options to use for it. */
+export interface SafeResourceUrlWithIconOptions {
+    url: SafeResourceUrl;
+    options: IconOptions;
+}
+/**
  * Service to register and display icons used by the `<mat-icon>` component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.
@@ -67,6 +77,8 @@ export declare class MatIconRegistry implements OnDestroy {
     private _inProgressUrlFetches;
     /** Map from font identifiers to their CSS class names. Used for icon fonts. */
     private _fontCssClassesByAlias;
+    /** Registered icon resolver functions. */
+    private _resolvers;
     /**
      * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
      * The default 'material-icons' value assumes that the material icon font has been loaded as
@@ -93,6 +105,15 @@ export declare class MatIconRegistry implements OnDestroy {
      * @param url
      */
     addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl, options?: IconOptions): this;
+    /**
+     * Registers an icon resolver function with the registry. The function will be invoked with the
+     * name and namespace of an icon when the registry tries to resolve the URL from which to fetch
+     * the icon. The resolver is expected to return a `SafeResourceUrl` that points to the icon,
+     * an object with the icon URL and icon options, or `null` if the icon is not supported. Resolvers
+     * will be invoked in the order in which they have been registered.
+     * @param resolver Resolver function to be registered.
+     */
+    addSvgIconResolver(resolver: IconResolver): this;
     /**
      * Registers an icon using an HTML string in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
@@ -234,6 +255,8 @@ export declare class MatIconRegistry implements OnDestroy {
     private _addSvgIconSetConfig;
     /** Parses a config's text into an SVG element. */
     private _svgElementFromConfig;
+    /** Tries to create an icon config through the registered resolver functions. */
+    private _getIconConfigFromResolvers;
 }
 /** @docs-private */
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;

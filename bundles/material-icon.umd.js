@@ -387,6 +387,8 @@
             this._inProgressUrlFetches = new Map();
             /** Map from font identifiers to their CSS class names. Used for icon fonts. */
             this._fontCssClassesByAlias = new Map();
+            /** Registered icon resolver functions. */
+            this._resolvers = [];
             /**
              * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
              * The default 'material-icons' value assumes that the material icon font has been loaded as
@@ -419,6 +421,18 @@
          */
         MatIconRegistry.prototype.addSvgIconInNamespace = function (namespace, iconName, url, options) {
             return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url, null, options));
+        };
+        /**
+         * Registers an icon resolver function with the registry. The function will be invoked with the
+         * name and namespace of an icon when the registry tries to resolve the URL from which to fetch
+         * the icon. The resolver is expected to return a `SafeResourceUrl` that points to the icon,
+         * an object with the icon URL and icon options, or `null` if the icon is not supported. Resolvers
+         * will be invoked in the order in which they have been registered.
+         * @param resolver Resolver function to be registered.
+         */
+        MatIconRegistry.prototype.addSvgIconResolver = function (resolver) {
+            this._resolvers.push(resolver);
+            return this;
         };
         /**
          * Registers an icon using an HTML string in the specified namespace.
@@ -535,10 +549,16 @@
          */
         MatIconRegistry.prototype.getNamedSvgIcon = function (name, namespace) {
             if (namespace === void 0) { namespace = ''; }
-            // Return (copy of) cached icon if possible.
             var key = iconKey(namespace, name);
             var config = this._svgIconConfigs.get(key);
+            // Return (copy of) cached icon if possible.
             if (config) {
+                return this._getSvgFromConfig(config);
+            }
+            // Otherwise try to resolve the config from one of the resolver functions.
+            config = this._getIconConfigFromResolvers(namespace, name);
+            if (config) {
+                this._svgIconConfigs.set(key, config);
                 return this._getSvgFromConfig(config);
             }
             // See if we have any icon sets registered for the namespace.
@@ -549,6 +569,7 @@
             return rxjs.throwError(getMatIconNameNotFoundError(key));
         };
         MatIconRegistry.prototype.ngOnDestroy = function () {
+            this._resolvers = [];
             this._svgIconConfigs.clear();
             this._iconSetConfigs.clear();
             this._cachedIconsByUrl.clear();
@@ -801,6 +822,18 @@
             }
             return config.svgElement;
         };
+        /** Tries to create an icon config through the registered resolver functions. */
+        MatIconRegistry.prototype._getIconConfigFromResolvers = function (namespace, name) {
+            for (var i = 0; i < this._resolvers.length; i++) {
+                var result = this._resolvers[i](name, namespace);
+                if (result) {
+                    return isSafeUrlWithOptions(result) ?
+                        new SvgIconConfig(result.url, null, result.options) :
+                        new SvgIconConfig(result, null);
+                }
+            }
+            return undefined;
+        };
         return MatIconRegistry;
     }());
     MatIconRegistry.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
@@ -837,6 +870,9 @@
     /** Returns the cache key to use for an icon namespace and name. */
     function iconKey(namespace, name) {
         return namespace + ':' + name;
+    }
+    function isSafeUrlWithOptions(value) {
+        return !!(value.url && value.options);
     }
 
     // Boilerplate for applying mixins to MatIcon.

@@ -30,6 +30,7 @@ export declare class FakeMatIconRegistry implements PublicApi<MatIconRegistry>, 
     getSvgIconFromUrl(): Observable<SVGElement>;
     getNamedSvgIcon(): Observable<SVGElement>;
     setDefaultFontSetClass(): this;
+    addSvgIconResolver(): this;
     ngOnDestroy(): void;
     private _generateEmptySvg;
 }

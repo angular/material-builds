@@ -88,6 +88,8 @@ class MatIconRegistry {
         this._inProgressUrlFetches = new Map();
         /** Map from font identifiers to their CSS class names. Used for icon fonts. */
         this._fontCssClassesByAlias = new Map();
+        /** Registered icon resolver functions. */
+        this._resolvers = [];
         /**
          * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
          * The default 'material-icons' value assumes that the material icon font has been loaded as
@@ -120,6 +122,18 @@ class MatIconRegistry {
      */
     addSvgIconInNamespace(namespace, iconName, url, options) {
         return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(url, null, options));
+    }
+    /**
+     * Registers an icon resolver function with the registry. The function will be invoked with the
+     * name and namespace of an icon when the registry tries to resolve the URL from which to fetch
+     * the icon. The resolver is expected to return a `SafeResourceUrl` that points to the icon,
+     * an object with the icon URL and icon options, or `null` if the icon is not supported. Resolvers
+     * will be invoked in the order in which they have been registered.
+     * @param resolver Resolver function to be registered.
+     */
+    addSvgIconResolver(resolver) {
+        this._resolvers.push(resolver);
+        return this;
     }
     /**
      * Registers an icon using an HTML string in the specified namespace.
@@ -233,10 +247,16 @@ class MatIconRegistry {
      * @param namespace Namespace in which to look for the icon.
      */
     getNamedSvgIcon(name, namespace = '') {
-        // Return (copy of) cached icon if possible.
         const key = iconKey(namespace, name);
-        const config = this._svgIconConfigs.get(key);
+        let config = this._svgIconConfigs.get(key);
+        // Return (copy of) cached icon if possible.
         if (config) {
+            return this._getSvgFromConfig(config);
+        }
+        // Otherwise try to resolve the config from one of the resolver functions.
+        config = this._getIconConfigFromResolvers(namespace, name);
+        if (config) {
+            this._svgIconConfigs.set(key, config);
             return this._getSvgFromConfig(config);
         }
         // See if we have any icon sets registered for the namespace.
@@ -247,6 +267,7 @@ class MatIconRegistry {
         return throwError(getMatIconNameNotFoundError(key));
     }
     ngOnDestroy() {
+        this._resolvers = [];
         this._svgIconConfigs.clear();
         this._iconSetConfigs.clear();
         this._cachedIconsByUrl.clear();
@@ -496,6 +517,18 @@ class MatIconRegistry {
         }
         return config.svgElement;
     }
+    /** Tries to create an icon config through the registered resolver functions. */
+    _getIconConfigFromResolvers(namespace, name) {
+        for (let i = 0; i < this._resolvers.length; i++) {
+            const result = this._resolvers[i](name, namespace);
+            if (result) {
+                return isSafeUrlWithOptions(result) ?
+                    new SvgIconConfig(result.url, null, result.options) :
+                    new SvgIconConfig(result, null);
+            }
+        }
+        return undefined;
+    }
 }
 MatIconRegistry.ɵprov = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
 MatIconRegistry.decorators = [
@@ -531,6 +564,9 @@ function cloneSvg(svg) {
 /** Returns the cache key to use for an icon namespace and name. */
 function iconKey(namespace, name) {
     return namespace + ':' + name;
+}
+function isSafeUrlWithOptions(value) {
+    return !!(value.url && value.options);
 }
 
 /**

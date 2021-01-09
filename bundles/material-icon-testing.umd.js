@@ -407,7 +407,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    // tslint:enable:no-any
     /**
      * A null icon registry that must be imported to allow disabling of custom
      * icons.
@@ -455,6 +454,9 @@
             return rxjs.of(this._generateEmptySvg());
         };
         FakeMatIconRegistry.prototype.setDefaultFontSetClass = function () {
+            return this;
+        };
+        FakeMatIconRegistry.prototype.addSvgIconResolver = function () {
             return this;
         };
         FakeMatIconRegistry.prototype.ngOnDestroy = function () { };

@@ -80,7 +80,6 @@ MatIconHarness.hostSelector = '.mat-icon';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// tslint:enable:no-any
 /**
  * A null icon registry that must be imported to allow disabling of custom
  * icons.
@@ -126,6 +125,9 @@ class FakeMatIconRegistry {
         return of(this._generateEmptySvg());
     }
     setDefaultFontSetClass() {
+        return this;
+    }
+    addSvgIconResolver() {
         return this;
     }
     ngOnDestroy() { }
