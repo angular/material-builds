@@ -459,7 +459,7 @@ class _MatAutocompleteTriggerBase {
     }
     /** Stream of clicks outside of the autocomplete panel. */
     _getOutsideClickStream() {
-        return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))
+        return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'auxclick'), fromEvent(this._document, 'touchend'))
             .pipe(filter(event => {
             // If we're in the Shadow DOM, the event target will be the shadow root, so we have to
             // fall back to check the first element in the path of the click event.
