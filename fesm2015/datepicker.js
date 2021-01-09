@@ -3065,7 +3065,8 @@ MatStartDate.decorators = [
                 ],
                 // These need to be specified explicitly, because some tooling doesn't
                 // seem to pick them up from the base class. See #20932.
-                outputs: ['dateChange', 'dateInput']
+                outputs: ['dateChange', 'dateInput'],
+                inputs: ['errorStateMatcher']
             },] }
 ];
 MatStartDate.ctorParameters = () => [
@@ -3152,7 +3153,8 @@ MatEndDate.decorators = [
                 ],
                 // These need to be specified explicitly, because some tooling doesn't
                 // seem to pick them up from the base class. See #20932.
-                outputs: ['dateChange', 'dateInput']
+                outputs: ['dateChange', 'dateInput'],
+                inputs: ['errorStateMatcher']
             },] }
 ];
 MatEndDate.ctorParameters = () => [
