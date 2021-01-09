@@ -739,7 +739,7 @@
         /** Stream of clicks outside of the autocomplete panel. */
         _MatAutocompleteTriggerBase.prototype._getOutsideClickStream = function () {
             var _this = this;
-            return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
+            return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'auxclick'), rxjs.fromEvent(this._document, 'touchend'))
                 .pipe(operators.filter(function (event) {
                 // If we're in the Shadow DOM, the event target will be the shadow root, so we have to
                 // fall back to check the first element in the path of the click event.
