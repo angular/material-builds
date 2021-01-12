@@ -25,6 +25,7 @@ export declare class MatTreeNode<T, K = T> extends _MatTreeNodeMixinBase<T, K> i
 }
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
+ * Captures the node's template and a when predicate that describes when this node should be used.
  */
 export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
     data: T;
