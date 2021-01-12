@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('11.1.0-next.0-sha-f5bb3b0a0');
+    var VERSION = new i0.Version('11.1.0-next.0-sha-757647582');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('11.1.0-next.0-sha-f5bb3b0a0');
+    var VERSION$1 = new i0.Version('11.1.0-next.0-sha-757647582');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -182,6 +182,8 @@
         return extendStatics(d, b);
     };
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -367,11 +369,13 @@
         }
         return ar;
     }
+    /** @deprecated */
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
+    /** @deprecated */
     function __spreadArrays() {
         for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
@@ -380,7 +384,11 @@
                 r[k] = a[j];
         return r;
     }
-    ;
+    function __spreadArray(to, from) {
+        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+            to[j] = from[i];
+        return to;
+    }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
