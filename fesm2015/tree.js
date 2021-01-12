@@ -56,6 +56,7 @@ MatTreeNode.ctorParameters = () => [
 ];
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
+ * Captures the node's template and a when predicate that describes when this node should be used.
  */
 class MatTreeNodeDef extends CdkTreeNodeDef {
 }
@@ -97,9 +98,9 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
         // If the specified tabIndex value is null or undefined, fall back to the default value.
         this._tabIndex = value != null ? value : 0;
     }
-    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // This is a workaround for https://github.com/angular/angular/issues/19145
     // In aot mode, the lifecycle hooks from parent class are not called.
-    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    // TODO(tinayuangao): Remove when the angular issue #19145 is fixed
     ngOnInit() {
         super.ngOnInit();
     }
