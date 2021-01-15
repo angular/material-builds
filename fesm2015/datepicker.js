@@ -1950,6 +1950,7 @@ class MatDatepickerBase {
         this.xPosition = 'start';
         /** Preferred position of the datepicker in the Y axis. */
         this.yPosition = 'below';
+        this._restoreFocus = true;
         /**
          * Emits selected year in multiyear view.
          * This doesn't imply a change on the selected date.
@@ -2018,6 +2019,15 @@ class MatDatepickerBase {
             this._disabled = newValue;
             this.stateChanges.next(undefined);
         }
+    }
+    /**
+     * Whether to restore focus to the previously-focused element when the calendar is closed.
+     * Note that automatic focus restoration is an accessibility feature and it is recommended that
+     * you provide your own equivalent, if you decide to turn it off.
+     */
+    get restoreFocus() { return this._restoreFocus; }
+    set restoreFocus(value) {
+        this._restoreFocus = coerceBooleanProperty(value);
     }
     /**
      * Classes to be passed to the date picker panel.
@@ -2147,7 +2157,7 @@ class MatDatepickerBase {
                 this._focusedElementBeforeOpen = null;
             }
         };
-        if (this._focusedElementBeforeOpen &&
+        if (this._restoreFocus && this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
             // Because IE moves focus asynchronously, we can't count on it being restored before we've
             // marked the datepicker as closed. If the event fires out of sequence and the element that
@@ -2317,6 +2327,7 @@ MatDatepickerBase.propDecorators = {
     disabled: [{ type: Input }],
     xPosition: [{ type: Input }],
     yPosition: [{ type: Input }],
+    restoreFocus: [{ type: Input }],
     yearSelected: [{ type: Output }],
     monthSelected: [{ type: Output }],
     viewChanged: [{ type: Output }],

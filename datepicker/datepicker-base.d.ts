@@ -162,6 +162,14 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     /** Preferred position of the datepicker in the Y axis. */
     yPosition: DatepickerDropdownPositionY;
     /**
+     * Whether to restore focus to the previously-focused element when the calendar is closed.
+     * Note that automatic focus restoration is an accessibility feature and it is recommended that
+     * you provide your own equivalent, if you decide to turn it off.
+     */
+    get restoreFocus(): boolean;
+    set restoreFocus(value: boolean);
+    private _restoreFocus;
+    /**
      * Emits selected year in multiyear view.
      * This doesn't imply a change on the selected date.
      */
@@ -263,5 +271,6 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_opened: BooleanInput;
     static ngAcceptInputType_touchUi: BooleanInput;
+    static ngAcceptInputType_restoreFocus: BooleanInput;
 }
 export {};
