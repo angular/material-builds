@@ -5698,7 +5698,9 @@ $mat-step-header-icon-size: 16px;
 
         // Override ink bar when background color is the same
         &.mat-background-#{$name} {
-          @include _mat-ink-bar($color, default-contrast);
+          > .mat-tab-header, > .mat-tab-link-container {
+            @include _mat-ink-bar($color, default-contrast);
+          }
         }
       }
     }
@@ -5732,13 +5734,16 @@ $mat-step-header-icon-size: 16px;
 }
 
 @mixin _mat-tabs-background($background-color) {
+  // Note that these selectors target direct descendants so
+  // that the styles don't apply to any nested tab groups.
+
   // Set background color for the tab group
-  .mat-tab-header, .mat-tab-links, .mat-tab-header-pagination {
+  > .mat-tab-header, > .mat-tab-link-container, > .mat-tab-header-pagination {
     background-color: mat-color($background-color);
   }
 
   // Set labels to contrast against background
-  .mat-tab-label, .mat-tab-link {
+  > .mat-tab-header .mat-tab-label, > .mat-tab-link-container .mat-tab-link {
     color: mat-color($background-color, default-contrast);
 
     &.mat-tab-disabled {
@@ -5747,17 +5752,18 @@ $mat-step-header-icon-size: 16px;
   }
 
   // Set pagination chevrons to contrast background
-  .mat-tab-header-pagination-chevron {
+  > .mat-tab-header-pagination .mat-tab-header-pagination-chevron {
     border-color: mat-color($background-color, default-contrast);
   }
 
-  .mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron {
+  > .mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron {
     border-color: mat-color($background-color, default-contrast, 0.4);
   }
 
   // Set ripples color to be the contrast color of the new background. Otherwise the ripple
   // color will be based on the app background color.
-  .mat-ripple-element {
+  > .mat-tab-header .mat-ripple-element,
+  > .mat-tab-link-container .mat-ripple-element {
     background-color: mat-color($background-color, default-contrast, 0.12);
   }
 }
