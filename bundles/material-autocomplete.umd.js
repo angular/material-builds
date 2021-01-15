@@ -1074,7 +1074,15 @@
          * correct options, or to 0 if the consumer opted into it.
          */
         _MatAutocompleteTriggerBase.prototype._resetActiveItem = function () {
-            this.autocomplete._keyManager.setActiveItem(this.autocomplete.autoActiveFirstOption ? 0 : -1);
+            var autocomplete = this.autocomplete;
+            if (autocomplete.autoActiveFirstOption) {
+                // Note that we go through `setFirstItemActive`, rather than `setActiveItem(0)`, because
+                // the former will find the next enabled option, if the first one is disabled.
+                autocomplete._keyManager.setFirstItemActive();
+            }
+            else {
+                autocomplete._keyManager.setActiveItem(-1);
+            }
         };
         /** Determines whether the panel can be opened. */
         _MatAutocompleteTriggerBase.prototype._canOpen = function () {
