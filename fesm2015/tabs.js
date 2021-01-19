@@ -1,6 +1,6 @@
 import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { ObserversModule } from '@angular/cdk/observers';
-import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
+import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -489,7 +489,7 @@ MatTabBody.ctorParameters = () => [
     { type: ChangeDetectorRef }
 ];
 MatTabBody.propDecorators = {
-    _portalHost: [{ type: ViewChild, args: [PortalHostDirective,] }]
+    _portalHost: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
 };
 
 /**

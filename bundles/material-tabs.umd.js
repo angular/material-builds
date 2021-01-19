@@ -802,7 +802,7 @@
         { type: core.ChangeDetectorRef }
     ]; };
     MatTabBody.propDecorators = {
-        _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }]
+        _portalHost: [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] }]
     };
 
     /**
