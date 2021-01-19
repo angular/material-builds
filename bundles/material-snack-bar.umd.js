@@ -553,6 +553,16 @@
             else {
                 _this._live = 'polite';
             }
+            // Only set role for Firefox. Set role based on aria-live because setting role="alert" implies
+            // aria-live="assertive" which may cause issues if aria-live is set to "polite" above.
+            if (_this._platform.FIREFOX) {
+                if (_this._live === 'polite') {
+                    _this._role = 'status';
+                }
+                if (_this._live === 'assertive') {
+                    _this._role = 'alert';
+                }
+            }
             return _this;
         }
         /** Attach a component portal as content to this snack bar container. */
@@ -683,7 +693,7 @@
     MatSnackBarContainer.decorators = [
         { type: i0.Component, args: [{
                     selector: 'snack-bar-container',
-                    template: "<!-- Initialy holds the snack bar content, will be empty after announcing to screen readers. -->\n<div aria-hidden=\"true\">\n  <ng-template cdkPortalOutlet></ng-template>\n</div>\n\n<!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n<div [attr.aria-live]=\"_live\"></div>\n",
+                    template: "<!-- Initially holds the snack bar content, will be empty after announcing to screen readers. -->\n<div aria-hidden=\"true\">\n  <ng-template cdkPortalOutlet></ng-template>\n</div>\n\n<!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n<div [attr.aria-live]=\"_live\" [attr.role]=\"_role\"></div>\n",
                     // In Ivy embedded views will be change detected from their declaration place, rather than
                     // where they were stamped out. This means that we can't have the snack bar container be OnPush,
                     // because it might cause snack bars that were opened from a template not to be out of date.
