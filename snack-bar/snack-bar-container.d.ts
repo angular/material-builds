@@ -55,6 +55,11 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     _animationState: string;
     /** aria-live value for the live region. */
     _live: AriaLivePoliteness;
+    /**
+     * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
+     * JAWS does not read out aria-live message.
+     */
+    _role?: 'status' | 'alert';
     constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _platform: Platform, 
     /** The snack bar configuration. */
     snackBarConfig: MatSnackBarConfig);
