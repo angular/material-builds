@@ -7,7 +7,7 @@
  */
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, ElementRef, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { TemplatePortal, CdkPortalOutlet, PortalHostDirective } from '@angular/cdk/portal';
+import { TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Directionality, Direction } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
 /**
@@ -68,7 +68,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     /** Event emitted when the tab completes its animation towards the center. */
     readonly _onCentered: EventEmitter<void>;
     /** The portal host inside of this container into which the tab body content will be loaded. */
-    abstract _portalHost: PortalHostDirective;
+    abstract _portalHost: CdkPortalOutlet;
     /** The tab body content to display. */
     _content: TemplatePortal;
     /** Position that will be used when the tab is immediately becoming visible after creation. */
@@ -102,6 +102,6 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
  * @docs-private
  */
 export declare class MatTabBody extends _MatTabBodyBase {
-    _portalHost: PortalHostDirective;
+    _portalHost: CdkPortalOutlet;
     constructor(elementRef: ElementRef<HTMLElement>, dir: Directionality, changeDetectorRef: ChangeDetectorRef);
 }

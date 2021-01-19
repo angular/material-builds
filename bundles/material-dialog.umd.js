@@ -782,7 +782,7 @@
         MatDialogRef.prototype.updateSize = function (width, height) {
             if (width === void 0) { width = ''; }
             if (height === void 0) { height = ''; }
-            this._getPositionStrategy().width(width).height(height);
+            this._overlayRef.updateSize({ width: width, height: height });
             this._overlayRef.updatePosition();
             return this;
         };
