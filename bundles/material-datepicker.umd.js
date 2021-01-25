@@ -3323,15 +3323,12 @@
                     template: "<button\n  #button\n  mat-icon-button\n  type=\"button\"\n  [attr.aria-haspopup]=\"datepicker ? 'dialog' : null\"\n  [attr.aria-label]=\"ariaLabel || _intl.openCalendarLabel\"\n  [attr.tabindex]=\"disabled ? -1 : tabIndex\"\n  [disabled]=\"disabled\"\n  [disableRipple]=\"disableRipple\"\n  (click)=\"_open($event)\">\n\n  <svg\n    *ngIf=\"!_customIcon\"\n    class=\"mat-datepicker-toggle-default-icon\"\n    viewBox=\"0 0 24 24\"\n    width=\"24px\"\n    height=\"24px\"\n    fill=\"currentColor\"\n    focusable=\"false\">\n    <path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/>\n  </svg>\n\n  <ng-content select=\"[matDatepickerToggleIcon]\"></ng-content>\n</button>\n",
                     host: {
                         'class': 'mat-datepicker-toggle',
-                        // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
-                        // consumer may have provided, while still being able to receive focus.
-                        '[attr.tabindex]': 'disabled ? null : -1',
+                        '[attr.tabindex]': 'null',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                         '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
                         '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
                         // Used by the test harness to tie this toggle to its datepicker.
                         '[attr.data-mat-calendar]': 'datepicker ? datepicker.id : null',
-                        '(focus)': '_button.focus()',
                     },
                     exportAs: 'matDatepickerToggle',
                     encapsulation: i0.ViewEncapsulation.None,
