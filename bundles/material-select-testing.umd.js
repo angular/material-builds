@@ -313,40 +313,27 @@
         return value;
     }
 
-    /** Harness for interacting with a standard mat-select in tests. */
-    var MatSelectHarness = /** @class */ (function (_super) {
-        __extends(MatSelectHarness, _super);
-        function MatSelectHarness() {
+    var _MatSelectHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatSelectHarnessBase, _super);
+        function _MatSelectHarnessBase() {
             var _this = _super.apply(this, __spread(arguments)) || this;
             _this._documentRootLocator = _this.documentRootLocatorFactory();
             _this._backdrop = _this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
-            _this._trigger = _this.locatorFor('.mat-select-trigger');
-            _this._value = _this.locatorFor('.mat-select-value');
             return _this;
         }
-        /**
-         * Gets a `HarnessPredicate` that can be used to search for a `MatSelectHarness` that meets
-         * certain criteria.
-         * @param options Options for filtering which select instances are considered a match.
-         * @return a `HarnessPredicate` configured with the given options.
-         */
-        MatSelectHarness.with = function (options) {
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatSelectHarness, options);
-        };
         /** Gets a boolean promise indicating if the select is disabled. */
-        MatSelectHarness.prototype.isDisabled = function () {
+        _MatSelectHarnessBase.prototype.isDisabled = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-select-disabled')];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass(this._prefix + "-select-disabled")];
                     }
                 });
             });
         };
         /** Gets a boolean promise indicating if the select is valid. */
-        MatSelectHarness.prototype.isValid = function () {
+        _MatSelectHarnessBase.prototype.isValid = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -358,51 +345,54 @@
             });
         };
         /** Gets a boolean promise indicating if the select is required. */
-        MatSelectHarness.prototype.isRequired = function () {
+        _MatSelectHarnessBase.prototype.isRequired = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-select-required')];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass(this._prefix + "-select-required")];
                     }
                 });
             });
         };
         /** Gets a boolean promise indicating if the select is empty (no value is selected). */
-        MatSelectHarness.prototype.isEmpty = function () {
+        _MatSelectHarnessBase.prototype.isEmpty = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-select-empty')];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass(this._prefix + "-select-empty")];
                     }
                 });
             });
         };
         /** Gets a boolean promise indicating if the select is in multi-selection mode. */
-        MatSelectHarness.prototype.isMultiple = function () {
+        _MatSelectHarnessBase.prototype.isMultiple = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-select-multiple')];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass(this._prefix + "-select-multiple")];
                     }
                 });
             });
         };
         /** Gets a promise for the select's value text. */
-        MatSelectHarness.prototype.getValueText = function () {
+        _MatSelectHarnessBase.prototype.getValueText = function () {
             return __awaiter(this, void 0, void 0, function () {
+                var value;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._value()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
+                        case 0: return [4 /*yield*/, this.locatorFor("." + this._prefix + "-select-value")()];
+                        case 1:
+                            value = _a.sent();
+                            return [2 /*return*/, value.text()];
                     }
                 });
             });
         };
         /** Focuses the select and returns a void promise that indicates when the action is complete. */
-        MatSelectHarness.prototype.focus = function () {
+        _MatSelectHarnessBase.prototype.focus = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -413,7 +403,7 @@
             });
         };
         /** Blurs the select and returns a void promise that indicates when the action is complete. */
-        MatSelectHarness.prototype.blur = function () {
+        _MatSelectHarnessBase.prototype.blur = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -424,7 +414,7 @@
             });
         };
         /** Whether the select is focused. */
-        MatSelectHarness.prototype.isFocused = function () {
+        _MatSelectHarnessBase.prototype.isFocused = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -435,17 +425,16 @@
             });
         };
         /** Gets the options inside the select panel. */
-        MatSelectHarness.prototype.getOptions = function (filter) {
-            if (filter === void 0) { filter = {}; }
+        _MatSelectHarnessBase.prototype.getOptions = function (filter) {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, _b, _c, _d, _e, _f, _g, _h;
                 return __generator(this, function (_j) {
                     switch (_j.label) {
                         case 0:
                             _b = (_a = this._documentRootLocator).locatorForAll;
-                            _d = (_c = testing$1.MatOptionHarness).with;
+                            _d = (_c = this._optionClass).with;
                             _f = (_e = Object).assign;
-                            _g = [Object.assign({}, filter)];
+                            _g = [Object.assign({}, (filter || {}))];
                             _h = {};
                             return [4 /*yield*/, this._getPanelSelector()];
                         case 1: return [2 /*return*/, _b.apply(_a, [_d.apply(_c, [_f.apply(_e, _g.concat([(_h.ancestor = _j.sent(), _h)]))])])()];
@@ -454,17 +443,16 @@
             });
         };
         /** Gets the groups of options inside the panel. */
-        MatSelectHarness.prototype.getOptionGroups = function (filter) {
-            if (filter === void 0) { filter = {}; }
+        _MatSelectHarnessBase.prototype.getOptionGroups = function (filter) {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, _b, _c, _d, _e, _f, _g, _h;
                 return __generator(this, function (_j) {
                     switch (_j.label) {
                         case 0:
                             _b = (_a = this._documentRootLocator).locatorForAll;
-                            _d = (_c = testing$1.MatOptgroupHarness).with;
+                            _d = (_c = this._optionGroupClass).with;
                             _f = (_e = Object).assign;
-                            _g = [Object.assign({}, filter)];
+                            _g = [Object.assign({}, (filter || {}))];
                             _h = {};
                             return [4 /*yield*/, this._getPanelSelector()];
                         case 1: return [2 /*return*/, _b.apply(_a, [_d.apply(_c, [_f.apply(_e, _g.concat([(_h.ancestor = _j.sent(), _h)]))])])()];
@@ -473,7 +461,7 @@
             });
         };
         /** Gets whether the select is open. */
-        MatSelectHarness.prototype.isOpen = function () {
+        _MatSelectHarnessBase.prototype.isOpen = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, _b;
                 return __generator(this, function (_c) {
@@ -488,15 +476,18 @@
             });
         };
         /** Opens the select's panel. */
-        MatSelectHarness.prototype.open = function () {
+        _MatSelectHarnessBase.prototype.open = function () {
             return __awaiter(this, void 0, void 0, function () {
+                var trigger;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.isOpen()];
                         case 1:
                             if (!!(_a.sent())) return [3 /*break*/, 3];
-                            return [4 /*yield*/, this._trigger()];
-                        case 2: return [2 /*return*/, (_a.sent()).click()];
+                            return [4 /*yield*/, this.locatorFor("." + this._prefix + "-select-trigger")()];
+                        case 2:
+                            trigger = _a.sent();
+                            return [2 /*return*/, trigger.click()];
                         case 3: return [2 /*return*/];
                     }
                 });
@@ -506,8 +497,7 @@
          * Clicks the options that match the passed-in filter. If the select is in multi-selection
          * mode all options will be clicked, otherwise the harness will pick the first matching option.
          */
-        MatSelectHarness.prototype.clickOptions = function (filter) {
-            if (filter === void 0) { filter = {}; }
+        _MatSelectHarnessBase.prototype.clickOptions = function (filter) {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, isMultiple, options;
                 var _this = this;
@@ -516,9 +506,7 @@
                         case 0: return [4 /*yield*/, this.open()];
                         case 1:
                             _b.sent();
-                            return [4 /*yield*/, testing.parallel(function () {
-                                    return [_this.isMultiple(), _this.getOptions(filter)];
-                                })];
+                            return [4 /*yield*/, testing.parallel(function () { return [_this.isMultiple(), _this.getOptions(filter)]; })];
                         case 2:
                             _a = __read.apply(void 0, [_b.sent(), 2]), isMultiple = _a[0], options = _a[1];
                             if (options.length === 0) {
@@ -539,7 +527,7 @@
             });
         };
         /** Closes the select's panel. */
-        MatSelectHarness.prototype.close = function () {
+        _MatSelectHarnessBase.prototype.close = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -558,7 +546,7 @@
             });
         };
         /** Gets the selector that should be used to find this select's panel. */
-        MatSelectHarness.prototype._getPanelSelector = function () {
+        _MatSelectHarnessBase.prototype._getPanelSelector = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var id;
                 return __generator(this, function (_a) {
@@ -572,8 +560,30 @@
                 });
             });
         };
-        return MatSelectHarness;
+        return _MatSelectHarnessBase;
     }(control.MatFormFieldControlHarness));
+    /** Harness for interacting with a standard mat-select in tests. */
+    var MatSelectHarness = /** @class */ (function (_super) {
+        __extends(MatSelectHarness, _super);
+        function MatSelectHarness() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._prefix = 'mat';
+            _this._optionClass = testing$1.MatOptionHarness;
+            _this._optionGroupClass = testing$1.MatOptgroupHarness;
+            return _this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatSelectHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which select instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatSelectHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatSelectHarness, options);
+        };
+        return MatSelectHarness;
+    }(_MatSelectHarnessBase));
     MatSelectHarness.hostSelector = '.mat-select';
 
     /**
@@ -593,6 +603,7 @@
      */
 
     exports.MatSelectHarness = MatSelectHarness;
+    exports._MatSelectHarnessBase = _MatSelectHarnessBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

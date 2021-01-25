@@ -2662,12 +2662,14 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     constructor(elementRef, dateAdapter, dateFormats, _formField) {
         super(elementRef, dateAdapter, dateFormats);
         this._formField = _formField;
+        this._closedSubscription = Subscription.EMPTY;
         this._validator = Validators.compose(super._getValidators());
     }
     /** The datepicker that this input is associated with. */
     set matDatepicker(datepicker) {
         if (datepicker) {
             this._datepicker = datepicker;
+            this._closedSubscription = datepicker.closedStream.subscribe(() => this._onTouched());
             this._registerModel(datepicker.registerInput(this));
         }
     }
@@ -2712,6 +2714,10 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     /** Gets the value at which the calendar should start. */
     getStartValue() {
         return this.value;
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+        this._closedSubscription.unsubscribe();
     }
     /** Opens the associated datepicker. */
     _openPopup() {
@@ -3182,6 +3188,7 @@ class MatDateRangeInput {
         this._elementRef = _elementRef;
         this._dateAdapter = _dateAdapter;
         this._formField = _formField;
+        this._closedSubscription = Subscription.EMPTY;
         /** Unique ID for the input. */
         this.id = `mat-date-range-input-${nextUniqueId++}`;
         /** Whether the control is focused. */
@@ -3230,6 +3237,12 @@ class MatDateRangeInput {
         if (rangePicker) {
             this._model = rangePicker.registerInput(this);
             this._rangePicker = rangePicker;
+            this._closedSubscription.unsubscribe();
+            this._closedSubscription = rangePicker.closedStream.subscribe(() => {
+                var _a, _b;
+                (_a = this._startInput) === null || _a === void 0 ? void 0 : _a._onTouched();
+                (_b = this._endInput) === null || _b === void 0 ? void 0 : _b._onTouched();
+            });
             this._registerModel(this._model);
         }
     }
@@ -3342,6 +3355,7 @@ class MatDateRangeInput {
         }
     }
     ngOnDestroy() {
+        this._closedSubscription.unsubscribe();
         this.stateChanges.complete();
     }
     /** Gets the date at which the calendar should start. */

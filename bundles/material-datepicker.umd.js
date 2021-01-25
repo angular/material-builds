@@ -3102,14 +3102,17 @@
         function MatDatepickerInput(elementRef, dateAdapter, dateFormats, _formField) {
             var _this = _super.call(this, elementRef, dateAdapter, dateFormats) || this;
             _this._formField = _formField;
+            _this._closedSubscription = rxjs.Subscription.EMPTY;
             _this._validator = forms.Validators.compose(_super.prototype._getValidators.call(_this));
             return _this;
         }
         Object.defineProperty(MatDatepickerInput.prototype, "matDatepicker", {
             /** The datepicker that this input is associated with. */
             set: function (datepicker) {
+                var _this = this;
                 if (datepicker) {
                     this._datepicker = datepicker;
+                    this._closedSubscription = datepicker.closedStream.subscribe(function () { return _this._onTouched(); });
                     this._registerModel(datepicker.registerInput(this));
                 }
             },
@@ -3169,6 +3172,10 @@
         /** Gets the value at which the calendar should start. */
         MatDatepickerInput.prototype.getStartValue = function () {
             return this.value;
+        };
+        MatDatepickerInput.prototype.ngOnDestroy = function () {
+            _super.prototype.ngOnDestroy.call(this);
+            this._closedSubscription.unsubscribe();
         };
         /** Opens the associated datepicker. */
         MatDatepickerInput.prototype._openPopup = function () {
@@ -3654,6 +3661,7 @@
             this._elementRef = _elementRef;
             this._dateAdapter = _dateAdapter;
             this._formField = _formField;
+            this._closedSubscription = rxjs.Subscription.EMPTY;
             /** Unique ID for the input. */
             this.id = "mat-date-range-input-" + nextUniqueId++;
             /** Whether the control is focused. */
@@ -3712,9 +3720,16 @@
             /** The range picker that this input is associated with. */
             get: function () { return this._rangePicker; },
             set: function (rangePicker) {
+                var _this = this;
                 if (rangePicker) {
                     this._model = rangePicker.registerInput(this);
                     this._rangePicker = rangePicker;
+                    this._closedSubscription.unsubscribe();
+                    this._closedSubscription = rangePicker.closedStream.subscribe(function () {
+                        var _a, _b;
+                        (_a = _this._startInput) === null || _a === void 0 ? void 0 : _a._onTouched();
+                        (_b = _this._endInput) === null || _b === void 0 ? void 0 : _b._onTouched();
+                    });
                     this._registerModel(this._model);
                 }
             },
@@ -3859,6 +3874,7 @@
             }
         };
         MatDateRangeInput.prototype.ngOnDestroy = function () {
+            this._closedSubscription.unsubscribe();
             this.stateChanges.complete();
         };
         /** Gets the date at which the calendar should start. */

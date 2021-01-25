@@ -9,18 +9,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-radio-group in tests. */
-class MatRadioGroupHarness extends ComponentHarness {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which radio group instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatRadioGroupHarness, options)
-            .addOption('name', options.name, this._checkRadioGroupName);
-    }
+class _MatRadioGroupHarnessBase extends ComponentHarness {
     /** Gets the name of the radio-group. */
     getName() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -75,9 +64,9 @@ class MatRadioGroupHarness extends ComponentHarness {
      * Gets a list of radio buttons which are part of the radio-group.
      * @param filter Optionally filters which radio buttons are included.
      */
-    getRadioButtons(filter = {}) {
+    getRadioButtons(filter) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorForAll(MatRadioButtonHarness.with(filter))();
+            return this.locatorForAll(this._buttonClass.with(filter))();
         });
     }
     /**
@@ -85,7 +74,7 @@ class MatRadioGroupHarness extends ComponentHarness {
      * @param filter An optional filter to apply to the child radio buttons. The first tab matching
      *     the filter will be selected.
      */
-    checkRadioButton(filter = {}) {
+    checkRadioButton(filter) {
         return __awaiter(this, void 0, void 0, function* () {
             const radioButtons = yield this.getRadioButtons(filter);
             if (!radioButtons.length) {
@@ -156,26 +145,29 @@ class MatRadioGroupHarness extends ComponentHarness {
         });
     }
 }
-/** The selector for the host element of a `MatRadioGroup` instance. */
-MatRadioGroupHarness.hostSelector = '.mat-radio-group';
-/** Harness for interacting with a standard mat-radio-button in tests. */
-class MatRadioButtonHarness extends ComponentHarness {
+/** Harness for interacting with a standard mat-radio-group in tests. */
+class MatRadioGroupHarness extends _MatRadioGroupHarnessBase {
     constructor() {
         super(...arguments);
-        this._textLabel = this.locatorFor('.mat-radio-label-content');
-        this._clickLabel = this.locatorFor('.mat-radio-label');
-        this._input = this.locatorFor('input');
+        this._buttonClass = MatRadioButtonHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioButtonHarness` that meets
+     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
      * certain criteria.
-     * @param options Options for filtering which radio button instances are considered a match.
+     * @param options Options for filtering which radio group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatRadioButtonHarness, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
-            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
+        return new HarnessPredicate(MatRadioGroupHarness, options)
+            .addOption('name', options.name, this._checkRadioGroupName);
+    }
+}
+/** The selector for the host element of a `MatRadioGroup` instance. */
+MatRadioGroupHarness.hostSelector = '.mat-radio-group';
+class _MatRadioButtonHarnessBase extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._input = this.locatorFor('input');
     }
     /** Whether the radio-button is checked. */
     isChecked() {
@@ -257,6 +249,25 @@ class MatRadioButtonHarness extends ComponentHarness {
         });
     }
 }
+/** Harness for interacting with a standard mat-radio-button in tests. */
+class MatRadioButtonHarness extends _MatRadioButtonHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._textLabel = this.locatorFor('.mat-radio-label-content');
+        this._clickLabel = this.locatorFor('.mat-radio-label');
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioButtonHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which radio button instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatRadioButtonHarness, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
+    }
+}
 /** The selector for the host element of a `MatRadioButton` instance. */
 MatRadioButtonHarness.hostSelector = '.mat-radio-button';
 
@@ -284,5 +295,5 @@ MatRadioButtonHarness.hostSelector = '.mat-radio-button';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatRadioButtonHarness, MatRadioGroupHarness };
+export { MatRadioButtonHarness, MatRadioGroupHarness, _MatRadioButtonHarnessBase, _MatRadioGroupHarnessBase };
 //# sourceMappingURL=testing.js.map

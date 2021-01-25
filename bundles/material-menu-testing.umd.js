@@ -313,28 +313,16 @@
         return value;
     }
 
-    /** Harness for interacting with a standard mat-menu in tests. */
-    var MatMenuHarness = /** @class */ (function (_super) {
-        __extends(MatMenuHarness, _super);
-        function MatMenuHarness() {
+    var _MatMenuHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatMenuHarnessBase, _super);
+        function _MatMenuHarnessBase() {
             var _this = _super.apply(this, __spread(arguments)) || this;
             _this._documentRootLocator = _this.documentRootLocatorFactory();
             return _this;
         }
         // TODO: potentially extend MatButtonHarness
-        /**
-         * Gets a `HarnessPredicate` that can be used to search for a `MatMenuHarness` that meets certain
-         * criteria.
-         * @param options Options for filtering which menu instances are considered a match.
-         * @return a `HarnessPredicate` configured with the given options.
-         */
-        MatMenuHarness.with = function (options) {
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatMenuHarness, options)
-                .addOption('triggerText', options.triggerText, function (harness, text) { return testing.HarnessPredicate.stringMatches(harness.getTriggerText(), text); });
-        };
         /** Whether the menu is disabled. */
-        MatMenuHarness.prototype.isDisabled = function () {
+        _MatMenuHarnessBase.prototype.isDisabled = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
                 return __generator(this, function (_b) {
@@ -350,7 +338,7 @@
             });
         };
         /** Whether the menu is open. */
-        MatMenuHarness.prototype.isOpen = function () {
+        _MatMenuHarnessBase.prototype.isOpen = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -361,7 +349,7 @@
             });
         };
         /** Gets the text of the menu's trigger element. */
-        MatMenuHarness.prototype.getTriggerText = function () {
+        _MatMenuHarnessBase.prototype.getTriggerText = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -372,7 +360,7 @@
             });
         };
         /** Focuses the menu. */
-        MatMenuHarness.prototype.focus = function () {
+        _MatMenuHarnessBase.prototype.focus = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -383,7 +371,7 @@
             });
         };
         /** Blurs the menu. */
-        MatMenuHarness.prototype.blur = function () {
+        _MatMenuHarnessBase.prototype.blur = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -394,7 +382,7 @@
             });
         };
         /** Whether the menu is focused. */
-        MatMenuHarness.prototype.isFocused = function () {
+        _MatMenuHarnessBase.prototype.isFocused = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -405,7 +393,7 @@
             });
         };
         /** Opens the menu. */
-        MatMenuHarness.prototype.open = function () {
+        _MatMenuHarnessBase.prototype.open = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -420,7 +408,7 @@
             });
         };
         /** Closes the menu. */
-        MatMenuHarness.prototype.close = function () {
+        _MatMenuHarnessBase.prototype.close = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var panel;
                 return __generator(this, function (_a) {
@@ -440,8 +428,7 @@
          * Gets a list of `MatMenuItemHarness` representing the items in the menu.
          * @param filters Optionally filters which menu items are included.
          */
-        MatMenuHarness.prototype.getItems = function (filters) {
-            if (filters === void 0) { filters = {}; }
+        _MatMenuHarnessBase.prototype.getItems = function (filters) {
             return __awaiter(this, void 0, void 0, function () {
                 var panelId;
                 return __generator(this, function (_a) {
@@ -450,7 +437,7 @@
                         case 1:
                             panelId = _a.sent();
                             if (panelId) {
-                                return [2 /*return*/, this._documentRootLocator.locatorForAll(MatMenuItemHarness.with(Object.assign(Object.assign({}, filters), { ancestor: "#" + panelId })))()];
+                                return [2 /*return*/, this._documentRootLocator.locatorForAll(this._itemClass.with(Object.assign(Object.assign({}, (filters || {})), { ancestor: "#" + panelId })))()];
                             }
                             return [2 /*return*/, []];
                     }
@@ -465,7 +452,7 @@
          *     sub-menus. The first item in the sub-menu matching the corresponding filter in
          *     `subItemFilters` will be clicked.
          */
-        MatMenuHarness.prototype.clickItem = function (itemFilter) {
+        _MatMenuHarnessBase.prototype.clickItem = function (itemFilter) {
             var subItemFilters = [];
             for (var _i = 1; _i < arguments.length; _i++) {
                 subItemFilters[_i - 1] = arguments[_i];
@@ -497,7 +484,7 @@
                 });
             });
         };
-        MatMenuHarness.prototype.getRootHarnessLoader = function () {
+        _MatMenuHarnessBase.prototype.getRootHarnessLoader = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var panelId;
                 return __generator(this, function (_a) {
@@ -511,7 +498,7 @@
             });
         };
         /** Gets the menu panel associated with this menu. */
-        MatMenuHarness.prototype._getMenuPanel = function () {
+        _MatMenuHarnessBase.prototype._getMenuPanel = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var panelId;
                 return __generator(this, function (_a) {
@@ -525,7 +512,7 @@
             });
         };
         /** Gets the id of the menu panel associated with this menu. */
-        MatMenuHarness.prototype._getPanelId = function () {
+        _MatMenuHarnessBase.prototype._getPanelId = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var panelId;
                 return __generator(this, function (_a) {
@@ -539,15 +526,142 @@
                 });
             });
         };
-        return MatMenuHarness;
+        return _MatMenuHarnessBase;
     }(testing.ContentContainerComponentHarness));
+    var _MatMenuItemHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatMenuItemHarnessBase, _super);
+        function _MatMenuItemHarnessBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /** Whether the menu is disabled. */
+        _MatMenuItemHarnessBase.prototype.isDisabled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var disabled, _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1:
+                            disabled = (_b.sent()).getAttribute('disabled');
+                            _a = coercion.coerceBooleanProperty;
+                            return [4 /*yield*/, disabled];
+                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
+                    }
+                });
+            });
+        };
+        /** Gets the text of the menu item. */
+        _MatMenuItemHarnessBase.prototype.getText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).text()];
+                    }
+                });
+            });
+        };
+        /** Focuses the menu item. */
+        _MatMenuItemHarnessBase.prototype.focus = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).focus()];
+                    }
+                });
+            });
+        };
+        /** Blurs the menu item. */
+        _MatMenuItemHarnessBase.prototype.blur = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).blur()];
+                    }
+                });
+            });
+        };
+        /** Whether the menu item is focused. */
+        _MatMenuItemHarnessBase.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
+        /** Clicks the menu item. */
+        _MatMenuItemHarnessBase.prototype.click = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).click()];
+                    }
+                });
+            });
+        };
+        /** Whether this item has a submenu. */
+        _MatMenuItemHarnessBase.prototype.hasSubmenu = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).matchesSelector(this._menuClass.hostSelector)];
+                    }
+                });
+            });
+        };
+        /** Gets the submenu associated with this menu item, or null if none. */
+        _MatMenuItemHarnessBase.prototype.getSubmenu = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.hasSubmenu()];
+                        case 1:
+                            if (_a.sent()) {
+                                return [2 /*return*/, new this._menuClass(this.locatorFactory)];
+                            }
+                            return [2 /*return*/, null];
+                    }
+                });
+            });
+        };
+        return _MatMenuItemHarnessBase;
+    }(testing.ContentContainerComponentHarness));
+    /** Harness for interacting with a standard mat-menu in tests. */
+    var MatMenuHarness = /** @class */ (function (_super) {
+        __extends(MatMenuHarness, _super);
+        function MatMenuHarness() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._itemClass = MatMenuItemHarness;
+            return _this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatMenuHarness` that meets certain
+         * criteria.
+         * @param options Options for filtering which menu instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatMenuHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatMenuHarness, options)
+                .addOption('triggerText', options.triggerText, function (harness, text) { return testing.HarnessPredicate.stringMatches(harness.getTriggerText(), text); });
+        };
+        return MatMenuHarness;
+    }(_MatMenuHarnessBase));
     /** The selector for the host element of a `MatMenu` instance. */
     MatMenuHarness.hostSelector = '.mat-menu-trigger';
     /** Harness for interacting with a standard mat-menu-item in tests. */
     var MatMenuItemHarness = /** @class */ (function (_super) {
         __extends(MatMenuItemHarness, _super);
         function MatMenuItemHarness() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._menuClass = MatMenuHarness;
+            return _this;
         }
         /**
          * Gets a `HarnessPredicate` that can be used to search for a `MatMenuItemHarness` that meets
@@ -567,105 +681,8 @@
                 }
             }); }); });
         };
-        /** Whether the menu is disabled. */
-        MatMenuItemHarness.prototype.isDisabled = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var disabled, _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1:
-                            disabled = (_b.sent()).getAttribute('disabled');
-                            _a = coercion.coerceBooleanProperty;
-                            return [4 /*yield*/, disabled];
-                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
-                    }
-                });
-            });
-        };
-        /** Gets the text of the menu item. */
-        MatMenuItemHarness.prototype.getText = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
-                    }
-                });
-            });
-        };
-        /** Focuses the menu item. */
-        MatMenuItemHarness.prototype.focus = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).focus()];
-                    }
-                });
-            });
-        };
-        /** Blurs the menu item. */
-        MatMenuItemHarness.prototype.blur = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).blur()];
-                    }
-                });
-            });
-        };
-        /** Whether the menu item is focused. */
-        MatMenuItemHarness.prototype.isFocused = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
-                    }
-                });
-            });
-        };
-        /** Clicks the menu item. */
-        MatMenuItemHarness.prototype.click = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).click()];
-                    }
-                });
-            });
-        };
-        /** Whether this item has a submenu. */
-        MatMenuItemHarness.prototype.hasSubmenu = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).matchesSelector(MatMenuHarness.hostSelector)];
-                    }
-                });
-            });
-        };
-        /** Gets the submenu associated with this menu item, or null if none. */
-        MatMenuItemHarness.prototype.getSubmenu = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.hasSubmenu()];
-                        case 1:
-                            if (_a.sent()) {
-                                return [2 /*return*/, new MatMenuHarness(this.locatorFactory)];
-                            }
-                            return [2 /*return*/, null];
-                    }
-                });
-            });
-        };
         return MatMenuItemHarness;
-    }(testing.ContentContainerComponentHarness));
+    }(_MatMenuItemHarnessBase));
     /** The selector for the host element of a `MatMenuItem` instance. */
     MatMenuItemHarness.hostSelector = '.mat-menu-item';
 
@@ -687,6 +704,8 @@
 
     exports.MatMenuHarness = MatMenuHarness;
     exports.MatMenuItemHarness = MatMenuItemHarness;
+    exports._MatMenuHarnessBase = _MatMenuHarnessBase;
+    exports._MatMenuItemHarnessBase = _MatMenuItemHarnessBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
