@@ -21,6 +21,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _elementRef;
     private _dateAdapter;
     private _formField?;
+    private _closedSubscription;
     /** Current value of the range input. */
     get value(): DateRange<D> | null;
     /** Unique ID for the input. */

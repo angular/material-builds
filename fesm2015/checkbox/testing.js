@@ -9,28 +9,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-checkbox in tests. */
-class MatCheckboxHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._label = this.locatorFor('.mat-checkbox-label');
-        this._input = this.locatorFor('input');
-        this._inputContainer = this.locatorFor('.mat-checkbox-inner-container');
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatCheckboxHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which checkbox instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatCheckboxHarness, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
-            // We want to provide a filter option for "name" because the name of the checkbox is
-            // only set on the underlying input. This means that it's not possible for developers
-            // to retrieve the harness of a specific checkbox with name through a CSS selector.
-            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
-    }
+class _MatCheckboxHarnessBase extends ComponentHarness {
     /** Whether the checkbox is checked. */
     isChecked() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -115,18 +94,6 @@ class MatCheckboxHarness extends ComponentHarness {
         });
     }
     /**
-     * Toggles the checked state of the checkbox.
-     *
-     * Note: This attempts to toggle the checkbox as a user would, by clicking it. Therefore if you
-     * are using `MAT_CHECKBOX_DEFAULT_OPTIONS` to change the behavior on click, calling this method
-     * might not have the expected result.
-     */
-    toggle() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._inputContainer()).click();
-        });
-    }
-    /**
      * Puts the checkbox in a checked state by toggling it if it is currently unchecked, or doing
      * nothing if it is already checked.
      *
@@ -157,6 +124,34 @@ class MatCheckboxHarness extends ComponentHarness {
         });
     }
 }
+/** Harness for interacting with a standard mat-checkbox in tests. */
+class MatCheckboxHarness extends _MatCheckboxHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._input = this.locatorFor('input');
+        this._label = this.locatorFor('.mat-checkbox-label');
+        this._inputContainer = this.locatorFor('.mat-checkbox-inner-container');
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatCheckboxHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which checkbox instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatCheckboxHarness, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            // We want to provide a filter option for "name" because the name of the checkbox is
+            // only set on the underlying input. This means that it's not possible for developers
+            // to retrieve the harness of a specific checkbox with name through a CSS selector.
+            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
+    }
+    toggle() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this._inputContainer()).click();
+        });
+    }
+}
 /** The selector for the host element of a `MatCheckbox` instance. */
 MatCheckboxHarness.hostSelector = '.mat-checkbox';
 
@@ -184,5 +179,5 @@ MatCheckboxHarness.hostSelector = '.mat-checkbox';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatCheckboxHarness };
+export { MatCheckboxHarness, _MatCheckboxHarnessBase };
 //# sourceMappingURL=testing.js.map

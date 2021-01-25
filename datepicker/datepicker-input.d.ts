@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef } from '@angular/core';
+import { ElementRef, OnDestroy } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
 import { DateAdapter, MatDateFormats, ThemePalette } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
@@ -17,8 +17,9 @@ export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
 /** @docs-private */
 export declare const MAT_DATEPICKER_VALIDATORS: any;
 /** Directive used to connect an input to a MatDatepicker. */
-export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null> {
+export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null>, OnDestroy {
     private _formField;
+    private _closedSubscription;
     /** The datepicker that this input is associated with. */
     set matDatepicker(datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>);
     _datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>;
@@ -46,6 +47,7 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     getThemePalette(): ThemePalette;
     /** Gets the value at which the calendar should start. */
     getStartValue(): D | null;
+    ngOnDestroy(): void;
     /** Opens the associated datepicker. */
     protected _openPopup(): void;
     protected _getValueFromModel(modelValue: D | null): D | null;

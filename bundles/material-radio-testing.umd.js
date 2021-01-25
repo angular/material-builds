@@ -313,25 +313,13 @@
         return value;
     }
 
-    /** Harness for interacting with a standard mat-radio-group in tests. */
-    var MatRadioGroupHarness = /** @class */ (function (_super) {
-        __extends(MatRadioGroupHarness, _super);
-        function MatRadioGroupHarness() {
+    var _MatRadioGroupHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatRadioGroupHarnessBase, _super);
+        function _MatRadioGroupHarnessBase() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
-         * certain criteria.
-         * @param options Options for filtering which radio group instances are considered a match.
-         * @return a `HarnessPredicate` configured with the given options.
-         */
-        MatRadioGroupHarness.with = function (options) {
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatRadioGroupHarness, options)
-                .addOption('name', options.name, this._checkRadioGroupName);
-        };
         /** Gets the name of the radio-group. */
-        MatRadioGroupHarness.prototype.getName = function () {
+        _MatRadioGroupHarnessBase.prototype.getName = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var hostName, radioNames;
                 return __generator(this, function (_a) {
@@ -360,7 +348,7 @@
             });
         };
         /** Gets the id of the radio-group. */
-        MatRadioGroupHarness.prototype.getId = function () {
+        _MatRadioGroupHarnessBase.prototype.getId = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -371,7 +359,7 @@
             });
         };
         /** Gets the checked radio-button in a radio-group. */
-        MatRadioGroupHarness.prototype.getCheckedRadioButton = function () {
+        _MatRadioGroupHarnessBase.prototype.getCheckedRadioButton = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var _a, _b, radioButton, e_1_1;
                 var e_1, _c;
@@ -412,7 +400,7 @@
             });
         };
         /** Gets the checked value of the radio-group. */
-        MatRadioGroupHarness.prototype.getCheckedValue = function () {
+        _MatRadioGroupHarnessBase.prototype.getCheckedValue = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var checkedRadio;
                 return __generator(this, function (_a) {
@@ -432,11 +420,10 @@
          * Gets a list of radio buttons which are part of the radio-group.
          * @param filter Optionally filters which radio buttons are included.
          */
-        MatRadioGroupHarness.prototype.getRadioButtons = function (filter) {
-            if (filter === void 0) { filter = {}; }
+        _MatRadioGroupHarnessBase.prototype.getRadioButtons = function (filter) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    return [2 /*return*/, this.locatorForAll(MatRadioButtonHarness.with(filter))()];
+                    return [2 /*return*/, this.locatorForAll(this._buttonClass.with(filter))()];
                 });
             });
         };
@@ -445,8 +432,7 @@
          * @param filter An optional filter to apply to the child radio buttons. The first tab matching
          *     the filter will be selected.
          */
-        MatRadioGroupHarness.prototype.checkRadioButton = function (filter) {
-            if (filter === void 0) { filter = {}; }
+        _MatRadioGroupHarnessBase.prototype.checkRadioButton = function (filter) {
             return __awaiter(this, void 0, void 0, function () {
                 var radioButtons;
                 return __generator(this, function (_a) {
@@ -463,7 +449,7 @@
             });
         };
         /** Gets the name attribute of the host element. */
-        MatRadioGroupHarness.prototype._getGroupNameFromHost = function () {
+        _MatRadioGroupHarnessBase.prototype._getGroupNameFromHost = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -474,7 +460,7 @@
             });
         };
         /** Gets a list of the name attributes of all child radio buttons. */
-        MatRadioGroupHarness.prototype._getNamesFromRadioButtons = function () {
+        _MatRadioGroupHarnessBase.prototype._getNamesFromRadioButtons = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var groupNames, _a, _b, radio, radioName, e_2_1;
                 var e_2, _c;
@@ -519,7 +505,7 @@
             });
         };
         /** Checks if the specified radio names are all equal. */
-        MatRadioGroupHarness.prototype._checkRadioNamesInGroupEqual = function (radioNames) {
+        _MatRadioGroupHarnessBase.prototype._checkRadioNamesInGroupEqual = function (radioNames) {
             var e_3, _a;
             var groupName = null;
             try {
@@ -546,7 +532,7 @@
          * Checks if a radio-group harness has the given name. Throws if a radio-group with
          * matching name could be found but has mismatching radio-button names.
          */
-        MatRadioGroupHarness._checkRadioGroupName = function (harness, name) {
+        _MatRadioGroupHarnessBase._checkRadioGroupName = function (harness, name) {
             return __awaiter(this, void 0, void 0, function () {
                 var radioNames;
                 return __generator(this, function (_a) {
@@ -576,10 +562,188 @@
                 });
             });
         };
-        return MatRadioGroupHarness;
+        return _MatRadioGroupHarnessBase;
     }(testing.ComponentHarness));
+    /** Harness for interacting with a standard mat-radio-group in tests. */
+    var MatRadioGroupHarness = /** @class */ (function (_super) {
+        __extends(MatRadioGroupHarness, _super);
+        function MatRadioGroupHarness() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._buttonClass = MatRadioButtonHarness;
+            return _this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which radio group instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatRadioGroupHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatRadioGroupHarness, options)
+                .addOption('name', options.name, this._checkRadioGroupName);
+        };
+        return MatRadioGroupHarness;
+    }(_MatRadioGroupHarnessBase));
     /** The selector for the host element of a `MatRadioGroup` instance. */
     MatRadioGroupHarness.hostSelector = '.mat-radio-group';
+    var _MatRadioButtonHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatRadioButtonHarnessBase, _super);
+        function _MatRadioButtonHarnessBase() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._input = _this.locatorFor('input');
+            return _this;
+        }
+        /** Whether the radio-button is checked. */
+        _MatRadioButtonHarnessBase.prototype.isChecked = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var checked, _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1:
+                            checked = (_b.sent()).getProperty('checked');
+                            _a = coercion.coerceBooleanProperty;
+                            return [4 /*yield*/, checked];
+                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
+                    }
+                });
+            });
+        };
+        /** Whether the radio-button is disabled. */
+        _MatRadioButtonHarnessBase.prototype.isDisabled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var disabled, _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1:
+                            disabled = (_b.sent()).getAttribute('disabled');
+                            _a = coercion.coerceBooleanProperty;
+                            return [4 /*yield*/, disabled];
+                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
+                    }
+                });
+            });
+        };
+        /** Whether the radio-button is required. */
+        _MatRadioButtonHarnessBase.prototype.isRequired = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var required, _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1:
+                            required = (_b.sent()).getAttribute('required');
+                            _a = coercion.coerceBooleanProperty;
+                            return [4 /*yield*/, required];
+                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
+                    }
+                });
+            });
+        };
+        /** Gets the radio-button's name. */
+        _MatRadioButtonHarnessBase.prototype.getName = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1: return [2 /*return*/, (_a.sent()).getAttribute('name')];
+                    }
+                });
+            });
+        };
+        /** Gets the radio-button's id. */
+        _MatRadioButtonHarnessBase.prototype.getId = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('id')];
+                    }
+                });
+            });
+        };
+        /**
+         * Gets the value of the radio-button. The radio-button value will be converted to a string.
+         *
+         * Note: This means that for radio-button's with an object as a value `[object Object]` is
+         * intentionally returned.
+         */
+        _MatRadioButtonHarnessBase.prototype.getValue = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1: return [2 /*return*/, (_a.sent()).getProperty('value')];
+                    }
+                });
+            });
+        };
+        /** Gets the radio-button's label text. */
+        _MatRadioButtonHarnessBase.prototype.getLabelText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._textLabel()];
+                        case 1: return [2 /*return*/, (_a.sent()).text()];
+                    }
+                });
+            });
+        };
+        /** Focuses the radio-button. */
+        _MatRadioButtonHarnessBase.prototype.focus = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1: return [2 /*return*/, (_a.sent()).focus()];
+                    }
+                });
+            });
+        };
+        /** Blurs the radio-button. */
+        _MatRadioButtonHarnessBase.prototype.blur = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1: return [2 /*return*/, (_a.sent()).blur()];
+                    }
+                });
+            });
+        };
+        /** Whether the radio-button is focused. */
+        _MatRadioButtonHarnessBase.prototype.isFocused = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._input()];
+                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
+                    }
+                });
+            });
+        };
+        /**
+         * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
+         * or doing nothing if it is already checked.
+         */
+        _MatRadioButtonHarnessBase.prototype.check = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.isChecked()];
+                        case 1:
+                            if (!!(_a.sent())) return [3 /*break*/, 3];
+                            return [4 /*yield*/, this._clickLabel()];
+                        case 2: return [2 /*return*/, (_a.sent()).click()];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        return _MatRadioButtonHarnessBase;
+    }(testing.ComponentHarness));
     /** Harness for interacting with a standard mat-radio-button in tests. */
     var MatRadioButtonHarness = /** @class */ (function (_super) {
         __extends(MatRadioButtonHarness, _super);
@@ -587,7 +751,6 @@
             var _this = _super.apply(this, __spread(arguments)) || this;
             _this._textLabel = _this.locatorFor('.mat-radio-label-content');
             _this._clickLabel = _this.locatorFor('.mat-radio-label');
-            _this._input = _this.locatorFor('input');
             return _this;
         }
         /**
@@ -608,156 +771,8 @@
                 }
             }); }); });
         };
-        /** Whether the radio-button is checked. */
-        MatRadioButtonHarness.prototype.isChecked = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var checked, _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1:
-                            checked = (_b.sent()).getProperty('checked');
-                            _a = coercion.coerceBooleanProperty;
-                            return [4 /*yield*/, checked];
-                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
-                    }
-                });
-            });
-        };
-        /** Whether the radio-button is disabled. */
-        MatRadioButtonHarness.prototype.isDisabled = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var disabled, _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1:
-                            disabled = (_b.sent()).getAttribute('disabled');
-                            _a = coercion.coerceBooleanProperty;
-                            return [4 /*yield*/, disabled];
-                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
-                    }
-                });
-            });
-        };
-        /** Whether the radio-button is required. */
-        MatRadioButtonHarness.prototype.isRequired = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var required, _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1:
-                            required = (_b.sent()).getAttribute('required');
-                            _a = coercion.coerceBooleanProperty;
-                            return [4 /*yield*/, required];
-                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
-                    }
-                });
-            });
-        };
-        /** Gets the radio-button's name. */
-        MatRadioButtonHarness.prototype.getName = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAttribute('name')];
-                    }
-                });
-            });
-        };
-        /** Gets the radio-button's id. */
-        MatRadioButtonHarness.prototype.getId = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).getProperty('id')];
-                    }
-                });
-            });
-        };
-        /**
-         * Gets the value of the radio-button. The radio-button value will be converted to a string.
-         *
-         * Note: This means that for radio-button's with an object as a value `[object Object]` is
-         * intentionally returned.
-         */
-        MatRadioButtonHarness.prototype.getValue = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1: return [2 /*return*/, (_a.sent()).getProperty('value')];
-                    }
-                });
-            });
-        };
-        /** Gets the radio-button's label text. */
-        MatRadioButtonHarness.prototype.getLabelText = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._textLabel()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
-                    }
-                });
-            });
-        };
-        /** Focuses the radio-button. */
-        MatRadioButtonHarness.prototype.focus = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1: return [2 /*return*/, (_a.sent()).focus()];
-                    }
-                });
-            });
-        };
-        /** Blurs the radio-button. */
-        MatRadioButtonHarness.prototype.blur = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1: return [2 /*return*/, (_a.sent()).blur()];
-                    }
-                });
-            });
-        };
-        /** Whether the radio-button is focused. */
-        MatRadioButtonHarness.prototype.isFocused = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1: return [2 /*return*/, (_a.sent()).isFocused()];
-                    }
-                });
-            });
-        };
-        /**
-         * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
-         * or doing nothing if it is already checked.
-         */
-        MatRadioButtonHarness.prototype.check = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.isChecked()];
-                        case 1:
-                            if (!!(_a.sent())) return [3 /*break*/, 3];
-                            return [4 /*yield*/, this._clickLabel()];
-                        case 2: return [2 /*return*/, (_a.sent()).click()];
-                        case 3: return [2 /*return*/];
-                    }
-                });
-            });
-        };
         return MatRadioButtonHarness;
-    }(testing.ComponentHarness));
+    }(_MatRadioButtonHarnessBase));
     /** The selector for the host element of a `MatRadioButton` instance. */
     MatRadioButtonHarness.hostSelector = '.mat-radio-button';
 
@@ -779,6 +794,8 @@
 
     exports.MatRadioButtonHarness = MatRadioButtonHarness;
     exports.MatRadioGroupHarness = MatRadioGroupHarness;
+    exports._MatRadioButtonHarnessBase = _MatRadioButtonHarnessBase;
+    exports._MatRadioGroupHarnessBase = _MatRadioGroupHarnessBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

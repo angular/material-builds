@@ -10,21 +10,10 @@ import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/tes
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-autocomplete in tests. */
-class MatAutocompleteHarness extends ComponentHarness {
+class _MatAutocompleteHarnessBase extends ComponentHarness {
     constructor() {
         super(...arguments);
         this._documentRootLocator = this.documentRootLocatorFactory();
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which autocomplete instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatAutocompleteHarness, options)
-            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
     }
     /** Gets the value of the autocomplete input. */
     getValue() {
@@ -64,15 +53,15 @@ class MatAutocompleteHarness extends ComponentHarness {
         });
     }
     /** Gets the options inside the autocomplete panel. */
-    getOptions(filters = {}) {
+    getOptions(filters) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatOptionHarness.with(Object.assign(Object.assign({}, filters), { ancestor: yield this._getPanelSelector() })))();
+            return this._documentRootLocator.locatorForAll(this._optionClass.with(Object.assign(Object.assign({}, (filters || {})), { ancestor: yield this._getPanelSelector() })))();
         });
     }
     /** Gets the option groups inside the autocomplete panel. */
-    getOptionGroups(filters = {}) {
+    getOptionGroups(filters) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with(Object.assign(Object.assign({}, filters), { ancestor: yield this._getPanelSelector() })))();
+            return this._documentRootLocator.locatorForAll(this._optionGroupClass.with(Object.assign(Object.assign({}, (filters || {})), { ancestor: yield this._getPanelSelector() })))();
         });
     }
     /** Selects the first option matching the given filters. */
@@ -90,7 +79,7 @@ class MatAutocompleteHarness extends ComponentHarness {
     isOpen() {
         return __awaiter(this, void 0, void 0, function* () {
             const panel = yield this._getPanel();
-            return !!panel && (yield panel.hasClass('mat-autocomplete-visible'));
+            return !!panel && (yield panel.hasClass(`${this._prefix}-autocomplete-visible`));
         });
     }
     /** Gets the panel associated with this autocomplete trigger. */
@@ -106,6 +95,25 @@ class MatAutocompleteHarness extends ComponentHarness {
         return __awaiter(this, void 0, void 0, function* () {
             return `#${(yield (yield this.host()).getAttribute('aria-owns'))}`;
         });
+    }
+}
+/** Harness for interacting with a standard mat-autocomplete in tests. */
+class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._prefix = 'mat';
+        this._optionClass = MatOptionHarness;
+        this._optionGroupClass = MatOptgroupHarness;
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which autocomplete instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatAutocompleteHarness, options)
+            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
     }
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */
@@ -135,5 +143,5 @@ MatAutocompleteHarness.hostSelector = '.mat-autocomplete-trigger';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatAutocompleteHarness };
+export { MatAutocompleteHarness, _MatAutocompleteHarnessBase };
 //# sourceMappingURL=testing.js.map
