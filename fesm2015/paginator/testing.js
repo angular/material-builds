@@ -10,29 +10,7 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-paginator in tests. */
-class MatPaginatorHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._nextButton = this.locatorFor('.mat-paginator-navigation-next');
-        this._previousButton = this.locatorFor('.mat-paginator-navigation-previous');
-        this._firstPageButton = this.locatorForOptional('.mat-paginator-navigation-first');
-        this._lastPageButton = this.locatorForOptional('.mat-paginator-navigation-last');
-        this._select = this.locatorForOptional(MatSelectHarness.with({
-            ancestor: '.mat-paginator-page-size'
-        }));
-        this._pageSizeFallback = this.locatorFor('.mat-paginator-page-size-value');
-        this._rangeLabel = this.locatorFor('.mat-paginator-range-label');
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatPaginatorHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which paginator instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatPaginatorHarness, options);
-    }
+class _MatPaginatorHarnessBase extends ComponentHarness {
     /** Goes to the next page in the paginator. */
     goToNextPage() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -100,6 +78,30 @@ class MatPaginatorHarness extends ComponentHarness {
         });
     }
 }
+/** Harness for interacting with a standard mat-paginator in tests. */
+class MatPaginatorHarness extends _MatPaginatorHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._nextButton = this.locatorFor('.mat-paginator-navigation-next');
+        this._previousButton = this.locatorFor('.mat-paginator-navigation-previous');
+        this._firstPageButton = this.locatorForOptional('.mat-paginator-navigation-first');
+        this._lastPageButton = this.locatorForOptional('.mat-paginator-navigation-last');
+        this._select = this.locatorForOptional(MatSelectHarness.with({
+            ancestor: '.mat-paginator-page-size'
+        }));
+        this._pageSizeFallback = this.locatorFor('.mat-paginator-page-size-value');
+        this._rangeLabel = this.locatorFor('.mat-paginator-range-label');
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatPaginatorHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which paginator instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatPaginatorHarness, options);
+    }
+}
 /** Selector used to find paginator instances. */
 MatPaginatorHarness.hostSelector = '.mat-paginator';
 
@@ -127,5 +129,5 @@ MatPaginatorHarness.hostSelector = '.mat-paginator';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatPaginatorHarness };
+export { MatPaginatorHarness, _MatPaginatorHarnessBase };
 //# sourceMappingURL=testing.js.map
