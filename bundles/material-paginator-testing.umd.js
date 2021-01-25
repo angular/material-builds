@@ -313,6 +313,132 @@
         return value;
     }
 
+    var _MatPaginatorHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatPaginatorHarnessBase, _super);
+        function _MatPaginatorHarnessBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /** Goes to the next page in the paginator. */
+        _MatPaginatorHarnessBase.prototype.goToNextPage = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._nextButton()];
+                        case 1: return [2 /*return*/, (_a.sent()).click()];
+                    }
+                });
+            });
+        };
+        /** Goes to the previous page in the paginator. */
+        _MatPaginatorHarnessBase.prototype.goToPreviousPage = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._previousButton()];
+                        case 1: return [2 /*return*/, (_a.sent()).click()];
+                    }
+                });
+            });
+        };
+        /** Goes to the first page in the paginator. */
+        _MatPaginatorHarnessBase.prototype.goToFirstPage = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var button;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._firstPageButton()];
+                        case 1:
+                            button = _a.sent();
+                            // The first page button isn't enabled by default so we need to check for it.
+                            if (!button) {
+                                throw Error('Could not find first page button inside paginator. ' +
+                                    'Make sure that `showFirstLastButtons` is enabled.');
+                            }
+                            return [2 /*return*/, button.click()];
+                    }
+                });
+            });
+        };
+        /** Goes to the last page in the paginator. */
+        _MatPaginatorHarnessBase.prototype.goToLastPage = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var button;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._lastPageButton()];
+                        case 1:
+                            button = _a.sent();
+                            // The last page button isn't enabled by default so we need to check for it.
+                            if (!button) {
+                                throw Error('Could not find last page button inside paginator. ' +
+                                    'Make sure that `showFirstLastButtons` is enabled.');
+                            }
+                            return [2 /*return*/, button.click()];
+                    }
+                });
+            });
+        };
+        /**
+         * Sets the page size of the paginator.
+         * @param size Page size that should be select.
+         */
+        _MatPaginatorHarnessBase.prototype.setPageSize = function (size) {
+            return __awaiter(this, void 0, void 0, function () {
+                var select;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._select()];
+                        case 1:
+                            select = _a.sent();
+                            // The select is only available if the `pageSizeOptions` are
+                            // set to an array with more than one item.
+                            if (!select) {
+                                throw Error('Cannot find page size selector in paginator. ' +
+                                    'Make sure that the `pageSizeOptions` have been configured.');
+                            }
+                            return [2 /*return*/, select.clickOptions({ text: "" + size })];
+                    }
+                });
+            });
+        };
+        /** Gets the page size of the paginator. */
+        _MatPaginatorHarnessBase.prototype.getPageSize = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var select, value, _a, _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, this._select()];
+                        case 1:
+                            select = _c.sent();
+                            if (!select) return [3 /*break*/, 2];
+                            _a = select.getValueText();
+                            return [3 /*break*/, 4];
+                        case 2: return [4 /*yield*/, this._pageSizeFallback()];
+                        case 3:
+                            _a = (_c.sent()).text();
+                            _c.label = 4;
+                        case 4:
+                            value = _a;
+                            _b = coercion.coerceNumberProperty;
+                            return [4 /*yield*/, value];
+                        case 5: return [2 /*return*/, _b.apply(void 0, [_c.sent()])];
+                    }
+                });
+            });
+        };
+        /** Gets the text of the range labe of the paginator. */
+        _MatPaginatorHarnessBase.prototype.getRangeLabel = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._rangeLabel()];
+                        case 1: return [2 /*return*/, (_a.sent()).text()];
+                    }
+                });
+            });
+        };
+        return _MatPaginatorHarnessBase;
+    }(testing.ComponentHarness));
     /** Harness for interacting with a standard mat-paginator in tests. */
     var MatPaginatorHarness = /** @class */ (function (_super) {
         __extends(MatPaginatorHarness, _super);
@@ -339,127 +465,8 @@
             if (options === void 0) { options = {}; }
             return new testing.HarnessPredicate(MatPaginatorHarness, options);
         };
-        /** Goes to the next page in the paginator. */
-        MatPaginatorHarness.prototype.goToNextPage = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._nextButton()];
-                        case 1: return [2 /*return*/, (_a.sent()).click()];
-                    }
-                });
-            });
-        };
-        /** Goes to the previous page in the paginator. */
-        MatPaginatorHarness.prototype.goToPreviousPage = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._previousButton()];
-                        case 1: return [2 /*return*/, (_a.sent()).click()];
-                    }
-                });
-            });
-        };
-        /** Goes to the first page in the paginator. */
-        MatPaginatorHarness.prototype.goToFirstPage = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var button;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._firstPageButton()];
-                        case 1:
-                            button = _a.sent();
-                            // The first page button isn't enabled by default so we need to check for it.
-                            if (!button) {
-                                throw Error('Could not find first page button inside paginator. ' +
-                                    'Make sure that `showFirstLastButtons` is enabled.');
-                            }
-                            return [2 /*return*/, button.click()];
-                    }
-                });
-            });
-        };
-        /** Goes to the last page in the paginator. */
-        MatPaginatorHarness.prototype.goToLastPage = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var button;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._lastPageButton()];
-                        case 1:
-                            button = _a.sent();
-                            // The last page button isn't enabled by default so we need to check for it.
-                            if (!button) {
-                                throw Error('Could not find last page button inside paginator. ' +
-                                    'Make sure that `showFirstLastButtons` is enabled.');
-                            }
-                            return [2 /*return*/, button.click()];
-                    }
-                });
-            });
-        };
-        /**
-         * Sets the page size of the paginator.
-         * @param size Page size that should be select.
-         */
-        MatPaginatorHarness.prototype.setPageSize = function (size) {
-            return __awaiter(this, void 0, void 0, function () {
-                var select;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._select()];
-                        case 1:
-                            select = _a.sent();
-                            // The select is only available if the `pageSizeOptions` are
-                            // set to an array with more than one item.
-                            if (!select) {
-                                throw Error('Cannot find page size selector in paginator. ' +
-                                    'Make sure that the `pageSizeOptions` have been configured.');
-                            }
-                            return [2 /*return*/, select.clickOptions({ text: "" + size })];
-                    }
-                });
-            });
-        };
-        /** Gets the page size of the paginator. */
-        MatPaginatorHarness.prototype.getPageSize = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var select, value, _a, _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
-                        case 0: return [4 /*yield*/, this._select()];
-                        case 1:
-                            select = _c.sent();
-                            if (!select) return [3 /*break*/, 2];
-                            _a = select.getValueText();
-                            return [3 /*break*/, 4];
-                        case 2: return [4 /*yield*/, this._pageSizeFallback()];
-                        case 3:
-                            _a = (_c.sent()).text();
-                            _c.label = 4;
-                        case 4:
-                            value = _a;
-                            _b = coercion.coerceNumberProperty;
-                            return [4 /*yield*/, value];
-                        case 5: return [2 /*return*/, _b.apply(void 0, [_c.sent()])];
-                    }
-                });
-            });
-        };
-        /** Gets the text of the range labe of the paginator. */
-        MatPaginatorHarness.prototype.getRangeLabel = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._rangeLabel()];
-                        case 1: return [2 /*return*/, (_a.sent()).text()];
-                    }
-                });
-            });
-        };
         return MatPaginatorHarness;
-    }(testing.ComponentHarness));
+    }(_MatPaginatorHarnessBase));
     /** Selector used to find paginator instances. */
     MatPaginatorHarness.hostSelector = '.mat-paginator';
 
@@ -480,6 +487,7 @@
      */
 
     exports.MatPaginatorHarness = MatPaginatorHarness;
+    exports._MatPaginatorHarnessBase = _MatPaginatorHarnessBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
