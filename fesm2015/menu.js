@@ -785,7 +785,7 @@ class MatMenuTrigger {
         this._handleTouchStart = () => this._openedBy = 'touch';
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
-        this._openedBy = null;
+        this._openedBy = undefined;
         /**
          * Whether focus should be restored when the menu is closed.
          * Note that disabling this option can have accessibility implications
@@ -838,7 +838,7 @@ class MatMenuTrigger {
                 throwMatMenuRecursiveError();
             }
             this._menuCloseSubscription = menu.close.subscribe((reason) => {
-                this._destroyMenu();
+                this._destroyMenu(reason);
                 // If a click closed the menu, we should close the entire chain of nested menus.
                 if ((reason === 'click' || reason === 'tab') && this._parentMaterialMenu) {
                     this._parentMaterialMenu.closed.emit(reason);
@@ -914,14 +914,21 @@ class MatMenuTrigger {
         }
     }
     /** Closes the menu and does the necessary cleanup. */
-    _destroyMenu() {
+    _destroyMenu(reason) {
         if (!this._overlayRef || !this.menuOpen) {
             return;
         }
         const menu = this.menu;
         this._closingActionsSubscription.unsubscribe();
         this._overlayRef.detach();
-        this._restoreFocus();
+        // Always restore focus if the user is navigating using the keyboard or the menu was opened
+        // programmatically. We don't restore for non-root triggers, because it can prevent focus
+        // from making it back to the root trigger when closing a long chain of menus by clicking
+        // on the backdrop.
+        if (this.restoreFocus && (reason === 'keydown' || !this._openedBy || !this.triggersSubmenu())) {
+            this.focus(this._openedBy);
+        }
+        this._openedBy = undefined;
         if (menu instanceof _MatMenuBase) {
             menu._resetAnimation();
             if (menu.lazyContent) {
@@ -969,23 +976,6 @@ class MatMenuTrigger {
             }
             this.menu.setElevation(depth);
         }
-    }
-    /** Restores focus to the element that was focused before the menu was open. */
-    _restoreFocus() {
-        // We should reset focus if the user is navigating using a keyboard or
-        // if we have a top-level trigger which might cause focus to be lost
-        // when clicking on the backdrop.
-        if (this.restoreFocus) {
-            if (!this._openedBy) {
-                // Note that the focus style will show up both for `program` and
-                // `keyboard` so we don't have to specify which one it is.
-                this.focus();
-            }
-            else if (!this.triggersSubmenu()) {
-                this.focus(this._openedBy);
-            }
-        }
-        this._openedBy = null;
     }
     // set state rather than toggle to support triggers sharing a menu
     _setIsMenuOpen(isOpen) {
@@ -1105,7 +1095,7 @@ class MatMenuTrigger {
         if (!isFakeMousedownFromScreenReader(event)) {
             // Since right or middle button clicks won't trigger the `click` event,
             // we shouldn't consider the menu as opened by mouse in those cases.
-            this._openedBy = event.button === 0 ? 'mouse' : null;
+            this._openedBy = event.button === 0 ? 'mouse' : undefined;
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
             // highlight from lingering on the menu item.

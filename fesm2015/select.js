@@ -1012,6 +1012,9 @@ class MatSelect extends _MatSelectBase {
         if (this.multiple) {
             offsetX = SELECT_MULTIPLE_PANEL_PADDING_X;
         }
+        else if (this.disableOptionCentering) {
+            offsetX = SELECT_PANEL_PADDING_X;
+        }
         else {
             let selected = this._selectionModel.selected[0] || this.options.first;
             offsetX = selected && selected.group ? SELECT_PANEL_INDENT_PADDING_X : SELECT_PANEL_PADDING_X;

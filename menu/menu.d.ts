@@ -34,6 +34,8 @@ export interface MatMenuDefaultOptions {
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
 /** @docs-private */
 export declare function MAT_MENU_DEFAULT_OPTIONS_FACTORY(): MatMenuDefaultOptions;
+/** Reason why the menu was closed. */
+export declare type MenuCloseReason = void | 'click' | 'keydown' | 'tab';
 /** Base class with all of the `MatMenu` functionality. */
 export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
@@ -118,13 +120,13 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     get classList(): string;
     set classList(classes: string);
     /** Event emitted when the menu is closed. */
-    readonly closed: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
+    readonly closed: EventEmitter<MenuCloseReason>;
     /**
      * Event emitted when the menu is closed.
      * @deprecated Switch to `closed` instead
      * @breaking-change 8.0.0
      */
-    close: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
+    close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
     ngOnInit(): void;
