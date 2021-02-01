@@ -48,7 +48,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
      */
     private _handleTouchStart;
-    _openedBy: Exclude<FocusOrigin, 'program'>;
+    _openedBy: Exclude<FocusOrigin, 'program' | null> | undefined;
     /**
      * @deprecated
      * @breaking-change 8.0.0
@@ -112,8 +112,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _initMenu;
     /** Updates the menu elevation based on the amount of parent menus that it has. */
     private _setMenuElevation;
-    /** Restores focus to the element that was focused before the menu was open. */
-    private _restoreFocus;
     private _setIsMenuOpen;
     /**
      * This method checks that a valid instance of MatMenu has been passed into
