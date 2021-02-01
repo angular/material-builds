@@ -708,6 +708,8 @@ class MatMonthView {
             this.selectedChange.emit(selectedDate);
         }
         this._userSelection.emit({ value: selectedDate, event: event.event });
+        this._previewStart = this._previewEnd = null;
+        this._changeDetectorRef.markForCheck();
     }
     /** Handles keydown events on the calendar body when calendar is in month view. */
     _handleCalendarBodyKeydown(event) {
