@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { EventEmitter, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { EventEmitter, InjectionToken, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable, CanDisableCtor, HasInitialized, HasInitializedCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { SortDirection } from './sort-direction';
@@ -26,12 +26,20 @@ export interface Sort {
     /** The sort direction. */
     direction: SortDirection;
 }
+/** Default options for `mat-sort`.  */
+export interface MatSortDefaultOptions {
+    /** Whether to disable clearing the sorting state. */
+    disableClear?: boolean;
+}
+/** Injection token to be used to override the default options for `mat-sort`. */
+export declare const MAT_SORT_DEFAULT_OPTIONS: InjectionToken<MatSortDefaultOptions>;
 /** @docs-private */
 declare class MatSortBase {
 }
 declare const _MatSortMixinBase: HasInitializedCtor & CanDisableCtor & typeof MatSortBase;
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
 export declare class MatSort extends _MatSortMixinBase implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
+    private _defaultOptions?;
     /** Collection of all registered sortables that this directive manages. */
     sortables: Map<string, MatSortable>;
     /** Used to notify any child components listening to state changes. */
@@ -56,6 +64,7 @@ export declare class MatSort extends _MatSortMixinBase implements CanDisable, Ha
     private _disableClear;
     /** Event emitted when the user changes either the active sort or sort direction. */
     readonly sortChange: EventEmitter<Sort>;
+    constructor(_defaultOptions?: MatSortDefaultOptions | undefined);
     /**
      * Register function to be used by the contained MatSortables. Adds the MatSortable to the
      * collection of MatSortables.

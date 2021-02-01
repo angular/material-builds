@@ -1,4 +1,4 @@
-import { EventEmitter, Directive, Input, Output, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, Inject, ElementRef, NgModule } from '@angular/core';
+import { InjectionToken, EventEmitter, Directive, Optional, Inject, Input, Output, ɵɵdefineInjectable, Injectable, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -38,6 +38,8 @@ function getSortInvalidDirectionError(direction) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Injection token to be used to override the default options for `mat-sort`. */
+const MAT_SORT_DEFAULT_OPTIONS = new InjectionToken('MAT_SORT_DEFAULT_OPTIONS');
 // Boilerplate for applying mixins to MatSort.
 /** @docs-private */
 class MatSortBase {
@@ -45,8 +47,9 @@ class MatSortBase {
 const _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
 class MatSort extends _MatSortMixinBase {
-    constructor() {
-        super(...arguments);
+    constructor(_defaultOptions) {
+        super();
+        this._defaultOptions = _defaultOptions;
         /** Collection of all registered sortables that this directive manages. */
         this.sortables = new Map();
         /** Used to notify any child components listening to state changes. */
@@ -110,11 +113,12 @@ class MatSort extends _MatSortMixinBase {
     }
     /** Returns the next sort direction of the active sortable, checking for potential overrides. */
     getNextSortDirection(sortable) {
+        var _a, _b, _c;
         if (!sortable) {
             return '';
         }
         // Get the sort direction cycle with the potential sortable overrides.
-        const disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
+        const disableClear = (_b = (_a = sortable === null || sortable === void 0 ? void 0 : sortable.disableClear) !== null && _a !== void 0 ? _a : this.disableClear) !== null && _b !== void 0 ? _b : !!((_c = this._defaultOptions) === null || _c === void 0 ? void 0 : _c.disableClear);
         let sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
         // Get and return the next direction in the cycle
         let nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
@@ -140,6 +144,9 @@ MatSort.decorators = [
                 host: { 'class': 'mat-sort' },
                 inputs: ['disabled: matSortDisabled']
             },] }
+];
+MatSort.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_SORT_DEFAULT_OPTIONS,] }] }
 ];
 MatSort.propDecorators = {
     active: [{ type: Input, args: ['matSortActive',] }],
@@ -569,5 +576,5 @@ MatSortModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, matSortAnimations };
+export { MAT_SORT_DEFAULT_OPTIONS, MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, matSortAnimations };
 //# sourceMappingURL=sort.js.map

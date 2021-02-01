@@ -337,6 +337,8 @@
         return Error(direction + " is not a valid sort direction ('asc' or 'desc').");
     }
 
+    /** Injection token to be used to override the default options for `mat-sort`. */
+    var MAT_SORT_DEFAULT_OPTIONS = new i0.InjectionToken('MAT_SORT_DEFAULT_OPTIONS');
     // Boilerplate for applying mixins to MatSort.
     /** @docs-private */
     var MatSortBase = /** @class */ (function () {
@@ -348,8 +350,9 @@
     /** Container for MatSortables to manage the sort state and provide default sort parameters. */
     var MatSort = /** @class */ (function (_super) {
         __extends(MatSort, _super);
-        function MatSort() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+        function MatSort(_defaultOptions) {
+            var _this = _super.call(this) || this;
+            _this._defaultOptions = _defaultOptions;
             /** Collection of all registered sortables that this directive manages. */
             _this.sortables = new Map();
             /** Used to notify any child components listening to state changes. */
@@ -422,11 +425,12 @@
         };
         /** Returns the next sort direction of the active sortable, checking for potential overrides. */
         MatSort.prototype.getNextSortDirection = function (sortable) {
+            var _a, _b, _c;
             if (!sortable) {
                 return '';
             }
             // Get the sort direction cycle with the potential sortable overrides.
-            var disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
+            var disableClear = (_b = (_a = sortable === null || sortable === void 0 ? void 0 : sortable.disableClear) !== null && _a !== void 0 ? _a : this.disableClear) !== null && _b !== void 0 ? _b : !!((_c = this._defaultOptions) === null || _c === void 0 ? void 0 : _c.disableClear);
             var sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
             // Get and return the next direction in the cycle
             var nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
@@ -454,6 +458,9 @@
                     inputs: ['disabled: matSortDisabled']
                 },] }
     ];
+    MatSort.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [MAT_SORT_DEFAULT_OPTIONS,] }] }
+    ]; };
     MatSort.propDecorators = {
         active: [{ type: i0.Input, args: ['matSortActive',] }],
         start: [{ type: i0.Input, args: ['matSortStart',] }],
@@ -883,6 +890,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_SORT_DEFAULT_OPTIONS = MAT_SORT_DEFAULT_OPTIONS;
     exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
     exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
     exports.MatSort = MatSort;
