@@ -366,7 +366,7 @@
             // TODO(mmalerba): Use angular animations for label animation as well.
             animations.state('enter', animations.style({ opacity: 1, transform: 'translateY(0%)' })),
             animations.transition('void => enter', [
-                animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
+                animations.style({ opacity: 0, transform: 'translateY(-5px)' }),
                 animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
             ]),
         ])
