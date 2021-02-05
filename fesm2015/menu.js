@@ -962,8 +962,8 @@ class MatMenuTrigger {
         this.menu.parentMenu = this.triggersSubmenu() ? this._parentMaterialMenu : undefined;
         this.menu.direction = this.dir;
         this._setMenuElevation();
-        this._setIsMenuOpen(true);
         this.menu.focusFirstItem(this._openedBy || 'program');
+        this._setIsMenuOpen(true);
     }
     /** Updates the menu elevation based on the amount of parent menus that it has. */
     _setMenuElevation() {

@@ -9,27 +9,11 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-slide-toggle in tests. */
-class MatSlideToggleHarness extends ComponentHarness {
+class _MatSlideToggleHarnessBase extends ComponentHarness {
     constructor() {
         super(...arguments);
         this._label = this.locatorFor('label');
         this._input = this.locatorFor('input');
-        this._inputContainer = this.locatorFor('.mat-slide-toggle-bar');
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSlideToggleHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which slide toggle instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatSlideToggleHarness, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
-            // We want to provide a filter option for "name" because the name of the slide-toggle is
-            // only set on the underlying input. This means that it's not possible for developers
-            // to retrieve the harness of a specific checkbox with name through a CSS selector.
-            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
     }
     /** Whether the slide-toggle is checked. */
     isChecked() {
@@ -101,12 +85,6 @@ class MatSlideToggleHarness extends ComponentHarness {
             return (yield this._input()).isFocused();
         });
     }
-    /** Toggle the checked state of the slide-toggle. */
-    toggle() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._inputContainer()).click();
-        });
-    }
     /**
      * Puts the slide-toggle in a checked state by toggling it if it is currently unchecked, or doing
      * nothing if it is already checked.
@@ -127,6 +105,33 @@ class MatSlideToggleHarness extends ComponentHarness {
             if (yield this.isChecked()) {
                 yield this.toggle();
             }
+        });
+    }
+}
+/** Harness for interacting with a standard mat-slide-toggle in tests. */
+class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._inputContainer = this.locatorFor('.mat-slide-toggle-bar');
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSlideToggleHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which slide toggle instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatSlideToggleHarness, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            // We want to provide a filter option for "name" because the name of the slide-toggle is
+            // only set on the underlying input. This means that it's not possible for developers
+            // to retrieve the harness of a specific checkbox with name through a CSS selector.
+            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
+    }
+    /** Toggle the checked state of the slide-toggle. */
+    toggle() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this._inputContainer()).click();
         });
     }
 }
@@ -157,5 +162,5 @@ MatSlideToggleHarness.hostSelector = '.mat-slide-toggle';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatSlideToggleHarness };
+export { MatSlideToggleHarness, _MatSlideToggleHarnessBase };
 //# sourceMappingURL=testing.js.map
