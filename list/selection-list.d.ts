@@ -177,10 +177,10 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     ngOnDestroy(): void;
     /** Focuses the selection list. */
     focus(options?: FocusOptions): void;
-    /** Selects all of the options. */
-    selectAll(): void;
-    /** Deselects all of the options. */
-    deselectAll(): void;
+    /** Selects all of the options. Returns the options that changed as a result. */
+    selectAll(): MatListOption[];
+    /** Deselects all of the options. Returns the options that changed as a result. */
+    deselectAll(): MatListOption[];
     /** Sets the focused option of the selection-list. */
     _setFocusedOption(option: MatListOption): void;
     /**

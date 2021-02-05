@@ -597,13 +597,13 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     focus(options) {
         this._element.nativeElement.focus(options);
     }
-    /** Selects all of the options. */
+    /** Selects all of the options. Returns the options that changed as a result. */
     selectAll() {
-        this._setAllOptionsSelected(true);
+        return this._setAllOptionsSelected(true);
     }
-    /** Deselects all of the options. */
+    /** Deselects all of the options. Returns the options that changed as a result. */
     deselectAll() {
-        this._setAllOptionsSelected(false);
+        return this._setAllOptionsSelected(false);
     }
     /** Sets the focused option of the selection-list. */
     _setFocusedOption(option) {
@@ -742,6 +742,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 this._emitChangeEvent(changedOptions);
             }
         }
+        return changedOptions;
     }
     /**
      * Utility to ensure all indexes are valid.
