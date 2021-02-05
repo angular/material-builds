@@ -314,6 +314,23 @@
     }
 
     /**
+     * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
+     * tables that animate rows.
+     */
+    var MatRecycleRows = /** @class */ (function () {
+        function MatRecycleRows() {
+        }
+        return MatRecycleRows;
+    }());
+    MatRecycleRows.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'mat-table[recycleRows], table[mat-table][recycleRows]',
+                    providers: [
+                        { provide: collections._VIEW_REPEATER_STRATEGY, useClass: collections._RecycleViewRepeaterStrategy },
+                    ],
+                },] }
+    ];
+    /**
      * Wrapper for the CdkTable with Material design styles.
      */
     var MatTable = /** @class */ (function (_super) {
@@ -680,6 +697,7 @@
     var EXPORTED_DECLARATIONS = [
         // Table
         MatTable,
+        MatRecycleRows,
         // Template defs
         MatHeaderCellDef,
         MatHeaderRowDef,
@@ -1063,6 +1081,7 @@
     exports.MatHeaderRow = MatHeaderRow;
     exports.MatHeaderRowDef = MatHeaderRowDef;
     exports.MatNoDataRow = MatNoDataRow;
+    exports.MatRecycleRows = MatRecycleRows;
     exports.MatRow = MatRow;
     exports.MatRowDef = MatRowDef;
     exports.MatTable = MatTable;
