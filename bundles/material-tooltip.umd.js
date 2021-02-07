@@ -381,14 +381,8 @@
             touchendHideDelay: 1500,
         };
     }
-    /**
-     * Directive that attaches a material design tooltip to the host element. Animates the showing and
-     * hiding of a tooltip provided position (defaults to below the element).
-     *
-     * https://material.io/design/components/tooltips.html
-     */
-    var MatTooltip = /** @class */ (function () {
-        function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
+    var _MatTooltipBase = /** @class */ (function () {
+        function _MatTooltipBase(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
         /** @breaking-change 11.0.0 _document argument to become required. */
         _document) {
             var _this = this;
@@ -406,6 +400,7 @@
             this._disabled = false;
             this._viewInitialized = false;
             this._pointerExitEventsInitialized = false;
+            this._viewportMargin = 8;
             /** The default delay in ms before showing the tooltip after show is called */
             this.showDelay = this._defaultOptions.showDelay;
             /** The default delay in ms before hiding the tooltip after hide is called */
@@ -454,7 +449,7 @@
                 _elementRef.nativeElement.addEventListener('keydown', _this._handleKeydown);
             });
         }
-        Object.defineProperty(MatTooltip.prototype, "position", {
+        Object.defineProperty(_MatTooltipBase.prototype, "position", {
             /** Allows the user to define the position of the tooltip relative to the parent element */
             get: function () { return this._position; },
             set: function (value) {
@@ -472,7 +467,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatTooltip.prototype, "disabled", {
+        Object.defineProperty(_MatTooltipBase.prototype, "disabled", {
             /** Disables the display of the tooltip. */
             get: function () { return this._disabled; },
             set: function (value) {
@@ -488,7 +483,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatTooltip.prototype, "message", {
+        Object.defineProperty(_MatTooltipBase.prototype, "message", {
             /** The message to be displayed in the tooltip */
             get: function () { return this._message; },
             set: function (value) {
@@ -518,7 +513,7 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatTooltip.prototype, "tooltipClass", {
+        Object.defineProperty(_MatTooltipBase.prototype, "tooltipClass", {
             /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
             get: function () { return this._tooltipClass; },
             set: function (value) {
@@ -530,7 +525,7 @@
             enumerable: false,
             configurable: true
         });
-        MatTooltip.prototype.ngAfterViewInit = function () {
+        _MatTooltipBase.prototype.ngAfterViewInit = function () {
             var _this = this;
             // This needs to happen after view init so the initial values for all inputs have been set.
             this._viewInitialized = true;
@@ -550,7 +545,7 @@
         /**
          * Dispose the tooltip when destroyed.
          */
-        MatTooltip.prototype.ngOnDestroy = function () {
+        _MatTooltipBase.prototype.ngOnDestroy = function () {
             var nativeElement = this._elementRef.nativeElement;
             clearTimeout(this._touchstartTimeout);
             if (this._overlayRef) {
@@ -570,7 +565,7 @@
             this._focusMonitor.stopMonitoring(nativeElement);
         };
         /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
-        MatTooltip.prototype.show = function (delay) {
+        _MatTooltipBase.prototype.show = function (delay) {
             var _this = this;
             if (delay === void 0) { delay = this.showDelay; }
             if (this.disabled || !this.message || (this._isTooltipVisible() &&
@@ -579,7 +574,8 @@
             }
             var overlayRef = this._createOverlay();
             this._detach();
-            this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
+            this._portal = this._portal ||
+                new portal.ComponentPortal(this._tooltipComponent, this._viewContainerRef);
             this._tooltipInstance = overlayRef.attach(this._portal).instance;
             this._tooltipInstance.afterHidden()
                 .pipe(operators.takeUntil(this._destroyed))
@@ -589,22 +585,22 @@
             this._tooltipInstance.show(delay);
         };
         /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
-        MatTooltip.prototype.hide = function (delay) {
+        _MatTooltipBase.prototype.hide = function (delay) {
             if (delay === void 0) { delay = this.hideDelay; }
             if (this._tooltipInstance) {
                 this._tooltipInstance.hide(delay);
             }
         };
         /** Shows/hides the tooltip */
-        MatTooltip.prototype.toggle = function () {
+        _MatTooltipBase.prototype.toggle = function () {
             this._isTooltipVisible() ? this.hide() : this.show();
         };
         /** Returns true if the tooltip is currently visible to the user */
-        MatTooltip.prototype._isTooltipVisible = function () {
+        _MatTooltipBase.prototype._isTooltipVisible = function () {
             return !!this._tooltipInstance && this._tooltipInstance.isVisible();
         };
         /** Create the overlay config and position strategy */
-        MatTooltip.prototype._createOverlay = function () {
+        _MatTooltipBase.prototype._createOverlay = function () {
             var _this = this;
             if (this._overlayRef) {
                 return this._overlayRef;
@@ -613,9 +609,9 @@
             // Create connected position strategy that listens for scroll events to reposition.
             var strategy = this._overlay.position()
                 .flexibleConnectedTo(this._elementRef)
-                .withTransformOriginOn('.mat-tooltip')
+                .withTransformOriginOn(this._transformOriginSelector)
                 .withFlexibleDimensions(false)
-                .withViewportMargin(8)
+                .withViewportMargin(this._viewportMargin)
                 .withScrollableContainers(scrollableAncestors);
             strategy.positionChanges.pipe(operators.takeUntil(this._destroyed)).subscribe(function (change) {
                 if (_this._tooltipInstance) {
@@ -639,27 +635,31 @@
             return this._overlayRef;
         };
         /** Detaches the currently-attached tooltip. */
-        MatTooltip.prototype._detach = function () {
+        _MatTooltipBase.prototype._detach = function () {
             if (this._overlayRef && this._overlayRef.hasAttached()) {
                 this._overlayRef.detach();
             }
             this._tooltipInstance = null;
         };
         /** Updates the position of the current tooltip. */
-        MatTooltip.prototype._updatePosition = function () {
+        _MatTooltipBase.prototype._updatePosition = function () {
             var position = this._overlayRef.getConfig().positionStrategy;
             var origin = this._getOrigin();
             var overlay = this._getOverlayPosition();
             position.withPositions([
-                Object.assign(Object.assign({}, origin.main), overlay.main),
-                Object.assign(Object.assign({}, origin.fallback), overlay.fallback)
+                this._addOffset(Object.assign(Object.assign({}, origin.main), overlay.main)),
+                this._addOffset(Object.assign(Object.assign({}, origin.fallback), overlay.fallback))
             ]);
+        };
+        /** Adds the configured offset to a position. Used as a hook for child classes. */
+        _MatTooltipBase.prototype._addOffset = function (position) {
+            return position;
         };
         /**
          * Returns the origin position and a fallback position based on the user's position preference.
          * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
          */
-        MatTooltip.prototype._getOrigin = function () {
+        _MatTooltipBase.prototype._getOrigin = function () {
             var isLtr = !this._dir || this._dir.value == 'ltr';
             var position = this.position;
             var originPosition;
@@ -686,7 +686,7 @@
             };
         };
         /** Returns the overlay position and a fallback position based on the user's preference */
-        MatTooltip.prototype._getOverlayPosition = function () {
+        _MatTooltipBase.prototype._getOverlayPosition = function () {
             var isLtr = !this._dir || this._dir.value == 'ltr';
             var position = this.position;
             var overlayPosition;
@@ -716,7 +716,7 @@
             };
         };
         /** Updates the tooltip message and repositions the overlay according to the new message length */
-        MatTooltip.prototype._updateTooltipMessage = function () {
+        _MatTooltipBase.prototype._updateTooltipMessage = function () {
             var _this = this;
             // Must wait for the message to be painted to the tooltip so that the overlay can properly
             // calculate the correct positioning based on the size of the text.
@@ -731,14 +731,14 @@
             }
         };
         /** Updates the tooltip class */
-        MatTooltip.prototype._setTooltipClass = function (tooltipClass) {
+        _MatTooltipBase.prototype._setTooltipClass = function (tooltipClass) {
             if (this._tooltipInstance) {
                 this._tooltipInstance.tooltipClass = tooltipClass;
                 this._tooltipInstance._markForCheck();
             }
         };
         /** Inverts an overlay position. */
-        MatTooltip.prototype._invertPosition = function (x, y) {
+        _MatTooltipBase.prototype._invertPosition = function (x, y) {
             if (this.position === 'above' || this.position === 'below') {
                 if (y === 'top') {
                     y = 'bottom';
@@ -758,7 +758,7 @@
             return { x: x, y: y };
         };
         /** Binds the pointer events to the tooltip trigger. */
-        MatTooltip.prototype._setupPointerEnterEventsIfNeeded = function () {
+        _MatTooltipBase.prototype._setupPointerEnterEventsIfNeeded = function () {
             var _this = this;
             // Optimization: Defer hooking up events if there's no message or the tooltip is disabled.
             if (this._disabled || !this.message || !this._viewInitialized ||
@@ -787,7 +787,7 @@
             }
             this._addListeners(this._passiveListeners);
         };
-        MatTooltip.prototype._setupPointerExitEventsIfNeeded = function () {
+        _MatTooltipBase.prototype._setupPointerExitEventsIfNeeded = function () {
             var _a;
             var _this = this;
             if (this._pointerExitEventsInitialized) {
@@ -809,18 +809,18 @@
             this._addListeners(exitListeners);
             (_a = this._passiveListeners).push.apply(_a, __spread(exitListeners));
         };
-        MatTooltip.prototype._addListeners = function (listeners) {
+        _MatTooltipBase.prototype._addListeners = function (listeners) {
             var _this = this;
             listeners.forEach(function (_a) {
                 var _b = __read(_a, 2), event = _b[0], listener = _b[1];
                 _this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
             });
         };
-        MatTooltip.prototype._platformSupportsMouseEvents = function () {
+        _MatTooltipBase.prototype._platformSupportsMouseEvents = function () {
             return !this._platform.IOS && !this._platform.ANDROID;
         };
         /** Listener for the `wheel` event on the element. */
-        MatTooltip.prototype._wheelListener = function (event) {
+        _MatTooltipBase.prototype._wheelListener = function (event) {
             if (this._isTooltipVisible()) {
                 // @breaking-change 11.0.0 Remove `|| document` once the document is a required param.
                 var doc = this._document || document;
@@ -836,7 +836,7 @@
             }
         };
         /** Disables the native browser gestures, based on how the tooltip has been configured. */
-        MatTooltip.prototype._disableNativeGesturesIfNecessary = function () {
+        _MatTooltipBase.prototype._disableNativeGesturesIfNecessary = function () {
             var gestures = this.touchGestures;
             if (gestures !== 'off') {
                 var element = this._elementRef.nativeElement;
@@ -856,8 +856,52 @@
                 style.webkitTapHighlightColor = 'transparent';
             }
         };
-        return MatTooltip;
+        return _MatTooltipBase;
     }());
+    _MatTooltipBase.decorators = [
+        { type: core.Directive }
+    ];
+    _MatTooltipBase.ctorParameters = function () { return [
+        { type: overlay.Overlay },
+        { type: core.ElementRef },
+        { type: scrolling.ScrollDispatcher },
+        { type: core.ViewContainerRef },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: a11y.AriaDescriber },
+        { type: a11y.FocusMonitor },
+        { type: undefined },
+        { type: bidi.Directionality },
+        { type: undefined },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+    ]; };
+    _MatTooltipBase.propDecorators = {
+        position: [{ type: core.Input, args: ['matTooltipPosition',] }],
+        disabled: [{ type: core.Input, args: ['matTooltipDisabled',] }],
+        showDelay: [{ type: core.Input, args: ['matTooltipShowDelay',] }],
+        hideDelay: [{ type: core.Input, args: ['matTooltipHideDelay',] }],
+        touchGestures: [{ type: core.Input, args: ['matTooltipTouchGestures',] }],
+        message: [{ type: core.Input, args: ['matTooltip',] }],
+        tooltipClass: [{ type: core.Input, args: ['matTooltipClass',] }]
+    };
+    /**
+     * Directive that attaches a material design tooltip to the host element. Animates the showing and
+     * hiding of a tooltip provided position (defaults to below the element).
+     *
+     * https://material.io/design/components/tooltips.html
+     */
+    var MatTooltip = /** @class */ (function (_super) {
+        __extends(MatTooltip, _super);
+        function MatTooltip(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, 
+        /** @breaking-change 11.0.0 _document argument to become required. */
+        _document) {
+            var _this = _super.call(this, overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document) || this;
+            _this._tooltipComponent = TooltipComponent;
+            _this._transformOriginSelector = '.mat-tooltip';
+            return _this;
+        }
+        return MatTooltip;
+    }(_MatTooltipBase));
     MatTooltip.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matTooltip]',
@@ -881,37 +925,21 @@
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
         { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
-    MatTooltip.propDecorators = {
-        position: [{ type: core.Input, args: ['matTooltipPosition',] }],
-        disabled: [{ type: core.Input, args: ['matTooltipDisabled',] }],
-        showDelay: [{ type: core.Input, args: ['matTooltipShowDelay',] }],
-        hideDelay: [{ type: core.Input, args: ['matTooltipHideDelay',] }],
-        touchGestures: [{ type: core.Input, args: ['matTooltipTouchGestures',] }],
-        message: [{ type: core.Input, args: ['matTooltip',] }],
-        tooltipClass: [{ type: core.Input, args: ['matTooltipClass',] }]
-    };
-    /**
-     * Internal component that wraps the tooltip's content.
-     * @docs-private
-     */
-    var TooltipComponent = /** @class */ (function () {
-        function TooltipComponent(_changeDetectorRef, _breakpointObserver) {
+    var _TooltipComponentBase = /** @class */ (function () {
+        function _TooltipComponentBase(_changeDetectorRef) {
             this._changeDetectorRef = _changeDetectorRef;
-            this._breakpointObserver = _breakpointObserver;
             /** Property watched by the animation framework to show or hide the tooltip */
             this._visibility = 'initial';
             /** Whether interactions on the page should close the tooltip */
             this._closeOnInteraction = false;
             /** Subject for notifying that the tooltip has been hidden from the view */
             this._onHide = new rxjs.Subject();
-            /** Stream that emits whether the user has a handset-sized display.  */
-            this._isHandset = this._breakpointObserver.observe(layout.Breakpoints.Handset);
         }
         /**
          * Shows the tooltip with an animation originating from the provided origin
          * @param delay Amount of milliseconds to the delay showing the tooltip.
          */
-        TooltipComponent.prototype.show = function (delay) {
+        _TooltipComponentBase.prototype.show = function (delay) {
             var _this = this;
             // Cancel the delayed hide if it is scheduled
             if (this._hideTimeoutId) {
@@ -932,7 +960,7 @@
          * Begins the animation to hide the tooltip after the provided delay in ms.
          * @param delay Amount of milliseconds to delay showing the tooltip.
          */
-        TooltipComponent.prototype.hide = function (delay) {
+        _TooltipComponentBase.prototype.hide = function (delay) {
             var _this = this;
             // Cancel the delayed show if it is scheduled
             if (this._showTimeoutId) {
@@ -948,20 +976,20 @@
             }, delay);
         };
         /** Returns an observable that notifies when the tooltip has been hidden from view. */
-        TooltipComponent.prototype.afterHidden = function () {
+        _TooltipComponentBase.prototype.afterHidden = function () {
             return this._onHide;
         };
         /** Whether the tooltip is being displayed. */
-        TooltipComponent.prototype.isVisible = function () {
+        _TooltipComponentBase.prototype.isVisible = function () {
             return this._visibility === 'visible';
         };
-        TooltipComponent.prototype.ngOnDestroy = function () {
+        _TooltipComponentBase.prototype.ngOnDestroy = function () {
             this._onHide.complete();
         };
-        TooltipComponent.prototype._animationStart = function () {
+        _TooltipComponentBase.prototype._animationStart = function () {
             this._closeOnInteraction = false;
         };
-        TooltipComponent.prototype._animationDone = function (event) {
+        _TooltipComponentBase.prototype._animationDone = function (event) {
             var toState = event.toState;
             if (toState === 'hidden' && !this.isVisible()) {
                 this._onHide.next();
@@ -975,7 +1003,7 @@
          * material design spec.
          * https://material.io/design/components/tooltips.html#behavior
          */
-        TooltipComponent.prototype._handleBodyInteraction = function () {
+        _TooltipComponentBase.prototype._handleBodyInteraction = function () {
             if (this._closeOnInteraction) {
                 this.hide(0);
             }
@@ -985,11 +1013,32 @@
          * Mainly used for rendering the initial text before positioning a tooltip, which
          * can be problematic in components with OnPush change detection.
          */
-        TooltipComponent.prototype._markForCheck = function () {
+        _TooltipComponentBase.prototype._markForCheck = function () {
             this._changeDetectorRef.markForCheck();
         };
-        return TooltipComponent;
+        return _TooltipComponentBase;
     }());
+    _TooltipComponentBase.decorators = [
+        { type: core.Directive }
+    ];
+    _TooltipComponentBase.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef }
+    ]; };
+    /**
+     * Internal component that wraps the tooltip's content.
+     * @docs-private
+     */
+    var TooltipComponent = /** @class */ (function (_super) {
+        __extends(TooltipComponent, _super);
+        function TooltipComponent(changeDetectorRef, _breakpointObserver) {
+            var _this = _super.call(this, changeDetectorRef) || this;
+            _this._breakpointObserver = _breakpointObserver;
+            /** Stream that emits whether the user has a handset-sized display.  */
+            _this._isHandset = _this._breakpointObserver.observe(layout.Breakpoints.Handset);
+            return _this;
+        }
+        return TooltipComponent;
+    }(_TooltipComponentBase));
     TooltipComponent.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-tooltip-component',
@@ -1062,6 +1111,8 @@
     exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
     exports.TOOLTIP_PANEL_CLASS = TOOLTIP_PANEL_CLASS;
     exports.TooltipComponent = TooltipComponent;
+    exports._MatTooltipBase = _MatTooltipBase;
+    exports._TooltipComponentBase = _TooltipComponentBase;
     exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
     exports.matTooltipAnimations = matTooltipAnimations;
 

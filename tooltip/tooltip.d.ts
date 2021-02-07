@@ -10,8 +10,9 @@ import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { ConnectedPosition, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
+import { ComponentType } from '@angular/cdk/portal';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -55,13 +56,7 @@ export interface MatTooltipDefaultOptions {
 export declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
 /** @docs-private */
 export declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefaultOptions;
-/**
- * Directive that attaches a material design tooltip to the host element. Animates the showing and
- * hiding of a tooltip provided position (defaults to below the element).
- *
- * https://material.io/design/components/tooltips.html
- */
-export declare class MatTooltip implements OnDestroy, AfterViewInit {
+export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> implements OnDestroy, AfterViewInit {
     private _overlay;
     private _elementRef;
     private _scrollDispatcher;
@@ -70,10 +65,10 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _platform;
     private _ariaDescriber;
     private _focusMonitor;
-    private _dir;
+    protected _dir: Directionality;
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
-    _tooltipInstance: TooltipComponent | null;
+    _tooltipInstance: T | null;
     private _portal;
     private _position;
     private _disabled;
@@ -81,6 +76,9 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _scrollStrategy;
     private _viewInitialized;
     private _pointerExitEventsInitialized;
+    protected abstract readonly _tooltipComponent: ComponentType<T>;
+    protected abstract readonly _transformOriginSelector: string;
+    protected _viewportMargin: number;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
@@ -155,6 +153,8 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _detach;
     /** Updates the position of the current tooltip. */
     private _updatePosition;
+    /** Adds the configured offset to a position. Used as a hook for child classes. */
+    protected _addOffset(position: ConnectedPosition): ConnectedPosition;
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
      * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
@@ -188,12 +188,20 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     static ngAcceptInputType_showDelay: NumberInput;
 }
 /**
- * Internal component that wraps the tooltip's content.
- * @docs-private
+ * Directive that attaches a material design tooltip to the host element. Animates the showing and
+ * hiding of a tooltip provided position (defaults to below the element).
+ *
+ * https://material.io/design/components/tooltips.html
  */
-export declare class TooltipComponent implements OnDestroy {
+export declare class MatTooltip extends _MatTooltipBase<TooltipComponent> {
+    protected readonly _tooltipComponent: typeof TooltipComponent;
+    protected readonly _transformOriginSelector = ".mat-tooltip";
+    constructor(overlay: Overlay, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, viewContainerRef: ViewContainerRef, ngZone: NgZone, platform: Platform, ariaDescriber: AriaDescriber, focusMonitor: FocusMonitor, scrollStrategy: any, dir: Directionality, defaultOptions: MatTooltipDefaultOptions, 
+    /** @breaking-change 11.0.0 _document argument to become required. */
+    _document: any);
+}
+export declare abstract class _TooltipComponentBase implements OnDestroy {
     private _changeDetectorRef;
-    private _breakpointObserver;
     /** Message to display in the tooltip */
     message: string;
     /** Classes to be added to the tooltip. Supports the same syntax as `ngClass`. */
@@ -210,9 +218,7 @@ export declare class TooltipComponent implements OnDestroy {
     private _closeOnInteraction;
     /** Subject for notifying that the tooltip has been hidden from the view */
     private readonly _onHide;
-    /** Stream that emits whether the user has a handset-sized display.  */
-    _isHandset: Observable<BreakpointState>;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver);
+    constructor(_changeDetectorRef: ChangeDetectorRef);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param delay Amount of milliseconds to the delay showing the tooltip.
@@ -242,4 +248,14 @@ export declare class TooltipComponent implements OnDestroy {
      * can be problematic in components with OnPush change detection.
      */
     _markForCheck(): void;
+}
+/**
+ * Internal component that wraps the tooltip's content.
+ * @docs-private
+ */
+export declare class TooltipComponent extends _TooltipComponentBase {
+    private _breakpointObserver;
+    /** Stream that emits whether the user has a handset-sized display.  */
+    _isHandset: Observable<BreakpointState>;
+    constructor(changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver);
 }

@@ -1,7 +1,7 @@
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { InjectionToken, Directive, ElementRef, ViewContainerRef, NgZone, Inject, Optional, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgModule } from '@angular/core';
+import { InjectionToken, Directive, ElementRef, ViewContainerRef, NgZone, Inject, Input, Optional, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatcher, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Directionality } from '@angular/cdk/bidi';
@@ -82,13 +82,7 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
         touchendHideDelay: 1500,
     };
 }
-/**
- * Directive that attaches a material design tooltip to the host element. Animates the showing and
- * hiding of a tooltip provided position (defaults to below the element).
- *
- * https://material.io/design/components/tooltips.html
- */
-class MatTooltip {
+class _MatTooltipBase {
     constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
     /** @breaking-change 11.0.0 _document argument to become required. */
     _document) {
@@ -106,6 +100,7 @@ class MatTooltip {
         this._disabled = false;
         this._viewInitialized = false;
         this._pointerExitEventsInitialized = false;
+        this._viewportMargin = 8;
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = this._defaultOptions.showDelay;
         /** The default delay in ms before hiding the tooltip after hide is called */
@@ -258,7 +253,8 @@ class MatTooltip {
         }
         const overlayRef = this._createOverlay();
         this._detach();
-        this._portal = this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
+        this._portal = this._portal ||
+            new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
             .pipe(takeUntil(this._destroyed))
@@ -290,9 +286,9 @@ class MatTooltip {
         // Create connected position strategy that listens for scroll events to reposition.
         const strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
-            .withTransformOriginOn('.mat-tooltip')
+            .withTransformOriginOn(this._transformOriginSelector)
             .withFlexibleDimensions(false)
-            .withViewportMargin(8)
+            .withViewportMargin(this._viewportMargin)
             .withScrollableContainers(scrollableAncestors);
         strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe(change => {
             if (this._tooltipInstance) {
@@ -328,9 +324,13 @@ class MatTooltip {
         const origin = this._getOrigin();
         const overlay = this._getOverlayPosition();
         position.withPositions([
-            Object.assign(Object.assign({}, origin.main), overlay.main),
-            Object.assign(Object.assign({}, origin.fallback), overlay.fallback)
+            this._addOffset(Object.assign(Object.assign({}, origin.main), overlay.main)),
+            this._addOffset(Object.assign(Object.assign({}, origin.fallback), overlay.fallback))
         ]);
+    }
+    /** Adds the configured offset to a position. Used as a hook for child classes. */
+    _addOffset(position) {
+        return position;
     }
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
@@ -528,6 +528,47 @@ class MatTooltip {
         }
     }
 }
+_MatTooltipBase.decorators = [
+    { type: Directive }
+];
+_MatTooltipBase.ctorParameters = () => [
+    { type: Overlay },
+    { type: ElementRef },
+    { type: ScrollDispatcher },
+    { type: ViewContainerRef },
+    { type: NgZone },
+    { type: Platform },
+    { type: AriaDescriber },
+    { type: FocusMonitor },
+    { type: undefined },
+    { type: Directionality },
+    { type: undefined },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+];
+_MatTooltipBase.propDecorators = {
+    position: [{ type: Input, args: ['matTooltipPosition',] }],
+    disabled: [{ type: Input, args: ['matTooltipDisabled',] }],
+    showDelay: [{ type: Input, args: ['matTooltipShowDelay',] }],
+    hideDelay: [{ type: Input, args: ['matTooltipHideDelay',] }],
+    touchGestures: [{ type: Input, args: ['matTooltipTouchGestures',] }],
+    message: [{ type: Input, args: ['matTooltip',] }],
+    tooltipClass: [{ type: Input, args: ['matTooltipClass',] }]
+};
+/**
+ * Directive that attaches a material design tooltip to the host element. Animates the showing and
+ * hiding of a tooltip provided position (defaults to below the element).
+ *
+ * https://material.io/design/components/tooltips.html
+ */
+class MatTooltip extends _MatTooltipBase {
+    constructor(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, 
+    /** @breaking-change 11.0.0 _document argument to become required. */
+    _document) {
+        super(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document);
+        this._tooltipComponent = TooltipComponent;
+        this._transformOriginSelector = '.mat-tooltip';
+    }
+}
 MatTooltip.decorators = [
     { type: Directive, args: [{
                 selector: '[matTooltip]',
@@ -551,31 +592,15 @@ MatTooltip.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-MatTooltip.propDecorators = {
-    position: [{ type: Input, args: ['matTooltipPosition',] }],
-    disabled: [{ type: Input, args: ['matTooltipDisabled',] }],
-    showDelay: [{ type: Input, args: ['matTooltipShowDelay',] }],
-    hideDelay: [{ type: Input, args: ['matTooltipHideDelay',] }],
-    touchGestures: [{ type: Input, args: ['matTooltipTouchGestures',] }],
-    message: [{ type: Input, args: ['matTooltip',] }],
-    tooltipClass: [{ type: Input, args: ['matTooltipClass',] }]
-};
-/**
- * Internal component that wraps the tooltip's content.
- * @docs-private
- */
-class TooltipComponent {
-    constructor(_changeDetectorRef, _breakpointObserver) {
+class _TooltipComponentBase {
+    constructor(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
-        this._breakpointObserver = _breakpointObserver;
         /** Property watched by the animation framework to show or hide the tooltip */
         this._visibility = 'initial';
         /** Whether interactions on the page should close the tooltip */
         this._closeOnInteraction = false;
         /** Subject for notifying that the tooltip has been hidden from the view */
         this._onHide = new Subject();
-        /** Stream that emits whether the user has a handset-sized display.  */
-        this._isHandset = this._breakpointObserver.observe(Breakpoints.Handset);
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -657,6 +682,24 @@ class TooltipComponent {
         this._changeDetectorRef.markForCheck();
     }
 }
+_TooltipComponentBase.decorators = [
+    { type: Directive }
+];
+_TooltipComponentBase.ctorParameters = () => [
+    { type: ChangeDetectorRef }
+];
+/**
+ * Internal component that wraps the tooltip's content.
+ * @docs-private
+ */
+class TooltipComponent extends _TooltipComponentBase {
+    constructor(changeDetectorRef, _breakpointObserver) {
+        super(changeDetectorRef);
+        this._breakpointObserver = _breakpointObserver;
+        /** Stream that emits whether the user has a handset-sized display.  */
+        this._isHandset = this._breakpointObserver.observe(Breakpoints.Handset);
+    }
+}
 TooltipComponent.decorators = [
     { type: Component, args: [{
                 selector: 'mat-tooltip-component',
@@ -716,5 +759,5 @@ MatTooltipModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError, matTooltipAnimations };
+export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, _MatTooltipBase, _TooltipComponentBase, getMatTooltipInvalidPositionError, matTooltipAnimations };
 //# sourceMappingURL=tooltip.js.map
