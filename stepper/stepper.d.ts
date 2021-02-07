@@ -9,21 +9,32 @@ import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkStep, CdkStepper, StepperOptions } from '@angular/cdk/stepper';
 import { AnimationEvent } from '@angular/animations';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, TemplateRef, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, ThemePalette } from '@angular/material/core';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
 import { MatStepperIcon, MatStepperIconContext } from './stepper-icon';
-export declare class MatStep extends CdkStep implements ErrorStateMatcher {
+import { MatStepContent } from './step-content';
+export declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContentInit, OnDestroy {
     private _errorStateMatcher;
+    private _viewContainerRef?;
+    private _isSelected;
     /** Content for step label given by `<ng-template matStepLabel>`. */
     stepLabel: MatStepLabel;
     /** Theme color for the particular step. */
     color: ThemePalette;
+    /** Content that will be rendered lazily. */
+    _lazyContent: MatStepContent;
+    /** Currently-attached portal containing the lazy content. */
+    _portal: TemplatePortal;
     /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
-    constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, stepperOptions?: StepperOptions);
+    /** @breaking-change 9.0.0 _viewContainerRef parameter to become required. */
+    constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, stepperOptions?: StepperOptions, _viewContainerRef?: ViewContainerRef | undefined);
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
 }

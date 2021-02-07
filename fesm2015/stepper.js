@@ -1,14 +1,14 @@
-import { PortalModule } from '@angular/cdk/portal';
+import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { CdkStepLabel, CdkStepHeader, CdkStep, STEPPER_GLOBAL_OPTIONS, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { Directive, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Input, TemplateRef, Inject, forwardRef, ContentChild, QueryList, EventEmitter, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
+import { Directive, ɵɵdefineInjectable, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, ChangeDetectorRef, Input, TemplateRef, Inject, forwardRef, ViewContainerRef, ContentChild, QueryList, EventEmitter, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { mixinColor, ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Directionality } from '@angular/cdk/bidi';
-import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, map, startWith, takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 /**
@@ -225,11 +225,53 @@ MatStepperIcon.propDecorators = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Content for a `mat-step` that will be rendered lazily.
+ */
+class MatStepContent {
+    constructor(_template) {
+        this._template = _template;
+    }
+}
+MatStepContent.decorators = [
+    { type: Directive, args: [{
+                selector: 'ng-template[matStepContent]'
+            },] }
+];
+MatStepContent.ctorParameters = () => [
+    { type: TemplateRef }
+];
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class MatStep extends CdkStep {
     /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
-    constructor(stepper, _errorStateMatcher, stepperOptions) {
+    /** @breaking-change 9.0.0 _viewContainerRef parameter to become required. */
+    constructor(stepper, _errorStateMatcher, stepperOptions, _viewContainerRef) {
         super(stepper, stepperOptions);
         this._errorStateMatcher = _errorStateMatcher;
+        this._viewContainerRef = _viewContainerRef;
+        this._isSelected = Subscription.EMPTY;
+    }
+    ngAfterContentInit() {
+        /** @breaking-change 9.0.0 Null check for _viewContainerRef to be removed. */
+        if (this._viewContainerRef) {
+            this._isSelected = this._stepper.steps.changes.pipe(switchMap(() => {
+                return this._stepper.selectionChange.pipe(map(event => event.selectedStep === this), startWith(this._stepper.selected === this));
+            })).subscribe(isSelected => {
+                if (isSelected && this._lazyContent && !this._portal) {
+                    this._portal = new TemplatePortal(this._lazyContent._template, this._viewContainerRef);
+                }
+            });
+        }
+    }
+    ngOnDestroy() {
+        this._isSelected.unsubscribe();
     }
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control, form) {
@@ -244,7 +286,7 @@ class MatStep extends CdkStep {
 MatStep.decorators = [
     { type: Component, args: [{
                 selector: 'mat-step',
-                template: "<ng-template><ng-content></ng-content></ng-template>\n",
+                template: "<ng-template>\n  <ng-content></ng-content>\n  <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n</ng-template>\n",
                 providers: [
                     { provide: ErrorStateMatcher, useExisting: MatStep },
                     { provide: CdkStep, useExisting: MatStep },
@@ -257,11 +299,13 @@ MatStep.decorators = [
 MatStep.ctorParameters = () => [
     { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(() => MatStepper),] }] },
     { type: ErrorStateMatcher, decorators: [{ type: SkipSelf }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [STEPPER_GLOBAL_OPTIONS,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [STEPPER_GLOBAL_OPTIONS,] }] },
+    { type: ViewContainerRef }
 ];
 MatStep.propDecorators = {
     stepLabel: [{ type: ContentChild, args: [MatStepLabel,] }],
-    color: [{ type: Input }]
+    color: [{ type: Input }],
+    _lazyContent: [{ type: ContentChild, args: [MatStepContent, { static: false },] }]
 };
 class MatStepper extends CdkStepper {
     constructor() {
@@ -438,6 +482,7 @@ MatStepperModule.decorators = [
                     MatStepperPrevious,
                     MatStepHeader,
                     MatStepperIcon,
+                    MatStepContent,
                 ],
                 declarations: [
                     MatHorizontalStepper,
@@ -449,6 +494,7 @@ MatStepperModule.decorators = [
                     MatStepperPrevious,
                     MatStepHeader,
                     MatStepperIcon,
+                    MatStepContent,
                 ],
                 providers: [MAT_STEPPER_INTL_PROVIDER, ErrorStateMatcher],
             },] }
@@ -466,5 +512,5 @@ MatStepperModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatHorizontalStepper, MatStep, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious, MatVerticalStepper, matStepperAnimations };
+export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatHorizontalStepper, MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious, MatVerticalStepper, matStepperAnimations };
 //# sourceMappingURL=stepper.js.map

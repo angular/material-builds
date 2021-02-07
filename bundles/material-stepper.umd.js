@@ -518,14 +518,58 @@
         name: [{ type: i0.Input, args: ['matStepperIcon',] }]
     };
 
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * Content for a `mat-step` that will be rendered lazily.
+     */
+    var MatStepContent = /** @class */ (function () {
+        function MatStepContent(_template) {
+            this._template = _template;
+        }
+        return MatStepContent;
+    }());
+    MatStepContent.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: 'ng-template[matStepContent]'
+                },] }
+    ];
+    MatStepContent.ctorParameters = function () { return [
+        { type: i0.TemplateRef }
+    ]; };
+
     var MatStep = /** @class */ (function (_super) {
         __extends(MatStep, _super);
         /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
-        function MatStep(stepper, _errorStateMatcher, stepperOptions) {
+        /** @breaking-change 9.0.0 _viewContainerRef parameter to become required. */
+        function MatStep(stepper, _errorStateMatcher, stepperOptions, _viewContainerRef) {
             var _this = _super.call(this, stepper, stepperOptions) || this;
             _this._errorStateMatcher = _errorStateMatcher;
+            _this._viewContainerRef = _viewContainerRef;
+            _this._isSelected = rxjs.Subscription.EMPTY;
             return _this;
         }
+        MatStep.prototype.ngAfterContentInit = function () {
+            var _this = this;
+            /** @breaking-change 9.0.0 Null check for _viewContainerRef to be removed. */
+            if (this._viewContainerRef) {
+                this._isSelected = this._stepper.steps.changes.pipe(operators.switchMap(function () {
+                    return _this._stepper.selectionChange.pipe(operators.map(function (event) { return event.selectedStep === _this; }), operators.startWith(_this._stepper.selected === _this));
+                })).subscribe(function (isSelected) {
+                    if (isSelected && _this._lazyContent && !_this._portal) {
+                        _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
+                    }
+                });
+            }
+        };
+        MatStep.prototype.ngOnDestroy = function () {
+            this._isSelected.unsubscribe();
+        };
         /** Custom error state matcher that additionally checks for validity of interacted form. */
         MatStep.prototype.isErrorState = function (control, form) {
             var originalErrorState = this._errorStateMatcher.isErrorState(control, form);
@@ -540,7 +584,7 @@
     MatStep.decorators = [
         { type: i0.Component, args: [{
                     selector: 'mat-step',
-                    template: "<ng-template><ng-content></ng-content></ng-template>\n",
+                    template: "<ng-template>\n  <ng-content></ng-content>\n  <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n</ng-template>\n",
                     providers: [
                         { provide: core.ErrorStateMatcher, useExisting: MatStep },
                         { provide: stepper.CdkStep, useExisting: MatStep },
@@ -553,11 +597,13 @@
     MatStep.ctorParameters = function () { return [
         { type: MatStepper, decorators: [{ type: i0.Inject, args: [i0.forwardRef(function () { return MatStepper; }),] }] },
         { type: core.ErrorStateMatcher, decorators: [{ type: i0.SkipSelf }] },
-        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] }
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [stepper.STEPPER_GLOBAL_OPTIONS,] }] },
+        { type: i0.ViewContainerRef }
     ]; };
     MatStep.propDecorators = {
         stepLabel: [{ type: i0.ContentChild, args: [MatStepLabel,] }],
-        color: [{ type: i0.Input }]
+        color: [{ type: i0.Input }],
+        _lazyContent: [{ type: i0.ContentChild, args: [MatStepContent, { static: false },] }]
     };
     var MatStepper = /** @class */ (function (_super) {
         __extends(MatStepper, _super);
@@ -753,6 +799,7 @@
                         MatStepperPrevious,
                         MatStepHeader,
                         MatStepperIcon,
+                        MatStepContent,
                     ],
                     declarations: [
                         MatHorizontalStepper,
@@ -764,6 +811,7 @@
                         MatStepperPrevious,
                         MatStepHeader,
                         MatStepperIcon,
+                        MatStepContent,
                     ],
                     providers: [MAT_STEPPER_INTL_PROVIDER, core.ErrorStateMatcher],
                 },] }
@@ -785,6 +833,7 @@
     exports.MAT_STEPPER_INTL_PROVIDER_FACTORY = MAT_STEPPER_INTL_PROVIDER_FACTORY;
     exports.MatHorizontalStepper = MatHorizontalStepper;
     exports.MatStep = MatStep;
+    exports.MatStepContent = MatStepContent;
     exports.MatStepHeader = MatStepHeader;
     exports.MatStepLabel = MatStepLabel;
     exports.MatStepper = MatStepper;
