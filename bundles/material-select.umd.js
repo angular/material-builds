@@ -1005,6 +1005,11 @@
         _MatSelectBase.prototype._selectValue = function (value) {
             var _this = this;
             var correspondingOption = this.options.find(function (option) {
+                // Skip options that are already in the model. This allows us to handle cases
+                // where the same primitive value is selected multiple times.
+                if (_this._selectionModel.isSelected(option)) {
+                    return false;
+                }
                 try {
                     // Treat null as a special reset value.
                     return option.value != null && _this._compareWith(option.value, value);
