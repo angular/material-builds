@@ -647,6 +647,11 @@ class _MatSelectBase extends _MatSelectMixinBase {
      */
     _selectValue(value) {
         const correspondingOption = this.options.find((option) => {
+            // Skip options that are already in the model. This allows us to handle cases
+            // where the same primitive value is selected multiple times.
+            if (this._selectionModel.isSelected(option)) {
+                return false;
+            }
             try {
                 // Treat null as a special reset value.
                 return option.value != null && this._compareWith(option.value, value);
