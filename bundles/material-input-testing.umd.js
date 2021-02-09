@@ -507,13 +507,17 @@
                         case 3:
                             _a.sent();
                             _a.label = 4;
-                        case 4:
-                            if (!inputEl.setInputValue) return [3 /*break*/, 6];
-                            return [4 /*yield*/, inputEl.setInputValue(newValue)];
+                        case 4: 
+                        // Some input types won't respond to key presses (e.g. `color`) so to be sure that the
+                        // value is set, we also set the property after the keyboard sequence. Note that we don't
+                        // want to do it before, because it can cause the value to be entered twice.
+                        return [4 /*yield*/, inputEl.setInputValue(newValue)];
                         case 5:
+                            // Some input types won't respond to key presses (e.g. `color`) so to be sure that the
+                            // value is set, we also set the property after the keyboard sequence. Note that we don't
+                            // want to do it before, because it can cause the value to be entered twice.
                             _a.sent();
-                            _a.label = 6;
-                        case 6: return [2 /*return*/];
+                            return [2 /*return*/];
                     }
                 });
             });
@@ -755,11 +759,6 @@
                                 ]; })];
                         case 2:
                             _b = __read.apply(void 0, [_c.sent(), 2]), host = _b[0], optionIndexes = _b[1];
-                            // @breaking-change 12.0.0 Error can be removed once `selectOptions` is a required method.
-                            if (!host.selectOptions) {
-                                throw Error('TestElement implementation does not support the selectOptions ' +
-                                    'method which is required for this function.');
-                            }
                             return [4 /*yield*/, host.selectOptions.apply(host, __spread(optionIndexes))];
                         case 3:
                             _c.sent();

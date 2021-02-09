@@ -128,10 +128,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
             // Some input types won't respond to key presses (e.g. `color`) so to be sure that the
             // value is set, we also set the property after the keyboard sequence. Note that we don't
             // want to do it before, because it can cause the value to be entered twice.
-            // @breaking-change 11.0.0 Remove non-null assertion once `setInputValue` is required.
-            if (inputEl.setInputValue) {
-                yield inputEl.setInputValue(newValue);
-            }
+            yield inputEl.setInputValue(newValue);
         });
     }
 }
@@ -287,11 +284,6 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
                 this.host(),
                 parallel(() => options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex()))
             ]);
-            // @breaking-change 12.0.0 Error can be removed once `selectOptions` is a required method.
-            if (!host.selectOptions) {
-                throw Error('TestElement implementation does not support the selectOptions ' +
-                    'method which is required for this function.');
-            }
             yield host.selectOptions(...optionIndexes);
         });
     }
