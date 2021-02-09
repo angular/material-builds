@@ -2554,15 +2554,18 @@
         };
         /** Open the calendar. */
         MatDatepickerBase.prototype.open = function () {
+            var _a, _b;
             if (this._opened || this.disabled) {
                 return;
             }
             if (!this.datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('Attempted to open an MatDatepicker with no associated input.');
             }
-            if (this._document) {
-                this._focusedElementBeforeOpen = this._document.activeElement;
-            }
+            // If the `activeElement` is inside a shadow root, `document.activeElement` will
+            // point to the shadow root so we have to descend into it ourselves.
+            var activeElement = (_a = this._document) === null || _a === void 0 ? void 0 : _a.activeElement;
+            this._focusedElementBeforeOpen =
+                ((_b = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _b === void 0 ? void 0 : _b.activeElement) || activeElement;
             this.touchUi ? this._openAsDialog() : this._openAsPopup();
             this._opened = true;
             this.openedStream.emit();
