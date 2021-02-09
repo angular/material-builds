@@ -25,14 +25,26 @@ class MatTooltipHarness extends ComponentHarness {
     }
     /** Shows the tooltip. */
     show() {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hover();
+            const host = yield this.host();
+            // We need to dispatch both `touchstart` and a hover event, because the tooltip binds
+            // different events depending on the device. The `changedTouches` is there in case the
+            // element has ripples.
+            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
+            yield ((_a = host.dispatchEvent) === null || _a === void 0 ? void 0 : _a.call(host, 'touchstart', { changedTouches: [] }));
+            yield host.hover();
         });
     }
     /** Hides the tooltip. */
     hide() {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const host = yield this.host();
+            // We need to dispatch both `touchstart` and a hover event, because
+            // the tooltip binds different events depending on the device.
+            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
+            yield ((_a = host.dispatchEvent) === null || _a === void 0 ? void 0 : _a.call(host, 'touchend'));
             yield host.mouseAway();
             yield this.forceStabilize(); // Needed in order to flush the `hide` animation.
         });

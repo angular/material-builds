@@ -333,30 +333,58 @@
         };
         /** Shows the tooltip. */
         MatTooltipHarness.prototype.show = function () {
+            var _a;
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var host;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hover()];
+                        case 1:
+                            host = _b.sent();
+                            // We need to dispatch both `touchstart` and a hover event, because the tooltip binds
+                            // different events depending on the device. The `changedTouches` is there in case the
+                            // element has ripples.
+                            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
+                            return [4 /*yield*/, ((_a = host.dispatchEvent) === null || _a === void 0 ? void 0 : _a.call(host, 'touchstart', { changedTouches: [] }))];
+                        case 2:
+                            // We need to dispatch both `touchstart` and a hover event, because the tooltip binds
+                            // different events depending on the device. The `changedTouches` is there in case the
+                            // element has ripples.
+                            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
+                            _b.sent();
+                            return [4 /*yield*/, host.hover()];
+                        case 3:
+                            _b.sent();
+                            return [2 /*return*/];
                     }
                 });
             });
         };
         /** Hides the tooltip. */
         MatTooltipHarness.prototype.hide = function () {
+            var _a;
             return __awaiter(this, void 0, void 0, function () {
                 var host;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1:
-                            host = _a.sent();
-                            return [4 /*yield*/, host.mouseAway()];
+                            host = _b.sent();
+                            // We need to dispatch both `touchstart` and a hover event, because
+                            // the tooltip binds different events depending on the device.
+                            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
+                            return [4 /*yield*/, ((_a = host.dispatchEvent) === null || _a === void 0 ? void 0 : _a.call(host, 'touchend'))];
                         case 2:
-                            _a.sent();
-                            return [4 /*yield*/, this.forceStabilize()];
+                            // We need to dispatch both `touchstart` and a hover event, because
+                            // the tooltip binds different events depending on the device.
+                            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
+                            _b.sent();
+                            return [4 /*yield*/, host.mouseAway()];
                         case 3:
-                            _a.sent(); // Needed in order to flush the `hide` animation.
+                            _b.sent();
+                            return [4 /*yield*/, this.forceStabilize()];
+                        case 4:
+                            _b.sent(); // Needed in order to flush the `hide` animation.
                             return [2 /*return*/];
                     }
                 });
@@ -365,10 +393,10 @@
         /** Gets whether the tooltip is open. */
         MatTooltipHarness.prototype.isOpen = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0: return [4 /*yield*/, this._optionalPanel()];
-                        case 1: return [2 /*return*/, !!(_a.sent())];
+                        case 1: return [2 /*return*/, !!(_b.sent())];
                     }
                 });
             });
@@ -377,11 +405,11 @@
         MatTooltipHarness.prototype.getTooltipText = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var panel;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0: return [4 /*yield*/, this._optionalPanel()];
                         case 1:
-                            panel = _a.sent();
+                            panel = _b.sent();
                             return [2 /*return*/, panel ? panel.text() : ''];
                     }
                 });

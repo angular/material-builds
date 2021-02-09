@@ -7,6 +7,7 @@
  */
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
 import { MatTabsConfig } from './tab-config';
@@ -125,6 +126,8 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     _handleClick(tab: MatTab, tabHeader: MatTabGroupBaseHeader, index: number): void;
     /** Retrieves the tabindex for the tab. */
     _getTabIndex(tab: MatTab, idx: number): number | null;
+    /** Callback for when the focused state of a tab has changed. */
+    _tabFocusChanged(focusOrigin: FocusOrigin, index: number): void;
     static ngAcceptInputType_dynamicHeight: BooleanInput;
     static ngAcceptInputType_animationDuration: NumberInput;
     static ngAcceptInputType_selectedIndex: NumberInput;
