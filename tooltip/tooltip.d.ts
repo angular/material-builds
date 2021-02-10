@@ -79,6 +79,7 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     protected abstract readonly _tooltipComponent: ComponentType<T>;
     protected abstract readonly _transformOriginSelector: string;
     protected _viewportMargin: number;
+    private _currentPosition;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
@@ -174,6 +175,8 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     private _setTooltipClass;
     /** Inverts an overlay position. */
     private _invertPosition;
+    /** Updates the class on the overlay panel based on the current position of the tooltip. */
+    private _updateCurrentPositionClass;
     /** Binds the pointer events to the tooltip trigger. */
     private _setupPointerEnterEventsIfNeeded;
     private _setupPointerExitEventsIfNeeded;

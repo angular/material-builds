@@ -291,6 +291,7 @@ class _MatTooltipBase {
             .withViewportMargin(this._viewportMargin)
             .withScrollableContainers(scrollableAncestors);
         strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe(change => {
+            this._updateCurrentPositionClass(change.connectionPair);
             if (this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
@@ -432,6 +433,36 @@ class _MatTooltipBase {
             }
         }
         return { x, y };
+    }
+    /** Updates the class on the overlay panel based on the current position of the tooltip. */
+    _updateCurrentPositionClass(connectionPair) {
+        const { overlayY, originX, originY } = connectionPair;
+        let newPosition;
+        // If the overlay is in the middle along the Y axis,
+        // it means that it's either before or after.
+        if (overlayY === 'center') {
+            // Note that since this information is used for styling, we want to
+            // resolve `start` and `end` to their real values, otherwise consumers
+            // would have to remember to do it themselves on each consumption.
+            if (this._dir && this._dir.value === 'rtl') {
+                newPosition = originX === 'end' ? 'left' : 'right';
+            }
+            else {
+                newPosition = originX === 'start' ? 'left' : 'right';
+            }
+        }
+        else {
+            newPosition = overlayY === 'bottom' && originY === 'top' ? 'above' : 'below';
+        }
+        if (newPosition !== this._currentPosition) {
+            const overlayRef = this._overlayRef;
+            if (overlayRef) {
+                const classPrefix = 'mat-tooltip-panel-';
+                overlayRef.removePanelClass(classPrefix + this._currentPosition);
+                overlayRef.addPanelClass(classPrefix + newPosition);
+            }
+            this._currentPosition = newPosition;
+        }
     }
     /** Binds the pointer events to the tooltip trigger. */
     _setupPointerEnterEventsIfNeeded() {
