@@ -639,15 +639,12 @@ class _TooltipComponentBase {
      */
     show(delay) {
         // Cancel the delayed hide if it is scheduled
-        if (this._hideTimeoutId) {
-            clearTimeout(this._hideTimeoutId);
-            this._hideTimeoutId = null;
-        }
+        clearTimeout(this._hideTimeoutId);
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
         this._showTimeoutId = setTimeout(() => {
             this._visibility = 'visible';
-            this._showTimeoutId = null;
+            this._showTimeoutId = undefined;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             this._markForCheck();
@@ -659,13 +656,10 @@ class _TooltipComponentBase {
      */
     hide(delay) {
         // Cancel the delayed show if it is scheduled
-        if (this._showTimeoutId) {
-            clearTimeout(this._showTimeoutId);
-            this._showTimeoutId = null;
-        }
+        clearTimeout(this._showTimeoutId);
         this._hideTimeoutId = setTimeout(() => {
             this._visibility = 'hidden';
-            this._hideTimeoutId = null;
+            this._hideTimeoutId = undefined;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             this._markForCheck();
@@ -680,6 +674,8 @@ class _TooltipComponentBase {
         return this._visibility === 'visible';
     }
     ngOnDestroy() {
+        clearTimeout(this._showTimeoutId);
+        clearTimeout(this._hideTimeoutId);
         this._onHide.complete();
     }
     _animationStart() {

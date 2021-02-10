@@ -973,15 +973,12 @@
         _TooltipComponentBase.prototype.show = function (delay) {
             var _this = this;
             // Cancel the delayed hide if it is scheduled
-            if (this._hideTimeoutId) {
-                clearTimeout(this._hideTimeoutId);
-                this._hideTimeoutId = null;
-            }
+            clearTimeout(this._hideTimeoutId);
             // Body interactions should cancel the tooltip if there is a delay in showing.
             this._closeOnInteraction = true;
             this._showTimeoutId = setTimeout(function () {
                 _this._visibility = 'visible';
-                _this._showTimeoutId = null;
+                _this._showTimeoutId = undefined;
                 // Mark for check so if any parent component has set the
                 // ChangeDetectionStrategy to OnPush it will be checked anyways
                 _this._markForCheck();
@@ -994,13 +991,10 @@
         _TooltipComponentBase.prototype.hide = function (delay) {
             var _this = this;
             // Cancel the delayed show if it is scheduled
-            if (this._showTimeoutId) {
-                clearTimeout(this._showTimeoutId);
-                this._showTimeoutId = null;
-            }
+            clearTimeout(this._showTimeoutId);
             this._hideTimeoutId = setTimeout(function () {
                 _this._visibility = 'hidden';
-                _this._hideTimeoutId = null;
+                _this._hideTimeoutId = undefined;
                 // Mark for check so if any parent component has set the
                 // ChangeDetectionStrategy to OnPush it will be checked anyways
                 _this._markForCheck();
@@ -1015,6 +1009,8 @@
             return this._visibility === 'visible';
         };
         _TooltipComponentBase.prototype.ngOnDestroy = function () {
+            clearTimeout(this._showTimeoutId);
+            clearTimeout(this._hideTimeoutId);
             this._onHide.complete();
         };
         _TooltipComponentBase.prototype._animationStart = function () {
