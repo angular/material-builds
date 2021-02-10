@@ -665,7 +665,8 @@
             /** Value of the select control. */
             get: function () { return this._value; },
             set: function (newValue) {
-                if (newValue !== this._value) {
+                // Always re-assign an array, because it might have been mutated.
+                if (newValue !== this._value || (this._multiple && Array.isArray(newValue))) {
                     if (this.options) {
                         this._setSelectionByValue(newValue);
                     }
