@@ -313,26 +313,13 @@
         return value;
     }
 
-    /** Harness for interacting with a standard mat-tooltip in tests. */
-    var MatTooltipHarness = /** @class */ (function (_super) {
-        __extends(MatTooltipHarness, _super);
-        function MatTooltipHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._optionalPanel = _this.documentRootLocatorFactory().locatorForOptional('.mat-tooltip');
-            return _this;
+    var _MatTooltipHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatTooltipHarnessBase, _super);
+        function _MatTooltipHarnessBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-        /**
-         * Gets a `HarnessPredicate` that can be used to search
-         * for a tooltip trigger with specific attributes.
-         * @param options Options for narrowing the search.
-         * @return a `HarnessPredicate` configured with the given options.
-         */
-        MatTooltipHarness.with = function (options) {
-            if (options === void 0) { options = {}; }
-            return new testing.HarnessPredicate(MatTooltipHarness, options);
-        };
         /** Shows the tooltip. */
-        MatTooltipHarness.prototype.show = function () {
+        _MatTooltipHarnessBase.prototype.show = function () {
             var _a;
             return __awaiter(this, void 0, void 0, function () {
                 var host;
@@ -361,7 +348,7 @@
             });
         };
         /** Hides the tooltip. */
-        MatTooltipHarness.prototype.hide = function () {
+        _MatTooltipHarnessBase.prototype.hide = function () {
             var _a;
             return __awaiter(this, void 0, void 0, function () {
                 var host;
@@ -391,7 +378,7 @@
             });
         };
         /** Gets whether the tooltip is open. */
-        MatTooltipHarness.prototype.isOpen = function () {
+        _MatTooltipHarnessBase.prototype.isOpen = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_b) {
                     switch (_b.label) {
@@ -402,7 +389,7 @@
             });
         };
         /** Gets a promise for the tooltip panel's text. */
-        MatTooltipHarness.prototype.getTooltipText = function () {
+        _MatTooltipHarnessBase.prototype.getTooltipText = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var panel;
                 return __generator(this, function (_b) {
@@ -415,8 +402,28 @@
                 });
             });
         };
-        return MatTooltipHarness;
+        return _MatTooltipHarnessBase;
     }(testing.ComponentHarness));
+    /** Harness for interacting with a standard mat-tooltip in tests. */
+    var MatTooltipHarness = /** @class */ (function (_super) {
+        __extends(MatTooltipHarness, _super);
+        function MatTooltipHarness() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._optionalPanel = _this.documentRootLocatorFactory().locatorForOptional('.mat-tooltip');
+            return _this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search
+         * for a tooltip trigger with specific attributes.
+         * @param options Options for narrowing the search.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatTooltipHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatTooltipHarness, options);
+        };
+        return MatTooltipHarness;
+    }(_MatTooltipHarnessBase));
     MatTooltipHarness.hostSelector = '.mat-tooltip-trigger';
 
     /**
@@ -436,6 +443,7 @@
      */
 
     exports.MatTooltipHarness = MatTooltipHarness;
+    exports._MatTooltipHarnessBase = _MatTooltipHarnessBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

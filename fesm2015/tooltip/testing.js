@@ -8,21 +8,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-tooltip in tests. */
-class MatTooltipHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-tooltip');
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search
-     * for a tooltip trigger with specific attributes.
-     * @param options Options for narrowing the search.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatTooltipHarness, options);
-    }
+class _MatTooltipHarnessBase extends ComponentHarness {
     /** Shows the tooltip. */
     show() {
         var _a;
@@ -63,6 +49,22 @@ class MatTooltipHarness extends ComponentHarness {
         });
     }
 }
+/** Harness for interacting with a standard mat-tooltip in tests. */
+class MatTooltipHarness extends _MatTooltipHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-tooltip');
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search
+     * for a tooltip trigger with specific attributes.
+     * @param options Options for narrowing the search.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatTooltipHarness, options);
+    }
+}
 MatTooltipHarness.hostSelector = '.mat-tooltip-trigger';
 
 /**
@@ -89,5 +91,5 @@ MatTooltipHarness.hostSelector = '.mat-tooltip-trigger';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatTooltipHarness };
+export { MatTooltipHarness, _MatTooltipHarnessBase };
 //# sourceMappingURL=testing.js.map

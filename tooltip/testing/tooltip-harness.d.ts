@@ -5,19 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { AsyncFactoryFn, ComponentHarness, HarnessPredicate, TestElement } from '@angular/cdk/testing';
 import { TooltipHarnessFilters } from './tooltip-harness-filters';
-/** Harness for interacting with a standard mat-tooltip in tests. */
-export declare class MatTooltipHarness extends ComponentHarness {
-    private _optionalPanel;
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search
-     * for a tooltip trigger with specific attributes.
-     * @param options Options for narrowing the search.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: TooltipHarnessFilters): HarnessPredicate<MatTooltipHarness>;
+export declare abstract class _MatTooltipHarnessBase extends ComponentHarness {
+    protected abstract _optionalPanel: AsyncFactoryFn<TestElement | null>;
     /** Shows the tooltip. */
     show(): Promise<void>;
     /** Hides the tooltip. */
@@ -26,4 +17,16 @@ export declare class MatTooltipHarness extends ComponentHarness {
     isOpen(): Promise<boolean>;
     /** Gets a promise for the tooltip panel's text. */
     getTooltipText(): Promise<string>;
+}
+/** Harness for interacting with a standard mat-tooltip in tests. */
+export declare class MatTooltipHarness extends _MatTooltipHarnessBase {
+    protected _optionalPanel: AsyncFactoryFn<TestElement | null>;
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search
+     * for a tooltip trigger with specific attributes.
+     * @param options Options for narrowing the search.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: TooltipHarnessFilters): HarnessPredicate<MatTooltipHarness>;
 }
