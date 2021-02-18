@@ -313,6 +313,279 @@
         return value;
     }
 
+    var _MatFormFieldHarnessBase = /** @class */ (function (_super) {
+        __extends(_MatFormFieldHarnessBase, _super);
+        function _MatFormFieldHarnessBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /** Gets the label of the form-field. */
+        _MatFormFieldHarnessBase.prototype.getLabel = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var labelEl;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._label()];
+                        case 1:
+                            labelEl = _a.sent();
+                            return [2 /*return*/, labelEl ? labelEl.text() : null];
+                    }
+                });
+            });
+        };
+        /** Whether the form-field has errors. */
+        _MatFormFieldHarnessBase.prototype.hasErrors = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.getTextErrors()];
+                        case 1: return [2 /*return*/, (_a.sent()).length > 0];
+                    }
+                });
+            });
+        };
+        /** Whether the form-field is disabled. */
+        _MatFormFieldHarnessBase.prototype.isDisabled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-form-field-disabled')];
+                    }
+                });
+            });
+        };
+        /** Whether the form-field is currently autofilled. */
+        _MatFormFieldHarnessBase.prototype.isAutofilled = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-form-field-autofilled')];
+                    }
+                });
+            });
+        };
+        // Implementation of the "getControl" method overload signatures.
+        _MatFormFieldHarnessBase.prototype.getControl = function (type) {
+            return __awaiter(this, void 0, void 0, function () {
+                var _a, select, input;
+                var _this = this;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (type) {
+                                return [2 /*return*/, this.locatorForOptional(type)()];
+                            }
+                            return [4 /*yield*/, testing.parallel(function () { return [_this._selectControl(), _this._inputControl()]; })];
+                        case 1:
+                            _a = __read.apply(void 0, [_b.sent(), 2]), select = _a[0], input = _a[1];
+                            return [2 /*return*/, select || input];
+                    }
+                });
+            });
+        };
+        /** Gets the theme color of the form-field. */
+        _MatFormFieldHarnessBase.prototype.getThemeColor = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var hostEl, _a, isAccent, isWarn;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1:
+                            hostEl = _b.sent();
+                            return [4 /*yield*/, testing.parallel(function () {
+                                    return [hostEl.hasClass('mat-accent'), hostEl.hasClass('mat-warn')];
+                                })];
+                        case 2:
+                            _a = __read.apply(void 0, [_b.sent(), 2]), isAccent = _a[0], isWarn = _a[1];
+                            if (isAccent) {
+                                return [2 /*return*/, 'accent'];
+                            }
+                            else if (isWarn) {
+                                return [2 /*return*/, 'warn'];
+                            }
+                            return [2 /*return*/, 'primary'];
+                    }
+                });
+            });
+        };
+        /** Gets error messages which are currently displayed in the form-field. */
+        _MatFormFieldHarnessBase.prototype.getTextErrors = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var errors;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._errors()];
+                        case 1:
+                            errors = _a.sent();
+                            return [2 /*return*/, testing.parallel(function () { return errors.map(function (e) { return e.text(); }); })];
+                    }
+                });
+            });
+        };
+        /** Gets hint messages which are currently displayed in the form-field. */
+        _MatFormFieldHarnessBase.prototype.getTextHints = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var hints;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._hints()];
+                        case 1:
+                            hints = _a.sent();
+                            return [2 /*return*/, testing.parallel(function () { return hints.map(function (e) { return e.text(); }); })];
+                    }
+                });
+            });
+        };
+        /**
+         * Gets a reference to the container element which contains all projected
+         * prefixes of the form-field.
+         * @deprecated Use `getPrefixText` instead.
+         * @breaking-change 11.0.0
+         */
+        _MatFormFieldHarnessBase.prototype.getHarnessLoaderForPrefix = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this._prefixContainer()];
+                });
+            });
+        };
+        /** Gets the text inside the prefix element. */
+        _MatFormFieldHarnessBase.prototype.getPrefixText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var prefix;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._prefixContainer()];
+                        case 1:
+                            prefix = _a.sent();
+                            return [2 /*return*/, prefix ? prefix.text() : ''];
+                    }
+                });
+            });
+        };
+        /**
+         * Gets a reference to the container element which contains all projected
+         * suffixes of the form-field.
+         * @deprecated Use `getSuffixText` instead.
+         * @breaking-change 11.0.0
+         */
+        _MatFormFieldHarnessBase.prototype.getHarnessLoaderForSuffix = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this._suffixContainer()];
+                });
+            });
+        };
+        /** Gets the text inside the suffix element. */
+        _MatFormFieldHarnessBase.prototype.getSuffixText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var suffix;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._suffixContainer()];
+                        case 1:
+                            suffix = _a.sent();
+                            return [2 /*return*/, suffix ? suffix.text() : ''];
+                    }
+                });
+            });
+        };
+        /**
+         * Whether the form control has been touched. Returns "null"
+         * if no form control is set up.
+         */
+        _MatFormFieldHarnessBase.prototype.isControlTouched = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._hasFormControl()];
+                        case 1:
+                            if (!(_a.sent())) {
+                                return [2 /*return*/, null];
+                            }
+                            return [4 /*yield*/, this.host()];
+                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-touched')];
+                    }
+                });
+            });
+        };
+        /**
+         * Whether the form control is dirty. Returns "null"
+         * if no form control is set up.
+         */
+        _MatFormFieldHarnessBase.prototype.isControlDirty = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._hasFormControl()];
+                        case 1:
+                            if (!(_a.sent())) {
+                                return [2 /*return*/, null];
+                            }
+                            return [4 /*yield*/, this.host()];
+                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-dirty')];
+                    }
+                });
+            });
+        };
+        /**
+         * Whether the form control is valid. Returns "null"
+         * if no form control is set up.
+         */
+        _MatFormFieldHarnessBase.prototype.isControlValid = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._hasFormControl()];
+                        case 1:
+                            if (!(_a.sent())) {
+                                return [2 /*return*/, null];
+                            }
+                            return [4 /*yield*/, this.host()];
+                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-valid')];
+                    }
+                });
+            });
+        };
+        /**
+         * Whether the form control is pending validation. Returns "null"
+         * if no form control is set up.
+         */
+        _MatFormFieldHarnessBase.prototype.isControlPending = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this._hasFormControl()];
+                        case 1:
+                            if (!(_a.sent())) {
+                                return [2 /*return*/, null];
+                            }
+                            return [4 /*yield*/, this.host()];
+                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-pending')];
+                    }
+                });
+            });
+        };
+        /** Checks whether the form-field control has set up a form control. */
+        _MatFormFieldHarnessBase.prototype._hasFormControl = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var hostEl, _a, isTouched, isUntouched;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1:
+                            hostEl = _b.sent();
+                            return [4 /*yield*/, testing.parallel(function () { return [hostEl.hasClass('ng-touched'), hostEl.hasClass('ng-untouched')]; })];
+                        case 2:
+                            _a = __read.apply(void 0, [_b.sent(), 2]), isTouched = _a[0], isUntouched = _a[1];
+                            return [2 /*return*/, isTouched || isUntouched];
+                    }
+                });
+            });
+        };
+        return _MatFormFieldHarnessBase;
+    }(testing.ComponentHarness));
     /** Harness for interacting with a standard Material form-field's in tests. */
     var MatFormFieldHarness = /** @class */ (function (_super) {
         __extends(MatFormFieldHarness, _super);
@@ -373,36 +646,6 @@
                 });
             });
         };
-        // Implementation of the "getControl" method overload signatures.
-        MatFormFieldHarness.prototype.getControl = function (type) {
-            return __awaiter(this, void 0, void 0, function () {
-                var hostEl, _a, isInput, isSelect;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0:
-                            if (type) {
-                                return [2 /*return*/, this.locatorForOptional(type)()];
-                            }
-                            return [4 /*yield*/, this.host()];
-                        case 1:
-                            hostEl = _b.sent();
-                            return [4 /*yield*/, testing.parallel(function () { return [
-                                    hostEl.hasClass('mat-form-field-type-mat-input'),
-                                    hostEl.hasClass('mat-form-field-type-mat-select'),
-                                ]; })];
-                        case 2:
-                            _a = __read.apply(void 0, [_b.sent(), 2]), isInput = _a[0], isSelect = _a[1];
-                            if (isInput) {
-                                return [2 /*return*/, this._inputControl()];
-                            }
-                            else if (isSelect) {
-                                return [2 /*return*/, this._selectControl()];
-                            }
-                            return [2 /*return*/, null];
-                    }
-                });
-            });
-        };
         /** Whether the form-field has a label. */
         MatFormFieldHarness.prototype.hasLabel = function () {
             return __awaiter(this, void 0, void 0, function () {
@@ -410,31 +653,6 @@
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this.host()];
                         case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-form-field-has-label')];
-                    }
-                });
-            });
-        };
-        /** Gets the label of the form-field. */
-        MatFormFieldHarness.prototype.getLabel = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var labelEl;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._label()];
-                        case 1:
-                            labelEl = _a.sent();
-                            return [2 /*return*/, labelEl ? labelEl.text() : null];
-                    }
-                });
-            });
-        };
-        /** Whether the form-field has errors. */
-        MatFormFieldHarness.prototype.hasErrors = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.getTextErrors()];
-                        case 1: return [2 /*return*/, (_a.sent()).length > 0];
                     }
                 });
             });
@@ -462,230 +680,8 @@
                 });
             });
         };
-        /** Whether the form-field is disabled. */
-        MatFormFieldHarness.prototype.isDisabled = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-form-field-disabled')];
-                    }
-                });
-            });
-        };
-        /** Whether the form-field is currently autofilled. */
-        MatFormFieldHarness.prototype.isAutofilled = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).hasClass('mat-form-field-autofilled')];
-                    }
-                });
-            });
-        };
-        /** Gets the theme color of the form-field. */
-        MatFormFieldHarness.prototype.getThemeColor = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var hostEl, _a, isAccent, isWarn;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1:
-                            hostEl = _b.sent();
-                            return [4 /*yield*/, testing.parallel(function () {
-                                    return [hostEl.hasClass('mat-accent'), hostEl.hasClass('mat-warn')];
-                                })];
-                        case 2:
-                            _a = __read.apply(void 0, [_b.sent(), 2]), isAccent = _a[0], isWarn = _a[1];
-                            if (isAccent) {
-                                return [2 /*return*/, 'accent'];
-                            }
-                            else if (isWarn) {
-                                return [2 /*return*/, 'warn'];
-                            }
-                            return [2 /*return*/, 'primary'];
-                    }
-                });
-            });
-        };
-        /** Gets error messages which are currently displayed in the form-field. */
-        MatFormFieldHarness.prototype.getTextErrors = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var errors;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._errors()];
-                        case 1:
-                            errors = _a.sent();
-                            return [2 /*return*/, testing.parallel(function () { return errors.map(function (e) { return e.text(); }); })];
-                    }
-                });
-            });
-        };
-        /** Gets hint messages which are currently displayed in the form-field. */
-        MatFormFieldHarness.prototype.getTextHints = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var hints;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._hints()];
-                        case 1:
-                            hints = _a.sent();
-                            return [2 /*return*/, testing.parallel(function () { return hints.map(function (e) { return e.text(); }); })];
-                    }
-                });
-            });
-        };
-        /**
-         * Gets a reference to the container element which contains all projected
-         * prefixes of the form-field.
-         * @deprecated Use `getPrefixText` instead.
-         * @breaking-change 11.0.0
-         */
-        MatFormFieldHarness.prototype.getHarnessLoaderForPrefix = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    return [2 /*return*/, this._prefixContainer()];
-                });
-            });
-        };
-        /** Gets the text inside the prefix element. */
-        MatFormFieldHarness.prototype.getPrefixText = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var prefix;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._prefixContainer()];
-                        case 1:
-                            prefix = _a.sent();
-                            return [2 /*return*/, prefix ? prefix.text() : ''];
-                    }
-                });
-            });
-        };
-        /**
-         * Gets a reference to the container element which contains all projected
-         * suffixes of the form-field.
-         * @deprecated Use `getSuffixText` instead.
-         * @breaking-change 11.0.0
-         */
-        MatFormFieldHarness.prototype.getHarnessLoaderForSuffix = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    return [2 /*return*/, this._suffixContainer()];
-                });
-            });
-        };
-        /** Gets the text inside the suffix element. */
-        MatFormFieldHarness.prototype.getSuffixText = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var suffix;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._suffixContainer()];
-                        case 1:
-                            suffix = _a.sent();
-                            return [2 /*return*/, suffix ? suffix.text() : ''];
-                    }
-                });
-            });
-        };
-        /**
-         * Whether the form control has been touched. Returns "null"
-         * if no form control is set up.
-         */
-        MatFormFieldHarness.prototype.isControlTouched = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._hasFormControl()];
-                        case 1:
-                            if (!(_a.sent())) {
-                                return [2 /*return*/, null];
-                            }
-                            return [4 /*yield*/, this.host()];
-                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-touched')];
-                    }
-                });
-            });
-        };
-        /**
-         * Whether the form control is dirty. Returns "null"
-         * if no form control is set up.
-         */
-        MatFormFieldHarness.prototype.isControlDirty = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._hasFormControl()];
-                        case 1:
-                            if (!(_a.sent())) {
-                                return [2 /*return*/, null];
-                            }
-                            return [4 /*yield*/, this.host()];
-                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-dirty')];
-                    }
-                });
-            });
-        };
-        /**
-         * Whether the form control is valid. Returns "null"
-         * if no form control is set up.
-         */
-        MatFormFieldHarness.prototype.isControlValid = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._hasFormControl()];
-                        case 1:
-                            if (!(_a.sent())) {
-                                return [2 /*return*/, null];
-                            }
-                            return [4 /*yield*/, this.host()];
-                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-valid')];
-                    }
-                });
-            });
-        };
-        /**
-         * Whether the form control is pending validation. Returns "null"
-         * if no form control is set up.
-         */
-        MatFormFieldHarness.prototype.isControlPending = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._hasFormControl()];
-                        case 1:
-                            if (!(_a.sent())) {
-                                return [2 /*return*/, null];
-                            }
-                            return [4 /*yield*/, this.host()];
-                        case 2: return [2 /*return*/, (_a.sent()).hasClass('ng-pending')];
-                    }
-                });
-            });
-        };
-        /** Checks whether the form-field control has set up a form control. */
-        MatFormFieldHarness.prototype._hasFormControl = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var hostEl, _a, isTouched, isUntouched;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this.host()];
-                        case 1:
-                            hostEl = _b.sent();
-                            return [4 /*yield*/, testing.parallel(function () { return [hostEl.hasClass('ng-touched'), hostEl.hasClass('ng-untouched')]; })];
-                        case 2:
-                            _a = __read.apply(void 0, [_b.sent(), 2]), isTouched = _a[0], isUntouched = _a[1];
-                            return [2 /*return*/, isTouched || isUntouched];
-                    }
-                });
-            });
-        };
         return MatFormFieldHarness;
-    }(testing.ComponentHarness));
+    }(_MatFormFieldHarnessBase));
     MatFormFieldHarness.hostSelector = '.mat-form-field';
 
     /**
@@ -713,6 +709,7 @@
         });
     });
     exports.MatFormFieldHarness = MatFormFieldHarness;
+    exports._MatFormFieldHarnessBase = _MatFormFieldHarnessBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

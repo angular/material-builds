@@ -1,6 +1,6 @@
 export * from '@angular/material/form-field/testing/control';
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
+import { ComponentHarness, parallel, HarnessPredicate } from '@angular/cdk/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 
@@ -11,68 +11,7 @@ import { MatSelectHarness } from '@angular/material/select/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Material form-field's in tests. */
-class MatFormFieldHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._prefixContainer = this.locatorForOptional('.mat-form-field-prefix');
-        this._suffixContainer = this.locatorForOptional('.mat-form-field-suffix');
-        this._label = this.locatorForOptional('.mat-form-field-label');
-        this._errors = this.locatorForAll('.mat-error');
-        this._hints = this.locatorForAll('mat-hint, .mat-hint');
-        this._inputControl = this.locatorForOptional(MatInputHarness);
-        this._selectControl = this.locatorForOptional(MatSelectHarness);
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatFormFieldHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which form field instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatFormFieldHarness, options)
-            .addOption('floatingLabelText', options.floatingLabelText, (harness, text) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getLabel(), text); }))
-            .addOption('hasErrors', options.hasErrors, (harness, hasErrors) => __awaiter(this, void 0, void 0, function* () { return (yield harness.hasErrors()) === hasErrors; }));
-    }
-    /** Gets the appearance of the form-field. */
-    getAppearance() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const hostClasses = yield (yield this.host()).getAttribute('class');
-            if (hostClasses !== null) {
-                const appearanceMatch = hostClasses.match(/mat-form-field-appearance-(legacy|standard|fill|outline)(?:$| )/);
-                if (appearanceMatch) {
-                    return appearanceMatch[1];
-                }
-            }
-            throw Error('Could not determine appearance of form-field.');
-        });
-    }
-    // Implementation of the "getControl" method overload signatures.
-    getControl(type) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (type) {
-                return this.locatorForOptional(type)();
-            }
-            const hostEl = yield this.host();
-            const [isInput, isSelect] = yield parallel(() => [
-                hostEl.hasClass('mat-form-field-type-mat-input'),
-                hostEl.hasClass('mat-form-field-type-mat-select'),
-            ]);
-            if (isInput) {
-                return this._inputControl();
-            }
-            else if (isSelect) {
-                return this._selectControl();
-            }
-            return null;
-        });
-    }
-    /** Whether the form-field has a label. */
-    hasLabel() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-form-field-has-label');
-        });
-    }
+class _MatFormFieldHarnessBase extends ComponentHarness {
     /** Gets the label of the form-field. */
     getLabel() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -86,19 +25,6 @@ class MatFormFieldHarness extends ComponentHarness {
             return (yield this.getTextErrors()).length > 0;
         });
     }
-    /** Whether the label is currently floating. */
-    isLabelFloating() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const host = yield this.host();
-            const [hasLabel, shouldFloat] = yield parallel(() => [
-                this.hasLabel(),
-                host.hasClass('mat-form-field-should-float'),
-            ]);
-            // If there is no label, the label conceptually can never float. The `should-float` class
-            // is just always set regardless of whether the label is displayed or not.
-            return hasLabel && shouldFloat;
-        });
-    }
     /** Whether the form-field is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -109,6 +35,16 @@ class MatFormFieldHarness extends ComponentHarness {
     isAutofilled() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).hasClass('mat-form-field-autofilled');
+        });
+    }
+    // Implementation of the "getControl" method overload signatures.
+    getControl(type) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (type) {
+                return this.locatorForOptional(type)();
+            }
+            const [select, input] = yield parallel(() => [this._selectControl(), this._inputControl()]);
+            return select || input;
         });
     }
     /** Gets the theme color of the form-field. */
@@ -237,6 +173,62 @@ class MatFormFieldHarness extends ComponentHarness {
         });
     }
 }
+/** Harness for interacting with a standard Material form-field's in tests. */
+class MatFormFieldHarness extends _MatFormFieldHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._prefixContainer = this.locatorForOptional('.mat-form-field-prefix');
+        this._suffixContainer = this.locatorForOptional('.mat-form-field-suffix');
+        this._label = this.locatorForOptional('.mat-form-field-label');
+        this._errors = this.locatorForAll('.mat-error');
+        this._hints = this.locatorForAll('mat-hint, .mat-hint');
+        this._inputControl = this.locatorForOptional(MatInputHarness);
+        this._selectControl = this.locatorForOptional(MatSelectHarness);
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatFormFieldHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which form field instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatFormFieldHarness, options)
+            .addOption('floatingLabelText', options.floatingLabelText, (harness, text) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getLabel(), text); }))
+            .addOption('hasErrors', options.hasErrors, (harness, hasErrors) => __awaiter(this, void 0, void 0, function* () { return (yield harness.hasErrors()) === hasErrors; }));
+    }
+    /** Gets the appearance of the form-field. */
+    getAppearance() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const hostClasses = yield (yield this.host()).getAttribute('class');
+            if (hostClasses !== null) {
+                const appearanceMatch = hostClasses.match(/mat-form-field-appearance-(legacy|standard|fill|outline)(?:$| )/);
+                if (appearanceMatch) {
+                    return appearanceMatch[1];
+                }
+            }
+            throw Error('Could not determine appearance of form-field.');
+        });
+    }
+    /** Whether the form-field has a label. */
+    hasLabel() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).hasClass('mat-form-field-has-label');
+        });
+    }
+    /** Whether the label is currently floating. */
+    isLabelFloating() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const host = yield this.host();
+            const [hasLabel, shouldFloat] = yield parallel(() => [
+                this.hasLabel(),
+                host.hasClass('mat-form-field-should-float'),
+            ]);
+            // If there is no label, the label conceptually can never float. The `should-float` class
+            // is just always set regardless of whether the label is displayed or not.
+            return hasLabel && shouldFloat;
+        });
+    }
+}
 MatFormFieldHarness.hostSelector = '.mat-form-field';
 
 /**
@@ -263,5 +255,5 @@ MatFormFieldHarness.hostSelector = '.mat-form-field';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatFormFieldHarness };
+export { MatFormFieldHarness, _MatFormFieldHarnessBase };
 //# sourceMappingURL=testing.js.map
