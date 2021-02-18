@@ -361,8 +361,6 @@
                         { provide: table.CdkTable, useExisting: MatTable },
                         { provide: table.CDK_TABLE, useExisting: MatTable },
                         { provide: table._COALESCED_STYLE_SCHEDULER, useClass: table._CoalescedStyleScheduler },
-                        // Prevent nested tables from seeing this table's StickyPositioningListener.
-                        { provide: table.STICKY_POSITIONING_LISTENER, useValue: null },
                     ],
                     encapsulation: core.ViewEncapsulation.None,
                     // See note on CdkTable for explanation on why this uses the default change detection strategy.

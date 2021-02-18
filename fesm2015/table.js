@@ -1,5 +1,5 @@
 import { Directive, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
-import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _CoalescedStyleScheduler, STICKY_POSITIONING_LISTENER, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { CdkTable, CDK_TABLE_TEMPLATE, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _CoalescedStyleScheduler, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CDK_ROW_TEMPLATE, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { _VIEW_REPEATER_STRATEGY, _RecycleViewRepeaterStrategy, _DisposeViewRepeaterStrategy } from '@angular/cdk/collections';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
@@ -55,8 +55,6 @@ MatTable.decorators = [
                     { provide: CdkTable, useExisting: MatTable },
                     { provide: CDK_TABLE, useExisting: MatTable },
                     { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
-                    // Prevent nested tables from seeing this table's StickyPositioningListener.
-                    { provide: STICKY_POSITIONING_LISTENER, useValue: null },
                 ],
                 encapsulation: ViewEncapsulation.None,
                 // See note on CdkTable for explanation on why this uses the default change detection strategy.
