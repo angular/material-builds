@@ -382,9 +382,7 @@
         };
     }
     var _MatTooltipBase = /** @class */ (function () {
-        function _MatTooltipBase(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, 
-        /** @breaking-change 11.0.0 _document argument to become required. */
-        _document) {
+        function _MatTooltipBase(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, _document) {
             var _this = this;
             this._overlay = _overlay;
             this._elementRef = _elementRef;
@@ -437,6 +435,7 @@
                 }
             };
             this._scrollStrategy = scrollStrategy;
+            this._document = _document;
             if (_defaultOptions) {
                 if (_defaultOptions.position) {
                     this.position = _defaultOptions.position;
@@ -853,9 +852,7 @@
         /** Listener for the `wheel` event on the element. */
         _MatTooltipBase.prototype._wheelListener = function (event) {
             if (this._isTooltipVisible()) {
-                // @breaking-change 11.0.0 Remove `|| document` once the document is a required param.
-                var doc = this._document || document;
-                var elementUnderPointer = doc.elementFromPoint(event.clientX, event.clientY);
+                var elementUnderPointer = this._document.elementFromPoint(event.clientX, event.clientY);
                 var element = this._elementRef.nativeElement;
                 // On non-touch devices we depend on the `mouseleave` event to close the tooltip, but it
                 // won't fire if the user scrolls away using the wheel without moving their cursor. We
@@ -923,9 +920,7 @@
      */
     var MatTooltip = /** @class */ (function (_super) {
         __extends(MatTooltip, _super);
-        function MatTooltip(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, 
-        /** @breaking-change 11.0.0 _document argument to become required. */
-        _document) {
+        function MatTooltip(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document) {
             var _this = _super.call(this, overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document) || this;
             _this._tooltipComponent = TooltipComponent;
             _this._transformOriginSelector = '.mat-tooltip';

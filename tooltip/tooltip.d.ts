@@ -118,18 +118,13 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     });
     /** Manually-bound passive event listeners. */
     private readonly _passiveListeners;
-    /**
-     * Reference to the current document.
-     * @breaking-change 11.0.0 Remove `| null` typing for `document`.
-     */
+    /** Reference to the current document. */
     private _document;
     /** Timer started at the last `touchstart` event. */
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, 
-    /** @breaking-change 11.0.0 _document argument to become required. */
-    _document: any);
+    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, _document: any);
     ngAfterViewInit(): void;
     /**
      * Dispose the tooltip when destroyed.
@@ -199,9 +194,7 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
 export declare class MatTooltip extends _MatTooltipBase<TooltipComponent> {
     protected readonly _tooltipComponent: typeof TooltipComponent;
     protected readonly _transformOriginSelector = ".mat-tooltip";
-    constructor(overlay: Overlay, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, viewContainerRef: ViewContainerRef, ngZone: NgZone, platform: Platform, ariaDescriber: AriaDescriber, focusMonitor: FocusMonitor, scrollStrategy: any, dir: Directionality, defaultOptions: MatTooltipDefaultOptions, 
-    /** @breaking-change 11.0.0 _document argument to become required. */
-    _document: any);
+    constructor(overlay: Overlay, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, viewContainerRef: ViewContainerRef, ngZone: NgZone, platform: Platform, ariaDescriber: AriaDescriber, focusMonitor: FocusMonitor, scrollStrategy: any, dir: Directionality, defaultOptions: MatTooltipDefaultOptions, _document: any);
 }
 export declare abstract class _TooltipComponentBase implements OnDestroy {
     private _changeDetectorRef;
