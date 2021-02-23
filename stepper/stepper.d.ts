@@ -60,6 +60,7 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** Stream of animation `done` events when the body expands/collapses. */
     _animationDone: Subject<AnimationEvent>;
     ngAfterContentInit(): void;
+    protected _updateOrientation(): void;
     static ngAcceptInputType_editable: BooleanInput;
     static ngAcceptInputType_optional: BooleanInput;
     static ngAcceptInputType_completed: BooleanInput;

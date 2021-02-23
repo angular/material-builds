@@ -644,6 +644,11 @@
                 }
             });
         };
+        MatStepper.prototype._updateOrientation = function () {
+            if ((typeof ngDevMode === 'undefined' || ngDevMode)) {
+                throw Error('Updating the orientation of a Material stepper is not supported.');
+            }
+        };
         return MatStepper;
     }(stepper.CdkStepper));
     MatStepper.decorators = [

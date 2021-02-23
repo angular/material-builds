@@ -340,6 +340,11 @@ class MatStepper extends CdkStepper {
             }
         });
     }
+    _updateOrientation() {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode)) {
+            throw Error('Updating the orientation of a Material stepper is not supported.');
+        }
+    }
 }
 MatStepper.decorators = [
     { type: Directive, args: [{ selector: '[matStepper]', providers: [{ provide: CdkStepper, useExisting: MatStepper }] },] }
