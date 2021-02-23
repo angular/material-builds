@@ -225,7 +225,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     get value(): any;
     set value(newValue: any);
     private _value;
-    /** Aria label of the select. If not specified, the placeholder will be used as label. */
+    /** Aria label of the select. */
     ariaLabel: string;
     /** Input that can be used to specify the `aria-labelledby` attribute. */
     ariaLabelledby: string;

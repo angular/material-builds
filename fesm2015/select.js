@@ -251,7 +251,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
         this._required = false;
         this._multiple = false;
         this._disableOptionCentering = (_c = (_b = this._defaultOptions) === null || _b === void 0 ? void 0 : _b.disableOptionCentering) !== null && _c !== void 0 ? _c : false;
-        /** Aria label of the select. If not specified, the placeholder will be used as label. */
+        /** Aria label of the select. */
         this.ariaLabel = '';
         /** Combined stream of all of the child options' change events. */
         this.optionSelectionChanges = defer(() => {
