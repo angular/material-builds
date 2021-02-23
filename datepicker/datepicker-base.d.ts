@@ -73,12 +73,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _closeButtonFocused: boolean;
     /** Portal with projected action buttons. */
     _actionsPortal: TemplatePortal | null;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, 
-    /**
-     * @deprecated `intl` argument to become required.
-     * @breaking-change 12.0.0
-     */
-    intl?: MatDatepickerIntl);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, intl: MatDatepickerIntl);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

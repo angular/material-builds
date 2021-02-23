@@ -713,17 +713,6 @@
         MatDateSelectionModel.prototype._isValidDateInstance = function (date) {
             return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
         };
-        /**
-         * Clones the selection model.
-         * @deprecated To be turned into an abstract method.
-         * @breaking-change 12.0.0
-         */
-        MatDateSelectionModel.prototype.clone = function () {
-            if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                throw Error('Not implemented');
-            }
-            return null;
-        };
         return MatDateSelectionModel;
     }());
     MatDateSelectionModel.decorators = [
@@ -2227,12 +2216,7 @@
      */
     var MatDatepickerContent = /** @class */ (function (_super) {
         __extends(MatDatepickerContent, _super);
-        function MatDatepickerContent(elementRef, _changeDetectorRef, _globalModel, _dateAdapter, _rangeSelectionStrategy, 
-        /**
-         * @deprecated `intl` argument to become required.
-         * @breaking-change 12.0.0
-         */
-        intl) {
+        function MatDatepickerContent(elementRef, _changeDetectorRef, _globalModel, _dateAdapter, _rangeSelectionStrategy, intl) {
             var _this = _super.call(this, elementRef) || this;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._globalModel = _globalModel;
@@ -2245,8 +2229,7 @@
             _this._animationDone = new rxjs.Subject();
             /** Portal with projected action buttons. */
             _this._actionsPortal = null;
-            // @breaking-change 12.0.0 Remove fallback for `intl`.
-            _this._closeButtonText = (intl === null || intl === void 0 ? void 0 : intl.closeCalendarLabel) || 'Close calendar';
+            _this._closeButtonText = intl.closeCalendarLabel;
             return _this;
         }
         MatDatepickerContent.prototype.ngOnInit = function () {

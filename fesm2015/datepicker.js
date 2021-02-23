@@ -415,17 +415,6 @@ class MatDateSelectionModel {
     _isValidDateInstance(date) {
         return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
     }
-    /**
-     * Clones the selection model.
-     * @deprecated To be turned into an abstract method.
-     * @breaking-change 12.0.0
-     */
-    clone() {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            throw Error('Not implemented');
-        }
-        return null;
-    }
 }
 MatDateSelectionModel.decorators = [
     { type: Directive }
@@ -1828,12 +1817,7 @@ const _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
  * @docs-private
  */
 class MatDatepickerContent extends _MatDatepickerContentMixinBase {
-    constructor(elementRef, _changeDetectorRef, _globalModel, _dateAdapter, _rangeSelectionStrategy, 
-    /**
-     * @deprecated `intl` argument to become required.
-     * @breaking-change 12.0.0
-     */
-    intl) {
+    constructor(elementRef, _changeDetectorRef, _globalModel, _dateAdapter, _rangeSelectionStrategy, intl) {
         super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;
         this._globalModel = _globalModel;
@@ -1846,8 +1830,7 @@ class MatDatepickerContent extends _MatDatepickerContentMixinBase {
         this._animationDone = new Subject();
         /** Portal with projected action buttons. */
         this._actionsPortal = null;
-        // @breaking-change 12.0.0 Remove fallback for `intl`.
-        this._closeButtonText = (intl === null || intl === void 0 ? void 0 : intl.closeCalendarLabel) || 'Close calendar';
+        this._closeButtonText = intl.closeCalendarLabel;
     }
     ngOnInit() {
         // If we have actions, clone the model so that we have the ability to cancel the selection,

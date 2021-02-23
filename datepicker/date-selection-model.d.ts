@@ -62,12 +62,8 @@ export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSe
     abstract isValid(): boolean;
     /** Checks whether the current selection is complete. */
     abstract isComplete(): boolean;
-    /**
-     * Clones the selection model.
-     * @deprecated To be turned into an abstract method.
-     * @breaking-change 12.0.0
-     */
-    clone(): MatDateSelectionModel<S, D>;
+    /** Clones the selection model. */
+    abstract clone(): MatDateSelectionModel<S, D>;
 }
 /**  A selection model that contains a single date. */
 export declare class MatSingleDateSelectionModel<D> extends MatDateSelectionModel<D | null, D> {
