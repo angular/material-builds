@@ -489,7 +489,7 @@
                 this._focusTrap.focusInitialElementWhenReady();
             }
             else {
-                var activeElement = this._document.activeElement;
+                var activeElement = this._getActiveElement();
                 // Otherwise ensure that focus is on the container. It's possible that a different
                 // component tried to move focus while the open animation was running. See:
                 // https://github.com/angular/components/issues/16215. Note that we only want to do this
@@ -505,7 +505,7 @@
             var toFocus = this._elementFocusedBeforeOpened;
             // We need the extra check, because IE can set the `activeElement` to null in some cases.
             if (this.bottomSheetConfig.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
-                var activeElement = this._document.activeElement;
+                var activeElement = this._getActiveElement();
                 var element = this._elementRef.nativeElement;
                 // Make sure that focus is still inside the bottom sheet or is on the body (usually because a
                 // non-focusable element like the backdrop was clicked) before moving it. It's possible that
@@ -523,11 +523,19 @@
         /** Saves a reference to the element that was focused before the bottom sheet was opened. */
         MatBottomSheetContainer.prototype._savePreviouslyFocusedElement = function () {
             var _this = this;
-            this._elementFocusedBeforeOpened = this._document.activeElement;
+            this._elementFocusedBeforeOpened = this._getActiveElement();
             // The `focus` method isn't available during server-side rendering.
             if (this._elementRef.nativeElement.focus) {
                 Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
             }
+        };
+        /** Gets the currently-focused element on the page. */
+        MatBottomSheetContainer.prototype._getActiveElement = function () {
+            var _a;
+            // If the `activeElement` is inside a shadow root, `document.activeElement` will
+            // point to the shadow root so we have to descend into it ourselves.
+            var activeElement = this._document.activeElement;
+            return ((_a = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _a === void 0 ? void 0 : _a.activeElement) || activeElement;
         };
         return MatBottomSheetContainer;
     }(portal.BasePortalOutlet));
