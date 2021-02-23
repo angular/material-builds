@@ -550,7 +550,7 @@
             _this._required = false;
             _this._multiple = false;
             _this._disableOptionCentering = (_c = (_b = _this._defaultOptions) === null || _b === void 0 ? void 0 : _b.disableOptionCentering) !== null && _c !== void 0 ? _c : false;
-            /** Aria label of the select. If not specified, the placeholder will be used as label. */
+            /** Aria label of the select. */
             _this.ariaLabel = '';
             /** Combined stream of all of the child options' change events. */
             _this.optionSelectionChanges = rxjs.defer(function () {
