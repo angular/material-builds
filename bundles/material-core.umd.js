@@ -12,7 +12,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('11.2.2-sha-99f10c530');
+    var VERSION = new i0.Version('11.2.2-sha-a99a4d298');
 
     /**
      * @license
@@ -52,7 +52,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('11.2.2-sha-99f10c530');
+    var VERSION$1 = new i0.Version('11.2.2-sha-a99a4d298');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1445,7 +1445,7 @@
         };
         /** Function being called whenever the trigger is being pressed using touch. */
         RippleRenderer.prototype._onTouchStart = function (event) {
-            if (!this._target.rippleDisabled) {
+            if (!this._target.rippleDisabled && !a11y.isFakeTouchstartFromScreenReader(event)) {
                 // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
                 // events will launch a second ripple if we don't ignore mouse events for a specific
                 // time after a touchstart event.

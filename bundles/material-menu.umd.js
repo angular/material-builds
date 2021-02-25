@@ -1099,7 +1099,11 @@
              * Handles touch start events on the trigger.
              * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
              */
-            this._handleTouchStart = function () { return _this._openedBy = 'touch'; };
+            this._handleTouchStart = function (event) {
+                if (!a11y.isFakeTouchstartFromScreenReader(event)) {
+                    _this._openedBy = 'touch';
+                }
+            };
             // Tracking input type is necessary so it's possible to only auto-focus
             // the first item of the list when the menu is opened via the keyboard
             this._openedBy = undefined;
