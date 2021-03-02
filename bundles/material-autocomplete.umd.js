@@ -523,23 +523,6 @@
         options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }]
     };
 
-    /**
-     * The following style constants are necessary to save here in order
-     * to properly calculate the scrollTop of the panel. Because we are not
-     * actually focusing the active item, scroll must be handled manually.
-     */
-    /**
-     * The height of each autocomplete option.
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 12.0.0
-     */
-    var AUTOCOMPLETE_OPTION_HEIGHT = 48;
-    /**
-     * The total height of the autocomplete panel.
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 12.0.0
-     */
-    var AUTOCOMPLETE_PANEL_HEIGHT = 256;
     /** Injection token that determines the scroll handling while the autocomplete panel is open. */
     var MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
     /** @docs-private */
@@ -1256,8 +1239,6 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
-    exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
     exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
     exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
     exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
