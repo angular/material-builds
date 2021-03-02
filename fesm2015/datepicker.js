@@ -2,7 +2,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { ɵɵdefineInjectable, Injectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, NgZone, Input, Output, Directive, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, Inject, ViewChild, forwardRef, ViewContainerRef, Attribute, ContentChild, InjectFlags, Injector, Self, TemplateRef, NgModule } from '@angular/core';
+import { ɵɵdefineInjectable, Injectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, NgZone, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, Inject, ViewChild, forwardRef, Directive, ViewContainerRef, Attribute, ContentChild, InjectFlags, Injector, Self, TemplateRef, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -388,7 +388,10 @@ class DateRange {
         this.end = end;
     }
 }
-/** A selection model containing a date selection. */
+/**
+ * A selection model containing a date selection.
+ * @docs-private
+ */
 class MatDateSelectionModel {
     constructor(
     /** The current selection. */
@@ -428,13 +431,16 @@ class MatDateSelectionModel {
     }
 }
 MatDateSelectionModel.decorators = [
-    { type: Directive }
+    { type: Injectable }
 ];
 MatDateSelectionModel.ctorParameters = () => [
     { type: undefined },
     { type: DateAdapter }
 ];
-/**  A selection model that contains a single date. */
+/**
+ * A selection model that contains a single date.
+ * @docs-private
+ */
 class MatSingleDateSelectionModel extends MatDateSelectionModel {
     constructor(adapter) {
         super(null, adapter);
@@ -470,7 +476,10 @@ MatSingleDateSelectionModel.decorators = [
 MatSingleDateSelectionModel.ctorParameters = () => [
     { type: DateAdapter }
 ];
-/**  A selection model that contains a date range. */
+/**
+ * A selection model that contains a date range.
+ * @docs-private
+ */
 class MatRangeDateSelectionModel extends MatDateSelectionModel {
     constructor(adapter) {
         super(new DateRange(null, null), adapter);
@@ -534,7 +543,10 @@ MatRangeDateSelectionModel.ctorParameters = () => [
 function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
     return parent || new MatSingleDateSelectionModel(adapter);
 }
-/** Used to provide a single selection model to a component. */
+/**
+ * Used to provide a single selection model to a component.
+ * @docs-private
+ */
 const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER = {
     provide: MatDateSelectionModel,
     deps: [[new Optional(), new SkipSelf(), MatDateSelectionModel], DateAdapter],
@@ -544,7 +556,10 @@ const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER = {
 function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
     return parent || new MatRangeDateSelectionModel(adapter);
 }
-/** Used to provide a range selection model to a component. */
+/**
+ * Used to provide a range selection model to a component.
+ * @docs-private
+ */
 const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER = {
     provide: MatDateSelectionModel,
     deps: [[new Optional(), new SkipSelf(), MatDateSelectionModel], DateAdapter],

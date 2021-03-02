@@ -686,7 +686,10 @@
         }
         return DateRange;
     }());
-    /** A selection model containing a date selection. */
+    /**
+     * A selection model containing a date selection.
+     * @docs-private
+     */
     var MatDateSelectionModel = /** @class */ (function () {
         function MatDateSelectionModel(
         /** The current selection. */
@@ -727,13 +730,16 @@
         return MatDateSelectionModel;
     }());
     MatDateSelectionModel.decorators = [
-        { type: i0.Directive }
+        { type: i0.Injectable }
     ];
     MatDateSelectionModel.ctorParameters = function () { return [
         { type: undefined },
         { type: core.DateAdapter }
     ]; };
-    /**  A selection model that contains a single date. */
+    /**
+     * A selection model that contains a single date.
+     * @docs-private
+     */
     var MatSingleDateSelectionModel = /** @class */ (function (_super) {
         __extends(MatSingleDateSelectionModel, _super);
         function MatSingleDateSelectionModel(adapter) {
@@ -771,7 +777,10 @@
     MatSingleDateSelectionModel.ctorParameters = function () { return [
         { type: core.DateAdapter }
     ]; };
-    /**  A selection model that contains a date range. */
+    /**
+     * A selection model that contains a date range.
+     * @docs-private
+     */
     var MatRangeDateSelectionModel = /** @class */ (function (_super) {
         __extends(MatRangeDateSelectionModel, _super);
         function MatRangeDateSelectionModel(adapter) {
@@ -837,7 +846,10 @@
     function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
         return parent || new MatSingleDateSelectionModel(adapter);
     }
-    /** Used to provide a single selection model to a component. */
+    /**
+     * Used to provide a single selection model to a component.
+     * @docs-private
+     */
     var MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER = {
         provide: MatDateSelectionModel,
         deps: [[new i0.Optional(), new i0.SkipSelf(), MatDateSelectionModel], core.DateAdapter],
@@ -847,7 +859,10 @@
     function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
         return parent || new MatRangeDateSelectionModel(adapter);
     }
-    /** Used to provide a range selection model to a component. */
+    /**
+     * Used to provide a range selection model to a component.
+     * @docs-private
+     */
     var MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER = {
         provide: MatDateSelectionModel,
         deps: [[new i0.Optional(), new i0.SkipSelf(), MatDateSelectionModel], core.DateAdapter],

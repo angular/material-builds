@@ -30,14 +30,20 @@ export declare class DateRange<D> {
  * @docs-private
  */
 export declare type ExtractDateTypeFromSelection<T> = T extends DateRange<infer D> ? D : NonNullable<T>;
-/** Event emitted by the date selection model when its selection changes. */
+/**
+ * Event emitted by the date selection model when its selection changes.
+ * @docs-private
+ */
 export interface DateSelectionModelChange<S> {
     /** New value for the selection. */
     selection: S;
     /** Object that triggered the change. */
     source: unknown;
 }
-/** A selection model containing a date selection. */
+/**
+ * A selection model containing a date selection.
+ * @docs-private
+ */
 export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy {
     /** The current selection. */
     readonly selection: S;
@@ -69,7 +75,10 @@ export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSe
      */
     clone(): MatDateSelectionModel<S, D>;
 }
-/**  A selection model that contains a single date. */
+/**
+ * A selection model that contains a single date.
+ * @docs-private
+ */
 export declare class MatSingleDateSelectionModel<D> extends MatDateSelectionModel<D | null, D> {
     constructor(adapter: DateAdapter<D>);
     /**
@@ -87,7 +96,10 @@ export declare class MatSingleDateSelectionModel<D> extends MatDateSelectionMode
     /** Clones the selection model. */
     clone(): MatSingleDateSelectionModel<D>;
 }
-/**  A selection model that contains a date range. */
+/**
+ * A selection model that contains a date range.
+ * @docs-private
+ */
 export declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel<DateRange<D>, D> {
     constructor(adapter: DateAdapter<D>);
     /**
@@ -108,9 +120,15 @@ export declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel
 }
 /** @docs-private */
 export declare function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
-/** Used to provide a single selection model to a component. */
+/**
+ * Used to provide a single selection model to a component.
+ * @docs-private
+ */
 export declare const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
 /** @docs-private */
 export declare function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
-/** Used to provide a range selection model to a component. */
+/**
+ * Used to provide a range selection model to a component.
+ * @docs-private
+ */
 export declare const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
