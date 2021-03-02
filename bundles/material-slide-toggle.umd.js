@@ -354,7 +354,7 @@
         }
         return MatSlideToggleBase;
     }());
-    var _MatSlideToggleMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatSlideToggleBase)), 'accent'));
+    var _MatSlideToggleMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatSlideToggleBase))));
     /** Represents a slidable "switch" toggle that can be moved between on and off. */
     var MatSlideToggle = /** @class */ (function (_super) {
         __extends(MatSlideToggle, _super);
@@ -388,6 +388,7 @@
              */
             _this.toggleChange = new core.EventEmitter();
             _this.tabIndex = parseInt(tabIndex) || 0;
+            _this.color = _this.defaultColor = defaults.color || 'accent';
             return _this;
         }
         Object.defineProperty(MatSlideToggle.prototype, "required", {

@@ -52,7 +52,7 @@ class MatSlideToggleBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
+const _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase))));
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
 class MatSlideToggle extends _MatSlideToggleMixinBase {
     constructor(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, defaults, _animationMode) {
@@ -85,6 +85,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
          */
         this.toggleChange = new EventEmitter();
         this.tabIndex = parseInt(tabIndex) || 0;
+        this.color = this.defaultColor = defaults.color || 'accent';
     }
     /** Whether the slide-toggle is required. */
     get required() { return this._required; }
