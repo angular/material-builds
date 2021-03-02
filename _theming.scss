@@ -2,86 +2,6 @@
 // the `@angular/material` theming Sass bundle. See `//src/material:theming_bundle`.
 
 // Import all the theming functionality.
-@mixin cdk-a11y {
-  .cdk-visually-hidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-
-    // Avoid browsers rendering the focus ring in some cases.
-    outline: 0;
-
-    // Avoid some cases where the browser will still render the native controls (see #9049).
-    -webkit-appearance: none;
-    -moz-appearance: none;
-  }
-}
-
-/// Emits the mixin's content nested under `$selector-context` if `$selector-context`
-/// is non-empty.
-/// @param selector-context The selector under which to nest the mixin's content.
-@mixin _cdk-optionally-nest-content($selector-context) {
-  @if ($selector-context == '') {
-    @content;
-  }
-  @else {
-    #{$selector-context} {
-      @content;
-    }
-  }
-}
-
-/// Applies styles for users in high contrast mode. Note that this only applies
-/// to Microsoft browsers. Chrome can be included by checking for the `html[hc]`
-/// attribute, however Chrome handles high contrast differently.
-///
-/// @param target Which kind of high contrast setting to target. Defaults to `active`, can be
-///    `white-on-black` or `black-on-white`.
-/// @param encapsulation Whether to emit styles for view encapsulation. Values are:
-///     * `on` - works for `Emulated`, `Native`, and `ShadowDom`
-///     * `off` - works for `None`
-///     * `any` - works for all encapsulation modes by emitting the CSS twice (default).
-@mixin cdk-high-contrast($target: active, $encapsulation: 'any') {
-  @if ($target != 'active' and $target != 'black-on-white' and $target != 'white-on-black') {
-    @error 'Unknown cdk-high-contrast value "#{$target}" provided. ' +
-           'Allowed values are "active", "black-on-white", and "white-on-black"';
-  }
-
-  @if ($encapsulation != 'on' and $encapsulation != 'off' and $encapsulation != 'any') {
-    @error 'Unknown cdk-high-contrast encapsulation "#{$encapsulation}" provided. ' +
-           'Allowed values are "on", "off", and "any"';
-  }
-
-  // If the selector context has multiple parts, such as `.section, .region`, just doing
-  // `.cdk-high-contrast-xxx #{&}` will only apply the parent selector to the first part of the
-  // context. We address this by nesting the selector context under .cdk-high-contrast.
-  @at-root {
-    $selector-context: #{&};
-
-    @if ($encapsulation != 'on') {
-      .cdk-high-contrast-#{$target} {
-        @include _cdk-optionally-nest-content($selector-context) {
-          @content;
-        }
-      }
-    }
-
-    @if ($encapsulation != 'off') {
-      .cdk-high-contrast-#{$target} :host {
-        @include _cdk-optionally-nest-content($selector-context) {
-          @content;
-        }
-      }
-    }
-  }
-}
-
-
 // We want overlays to always appear over user content, so set a baseline
 // very high z-index for the overlay container, which is where we create the new
 // stacking context for all overlays.
@@ -164,11 +84,12 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
     &.cdk-overlay-backdrop-showing {
       opacity: 1;
 
-      // In high contrast mode the rgba background will become solid so we need to fall back
-      // to making it opaque using `opacity`. Note that we can't use the `cdk-high-contrast`
-      // mixin, because we can't normalize the import path to the _a11y.scss both for the
-      // source and when this file is distributed. See #10908.
-      @include cdk-high-contrast(active, off) {
+      // Note that we can't import and use the `high-contrast` mixin from `_a11y.scss`, because
+      // this file will be copied to the top-level `cdk` package when putting together the files
+      // for npm. Any relative import paths we use here will become invalid once the file is copied.
+      .cdk-high-contrast-active & {
+        // In high contrast mode the rgba background will become solid
+        // so we need to fall back to making it opaque using `opacity`.
         opacity: 0.6;
       }
     }
@@ -224,6 +145,86 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
   }
 }
 
+@mixin cdk-a11y {
+  .cdk-visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+
+    // Avoid browsers rendering the focus ring in some cases.
+    outline: 0;
+
+    // Avoid some cases where the browser will still render the native controls (see #9049).
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+}
+
+/// Emits the mixin's content nested under `$selector-context` if `$selector-context`
+/// is non-empty.
+/// @param selector-context The selector under which to nest the mixin's content.
+@mixin _cdk-optionally-nest-content($selector-context) {
+  @if ($selector-context == '') {
+    @content;
+  }
+  @else {
+    #{$selector-context} {
+      @content;
+    }
+  }
+}
+
+/// Applies styles for users in high contrast mode. Note that this only applies
+/// to Microsoft browsers. Chrome can be included by checking for the `html[hc]`
+/// attribute, however Chrome handles high contrast differently.
+///
+/// @param target Which kind of high contrast setting to target. Defaults to `active`, can be
+///    `white-on-black` or `black-on-white`.
+/// @param encapsulation Whether to emit styles for view encapsulation. Values are:
+///     * `on` - works for `Emulated`, `Native`, and `ShadowDom`
+///     * `off` - works for `None`
+///     * `any` - works for all encapsulation modes by emitting the CSS twice (default).
+@mixin cdk-high-contrast($target: active, $encapsulation: 'any') {
+  @if ($target != 'active' and $target != 'black-on-white' and $target != 'white-on-black') {
+    @error 'Unknown cdk-high-contrast value "#{$target}" provided. ' +
+           'Allowed values are "active", "black-on-white", and "white-on-black"';
+  }
+
+  @if ($encapsulation != 'on' and $encapsulation != 'off' and $encapsulation != 'any') {
+    @error 'Unknown cdk-high-contrast encapsulation "#{$encapsulation}" provided. ' +
+           'Allowed values are "on", "off", and "any"';
+  }
+
+  // If the selector context has multiple parts, such as `.section, .region`, just doing
+  // `.cdk-high-contrast-xxx #{&}` will only apply the parent selector to the first part of the
+  // context. We address this by nesting the selector context under .cdk-high-contrast.
+  @at-root {
+    $selector-context: #{&};
+
+    @if ($encapsulation != 'on') {
+      // Note that if this selector is updated, the same change has to be made inside
+      // `_overlay.scss` which can't depend on this mixin due to some infrastructure limitations.
+      .cdk-high-contrast-#{$target} {
+        @include _cdk-optionally-nest-content($selector-context) {
+          @content;
+        }
+      }
+    }
+
+    @if ($encapsulation != 'off') {
+      .cdk-high-contrast-#{$target} :host {
+        @include _cdk-optionally-nest-content($selector-context) {
+          @content;
+        }
+      }
+    }
+  }
+}
 
 // Core styles that enable monitoring autofill state of text fields.
 @mixin cdk-text-field {
