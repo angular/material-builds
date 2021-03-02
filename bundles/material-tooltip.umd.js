@@ -340,8 +340,13 @@
 
     /** Time in ms to throttle repositioning after scroll events. */
     var SCROLL_THROTTLE_MS = 20;
-    /** CSS class that will be attached to the overlay panel. */
+    /**
+     * CSS class that will be attached to the overlay panel.
+     * @deprecated
+     * @breaking-change 13.0.0 remove this variable
+     */
     var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+    var PANEL_CLASS = 'tooltip-panel';
     /** Options used to bind passive event listeners. */
     var passiveListenerOptions = platform.normalizePassiveListenerOptions({ passive: true });
     /**
@@ -399,6 +404,7 @@
             this._viewInitialized = false;
             this._pointerExitEventsInitialized = false;
             this._viewportMargin = 8;
+            this._cssClassPrefix = 'mat';
             /** The default delay in ms before showing the tooltip after show is called */
             this.showDelay = this._defaultOptions.showDelay;
             /** The default delay in ms before hiding the tooltip after hide is called */
@@ -608,7 +614,7 @@
             // Create connected position strategy that listens for scroll events to reposition.
             var strategy = this._overlay.position()
                 .flexibleConnectedTo(this._elementRef)
-                .withTransformOriginOn(this._transformOriginSelector)
+                .withTransformOriginOn("." + this._cssClassPrefix + "-tooltip")
                 .withFlexibleDimensions(false)
                 .withViewportMargin(this._viewportMargin)
                 .withScrollableContainers(scrollableAncestors);
@@ -625,7 +631,7 @@
             this._overlayRef = this._overlay.create({
                 direction: this._dir,
                 positionStrategy: strategy,
-                panelClass: TOOLTIP_PANEL_CLASS,
+                panelClass: this._cssClassPrefix + "-" + PANEL_CLASS,
                 scrollStrategy: this._scrollStrategy()
             });
             this._updatePosition();
@@ -780,7 +786,7 @@
             if (newPosition !== this._currentPosition) {
                 var overlayRef = this._overlayRef;
                 if (overlayRef) {
-                    var classPrefix = 'mat-tooltip-panel-';
+                    var classPrefix = this._cssClassPrefix + "-" + PANEL_CLASS + "-";
                     overlayRef.removePanelClass(classPrefix + this._currentPosition);
                     overlayRef.addPanelClass(classPrefix + newPosition);
                 }
@@ -923,7 +929,6 @@
         function MatTooltip(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document) {
             var _this = _super.call(this, overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document) || this;
             _this._tooltipComponent = TooltipComponent;
-            _this._transformOriginSelector = '.mat-tooltip';
             return _this;
         }
         return MatTooltip;

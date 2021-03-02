@@ -27,7 +27,11 @@ export declare type TooltipTouchGestures = 'auto' | 'on' | 'off';
 export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
-/** CSS class that will be attached to the overlay panel. */
+/**
+ * CSS class that will be attached to the overlay panel.
+ * @deprecated
+ * @breaking-change 13.0.0 remove this variable
+ */
 export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
@@ -77,9 +81,9 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     private _viewInitialized;
     private _pointerExitEventsInitialized;
     protected abstract readonly _tooltipComponent: ComponentType<T>;
-    protected abstract readonly _transformOriginSelector: string;
     protected _viewportMargin: number;
     private _currentPosition;
+    protected readonly _cssClassPrefix: string;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
@@ -193,7 +197,6 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
  */
 export declare class MatTooltip extends _MatTooltipBase<TooltipComponent> {
     protected readonly _tooltipComponent: typeof TooltipComponent;
-    protected readonly _transformOriginSelector = ".mat-tooltip";
     constructor(overlay: Overlay, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, viewContainerRef: ViewContainerRef, ngZone: NgZone, platform: Platform, ariaDescriber: AriaDescriber, focusMonitor: FocusMonitor, scrollStrategy: any, dir: Directionality, defaultOptions: MatTooltipDefaultOptions, _document: any);
 }
 export declare abstract class _TooltipComponentBase implements OnDestroy {

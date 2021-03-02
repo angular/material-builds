@@ -41,8 +41,13 @@ const matTooltipAnimations = {
 
 /** Time in ms to throttle repositioning after scroll events. */
 const SCROLL_THROTTLE_MS = 20;
-/** CSS class that will be attached to the overlay panel. */
+/**
+ * CSS class that will be attached to the overlay panel.
+ * @deprecated
+ * @breaking-change 13.0.0 remove this variable
+ */
 const TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+const PANEL_CLASS = 'tooltip-panel';
 /** Options used to bind passive event listeners. */
 const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true });
 /**
@@ -99,6 +104,7 @@ class _MatTooltipBase {
         this._viewInitialized = false;
         this._pointerExitEventsInitialized = false;
         this._viewportMargin = 8;
+        this._cssClassPrefix = 'mat';
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = this._defaultOptions.showDelay;
         /** The default delay in ms before hiding the tooltip after hide is called */
@@ -285,7 +291,7 @@ class _MatTooltipBase {
         // Create connected position strategy that listens for scroll events to reposition.
         const strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
-            .withTransformOriginOn(this._transformOriginSelector)
+            .withTransformOriginOn(`.${this._cssClassPrefix}-tooltip`)
             .withFlexibleDimensions(false)
             .withViewportMargin(this._viewportMargin)
             .withScrollableContainers(scrollableAncestors);
@@ -302,7 +308,7 @@ class _MatTooltipBase {
         this._overlayRef = this._overlay.create({
             direction: this._dir,
             positionStrategy: strategy,
-            panelClass: TOOLTIP_PANEL_CLASS,
+            panelClass: `${this._cssClassPrefix}-${PANEL_CLASS}`,
             scrollStrategy: this._scrollStrategy()
         });
         this._updatePosition();
@@ -456,7 +462,7 @@ class _MatTooltipBase {
         if (newPosition !== this._currentPosition) {
             const overlayRef = this._overlayRef;
             if (overlayRef) {
-                const classPrefix = 'mat-tooltip-panel-';
+                const classPrefix = `${this._cssClassPrefix}-${PANEL_CLASS}-`;
                 overlayRef.removePanelClass(classPrefix + this._currentPosition);
                 overlayRef.addPanelClass(classPrefix + newPosition);
             }
@@ -592,7 +598,6 @@ class MatTooltip extends _MatTooltipBase {
     constructor(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document) {
         super(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document);
         this._tooltipComponent = TooltipComponent;
-        this._transformOriginSelector = '.mat-tooltip';
     }
 }
 MatTooltip.decorators = [
