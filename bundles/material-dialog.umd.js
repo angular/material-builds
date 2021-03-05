@@ -502,7 +502,7 @@
             // We need the extra check, because IE can set the `activeElement` to null in some cases.
             if (this._config.restoreFocus && previousElement &&
                 typeof previousElement.focus === 'function') {
-                var activeElement = this._document.activeElement;
+                var activeElement = this._getActiveElement();
                 var element = this._elementRef.nativeElement;
                 // Make sure that focus is still inside the dialog or is on the body (usually because a
                 // non-focusable element like the backdrop was clicked) before moving it. It's possible that
@@ -530,7 +530,7 @@
         /** Captures the element that was focused before the dialog was opened. */
         _MatDialogContainerBase.prototype._capturePreviouslyFocusedElement = function () {
             if (this._document) {
-                this._elementFocusedBeforeDialogWasOpened = this._document.activeElement;
+                this._elementFocusedBeforeDialogWasOpened = this._getActiveElement();
             }
         };
         /** Focuses the dialog container. */
@@ -543,8 +543,16 @@
         /** Returns whether focus is inside the dialog. */
         _MatDialogContainerBase.prototype._containsFocus = function () {
             var element = this._elementRef.nativeElement;
-            var activeElement = this._document.activeElement;
+            var activeElement = this._getActiveElement();
             return element === activeElement || element.contains(activeElement);
+        };
+        /** Gets the currently-focused element on the page. */
+        _MatDialogContainerBase.prototype._getActiveElement = function () {
+            var _a;
+            // If the `activeElement` is inside a shadow root, `document.activeElement` will
+            // point to the shadow root so we have to descend into it ourselves.
+            var activeElement = this._document.activeElement;
+            return ((_a = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _a === void 0 ? void 0 : _a.activeElement) || activeElement;
         };
         return _MatDialogContainerBase;
     }(portal.BasePortalOutlet));
@@ -576,8 +584,8 @@
             return _this;
         }
         /** Callback, invoked whenever an animation on the host completes. */
-        MatDialogContainer.prototype._onAnimationDone = function (_a) {
-            var toState = _a.toState, totalTime = _a.totalTime;
+        MatDialogContainer.prototype._onAnimationDone = function (_b) {
+            var toState = _b.toState, totalTime = _b.totalTime;
             if (toState === 'enter') {
                 this._trapFocus();
                 this._animationStateChanged.next({ state: 'opened', totalTime: totalTime });
@@ -588,8 +596,8 @@
             }
         };
         /** Callback, invoked when an animation on the host starts. */
-        MatDialogContainer.prototype._onAnimationStart = function (_a) {
-            var toState = _a.toState, totalTime = _a.totalTime;
+        MatDialogContainer.prototype._onAnimationStart = function (_b) {
+            var toState = _b.toState, totalTime = _b.totalTime;
             if (toState === 'enter') {
                 this._animationStateChanged.next({ state: 'opening', totalTime: totalTime });
             }

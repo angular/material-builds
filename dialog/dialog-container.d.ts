@@ -89,6 +89,8 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
     private _focusDialogContainer;
     /** Returns whether focus is inside the dialog. */
     private _containsFocus;
+    /** Gets the currently-focused element on the page. */
+    private _getActiveElement;
 }
 /**
  * Internal component that wraps user-provided dialog content.
