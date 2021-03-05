@@ -21,29 +21,13 @@ import { Observable, Subject } from 'rxjs';
  * to properly calculate the alignment of the selected option over
  * the trigger element.
  */
-/**
- * The max height of the select's overlay panel.
- * @deprecated To be turned into a private variable.
- * @breaking-change 12.0.0
- */
+/** The max height of the select's overlay panel. */
 export declare const SELECT_PANEL_MAX_HEIGHT = 256;
-/**
- * The panel's padding on the x-axis.
- * @deprecated To be turned into a private variable.
- * @breaking-change 12.0.0
- */
+/** The panel's padding on the x-axis. */
 export declare const SELECT_PANEL_PADDING_X = 16;
-/**
- * The panel's x axis padding if it is indented (e.g. there is an option group).
- * @deprecated To be turned into a private variable.
- * @breaking-change 12.0.0
- */
+/** The panel's x axis padding if it is indented (e.g. there is an option group). */
 export declare const SELECT_PANEL_INDENT_PADDING_X: number;
-/**
- * The height of the select items in `em` units.
- * @deprecated To be turned into a private variable.
- * @breaking-change 12.0.0
- */
+/** The height of the select items in `em` units. */
 export declare const SELECT_ITEM_HEIGHT_EM = 3;
 /**
  * Distance between the panel edge and the option text in
@@ -53,17 +37,11 @@ export declare const SELECT_ITEM_HEIGHT_EM = 3;
  * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
- *
- * @deprecated To be turned into a private variable.
- * @breaking-change 12.0.0
  */
 export declare const SELECT_MULTIPLE_PANEL_PADDING_X: number;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
- *
- * @deprecated To be turned into a private variable.
- * @breaking-change 12.0.0
  */
 export declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
 /** Injection token that determines the scroll handling while a select is open. */
@@ -187,13 +165,8 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     trigger: ElementRef;
     /** Panel containing the select options. */
     panel: ElementRef;
-    /**
-     * Overlay pane containing the options.
-     * @deprecated To be turned into a private API.
-     * @breaking-change 10.0.0
-     * @docs-private
-     */
-    overlayDir: CdkConnectedOverlay;
+    /** Overlay pane containing the options. */
+    protected _overlayDir: CdkConnectedOverlay;
     /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[] | Set<string> | {
         [key: string]: any;

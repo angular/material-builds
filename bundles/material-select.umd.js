@@ -405,29 +405,13 @@
      * to properly calculate the alignment of the selected option over
      * the trigger element.
      */
-    /**
-     * The max height of the select's overlay panel.
-     * @deprecated To be turned into a private variable.
-     * @breaking-change 12.0.0
-     */
+    /** The max height of the select's overlay panel. */
     var SELECT_PANEL_MAX_HEIGHT = 256;
-    /**
-     * The panel's padding on the x-axis.
-     * @deprecated To be turned into a private variable.
-     * @breaking-change 12.0.0
-     */
+    /** The panel's padding on the x-axis. */
     var SELECT_PANEL_PADDING_X = 16;
-    /**
-     * The panel's x axis padding if it is indented (e.g. there is an option group).
-     * @deprecated To be turned into a private variable.
-     * @breaking-change 12.0.0
-     */
+    /** The panel's x axis padding if it is indented (e.g. there is an option group). */
     var SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
-    /**
-     * The height of the select items in `em` units.
-     * @deprecated To be turned into a private variable.
-     * @breaking-change 12.0.0
-     */
+    /** The height of the select items in `em` units. */
     var SELECT_ITEM_HEIGHT_EM = 3;
     // TODO(josephperrott): Revert to a constant after 2018 spec updates are fully merged.
     /**
@@ -438,17 +422,11 @@
      * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
      * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
      * The checkbox width is 16px.
-     *
-     * @deprecated To be turned into a private variable.
-     * @breaking-change 12.0.0
      */
     var SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 16;
     /**
      * The select panel will only "fit" inside the viewport if it is positioned at
      * this value or more away from the viewport boundary.
-     *
-     * @deprecated To be turned into a private variable.
-     * @breaking-change 12.0.0
      */
     var SELECT_PANEL_VIEWPORT_PADDING = 8;
     /** Injection token that determines the scroll handling while a select is open. */
@@ -943,7 +921,7 @@
          */
         _MatSelectBase.prototype._onAttached = function () {
             var _this = this;
-            this.overlayDir.positionChange.pipe(operators.take(1)).subscribe(function () {
+            this._overlayDir.positionChange.pipe(operators.take(1)).subscribe(function () {
                 _this._changeDetectorRef.detectChanges();
                 _this._positioningSettled();
             });
@@ -1247,7 +1225,7 @@
     _MatSelectBase.propDecorators = {
         trigger: [{ type: core.ViewChild, args: ['trigger',] }],
         panel: [{ type: core.ViewChild, args: ['panel',] }],
-        overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] }],
+        _overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] }],
         panelClass: [{ type: core.Input }],
         placeholder: [{ type: core.Input }],
         required: [{ type: core.Input }],
@@ -1339,9 +1317,9 @@
                 this._calculateOverlayPosition();
                 // Set the font size on the panel element once it exists.
                 this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () {
-                    if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
-                        _this.overlayDir.overlayRef.overlayElement) {
-                        _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
+                    if (_this._triggerFontSize && _this._overlayDir.overlayRef &&
+                        _this._overlayDir.overlayRef.overlayElement) {
+                        _this._overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
                     }
                 });
             }
@@ -1361,7 +1339,7 @@
                 this._scrollTop = 0;
             }
             else {
-                this.overlayDir.offsetX = 0;
+                this._overlayDir.offsetX = 0;
                 this._changeDetectorRef.markForCheck();
             }
             _super.prototype._panelDoneAnimating.call(this, isOpen);
@@ -1377,7 +1355,7 @@
          * content width in order to constrain the panel within the viewport.
          */
         MatSelect.prototype._calculateOverlayOffsetX = function () {
-            var overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
+            var overlayRect = this._overlayDir.overlayRef.overlayElement.getBoundingClientRect();
             var viewportSize = this._viewportRuler.getViewportSize();
             var isRtl = this._isRtl();
             var paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
@@ -1412,8 +1390,8 @@
             // Set the offset directly in order to avoid having to go through change detection and
             // potentially triggering "changed after it was checked" errors. Round the value to avoid
             // blurry content in some browsers.
-            this.overlayDir.offsetX = Math.round(offsetX);
-            this.overlayDir.overlayRef.updatePosition();
+            this._overlayDir.offsetX = Math.round(offsetX);
+            this._overlayDir.overlayRef.updatePosition();
         };
         /**
          * Calculates the y-offset of the select's overlay panel in relation to the
@@ -1664,12 +1642,6 @@
     exports.MatSelectChange = MatSelectChange;
     exports.MatSelectModule = MatSelectModule;
     exports.MatSelectTrigger = MatSelectTrigger;
-    exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
-    exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
-    exports.SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_INDENT_PADDING_X;
-    exports.SELECT_PANEL_MAX_HEIGHT = SELECT_PANEL_MAX_HEIGHT;
-    exports.SELECT_PANEL_PADDING_X = SELECT_PANEL_PADDING_X;
-    exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
     exports._MatSelectBase = _MatSelectBase;
     exports.matSelectAnimations = matSelectAnimations;
 
