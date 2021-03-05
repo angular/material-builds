@@ -1001,6 +1001,16 @@
                 this._tabHeader._alignInkBarToSelectedTab();
             }
         };
+        /**
+         * Sets focus to a particular tab.
+         * @param index Index of the tab to be focused.
+         */
+        _MatTabGroupBase.prototype.focusTab = function (index) {
+            var header = this._tabHeader;
+            if (header) {
+                header.focusIndex = index;
+            }
+        };
         _MatTabGroupBase.prototype._focusChanged = function (index) {
             this.focusChange.emit(this._createChangeEvent(index));
         };

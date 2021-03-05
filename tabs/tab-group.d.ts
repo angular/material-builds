@@ -100,6 +100,11 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     ngOnDestroy(): void;
     /** Re-aligns the ink bar to the selected tab element. */
     realignInkBar(): void;
+    /**
+     * Sets focus to a particular tab.
+     * @param index Index of the tab to be focused.
+     */
+    focusTab(index: number): void;
     _focusChanged(index: number): void;
     private _createChangeEvent;
     /**

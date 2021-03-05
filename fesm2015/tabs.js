@@ -670,6 +670,16 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
             this._tabHeader._alignInkBarToSelectedTab();
         }
     }
+    /**
+     * Sets focus to a particular tab.
+     * @param index Index of the tab to be focused.
+     */
+    focusTab(index) {
+        const header = this._tabHeader;
+        if (header) {
+            header.focusIndex = index;
+        }
+    }
     _focusChanged(index) {
         this.focusChange.emit(this._createChangeEvent(index));
     }
