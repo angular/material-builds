@@ -254,25 +254,20 @@ MatStepContent.ctorParameters = () => [
  * found in the LICENSE file at https://angular.io/license
  */
 class MatStep extends CdkStep {
-    /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
-    /** @breaking-change 9.0.0 _viewContainerRef parameter to become required. */
-    constructor(stepper, _errorStateMatcher, stepperOptions, _viewContainerRef) {
+    constructor(stepper, _errorStateMatcher, _viewContainerRef, stepperOptions) {
         super(stepper, stepperOptions);
         this._errorStateMatcher = _errorStateMatcher;
         this._viewContainerRef = _viewContainerRef;
         this._isSelected = Subscription.EMPTY;
     }
     ngAfterContentInit() {
-        /** @breaking-change 9.0.0 Null check for _viewContainerRef to be removed. */
-        if (this._viewContainerRef) {
-            this._isSelected = this._stepper.steps.changes.pipe(switchMap(() => {
-                return this._stepper.selectionChange.pipe(map(event => event.selectedStep === this), startWith(this._stepper.selected === this));
-            })).subscribe(isSelected => {
-                if (isSelected && this._lazyContent && !this._portal) {
-                    this._portal = new TemplatePortal(this._lazyContent._template, this._viewContainerRef);
-                }
-            });
-        }
+        this._isSelected = this._stepper.steps.changes.pipe(switchMap(() => {
+            return this._stepper.selectionChange.pipe(map(event => event.selectedStep === this), startWith(this._stepper.selected === this));
+        })).subscribe(isSelected => {
+            if (isSelected && this._lazyContent && !this._portal) {
+                this._portal = new TemplatePortal(this._lazyContent._template, this._viewContainerRef);
+            }
+        });
     }
     ngOnDestroy() {
         this._isSelected.unsubscribe();
@@ -303,8 +298,8 @@ MatStep.decorators = [
 MatStep.ctorParameters = () => [
     { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(() => MatStepper),] }] },
     { type: ErrorStateMatcher, decorators: [{ type: SkipSelf }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [STEPPER_GLOBAL_OPTIONS,] }] },
-    { type: ViewContainerRef }
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [STEPPER_GLOBAL_OPTIONS,] }] }
 ];
 MatStep.propDecorators = {
     stepLabel: [{ type: ContentChild, args: [MatStepLabel,] }],
@@ -391,9 +386,7 @@ MatHorizontalStepper.propDecorators = {
     labelPosition: [{ type: Input }]
 };
 class MatVerticalStepper extends MatStepper {
-    constructor(dir, changeDetectorRef, 
-    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
-    elementRef, _document) {
+    constructor(dir, changeDetectorRef, elementRef, _document) {
         super(dir, changeDetectorRef, elementRef, _document);
         this._orientation = 'vertical';
     }

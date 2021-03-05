@@ -20,7 +20,7 @@ import { MatStepperIcon, MatStepperIconContext } from './stepper-icon';
 import { MatStepContent } from './step-content';
 export declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContentInit, OnDestroy {
     private _errorStateMatcher;
-    private _viewContainerRef?;
+    private _viewContainerRef;
     private _isSelected;
     /** Content for step label given by `<ng-template matStepLabel>`. */
     stepLabel: MatStepLabel;
@@ -30,9 +30,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     _lazyContent: MatStepContent;
     /** Currently-attached portal containing the lazy content. */
     _portal: TemplatePortal;
-    /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
-    /** @breaking-change 9.0.0 _viewContainerRef parameter to become required. */
-    constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, stepperOptions?: StepperOptions, _viewContainerRef?: ViewContainerRef | undefined);
+    constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, _viewContainerRef: ViewContainerRef, stepperOptions?: StepperOptions);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Custom error state matcher that additionally checks for validity of interacted form. */
@@ -75,7 +73,7 @@ export declare class MatHorizontalStepper extends MatStepper {
     static ngAcceptInputType_hasError: BooleanInput;
 }
 export declare class MatVerticalStepper extends MatStepper {
-    constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef?: ElementRef<HTMLElement>, _document?: any);
+    constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _document: any);
     static ngAcceptInputType_editable: BooleanInput;
     static ngAcceptInputType_optional: BooleanInput;
     static ngAcceptInputType_completed: BooleanInput;
