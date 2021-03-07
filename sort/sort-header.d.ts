@@ -131,6 +131,8 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     _getAriaSortAttribute(): "none" | "ascending" | "descending";
     /** Whether the arrow inside the sort header should be rendered. */
     _renderArrow(): boolean;
+    /** Handles changes in the sorting state. */
+    private _handleStateChanges;
     static ngAcceptInputType_disableClear: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
 }
