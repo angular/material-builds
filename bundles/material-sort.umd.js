@@ -658,18 +658,7 @@
             if (!_sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getSortHeaderNotContainedWithinSortError();
             }
-            _this._rerenderSubscription = rxjs.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
-                .subscribe(function () {
-                if (_this._isSorted()) {
-                    _this._updateArrowDirection();
-                }
-                // If this header was recently active and now no longer sorted, animate away the arrow.
-                if (!_this._isSorted() && _this._viewState && _this._viewState.toState === 'active') {
-                    _this._disableViewStateAnimation = false;
-                    _this._setAnimationTransitionState({ fromState: 'active', toState: _this._arrowDirection });
-                }
-                _changeDetectorRef.markForCheck();
-            });
+            _this._handleStateChanges();
             return _this;
         }
         Object.defineProperty(MatSortHeader.prototype, "disableClear", {
@@ -745,17 +734,10 @@
             if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
                 this._disableViewStateAnimation = true;
             }
-            // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
-            // the direction it is facing.
-            var viewState = this._isSorted() ?
-                { fromState: this._arrowDirection, toState: 'active' } :
-                { fromState: 'active', toState: this._arrowDirection };
-            this._setAnimationTransitionState(viewState);
-            this._showIndicatorHint = false;
         };
         MatSortHeader.prototype._handleClick = function () {
             if (!this._isDisabled()) {
-                this._toggleOnInteraction();
+                this._sort.sort(this);
             }
         };
         MatSortHeader.prototype._handleKeydown = function (event) {
@@ -811,6 +793,28 @@
         /** Whether the arrow inside the sort header should be rendered. */
         MatSortHeader.prototype._renderArrow = function () {
             return !this._isDisabled() || this._isSorted();
+        };
+        /** Handles changes in the sorting state. */
+        MatSortHeader.prototype._handleStateChanges = function () {
+            var _this = this;
+            this._rerenderSubscription =
+                rxjs.merge(this._sort.sortChange, this._sort._stateChanges, this._intl.changes).subscribe(function () {
+                    if (_this._isSorted()) {
+                        _this._updateArrowDirection();
+                        // Do not show the animation if the header was already shown in the right position.
+                        if (_this._viewState.toState === 'hint' || _this._viewState.toState === 'active') {
+                            _this._disableViewStateAnimation = true;
+                        }
+                        _this._setAnimationTransitionState({ fromState: _this._arrowDirection, toState: 'active' });
+                        _this._showIndicatorHint = false;
+                    }
+                    // If this header was recently active and now no longer sorted, animate away the arrow.
+                    if (!_this._isSorted() && _this._viewState && _this._viewState.toState === 'active') {
+                        _this._disableViewStateAnimation = false;
+                        _this._setAnimationTransitionState({ fromState: 'active', toState: _this._arrowDirection });
+                    }
+                    _this._changeDetectorRef.markForCheck();
+                });
         };
         return MatSortHeader;
     }(_MatSortHeaderMixinBase));
