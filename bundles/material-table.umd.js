@@ -842,7 +842,14 @@
         Object.defineProperty(_MatTableDataSource.prototype, "data", {
             /** Array of data that should be rendered by the table, where each object represents one row. */
             get: function () { return this._data.value; },
-            set: function (data) { this._data.next(data); },
+            set: function (data) {
+                this._data.next(data);
+                // Normally the `filteredData` is updated by the re-render
+                // subscription, but that won't happen if it's inactive.
+                if (!this._renderChangesSubscription) {
+                    this._filterData(data);
+                }
+            },
             enumerable: false,
             configurable: true
         });
@@ -852,7 +859,14 @@
              * data objects match to this filter string, provide a custom function for filterPredicate.
              */
             get: function () { return this._filter.value; },
-            set: function (filter) { this._filter.next(filter); },
+            set: function (filter) {
+                this._filter.next(filter);
+                // Normally the `filteredData` is updated by the re-render
+                // subscription, but that won't happen if it's inactive.
+                if (!this._renderChangesSubscription) {
+                    this._filterData(this.data);
+                }
+            },
             enumerable: false,
             configurable: true
         });

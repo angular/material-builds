@@ -490,13 +490,27 @@ class _MatTableDataSource extends DataSource {
     }
     /** Array of data that should be rendered by the table, where each object represents one row. */
     get data() { return this._data.value; }
-    set data(data) { this._data.next(data); }
+    set data(data) {
+        this._data.next(data);
+        // Normally the `filteredData` is updated by the re-render
+        // subscription, but that won't happen if it's inactive.
+        if (!this._renderChangesSubscription) {
+            this._filterData(data);
+        }
+    }
     /**
      * Filter term that should be used to filter out objects from the data array. To override how
      * data objects match to this filter string, provide a custom function for filterPredicate.
      */
     get filter() { return this._filter.value; }
-    set filter(filter) { this._filter.next(filter); }
+    set filter(filter) {
+        this._filter.next(filter);
+        // Normally the `filteredData` is updated by the re-render
+        // subscription, but that won't happen if it's inactive.
+        if (!this._renderChangesSubscription) {
+            this._filterData(this.data);
+        }
+    }
     /**
      * Instance of the MatSort directive used by the table to control its sorting. Sort changes
      * emitted by the MatSort will trigger an update to the table's rendered data.
