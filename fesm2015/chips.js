@@ -743,12 +743,7 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _keydown(event) {
         const target = event.target;
-        // If they are on an empty input and hit backspace, focus the last chip
-        if (event.keyCode === BACKSPACE && this._isInputEmpty(target)) {
-            this._keyManager.setLastItemActive();
-            event.preventDefault();
-        }
-        else if (target && target.classList.contains('mat-chip')) {
+        if (target && target.classList.contains('mat-chip')) {
             this._keyManager.onKeydown(event);
             this.stateChanges.next();
         }
@@ -785,13 +780,6 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _isValidIndex(index) {
         return index >= 0 && index < this.chips.length;
-    }
-    _isInputEmpty(element) {
-        if (element && element.nodeName.toLowerCase() === 'input') {
-            let input = element;
-            return !input.value;
-        }
-        return false;
     }
     _setSelectionByValue(value, isUserInput = true) {
         this._clearSelection();
@@ -1106,7 +1094,7 @@ class MatChipInput {
         /** Unique id for the input. */
         this.id = `mat-chip-list-input-${nextUniqueId$1++}`;
         this._disabled = false;
-        this._inputElement = this._elementRef.nativeElement;
+        this.inputElement = this._elementRef.nativeElement;
     }
     /** Register input for chip list */
     set chipList(value) {
@@ -1124,18 +1112,47 @@ class MatChipInput {
     get disabled() { return this._disabled || (this._chipList && this._chipList.disabled); }
     set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /** Whether the input is empty. */
-    get empty() { return !this._inputElement.value; }
+    get empty() { return !this.inputElement.value; }
     ngOnChanges() {
         this._chipList.stateChanges.next();
     }
+    ngOnDestroy() {
+        this.chipEnd.complete();
+    }
+    ngAfterContentInit() {
+        this._focusLastChipOnBackspace = this.empty;
+    }
     /** Utility method to make host definition/tests more clear. */
     _keydown(event) {
-        // Allow the user's focus to escape when they're tabbing forward. Note that we don't
-        // want to do this when going backwards, because focus should go back to the first chip.
-        if (event && event.keyCode === TAB && !hasModifierKey(event, 'shiftKey')) {
-            this._chipList._allowFocusEscape();
+        if (event) {
+            // Allow the user's focus to escape when they're tabbing forward. Note that we don't
+            // want to do this when going backwards, because focus should go back to the first chip.
+            if (event.keyCode === TAB && !hasModifierKey(event, 'shiftKey')) {
+                this._chipList._allowFocusEscape();
+            }
+            // To prevent the user from accidentally deleting chips when pressing BACKSPACE continuously,
+            // We focus the last chip on backspace only after the user has released the backspace button,
+            // and the input is empty (see behaviour in _keyup)
+            if (event.keyCode === BACKSPACE && this._focusLastChipOnBackspace) {
+                this._chipList._keyManager.setLastItemActive();
+                event.preventDefault();
+                return;
+            }
+            else {
+                this._focusLastChipOnBackspace = false;
+            }
         }
         this._emitChipEnd(event);
+    }
+    /**
+     * Pass events to the keyboard manager. Available here for tests.
+     */
+    _keyup(event) {
+        // Allow user to move focus to chips next time he presses backspace
+        if (!this._focusLastChipOnBackspace && event.keyCode === BACKSPACE && this.empty) {
+            this._focusLastChipOnBackspace = true;
+            event.preventDefault();
+        }
     }
     /** Checks to see if the blur should emit the (chipEnd) event. */
     _blur() {
@@ -1155,14 +1172,16 @@ class MatChipInput {
     }
     /** Checks to see if the (chipEnd) event needs to be emitted. */
     _emitChipEnd(event) {
-        if (!this._inputElement.value && !!event) {
+        if (!this.inputElement.value && !!event) {
             this._chipList._keydown(event);
         }
         if (!event || this._isSeparatorKey(event)) {
-            this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
-            if (event) {
-                event.preventDefault();
-            }
+            this.chipEnd.emit({
+                input: this.inputElement,
+                value: this.inputElement.value,
+                chipInput: this,
+            });
+            event === null || event === void 0 ? void 0 : event.preventDefault();
         }
     }
     _onInput() {
@@ -1171,7 +1190,12 @@ class MatChipInput {
     }
     /** Focuses the input. */
     focus(options) {
-        this._inputElement.focus(options);
+        this.inputElement.focus(options);
+    }
+    /** Clears the input */
+    clear() {
+        this.inputElement.value = '';
+        this._focusLastChipOnBackspace = true;
     }
     /** Checks whether a keycode is one of the configured separators. */
     _isSeparatorKey(event) {
@@ -1185,6 +1209,7 @@ MatChipInput.decorators = [
                 host: {
                     'class': 'mat-chip-input mat-input-element',
                     '(keydown)': '_keydown($event)',
+                    '(keyup)': '_keyup($event)',
                     '(blur)': '_blur()',
                     '(focus)': '_focus()',
                     '(input)': '_onInput()',
