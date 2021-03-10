@@ -1196,7 +1196,7 @@
              * @docs-private
              */
             get: function () {
-                return this._panelOpen || !this.empty;
+                return this._panelOpen || !this.empty || (this._focused && !!this._placeholder);
             },
             enumerable: false,
             configurable: true

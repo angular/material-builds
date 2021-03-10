@@ -835,7 +835,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
      * @docs-private
      */
     get shouldLabelFloat() {
-        return this._panelOpen || !this.empty;
+        return this._panelOpen || !this.empty || (this._focused && !!this._placeholder);
     }
 }
 _MatSelectBase.decorators = [
