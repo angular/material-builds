@@ -808,7 +808,7 @@
                 .withTypeAhead()
                 .withHomeAndEnd();
             this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.closed.emit('tab'); });
-            // If a user manually (programatically) focuses a menu item, we need to reflect that focus
+            // If a user manually (programmatically) focuses a menu item, we need to reflect that focus
             // change back to the key manager. Note that we don't need to unsubscribe here because _focused
             // is internal and we know that it gets completed on destroy.
             this._directDescendantItems.changes.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, __spread(items.map(function (item) { return item._focused; }))); })).subscribe(function (focusedItem) { return _this._keyManager.updateActiveItem(focusedItem); });
