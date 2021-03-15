@@ -33,7 +33,8 @@ const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     useExisting: forwardRef(() => MatButtonToggleGroup),
     multi: true
 };
-let _uniqueIdCounter = 0;
+// Counter used to generate unique IDs.
+let uniqueIdCounter = 0;
 /** Change event object emitted by MatButtonToggle. */
 class MatButtonToggleChange {
     constructor(
@@ -59,7 +60,7 @@ class MatButtonToggleGroup {
         this._controlValueAccessorChangeFn = () => { };
         /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
         this._onTouched = () => { };
-        this._name = `mat-button-toggle-group-${_uniqueIdCounter++}`;
+        this._name = `mat-button-toggle-group-${uniqueIdCounter++}`;
         /**
          * Event that emits whenever the value of the group changes.
          * Used to facilitate two-way data binding.
@@ -337,7 +338,7 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
     ngOnInit() {
         const group = this.buttonToggleGroup;
         this._isSingleSelector = group && !group.multiple;
-        this.id = this.id || `mat-button-toggle-${_uniqueIdCounter++}`;
+        this.id = this.id || `mat-button-toggle-${uniqueIdCounter++}`;
         if (this._isSingleSelector) {
             this.name = group.name;
         }

@@ -161,6 +161,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
      * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
      */
     ariaLabelledby: string | null;
+    /** Underlying native `button` element. */
     _buttonElement: ElementRef<HTMLButtonElement>;
     /** The parent button toggle group (exclusive selection). Optional. */
     buttonToggleGroup: MatButtonToggleGroup;

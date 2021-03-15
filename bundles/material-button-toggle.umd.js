@@ -334,7 +334,8 @@
         useExisting: core.forwardRef(function () { return MatButtonToggleGroup; }),
         multi: true
     };
-    var _uniqueIdCounter = 0;
+    // Counter used to generate unique IDs.
+    var uniqueIdCounter = 0;
     /** Change event object emitted by MatButtonToggle. */
     var MatButtonToggleChange = /** @class */ (function () {
         function MatButtonToggleChange(
@@ -361,7 +362,7 @@
             this._controlValueAccessorChangeFn = function () { };
             /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
             this._onTouched = function () { };
-            this._name = "mat-button-toggle-group-" + _uniqueIdCounter++;
+            this._name = "mat-button-toggle-group-" + uniqueIdCounter++;
             /**
              * Event that emits whenever the value of the group changes.
              * Used to facilitate two-way data binding.
@@ -691,7 +692,7 @@
         MatButtonToggle.prototype.ngOnInit = function () {
             var group = this.buttonToggleGroup;
             this._isSingleSelector = group && !group.multiple;
-            this.id = this.id || "mat-button-toggle-" + _uniqueIdCounter++;
+            this.id = this.id || "mat-button-toggle-" + uniqueIdCounter++;
             if (this._isSingleSelector) {
                 this.name = group.name;
             }
