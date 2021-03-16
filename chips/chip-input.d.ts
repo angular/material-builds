@@ -6,24 +6,35 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, EventEmitter, OnChanges } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 import { MatChipsDefaultOptions } from './chip-default-options';
 import { MatChipList } from './chip-list';
 import { MatChipTextControl } from './chip-text-control';
 /** Represents an input event on a `matChipInput`. */
 export interface MatChipInputEvent {
-    /** The native `<input>` element that the event is being fired for. */
+    /**
+     * The native `<input>` element that the event is being fired for.
+     * @deprecated Use `MatChipInputEvent#chipInput.inputElement` instead.
+     * @breaking-change 13.0.0 This property will be removed.
+     */
     input: HTMLInputElement;
     /** The value of the input. */
     value: string;
+    /**
+     * Reference to the chip input that emitted the event.
+     * @breaking-change 13.0.0 This property will be made required.
+     */
+    chipInput?: MatChipInput;
 }
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
  */
-export declare class MatChipInput implements MatChipTextControl, OnChanges {
+export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy, AfterContentInit {
     protected _elementRef: ElementRef<HTMLInputElement>;
     private _defaultOptions;
+    /** Used to prevent focus moving to chips while user is holding backspace */
+    private _focusLastChipOnBackspace;
     /** Whether the control is focused. */
     focused: boolean;
     _chipList: MatChipList;
@@ -54,11 +65,17 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
     /** Whether the input is empty. */
     get empty(): boolean;
     /** The native input element to which this directive is attached. */
-    protected _inputElement: HTMLInputElement;
+    readonly inputElement: HTMLInputElement;
     constructor(_elementRef: ElementRef<HTMLInputElement>, _defaultOptions: MatChipsDefaultOptions);
     ngOnChanges(): void;
+    ngOnDestroy(): void;
+    ngAfterContentInit(): void;
     /** Utility method to make host definition/tests more clear. */
     _keydown(event?: KeyboardEvent): void;
+    /**
+     * Pass events to the keyboard manager. Available here for tests.
+     */
+    _keyup(event: KeyboardEvent): void;
     /** Checks to see if the blur should emit the (chipEnd) event. */
     _blur(): void;
     _focus(): void;
@@ -67,6 +84,8 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges {
     _onInput(): void;
     /** Focuses the input. */
     focus(options?: FocusOptions): void;
+    /** Clears the input */
+    clear(): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
     static ngAcceptInputType_addOnBlur: BooleanInput;

@@ -231,7 +231,6 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * @returns True if the index is valid for our list of chips.
      */
     private _isValidIndex;
-    private _isInputEmpty;
     _setSelectionByValue(value: any, isUserInput?: boolean): void;
     /**
      * Finds and selects the chip based on its value.
