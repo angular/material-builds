@@ -1033,7 +1033,7 @@
             if (this._tabLabelSubscription) {
                 this._tabLabelSubscription.unsubscribe();
             }
-            this._tabLabelSubscription = rxjs.merge.apply(void 0, __spread(this._tabs.map(function (tab) { return tab._stateChanges; }))).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            this._tabLabelSubscription = rxjs.merge.apply(void 0, __spreadArray([], __read(this._tabs.map(function (tab) { return tab._stateChanges; })))).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         };
         /** Clamps the given index to the bounds of 0 and the tabs length. */
         _MatTabGroupBase.prototype._clampTabIndex = function (index) {

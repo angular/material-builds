@@ -1185,7 +1185,7 @@
         Object.defineProperty(MatChipList.prototype, "chipSelectionChanges", {
             /** Combined stream of all of the child chips' selection change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, __spread(this.chips.map(function (chip) { return chip.selectionChange; })));
+                return rxjs.merge.apply(void 0, __spreadArray([], __read(this.chips.map(function (chip) { return chip.selectionChange; }))));
             },
             enumerable: false,
             configurable: true
@@ -1193,7 +1193,7 @@
         Object.defineProperty(MatChipList.prototype, "chipFocusChanges", {
             /** Combined stream of all of the child chips' focus change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, __spread(this.chips.map(function (chip) { return chip._onFocus; })));
+                return rxjs.merge.apply(void 0, __spreadArray([], __read(this.chips.map(function (chip) { return chip._onFocus; }))));
             },
             enumerable: false,
             configurable: true
@@ -1201,7 +1201,7 @@
         Object.defineProperty(MatChipList.prototype, "chipBlurChanges", {
             /** Combined stream of all of the child chips' blur change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, __spread(this.chips.map(function (chip) { return chip._onBlur; })));
+                return rxjs.merge.apply(void 0, __spreadArray([], __read(this.chips.map(function (chip) { return chip._onBlur; }))));
             },
             enumerable: false,
             configurable: true
@@ -1209,7 +1209,7 @@
         Object.defineProperty(MatChipList.prototype, "chipRemoveChanges", {
             /** Combined stream of all of the child chips' remove change events. */
             get: function () {
-                return rxjs.merge.apply(void 0, __spread(this.chips.map(function (chip) { return chip.destroyed; })));
+                return rxjs.merge.apply(void 0, __spreadArray([], __read(this.chips.map(function (chip) { return chip.destroyed; }))));
             },
             enumerable: false,
             configurable: true

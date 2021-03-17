@@ -317,7 +317,7 @@
     var MatOptionHarness = /** @class */ (function (_super) {
         __extends(MatOptionHarness, _super);
         function MatOptionHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             /** Element containing the option's text. */
             _this._text = _this.locatorFor('.mat-option-text');
             return _this;
@@ -422,7 +422,7 @@
     var MatOptgroupHarness = /** @class */ (function (_super) {
         __extends(MatOptgroupHarness, _super);
         function MatOptgroupHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._label = _this.locatorFor('.mat-optgroup-label');
             return _this;
         }

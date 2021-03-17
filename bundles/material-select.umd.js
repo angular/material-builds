@@ -534,7 +534,7 @@
             _this.optionSelectionChanges = rxjs.defer(function () {
                 var options = _this.options;
                 if (options) {
-                    return options.changes.pipe(operators.startWith(options), operators.switchMap(function () { return rxjs.merge.apply(void 0, __spread(options.map(function (option) { return option.onSelectionChange; }))); }));
+                    return options.changes.pipe(operators.startWith(options), operators.switchMap(function () { return rxjs.merge.apply(void 0, __spreadArray([], __read(options.map(function (option) { return option.onSelectionChange; })))); }));
                 }
                 return _this._ngZone.onStable
                     .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelectionChanges; }));
@@ -1050,7 +1050,7 @@
             });
             // Listen to changes in the internal state of the options and react accordingly.
             // Handles cases like the labels of the selected options changing.
-            rxjs.merge.apply(void 0, __spread(this.options.map(function (option) { return option._stateChanges; }))).pipe(operators.takeUntil(changedOrDestroyed))
+            rxjs.merge.apply(void 0, __spreadArray([], __read(this.options.map(function (option) { return option._stateChanges; })))).pipe(operators.takeUntil(changedOrDestroyed))
                 .subscribe(function () {
                 _this._changeDetectorRef.markForCheck();
                 _this.stateChanges.next();
@@ -1248,7 +1248,7 @@
     var MatSelect = /** @class */ (function (_super) {
         __extends(MatSelect, _super);
         function MatSelect() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             /** The scroll position of the overlay panel, calculated to center the selected option. */
             _this._scrollTop = 0;
             /** The cached font-size of the trigger element. */

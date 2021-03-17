@@ -3493,7 +3493,7 @@
                     _this._dateAdapter.compareDate(start, end) <= 0) ?
                     null : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
             };
-            _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._startValidator]));
+            _this._validator = forms.Validators.compose(__spreadArray(__spreadArray([], __read(_super.prototype._getValidators.call(_this))), [_this._startValidator]));
             return _this;
         }
         MatStartDate.prototype.ngOnInit = function () {
@@ -3590,7 +3590,7 @@
                     _this._dateAdapter.compareDate(end, start) >= 0) ?
                     null : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
             };
-            _this._validator = forms.Validators.compose(__spread(_super.prototype._getValidators.call(_this), [_this._endValidator]));
+            _this._validator = forms.Validators.compose(__spreadArray(__spreadArray([], __read(_super.prototype._getValidators.call(_this))), [_this._endValidator]));
             return _this;
         }
         MatEndDate.prototype.ngOnInit = function () {

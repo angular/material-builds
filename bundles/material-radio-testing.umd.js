@@ -568,7 +568,7 @@
     var MatRadioGroupHarness = /** @class */ (function (_super) {
         __extends(MatRadioGroupHarness, _super);
         function MatRadioGroupHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._buttonClass = MatRadioButtonHarness;
             return _this;
         }
@@ -590,7 +590,7 @@
     var _MatRadioButtonHarnessBase = /** @class */ (function (_super) {
         __extends(_MatRadioButtonHarnessBase, _super);
         function _MatRadioButtonHarnessBase() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._input = _this.locatorFor('input');
             return _this;
         }
@@ -748,7 +748,7 @@
     var MatRadioButtonHarness = /** @class */ (function (_super) {
         __extends(MatRadioButtonHarness, _super);
         function MatRadioButtonHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._textLabel = _this.locatorFor('.mat-radio-label-content');
             _this._clickLabel = _this.locatorFor('.mat-radio-label');
             return _this;

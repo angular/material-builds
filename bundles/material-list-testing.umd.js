@@ -359,7 +359,7 @@
     var MatListItemHarnessBase = /** @class */ (function (_super) {
         __extends(MatListItemHarnessBase, _super);
         function MatListItemHarnessBase() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._lines = _this.locatorForAll('.mat-line');
             _this._avatar = _this.locatorForOptional(avatarSelector);
             _this._icon = _this.locatorForOptional(iconSelector);
@@ -563,7 +563,7 @@
                     if (filters.divider !== false) {
                         query.push(testing$1.MatDividerHarness.with(filters.divider));
                     }
-                    return [2 /*return*/, this.locatorForAll.apply(this, __spread(query))()];
+                    return [2 /*return*/, this.locatorForAll.apply(this, __spreadArray([], __read(query)))()];
                 });
             });
         };
@@ -574,7 +574,7 @@
     var MatActionListHarness = /** @class */ (function (_super) {
         __extends(MatActionListHarness, _super);
         function MatActionListHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._itemHarness = MatActionListItemHarness;
             return _this;
         }
@@ -661,7 +661,7 @@
     var MatListHarness = /** @class */ (function (_super) {
         __extends(MatListHarness, _super);
         function MatListHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._itemHarness = MatListItemHarness;
             return _this;
         }
@@ -704,7 +704,7 @@
     var MatNavListHarness = /** @class */ (function (_super) {
         __extends(MatNavListHarness, _super);
         function MatNavListHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._itemHarness = MatNavListItemHarness;
             return _this;
         }
@@ -806,7 +806,7 @@
     var MatSelectionListHarness = /** @class */ (function (_super) {
         __extends(MatSelectionListHarness, _super);
         function MatSelectionListHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._itemHarness = MatListOptionHarness;
             return _this;
         }
@@ -896,7 +896,7 @@
                                 })];
                         case 1:
                             matches = _a.sent();
-                            return [2 /*return*/, matches.reduce(function (result, current) { return __spread(result, current); }, [])];
+                            return [2 /*return*/, matches.reduce(function (result, current) { return __spreadArray(__spreadArray([], __read(result)), __read(current)); }, [])];
                     }
                 });
             });
@@ -909,7 +909,7 @@
     var MatListOptionHarness = /** @class */ (function (_super) {
         __extends(MatListOptionHarness, _super);
         function MatListOptionHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._itemContent = _this.locatorFor('.mat-list-item-content');
             return _this;
         }

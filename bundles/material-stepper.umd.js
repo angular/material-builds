@@ -607,7 +607,7 @@
     var MatStepper = /** @class */ (function (_super) {
         __extends(MatStepper, _super);
         function MatStepper() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             /** Steps that belong to the current stepper, excluding ones from nested steppers. */
             _this.steps = new i0.QueryList();
             /** Event emitted when the current step is done transitioning in. */
@@ -660,7 +660,7 @@
     var MatHorizontalStepper = /** @class */ (function (_super) {
         __extends(MatHorizontalStepper, _super);
         function MatHorizontalStepper() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             /** Whether the label should display in bottom or end position. */
             _this.labelPosition = 'end';
             return _this;

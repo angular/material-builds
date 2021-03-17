@@ -811,7 +811,7 @@
             // If a user manually (programmatically) focuses a menu item, we need to reflect that focus
             // change back to the key manager. Note that we don't need to unsubscribe here because _focused
             // is internal and we know that it gets completed on destroy.
-            this._directDescendantItems.changes.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, __spread(items.map(function (item) { return item._focused; }))); })).subscribe(function (focusedItem) { return _this._keyManager.updateActiveItem(focusedItem); });
+            this._directDescendantItems.changes.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, __spreadArray([], __read(items.map(function (item) { return item._focused; })))); })).subscribe(function (focusedItem) { return _this._keyManager.updateActiveItem(focusedItem); });
         };
         _MatMenuBase.prototype.ngOnDestroy = function () {
             this._directDescendantItems.destroy();
@@ -822,7 +822,7 @@
         _MatMenuBase.prototype._hovered = function () {
             // Coerce the `changes` property because Angular types it as `Observable<any>`
             var itemChanges = this._directDescendantItems.changes;
-            return itemChanges.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, __spread(items.map(function (item) { return item._hovered; }))); }));
+            return itemChanges.pipe(operators.startWith(this._directDescendantItems), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, __spreadArray([], __read(items.map(function (item) { return item._hovered; })))); }));
         };
         /*
          * Registers a menu item with the menu.

@@ -336,7 +336,7 @@
     var MatTable = /** @class */ (function (_super) {
         __extends(MatTable, _super);
         function MatTable() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             /** Overrides the sticky CSS class set by the `CdkTable`. */
             _this.stickyCssClass = 'mat-table-sticky';
             /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */

@@ -317,7 +317,7 @@
     var MatButtonToggleHarness = /** @class */ (function (_super) {
         __extends(MatButtonToggleHarness, _super);
         function MatButtonToggleHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._label = _this.locatorFor('.mat-button-toggle-label-content');
             _this._button = _this.locatorFor('.mat-button-toggle-button');
             return _this;

@@ -1128,7 +1128,7 @@
     var MatSidenav = /** @class */ (function (_super) {
         __extends(MatSidenav, _super);
         function MatSidenav() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._fixedInViewport = false;
             _this._fixedTopGap = 0;
             _this._fixedBottomGap = 0;

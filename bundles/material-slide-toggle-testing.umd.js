@@ -316,7 +316,7 @@
     var _MatSlideToggleHarnessBase = /** @class */ (function (_super) {
         __extends(_MatSlideToggleHarnessBase, _super);
         function _MatSlideToggleHarnessBase() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._label = _this.locatorFor('label');
             _this._input = _this.locatorFor('input');
             return _this;
@@ -507,7 +507,7 @@
     var MatSlideToggleHarness = /** @class */ (function (_super) {
         __extends(MatSlideToggleHarness, _super);
         function MatSlideToggleHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._inputContainer = _this.locatorFor('.mat-slide-toggle-bar');
             return _this;
         }

@@ -9,7 +9,7 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy } from '@angular/core';
-import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
@@ -51,9 +51,8 @@ export declare const MAT_CHIP_AVATAR: InjectionToken<MatChipAvatar>;
  */
 export declare const MAT_CHIP_TRAILING_ICON: InjectionToken<MatChipTrailingIcon>;
 /** @docs-private */
-declare abstract class MatChipBase {
+declare class MatChipBase {
     _elementRef: ElementRef;
-    abstract disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
 declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & HasTabIndexCtor & typeof MatChipBase;
@@ -72,7 +71,7 @@ export declare class MatChipTrailingIcon {
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
-export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisableRipple, RippleTarget, HasTabIndex {
+export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisableRipple, RippleTarget, HasTabIndex, CanDisable {
     _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
     private _changeDetectorRef;

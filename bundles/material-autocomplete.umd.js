@@ -494,7 +494,7 @@
     var MatAutocomplete = /** @class */ (function (_super) {
         __extends(MatAutocomplete, _super);
         function MatAutocomplete() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._visibleClass = 'mat-autocomplete-visible';
             _this._hiddenClass = 'mat-autocomplete-hidden';
             return _this;
@@ -613,7 +613,7 @@
             /** Stream of autocomplete option selections. */
             this.optionSelections = rxjs.defer(function () {
                 if (_this.autocomplete && _this.autocomplete.options) {
-                    return rxjs.merge.apply(void 0, __spread(_this.autocomplete.options.map(function (option) { return option.onSelectionChange; })));
+                    return rxjs.merge.apply(void 0, __spreadArray([], __read(_this.autocomplete.options.map(function (option) { return option.onSelectionChange; }))));
                 }
                 // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
                 // Return a stream that we'll replace with the real one once everything is in place.
@@ -1035,7 +1035,7 @@
                 positions = belowPositions;
             }
             else {
-                positions = __spread(belowPositions, abovePositions);
+                positions = __spreadArray(__spreadArray([], __read(belowPositions)), __read(abovePositions));
             }
             positionStrategy.withPositions(positions);
         };
@@ -1131,7 +1131,7 @@
     var MatAutocompleteTrigger = /** @class */ (function (_super) {
         __extends(MatAutocompleteTrigger, _super);
         function MatAutocompleteTrigger() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._aboveClass = 'mat-autocomplete-panel-above';
             return _this;
         }

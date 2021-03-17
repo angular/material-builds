@@ -317,7 +317,7 @@
     var MatExpansionPanelHarness = /** @class */ (function (_super) {
         __extends(MatExpansionPanelHarness, _super);
         function MatExpansionPanelHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._header = _this.locatorFor(".mat-expansion-panel-header" /* HEADER */);
             _this._title = _this.locatorForOptional(".mat-expansion-panel-header-title" /* TITLE */);
             _this._description = _this.locatorForOptional(".mat-expansion-panel-header-description" /* DESCRIPTION */);

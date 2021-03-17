@@ -843,7 +843,7 @@
                 exitListeners.push(['touchend', touchendListener], ['touchcancel', touchendListener]);
             }
             this._addListeners(exitListeners);
-            (_a = this._passiveListeners).push.apply(_a, __spread(exitListeners));
+            (_a = this._passiveListeners).push.apply(_a, __spreadArray([], __read(exitListeners)));
         };
         _MatTooltipBase.prototype._addListeners = function (listeners) {
             var _this = this;

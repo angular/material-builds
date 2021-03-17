@@ -762,7 +762,7 @@
                 this._treeControl.expansionModel.changed,
                 this._flattenedData
             ];
-            return rxjs.merge.apply(void 0, __spread(changes)).pipe(operators.map(function () {
+            return rxjs.merge.apply(void 0, __spreadArray([], __read(changes))).pipe(operators.map(function () {
                 _this._expandedData.next(_this._treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this._treeControl));
                 return _this._expandedData.value;
             }));
@@ -782,7 +782,7 @@
     var MatTreeNestedDataSource = /** @class */ (function (_super) {
         __extends(MatTreeNestedDataSource, _super);
         function MatTreeNestedDataSource() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._data = new rxjs.BehaviorSubject([]);
             return _this;
         }
@@ -797,7 +797,7 @@
         });
         MatTreeNestedDataSource.prototype.connect = function (collectionViewer) {
             var _this = this;
-            return rxjs.merge.apply(void 0, __spread([collectionViewer.viewChange, this._data])).pipe(operators.map(function () {
+            return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map(function () {
                 return _this.data;
             }));
         };

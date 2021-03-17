@@ -317,7 +317,7 @@
     var MatTreeNodeHarness = /** @class */ (function (_super) {
         __extends(MatTreeNodeHarness, _super);
         function MatTreeNodeHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._toggle = _this.locatorForOptional('[matTreeNodeToggle]');
             return _this;
         }

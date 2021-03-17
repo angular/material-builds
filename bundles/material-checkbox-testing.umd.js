@@ -539,7 +539,7 @@
     var MatCheckboxHarness = /** @class */ (function (_super) {
         __extends(MatCheckboxHarness, _super);
         function MatCheckboxHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._input = _this.locatorFor('input');
             _this._label = _this.locatorFor('.mat-checkbox-label');
             _this._inputContainer = _this.locatorFor('.mat-checkbox-inner-container');

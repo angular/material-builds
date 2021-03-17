@@ -578,7 +578,7 @@
     var MatDialogContainer = /** @class */ (function (_super) {
         __extends(MatDialogContainer, _super);
         function MatDialogContainer() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             /** State of the dialog animation. */
             _this._state = 'enter';
             return _this;

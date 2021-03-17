@@ -317,7 +317,7 @@
     var MatBadgeHarness = /** @class */ (function (_super) {
         __extends(MatBadgeHarness, _super);
         function MatBadgeHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._badgeElement = _this.locatorFor('.mat-badge-content');
             return _this;
         }

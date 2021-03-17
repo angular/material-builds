@@ -316,7 +316,7 @@
     var _MatSelectHarnessBase = /** @class */ (function (_super) {
         __extends(_MatSelectHarnessBase, _super);
         function _MatSelectHarnessBase() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._documentRootLocator = _this.documentRootLocatorFactory();
             _this._backdrop = _this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
             return _this;
@@ -566,7 +566,7 @@
     var MatSelectHarness = /** @class */ (function (_super) {
         __extends(MatSelectHarness, _super);
         function MatSelectHarness() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._prefix = 'mat';
             _this._optionClass = testing$1.MatOptionHarness;
             _this._optionGroupClass = testing$1.MatOptgroupHarness;
