@@ -124,7 +124,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     /** Emits the `select` event. */
     _emitSelectEvent(option: _MatOptionBase): void;
     /** Gets the aria-labelledby for the autocomplete panel. */
-    _getPanelAriaLabelledby(labelId: string): string | null;
+    _getPanelAriaLabelledby(labelId: string | null): string | null;
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
     static ngAcceptInputType_autoActiveFirstOption: BooleanInput;
