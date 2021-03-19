@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/testing'), require('@angular/material/select/testing'), require('@angular/cdk/coercion')) :
     typeof define === 'function' && define.amd ? define('@angular/material/paginator/testing', ['exports', '@angular/cdk/testing', '@angular/material/select/testing', '@angular/cdk/coercion'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}, global.ng.material.paginator.testing = {}), global.ng.cdk.testing, global.ng.material.select.testing, global.ng.cdk.coercion));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}, global.ng.material.paginator.testing = {}), global.ng.cdk.testing, global.ng.material.select.testing, global.ng.cdk.coercion));
 }(this, (function (exports, testing, testing$1, coercion) { 'use strict';
 
     /*! *****************************************************************************

@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/platform-browser/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}), global.ng.core, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.platformBrowser.animations));
-}(this, (function (exports, core, core$1, a11y, coercion, animations) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}), global.ng.core, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.platformBrowser.animations));
+}(this, (function (exports, core$1, core, a11y, coercion, animations) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -321,7 +321,7 @@
         }
         return MatBadgeBase;
     }());
-    var _MatBadgeMixinBase = core$1.mixinDisabled(MatBadgeBase);
+    var _MatBadgeMixinBase = core.mixinDisabled(MatBadgeBase);
     /** Directive to display a text badge. */
     var MatBadge = /** @class */ (function (_super) {
         __extends(MatBadge, _super);
@@ -519,7 +519,7 @@
         return MatBadge;
     }(_MatBadgeMixinBase));
     MatBadge.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: '[matBadge]',
                     inputs: ['disabled: matBadgeDisabled'],
                     host: {
@@ -538,20 +538,20 @@
                 },] }
     ];
     MatBadge.ctorParameters = function () { return [
-        { type: core.NgZone },
-        { type: core.ElementRef },
+        { type: core$1.NgZone },
+        { type: core$1.ElementRef },
         { type: a11y.AriaDescriber },
-        { type: core.Renderer2 },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+        { type: core$1.Renderer2 },
+        { type: String, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatBadge.propDecorators = {
-        color: [{ type: core.Input, args: ['matBadgeColor',] }],
-        overlap: [{ type: core.Input, args: ['matBadgeOverlap',] }],
-        position: [{ type: core.Input, args: ['matBadgePosition',] }],
-        content: [{ type: core.Input, args: ['matBadge',] }],
-        description: [{ type: core.Input, args: ['matBadgeDescription',] }],
-        size: [{ type: core.Input, args: ['matBadgeSize',] }],
-        hidden: [{ type: core.Input, args: ['matBadgeHidden',] }]
+        color: [{ type: core$1.Input, args: ['matBadgeColor',] }],
+        overlap: [{ type: core$1.Input, args: ['matBadgeOverlap',] }],
+        position: [{ type: core$1.Input, args: ['matBadgePosition',] }],
+        content: [{ type: core$1.Input, args: ['matBadge',] }],
+        description: [{ type: core$1.Input, args: ['matBadgeDescription',] }],
+        size: [{ type: core$1.Input, args: ['matBadgeSize',] }],
+        hidden: [{ type: core$1.Input, args: ['matBadgeHidden',] }]
     };
 
     /**
@@ -567,12 +567,12 @@
         return MatBadgeModule;
     }());
     MatBadgeModule.decorators = [
-        { type: core.NgModule, args: [{
+        { type: core$1.NgModule, args: [{
                     imports: [
                         a11y.A11yModule,
-                        core$1.MatCommonModule
+                        core.MatCommonModule
                     ],
-                    exports: [MatBadge, core$1.MatCommonModule],
+                    exports: [MatBadge, core.MatCommonModule],
                     declarations: [MatBadge],
                 },] }
     ];

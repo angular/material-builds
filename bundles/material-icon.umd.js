@@ -1,8 +1,33 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/platform-browser')) :
     typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/common/http', '@angular/platform-browser'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}), global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.common.http, global.ng.platformBrowser));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}), global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.common.http, global.ng.platformBrowser));
 }(this, (function (exports, i0, core, coercion, i3, rxjs, operators, i1, i2) { 'use strict';
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () {
+                            return e[k];
+                        }
+                    });
+                }
+            });
+        }
+        n['default'] = e;
+        return Object.freeze(n);
+    }
+
+    var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
+    var i3__namespace = /*#__PURE__*/_interopNamespace(i3);
+    var i1__namespace = /*#__PURE__*/_interopNamespace(i1);
+    var i2__namespace = /*#__PURE__*/_interopNamespace(i2);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -844,7 +869,7 @@
         };
         return MatIconRegistry;
     }());
-    MatIconRegistry.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
+    MatIconRegistry.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0__namespace.ɵɵinject(i1__namespace.HttpClient, 8), i0__namespace.ɵɵinject(i2__namespace.DomSanitizer), i0__namespace.ɵɵinject(i3__namespace.DOCUMENT, 8), i0__namespace.ɵɵinject(i0__namespace.ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
     MatIconRegistry.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];

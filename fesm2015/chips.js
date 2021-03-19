@@ -430,7 +430,7 @@ class MatChipListBase {
 }
 const _MatChipListMixinBase = mixinErrorState(MatChipListBase);
 // Increasing integer for generating unique ids for chip-list components.
-let nextUniqueId = 0;
+let nextUniqueId$1 = 0;
 /** Change event object that is emitted when the chip list value has changed. */
 class MatChipListChange {
     constructor(
@@ -468,7 +468,7 @@ class MatChipList extends _MatChipListMixinBase {
         /** Subject that emits when the component has been destroyed. */
         this._destroyed = new Subject();
         /** Uid of the chip list */
-        this._uid = `mat-chip-list-${nextUniqueId++}`;
+        this._uid = `mat-chip-list-${nextUniqueId$1++}`;
         /** Tab index for the chip list. */
         this._tabIndex = 0;
         /**
@@ -1069,7 +1069,7 @@ MatChipList.propDecorators = {
  * found in the LICENSE file at https://angular.io/license
  */
 // Increasing integer for generating unique ids.
-let nextUniqueId$1 = 0;
+let nextUniqueId = 0;
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -1092,7 +1092,7 @@ class MatChipInput {
         /** The input's placeholder text. */
         this.placeholder = '';
         /** Unique id for the input. */
-        this.id = `mat-chip-list-input-${nextUniqueId$1++}`;
+        this.id = `mat-chip-list-input-${nextUniqueId++}`;
         this._disabled = false;
         this.inputElement = this._elementRef.nativeElement;
     }

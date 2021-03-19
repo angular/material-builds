@@ -1,4 +1,5 @@
-import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, ɵɵdefineInjectable, Directive, ElementRef, NgZone, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, ChangeDetectorRef, Output } from '@angular/core';
+import * as i0 from '@angular/core';
+import { Version, InjectionToken, isDevMode, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, Directive, ElementRef, NgZone, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, ChangeDetectorRef, Output } from '@angular/core';
 import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
@@ -18,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('12.0.0-next.3-sha-efd17f5b6');
+const VERSION$1 = new Version('12.0.0-next.3-sha-e4974b82f');
 
 /**
  * @license
@@ -52,7 +53,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new Version('12.0.0-next.3-sha-efd17f5b6');
+const VERSION = new Version('12.0.0-next.3-sha-e4974b82f');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -138,8 +139,8 @@ class MatCommonModule {
     _checkCdkVersionMatch() {
         const isEnabled = this._checksAreEnabled() &&
             (this._sanityChecks === true || this._sanityChecks.version);
-        if (isEnabled && VERSION$1.full !== VERSION$2.full) {
-            console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
+        if (isEnabled && VERSION.full !== VERSION$2.full) {
+            console.warn('The Angular Material version (' + VERSION.full + ') does not match ' +
                 'the Angular CDK version (' + VERSION$2.full + ').\n' +
                 'Please ensure the versions of these two packages exactly match.');
         }
@@ -509,9 +510,9 @@ const DEFAULT_MONTH_NAMES = {
     'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
-const ɵ0 = i => String(i + 1);
+const ɵ0$1 = i => String(i + 1);
 /** The default date names to use if Intl API is not available. */
-const DEFAULT_DATE_NAMES = range(31, ɵ0);
+const DEFAULT_DATE_NAMES = range(31, ɵ0$1);
 /** The default day of the week names to use if Intl API is not available. */
 const DEFAULT_DAY_OF_WEEK_NAMES = {
     'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -794,13 +795,13 @@ NativeDateModule.decorators = [
                 ],
             },] }
 ];
-const ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
+const ɵ0 = MAT_NATIVE_DATE_FORMATS;
 class MatNativeDateModule {
 }
 MatNativeDateModule.decorators = [
     { type: NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0 }],
             },] }
 ];
 
@@ -826,7 +827,7 @@ class ErrorStateMatcher {
         return !!(control && control.invalid && (control.touched || (form && form.submitted)));
     }
 }
-ErrorStateMatcher.ɵprov = ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
 ErrorStateMatcher.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];
@@ -1756,5 +1757,5 @@ MatOptionModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines, ɵ0$1 as ɵ0, MATERIAL_SANITY_CHECKS_FACTORY as ɵangular_material_src_material_core_core_a };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION$1 as VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines, ɵ0, MATERIAL_SANITY_CHECKS_FACTORY as ɵangular_material_src_material_core_core_a };
 //# sourceMappingURL=core.js.map

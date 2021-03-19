@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/platform'), require('@angular/platform-browser/animations')) :
     typeof define === 'function' && define.amd ? define('@angular/material/form-field', ['exports', '@angular/cdk/observers', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/platform', '@angular/platform-browser/animations'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}), global.ng.cdk.observers, global.ng.common, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.platform, global.ng.platformBrowser.animations));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}), global.ng.cdk.observers, global.ng.common, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.platform, global.ng.platformBrowser.animations));
 }(this, (function (exports, observers, common, core, core$1, bidi, coercion, rxjs, operators, animations, platform, animations$1) { 'use strict';
 
     /**
@@ -11,7 +11,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var nextUniqueId = 0;
+    var nextUniqueId$2 = 0;
     /**
      * Injection token that can be used to reference instances of `MatError`. It serves as
      * alternative token to the actual `MatError` class which could cause unnecessary
@@ -21,7 +21,7 @@
     /** Single error message to be shown underneath the form field. */
     var MatError = /** @class */ (function () {
         function MatError(ariaLive, elementRef) {
-            this.id = "mat-error-" + nextUniqueId++;
+            this.id = "mat-error-" + nextUniqueId$2++;
             // If no aria-live value is set add 'polite' as a default. This is preferred over setting
             // role='alert' so that screen readers do not interrupt the current task to read this aloud.
             if (!ariaLive) {
@@ -558,7 +558,7 @@
                 },] }
     ];
 
-    var nextUniqueId$2 = 0;
+    var nextUniqueId = 0;
     var floatingLabelScale = 0.75;
     var outlineGapPadding = 5;
     /**
@@ -618,9 +618,9 @@
             _this._subscriptAnimationState = '';
             _this._hintLabel = '';
             // Unique id for the hint label.
-            _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
+            _this._hintLabelId = "mat-hint-" + nextUniqueId++;
             // Unique id for the label element.
-            _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
+            _this._labelId = "mat-form-field-label-" + nextUniqueId++;
             _this.floatLabel = _this._getDefaultFloatLabelState();
             _this._animationsEnabled = _animationMode !== 'NoopAnimations';
             // Set the default through here so we invoke the setter on the first run.

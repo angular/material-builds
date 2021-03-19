@@ -1,6 +1,8 @@
+import * as i1 from '@angular/cdk/overlay';
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
-import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, SkipSelf } from '@angular/core';
+import * as i0 from '@angular/core';
+import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, Injectable, SkipSelf } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -520,7 +522,7 @@ class MatBottomSheet {
         return Injector.create({ parent: userInjector || this._injector, providers });
     }
 }
-MatBottomSheet.ɵprov = ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(ɵɵinject(Overlay), ɵɵinject(INJECTOR), ɵɵinject(MatBottomSheet, 12), ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+MatBottomSheet.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(MatBottomSheet, 12), i0.ɵɵinject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
 MatBottomSheet.decorators = [
     { type: Injectable, args: [{ providedIn: MatBottomSheetModule },] }
 ];

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/testing'), require('@angular/material/grid-list')) :
     typeof define === 'function' && define.amd ? define('@angular/material/grid-list/testing', ['exports', '@angular/cdk/testing', '@angular/material/grid-list'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = global.ng.material.gridList || {}, global.ng.material.gridList.testing = {}), global.ng.cdk.testing, global.ng.material.gridList));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = global.ng.material.gridList || {}, global.ng.material.gridList.testing = {}), global.ng.cdk.testing, global.ng.material.gridList));
 }(this, (function (exports, testing, gridList) { 'use strict';
 
     /*! *****************************************************************************

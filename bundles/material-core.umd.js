@@ -1,8 +1,30 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/common'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
     typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', '@angular/common', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.common, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.common, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
 }(this, (function (exports, i0, a11y, bidi, cdk, common, coercion, rxjs, platform, operators, animations, keycodes) { 'use strict';
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () {
+                            return e[k];
+                        }
+                    });
+                }
+            });
+        }
+        n['default'] = e;
+        return Object.freeze(n);
+    }
+
+    var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
 
     /**
      * @license
@@ -12,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION = new i0.Version('12.0.0-next.3-sha-efd17f5b6');
+    var VERSION$1 = new i0.Version('12.0.0-next.3-sha-e4974b82f');
 
     /**
      * @license
@@ -52,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION$1 = new i0.Version('12.0.0-next.3-sha-efd17f5b6');
+    var VERSION = new i0.Version('12.0.0-next.3-sha-e4974b82f');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -138,8 +160,8 @@
         MatCommonModule.prototype._checkCdkVersionMatch = function () {
             var isEnabled = this._checksAreEnabled() &&
                 (this._sanityChecks === true || this._sanityChecks.version);
-            if (isEnabled && VERSION$1.full !== cdk.VERSION.full) {
-                console.warn('The Angular Material version (' + VERSION$1.full + ') does not match ' +
+            if (isEnabled && VERSION.full !== cdk.VERSION.full) {
+                console.warn('The Angular Material version (' + VERSION.full + ') does not match ' +
                     'the Angular CDK version (' + cdk.VERSION.full + ').\n' +
                     'Please ensure the versions of these two packages exactly match.');
             }
@@ -837,9 +859,9 @@
         'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
     };
-    var ɵ0 = function (i) { return String(i + 1); };
+    var ɵ0$1 = function (i) { return String(i + 1); };
     /** The default date names to use if Intl API is not available. */
-    var DEFAULT_DATE_NAMES = range(31, ɵ0);
+    var DEFAULT_DATE_NAMES = range(31, ɵ0$1);
     /** The default day of the week names to use if Intl API is not available. */
     var DEFAULT_DAY_OF_WEEK_NAMES = {
         'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -1131,7 +1153,7 @@
                     ],
                 },] }
     ];
-    var ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
+    var ɵ0 = MAT_NATIVE_DATE_FORMATS;
     var MatNativeDateModule = /** @class */ (function () {
         function MatNativeDateModule() {
         }
@@ -1140,7 +1162,7 @@
     MatNativeDateModule.decorators = [
         { type: i0.NgModule, args: [{
                     imports: [NativeDateModule],
-                    providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
+                    providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0 }],
                 },] }
     ];
 
@@ -1172,7 +1194,7 @@
         };
         return ErrorStateMatcher;
     }());
-    ErrorStateMatcher.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
+    ErrorStateMatcher.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     ErrorStateMatcher.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];
@@ -2202,7 +2224,7 @@
     exports.RippleRef = RippleRef;
     exports.RippleRenderer = RippleRenderer;
     exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
-    exports.VERSION = VERSION;
+    exports.VERSION = VERSION$1;
     exports._MatOptgroupBase = _MatOptgroupBase;
     exports._MatOptionBase = _MatOptionBase;
     exports._countGroupLabelsBeforeOption = _countGroupLabelsBeforeOption;
@@ -2215,7 +2237,7 @@
     exports.mixinInitialized = mixinInitialized;
     exports.mixinTabIndex = mixinTabIndex;
     exports.setLines = setLines;
-    exports.ɵ0 = ɵ0$1;
+    exports.ɵ0 = ɵ0;
     exports.ɵangular_material_src_material_core_core_a = MATERIAL_SANITY_CHECKS_FACTORY;
 
     Object.defineProperty(exports, '__esModule', { value: true });

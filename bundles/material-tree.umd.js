@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/tree'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/cdk/tree', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}), global.ng.cdk.tree, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.collections, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, tree, core, core$1, coercion, collections, rxjs, operators) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}), global.ng.cdk.tree, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.collections, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, tree, core$1, core, coercion, collections, rxjs, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -313,7 +313,7 @@
         return value;
     }
 
-    var _MatTreeNodeMixinBase = core$1.mixinTabIndex(core$1.mixinDisabled(tree.CdkTreeNode));
+    var _MatTreeNodeMixinBase = core.mixinTabIndex(core.mixinDisabled(tree.CdkTreeNode));
     /**
      * Wrapper for the CdkTree node with Material design styles.
      */
@@ -345,7 +345,7 @@
         return MatTreeNode;
     }(_MatTreeNodeMixinBase));
     MatTreeNode.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: 'mat-tree-node',
                     exportAs: 'matTreeNode',
                     inputs: ['role', 'disabled', 'tabIndex'],
@@ -353,9 +353,9 @@
                 },] }
     ];
     MatTreeNode.ctorParameters = function () { return [
-        { type: core.ElementRef },
+        { type: core$1.ElementRef },
         { type: tree.CdkTree },
-        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
+        { type: String, decorators: [{ type: core$1.Attribute, args: ['tabindex',] }] }
     ]; };
     /**
      * Wrapper for the CdkTree node definition with Material design styles.
@@ -369,7 +369,7 @@
         return MatTreeNodeDef;
     }(tree.CdkTreeNodeDef));
     MatTreeNodeDef.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: '[matTreeNodeDef]',
                     inputs: [
                         'when: matTreeNodeDefWhen'
@@ -378,7 +378,7 @@
                 },] }
     ];
     MatTreeNodeDef.propDecorators = {
-        data: [{ type: core.Input, args: ['matTreeNode',] }]
+        data: [{ type: core$1.Input, args: ['matTreeNode',] }]
     };
     /**
      * Wrapper for the CdkTree nested node with Material design styles.
@@ -434,7 +434,7 @@
         return MatNestedTreeNode;
     }(tree.CdkNestedTreeNode));
     MatNestedTreeNode.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: 'mat-nested-tree-node',
                     exportAs: 'matNestedTreeNode',
                     inputs: ['role', 'disabled', 'tabIndex'],
@@ -446,15 +446,15 @@
                 },] }
     ];
     MatNestedTreeNode.ctorParameters = function () { return [
-        { type: core.ElementRef },
+        { type: core$1.ElementRef },
         { type: tree.CdkTree },
-        { type: core.IterableDiffers },
-        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
+        { type: core$1.IterableDiffers },
+        { type: String, decorators: [{ type: core$1.Attribute, args: ['tabindex',] }] }
     ]; };
     MatNestedTreeNode.propDecorators = {
-        node: [{ type: core.Input, args: ['matNestedTreeNode',] }],
-        disabled: [{ type: core.Input }],
-        tabIndex: [{ type: core.Input }]
+        node: [{ type: core$1.Input, args: ['matNestedTreeNode',] }],
+        disabled: [{ type: core$1.Input }],
+        tabIndex: [{ type: core$1.Input }]
     };
 
     /**
@@ -482,14 +482,14 @@
         return MatTreeNodePadding;
     }(tree.CdkTreeNodePadding));
     MatTreeNodePadding.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: '[matTreeNodePadding]',
                     providers: [{ provide: tree.CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
                 },] }
     ];
     MatTreeNodePadding.propDecorators = {
-        level: [{ type: core.Input, args: ['matTreeNodePadding',] }],
-        indent: [{ type: core.Input, args: ['matTreeNodePaddingIndent',] }]
+        level: [{ type: core$1.Input, args: ['matTreeNodePadding',] }],
+        indent: [{ type: core$1.Input, args: ['matTreeNodePaddingIndent',] }]
     };
 
     /**
@@ -511,7 +511,7 @@
         return MatTreeNodeOutlet;
     }());
     MatTreeNodeOutlet.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: '[matTreeNodeOutlet]',
                     providers: [{
                             provide: tree.CdkTreeNodeOutlet,
@@ -520,8 +520,8 @@
                 },] }
     ];
     MatTreeNodeOutlet.ctorParameters = function () { return [
-        { type: core.ViewContainerRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [tree.CDK_TREE_NODE_OUTLET_NODE,] }, { type: core.Optional }] }
+        { type: core$1.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core$1.Inject, args: [tree.CDK_TREE_NODE_OUTLET_NODE,] }, { type: core$1.Optional }] }
     ]; };
 
     /**
@@ -535,7 +535,7 @@
         return MatTree;
     }(tree.CdkTree));
     MatTree.decorators = [
-        { type: core.Component, args: [{
+        { type: core$1.Component, args: [{
                     selector: 'mat-tree',
                     exportAs: 'matTree',
                     template: "<ng-container matTreeNodeOutlet></ng-container>",
@@ -550,16 +550,16 @@
                         'class': 'mat-tree cdk-tree',
                         'role': 'tree',
                     },
-                    encapsulation: core.ViewEncapsulation.None,
+                    encapsulation: core$1.ViewEncapsulation.None,
                     // See note on CdkTree for explanation on why this uses the default change detection strategy.
                     // tslint:disable-next-line:validate-decorators
-                    changeDetection: core.ChangeDetectionStrategy.Default,
+                    changeDetection: core$1.ChangeDetectionStrategy.Default,
                     providers: [{ provide: tree.CdkTree, useExisting: MatTree }],
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"]
                 },] }
     ];
     MatTree.propDecorators = {
-        _nodeOutlet: [{ type: core.ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]
+        _nodeOutlet: [{ type: core$1.ViewChild, args: [MatTreeNodeOutlet, { static: true },] }]
     };
 
     /**
@@ -584,13 +584,13 @@
         return MatTreeNodeToggle;
     }(tree.CdkTreeNodeToggle));
     MatTreeNodeToggle.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: '[matTreeNodeToggle]',
                     providers: [{ provide: tree.CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
                 },] }
     ];
     MatTreeNodeToggle.propDecorators = {
-        recursive: [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] }]
+        recursive: [{ type: core$1.Input, args: ['matTreeNodeToggleRecursive',] }]
     };
 
     /**
@@ -615,9 +615,9 @@
         return MatTreeModule;
     }());
     MatTreeModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [tree.CdkTreeModule, core$1.MatCommonModule],
-                    exports: [core$1.MatCommonModule, MAT_TREE_DIRECTIVES],
+        { type: core$1.NgModule, args: [{
+                    imports: [tree.CdkTreeModule, core.MatCommonModule],
+                    exports: [core.MatCommonModule, MAT_TREE_DIRECTIVES],
                     declarations: MAT_TREE_DIRECTIVES,
                 },] }
     ];

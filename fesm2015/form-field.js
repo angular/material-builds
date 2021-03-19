@@ -17,7 +17,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let nextUniqueId = 0;
+let nextUniqueId$2 = 0;
 /**
  * Injection token that can be used to reference instances of `MatError`. It serves as
  * alternative token to the actual `MatError` class which could cause unnecessary
@@ -27,7 +27,7 @@ const MAT_ERROR = new InjectionToken('MatError');
 /** Single error message to be shown underneath the form field. */
 class MatError {
     constructor(ariaLive, elementRef) {
-        this.id = `mat-error-${nextUniqueId++}`;
+        this.id = `mat-error-${nextUniqueId$2++}`;
         // If no aria-live value is set add 'polite' as a default. This is preferred over setting
         // role='alert' so that screen readers do not interrupt the current task to read this aloud.
         if (!ariaLive) {
@@ -245,7 +245,7 @@ MatSuffix.decorators = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let nextUniqueId$2 = 0;
+let nextUniqueId = 0;
 const floatingLabelScale = 0.75;
 const outlineGapPadding = 5;
 /**
@@ -303,9 +303,9 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._subscriptAnimationState = '';
         this._hintLabel = '';
         // Unique id for the hint label.
-        this._hintLabelId = `mat-hint-${nextUniqueId$2++}`;
+        this._hintLabelId = `mat-hint-${nextUniqueId++}`;
         // Unique id for the label element.
-        this._labelId = `mat-form-field-label-${nextUniqueId$2++}`;
+        this._labelId = `mat-form-field-label-${nextUniqueId++}`;
         this.floatLabel = this._getDefaultFloatLabelState();
         this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.

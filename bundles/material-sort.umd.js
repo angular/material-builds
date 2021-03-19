@@ -1,8 +1,30 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs', '@angular/animations', '@angular/common'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.ng.cdk.coercion, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs, global.ng.animations, global.ng.common));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.ng.cdk.coercion, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs, global.ng.animations, global.ng.common));
 }(this, (function (exports, i0, coercion, core, a11y, keycodes, rxjs, animations, common) { 'use strict';
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () {
+                            return e[k];
+                        }
+                    });
+                }
+            });
+        }
+        n['default'] = e;
+        return Object.freeze(n);
+    }
+
+    var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -591,7 +613,7 @@
         }
         return MatSortHeaderIntl;
     }());
-    MatSortHeaderIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    MatSortHeaderIntl.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     MatSortHeaderIntl.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/testing'), require('@angular/material/form-field/testing/control')) :
     typeof define === 'function' && define.amd ? define('@angular/material/input/testing', ['exports', '@angular/cdk/testing', '@angular/material/form-field/testing/control'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = global.ng.material.input || {}, global.ng.material.input.testing = {}), global.ng.cdk.testing, global.ng.material.formField.testing.control));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = global.ng.material.input || {}, global.ng.material.input.testing = {}), global.ng.cdk.testing, global.ng.material.formField.testing.control));
 }(this, (function (exports, testing, control) { 'use strict';
 
     /*! *****************************************************************************

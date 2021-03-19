@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/testing'), require('@angular/core'), require('@angular/material/icon'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@angular/material/icon/testing', ['exports', '@angular/cdk/testing', '@angular/core', '@angular/material/icon', 'rxjs'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = global.ng.material.icon || {}, global.ng.material.icon.testing = {}), global.ng.cdk.testing, global.ng.core, global.ng.material.icon, global.rxjs));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = global.ng.material.icon || {}, global.ng.material.icon.testing = {}), global.ng.cdk.testing, global.ng.core, global.ng.material.icon, global.rxjs));
 }(this, (function (exports, testing, core, icon, rxjs) { 'use strict';
 
     /*! *****************************************************************************

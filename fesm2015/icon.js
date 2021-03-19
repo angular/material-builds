@@ -1,10 +1,14 @@
-import { SecurityContext, ɵɵdefineInjectable, ɵɵinject, ErrorHandler, Injectable, Optional, Inject, SkipSelf, InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Attribute, Input, NgModule } from '@angular/core';
+import * as i0 from '@angular/core';
+import { SecurityContext, Injectable, Optional, Inject, ErrorHandler, SkipSelf, InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Attribute, Input, NgModule } from '@angular/core';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import * as i3 from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import { of, throwError, forkJoin, Subscription } from 'rxjs';
 import { tap, map, catchError, finalize, share, take } from 'rxjs/operators';
+import * as i1 from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import * as i2 from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -530,7 +534,7 @@ class MatIconRegistry {
         return undefined;
     }
 }
-MatIconRegistry.ɵprov = ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(ɵɵinject(HttpClient, 8), ɵɵinject(DomSanitizer), ɵɵinject(DOCUMENT, 8), ɵɵinject(ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
+MatIconRegistry.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(i0.ɵɵinject(i1.HttpClient, 8), i0.ɵɵinject(i2.DomSanitizer), i0.ɵɵinject(i3.DOCUMENT, 8), i0.ɵɵinject(i0.ErrorHandler)); }, token: MatIconRegistry, providedIn: "root" });
 MatIconRegistry.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];

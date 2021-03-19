@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/platform-browser/animations'), require('rxjs'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/material/progress-bar', ['exports', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', '@angular/platform-browser/animations', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}), global.ng.core, global.ng.common, global.ng.material.core, global.ng.cdk.coercion, global.ng.platformBrowser.animations, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, core, common, core$1, coercion, animations, rxjs, operators) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}), global.ng.core, global.ng.common, global.ng.material.core, global.ng.cdk.coercion, global.ng.platformBrowser.animations, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, core$1, common, core, coercion, animations, rxjs, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -321,16 +321,16 @@
         }
         return MatProgressBarBase;
     }());
-    var _MatProgressBarMixinBase = core$1.mixinColor(MatProgressBarBase, 'primary');
+    var _MatProgressBarMixinBase = core.mixinColor(MatProgressBarBase, 'primary');
     /**
      * Injection token used to provide the current location to `MatProgressBar`.
      * Used to handle server-side rendering and to stub out during unit tests.
      * @docs-private
      */
-    var MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+    var MAT_PROGRESS_BAR_LOCATION = new core$1.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
     /** @docs-private */
     function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
-        var _document = core.inject(common.DOCUMENT);
+        var _document = core$1.inject(common.DOCUMENT);
         var _location = _document ? _document.location : null;
         return {
             // Note that this needs to be a function, rather than a property, because Angular
@@ -364,7 +364,7 @@
              * be emitted when animations are disabled, nor will it be emitted for modes with continuous
              * animations (indeterminate and query).
              */
-            _this.animationEnd = new core.EventEmitter();
+            _this.animationEnd = new core$1.EventEmitter();
             /** Reference to animation end subscription to be unsubscribed on destroy. */
             _this._animationEndSubscription = rxjs.Subscription.EMPTY;
             /**
@@ -444,7 +444,7 @@
         return MatProgressBar;
     }(_MatProgressBarMixinBase));
     MatProgressBar.decorators = [
-        { type: core.Component, args: [{
+        { type: core$1.Component, args: [{
                     selector: 'mat-progress-bar',
                     exportAs: 'matProgressBar',
                     host: {
@@ -458,23 +458,23 @@
                     },
                     inputs: ['color'],
                     template: "<!--\n  The background div is named as such because it appears below the other divs and is not sized based\n  on values.\n-->\n<svg width=\"100%\" height=\"4\" focusable=\"false\" class=\"mat-progress-bar-background mat-progress-bar-element\">\n  <defs>\n    <pattern [id]=\"progressbarId\" x=\"4\" y=\"0\" width=\"8\" height=\"4\" patternUnits=\"userSpaceOnUse\">\n      <circle cx=\"2\" cy=\"2\" r=\"2\"/>\n    </pattern>\n  </defs>\n  <rect [attr.fill]=\"_rectangleFillValue\" width=\"100%\" height=\"100%\"/>\n</svg>\n<div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div>\n<div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\" #primaryValueBar></div>\n<div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>\n",
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: core.ViewEncapsulation.None,
+                    changeDetection: core$1.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core$1.ViewEncapsulation.None,
                     styles: [".mat-progress-bar{display:block;height:4px;overflow:hidden;position:relative;transition:opacity 250ms linear;width:100%}._mat-animation-noopable.mat-progress-bar{transition:none;animation:none}.mat-progress-bar .mat-progress-bar-element,.mat-progress-bar .mat-progress-bar-fill::after{height:100%;position:absolute;width:100%}.mat-progress-bar .mat-progress-bar-background{width:calc(100% + 10px)}.cdk-high-contrast-active .mat-progress-bar .mat-progress-bar-background{display:none}.mat-progress-bar .mat-progress-bar-buffer{transform-origin:top left;transition:transform 250ms ease}.cdk-high-contrast-active .mat-progress-bar .mat-progress-bar-buffer{border-top:solid 5px;opacity:.5}.mat-progress-bar .mat-progress-bar-secondary{display:none}.mat-progress-bar .mat-progress-bar-fill{animation:none;transform-origin:top left;transition:transform 250ms ease}.cdk-high-contrast-active .mat-progress-bar .mat-progress-bar-fill{border-top:solid 4px}.mat-progress-bar .mat-progress-bar-fill::after{animation:none;content:\"\";display:inline-block;left:0}.mat-progress-bar[dir=rtl],[dir=rtl] .mat-progress-bar{transform:rotateY(180deg)}.mat-progress-bar[mode=query]{transform:rotateZ(180deg)}.mat-progress-bar[mode=query][dir=rtl],[dir=rtl] .mat-progress-bar[mode=query]{transform:rotateZ(180deg) rotateY(180deg)}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-fill,.mat-progress-bar[mode=query] .mat-progress-bar-fill{transition:none}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary,.mat-progress-bar[mode=query] .mat-progress-bar-primary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-translate 2000ms infinite linear;left:-145.166611%}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-primary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-scale 2000ms infinite linear}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary,.mat-progress-bar[mode=query] .mat-progress-bar-secondary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-translate 2000ms infinite linear;left:-54.888891%;display:block}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-secondary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-scale 2000ms infinite linear}.mat-progress-bar[mode=buffer] .mat-progress-bar-background{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-background-scroll 250ms infinite linear;display:block}.mat-progress-bar._mat-animation-noopable .mat-progress-bar-fill,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-buffer,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-primary,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-secondary,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-secondary.mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-background{animation:none;transition-duration:1ms}@keyframes mat-progress-bar-primary-indeterminate-translate{0%{transform:translateX(0)}20%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(0)}59.15%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(83.67142%)}100%{transform:translateX(200.611057%)}}@keyframes mat-progress-bar-primary-indeterminate-scale{0%{transform:scaleX(0.08)}36.65%{animation-timing-function:cubic-bezier(0.334731, 0.12482, 0.785844, 1);transform:scaleX(0.08)}69.15%{animation-timing-function:cubic-bezier(0.06, 0.11, 0.6, 1);transform:scaleX(0.661479)}100%{transform:scaleX(0.08)}}@keyframes mat-progress-bar-secondary-indeterminate-translate{0%{animation-timing-function:cubic-bezier(0.15, 0, 0.515058, 0.409685);transform:translateX(0)}25%{animation-timing-function:cubic-bezier(0.31033, 0.284058, 0.8, 0.733712);transform:translateX(37.651913%)}48.35%{animation-timing-function:cubic-bezier(0.4, 0.627035, 0.6, 0.902026);transform:translateX(84.386165%)}100%{transform:translateX(160.277782%)}}@keyframes mat-progress-bar-secondary-indeterminate-scale{0%{animation-timing-function:cubic-bezier(0.15, 0, 0.515058, 0.409685);transform:scaleX(0.08)}19.15%{animation-timing-function:cubic-bezier(0.31033, 0.284058, 0.8, 0.733712);transform:scaleX(0.457104)}44.15%{animation-timing-function:cubic-bezier(0.4, 0.627035, 0.6, 0.902026);transform:scaleX(0.72796)}100%{transform:scaleX(0.08)}}@keyframes mat-progress-bar-background-scroll{to{transform:translateX(-8px)}}\n"]
                 },] }
     ];
     MatProgressBar.ctorParameters = function () { return [
-        { type: core.ElementRef },
-        { type: core.NgZone },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
+        { type: core$1.ElementRef },
+        { type: core$1.NgZone },
+        { type: String, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
     ]; };
     MatProgressBar.propDecorators = {
-        value: [{ type: core.Input }],
-        bufferValue: [{ type: core.Input }],
-        _primaryValueBar: [{ type: core.ViewChild, args: ['primaryValueBar',] }],
-        animationEnd: [{ type: core.Output }],
-        mode: [{ type: core.Input }]
+        value: [{ type: core$1.Input }],
+        bufferValue: [{ type: core$1.Input }],
+        _primaryValueBar: [{ type: core$1.ViewChild, args: ['primaryValueBar',] }],
+        animationEnd: [{ type: core$1.Output }],
+        mode: [{ type: core$1.Input }]
     };
     /** Clamps a value to be between two numbers, by default 0 and 100. */
     function clamp(v, min, max) {
@@ -496,9 +496,9 @@
         return MatProgressBarModule;
     }());
     MatProgressBarModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, core$1.MatCommonModule],
-                    exports: [MatProgressBar, core$1.MatCommonModule],
+        { type: core$1.NgModule, args: [{
+                    imports: [common.CommonModule, core.MatCommonModule],
+                    exports: [MatProgressBar, core.MatCommonModule],
                     declarations: [MatProgressBar],
                 },] }
     ];

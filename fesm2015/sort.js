@@ -1,4 +1,5 @@
-import { InjectionToken, EventEmitter, Directive, Optional, Inject, Input, Output, ɵɵdefineInjectable, Injectable, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgModule } from '@angular/core';
+import * as i0 from '@angular/core';
+import { InjectionToken, EventEmitter, Directive, Optional, Inject, Input, Output, Injectable, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -277,7 +278,7 @@ class MatSortHeaderIntl {
         };
     }
 }
-MatSortHeaderIntl.ɵprov = ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+MatSortHeaderIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
 MatSortHeaderIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];

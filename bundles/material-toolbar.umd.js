@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/platform'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@angular/material/toolbar', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/platform', '@angular/common'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = {}), global.ng.core, global.ng.material.core, global.ng.cdk.platform, global.ng.common));
-}(this, (function (exports, core, core$1, platform, common) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = {}), global.ng.core, global.ng.material.core, global.ng.cdk.platform, global.ng.common));
+}(this, (function (exports, core$1, core, platform, common) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -321,14 +321,14 @@
         }
         return MatToolbarBase;
     }());
-    var _MatToolbarMixinBase = core$1.mixinColor(MatToolbarBase);
+    var _MatToolbarMixinBase = core.mixinColor(MatToolbarBase);
     var MatToolbarRow = /** @class */ (function () {
         function MatToolbarRow() {
         }
         return MatToolbarRow;
     }());
     MatToolbarRow.decorators = [
-        { type: core.Directive, args: [{
+        { type: core$1.Directive, args: [{
                     selector: 'mat-toolbar-row',
                     exportAs: 'matToolbarRow',
                     host: { 'class': 'mat-toolbar-row' },
@@ -370,7 +370,7 @@
         return MatToolbar;
     }(_MatToolbarMixinBase));
     MatToolbar.decorators = [
-        { type: core.Component, args: [{
+        { type: core$1.Component, args: [{
                     selector: 'mat-toolbar',
                     exportAs: 'matToolbar',
                     template: "<ng-content></ng-content>\n<ng-content select=\"mat-toolbar-row\"></ng-content>\n",
@@ -380,18 +380,18 @@
                         '[class.mat-toolbar-multiple-rows]': '_toolbarRows.length > 0',
                         '[class.mat-toolbar-single-row]': '_toolbarRows.length === 0',
                     },
-                    changeDetection: core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: core.ViewEncapsulation.None,
+                    changeDetection: core$1.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core$1.ViewEncapsulation.None,
                     styles: [".cdk-high-contrast-active .mat-toolbar{outline:solid 1px}.mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}\n"]
                 },] }
     ];
     MatToolbar.ctorParameters = function () { return [
-        { type: core.ElementRef },
+        { type: core$1.ElementRef },
         { type: platform.Platform },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+        { type: undefined, decorators: [{ type: core$1.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     MatToolbar.propDecorators = {
-        _toolbarRows: [{ type: core.ContentChildren, args: [MatToolbarRow, { descendants: true },] }]
+        _toolbarRows: [{ type: core$1.ContentChildren, args: [MatToolbarRow, { descendants: true },] }]
     };
     /**
      * Throws an exception when attempting to combine the different toolbar row modes.
@@ -416,9 +416,9 @@
         return MatToolbarModule;
     }());
     MatToolbarModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [core$1.MatCommonModule],
-                    exports: [MatToolbar, MatToolbarRow, core$1.MatCommonModule],
+        { type: core$1.NgModule, args: [{
+                    imports: [core.MatCommonModule],
+                    exports: [MatToolbar, MatToolbarRow, core.MatCommonModule],
                     declarations: [MatToolbar, MatToolbarRow],
                 },] }
     ];

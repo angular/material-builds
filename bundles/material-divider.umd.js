@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core')) :
     typeof define === 'function' && define.amd ? define('@angular/material/divider', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.divider = {}), global.ng.core, global.ng.cdk.coercion, global.ng.material.core));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.divider = {}), global.ng.core, global.ng.cdk.coercion, global.ng.material.core));
 }(this, (function (exports, core, coercion, core$1) { 'use strict';
 
     /**

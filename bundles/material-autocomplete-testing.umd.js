@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/testing'), require('@angular/material/core/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/autocomplete/testing', ['exports', '@angular/cdk/coercion', '@angular/cdk/testing', '@angular/material/core/testing'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}, global.ng.material.autocomplete.testing = {}), global.ng.cdk.coercion, global.ng.cdk.testing, global.ng.material.core.testing));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}, global.ng.material.autocomplete.testing = {}), global.ng.cdk.coercion, global.ng.cdk.testing, global.ng.material.core.testing));
 }(this, (function (exports, coercion, testing, testing$1) { 'use strict';
 
     /*! *****************************************************************************

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ɵɵdefineInjectable, Injectable, Optional, SkipSelf, InjectionToken, EventEmitter, Directive, ChangeDetectorRef, Input, Output, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
+import * as i0 from '@angular/core';
+import { Injectable, Optional, SkipSelf, InjectionToken, EventEmitter, Directive, ChangeDetectorRef, Input, Output, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
 import { mixinDisabled, mixinInitialized, MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -50,7 +51,7 @@ class MatPaginatorIntl {
         };
     }
 }
-MatPaginatorIntl.ɵprov = ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
+MatPaginatorIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
 MatPaginatorIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/material/form-field/testing/control'), require('@angular/cdk/testing'), require('@angular/material/input/testing'), require('@angular/material/select/testing')) :
     typeof define === 'function' && define.amd ? define('@angular/material/form-field/testing', ['exports', '@angular/material/form-field/testing/control', '@angular/cdk/testing', '@angular/material/input/testing', '@angular/material/select/testing'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = global.ng.material.formField || {}, global.ng.material.formField.testing = {}), global.ng.material.formField.testing.control, global.ng.cdk.testing, global.ng.material.input.testing, global.ng.material.select.testing));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = global.ng.material.formField || {}, global.ng.material.formField.testing = {}), global.ng.material.formField.testing.control, global.ng.cdk.testing, global.ng.material.input.testing, global.ng.material.select.testing));
 }(this, (function (exports, control, testing, testing$1, testing$2) { 'use strict';
 
     /*! *****************************************************************************
@@ -700,16 +700,16 @@
      * found in the LICENSE file at https://angular.io/license
      */
 
+    exports.MatFormFieldHarness = MatFormFieldHarness;
+    exports._MatFormFieldHarnessBase = _MatFormFieldHarnessBase;
     Object.keys(control).forEach(function (k) {
-        if (k !== 'default') Object.defineProperty(exports, k, {
+        if (k !== 'default' && !exports.hasOwnProperty(k)) Object.defineProperty(exports, k, {
             enumerable: true,
             get: function () {
                 return control[k];
             }
         });
     });
-    exports.MatFormFieldHarness = MatFormFieldHarness;
-    exports._MatFormFieldHarnessBase = _MatFormFieldHarnessBase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

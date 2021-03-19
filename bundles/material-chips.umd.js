@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/platform-browser/animations'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
     typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/keycodes', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/common', '@angular/platform-browser/animations', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.common, global.ng.platformBrowser.animations, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}), global.ng.cdk.keycodes, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.common, global.ng.platformBrowser.animations, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk.collections, global.ng.forms, global.ng.material.formField));
 }(this, (function (exports, keycodes, core, core$1, coercion, platform, common, animations, rxjs, operators, a11y, bidi, collections, forms, formField) { 'use strict';
 
     /*! *****************************************************************************
@@ -754,7 +754,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     // Increasing integer for generating unique ids.
-    var nextUniqueId = 0;
+    var nextUniqueId$1 = 0;
     /**
      * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
      * May be placed inside or outside of an `<mat-chip-list>`.
@@ -777,7 +777,7 @@
             /** The input's placeholder text. */
             this.placeholder = '';
             /** Unique id for the input. */
-            this.id = "mat-chip-list-input-" + nextUniqueId++;
+            this.id = "mat-chip-list-input-" + nextUniqueId$1++;
             this._disabled = false;
             this.inputElement = this._elementRef.nativeElement;
         }
@@ -952,7 +952,7 @@
     }());
     var _MatChipListMixinBase = core$1.mixinErrorState(MatChipListBase);
     // Increasing integer for generating unique ids for chip-list components.
-    var nextUniqueId$1 = 0;
+    var nextUniqueId = 0;
     /** Change event object that is emitted when the chip list value has changed. */
     var MatChipListChange = /** @class */ (function () {
         function MatChipListChange(
@@ -992,7 +992,7 @@
             /** Subject that emits when the component has been destroyed. */
             _this._destroyed = new rxjs.Subject();
             /** Uid of the chip list */
-            _this._uid = "mat-chip-list-" + nextUniqueId$1++;
+            _this._uid = "mat-chip-list-" + nextUniqueId++;
             /** Tab index for the chip list. */
             _this._tabIndex = 0;
             /**

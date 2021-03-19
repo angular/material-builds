@@ -1,14 +1,18 @@
+import * as i1 from '@angular/cdk/overlay';
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, NgZone, ElementRef, ChangeDetectorRef, ViewChild, NgModule, Injector, TemplateRef, ɵɵdefineInjectable, ɵɵinject, INJECTOR, Injectable, Optional, SkipSelf } from '@angular/core';
+import * as i0 from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, NgZone, ElementRef, ChangeDetectorRef, ViewChild, NgModule, Injector, TemplateRef, Injectable, Optional, SkipSelf } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Subject } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { take, takeUntil } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import * as i2 from '@angular/cdk/a11y';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import * as i3 from '@angular/cdk/layout';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 /**
@@ -679,7 +683,7 @@ class MatSnackBar {
         });
     }
 }
-MatSnackBar.ɵprov = ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(ɵɵinject(Overlay), ɵɵinject(LiveAnnouncer), ɵɵinject(INJECTOR), ɵɵinject(BreakpointObserver), ɵɵinject(MatSnackBar, 12), ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
+MatSnackBar.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(i0.ɵɵinject(i1.Overlay), i0.ɵɵinject(i2.LiveAnnouncer), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(i3.BreakpointObserver), i0.ɵɵinject(MatSnackBar, 12), i0.ɵɵinject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
 MatSnackBar.decorators = [
     { type: Injectable, args: [{ providedIn: MatSnackBarModule },] }
 ];

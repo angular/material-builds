@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi')) :
     typeof define === 'function' && define.amd ? define('@angular/material/grid-list', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/bidi'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = {}), global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.bidi));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = {}), global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.bidi));
 }(this, (function (exports, core, core$1, coercion, bidi) { 'use strict';
 
     /*! *****************************************************************************

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser/animations'), require('@angular/material/core')) :
     typeof define === 'function' && define.amd ? define('@angular/material/card', ['exports', '@angular/core', '@angular/platform-browser/animations', '@angular/material/core'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.card = {}), global.ng.core, global.ng.platformBrowser.animations, global.ng.material.core));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.card = {}), global.ng.core, global.ng.platformBrowser.animations, global.ng.material.core));
 }(this, (function (exports, core, animations, core$1) { 'use strict';
 
     /**

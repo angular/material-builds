@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/accordion'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('rxjs/operators'), require('@angular/cdk/keycodes'), require('@angular/platform-browser/animations'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/collections')) :
     typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/cdk/accordion', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/a11y', 'rxjs/operators', '@angular/cdk/keycodes', '@angular/platform-browser/animations', 'rxjs', '@angular/animations', '@angular/cdk/collections'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.a11y, global.rxjs.operators, global.ng.cdk.keycodes, global.ng.platformBrowser.animations, global.rxjs, global.ng.animations, global.ng.cdk.collections));
-}(this, (function (exports, accordion, portal, common, core, core$1, coercion, a11y, operators, keycodes, animations, rxjs, animations$1, collections) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}), global.ng.cdk.accordion, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.core, global.ng.cdk.coercion, global.ng.cdk.a11y, global.rxjs.operators, global.ng.cdk.keycodes, global.ng.platformBrowser.animations, global.rxjs, global.ng.animations, global.ng.cdk.collections));
+}(this, (function (exports, accordion, portal, common, core, core$1, coercion, a11y, operators, keycodes, animations$1, rxjs, animations, collections) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -360,16 +360,16 @@
      */
     var matExpansionAnimations = {
         /** Animation that rotates the indicator arrow. */
-        indicatorRotate: animations$1.trigger('indicatorRotate', [
-            animations$1.state('collapsed, void', animations$1.style({ transform: 'rotate(0deg)' })),
-            animations$1.state('expanded', animations$1.style({ transform: 'rotate(180deg)' })),
-            animations$1.transition('expanded <=> collapsed, void => collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+        indicatorRotate: animations.trigger('indicatorRotate', [
+            animations.state('collapsed, void', animations.style({ transform: 'rotate(0deg)' })),
+            animations.state('expanded', animations.style({ transform: 'rotate(180deg)' })),
+            animations.transition('expanded <=> collapsed, void => collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
         ]),
         /** Animation that expands and collapses the panel content. */
-        bodyExpansion: animations$1.trigger('bodyExpansion', [
-            animations$1.state('collapsed, void', animations$1.style({ height: '0px', visibility: 'hidden' })),
-            animations$1.state('expanded', animations$1.style({ height: '*', visibility: 'visible' })),
-            animations$1.transition('expanded <=> collapsed, void => collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+        bodyExpansion: animations.trigger('bodyExpansion', [
+            animations.state('collapsed, void', animations.style({ height: '0px', visibility: 'hidden' })),
+            animations.state('expanded', animations.style({ height: '*', visibility: 'visible' })),
+            animations.transition('expanded <=> collapsed, void => collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
         ])
     };
 
@@ -552,7 +552,7 @@
         { type: collections.UniqueSelectionDispatcher },
         { type: core.ViewContainerRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] }] },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: core.Optional }] }
     ]; };
     MatExpansionPanel.propDecorators = {
@@ -750,7 +750,7 @@
         { type: a11y.FocusMonitor },
         { type: core.ChangeDetectorRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: core.Optional }] },
-        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatExpansionPanelHeader.propDecorators = {
         expandedHeight: [{ type: core.Input }],
