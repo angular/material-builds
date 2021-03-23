@@ -917,6 +917,13 @@ class MatMenuTrigger {
             this._element.nativeElement.focus(options);
         }
     }
+    /**
+     * Updates the position of the menu to ensure that it fits all options within the viewport.
+     */
+    updatePosition() {
+        var _a;
+        (_a = this._overlayRef) === null || _a === void 0 ? void 0 : _a.updatePosition();
+    }
     /** Closes the menu and does the necessary cleanup. */
     _destroyMenu(reason) {
         if (!this._overlayRef || !this.menuOpen) {

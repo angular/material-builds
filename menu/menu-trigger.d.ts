@@ -103,6 +103,10 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * @param origin Source of the menu trigger's focus.
      */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
+    /**
+     * Updates the position of the menu to ensure that it fits all options within the viewport.
+     */
+    updatePosition(): void;
     /** Closes the menu and does the necessary cleanup. */
     private _destroyMenu;
     /**

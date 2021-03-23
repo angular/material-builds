@@ -1252,6 +1252,13 @@
                 this._element.nativeElement.focus(options);
             }
         };
+        /**
+         * Updates the position of the menu to ensure that it fits all options within the viewport.
+         */
+        MatMenuTrigger.prototype.updatePosition = function () {
+            var _a;
+            (_a = this._overlayRef) === null || _a === void 0 ? void 0 : _a.updatePosition();
+        };
         /** Closes the menu and does the necessary cleanup. */
         MatMenuTrigger.prototype._destroyMenu = function (reason) {
             var _this = this;
@@ -1388,10 +1395,10 @@
          * @param positionStrategy Strategy whose position to update.
          */
         MatMenuTrigger.prototype._setPosition = function (positionStrategy) {
-            var _a = __read(this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'], 2), originX = _a[0], originFallbackX = _a[1];
-            var _b = __read(this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], 2), overlayY = _b[0], overlayFallbackY = _b[1];
-            var _c = __read([overlayY, overlayFallbackY], 2), originY = _c[0], originFallbackY = _c[1];
-            var _d = __read([originX, originFallbackX], 2), overlayX = _d[0], overlayFallbackX = _d[1];
+            var _b = __read(this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'], 2), originX = _b[0], originFallbackX = _b[1];
+            var _c = __read(this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], 2), overlayY = _c[0], overlayFallbackY = _c[1];
+            var _d = __read([overlayY, overlayFallbackY], 2), originY = _d[0], originFallbackY = _d[1];
+            var _e = __read([originX, originFallbackX], 2), overlayX = _e[0], overlayFallbackX = _e[1];
             var offsetY = 0;
             if (this.triggersSubmenu()) {
                 // When the menu is a sub-menu, it should always align itself
