@@ -178,9 +178,10 @@ const matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */
     horizontalStepTransition: trigger('stepTransition', [
         state('previous', style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
-        // Transition to '', rather than `visible`, because visibility on a child element overrides
-        // the one from the parent, making this element focusable inside of a `hidden` element.
-        state('current', style({ transform: 'none', visibility: '' })),
+        // Transition to `inherit`, rather than `visible`,
+        // because visibility on a child element the one from the parent,
+        // making this element focusable inside of a `hidden` element.
+        state('current', style({ transform: 'none', visibility: 'inherit' })),
         state('next', style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
         transition('* => *', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
     ]),
@@ -188,9 +189,10 @@ const matStepperAnimations = {
     verticalStepTransition: trigger('stepTransition', [
         state('previous', style({ height: '0px', visibility: 'hidden' })),
         state('next', style({ height: '0px', visibility: 'hidden' })),
-        // Transition to '', rather than `visible`, because visibility on a child element overrides
-        // the one from the parent, making this element focusable inside of a `hidden` element.
-        state('current', style({ height: '*', visibility: '' })),
+        // Transition to `inherit`, rather than `visible`,
+        // because visibility on a child element the one from the parent,
+        // making this element focusable inside of a `hidden` element.
+        state('current', style({ height: '*', visibility: 'inherit' })),
         transition('* <=> current', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ])
 };

@@ -364,8 +364,6 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     _getPanelAriaLabelledby(): string | null;
     /** Determines the `aria-activedescendant` to be set on the host. */
     _getAriaActiveDescendant(): string | null;
-    /** Gets the ID of the element that is labelling the select. */
-    private _getLabelId;
     /** Gets the aria-labelledby of the select component trigger. */
     private _getTriggerAriaLabelledby;
     /** Called when the overlay panel is done animating. */

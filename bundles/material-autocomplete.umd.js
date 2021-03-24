@@ -459,7 +459,8 @@
             if (this.ariaLabel) {
                 return null;
             }
-            return this.ariaLabelledby ? labelId + ' ' + this.ariaLabelledby : labelId;
+            var labelExpression = labelId ? labelId + ' ' : '';
+            return this.ariaLabelledby ? labelExpression + this.ariaLabelledby : labelId;
         };
         /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
         _MatAutocompleteBase.prototype._setVisibilityClasses = function (classList) {
@@ -967,7 +968,7 @@
             }
             var overlayRef = this._overlayRef;
             if (!overlayRef) {
-                this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef, { id: (_a = this._formField) === null || _a === void 0 ? void 0 : _a._labelId });
+                this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef, { id: (_a = this._formField) === null || _a === void 0 ? void 0 : _a.getLabelId() });
                 overlayRef = this._overlay.create(this._getOverlayConfig());
                 this._overlayRef = overlayRef;
                 // Use the `keydownEvents` in order to take advantage of

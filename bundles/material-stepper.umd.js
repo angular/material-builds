@@ -477,9 +477,10 @@
         /** Animation that transitions the step along the X axis in a horizontal stepper. */
         horizontalStepTransition: animations.trigger('stepTransition', [
             animations.state('previous', animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
-            // Transition to '', rather than `visible`, because visibility on a child element overrides
-            // the one from the parent, making this element focusable inside of a `hidden` element.
-            animations.state('current', animations.style({ transform: 'none', visibility: '' })),
+            // Transition to `inherit`, rather than `visible`,
+            // because visibility on a child element the one from the parent,
+            // making this element focusable inside of a `hidden` element.
+            animations.state('current', animations.style({ transform: 'none', visibility: 'inherit' })),
             animations.state('next', animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
             animations.transition('* => *', animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
         ]),
@@ -487,9 +488,10 @@
         verticalStepTransition: animations.trigger('stepTransition', [
             animations.state('previous', animations.style({ height: '0px', visibility: 'hidden' })),
             animations.state('next', animations.style({ height: '0px', visibility: 'hidden' })),
-            // Transition to '', rather than `visible`, because visibility on a child element overrides
-            // the one from the parent, making this element focusable inside of a `hidden` element.
-            animations.state('current', animations.style({ height: '*', visibility: '' })),
+            // Transition to `inherit`, rather than `visible`,
+            // because visibility on a child element the one from the parent,
+            // making this element focusable inside of a `hidden` element.
+            animations.state('current', animations.style({ height: '*', visibility: 'inherit' })),
             animations.transition('* <=> current', animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
         ])
     };

@@ -1164,11 +1164,13 @@
         };
         /** Gets the aria-labelledby for the select panel. */
         _MatSelectBase.prototype._getPanelAriaLabelledby = function () {
+            var _a;
             if (this.ariaLabel) {
                 return null;
             }
-            var labelId = this._getLabelId();
-            return this.ariaLabelledby ? labelId + ' ' + this.ariaLabelledby : labelId;
+            var labelId = (_a = this._parentFormField) === null || _a === void 0 ? void 0 : _a.getLabelId();
+            var labelExpression = (labelId ? labelId + ' ' : '');
+            return this.ariaLabelledby ? labelExpression + this.ariaLabelledby : labelId;
         };
         /** Determines the `aria-activedescendant` to be set on the host. */
         _MatSelectBase.prototype._getAriaActiveDescendant = function () {
@@ -1177,17 +1179,14 @@
             }
             return null;
         };
-        /** Gets the ID of the element that is labelling the select. */
-        _MatSelectBase.prototype._getLabelId = function () {
-            var _a;
-            return ((_a = this._parentFormField) === null || _a === void 0 ? void 0 : _a.getLabelId()) || '';
-        };
         /** Gets the aria-labelledby of the select component trigger. */
         _MatSelectBase.prototype._getTriggerAriaLabelledby = function () {
+            var _a;
             if (this.ariaLabel) {
                 return null;
             }
-            var value = this._getLabelId() + ' ' + this._valueId;
+            var labelId = (_a = this._parentFormField) === null || _a === void 0 ? void 0 : _a.getLabelId();
+            var value = (labelId ? labelId + ' ' : '') + this._valueId;
             if (this.ariaLabelledby) {
                 value += ' ' + this.ariaLabelledby;
             }
