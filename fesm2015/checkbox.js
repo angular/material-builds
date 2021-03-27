@@ -240,6 +240,11 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         event.checked = this.checked;
         this._controlValueAccessorChangeFn(this.checked);
         this.change.emit(event);
+        // Assigning the value again here is redundant, but we have to do it in case it was
+        // changed inside the `change` listener which will cause the input to be out of sync.
+        if (this._inputElement) {
+            this._inputElement.nativeElement.checked = this.checked;
+        }
     }
     /** Toggles the `checked` state of the checkbox. */
     toggle() {
