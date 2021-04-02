@@ -36,6 +36,32 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
 }
+/**
+ * Proxies the public APIs from `MatStepper` to the deprecated `MatHorizontalStepper` and
+ * `MatVerticalStepper`.
+ * @deprecated Use `MatStepper` instead.
+ * @breaking-change 13.0.0
+ * @docs-private
+ */
+declare abstract class _MatProxyStepperBase extends CdkStepper {
+    readonly steps: QueryList<MatStep>;
+    readonly animationDone: EventEmitter<void>;
+    disableRipple: boolean;
+    color: ThemePalette;
+    labelPosition: 'bottom' | 'end';
+}
+/**
+ * @deprecated Use `MatStepper` instead.
+ * @breaking-change 13.0.0
+ */
+export declare class MatHorizontalStepper extends _MatProxyStepperBase {
+}
+/**
+ * @deprecated Use `MatStepper` instead.
+ * @breaking-change 13.0.0
+ */
+export declare class MatVerticalStepper extends _MatProxyStepperBase {
+}
 export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
     _stepHeader: QueryList<MatStepHeader>;
@@ -51,31 +77,20 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     disableRipple: boolean;
     /** Theme color for all of the steps in stepper. */
     color: ThemePalette;
+    /**
+     * Whether the label should display in bottom or end position.
+     * Only applies in the `horizontal` orientation.
+     */
+    labelPosition: 'bottom' | 'end';
     /** Consumer-specified template-refs to be used to override the header icons. */
-    _iconOverrides: {
-        [key: string]: TemplateRef<MatStepperIconContext>;
-    };
+    _iconOverrides: Record<string, TemplateRef<MatStepperIconContext>>;
     /** Stream of animation `done` events when the body expands/collapses. */
     _animationDone: Subject<AnimationEvent>;
-    ngAfterContentInit(): void;
-    protected _updateOrientation(): void;
-    static ngAcceptInputType_editable: BooleanInput;
-    static ngAcceptInputType_optional: BooleanInput;
-    static ngAcceptInputType_completed: BooleanInput;
-    static ngAcceptInputType_hasError: BooleanInput;
-}
-export declare class MatHorizontalStepper extends MatStepper {
-    /** Whether the label should display in bottom or end position. */
-    labelPosition: 'bottom' | 'end';
-    static ngAcceptInputType_editable: BooleanInput;
-    static ngAcceptInputType_optional: BooleanInput;
-    static ngAcceptInputType_completed: BooleanInput;
-    static ngAcceptInputType_hasError: BooleanInput;
-}
-export declare class MatVerticalStepper extends MatStepper {
     constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _document: any);
+    ngAfterContentInit(): void;
     static ngAcceptInputType_editable: BooleanInput;
     static ngAcceptInputType_optional: BooleanInput;
     static ngAcceptInputType_completed: BooleanInput;
     static ngAcceptInputType_hasError: BooleanInput;
 }
+export {};
