@@ -28,7 +28,7 @@ export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy
      * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
      * @docs-private
      */
-    get disabled(): any;
+    get disabled(): boolean;
     /** Toggles the expanded state of the panel. */
     _toggle(): void;
     /** Gets whether the panel is expanded. */
