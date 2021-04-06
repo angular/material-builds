@@ -594,6 +594,8 @@
     /**
      * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
      * include it in a custom provider.
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 13.0.0
      */
     var MatSortHeaderIntl = /** @class */ (function () {
         function MatSortHeaderIntl() {
@@ -602,14 +604,6 @@
              * components if the labels have changed after initialization.
              */
             this.changes = new rxjs.Subject();
-            /**
-             * ARIA label for the sorting button.
-             * @deprecated Not used anymore. To be removed.
-             * @breaking-change 8.0.0
-             */
-            this.sortButtonLabel = function (id) {
-                return "Change sorting for " + id;
-            };
         }
         return MatSortHeaderIntl;
     }());
@@ -648,7 +642,12 @@
      */
     var MatSortHeader = /** @class */ (function (_super) {
         __extends(MatSortHeader, _super);
-        function MatSortHeader(_intl, _changeDetectorRef, 
+        function MatSortHeader(
+        /**
+         * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
+         * @breaking-change 13.0.0
+         */
+        _intl, _changeDetectorRef, 
         // `MatSort` is not optionally injected, but just asserted manually w/ better error.
         // tslint:disable-next-line: lightweight-tokens
         _sort, _columnDef, _focusMonitor, _elementRef) {

@@ -21,12 +21,6 @@ export declare class MatSortHeaderHarness extends ComponentHarness {
     getLabel(): Promise<string>;
     /** Gets the sorting direction of the header. */
     getSortDirection(): Promise<SortDirection>;
-    /**
-     * Gets the aria-label of the sort header.
-     * @deprecated The sort header no longer has an `aria-label`. This method will be removed.
-     * @breaking-change 11.0.0
-     */
-    getAriaLabel(): Promise<string | null>;
     /** Gets whether the sort header is currently being sorted by. */
     isActive(): Promise<boolean>;
     /** Whether the sort header is disabled. */

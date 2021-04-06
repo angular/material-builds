@@ -48,6 +48,10 @@ interface MatSortHeaderColumnDef {
  * column definition.
  */
 export declare class MatSortHeader extends _MatSortHeaderMixinBase implements CanDisable, MatSortable, OnDestroy, OnInit, AfterViewInit {
+    /**
+     * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
+     * @breaking-change 13.0.0
+     */
     _intl: MatSortHeaderIntl;
     private _changeDetectorRef;
     _sort: MatSort;
@@ -85,7 +89,12 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ca
     get disableClear(): boolean;
     set disableClear(v: boolean);
     private _disableClear;
-    constructor(_intl: MatSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>);
+    constructor(
+    /**
+     * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
+     * @breaking-change 13.0.0
+     */
+    _intl: MatSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

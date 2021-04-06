@@ -367,21 +367,6 @@
                 });
             });
         };
-        /**
-         * Gets the aria-label of the sort header.
-         * @deprecated The sort header no longer has an `aria-label`. This method will be removed.
-         * @breaking-change 11.0.0
-         */
-        MatSortHeaderHarness.prototype.getAriaLabel = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._container()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
-                    }
-                });
-            });
-        };
         /** Gets whether the sort header is currently being sorted by. */
         MatSortHeaderHarness.prototype.isActive = function () {
             return __awaiter(this, void 0, void 0, function () {

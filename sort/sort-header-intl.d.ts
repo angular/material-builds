@@ -10,6 +10,8 @@ import { Subject } from 'rxjs';
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 13.0.0
  */
 export declare class MatSortHeaderIntl {
     /**
@@ -17,12 +19,6 @@ export declare class MatSortHeaderIntl {
      * components if the labels have changed after initialization.
      */
     readonly changes: Subject<void>;
-    /**
-     * ARIA label for the sorting button.
-     * @deprecated Not used anymore. To be removed.
-     * @breaking-change 8.0.0
-     */
-    sortButtonLabel: (id: string) => string;
 }
 /** @docs-private */
 export declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSortHeaderIntl): MatSortHeaderIntl;

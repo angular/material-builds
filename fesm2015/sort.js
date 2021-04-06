@@ -260,6 +260,8 @@ const matSortAnimations = {
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
+ * @deprecated No longer being used. To be removed.
+ * @breaking-change 13.0.0
  */
 class MatSortHeaderIntl {
     constructor() {
@@ -268,14 +270,6 @@ class MatSortHeaderIntl {
          * components if the labels have changed after initialization.
          */
         this.changes = new Subject();
-        /**
-         * ARIA label for the sorting button.
-         * @deprecated Not used anymore. To be removed.
-         * @breaking-change 8.0.0
-         */
-        this.sortButtonLabel = (id) => {
-            return `Change sorting for ${id}`;
-        };
     }
 }
 MatSortHeaderIntl.ɵprov = i0.ɵɵdefineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
@@ -316,7 +310,12 @@ const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  * column definition.
  */
 class MatSortHeader extends _MatSortHeaderMixinBase {
-    constructor(_intl, _changeDetectorRef, 
+    constructor(
+    /**
+     * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
+     * @breaking-change 13.0.0
+     */
+    _intl, _changeDetectorRef, 
     // `MatSort` is not optionally injected, but just asserted manually w/ better error.
     // tslint:disable-next-line: lightweight-tokens
     _sort, _columnDef, _focusMonitor, _elementRef) {
