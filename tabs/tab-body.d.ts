@@ -58,7 +58,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     /** Tab body position state. Used by the animation trigger for the current state. */
     _position: MatTabBodyPositionState;
     /** Emits when an animation on the tab is complete. */
-    _translateTabComplete: Subject<AnimationEvent>;
+    readonly _translateTabComplete: Subject<AnimationEvent>;
     /** Event emitted when the tab begins to animate towards the center as the active tab. */
     readonly _onCentering: EventEmitter<number>;
     /** Event emitted before the centering of the tab begins. */

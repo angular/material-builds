@@ -72,9 +72,9 @@ export declare class MatTreeFlattener<T, F, K = F> {
 export declare class MatTreeFlatDataSource<T, F, K = F> extends DataSource<F> {
     private _treeControl;
     private _treeFlattener;
-    _flattenedData: BehaviorSubject<F[]>;
-    _expandedData: BehaviorSubject<F[]>;
-    _data: BehaviorSubject<T[]>;
+    readonly _flattenedData: BehaviorSubject<F[]>;
+    readonly _expandedData: BehaviorSubject<F[]>;
+    readonly _data: BehaviorSubject<T[]>;
     get data(): T[];
     set data(value: T[]);
     constructor(_treeControl: FlatTreeControl<F, K>, _treeFlattener: MatTreeFlattener<T, F, K>, initialData?: T[]);

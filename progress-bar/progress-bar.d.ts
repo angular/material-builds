@@ -63,7 +63,7 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
      * be emitted when animations are disabled, nor will it be emitted for modes with continuous
      * animations (indeterminate and query).
      */
-    animationEnd: EventEmitter<ProgressAnimationEnd>;
+    readonly animationEnd: EventEmitter<ProgressAnimationEnd>;
     /** Reference to animation end subscription to be unsubscribed on destroy. */
     private _animationEndSubscription;
     /**

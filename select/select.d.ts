@@ -152,7 +152,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     /** ID for the DOM node containing the select's value. */
     _valueId: string;
     /** Emits when the panel element is finished transforming in. */
-    _panelDoneAnimatingStream: Subject<string>;
+    readonly _panelDoneAnimatingStream: Subject<string>;
     /** Strategy that will be used to handle scrolling while the select panel is open. */
     _scrollStrategy: ScrollStrategy;
     _overlayPanelClass: string | string[];

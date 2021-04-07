@@ -27,7 +27,7 @@ export declare class MatMenuContent implements OnDestroy {
     private _portal;
     private _outlet;
     /** Emits when the menu content has been attached. */
-    _attached: Subject<void>;
+    readonly _attached: Subject<void>;
     constructor(_template: TemplateRef<any>, _componentFactoryResolver: ComponentFactoryResolver, _appRef: ApplicationRef, _injector: Injector, _viewContainerRef: ViewContainerRef, _document: any, _changeDetectorRef?: ChangeDetectorRef | undefined);
     /**
      * Attaches the content with a particular context.

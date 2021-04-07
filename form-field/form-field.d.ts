@@ -74,7 +74,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _outlineGapCalculationNeededImmediately;
     /** Whether the outline gap needs to be calculated next time the zone has stabilized. */
     private _outlineGapCalculationNeededOnStable;
-    private _destroyed;
+    private readonly _destroyed;
     /** The form-field appearance style. */
     get appearance(): MatFormFieldAppearance;
     set appearance(value: MatFormFieldAppearance);

@@ -50,9 +50,9 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     get togglePosition(): MatAccordionTogglePosition;
     set togglePosition(value: MatAccordionTogglePosition);
     /** An event emitted after the body's expansion animation happens. */
-    afterExpand: EventEmitter<void>;
+    readonly afterExpand: EventEmitter<void>;
     /** An event emitted after the body's collapse animation happens. */
-    afterCollapse: EventEmitter<void>;
+    readonly afterCollapse: EventEmitter<void>;
     /** Stream that emits for changes in `@Input` properties. */
     readonly _inputChanges: Subject<SimpleChanges>;
     /** Optionally defined accordion the expansion panel belongs to. */
@@ -66,7 +66,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     /** ID for the associated header element. Used for a11y labelling. */
     _headerId: string;
     /** Stream of body animation done events. */
-    _bodyAnimationDone: Subject<AnimationEvent>;
+    readonly _bodyAnimationDone: Subject<AnimationEvent>;
     constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document: any, _animationMode: string, defaultOptions?: MatExpansionPanelDefaultOptions);
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;

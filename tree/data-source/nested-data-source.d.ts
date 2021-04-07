@@ -14,7 +14,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
  */
 export declare class MatTreeNestedDataSource<T> extends DataSource<T> {
-    _data: BehaviorSubject<T[]>;
+    readonly _data: BehaviorSubject<T[]>;
     /**
      * Data for the nested tree
      */

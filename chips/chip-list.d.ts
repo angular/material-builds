@@ -61,7 +61,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      */
     private _lastDestroyedChipIndex;
     /** Subject that emits when the component has been destroyed. */
-    private _destroyed;
+    private readonly _destroyed;
     /** Subscription to focus changes in the chips. */
     private _chipFocusSubscription;
     /** Subscription to blur changes in the chips. */

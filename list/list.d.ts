@@ -31,7 +31,7 @@ export declare const MAT_LIST: InjectionToken<MatList>;
 export declare const MAT_NAV_LIST: InjectionToken<MatNavList>;
 export declare class MatNavList extends _MatListMixinBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     /** Emits when the state of the list changes. */
-    _stateChanges: Subject<void>;
+    readonly _stateChanges: Subject<void>;
     ngOnChanges(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disableRipple: BooleanInput;
@@ -40,7 +40,7 @@ export declare class MatNavList extends _MatListMixinBase implements CanDisable,
 export declare class MatList extends _MatListMixinBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
     /** Emits when the state of the list changes. */
-    _stateChanges: Subject<void>;
+    readonly _stateChanges: Subject<void>;
     constructor(_elementRef: ElementRef<HTMLElement>);
     _getListType(): 'list' | 'action-list' | null;
     ngOnChanges(): void;
@@ -71,7 +71,7 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     private _element;
     private _isInteractiveList;
     private _list?;
-    private _destroyed;
+    private readonly _destroyed;
     _lines: QueryList<MatLine>;
     _avatar: MatListAvatarCssMatStyler;
     _icon: MatListIconCssMatStyler;

@@ -82,25 +82,25 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
     /** Emits whenever the drawer has started animating. */
-    _animationStarted: Subject<AnimationEvent>;
+    readonly _animationStarted: Subject<AnimationEvent>;
     /** Emits whenever the drawer is done animating. */
-    _animationEnd: Subject<AnimationEvent>;
+    readonly _animationEnd: Subject<AnimationEvent>;
     /** Current state of the sidenav animation. */
     _animationState: 'open-instant' | 'open' | 'void';
     /** Event emitted when the drawer open state is changed. */
     readonly openedChange: EventEmitter<boolean>;
     /** Event emitted when the drawer has been opened. */
-    _openedStream: Observable<void>;
+    readonly _openedStream: Observable<void>;
     /** Event emitted when the drawer has started opening. */
     readonly openedStart: Observable<void>;
     /** Event emitted when the drawer has been closed. */
-    _closedStream: Observable<void>;
+    readonly _closedStream: Observable<void>;
     /** Event emitted when the drawer has started closing. */
     readonly closedStart: Observable<void>;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
     /** Event emitted when the drawer's position changes. */
-    onPositionChanged: EventEmitter<void>;
+    readonly onPositionChanged: EventEmitter<void>;
     /**
      * An observable that emits when the drawer mode changes. This is used by the drawer container to
      * to know when to when the mode changes so it can adapt the margins on the content.

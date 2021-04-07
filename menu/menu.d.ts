@@ -58,7 +58,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     /** Current state of the panel animation. */
     _panelAnimationState: 'void' | 'enter';
     /** Emits whenever an animation on the menu completes. */
-    _animationDone: Subject<AnimationEvent>;
+    readonly _animationDone: Subject<AnimationEvent>;
     /** Whether the menu is animating. */
     _isAnimating: boolean;
     /** Parent menu of the current menu panel. */
@@ -126,7 +126,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * @deprecated Switch to `closed` instead
      * @breaking-change 8.0.0
      */
-    close: EventEmitter<MenuCloseReason>;
+    readonly close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
     ngOnInit(): void;

@@ -85,7 +85,7 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** Consumer-specified template-refs to be used to override the header icons. */
     _iconOverrides: Record<string, TemplateRef<MatStepperIconContext>>;
     /** Stream of animation `done` events when the body expands/collapses. */
-    _animationDone: Subject<AnimationEvent>;
+    readonly _animationDone: Subject<AnimationEvent>;
     constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _document: any);
     ngAfterContentInit(): void;
     static ngAcceptInputType_editable: BooleanInput;

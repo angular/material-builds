@@ -15,7 +15,7 @@ export declare function MAT_DATE_LOCALE_FACTORY(): string;
 export declare abstract class DateAdapter<D> {
     /** The locale to use for all dates. */
     protected locale: any;
-    protected _localeChanges: Subject<void>;
+    protected readonly _localeChanges: Subject<void>;
     /** A stream that emits when the locale changes. */
     readonly localeChanges: Observable<void>;
     /**

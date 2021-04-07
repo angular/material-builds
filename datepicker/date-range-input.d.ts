@@ -85,7 +85,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
      */
     ngControl: NgControl | null;
     /** Emits when the input's state has changed. */
-    stateChanges: Subject<void>;
+    readonly stateChanges: Subject<void>;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: MatFormField | undefined);
     /**
      * Implemented as a part of `MatFormFieldControl`.

@@ -48,7 +48,7 @@ export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSe
     /** The current selection. */
     readonly selection: S;
     protected _adapter: DateAdapter<D>;
-    private _selectionChanged;
+    private readonly _selectionChanged;
     /** Emits when the selection has changed. */
     selectionChanged: Observable<DateSelectionModelChange<S>>;
     protected constructor(

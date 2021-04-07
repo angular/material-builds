@@ -124,7 +124,7 @@ class MatDrawer {
         // @HostBinding is used in the class as it is expected to be extended.  Since @Component decorator
         // metadata is not inherited by child classes, instead the host binding data is defined in a way
         // that can be inherited.
-        // tslint:disable:no-host-decorator-in-concrete
+        // tslint:disable-next-line:no-host-decorator-in-concrete
         this._animationState = 'void';
         /** Event emitted when the drawer open state is changed. */
         this.openedChange = 

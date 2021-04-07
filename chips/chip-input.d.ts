@@ -53,7 +53,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
      */
     separatorKeyCodes: readonly number[] | ReadonlySet<number>;
     /** Emitted when a chip is to be added. */
-    chipEnd: EventEmitter<MatChipInputEvent>;
+    readonly chipEnd: EventEmitter<MatChipInputEvent>;
     /** The input's placeholder text. */
     placeholder: string;
     /** Unique id for the input. */

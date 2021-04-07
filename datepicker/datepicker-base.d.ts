@@ -66,7 +66,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     /** Current state of the animation. */
     _animationState: 'enter' | 'void';
     /** Emits when an animation has finished. */
-    _animationDone: Subject<void>;
+    readonly _animationDone: Subject<void>;
     /** Text for the close button. */
     _closeButtonText: string;
     /** Whether the close button currently has focus. */
@@ -181,9 +181,9 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     /** Function that can be used to add custom CSS classes to dates. */
     dateClass: MatCalendarCellClassFunction<D>;
     /** Emits when the datepicker has been opened. */
-    openedStream: EventEmitter<void>;
+    readonly openedStream: EventEmitter<void>;
     /** Emits when the datepicker has been closed. */
-    closedStream: EventEmitter<void>;
+    readonly closedStream: EventEmitter<void>;
     /**
      * Classes to be passed to the date picker panel.
      * Supports string and string array values, similar to `ngClass`.

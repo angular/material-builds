@@ -166,7 +166,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     /** Keeps track of the currently-selected value. */
     _value: string[] | null;
     /** Emits when the list has been destroyed. */
-    private _destroyed;
+    private readonly _destroyed;
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
     /** Whether the list has been destroyed. */

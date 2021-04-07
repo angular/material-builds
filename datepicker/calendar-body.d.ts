@@ -77,7 +77,7 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy {
     /** Emits when a new value is selected. */
     readonly selectedValueChange: EventEmitter<MatCalendarUserEvent<number>>;
     /** Emits when the preview has changed as a result of a user action. */
-    previewChange: EventEmitter<MatCalendarUserEvent<MatCalendarCell<any> | null>>;
+    readonly previewChange: EventEmitter<MatCalendarUserEvent<MatCalendarCell<any> | null>>;
     /** The number of blank cells to put at the beginning for the first row. */
     _firstRowOffset: number;
     /** Padding for the individual date cells. */
