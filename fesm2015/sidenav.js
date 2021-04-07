@@ -372,7 +372,7 @@ MatDrawer.decorators = [
     { type: Component, args: [{
                 selector: 'mat-drawer',
                 exportAs: 'matDrawer',
-                template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                 animations: [matDrawerAnimations.transformDrawer],
                 host: {
                     'class': 'mat-drawer',
@@ -795,7 +795,7 @@ MatSidenav.decorators = [
     { type: Component, args: [{
                 selector: 'mat-sidenav',
                 exportAs: 'matSidenav',
-                template: "<div class=\"mat-drawer-inner-container\">\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
                 animations: [matDrawerAnimations.transformDrawer],
                 host: {
                     'class': 'mat-drawer mat-sidenav',
