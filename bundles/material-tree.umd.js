@@ -736,13 +736,16 @@
     var MatTreeFlatDataSource = /** @class */ (function (_super) {
         __extends(MatTreeFlatDataSource, _super);
         function MatTreeFlatDataSource(_treeControl, _treeFlattener, initialData) {
-            if (initialData === void 0) { initialData = []; }
             var _this = _super.call(this) || this;
             _this._treeControl = _treeControl;
             _this._treeFlattener = _treeFlattener;
             _this._flattenedData = new rxjs.BehaviorSubject([]);
             _this._expandedData = new rxjs.BehaviorSubject([]);
-            _this._data = new rxjs.BehaviorSubject(initialData);
+            _this._data = new rxjs.BehaviorSubject([]);
+            if (initialData) {
+                // Assign the data through the constructor to ensure that all of the logic is executed.
+                _this.data = initialData;
+            }
             return _this;
         }
         Object.defineProperty(MatTreeFlatDataSource.prototype, "data", {
@@ -757,12 +760,7 @@
         });
         MatTreeFlatDataSource.prototype.connect = function (collectionViewer) {
             var _this = this;
-            var changes = [
-                collectionViewer.viewChange,
-                this._treeControl.expansionModel.changed,
-                this._flattenedData
-            ];
-            return rxjs.merge.apply(void 0, __spreadArray([], __read(changes))).pipe(operators.map(function () {
+            return rxjs.merge(collectionViewer.viewChange, this._treeControl.expansionModel.changed, this._flattenedData).pipe(operators.map(function () {
                 _this._expandedData.next(_this._treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this._treeControl));
                 return _this._expandedData.value;
             }));

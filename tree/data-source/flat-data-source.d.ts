@@ -7,7 +7,7 @@
  */
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { FlatTreeControl, TreeControl } from '@angular/cdk/tree';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
  * Transform nested nodes of type `T` to flattened nodes of type `F`.
@@ -72,11 +72,11 @@ export declare class MatTreeFlattener<T, F, K = F> {
 export declare class MatTreeFlatDataSource<T, F, K = F> extends DataSource<F> {
     private _treeControl;
     private _treeFlattener;
-    readonly _flattenedData: BehaviorSubject<F[]>;
-    readonly _expandedData: BehaviorSubject<F[]>;
-    readonly _data: BehaviorSubject<T[]>;
+    private readonly _flattenedData;
+    private readonly _expandedData;
     get data(): T[];
     set data(value: T[]);
+    private readonly _data;
     constructor(_treeControl: FlatTreeControl<F, K>, _treeFlattener: MatTreeFlattener<T, F, K>, initialData?: T[]);
     connect(collectionViewer: CollectionViewer): Observable<F[]>;
     disconnect(): void;

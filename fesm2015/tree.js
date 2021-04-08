@@ -407,13 +407,17 @@ class MatTreeFlattener {
  * to type `F` for `MatTree` to consume.
  */
 class MatTreeFlatDataSource extends DataSource {
-    constructor(_treeControl, _treeFlattener, initialData = []) {
+    constructor(_treeControl, _treeFlattener, initialData) {
         super();
         this._treeControl = _treeControl;
         this._treeFlattener = _treeFlattener;
         this._flattenedData = new BehaviorSubject([]);
         this._expandedData = new BehaviorSubject([]);
-        this._data = new BehaviorSubject(initialData);
+        this._data = new BehaviorSubject([]);
+        if (initialData) {
+            // Assign the data through the constructor to ensure that all of the logic is executed.
+            this.data = initialData;
+        }
     }
     get data() { return this._data.value; }
     set data(value) {
@@ -422,12 +426,7 @@ class MatTreeFlatDataSource extends DataSource {
         this._treeControl.dataNodes = this._flattenedData.value;
     }
     connect(collectionViewer) {
-        const changes = [
-            collectionViewer.viewChange,
-            this._treeControl.expansionModel.changed,
-            this._flattenedData
-        ];
-        return merge(...changes).pipe(map(() => {
+        return merge(collectionViewer.viewChange, this._treeControl.expansionModel.changed, this._flattenedData).pipe(map(() => {
             this._expandedData.next(this._treeFlattener.expandFlattenedNodes(this._flattenedData.value, this._treeControl));
             return this._expandedData.value;
         }));

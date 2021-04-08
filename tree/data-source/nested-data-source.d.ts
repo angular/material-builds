@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 /**
  * Data source for nested tree.
  *
@@ -14,12 +14,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
  */
 export declare class MatTreeNestedDataSource<T> extends DataSource<T> {
-    readonly _data: BehaviorSubject<T[]>;
     /**
      * Data for the nested tree
      */
     get data(): T[];
     set data(value: T[]);
+    private readonly _data;
     connect(collectionViewer: CollectionViewer): Observable<T[]>;
     disconnect(): void;
 }
