@@ -792,7 +792,7 @@
             this.simpleSnackBarComponent = SimpleSnackBar;
             /** The container component that attaches the provided template or component. */
             this.snackBarContainerComponent = MatSnackBarContainer;
-            /** The CSS class to applie for handset mode. */
+            /** The CSS class to apply for handset mode. */
             this.handsetCssClass = 'mat-snack-bar-handset';
         }
         Object.defineProperty(MatSnackBar.prototype, "_openedSnackBarRef", {
