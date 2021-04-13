@@ -314,7 +314,9 @@ class MatListOption extends _MatListOptionMixinBase {
         const isSelected = coerceBooleanProperty(value);
         if (isSelected !== this._selected) {
             this._setSelected(isSelected);
-            this.selectionList._reportValueChange();
+            if (isSelected || this.selectionList.multiple) {
+                this.selectionList._reportValueChange();
+            }
         }
     }
     ngOnInit() {

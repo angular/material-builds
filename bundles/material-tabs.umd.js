@@ -1315,8 +1315,10 @@
             // On dir change or window resize, realign the ink bar and update the orientation of
             // the key manager if the direction has changed.
             rxjs.merge(dirChange, resize, this._items.changes).pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
-                // We need to defer this to give the browser some time to recalculate the element dimensions.
-                Promise.resolve().then(realign);
+                // We need to defer this to give the browser some time to recalculate
+                // the element dimensions. The call has to be wrapped in `NgZone.run`,
+                // because the viewport change handler runs outside of Angular.
+                _this._ngZone.run(function () { return Promise.resolve().then(realign); });
                 _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
             });
             // If there is a change in the focus key manager we need to emit the `indexFocused`
