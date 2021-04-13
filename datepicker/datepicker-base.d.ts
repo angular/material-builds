@@ -11,7 +11,6 @@ import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Subject, Observable } from 'rxjs';
 import { MatCalendar, MatCalendarView } from './calendar';
 import { MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
@@ -40,9 +39,9 @@ declare class MatDatepickerContentBase {
 }
 declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepickerContentBase;
 /**
- * Component used as the content for the datepicker dialog and popup. We use this instead of using
+ * Component used as the content for the datepicker overlay. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
- * place to put additional features of the popup that are not part of the calendar itself in the
+ * place to put additional features of the overlay that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
@@ -64,7 +63,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     /** Whether the datepicker is above or below the input. */
     _isAbove: boolean;
     /** Current state of the animation. */
-    _animationState: 'enter' | 'void';
+    _animationState: 'enter-dropdown' | 'enter-dialog' | 'void';
     /** Emits when an animation has finished. */
     readonly _animationDone: Subject<void>;
     /** Text for the close button. */
@@ -119,7 +118,6 @@ export interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = Ex
 }
 /** Base class for a datepicker. */
 export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements MatDatepickerPanel<C, S, D>, OnDestroy, OnChanges {
-    private _dialog;
     private _overlay;
     private _ngZone;
     private _viewContainerRef;
@@ -143,7 +141,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     _color: ThemePalette;
     /**
      * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
-     * than a popup and elements have more padding to allow for bigger touch targets.
+     * than a dropdown and elements have more padding to allow for bigger touch targets.
      */
     get touchUi(): boolean;
     set touchUi(value: boolean);
@@ -202,12 +200,10 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     /** The maximum selectable date. */
     _getMaxDate(): D | null;
     _getDateFilter(): DateFilterFn<D>;
-    /** A reference to the overlay when the calendar is opened as a popup. */
-    private _popupRef;
-    /** A reference to the dialog when the calendar is opened as a dialog. */
-    private _dialogRef;
-    /** Reference to the component instantiated in popup mode. */
-    private _popupComponentRef;
+    /** A reference to the overlay into which we've rendered the calendar. */
+    private _overlayRef;
+    /** Reference to the component instance rendered in the overlay. */
+    private _componentRef;
     /** The element that was focused before the datepicker was opened. */
     private _focusedElementBeforeOpen;
     /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
@@ -218,7 +214,12 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     datepickerInput: C;
     /** Emits when the datepicker's state changes. */
     readonly stateChanges: Subject<void>;
-    constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any, _model: MatDateSelectionModel<S, D>);
+    constructor(
+    /**
+     * @deprecated `_dialog` parameter is no longer being used and it will be removed.
+     * @breaking-change 13.0.0
+     */
+    _dialog: any, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any, _model: MatDateSelectionModel<S, D>);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Selects the given date */
@@ -249,20 +250,22 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     open(): void;
     /** Close the calendar. */
     close(): void;
-    /** Applies the current pending selection on the popup to the model. */
+    /** Applies the current pending selection on the overlay to the model. */
     _applyPendingSelection(): void;
-    /** Open the calendar as a dialog. */
-    private _openAsDialog;
-    /** Open the calendar as a popup. */
-    private _openAsPopup;
     /** Forwards relevant values from the datepicker to the datepicker content inside the overlay. */
     protected _forwardContentValues(instance: MatDatepickerContent<S, D>): void;
-    /** Create the popup. */
-    private _createPopup;
-    /** Destroys the current popup overlay. */
-    private _destroyPopup;
+    /** Opens the overlay with the calendar. */
+    private _openOverlay;
+    /** Destroys the current overlay. */
+    private _destroyOverlay;
+    /** Gets a position strategy that will open the calendar as a dropdown. */
+    private _getDialogStrategy;
+    /** Gets a position strategy that will open the calendar as a dropdown. */
+    private _getDropdownStrategy;
     /** Sets the positions of the datepicker in dropdown mode based on the current configuration. */
     private _setConnectedPositions;
+    /** Gets an observable that will emit when the overlay is supposed to be closed. */
+    private _getCloseStream;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_opened: BooleanInput;
     static ngAcceptInputType_touchUi: BooleanInput;

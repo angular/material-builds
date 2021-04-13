@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/cdk/scrolling'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/cdk/scrolling', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/animations', '@angular/forms', '@angular/material/form-field', '@angular/material/input'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}), global.ng.cdk.a11y, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.button, global.ng.material.dialog, global.ng.cdk.scrolling, global.ng.material.core, global.rxjs, global.ng.cdk.keycodes, global.ng.cdk.bidi, global.rxjs.operators, global.ng.cdk.coercion, global.ng.animations, global.ng.forms, global.ng.material.formField, global.ng.material.input));
-}(this, (function (exports, a11y, overlay, portal, common, i0, button, dialog, scrolling, core, rxjs, keycodes, bidi, operators, coercion, animations, forms, formField, input) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/cdk/scrolling'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/button', '@angular/cdk/scrolling', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/animations', '@angular/forms', '@angular/material/form-field', '@angular/material/input'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}), global.ng.cdk.a11y, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.button, global.ng.cdk.scrolling, global.ng.material.core, global.rxjs, global.ng.cdk.keycodes, global.ng.cdk.bidi, global.rxjs.operators, global.ng.cdk.coercion, global.ng.animations, global.ng.forms, global.ng.material.formField, global.ng.material.input));
+}(this, (function (exports, a11y, overlay, portal, common, i0, button, scrolling, core, rxjs, keycodes, bidi, operators, coercion, animations, forms, formField, input) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -344,7 +344,7 @@
                     exportAs: 'matCalendarBody',
                     encapsulation: i0.ViewEncapsulation.None,
                     changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.7142857143%;padding-right:4.7142857143%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:none;cursor:pointer}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-cell-preview{content:\"\";position:absolute;top:5%;left:0;z-index:0;box-sizing:border-box;height:90%;width:100%}.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-start::after,.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,.mat-calendar-body-comparison-start::after,.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:5%;width:95%;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,[dir=rtl] .mat-calendar-body-comparison-start::after,[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:0;border-radius:0;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,.mat-calendar-body-comparison-end::after,.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,[dir=rtl] .mat-calendar-body-comparison-end::after,[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{left:5%;border-radius:0;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after{width:90%}.mat-calendar-body-in-preview .mat-calendar-body-cell-preview{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:0;border-right:dashed 1px}.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:0;border-left:dashed 1px}.mat-calendar-body-disabled{cursor:default}.cdk-high-contrast-active .mat-calendar-body-disabled{opacity:.5}.mat-calendar-body-cell-content{top:5%;left:5%;z-index:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}.mat-calendar-body-cell-content.mat-focus-indicator{position:absolute}.cdk-high-contrast-active .mat-calendar-body-cell-content{border:none}.mat-datepicker-dialog .mat-dialog-container{position:relative;overflow:visible}.cdk-high-contrast-active .mat-datepicker-popup:not(:empty),.cdk-high-contrast-active .mat-calendar-body-selected{outline:solid 1px}.cdk-high-contrast-active .mat-calendar-body-today{outline:dotted 1px}.cdk-high-contrast-active .cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected),.cdk-high-contrast-active .cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){outline:dotted 2px}[dir=rtl] .mat-calendar-body-label{text-align:right}@media(hover: none){.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){background-color:transparent}}\n"]
+                    styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.7142857143%;padding-right:4.7142857143%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:none;cursor:pointer}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-cell-preview{content:\"\";position:absolute;top:5%;left:0;z-index:0;box-sizing:border-box;height:90%;width:100%}.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-start::after,.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,.mat-calendar-body-comparison-start::after,.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:5%;width:95%;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,[dir=rtl] .mat-calendar-body-comparison-start::after,[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:0;border-radius:0;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,.mat-calendar-body-comparison-end::after,.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,[dir=rtl] .mat-calendar-body-comparison-end::after,[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{left:5%;border-radius:0;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after{width:90%}.mat-calendar-body-in-preview .mat-calendar-body-cell-preview{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:0;border-right:dashed 1px}.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:0;border-left:dashed 1px}.mat-calendar-body-disabled{cursor:default}.cdk-high-contrast-active .mat-calendar-body-disabled{opacity:.5}.mat-calendar-body-cell-content{top:5%;left:5%;z-index:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}.mat-calendar-body-cell-content.mat-focus-indicator{position:absolute}.cdk-high-contrast-active .mat-calendar-body-cell-content{border:none}.cdk-high-contrast-active .mat-datepicker-popup:not(:empty),.cdk-high-contrast-active .mat-calendar-body-selected{outline:solid 1px}.cdk-high-contrast-active .mat-calendar-body-today{outline:dotted 1px}.cdk-high-contrast-active .cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected),.cdk-high-contrast-active .cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){outline:dotted 2px}[dir=rtl] .mat-calendar-body-label{text-align:right}@media(hover: none){.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){background-color:transparent}}\n"]
                 },] }
     ];
     MatCalendarBody.ctorParameters = function () { return [
@@ -2201,14 +2201,14 @@
     var matDatepickerAnimations = {
         /** Transforms the height of the datepicker's calendar. */
         transformPanel: animations.trigger('transformPanel', [
-            animations.state('void', animations.style({
-                opacity: 0,
-                transform: 'scale(1, 0.8)'
-            })),
-            animations.transition('void => enter', animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.style({
-                opacity: 1,
-                transform: 'scale(1, 1)'
-            }))),
+            animations.transition('void => enter-dropdown', animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.keyframes([
+                animations.style({ opacity: 0, transform: 'scale(1, 0.8)' }),
+                animations.style({ opacity: 1, transform: 'scale(1, 1)' })
+            ]))),
+            animations.transition('void => enter-dialog', animations.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations.keyframes([
+                animations.style({ opacity: 0, transform: 'scale(0.7)' }),
+                animations.style({ transform: 'none', opacity: 1 })
+            ]))),
             animations.transition('* => void', animations.animate('100ms linear', animations.style({ opacity: 0 })))
         ]),
         /** Fades in the content of the calendar. */
@@ -2245,9 +2245,9 @@
     }());
     var _MatDatepickerContentMixinBase = core.mixinColor(MatDatepickerContentBase);
     /**
-     * Component used as the content for the datepicker dialog and popup. We use this instead of using
+     * Component used as the content for the datepicker overlay. We use this instead of using
      * MatCalendar directly as the content so we can control the initial focus. This also gives us a
-     * place to put additional features of the popup that are not part of the calendar itself in the
+     * place to put additional features of the overlay that are not part of the calendar itself in the
      * future. (e.g. confirmation buttons).
      * @docs-private
      */
@@ -2260,8 +2260,6 @@
             _this._dateAdapter = _dateAdapter;
             _this._rangeSelectionStrategy = _rangeSelectionStrategy;
             _this._subscriptions = new rxjs.Subscription();
-            /** Current state of the animation. */
-            _this._animationState = 'enter';
             /** Emits when an animation has finished. */
             _this._animationDone = new rxjs.Subject();
             /** Portal with projected action buttons. */
@@ -2274,6 +2272,7 @@
             // otherwise update the global model directly. Note that we want to assign this as soon as
             // possible, but `_actionsPortal` isn't available in the constructor so we do it in `ngOnInit`.
             this._model = this._actionsPortal ? this._globalModel.clone() : this._globalModel;
+            this._animationState = this.datepicker.touchUi ? 'enter-dialog' : 'enter-dropdown';
         };
         MatDatepickerContent.prototype.ngAfterViewInit = function () {
             var _this = this;
@@ -2303,7 +2302,7 @@
                 !this._dateAdapter.sameDate(value, selection))) {
                 this._model.add(value);
             }
-            // Delegate closing the popup to the actions.
+            // Delegate closing the overlay to the actions.
             if ((!this._model || this._model.isComplete()) && !this._actionsPortal) {
                 this.datepicker.close();
             }
@@ -2341,7 +2340,7 @@
                     encapsulation: i0.ViewEncapsulation.None,
                     changeDetection: i0.ChangeDetectionStrategy.OnPush,
                     inputs: ['color'],
-                    styles: [".mat-datepicker-content{display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.ng-animating .mat-datepicker-content .mat-datepicker-close-button{display:none}.mat-datepicker-content-container{display:flex;flex-direction:column;justify-content:space-between}.mat-datepicker-content-touch{display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-datepicker-content-container{min-height:312px;max-height:788px;min-width:250px;max-width:750px}.mat-datepicker-content-touch .mat-calendar{width:100%;height:auto}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-datepicker-content-container{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-datepicker-content-container{width:80vw;height:100vw}.mat-datepicker-content-touch .mat-datepicker-content-container-with-actions{height:115vw}}\n"]
+                    styles: [".mat-datepicker-content{display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.ng-animating .mat-datepicker-content .mat-datepicker-close-button{display:none}.mat-datepicker-content-container{display:flex;flex-direction:column;justify-content:space-between}.mat-datepicker-content-touch{display:block;max-height:80vh;position:relative;overflow:visible}.mat-datepicker-content-touch .mat-datepicker-content-container{min-height:312px;max-height:788px;min-width:250px;max-width:750px}.mat-datepicker-content-touch .mat-calendar{width:100%;height:auto}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-datepicker-content-container{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-datepicker-content-container{width:80vw;height:100vw}.mat-datepicker-content-touch .mat-datepicker-content-container-with-actions{height:115vw}}\n"]
                 },] }
     ];
     MatDatepickerContent.ctorParameters = function () { return [
@@ -2357,8 +2356,12 @@
     };
     /** Base class for a datepicker. */
     var MatDatepickerBase = /** @class */ (function () {
-        function MatDatepickerBase(_dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _document, _model) {
-            this._dialog = _dialog;
+        function MatDatepickerBase(
+        /**
+         * @deprecated `_dialog` parameter is no longer being used and it will be removed.
+         * @breaking-change 13.0.0
+         */
+        _dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _document, _model) {
             this._overlay = _overlay;
             this._ngZone = _ngZone;
             this._viewContainerRef = _viewContainerRef;
@@ -2435,7 +2438,7 @@
         Object.defineProperty(MatDatepickerBase.prototype, "touchUi", {
             /**
              * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
-             * than a popup and elements have more padding to allow for bigger touch targets.
+             * than a dropdown and elements have more padding to allow for bigger touch targets.
              */
             get: function () { return this._touchUi; },
             set: function (value) {
@@ -2507,16 +2510,19 @@
         };
         MatDatepickerBase.prototype.ngOnChanges = function (changes) {
             var positionChange = changes['xPosition'] || changes['yPosition'];
-            if (positionChange && !positionChange.firstChange && this._popupRef) {
-                this._setConnectedPositions(this._popupRef.getConfig().positionStrategy);
-                if (this.opened) {
-                    this._popupRef.updatePosition();
+            if (positionChange && !positionChange.firstChange && this._overlayRef) {
+                var positionStrategy = this._overlayRef.getConfig().positionStrategy;
+                if (positionStrategy instanceof overlay.FlexibleConnectedPositionStrategy) {
+                    this._setConnectedPositions(positionStrategy);
+                    if (this.opened) {
+                        this._overlayRef.updatePosition();
+                    }
                 }
             }
             this.stateChanges.next(undefined);
         };
         MatDatepickerBase.prototype.ngOnDestroy = function () {
-            this._destroyPopup();
+            this._destroyOverlay();
             this.close();
             this._inputStateChanges.unsubscribe();
             this.stateChanges.complete();
@@ -2586,7 +2592,7 @@
             var activeElement = (_a = this._document) === null || _a === void 0 ? void 0 : _a.activeElement;
             this._focusedElementBeforeOpen =
                 ((_b = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _b === void 0 ? void 0 : _b.activeElement) || activeElement;
-            this.touchUi ? this._openAsDialog() : this._openAsPopup();
+            this._openOverlay();
             this._opened = true;
             this.openedStream.emit();
         };
@@ -2596,14 +2602,10 @@
             if (!this._opened) {
                 return;
             }
-            if (this._popupComponentRef && this._popupRef) {
-                var instance = this._popupComponentRef.instance;
+            if (this._componentRef) {
+                var instance = this._componentRef.instance;
                 instance._startExitAnimation();
-                instance._animationDone.pipe(operators.take(1)).subscribe(function () { return _this._destroyPopup(); });
-            }
-            if (this._dialogRef) {
-                this._dialogRef.close();
-                this._dialogRef = null;
+                instance._animationDone.pipe(operators.take(1)).subscribe(function () { return _this._destroyOverlay(); });
             }
             var completeClose = function () {
                 // The `_opened` could've been reset already if
@@ -2628,64 +2630,10 @@
                 completeClose();
             }
         };
-        /** Applies the current pending selection on the popup to the model. */
+        /** Applies the current pending selection on the overlay to the model. */
         MatDatepickerBase.prototype._applyPendingSelection = function () {
             var _a, _b;
-            var instance = ((_a = this._popupComponentRef) === null || _a === void 0 ? void 0 : _a.instance) || ((_b = this._dialogRef) === null || _b === void 0 ? void 0 : _b.componentInstance);
-            instance === null || instance === void 0 ? void 0 : instance._applyPendingSelection();
-        };
-        /** Open the calendar as a dialog. */
-        MatDatepickerBase.prototype._openAsDialog = function () {
-            var _this = this;
-            // Usually this would be handled by `open` which ensures that we can only have one overlay
-            // open at a time, however since we reset the variables in async handlers some overlays
-            // may slip through if the user opens and closes multiple times in quick succession (e.g.
-            // by holding down the enter key).
-            if (this._dialogRef) {
-                this._dialogRef.close();
-            }
-            this._dialogRef = this._dialog.open(MatDatepickerContent, {
-                direction: this._dir ? this._dir.value : 'ltr',
-                viewContainerRef: this._viewContainerRef,
-                panelClass: 'mat-datepicker-dialog',
-                // These values are all the same as the defaults, but we set them explicitly so that the
-                // datepicker dialog behaves consistently even if the user changed the defaults.
-                hasBackdrop: true,
-                disableClose: false,
-                backdropClass: ['cdk-overlay-dark-backdrop', this._backdropHarnessClass],
-                width: '',
-                height: '',
-                minWidth: '',
-                minHeight: '',
-                maxWidth: '80vw',
-                maxHeight: '',
-                position: {},
-                // Disable the dialog's automatic focus capturing, because it'll go to the close button
-                // automatically. The calendar will move focus on its own once it renders.
-                autoFocus: false,
-                // `MatDialog` has focus restoration built in, however we want to disable it since the
-                // datepicker also has focus restoration for dropdown mode. We want to do this, in order
-                // to ensure that the timing is consistent between dropdown and dialog modes since `MatDialog`
-                // restores focus when the animation is finished, but the datepicker does it immediately.
-                // Furthermore, this avoids any conflicts where the datepicker consumer might move focus
-                // inside the `closed` event which is dispatched immediately.
-                restoreFocus: false
-            });
-            this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
-            this._forwardContentValues(this._dialogRef.componentInstance);
-        };
-        /** Open the calendar as a popup. */
-        MatDatepickerBase.prototype._openAsPopup = function () {
-            var _this = this;
-            var portal$1 = new portal.ComponentPortal(MatDatepickerContent, this._viewContainerRef);
-            this._destroyPopup();
-            this._createPopup();
-            this._popupComponentRef = this._popupRef.attach(portal$1);
-            this._forwardContentValues(this._popupComponentRef.instance);
-            // Update the position once the calendar has rendered.
-            this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () {
-                _this._popupRef.updatePosition();
-            });
+            (_b = (_a = this._componentRef) === null || _a === void 0 ? void 0 : _a.instance) === null || _b === void 0 ? void 0 : _b._applyPendingSelection();
         };
         /** Forwards relevant values from the datepicker to the datepicker content inside the overlay. */
         MatDatepickerBase.prototype._forwardContentValues = function (instance) {
@@ -2693,42 +2641,60 @@
             instance.color = this.color;
             instance._actionsPortal = this._actionsPortal;
         };
-        /** Create the popup. */
-        MatDatepickerBase.prototype._createPopup = function () {
+        /** Opens the overlay with the calendar. */
+        MatDatepickerBase.prototype._openOverlay = function () {
             var _this = this;
-            var positionStrategy = this._overlay.position()
-                .flexibleConnectedTo(this.datepickerInput.getConnectedOverlayOrigin())
-                .withTransformOriginOn('.mat-datepicker-content')
-                .withFlexibleDimensions(false)
-                .withViewportMargin(8)
-                .withLockedPosition();
-            var overlayConfig = new overlay.OverlayConfig({
-                positionStrategy: this._setConnectedPositions(positionStrategy),
+            this._destroyOverlay();
+            var isDialog = this.touchUi;
+            var portal$1 = new portal.ComponentPortal(MatDatepickerContent, this._viewContainerRef);
+            var overlayRef = this._overlayRef = this._overlay.create(new overlay.OverlayConfig({
+                positionStrategy: isDialog ? this._getDialogStrategy() : this._getDropdownStrategy(),
                 hasBackdrop: true,
-                backdropClass: ['mat-overlay-transparent-backdrop', this._backdropHarnessClass],
+                backdropClass: [
+                    isDialog ? 'cdk-overlay-dark-backdrop' : 'mat-overlay-transparent-backdrop',
+                    this._backdropHarnessClass
+                ],
                 direction: this._dir,
-                scrollStrategy: this._scrollStrategy(),
-                panelClass: 'mat-datepicker-popup',
-            });
-            this._popupRef = this._overlay.create(overlayConfig);
-            this._popupRef.overlayElement.setAttribute('role', 'dialog');
-            rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) {
-                // Closing on alt + up is only valid when there's an input associated with the datepicker.
-                return (event.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) || (_this.datepickerInput &&
-                    keycodes.hasModifierKey(event, 'altKey') && event.keyCode === keycodes.UP_ARROW);
-            }))).subscribe(function (event) {
+                scrollStrategy: isDialog ? this._overlay.scrollStrategies.block() : this._scrollStrategy(),
+                panelClass: "mat-datepicker-" + (isDialog ? 'dialog' : 'popup'),
+            }));
+            overlayRef.overlayElement.setAttribute('role', 'dialog');
+            if (isDialog) {
+                overlayRef.overlayElement.setAttribute('aria-modal', 'true');
+            }
+            this._getCloseStream(overlayRef).subscribe(function (event) {
                 if (event) {
                     event.preventDefault();
                 }
                 _this.close();
             });
-        };
-        /** Destroys the current popup overlay. */
-        MatDatepickerBase.prototype._destroyPopup = function () {
-            if (this._popupRef) {
-                this._popupRef.dispose();
-                this._popupRef = this._popupComponentRef = null;
+            this._componentRef = overlayRef.attach(portal$1);
+            this._forwardContentValues(this._componentRef.instance);
+            // Update the position once the calendar has rendered. Only relevant in dropdown mode.
+            if (!isDialog) {
+                this._ngZone.onStable.pipe(operators.take(1)).subscribe(function () { return overlayRef.updatePosition(); });
             }
+        };
+        /** Destroys the current overlay. */
+        MatDatepickerBase.prototype._destroyOverlay = function () {
+            if (this._overlayRef) {
+                this._overlayRef.dispose();
+                this._overlayRef = this._componentRef = null;
+            }
+        };
+        /** Gets a position strategy that will open the calendar as a dropdown. */
+        MatDatepickerBase.prototype._getDialogStrategy = function () {
+            return this._overlay.position().global().centerHorizontally().centerVertically();
+        };
+        /** Gets a position strategy that will open the calendar as a dropdown. */
+        MatDatepickerBase.prototype._getDropdownStrategy = function () {
+            var strategy = this._overlay.position()
+                .flexibleConnectedTo(this.datepickerInput.getConnectedOverlayOrigin())
+                .withTransformOriginOn('.mat-datepicker-content')
+                .withFlexibleDimensions(false)
+                .withViewportMargin(8)
+                .withLockedPosition();
+            return this._setConnectedPositions(strategy);
         };
         /** Sets the positions of the datepicker in dropdown mode based on the current configuration. */
         MatDatepickerBase.prototype._setConnectedPositions = function (strategy) {
@@ -2763,13 +2729,22 @@
                 }
             ]);
         };
+        /** Gets an observable that will emit when the overlay is supposed to be closed. */
+        MatDatepickerBase.prototype._getCloseStream = function (overlayRef) {
+            var _this = this;
+            return rxjs.merge(overlayRef.backdropClick(), overlayRef.detachments(), overlayRef.keydownEvents().pipe(operators.filter(function (event) {
+                // Closing on alt + up is only valid when there's an input associated with the datepicker.
+                return (event.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) || (_this.datepickerInput &&
+                    keycodes.hasModifierKey(event, 'altKey') && event.keyCode === keycodes.UP_ARROW);
+            })));
+        };
         return MatDatepickerBase;
     }());
     MatDatepickerBase.decorators = [
         { type: i0.Directive }
     ];
     MatDatepickerBase.ctorParameters = function () { return [
-        { type: dialog.MatDialog },
+        { type: undefined, decorators: [{ type: i0.Inject, args: [i0.ElementRef,] }] },
         { type: overlay.Overlay },
         { type: i0.NgZone },
         { type: i0.ViewContainerRef },
@@ -4159,7 +4134,6 @@
                     imports: [
                         common.CommonModule,
                         button.MatButtonModule,
-                        dialog.MatDialogModule,
                         overlay.OverlayModule,
                         a11y.A11yModule,
                         portal.PortalModule,
