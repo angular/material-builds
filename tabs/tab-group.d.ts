@@ -69,6 +69,15 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     set animationDuration(value: string);
     private _animationDuration;
     /**
+     * `tabindex` to be set on the inner element that wraps the tab content. Can be used for improved
+     * accessibility when the tab does not have focusable elements or if it has scrollable content.
+     * The `tabindex` will be removed automatically for inactive tabs.
+     * Read more at https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-2/tabs.html
+     */
+    get contentTabIndex(): number | null;
+    set contentTabIndex(value: number | null);
+    private _contentTabIndex;
+    /**
      * Whether pagination should be disabled. This can be used to avoid unnecessary
      * layout recalculations if it's known that pagination won't be required.
      */
@@ -137,6 +146,7 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     static ngAcceptInputType_animationDuration: NumberInput;
     static ngAcceptInputType_selectedIndex: NumberInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ngAcceptInputType_contentTabIndex: BooleanInput;
 }
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
