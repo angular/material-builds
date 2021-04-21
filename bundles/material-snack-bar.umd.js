@@ -105,6 +105,7 @@
                 this._onAction.next();
                 this._onAction.complete();
             }
+            clearTimeout(this._durationTimeoutId);
         };
         /**
          * Marks the snackbar action clicked.
