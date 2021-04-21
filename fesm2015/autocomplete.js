@@ -797,7 +797,7 @@ class _MatAutocompleteTriggerBase {
             // top of the option, because it allows the user to read the top group's label.
             autocomplete._setScrollTop(0);
         }
-        else {
+        else if (autocomplete.panel) {
             const option = autocomplete.options.toArray()[index];
             if (option) {
                 const element = option._getHostElement();
