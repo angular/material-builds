@@ -1112,7 +1112,7 @@
                 // top of the option, because it allows the user to read the top group's label.
                 autocomplete._setScrollTop(0);
             }
-            else {
+            else if (autocomplete.panel) {
                 var option = autocomplete.options.toArray()[index];
                 if (option) {
                     var element = option._getHostElement();
