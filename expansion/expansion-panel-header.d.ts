@@ -7,19 +7,26 @@
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
+import { HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { NumberInput } from '@angular/cdk/coercion';
 import { MatAccordionTogglePosition } from './accordion-base';
 import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-panel';
+/** @docs-private */
+declare abstract class MatExpansionPanelHeaderBase {
+    abstract readonly disabled: boolean;
+}
+declare const _MatExpansionPanelHeaderMixinBase: HasTabIndexCtor & typeof MatExpansionPanelHeaderBase;
 /**
  * Header element of a `<mat-expansion-panel>`.
  */
-export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy, FocusableOption {
+export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMixinBase implements AfterViewInit, OnDestroy, FocusableOption, HasTabIndex {
     panel: MatExpansionPanel;
     private _element;
     private _focusMonitor;
     private _changeDetectorRef;
     _animationMode?: string | undefined;
     private _parentChangeSubscription;
-    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions, _animationMode?: string | undefined);
+    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions, _animationMode?: string | undefined, tabIndex?: string);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
@@ -56,6 +63,7 @@ export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
+    static ngAcceptInputType_tabIndex: NumberInput;
 }
 /**
  * Description element of a `<mat-expansion-panel-header>`.
@@ -67,3 +75,4 @@ export declare class MatExpansionPanelDescription {
  */
 export declare class MatExpansionPanelTitle {
 }
+export {};

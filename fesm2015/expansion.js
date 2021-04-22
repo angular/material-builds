@@ -1,8 +1,8 @@
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, QueryList, ContentChildren, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
+import { InjectionToken, Directive, TemplateRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, ChangeDetectorRef, ViewContainerRef, Input, Output, ContentChild, ViewChild, Host, ElementRef, Attribute, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { mixinTabIndex, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
@@ -277,11 +277,17 @@ MatExpansionPanelActionRow.decorators = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+// Boilerplate for applying mixins to MatExpansionPanelHeader.
+/** @docs-private */
+class MatExpansionPanelHeaderBase {
+}
+const _MatExpansionPanelHeaderMixinBase = mixinTabIndex(MatExpansionPanelHeaderBase);
 /**
  * Header element of a `<mat-expansion-panel>`.
  */
-class MatExpansionPanelHeader {
-    constructor(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions, _animationMode) {
+class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMixinBase {
+    constructor(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions, _animationMode, tabIndex) {
+        super();
         this.panel = panel;
         this._element = _element;
         this._focusMonitor = _focusMonitor;
@@ -291,6 +297,7 @@ class MatExpansionPanelHeader {
         const accordionHideToggleChange = panel.accordion ?
             panel.accordion._stateChanges.pipe(filter(changes => !!(changes['hideToggle'] || changes['togglePosition']))) :
             EMPTY;
+        this.tabIndex = parseInt(tabIndex || '') || 0;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
         this._parentChangeSubscription =
@@ -405,6 +412,7 @@ MatExpansionPanelHeader.decorators = [
                 template: "<span class=\"mat-content\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n<span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\"\n      class=\"mat-expansion-indicator\"></span>\n",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
+                inputs: ['tabIndex'],
                 animations: [
                     matExpansionAnimations.indicatorRotate,
                 ],
@@ -412,7 +420,7 @@ MatExpansionPanelHeader.decorators = [
                     'class': 'mat-expansion-panel-header mat-focus-indicator',
                     'role': 'button',
                     '[attr.id]': 'panel._headerId',
-                    '[attr.tabindex]': 'disabled ? -1 : 0',
+                    '[attr.tabindex]': 'tabIndex',
                     '[attr.aria-controls]': '_getPanelId()',
                     '[attr.aria-expanded]': '_isExpanded()',
                     '[attr.aria-disabled]': 'panel.disabled',
@@ -433,7 +441,8 @@ MatExpansionPanelHeader.ctorParameters = () => [
     { type: FocusMonitor },
     { type: ChangeDetectorRef },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,] }, { type: Optional }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 MatExpansionPanelHeader.propDecorators = {
     expandedHeight: [{ type: Input }],
