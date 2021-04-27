@@ -988,7 +988,7 @@ class MatPaginatedTabHeader {
         });
     }
     ngAfterContentInit() {
-        const dirChange = this._dir ? this._dir.change : of(null);
+        const dirChange = this._dir ? this._dir.change : of('ltr');
         const resize = this._viewportRuler.change(150);
         const realign = () => {
             this.updatePagination();

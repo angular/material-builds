@@ -1333,7 +1333,7 @@
         };
         MatPaginatedTabHeader.prototype.ngAfterContentInit = function () {
             var _this = this;
-            var dirChange = this._dir ? this._dir.change : rxjs.of(null);
+            var dirChange = this._dir ? this._dir.change : rxjs.of('ltr');
             var resize = this._viewportRuler.change(150);
             var realign = function () {
                 _this.updatePagination();
