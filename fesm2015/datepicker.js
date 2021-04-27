@@ -3200,6 +3200,11 @@ class MatDateRangeInput {
         if (!_dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
+        // The datepicker module can be used both with MDC and non-MDC form fields. We have
+        // to conditionally add the MDC input class so that the range picker looks correctly.
+        if (_formField === null || _formField === void 0 ? void 0 : _formField._elementRef.nativeElement.classList.contains('mat-mdc-form-field')) {
+            _elementRef.nativeElement.classList.add('mat-mdc-input-element');
+        }
         // TODO(crisbeto): remove `as any` after #18206 lands.
         this.ngControl = control;
     }
@@ -3382,12 +3387,18 @@ class MatDateRangeInput {
     }
     /** Whether the separate text should be hidden. */
     _shouldHideSeparator() {
-        return (!this._formField || this._formField._hideControlPlaceholder()) && this.empty;
+        return (!this._formField || (this._formField.getLabelId() &&
+            !this._formField._shouldLabelFloat())) && this.empty;
     }
     /** Gets the value for the `aria-labelledby` attribute of the inputs. */
     _getAriaLabelledby() {
         const formField = this._formField;
         return formField && formField._hasFloatingLabel() ? formField._labelId : null;
+    }
+    /** Updates the focused state of the range input. */
+    _updateFocus(origin) {
+        this.focused = origin !== null;
+        this.stateChanges.next();
     }
     /** Re-runs the validators on the start/end inputs. */
     _revalidate() {
@@ -3411,7 +3422,7 @@ class MatDateRangeInput {
 MatDateRangeInput.decorators = [
     { type: Component, args: [{
                 selector: 'mat-date-range-input',
-                template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"focused = $event !== null\">\n  <div class=\"mat-date-range-input-start-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue()}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n  </div>\n</div>\n\n",
+                template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-start-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue()}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n  </div>\n</div>\n\n",
                 exportAs: 'matDateRangeInput',
                 host: {
                     'class': 'mat-date-range-input',

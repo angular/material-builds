@@ -10,6 +10,7 @@ import { MatFormFieldControl, MatFormField } from '@angular/material/form-field'
 import { ThemePalette, DateAdapter } from '@angular/material/core';
 import { NgControl, ControlContainer } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { MatStartDate, MatEndDate, MatDateRangeInputParent } from './date-range-input-parts';
 import { MatDatepickerControl, MatDatepickerPanel } from './datepicker-base';
@@ -115,9 +116,11 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     /** Opens the date range picker associated with the input. */
     _openDatepicker(): void;
     /** Whether the separate text should be hidden. */
-    _shouldHideSeparator(): boolean;
+    _shouldHideSeparator(): boolean | "" | null;
     /** Gets the value for the `aria-labelledby` attribute of the inputs. */
     _getAriaLabelledby(): string | null;
+    /** Updates the focused state of the range input. */
+    _updateFocus(origin: FocusOrigin): void;
     /** Re-runs the validators on the start/end inputs. */
     private _revalidate;
     /** Registers the current date selection model with the start/end inputs. */
