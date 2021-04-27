@@ -795,9 +795,7 @@
         });
         MatTreeNestedDataSource.prototype.connect = function (collectionViewer) {
             var _this = this;
-            return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map(function () {
-                return _this.data;
-            }));
+            return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map(function () { return _this.data; }));
         };
         MatTreeNestedDataSource.prototype.disconnect = function () {
             // no op

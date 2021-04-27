@@ -461,9 +461,7 @@ class MatTreeNestedDataSource extends DataSource {
     set data(value) { this._data.next(value); }
     connect(collectionViewer) {
         return merge(...[collectionViewer.viewChange, this._data])
-            .pipe(map(() => {
-            return this.data;
-        }));
+            .pipe(map(() => this.data));
     }
     disconnect() {
         // no op
