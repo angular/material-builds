@@ -928,6 +928,10 @@
                 var isFirstRun_1 = this._selectedIndex == null;
                 if (!isFirstRun_1) {
                     this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
+                    // Preserve the height so page doesn't scroll up during tab change.
+                    // Fixes https://stackblitz.com/edit/mat-tabs-scroll-page-top-on-tab-change
+                    var wrapper = this._tabBodyWrapper.nativeElement;
+                    wrapper.style.minHeight = wrapper.clientHeight + 'px';
                 }
                 // Changing these values after change detection has run
                 // since the checked content may contain references to them.
@@ -935,6 +939,9 @@
                     _this._tabs.forEach(function (tab, index) { return tab.isActive = index === indexToSelect; });
                     if (!isFirstRun_1) {
                         _this.selectedIndexChange.emit(indexToSelect);
+                        // Clear the min-height, this was needed during tab change to avoid
+                        // unnecessary scrolling.
+                        _this._tabBodyWrapper.nativeElement.style.minHeight = '';
                     }
                 });
             }
