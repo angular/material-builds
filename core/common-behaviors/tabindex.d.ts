@@ -15,6 +15,6 @@ export interface HasTabIndex {
     defaultTabIndex: number;
 }
 /** @docs-private */
-export declare type HasTabIndexCtor = Constructor<HasTabIndex>;
+export declare type HasTabIndexCtor = Constructor<HasTabIndex> & AbstractConstructor<HasTabIndex>;
 /** Mixin to augment a directive with a `tabIndex` property. */
 export declare function mixinTabIndex<T extends AbstractConstructor<CanDisable>>(base: T, defaultTabIndex?: number): HasTabIndexCtor & T;
