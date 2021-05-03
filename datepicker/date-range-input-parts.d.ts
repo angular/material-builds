@@ -81,6 +81,7 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     ngDoCheck(): void;
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
+    protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
     protected _formatValue(value: D | null): void;
     /** Gets the value that should be used when mirroring the input's size. */
@@ -96,6 +97,7 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     ngDoCheck(): void;
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
+    protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
     static ngAcceptInputType_disabled: BooleanInput;

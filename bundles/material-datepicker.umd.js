@@ -707,8 +707,9 @@
          * @param source Object that triggered the selection change.
          */
         MatDateSelectionModel.prototype.updateSelection = function (value, source) {
+            var oldValue = this.selection;
             this.selection = value;
-            this._selectionChanged.next({ selection: value, source: source });
+            this._selectionChanged.next({ selection: value, source: source, oldValue: oldValue });
         };
         MatDateSelectionModel.prototype.ngOnDestroy = function () {
             this._selectionChanged.complete();
@@ -3462,8 +3463,8 @@
         MatDateRangeInputPartBase.prototype._parentDisabled = function () {
             return this._rangeInput._groupDisabled;
         };
-        MatDateRangeInputPartBase.prototype._shouldHandleChangeEvent = function (_a) {
-            var source = _a.source;
+        MatDateRangeInputPartBase.prototype._shouldHandleChangeEvent = function (_b) {
+            var source = _b.source;
             return source !== this._rangeInput._startInput && source !== this._rangeInput._endInput;
         };
         MatDateRangeInputPartBase.prototype._assignValueProgrammatically = function (value) {
@@ -3530,6 +3531,17 @@
         };
         MatStartDate.prototype._getValueFromModel = function (modelValue) {
             return modelValue.start;
+        };
+        MatStartDate.prototype._shouldHandleChangeEvent = function (change) {
+            var _a;
+            if (!_super.prototype._shouldHandleChangeEvent.call(this, change)) {
+                return false;
+            }
+            else {
+                return !((_a = change.oldValue) === null || _a === void 0 ? void 0 : _a.start) ? !!change.selection.start :
+                    !change.selection.start ||
+                        !!this._dateAdapter.compareDate(change.oldValue.start, change.selection.start);
+            }
         };
         MatStartDate.prototype._assignValueToModel = function (value) {
             if (this._model) {
@@ -3627,6 +3639,17 @@
         };
         MatEndDate.prototype._getValueFromModel = function (modelValue) {
             return modelValue.end;
+        };
+        MatEndDate.prototype._shouldHandleChangeEvent = function (change) {
+            var _a;
+            if (!_super.prototype._shouldHandleChangeEvent.call(this, change)) {
+                return false;
+            }
+            else {
+                return !((_a = change.oldValue) === null || _a === void 0 ? void 0 : _a.end) ? !!change.selection.end :
+                    !change.selection.end ||
+                        !!this._dateAdapter.compareDate(change.oldValue.end, change.selection.end);
+            }
         };
         MatEndDate.prototype._assignValueToModel = function (value) {
             if (this._model) {

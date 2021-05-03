@@ -79,6 +79,8 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     ngOnDestroy(): void;
     /** Fades out all currently showing ripple elements. */
     fadeOutAll(): void;
+    /** Fades out all currently showing non-persistent ripple elements. */
+    fadeOutAllNonPersistent(): void;
     /**
      * Ripple configuration from the directive's input values.
      * @docs-private Implemented as part of RippleTarget

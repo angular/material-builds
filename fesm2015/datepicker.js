@@ -409,8 +409,9 @@ class MatDateSelectionModel {
      * @param source Object that triggered the selection change.
      */
     updateSelection(value, source) {
+        const oldValue = this.selection;
         this.selection = value;
-        this._selectionChanged.next({ selection: value, source });
+        this._selectionChanged.next({ selection: value, source, oldValue });
     }
     ngOnDestroy() {
         this._selectionChanged.complete();
@@ -3059,6 +3060,17 @@ class MatStartDate extends _MatDateRangeInputBase {
     _getValueFromModel(modelValue) {
         return modelValue.start;
     }
+    _shouldHandleChangeEvent(change) {
+        var _a;
+        if (!super._shouldHandleChangeEvent(change)) {
+            return false;
+        }
+        else {
+            return !((_a = change.oldValue) === null || _a === void 0 ? void 0 : _a.start) ? !!change.selection.start :
+                !change.selection.start ||
+                    !!this._dateAdapter.compareDate(change.oldValue.start, change.selection.start);
+        }
+    }
     _assignValueToModel(value) {
         if (this._model) {
             const range = new DateRange(value, this._model.selection.end);
@@ -3151,6 +3163,17 @@ class MatEndDate extends _MatDateRangeInputBase {
     }
     _getValueFromModel(modelValue) {
         return modelValue.end;
+    }
+    _shouldHandleChangeEvent(change) {
+        var _a;
+        if (!super._shouldHandleChangeEvent(change)) {
+            return false;
+        }
+        else {
+            return !((_a = change.oldValue) === null || _a === void 0 ? void 0 : _a.end) ? !!change.selection.end :
+                !change.selection.end ||
+                    !!this._dateAdapter.compareDate(change.oldValue.end, change.selection.end);
+        }
     }
     _assignValueToModel(value) {
         if (this._model) {
